@@ -1,33 +1,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionPetWithdraw.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionPetWithdraw.h"
-#include "PlayerCreature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
 
-#include "PacketUtil.h"
 #include "GCPetStashList.h"
+#include "GamePlayer.h"
+#include "NPC.h"
+#include "PacketUtil.h"
+#include "PlayerCreature.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionPetWithdraw::read (PropertyBuffer & propertyBuffer)
-    
+void ActionPetWithdraw::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -35,42 +32,42 @@ void ActionPetWithdraw::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionPetWithdraw::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionPetWithdraw::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    Assert(pPC != NULL);
 
-	GCPetStashList gcPetStashList;
-	makeGCPetStashList( &gcPetStashList, pPC );
+    GCPetStashList gcPetStashList;
+    makeGCPetStashList(&gcPetStashList, pPC);
 
-	gcPetStashList.setCode(0);
-	pPC->getPlayer()->sendPacket( &gcPetStashList );
+    gcPetStashList.setCode(0);
+    pPC->getPlayer()->sendPacket(&gcPetStashList);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionPetWithdraw::toString () const 
-	
+string ActionPetWithdraw::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionPetWithdraw("
-	    << ")";
+    StringStream msg;
+    msg << "ActionPetWithdraw("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

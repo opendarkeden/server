@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCKnocksTargetBackOK4Handler::execute (GCKnocksTargetBackOK4 * pGCKnocksTargetBackOK4 , Player * pPlayer )
-	 
+void GCKnocksTargetBackOK4Handler::execute(GCKnocksTargetBackOK4* pGCKnocksTargetBackOK4, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCKnocksTargetBackOK4->toString() << endl;
-	
+    // cout << pGCKnocksTargetBackOK4->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCKnocksTargetBackOK4->toString().c_str());
+        AfxMessageBox(pGCKnocksTargetBackOK4->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -6,51 +6,49 @@
 
 // include files
 #include "CBillingPacketErrorBody.h"
+
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
-CBillingPacketErrorBody::CBillingPacketErrorBody()
-{
-	__BEGIN_TRY
+CBillingPacketErrorBody::CBillingPacketErrorBody() {
+    __BEGIN_TRY
 
-	memset( this, 0, szCBillingPacketErrorBodyInfo );
+    memset(this, 0, szCBillingPacketErrorBodyInfo);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CBillingPacketErrorBody::read( SocketInputStream& iStream )
-{
-	__BEGIN_TRY
-	
-	CBillingPacketErrorBodyInfo* pInfo = this;
+void CBillingPacketErrorBody::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read( (char*)pInfo, szCBillingPacketErrorBodyInfo );
+    CBillingPacketErrorBodyInfo* pInfo = this;
 
-	__END_CATCH
+    iStream.read((char*)pInfo, szCBillingPacketErrorBodyInfo);
+
+    __END_CATCH
 }
 
-void CBillingPacketErrorBody::write( SocketOutputStream& oStream )
-{
-	__BEGIN_TRY
+void CBillingPacketErrorBody::write(SocketOutputStream& oStream) {
+    __BEGIN_TRY
 
-	const CBillingPacketErrorBodyInfo* pInfo = this;
-	oStream.write( (const char*)pInfo, szCBillingPacketErrorBodyInfo );
+    const CBillingPacketErrorBodyInfo* pInfo = this;
+    oStream.write((const char*)pInfo, szCBillingPacketErrorBodyInfo);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string CBillingPacketErrorBody::toString() const
-{
-	char str[192];
-	StringStream msg;
-	msg << "ErrorBody(";
+string CBillingPacketErrorBody::toString() const {
+    char str[192];
+    StringStream msg;
+    msg << "ErrorBody(";
 
-	memcpy( str, Login_Name, 64 ); str[64] = '\0';
-	msg << "Login_Name:" << str;
+    memcpy(str, Login_Name, 64);
+    str[64] = '\0';
+    msg << "Login_Name:" << str;
 
-	memcpy( str, Return_Message, 128 ); str[128] = '\0';
-	msg << ",Return_Message:" << str
-		<< ")";
+    memcpy(str, Return_Message, 128);
+    str[128] = '\0';
+    msg << ",Return_Message:" << str << ")";
 
-	return msg.toString();
+    return msg.toString();
 }

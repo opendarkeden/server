@@ -10,8 +10,8 @@
 #define __HEARTBEAT_MANAGER_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -27,30 +27,27 @@
 //////////////////////////////////////////////////////////////////////
 
 class HeartbeatManager {
+public:
+    // constructor
+    HeartbeatManager() throw(Error);
 
-public :
+    // destructor
+    ~HeartbeatManager() throw(Error);
 
-	// constructor
-	HeartbeatManager () throw ( Error );
+    // 클라이언트 매니저를 초기화한다.
+    void init() throw(Error);
 
-	// destructor
-	~HeartbeatManager () throw ( Error );
+    // 클라이언트 매니저를 시작한다.
+    void start() throw(Error);
 
-	// 클라이언트 매니저를 초기화한다.
-	void init () throw ( Error );
+    // 클라이언트 매니저를 중단한다.
+    void stop() throw(Error);
 
-	// 클라이언트 매니저를 시작한다.
-	void start () throw ( Error );
-
-	// 클라이언트 매니저를 중단한다.
-	void stop () throw ( Error );
-
-	// 클라이언트 매니저의 메인 메쏘드
-	void run () throw ( Error );
-
+    // 클라이언트 매니저의 메인 메쏘드
+    void run() throw(Error);
 };
 
 // external variable declaration
-extern HeartbeatManager * g_pHeartbeatManager;
+extern HeartbeatManager* g_pHeartbeatManager;
 
 #endif

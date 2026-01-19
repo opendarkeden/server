@@ -1,19 +1,20 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : UpdateManager.h 
+//
+// Filename    : UpdateManager.h
 // Written By  : Reiot
-// 
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __UPDATE_MANAGER_H__
 #define __UPDATE_MANAGER_H__
 
 // include files
-#include "Update.h"
-#include "Assert.h"
 #include <list>
+
+#include "Assert.h"
 #include "Resource.h"
 #include "ResourceManager.h"
+#include "Update.h"
 
 //--------------------------------------------------------------------------------
 // 업데이트 명령이 1024면 거의 죽음이당..
@@ -36,66 +37,73 @@ const uint maxUpdates = 1024;
 //
 //--------------------------------------------------------------------------------
 
-class UpdateManager{
+class UpdateManager {
+public:
+    // constructor
+    UpdateManager();
 
-public :
-
-	// constructor
-	UpdateManager () ;
-
-	// destructor
-	~UpdateManager () ;
-	
-
-public :
-
-	// load from update file
-	void load (const string & filename) ;
-
-	// save to update file
-	void save (const string & filename) const ;
-
-	// read from socket input stream
-	void read (SocketInputStream & iStream) ;
-
-	// read from socket
-	void read (Socket* pSocket) ;
-
-	// write to socket output stream
-	void write (SocketOutputStream & oStream) const ;
-
-	// write to socket
-	void write (Socket* pSocket) const ;
-
-	// get size
-	uint getSize () const ;
-
-	// get max size
-	static uint getMaxSize ()  { return Update::getMaxSize()* maxUpdates; }
+    // destructor
+    ~UpdateManager();
 
 
-public :
+public:
+    // load from update file
+    void load(const string& filename);
 
-	// list methods
-	void push_back (Update* pUpdate)  { Assert(pUpdate != NULL); m_Updates.push_back(pUpdate); }
-	void pop_front ()  { Assert(!m_Updates.empty()); m_Updates.pop_front(); }
-	Update* front () const  { Assert(!m_Updates.empty()); return m_Updates.front(); }
-	bool empty () const  { return m_Updates.empty(); }
+    // save to update file
+    void save(const string& filename) const;
 
-	// get resource manager
-	ResourceManager* getResourceManager () ;
+    // read from socket input stream
+    void read(SocketInputStream& iStream);
 
-	// get debug string
-	string toString () const ;
+    // read from socket
+    void read(Socket* pSocket);
+
+    // write to socket output stream
+    void write(SocketOutputStream& oStream) const;
+
+    // write to socket
+    void write(Socket* pSocket) const;
+
+    // get size
+    uint getSize() const;
+
+    // get max size
+    static uint getMaxSize() {
+        return Update::getMaxSize() * maxUpdates;
+    }
 
 
-private :
+public:
+    // list methods
+    void push_back(Update* pUpdate) {
+        Assert(pUpdate != NULL);
+        m_Updates.push_back(pUpdate);
+    }
+    void pop_front() {
+        Assert(!m_Updates.empty());
+        m_Updates.pop_front();
+    }
+    Update* front() const {
+        Assert(!m_Updates.empty());
+        return m_Updates.front();
+    }
+    bool empty() const {
+        return m_Updates.empty();
+    }
 
-	// list of Update
-	list< Update* > m_Updates;
+    // get resource manager
+    ResourceManager* getResourceManager();
 
-	ResourceManager* m_pResourceManager;
+    // get debug string
+    string toString() const;
 
+
+private:
+    // list of Update
+    list<Update*> m_Updates;
+
+    ResourceManager* m_pResourceManager;
 };
 
 #endif

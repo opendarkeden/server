@@ -3,6 +3,6 @@
 
 #include "Exception.h"
 
-void testGameServer() throw (Error);
+void testGameServer() throw(Error);
 
 #endif

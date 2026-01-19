@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCSkillToInventoryOK1Handler::execute (GCSkillToInventoryOK1 * pGCSkillToInventoryOK1 , Player * pPlayer )
-	 
+void GCSkillToInventoryOK1Handler::execute(GCSkillToInventoryOK1* pGCSkillToInventoryOK1, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __GAME_CLIENT__
 
-	//cout << pGCSkillToInventoryOK1->toString() << endl;
-	
+    // cout << pGCSkillToInventoryOK1->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Expansion.h 
+// Filename    : Expansion.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_EXPANSION_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Expansion;
 //////////////////////////////////////////////////////////////////////////////
 
-class Expansion : public SkillHandler 
-{
+class Expansion : public SkillHandler {
 public:
-	Expansion() throw() {}
-	~Expansion() throw() {}
-	
+    Expansion() throw() {}
+    ~Expansion() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Expansion"; }
-	SkillType_t getSkillType() const throw() { return SKILL_EXPANSION; }
+    string getSkillHandlerName() const throw() {
+        return "Expansion";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_EXPANSION;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

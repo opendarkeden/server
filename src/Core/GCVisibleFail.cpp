@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
+//
 // Filename    : GCVisibleFail.cpp
 // Written By  : crazydog
-// Description :  
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,37 +12,37 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCVisibleFail::read (SocketInputStream & iStream ) 
-	 
+void GCVisibleFail::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCVisibleFail::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
+void GCVisibleFail::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCVisibleFail::execute (Player * pPlayer ) 
-	 
+void GCVisibleFail::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCVisibleFailHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCVisibleFailHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -51,16 +51,14 @@ void GCVisibleFail::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCVisibleFail::toString () const
-       
+string GCVisibleFail::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCVisibleFail()";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCVisibleFail()";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectBlunting.h
-// Written by  : 
+// Written by  :
 // Description : Blunting에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,32 +13,41 @@
 // class EffectBlunting
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBlunting : public Effect 
-{
+class EffectBlunting : public Effect {
 public:
-	EffectBlunting(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLUNTING; }
-
-	void affect()  {}
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const throw();
+    EffectBlunting(Creature* pCreature);
 
 public:
-	int  getLevel() const { return m_Level; }
-	void setLevel(int level) throw() { m_Level = level; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_BLUNTING;
+    }
 
-	int getDefensePenalty(void) const { return m_DefensePenalty; }
-	void setDefensePenalty(int penalty) { m_DefensePenalty = penalty; }
+    void affect() {}
+    void affect(Creature* pCreature);
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    int getLevel() const {
+        return m_Level;
+    }
+    void setLevel(int level) throw() {
+        m_Level = level;
+    }
+
+    int getDefensePenalty(void) const {
+        return m_DefensePenalty;
+    }
+    void setDefensePenalty(int penalty) {
+        m_DefensePenalty = penalty;
+    }
 
 private:
-	int m_Level;
-	int m_DefensePenalty;
+    int m_Level;
+    int m_DefensePenalty;
 };
 
 #endif // __EFFECT_BLUNTING__

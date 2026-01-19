@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HeavenGround.h 
-// Written By  : 
-// Description : 
+// Filename    : HeavenGround.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HEAVEN_GROUND_HANDLER_H__
@@ -13,20 +13,23 @@
 // class HeavenGround;
 //////////////////////////////////////////////////////////////////////////////
 
-class HeavenGround : public SkillHandler 
-{
+class HeavenGround : public SkillHandler {
 public:
-	HeavenGround() throw() {}
-	~HeavenGround() throw() {}
-	
+    HeavenGround() throw() {}
+    ~HeavenGround() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HeavenGround"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HEAVEN_GROUND; }
+    string getSkillHandlerName() const throw() {
+        return "HeavenGround";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HEAVEN_GROUND;
+    }
 
-	void execute( Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID ) ;
-	void execute( Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID ) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

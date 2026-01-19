@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GLIncomingConnectionOK.h 
+//
+// Filename    : GLIncomingConnectionOK.h
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GL_INCOMING_CONNECTION_OK_H__
@@ -21,62 +21,71 @@
 //////////////////////////////////////////////////////////////////////
 
 class GLIncomingConnectionOK : public DatagramPacket {
-
-public :
-	GLIncomingConnectionOK() {};
+public:
+    GLIncomingConnectionOK() {};
     ~GLIncomingConnectionOK() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) ;
-		    
+    void read(Datagram& iDatagram);
+
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const ;
+    void write(Datagram& oDatagram) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GL_INCOMING_CONNECTION_OK; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szBYTE + m_PlayerID.size() 
-				+ szuint
-				+ szDWORD; 
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GL_INCOMING_CONNECTION_OK;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GLIncomingConnectionOK"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_PlayerID.size() + szuint + szDWORD;
+    }
 
-public :
+    // get packet name
+    string getPacketName() const {
+        return "GLIncomingConnectionOK";
+    }
 
-	// get/set player id
-	string getPlayerID() const  { return m_PlayerID; }
-	void setPlayerID(string playerID)  { m_PlayerID = playerID; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set tcp port
-	uint getTCPPort() const  { return m_TCPPort; }
-	void setTCPPort(uint tcpPort)  { m_TCPPort = tcpPort; }
+public:
+    // get/set player id
+    string getPlayerID() const {
+        return m_PlayerID;
+    }
+    void setPlayerID(string playerID) {
+        m_PlayerID = playerID;
+    }
 
-	// get/set auth key
-	DWORD getKey() const  { return m_Key; }
-	void setKey(DWORD key)  { m_Key = key; }
+    // get/set tcp port
+    uint getTCPPort() const {
+        return m_TCPPort;
+    }
+    void setTCPPort(uint tcpPort) {
+        m_TCPPort = tcpPort;
+    }
 
-private :
+    // get/set auth key
+    DWORD getKey() const {
+        return m_Key;
+    }
+    void setKey(DWORD key) {
+        m_Key = key;
+    }
 
-	// 어떤 플레이어에게 LCReconnect 패킷을 보내야 하는지는 알아야 한다.
-	string m_PlayerID;
+private:
+    // 어떤 플레이어에게 LCReconnect 패킷을 보내야 하는지는 알아야 한다.
+    string m_PlayerID;
 
-	// 게임 서버가 자신의 TCP 포트를 알려줌으로써 
-	// 로그인 서버는 게임 서버의 TCP 포트를 몰라도 무방하다.
-	uint m_TCPPort;
+    // 게임 서버가 자신의 TCP 포트를 알려줌으로써
+    // 로그인 서버는 게임 서버의 TCP 포트를 몰라도 무방하다.
+    uint m_TCPPort;
 
-	// 게임 서버에서 생성한 인증 키
-	DWORD m_Key;
-
+    // 게임 서버에서 생성한 인증 키
+    DWORD m_Key;
 };
 
 
@@ -89,28 +98,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GLIncomingConnectionOKFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GLIncomingConnectionOK();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GLIncomingConnectionOK(); }
+    // get packet name
+    string getPacketName() const {
+        return "GLIncomingConnectionOK";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GLIncomingConnectionOK"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GL_INCOMING_CONNECTION_OK; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GL_INCOMING_CONNECTION_OK;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GLIncomingConnectionOKPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  
-	{ 
-		return szBYTE + 20
-				+ szuint
-				+ szDWORD; 
-	}
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GLIncomingConnectionOKPacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 20 + szuint + szDWORD;
+    }
 };
 
 
@@ -121,12 +130,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GLIncomingConnectionOKHandler {
-	
-public :
-
-	// execute packet's handler
-	static void execute(GLIncomingConnectionOK* pPacket) ;
-
+public:
+    // execute packet's handler
+    static void execute(GLIncomingConnectionOK* pPacket);
 };
 
 #endif

@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------------
-// 
+//
 // Filename    : UCUpdate.cpp
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 //--------------------------------------------------------------------------------
 
@@ -13,62 +13,52 @@
 //--------------------------------------------------------------------------------
 // read from socket input stream
 //--------------------------------------------------------------------------------
-void UCUpdate::read ( Socket * pSocket )
-	throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
+void UCUpdate::read(Socket* pSocket) throw(ProtocolException, Error) {
+    __BEGIN_TRY
 
-	//--------------------------------------------------------------------------------
-	// read resource
-	//--------------------------------------------------------------------------------
-	m_Resource.read( pSocket );
+    //--------------------------------------------------------------------------------
+    // read resource
+    //--------------------------------------------------------------------------------
+    m_Resource.read(pSocket);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // write to socket output stream
 //--------------------------------------------------------------------------------
-void UCUpdate::write ( Socket * pSocket ) const
-	throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
+void UCUpdate::write(Socket* pSocket) const throw(ProtocolException, Error) {
+    __BEGIN_TRY
 
-	//--------------------------------------------------------------------------------
-	// write resource
-	//--------------------------------------------------------------------------------
-	m_Resource.write( pSocket );
+    //--------------------------------------------------------------------------------
+    // write resource
+    //--------------------------------------------------------------------------------
+    m_Resource.write(pSocket);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void UCUpdate::execute ( Player * pPlayer ) 
-	 throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
-		
-	UCUpdateHandler::execute( this , pPlayer );
-		
-	__END_CATCH
+void UCUpdate::execute(Player* pPlayer) throw(ProtocolException, Error) {
+    __BEGIN_TRY
+
+    UCUpdateHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get debug string
 //--------------------------------------------------------------------------------
-string UCUpdate::toString () const
-	throw ()
-{
-	StringStream msg;
+string UCUpdate::toString() const throw() {
+    StringStream msg;
 
-	msg << "UCUpdate("
-		<< m_Resource.toString()
-		<< ")";
+    msg << "UCUpdate(" << m_Resource.toString() << ")";
 
-	return msg.toString();
+    return msg.toString();
 }

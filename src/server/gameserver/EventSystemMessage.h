@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventSystemMessage.h
 // Written by  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EVENT_SYSTEM_MESSAGE_H__
@@ -14,23 +14,24 @@
 // class EventSystemMessage;
 //////////////////////////////////////////////////////////////////////////////
 
-class EventSystemMessage : public Event 
-{
+class EventSystemMessage : public Event {
 public:
-	EventSystemMessage(GamePlayer* pGamePlayer) ;
-	~EventSystemMessage() ;			
+    EventSystemMessage(GamePlayer* pGamePlayer);
+    ~EventSystemMessage();
 
 public:
-	virtual EventClass getEventClass() const  { return EVENT_CLASS_SYSTEM_MESSAGE; }
+    virtual EventClass getEventClass() const {
+        return EVENT_CLASS_SYSTEM_MESSAGE;
+    }
 
-	virtual void activate() ;
-	
-	virtual string toString() const ;
+    virtual void activate();
 
-	void	addMessage(const string& msg) ;
+    virtual string toString() const;
+
+    void addMessage(const string& msg);
 
 private:
-	list<string>	m_Messages;
+    list<string> m_Messages;
 };
 
 #endif

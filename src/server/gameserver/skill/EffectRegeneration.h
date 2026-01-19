@@ -13,33 +13,40 @@
 // class EffectRegeneration
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectRegeneration : public Effect 
-{
+class EffectRegeneration : public Effect {
 public:
-	EffectRegeneration(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REGENERATION; }
-
-	void affect() ;
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectRegeneration(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_REGENERATION;
+    }
 
-	Damage_t getDamage() const { return m_Damage; }
-	void setDamage( Damage_t damage ) { m_Damage = damage; }
-	
-	void setDelay(Turn_t delay) { m_Delay = delay; }
-	Turn_t getDelay() const { return m_Delay; }
+    void affect();
+    void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
+
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    Damage_t getDamage() const {
+        return m_Damage;
+    }
+    void setDamage(Damage_t damage) {
+        m_Damage = damage;
+    }
+
+    void setDelay(Turn_t delay) {
+        m_Delay = delay;
+    }
+    Turn_t getDelay() const {
+        return m_Delay;
+    }
 
 private:
-
-	Turn_t m_Delay;
-	Damage_t m_Damage;
+    Turn_t m_Delay;
+    Damage_t m_Damage;
 };
 
 #endif

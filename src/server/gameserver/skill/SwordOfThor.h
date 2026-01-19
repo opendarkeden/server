@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SwordOfThor.h 
+// Filename    : SwordOfThor.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SWORD_OF_THOR_HANDLER_H__
@@ -13,20 +13,23 @@
 // class SwordOfThor;
 //////////////////////////////////////////////////////////////////////////////
 
-class SwordOfThor : public SkillHandler 
-{
+class SwordOfThor : public SkillHandler {
 public:
-	SwordOfThor() throw() {}
-	~SwordOfThor() throw() {}
-	
+    SwordOfThor() throw() {}
+    ~SwordOfThor() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SwordOfThor"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SWORD_OF_THOR; }
+    string getSkillHandlerName() const throw() {
+        return "SwordOfThor";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SWORD_OF_THOR;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

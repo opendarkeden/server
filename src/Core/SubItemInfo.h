@@ -10,10 +10,10 @@
 #define __SUB_ITEM_INFO_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
+#include "Types.h"
 
 //----------------------------------------------------------------------
 //
@@ -25,60 +25,77 @@
 //----------------------------------------------------------------------
 
 class SubItemInfo {
+public:
+    // read data from socket input stream
+    void read(SocketInputStream& iStream);
 
-public :
+    // write data to socket output stream
+    void write(SocketOutputStream& oStream) const;
 
-	// read data from socket input stream
-	void read (SocketInputStream & iStream) ;
+    // get size of object
+    static uint getSize() {
+        return szObjectID + szBYTE + szItemType + szItemNum + szSlotID;
+    }
 
-	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const ;
+    // get max size of object
+    static uint getMaxSize() {
+        return szObjectID + szBYTE + szItemType + szItemNum + szSlotID;
+    }
 
-	// get size of object
-	static uint getSize () 
-	{ return szObjectID + szBYTE + szItemType + szItemNum + szSlotID; }
+    // get debug string
+    string toString() const;
 
-	// get max size of object
-	static uint getMaxSize () 
-	{ return szObjectID + szBYTE + szItemType + szItemNum + szSlotID; }
+public:
+    // get/set ObjectID
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
 
-	// get debug string
-	string toString () const ;
+    // get/set ItemClass
+    void setItemClass(BYTE IClass) {
+        m_IClass = IClass;
+    }
+    BYTE getItemClass() const {
+        return m_IClass;
+    }
 
-public :
+    // get/set ItemType
+    void setItemType(ItemType_t ItemType) {
+        m_ItemType = ItemType;
+    }
+    ItemType_t getItemType() const {
+        return m_ItemType;
+    }
 
-	// get/set ObjectID
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
-	ObjectID_t getObjectID() const  { return m_ObjectID; }
+    // get/set ItemNum
+    void setItemNum(ItemNum_t ItemNum) {
+        m_ItemNum = ItemNum;
+    }
+    ItemNum_t getItemNum() const {
+        return m_ItemNum;
+    }
 
-	// get/set ItemClass
-	void setItemClass (BYTE IClass)  { m_IClass = IClass; }
-	BYTE getItemClass () const  { return m_IClass; }
+    // set/set SlotID
+    void setSlotID(SlotID_t SlotID) {
+        m_SlotID = SlotID;
+    }
+    SlotID_t getSlotID() const {
+        return m_SlotID;
+    }
 
-	// get/set ItemType
-	void setItemType (ItemType_t ItemType)  { m_ItemType = ItemType; }
-	ItemType_t getItemType() const  { return m_ItemType; }
+private:
+    ObjectID_t m_ObjectID;
 
-	// get/set ItemNum
-	void setItemNum (ItemNum_t ItemNum)  { m_ItemNum = ItemNum; }
-	ItemNum_t getItemNum() const  { return m_ItemNum; }
+    BYTE m_IClass;
 
-	// set/set SlotID
-	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
-	SlotID_t getSlotID() const  { return m_SlotID; }
+    ItemType_t m_ItemType;
 
-private :
+    ItemNum_t m_ItemNum;
 
-	ObjectID_t m_ObjectID; 
-
-	BYTE m_IClass;
-
-	ItemType_t m_ItemType;
-
-	ItemNum_t m_ItemNum;
-
-	SlotID_t m_SlotID;
-
+    SlotID_t m_SlotID;
 };
 
 #endif

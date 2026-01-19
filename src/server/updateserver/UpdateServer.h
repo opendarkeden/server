@@ -1,18 +1,18 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : UpdateServer.h 
+//
+// Filename    : UpdateServer.h
 // Written By  : Reiot
-// 
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __UPDATE_SERVER_H__
 #define __UPDATE_SERVER_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Properties.h"
 #include "ServerSocket.h"
+#include "Types.h"
 
 
 //--------------------------------------------------------------------------------
@@ -22,51 +22,50 @@
 //--------------------------------------------------------------------------------
 
 class UpdateServer {
+public:
+    // constructor
+    UpdateServer() throw(Error);
 
-public :
-	
-	// constructor
-	UpdateServer () throw ( Error );
-	
-	// destructor
-	~UpdateServer () throw ( Error );
+    // destructor
+    ~UpdateServer() throw(Error);
 
-	// intialize game server
-	void init () throw ( Error );
+    // intialize game server
+    void init() throw(Error);
 
-	// start game server
-	void start () throw ( Error );
-	
-	// stop game server
-	void stop () throw ( Error );
+    // start game server
+    void start() throw(Error);
 
-	// main loop
-	void run () throw ();
+    // stop game server
+    void stop() throw(Error);
 
-private :
+    // main loop
+    void run() throw();
 
-	// system level initialization
-	void sysinit () throw ( Error );
+private:
+    // system level initialization
+    void sysinit() throw(Error);
 
-	// become daemon
-	void goBackground () throw ( Error );
+    // become daemon
+    void goBackground() throw(Error);
 
-	// update client
-	void updateClient ( Socket * pClient ) throw ();
+    // update client
+    void updateClient(Socket* pClient) throw();
 
-	int getGuildMarkVersion() throw() { return m_GuildMarkVersion; }
-	int getLastGuildMarkVersion() throw() { return m_LastGuildMarkVersion; }
+    int getGuildMarkVersion() throw() {
+        return m_GuildMarkVersion;
+    }
+    int getLastGuildMarkVersion() throw() {
+        return m_LastGuildMarkVersion;
+    }
 
-private :
-
-	ServerSocket* 	m_pServerSocket;
-	int				m_GuildMarkVersion; 
-	int				m_LastGuildMarkVersion; 
-
+private:
+    ServerSocket* m_pServerSocket;
+    int m_GuildMarkVersion;
+    int m_LastGuildMarkVersion;
 };
 
 
 // global variable
-extern UpdateServer * g_pUpdateServer;
+extern UpdateServer* g_pUpdateServer;
 
 #endif

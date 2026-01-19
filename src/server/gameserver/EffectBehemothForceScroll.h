@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectBehemothForceScroll.h
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_BEHEMOTH_FORCE_SCROLL__
@@ -14,25 +14,26 @@
 // class EffectBehemothForceScroll
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBehemothForceScroll : public Effect
-{
+class EffectBehemothForceScroll : public Effect {
 public:
-	EffectBehemothForceScroll(Creature* pCreature) ;
+    EffectBehemothForceScroll(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect() ; 
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	virtual void create(const string& ownerID ) ;
-	virtual void destroy(const string& ownerID ) ;
-	virtual void save(const string& ownerID ) ;
+    virtual void create(const string& ownerID);
+    virtual void destroy(const string& ownerID);
+    virtual void save(const string& ownerID);
 
-	string toString() const ;
+    string toString() const;
 
 private:
 };
@@ -42,17 +43,19 @@ private:
 // class EffectBehemothForceScrollLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBehemothForceScrollLoader : public EffectLoader
-{
+class EffectBehemothForceScrollLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL; }
-	virtual string getEffectClassName() const  { return "EffectBehemothForceScroll"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectBehemothForceScroll";
+    }
 
 public:
-	virtual void load(Creature* pCreature ) ;
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectBehemothForceScrollLoader* g_pEffectBehemothForceScrollLoader;
 
-#endif 
-
+#endif

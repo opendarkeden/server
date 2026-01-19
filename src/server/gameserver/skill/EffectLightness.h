@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectLightness.h
 // Written by  : excel96
-// Description : 
+// Description :
 // Lightness에 의해서 생성되는 산성 데미지 약화 이펙트이다.
 //////////////////////////////////////////////////////////////////////////////
 
@@ -14,21 +14,21 @@
 // class EffectLightness
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectLightness : public Effect 
-{
+class EffectLightness : public Effect {
 public:
-	EffectLightness(Creature* pCreature) ;
+    EffectLightness(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_LIGHTNESS; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_LIGHTNESS;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	string toString() const throw();
-
+    string toString() const throw();
 };
 
 #endif // __EFFECT_LIGHTNESS__

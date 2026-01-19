@@ -2,7 +2,7 @@
 //
 // Filename    : LCSelectPCErrorHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,17 +11,17 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void LCSelectPCErrorHandler::execute (LCSelectPCError * pPacket , Player * pPlayer )
-	 
+void LCSelectPCErrorHandler::execute(LCSelectPCError* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_CLIENT__
 
-	//cout << "Access Denied... (" << pPacket->toString() << ")" << endl;
-	throw ProtocolException("SelectPC Failed!");
+        // cout << "Access Denied... (" << pPacket->toString() << ")" << endl;
+        throw ProtocolException("SelectPC Failed!");
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

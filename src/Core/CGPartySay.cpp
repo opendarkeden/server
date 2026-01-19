@@ -1,71 +1,67 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGPartySay.cpp 
+// Filename    : CGPartySay.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGPartySay.h"
 
-CGPartySay::CGPartySay () 
-     
+CGPartySay::CGPartySay()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGPartySay::~CGPartySay()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGPartySay::~CGPartySay () 
-    
+void CGPartySay::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_Color);
+    BYTE szMessage;
+    iStream.read(szMessage);
+    iStream.read(m_Message, szMessage);
+
+    __END_CATCH
 }
 
-void CGPartySay::read (SocketInputStream & iStream) 
-	 
+void CGPartySay::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_Color);
-	BYTE szMessage;
-	iStream.read(szMessage);
-	iStream.read(m_Message, szMessage);
-	
-	__END_CATCH
-}
-		    
-void CGPartySay::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+    oStream.write(m_Color);
+    BYTE szMessage = m_Message.size();
+    oStream.write(szMessage);
+    oStream.write(m_Message);
 
-	oStream.write(m_Color);
-	BYTE szMessage = m_Message.size();
-	oStream.write(szMessage);
-	oStream.write(m_Message);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGPartySay::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGPartySay::execute(Player* pPlayer)
 
-	CGPartySayHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGPartySayHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGPartySay::toString () const
-    
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGPartySay("
-		<< "Message :" << m_Message
-		<< ")";
-	return msg.toString();
+string CGPartySay::toString() const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGPartySay("
+        << "Message :" << m_Message << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

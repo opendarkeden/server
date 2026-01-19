@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGUndisplayItem.h 
+//
+// Filename    : CGUndisplayItem.h
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_UNDISPLAY_ITEM_H__
 #define __CG_UNDISPLAY_ITEM_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,46 +21,66 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class CGUndisplayItem : public Packet
-{
+class CGUndisplayItem : public Packet {
 public:
-	CGUndisplayItem() {};
+    CGUndisplayItem() {};
     virtual ~CGUndisplayItem() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_UNDISPLAY_ITEM; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szCoordInven + szCoordInven + szObjectID + szBYTE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_UNDISPLAY_ITEM;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGUndisplayItem"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szCoordInven + szCoordInven + szObjectID + szBYTE;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet name
+    string getPacketName() const {
+        return "CGUndisplayItem";
+    }
 
-	CoordInven_t	getX() const { return m_X; }
-	CoordInven_t	getY() const { return m_Y; }
-	void			setXY(CoordInven_t x, CoordInven_t y) { m_X = x; m_Y = y; }
+    // get packet's debug string
+    string toString() const;
 
-	ObjectID_t		getItemObjectID() const { return m_ItemObjectID; }
-	void			setItemObjectID(ObjectID_t oid) { m_ItemObjectID = oid; }
+    CoordInven_t getX() const {
+        return m_X;
+    }
+    CoordInven_t getY() const {
+        return m_Y;
+    }
+    void setXY(CoordInven_t x, CoordInven_t y) {
+        m_X = x;
+        m_Y = y;
+    }
 
-	BYTE			getIndex() const { return m_Index; }
-	void			setIndex(BYTE index) { m_Index = index; }
+    ObjectID_t getItemObjectID() const {
+        return m_ItemObjectID;
+    }
+    void setItemObjectID(ObjectID_t oid) {
+        m_ItemObjectID = oid;
+    }
 
-private :
-	CoordInven_t	m_X, m_Y;
-	ObjectID_t		m_ItemObjectID;
-	BYTE			m_Index;
+    BYTE getIndex() const {
+        return m_Index;
+    }
+    void setIndex(BYTE index) {
+        m_Index = index;
+    }
+
+private:
+    CoordInven_t m_X, m_Y;
+    ObjectID_t m_ItemObjectID;
+    BYTE m_Index;
 };
 
 
@@ -73,29 +93,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGUndisplayItemFactory : public PacketFactory {
+public:
+    // constructor
+    CGUndisplayItemFactory() {}
+
+    // destructor
+    virtual ~CGUndisplayItemFactory() {}
+
 
 public:
-	
-	// constructor
-	CGUndisplayItemFactory()  {}
-	
-	// destructor
-	virtual ~CGUndisplayItemFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGUndisplayItem();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGUndisplayItem(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGUndisplayItem";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGUndisplayItem"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_UNDISPLAY_ITEM; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_UNDISPLAY_ITEM;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szCoordInven + szCoordInven + szObjectID + szBYTE; }
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szCoordInven + szCoordInven + szObjectID + szBYTE;
+    }
 };
 
 
@@ -106,12 +131,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGUndisplayItemHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGUndisplayItem* pCGUndisplayItem, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGUndisplayItem* pCGUndisplayItem, Player* pPlayer);
 };
 
 #endif

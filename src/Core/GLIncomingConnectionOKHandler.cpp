@@ -11,81 +11,74 @@
 
 #ifdef __LOGIN_SERVER__
 
-	#include "LoginPlayer.h"
-	#include "LoginPlayerManager.h"
-	#include "Assert1.h"
-
-	#include "LCReconnect.h"
+#include "Assert1.h"
+#include "LCReconnect.h"
+#include "LoginPlayer.h"
+#include "LoginPlayerManager.h"
 
 #endif
 
 //--------------------------------------------------------------------------------
-// 
+//
 // GLIncomingConnectionOKHander::execute()
-// 
-// 게임 서버로부터 GLIncomingConnectionOK 패킷이 날아오면, 로그인 서버는 이 허가가 
+//
+// 게임 서버로부터 GLIncomingConnectionOK 패킷이 날아오면, 로그인 서버는 이 허가가
 // 어느 플레이어에 대한 허가인지 찾아내야 한다. 그 후, 이 플레이어에게 LCReconnect
 // 패킷을 던져줘야 한다.
-// 
+//
 //--------------------------------------------------------------------------------
-void GLIncomingConnectionOKHandler::execute (GLIncomingConnectionOK * pPacket )
-	 
-{
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+void GLIncomingConnectionOKHandler::execute(GLIncomingConnectionOK* pPacket)
 
+{
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 #ifdef __LOGIN_SERVER__
 
-	try {	
+        try {
 
-		// 플레이어 아이디를 사용해서 플레이어 객체에 접근한다.
-		__ENTER_CRITICAL_SECTION((*g_pLoginPlayerManager))
+        // 플레이어 아이디를 사용해서 플레이어 객체에 접근한다.
+        __ENTER_CRITICAL_SECTION((*g_pLoginPlayerManager))
 
-		LoginPlayer * pLoginPlayer = g_pLoginPlayerManager->getPlayer_NOLOCKED(pPacket->getPlayerID());
+        LoginPlayer* pLoginPlayer = g_pLoginPlayerManager->getPlayer_NOLOCKED(pPacket->getPlayerID());
 
-		if (pLoginPlayer->getPlayerStatus() == LPS_AFTER_SENDING_LG_INCOMING_CONNECTION ) 
-		{
+        if (pLoginPlayer->getPlayerStatus() == LPS_AFTER_SENDING_LG_INCOMING_CONNECTION) {
+            // Tell the client to reconnect the game server.
+            // by tiancaiamao: when gameserver is behind docker, it may have a docker internal IP 172.20.0.1 and a
+            // outside IP in database GameServerInfo table. The outside IP should be used. pPacket->getHost() get the
+            // internal one. pLoginPlayer->getGameServerIP() get the outside one.
 
+            LCReconnect lcReconnect;
+            // lcReconnect.setGameServerIP(pPacket->getHost());
+            lcReconnect.setGameServerIP(pLoginPlayer->getGameServerIP());
+            lcReconnect.setGameServerPort(pPacket->getTCPPort());
+            lcReconnect.setKey(pPacket->getKey());
 
-		  // Tell the client to reconnect the game server.
-		  // by tiancaiamao: when gameserver is behind docker, it may have a docker internal IP 172.20.0.1 and a outside IP in database GameServerInfo table.
-		  // The outside IP should be used.
-		  // pPacket->getHost() get the internal one.
-		  // pLoginPlayer->getGameServerIP() get the outside one.
+            // LCReconnect 패킷을 전송한다.
+            pLoginPlayer->sendPacket(&lcReconnect);
 
-			LCReconnect lcReconnect;
-			// lcReconnect.setGameServerIP(pPacket->getHost());
-			lcReconnect.setGameServerIP(pLoginPlayer->getGameServerIP());
-			lcReconnect.setGameServerPort(pPacket->getTCPPort());
-			lcReconnect.setKey(pPacket->getKey());
+            // cout << "GLIncomingConnectionOKHandler Send to Client Required Reconnect ServerIP : " <<
+            // pPacket->getHost() << endl;
+        } else {
+            // cout << "Invalid Player Status.. must be AFTER_SENDING_LG_INCOMING_CONNECTION" << endl;
+        }
 
-			// LCReconnect 패킷을 전송한다.
-			pLoginPlayer->sendPacket(&lcReconnect);
+        // 연결을 종료한다.
+        // pLoginPlayer->disconnect(UNDISCONNECTED);
+        pLoginPlayer->disconnect_nolog(UNDISCONNECTED);
 
-			//cout << "GLIncomingConnectionOKHandler Send to Client Required Reconnect ServerIP : " << pPacket->getHost() << endl;
-		}
-		else
-		{
-			//cout << "Invalid Player Status.. must be AFTER_SENDING_LG_INCOMING_CONNECTION" << endl;
-		}
+        // LPM에서 삭제한다.
+        g_pLoginPlayerManager->deletePlayer_NOLOCKED(pLoginPlayer->getSocket()->getSOCKET());
 
-		// 연결을 종료한다.
-		//pLoginPlayer->disconnect(UNDISCONNECTED);
-		pLoginPlayer->disconnect_nolog(UNDISCONNECTED);
+        // LoginPlayer 객체를 삭제한다.
+        SAFE_DELETE(pLoginPlayer);
 
-		// LPM에서 삭제한다.
-		g_pLoginPlayerManager->deletePlayer_NOLOCKED(pLoginPlayer->getSocket()->getSOCKET());
-
-		// LoginPlayer 객체를 삭제한다.
-		SAFE_DELETE(pLoginPlayer);
-
-		__LEAVE_CRITICAL_SECTION((*g_pLoginPlayerManager))
+        __LEAVE_CRITICAL_SECTION((*g_pLoginPlayerManager))
 
 
-	} catch (NoSuchElementException & nsee ) {
-		//cout << "Player not exist or already disconnected" << endl;
-	}
+    } catch (NoSuchElementException& nsee) {
+        // cout << "Player not exist or already disconnected" << endl;
+    }
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

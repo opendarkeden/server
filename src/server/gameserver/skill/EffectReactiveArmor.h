@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectReactiveArmor.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_REACTIVE_ARMOR__
@@ -14,31 +14,40 @@
 // class EffectReactiveArmor
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectReactiveArmor : public Effect 
-{
+class EffectReactiveArmor : public Effect {
 public:
-	EffectReactiveArmor(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REACTIVE_ARMOR; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectReactiveArmor(Creature* pCreature);
 
 public:
-	void setBonus( uint bonus ) { m_Bonus = bonus; }
-	uint getBonus() const { return m_Bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_REACTIVE_ARMOR;
+    }
 
-	void setDamageReduce( uint dr ) { m_DamageReduce = dr; }
-	uint getDamageReduce() const { return m_DamageReduce; }
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setBonus(uint bonus) {
+        m_Bonus = bonus;
+    }
+    uint getBonus() const {
+        return m_Bonus;
+    }
+
+    void setDamageReduce(uint dr) {
+        m_DamageReduce = dr;
+    }
+    uint getDamageReduce() const {
+        return m_DamageReduce;
+    }
 
 private:
-	uint	m_Bonus;
-	uint	m_DamageReduce;
+    uint m_Bonus;
+    uint m_DamageReduce;
 };
 
 #endif // __EFFECT_REACTIVE_ARMOR__

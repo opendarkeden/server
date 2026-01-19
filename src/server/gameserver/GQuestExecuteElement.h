@@ -3,16 +3,17 @@
 
 #include "GQuestElement.h"
 
-class GQuestExecuteElement : public GQuestElement
-{
+class GQuestExecuteElement : public GQuestElement {
 public:
-	GQuestExecuteElement(const string& name) : m_ElementName(name) { }
-	string 				getElementName() const { return m_ElementName; }
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
-	GQuestExecuteElement*	makeElement(XMLTree* pTree);
+    GQuestExecuteElement(const string& name) : m_ElementName(name) {}
+    string getElementName() const {
+        return m_ElementName;
+    }
+    ResultType checkCondition(PlayerCreature* pPC) const;
+    GQuestExecuteElement* makeElement(XMLTree* pTree);
 
 private:
-	string	m_ElementName;
+    string m_ElementName;
 };
 
 extern GQuestExecuteElement g_ScriptElement;

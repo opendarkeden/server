@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename    : CGStashDeposit.h 
+// Filename    : CGStashDeposit.h
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_STASH_DEPOSIT_H__
@@ -16,25 +16,34 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGStashDeposit : public Packet 
-{
+class CGStashDeposit : public Packet {
 public:
     CGStashDeposit() {};
     virtual ~CGStashDeposit() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_STASH_DEPOSIT; }
-	PacketSize_t getPacketSize() const  { return szGold; }
-	string getPacketName() const  { return "CGStashDeposit"; }
-	string toString() const ;
-	
-public:
-	Gold_t getAmount(void) const  { return m_Amount;}
-	void setAmount(Gold_t amount)  { m_Amount = amount;}
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_STASH_DEPOSIT;
+    }
+    PacketSize_t getPacketSize() const {
+        return szGold;
+    }
+    string getPacketName() const {
+        return "CGStashDeposit";
+    }
+    string toString() const;
 
-private :
-	Gold_t m_Amount;
+public:
+    Gold_t getAmount(void) const {
+        return m_Amount;
+    }
+    void setAmount(Gold_t amount) {
+        m_Amount = amount;
+    }
+
+private:
+    Gold_t m_Amount;
 };
 
 
@@ -44,14 +53,20 @@ private :
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGStashDepositFactory : public PacketFactory 
-{
+class CGStashDepositFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGStashDeposit(); }
-	string getPacketName() const  { return "CGStashDeposit"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_STASH_DEPOSIT; }
-	PacketSize_t getPacketMaxSize() const  { return szGold; }
-
+    Packet* createPacket() {
+        return new CGStashDeposit();
+    }
+    string getPacketName() const {
+        return "CGStashDeposit";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_STASH_DEPOSIT;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szGold;
+    }
 };
 
 
@@ -62,11 +77,9 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
 class CGStashDepositHandler {
-	
 public:
-
-	// execute packet's handler
-	static void execute(CGStashDeposit* pPacket, Player* player) ;
+    // execute packet's handler
+    static void execute(CGStashDeposit* pPacket, Player* player);
 };
 
 #endif

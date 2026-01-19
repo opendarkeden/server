@@ -5,11 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Mutex.h"
-#include "MutexAttr.h"
-#include "pthreadAPI.h"
-#include "Thread.h"
+
 #include "LogClient.h"
+#include "MutexAttr.h"
 #include "StringStream.h"
+#include "Thread.h"
+#include "pthreadAPI.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -17,14 +18,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-Mutex::Mutex ( MutexAttr * attr ) 
-{
-	__BEGIN_TRY
+Mutex::Mutex(MutexAttr* attr) {
+    __BEGIN_TRY
 
-	pthreadAPI::pthread_mutex_init_ex( &m_Mutex , ( attr == NULL ? NULL : attr->getAttr() ) );
-	m_LockTID = -1;
-	
-	__END_CATCH
+    pthreadAPI::pthread_mutex_init_ex(&m_Mutex, (attr == NULL ? NULL : attr->getAttr()));
+    m_LockTID = -1;
+
+    __END_CATCH
 }
 
 
@@ -34,20 +34,14 @@ Mutex::Mutex ( MutexAttr * attr )
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-Mutex::~Mutex () noexcept
-{
-	try 
-	{
-		pthreadAPI::pthread_mutex_destroy_ex( &m_Mutex );
-	} 
-	catch ( const MutexException & me ) 
-	{
-		cerr << me.toString() << endl;
-	}
-	catch (...)
-	{
-		// must not throw from destructor
-	}
+Mutex::~Mutex() noexcept {
+    try {
+        pthreadAPI::pthread_mutex_destroy_ex(&m_Mutex);
+    } catch (const MutexException& me) {
+        cerr << me.toString() << endl;
+    } catch (...) {
+        // must not throw from destructor
+    }
 }
 
 
@@ -56,37 +50,30 @@ Mutex::~Mutex () noexcept
 // lock mutex
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Mutex::lock () 
-{
-	__BEGIN_TRY
+void Mutex::lock() {
+    __BEGIN_TRY
 
-	//filelog("lock.txt", "Thread[%d][%s] waiting lock", Thread::self(), m_Name.c_str());
+    // filelog("lock.txt", "Thread[%d][%s] waiting lock", Thread::self(), m_Name.c_str());
 
-	try 
-	{
-		int TID = (int)(long)Thread::self();
+    try {
+        int TID = (int)(long)Thread::self();
 
-		if (TID != m_LockTID)
-		{
-			pthreadAPI::pthread_mutex_lock_ex( &m_Mutex );
-			m_LockTID = TID;
-		}
-		else
-		{
-			cerr << "Mutex::lock() : SELF DEAD LOCK [" << m_Name << "]" << endl;
-			filelog("MutexError.log", "Mutex::lock() : SELF DEAD LOCK [%s]", m_Name.c_str());
-			throw Error("Mutex::lock() : SELF DEAD LOCK");
-		}
-	} 
-	catch ( MutexException & me ) 
-	{
-		cerr << me.toString() << endl;
-		throw Error(me.toString());
-	}
+        if (TID != m_LockTID) {
+            pthreadAPI::pthread_mutex_lock_ex(&m_Mutex);
+            m_LockTID = TID;
+        } else {
+            cerr << "Mutex::lock() : SELF DEAD LOCK [" << m_Name << "]" << endl;
+            filelog("MutexError.log", "Mutex::lock() : SELF DEAD LOCK [%s]", m_Name.c_str());
+            throw Error("Mutex::lock() : SELF DEAD LOCK");
+        }
+    } catch (MutexException& me) {
+        cerr << me.toString() << endl;
+        throw Error(me.toString());
+    }
 
-	//filelog("lock.txt", "Thread[%d][%s] gain lock", Thread::self(), m_Name.c_str());
+    // filelog("lock.txt", "Thread[%d][%s] gain lock", Thread::self(), m_Name.c_str());
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
@@ -95,37 +82,30 @@ void Mutex::lock ()
 // if mutex is locked, throw MutexException. else lock mutex
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Mutex::trylock () 
-{
-	__BEGIN_TRY
+void Mutex::trylock() {
+    __BEGIN_TRY
 
-	//filelog("lock.txt", "Thread[%d][%s] trying to gain lock", Thread::self(), m_Name.c_str());
+    // filelog("lock.txt", "Thread[%d][%s] trying to gain lock", Thread::self(), m_Name.c_str());
 
-	try 
-	{
-		int TID = (int)(long)Thread::self();
+    try {
+        int TID = (int)(long)Thread::self();
 
-		if (TID != m_LockTID)
-		{
-			pthreadAPI::pthread_mutex_trylock_ex( &m_Mutex );
-			m_LockTID = TID;
-		}
-		else
-		{
-			cerr << "Mutex::trylock() : SELF DEAD LOCK [" << m_Name << "]" << endl;
-			filelog("MutexError.log", "Mutex::trylock() : SELF DEAD LOCK [%s]", m_Name.c_str());
-			throw Error("Mutex::trylock() : SELF DEAD LOCK");
-		}
-	} 
-	catch ( MutexException & me ) 
-	{
-		cerr << me.toString() << endl;
-		throw Error(me.toString());
-	}
+        if (TID != m_LockTID) {
+            pthreadAPI::pthread_mutex_trylock_ex(&m_Mutex);
+            m_LockTID = TID;
+        } else {
+            cerr << "Mutex::trylock() : SELF DEAD LOCK [" << m_Name << "]" << endl;
+            filelog("MutexError.log", "Mutex::trylock() : SELF DEAD LOCK [%s]", m_Name.c_str());
+            throw Error("Mutex::trylock() : SELF DEAD LOCK");
+        }
+    } catch (MutexException& me) {
+        cerr << me.toString() << endl;
+        throw Error(me.toString());
+    }
 
-	//filelog("lock.txt", "Thread[%d][%s] gain lock", Thread::self(), m_Name.c_str());
+    // filelog("lock.txt", "Thread[%d][%s] gain lock", Thread::self(), m_Name.c_str());
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
@@ -134,22 +114,18 @@ void Mutex::trylock ()
 // unlock mutex
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Mutex::unlock () 
-{
-	__BEGIN_TRY
+void Mutex::unlock() {
+    __BEGIN_TRY
 
-	try 
-	{
-		pthreadAPI::pthread_mutex_unlock_ex( &m_Mutex );
-		m_LockTID = -1;
-	}
-	catch ( MutexException & me ) 
-	{
-		cerr << me.toString() << endl;
-		throw Error(me.toString());
-	}
+    try {
+        pthreadAPI::pthread_mutex_unlock_ex(&m_Mutex);
+        m_LockTID = -1;
+    } catch (MutexException& me) {
+        cerr << me.toString() << endl;
+        throw Error(me.toString());
+    }
 
-	//filelog("lock.txt", "Thread[%d][%s] release lock", Thread::self(), m_Name.c_str());
+    // filelog("lock.txt", "Thread[%d][%s] release lock", Thread::self(), m_Name.c_str());
 
-	__END_CATCH
+    __END_CATCH
 }

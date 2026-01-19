@@ -8,85 +8,78 @@
 
 #ifdef __GAME_SERVER__
 
-#include "GamePlayer.h"
-#include "PlayerCreature.h"
-#include "NPC.h"
-#include "mission/EventQuestAdvance.h"
-#include "mission/QuestManager.h"
-#include "mission/QuestInfoManager.h"
-
-#include "GCNPCResponse.h"
-
 #include <cstdio>
 
-#endif	// __GAME_SERVER__
+#include "GCNPCResponse.h"
+#include "GamePlayer.h"
+#include "NPC.h"
+#include "PlayerCreature.h"
+#include "mission/EventQuestAdvance.h"
+#include "mission/QuestInfoManager.h"
+#include "mission/QuestManager.h"
 
-void CGSelectQuestHandler::execute (CGSelectQuest* pPacket , Player* pPlayer)
-	 
+#endif // __GAME_SERVER__
+
+void CGSelectQuestHandler::execute(CGSelectQuest* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	GamePlayer* pGP = dynamic_cast<GamePlayer*>( pPlayer );
-	Assert( pGP != NULL );
-		
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGP->getCreature());
+        GamePlayer* pGP = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGP != NULL);
 
-	GCNPCResponse gcNPCR;
-	gcNPCR.setCode( NPC_RESPONSE_QUEST );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGP->getCreature());
 
-	Creature* pCreature = pPC->getZone()->getCreature( pPacket->getNPCObjectID() );
-	if ( pCreature == NULL || !pCreature->isNPC() )
-	{
-		gcNPCR.setParameter( (uint)START_FAIL_CANNOT_APPLY_QUEST );
-		pPlayer->sendPacket( &gcNPCR );
+    GCNPCResponse gcNPCR;
+    gcNPCR.setCode(NPC_RESPONSE_QUEST);
 
-		return;
-	}
+    Creature* pCreature = pPC->getZone()->getCreature(pPacket->getNPCObjectID());
+    if (pCreature == NULL || !pCreature->isNPC()) {
+        gcNPCR.setParameter((uint)START_FAIL_CANNOT_APPLY_QUEST);
+        pPlayer->sendPacket(&gcNPCR);
 
-	NPC* pNPC = dynamic_cast<NPC*>(pCreature);
-	if ( pNPC == NULL )
-	{
-		gcNPCR.setParameter( (uint)START_FAIL_CANNOT_APPLY_QUEST );
-		pPlayer->sendPacket( &gcNPCR );
+        return;
+    }
 
-		return;
-	}
+    NPC* pNPC = dynamic_cast<NPC*>(pCreature);
+    if (pNPC == NULL) {
+        gcNPCR.setParameter((uint)START_FAIL_CANNOT_APPLY_QUEST);
+        pPlayer->sendPacket(&gcNPCR);
 
-	QuestInfoManager* pQIM = pNPC->getQuestInfoManager();
-	if ( pQIM == NULL )
-	{
-		gcNPCR.setParameter( (uint)START_FAIL_CANNOT_APPLY_QUEST );
-		pPlayer->sendPacket( &gcNPCR );
+        return;
+    }
 
-		return;
-	}
+    QuestInfoManager* pQIM = pNPC->getQuestInfoManager();
+    if (pQIM == NULL) {
+        gcNPCR.setParameter((uint)START_FAIL_CANNOT_APPLY_QUEST);
+        pPlayer->sendPacket(&gcNPCR);
 
-	pPC->getQuestManager()->adjustQuestStatus();
-	QuestMessage code = pQIM->startQuest( pPacket->getQuestID(), pPC );
+        return;
+    }
 
-	list<QuestID_t> qList;
-	pQIM->getEventQuestIDs( pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel(), pPC, back_inserter(qList) );
+    pPC->getQuestManager()->adjustQuestStatus();
+    QuestMessage code = pQIM->startQuest(pPacket->getQuestID(), pPC);
 
-	gcNPCR.setParameter( (uint)code );
+    list<QuestID_t> qList;
+    pQIM->getEventQuestIDs(pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel(), pPC,
+                           back_inserter(qList));
 
-	if ( !pQIM->isEventQuest( pPacket->getQuestID() ) )
-		pPlayer->sendPacket( &gcNPCR );
+    gcNPCR.setParameter((uint)code);
 
-	if ( code == START_SUCCESS )
-	{
-		pPC->sendCurrentQuestInfo();
+    if (!pQIM->isEventQuest(pPacket->getQuestID()))
+        pPlayer->sendPacket(&gcNPCR);
 
-		//cout << "Quest 시작 " << pPC->getName() << " " << pPacket->getQuestID() << endl;
-	}
-	else
-	{
-		//cout << "Quest 시작 실패 " << pPC->getName() << " " << (int)code << endl;
-	}
+    if (code == START_SUCCESS) {
+        pPC->sendCurrentQuestInfo();
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+        // cout << "Quest 시작 " << pPC->getName() << " " << pPacket->getQuestID() << endl;
+    } else {
+        // cout << "Quest 시작 실패 " << pPC->getName() << " " << (int)code << endl;
+    }
+
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

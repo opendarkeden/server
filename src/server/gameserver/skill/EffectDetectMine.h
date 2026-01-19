@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectDetectMine.h
 // Written by  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_DETECT_MINE__
@@ -14,24 +14,25 @@
 // class EffectDetectMine
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDetectMine : public Effect 
-{
+class EffectDetectMine : public Effect {
 public:
-	EffectDetectMine(Creature* pCreature) ;
+    EffectDetectMine(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REVEALER; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_REVEALER;
+    }
 
-	void affect() {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	string toString() const throw();
+    string toString() const throw();
 
 private:
 };

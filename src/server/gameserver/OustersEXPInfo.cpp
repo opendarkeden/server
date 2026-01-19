@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "OustersEXPInfo.h"
+
 #include "Assert.h"
 #include "DB.h"
 // #include <algo.h>
@@ -20,34 +21,25 @@ OustersEXPInfoManager* g_pOustersEXPInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 OustersEXPInfo::OustersEXPInfo()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+
+    {__BEGIN_TRY __END_CATCH}
 
 OustersEXPInfo::~OustersEXPInfo()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
+
+    {__BEGIN_TRY __END_CATCH_NO_RETHROW}
 
 string OustersEXPInfo::toString() const
-	
-{
-	__BEGIN_TRY
-	
-	StringStream msg;
-	msg << "OustersEXPInfo ("
-			<< " Level : "   << (int)m_Level
-			<< " GoalExp : "   << (int)m_GoalExp
-			<< " AccumExp : " << (int)m_AccumExp
-			<< " SkillPointBonus : " << (int)m_SkillPointBonus
-			<< ")";
-	return msg.toString();
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "OustersEXPInfo ("
+        << " Level : " << (int)m_Level << " GoalExp : " << (int)m_GoalExp << " AccumExp : " << (int)m_AccumExp
+        << " SkillPointBonus : " << (int)m_SkillPointBonus << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,149 +47,139 @@ string OustersEXPInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 OustersEXPInfoManager::OustersEXPInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_OustersEXPCount    = 0;
-	m_OustersEXPInfoList = NULL;
+    m_OustersEXPCount = 0;
+    m_OustersEXPInfoList = NULL;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 OustersEXPInfoManager::~OustersEXPInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_OustersEXPInfoList != NULL)
-	{
-		for (uint i=0; i<m_OustersEXPCount; i++)
-			SAFE_DELETE(m_OustersEXPInfoList[i]);
+    if (m_OustersEXPInfoList != NULL) {
+        for (uint i = 0; i < m_OustersEXPCount; i++)
+            SAFE_DELETE(m_OustersEXPInfoList[i]);
 
-		SAFE_DELETE_ARRAY(m_OustersEXPInfoList);
-	}
-	
-	__END_CATCH_NO_RETHROW
+        SAFE_DELETE_ARRAY(m_OustersEXPInfoList);
+    }
+
+    __END_CATCH_NO_RETHROW
 }
 
 void OustersEXPInfoManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void OustersEXPInfoManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Statement* pStmt   = NULL; // by sigi
-	Result*    pResult = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(Level) FROM OustersEXPBalanceInfo");
+    Statement* pStmt = NULL; // by sigi
+    Result* pResult = NULL;
 
-		if (pResult -> getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in OustersEXPInfo Table");
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(Level) FROM OustersEXPBalanceInfo");
 
-		// 전체 갯수를 세팅한다.
-		pResult->next();
-		m_OustersEXPCount = pResult->getInt(1) +1;
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in OustersEXPInfo Table");
+        }
 
-		Assert (m_OustersEXPCount > 0);
+        // 전체 갯수를 세팅한다.
+        pResult->next();
+        m_OustersEXPCount = pResult->getInt(1) + 1;
 
-		m_OustersEXPInfoList = new OustersEXPInfo* [m_OustersEXPCount]; 
+        Assert(m_OustersEXPCount > 0);
 
-		Assert(m_OustersEXPInfoList != NULL);
+        m_OustersEXPInfoList = new OustersEXPInfo*[m_OustersEXPCount];
 
-		// 배열을 초기화
-		for (uint i = 0 ; i < m_OustersEXPCount ; i ++)
-			m_OustersEXPInfoList[i] = NULL;
-		
-		pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp, SkillPointBonus from OustersEXPBalanceInfo");
+        Assert(m_OustersEXPInfoList != NULL);
 
-		while (pResult->next()) 
-		{
-			OustersEXPInfo* pOustersEXPInfo = new OustersEXPInfo ();
-			int          i            = 0;
+        // 배열을 초기화
+        for (uint i = 0; i < m_OustersEXPCount; i++)
+            m_OustersEXPInfoList[i] = NULL;
 
-			pOustersEXPInfo->setLevel (pResult->getInt(++i));
-			pOustersEXPInfo->setGoalExp (pResult->getInt(++i));
-			pOustersEXPInfo->setAccumExp (pResult->getInt(++i));
-			pOustersEXPInfo->setSkillPointBonus((SkillBonus_t)pResult->getInt(++i));
+        pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp, SkillPointBonus from OustersEXPBalanceInfo");
 
-			addOustersEXPInfo(pOustersEXPInfo);
-		}
+        while (pResult->next()) {
+            OustersEXPInfo* pOustersEXPInfo = new OustersEXPInfo();
+            int i = 0;
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            pOustersEXPInfo->setLevel(pResult->getInt(++i));
+            pOustersEXPInfo->setGoalExp(pResult->getInt(++i));
+            pOustersEXPInfo->setAccumExp(pResult->getInt(++i));
+            pOustersEXPInfo->setSkillPointBonus((SkillBonus_t)pResult->getInt(++i));
 
-	__END_DEBUG
-	__END_CATCH
+            addOustersEXPInfo(pOustersEXPInfo);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void OustersEXPInfoManager::addOustersEXPInfo(OustersEXPInfo* pOustersEXPInfo)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert(pOustersEXPInfo != NULL);
-	Assert(m_OustersEXPInfoList[pOustersEXPInfo->getLevel()] == NULL);
+    Assert(pOustersEXPInfo != NULL);
+    Assert(m_OustersEXPInfoList[pOustersEXPInfo->getLevel()] == NULL);
 
-	m_OustersEXPInfoList[pOustersEXPInfo->getLevel()] = pOustersEXPInfo;
-	
-	__END_CATCH
+    m_OustersEXPInfoList[pOustersEXPInfo->getLevel()] = pOustersEXPInfo;
+
+    __END_CATCH
 }
 
-OustersEXPInfo* OustersEXPInfoManager::getOustersEXPInfo(uint  OustersEXPType) const 
-{
-	__BEGIN_TRY
+OustersEXPInfo* OustersEXPInfoManager::getOustersEXPInfo(uint OustersEXPType) const {
+    __BEGIN_TRY
 
-	Assert(OustersEXPType < m_OustersEXPCount);
-	Assert(m_OustersEXPInfoList[OustersEXPType] != NULL);
+    Assert(OustersEXPType < m_OustersEXPCount);
+    Assert(m_OustersEXPInfoList[OustersEXPType] != NULL);
 
-	return m_OustersEXPInfoList[OustersEXPType];
-	
-	__END_CATCH
+    return m_OustersEXPInfoList[OustersEXPType];
+
+    __END_CATCH
 }
 
 string OustersEXPInfoManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "OustersEXPInfoManager(";
+    msg << "OustersEXPInfoManager(";
 
-	for (uint i = 0 ; i < m_OustersEXPCount ; i ++) 
-	{
-		if (m_OustersEXPInfoList[i] != NULL)
-		{
-			msg << m_OustersEXPInfoList[i]->toString();
-		}
-		else 
-		{
-			msg << "NULL" ;
-		}
-	}
-	
-	msg << ")";
+    for (uint i = 0; i < m_OustersEXPCount; i++) {
+        if (m_OustersEXPInfoList[i] != NULL) {
+            msg << m_OustersEXPInfoList[i]->toString();
+        } else {
+            msg << "NULL";
+        }
+    }
 
-	return msg.toString();
+    msg << ")";
 
-	__END_CATCH
+    return msg.toString();
+
+    __END_CATCH
 }
-

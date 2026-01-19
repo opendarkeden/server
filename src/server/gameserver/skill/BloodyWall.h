@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyWall.h 
-// Written By  : 
-// Description : 
+// Filename    : BloodyWall.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_WALL_HANDLER_H__
@@ -13,25 +13,29 @@
 // class BloodyWall;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyWall : public SkillHandler 
-{
+class BloodyWall : public SkillHandler {
 public:
-	BloodyWall() throw();
-	~BloodyWall() throw() {}
-	
+    BloodyWall() throw();
+    ~BloodyWall() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyWall"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_WALL; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyWall";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_WALL;
+    }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
-	void execute(Monster*, ZoneCoord_t x, ZoneCoord_t y) ;
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
+    void execute(Monster*, ZoneCoord_t x, ZoneCoord_t y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
-	POINT		m_BloodyWallMask[8][5];	// 8规氢, 5俺究
+    POINT m_BloodyWallMask[8][5]; // 8规氢, 5俺究
 };
 
 // global variable declaration

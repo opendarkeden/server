@@ -1,12 +1,5 @@
 #include "GameServerTest.h"
 
-void
-GameServerTest::setUp()
-{
-}
+void GameServerTest::setUp() {}
 
-void
-GameServerTest::tearDown()
-{
-}
-
+void GameServerTest::tearDown() {}

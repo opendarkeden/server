@@ -1,136 +1,131 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectFlagInsert.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectFlagInsert.h"
+
+#include <stdio.h>
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
+#include "GCSystemMessage.h"
 #include "Monster.h"
 #include "MonsterCorpse.h"
 #include "Player.h"
-#include "ZoneGroupManager.h"
+#include "Slayer.h"
 #include "StringPool.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
-
-#include <stdio.h>
+#include "Vampire.h"
+#include "ZoneGroupManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectFlagInsert::EffectFlagInsert(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectFlagInsert::EffectFlagInsert(Item* pItem)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pItem);
+    setTarget(pItem);
 
-	__END_CATCH
+    __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFlagInsert::affect(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
 
-																														    	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFlagInsert::affect(Item* pItem)
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 
-void EffectFlagInsert::unaffect() 
-	
+void EffectFlagInsert::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-	Item* pItem = dynamic_cast<Item *>(m_pTarget);
-	unaffect(pItem);
+    Item* pItem = dynamic_cast<Item*>(m_pTarget);
+    unaffect(pItem);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFlagInsert::unaffect(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
-	__BEGIN_DEBUG
 
-	__END_DEBUG
-	__END_CATCH
+{
+    __BEGIN_TRY
+    __BEGIN_DEBUG
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFlagInsert::unaffect(Item* pItem)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Assert(pItem != NULL);
+    Assert(pItem != NULL);
 
-	Assert(pItem->getItemClass()==Item::ITEM_CLASS_CORPSE);
-	Assert(pItem->getItemType()==MONSTER_CORPSE);
+    Assert(pItem->getItemClass() == Item::ITEM_CLASS_CORPSE);
+    Assert(pItem->getItemType() == MONSTER_CORPSE);
 
-	MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
+    MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
 
-	pCorpse->removeFlag(Effect::EFFECT_CLASS_FLAG_INSERT);
+    pCorpse->removeFlag(Effect::EFFECT_CLASS_FLAG_INSERT);
 
-	Zone* pZone = pCorpse->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCorpse->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pItem->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_FLAG_INSERT);
-	pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pItem->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_FLAG_INSERT);
+    pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
 
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 
-
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectFlagInsert::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectFlagInsert::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectFlagInsert("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectFlagInsert("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

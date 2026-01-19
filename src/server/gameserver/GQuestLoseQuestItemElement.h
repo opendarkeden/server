@@ -3,16 +3,17 @@
 
 #include "GQuestElement.h"
 
-class GQuestLoseQuestItemElement : public GQuestElement
-{
+class GQuestLoseQuestItemElement : public GQuestElement {
 public:
-	GQuestLoseQuestItemElement() : m_ItemType(0) { }
-	string 				getElementName() const { return "LoseQuestItem"; }
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
-	GQuestLoseQuestItemElement*	makeElement(XMLTree* pTree);
+    GQuestLoseQuestItemElement() : m_ItemType(0) {}
+    string getElementName() const {
+        return "LoseQuestItem";
+    }
+    ResultType checkCondition(PlayerCreature* pPC) const;
+    GQuestLoseQuestItemElement* makeElement(XMLTree* pTree);
 
 private:
-	ItemType_t	m_ItemType;
+    ItemType_t m_ItemType;
 };
 
 extern GQuestLoseQuestItemElement g_LoseQuestItemElement;

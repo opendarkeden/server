@@ -1,32 +1,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionInitEventQuest.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionInitEventQuest.h"
-#include "NPC.h"
-#include "Creature.h"
 
+#include "Creature.h"
+#include "NPC.h"
 #include "mission/EventQuestInfoManager.h"
 #include "mission/SimpleQuestRewardManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionInitEventQuest::read (PropertyBuffer & propertyBuffer)
-    
+void ActionInitEventQuest::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -34,42 +31,42 @@ void ActionInitEventQuest::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionInitEventQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionInitEventQuest::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert( pCreature1 != NULL );
-	Assert( pCreature1->isNPC() );
+    Assert(pCreature1 != NULL);
+    Assert(pCreature1->isNPC());
 
-	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	EventQuestInfoManager* pQIM = new EventQuestInfoManager(pNPC);
+    NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
+    EventQuestInfoManager* pQIM = new EventQuestInfoManager(pNPC);
 
-	pQIM->load(pNPC->getName());
-	pNPC->setQuestInfoManager( pQIM );
+    pQIM->load(pNPC->getName());
+    pNPC->setQuestInfoManager(pQIM);
 
-	SimpleQuestRewardManager* pRIM = new SimpleQuestRewardManager(pNPC);
+    SimpleQuestRewardManager* pRIM = new SimpleQuestRewardManager(pNPC);
 
-	pRIM->load(pNPC->getName());
-	pNPC->setRewardClassInfoManager( pRIM );
+    pRIM->load(pNPC->getName());
+    pNPC->setRewardClassInfoManager(pRIM);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionInitEventQuest::toString () const 
-	
+string ActionInitEventQuest::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionInitEventQuest("
-	    << ")";
+    StringStream msg;
+    msg << "ActionInitEventQuest("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

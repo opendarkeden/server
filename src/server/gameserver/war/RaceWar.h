@@ -10,32 +10,35 @@
 class Mutex;
 class PlayerCreature;
 
-class RaceWar : public War
-{
+class RaceWar : public War {
 public:
-	RaceWar( WarState warState, WarID_t warID=0 );
-	virtual ~RaceWar();
+    RaceWar(WarState warState, WarID_t warID = 0);
+    virtual ~RaceWar();
 
-	WarType_t		getWarType() const				{ return WAR_RACE; }
-	string 			getWarType2DBString() const		{ return "RACE"; }
-	string			getWarName() const ; 
+    WarType_t getWarType() const {
+        return WAR_RACE;
+    }
+    string getWarType2DBString() const {
+        return "RACE";
+    }
+    string getWarName() const;
 
 public:
-	//void			sendWarStartMessage() const ;
-	void			sendWarEndMessage() const ;
+    // void			sendWarStartMessage() const ;
+    void sendWarEndMessage() const;
 
-protected :
-	void 			executeStart() ;
-	void 			executeEnd() ;
+protected:
+    void executeStart();
+    void executeEnd();
 
-	void 			recordRaceWarStart() ;
-	void 			recordRaceWarEnd() ;
+    void recordRaceWarStart();
+    void recordRaceWarEnd();
 
-public :
-	void    makeWarScheduleInfo( WarScheduleInfo* pWSI ) const ;
-	void 	makeWarInfo(WarInfo* pWarInfo) const ;
+public:
+    void makeWarScheduleInfo(WarScheduleInfo* pWSI) const;
+    void makeWarInfo(WarInfo* pWarInfo) const;
 
-	virtual string	toString() const ;
+    virtual string toString() const;
 
 private:
 };

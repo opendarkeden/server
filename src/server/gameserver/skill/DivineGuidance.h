@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DivineGuidance.h 
+// Filename    : DivineGuidance.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DIVINE_GUIDANCE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class DivineGuidance;
 //////////////////////////////////////////////////////////////////////////////
 
-class DivineGuidance: public SkillHandler 
-{
+class DivineGuidance : public SkillHandler {
 public:
-	DivineGuidance() throw() {}
-	~DivineGuidance() throw() {}
+    DivineGuidance() throw() {}
+    ~DivineGuidance() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "DivineGuidance"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DIVINE_GUIDANCE; }
+    string getSkillHandlerName() const throw() {
+        return "DivineGuidance";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DIVINE_GUIDANCE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

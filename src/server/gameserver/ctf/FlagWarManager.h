@@ -5,16 +5,16 @@
 
 class FlagManager;
 
-class FlagWarManager
-{
+class FlagWarManager {
 public:
-	FlagWarManager() { m_FlagManagers.clear(); }
-	~FlagWarManager();
-
+    FlagWarManager() {
+        m_FlagManagers.clear();
+    }
+    ~FlagWarManager();
 
 
 private:
-	vector<FlagManager*>	m_FlagManagers;
+    vector<FlagManager*> m_FlagManagers;
 };
 
 #endif

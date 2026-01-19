@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MentalSword.h 
+// Filename    : MentalSword.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_MENTAL_SWORD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class MentalSword;
 //////////////////////////////////////////////////////////////////////////////
 
-class MentalSword : public SkillHandler 
-{
+class MentalSword : public SkillHandler {
 public:
-	MentalSword() throw() {}
-	~MentalSword() throw() {}
-	
+    MentalSword() throw() {}
+    ~MentalSword() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MentalSword"; }
-	SkillType_t getSkillType() const throw() { return SKILL_MENTAL_SWORD; }
+    string getSkillHandlerName() const throw() {
+        return "MentalSword";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_MENTAL_SWORD;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

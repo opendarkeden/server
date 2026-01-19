@@ -9,28 +9,28 @@
 #include "GCChangeDarkLight.h"
 
 #ifdef __GAME_CLIENT__
-	#include "ClientPlayer.h"
+#include "ClientPlayer.h"
 #endif
 
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-void GCChangeDarkLightHandler::execute (GCChangeDarkLight * pPacket , Player * pPlayer )
-	 
+void GCChangeDarkLightHandler::execute(GCChangeDarkLight* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_CLIENT__
 
-	#if __LINUX__
+#if __LINUX__
 
-		//cout << pPacket->toString() << endl;
+    // cout << pPacket->toString() << endl;
 
-	#elif __WINDOW__
-
-	#endif
+#elif __WINDOW__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+#endif
+
+        __END_DEBUG_EX __END_CATCH
 }

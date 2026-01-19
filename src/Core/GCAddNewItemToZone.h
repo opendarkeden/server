@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddNewItemToZone.h 
+//
+// Filename    : GCAddNewItemToZone.h
 // Written By  : elca
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ADD_NEW_ITEM_TO_ZONE_H__
 #define __GC_ADD_NEW_ITEM_TO_ZONE_H__
 
 // include files
+#include "GCAddItemToZone.h"
 #include "Packet.h"
 #include "PacketFactory.h"
 #include "SubItemInfo.h"
-#include "GCAddItemToZone.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -23,24 +23,25 @@
 ////////////////////////////////////////////////////////////////////
 
 class GCAddNewItemToZone : public GCAddItemToZone {
+public:
+    GCAddNewItemToZone();
+    ~GCAddNewItemToZone();
 
-public :
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	GCAddNewItemToZone() ;
-	~GCAddNewItemToZone() ;
-	
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_ADD_NEW_ITEM_TO_ZONE;
+    }
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_ADD_NEW_ITEM_TO_ZONE; }
-	
-	// get packet's name
-	string getPacketName() const  { return "GCAddNewItemToZone"; }
+    // get packet's name
+    string getPacketName() const {
+        return "GCAddNewItemToZone";
+    }
 
-	// get packet's debug string
-	string toString() const ;
-	
+    // get packet's debug string
+    string toString() const;
 };
 
 
@@ -53,23 +54,29 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCAddNewItemToZoneFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCAddNewItemToZone();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCAddNewItemToZone(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCAddNewItemToZone";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCAddNewItemToZone"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_NEW_ITEM_TO_ZONE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_ADD_NEW_ITEM_TO_ZONE;
+    }
 
-	// get packet's body size
-	// *OPTIMIZATION HINT*
-	// const static GCAddNewItemToZonePacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  { return szObjectID + szCoord + szCoord + szBYTE + szItemType + szBYTE + 255 + szDurability + szItemNum + szBYTE +(szObjectID + szBYTE + szItemType + szItemNum + szSlotID)* 12; }
-
+    // get packet's body size
+    // *OPTIMIZATION HINT*
+    // const static GCAddNewItemToZonePacketSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szCoord + szCoord + szBYTE + szItemType + szBYTE + 255 + szDurability + szItemNum + szBYTE +
+               (szObjectID + szBYTE + szItemType + szItemNum + szSlotID) * 12;
+    }
 };
 
 
@@ -80,12 +87,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCAddNewItemToZoneHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCAddNewItemToZone* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCAddNewItemToZone* pPacket, Player* pPlayer);
 };
 
 #endif

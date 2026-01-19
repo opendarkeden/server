@@ -9,230 +9,214 @@
 // include files
 #include "GameWorldInfoManager.h"
 
-#include "database/DatabaseManager.h"
 #include "database/Connection.h"
-#include "database/Statement.h"
+#include "database/DatabaseManager.h"
 #include "database/Result.h"
+#include "database/Statement.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-GameWorldInfoManager::GameWorldInfoManager () 
-	
-{
-}
-	
+GameWorldInfoManager::GameWorldInfoManager()
+
+{}
+
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-GameWorldInfoManager::~GameWorldInfoManager () 
-	
-{
-	// hashmap 안의 각 pair 의 second, 즉 GameWorldInfo 객체만을 삭제하고
-	// pair 자체는 그대로 둔다. (GameWorldInfo가 힙에 생성되어 있다는 것에
-	// 유의하라. 즉 필살삭제를 해야 한다. 하긴, GSIM이 destruct 된다는 것은
-	// 로그인 서버가 셧다운된다는 것을 의미하니깐.. - -; )
-	for ( HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.begin() ; 
-		  itr != m_GameWorldInfos.end() ; 
-		  itr ++ ) {
-		delete itr->second;
-		itr->second = NULL;
-	}
+GameWorldInfoManager::~GameWorldInfoManager()
 
-	// 이제 해쉬맵안에 있는 모든 pair 들을 삭제한다.
-	m_GameWorldInfos.clear();
+{
+    // hashmap 안의 각 pair 의 second, 즉 GameWorldInfo 객체만을 삭제하고
+    // pair 자체는 그대로 둔다. (GameWorldInfo가 힙에 생성되어 있다는 것에
+    // 유의하라. 즉 필살삭제를 해야 한다. 하긴, GSIM이 destruct 된다는 것은
+    // 로그인 서버가 셧다운된다는 것을 의미하니깐.. - -; )
+    for (HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.begin(); itr != m_GameWorldInfos.end(); itr++) {
+        delete itr->second;
+        itr->second = NULL;
+    }
+
+    // 이제 해쉬맵안에 있는 모든 pair 들을 삭제한다.
+    m_GameWorldInfos.clear();
 }
-	
+
 
 //----------------------------------------------------------------------
 // initialize GSIM
 //----------------------------------------------------------------------
-void GameWorldInfoManager::init ()
-	
+void GameWorldInfoManager::init()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// just load data from GameWorldInfo table
-	load();
+    // just load data from GameWorldInfo table
+    load();
 
-	// just print to cout
-	cout << toString() << endl;
+    // just print to cout
+    cout << toString() << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 // load data from database
 //----------------------------------------------------------------------
-void GameWorldInfoManager::load ()
-	
+void GameWorldInfoManager::load()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// clear GameWorldInfos
-	clear();
+    // clear GameWorldInfos
+    clear();
 
-	Statement * pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	try {
+    try {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult = pStmt->executeQuery("SELECT ID, Name, Stat FROM WorldInfo");
 
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result * pResult = pStmt->executeQuery( "SELECT ID, Name, Stat FROM WorldInfo" );
+        cout << "Loading GameWorldInfoManager...." << endl;
 
-		cout << "Loading GameWorldInfoManager...." << endl;
+        while (pResult->next()) {
+            // cout << "TICK" << endl;
+            GameWorldInfo* pGameWorldInfo = new GameWorldInfo();
+            pGameWorldInfo->setID(pResult->getInt(1));
+            pGameWorldInfo->setName(pResult->getString(2));
+            pGameWorldInfo->setStatus((WorldStatus)pResult->getInt(3));
+            addGameWorldInfo(pGameWorldInfo);
+        }
+        cout << "End GameWorldInfoManager Load" << endl;
 
-		while ( pResult->next() ) {
-			//cout << "TICK" << endl;
-			GameWorldInfo * pGameWorldInfo = new GameWorldInfo();
-			pGameWorldInfo->setID( pResult->getInt(1) );
-			pGameWorldInfo->setName( pResult->getString(2) );
-			pGameWorldInfo->setStatus( (WorldStatus)pResult->getInt(3) );
-			addGameWorldInfo( pGameWorldInfo );
-		}
-		cout << "End GameWorldInfoManager Load"<< endl;
+        // 필살 삭제!
+        SAFE_DELETE(pStmt);
 
-		// 필살 삭제!
-		SAFE_DELETE( pStmt );
+    } catch (SQLQueryException& sqe) {
+        // 필살 삭제!
+        SAFE_DELETE(pStmt);
 
-	} catch ( SQLQueryException & sqe ) {
+        throw Error(sqe.toString());
 
-		// 필살 삭제!
-		SAFE_DELETE( pStmt );
+    } catch (Throwable& t) {
+        SAFE_DELETE(pStmt);
+        cout << t.toString() << endl;
+    }
 
-		throw Error(sqe.toString());
-
-	} catch ( Throwable & t ) {
-		SAFE_DELETE( pStmt );
-		cout << t.toString() << endl;
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
 //----------------------------------------------------------------------
-// clear info 
+// clear info
 //----------------------------------------------------------------------
 void GameWorldInfoManager::clear()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.begin();
-	for ( ; itr != m_GameWorldInfos.end(); itr++ )
-	{
-		GameWorldInfo* pGameWorldInfo = itr->second;
-		SAFE_DELETE( pGameWorldInfo );
-	}
+    HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.begin();
+    for (; itr != m_GameWorldInfos.end(); itr++) {
+        GameWorldInfo* pGameWorldInfo = itr->second;
+        SAFE_DELETE(pGameWorldInfo);
+    }
 
-	m_GameWorldInfos.clear();
+    m_GameWorldInfos.clear();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
-// add info 
+// add info
 //----------------------------------------------------------------------
-void GameWorldInfoManager::addGameWorldInfo ( GameWorldInfo * pGameWorldInfo ) 
-{
-	__BEGIN_TRY
+void GameWorldInfoManager::addGameWorldInfo(GameWorldInfo* pGameWorldInfo) {
+    __BEGIN_TRY
 
-	cout << pGameWorldInfo->toString() << endl;
-	cout << "Size : " << m_GameWorldInfos.size() << endl;
+    cout << pGameWorldInfo->toString() << endl;
+    cout << "Size : " << m_GameWorldInfos.size() << endl;
 
-	HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.find( pGameWorldInfo->getID() );
-	
-	if ( itr != m_GameWorldInfos.end() )
-		throw DuplicatedException("duplicated game-server nickname");
+    HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.find(pGameWorldInfo->getID());
 
-	m_GameWorldInfos[ pGameWorldInfo->getID() ] = pGameWorldInfo;
+    if (itr != m_GameWorldInfos.end())
+        throw DuplicatedException("duplicated game-server nickname");
 
-	__END_CATCH
+    m_GameWorldInfos[pGameWorldInfo->getID()] = pGameWorldInfo;
+
+    __END_CATCH
 }
-	
+
 //----------------------------------------------------------------------
 // delete info
 //----------------------------------------------------------------------
-void GameWorldInfoManager::deleteGameWorldInfo ( const WorldID_t ID ) 
-{
-	__BEGIN_TRY
-		
-	HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.find( ID );
-	
-	if ( itr != m_GameWorldInfos.end() ) {
+void GameWorldInfoManager::deleteGameWorldInfo(const WorldID_t ID) {
+    __BEGIN_TRY
 
-		// GameWorldInfo 를 삭제한다.
-		delete itr->second;
+    HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.find(ID);
 
-		// pair를 삭제한다.
-		m_GameWorldInfos.erase( itr );
+    if (itr != m_GameWorldInfos.end()) {
+        // GameWorldInfo 를 삭제한다.
+        delete itr->second;
 
-	} else {
+        // pair를 삭제한다.
+        m_GameWorldInfos.erase(itr);
 
-		// 그런 게임서버인포 객체를 찾을 수 없을 때
-		throw NoSuchElementException();
+    } else {
+        // 그런 게임서버인포 객체를 찾을 수 없을 때
+        throw NoSuchElementException();
+    }
 
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
-	
+
 //----------------------------------------------------------------------
 // get Worldinfo by WorldID
 //----------------------------------------------------------------------
-GameWorldInfo * GameWorldInfoManager::getGameWorldInfo ( const WorldID_t ID ) const
-{
-	__BEGIN_TRY
-		
-	GameWorldInfo * pGameWorldInfo = NULL;
+GameWorldInfo* GameWorldInfoManager::getGameWorldInfo(const WorldID_t ID) const {
+    __BEGIN_TRY
 
-	HashMapGameWorldInfo::const_iterator itr = m_GameWorldInfos.find( ID );
-	
-	if ( itr != m_GameWorldInfos.end() ) {
-		pGameWorldInfo = itr->second;
-	} else {
-		// 그런 게임서버인포 객체를 찾을 수 없었을 때
-		throw NoSuchElementException();
-	}
+    GameWorldInfo* pGameWorldInfo = NULL;
 
-	return pGameWorldInfo;
+    HashMapGameWorldInfo::const_iterator itr = m_GameWorldInfos.find(ID);
 
-	__END_CATCH
+    if (itr != m_GameWorldInfos.end()) {
+        pGameWorldInfo = itr->second;
+    } else {
+        // 그런 게임서버인포 객체를 찾을 수 없었을 때
+        throw NoSuchElementException();
+    }
+
+    return pGameWorldInfo;
+
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string GameWorldInfoManager::toString () const
-	
+string GameWorldInfoManager::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GameWorldInfoManager(\n";
+    msg << "GameWorldInfoManager(\n";
 
-	if ( m_GameWorldInfos.empty() ) {
+    if (m_GameWorldInfos.empty()) {
+        msg << "EMPTY";
 
-		msg << "EMPTY";
+    } else {
+        //--------------------------------------------------
+        // *OPTIMIZATION*
+        //
+        // for_each()를 사용할 것
+        //--------------------------------------------------
+        for (HashMapGameWorldInfo::const_iterator itr = m_GameWorldInfos.begin(); itr != m_GameWorldInfos.end(); itr++)
+            msg << itr->second->toString() << '\n';
+    }
 
-	} else {
+    msg << ")";
 
-		//--------------------------------------------------
-		// *OPTIMIZATION*
-		//
-		// for_each()를 사용할 것
-		//--------------------------------------------------
-		for ( HashMapGameWorldInfo::const_iterator itr = m_GameWorldInfos.begin() ; 
-			  itr != m_GameWorldInfos.end() ; 
-			  itr ++ )
-			msg << itr->second->toString() << '\n';
-	}
+    return msg.toString();
 
-	msg << ")";
-
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }
 
 // global variable definition
-GameWorldInfoManager * g_pGameWorldInfoManager = NULL;
+GameWorldInfoManager* g_pGameWorldInfoManager = NULL;

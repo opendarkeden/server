@@ -18,45 +18,62 @@
 //////////////////////////////////////////////////////////////////////////////
 // Query Type
 //////////////////////////////////////////////////////////////////////////////
-enum QueryType
-{
-	QUERY_INSERT,   // INSERT QUERY
-	QUERY_UPDATE    // UPDATE QUERY
+enum QueryType {
+    QUERY_INSERT, // INSERT QUERY
+    QUERY_UPDATE  // UPDATE QUERY
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class Query
 //////////////////////////////////////////////////////////////////////////////
 
-class Query
-{
+class Query {
 public:
-	// Query Object ID 
-	QueryID_t getQueryID() const throw() { return m_QueryID; }
-	void setQueryID(QueryID_t QueryID) throw() { m_QueryID := QueryID; }
+    // Query Object ID
+    QueryID_t getQueryID() const throw() {
+        return m_QueryID;
+    }
+    void setQueryID(QueryID_t QueryID) throw() {
+    m_QueryID:
+        = QueryID;
+    }
 
-	// Query Object Type
-	QueryType_t getQueryType() const throw() { return m_QueryType; }
-	void setQueryType(QueryType QueryType) throw() { m_QueryType := QueryType; }
+    // Query Object Type
+    QueryType_t getQueryType() const throw() {
+        return m_QueryType;
+    }
+    void setQueryType(QueryType QueryType) throw() {
+    m_QueryType:
+        = QueryType;
+    }
 
-	// Query Owner
-	string getQueryOwnerID() const throw() { return m_QueryOwnerID; }
-	void setQueryOwnerID(const string& ownerID) { m_QueryOwnerID := ownerID; }
+    // Query Owner
+    string getQueryOwnerID() const throw() {
+        return m_QueryOwnerID;
+    }
+    void setQueryOwnerID(const string& ownerID) {
+    m_QueryOwnerID:
+        = ownerID;
+    }
 
-	// Query Relate
-	string getQueryRelateID() const throw() { return m_QueryRelateID; }
-	void setQueryRelateID(const string& relateID) { m_QueryRelateID := relateID; }
+    // Query Relate
+    string getQueryRelateID() const throw() {
+        return m_QueryRelateID;
+    }
+    void setQueryRelateID(const string& relateID) {
+    m_QueryRelateID:
+        = relateID;
+    }
 
-	// Query to String
-	string toString() const throw();
+    // Query to String
+    string toString() const throw();
 
 private:
-	QueryID_t  m_QueryID;
-	QueryType  m_QueryType;
+    QueryID_t m_QueryID;
+    QueryType m_QueryType;
 
-    string     m_QueryOwnerID;
-	string     m_QueryRelateID;
-	
+    string m_QueryOwnerID;
+    string m_QueryRelateID;
 };
 
 #endif

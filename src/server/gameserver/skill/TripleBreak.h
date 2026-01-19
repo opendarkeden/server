@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TripleBreak.h 
+// Filename    : TripleBreak.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TRIPLE_BREAK_HANDLER_H__
@@ -13,19 +13,22 @@
 // class TripleBreak;
 //////////////////////////////////////////////////////////////////////////////
 
-class TripleBreak : public SkillHandler 
-{
+class TripleBreak : public SkillHandler {
 public:
-	TripleBreak() throw() {}
-	~TripleBreak() throw() {}
-	
+    TripleBreak() throw() {}
+    ~TripleBreak() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "TripleBreak"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TRIPLE_BREAK; }
+    string getSkillHandlerName() const throw() {
+        return "TripleBreak";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TRIPLE_BREAK;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

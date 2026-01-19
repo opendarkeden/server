@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCRealWearingInfoHandler::execute (GCRealWearingInfo * pGCRealWearingInfo , Player * pPlayer )
-	 
+void GCRealWearingInfoHandler::execute(GCRealWearingInfo* pGCRealWearingInfo, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCRealWearingInfo->toString() << endl;
-	
+    // cout << pGCRealWearingInfo->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCRealWearingInfo->toString().c_str());
+        AfxMessageBox(pGCRealWearingInfo->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

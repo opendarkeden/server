@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// CondVar.h 
-// 
+//
+// CondVar.h
+//
 // by Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 //
 // represents Conditional Variable ( Thread Synchronization Primitive )
@@ -29,53 +29,50 @@
 //////////////////////////////////////////////////////////////////////
 
 class CondVar {
+    //////////////////////////////////////////////////
+    // constructor/destructor
+    //////////////////////////////////////////////////
+public:
+    // constructor
+    CondVar(CondVarAttr* attr = NULL);
 
-//////////////////////////////////////////////////
-// constructor/destructor
-//////////////////////////////////////////////////
-public :
-	
-	// constructor
-	CondVar ( CondVarAttr * attr = NULL ) ;
-	
-	// destructor
-	virtual ~CondVar () ;
-
-	
-//////////////////////////////////////////////////
-// methods
-//////////////////////////////////////////////////
-public :
-	
-	// wake up a waiting thread
-	void signal () ;
-	
-	// waiting until somebody wake up me
-	void wait ( Mutex & mutex ) ;
-	
-	//
-	// waiting until somebody wake up me or specified time elapsed
-	//
-	// *NOTES* 
-	// CondVarException means Timeout
-	//
-	void timedwait ( Mutex & mutex , const struct timespec * timeout ) ;
-	
-	// wake up all waiting threads
-	void broadcast () ;
-	
-	// get raw conditional-variable object
-	pthread_cond_t * getCondVar ()  { return &m_Cond; }
+    // destructor
+    virtual ~CondVar();
 
 
-//////////////////////////////////////////////////
-// attributes
-//////////////////////////////////////////////////
-private :
-	
-	// raw conditional-variable object
-	pthread_cond_t m_Cond;
-	
+    //////////////////////////////////////////////////
+    // methods
+    //////////////////////////////////////////////////
+public:
+    // wake up a waiting thread
+    void signal();
+
+    // waiting until somebody wake up me
+    void wait(Mutex& mutex);
+
+    //
+    // waiting until somebody wake up me or specified time elapsed
+    //
+    // *NOTES*
+    // CondVarException means Timeout
+    //
+    void timedwait(Mutex& mutex, const struct timespec* timeout);
+
+    // wake up all waiting threads
+    void broadcast();
+
+    // get raw conditional-variable object
+    pthread_cond_t* getCondVar() {
+        return &m_Cond;
+    }
+
+
+    //////////////////////////////////////////////////
+    // attributes
+    //////////////////////////////////////////////////
+private:
+    // raw conditional-variable object
+    pthread_cond_t m_Cond;
 };
 
 #endif

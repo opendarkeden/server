@@ -5,95 +5,90 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectSleep.h"
+
+#include "DB.h"
+#include "GCRemoveEffect.h"
+#include "Monster.h"
+#include "SkillHandler.h"
 #include "Slayer.h"
 #include "Vampire.h"
-#include "Monster.h"
-#include "DB.h"
-#include "SkillHandler.h"
 
-#include "GCRemoveEffect.h"
+EffectSleep::EffectSleep(Creature* pCreature)
 
-EffectSleep::EffectSleep( Creature* pCreature )
-	
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget( pCreature );
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectSleep::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect( pCreature );
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    affect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectSleep::affect( Creature* pCreature )
-	
-{
-	__BEGIN_TRY
+void EffectSleep::affect(Creature* pCreature)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
-void EffectSleep::unaffect( Creature* pCreature )
-	
+void EffectSleep::unaffect(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectSleep " << "unaffect BEGIN" << endl;
+    // cout << "EffectSleep " << "unaffect BEGIN" << endl;
 
-	Assert( pCreature != NULL );
+    Assert(pCreature != NULL);
 
-	pCreature->removeFlag( Effect::EFFECT_CLASS_SLEEP );
+    pCreature->removeFlag(Effect::EFFECT_CLASS_SLEEP);
 
-	Zone* pZone = pCreature->getZone();
-	Assert( pZone != NULL );
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
-	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_SLEEP );
-	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature );
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SLEEP);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature);
 
-	if ( pCreature->isPC() )
-	{
-		Player* pPlayer = pCreature->getPlayer();
-		Assert( pPlayer != NULL );
+    if (pCreature->isPC()) {
+        Player* pPlayer = pCreature->getPlayer();
+        Assert(pPlayer != NULL);
 
-		pPlayer->sendPacket( &gcRemoveEffect );
-	}
+        pPlayer->sendPacket(&gcRemoveEffect);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectSleep::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect( pCreature );
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EffectSleep::toString() const
-	throw()
-{
-	__BEGIN_TRY
+string EffectSleep::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectSleep("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectSleep("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

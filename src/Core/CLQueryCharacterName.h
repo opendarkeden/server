@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : CLQueryCharacterName.h 
+//
+// Filename    : CLQueryCharacterName.h
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __CL_QUERY_CHARACTER_NAME_H__
@@ -23,45 +23,48 @@
 //--------------------------------------------------------------------------------
 
 class CLQueryCharacterName : public Packet {
-
 public:
-	CLQueryCharacterName() {};
+    CLQueryCharacterName() {};
     virtual ~CLQueryCharacterName() {};
-	// Initialize packet by reading data from the incoming stream.
-    void read(SocketInputStream & iStream) ;
-		    
-	// Serialize packet data to the outgoing stream.
-    void write(SocketOutputStream & oStream) const ;
+    // Initialize packet by reading data from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize packet data to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CL_QUERY_CHARACTER_NAME; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szBYTE + m_CharacterName.size(); 
-	}
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "CLQueryCharacterName"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CL_QUERY_CHARACTER_NAME;
+    }
+
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_CharacterName.size();
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "CLQueryCharacterName";
+    }
+
+    // get packet's debug string
+    string toString() const;
 
 public:
+    // get/set player's id
+    string getCharacterName() const {
+        return m_CharacterName;
+    }
+    void setCharacterName(const string& playerID) {
+        m_CharacterName = playerID;
+    }
 
-	// get/set player's id
-	string getCharacterName() const  { return m_CharacterName; }
-	void setCharacterName(const string & playerID)  { m_CharacterName = playerID; }
-
-private :
-
-	// Player ID (character name)
-	string m_CharacterName;
-
+private:
+    // Player ID (character name)
+    string m_CharacterName;
 };
 
 
@@ -74,24 +77,26 @@ private :
 //--------------------------------------------------------------------------------
 
 class CLQueryCharacterNameFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CLQueryCharacterName(); }
+    // create packet
+    Packet* createPacket() {
+        return new CLQueryCharacterName();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CLQueryCharacterName"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CL_QUERY_CHARACTER_NAME; }
+    // get packet name
+    string getPacketName() const {
+        return "CLQueryCharacterName";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  
-	{ 
-		return szBYTE + 20; 
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CL_QUERY_CHARACTER_NAME;
+    }
 
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 20;
+    }
 };
 
 
@@ -102,12 +107,9 @@ public:
 //--------------------------------------------------------------------------------
 
 class CLQueryCharacterNameHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CLQueryCharacterName* pPacket, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CLQueryCharacterName* pPacket, Player* pPlayer);
 };
 
 #endif

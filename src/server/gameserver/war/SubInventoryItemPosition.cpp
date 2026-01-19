@@ -2,124 +2,124 @@
 // SubInventoryItemPosition 클래스 구현
 ///////////////////////////////////////////////////////////////////
 
-#include "Assert1.h"
-
-#include "Item.h"
-#include "PlayerCreature.h"
-#include "Player.h"
-#include "PCFinder.h"
-#include "Inventory.h"
-#include "Zone.h"
-#include "ZoneGroup.h"
-#include "Effect.h"
-#include "item/SubInventory.h"
-
-#include "Utility.h"
-#include "CreatureUtil.h"
-#include "RelicUtil.h"
-
 #include "SubInventoryItemPosition.h"
 
-#include "GCDeleteInventoryItem.h"
+#include "Assert1.h"
+#include "CreatureUtil.h"
+#include "Effect.h"
 #include "GCAddEffect.h"
+#include "GCDeleteInventoryItem.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "PCFinder.h"
+#include "Player.h"
+#include "PlayerCreature.h"
+#include "RelicUtil.h"
+#include "Utility.h"
+#include "Zone.h"
+#include "ZoneGroup.h"
+#include "item/SubInventory.h"
 
-Item* SubInventoryItemPosition::popItem(bool bLock )
-	
+Item* SubInventoryItemPosition::popItem(bool bLock)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (bLock ) return popItem_UNLOCKED();
-	return popItem_LOCKED();
+    if (bLock)
+        return popItem_UNLOCKED();
+    return popItem_LOCKED();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 Item* SubInventoryItemPosition::popItem_LOCKED()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pTargetCreature = findCreature();
-	Zone* pZone = getZoneByCreature(pTargetCreature);
-	if (pZone == NULL ) return NULL;
+    Creature* pTargetCreature = findCreature();
+    Zone* pZone = getZoneByCreature(pTargetCreature);
+    if (pZone == NULL)
+        return NULL;
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
+    Assert(pPC != NULL);
 
-	return popItem_CORE(pPC);
+    return popItem_CORE(pPC);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 Item* SubInventoryItemPosition::popItem_UNLOCKED()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pTargetCreature = findCreature();
+    Creature* pTargetCreature = findCreature();
 
-	if (pTargetCreature==NULL
-		|| !pTargetCreature->isPC())
-		return NULL;
+    if (pTargetCreature == NULL || !pTargetCreature->isPC())
+        return NULL;
 
-	Zone* pZone = getZoneByCreature(pTargetCreature);
-	if (pZone == NULL ) return NULL;
+    Zone* pZone = getZoneByCreature(pTargetCreature);
+    if (pZone == NULL)
+        return NULL;
 
-	Item* pItem = NULL;
+    Item* pItem = NULL;
 
-	__ENTER_CRITICAL_SECTION((*pZone) )
+    __ENTER_CRITICAL_SECTION((*pZone))
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
+    Assert(pPC != NULL);
 
-	pItem = popItem_CORE(pPC);
+    pItem = popItem_CORE(pPC);
 
-	/*
-	if (pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE )
-	{
-		GCAddEffect gcAddEffect;
-		gcAddEffect.setEffectID(Effect::EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME);
-		gcAddEffect.setObjectID(pPC->getObjectID());
+    /*
+    if (pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE )
+    {
+        GCAddEffect gcAddEffect;
+        gcAddEffect.setEffectID(Effect::EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME);
+        gcAddEffect.setObjectID(pPC->getObjectID());
 
-		pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcAddEffect);
-	}
-	*/
+        pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcAddEffect);
+    }
+    */
 
     __LEAVE_CRITICAL_SECTION((*pZone))
 
-	return pItem;
+    return pItem;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Zone* SubInventoryItemPosition::getZone() 
-	
+Zone* SubInventoryItemPosition::getZone()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_bSetZone ) return m_pZone;
-	
-	Creature* pCreature = findCreature();
-	if (pCreature == NULL ) return NULL;
+    if (m_bSetZone)
+        return m_pZone;
 
-	return getZoneByCreature(pCreature);
-	
-	__END_CATCH
+    Creature* pCreature = findCreature();
+    if (pCreature == NULL)
+        return NULL;
+
+    return getZoneByCreature(pCreature);
+
+    __END_CATCH
 }
 
 Creature* SubInventoryItemPosition::findCreature()
-	
-{
-	__BEGIN_TRY
 
-	Creature* pTargetCreature = NULL;
+{
+    __BEGIN_TRY
+
+    Creature* pTargetCreature = NULL;
 
     __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
     pTargetCreature = g_pPCFinder->getCreature_LOCKED(m_OwnerName);
-    if (pTargetCreature==NULL)
-    {
-		filelog("ItemError.log", "SubInventoryItemPosition:getItem() : 해당하는 Creature가 없습니다.");
+    if (pTargetCreature == NULL) {
+        filelog("ItemError.log", "SubInventoryItemPosition:getItem() : 해당하는 Creature가 없습니다.");
 
         g_pPCFinder->unlock();
         return NULL;
@@ -127,103 +127,98 @@ Creature* SubInventoryItemPosition::findCreature()
 
     __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
-	return pTargetCreature;
+    return pTargetCreature;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Zone* SubInventoryItemPosition::getZoneByCreature(Creature* pCreature )
-	
+Zone* SubInventoryItemPosition::getZoneByCreature(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_bSetZone ) return m_pZone;
+    if (m_bSetZone)
+        return m_pZone;
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	m_bSetZone = true;
-	m_pZone = pZone;
+    m_bSetZone = true;
+    m_pZone = pZone;
 
-	return pZone;
+    return pZone;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Item* SubInventoryItemPosition::popItem_CORE(PlayerCreature* pPC )
-	
+Item* SubInventoryItemPosition::popItem_CORE(PlayerCreature* pPC)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Item* pSubInventoryItem = pPC->findItemIID(m_SubInventoryID);
-	if (pSubInventoryItem == NULL )
-	{
-		filelog("ItemError.log", "SubInventoryItemPosition:getItem() : 해당하는 위치에 SubInventory 아이템이 없습니다.");
-		return NULL;
-	}
+    Item* pSubInventoryItem = pPC->findItemIID(m_SubInventoryID);
+    if (pSubInventoryItem == NULL) {
+        filelog("ItemError.log",
+                "SubInventoryItemPosition:getItem() : 해당하는 위치에 SubInventory 아이템이 없습니다.");
+        return NULL;
+    }
 
-	SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pSubInventoryItem);
-	if (pSubInventoryItem == NULL )
-	{
-		filelog("ItemError.log", "SubInventoryItemPosition:getItem() : 해당하는 위치의 아이템이 SubInventory 가 아닙니다..");
-		return NULL;
-	}
+    SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pSubInventoryItem);
+    if (pSubInventoryItem == NULL) {
+        filelog("ItemError.log",
+                "SubInventoryItemPosition:getItem() : 해당하는 위치의 아이템이 SubInventory 가 아닙니다..");
+        return NULL;
+    }
 
-	Inventory* pInventory = pSubInventory->getInventory();
-	Assert(pInventory != NULL);
+    Inventory* pInventory = pSubInventory->getInventory();
+    Assert(pInventory != NULL);
 
-	if(!pInventory->hasItem(m_InvenX, m_InvenY ) )
-	{
-		filelog("ItemError.log", "SubInventoryItemPosition:getItem() : 해당하는 위치에 아이템이 없습니다.");
-		return NULL;
-	}
+    if (!pInventory->hasItem(m_InvenX, m_InvenY)) {
+        filelog("ItemError.log", "SubInventoryItemPosition:getItem() : 해당하는 위치에 아이템이 없습니다.");
+        return NULL;
+    }
 
-	Item* pItem = pInventory->getItem(m_InvenX, m_InvenY);
-	Assert(pItem!=NULL);
+    Item* pItem = pInventory->getItem(m_InvenX, m_InvenY);
+    Assert(pItem != NULL);
 
-	pInventory->deleteItem(pItem->getObjectID());
+    pInventory->deleteItem(pItem->getObjectID());
 
-	GCDeleteInventoryItem gcDeleteInventoryItem;
-	gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
+    GCDeleteInventoryItem gcDeleteInventoryItem;
+    gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
 
-	pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+    pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE
-		|| pItem->getItemClass() == Item::ITEM_CLASS_CASTLE_SYMBOL )
-	{
-		deleteRelicEffect(pPC, pItem);
-		sendBloodBibleEffect(pPC, Effect::EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME);
-	}
-	if (pItem->isFlagItem() )
-	{
-		Effect* pFlagEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
-		if (pFlagEffect != NULL ) pFlagEffect->setDeadline(0);
-	}
-	if (pItem->isSweeper() )
-	{
-		Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_SWEEPER);
-		if (pEffect != NULL )
-		{
-			pEffect->setDeadline(0);
-		}	
-	}
-	if (pItem->getItemClass() == Item::ITEM_CLASS_WAR_ITEM )
-	{
-		deleteRelicEffect(pPC, pItem);
-	}
+    if (pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE ||
+        pItem->getItemClass() == Item::ITEM_CLASS_CASTLE_SYMBOL) {
+        deleteRelicEffect(pPC, pItem);
+        sendBloodBibleEffect(pPC, Effect::EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME);
+    }
+    if (pItem->isFlagItem()) {
+        Effect* pFlagEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
+        if (pFlagEffect != NULL)
+            pFlagEffect->setDeadline(0);
+    }
+    if (pItem->isSweeper()) {
+        Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_SWEEPER);
+        if (pEffect != NULL) {
+            pEffect->setDeadline(0);
+        }
+    }
+    if (pItem->getItemClass() == Item::ITEM_CLASS_WAR_ITEM) {
+        deleteRelicEffect(pPC, pItem);
+    }
 
-	return pItem;
+    return pItem;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string SubInventoryItemPosition::toString() const 
-	
+string SubInventoryItemPosition::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return "SubInventoryItemPosition";
+    return "SubInventoryItemPosition";
 
-	__END_CATCH
+    __END_CATCH
 }
-

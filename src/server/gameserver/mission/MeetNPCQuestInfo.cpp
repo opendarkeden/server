@@ -1,49 +1,41 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MeetNPCQuestInfo.cpp
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "MeetNPCQuestInfo.h"
-#include "MeetNPCQuestStatus.h"
-#include "DB.h"
+
 #include "Assert.h"
+#include "DB.h"
+#include "MeetNPCQuestStatus.h"
 #include "StringStream.h"
 
-MeetNPCQuestInfo::MeetNPCQuestInfo(QuestID_t questID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade, DWORD timeLimitSec, RewardClass_t rClass,
-									NPCID_t	npcID, NPCID_t npcID2)
-: QuestInfo( questID, race, maxGrade, minGrade, timeLimitSec, rClass, QUEST_CLASS_MEET_NPC )
-{
-	m_NPCID[0] = npcID;
-	m_NPCID[1] = npcID2;
+MeetNPCQuestInfo::MeetNPCQuestInfo(QuestID_t questID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade,
+                                   DWORD timeLimitSec, RewardClass_t rClass, NPCID_t npcID, NPCID_t npcID2)
+    : QuestInfo(questID, race, maxGrade, minGrade, timeLimitSec, rClass, QUEST_CLASS_MEET_NPC) {
+    m_NPCID[0] = npcID;
+    m_NPCID[1] = npcID2;
 }
 
-MeetNPCQuestInfo::~MeetNPCQuestInfo()
-{
+MeetNPCQuestInfo::~MeetNPCQuestInfo() {}
+
+string MeetNPCQuestInfo::toString() const {
+    StringStream msg;
+
+    msg << "MeetNPCQuestInfo(" << m_NPCID[0] << ", " << m_NPCID[1] << ") : " << "\n" << QuestInfo::toString().c_str();
+
+    return msg.toString();
 }
 
-string MeetNPCQuestInfo::toString () const 
-{
-	StringStream msg;
+MeetNPCQuestStatus* MeetNPCQuestInfo::makeQuestStatus(PlayerCreature* pPC) const {
+    __BEGIN_TRY
 
-	msg << "MeetNPCQuestInfo("
-		<< m_NPCID[0] << ", " << m_NPCID[1]
-		<< ") : " << "\n" << QuestInfo::toString().c_str();
+    MeetNPCQuestStatus* newQS = new MeetNPCQuestStatus(m_QuestID, VSDateTime::currentDateTime().addSecs(m_TimeLimitSec),
+                                                       m_NPCID[0], m_NPCID[1]);
 
-	return msg.toString();
+    Assert(newQS != NULL);
+
+    return newQS;
+
+    __END_CATCH
 }
-
-MeetNPCQuestStatus* MeetNPCQuestInfo::makeQuestStatus( PlayerCreature* pPC ) const 
-{
-	__BEGIN_TRY
-
-	MeetNPCQuestStatus* newQS = new MeetNPCQuestStatus(
-			m_QuestID, VSDateTime::currentDateTime().addSecs( m_TimeLimitSec ),
-			m_NPCID[0], m_NPCID[1] );
-
-	Assert( newQS != NULL );
-
-	return newQS;
-
-	__END_CATCH
-}
-

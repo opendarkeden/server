@@ -10,8 +10,8 @@
 #define __ZONE_GROUP_INFO_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //----------------------------------------------------------------------
 //
@@ -24,38 +24,39 @@
 //----------------------------------------------------------------------
 
 class ZoneGroupInfo {
+public:
+    // get/set zone group id
+    ZoneGroupID_t getZoneGroupID() const throw() {
+        return m_ZoneGroupID;
+    }
+    void setZoneGroupID(ZoneGroupID_t zoneGroupID) throw() {
+        m_ZoneGroupID = zoneGroupID;
+    }
 
-public :
+    // get/set game server's nick name
+    ServerID_t getServerID() const throw() {
+        return m_ServerID;
+    }
+    void setServerID(const ServerID_t ServerID) throw() {
+        m_ServerID = ServerID;
+    }
 
-	// get/set zone group id
-	ZoneGroupID_t getZoneGroupID () const throw () { return m_ZoneGroupID; }
-	void setZoneGroupID ( ZoneGroupID_t zoneGroupID ) throw () { m_ZoneGroupID = zoneGroupID; }
+    // get debug string
+    string toString() const throw() {
+        StringStream msg;
 
-	// get/set game server's nick name
-	ServerID_t getServerID () const throw () { return m_ServerID; }
-	void setServerID ( const ServerID_t ServerID ) throw () { m_ServerID = ServerID; }
+        msg << "ZoneGroupInfo("
+            << "ZoneGroupID:" << m_ZoneGroupID << ",ServerID:" << m_ServerID << ")";
 
-	// get debug string
-	string toString () const throw ()
-	{
-		StringStream msg;
+        return msg.toString();
+    }
 
-		msg << "ZoneGroupInfo("
-			<< "ZoneGroupID:" << m_ZoneGroupID 
-			<< ",ServerID:" << m_ServerID
-			<< ")";
+private:
+    // 존그룹 아이디
+    ZoneGroupID_t m_ZoneGroupID;
 
-		return msg.toString();
-	}
-
-private :
-
-	// 존그룹 아이디
-	ZoneGroupID_t m_ZoneGroupID;
-
-	// 게임 서버
-	ServerID_t m_ServerID;
-
+    // 게임 서버
+    ServerID_t m_ServerID;
 };
 
 #endif

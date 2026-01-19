@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCCannotAddHandler::execute (GCCannotAdd * pGCCannotAdd , Player * pPlayer )
-	 
+void GCCannotAddHandler::execute(GCCannotAdd* pGCCannotAdd, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCCannotAdd->toString() << endl;
-	
+    // cout << pGCCannotAdd->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCCannotAdd->toString().c_str());
+        AfxMessageBox(pGCCannotAdd->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

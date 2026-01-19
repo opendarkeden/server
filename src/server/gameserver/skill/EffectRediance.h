@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRediance.h
-// Written by  : 
+// Written by  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,31 +13,38 @@
 // class EffectRediance
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectRediance : public Effect 
-{
+class EffectRediance : public Effect {
 public:
-	EffectRediance(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REDIANCE; }
-
-	void affect()  {}
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const throw();
+    EffectRediance(Creature* pCreature);
 
 public:
-	int getDexBonus() throw() { return m_DexBonus;}
-	void setDexBonus(Attr_t DexBonus)  { m_DexBonus = DexBonus;}
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_REDIANCE;
+    }
 
-	bool canGiveExp() { return m_GiveExp=!m_GiveExp; }
+    void affect() {}
+    void affect(Creature* pCreature);
 
-private :
-	Attr_t m_DexBonus;
-	bool m_GiveExp;
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    int getDexBonus() throw() {
+        return m_DexBonus;
+    }
+    void setDexBonus(Attr_t DexBonus) {
+        m_DexBonus = DexBonus;
+    }
+
+    bool canGiveExp() {
+        return m_GiveExp = !m_GiveExp;
+    }
+
+private:
+    Attr_t m_DexBonus;
+    bool m_GiveExp;
 };
 
 #endif // __EFFECT_REDIANCE__

@@ -7,83 +7,72 @@
 #include "CGWithdrawPet.h"
 
 #ifdef __GAME_SERVER__
+#include <cstdio>
+
+#include "GCPetStashList.h"
+#include "GCPetStashVerify.h"
 #include "GamePlayer.h"
-#include "PlayerCreature.h"
 #include "Inventory.h"
 #include "PetItem.h"
-#include "GCPetStashVerify.h"
-#include "GCPetStashList.h"
-
-#include <cstdio>
+#include "PlayerCreature.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGWithdrawPetHandler::execute (CGWithdrawPet* pPacket , Player* pPlayer)
-	
+void CGWithdrawPetHandler::execute(CGWithdrawPet* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-	__BEGIN_DEBUG
+    __BEGIN_TRY __BEGIN_DEBUG_EX __BEGIN_DEBUG
 
 #ifdef __GAME_SERVER__
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+        GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	GCPetStashVerify gcPetStashVerify;
-	
-	if (pPacket->getIndex() >= MAX_PET_STASH )
-	{
-		gcPetStashVerify.setCode(PET_STASH_INVALID_INDEX);
-		pGamePlayer->sendPacket(&gcPetStashVerify);
-		return;
-	}
-	
-	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory !=NULL);
+    GCPetStashVerify gcPetStashVerify;
 
-	PetItem* pPetItem = dynamic_cast<PetItem*>(pPC->getPetStashItem(pPacket->getIndex()));
+    if (pPacket->getIndex() >= MAX_PET_STASH) {
+        gcPetStashVerify.setCode(PET_STASH_INVALID_INDEX);
+        pGamePlayer->sendPacket(&gcPetStashVerify);
+        return;
+    }
 
-	if (pPetItem == NULL )
-	{ 
-		gcPetStashVerify.setCode(PET_STASH_RACK_IS_EMPTY);
-		pGamePlayer->sendPacket(&gcPetStashVerify);
-	}
-	else if (pPetItem->getObjectID() != pPacket->getObjectID() )
-	{
-		gcPetStashVerify.setCode(PET_STASH_INVALID_OID);
-		pGamePlayer->sendPacket(&gcPetStashVerify);
-	}
-	else
-	{
-		TPOINT tp;
-		if (!pInventory->getEmptySlot(pPetItem, tp ) )
-		{
-			gcPetStashVerify.setCode(PET_STASH_NO_INVENTORY_SPACE);
-			pGamePlayer->sendPacket(&gcPetStashVerify);
-		}
-		else
-		{
-			pPC->addPetStashItem(pPacket->getIndex(), NULL);
-			pInventory->addItemEx(tp.x, tp.y, pPetItem);
+    Inventory* pInventory = pPC->getInventory();
+    Assert(pInventory != NULL);
 
-			char pField[80];
-			sprintf(pField, "Storage=%d, StorageID=0, X=%d, Y=%d ", STORAGE_INVENTORY, tp.x, tp.y);
-			pPetItem->tinysave(pField);
+    PetItem* pPetItem = dynamic_cast<PetItem*>(pPC->getPetStashItem(pPacket->getIndex()));
 
-			gcPetStashVerify.setCode(PET_STASH_OK);
-			pGamePlayer->sendPacket(&gcPetStashVerify);
+    if (pPetItem == NULL) {
+        gcPetStashVerify.setCode(PET_STASH_RACK_IS_EMPTY);
+        pGamePlayer->sendPacket(&gcPetStashVerify);
+    } else if (pPetItem->getObjectID() != pPacket->getObjectID()) {
+        gcPetStashVerify.setCode(PET_STASH_INVALID_OID);
+        pGamePlayer->sendPacket(&gcPetStashVerify);
+    } else {
+        TPOINT tp;
+        if (!pInventory->getEmptySlot(pPetItem, tp)) {
+            gcPetStashVerify.setCode(PET_STASH_NO_INVENTORY_SPACE);
+            pGamePlayer->sendPacket(&gcPetStashVerify);
+        } else {
+            pPC->addPetStashItem(pPacket->getIndex(), NULL);
+            pInventory->addItemEx(tp.x, tp.y, pPetItem);
 
-			pPetItem->getPetInfo()->setFeedTurn(1);
-		}
-	}
-	
-#endif	// __GAME_SERVER__
+            char pField[80];
+            sprintf(pField, "Storage=%d, StorageID=0, X=%d, Y=%d ", STORAGE_INVENTORY, tp.x, tp.y);
+            pPetItem->tinysave(pField);
 
-	__END_DEBUG
-	__END_DEBUG_EX __END_CATCH
+            gcPetStashVerify.setCode(PET_STASH_OK);
+            pGamePlayer->sendPacket(&gcPetStashVerify);
+
+            pPetItem->getPetInfo()->setFeedTurn(1);
+        }
+    }
+
+#endif // __GAME_SERVER__
+
+    __END_DEBUG
+    __END_DEBUG_EX __END_CATCH
 }
-

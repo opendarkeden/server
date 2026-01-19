@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : FierceFlame.h 
+// Filename    : FierceFlame.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_FIERCE_FLAME_HANDLER_H__
@@ -13,20 +13,24 @@
 // class FierceFlame;
 //////////////////////////////////////////////////////////////////////////////
 
-class FierceFlame: public SkillHandler 
-{
+class FierceFlame : public SkillHandler {
 public:
-	FierceFlame() throw() {}
-	~FierceFlame() throw() {}
-	
+    FierceFlame() throw() {}
+    ~FierceFlame() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "FierceFlame"; }
+    string getSkillHandlerName() const throw() {
+        return "FierceFlame";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_FIERCE_FLAME; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_FIERCE_FLAME;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

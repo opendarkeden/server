@@ -3,15 +3,7 @@
 
 #include "SystemTypes.h"
 
-enum PetType
-{
-	PET_NONE = 0,
-	PET_COMMON,
-	PET_PACKAGE,
-	PET_CENTAURO,
-	PET_STIRGE,
-	PET_PIXIE
-};
+enum PetType { PET_NONE = 0, PET_COMMON, PET_PACKAGE, PET_CENTAURO, PET_STIRGE, PET_PIXIE };
 typedef BYTE PetType_t;
 const uint szPetType = szBYTE;
 

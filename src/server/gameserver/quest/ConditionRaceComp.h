@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionRaceComp.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,30 +15,37 @@
 // class ConditionRaceComp;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionRaceComp : public Condition 
-{
+class ConditionRaceComp : public Condition {
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_RACE_COMP; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_RACE_COMP;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 private:
-	Creature::CreatureClass m_CClass; // 크리쳐 클래스
-
+    Creature::CreatureClass m_CClass; // 크리쳐 클래스
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionRaceCompFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionRaceCompFactory : public ConditionFactory 
-{
+class ConditionRaceCompFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_RACE_COMP; }
-    virtual Condition* createCondition() const  { return new ConditionRaceComp(); }
-    virtual string getConditionName() const  { return "RaceComp"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_RACE_COMP;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionRaceComp();
+    }
+    virtual string getConditionName() const {
+        return "RaceComp";
+    }
 };
 
 #endif

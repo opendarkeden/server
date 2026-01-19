@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCAttackHandler::execute (GCAttack * pGCAttack , Player * pPlayer )
-	 
+void GCAttackHandler::execute(GCAttack* pGCAttack, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCAttack->toString() << endl;
-	
+    // cout << pGCAttack->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCAttack->toString().c_str());
+        AfxMessageBox(pGCAttack->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

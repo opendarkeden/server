@@ -5,260 +5,244 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectRestore.h"
+
+#include "DB.h"
+#include "Monster.h"
 #include "Slayer.h"
 #include "Vampire.h"
-#include "Monster.h"
-#include "DB.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectRestore::EffectRestore(Creature* pCreature)
-	
-{
-	__BEGIN_TRY 
 
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
+{
+    __BEGIN_TRY
+
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRestore::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY 
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectRestore::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectRestore::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY 
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRestore::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	//cout << "EffectRestore" << "unaffect BEGIN" << endl;
+    // cout << "EffectRestore" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	destroy(pCreature->getName());
+    Assert(pCreature != NULL);
+    destroy(pCreature->getName());
 
-	//cout << "EffectRestore" << "unaffect END" << endl;
+    // cout << "EffectRestore" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRestore::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectRestore" << "unaffect BEGIN" << endl;
+    // cout << "EffectRestore" << "unaffect BEGIN" << endl;
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	//cout << "EffectRestore" << "unaffect END" << endl;
-						
-	__END_CATCH
+    // cout << "EffectRestore" << "unaffect END" << endl;
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectRestore::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectRestore::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectRestore::create(const string & ownerID) 
-	
+void EffectRestore::create(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		StringStream sql;
+        StringStream sql;
 
-		Turn_t currentYearTime;
+        Turn_t currentYearTime;
 
-		getCurrentYearTime(currentYearTime);
+        getCurrentYearTime(currentYearTime);
 
-		sql << "INSERT INTO EffectRestore "
-			<< "(OwnerID, YearTime, DayTime)"
-			<< " VALUES('" << ownerID
-			<< "' , " << currentYearTime
-			<< " , " << m_Deadline.tv_sec
-			<< ")";
+        sql << "INSERT INTO EffectRestore "
+            << "(OwnerID, YearTime, DayTime)"
+            << " VALUES('" << ownerID << "' , " << currentYearTime << " , " << m_Deadline.tv_sec << ")";
 
-		pStmt->executeQueryString(sql.toString());
+        pStmt->executeQueryString(sql.toString());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectRestore::destroy(const string & ownerID)
-	
+void EffectRestore::destroy(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		StringStream sql;
-		sql << "DELETE FROM EffectRestore WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQueryString(sql.toString());
+        StringStream sql;
+        sql << "DELETE FROM EffectRestore WHERE OwnerID = '" << ownerID << "'";
+        pStmt->executeQueryString(sql.toString());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectRestore::save(const string & ownerID) 
-	
+void EffectRestore::save(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		StringStream sql;
+        StringStream sql;
 
-		Turn_t currentYearTime;
+        Turn_t currentYearTime;
 
-		getCurrentYearTime(currentYearTime);
+        getCurrentYearTime(currentYearTime);
 
-		sql << "UPDATE EffectRestore SET "
-			<< "YearTime = " << currentYearTime
-			<< ",DayTime = " << m_Deadline.tv_sec
-			<< " WHERE OwnerID = '" << ownerID << "'";
+        sql << "UPDATE EffectRestore SET "
+            << "YearTime = " << currentYearTime << ",DayTime = " << m_Deadline.tv_sec << " WHERE OwnerID = '" << ownerID
+            << "'";
 
-		pStmt->executeQueryString(sql.toString());
+        pStmt->executeQueryString(sql.toString());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectRestore::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectRestore::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectRestore("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectRestore("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectRestoreLoader::load(Creature* pCreature) 
-	
+void EffectRestoreLoader::load(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		StringStream sql;
-		sql << "SELECT DayTime FROM EffectRestore"
-			<< " WHERE OwnerID = '" << pCreature->getName() << "'";
+        StringStream sql;
+        sql << "SELECT DayTime FROM EffectRestore"
+            << " WHERE OwnerID = '" << pCreature->getName() << "'";
 
-		Result* pResult = pStmt->executeQueryString(sql.toString());
+        Result* pResult = pStmt->executeQueryString(sql.toString());
 
-		while(pResult->next())
-		{
-			if (pCreature->isSlayer()) 
-			{
-				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+        while (pResult->next()) {
+            if (pCreature->isSlayer()) {
+                Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-				uint i = 0;
-				int DayTime = pResult->getDWORD(++i);
+                uint i = 0;
+                int DayTime = pResult->getDWORD(++i);
 
-				Timeval currentTime;
-				getCurrentTime(currentTime);
+                Timeval currentTime;
+                getCurrentTime(currentTime);
 
-				EffectRestore* pEffectRestore = new EffectRestore(pCreature);
-		
-				if (currentTime.tv_sec < DayTime) 
-				{
-					pEffectRestore->setDeadline((DayTime - currentTime.tv_sec)*10);
-	
-					pSlayer->addEffect(pEffectRestore);
-					pSlayer->setFlag(Effect::EFFECT_CLASS_RESTORE);
-				} 
-				else 
-				{
-					pEffectRestore->setDeadline(6000);
-	
-					pSlayer->addEffect(pEffectRestore);
-					pSlayer->setFlag(Effect::EFFECT_CLASS_RESTORE);
-				}
-			}
-		}
+                EffectRestore* pEffectRestore = new EffectRestore(pCreature);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+                if (currentTime.tv_sec < DayTime) {
+                    pEffectRestore->setDeadline((DayTime - currentTime.tv_sec) * 10);
+
+                    pSlayer->addEffect(pEffectRestore);
+                    pSlayer->setFlag(Effect::EFFECT_CLASS_RESTORE);
+                } else {
+                    pEffectRestore->setDeadline(6000);
+
+                    pSlayer->addEffect(pEffectRestore);
+                    pSlayer->setFlag(Effect::EFFECT_CLASS_RESTORE);
+                }
+            }
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 EffectRestoreLoader* g_pEffectRestoreLoader = NULL;

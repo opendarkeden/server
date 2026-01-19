@@ -10,66 +10,68 @@
 #define __GAME_SERVER_GROUP_INFO_MANAGER_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
-#include "GameServerGroupInfo.h"
 #include <unordered_map>
 
-typedef unordered_map< ServerGroupID_t ,GameServerGroupInfo * > HashMapGameServerGroupInfo;
+#include "Exception.h"
+#include "GameServerGroupInfo.h"
+#include "Types.h"
+
+typedef unordered_map<ServerGroupID_t, GameServerGroupInfo*> HashMapGameServerGroupInfo;
 
 //----------------------------------------------------------------------
 //
 // class GameServerGroupInfoManager;
 //
-// 게임 서버의 ID 를 키값으로 하는 GameServerGroupInfo의 unordered_map 을 
+// 게임 서버의 ID 를 키값으로 하는 GameServerGroupInfo의 unordered_map 을
 // 내부에 가지고 있다.
 //
 //----------------------------------------------------------------------
 
 class GameServerGroupInfoManager {
-	
-public :
-	
-	// constructor
-	GameServerGroupInfoManager () throw ();
-	
-	// destructor
-	~GameServerGroupInfoManager () throw ();
+public:
+    // constructor
+    GameServerGroupInfoManager() throw();
 
-	// initialize manager
-	void init () throw ( Error );
+    // destructor
+    ~GameServerGroupInfoManager() throw();
 
-	// load from database
-	void load () throw ( Error );
-	
-	// add info
-	void addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) throw ( DuplicatedException );
-	
-	// delete info
-	void deleteGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) throw ( NoSuchElementException );
-	
-	// get GameServerGroupInfo by ServerGroupID
-	GameServerGroupInfo * getGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const throw( NoSuchElementException );
+    // initialize manager
+    void init() throw(Error);
 
-	// get count of info
-	uint getSize ( WorldID_t WorldID ) const throw () { return m_GameServerGroupInfos[WorldID].size(); }
+    // load from database
+    void load() throw(Error);
 
-	// get debug string
-	string toString () const throw ();
+    // add info
+    void addGameServerGroupInfo(GameServerGroupInfo* pGameServerGroupInfo,
+                                WorldID_t WorldID) throw(DuplicatedException);
 
-private :
-	
-	// hash map of GameServerGroupInfo
-	// key   : GameServerGroupID_t
-	// value : GameServerGroupInfo *
-	HashMapGameServerGroupInfo* m_GameServerGroupInfos;
+    // delete info
+    void deleteGameServerGroupInfo(const ServerGroupID_t ServerGroupID,
+                                   WorldID_t WorldID) throw(NoSuchElementException);
 
-	WorldID_t m_MaxWorldID;
+    // get GameServerGroupInfo by ServerGroupID
+    GameServerGroupInfo* getGameServerGroupInfo(const ServerGroupID_t ServerGroupID, WorldID_t WorldID) const
+        throw(NoSuchElementException);
 
+    // get count of info
+    uint getSize(WorldID_t WorldID) const throw() {
+        return m_GameServerGroupInfos[WorldID].size();
+    }
+
+    // get debug string
+    string toString() const throw();
+
+private:
+    // hash map of GameServerGroupInfo
+    // key   : GameServerGroupID_t
+    // value : GameServerGroupInfo *
+    HashMapGameServerGroupInfo* m_GameServerGroupInfos;
+
+    WorldID_t m_MaxWorldID;
 };
 
 
 // global variable declaration
-extern GameServerGroupInfoManager * g_pGameServerGroupInfoManager;
+extern GameServerGroupInfoManager* g_pGameServerGroupInfoManager;
 
 #endif

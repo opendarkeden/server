@@ -18,18 +18,16 @@ class SocketOutputStream;
 ///////////////////////////////////////////////////
 // class CBillingPacketHeader
 ///////////////////////////////////////////////////
-class CBillingPacketHeader : public CBillingPacketHeaderInfo
-{
+class CBillingPacketHeader : public CBillingPacketHeaderInfo {
 public:
-	// constructor
-	CBillingPacketHeader();
+    // constructor
+    CBillingPacketHeader();
 
 public:
-	void read( SocketInputStream& iStream );
-	void write( SocketOutputStream& iStream );
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& iStream);
 
-	string toString() const;
+    string toString() const;
 };
 
 #endif
-

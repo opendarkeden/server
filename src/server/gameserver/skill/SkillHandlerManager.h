@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SkillHandlerManager.h 
+// Filename    : SkillHandlerManager.h
 // Wrrtten by  : elca@ewestsoft.com
 // Description : 스킬 핸들러를 관리하는 Manager이다.
 //////////////////////////////////////////////////////////////////////////////
@@ -14,29 +14,27 @@
 // class SkillHandlerManager
 //////////////////////////////////////////////////////////////////////////////
 
-class SkillHandlerManager 
-{
-public :
-	SkillHandlerManager() throw();
-	~SkillHandlerManager() throw();
-	
+class SkillHandlerManager {
 public:
-	// 게임서버객체의 init()에서 호출된다.
-	void init() ;
-	
-	// 스킬 핸들러 객체를 초기화한다.
-	void addSkillHandler(SkillHandler* pSkillHandler) ;
+    SkillHandlerManager() throw();
+    ~SkillHandlerManager() throw();
 
-	// 스킬 핸들러를 얻어낸다.
-	SkillHandler* getSkillHandler(SkillType_t SkillType) ;
+public:
+    // 게임서버객체의 init()에서 호출된다.
+    void init();
 
-	// toString
-	string toString() const throw();
-	
+    // 스킬 핸들러 객체를 초기화한다.
+    void addSkillHandler(SkillHandler* pSkillHandler);
+
+    // 스킬 핸들러를 얻어낸다.
+    SkillHandler* getSkillHandler(SkillType_t SkillType);
+
+    // toString
+    string toString() const throw();
+
 private:
-	SkillHandler** m_SkillHandlers;  // 스킬 핸들러 배열
-	ushort         m_Size;           // 스킬 핸들러 배열의 크기
-
+    SkillHandler** m_SkillHandlers; // 스킬 핸들러 배열
+    ushort m_Size;                  // 스킬 핸들러 배열의 크기
 };
 
 extern SkillHandlerManager* g_pSkillHandlerManager;

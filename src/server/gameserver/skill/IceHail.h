@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : IceHail.h 
-// Written By  : 
-// Description : 
+// Filename    : IceHail.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ICE_HAIL_HANDLER_H__
@@ -13,19 +13,22 @@
 // class IceHail;
 //////////////////////////////////////////////////////////////////////////////
 
-class IceHail : public SkillHandler 
-{
+class IceHail : public SkillHandler {
 public:
-	IceHail() throw() { }
-	~IceHail() throw() {}
-	
+    IceHail() throw() {}
+    ~IceHail() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "IceHail"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ICE_HAIL; }
+    string getSkillHandlerName() const throw() {
+        return "IceHail";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ICE_HAIL;
+    }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

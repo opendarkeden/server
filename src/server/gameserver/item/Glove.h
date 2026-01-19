@@ -1,85 +1,91 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Glove.h
 // Written By  : Elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GLOVE_H__
 #define __GLOVE_H__
 
-#include "Item.h"
 #include "ConcreteItem.h"
-#include "ItemPolicies.h"
-#include "ItemInfo.h"
 #include "InfoClassManager.h"
+#include "Item.h"
 #include "ItemFactory.h"
+#include "ItemInfo.h"
 #include "ItemLoader.h"
+#include "ItemPolicies.h"
 #include "Mutex.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class Glove;
 //////////////////////////////////////////////////////////////////////////////
 
-class Glove : public ConcreteItem<Item::ITEM_CLASS_GLOVE, NoStack, HasDurability, HasOption, GroceryGrade, NoAttacking>
-{
+class Glove
+    : public ConcreteItem<Item::ITEM_CLASS_GLOVE, NoStack, HasDurability, HasOption, GroceryGrade, NoAttacking> {
 public:
-	Glove() ;
-	Glove(ItemType_t itemType, const list<OptionType_t>& optionType) ;
-	
-public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
-	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const ;
-	virtual string toString() const ;
-
-	static void initItemIDRegistry(void) ;
-
+    Glove();
+    Glove(ItemType_t itemType, const list<OptionType_t>& optionType);
 
 public:
-//	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_GLOVE; }
-//	virtual string getObjectTableName() const  { return "GloveObject"; }
+    virtual void create(const string& ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y,
+                        ItemID_t itemID = 0);
+    virtual void save(const string& ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y);
+    void tinysave(const string& field) const {
+        tinysave(field.c_str());
+    }
+    void tinysave(const char* field) const;
+    virtual string toString() const;
 
-/*	virtual ItemType_t getItemType() const  { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
+    static void initItemIDRegistry(void);
 
-	// get/set item option type
-	virtual bool hasOptionType() const  { return !m_OptionType.empty(); }
-	virtual int getOptionTypeSize() const  { return m_OptionType.size(); }
-	virtual int getRandomOptionType() const  { if (m_OptionType.empty()) return 0; int pos = rand()%m_OptionType.size(); list<OptionType_t>::const_iterator itr = m_OptionType.begin(); for (int i=0; i<pos; i++) itr++; return *itr; }
-	virtual const list<OptionType_t>& getOptionTypeList() const  { return m_OptionType; }
-	virtual OptionType_t getFirstOptionType() const  { if (m_OptionType.empty()) return 0; return m_OptionType.front(); }
-	virtual void removeOptionType(OptionType_t OptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end()) m_OptionType.erase(itr); }
-	virtual void changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; }
-	virtual void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back(OptionType); }
-	virtual void setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
 
-	// get width
-	virtual VolumeWidth_t getVolumeWidth() const ;
-	
-	// get height
-	virtual VolumeHeight_t getVolumeHeight() const ;
-	
-	// get weight
-	virtual Weight_t getWeight() const ;
+public:
+    //	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_GLOVE; }
+    //	virtual string getObjectTableName() const  { return "GloveObject"; }
 
-	// get/set item's durability
-	virtual Durability_t getDurability() const  { return m_Durability; }
-	void setDurability(Durability_t durability)  { m_Durability = durability; }
+    /*	virtual ItemType_t getItemType() const  { return m_ItemType; }
+        virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	// get/set armor's Defense Bonus
-	virtual Defense_t getDefenseBonus() const ;
-	virtual Protection_t getProtectionBonus() const ;
-*/
+        // get/set item option type
+        virtual bool hasOptionType() const  { return !m_OptionType.empty(); }
+        virtual int getOptionTypeSize() const  { return m_OptionType.size(); }
+        virtual int getRandomOptionType() const  { if (m_OptionType.empty()) return 0; int pos =
+       rand()%m_OptionType.size(); list<OptionType_t>::const_iterator itr = m_OptionType.begin(); for (int i=0; i<pos;
+       i++) itr++; return *itr; } virtual const list<OptionType_t>& getOptionTypeList() const  { return m_OptionType; }
+        virtual OptionType_t getFirstOptionType() const  { if (m_OptionType.empty()) return 0; return
+       m_OptionType.front(); } virtual void removeOptionType(OptionType_t OptionType)  { list<OptionType_t>::iterator
+       itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end())
+       m_OptionType.erase(itr); } virtual void changeOptionType(OptionType_t currentOptionType, OptionType_t
+       newOptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(),
+       currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; } virtual void addOptionType(OptionType_t
+       OptionType)  { m_OptionType.push_back(OptionType); } virtual void setOptionType(const list<OptionType_t>&
+       OptionType)  { m_OptionType = OptionType; }
+
+        // get width
+        virtual VolumeWidth_t getVolumeWidth() const ;
+
+        // get height
+        virtual VolumeHeight_t getVolumeHeight() const ;
+
+        // get weight
+        virtual Weight_t getWeight() const ;
+
+        // get/set item's durability
+        virtual Durability_t getDurability() const  { return m_Durability; }
+        void setDurability(Durability_t durability)  { m_Durability = durability; }
+
+        // get/set armor's Defense Bonus
+        virtual Defense_t getDefenseBonus() const ;
+        virtual Protection_t getProtectionBonus() const ;
+    */
 
 private:
+    //	ItemType_t m_ItemType;			// 아이템 타입
+    //	list<OptionType_t> m_OptionType;		// 옵션 타입
+    //	Durability_t m_Durability;		// 내구성
 
-//	ItemType_t m_ItemType;			// 아이템 타입
-//	list<OptionType_t> m_OptionType;		// 옵션 타입
-//	Durability_t m_Durability;		// 내구성
-	
-	static Mutex    m_Mutex;          // 아이템 ID 관련 락
-	static ItemID_t m_ItemIDRegistry; // 클래스별 고유 아이템 아이디 발급기
+    static Mutex m_Mutex;             // 아이템 ID 관련 락
+    static ItemID_t m_ItemIDRegistry; // 클래스별 고유 아이템 아이디 발급기
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -87,36 +93,50 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 
 class GloveInfo : public ItemInfo {
-
 public:
+    // get item class
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_GLOVE;
+    }
 
-	// get item class
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_GLOVE; }
+    // get/set item's durability
+    virtual Durability_t getDurability() const {
+        return m_Durability;
+    }
+    virtual void setDurability(Durability_t durability) {
+        m_Durability = durability;
+    }
 
-	// get/set item's durability
-	virtual Durability_t getDurability() const  { return m_Durability; }
-	virtual void setDurability(Durability_t durability)  { m_Durability = durability; }
+    // get/set armor's Defense Bonus
+    Defense_t getDefenseBonus() const {
+        return m_DefenseBonus;
+    }
+    void setDefenseBonus(Defense_t acBonus) {
+        m_DefenseBonus = acBonus;
+    }
 
-	// get/set armor's Defense Bonus
-	Defense_t getDefenseBonus() const  { return m_DefenseBonus; }
-	void setDefenseBonus(Defense_t acBonus)  { m_DefenseBonus = acBonus; }
+    Protection_t getProtectionBonus() const {
+        return m_ProtectionBonus;
+    }
+    void setProtectionBonus(Protection_t acBonus) {
+        m_ProtectionBonus = acBonus;
+    }
 
-	Protection_t getProtectionBonus() const  { return m_ProtectionBonus; }
-	void setProtectionBonus(Protection_t acBonus)  { m_ProtectionBonus = acBonus; }
+    virtual uint getItemLevel(void) const {
+        return m_ItemLevel;
+    }
+    virtual void setItemLevel(uint level) {
+        m_ItemLevel = level;
+    }
 
-	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
-	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
-
-	// toString
-	virtual string toString() const ;
+    // toString
+    virtual string toString() const;
 
 private:
-
-	Durability_t m_Durability;		// 내구성
-	Defense_t m_DefenseBonus;		// 명중률 보너스
-	Protection_t m_ProtectionBonus;
-	uint          m_ItemLevel;
-
+    Durability_t m_Durability; // 내구성
+    Defense_t m_DefenseBonus;  // 명중률 보너스
+    Protection_t m_ProtectionBonus;
+    uint m_ItemLevel;
 };
 
 
@@ -126,15 +146,14 @@ private:
 //
 //--------------------------------------------------------------------------------
 class GloveInfoManager : public InfoClassManager {
-
 public:
+    // get item class
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_GLOVE;
+    }
 
-	// get item class
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_GLOVE; }
-	
-	// load from DB
-	virtual void load() ;
-
+    // load from DB
+    virtual void load();
 };
 
 // global variable declaration
@@ -147,20 +166,22 @@ extern GloveInfoManager* g_pGloveInfoManager;
 //
 //--------------------------------------------------------------------------------
 class GloveFactory : public ItemFactory {
+public:
+    // get item class
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_GLOVE;
+    }
+
+    // get item classname
+    virtual string getItemClassName() const {
+        return "Glove";
+    }
 
 public:
-	
-	// get item class
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_GLOVE; }
-
-	// get item classname
-	virtual string getItemClassName() const  { return "Glove"; }
-	
-public:
-
-	// create item
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Glove(ItemType,OptionType); }
-
+    // create item
+    virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) {
+        return new Glove(ItemType, OptionType);
+    }
 };
 
 
@@ -171,26 +192,26 @@ public:
 //--------------------------------------------------------------------------------
 
 class GloveLoader : public ItemLoader {
+public:
+    // get item class
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_GLOVE;
+    }
+
+    // get item class name
+    virtual string getItemClassName() const {
+        return "Glove";
+    }
 
 public:
+    // load to creature
+    virtual void load(Creature* pCreature);
 
-	// get item class
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_GLOVE; }
+    // load to zone
+    virtual void load(Zone* pZone);
 
-	// get item class name
-	virtual string getItemClassName() const  { return "Glove"; }
-
-public:
-
-	// load to creature
-	virtual void load(Creature* pCreature) ;
-
-	// load to zone
-	virtual void load(Zone* pZone) ;
-
-	// load to inventory
-	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
-
+    // load to inventory
+    virtual void load(StorageID_t storageID, Inventory* pInventory);
 };
 
 extern GloveLoader* g_pGloveLoader;

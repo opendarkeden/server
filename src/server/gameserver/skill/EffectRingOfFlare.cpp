@@ -1,221 +1,208 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRingOfFlare.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectRingOfFlare.h"
-#include "Ousters.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "Monster.h"
-#include "GamePlayer.h"
-#include "PCFinder.h"
-#include "ZoneUtil.h"
-#include "ZoneInfoManager.h"
-#include "SkillUtil.h"
-#include "GCRemoveEffect.h"
+
 #include "GCAddEffectToTile.h"
+#include "GCRemoveEffect.h"
 #include "GCSkillToObjectOK2.h"
 #include "GCSkillToObjectOK4.h"
 #include "GCStatusCurrentHP.h"
+#include "GamePlayer.h"
+#include "Monster.h"
+#include "Ousters.h"
+#include "PCFinder.h"
+#include "SkillUtil.h"
+#include "Slayer.h"
+#include "Vampire.h"
+#include "ZoneInfoManager.h"
+#include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectRingOfFlare::EffectRingOfFlare(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isOusters());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isOusters());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectRingOfFlare::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCastCreature = dynamic_cast<Creature*>(m_pTarget);
+    Creature* pCastCreature = dynamic_cast<Creature*>(m_pTarget);
 
-	if ( pCastCreature == NULL || !pCastCreature->isOusters() ) return;
+    if (pCastCreature == NULL || !pCastCreature->isOusters())
+        return;
 
-	Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
-	Assert( pOusters != NULL );
+    Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
+    Assert(pOusters != NULL);
 
-	Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
-	if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
-	{
-		// 중간에 리스틀릿을 빼버리면 이펙트도 사라진다.
-		setDeadline(0);
-		return;
-	}
+    Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
+    if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET ||
+        !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
+        // 중간에 리스틀릿을 빼버리면 이펙트도 사라진다.
+        setDeadline(0);
+        return;
+    }
 
-	Player* pPlayer = dynamic_cast<Player*>(pCastCreature->getPlayer());
-	Assert( pPlayer != NULL );
+    Player* pPlayer = dynamic_cast<Player*>(pCastCreature->getPlayer());
+    Assert(pPlayer != NULL);
 
-	Zone* pZone = pCastCreature->getZone();
-	Assert( pZone != NULL );
+    Zone* pZone = pCastCreature->getZone();
+    Assert(pZone != NULL);
 
-	VSRect rect( 0, 0, pZone->getWidth()-1, pZone->getHeight()-1 );
+    VSRect rect(0, 0, pZone->getWidth() - 1, pZone->getHeight() - 1);
 
-	ZoneCoord_t Cx = pCastCreature->getX();
-	ZoneCoord_t Cy = pCastCreature->getY();
+    ZoneCoord_t Cx = pCastCreature->getX();
+    ZoneCoord_t Cy = pCastCreature->getY();
 
-	for ( int x=-1; x<=1; x++ )
-	{
-		for ( int y=-1; y<=1; y++ )
-		{
-			if ( x == 0 && y == 0 ) continue;
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+            if (x == 0 && y == 0)
+                continue;
 
-			int X = Cx + x;
-			int Y = Cy + y;
+            int X = Cx + x;
+            int Y = Cy + y;
 
-			if ( !rect.ptInRect( X, Y ) ) continue;
+            if (!rect.ptInRect(X, Y))
+                continue;
 
-			// 타일안에 존재하는 오브젝트를 가져온다.
-			Tile& tile = pZone->getTile( X, Y );
+            // 타일안에 존재하는 오브젝트를 가져온다.
+            Tile& tile = pZone->getTile(X, Y);
 
-			if( tile.hasCreature(Creature::MOVE_MODE_WALKING) )
-			{
-				Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
-				Assert( pCreature != NULL );
-				
-				GCModifyInformation gcAttackerMI;
+            if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) {
+                Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
+                Assert(pCreature != NULL);
 
-				// 자신은 맞지 않는다. 무적도 안 맞는다. 슬레이어도 안 맞느다.
-				// 안전지대 체크
-				// 2003.1.10 by bezz, Sequoia
-				if ( pCreature == m_pTarget
-				  || !canAttack( pCastCreature, pCreature )
-				  || pCreature->isFlag( Effect::EFFECT_CLASS_COMA )
-				  || pCreature->isOusters()
-				  || !checkZoneLevelToHitTarget(pCreature)
-				)
-				{
-					continue;
-				}
+                GCModifyInformation gcAttackerMI;
 
-				if ( pCreature->isPC() )
-				{
-					//cout << pCreature->getName() << "을 RingOfFlare로 " << m_Damage << "만큼의 데미지를 줬습니다." << endl;
-					GCModifyInformation gcMI;
-					::setDamage( pCreature, m_Damage, pCastCreature, SKILL_RING_OF_FLARE, &gcMI, &gcAttackerMI );
+                // 자신은 맞지 않는다. 무적도 안 맞는다. 슬레이어도 안 맞느다.
+                // 안전지대 체크
+                // 2003.1.10 by bezz, Sequoia
+                if (pCreature == m_pTarget || !canAttack(pCastCreature, pCreature) ||
+                    pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isOusters() ||
+                    !checkZoneLevelToHitTarget(pCreature)) {
+                    continue;
+                }
 
-					pCreature->getPlayer()->sendPacket( &gcMI );
+                if (pCreature->isPC()) {
+                    // cout << pCreature->getName() << "을 RingOfFlare로 " << m_Damage << "만큼의 데미지를 줬습니다." <<
+                    // endl;
+                    GCModifyInformation gcMI;
+                    ::setDamage(pCreature, m_Damage, pCastCreature, SKILL_RING_OF_FLARE, &gcMI, &gcAttackerMI);
 
-					// 맞는 동작을 보여준다.
-					GCSkillToObjectOK2 gcSkillToObjectOK2;
-					gcSkillToObjectOK2.setObjectID( 1 );    // 의미 없다.
-					gcSkillToObjectOK2.setSkillType( SKILL_ATTACK_MELEE );
-					gcSkillToObjectOK2.setDuration(0);
-					pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
+                    pCreature->getPlayer()->sendPacket(&gcMI);
 
-				}
-				else if ( pCreature->isMonster() )
-				{
-					Monster* pMonster = dynamic_cast<Monster*>(pCreature);
+                    // 맞는 동작을 보여준다.
+                    GCSkillToObjectOK2 gcSkillToObjectOK2;
+                    gcSkillToObjectOK2.setObjectID(1); // 의미 없다.
+                    gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
+                    gcSkillToObjectOK2.setDuration(0);
+                    pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
 
-					::setDamage( pMonster, m_Damage, pCastCreature, SKILL_RING_OF_FLARE, NULL, &gcAttackerMI );
+                } else if (pCreature->isMonster()) {
+                    Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-					pMonster->addEnemy( pCastCreature );
-				}
+                    ::setDamage(pMonster, m_Damage, pCastCreature, SKILL_RING_OF_FLARE, NULL, &gcAttackerMI);
 
-				GCSkillToObjectOK4 gcSkillToObjectOK4;
-				gcSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
-				gcSkillToObjectOK4.setTargetObjectID( pCreature->getObjectID() );
-				gcSkillToObjectOK4.setDuration(0);
+                    pMonster->addEnemy(pCastCreature);
+                }
 
-				pZone->broadcastPacket( X, Y, &gcSkillToObjectOK4, pCreature );
+                GCSkillToObjectOK4 gcSkillToObjectOK4;
+                gcSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+                gcSkillToObjectOK4.setTargetObjectID(pCreature->getObjectID());
+                gcSkillToObjectOK4.setDuration(0);
 
-				// 죽었으면 경험치준다. 음.....
-				if ( pCastCreature != NULL )
-				{
-					if (pCreature->isDead() && pCastCreature->isOusters())
-					{
-						Ousters* pCastOusters = dynamic_cast<Ousters*>( pCastCreature );
-						Assert( pCastOusters != NULL );
+                pZone->broadcastPacket(X, Y, &gcSkillToObjectOK4, pCreature);
 
-						int exp = computeCreatureExp(pCreature, 100, pCastOusters);
-						shareOustersExp(pCastOusters, exp, gcAttackerMI);
+                // 죽었으면 경험치준다. 음.....
+                if (pCastCreature != NULL) {
+                    if (pCreature->isDead() && pCastCreature->isOusters()) {
+                        Ousters* pCastOusters = dynamic_cast<Ousters*>(pCastCreature);
+                        Assert(pCastOusters != NULL);
 
-					}
-				}
+                        int exp = computeCreatureExp(pCreature, 100, pCastOusters);
+                        shareOustersExp(pCastOusters, exp, gcAttackerMI);
+                    }
+                }
 
-				if ( gcAttackerMI.getShortCount() != 0 || gcAttackerMI.getLongCount() != 0 ) pCastCreature->getPlayer()->sendPacket(&gcAttackerMI);
-			}
-		}
-	}
+                if (gcAttackerMI.getShortCount() != 0 || gcAttackerMI.getLongCount() != 0)
+                    pCastCreature->getPlayer()->sendPacket(&gcAttackerMI);
+            }
+        }
+    }
 
-	setNextTime( 10 );
+    setNextTime(10);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRingOfFlare::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectRingOfFlare" << "unaffect BEGIN" << endl;
+    // cout << "EffectRingOfFlare" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isOusters());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isOusters());
 
-	// 플래그를 끈다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_RING_OF_FLARE);
+    // 플래그를 끈다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_RING_OF_FLARE);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-	Assert( pTargetOusters != NULL );
+    Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
+    Assert(pTargetOusters != NULL);
 
-	// 이펙트를 삭제하라고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트를 삭제하라고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectRingOfFlare" << "unaffect END" << endl;
+    // cout << "EffectRingOfFlare" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRingOfFlare::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectRingOfFlare::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectRingOfFlare::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectRingOfFlare("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectRingOfFlare("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

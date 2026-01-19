@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Restore.h 
+// Filename    : Restore.h
 // Written By  :
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_RESTORE_HANDLER_H__
@@ -15,20 +15,23 @@
 
 class NPC;
 
-class Restore: public SkillHandler 
-{
+class Restore : public SkillHandler {
 public:
-	Restore() throw() {}
-	~Restore() throw() {}
-	
+    Restore() throw() {}
+    ~Restore() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Restore"; }
-	SkillType_t getSkillType() const throw() { return SKILL_RESTORE; }
+    string getSkillHandlerName() const throw() {
+        return "Restore";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_RESTORE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(NPC* pNPC, Creature* pTargetCreature) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(NPC* pNPC, Creature* pTargetCreature);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

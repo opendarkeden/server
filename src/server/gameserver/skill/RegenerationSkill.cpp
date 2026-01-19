@@ -1,140 +1,138 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Regeneration.cpp
 // Written by  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "RegenerationSkill.h"
-#include "EffectRegeneration.h"
-#include "Vampire.h"
 
+#include "EffectRegeneration.h"
+#include "GCSkillFailed1.h"
+#include "GCSkillFailed2.h"
 #include "GCSkillToObjectOK1.h"
 #include "GCSkillToObjectOK2.h"
 #include "GCSkillToObjectOK5.h"
 #include "GCSkillToSelfOK1.h"
 #include "GCSkillToSelfOK2.h"
-#include "GCSkillFailed1.h"
-#include "GCSkillFailed2.h"
 #include "GCStatusCurrentHP.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////
 //
 // RegenerationSkill::execute()
 //
 //////////////////////////////////////////////////////////////////////
-void RegenerationSkill::execute(Slayer* pSlayer, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	
-{
-	__BEGIN_TRY
+void RegenerationSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
-		/*
+    {__BEGIN_TRY
 
-	Assert(pSlayer != NULL);
-	Assert(pSkillSlot != NULL);
+         // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
+         /*
 
-	try 
-	{
-		// Player를 받아온다.
-		Player * pPlayer = pSlayer->getPlayer();
-		
-		// Zone을 받아온다.
-		Zone * pZone = pSlayer->getZone();
-		Assert(pZone);
-		Assert(pSkillSlot);
+      Assert(pSlayer != NULL);
+      Assert(pSkillSlot != NULL);
 
-		GCSkillToSelfOK1 _GCSkillToSelfOK1;
-		GCSkillToSelfOK2 _GCSkillToSelfOK2;
-		GCSkillFailed1 _GCSkillFailed1;
-		GCSkillFailed2 _GCSkillFailed2;
+      try
+      {
+          // Player를 받아온다.
+          Player * pPlayer = pSlayer->getPlayer();
 
-		SkillType_t SkillType = pSkillSlot->getSkillType();
-		SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
-		Assert(pSkillInfo);
-		
-		SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
+          // Zone을 받아온다.
+          Zone * pZone = pSlayer->getZone();
+          Assert(pZone);
+          Assert(pSkillSlot);
 
-		// 명중률을 받아온다.
-		ToHit_t ToHit = pSlayer->getINT(ATTR_CURRENT);
-		
-		bool bTargetEffected = false;
-		if (pSlayer->isFlag(Effect::EFFECT_CLASS_REGENERATION))
-			bTargetEffected = true;	
+          GCSkillToSelfOK1 _GCSkillToSelfOK1;
+          GCSkillToSelfOK2 _GCSkillToSelfOK2;
+          GCSkillFailed1 _GCSkillFailed1;
+          GCSkillFailed2 _GCSkillFailed2;
 
-		int RemainMP = (int)pSlayer->getMP(ATTR_CURRENT) - (int)pSkillInfo->getConsumeMP();
-		bool bModifyMP = false;
-		if (RemainMP >= 0 && verifyRunTime(pSkillSlot) && 
-			pZone->getZoneLevel(pSlayer->getX(), pSlayer->getY()) != 0
-			&& bTargetEffected == false
-			)
-		{
-			pSlayer->setMP(RemainMP , ATTR_CURRENT);
-			bModifyMP = true;
-		}
+          SkillType_t SkillType = pSkillSlot->getSkillType();
+          SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+          Assert(pSkillInfo);
 
-		// 기술성공률 검증.
-		if (bModifyMP && (ToHit + SkillLevel > Random(0, 100))) 
-		{
+          SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
-			// Effect Object를 생성한다.
-			EffectRegeneration * pEffectRegeneration = new EffectRegeneration (pSlayer);
+          // 명중률을 받아온다.
+          ToHit_t ToHit = pSlayer->getINT(ATTR_CURRENT);
 
-			HP_t generationHP = computeSkillDamage(pSkillSlot, pSkillInfo);	// 재생되는 HP의 총 양.
-			Duration_t Duration = max(1, (int)10);
-			pEffectRegeneration->setDelay(REGENERATION_DELAY);  
-			pEffectRegeneration->setDeadline(Duration * 10);
-			pEffectRegeneration->setPoint(generationHP / (Duration*10 / REGENERATION_DELAY));
-			pEffectRegeneration->affect(pSlayer);
+          bool bTargetEffected = false;
+          if (pSlayer->isFlag(Effect::EFFECT_CLASS_REGENERATION))
+              bTargetEffected = true;
 
-			// Creature에 Effect Flag를 On 시킨다.
-			pSlayer->setFlag(Effect::EFFECT_CLASS_REGENERATION);
+          int RemainMP = (int)pSlayer->getMP(ATTR_CURRENT) - (int)pSkillInfo->getConsumeMP();
+          bool bModifyMP = false;
+          if (RemainMP >= 0 && verifyRunTime(pSkillSlot) &&
+              pZone->getZoneLevel(pSlayer->getX(), pSlayer->getY()) != 0
+              && bTargetEffected == false
+              )
+          {
+              pSlayer->setMP(RemainMP , ATTR_CURRENT);
+              bModifyMP = true;
+          }
 
-			// Creature의 effectManager에 이 Effect를 추가시킨다.
-			pSlayer->addEffect(pEffectRegeneration);
+          // 기술성공률 검증.
+          if (bModifyMP && (ToHit + SkillLevel > Random(0, 100)))
+          {
 
-			_GCSkillToSelfOK1.addShortData(MODIFY_CURRENT_MP , RemainMP);
+              // Effect Object를 생성한다.
+              EffectRegeneration * pEffectRegeneration = new EffectRegeneration (pSlayer);
 
-			_GCSkillToSelfOK1.setSkillType(SkillType);
-			_GCSkillToSelfOK1.setCEffectID(CEffectID);
-			_GCSkillToSelfOK1.setDuration(Duration * 10);
-		
-			_GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
-			_GCSkillToSelfOK2.setSkillType(SkillType);
-			_GCSkillToSelfOK2.setDuration(Duration * 10);
-		
-			// Send Packet
-			pPlayer->sendPacket(&_GCSkillToSelfOK1);
-		
-			pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToSelfOK2, pSlayer);
-			pSkillSlot->setRunTime();
+              HP_t generationHP = computeSkillDamage(pSkillSlot, pSkillInfo);	// 재생되는 HP의 총 양.
+              Duration_t Duration = max(1, (int)10);
+              pEffectRegeneration->setDelay(REGENERATION_DELAY);
+              pEffectRegeneration->setDeadline(Duration * 10);
+              pEffectRegeneration->setPoint(generationHP / (Duration*10 / REGENERATION_DELAY));
+              pEffectRegeneration->affect(pSlayer);
 
-		} else {
+              // Creature에 Effect Flag를 On 시킨다.
+              pSlayer->setFlag(Effect::EFFECT_CLASS_REGENERATION);
 
-			_GCSkillFailed1.setSkillType(getSkillType());
-			if (bModifyMP)
-				_GCSkillFailed1.addShortData(MODIFY_CURRENT_MP, RemainMP);
-			pPlayer->sendPacket(&_GCSkillFailed1);
+              // Creature의 effectManager에 이 Effect를 추가시킨다.
+              pSlayer->addEffect(pEffectRegeneration);
 
-			_GCSkillFailed2.setObjectID(pSlayer->getObjectID());
-	//		_GCSkillFailed2.setTargetObjectID(pSlayer->getObjectID());
-			_GCSkillFailed2.setSkillType(SkillType);
+              _GCSkillToSelfOK1.addShortData(MODIFY_CURRENT_MP , RemainMP);
 
-			pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillFailed2, pSlayer);
+              _GCSkillToSelfOK1.setSkillType(SkillType);
+              _GCSkillToSelfOK1.setCEffectID(CEffectID);
+              _GCSkillToSelfOK1.setDuration(Duration * 10);
 
-		}
-	} 
-	catch(Throwable & t) 
-	{
-		GCSkillFailed1 _GCSkillFailed1;
-		_GCSkillFailed1.setSkillType(getSkillType());
-		pSlayer->getPlayer()->sendPacket(&_GCSkillFailed1);
-		//cout << t.toString() << endl;
-	}
+              _GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
+              _GCSkillToSelfOK2.setSkillType(SkillType);
+              _GCSkillToSelfOK2.setDuration(Duration * 10);
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
-	*/
+              // Send Packet
+              pPlayer->sendPacket(&_GCSkillToSelfOK1);
 
-	__END_CATCH
-}
+              pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToSelfOK2, pSlayer);
+              pSkillSlot->setRunTime();
+
+          } else {
+
+              _GCSkillFailed1.setSkillType(getSkillType());
+              if (bModifyMP)
+                  _GCSkillFailed1.addShortData(MODIFY_CURRENT_MP, RemainMP);
+              pPlayer->sendPacket(&_GCSkillFailed1);
+
+              _GCSkillFailed2.setObjectID(pSlayer->getObjectID());
+      //		_GCSkillFailed2.setTargetObjectID(pSlayer->getObjectID());
+              _GCSkillFailed2.setSkillType(SkillType);
+
+              pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillFailed2, pSlayer);
+
+          }
+      }
+      catch(Throwable & t)
+      {
+          GCSkillFailed1 _GCSkillFailed1;
+          _GCSkillFailed1.setSkillType(getSkillType());
+          pSlayer->getPlayer()->sendPacket(&_GCSkillFailed1);
+          //cout << t.toString() << endl;
+      }
+
+      //cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+      */
+
+         __END_CATCH}
 
 RegenerationSkill g_RegenerationSkill;

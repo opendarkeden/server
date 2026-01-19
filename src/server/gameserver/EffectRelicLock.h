@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRelicLock.h
-// Written by  : 
+// Written by  :
 // Description : Doom에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -14,29 +14,29 @@
 //////////////////////////////////////////////////////////////////////////////
 // 성물 보관대에 붙는 이펙트이다.
 
-class EffectRelicLock : public Effect 
-{
+class EffectRelicLock : public Effect {
 public:
-	EffectRelicLock(Item* pItem) ;
-
-public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_RELIC_LOCK; }
-
-	void affect()  {}
-	void affect(Item* pItem) ;
-
-	void unaffect(Item* pItem) ;
-	void unaffect() ; 
-
-	string toString() const ;
+    EffectRelicLock(Item* pItem);
 
 public:
-	//bool   isLockTime() const;
-	//void   setLockTime(const Timeval& tv)  { m_LockTime = tv; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_RELIC_LOCK;
+    }
+
+    void affect() {}
+    void affect(Item* pItem);
+
+    void unaffect(Item* pItem);
+    void unaffect();
+
+    string toString() const;
+
+public:
+    // bool   isLockTime() const;
+    // void   setLockTime(const Timeval& tv)  { m_LockTime = tv; }
 
 private:
-	//Timeval m_LockTime;
-	
+    // Timeval m_LockTime;
 };
 
 #endif // __EFFECT_DOOM__

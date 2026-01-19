@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TransformToWolf.h 
+// Filename    : TransformToWolf.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TRANSFORM_TO_WOLF_HANDLER_H__
@@ -13,20 +13,24 @@
 // class TransformToWolf;
 //////////////////////////////////////////////////////////////////////////////
 
-class TransformToWolf: public SkillHandler 
-{
+class TransformToWolf : public SkillHandler {
 public:
-	TransformToWolf() throw() {}
-	~TransformToWolf() throw() {}
-	
+    TransformToWolf() throw() {}
+    ~TransformToWolf() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "TransformToWolf"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TRANSFORM_TO_WOLF; }
+    string getSkillHandlerName() const throw() {
+        return "TransformToWolf";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TRANSFORM_TO_WOLF;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot) ;
-	void execute(Monster* pMonster) ;
+    void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
+                 CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot);
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

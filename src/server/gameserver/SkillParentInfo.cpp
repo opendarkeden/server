@@ -7,8 +7,9 @@
 //----------------------------------------------------------------------
 
 #include "SkillParentInfo.h"
-#include "DB.h"
+
 #include "Assert.h"
+#include "DB.h"
 // #include <algo.h>
 
 //----------------------------------------------------------------------
@@ -16,13 +17,12 @@
 // constructor
 //
 //----------------------------------------------------------------------
-SkillParentInfo::SkillParentInfo (SkillType_t SkillType) 
-	 
-: m_SkillType(SkillType)
-{
-	__BEGIN_TRY
-	init();
-	__END_CATCH
+SkillParentInfo::SkillParentInfo(SkillType_t SkillType)
+
+    : m_SkillType(SkillType) {
+    __BEGIN_TRY
+    init();
+    __END_CATCH
 }
 
 
@@ -31,11 +31,11 @@ SkillParentInfo::SkillParentInfo (SkillType_t SkillType)
 // destructor
 //
 //----------------------------------------------------------------------
-SkillParentInfo::~SkillParentInfo () 
-    
+SkillParentInfo::~SkillParentInfo()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
@@ -44,11 +44,11 @@ SkillParentInfo::~SkillParentInfo ()
 // SkillParentInfo::init()
 //
 //----------------------------------------------------------------------
-void SkillParentInfo::init ()
-	
+void SkillParentInfo::init()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
@@ -59,86 +59,76 @@ void SkillParentInfo::init ()
 // 특정 타입을 가지는 부모가 있는지 확인한다.
 //
 //----------------------------------------------------------------------
-bool SkillParentInfo::hasParent (SkillType_t SkillType)
-{
-	__BEGIN_TRY
+bool SkillParentInfo::hasParent(SkillType_t SkillType) {
+    __BEGIN_TRY
 
-	try 
-	{
-		SkillType_t FirstType = m_Parents.front();
+    try {
+        SkillType_t FirstType = m_Parents.front();
 
-		if (FirstType == 0) return true;
+        if (FirstType == 0)
+            return true;
 
-		list<SkillType_t>::iterator itr;
-    for (itr = m_Parents.begin(); itr != m_Parents.end(); itr++) {
-      if (*itr == SkillType) {
-        break;
-      }
+        list<SkillType_t>::iterator itr;
+        for (itr = m_Parents.begin(); itr != m_Parents.end(); itr++) {
+            if (*itr == SkillType) {
+                break;
+            }
+        }
+
+        if (itr == m_Parents.end())
+            return false;
+
+        return true;
+    } catch (Throwable& t) {
+        // cerr << t.toString() << endl;
     }
+    return false;
 
-		if (itr == m_Parents.end()) return false;
-
-		return true;
-	}
-	catch(Throwable & t) 
-	{
-		//cerr << t.toString() << endl;
-	}
-	return false;
-
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // 적 리스트의 특정 위치의 크리처의 아이디를 리턴한다.
 //----------------------------------------------------------------------
-SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
-{
-	__BEGIN_TRY
+SkillType_t SkillParentInfo::getParents(SkillType_t SkillType) const {
+    __BEGIN_TRY
 
-	for (list<SkillType_t>::const_iterator itr = m_Parents.begin() ; itr != m_Parents.end() ; itr ++)
-	{
-		if (SkillType == (*itr)) return *itr;
-	}
+    for (list<SkillType_t>::const_iterator itr = m_Parents.begin(); itr != m_Parents.end(); itr++) {
+        if (SkillType == (*itr))
+            return *itr;
+    }
 
-	cerr << "SkillParentInfo::getParents() : NoSuchElementException" << endl;
-	throw NoSuchElementException();
+    cerr << "SkillParentInfo::getParents() : NoSuchElementException" << endl;
+    throw NoSuchElementException();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string SkillParentInfo::toString () const
-	
+string SkillParentInfo::toString() const
+
 {
+    __BEGIN_TRY
 
-	__BEGIN_TRY
+    StringStream msg;
 
-	StringStream msg;
+    msg << "SkillParentInfo("
+        << "SkillType:" << (int)m_SkillType << ",Parents(";
 
-	msg << "SkillParentInfo("
-			<< "SkillType:" << (int)m_SkillType
-			<< ",Parents(";
+    for (list<SkillType_t>::const_iterator i = m_Parents.begin(); i != m_Parents.end(); i++) {
+        msg << (int)(*i) << " ";
+    }
+    msg << ")";
+    msg << ")";
 
-	for (list<SkillType_t>::const_iterator i = m_Parents.begin(); i != m_Parents.end(); i++)
-	{
-		msg << (int)(*i) << " ";
-	}
-	msg << ")";
-	msg << ")";
+    return msg.toString();
 
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }
-
-
-
-
 
 
 //--------------------------------------------------------------------
@@ -147,28 +137,24 @@ string SkillParentInfo::toString () const
 //
 //--------------------------------------------------------------------
 SkillParentInfoManager::SkillParentInfoManager()
-	
-: m_SkillCount(0), m_SkillParentInfoList(NULL)
+
+    : m_SkillCount(0), m_SkillParentInfoList(NULL){__BEGIN_TRY __END_CATCH}
+
+      //--------------------------------------------------------------------
+      //
+      // destructor
+      //
+      //--------------------------------------------------------------------
+      SkillParentInfoManager::~SkillParentInfoManager()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
-}
+    __BEGIN_TRY
 
-//--------------------------------------------------------------------
-//
-// destructor
-//
-//--------------------------------------------------------------------
-SkillParentInfoManager::~SkillParentInfoManager()
-	
-{
-	__BEGIN_TRY
+    // 덜 지웠음둥 -_-; by sigi
 
-	// 덜 지웠음둥 -_-; by sigi
+    SAFE_DELETE_ARRAY(m_SkillParentInfoList);
 
-	SAFE_DELETE_ARRAY(m_SkillParentInfoList);
-	
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 //--------------------------------------------------------------------
@@ -177,14 +163,14 @@ SkillParentInfoManager::~SkillParentInfoManager()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// Loading from DataBase and addSkillParentInfo
-	load();
+    // Loading from DataBase and addSkillParentInfo
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
@@ -193,72 +179,66 @@ void SkillParentInfoManager::init()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-    Statement  * pStmt = NULL;	// by sigi
-    Result     * pResult;
+    Statement* pStmt = NULL; // by sigi
+    Result* pResult;
 
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(SkillType) FROM SkillTreeInfo");
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(SkillType) FROM SkillTreeInfo");
 
-		if (pResult -> getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in SkillTreeInfo Table");
-		}
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in SkillTreeInfo Table");
+        }
 
-		pResult->next();
+        pResult->next();
 
-		m_SkillCount = pResult->getInt(1) +1;
+        m_SkillCount = pResult->getInt(1) + 1;
 
-		Assert (m_SkillCount > 0);
+        Assert(m_SkillCount > 0);
 
-		m_SkillParentInfoList = new SkillParentInfo* [m_SkillCount];
+        m_SkillParentInfoList = new SkillParentInfo*[m_SkillCount];
 
-		for (uint i = 0 ; i < m_SkillCount ; i ++)
-			m_SkillParentInfoList[i] = NULL;
-		
-		pResult = pStmt->executeQuery("SELECT SkillType, Parent FROM SkillTreeInfo ");
+        for (uint i = 0; i < m_SkillCount; i++)
+            m_SkillParentInfoList[i] = NULL;
 
-		//cout<<"======= SkillParentInfo Manager ==========="<<endl;
-	
-		SkillType_t tempSkillType = 0;
+        pResult = pStmt->executeQuery("SELECT SkillType, Parent FROM SkillTreeInfo ");
 
-		while (pResult->next()) 
-		{
-			int         i         = 0;
-			SkillType_t SkillType = pResult->getInt(++i);
+        // cout<<"======= SkillParentInfo Manager ==========="<<endl;
 
-			if (tempSkillType != SkillType) 
-			{
-				SkillParentInfo* pSkillParentInfo = new SkillParentInfo (SkillType);
-				pSkillParentInfo->addParents(pResult->getInt(++i));
-				addSkillParentInfo(pSkillParentInfo);
-				tempSkillType = SkillType;
-			} 
-			else 
-			{
-				m_SkillParentInfoList[ SkillType ]->addParents(pResult->getInt(++i));
-			}
-		}
+        SkillType_t tempSkillType = 0;
 
-		//for (uint i = 0; i < m_SkillCount; i++) 
-		//{
-		//	if (m_SkillParentInfoList[ i ] != NULL) 
-		//		//cout<< m_SkillParentInfoList[ i ]->toString()<<endl;
-		//}
+        while (pResult->next()) {
+            int i = 0;
+            SkillType_t SkillType = pResult->getInt(++i);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            if (tempSkillType != SkillType) {
+                SkillParentInfo* pSkillParentInfo = new SkillParentInfo(SkillType);
+                pSkillParentInfo->addParents(pResult->getInt(++i));
+                addSkillParentInfo(pSkillParentInfo);
+                tempSkillType = SkillType;
+            } else {
+                m_SkillParentInfoList[SkillType]->addParents(pResult->getInt(++i));
+            }
+        }
 
-	__END_DEBUG
-	__END_CATCH
+        // for (uint i = 0; i < m_SkillCount; i++)
+        //{
+        //	if (m_SkillParentInfoList[ i ] != NULL)
+        //		//cout<< m_SkillParentInfoList[ i ]->toString()<<endl;
+        // }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
@@ -267,13 +247,13 @@ void SkillParentInfoManager::load()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::save()
-	
-{
-	__BEGIN_TRY
 
-	throw UnsupportedError (__PRETTY_FUNCTION__);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    throw UnsupportedError(__PRETTY_FUNCTION__);
+
+    __END_CATCH
 }
 
 
@@ -283,18 +263,18 @@ void SkillParentInfoManager::save()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::addSkillParentInfo(SkillParentInfo* pSkillParentInfo)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert (pSkillParentInfo != NULL);
+    Assert(pSkillParentInfo != NULL);
 
-	if (m_SkillParentInfoList[pSkillParentInfo->getSkillType()] != NULL)
-		throw DuplicatedException ();
+    if (m_SkillParentInfoList[pSkillParentInfo->getSkillType()] != NULL)
+        throw DuplicatedException();
 
-	m_SkillParentInfoList[pSkillParentInfo->getSkillType()] = pSkillParentInfo;
-	
-	__END_CATCH
+    m_SkillParentInfoList[pSkillParentInfo->getSkillType()] = pSkillParentInfo;
+
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
@@ -302,25 +282,22 @@ void SkillParentInfoManager::addSkillParentInfo(SkillParentInfo* pSkillParentInf
 // SkillParentInfoManager:: getSkillParentInfo()
 //
 //--------------------------------------------------------------------
-SkillParentInfo* SkillParentInfoManager::getSkillParentInfo(SkillType_t SkillType) const 
-{
-	__BEGIN_TRY
+SkillParentInfo* SkillParentInfoManager::getSkillParentInfo(SkillType_t SkillType) const {
+    __BEGIN_TRY
 
-	if (SkillType >= m_SkillCount)
-	{
-		cerr << "SkillParentInfoManager::getSkillParentInfo() : out of bounds" << endl;
-		throw OutOfBoundException ();
-	}
+    if (SkillType >= m_SkillCount) {
+        cerr << "SkillParentInfoManager::getSkillParentInfo() : out of bounds" << endl;
+        throw OutOfBoundException();
+    }
 
-	if (m_SkillParentInfoList[SkillType] == NULL)
-	{
-		cerr << "SkillParentInfoManager::getSkillParentInfo() : NoSuchElementException" << endl;
-		throw NoSuchElementException ();
-	}
+    if (m_SkillParentInfoList[SkillType] == NULL) {
+        cerr << "SkillParentInfoManager::getSkillParentInfo() : NoSuchElementException" << endl;
+        throw NoSuchElementException();
+    }
 
-	return m_SkillParentInfoList[SkillType];
-	
-	__END_CATCH
+    return m_SkillParentInfoList[SkillType];
+
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
@@ -329,31 +306,27 @@ SkillParentInfo* SkillParentInfoManager::getSkillParentInfo(SkillType_t SkillTyp
 //
 //--------------------------------------------------------------------
 string SkillParentInfoManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "SkillParentInfoManager(";
+    msg << "SkillParentInfoManager(";
 
-	for (uint i = 0 ; i < m_SkillCount ; i ++) 
-	{
-		if (m_SkillParentInfoList[i] != NULL)
-		{
-			msg << m_SkillParentInfoList[i]->toString();
-		}
-		else 
-		{
-			msg << "NULL" ;
-		}
-	}
+    for (uint i = 0; i < m_SkillCount; i++) {
+        if (m_SkillParentInfoList[i] != NULL) {
+            msg << m_SkillParentInfoList[i]->toString();
+        } else {
+            msg << "NULL";
+        }
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Global Variable definition

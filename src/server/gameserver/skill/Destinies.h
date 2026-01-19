@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Destinies.h 
+// Filename    : Destinies.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DESTINIES_HANDLER_H__
@@ -13,20 +13,24 @@
 // class Destinies;
 //////////////////////////////////////////////////////////////////////////////
 
-class Destinies: public SkillHandler 
-{
+class Destinies : public SkillHandler {
 public:
-	Destinies() throw() {}
-	~Destinies() throw() {}
-	
+    Destinies() throw() {}
+    ~Destinies() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Destinies"; }
+    string getSkillHandlerName() const throw() {
+        return "Destinies";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_DESTINIES; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DESTINIES;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,60 +1,58 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionFlagOff.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionFlagOff.h"
-#include "PlayerCreature.h"
+
 #include "FlagSet.h"
+#include "PlayerCreature.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionFlagOff::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionFlagOff::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	FlagSet* pFlagSet = pPC->getFlagSet();
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	if (pFlagSet->isOn(m_Index) == false) return true;
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    FlagSet* pFlagSet = pPC->getFlagSet();
 
-	return false;
+    if (pFlagSet->isOn(m_Index) == false)
+        return true;
+
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionFlagOff::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionFlagOff::read(PropertyBuffer& propertyBuffer)
+
 {
-	try
-	{
-		// read turn
-		m_Index = propertyBuffer.getPropertyInt("Index");
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+    try {
+        // read turn
+        m_Index = propertyBuffer.getPropertyInt("Index");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionFlagOff::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionFlagOff::toString() const
 
-	StringStream msg;
-	msg << "ConditionFlagOff("
-		<< "Index:" << (int)m_Index
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionFlagOff("
+        << "Index:" << (int)m_Index << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

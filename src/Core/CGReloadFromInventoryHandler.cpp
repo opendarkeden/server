@@ -7,115 +7,108 @@
 #include "CGReloadFromInventory.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "Zone.h"
-	#include "Slayer.h"
-	#include "Inventory.h"
-	#include "Item.h"
-	#include "ItemUtil.h"
-	#include "ItemInfo.h"
-	#include "ItemInfoManager.h"
-	#include "EffectManager.h"
-	#include "EffectReloadTimer.h"
-
-	#include "GCCannotUse.h"
+#include "EffectManager.h"
+#include "EffectReloadTimer.h"
+#include "GCCannotUse.h"
+#include "GamePlayer.h"
+#include "Inventory.h"
+#include "Item.h"
+#include "ItemInfo.h"
+#include "ItemInfoManager.h"
+#include "ItemUtil.h"
+#include "Slayer.h"
+#include "Zone.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGReloadFromInventoryHandler::execute (CGReloadFromInventory* pPacket , Player* pPlayer)
-	
+void CGReloadFromInventoryHandler::execute(CGReloadFromInventory* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	try 
-	{
-		GamePlayer*  pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-		Creature*    pCreature   = pGamePlayer->getCreature();
+    try {
+        GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+        Creature* pCreature = pGamePlayer->getCreature();
 
-		Assert(pCreature->isSlayer());
+        Assert(pCreature->isSlayer());
 
-		Slayer*      pSlayer     = dynamic_cast<Slayer*>(pCreature);
-		Item*        pArmsItem   = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
-		ObjectID_t   ItemObjectID;
-		CoordInven_t x, y;
-		bool         Success     = false;
-		Item*        pItem       = NULL;
-		Inventory*   pInventory  = NULL;
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+        Item* pArmsItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
+        ObjectID_t ItemObjectID;
+        CoordInven_t x, y;
+        bool Success = false;
+        Item* pItem = NULL;
+        Inventory* pInventory = NULL;
 
-		if (pArmsItem != NULL) 
-		{
-			if (isArmsWeapon(pArmsItem))
-			{
-				pInventory = pSlayer->getInventory();
-				x          = pPacket->getX();
-				y          = pPacket->getY();
-				pItem      = pInventory->getItem(x, y);
+        if (pArmsItem != NULL) {
+            if (isArmsWeapon(pArmsItem)) {
+                pInventory = pSlayer->getInventory();
+                x = pPacket->getX();
+                y = pPacket->getY();
+                pItem = pInventory->getItem(x, y);
 
-				//Assert(pItem != NULL);
-				if (pItem == NULL)
-				{
-					GCCannotUse _GCCannotUse;
-					_GCCannotUse.setObjectID(pPacket->getObjectID());
-					pPlayer->sendPacket(&_GCCannotUse);
-					return;
-				}
-		
-				// 인벤토리 슬랏에 있는 아이템의 Object를 받는다.
-				ItemObjectID = pItem->getObjectID();
-		
-				if (ItemObjectID != pPacket->getObjectID())
-				{
-					GCCannotUse _GCCannotUse;
-					_GCCannotUse.setObjectID(pPacket->getObjectID());
-					pPlayer->sendPacket(&_GCCannotUse);
-					return;
-				}
+                // Assert(pItem != NULL);
+                if (pItem == NULL) {
+                    GCCannotUse _GCCannotUse;
+                    _GCCannotUse.setObjectID(pPacket->getObjectID());
+                    pPlayer->sendPacket(&_GCCannotUse);
+                    return;
+                }
 
-				SkillSlot*	pVivid = pSlayer->getSkill(SKILL_VIVID_MAGAZINE);
-				bool		hasVivid = (pVivid != NULL) && pVivid->canUse();
+                // 인벤토리 슬랏에 있는 아이템의 Object를 받는다.
+                ItemObjectID = pItem->getObjectID();
 
-				if (isSuitableMagazine(pArmsItem, pItem, hasVivid)) Success = true;
-			}
-		} 
+                if (ItemObjectID != pPacket->getObjectID()) {
+                    GCCannotUse _GCCannotUse;
+                    _GCCannotUse.setObjectID(pPacket->getObjectID());
+                    pPlayer->sendPacket(&_GCCannotUse);
+                    return;
+                }
 
-		// reload delay가 있으므로 effect에 등록 시킨다.
-		EffectManager* pEffectManager = pSlayer->getEffectManager();
-		if (pEffectManager == NULL) return;
+                SkillSlot* pVivid = pSlayer->getSkill(SKILL_VIVID_MAGAZINE);
+                bool hasVivid = (pVivid != NULL) && pVivid->canUse();
 
-		if (Success && !pSlayer->isFlag(Effect::EFFECT_CLASS_RELOAD_TIMER)) 
-		{
-			EffectReloadTimer* pEffect = new EffectReloadTimer(pSlayer);
-			
-			pEffect->setFromInventory(true);
-			pEffect->setObjectID(ItemObjectID);
-			pEffect->setInventoryXY(x, y);
-			
-			if (pSlayer->hasSkill(SKILL_FAST_RELOAD)) pEffect->setDeadline(7); // 빠른 reload(0.7초)
-			else                                      pEffect->setDeadline(2*10); // 보통 reload(2sec)
+                if (isSuitableMagazine(pArmsItem, pItem, hasVivid))
+                    Success = true;
+            }
+        }
 
-			pSlayer->setFlag(Effect::EFFECT_CLASS_RELOAD_TIMER);
-			pEffectManager->addEffect(pEffect);
-		} 
-		else 
-		{
-			GCCannotUse _GCCannotUse;
-			_GCCannotUse.setObjectID(pPacket->getObjectID());
-			pPlayer->sendPacket(&_GCCannotUse);
-		}
+        // reload delay가 있으므로 effect에 등록 시킨다.
+        EffectManager* pEffectManager = pSlayer->getEffectManager();
+        if (pEffectManager == NULL)
+            return;
 
-	} 
-	catch (Throwable & t) 
-	{
-		//cout << t.toString();
-	}
+        if (Success && !pSlayer->isFlag(Effect::EFFECT_CLASS_RELOAD_TIMER)) {
+            EffectReloadTimer* pEffect = new EffectReloadTimer(pSlayer);
 
-#endif	// __GAME_SERVER__
+            pEffect->setFromInventory(true);
+            pEffect->setObjectID(ItemObjectID);
+            pEffect->setInventoryXY(x, y);
+
+            if (pSlayer->hasSkill(SKILL_FAST_RELOAD))
+                pEffect->setDeadline(7); // 빠른 reload(0.7초)
+            else
+                pEffect->setDeadline(2 * 10); // 보통 reload(2sec)
+
+            pSlayer->setFlag(Effect::EFFECT_CLASS_RELOAD_TIMER);
+            pEffectManager->addEffect(pEffect);
+        } else {
+            GCCannotUse _GCCannotUse;
+            _GCCannotUse.setObjectID(pPacket->getObjectID());
+            pPlayer->sendPacket(&_GCCannotUse);
+        }
+
+    } catch (Throwable& t) {
+        // cout << t.toString();
+    }
+
+#endif // __GAME_SERVER__
 
     __END_DEBUG_EX __END_CATCH
 }

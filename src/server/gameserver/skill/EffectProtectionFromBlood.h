@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectProtectionFromBlood.h
 // Written by  : excel96
-// Description : 
+// Description :
 // ProtectionFromBlood에 의해서 생성되는 산성 데미지 약화 이펙트이다.
 //////////////////////////////////////////////////////////////////////////////
 
@@ -15,46 +15,53 @@
 // class EffectProtectionFromBlood
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectProtectionFromBlood : public Effect 
-{
+class EffectProtectionFromBlood : public Effect {
 public:
-	EffectProtectionFromBlood(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PROTECTION_FROM_BLOOD; }
-
-	void affect() {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	string toString() const throw();
+    EffectProtectionFromBlood(Creature* pCreature);
 
 public:
-	Resist_t getResist(void) const throw() { return m_Resist; }
-	void setResist(Resist_t resist) { m_Resist = resist; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_PROTECTION_FROM_BLOOD;
+    }
 
-private :
-	Resist_t m_Resist;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
+
+    string toString() const throw();
+
+public:
+    Resist_t getResist(void) const throw() {
+        return m_Resist;
+    }
+    void setResist(Resist_t resist) {
+        m_Resist = resist;
+    }
+
+private:
+    Resist_t m_Resist;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectProtectionFromBloodLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectProtectionFromBloodLoader : public EffectLoader 
-{
+class EffectProtectionFromBloodLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_PROTECTION_FROM_BLOOD; }
-	virtual string getEffectClassName() const throw() { return "EffectProtectionFromBlood"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_PROTECTION_FROM_BLOOD;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectProtectionFromBlood";
+    }
 
 public:
-	virtual void load(Creature* pCreature) ;
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectProtectionFromBloodLoader* g_pEffectProtectionFromBloodLoader;

@@ -1,27 +1,27 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SimpleTileCureSkill.cpp
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SimpleTileCureSkill.h"
-#include "EffectBloodDrain.h"
-#include "EffectAftermath.h"
 
+#include "EffectAftermath.h"
+#include "EffectBloodDrain.h"
+#include "GCRemoveEffect.h"
 #include "GCSkillToObjectOK1.h"
 #include "GCSkillToObjectOK2.h"
 #include "GCSkillToObjectOK3.h"
 #include "GCSkillToObjectOK4.h"
 #include "GCSkillToObjectOK5.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
 #include "GCSkillToTileOK1.h"
 #include "GCSkillToTileOK2.h"
 #include "GCSkillToTileOK3.h"
 #include "GCSkillToTileOK4.h"
 #include "GCSkillToTileOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
 #include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
 
 SimpleTileCureSkill g_SimpleTileCureSkill;
 
@@ -29,805 +29,726 @@ SimpleTileCureSkill g_SimpleTileCureSkill;
 // class SimpleTileCureSkill member methods
 //////////////////////////////////////////////////////////////////////////////
 
-void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, 
-	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID)
-	
+void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, const SIMPLE_SKILL_INPUT& param,
+                                  SIMPLE_SKILL_OUTPUT& result, CEffectID_t CEffectID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pSlayer != NULL);
-	Assert(pSkillSlot != NULL);
+    Assert(pSlayer != NULL);
+    Assert(pSkillSlot != NULL);
 
-	try 
-	{
-		Player* pPlayer = pSlayer->getPlayer();
-		Zone* pZone = pSlayer->getZone();
+    try {
+        Player* pPlayer = pSlayer->getPlayer();
+        Zone* pZone = pSlayer->getZone();
 
-		GCSkillToTileOK1 _GCSkillToTileOK1;
-		GCSkillToTileOK2 _GCSkillToTileOK2;
-		GCSkillToTileOK3 _GCSkillToTileOK3;
-		GCSkillToTileOK4 _GCSkillToTileOK4;
-		GCSkillToTileOK5 _GCSkillToTileOK5;
-		GCSkillToSelfOK1 _GCSkillToSelfOK1;
-		GCSkillToSelfOK2 _GCSkillToSelfOK2;
+        GCSkillToTileOK1 _GCSkillToTileOK1;
+        GCSkillToTileOK2 _GCSkillToTileOK2;
+        GCSkillToTileOK3 _GCSkillToTileOK3;
+        GCSkillToTileOK4 _GCSkillToTileOK4;
+        GCSkillToTileOK5 _GCSkillToTileOK5;
+        GCSkillToSelfOK1 _GCSkillToSelfOK1;
+        GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
-		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(param.SkillType);
-		SkillDomainType_t DomainType = pSkillInfo->getDomainType();
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(param.SkillType);
+        SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 
-		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
-		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pSkillSlot);
-		bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
-		bool bHPCheck    = false;
-		bool bheal       = false;
-		uint HealPoint   = param.SkillDamage;
-		uint RealHealPoint   = 0;
+        int RequiredMP = (int)pSkillInfo->getConsumeMP();
+        bool bManaCheck = hasEnoughMana(pSlayer, RequiredMP);
+        bool bTimeCheck = verifyRunTime(pSkillSlot);
+        bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
+        bool bHPCheck = false;
+        bool bheal = false;
+        uint HealPoint = param.SkillDamage;
+        uint RealHealPoint = 0;
 
-		ZoneCoord_t myX = pSlayer->getX();
-		ZoneCoord_t myY = pSlayer->getY();
+        ZoneCoord_t myX = pSlayer->getX();
+        ZoneCoord_t myY = pSlayer->getY();
 
-		ZoneCoord_t X = pSlayer->getX();
-		ZoneCoord_t Y = pSlayer->getY();
+        ZoneCoord_t X = pSlayer->getX();
+        ZoneCoord_t Y = pSlayer->getY();
 
-		if (bManaCheck && bTimeCheck && bRangeCheck ) {
+        if (bManaCheck && bTimeCheck && bRangeCheck) {
+            decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-			decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
+            int Splash = 3 + pSkillSlot->getExpLevel() / 10 + 1;
 
-			int Splash = 3 + pSkillSlot->getExpLevel()/10 + 1;
+            list<Creature*> cList;
+            list<Creature*> creatureList;
+            getSplashVictims(pZone, X, Y, Creature::CREATURE_CLASS_MAX, creatureList, Splash);
+            // cout << "Create Size : " << (int)creatureList.size() << endl;
 
-			list<Creature*> cList;
-			list<Creature*> creatureList;
-			getSplashVictims(pZone, X, Y, Creature::CREATURE_CLASS_MAX, creatureList, Splash);
-			//cout << "Create Size : " << (int)creatureList.size() << endl;
-
-			list<Creature*>::iterator itr = creatureList.begin();
-			for (; itr != creatureList.end(); itr++)
-			{
+            list<Creature*>::iterator itr = creatureList.begin();
+            for (; itr != creatureList.end(); itr++) {
                 Creature* pTargetCreature = (*itr);
-				Assert(pTargetCreature != NULL);
-//				bool bSlayer	 = false;		// unused variable warninig clear by bezz 2002.05.13
+                Assert(pTargetCreature != NULL);
+                //				bool bSlayer	 = false;		// unused variable warninig clear by bezz 2002.05.13
 
-				EffectBloodDrain* pEffectBloodDrain = NULL;
+                EffectBloodDrain* pEffectBloodDrain = NULL;
 
-				bHPCheck = false;		// 크리쳐를 체크할때 마다 새로 세팅해야하지 않을까? 2002.05.31 by bezz
-				
-				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) ) {
+                bHPCheck = false; // 크리쳐를 체크할때 마다 새로 세팅해야하지 않을까? 2002.05.31 by bezz
 
-					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
-					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
+                if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
+                    HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
+                    HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
 
-					if ( CurrentHP < MaxHP )
-					{
-						bHPCheck = true;
-					}
+                    if (CurrentHP < MaxHP) {
+                        bHPCheck = true;
+                    }
 
-					if ( pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
-					{
-						Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
-						pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
-						Assert(pEffectBloodDrain != NULL);
-							
-						if (pEffectBloodDrain->getLevel() < param.Level) {
-							bHPCheck = true;
-							bheal = true;
-						}
-					}
+                    if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN)) {
+                        Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                        pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
+                        Assert(pEffectBloodDrain != NULL);
 
-					bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
+                        if (pEffectBloodDrain->getLevel() < param.Level) {
+                            bHPCheck = true;
+                            bheal = true;
+                        }
+                    }
 
-					if ( bHitRoll && bHPCheck && pTargetCreature->isAlive())
-					{
-						Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
+                    bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-						// 힐 효과 broadcast
-						// by sigi. 2002.6.1
-						///*
-						_GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
-						_GCSkillToSelfOK1.setDuration(0);
-						pTargetSlayer->getPlayer()->sendPacket(&_GCSkillToSelfOK1);
+                    if (bHitRoll && bHPCheck && pTargetCreature->isAlive()) {
+                        Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
-						_GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
-						_GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
-						_GCSkillToSelfOK2.setDuration(0);
-						pZone->broadcastPacket( pTargetSlayer->getX(), pTargetSlayer->getY(), &_GCSkillToSelfOK2, pTargetSlayer);
-						//*/
+                        // 힐 효과 broadcast
+                        // by sigi. 2002.6.1
+                        ///*
+                        _GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
+                        _GCSkillToSelfOK1.setDuration(0);
+                        pTargetSlayer->getPlayer()->sendPacket(&_GCSkillToSelfOK1);
+
+                        _GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
+                        _GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
+                        _GCSkillToSelfOK2.setDuration(0);
+                        pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &_GCSkillToSelfOK2,
+                                               pTargetSlayer);
+                        //*/
 
 
-						// 흡혈당한 상태라면 흡혈 상태를 날려준다.
-						if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
-						{
+                        // 흡혈당한 상태라면 흡혈 상태를 날려준다.
+                        if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
+                            // 흡혈 아르바이트를 방지하기 위한 후유증 이펙트를 붙여준다.
+                            if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
+                                Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
+                                EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
+                                pEffectAftermath->setDeadline(5 * 600); // 5분 동안 지속된다.
+                            } else {
+                                EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
+                                pEffectAftermath->setDeadline(5 * 600); // 5분 동안 지속된다.
+                                pTargetSlayer->addEffect(pEffectAftermath);
+                                pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
+                                pEffectAftermath->create(pTargetSlayer->getName());
+                            }
 
-							// 흡혈 아르바이트를 방지하기 위한 후유증 이펙트를 붙여준다.
-							if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH))
-							{
-								Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
-								EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-								pEffectAftermath->setDeadline(5*600); // 5분 동안 지속된다.
-							}
-							else
-							{
-								EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-								pEffectAftermath->setDeadline(5*600); // 5분 동안 지속된다.
-								pTargetSlayer->addEffect(pEffectAftermath);
-								pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
-								pEffectAftermath->create(pTargetSlayer->getName());
-							}
+                            pEffectBloodDrain->destroy(pTargetSlayer->getName());
+                            pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-							pEffectBloodDrain->destroy(pTargetSlayer->getName());
-							pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                            SLAYER_RECORD prev;
+                            pTargetSlayer->getSlayerRecord(prev);
+                            pTargetSlayer->initAllStat();
+                            pTargetSlayer->sendRealWearingInfo();
 
-							SLAYER_RECORD prev;
-							pTargetSlayer->getSlayerRecord(prev);
-							pTargetSlayer->initAllStat();
-							pTargetSlayer->sendRealWearingInfo();
+                            if (pTargetSlayer == pSlayer) {
+                                pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
+                            } else {
+                                pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
+                            }
 
-							if( pTargetSlayer == pSlayer ) {
-								pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
-							} else {
-								pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
-							}
+                            GCRemoveEffect gcRemoveEffect;
+                            gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
+                            gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                            pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+                        }
 
-							GCRemoveEffect gcRemoveEffect;
-							gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
-							gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
-							pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+                        // HP를 세팅한다.
+                        HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
+                        HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-						}
+                        // 실제 회복 수치를 계산한다.
+                        if (CurrentHP + HealPoint <= MaxHP) {
+                            RealHealPoint = max((unsigned int)0, HealPoint);
+                        } else {
+                            RealHealPoint = max(0, MaxHP - CurrentHP);
+                        }
 
-						// HP를 세팅한다.
-						HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
-						HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
+                        CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
+                        pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
+                        bheal = true;
 
-						// 실제 회복 수치를 계산한다.
-						if( CurrentHP + HealPoint <= MaxHP ) {
-							RealHealPoint = max( (unsigned int)0, HealPoint );
-						} else {
-							RealHealPoint = max( 0, MaxHP - CurrentHP );
-						}
+                        cList.push_back(pTargetSlayer);
+                    }
+                }
+            }
 
-						CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
-						pTargetSlayer->setHP(CurrentHP , ATTR_CURRENT);
-						bheal = true;
+            if (bheal) {
+                // 경험치를 올려준다.
+                shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
+                             _GCSkillToTileOK1);
+                increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
+                increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
+            }
 
-						cList.push_back(pTargetSlayer);
+            Dir_t dir = calcDirection(myX, myY, X, Y);
 
-					}
-				} 
-			}
+            _GCSkillToTileOK1.setSkillType(param.SkillType);
+            _GCSkillToTileOK1.setCEffectID(CEffectID);
+            _GCSkillToTileOK1.setX(X);
+            _GCSkillToTileOK1.setY(Y);
+            _GCSkillToTileOK1.setRange(dir);
+            _GCSkillToTileOK1.setDuration(0);
 
-			if( bheal ) {
-				// 경험치를 올려준다.
-				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
-				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
-				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
-			}
+            _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK2.setSkillType(param.SkillType);
+            _GCSkillToTileOK2.setX(X);
+            _GCSkillToTileOK2.setY(Y);
+            _GCSkillToTileOK2.setRange(dir);
+            _GCSkillToTileOK2.setDuration(0);
 
-			Dir_t dir = calcDirection ( myX, myY, X, Y );
+            _GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK3.setSkillType(param.SkillType);
+            _GCSkillToTileOK3.setX(X);
+            _GCSkillToTileOK3.setY(Y);
 
-			_GCSkillToTileOK1.setSkillType(param.SkillType);
-			_GCSkillToTileOK1.setCEffectID(CEffectID);
-			_GCSkillToTileOK1.setX(X);
-			_GCSkillToTileOK1.setY(Y);
-			_GCSkillToTileOK1.setRange(dir);
-			_GCSkillToTileOK1.setDuration(0);
+            _GCSkillToTileOK4.setSkillType(param.SkillType);
+            _GCSkillToTileOK4.setX(X);
+            _GCSkillToTileOK4.setY(Y);
+            _GCSkillToTileOK4.setDuration(0);
+            _GCSkillToTileOK4.setRange(dir);
 
-			_GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK2.setSkillType(param.SkillType);
-			_GCSkillToTileOK2.setX(X);
-			_GCSkillToTileOK2.setY(Y);
-			_GCSkillToTileOK2.setRange(dir);
-			_GCSkillToTileOK2.setDuration(0);
+            _GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK5.setSkillType(param.SkillType);
+            _GCSkillToTileOK5.setX(X);
+            _GCSkillToTileOK5.setY(Y);
+            _GCSkillToTileOK5.setRange(dir);
+            _GCSkillToTileOK5.setDuration(0);
 
-			_GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK3.setSkillType(param.SkillType);
-			_GCSkillToTileOK3.setX(X);
-			_GCSkillToTileOK3.setY(Y);
+            pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-			_GCSkillToTileOK4.setSkillType(param.SkillType);
-			_GCSkillToTileOK4.setX(X);
-			_GCSkillToTileOK4.setY(Y);
-			_GCSkillToTileOK4.setDuration(0);
-			_GCSkillToTileOK4.setRange(dir);
+            // cout << "Healed Creature Size : " << (int)cList.size() << endl;
+            cList.push_back(pSlayer);
+            // 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
+            for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
+                Creature* pTargetCreature = *itr;
+                Assert(pTargetCreature != NULL);
 
-			_GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK5.setSkillType(param.SkillType);
-			_GCSkillToTileOK5.setX(X);
-			_GCSkillToTileOK5.setY(Y);
-			_GCSkillToTileOK5.setRange(dir);
-			_GCSkillToTileOK5.setDuration(0);
+                if (pTargetCreature->isPC()) {
+                    _GCSkillToTileOK2.clearList();
 
-			pPlayer->sendPacket(&_GCSkillToTileOK1);
+                    HP_t targetHP = 0;
+                    if (pTargetCreature->isSlayer()) {
+                        targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
+                    } else if (pTargetCreature->isVampire()) {
+                        targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
+                    } else if (pTargetCreature->isOusters()) {
+                        targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
+                    }
 
-			//cout << "Healed Creature Size : " << (int)cList.size() << endl;
-    	    cList.push_back(pSlayer);
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
-			for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
-			{
-				Creature* pTargetCreature = *itr;
-				Assert(pTargetCreature != NULL);
+                    _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-				if (pTargetCreature->isPC())
-				{
-					_GCSkillToTileOK2.clearList();
+                    // 패킷을 보내준다.
+                    Player* pPlayer = pTargetCreature->getPlayer();
+                    Assert(pPlayer != NULL);
+                    pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-					HP_t targetHP = 0;
-					if (pTargetCreature->isSlayer())
-					{
-						targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isVampire())
-					{
-						targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isOusters())
-					{
-						targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
-					}
+                    // HP를 브로드캐스팅한다.
+                    GCStatusCurrentHP gcStatusCurrentHP;
+                    gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
+                    gcStatusCurrentHP.setCurrentHP(targetHP);
+                    pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+                }
 
-					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
+                cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-					// 패킷을 보내준다.
-					Player* pPlayer = pTargetCreature->getPlayer();
-					Assert(pPlayer != NULL);
-					pPlayer->sendPacket(&_GCSkillToTileOK2);
+                pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
+                pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-					// HP를 브로드캐스팅한다.
-					GCStatusCurrentHP gcStatusCurrentHP;
-					gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
-					gcStatusCurrentHP.setCurrentHP (targetHP);
-					pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+                pSkillSlot->setRunTime(param.Delay);
+                result.bSuccess = true;
+            }
 
-				}
+        } else {
+            executeSkillFailNormal(pSlayer, param.SkillType, NULL);
+        }
+    } catch (Throwable& t) {
+        executeSkillFailException(pSlayer, param.SkillType);
+    }
 
-			    cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
-
-				pZone->broadcastPacket(myX, myY,  &_GCSkillToTileOK3 , cList);
-				pZone->broadcastPacket(X, Y,  &_GCSkillToTileOK4 , cList);
-
-				pSkillSlot->setRunTime(param.Delay);
-				result.bSuccess = true;
-			} 
-
-		}
-		else 
-		{
-			executeSkillFailNormal(pSlayer, param.SkillType, NULL);
-		}
-	} 
-	catch(Throwable & t)  
-	{
-		executeSkillFailException(pSlayer, param.SkillType);
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
-	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID) 
-	
+void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot,
+                                  const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, CEffectID_t CEffectID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pSlayer != NULL);
-	Assert(pSkillSlot != NULL);
+    Assert(pSlayer != NULL);
+    Assert(pSkillSlot != NULL);
 
-	try 
-	{
-		Player* pPlayer = pSlayer->getPlayer();
-		Zone* pZone = pSlayer->getZone();
+    try {
+        Player* pPlayer = pSlayer->getPlayer();
+        Zone* pZone = pSlayer->getZone();
 
-		Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
-		//Assert(pTargetCreature != NULL);
+        Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+        // Assert(pTargetCreature != NULL);
 
-		// NoSuch제거. by sigi. 2002.5.2
-		if (pTargetCreature==NULL)
-		{
-			executeSkillFailException(pSlayer, param.SkillType);
-			return;
-		}
+        // NoSuch제거. by sigi. 2002.5.2
+        if (pTargetCreature == NULL) {
+            executeSkillFailException(pSlayer, param.SkillType);
+            return;
+        }
 
-		GCSkillToTileOK1 _GCSkillToTileOK1;
-		GCSkillToTileOK2 _GCSkillToTileOK2;
-		GCSkillToTileOK3 _GCSkillToTileOK3;
-		GCSkillToTileOK4 _GCSkillToTileOK4;
-		GCSkillToTileOK5 _GCSkillToTileOK5;
+        GCSkillToTileOK1 _GCSkillToTileOK1;
+        GCSkillToTileOK2 _GCSkillToTileOK2;
+        GCSkillToTileOK3 _GCSkillToTileOK3;
+        GCSkillToTileOK4 _GCSkillToTileOK4;
+        GCSkillToTileOK5 _GCSkillToTileOK5;
 
-		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(param.SkillType);
-		SkillDomainType_t DomainType = pSkillInfo->getDomainType();
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(param.SkillType);
+        SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 
-		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
-		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pSkillSlot);
-		bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
-		bool bHPCheck    = false;
-		bool bheal       = false;
-		uint HealPoint   = param.SkillDamage;
-		uint RealHealPoint = 0;
+        int RequiredMP = (int)pSkillInfo->getConsumeMP();
+        bool bManaCheck = hasEnoughMana(pSlayer, RequiredMP);
+        bool bTimeCheck = verifyRunTime(pSkillSlot);
+        bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
+        bool bHPCheck = false;
+        bool bheal = false;
+        uint HealPoint = param.SkillDamage;
+        uint RealHealPoint = 0;
 
-		ZoneCoord_t myX = pSlayer->getX();
-		ZoneCoord_t myY = pSlayer->getY();
+        ZoneCoord_t myX = pSlayer->getX();
+        ZoneCoord_t myY = pSlayer->getY();
 
-		ZoneCoord_t X = pTargetCreature->getX();
-		ZoneCoord_t Y = pTargetCreature->getY();
+        ZoneCoord_t X = pTargetCreature->getX();
+        ZoneCoord_t Y = pTargetCreature->getY();
 
-		if (bManaCheck && bTimeCheck && bRangeCheck ) {
+        if (bManaCheck && bTimeCheck && bRangeCheck) {
+            decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-			decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
+            int Splash = 3 + pSkillSlot->getExpLevel() / 10 + 1;
 
-			int Splash = 3 + pSkillSlot->getExpLevel()/10 + 1;
+            list<Creature*> cList;
+            list<Creature*> creatureList;
+            getSplashVictims(pZone, X, Y, Creature::CREATURE_CLASS_MAX, creatureList, Splash);
+            // cout << "Create Size : " << (int)creatureList.size() << endl;
 
-			list<Creature*> cList;
-			list<Creature*> creatureList;
-			getSplashVictims(pZone, X, Y, Creature::CREATURE_CLASS_MAX, creatureList, Splash);
-			//cout << "Create Size : " << (int)creatureList.size() << endl;
-
-			list<Creature*>::iterator itr = creatureList.begin();
-			for (; itr != creatureList.end(); itr++)
-			{
+            list<Creature*>::iterator itr = creatureList.begin();
+            for (; itr != creatureList.end(); itr++) {
                 Creature* pTargetCreature = (*itr);
-				Assert(pTargetCreature != NULL);
+                Assert(pTargetCreature != NULL);
 
-				EffectBloodDrain* pEffectBloodDrain = NULL;
-				bool bSlayer	 = false;
-				
-				bHPCheck = false;		// 크리쳐를 체크할때 마다 새로 세팅해야하지 않을까? 2002.05.31 by bezz
+                EffectBloodDrain* pEffectBloodDrain = NULL;
+                bool bSlayer = false;
 
-				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
+                bHPCheck = false; // 크리쳐를 체크할때 마다 새로 세팅해야하지 않을까? 2002.05.31 by bezz
 
-					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
-					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
+                if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
+                    HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
+                    HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
 
-					if ( CurrentHP < MaxHP )
-					{
-						bHPCheck = true;
-					}
-					bSlayer = true;
-				} 
+                    if (CurrentHP < MaxHP) {
+                        bHPCheck = true;
+                    }
+                    bSlayer = true;
+                }
 
-				if ( bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
-				{
-					Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
-					pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
-					Assert(pEffectBloodDrain != NULL);
-						
-					if (pEffectBloodDrain->getLevel() < param.Level) {
-						bHPCheck = true;
-						bheal = true;
-					}
-				}
+                if (bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN)) {
+                    Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                    pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
+                    Assert(pEffectBloodDrain != NULL);
 
-				bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
+                    if (pEffectBloodDrain->getLevel() < param.Level) {
+                        bHPCheck = true;
+                        bheal = true;
+                    }
+                }
 
-				if ( bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
-				{
-					Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
-					Assert(pTargetSlayer!= NULL);
+                bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-					// 흡혈당한 상태라면 흡혈 상태를 날려준다.
-					if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
-					{
+                if (bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive()) {
+                    Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
+                    Assert(pTargetSlayer != NULL);
 
-						// 흡혈 아르바이트를 방지하기 위한 후유증 이펙트를 붙여준다.
-						if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH))
-						{
-							Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
-							EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-							pEffectAftermath->setDeadline(5*600); // 5분 동안 지속된다.
-						}
-						else
-						{
-							EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-							pEffectAftermath->setDeadline(5*600); // 5분 동안 지속된다.
-							pTargetSlayer->addEffect(pEffectAftermath);
-							pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
-							pEffectAftermath->create(pTargetSlayer->getName());
-						}
+                    // 흡혈당한 상태라면 흡혈 상태를 날려준다.
+                    if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
+                        // 흡혈 아르바이트를 방지하기 위한 후유증 이펙트를 붙여준다.
+                        if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
+                            Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
+                            EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
+                            pEffectAftermath->setDeadline(5 * 600); // 5분 동안 지속된다.
+                        } else {
+                            EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
+                            pEffectAftermath->setDeadline(5 * 600); // 5분 동안 지속된다.
+                            pTargetSlayer->addEffect(pEffectAftermath);
+                            pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
+                            pEffectAftermath->create(pTargetSlayer->getName());
+                        }
 
-						pEffectBloodDrain->destroy(pTargetSlayer->getName());
-						pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                        pEffectBloodDrain->destroy(pTargetSlayer->getName());
+                        pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-						SLAYER_RECORD prev;
-						pTargetSlayer->getSlayerRecord(prev);
-						pTargetSlayer->initAllStat();
-						pTargetSlayer->sendRealWearingInfo();
+                        SLAYER_RECORD prev;
+                        pTargetSlayer->getSlayerRecord(prev);
+                        pTargetSlayer->initAllStat();
+                        pTargetSlayer->sendRealWearingInfo();
 
-						if( pTargetSlayer == pSlayer ) {
-							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
-						} else {
-							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
-						}
+                        if (pTargetSlayer == pSlayer) {
+                            pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
+                        } else {
+                            pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
+                        }
 
-						GCRemoveEffect gcRemoveEffect;
-						gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
-						gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
-						pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+                        GCRemoveEffect gcRemoveEffect;
+                        gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
+                        gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                        pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+                    }
 
-					}
+                    // HP를 세팅한다.
+                    HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
+                    HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-					// HP를 세팅한다.
-					HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
-					HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
+                    // 실제 회복 수치를 계산한다.
+                    if (CurrentHP + HealPoint <= MaxHP) {
+                        RealHealPoint = max((unsigned int)0, HealPoint);
+                    } else {
+                        RealHealPoint = max(0, MaxHP - CurrentHP);
+                    }
 
-					// 실제 회복 수치를 계산한다.
-					if( CurrentHP + HealPoint <= MaxHP ) {
-						RealHealPoint = max( (unsigned int)0, HealPoint );
-					} else {
-						RealHealPoint = max( 0, MaxHP - CurrentHP );
-					}
+                    CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
+                    pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
+                    bheal = true;
 
-					CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
-					pTargetSlayer->setHP(CurrentHP , ATTR_CURRENT);
-					bheal = true;
+                    cList.push_back(pTargetSlayer);
+                }
+            }
 
-					cList.push_back(pTargetSlayer);
+            if (bheal) {
+                // 경험치를 올려준다.
+                shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
+                             _GCSkillToTileOK1);
+                increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
+                increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
+            }
 
-				}
-			}
+            Dir_t dir = calcDirection(myX, myY, X, Y);
 
-			if( bheal ) {
-				// 경험치를 올려준다.
-				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
-				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
-				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
-			}
+            _GCSkillToTileOK1.setSkillType(param.SkillType);
+            _GCSkillToTileOK1.setCEffectID(CEffectID);
+            _GCSkillToTileOK1.setX(X);
+            _GCSkillToTileOK1.setY(Y);
+            _GCSkillToTileOK1.setRange(dir);
+            _GCSkillToTileOK1.setDuration(0);
 
-			Dir_t dir = calcDirection ( myX, myY, X, Y );
+            _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK2.setSkillType(param.SkillType);
+            _GCSkillToTileOK2.setX(X);
+            _GCSkillToTileOK2.setY(Y);
+            _GCSkillToTileOK2.setRange(dir);
+            _GCSkillToTileOK2.setDuration(0);
 
-			_GCSkillToTileOK1.setSkillType(param.SkillType);
-			_GCSkillToTileOK1.setCEffectID(CEffectID);
-			_GCSkillToTileOK1.setX(X);
-			_GCSkillToTileOK1.setY(Y);
-			_GCSkillToTileOK1.setRange(dir);
-			_GCSkillToTileOK1.setDuration(0);
+            _GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK3.setSkillType(param.SkillType);
+            _GCSkillToTileOK3.setX(X);
+            _GCSkillToTileOK3.setY(Y);
 
-			_GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK2.setSkillType(param.SkillType);
-			_GCSkillToTileOK2.setX(X);
-			_GCSkillToTileOK2.setY(Y);
-			_GCSkillToTileOK2.setRange(dir);
-			_GCSkillToTileOK2.setDuration(0);
+            _GCSkillToTileOK4.setSkillType(param.SkillType);
+            _GCSkillToTileOK4.setX(X);
+            _GCSkillToTileOK4.setY(Y);
+            _GCSkillToTileOK4.setDuration(0);
+            _GCSkillToTileOK4.setRange(dir);
 
-			_GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK3.setSkillType(param.SkillType);
-			_GCSkillToTileOK3.setX(X);
-			_GCSkillToTileOK3.setY(Y);
+            _GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK5.setSkillType(param.SkillType);
+            _GCSkillToTileOK5.setX(X);
+            _GCSkillToTileOK5.setY(Y);
+            _GCSkillToTileOK5.setRange(dir);
+            _GCSkillToTileOK5.setDuration(0);
 
-			_GCSkillToTileOK4.setSkillType(param.SkillType);
-			_GCSkillToTileOK4.setX(X);
-			_GCSkillToTileOK4.setY(Y);
-			_GCSkillToTileOK4.setDuration(0);
-			_GCSkillToTileOK4.setRange(dir);
+            pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-			_GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK5.setSkillType(param.SkillType);
-			_GCSkillToTileOK5.setX(X);
-			_GCSkillToTileOK5.setY(Y);
-			_GCSkillToTileOK5.setRange(dir);
-			_GCSkillToTileOK5.setDuration(0);
+            // cout << "Healed Creature Size : " << (int)cList.size() << endl;
+            cList.push_back(pSlayer);
+            // 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
+            for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
+                Creature* pTargetCreature = *itr;
+                Assert(pTargetCreature != NULL);
 
-			pPlayer->sendPacket(&_GCSkillToTileOK1);
+                if (pTargetCreature->isPC()) {
+                    _GCSkillToTileOK2.clearList();
 
-			//cout << "Healed Creature Size : " << (int)cList.size() << endl;
-    	    cList.push_back(pSlayer);
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
-			for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
-			{
-				Creature* pTargetCreature = *itr;
-				Assert(pTargetCreature != NULL);
+                    HP_t targetHP = 0;
+                    if (pTargetCreature->isSlayer()) {
+                        targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
+                    } else if (pTargetCreature->isVampire()) {
+                        targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
+                    } else if (pTargetCreature->isOusters()) {
+                        targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
+                    }
 
-				if (pTargetCreature->isPC())
-				{
-					_GCSkillToTileOK2.clearList();
+                    _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					HP_t targetHP = 0;
-					if (pTargetCreature->isSlayer())
-					{
-						targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isVampire())
-					{
-						targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isOusters())
-					{
-						targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
-					}
+                    // 패킷을 보내준다.
+                    Player* pPlayer = pTargetCreature->getPlayer();
+                    Assert(pPlayer != NULL);
+                    pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
+                    // HP를 브로드캐스팅한다.
+                    GCStatusCurrentHP gcStatusCurrentHP;
+                    gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
+                    gcStatusCurrentHP.setCurrentHP(targetHP);
+                    pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+                }
 
-					// 패킷을 보내준다.
-					Player* pPlayer = pTargetCreature->getPlayer();
-					Assert(pPlayer != NULL);
-					pPlayer->sendPacket(&_GCSkillToTileOK2);
+                cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-					// HP를 브로드캐스팅한다.
-					GCStatusCurrentHP gcStatusCurrentHP;
-					gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
-					gcStatusCurrentHP.setCurrentHP (targetHP);
-					pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+                pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
+                pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-				}
+                pSkillSlot->setRunTime(param.Delay);
+                result.bSuccess = true;
+            }
 
-			    cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
+        } else {
+            executeSkillFailNormal(pSlayer, param.SkillType, NULL);
+        }
+    } catch (Throwable& t) {
+        executeSkillFailException(pSlayer, param.SkillType);
+    }
 
-				pZone->broadcastPacket(myX, myY,  &_GCSkillToTileOK3 , cList);
-				pZone->broadcastPacket(X, Y,  &_GCSkillToTileOK4 , cList);
-
-				pSkillSlot->setRunTime(param.Delay);
-				result.bSuccess = true;
-			} 
-
-		}
-		else 
-		{
-			executeSkillFailNormal(pSlayer, param.SkillType, NULL);
-		}
-	} 
-	catch(Throwable & t)  
-	{
-		executeSkillFailException(pSlayer, param.SkillType);
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
-	
 
 
-void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, 
-	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID) 
-	
+void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot,
+                                  const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, CEffectID_t CEffectID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pSlayer != NULL);
-	Assert(pSkillSlot != NULL);
+    Assert(pSlayer != NULL);
+    Assert(pSkillSlot != NULL);
 
-	try 
-	{
-		Player* pPlayer = pSlayer->getPlayer();
-		Zone* pZone = pSlayer->getZone();
+    try {
+        Player* pPlayer = pSlayer->getPlayer();
+        Zone* pZone = pSlayer->getZone();
 
-		GCSkillToTileOK1 _GCSkillToTileOK1;
-		GCSkillToTileOK2 _GCSkillToTileOK2;
-		GCSkillToTileOK3 _GCSkillToTileOK3;
-		GCSkillToTileOK4 _GCSkillToTileOK4;
-		GCSkillToTileOK5 _GCSkillToTileOK5;
+        GCSkillToTileOK1 _GCSkillToTileOK1;
+        GCSkillToTileOK2 _GCSkillToTileOK2;
+        GCSkillToTileOK3 _GCSkillToTileOK3;
+        GCSkillToTileOK4 _GCSkillToTileOK4;
+        GCSkillToTileOK5 _GCSkillToTileOK5;
 
-		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(param.SkillType);
-		SkillDomainType_t DomainType = pSkillInfo->getDomainType();
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(param.SkillType);
+        SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 
-		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
-		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pSkillSlot);
-		bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
-		bool bHPCheck    = false;
-		bool bheal       = false;
-		uint HealPoint   = param.SkillDamage;
-		uint RealHealPoint   = 0;
+        int RequiredMP = (int)pSkillInfo->getConsumeMP();
+        bool bManaCheck = hasEnoughMana(pSlayer, RequiredMP);
+        bool bTimeCheck = verifyRunTime(pSkillSlot);
+        bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
+        bool bHPCheck = false;
+        bool bheal = false;
+        uint HealPoint = param.SkillDamage;
+        uint RealHealPoint = 0;
 
-		ZoneCoord_t myX = pSlayer->getX();
-		ZoneCoord_t myY = pSlayer->getY();
+        ZoneCoord_t myX = pSlayer->getX();
+        ZoneCoord_t myY = pSlayer->getY();
 
-		if (bManaCheck && bTimeCheck && bRangeCheck ) {
+        if (bManaCheck && bTimeCheck && bRangeCheck) {
+            decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-			decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
+            int Splash = 3 + pSkillSlot->getExpLevel() / 10 + 1;
 
-			int Splash = 3 + pSkillSlot->getExpLevel()/10 + 1;
+            list<Creature*> cList;
+            list<Creature*> creatureList;
+            getSplashVictims(pZone, X, Y, Creature::CREATURE_CLASS_MAX, creatureList, Splash);
+            // cout << "Create Size : " << (int)creatureList.size() << endl;
 
-			list<Creature*> cList;
-			list<Creature*> creatureList;
-			getSplashVictims(pZone, X, Y, Creature::CREATURE_CLASS_MAX, creatureList, Splash);
-			//cout << "Create Size : " << (int)creatureList.size() << endl;
-
-			list<Creature*>::iterator itr = creatureList.begin();
-			for (; itr != creatureList.end(); itr++)
-			{
+            list<Creature*>::iterator itr = creatureList.begin();
+            for (; itr != creatureList.end(); itr++) {
                 Creature* pTargetCreature = (*itr);
-				Assert(pTargetCreature != NULL);
+                Assert(pTargetCreature != NULL);
 
-				EffectBloodDrain* pEffectBloodDrain = NULL;
-				
-				bool bSlayer	 = false;
-				bHPCheck = false;		// 크리쳐를 체크할때 마다 새로 세팅해야하지 않을까? 2002.05.31 by bezz
-				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) ) {
+                EffectBloodDrain* pEffectBloodDrain = NULL;
 
-					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
-					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
+                bool bSlayer = false;
+                bHPCheck = false; // 크리쳐를 체크할때 마다 새로 세팅해야하지 않을까? 2002.05.31 by bezz
+                if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
+                    HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
+                    HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
 
-					if ( CurrentHP < MaxHP )
-					{
-						bHPCheck = true;
-					}
-					bSlayer = true;
-				} 
+                    if (CurrentHP < MaxHP) {
+                        bHPCheck = true;
+                    }
+                    bSlayer = true;
+                }
 
-				if ( bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
-				{
-					Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
-					pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
-					Assert(pEffectBloodDrain != NULL);
-						
-					if (pEffectBloodDrain->getLevel() < param.Level) {
-						bHPCheck = true;
-						bheal = true;
-					}
-				}
+                if (bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN)) {
+                    Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                    pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
+                    Assert(pEffectBloodDrain != NULL);
 
-				bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
+                    if (pEffectBloodDrain->getLevel() < param.Level) {
+                        bHPCheck = true;
+                        bheal = true;
+                    }
+                }
 
-				if ( bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
-				{
-					Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
-					Assert( pTargetSlayer != NULL );
+                bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-					// 흡혈당한 상태라면 흡혈 상태를 날려준다.
-					if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
-					{
-						// 흡혈 아르바이트를 방지하기 위한 후유증 이펙트를 붙여준다.
-						if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH))
-						{
-							Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
-							EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-							pEffectAftermath->setDeadline(5*600); // 5분 동안 지속된다.
-						}
-						else
-						{
-							EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-							pEffectAftermath->setDeadline(5*600); // 5분 동안 지속된다.
-							pTargetSlayer->addEffect(pEffectAftermath);
-							pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
-							pEffectAftermath->create(pTargetSlayer->getName());
-						}
+                if (bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive()) {
+                    Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
+                    Assert(pTargetSlayer != NULL);
+
+                    // 흡혈당한 상태라면 흡혈 상태를 날려준다.
+                    if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
+                        // 흡혈 아르바이트를 방지하기 위한 후유증 이펙트를 붙여준다.
+                        if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
+                            Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
+                            EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
+                            pEffectAftermath->setDeadline(5 * 600); // 5분 동안 지속된다.
+                        } else {
+                            EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
+                            pEffectAftermath->setDeadline(5 * 600); // 5분 동안 지속된다.
+                            pTargetSlayer->addEffect(pEffectAftermath);
+                            pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
+                            pEffectAftermath->create(pTargetSlayer->getName());
+                        }
 
 
-						pEffectBloodDrain->destroy(pTargetSlayer->getName());
-						pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                        pEffectBloodDrain->destroy(pTargetSlayer->getName());
+                        pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-						SLAYER_RECORD prev;
-						pTargetSlayer->getSlayerRecord(prev);
-						pTargetSlayer->initAllStat();
-						pTargetSlayer->sendRealWearingInfo();
+                        SLAYER_RECORD prev;
+                        pTargetSlayer->getSlayerRecord(prev);
+                        pTargetSlayer->initAllStat();
+                        pTargetSlayer->sendRealWearingInfo();
 
-						if( pTargetSlayer == pSlayer ) {
-							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
-						} else {
-							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
-						}
+                        if (pTargetSlayer == pSlayer) {
+                            pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
+                        } else {
+                            pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
+                        }
 
-						GCRemoveEffect gcRemoveEffect;
-						gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
-						gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
-						pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+                        GCRemoveEffect gcRemoveEffect;
+                        gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
+                        gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
+                        pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+                    }
 
-					}
+                    // HP를 세팅한다.
+                    HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
+                    HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-					// HP를 세팅한다.
-					HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
-					HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
+                    // 실제 회복 수치를 계산한다.
+                    if (CurrentHP + HealPoint <= MaxHP) {
+                        RealHealPoint = max((unsigned int)0, HealPoint);
+                    } else {
+                        RealHealPoint = max(0, MaxHP - CurrentHP);
+                    }
 
-					// 실제 회복 수치를 계산한다.
-					if( CurrentHP + HealPoint <= MaxHP ) {
-						RealHealPoint = max( (unsigned int)0, HealPoint );
-					} else {
-						RealHealPoint = max( 0, MaxHP - CurrentHP );
-					}
+                    CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
+                    pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
+                    bheal = true;
 
-					CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
-					pTargetSlayer->setHP(CurrentHP , ATTR_CURRENT);
-					bheal = true;
+                    cList.push_back(pTargetSlayer);
+                }
+            }
 
-					cList.push_back(pTargetSlayer);
+            if (bheal) {
+                // 경험치를 올려준다.
+                shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
+                             _GCSkillToTileOK1);
+                increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
+                increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
+            }
 
-				}
-			}
+            Dir_t dir = calcDirection(myX, myY, X, Y);
 
-			if( bheal ) {
-				// 경험치를 올려준다.
-				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
-				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
-				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
-			}
+            _GCSkillToTileOK1.setSkillType(param.SkillType);
+            _GCSkillToTileOK1.setCEffectID(CEffectID);
+            _GCSkillToTileOK1.setX(X);
+            _GCSkillToTileOK1.setY(Y);
+            _GCSkillToTileOK1.setRange(dir);
+            _GCSkillToTileOK1.setDuration(0);
 
-			Dir_t dir = calcDirection ( myX, myY, X, Y );
+            _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK2.setSkillType(param.SkillType);
+            _GCSkillToTileOK2.setX(X);
+            _GCSkillToTileOK2.setY(Y);
+            _GCSkillToTileOK2.setRange(dir);
+            _GCSkillToTileOK2.setDuration(0);
 
-			_GCSkillToTileOK1.setSkillType(param.SkillType);
-			_GCSkillToTileOK1.setCEffectID(CEffectID);
-			_GCSkillToTileOK1.setX(X);
-			_GCSkillToTileOK1.setY(Y);
-			_GCSkillToTileOK1.setRange(dir);
-			_GCSkillToTileOK1.setDuration(0);
+            _GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK3.setSkillType(param.SkillType);
+            _GCSkillToTileOK3.setX(X);
+            _GCSkillToTileOK3.setY(Y);
 
-			_GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK2.setSkillType(param.SkillType);
-			_GCSkillToTileOK2.setX(X);
-			_GCSkillToTileOK2.setY(Y);
-			_GCSkillToTileOK2.setRange(dir);
-			_GCSkillToTileOK2.setDuration(0);
+            _GCSkillToTileOK4.setSkillType(param.SkillType);
+            _GCSkillToTileOK4.setX(X);
+            _GCSkillToTileOK4.setY(Y);
+            _GCSkillToTileOK4.setDuration(0);
+            _GCSkillToTileOK4.setRange(dir);
 
-			_GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK3.setSkillType(param.SkillType);
-			_GCSkillToTileOK3.setX(X);
-			_GCSkillToTileOK3.setY(Y);
+            _GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
+            _GCSkillToTileOK5.setSkillType(param.SkillType);
+            _GCSkillToTileOK5.setX(X);
+            _GCSkillToTileOK5.setY(Y);
+            _GCSkillToTileOK5.setRange(dir);
+            _GCSkillToTileOK5.setDuration(0);
 
-			_GCSkillToTileOK4.setSkillType(param.SkillType);
-			_GCSkillToTileOK4.setX(X);
-			_GCSkillToTileOK4.setY(Y);
-			_GCSkillToTileOK4.setDuration(0);
-			_GCSkillToTileOK4.setRange(dir);
+            pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-			_GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
-			_GCSkillToTileOK5.setSkillType(param.SkillType);
-			_GCSkillToTileOK5.setX(X);
-			_GCSkillToTileOK5.setY(Y);
-			_GCSkillToTileOK5.setRange(dir);
-			_GCSkillToTileOK5.setDuration(0);
+            // cout << "Healed Creature Size : " << (int)cList.size() << endl;
+            cList.push_back(pSlayer);
+            // 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
+            for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
+                Creature* pTargetCreature = *itr;
+                Assert(pTargetCreature != NULL);
 
-			pPlayer->sendPacket(&_GCSkillToTileOK1);
+                if (pTargetCreature->isPC()) {
+                    _GCSkillToTileOK2.clearList();
 
-			//cout << "Healed Creature Size : " << (int)cList.size() << endl;
-    	    cList.push_back(pSlayer);
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
-			for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
-			{
-				Creature* pTargetCreature = *itr;
-				Assert(pTargetCreature != NULL);
+                    HP_t targetHP = 0;
+                    if (pTargetCreature->isSlayer()) {
+                        targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
+                    } else if (pTargetCreature->isVampire()) {
+                        targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
+                    } else if (pTargetCreature->isOusters()) {
+                        targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
+                    }
 
-				if (pTargetCreature->isPC())
-				{
-					_GCSkillToTileOK2.clearList();
+                    _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					HP_t targetHP = 0;
-					if (pTargetCreature->isSlayer())
-					{
-						targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isVampire())
-					{
-						targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isOusters())
-					{
-						targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
-					}
+                    // 패킷을 보내준다.
+                    Player* pPlayer = pTargetCreature->getPlayer();
+                    Assert(pPlayer != NULL);
+                    pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
+                    // HP를 브로드캐스팅한다.
+                    GCStatusCurrentHP gcStatusCurrentHP;
+                    gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
+                    gcStatusCurrentHP.setCurrentHP(targetHP);
+                    pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+                }
 
-					// 패킷을 보내준다.
-					Player* pPlayer = pTargetCreature->getPlayer();
-					Assert(pPlayer != NULL);
-					pPlayer->sendPacket(&_GCSkillToTileOK2);
+                pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-					// HP를 브로드캐스팅한다.
-					GCStatusCurrentHP gcStatusCurrentHP;
-					gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
-					gcStatusCurrentHP.setCurrentHP (targetHP);
-					pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+                pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
+                pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-				}
+                pSkillSlot->setRunTime(param.Delay);
+                result.bSuccess = true;
+            }
 
-				pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
+        } else {
+            executeSkillFailNormal(pSlayer, param.SkillType, NULL);
+        }
+    } catch (Throwable& t) {
+        executeSkillFailException(pSlayer, param.SkillType);
+    }
 
-				pZone->broadcastPacket(myX, myY,  &_GCSkillToTileOK3 , cList);
-				pZone->broadcastPacket(X, Y,  &_GCSkillToTileOK4 , cList);
-
-				pSkillSlot->setRunTime(param.Delay);
-				result.bSuccess = true;
-			} 
-
-		}
-		else 
-		{
-			executeSkillFailNormal(pSlayer, param.SkillType, NULL);
-		}
-	} 
-	catch(Throwable & t)  
-	{
-		executeSkillFailException(pSlayer, param.SkillType);
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
-	

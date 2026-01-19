@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GroundBless.h 
-// Written By  : 
-// Description : 
+// Filename    : GroundBless.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GROUND_BLESS_HANDLER_H__
@@ -13,20 +13,23 @@
 // class GroundBless;
 //////////////////////////////////////////////////////////////////////////////
 
-class GroundBless : public SkillHandler 
-{
+class GroundBless : public SkillHandler {
 public:
-	GroundBless() throw() {}
-	~GroundBless() throw() {}
-	
+    GroundBless() throw() {}
+    ~GroundBless() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GroundBless"; }
-	SkillType_t getSkillType() const throw() { return SKILL_GROUND_BLESS; }
+    string getSkillHandlerName() const throw() {
+        return "GroundBless";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GROUND_BLESS;
+    }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

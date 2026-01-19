@@ -3,14 +3,13 @@
 
 #include "RewardClassInfoManager.h"
 
-class EventQuestRewardManager : public RewardClassInfoManager
-{
+class EventQuestRewardManager : public RewardClassInfoManager {
 public:
-	EventQuestRewardManager(NPC* pNPC) : RewardClassInfoManager(pNPC) { }
-	~EventQuestRewardManager() { }
+    EventQuestRewardManager(NPC* pNPC) : RewardClassInfoManager(pNPC) {}
+    ~EventQuestRewardManager() {}
 
 public:
-	void load(const string& name) ;
+    void load(const string& name);
 };
 
-#endif// __EVENT_QUEST_REWARD_MANAGER_H__
+#endif // __EVENT_QUEST_REWARD_MANAGER_H__

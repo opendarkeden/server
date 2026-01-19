@@ -8,244 +8,208 @@
 
 // include files
 #include "UserInfoManager.h"
-#include "database/DatabaseManager.h"
+
 #include "database/Connection.h"
-#include "database/Statement.h"
-#include "database/Result.h"
 #include "database/DB.h"
+#include "database/DatabaseManager.h"
+#include "database/Result.h"
+#include "database/Statement.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-UserInfoManager::UserInfoManager () noexcept
-{
-}
-	
+UserInfoManager::UserInfoManager() noexcept {}
+
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-UserInfoManager::~UserInfoManager () noexcept
-{
-	try
-	{
-		// hashmap ���� �� pair �� second, �� UserInfo ��ü���� �����ϰ�
-		// pair ��ü�� �״�� �д�. (UserInfo�� ���� �����Ǿ� �ִٴ� �Ϳ�
-		// �����϶�. �� �ʻ������ �ؾ� �Ѵ�. �ϱ�, ZGIM�� destruct �ȴٴ� ����
-		// �α��� ������ �˴ٿ�ȴٴ� ���� �ǹ��ϴϱ�.. - -; )
-		for( int i = 1; i < m_MaxWorldID; i++ ) {
-			for ( HashMapUserInfo::iterator itr = m_UserInfos[i].begin() ; 
-				  itr != m_UserInfos[i].end() ; 
-				  itr ++ ) {
-				delete itr->second;
-				itr->second = NULL;
-			}
+UserInfoManager::~UserInfoManager() noexcept {
+    try {
+        // hashmap ���� �� pair �� second, �� UserInfo ��ü���� �����ϰ�
+        // pair ��ü�� �״�� �д�. (UserInfo�� ���� �����Ǿ� �ִٴ� �Ϳ�
+        // �����϶�. �� �ʻ������ �ؾ� �Ѵ�. �ϱ�, ZGIM�� destruct �ȴٴ� ����
+        // �α��� ������ �˴ٿ�ȴٴ� ���� �ǹ��ϴϱ�.. - -; )
+        for (int i = 1; i < m_MaxWorldID; i++) {
+            for (HashMapUserInfo::iterator itr = m_UserInfos[i].begin(); itr != m_UserInfos[i].end(); itr++) {
+                delete itr->second;
+                itr->second = NULL;
+            }
 
-			// ���� �ؽ��ʾȿ� �ִ� ��� pair ���� �����Ѵ�.
-			m_UserInfos[i].clear();
-		}
+            // ���� �ؽ��ʾȿ� �ִ� ��� pair ���� �����Ѵ�.
+            m_UserInfos[i].clear();
+        }
 
-		delete [] m_UserInfos;
-	}
-	catch (...)
-	{
-		// destructor must not throw
-	}
-
+        delete[] m_UserInfos;
+    } catch (...) {
+        // destructor must not throw
+    }
 }
-	
+
 
 //----------------------------------------------------------------------
 // initialize GSIM
 //----------------------------------------------------------------------
-void UserInfoManager::init ()
-	noexcept(false)
-{
-	__BEGIN_TRY
+void UserInfoManager::init() noexcept(false) {
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	// just print to cout
-	cout << toString() << endl;
+    // just print to cout
+    cout << toString() << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 // load data from database
 //----------------------------------------------------------------------
-void UserInfoManager::load ()
-	noexcept(false)
-{
-	__BEGIN_TRY
+void UserInfoManager::load() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement * pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
-			"SELECT MAX(WorldID) FROM GameServerGroupInfo"
-		);
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult = pStmt->executeQuery("SELECT MAX(WorldID) FROM GameServerGroupInfo");
 
-		if (pResult->getRowCount() == 0)
-		{
-			throw Error("GameServerGroupInfo TABLE does not exist!");
-		}
+        if (pResult->getRowCount() == 0) {
+            throw Error("GameServerGroupInfo TABLE does not exist!");
+        }
 
-		pResult->next();
-		m_MaxWorldID = pResult->getInt(1) + 2;
+        pResult->next();
+        m_MaxWorldID = pResult->getInt(1) + 2;
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	m_UserInfos= new HashMapUserInfo[m_MaxWorldID];
+    m_UserInfos = new HashMapUserInfo[m_MaxWorldID];
 
 
-	try {
+    try {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult = pStmt->executeQuery("SELECT WorldID, GroupID FROM GameServerGroupInfo");
 
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result * pResult = pStmt->executeQuery(
-			"SELECT WorldID, GroupID FROM GameServerGroupInfo"
-		);
+        while (pResult->next()) {
+            UserInfo* pUserInfo = new UserInfo();
+            WorldID_t WorldID = pResult->getInt(1);
+            pUserInfo->setWorldID(WorldID);
+            pUserInfo->setServerGroupID(pResult->getInt(2));
+            pUserInfo->setUserNum(0);
+            addUserInfo(pUserInfo);
+        }
 
-		while ( pResult->next() ) {
-			UserInfo * pUserInfo = new UserInfo();
-			WorldID_t WorldID = pResult->getInt(1);
-			pUserInfo->setWorldID( WorldID );
-			pUserInfo->setServerGroupID( pResult->getInt(2) );
-			pUserInfo->setUserNum( 0 );
-			addUserInfo( pUserInfo );
-		}
+    } catch (SQLQueryException& sqe) {
+        // �ʻ� ����!
+        delete pStmt;
 
-	} catch ( SQLQueryException & sqe ) {
+        throw Error(sqe.toString());
+    }
 
-		// �ʻ� ����!
-		delete pStmt;
+    // �ʻ� ����!
+    delete pStmt;
 
-		throw Error(sqe.toString());
-	}
-
-	// �ʻ� ����!
-	delete pStmt;
-
-	__END_CATCH
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
-// add info 
+// add info
 //----------------------------------------------------------------------
-void UserInfoManager::addUserInfo ( UserInfo * pUserInfo ) 
-	noexcept(false)
-{
-	__BEGIN_TRY
+void UserInfoManager::addUserInfo(UserInfo* pUserInfo) noexcept(false) {
+    __BEGIN_TRY
 
-	HashMapUserInfo::iterator itr = m_UserInfos[pUserInfo->getWorldID()].find( pUserInfo->getServerGroupID() );
-	
-	if ( itr != m_UserInfos[pUserInfo->getWorldID()].end() )
-		throw DuplicatedException("duplicated zone id");
+    HashMapUserInfo::iterator itr = m_UserInfos[pUserInfo->getWorldID()].find(pUserInfo->getServerGroupID());
 
-	m_UserInfos[pUserInfo->getWorldID()][ pUserInfo->getServerGroupID() ] = pUserInfo;
+    if (itr != m_UserInfos[pUserInfo->getWorldID()].end())
+        throw DuplicatedException("duplicated zone id");
 
-	__END_CATCH
+    m_UserInfos[pUserInfo->getWorldID()][pUserInfo->getServerGroupID()] = pUserInfo;
+
+    __END_CATCH
 }
-	
+
 //----------------------------------------------------------------------
 // delete info
 //----------------------------------------------------------------------
-void UserInfoManager::deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID )
-	noexcept(false)
-{
-	__BEGIN_TRY
-		
-	HashMapUserInfo::iterator itr = m_UserInfos[WorldID].find( ServerGroupID );
-	
-	if ( itr != m_UserInfos[WorldID].end() ) {
+void UserInfoManager::deleteUserInfo(ZoneGroupID_t ServerGroupID, WorldID_t WorldID) noexcept(false) {
+    __BEGIN_TRY
 
-		// UserInfo �� �����Ѵ�.
-		delete itr->second;
+    HashMapUserInfo::iterator itr = m_UserInfos[WorldID].find(ServerGroupID);
 
-		// pair�� �����Ѵ�.
-		m_UserInfos[WorldID].erase( itr );
+    if (itr != m_UserInfos[WorldID].end()) {
+        // UserInfo �� �����Ѵ�.
+        delete itr->second;
 
-	} else { // not found
+        // pair�� �����Ѵ�.
+        m_UserInfos[WorldID].erase(itr);
 
-		StringStream msg;
-		msg << "ServerGroupID: " << ServerGroupID;
-		throw NoSuchElementException(msg.toString());
+    } else { // not found
 
-	}
+        StringStream msg;
+        msg << "ServerGroupID: " << ServerGroupID;
+        throw NoSuchElementException(msg.toString());
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
-	
+
 //----------------------------------------------------------------------
 // get info
 //----------------------------------------------------------------------
-UserInfo * UserInfoManager::getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const
-	noexcept(false)
-{
-	__BEGIN_TRY
-		
-	UserInfo * pUserInfo = NULL;
+UserInfo* UserInfoManager::getUserInfo(ZoneGroupID_t ServerGroupID, WorldID_t WorldID) const noexcept(false) {
+    __BEGIN_TRY
 
-	HashMapUserInfo::const_iterator itr = m_UserInfos[WorldID].find( ServerGroupID );
-	
-	if ( itr != m_UserInfos[WorldID].end() ) {
+    UserInfo* pUserInfo = NULL;
 
-		pUserInfo = itr->second;
+    HashMapUserInfo::const_iterator itr = m_UserInfos[WorldID].find(ServerGroupID);
 
-	} else { // not found
+    if (itr != m_UserInfos[WorldID].end()) {
+        pUserInfo = itr->second;
 
-		StringStream msg;
-		msg << "ServerGroupID : " << ServerGroupID;
-		throw NoSuchElementException( msg.toString() );
+    } else { // not found
 
-	}
+        StringStream msg;
+        msg << "ServerGroupID : " << ServerGroupID;
+        throw NoSuchElementException(msg.toString());
+    }
 
-	return pUserInfo;
+    return pUserInfo;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string UserInfoManager::toString () const noexcept(false)
-{
-	__BEGIN_TRY
+string UserInfoManager::toString() const noexcept(false) {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "UserInfoManager(";
+    msg << "UserInfoManager(";
 
-	for( int i = 1; i < m_MaxWorldID; i++ ) {
+    for (int i = 1; i < m_MaxWorldID; i++) {
+        if (m_UserInfos[i].empty()) {
+            msg << "EMPTY";
 
-		if ( m_UserInfos[i].empty() ) {
+        } else {
+            //--------------------------------------------------
+            // *OPTIMIZATION*
+            //
+            // for_each()�� ����� ��
+            //--------------------------------------------------
+            for (HashMapUserInfo::const_iterator itr = m_UserInfos[i].begin(); itr != m_UserInfos[i].end(); itr++)
+                msg << itr->second->toString();
+        }
+    }
 
-			msg << "EMPTY";
+    msg << ")";
 
-		} else {
+    return msg.toString();
 
-			//--------------------------------------------------
-			// *OPTIMIZATION*
-			//
-			// for_each()�� ����� ��
-			//--------------------------------------------------
-			for ( HashMapUserInfo::const_iterator itr = m_UserInfos[i].begin() ; 
-				  itr != m_UserInfos[i].end() ; 
-				  itr ++ )
-				msg << itr->second->toString();
-		}
-	}
-
-	msg << ")";
-
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }
 
 // global variable definition
-UserInfoManager * g_pUserInfoManager = NULL;
+UserInfoManager* g_pUserInfoManager = NULL;

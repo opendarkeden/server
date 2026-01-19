@@ -1,52 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGUseItemFromGQuestInventory.cpp 
+// Filename    : CGUseItemFromGQuestInventory.cpp
 // Written By  : excel96
-// Description : 
+// Description :
 // 인벤토리 안의 아이템을 사용할 때, 클라이언트가 X, Y 및 ObjectID를
 // 보내면 아이템 클래스에 따라서, 서버가 이에 맞는 코드를 처리한다.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGUseItemFromGQuestInventory.h"
 
-void CGUseItemFromGQuestInventory::read (SocketInputStream & iStream) 
-	 
+void CGUseItemFromGQuestInventory::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_Index);
+    __BEGIN_TRY
 
-	__END_CATCH
-}
-		    
-void CGUseItemFromGQuestInventory::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+    iStream.read(m_Index);
 
-	oStream.write(m_Index);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGUseItemFromGQuestInventory::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGUseItemFromGQuestInventory::write(SocketOutputStream& oStream) const
 
-	CGUseItemFromGQuestInventoryHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_Index);
+
+    __END_CATCH
 }
 
-string CGUseItemFromGQuestInventory::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGUseItemFromGQuestInventory("
-		<< ")";
-	return msg.toString();
+void CGUseItemFromGQuestInventory::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGUseItemFromGQuestInventoryHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string CGUseItemFromGQuestInventory::toString() const {
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGUseItemFromGQuestInventory("
+        << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

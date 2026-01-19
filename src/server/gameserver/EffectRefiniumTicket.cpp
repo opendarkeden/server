@@ -1,76 +1,72 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRefiniumTicket.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectRefiniumTicket.h"
-#include "Ousters.h"
 
 #include "GCRemoveEffect.h"
+#include "Ousters.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectRefiniumTicket::EffectRefiniumTicket(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	//Assert(pCreature->isOusters());
-	setBroadcastingEffect(false);
+    Assert(pCreature != NULL);
+    // Assert(pCreature->isOusters());
+    setBroadcastingEffect(false);
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	m_PrevExitZoneID = pCreature->getZoneID();
-	m_PrevExitX = pCreature->getX();
-	m_PrevExitY = pCreature->getY();
+    m_PrevExitZoneID = pCreature->getZoneID();
+    m_PrevExitX = pCreature->getX();
+    m_PrevExitY = pCreature->getY();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRefiniumTicket::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	// 플래그를 끈다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET);
+    // 플래그를 끈다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRefiniumTicket::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectRefiniumTicket::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectRefiniumTicket::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectRefiniumTicket("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectRefiniumTicket("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SimpleCreatureEffect.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SIMPLE_CREATURE_EFFECT__
@@ -13,23 +13,24 @@
 // class SimpleCreatureEffect
 //////////////////////////////////////////////////////////////////////////////
 
-class SimpleCreatureEffect : public Effect 
-{
+class SimpleCreatureEffect : public Effect {
 public:
-	SimpleCreatureEffect(EffectClass eClass, Creature* pCreature) ;
+    SimpleCreatureEffect(EffectClass eClass, Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return m_EffectClass; }
+    EffectClass getEffectClass() const {
+        return m_EffectClass;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	EffectClass	m_EffectClass;
+    EffectClass m_EffectClass;
 };
 
 #endif // __EFFECT_SIMPLE_CREATURE_EFFECT__

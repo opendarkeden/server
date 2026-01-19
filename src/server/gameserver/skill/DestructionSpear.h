@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DestructionSpear.h 
+// Filename    : DestructionSpear.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DESTRUCTION_SPEAR_HANDLER_H__
@@ -13,21 +13,26 @@
 // class DestructionSpear;
 //////////////////////////////////////////////////////////////////////////////
 
-class DestructionSpear: public SkillHandler 
-{
+class DestructionSpear : public SkillHandler {
 public:
-	DestructionSpear() throw() {}
-	~DestructionSpear() throw() {}
-	
+    DestructionSpear() throw() {}
+    ~DestructionSpear() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DestructionSpear"; }
+    string getSkillHandlerName() const throw() {
+        return "DestructionSpear";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_DESTRUCTION_SPEAR; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DESTRUCTION_SPEAR;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

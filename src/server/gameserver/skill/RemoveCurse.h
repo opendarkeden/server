@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : RemoveCurse.h 
+// Filename    : RemoveCurse.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REMOVE_CURSE_HANDLER_H__
@@ -13,20 +13,23 @@
 // class RemoveCurse;
 //////////////////////////////////////////////////////////////////////////////
 
-class RemoveCurse: public SkillHandler 
-{
+class RemoveCurse : public SkillHandler {
 public:
-	RemoveCurse() throw() {}
-	~RemoveCurse() throw() {}
-	
+    RemoveCurse() throw() {}
+    ~RemoveCurse() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "RemoveCurse"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REMOVE_CURSE; }
+    string getSkillHandlerName() const throw() {
+        return "RemoveCurse";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REMOVE_CURSE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

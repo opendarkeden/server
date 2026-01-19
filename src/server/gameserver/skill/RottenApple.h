@@ -1,31 +1,34 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : RottenApple.h 
-// Written By  : 
-// Description : 
+// Filename    : RottenApple.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ROTTEN_APPLE_HANDLER_H__
 #define __SKILL_ROTTEN_APPLE_HANDLER_H__
 
-#include "SkillHandler.h"
 #include "Creature.h"
+#include "SkillHandler.h"
 //////////////////////////////////////////////////////////////////////////////
 // class RottenApple;
 //////////////////////////////////////////////////////////////////////////////
 
-class RottenApple : public SkillHandler 
-{
+class RottenApple : public SkillHandler {
 public:
-	RottenApple() throw() {}
-	~RottenApple() throw() {}
-	
-public :
-    string getSkillHandlerName() const throw() { return "RottenApple"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ROTTEN_APPLE; }
+    RottenApple() throw() {}
+    ~RottenApple() throw() {}
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+public:
+    string getSkillHandlerName() const throw() {
+        return "RottenApple";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ROTTEN_APPLE;
+    }
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,66 +1,65 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionHasEnoughCastleEntranceFee.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionHasEnoughCastleEntranceFee.h"
-#include "PlayerCreature.h"
-#include "FlagSet.h"
 
-#include "PaySystem.h"
+#include "DB.h"
+#include "FlagSet.h"
 #include "GamePlayer.h"
 #include "PacketUtil.h"
-#include "DB.h"
+#include "PaySystem.h"
+#include "PlayerCreature.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionHasEnoughCastleEntranceFee::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionHasEnoughCastleEntranceFee::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	Gold_t fee = g_pCastleInfoManager->getCastleInfo( m_ZoneID )->getEntranceFee();
-	Gold_t remain = pPC->getGold();
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	if( fee <= remain ) return true;
-	else return false;
+    Gold_t fee = g_pCastleInfoManager->getCastleInfo(m_ZoneID)->getEntranceFee();
+    Gold_t remain = pPC->getGold();
+
+    if (fee <= remain)
+        return true;
+    else
+        return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionHasEnoughCastleEntranceFee::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionHasEnoughCastleEntranceFee::read(PropertyBuffer& propertyBuffer)
+
 {
-	try
-	{
-		// read turn
-		m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+    try {
+        // read turn
+        m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionHasEnoughCastleEntranceFee::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionHasEnoughCastleEntranceFee::toString() const
 
-	StringStream msg;
-	msg << "ConditionHasEnoughCastleEntranceFee("
-//		<< "Index:" << (int)m_Index
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionHasEnoughCastleEntranceFee("
+        //		<< "Index:" << (int)m_Index
+        << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

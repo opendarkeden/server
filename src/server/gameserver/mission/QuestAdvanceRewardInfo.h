@@ -6,12 +6,12 @@
 #ifndef __QUEST_ADVANCE_REWARD_INFO_H__
 #define __QUEST_ADVANCE_REWARD_INFO_H__
 
-#include "Types.h"
+#include <list>
+
 #include "Exception.h"
 #include "Item.h"
 #include "RewardInfo.h"
-
-#include <list>
+#include "Types.h"
 
 class RewardClass;
 
@@ -19,21 +19,20 @@ class RewardClass;
 // class QuestAdvanceRewardInfo;
 //////////////////////////////////////////////////////////////////////////////
 
-class QuestAdvanceRewardInfo : public RewardInfo
-{
+class QuestAdvanceRewardInfo : public RewardInfo {
 public:
-	QuestAdvanceRewardInfo( RewardID_t rID, RewardClass_t rClass, int thisQLevel, int nextQLevel );
-	virtual ~QuestAdvanceRewardInfo();
+    QuestAdvanceRewardInfo(RewardID_t rID, RewardClass_t rClass, int thisQLevel, int nextQLevel);
+    virtual ~QuestAdvanceRewardInfo();
 
 public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const ;
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const ;
+    virtual QuestMessage canGiveReward(PlayerCreature* pPC) const;
+    virtual QuestMessage giveReward(PlayerCreature* pPC) const;
 
-	virtual string	toString() const ;
+    virtual string toString() const;
 
 private:
-	int			m_ThisQuestLevel;
-	int			m_NextQuestLevel;
+    int m_ThisQuestLevel;
+    int m_NextQuestLevel;
 };
 
 #endif

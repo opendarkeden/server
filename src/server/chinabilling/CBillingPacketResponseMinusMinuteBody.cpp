@@ -6,75 +6,68 @@
 
 // include files
 #include "CBillingPacketResponseMinusMinuteBody.h"
+
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
-CBillingPacketResponseMinusMinuteBody::CBillingPacketResponseMinusMinuteBody()
-{
-	__BEGIN_TRY
+CBillingPacketResponseMinusMinuteBody::CBillingPacketResponseMinusMinuteBody() {
+    __BEGIN_TRY
 
-	memset( this, 0, szCBillingPacketResponseMinusMinuteBodyInfo );
+    memset(this, 0, szCBillingPacketResponseMinusMinuteBodyInfo);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CBillingPacketResponseMinusMinuteBody::read( SocketInputStream& iStream )
-{
-	__BEGIN_TRY
-	
-	CBillingPacketResponseMinusMinuteBodyInfo* pInfo = this;
+void CBillingPacketResponseMinusMinuteBody::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read( (char*)pInfo, szCBillingPacketResponseMinusMinuteBodyInfo );
+    CBillingPacketResponseMinusMinuteBodyInfo* pInfo = this;
 
-	// change order network to host
-	Pay_Type				= ntohl( Pay_Type );
-	Free_Left_Time			= ntohl( Free_Left_Time );
-	Rating_Left_Time		= ntohl( Rating_Left_Time );
-	Minus_Free_Duration		= ntohl( Minus_Free_Duration );
-	Minus_Duration			= ntohl( Minus_Duration );
+    iStream.read((char*)pInfo, szCBillingPacketResponseMinusMinuteBodyInfo);
 
-	__END_CATCH
+    // change order network to host
+    Pay_Type = ntohl(Pay_Type);
+    Free_Left_Time = ntohl(Free_Left_Time);
+    Rating_Left_Time = ntohl(Rating_Left_Time);
+    Minus_Free_Duration = ntohl(Minus_Free_Duration);
+    Minus_Duration = ntohl(Minus_Duration);
+
+    __END_CATCH
 }
 
-void CBillingPacketResponseMinusMinuteBody::write( SocketOutputStream& oStream )
-{
-	__BEGIN_TRY
+void CBillingPacketResponseMinusMinuteBody::write(SocketOutputStream& oStream) {
+    __BEGIN_TRY
 
-	// change order host to network
-	Pay_Type				= htonl( Pay_Type );
-	Free_Left_Time			= htonl( Free_Left_Time );
-	Rating_Left_Time		= htonl( Rating_Left_Time );
-	Minus_Free_Duration		= htonl( Minus_Free_Duration );
-	Minus_Duration			= htonl( Minus_Duration );
+    // change order host to network
+    Pay_Type = htonl(Pay_Type);
+    Free_Left_Time = htonl(Free_Left_Time);
+    Rating_Left_Time = htonl(Rating_Left_Time);
+    Minus_Free_Duration = htonl(Minus_Free_Duration);
+    Minus_Duration = htonl(Minus_Duration);
 
-	const CBillingPacketResponseMinusMinuteBodyInfo* pInfo = this;
-	oStream.write( (const char*)pInfo, szCBillingPacketResponseMinusMinuteBodyInfo );
+    const CBillingPacketResponseMinusMinuteBodyInfo* pInfo = this;
+    oStream.write((const char*)pInfo, szCBillingPacketResponseMinusMinuteBodyInfo);
 
-	// restore order
-	Pay_Type				= ntohl( Pay_Type );
-	Free_Left_Time			= ntohl( Free_Left_Time );
-	Rating_Left_Time		= ntohl( Rating_Left_Time );
-	Minus_Free_Duration		= ntohl( Minus_Free_Duration );
-	Minus_Duration			= ntohl( Minus_Duration );
+    // restore order
+    Pay_Type = ntohl(Pay_Type);
+    Free_Left_Time = ntohl(Free_Left_Time);
+    Rating_Left_Time = ntohl(Rating_Left_Time);
+    Minus_Free_Duration = ntohl(Minus_Free_Duration);
+    Minus_Duration = ntohl(Minus_Duration);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string CBillingPacketResponseMinusMinuteBody::toString() const
-{
-	char str[128];
-	StringStream msg;
-	msg << "ResponseMinusMinuteBody(";
+string CBillingPacketResponseMinusMinuteBody::toString() const {
+    char str[128];
+    StringStream msg;
+    msg << "ResponseMinusMinuteBody(";
 
-	memcpy( str, Login_Name, 64 ); str[64] = '\0';
-	msg << "Login_Name:" << str
-		<< ",Pay_Type:" << Pay_Type
-		<< ",Free_Left_Time:" << Free_Left_Time
-		<< ",Rating_Left_Time:" << Rating_Left_Time
-		<< ",Minus_Free_Duration:" << Minus_Free_Duration
-		<< ",Minus_Duration:" << Minus_Duration
-		<< ")";
+    memcpy(str, Login_Name, 64);
+    str[64] = '\0';
+    msg << "Login_Name:" << str << ",Pay_Type:" << Pay_Type << ",Free_Left_Time:" << Free_Left_Time
+        << ",Rating_Left_Time:" << Rating_Left_Time << ",Minus_Free_Duration:" << Minus_Free_Duration
+        << ",Minus_Duration:" << Minus_Duration << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

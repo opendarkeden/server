@@ -6,50 +6,49 @@
 #ifndef __DYNAMIC_ZONE_MANAGER_H__
 #define __DYNAMIC_ZONE_MANAGER_H__
 
-#include "Types.h"
-#include "Mutex.h"
 #include <unordered_map>
+
+#include "Mutex.h"
+#include "Types.h"
 
 class DynamicZoneGroup;
 
 ///////////////////////////////////////////////////////////
 // class DynamicZoneManager
 ///////////////////////////////////////////////////////////
-class DynamicZoneManager
-{
+class DynamicZoneManager {
 public:
-	typedef unordered_map<int,DynamicZoneGroup*>			HashMapDynamicZoneGroup;
-	typedef HashMapDynamicZoneGroup::iterator		HashMapDynamicZoneGroupItor;
-	typedef HashMapDynamicZoneGroup::const_iterator	HashMapDynamicZoneGroupConstItor;
-
-public:
-	DynamicZoneManager();
-	~DynamicZoneManager();
+    typedef unordered_map<int, DynamicZoneGroup*> HashMapDynamicZoneGroup;
+    typedef HashMapDynamicZoneGroup::iterator HashMapDynamicZoneGroupItor;
+    typedef HashMapDynamicZoneGroup::const_iterator HashMapDynamicZoneGroupConstItor;
 
 public:
-	void init();
-	void clear();
+    DynamicZoneManager();
+    ~DynamicZoneManager();
 
-	// 새로 DynamicZoneGroup 을 추가한다.
-	void addDynamicZoneGroup( DynamicZoneGroup* pDynamicZoneGroup );
+public:
+    void init();
+    void clear();
 
-	// DynamicZoneGroup 을 찾아서 반환한다.
-	DynamicZoneGroup* getDynamicZoneGroup( int dynamicZoneType );
+    // 새로 DynamicZoneGroup 을 추가한다.
+    void addDynamicZoneGroup(DynamicZoneGroup* pDynamicZoneGroup);
 
-	// get new dynamic zone id
-	ZoneID_t getNewDynamicZoneID();
+    // DynamicZoneGroup 을 찾아서 반환한다.
+    DynamicZoneGroup* getDynamicZoneGroup(int dynamicZoneType);
 
-	static bool isDynamicZone( ZoneID_t zoneID );
+    // get new dynamic zone id
+    ZoneID_t getNewDynamicZoneID();
+
+    static bool isDynamicZone(ZoneID_t zoneID);
 
 private:
-	Mutex m_Mutex;
-	ZoneID_t m_DynamicZoneID;
+    Mutex m_Mutex;
+    ZoneID_t m_DynamicZoneID;
 
-	HashMapDynamicZoneGroup m_DynamicZoneGroups;
+    HashMapDynamicZoneGroup m_DynamicZoneGroups;
 };
 
 // global variable
 extern DynamicZoneManager* g_pDynamicZoneManager;
 
 #endif
-

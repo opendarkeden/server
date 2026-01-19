@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCMakeItemFailHandler::execute (GCMakeItemFail * pGCMakeItemFail , Player * pPlayer )
-	 
+void GCMakeItemFailHandler::execute(GCMakeItemFail* pGCMakeItemFail, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_CLIENT__
 
-	//cout << pGCMakeItemFail->toString() << endl;
-	
+    // cout << pGCMakeItemFail->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

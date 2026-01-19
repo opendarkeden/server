@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCGetOffMotorCycle.cpp 
+//
+// Filename    : GCGetOffMotorCycle.cpp
 // Written By  : elca@ewestsoft.com
 // Description : Packet notifying the client that a motorcycle dismount
 //               occurred.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -13,56 +13,50 @@
 #include "GCGetOffMotorCycle.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCGetOffMotorCycle::GCGetOffMotorCycle () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCGetOffMotorCycle::GCGetOffMotorCycle()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCGetOffMotorCycle::~GCGetOffMotorCycle () 
-    
+GCGetOffMotorCycle::~GCGetOffMotorCycle()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
-void GCGetOffMotorCycle::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	// Read payload fields in order.
-	iStream.read(m_ObjectID);
+void GCGetOffMotorCycle::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    // Read payload fields in order.
+    iStream.read(m_ObjectID);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
-void GCGetOffMotorCycle::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
-		
-	// Write payload fields in order.
-	oStream.write(m_ObjectID);
+void GCGetOffMotorCycle::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    // Write payload fields in order.
+    oStream.write(m_ObjectID);
+
+    __END_CATCH
 }
 
 
@@ -71,14 +65,14 @@ void GCGetOffMotorCycle::write (SocketOutputStream & oStream )
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCGetOffMotorCycle::execute (Player * pPlayer ) 
-	 
+void GCGetOffMotorCycle::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCGetOffMotorCycleHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCGetOffMotorCycleHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -87,18 +81,13 @@ void GCGetOffMotorCycle::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCGetOffMotorCycle::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCGetOffMotorCycle::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCGetOffMotorCycle("
-		<< "ObjectID:" << (int)m_ObjectID 
-		<< " )";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCGetOffMotorCycle("
+        << "ObjectID:" << (int)m_ObjectID << " )";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ShadowWalk.h 
-// Written By  : 
-// Description : 
+// Filename    : ShadowWalk.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SHADOW_WALK_HANDLER_H__
@@ -13,19 +13,22 @@
 // class ShadowWalk;
 //////////////////////////////////////////////////////////////////////////////
 
-class ShadowWalk : public SkillHandler 
-{
+class ShadowWalk : public SkillHandler {
 public:
-	ShadowWalk() throw() {}
-	~ShadowWalk() throw() {}
+    ShadowWalk() throw() {}
+    ~ShadowWalk() throw() {}
 
-public :
-    string getSkillHandlerName() const throw() { return "ShadowWalk"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SHADOW_WALK; }
+public:
+    string getSkillHandlerName() const throw() {
+        return "ShadowWalk";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SHADOW_WALK;
+    }
 
-	void execute(Slayer* pSlayer,ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

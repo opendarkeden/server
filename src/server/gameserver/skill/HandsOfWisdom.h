@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HandsOfWisdom.h 
+// Filename    : HandsOfWisdom.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HANDS_OF_WISDOM_HANDLER_H__
@@ -13,21 +13,25 @@
 // class HandsOfWisdom;
 //////////////////////////////////////////////////////////////////////////////
 
-class HandsOfWisdom: public SkillHandler 
-{
+class HandsOfWisdom : public SkillHandler {
 public:
-	HandsOfWisdom() throw() {}
-	~HandsOfWisdom() throw() {}
-	
+    HandsOfWisdom() throw() {}
+    ~HandsOfWisdom() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HandsOfWisdom"; }
+    string getSkillHandlerName() const throw() {
+        return "HandsOfWisdom";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_HANDS_OF_WISDOM; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HANDS_OF_WISDOM;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCUnionOfferList.cpp 
-// Written By  : 
-// 
+//
+// Filename    : GCUnionOfferList.cpp
+// Written By  :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,11 +12,10 @@
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCUnionOfferList::~GCUnionOfferList()
-    
+
 {
     __BEGIN_TRY
-    while (!m_UnionOfferList.empty())
-    {
+    while (!m_UnionOfferList.empty()) {
         SingleGuildUnionOffer* pUnionOffer = m_UnionOfferList.front();
 
         SAFE_DELETE(pUnionOffer);
@@ -29,92 +28,87 @@ GCUnionOfferList::~GCUnionOfferList()
     __END_CATCH_NO_RETHROW
 }
 
-PacketSize_t GCUnionOfferList::getPacketSize() const 
-{
-	PacketSize_t ret = szBYTE;
+PacketSize_t GCUnionOfferList::getPacketSize() const {
+    PacketSize_t ret = szBYTE;
 
-	list<SingleGuildUnionOffer*>::const_iterator itr = m_UnionOfferList.begin();
+    list<SingleGuildUnionOffer*>::const_iterator itr = m_UnionOfferList.begin();
 
-	for (; itr != m_UnionOfferList.end() ; ++itr )
-	{
-		ret += (*itr)->getSize();
-	}
+    for (; itr != m_UnionOfferList.end(); ++itr) {
+        ret += (*itr)->getSize();
+    }
 
-	return ret;
+    return ret;
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCUnionOfferList::read (SocketInputStream & iStream ) 
-	 
+void GCUnionOfferList::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szNum;
-	iStream.read(szNum);
-	for (int i=0; i<szNum; ++i )
-	{
-		SingleGuildUnionOffer* pInfo = new SingleGuildUnionOffer;
-		pInfo->read(iStream);
-		m_UnionOfferList.push_back(pInfo);
-	}
+    BYTE szNum;
+    iStream.read(szNum);
+    for (int i = 0; i < szNum; ++i) {
+        SingleGuildUnionOffer* pInfo = new SingleGuildUnionOffer;
+        pInfo->read(iStream);
+        m_UnionOfferList.push_back(pInfo);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCUnionOfferList::write (SocketOutputStream & oStream ) const 
-     
+void GCUnionOfferList::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szNum = m_UnionOfferList.size();
-	oStream.write(szNum);
+    BYTE szNum = m_UnionOfferList.size();
+    oStream.write(szNum);
 
-	list<SingleGuildUnionOffer*>::const_iterator itr = m_UnionOfferList.begin();
+    list<SingleGuildUnionOffer*>::const_iterator itr = m_UnionOfferList.begin();
 
-	for (; itr != m_UnionOfferList.end() ; ++itr )
-	{
-		(*itr)->write(oStream);
-	}
+    for (; itr != m_UnionOfferList.end(); ++itr) {
+        (*itr)->write(oStream);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCUnionOfferList::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCUnionOfferListHandler::execute(this , pPlayer);
+void GCUnionOfferList::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCUnionOfferListHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCUnionOfferList::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCUnionOfferList("
-		<< ")";
-	
-	return msg.toString();
-		
-	__END_CATCH
-}
+string GCUnionOfferList::toString() const
 
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "GCUnionOfferList("
+        << ")";
+
+    return msg.toString();
+
+    __END_CATCH
+}

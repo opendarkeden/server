@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectDoom.h
-// Written by  : 
+// Written by  :
 // Description : Doom에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,36 +13,49 @@
 // class EffectDoom
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDoom : public Effect 
-{
+class EffectDoom : public Effect {
 public:
-	EffectDoom(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DOOM; }
-
-	void affect()  {}
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const throw();
+    EffectDoom(Creature* pCreature);
 
 public:
-	int  getLevel() const { return m_Level; }
-	void setLevel(int level) throw() { m_Level = level; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_DOOM;
+    }
 
-	int getDefensePenalty(void) const { return m_DefensePenalty; }
-	void setDefensePenalty(int penalty) { m_DefensePenalty = penalty; }
+    void affect() {}
+    void affect(Creature* pCreature);
 
-	int getProtectionPenalty(void) const { return m_ProtectionPenalty; }
-	void setProtectionPenalty(int penalty) { m_ProtectionPenalty = penalty; }
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    int getLevel() const {
+        return m_Level;
+    }
+    void setLevel(int level) throw() {
+        m_Level = level;
+    }
+
+    int getDefensePenalty(void) const {
+        return m_DefensePenalty;
+    }
+    void setDefensePenalty(int penalty) {
+        m_DefensePenalty = penalty;
+    }
+
+    int getProtectionPenalty(void) const {
+        return m_ProtectionPenalty;
+    }
+    void setProtectionPenalty(int penalty) {
+        m_ProtectionPenalty = penalty;
+    }
 
 private:
-	int m_Level;
-	int m_DefensePenalty;
-	int m_ProtectionPenalty;
+    int m_Level;
+    int m_DefensePenalty;
+    int m_ProtectionPenalty;
 };
 
 #endif // __EFFECT_DOOM__

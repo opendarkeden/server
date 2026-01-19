@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
-// Filename    : InstallMine.h 
+// Filename    : InstallMine.h
 // Written By  : elca
-// Description : 
+// Description :
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_INSTALL_MINE_HANDLER_H__
@@ -13,20 +13,24 @@
 // class InstallMine;
 //////////////////////////////////////////////////////////////////////////////
 
-class InstallMine: public SkillHandler 
-{
+class InstallMine : public SkillHandler {
 public:
-	InstallMine () throw () {}
-	~InstallMine () throw () {}
-	
-public :
-    string getSkillHandlerName () const throw () { return "InstallMine"; }
-	SkillType_t getSkillType () const throw () { return SKILL_INSTALL_MINE; }
+    InstallMine() throw() {}
+    ~InstallMine() throw() {}
 
-	// 인벤토리용 기술이다.
-	void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) ;
+public:
+    string getSkillHandlerName() const throw() {
+        return "InstallMine";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_INSTALL_MINE;
+    }
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    // 인벤토리용 기술이다.
+    void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
+                 CoordInven_t TargetY, SkillSlot* pSkillSlot);
+
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

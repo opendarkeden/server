@@ -7,81 +7,116 @@
 #ifndef __EFFECT_BLOODY_SNAKE__
 #define __EFFECT_BLOODY_SNAKE__
 
+#include "Creature.h"
 #include "Effect.h"
 #include "EffectLoader.h"
-#include "Creature.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectBloodySnake
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBloodySnake : public Effect 
-{
+class EffectBloodySnake : public Effect {
 public:
-	EffectBloodySnake(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLOODY_SNAKE; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	string toString() const throw();
+    EffectBloodySnake(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
 public:
-	string getCasterName(void) const { return m_CasterName; }
-	void setCasterName(const string& CasterName ) { m_CasterName = CasterName; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_BLOODY_SNAKE;
+    }
 
-	ObjectID_t getCasterID(void) const { return m_CasterID; }
-	void setCasterID(ObjectID_t CasterID ) { m_CasterID = CasterID; }
+    void affect();
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t Tick) { m_Tick = Tick; }
+    string toString() const throw();
 
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
+public:
+    string getCasterName(void) const {
+        return m_CasterName;
+    }
+    void setCasterName(const string& CasterName) {
+        m_CasterName = CasterName;
+    }
 
-	Dir_t getDir(void) const { return m_Dir; }
-	void setDir(int dir) { m_Dir = dir; }
+    ObjectID_t getCasterID(void) const {
+        return m_CasterID;
+    }
+    void setCasterID(ObjectID_t CasterID) {
+        m_CasterID = CasterID;
+    }
 
-	void setClan(Creature::CreatureClass clanType, int clanID) { m_CreatureClass=clanType; m_ClanID=clanID; }
-	Creature::CreatureClass getCreatureClass() const	{ return m_CreatureClass; }
-	int getClanID() const			{ return m_ClanID; }
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
 
-	POINT getNextPosition();
+    Turn_t getTick() const {
+        return m_Tick;
+    }
+    void setTick(Turn_t Tick) {
+        m_Tick = Tick;
+    }
+
+    int getLevel(void) const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
+
+    Dir_t getDir(void) const {
+        return m_Dir;
+    }
+    void setDir(int dir) {
+        m_Dir = dir;
+    }
+
+    void setClan(Creature::CreatureClass clanType, int clanID) {
+        m_CreatureClass = clanType;
+        m_ClanID = clanID;
+    }
+    Creature::CreatureClass getCreatureClass() const {
+        return m_CreatureClass;
+    }
+    int getClanID() const {
+        return m_ClanID;
+    }
+
+    POINT getNextPosition();
 
 private:
-	string m_CasterName;
-	ObjectID_t  m_CasterID;
-	Dir_t   m_Dir;
-	int     m_Damage;
-	Turn_t  m_Tick;
-	int     m_Level;
-	Creature::CreatureClass m_CreatureClass;
-	int      m_ClanID;
+    string m_CasterName;
+    ObjectID_t m_CasterID;
+    Dir_t m_Dir;
+    int m_Damage;
+    Turn_t m_Tick;
+    int m_Level;
+    Creature::CreatureClass m_CreatureClass;
+    int m_ClanID;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectBloodySnakeLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBloodySnakeLoader : public EffectLoader 
-{
+class EffectBloodySnakeLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_BLOODY_SNAKE; }
-	virtual string getEffectClassName() const throw() { return "EffectBloodySnake"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_BLOODY_SNAKE;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectBloodySnake";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 extern EffectBloodySnakeLoader* g_pEffectBloodySnakeLoader;

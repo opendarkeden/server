@@ -1,55 +1,52 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionEffectFlag.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionEffectFlag.h"
+
 #include "Creature.h"
 #include "FlagSet.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionEffectFlag::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionEffectFlag::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	return pCreature2->isFlag( m_Index );
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
+
+    return pCreature2->isFlag(m_Index);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionEffectFlag::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionEffectFlag::read(PropertyBuffer& propertyBuffer)
+
 {
-	try
-	{
-		// read turn
-		m_Index = (Effect::EffectClass)propertyBuffer.getPropertyInt("EffectClass");
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+    try {
+        // read turn
+        m_Index = (Effect::EffectClass)propertyBuffer.getPropertyInt("EffectClass");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionEffectFlag::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionEffectFlag::toString() const
 
-	StringStream msg;
-	msg << "ConditionEffectFlag("
-		<< "Index:" << (int)m_Index
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionEffectFlag("
+        << "Index:" << (int)m_Index << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

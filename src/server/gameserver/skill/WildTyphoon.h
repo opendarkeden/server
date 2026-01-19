@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : WildTyphoon.h 
+// Filename    : WildTyphoon.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_WILD_TYPHOON_HANDLER_H__
@@ -13,20 +13,23 @@
 // class WildTyphoon;
 //////////////////////////////////////////////////////////////////////////////
 
-class WildTyphoon : public SkillHandler 
-{
+class WildTyphoon : public SkillHandler {
 public:
-	WildTyphoon() throw() {}
-	~WildTyphoon() throw() {}
-	
+    WildTyphoon() throw() {}
+    ~WildTyphoon() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "WildTyphoon"; }
-	SkillType_t getSkillType() const throw() { return SKILL_WILD_TYPHOON; }
+    string getSkillHandlerName() const throw() {
+        return "WildTyphoon";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_WILD_TYPHOON;
+    }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BlazeBolt.h 
-// Written By  : 
-// Description : 
+// Filename    : BlazeBolt.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLAZE_BOLT_HANDLER_H__
@@ -13,19 +13,22 @@
 // class BlazeBolt;
 //////////////////////////////////////////////////////////////////////////////
 
-class BlazeBolt : public SkillHandler 
-{
+class BlazeBolt : public SkillHandler {
 public:
-	BlazeBolt() throw() {}
-	~BlazeBolt() throw() {}
-	
+    BlazeBolt() throw() {}
+    ~BlazeBolt() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BlazeBolt"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLAZE_BOLT; }
+    string getSkillHandlerName() const throw() {
+        return "BlazeBolt";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLAZE_BOLT;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

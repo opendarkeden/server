@@ -1,36 +1,33 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionTakeOutGoods.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionTakeOutGoods.h"
-#include "PlayerCreature.h"
+
+#include "GCGoodsList.h"
+#include "GCNPCResponse.h"
+#include "GamePlayer.h"
 #include "GoodsInventory.h"
 #include "NPC.h"
-#include "GamePlayer.h"
+#include "PlayerCreature.h"
 #include "VariableManager.h"
 
-#include "GCNPCResponse.h"
-#include "GCGoodsList.h"
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
+void ActionTakeOutGoods::read(PropertyBuffer& propertyBuffer)
 
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-void ActionTakeOutGoods::read (PropertyBuffer & propertyBuffer)
-    
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -38,80 +35,79 @@ void ActionTakeOutGoods::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionTakeOutGoods::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionTakeOutGoods::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    Assert(pPC != NULL);
 
-	if ( g_pVariableManager->getVariable( CAN_BUY_SHOP )==0 )
-	{
-		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode( NPC_RESPONSE_CANNOT_BUY );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
-		return;
-	}
+    if (g_pVariableManager->getVariable(CAN_BUY_SHOP) == 0) {
+        GCNPCResponse gcNPCResponse;
+        gcNPCResponse.setCode(NPC_RESPONSE_CANNOT_BUY);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
+        return;
+    }
 
-	GoodsInventory::ListItem& iList = pPC->getGoodsInventory()->getGoods();
+    GoodsInventory::ListItem& iList = pPC->getGoodsInventory()->getGoods();
 
-	GoodsInventory::ListItemItr itr = iList.begin();
-	GoodsInventory::ListItemItr endItr = iList.end();
+    GoodsInventory::ListItemItr itr = iList.begin();
+    GoodsInventory::ListItemItr endItr = iList.end();
 
-	int count = 0;
-	GCGoodsList gcGoodsList;
+    int count = 0;
+    GCGoodsList gcGoodsList;
 
-	for ( ; itr != endItr ; ++itr )
-	{
-		if ( count++ >= MAX_GOODS_LIST ) break;
+    for (; itr != endItr; ++itr) {
+        if (count++ >= MAX_GOODS_LIST)
+            break;
 
-		Item* pItem = (*itr).m_pItem;
-		
-		GoodsInfo* pGI = new GoodsInfo;
-		pGI->objectID = pItem->getObjectID();
-		pGI->itemClass = (BYTE)pItem->getItemClass();
-		pGI->itemType = pItem->getItemType();
-		pGI->grade = pItem->getGrade();
-		pGI->optionType = pItem->getOptionTypeList();
-		pGI->num = pItem->getNum();
-		if ( pItem->isTimeLimitItem() )
-		{
-			if ( pItem->getHour() == 0 ) pGI->timeLimit = 1;
-			else pGI->timeLimit = pItem->getHour() * 3600;
-		}
-		else
-			pGI->timeLimit = 0;
+        Item* pItem = (*itr).m_pItem;
 
-		gcGoodsList.addGoodsInfo( pGI );
+        GoodsInfo* pGI = new GoodsInfo;
+        pGI->objectID = pItem->getObjectID();
+        pGI->itemClass = (BYTE)pItem->getItemClass();
+        pGI->itemType = pItem->getItemType();
+        pGI->grade = pItem->getGrade();
+        pGI->optionType = pItem->getOptionTypeList();
+        pGI->num = pItem->getNum();
+        if (pItem->isTimeLimitItem()) {
+            if (pItem->getHour() == 0)
+                pGI->timeLimit = 1;
+            else
+                pGI->timeLimit = pItem->getHour() * 3600;
+        } else
+            pGI->timeLimit = 0;
 
-//		cout << pGI->toString() << endl;
-	}
+        gcGoodsList.addGoodsInfo(pGI);
 
-	pPC->getPlayer()->sendPacket( &gcGoodsList );
+        //		cout << pGI->toString() << endl;
+    }
 
-	__END_CATCH
+    pPC->getPlayer()->sendPacket(&gcGoodsList);
+
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionTakeOutGoods::toString () const 
-	
+string ActionTakeOutGoods::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionTakeOutGoods("
-	    << ")";
+    StringStream msg;
+    msg << "ActionTakeOutGoods("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

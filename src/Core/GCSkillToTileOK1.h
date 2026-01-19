@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCSkillToTileOK1.h 
+//
+// Filename    : GCSkillToTileOK1.h
 // Written By  : elca@ewestsoft.com
 // Description : Packet informing clients about a successful skill cast
 // 			targeting a tile and the affected targets.
-// 
-// 
+//
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SKILL_TO_TILE_OK_1_H__
@@ -13,10 +13,10 @@
 
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "ModifyInfo.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -27,103 +27,143 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCSkillToTileOK1 : public ModifyInfo {
+public:
+    // constructor
+    GCSkillToTileOK1();
 
-public :
-	
-	// constructor
-	GCSkillToTileOK1() ;
-	
-	// destructor
-	~GCSkillToTileOK1() ;
+    // destructor
+    ~GCSkillToTileOK1();
 
-	
-public :
-	
-	
-	// Initialize the packet by reading data from the input stream.
-    void read(SocketInputStream & iStream) ;
-		    
-	// Serialize the packet into the output stream.
-    void write(SocketOutputStream & oStream) const ;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+public:
+    // Initialize the packet by reading data from the input stream.
+    void read(SocketInputStream& iStream);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_TO_TILE_OK_1; }
-	
-	// get packet's body size
-	// Serialized size varies with the contained lists.
-	PacketSize_t getPacketSize() const  { return szSkillType + szCEffectID + szCoord* 2
-			+ szDuration + szBYTE + szRange + szObjectID* m_CListNum + szBYTE + ModifyInfo::getPacketSize(); }
+    // Serialize the packet into the output stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet's name
-	string getPacketName() const  { return "GCSkillToTileOK1"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get / set SkillType
-	SkillType_t getSkillType() const  { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_SKILL_TO_TILE_OK_1;
+    }
 
-	// get / set CEffectID
-	CEffectID_t getCEffectID() const  { return m_CEffectID; }
-	void setCEffectID(CEffectID_t CEffectID)  { m_CEffectID = CEffectID; }
+    // get packet's body size
+    // Serialized size varies with the contained lists.
+    PacketSize_t getPacketSize() const {
+        return szSkillType + szCEffectID + szCoord * 2 + szDuration + szBYTE + szRange + szObjectID * m_CListNum +
+               szBYTE + ModifyInfo::getPacketSize();
+    }
 
-	// get / set Duration
-	Duration_t getDuration() const  { return m_Duration; }
-	void setDuration(Duration_t Duration)  { m_Duration = Duration; }
+    // get packet's name
+    string getPacketName() const {
+        return "GCSkillToTileOK1";
+    }
 
-	// get / set X, Y
-	Coord_t getX() { return m_X; }
-	void setX(Coord_t X) { m_X = X; }
+    // get packet's debug string
+    string toString() const;
 
-	Coord_t getY() { return m_Y; }
-	void setY(Coord_t Y) { m_Y = Y; }
+    // get / set SkillType
+    SkillType_t getSkillType() const {
+        return m_SkillType;
+    }
+    void setSkillType(SkillType_t SkillType) {
+        m_SkillType = SkillType;
+    }
 
-	Range_t getRange() { return m_Range;}
-	void setRange(Range_t r) { m_Range = r;}
+    // get / set CEffectID
+    CEffectID_t getCEffectID() const {
+        return m_CEffectID;
+    }
+    void setCEffectID(CEffectID_t CEffectID) {
+        m_CEffectID = CEffectID;
+    }
 
-	// get / set Creature List Number
-	BYTE getCListNum() const  { return m_CListNum; }
-	void setCListNum(BYTE CListNum)  { m_CListNum = CListNum; }
+    // get / set Duration
+    Duration_t getDuration() const {
+        return m_Duration;
+    }
+    void setDuration(Duration_t Duration) {
+        m_Duration = Duration;
+    }
 
-	// add / delete  Creature List
-	void addCListElement(ObjectID_t ObjectID) ;
-	void clearCList()  { m_CList.clear(); m_CListNum = 0; }
+    // get / set X, Y
+    Coord_t getX() {
+        return m_X;
+    }
+    void setX(Coord_t X) {
+        m_X = X;
+    }
 
-	// pop front Element in Status List
-	ObjectID_t popCListElement()  { ObjectID_t CreatureList = m_CList.front(); m_CList.pop_front(); return CreatureList; }
+    Coord_t getY() {
+        return m_Y;
+    }
+    void setY(Coord_t Y) {
+        m_Y = Y;
+    }
 
-	BYTE getGrade() const { return m_Grade; }
-	void setGrade(BYTE grade ) { m_Grade = grade; }
+    Range_t getRange() {
+        return m_Range;
+    }
+    void setRange(Range_t r) {
+        m_Range = r;
+    }
 
-private :
-	
-	// SkillType
-	SkillType_t m_SkillType;
+    // get / set Creature List Number
+    BYTE getCListNum() const {
+        return m_CListNum;
+    }
+    void setCListNum(BYTE CListNum) {
+        m_CListNum = CListNum;
+    }
 
-	// CEffectID
-	CEffectID_t m_CEffectID;
+    // add / delete  Creature List
+    void addCListElement(ObjectID_t ObjectID);
+    void clearCList() {
+        m_CList.clear();
+        m_CListNum = 0;
+    }
 
-	// Duration
-	Duration_t m_Duration;
+    // pop front Element in Status List
+    ObjectID_t popCListElement() {
+        ObjectID_t CreatureList = m_CList.front();
+        m_CList.pop_front();
+        return CreatureList;
+    }
 
-	// Range
-	Range_t m_Range;
+    BYTE getGrade() const {
+        return m_Grade;
+    }
+    void setGrade(BYTE grade) {
+        m_Grade = grade;
+    }
 
-	// X, Y Position
-	Coord_t m_X;
-	Coord_t m_Y;
+private:
+    // SkillType
+    SkillType_t m_SkillType;
 
-	// CreatureList Element Number 
-	BYTE m_CListNum;
+    // CEffectID
+    CEffectID_t m_CEffectID;
 
-	// Creature List
-	list<ObjectID_t> m_CList;
+    // Duration
+    Duration_t m_Duration;
 
-	BYTE m_Grade;
+    // Range
+    Range_t m_Range;
+
+    // X, Y Position
+    Coord_t m_X;
+    Coord_t m_Y;
+
+    // CreatureList Element Number
+    BYTE m_CListNum;
+
+    // Creature List
+    list<ObjectID_t> m_CList;
+
+    BYTE m_Grade;
 };
 
 
@@ -136,33 +176,36 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCSkillToTileOK1Factory : public PacketFactory {
+public:
+    // constructor
+    GCSkillToTileOK1Factory() {}
 
-public :
-	
-	// constructor
-	GCSkillToTileOK1Factory()  {}
-	
-	// destructor
-	virtual ~GCSkillToTileOK1Factory()  {}
+    // destructor
+    virtual ~GCSkillToTileOK1Factory() {}
 
-	
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCSkillToTileOK1(); }
 
-	// get packet name
-	string getPacketName() const  { return "GCSkillToTileOK1"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_TO_TILE_OK_1; }
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCSkillToTileOK1();
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID + szCoord* 2
-			+ szDuration + szBYTE + szBYTE + +szRange + szWORD + szObjectID + szBYTE + ModifyInfo::getPacketMaxSize(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCSkillToTileOK1";
+    }
 
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_SKILL_TO_TILE_OK_1;
+    }
+
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szSkillType + szCEffectID + szCoord * 2 + szDuration + szBYTE + szBYTE + +szRange + szWORD + szObjectID +
+               szBYTE + ModifyInfo::getPacketMaxSize();
+    }
 };
-
 
 
 //////////////////////////////////////////////////////////////////////
@@ -171,12 +214,9 @@ public :
 //
 //////////////////////////////////////////////////////////////////////
 class GCSkillToTileOK1Handler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCSkillToTileOK1* pGCSkillToTileOK1, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCSkillToTileOK1* pGCSkillToTileOK1, Player* pPlayer);
 };
 
 #endif

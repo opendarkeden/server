@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : InventorySlot.cpp
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "InventorySlot.h"
@@ -11,58 +11,57 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /*
-InventorySlot::InventorySlot() 
-	 
-{ 
-	__BEGIN_TRY
+InventorySlot::InventorySlot()
 
-	m_pItem = NULL; 
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    m_pItem = NULL;
+
+    __END_CATCH
 }
 */
 
-InventorySlot::~InventorySlot() 
-	 
-{ 
-	__BEGIN_TRY
+InventorySlot::~InventorySlot()
 
-	Assert(m_pItem == NULL);
+{
+    __BEGIN_TRY
 
-	__END_CATCH_NO_RETHROW
+    Assert(m_pItem == NULL);
+
+    __END_CATCH_NO_RETHROW
 }
 
 /*
-Item* InventorySlot::getItem() 
-	 
-{ 
-	__BEGIN_TRY
+Item* InventorySlot::getItem()
 
-	return m_pItem; 
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    return m_pItem;
+
+    __END_CATCH
 }
 */
 
-void InventorySlot::addItem(Item* pItem) 
-	 
-{ 
-	__BEGIN_TRY
+void InventorySlot::addItem(Item* pItem)
 
-	Assert(pItem != NULL);
-	m_pItem = pItem; 
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    Assert(pItem != NULL);
+    m_pItem = pItem;
+
+    __END_CATCH
 }
 
-void InventorySlot::deleteItem() 
-	 
-{ 
-	__BEGIN_TRY
+void InventorySlot::deleteItem()
 
-	Assert(m_pItem != NULL); 
-	m_pItem = NULL; 
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    Assert(m_pItem != NULL);
+    m_pItem = NULL;
+
+    __END_CATCH
 }
-

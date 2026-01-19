@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HurricaneCombo.h 
+// Filename    : HurricaneCombo.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HURRICANE_COMBO_HANDLER_H__
@@ -13,19 +13,22 @@
 // class HurricaneCombo;
 //////////////////////////////////////////////////////////////////////////////
 
-class HurricaneCombo : public SkillHandler 
-{
+class HurricaneCombo : public SkillHandler {
 public:
-	HurricaneCombo() throw() {}
-	~HurricaneCombo() throw() {}
-	
+    HurricaneCombo() throw() {}
+    ~HurricaneCombo() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HurricaneCombo"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HURRICANE_COMBO; }
+    string getSkillHandlerName() const throw() {
+        return "HurricaneCombo";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HURRICANE_COMBO;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

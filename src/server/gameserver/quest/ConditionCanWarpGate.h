@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanWarpGate.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,29 +15,36 @@
 // class ConditionCanWarpGate;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanWarpGate : public Condition 
-{
+class ConditionCanWarpGate : public Condition {
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_CAN_WARP_GATE; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_CAN_WARP_GATE;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 public:
-
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionCanWarpGateFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanWarpGateFactory : public ConditionFactory 
-{
+class ConditionCanWarpGateFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_CAN_WARP_GATE; }
-    virtual Condition* createCondition() const  { return new ConditionCanWarpGate(); }
-    virtual string getConditionName() const  { return "CanWarpGate"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_CAN_WARP_GATE;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionCanWarpGate();
+    }
+    virtual string getConditionName() const {
+        return "CanWarpGate";
+    }
 };
 
 #endif

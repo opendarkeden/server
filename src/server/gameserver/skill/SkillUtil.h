@@ -1,32 +1,32 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SkillUtil.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILLUTIL_H__
 #define __SKILLUTIL_H__
 
 #include "ModifyInfo.h"
+#include "Ousters.h"
 #include "Slayer.h"
 #include "Vampire.h"
-#include "Ousters.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 매크로, 상수
 //////////////////////////////////////////////////////////////////////////////
 
-// decreaseMana를 호출했을 경우, 
+// decreaseMana를 호출했을 경우,
 // MP만 닳았으면 CONSUME_MP를, HP만 닳았을 경우에는 CONSUME_HP를,
 // 둘 다 소모되었을 경우에는, BOTH를 리턴한다.
-#define CONSUME_MP    0
-#define CONSUME_HP    1
-#define CONSUME_BOTH  2
+#define CONSUME_MP 0
+#define CONSUME_HP 1
+#define CONSUME_BOTH 2
 
-#define MAKEWORD(U,D) (WORD)((WORD)(U)<<8  |(WORD)(D))
-#define MAKEDWORD(U,D)(DWORD)((DWORD)(U)<<16 |(DWORD)(D))
+#define MAKEWORD(U, D) (WORD)((WORD)(U) << 8 | (WORD)(D))
+#define MAKEDWORD(U, D) (DWORD)((DWORD)(U) << 16 | (DWORD)(D))
 
-//#define VAMPIRE_MAX_LEVEL	150
+// #define VAMPIRE_MAX_LEVEL	150
 
 //////////////////////////////////////////////////////////////////////////////
 // forward declaration
@@ -54,7 +54,8 @@ Damage_t computePureDamage(Creature* pCreature);
 Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature, int CriticalBonus, bool& bCritical);
 
 // 원래 데미지에서 프로텍션을 제외한 최종 데미지를 리턴한다.
-double computeFinalDamage(Damage_t minDamage, Damage_t maxDamage, Damage_t realDamage, Protection_t Protection, bool bCritical);
+double computeFinalDamage(Damage_t minDamage, Damage_t maxDamage, Damage_t realDamage, Protection_t Protection,
+                          bool bCritical);
 
 // 슬레이어 공격자와 피공격자 사이의 데미지를 계산한다.
 Damage_t computeSlayerDamage(Slayer* pSlayer, Creature* pTargetCreature, bool bCritical);
@@ -81,7 +82,8 @@ Damage_t computePureOustersDamage(Ousters* pOusters);
 Damage_t computePureMonsterDamage(Monster* pMonster);
 
 // resistance를 고려한 마법 데미지를 계산한다.
-Damage_t computeMagicDamage(Creature* pTargetCreature, int Damage, SkillType_t SkillType, bool bVampire = false, Creature* pAttacker = NULL);
+Damage_t computeMagicDamage(Creature* pTargetCreature, int Damage, SkillType_t SkillType, bool bVampire = false,
+                            Creature* pAttacker = NULL);
 
 // 리스틀릿을 고려한 아우스터즈 마법 데미지를 계산한다.
 Damage_t computeOustersMagicDamage(Ousters* pOusters, Creature* pTargetCreature, int Damage, SkillType_t SkillType);
@@ -97,13 +99,15 @@ void computeCriticalBonus(Ousters* pOusters, SkillType_t skillType, Damage_t& Da
 //////////////////////////////////////////////////////////////////////////////
 
 // 직접적으로 데미지를 세팅한다.
-HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, SkillType_t SkillType = 0, ModifyInfo* pMI = NULL, ModifyInfo* pAttackerMI = NULL, bool canKillTarget = true, bool canSteal = true );
+HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, SkillType_t SkillType = 0,
+               ModifyInfo* pMI = NULL, ModifyInfo* pAttackerMI = NULL, bool canKillTarget = true, bool canSteal = true);
 
 // 아이템 내구도를 떨어뜨린다.
-void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInfo* pSkillInfo, ModifyInfo*, ModifyInfo*);
+void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInfo* pSkillInfo, ModifyInfo*,
+                        ModifyInfo*);
 
 // 타겟을 맞출 가능성이 있는가?
-bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, SkillLevel_t SkillLevel=0);
+bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, SkillLevel_t SkillLevel = 0);
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -156,12 +160,12 @@ bool checkZoneLevelToUseSkill(Creature* pCaster);
 bool checkZoneLevelToHitTarget(Creature* pTargetCreature);
 
 // 기술이 밀리 공격인가? - 2003. 1. 1. Sequoia
-//bool isMeleeSkill(SkillType_t SkillType);
+// bool isMeleeSkill(SkillType_t SkillType);
 
 // Magic 기술인가?
-//bool isMagicSkill(SkillType_t SkillType);
+// bool isMagicSkill(SkillType_t SkillType);
 // Physic 기술인가?
-//bool isPhysicSkill(SkillType_t SkillType);
+// bool isPhysicSkill(SkillType_t SkillType);
 
 //////////////////////////////////////////////////////////////////////////////
 // 성향 관련 함수들...
@@ -169,10 +173,11 @@ bool checkZoneLevelToHitTarget(Creature* pTargetCreature);
 
 // 성향을 변경한다.
 // 기술을 사용하거나, PK를 할 때 생기는 성향 변화를 계산하는 함수다.
-void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, ModifyInfo* pMI = NULL, ModifyInfo* pAttackerMI = NULL);
+void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, ModifyInfo* pMI = NULL,
+                            ModifyInfo* pAttackerMI = NULL);
 
 // 슬레이어 및 뱀파이어가 몹을 죽일 때 성향을 약간씩 회복시킨다.
-// 정당 방위 시스템 같은 것과는 관련 없이, 그냥 타종족을 공격할 때 
+// 정당 방위 시스템 같은 것과는 관련 없이, 그냥 타종족을 공격할 때
 // 약간씩 성향을 회복시켜주는 함수이다.
 void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi);
 
@@ -181,7 +186,8 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi);
 //////////////////////////////////////////////////////////////////////////////
 
 // 파티 관련 슬레이어 경험치 계산 함수
-void shareAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier, ModifyInfo &);
+void shareAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier,
+                  ModifyInfo&);
 
 // 파티 관련 뱀파이어 경험치 계산 함수
 void shareVampExp(Vampire*, Exp_t, ModifyInfo&);
@@ -190,13 +196,16 @@ void shareVampExp(Vampire*, Exp_t, ModifyInfo&);
 void shareOustersExp(Ousters*, Exp_t, ModifyInfo&);
 
 // 슬레이어 능력치(STR,DEX,INT) 경험치를 계산한다.
-void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier, ModifyInfo &, int numPartyMember=-1);
+void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier,
+                   ModifyInfo&, int numPartyMember = -1);
 
 // 슬레이어 기술 경험치를 계산한다.
-void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* pSkillSlot, SkillInfo* pSkillInfo, ModifyInfo&);
+void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* pSkillSlot, SkillInfo* pSkillInfo,
+                      ModifyInfo&);
 
 // 슬레이어 계열 경험치를 계산한다.
-bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Exp, ModifyInfo &, Level_t EnemyLevel = 0, int TargetNum = -1);
+bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Exp, ModifyInfo&, Level_t EnemyLevel = 0,
+                       int TargetNum = -1);
 
 // 뱀파이어 경험치를 계산한다.
 void increaseVampExp(Vampire*, Exp_t, ModifyInfo&);
@@ -220,9 +229,11 @@ int computeArmsWeaponSplashSize(Item* pWeapon, int ox, int oy, int tx, int ty);
 int computeArmsWeaponDamageBonus(Item* pWeapon, int ox, int oy, int tx, int ty);
 int computeArmsWeaponToHitBonus(Item* pWeapon, int ox, int oy, int tx, int ty);
 
-// 지정된 좌표 주위의 스플래쉬 데미지를 맞을 크리쳐를 뽑아온다. 
-int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList, int splash);
-int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList, int splash, int range);
+// 지정된 좌표 주위의 스플래쉬 데미지를 맞을 크리쳐를 뽑아온다.
+int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList,
+                     int splash);
+int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList,
+                     int splash, int range);
 int getSplashVictims(Zone* pZone, int cx, int cy, list<Creature*>& creatureList, int splash);
 
 // 레벨업 시 HP와 MP를 꽉 채워준다.
@@ -232,11 +243,13 @@ void healCreatureForLevelUp(Ousters* pOusters, ModifyInfo& _ModifyInfo, OUSTERS_
 
 // 기술 실패시 패킷을 날린다.
 void executeSkillFailNormal(Creature* pCreature, SkillType_t SkillType, Creature* pTargetCreature, BYTE Grade = 0);
-void executeAbsorbSoulSkillFail(Creature* pCreature, SkillType_t SkillType, ObjectID_t TargetObjectID, bool bBroadcast, bool bSendTwice);
-void executeSkillFailNormalWithGun(Creature* pCreature, SkillType_t SkillType, Creature* pTargetCreature, BYTE RemainBullet);
+void executeAbsorbSoulSkillFail(Creature* pCreature, SkillType_t SkillType, ObjectID_t TargetObjectID, bool bBroadcast,
+                                bool bSendTwice);
+void executeSkillFailNormalWithGun(Creature* pCreature, SkillType_t SkillType, Creature* pTargetCreature,
+                                   BYTE RemainBullet);
 void executeSkillFailException(Creature* pCreature, SkillType_t SkillType, BYTE Grade = 0);
 
-void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attackerObjectID=0);
+void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attackerObjectID = 0);
 
 Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY);
 
@@ -244,27 +257,27 @@ Exp_t computeSkillPointBonus(SkillDomainType_t Domain, SkillLevel_t DomainLevel,
 
 
 // 점과 점사이를 걸어서 갈 수 있는가? ( 크리쳐로 막힌 경우는 제외 )
-bool isPassLine( Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, bool blockByCreature = false );
+bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY,
+                bool blockByCreature = false);
 
 // 두 점사이의 진선을 이루는 점들을 구한다.
-void getLinePoint( ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, list<TPOINT>& tpList );
+void getLinePoint(ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, list<TPOINT>& tpList);
 
-ElementalType getElementalTypeFromString( const string& type );
+ElementalType getElementalTypeFromString(const string& type);
 
-Damage_t computeElementalCombatSkill( Ousters* pOusters, Creature* pTargetCreature, ModifyInfo& AttackerMI );
+Damage_t computeElementalCombatSkill(Ousters* pOusters, Creature* pTargetCreature, ModifyInfo& AttackerMI);
 
 //////////////////////////////////////////////////////////////////////////////
 // 공격할 수 있는가?
 // 무적 상태나 non PK 를 위해서 공격할 수 있는지를 체크한다.
 //////////////////////////////////////////////////////////////////////////////
-bool canAttack( Creature* pAttacker, Creature* pDefender );
+bool canAttack(Creature* pAttacker, Creature* pDefender);
 
 //////////////////////////////////////////////////////////////////////////
 // add by Coffee 2007-6-9
 // 藤속劤세콘힛痢賈痰劤세콘 왱뇜세콘엥駱聯
 //////////////////////////////////////////////////////////////////////////
-bool useSkillCrad( Creature* pCreature);
+bool useSkillCrad(Creature* pCreature);
 
 
 #endif
-

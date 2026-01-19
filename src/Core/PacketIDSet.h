@@ -14,11 +14,11 @@
 #include "PlayerStatus.h"
 
 #if defined(__LINUX__) || defined(__APPLE__)
-	#include <unordered_set>
-	typedef unordered_set<PacketID_t> PACKET_ID_SET;
+#include <unordered_set>
+typedef unordered_set<PacketID_t> PACKET_ID_SET;
 #elif __WINDOWS__
-	#include <set>
-	typedef set<PacketID_t> PACKET_ID_SET;
+#include <set>
+typedef set<PacketID_t> PACKET_ID_SET;
 #endif
 
 //----------------------------------------------------------------------
@@ -30,50 +30,42 @@
 //----------------------------------------------------------------------
 
 class PacketIDSet {
+public:
+    enum PacketIDSetType { PIST_NORMAL, PIST_ANY, PIST_NONE, PIST_IGNORE_EXCEPT };
 
-public :
+public:
+    // constructor
+    PacketIDSet(PlayerStatus playerStatus, PacketIDSetType packetIDSetType = PIST_NORMAL);
 
-	enum PacketIDSetType {
-		PIST_NORMAL ,
-		PIST_ANY ,
-		PIST_NONE ,
-		PIST_IGNORE_EXCEPT
-	};
+    // destructor
+    ~PacketIDSet();
 
-public :
+    // add packet id to set
+    void addPacketID(PacketID_t packetID);
 
-	// constructor
-	PacketIDSet (PlayerStatus playerStatus, PacketIDSetType packetIDSetType = PIST_NORMAL) ;
+    // delete packet id from set
+    void deletePacketID(PacketID_t packetID);
 
-	// destructor
-	~PacketIDSet () ;
+    // has packet id?
+    bool hasPacketID(PacketID_t packetID) const;
 
-	// add packet id to set
-	void addPacketID (PacketID_t packetID);
+    // get player status
+    PlayerStatus getPlayerStatus() const {
+        return m_PlayerStatus;
+    }
 
-	// delete packet id from set
-	void deletePacketID (PacketID_t packetID);
+    // get debug string
+    string toString() const;
 
-	// has packet id?
-	bool hasPacketID (PacketID_t packetID) const;
+private:
+    // Packet ID Set Type
+    PacketIDSetType m_PacketIDSetType;
 
-	// get player status 
-	PlayerStatus getPlayerStatus () const  { return m_PlayerStatus; }
+    // �÷��̾� ����
+    PlayerStatus m_PlayerStatus;
 
-	// get debug string
-	string toString () const ;
-
-private :
-
-	// Packet ID Set Type 
-	PacketIDSetType m_PacketIDSetType;
-
-	// �÷��̾� ����
-	PlayerStatus m_PlayerStatus;
-
-	// ���Ǵ� ��Ŷ�� �ؽ���
-	PACKET_ID_SET m_PacketIDSet;
-
+    // ���Ǵ� ��Ŷ�� �ؽ���
+    PACKET_ID_SET m_PacketIDSet;
 };
 
 #endif

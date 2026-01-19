@@ -1,66 +1,68 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCWhisperFailed.h 
+//
+// Filename    : GCWhisperFailed.h
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_WHISPER_FAILED_H__
 #define __GC_WHISPER_FAILED_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
 // class GCWhisperFailed;
 //
-// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄 
+// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄
 // 때 사용하는 패킷 객체이다.(CreatureID,X,Y,DIR) 을 포함한다.
 //
 //////////////////////////////////////////////////////////////////////
 
 class GCWhisperFailed : public Packet {
+public:
+    // constructor
+    GCWhisperFailed();
 
-public :
-	
-	// constructor
-	GCWhisperFailed() ;
-	
-	// destructor
-	~GCWhisperFailed() ;
+    // destructor
+    ~GCWhisperFailed();
 
-	
-public :
-	
+
+public:
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_WHISPER_FAILED; }
-	
-	// get packet's body size
-	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const  { return 0; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_WHISPER_FAILED;
+    }
 
-	// get packet's name
-	string getPacketName() const  { return "GCWhisperFailed"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    // 최적화시, 미리 계산된 정수를 사용한다.
+    PacketSize_t getPacketSize() const {
+        return 0;
+    }
 
-private :
+    // get packet's name
+    string getPacketName() const {
+        return "GCWhisperFailed";
+    }
 
+    // get packet's debug string
+    string toString() const;
+
+private:
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -72,30 +74,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCWhisperFailedFactory : public PacketFactory {
+public:
+    // constructor
+    GCWhisperFailedFactory() {}
 
-public :
-	
-	// constructor
-	GCWhisperFailedFactory()  {}
-	
-	// destructor
-	virtual ~GCWhisperFailedFactory()  {}
+    // destructor
+    virtual ~GCWhisperFailedFactory() {}
 
-	
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCWhisperFailed(); }
 
-	// get packet name
-	string getPacketName() const  { return "GCWhisperFailed"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_WHISPER_FAILED; }
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCWhisperFailed();
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return 0; }
+    // get packet name
+    string getPacketName() const {
+        return "GCWhisperFailed";
+    }
 
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_WHISPER_FAILED;
+    }
+
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return 0;
+    }
 };
 
 
@@ -106,12 +112,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCWhisperFailedHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCWhisperFailed* pGCWhisperFailed, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCWhisperFailed* pGCWhisperFailed, Player* pPlayer);
 };
 
 #endif

@@ -1,10 +1,11 @@
 #ifndef __PC_LIMITER_H__
 #define __PC_LIMITER_H__
 
-#include "Types.h"
+#include <vector>
+
 #include "Exception.h"
 #include "Mutex.h"
-#include <vector>
+#include "Types.h"
 
 class PlayerCreature;
 
@@ -16,25 +17,44 @@ class PlayerCreature;
 // 숫자 제한 : 0 <= Current <= Limit
 //--------------------------------------------------------------------------------
 class LimitInfo {
-public :
-	LimitInfo( int limit ) : m_nCurrent( 0 ), m_nLimit(limit) {}
+public:
+    LimitInfo(int limit) : m_nCurrent(0), m_nLimit(limit) {}
 
-	int		getCurrent() const			{ return m_nCurrent; }
-	void	setCurrent(int current) 	{ m_nCurrent = current; }
+    int getCurrent() const {
+        return m_nCurrent;
+    }
+    void setCurrent(int current) {
+        m_nCurrent = current;
+    }
 
-	int		getLimit() const	{ return m_nLimit; }
-	void	setLimit(int limit) { m_nLimit = limit; }
+    int getLimit() const {
+        return m_nLimit;
+    }
+    void setLimit(int limit) {
+        m_nLimit = limit;
+    }
 
-	bool	isLimit() const 	{ return m_nCurrent >= m_nLimit; }
+    bool isLimit() const {
+        return m_nCurrent >= m_nLimit;
+    }
 
-	void	increase() { if (m_nCurrent < m_nLimit) m_nCurrent++; }
-	void	decrease() { if (m_nCurrent > 0) m_nCurrent--; }
+    void increase() {
+        if (m_nCurrent < m_nLimit)
+            m_nCurrent++;
+    }
+    void decrease() {
+        if (m_nCurrent > 0)
+            m_nCurrent--;
+    }
 
-	void	operator = (const LimitInfo& li) { m_nCurrent = li.m_nCurrent; m_nLimit = li.m_nLimit; }
+    void operator=(const LimitInfo& li) {
+        m_nCurrent = li.m_nCurrent;
+        m_nLimit = li.m_nLimit;
+    }
 
-protected :
-	int			m_nCurrent;
-	int			m_nLimit;
+protected:
+    int m_nCurrent;
+    int m_nLimit;
 };
 
 //--------------------------------------------------------------------------------
@@ -46,33 +66,39 @@ protected :
 // 0 <= Current <= Limit
 //--------------------------------------------------------------------------------
 class LevelLimitInfo : public LimitInfo {
-public :
-	LevelLimitInfo( int ID, int minLevel, int maxLevel, int limit ) : LimitInfo(limit)
-	{
-		m_ID = ID;
-		m_MinLevel = minLevel;
-		m_MaxLevel = maxLevel;
-	}
+public:
+    LevelLimitInfo(int ID, int minLevel, int maxLevel, int limit) : LimitInfo(limit) {
+        m_ID = ID;
+        m_MinLevel = minLevel;
+        m_MaxLevel = maxLevel;
+    }
 
-	int 	getID() const			{ return m_ID; }
-	int 	getMaxLevel() const		{ return m_MaxLevel; }
-	int		getMinLevel() const		{ return m_MinLevel; }
+    int getID() const {
+        return m_ID;
+    }
+    int getMaxLevel() const {
+        return m_MaxLevel;
+    }
+    int getMinLevel() const {
+        return m_MinLevel;
+    }
 
-	bool	isLevelInRange(int level) const	{ return level>=m_MinLevel && level<=m_MaxLevel; }
+    bool isLevelInRange(int level) const {
+        return level >= m_MinLevel && level <= m_MaxLevel;
+    }
 
-	void	operator = (const LevelLimitInfo& li) 
-	{ 
-		m_nCurrent 	= li.m_nCurrent; 
-		m_nLimit 	= li.m_nLimit; 
-		m_ID	 	= li.m_ID; 
-		m_MinLevel 	= li.m_MinLevel; 
-		m_MaxLevel 	= li.m_MaxLevel; 
-	}
+    void operator=(const LevelLimitInfo& li) {
+        m_nCurrent = li.m_nCurrent;
+        m_nLimit = li.m_nLimit;
+        m_ID = li.m_ID;
+        m_MinLevel = li.m_MinLevel;
+        m_MaxLevel = li.m_MaxLevel;
+    }
 
-private :
-	int		m_ID;		// 구분용 ID
-	int 	m_MinLevel;
-	int 	m_MaxLevel;
+private:
+    int m_ID; // 구분용 ID
+    int m_MinLevel;
+    int m_MaxLevel;
 };
 
 
@@ -83,38 +109,45 @@ private :
 //--------------------------------------------------------------------------------
 // PlayerCreature에 대한 출입 체크
 //--------------------------------------------------------------------------------
-template <class T>
-class PCLimiter {
-public :
-	typedef T 						LimitInfo_t;
-	typedef vector<LimitInfo_t> 	LimitInfos;
+template <class T> class PCLimiter {
+public:
+    typedef T LimitInfo_t;
+    typedef vector<LimitInfo_t> LimitInfos;
 
-public :
-	PCLimiter();
-	virtual ~PCLimiter();
+public:
+    PCLimiter();
+    virtual ~PCLimiter();
 
-	virtual void		clear();
+    virtual void clear();
 
-	virtual void		load()  = 0;
+    virtual void load() = 0;
 
-	virtual bool 		join(PlayerCreature* pPC)  = 0;
-	virtual bool		leave(PlayerCreature* pPC)  = 0;
+    virtual bool join(PlayerCreature* pPC) = 0;
+    virtual bool leave(PlayerCreature* pPC) = 0;
 
-	int					getSize() const						{ return m_LimitInfos.size(); }
-	LimitInfo_t* 		getLimitInfoByIndex(int index) ;
-
-protected :
-	void 				lock()  	{ m_Mutex.lock(); }
-	void 				unlock()  	{ m_Mutex.unlock(); }
-
-	void				addLimitInfo(const LimitInfo_t& limitInfo)	{ m_LimitInfos.push_back( limitInfo ); }
-
-	virtual LimitInfo_t* getLimitInfo(PlayerCreature* pPC)  = 0;
+    int getSize() const {
+        return m_LimitInfos.size();
+    }
+    LimitInfo_t* getLimitInfoByIndex(int index);
 
 protected:
-	LimitInfos			m_LimitInfos;
+    void lock() {
+        m_Mutex.lock();
+    }
+    void unlock() {
+        m_Mutex.unlock();
+    }
 
-	mutable Mutex 		m_Mutex;
+    void addLimitInfo(const LimitInfo_t& limitInfo) {
+        m_LimitInfos.push_back(limitInfo);
+    }
+
+    virtual LimitInfo_t* getLimitInfo(PlayerCreature* pPC) = 0;
+
+protected:
+    LimitInfos m_LimitInfos;
+
+    mutable Mutex m_Mutex;
 };
 
 
@@ -123,42 +156,32 @@ protected:
 // 							PCLimiter
 //
 //--------------------------------------------------------------------------------
-template <class T>
-PCLimiter<T>::PCLimiter()
-{
-	m_Mutex.setName("PCLimiter");
+template <class T> PCLimiter<T>::PCLimiter() {
+    m_Mutex.setName("PCLimiter");
 }
 
-template <class T>
-PCLimiter<T>::~PCLimiter()
-{
-}
+template <class T> PCLimiter<T>::~PCLimiter() {}
 
 //--------------------------------------------------------------------------------
 // clear
 //--------------------------------------------------------------------------------
-template <class T>
-void        
-PCLimiter<T>::clear() 
-{
-	m_LimitInfos.clear();
+template <class T> void PCLimiter<T>::clear() {
+    m_LimitInfos.clear();
 }
 
 template <class T>
-typename PCLimiter<T>::LimitInfo_t* 
-PCLimiter<T>::getLimitInfoByIndex(int index) 
-	
+typename PCLimiter<T>::LimitInfo_t* PCLimiter<T>::getLimitInfoByIndex(int index)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (index < 0 || index >= (int)m_LimitInfos.size())
-	{
-		return NULL;
-	}
+    if (index < 0 || index >= (int)m_LimitInfos.size()) {
+        return NULL;
+    }
 
-	return &(m_LimitInfos[index]);
+    return &(m_LimitInfos[index]);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HeterChakram.h 
+// Filename    : HeterChakram.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HETER_CHAKRAM_HANDLER_H__
@@ -13,20 +13,24 @@
 // class HeterChakram;
 //////////////////////////////////////////////////////////////////////////////
 
-class HeterChakram: public SkillHandler 
-{
+class HeterChakram : public SkillHandler {
 public:
-	HeterChakram() throw() {}
-	~HeterChakram() throw() {}
-	
+    HeterChakram() throw() {}
+    ~HeterChakram() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HeterChakram"; }
+    string getSkillHandlerName() const throw() {
+        return "HeterChakram";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_HETER_CHAKRAM; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HETER_CHAKRAM;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -12,16 +12,15 @@
 // class SlayerWeaponRewardClass;
 //////////////////////////////////////////////////////////////////////////////
 
-class SlayerWeaponRewardClass : public RewardClass
-{
+class SlayerWeaponRewardClass : public RewardClass {
 public:
-	SlayerWeaponRewardClass( RewardClass_t rClass ) : RewardClass(rClass) { }
+    SlayerWeaponRewardClass(RewardClass_t rClass) : RewardClass(rClass) {}
 
 public:
-	virtual RewardInfo*		selectReward( PlayerCreature* pPC ) const ;
-	virtual QuestMessage	giveReward( PlayerCreature* pPC ) const ;
+    virtual RewardInfo* selectReward(PlayerCreature* pPC) const;
+    virtual QuestMessage giveReward(PlayerCreature* pPC) const;
 
-	virtual string	toString() const ;
+    virtual string toString() const;
 
 private:
 };

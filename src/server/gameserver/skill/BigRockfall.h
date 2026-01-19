@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BigRockfall.h 
-// Written By  : 
-// Description : 
+// Filename    : BigRockfall.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_Big_Rockfall_HANDLER_H__
@@ -13,20 +13,24 @@
 // class BigRockfall;
 //////////////////////////////////////////////////////////////////////////////
 
-class BigRockfall : public SkillHandler 
-{
+class BigRockfall : public SkillHandler {
 public:
-	BigRockfall() throw() {}
-	~BigRockfall() throw() {}
-	
+    BigRockfall() throw() {}
+    ~BigRockfall() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BigRockfall"; }
-	SkillType_t getSkillType() const throw() { return SKILL_Big_Rockfall; }
+    string getSkillHandlerName() const throw() {
+        return "BigRockfall";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_Big_Rockfall;
+    }
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

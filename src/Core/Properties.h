@@ -2,7 +2,7 @@
 //
 // Filename    : Properties.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,17 +10,17 @@
 #define __PROPERTIES_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
 #include <map>
+
+#include "Exception.h"
+#include "Types.h"
 
 // help class
 class StringCompare {
-public :
-	bool operator () (const string & left, const string & right) const
-	{
-		return left.compare(right) < 0;
-	}
+public:
+    bool operator()(const string& left, const string& right) const {
+        return left.compare(right) < 0;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@ public :
 //
 // ���Ϸκ��� (key,value) pair �� �о map �� ���·� ������ �ִ´�.
 // �ַ� ȯ���̳� �ɼǵ��� ���� ���Ͽ� ����Ѵ�. ��ü�� �����ؼ� ����
-// �ɼ��� �����ϰ� �����ϸ� �� ������ ���������. 
+// �ɼ��� �����ϰ� �����ϸ� �� ������ ���������.
 //
 // *Usage*
 //
@@ -47,57 +47,59 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class Properties {
-	
-public :
-	
-	static const char Comment;
-	static const char Separator;
-	static const char* WhiteSpaces;
-	
-public :
-	
-	// constructor
-	Properties () ;
-	Properties (const string & filename) ;
-	
-	// destructor
-	~Properties () noexcept ;
-	
+public:
+    static const char Comment;
+    static const char Separator;
+    static const char* WhiteSpaces;
 
-public :
-	
-	// load from file
-	void load () ;
-	void load (const string & filename)  { m_Filename = filename; load(); }
+public:
+    // constructor
+    Properties();
+    Properties(const string& filename);
 
-	// save to file
-	void save ();
-	void save (const string & filename) { m_Filename = filename; save(); }
+    // destructor
+    ~Properties() noexcept;
 
-	// get/set property
-	string getProperty (string key) const;
-	int getPropertyInt (string key) const;
-	void setProperty (string key, string value) ;
 
-	bool hasKey(const string& key) const { return m_Properties.find(key) != m_Properties.end(); }
+public:
+    // load from file
+    void load();
+    void load(const string& filename) {
+        m_Filename = filename;
+        load();
+    }
 
-	// get debug string
-	string toString () const ;
-	
-private :
-	
-	// key �� string �̰�, value ���� string �� map �̴�.
-	map< string, string, StringCompare > m_Properties;
+    // save to file
+    void save();
+    void save(const string& filename) {
+        m_Filename = filename;
+        save();
+    }
 
-	// load/save target file's name
-	string m_Filename;
-	
+    // get/set property
+    string getProperty(string key) const;
+    int getPropertyInt(string key) const;
+    void setProperty(string key, string value);
+
+    bool hasKey(const string& key) const {
+        return m_Properties.find(key) != m_Properties.end();
+    }
+
+    // get debug string
+    string toString() const;
+
+private:
+    // key �� string �̰�, value ���� string �� map �̴�.
+    map<string, string, StringCompare> m_Properties;
+
+    // load/save target file's name
+    string m_Filename;
 };
 
 //////////////////////////////////////////////////
 // global variable declaration
 //////////////////////////////////////////////////
 extern Properties* g_pConfig;
-extern Properties* g_pTestConfig;	// by sigi. 2002.12.26
+extern Properties* g_pTestConfig; // by sigi. 2002.12.26
 
 #endif

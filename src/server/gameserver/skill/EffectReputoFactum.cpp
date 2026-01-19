@@ -1,90 +1,88 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectReputoFactum.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectReputoFactum.h"
+
 #include "Creature.h"
+#include "GCRemoveEffect.h"
 #include "Monster.h"
 #include "Player.h"
 #include "Zone.h"
-#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectReputoFactum::EffectReputoFactum(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectReputoFactum::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-																															    	
-	__END_CATCH
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
-void EffectReputoFactum::unaffect() 
-	
+void EffectReputoFactum::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectReputoFactum::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//cout << "EffectReputoFactum" << "unaffect BEGIN" << endl;
+    // cout << "EffectReputoFactum" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
-	// initAllStat을 불러야 한다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_REPUTO_FACTUM);
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    // 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
+    // initAllStat을 불러야 한다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_REPUTO_FACTUM);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_REPUTO_FACTUM_LAST);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_REPUTO_FACTUM_LAST);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectReputoFactum" << "unaffect END" << endl;
+    // cout << "EffectReputoFactum" << "unaffect END" << endl;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectReputoFactum::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectReputoFactum::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectReputoFactum("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectReputoFactum("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

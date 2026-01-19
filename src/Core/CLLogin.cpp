@@ -1,17 +1,17 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLLogin.cpp 
+// Filename    : CLLogin.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLLogin.h"
 
 #include "Properties.h"
 
-void CLLogin::read (SocketInputStream & iStream) 
-	 
+void CLLogin::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
     setNetmarble(false);
 
@@ -25,7 +25,7 @@ void CLLogin::read (SocketInputStream & iStream)
     if (szID > 30)
         throw InvalidProtocolException("too large ID length");
 
-    iStream.read(m_ID , szID);
+    iStream.read(m_ID, szID);
 
     BYTE szPassword;
 
@@ -37,7 +37,7 @@ void CLLogin::read (SocketInputStream & iStream)
     if (szPassword > 30)
         throw InvalidProtocolException("too large password length");
 
-    iStream.read(m_Password , szPassword);
+    iStream.read(m_Password, szPassword);
 
     iStream.read((char*)m_cMacAddress, 6 * szBYTE);
 
@@ -45,84 +45,84 @@ void CLLogin::read (SocketInputStream & iStream)
 
     /* convert hex -> str */
     // char tmpStr[20];
-    // sprintf(tmpStr, "%02x%02x%02x%02x%02x%02x", m_cMacAddress[0],m_cMacAddress[1],m_cMacAddress[2],m_cMacAddress[3],m_cMacAddress[4],m_cMacAddress[5]);
+    // sprintf(tmpStr, "%02x%02x%02x%02x%02x%02x",
+    // m_cMacAddress[0],m_cMacAddress[1],m_cMacAddress[2],m_cMacAddress[3],m_cMacAddress[4],m_cMacAddress[5]);
     // m_strMacAddress = tmpStr[i];
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLLogin::write (SocketOutputStream & oStream) const 
-     
+void CLLogin::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// 넷마블의 Cpsso 관련된 코드는 서버의 Write 에서는 고치지 않는다  (쓰이지 않으므로 ;;)
-	// Client 에서만 알아서 처리해서 보내주도록 한다.
-	BYTE szID = m_ID.size();
+    // 넷마블의 Cpsso 관련된 코드는 서버의 Write 에서는 고치지 않는다  (쓰이지 않으므로 ;;)
+    // Client 에서만 알아서 처리해서 보내주도록 한다.
+    BYTE szID = m_ID.size();
 
-	if (szID == 0)
-		throw InvalidProtocolException("empty ID");
-	if (szID > 30)
-		throw InvalidProtocolException("too large ID length");
+    if (szID == 0)
+        throw InvalidProtocolException("empty ID");
+    if (szID > 30)
+        throw InvalidProtocolException("too large ID length");
 
-	oStream.write(szID);
+    oStream.write(szID);
 
-	oStream.write(m_ID);
+    oStream.write(m_ID);
 
-	BYTE szPassword = m_Password.size();
+    BYTE szPassword = m_Password.size();
 
-	if (szPassword == 0)
-		throw InvalidProtocolException("szPassword == 0");
-	if (szPassword > 30)
-		throw InvalidProtocolException("too large password length");
+    if (szPassword == 0)
+        throw InvalidProtocolException("szPassword == 0");
+    if (szPassword > 30)
+        throw InvalidProtocolException("too large password length");
 
-	oStream.write(szPassword);
+    oStream.write(szPassword);
 
-	oStream.write(m_Password);
-	oStream.write((char*)m_cMacAddress, 6 * sizeof(BYTE));
+    oStream.write(m_Password);
+    oStream.write((char*)m_cMacAddress, 6 * sizeof(BYTE));
 
-	oStream.write(m_LoginMode);
+    oStream.write(m_LoginMode);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLLogin::execute (Player* pPlayer) 
-	 
+void CLLogin::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	CLLoginHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CLLoginHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CLLogin::toString () const
-	
+string CLLogin::toString() const
+
 {
-	StringStream msg;
-	msg << "CLLogin("
-		<< "ID:" << m_ID 
-		<< ",Password:" << m_Password 
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CLLogin("
+        << "ID:" << m_ID << ",Password:" << m_Password << ")";
+    return msg.toString();
 }
 
-PacketSize_t CLLogin::getPacketSize() const 
-	
-{ 
-    return szBYTE + m_ID.size() + szBYTE + m_Password.size() + 6 + szBYTE; 
-}
+PacketSize_t CLLogin::getPacketSize() const
 
-bool CLLogin::checkMacAddress(string lastMac) const 
 {
-	bool retValue = false;
+    return szBYTE + m_ID.size() + szBYTE + m_Password.size() + 6 + szBYTE;
+}
 
-	char tmpStr[13];
-	sprintf(tmpStr, "%02x%02x%02x%02x%02x%02x", m_cMacAddress[0],m_cMacAddress[1],m_cMacAddress[2],m_cMacAddress[3],m_cMacAddress[4],m_cMacAddress[5]);
-	tmpStr[12] = '\0';
+bool CLLogin::checkMacAddress(string lastMac) const {
+    bool retValue = false;
 
-	if(tmpStr	== lastMac)	retValue = true;
-	// if(m_strMacAddress	== lastMac)	retValue = true;
-	
-	return retValue;     
+    char tmpStr[13];
+    sprintf(tmpStr, "%02x%02x%02x%02x%02x%02x", m_cMacAddress[0], m_cMacAddress[1], m_cMacAddress[2], m_cMacAddress[3],
+            m_cMacAddress[4], m_cMacAddress[5]);
+    tmpStr[12] = '\0';
+
+    if (tmpStr == lastMac)
+        retValue = true;
+    // if(m_strMacAddress	== lastMac)	retValue = true;
+
+    return retValue;
 }

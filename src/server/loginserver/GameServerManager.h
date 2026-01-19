@@ -10,10 +10,10 @@
 #define __GAME_SERVER_MANANGER_H__
 
 // include files
-#include "Types.h"
+#include "DatagramSocket.h"
 #include "Exception.h"
 #include "Thread.h"
-#include "DatagramSocket.h"
+#include "Types.h"
 
 class Datagram;
 class DatagramPacket;
@@ -29,35 +29,31 @@ class DatagramPacket;
 //////////////////////////////////////////////////////////////////////
 
 class GameServerManager : public Thread {
+public:
+    // constructor
+    GameServerManager();
 
-public :
+    // destructor
+    ~GameServerManager();
 
-	// constructor
-	GameServerManager () ;
+    //
+    void init() {}
 
-	// destructor
-	~GameServerManager () ;
+    // stop thread
+    void stop();
 
-	//
-	void init ()  {}
+    // main method
+    void run();
 
-	// stop thread
-	void stop () ;
+    void sendDatagram(Datagram* pDatagram);
+    void sendPacket(string host, uint port, DatagramPacket* pPacket);
 
-	// main method
-	void run () ;
-
-	void sendDatagram ( Datagram * pDatagram ) ;
-	void sendPacket ( string host , uint port , DatagramPacket * pPacket ) ;
-
-private :
-
-	// UDP 辑滚 家南
-	DatagramSocket * m_pDatagramSocket;
-
+private:
+    // UDP 辑滚 家南
+    DatagramSocket* m_pDatagramSocket;
 };
 
 // global variable declaration
-extern GameServerManager * g_pGameServerManager;
+extern GameServerManager* g_pGameServerManager;
 
 #endif

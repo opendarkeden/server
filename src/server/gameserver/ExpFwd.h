@@ -6,13 +6,12 @@ template <typename T> class SomethingGrowingUp;
 class RankExpTable;
 typedef SomethingGrowingUp<RankExpTable> Rank;
 
-enum AttrKind
-{
-	ATTR_KIND_STR = 0,
-	ATTR_KIND_DEX,
-	ATTR_KIND_INT,
+enum AttrKind {
+    ATTR_KIND_STR = 0,
+    ATTR_KIND_DEX,
+    ATTR_KIND_INT,
 
-	ATTR_KIND_MAX
+    ATTR_KIND_MAX
 };
 
 class SlayerAttrExpTable;

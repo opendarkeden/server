@@ -1,20 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionRepair.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionRepair.h"
+
 #include "Creature.h"
+#include "GCNPCResponse.h"
 #include "GamePlayer.h"
 #include "PropertyBuffer.h"
-#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ActionRepair::read (PropertyBuffer & propertyBuffer)
-    
+void ActionRepair::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
     __END_CATCH
@@ -24,39 +25,39 @@ void ActionRepair::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionRepair::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionRepair::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	GCNPCResponse okpkt;
-	okpkt.setCode(NPC_RESPONSE_INTERFACE_REPAIR);
+    GCNPCResponse okpkt;
+    okpkt.setCode(NPC_RESPONSE_INTERFACE_REPAIR);
 
-	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
-	pPlayer->sendPacket(&okpkt);
+    Player* pPlayer = pCreature2->getPlayer();
+    Assert(pPlayer != NULL);
+    pPlayer->sendPacket(&okpkt);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionRepair::toString () const 
-	
+string ActionRepair::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionRepair("
-	    << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionRepair("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

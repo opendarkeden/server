@@ -1,187 +1,176 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectIceHail.cpp
 // Written by  :
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectIceHail.h"
-#include "Slayer.h"
-#include "Ousters.h"
-#include "Monster.h"
-#include "GamePlayer.h"
-#include "SkillUtil.h"
-#include "ZoneUtil.h"
-#include "EffectIceHailToTile.h"
 
+#include "EffectIceHailToTile.h"
+#include "GCAddEffect.h"
 #include "GCModifyInformation.h"
 #include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "GamePlayer.h"
+#include "Monster.h"
+#include "Ousters.h"
+#include "SkillUtil.h"
+#include "Slayer.h"
+#include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectIceHail::EffectIceHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) 
-	
+EffectIceHail::EffectIceHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = zoneX;
-	m_Y = zoneY;
-	m_CasterID = 0;
+    m_pZone = pZone;
+    m_X = zoneX;
+    m_Y = zoneY;
+    m_CasterID = 0;
 
-	setBroadcastingEffect(false);
+    setBroadcastingEffect(false);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectIceHail::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectIceHail" << "affect BEGIN" << endl;
-	
-	Assert(m_pZone != NULL);
+    // cout << "EffectIceHail" << "affect BEGIN" << endl;
 
-	// 시전자를 가져온다.
-	Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
-	if ( pCastCreature == NULL ) return;
+    Assert(m_pZone != NULL);
 
-	for ( int i = -m_Range; i <= m_Range; ++i )
-	{
-		for ( int j = -m_Range; j <= m_Range; ++j )
-		{
-			Tile& rTile = m_pZone->getTile( m_X + i, m_Y + j );
-			const forward_list<Object*>& rList = rTile.getObjectList();
+    // 시전자를 가져온다.
+    Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
+    if (pCastCreature == NULL)
+        return;
 
-			forward_list<Object*>::const_iterator itr = rList.begin();
-			forward_list<Object*>::const_iterator endItr = rList.end();
+    for (int i = -m_Range; i <= m_Range; ++i) {
+        for (int j = -m_Range; j <= m_Range; ++j) {
+            Tile& rTile = m_pZone->getTile(m_X + i, m_Y + j);
+            const forward_list<Object*>& rList = rTile.getObjectList();
 
-		//	cout << "아프냐?" << endl;
+            forward_list<Object*>::const_iterator itr = rList.begin();
+            forward_list<Object*>::const_iterator endItr = rList.end();
 
-			for ( ; itr != endItr ; ++itr )
-			{
-				Object* pObject = *itr;
-				if ( pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+            //	cout << "아프냐?" << endl;
 
-				Creature* pCreature = dynamic_cast<Creature*>(pObject);
-				if ( pCreature == NULL || pCreature->getObjectID() == m_CasterID ) continue;
-				if ( !canAttack( pCastCreature, pCreature ) ) continue;
+            for (; itr != endItr; ++itr) {
+                Object* pObject = *itr;
+                if (pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE)
+                    continue;
 
-				if ( pCastCreature->isMonster() )
-				{
-					Monster* pGDR = dynamic_cast<Monster*>(pCastCreature);
-					if ( pGDR != NULL )
-					{
-						if ( !pGDR->isEnemyToAttack( pCreature ) ) continue;
-					}
-				}
+                Creature* pCreature = dynamic_cast<Creature*>(pObject);
+                if (pCreature == NULL || pCreature->getObjectID() == m_CasterID)
+                    continue;
+                if (!canAttack(pCastCreature, pCreature))
+                    continue;
 
-				HP_t currentHP, finalHP = 0;
-				GCStatusCurrentHP gcHP;
-				gcHP.setObjectID( pCreature->getObjectID() );
+                if (pCastCreature->isMonster()) {
+                    Monster* pGDR = dynamic_cast<Monster*>(pCastCreature);
+                    if (pGDR != NULL) {
+                        if (!pGDR->isEnemyToAttack(pCreature))
+                            continue;
+                    }
+                }
 
-				if ( pCreature->isSlayer() )
-				{
-					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-					Assert( pSlayer != NULL );
+                HP_t currentHP, finalHP = 0;
+                GCStatusCurrentHP gcHP;
+                gcHP.setObjectID(pCreature->getObjectID());
 
-					currentHP = pSlayer->getHP();
-					finalHP = currentHP - min( currentHP, (HP_t)m_Damage );
+                if (pCreature->isSlayer()) {
+                    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+                    Assert(pSlayer != NULL);
 
-					pSlayer->setHP( finalHP );
-				}
-				else if ( pCreature->isVampire() )
-				{
-					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-					Assert( pVampire != NULL );
+                    currentHP = pSlayer->getHP();
+                    finalHP = currentHP - min(currentHP, (HP_t)m_Damage);
 
-					currentHP = pVampire->getHP();
-					finalHP = currentHP - min( currentHP, (HP_t)m_Damage );
+                    pSlayer->setHP(finalHP);
+                } else if (pCreature->isVampire()) {
+                    Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
+                    Assert(pVampire != NULL);
 
-					pVampire->setHP( finalHP );
-				}
-				else if ( pCreature->isOusters() )
-				{
-					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-					Assert( pOusters != NULL );
+                    currentHP = pVampire->getHP();
+                    finalHP = currentHP - min(currentHP, (HP_t)m_Damage);
 
-					currentHP = pOusters->getHP();
-					finalHP = currentHP - min( currentHP, (HP_t)m_Damage );
+                    pVampire->setHP(finalHP);
+                } else if (pCreature->isOusters()) {
+                    Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
+                    Assert(pOusters != NULL);
 
-					pOusters->setHP( finalHP );
-				}
-				else continue;
+                    currentHP = pOusters->getHP();
+                    finalHP = currentHP - min(currentHP, (HP_t)m_Damage);
 
-				gcHP.setCurrentHP( finalHP );
-				m_pZone->broadcastPacket( m_X, m_Y, &gcHP );
+                    pOusters->setHP(finalHP);
+                } else
+                    continue;
 
-		//		cout << "아프다" << endl;
-			}
+                gcHP.setCurrentHP(finalHP);
+                m_pZone->broadcastPacket(m_X, m_Y, &gcHP);
 
-		}
-	}
+                //		cout << "아프다" << endl;
+            }
+        }
+    }
 
-	setNextTime(m_Tick);
+    setNextTime(m_Tick);
 
-	//cout << "EffectIceHail" << "affect END" << endl;
+    // cout << "EffectIceHail" << "affect END" << endl;
 
-	__END_CATCH 
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectIceHail::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectIceHail::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectIceHail::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectIceHail" << "unaffect BEGIN" << endl;
+{
+    __BEGIN_TRY
+
+    // cout << "EffectIceHail" << "unaffect BEGIN" << endl;
 
     Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+    tile.deleteEffect(m_ObjectID);
 
-	//cout << "EffectIceHail" << "unaffect END" << endl;
+    // cout << "EffectIceHail" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectIceHail::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectIceHail::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectIceHail("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectIceHail("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

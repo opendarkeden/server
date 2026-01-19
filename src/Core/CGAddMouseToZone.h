@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGAddMouseToZone.h 
+// Filename    : CGAddMouseToZone.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_ADD_MOUSE_TO_ZONE_H__
@@ -14,50 +14,65 @@
 // class CGAddMouseToZone;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGAddMouseToZone : public Packet 
-{
+class CGAddMouseToZone : public Packet {
 public:
-	CGAddMouseToZone() ;
-	~CGAddMouseToZone() ;
+    CGAddMouseToZone();
+    ~CGAddMouseToZone();
 
 public:
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_ADD_MOUSE_TO_ZONE; }
-	PacketSize_t getPacketSize() const  { return szObjectID; }
-	string getPacketName() const  { return "CGAddMouseToZone"; }
-	string toString() const ;
-	
-public:
-	ObjectID_t getObjectID()  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_ADD_MOUSE_TO_ZONE;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID;
+    }
+    string getPacketName() const {
+        return "CGAddMouseToZone";
+    }
+    string toString() const;
 
-private :
-	ObjectID_t m_ObjectID;
+public:
+    ObjectID_t getObjectID() {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
+
+private:
+    ObjectID_t m_ObjectID;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class CGAddMouseToZoneFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGAddMouseToZoneFactory : public PacketFactory 
-{
+class CGAddMouseToZoneFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGAddMouseToZone(); }
-	string getPacketName() const  { return "CGAddMouseToZone"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_MOUSE_TO_ZONE; }
-	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
+    Packet* createPacket() {
+        return new CGAddMouseToZone();
+    }
+    string getPacketName() const {
+        return "CGAddMouseToZone";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_ADD_MOUSE_TO_ZONE;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class CGAddMouseToZoneHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGAddMouseToZoneHandler 
-{
+class CGAddMouseToZoneHandler {
 public:
-	static void execute(CGAddMouseToZone* pPacket, Player* player) ;
+    static void execute(CGAddMouseToZone* pPacket, Player* player);
 };
 
 #endif

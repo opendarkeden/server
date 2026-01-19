@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AcidSwamp.h 
+// Filename    : AcidSwamp.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ACID_SWAMP_HANDLER_H__
@@ -13,21 +13,25 @@
 // class AcidSwamp;
 //////////////////////////////////////////////////////////////////////////////
 
-class AcidSwamp : public SkillHandler 
-{
+class AcidSwamp : public SkillHandler {
 public:
-	AcidSwamp() throw() {}
-	~AcidSwamp() throw() {}
-	
+    AcidSwamp() throw() {}
+    ~AcidSwamp() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AcidSwamp"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ACID_SWAMP; }
+    string getSkillHandlerName() const throw() {
+        return "AcidSwamp";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ACID_SWAMP;
+    }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ObjectID_t,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

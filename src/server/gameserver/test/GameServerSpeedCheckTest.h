@@ -5,13 +5,12 @@
 
 
 class GameServerSpeedCheckTest : public GameServerTest {
-	CPPUNIT_TEST_SUB_SUITE( GameServerSpeedCheckTest, GameServerTest );
-	CPPUNIT_TEST( testSpeedHack );
-	CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUB_SUITE(GameServerSpeedCheckTest, GameServerTest);
+    CPPUNIT_TEST(testSpeedHack);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-	void testSpeedHack();
+    void testSpeedHack();
 };
 
 #endif
-

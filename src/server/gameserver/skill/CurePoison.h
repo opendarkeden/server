@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CurePoison.h 
+// Filename    : CurePoison.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CURE_POISON_HANDLER_H__
@@ -13,20 +13,23 @@
 // class CurePoison;
 //////////////////////////////////////////////////////////////////////////////
 
-class CurePoison: public SkillHandler 
-{
+class CurePoison : public SkillHandler {
 public:
-	CurePoison() throw() {}
-	~CurePoison() throw() {}
-	
+    CurePoison() throw() {}
+    ~CurePoison() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CurePoison"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CURE_POISON; }
+    string getSkillHandlerName() const throw() {
+        return "CurePoison";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CURE_POISON;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

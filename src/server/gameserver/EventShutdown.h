@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventShutdown.h
 // Written by  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EVENT_SHUTDOWN_H__
@@ -13,16 +13,17 @@
 // class EventShutdown
 //////////////////////////////////////////////////////////////////////////////
 
-class EventShutdown : public Event 
-{
+class EventShutdown : public Event {
 public:
-	EventShutdown( GamePlayer* pGamePlayer ) ;
-	~EventShutdown()  {}
-			
+    EventShutdown(GamePlayer* pGamePlayer);
+    ~EventShutdown() {}
+
 public:
-	virtual EventClass getEventClass() const  { return EVENT_CLASS_SHUTDOWN; }
-	virtual void activate() ;
-	virtual string toString() const ;
+    virtual EventClass getEventClass() const {
+        return EVENT_CLASS_SHUTDOWN;
+    }
+    virtual void activate();
+    virtual string toString() const;
 
 private:
 };

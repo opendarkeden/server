@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : IceWave.h 
+// Filename    : IceWave.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ICE_WAVE_HANDLER_H__
@@ -13,22 +13,25 @@
 // class IceWave;
 //////////////////////////////////////////////////////////////////////////////
 
-class IceWave: public SkillHandler 
-{
+class IceWave : public SkillHandler {
 public:
-	IceWave() throw();
-	~IceWave() throw() {}
-	
+    IceWave() throw();
+    ~IceWave() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "IceWave"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ICE_WAVE; }
+    string getSkillHandlerName() const throw() {
+        return "IceWave";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ICE_WAVE;
+    }
 
-	void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
-private :
-	POINT	m_pIceWaveMask[193];
+private:
+    POINT m_pIceWaveMask[193];
 };
 
 // global variable declaration

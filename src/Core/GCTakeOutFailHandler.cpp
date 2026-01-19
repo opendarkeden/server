@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCTakeOutFailHandler::execute (GCTakeOutFail * pGCTakeOutFail , Player * pPlayer )
-	 
+void GCTakeOutFailHandler::execute(GCTakeOutFail* pGCTakeOutFail, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCTakeOutFail->toString() << endl;
-	
+    // cout << pGCTakeOutFail->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCTakeOutFail->toString().c_str());
+        AfxMessageBox(pGCTakeOutFail->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

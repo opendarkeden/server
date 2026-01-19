@@ -1,18 +1,18 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CBillingServer.cpp 
+//
+// Filename    : CBillingServer.cpp
 // Written By  : reiot@ewestsoft.com
 // Description : 중국 빌링 서버(테스트)용 메인 클래스
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "CBillingServer.h"
+
 #include "Assert.h"
 #include "GameServerManager.h"
-#include "database/DatabaseManager.h"
-
 #include "LogClient.h"
+#include "database/DatabaseManager.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,15 +21,13 @@
 // 시스템 매니저의 constructor에서는 하위 매니저 객체를 생성한다.
 //
 //////////////////////////////////////////////////////////////////////
-CBillingServer::CBillingServer ()
-	throw ( Error )
-{
-	__BEGIN_TRY
-	
-	// create inter-server communication manager
-	g_pGameServerManager = new GameServerManager();
+CBillingServer::CBillingServer() throw(Error) {
+    __BEGIN_TRY
 
-	__END_CATCH
+    // create inter-server communication manager
+    g_pGameServerManager = new GameServerManager();
+
+    __END_CATCH
 }
 
 
@@ -40,14 +38,12 @@ CBillingServer::CBillingServer ()
 // 시스템 매니저의 destructor에서는 하위 매니저 객체를 삭제해야 한다.
 //
 //////////////////////////////////////////////////////////////////////
-CBillingServer::~CBillingServer ()
-	throw ( Error )
-{
-	__BEGIN_TRY
-		
-	SAFE_DELETE( g_pGameServerManager );
+CBillingServer::~CBillingServer() throw(Error) {
+    __BEGIN_TRY
 
-	__END_CATCH
+    SAFE_DELETE(g_pGameServerManager);
+
+    __END_CATCH
 }
 
 
@@ -56,17 +52,15 @@ CBillingServer::~CBillingServer ()
 // initialize game server
 //
 //////////////////////////////////////////////////////////////////////
-void CBillingServer::init ()
-	 throw ( Error )
-{
-	__BEGIN_TRY
+void CBillingServer::init() throw(Error) {
+    __BEGIN_TRY
 
-	cout << "CBillingServer::init() start" << endl;
+    cout << "CBillingServer::init() start" << endl;
 
-	// 서버간 통신 매니저를 초기화한다.
-	g_pGameServerManager->init();
+    // 서버간 통신 매니저를 초기화한다.
+    g_pGameServerManager->init();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
@@ -75,21 +69,18 @@ void CBillingServer::init ()
 // start shared server
 //
 //////////////////////////////////////////////////////////////////////
-void CBillingServer::start ()
-	 throw ( Error )
-{
-	__BEGIN_TRY
+void CBillingServer::start() throw(Error) {
+    __BEGIN_TRY
 
-	cout << "---------- Start CBillingServer ---------" << endl;
-	// 서버간 통신 매니저를 시작한다.
-	g_pGameServerManager->start();
-		
-	while ( true )
-	{
-		usleep( 100 );
-	}
+    cout << "---------- Start CBillingServer ---------" << endl;
+    // 서버간 통신 매니저를 시작한다.
+    g_pGameServerManager->start();
 
-	__END_CATCH
+    while (true) {
+        usleep(100);
+    }
+
+    __END_CATCH
 }
 
 
@@ -102,22 +93,20 @@ void CBillingServer::start ()
 // 같은 현상이 발생할 수 있다.
 //
 //////////////////////////////////////////////////////////////////////
-void CBillingServer::stop ()
-	 throw ( Error )
-{
-	__BEGIN_TRY
+void CBillingServer::stop() throw(Error) {
+    __BEGIN_TRY
 
-	// 나중에 이 부분을 코멘트화해야 한다.
-	throw UnsupportedError();
-		
-	//
-	g_pGameServerManager->stop();
+    // 나중에 이 부분을 코멘트화해야 한다.
+    throw UnsupportedError();
 
-	__END_CATCH
+    //
+    g_pGameServerManager->stop();
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////
 // global variable declaration
 //////////////////////////////////////////////////
-CBillingServer * g_pCBillingServer = NULL;
+CBillingServer* g_pCBillingServer = NULL;

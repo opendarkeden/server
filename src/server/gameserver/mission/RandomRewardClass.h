@@ -12,15 +12,14 @@
 // class RandomRewardClass;
 //////////////////////////////////////////////////////////////////////////////
 
-class RandomRewardClass : public RewardClass
-{
+class RandomRewardClass : public RewardClass {
 public:
-	RandomRewardClass( RewardClass_t rClass ) : RewardClass(rClass) { }
+    RandomRewardClass(RewardClass_t rClass) : RewardClass(rClass) {}
 
 public:
-	RewardInfo*		selectReward( PlayerCreature* pPC ) const ;
+    RewardInfo* selectReward(PlayerCreature* pPC) const;
 
-	virtual string	toString() const ;
+    virtual string toString() const;
 
 private:
 };

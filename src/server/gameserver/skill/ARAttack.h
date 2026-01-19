@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ARAttack.h 
+// Filename    : ARAttack.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_AR_ATTACK_HANDLER_H__
@@ -13,19 +13,22 @@
 // class ARAttack;
 //////////////////////////////////////////////////////////////////////////////
 
-class ARAttack : public SkillHandler 
-{
+class ARAttack : public SkillHandler {
 public:
-	ARAttack() throw() {}
-	~ARAttack() throw() {}
-	
+    ARAttack() throw() {}
+    ~ARAttack() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ARAttack"; }
-	SkillType_t getSkillType() const throw() { return SKILL_AR_ATTACK; }
+    string getSkillHandlerName() const throw() {
+        return "ARAttack";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_AR_ATTACK;
+    }
 
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

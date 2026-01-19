@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCExecuteElement.cpp 
+//
+// Filename    : GCExecuteElement.cpp
 // Written By  : elca@ewestsoft.com
 // Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
 //               멤버 정의.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -15,21 +15,18 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCExecuteElement::GCExecuteElement () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
-	
+GCExecuteElement::GCExecuteElement()
+
+    {__BEGIN_TRY __END_CATCH}
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCExecuteElement::~GCExecuteElement () 
-    
+GCExecuteElement::~GCExecuteElement()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -37,14 +34,14 @@ GCExecuteElement::~GCExecuteElement ()
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCExecuteElement::execute (Player * pPlayer ) 
-	 
+void GCExecuteElement::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCExecuteElementHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCExecuteElementHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -53,16 +50,13 @@ void GCExecuteElement::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCExecuteElement::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCExecuteElement::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCExecuteElement("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCExecuteElement("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

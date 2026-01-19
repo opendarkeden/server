@@ -1,97 +1,94 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : FlagSet.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __FLAGSET_H__
 #define __FLAGSET_H__
 
-#include "Types.h"
-#include "Exception.h"
 #include <string>
 
-#define FLAG_SIZE_MAX 3*8
+#include "Exception.h"
+#include "Types.h"
 
-enum FlagSetType
-{
-	FLAGSET_RECEIVE_NEWBIE_ITEM,				// 0 - 초보자용 아이템 받은 경우
-	FLAGSET_RECEIVE_NEWBIE_ITEM_FIGHTER,		// 1 - sword, blade
-	FLAGSET_RECEIVE_NEWBIE_ITEM_CLERIC,			// 2 - heal, enchant
-	FLAGSET_RECEIVE_NEWBIE_ITEM_GUNNER,			// 3 - gun
+#define FLAG_SIZE_MAX 3 * 8
 
-	FLAGSET_TRADE_GIFT_BOX_2002_12,				// 4 - 2002.12 크리스마스 이벤트 빨간 선물 상자 교환 여부
-	FLAGSET_RECEIVE_GREEN_GIFT_BOX,				// 5 - 다른 사람으로부터 녹색 선물 상자를 받았나
+enum FlagSetType {
+    FLAGSET_RECEIVE_NEWBIE_ITEM,         // 0 - 초보자용 아이템 받은 경우
+    FLAGSET_RECEIVE_NEWBIE_ITEM_FIGHTER, // 1 - sword, blade
+    FLAGSET_RECEIVE_NEWBIE_ITEM_CLERIC,  // 2 - heal, enchant
+    FLAGSET_RECEIVE_NEWBIE_ITEM_GUNNER,  // 3 - gun
 
-	FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO,			// 6 - 초보자용 아이템을 자동으로 받아야 하는지
+    FLAGSET_TRADE_GIFT_BOX_2002_12, // 4 - 2002.12 크리스마스 이벤트 빨간 선물 상자 교환 여부
+    FLAGSET_RECEIVE_GREEN_GIFT_BOX, // 5 - 다른 사람으로부터 녹색 선물 상자를 받았나
 
-	FLAGSET_RECEIVE_PREMIUM_EVENT_ITEM_2003_3,	// 7 - 2003.3.1 프리미엄 사용자들에게 선물 준다.
+    FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO, // 6 - 초보자용 아이템을 자동으로 받아야 하는지
 
-	FLAGSET_IS_COUPLE,							// 7 - 이미 커플인가.
-	FLAGSET_WAS_COUPLE,							// 8 - 커플 이었다.		- 2003.3 월 커플이벤트용
+    FLAGSET_RECEIVE_PREMIUM_EVENT_ITEM_2003_3, // 7 - 2003.3.1 프리미엄 사용자들에게 선물 준다.
 
-	FLAGSET_NOT_JUST_CREATED,					// 9 - 막 생성된 캐릭터가 아닌가.
+    FLAGSET_IS_COUPLE,  // 7 - 이미 커플인가.
+    FLAGSET_WAS_COUPLE, // 8 - 커플 이었다.		- 2003.3 월 커플이벤트용
 
-	FLAGSET_CLEAR_RANK_BONUS_5,					// 10 - 5 레벨 계급 스킬을 초기화 한 적이 있는가?
-	FLAGSET_CLEAR_RANK_BONUS_10,				// 11 - 10 레벨 계급 스킬을 초기화 한 적이 있는가?
-	FLAGSET_CLEAR_RANK_BONUS_15,				// 12 - 15 레벨 계급 스킬을 초기화 한 적이 있는가?
-	FLAGSET_CLEAR_RANK_BONUS_20,				// 13 - 20 레벨 계급 스킬을 초기화 한 적이 있는가?
+    FLAGSET_NOT_JUST_CREATED, // 9 - 막 생성된 캐릭터가 아닌가.
 
-	FLAGSET_GNOMES_HORN,						// 14 - 대지정령의 뿔 계약을 맺었는가
+    FLAGSET_CLEAR_RANK_BONUS_5,  // 10 - 5 레벨 계급 스킬을 초기화 한 적이 있는가?
+    FLAGSET_CLEAR_RANK_BONUS_10, // 11 - 10 레벨 계급 스킬을 초기화 한 적이 있는가?
+    FLAGSET_CLEAR_RANK_BONUS_15, // 12 - 15 레벨 계급 스킬을 초기화 한 적이 있는가?
+    FLAGSET_CLEAR_RANK_BONUS_20, // 13 - 20 레벨 계급 스킬을 초기화 한 적이 있는가?
 
-	FLAGSET_SWAP_COAT,							// 15 - 방어구 상의를 바꿨는거
-	FLAGSET_SWAP_TROUSER,						// 16 - 방어구 하의를 바꿨는거
-	FLAGSET_SWAP_WEAPON,						// 17 - 무기를 바꿨는가
+    FLAGSET_GNOMES_HORN, // 14 - 대지정령의 뿔 계약을 맺었는가
 
-	FLAGSET_MAX
+    FLAGSET_SWAP_COAT,    // 15 - 방어구 상의를 바꿨는거
+    FLAGSET_SWAP_TROUSER, // 16 - 방어구 하의를 바꿨는거
+    FLAGSET_SWAP_WEAPON,  // 17 - 무기를 바꿨는가
+
+    FLAGSET_MAX
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class Flag
 //////////////////////////////////////////////////////////////////////////////
 
-class FlagSet
-{
-
-///// Member methods /////
-	
-public:
-	FlagSet() ;
-	~FlagSet() ;
+class FlagSet {
+    ///// Member methods /////
 
 public:
-	void create(const string& owner) ;
-	void load(const string& owner) ;
-	void save(const string& owner) ;
-	void destroy(const string& owner) ;
+    FlagSet();
+    ~FlagSet();
 
 public:
-	bool isOn(int index) ;
-	bool turnOn(int index) ;
-	bool turnOff(int index) ;
+    void create(const string& owner);
+    void load(const string& owner);
+    void save(const string& owner);
+    void destroy(const string& owner);
 
 public:
-	string toString(void) ;
-	static FlagSet fromString(const string& text) ;
+    bool isOn(int index);
+    bool turnOn(int index);
+    bool turnOff(int index);
 
-	static void initialize(void) ;
+public:
+    string toString(void);
+    static FlagSet fromString(const string& text);
+
+    static void initialize(void);
 
 protected:
-	bool isValidIndex(int index) ;
-	BYTE* getData()  { return &m_pData[0]; }
-	
+    bool isValidIndex(int index);
+    BYTE* getData() {
+        return &m_pData[0];
+    }
 
-///// Member data /////
-	
+
+    ///// Member data /////
+
 protected:
-	BYTE m_pData[FLAG_SIZE_MAX/8];
+    BYTE m_pData[FLAG_SIZE_MAX / 8];
 
-	static string m_pLookup[256];
-	static bool   m_bInit;
+    static string m_pLookup[256];
+    static bool m_bInit;
 };
 
 
 #endif
-
-
-

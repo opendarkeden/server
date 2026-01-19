@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCHolyLandBonusInfo.cpp 
-// Written By  : 
-// 
+//
+// Filename    : GCHolyLandBonusInfo.cpp
+// Written By  :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,64 +13,61 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCHolyLandBonusInfo::GCHolyLandBonusInfo()
-	
-{
-}
+
+{}
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCHolyLandBonusInfo::~GCHolyLandBonusInfo()
-	
-{
-	__BEGIN_TRY
-	
-	// 길드 리스트의 모든 객체를 삭제
-	clearBloodBibleBonusInfoList();
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    // 길드 리스트의 모든 객체를 삭제
+    clearBloodBibleBonusInfoList();
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCHolyLandBonusInfo::read (SocketInputStream & iStream ) 
-	 
+void GCHolyLandBonusInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE ListNum;
+    __BEGIN_TRY
 
-	iStream.read(ListNum);
-	for (int i = 0; i < ListNum; i++ )
-	{
-		BloodBibleBonusInfo* pBloodBibleBonusInfo = new BloodBibleBonusInfo();
-		pBloodBibleBonusInfo->read(iStream);
-		m_BloodBibleBonusInfoList.push_back(pBloodBibleBonusInfo);
-	}
+    BYTE ListNum;
 
-	__END_CATCH
+    iStream.read(ListNum);
+    for (int i = 0; i < ListNum; i++) {
+        BloodBibleBonusInfo* pBloodBibleBonusInfo = new BloodBibleBonusInfo();
+        pBloodBibleBonusInfo->read(iStream);
+        m_BloodBibleBonusInfoList.push_back(pBloodBibleBonusInfo);
+    }
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCHolyLandBonusInfo::write (SocketOutputStream & oStream ) const 
-     
+void GCHolyLandBonusInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE ListNum = m_BloodBibleBonusInfoList.size();
-	oStream.write(ListNum);
+    __BEGIN_TRY
 
-	BloodBibleBonusInfoListConstItor itr = m_BloodBibleBonusInfoList.begin();
-	for (; itr != m_BloodBibleBonusInfoList.end(); itr++ )
-	{
-		(*itr)->write(oStream);
-	}
+    BYTE ListNum = m_BloodBibleBonusInfoList.size();
+    oStream.write(ListNum);
 
-	__END_CATCH
+    BloodBibleBonusInfoListConstItor itr = m_BloodBibleBonusInfoList.begin();
+    for (; itr != m_BloodBibleBonusInfoList.end(); itr++) {
+        (*itr)->write(oStream);
+    }
+
+    __END_CATCH
 }
 
 
@@ -78,33 +75,32 @@ void GCHolyLandBonusInfo::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCHolyLandBonusInfo::clearBloodBibleBonusInfoList()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// BloodBibleBonusInfoList 를 삭제한다
-	while(!m_BloodBibleBonusInfoList.empty() )
-	{
-		BloodBibleBonusInfo* pBloodBibleBonusInfo = m_BloodBibleBonusInfoList.front();
-		m_BloodBibleBonusInfoList.pop_front();
-		SAFE_DELETE(pBloodBibleBonusInfo);
-	}
+    // BloodBibleBonusInfoList 를 삭제한다
+    while (!m_BloodBibleBonusInfoList.empty()) {
+        BloodBibleBonusInfo* pBloodBibleBonusInfo = m_BloodBibleBonusInfoList.front();
+        m_BloodBibleBonusInfoList.pop_front();
+        SAFE_DELETE(pBloodBibleBonusInfo);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCHolyLandBonusInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCHolyLandBonusInfoHandler::execute(this , pPlayer);
+void GCHolyLandBonusInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCHolyLandBonusInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -112,47 +108,44 @@ void GCHolyLandBonusInfo::execute (Player * pPlayer )
 // get packet size
 //////////////////////////////////////////////////////////////////////
 PacketSize_t GCHolyLandBonusInfo::getPacketSize() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PacketSize_t PacketSize = szBYTE;
+    PacketSize_t PacketSize = szBYTE;
 
-	BloodBibleBonusInfoListConstItor itr = m_BloodBibleBonusInfoList.begin();
+    BloodBibleBonusInfoListConstItor itr = m_BloodBibleBonusInfoList.begin();
 
-	for (; itr != m_BloodBibleBonusInfoList.end(); itr++ )
-	{
-		PacketSize += (*itr)->getSize();
-	}
+    for (; itr != m_BloodBibleBonusInfoList.end(); itr++) {
+        PacketSize += (*itr)->getSize();
+    }
 
-	return PacketSize;
+    return PacketSize;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCHolyLandBonusInfo::toString () const
-       
+string GCHolyLandBonusInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCHolyLandBonusInfo(";
+    __BEGIN_TRY
 
-	BloodBibleBonusInfoListConstItor itr = m_BloodBibleBonusInfoList.begin();
-	for (; itr != m_BloodBibleBonusInfoList.end(); itr++ )
-	{
-		msg << (*itr)->toString();
-	}
+    StringStream msg;
 
-	msg << ")";
-	
-	return msg.toString();
-		
-	__END_CATCH
+    msg << "GCHolyLandBonusInfo(";
+
+    BloodBibleBonusInfoListConstItor itr = m_BloodBibleBonusInfoList.begin();
+    for (; itr != m_BloodBibleBonusInfoList.end(); itr++) {
+        msg << (*itr)->toString();
+    }
+
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyMarker.h 
+// Filename    : BloodyMarker.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_MARKER_HANDLER_H__
@@ -13,19 +13,23 @@
 // class BloodyMarker;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyMarker: public SkillHandler 
-{
+class BloodyMarker : public SkillHandler {
 public:
-	BloodyMarker() throw() {}
-	~BloodyMarker() throw() {}
-	
+    BloodyMarker() throw() {}
+    ~BloodyMarker() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyMarker"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_MARKER; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyMarker";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_MARKER;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot) ;
+    void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
+                 CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

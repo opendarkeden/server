@@ -1,51 +1,70 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : ConnectionInfo.h
 // Written by  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CONNECTION_INFO_H__
 #define __CONNECTION_INFO_H__
 
-#include "Types.h"
 #include "Exception.h"
 #include "Timeval.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConnectionInfo;
 // 서버간 이동에서 정당한 연결에 대한 정보를 나타내는 객체
 //////////////////////////////////////////////////////////////////////////////
 
-class ConnectionInfo 
-{
+class ConnectionInfo {
 public:
-	ConnectionInfo() ;
-	~ConnectionInfo() ;
+    ConnectionInfo();
+    ~ConnectionInfo();
 
 public:
-	string getClientIP() const  { return m_ClientIP; }
-	void setClientIP(const string & clientIP)  { m_ClientIP = clientIP; }
+    string getClientIP() const {
+        return m_ClientIP;
+    }
+    void setClientIP(const string& clientIP) {
+        m_ClientIP = clientIP;
+    }
 
-	string getPlayerID() const  { return m_PlayerID; }
-	void setPlayerID(const string & PlayerID)  { m_PlayerID = PlayerID; }
-	
-	string getPCName() const  { return m_PCName; }
-	void setPCName(const string & name)  { m_PCName = name; }
+    string getPlayerID() const {
+        return m_PlayerID;
+    }
+    void setPlayerID(const string& PlayerID) {
+        m_PlayerID = PlayerID;
+    }
 
-	Timeval getExpireTime() const  { return m_ExpireTime; }
-	void setExpireTime(Timeval tv)  { m_ExpireTime = tv; }
-	
-	DWORD getKey() const  { return m_Key; }
-	void setKey(DWORD key)  { m_Key = key; }
+    string getPCName() const {
+        return m_PCName;
+    }
+    void setPCName(const string& name) {
+        m_PCName = name;
+    }
 
-	string toString() const ;
+    Timeval getExpireTime() const {
+        return m_ExpireTime;
+    }
+    void setExpireTime(Timeval tv) {
+        m_ExpireTime = tv;
+    }
+
+    DWORD getKey() const {
+        return m_Key;
+    }
+    void setKey(DWORD key) {
+        m_Key = key;
+    }
+
+    string toString() const;
 
 private:
-	string  m_ClientIP;   // valid client's ip
-	string  m_PlayerID;   // PlayerID
-	string  m_PCName;     // PC name
-	Timeval m_ExpireTime; // expire time : 언제까지 이 정보를 유지하고 있어야 하는지..
-	DWORD   m_Key;        // validation key
+    string m_ClientIP;    // valid client's ip
+    string m_PlayerID;    // PlayerID
+    string m_PCName;      // PC name
+    Timeval m_ExpireTime; // expire time : 언제까지 이 정보를 유지하고 있어야 하는지..
+    DWORD m_Key;          // validation key
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -60,17 +79,15 @@ private:
 // 시간이 없는 관계로.. - -;
 //////////////////////////////////////////////////////////////////////////////
 
-class CompareConnectionInfo 
-{
+class CompareConnectionInfo {
 public:
-	// compare which is more recent
-    bool operator()(const ConnectionInfo & left, const ConnectionInfo & right)
-    {
-		// Ascending Order
+    // compare which is more recent
+    bool operator()(const ConnectionInfo& left, const ConnectionInfo& right) {
+        // Ascending Order
         return left.getExpireTime() > right.getExpireTime();
 
-		// Descending Order
-        //return left.getExpireTime() < right.getExpireTime();
+        // Descending Order
+        // return left.getExpireTime() < right.getExpireTime();
     }
 };
 

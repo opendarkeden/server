@@ -1,82 +1,76 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGAbsorbSoul.cpp 
+// Filename    : CGAbsorbSoul.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGAbsorbSoul.h"
 
-CGAbsorbSoul::CGAbsorbSoul () 
-     
+CGAbsorbSoul::CGAbsorbSoul()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGAbsorbSoul::~CGAbsorbSoul()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGAbsorbSoul::~CGAbsorbSoul () 
-    
+void CGAbsorbSoul::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_TargetZoneX);
+    iStream.read(m_TargetZoneY);
+    iStream.read(m_InvenObjectID);
+    iStream.read(m_InvenX);
+    iStream.read(m_InvenY);
+    iStream.read(m_TargetInvenX);
+    iStream.read(m_TargetInvenY);
+
+    __END_CATCH
 }
 
-void CGAbsorbSoul::read (SocketInputStream & iStream) 
-	 
+void CGAbsorbSoul::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_TargetZoneX);
-	iStream.read(m_TargetZoneY);
-	iStream.read(m_InvenObjectID);
-	iStream.read(m_InvenX);
-	iStream.read(m_InvenY);
-	iStream.read(m_TargetInvenX);
-	iStream.read(m_TargetInvenY);
+    __BEGIN_TRY
 
-	__END_CATCH
-}
-		    
-void CGAbsorbSoul::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+    oStream.write(m_ObjectID);
+    oStream.write(m_TargetZoneX);
+    oStream.write(m_TargetZoneY);
+    oStream.write(m_InvenObjectID);
+    oStream.write(m_InvenX);
+    oStream.write(m_InvenY);
+    oStream.write(m_TargetInvenX);
+    oStream.write(m_TargetInvenY);
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_TargetZoneX);
-	oStream.write(m_TargetZoneY);
-	oStream.write(m_InvenObjectID);
-	oStream.write(m_InvenX);
-	oStream.write(m_InvenY);
-	oStream.write(m_TargetInvenX);
-	oStream.write(m_TargetInvenY);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGAbsorbSoul::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGAbsorbSoul::execute(Player* pPlayer)
 
-	CGAbsorbSoulHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGAbsorbSoulHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGAbsorbSoul::toString () const
-    
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGAbsorbSoul("
-		<< "ObjectID:" << (int)m_ObjectID 
-		<< "InvenObjectID:" << (int)m_InvenObjectID 
-		<< "InvenX :" << (int)m_InvenX
-		<< "InvenY :" << (int)m_InvenY
-		<< ")";
-	return msg.toString();
+string CGAbsorbSoul::toString() const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGAbsorbSoul("
+        << "ObjectID:" << (int)m_ObjectID << "InvenObjectID:" << (int)m_InvenObjectID << "InvenX :" << (int)m_InvenX
+        << "InvenY :" << (int)m_InvenY << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

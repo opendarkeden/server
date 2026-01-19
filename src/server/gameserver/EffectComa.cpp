@@ -1,199 +1,172 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectComa.cpp
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectComa.h"
+
+#include "AlignmentManager.h"
 #include "Assert.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "Tile.h"
-#include "Zone.h"
+#include "Event.h"
+#include "EventResurrect.h"
+#include "GCCreatureDied.h"
+#include "GCGetOffMotorCycle.h"
 #include "GamePlayer.h"
+#include "IncomingPlayerManager.h"
+#include "ItemFactoryManager.h"
+#include "ItemUtil.h"
+#include "LogClient.h"
+#include "Ousters.h"
+#include "ResurrectLocationManager.h"
+#include "Slayer.h"
+#include "SlayerCorpse.h"
+#include "Thread.h"
+#include "Tile.h"
+#include "Vampire.h"
+#include "VampireCorpse.h"
+#include "Zone.h"
 #include "ZoneGroupManager.h"
 #include "ZoneInfo.h"
 #include "ZoneInfoManager.h"
 #include "ZonePlayerManager.h"
-#include "IncomingPlayerManager.h"
-#include "Event.h"
-#include "EventResurrect.h"
-#include "ResurrectLocationManager.h"
-#include "ItemUtil.h"
-#include "AlignmentManager.h"
-#include "ItemFactoryManager.h"
-
-#include "SlayerCorpse.h"
-#include "VampireCorpse.h"
-#include "LogClient.h"
-#include "Thread.h"
-    
-#include "GCCreatureDied.h"
-#include "GCGetOffMotorCycle.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
 EffectComa::EffectComa(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 EffectComa::~EffectComa()
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 void EffectComa::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
-	affect(pCreature);
+    affect(pCreature);
 
-	__END_CATCH 
-
+    __END_CATCH
 }
 
 void EffectComa::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 void EffectComa::unaffect(Creature* pDeadCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectComa " << "unaffect BEGIN(Creature)" << endl;
-	
-	Assert(pDeadCreature != NULL);
-	//Assert(pDeadCreature->isDead());
+    // cout << "EffectComa " << "unaffect BEGIN(Creature)" << endl;
 
-	// 이펙트 플래그를 삭제해준다.
-	pDeadCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
-	// 날아오면 강제로 죽이는 코드를 집어넣는다.
-	if (pDeadCreature->isSlayer())
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
-		pSlayer->setHP(0, ATTR_CURRENT);
-	}
-	else if (pDeadCreature->isVampire())
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
-		pVampire->setHP(0, ATTR_CURRENT);
-	}
-	else if (pDeadCreature->isOusters())
-	{
-		Ousters* pOusters = dynamic_cast<Ousters*>(pDeadCreature);
-		pOusters->setHP(0, ATTR_CURRENT);
-	}
+    Assert(pDeadCreature != NULL);
+    // Assert(pDeadCreature->isDead());
 
-	//cout << "EffectComa " << "unaffect END(Creature)" << endl;
+    // 이펙트 플래그를 삭제해준다.
+    pDeadCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
+    // 날아오면 강제로 죽이는 코드를 집어넣는다.
+    if (pDeadCreature->isSlayer()) {
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
+        pSlayer->setHP(0, ATTR_CURRENT);
+    } else if (pDeadCreature->isVampire()) {
+        Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
+        pVampire->setHP(0, ATTR_CURRENT);
+    } else if (pDeadCreature->isOusters()) {
+        Ousters* pOusters = dynamic_cast<Ousters*>(pDeadCreature);
+        pOusters->setHP(0, ATTR_CURRENT);
+    }
 
-	__END_CATCH
+    // cout << "EffectComa " << "unaffect END(Creature)" << endl;
+
+    __END_CATCH
 }
 
 void EffectComa::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectComa " << "unaffect BEGIN" << endl;
+    // cout << "EffectComa " << "unaffect BEGIN" << endl;
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	//cout << "EffectComa " << "unaffect END" << endl;
+    // cout << "EffectComa " << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectComa::create(const string & ownerID) 
-	
+void EffectComa::create(const string& ownerID)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-void EffectComa::destroy(const string & ownerID)
-	
+void EffectComa::destroy(const string& ownerID)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-void EffectComa::save(const string & ownerID) 
-	
+void EffectComa::save(const string& ownerID)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 // 스타팅 시간은 이펙트를 생성한 시간이자, 플레이어가 죽은 시간이다.
 // 이 시간에다 5초를 더함으로써, canResurrect 함수에서 죽은 뒤 5초가 지나지
 // 않은 사람이 Resurrect못하게 검사할 수 있다.
-void EffectComa::setStartTime(void)
-{
-	getCurrentTime(m_StartTime);
-	m_StartTime.tv_sec += 5;
+void EffectComa::setStartTime(void) {
+    getCurrentTime(m_StartTime);
+    m_StartTime.tv_sec += 5;
 }
 
-bool EffectComa::canResurrect(void)
-{
-	Timeval currentTime;
-	getCurrentTime(currentTime);
+bool EffectComa::canResurrect(void) {
+    Timeval currentTime;
+    getCurrentTime(currentTime);
 
-	if (m_StartTime < currentTime)
-	{
-		return true;
-	}
+    if (m_StartTime < currentTime) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
-string EffectComa::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectComa::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectComa("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectComa("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectComaLoader::load(Creature* pCreature) 
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+void EffectComaLoader::load(Creature* pCreature)
+
+    {__BEGIN_TRY __END_CATCH}
 
 EffectComaLoader* g_pEffectComaLoader = NULL;
-
-
-
-
-
-
-
-
-
-
-

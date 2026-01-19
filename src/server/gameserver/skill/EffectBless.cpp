@@ -5,127 +5,121 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectBless.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Monster.h"
-#include "Player.h"
-#include "PacketUtil.h"
 
 #include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
 #include "GCOtherModifyInfo.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
+#include "Monster.h"
+#include "PacketUtil.h"
+#include "Player.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectBless::EffectBless(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectBless::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectBless::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectBless::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectBless::unaffect() 
-	
+void EffectBless::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-	//cout << "EffectBless" << "unaffect BEGIN" << endl;
+    // cout << "EffectBless" << "unaffect BEGIN" << endl;
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	//cout << "EffectBless" << "unaffect END" << endl;
+    // cout << "EffectBless" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectBless::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectBless" << "unaffect BEGIN" << endl;
+    // cout << "EffectBless" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer()); // 슬레이어말고는 걸리지 않는다.
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer()); // 슬레이어말고는 걸리지 않는다.
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_BLESS);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_BLESS);
 
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-	SLAYER_RECORD prev;
-	pSlayer->getSlayerRecord(prev);
-	pSlayer->initAllStat();
-	pSlayer->sendRealWearingInfo();
-	pSlayer->sendModifyInfo(prev);
+    SLAYER_RECORD prev;
+    pSlayer->getSlayerRecord(prev);
+    pSlayer->initAllStat();
+    pSlayer->sendRealWearingInfo();
+    pSlayer->sendModifyInfo(prev);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_BLESS);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_BLESS);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	GCOtherModifyInfo gcOtherModifyInfo;
-	makeGCOtherModifyInfo(&gcOtherModifyInfo, pSlayer, &prev);
-	pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcOtherModifyInfo, pSlayer);
+    GCOtherModifyInfo gcOtherModifyInfo;
+    makeGCOtherModifyInfo(&gcOtherModifyInfo, pSlayer, &prev);
+    pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcOtherModifyInfo, pSlayer);
 
-	//cout << "EffectBless" << "unaffect END" << endl;
+    // cout << "EffectBless" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectBless::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+void EffectBless::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
+    {__BEGIN_TRY __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectBless::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectBless::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectBless("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectBless("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

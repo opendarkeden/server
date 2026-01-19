@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SummonGroundElemental.h 
-// Written By  : 
-// Description : 
+// Filename    : SummonGroundElemental.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SUMMON_GROUND_ELEMENTAL_HANDLER_H__
@@ -15,23 +15,27 @@
 // class SummonGroundElemental;
 //////////////////////////////////////////////////////////////////////////////
 
-class SummonGroundElemental : public SkillHandler 
-{
+class SummonGroundElemental : public SkillHandler {
 public:
-	SummonGroundElemental() throw();
-	~SummonGroundElemental() throw() {}
-	
-public:
-    string getSkillHandlerName() const throw() { return "SummonGroundElemental"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SUMMON_GROUND_ELEMENTAL; }
+    SummonGroundElemental() throw();
+    ~SummonGroundElemental() throw() {}
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+public:
+    string getSkillHandlerName() const throw() {
+        return "SummonGroundElemental";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SUMMON_GROUND_ELEMENTAL;
+    }
+
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
-	POINT m_ElementalMask[4][25];
-	int m_MaskIndex[4];
+    POINT m_ElementalMask[4][25];
+    int m_MaskIndex[4];
 };
 
 // global variable declaration

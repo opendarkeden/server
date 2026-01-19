@@ -1,12 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : VariableBuffer.cpp
-// Written By  : 
-// Description : 
+// Written By  :
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "VariableBuffer.h"
+
+#include "Utility.h" // trim(), getline()
 #include "VariableInfo.h"
-#include "Utility.h"			// trim(), getline()
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,115 +16,108 @@
 const char VariableBuffer::Comment = '#';
 const char VariableBuffer::Separator = ',';
 const char VariableBuffer::EOL = '\n';
-const char * VariableBuffer::WhiteSpaces = " \t\n";
-const char * VariableBuffer::SpaceTab = " \t";
+const char* VariableBuffer::WhiteSpaces = " \t\n";
+const char* VariableBuffer::SpaceTab = " \t";
 
-	
+
 ////////////////////////////////////////////////////////////////////////////////
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
-VariableBuffer::VariableBuffer (const string & buffer) 
-	
-{
-	m_Buffer = buffer;
+VariableBuffer::VariableBuffer(const string& buffer)
 
-	parse();
+{
+    m_Buffer = buffer;
+
+    parse();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
-VariableBuffer::~VariableBuffer () 
-	
+VariableBuffer::~VariableBuffer()
+
 {
-	clear();
+    clear();
 }
 
-void VariableBuffer::clear()
-{
-	vector<VariableInfo*>::iterator itr = m_VariableInfos.begin();
+void VariableBuffer::clear() {
+    vector<VariableInfo*>::iterator itr = m_VariableInfos.begin();
 
-	for ( ; itr != m_VariableInfos.end(); itr++ )
-	{
-		SAFE_DELETE( *itr );
-	}
+    for (; itr != m_VariableInfos.end(); itr++) {
+        SAFE_DELETE(*itr);
+    }
 
-	m_VariableInfos.clear();
+    m_VariableInfos.clear();
 }
 
 void VariableBuffer::parse()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	string subStr = trim( m_Buffer );
-	if ( subStr.size() == 0 )
-		return;
+    string subStr = trim(m_Buffer);
+    if (subStr.size() == 0)
+        return;
 
-	bool bEnd = false;
+    bool bEnd = false;
 
-	int index = 0;
-	size_t i = 0;
+    int index = 0;
+    size_t i = 0;
 
-	do
-	{
-		size_t j = subStr.find_first_of( Separator, i );
+    do {
+        size_t j = subStr.find_first_of(Separator, i);
 
-		// separator 가 없다면 마지막 Variable 이다.
-		if ( j == string::npos )
-		{
-			j = subStr.size();
-			bEnd = true;
-		}
+        // separator 가 없다면 마지막 Variable 이다.
+        if (j == string::npos) {
+            j = subStr.size();
+            bEnd = true;
+        }
 
-		string variable = trim(subStr.substr( i, j - i ));
+        string variable = trim(subStr.substr(i, j - i));
 
-		VariableInfo* pVariableInfo = new VariableInfo( variable ); 
-		
-		m_VariableInfos.push_back( pVariableInfo );
+        VariableInfo* pVariableInfo = new VariableInfo(variable);
 
-		index++;
-		i = j + 1;
-	}
-	while ( !bEnd );
+        m_VariableInfos.push_back(pVariableInfo);
 
-	__END_CATCH
+        index++;
+        i = j + 1;
+    } while (!bEnd);
+
+    __END_CATCH
 }
 
-VariableInfo* VariableBuffer::getVariableInfo( int index )
-{
-	__BEGIN_TRY
+VariableInfo* VariableBuffer::getVariableInfo(int index) {
+    __BEGIN_TRY
 
-	if ( index < 0 || index >= (int)m_VariableInfos.size() )
-		throw OutOfBoundException("VariableBuffer::getVariableInfo() OOB!!");
+    if (index < 0 || index >= (int)m_VariableInfos.size())
+        throw OutOfBoundException("VariableBuffer::getVariableInfo() OOB!!");
 
-	return m_VariableInfos[index];
+    return m_VariableInfos[index];
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string VariableBuffer::toString () const 
-	
+string VariableBuffer::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "VariableBuffer(";
+    msg << "VariableBuffer(";
 
-	vector<VariableInfo*>::const_iterator itr = m_VariableInfos.begin();
+    vector<VariableInfo*>::const_iterator itr = m_VariableInfos.begin();
 
-	for ( ; itr != m_VariableInfos.end(); itr++ )
-	{
-		msg << (*itr)->toString() << ",";
-	}
+    for (; itr != m_VariableInfos.end(); itr++) {
+        msg << (*itr)->toString() << ",";
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();	
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

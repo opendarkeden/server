@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename    : CGTradeMoney.h 
+// Filename    : CGTradeMoney.h
 // Written By  : 김성민
-// Description : 
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_TRADE_MONEY_H__
@@ -14,13 +14,12 @@
 // 교환 코드
 ////////////////////////////////////////////////////////////////////////////////
 
-enum
-{
-	// 교환할 돈의 액수를 늘린다.
-	CG_TRADE_MONEY_INCREASE = 0,
+enum {
+    // 교환할 돈의 액수를 늘린다.
+    CG_TRADE_MONEY_INCREASE = 0,
 
-	// 교환할 돈의 액수를 줄인다.
-	CG_TRADE_MONEY_DECREASE
+    // 교환할 돈의 액수를 줄인다.
+    CG_TRADE_MONEY_DECREASE
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,34 +28,50 @@ enum
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGTradeMoney : public Packet 
-{
+class CGTradeMoney : public Packet {
 public:
     CGTradeMoney() {};
     virtual ~CGTradeMoney() {};
-	void read(SocketInputStream & iStream) ;
-	void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_TRADE_MONEY; }
-	PacketSize_t getPacketSize() const  { return szObjectID + szGold + szBYTE; }
-	string getPacketName() const  { return "CGTradeMoney"; }
-	string toString() const ;
-	
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_TRADE_MONEY;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szGold + szBYTE;
+    }
+    string getPacketName() const {
+        return "CGTradeMoney";
+    }
+    string toString() const;
+
 public:
-	ObjectID_t getTargetObjectID() const  { return m_TargetObjectID; }
-	void setTargetObjectID(ObjectID_t id)  { m_TargetObjectID = id; }
+    ObjectID_t getTargetObjectID() const {
+        return m_TargetObjectID;
+    }
+    void setTargetObjectID(ObjectID_t id) {
+        m_TargetObjectID = id;
+    }
 
-	Gold_t getAmount() const  { return m_Gold; }
-	void setAmount(Gold_t gold)  { m_Gold = gold; }
+    Gold_t getAmount() const {
+        return m_Gold;
+    }
+    void setAmount(Gold_t gold) {
+        m_Gold = gold;
+    }
 
-	BYTE getCode() const  { return m_Code; }
-	void setCode(BYTE code)  { m_Code = code; }
+    BYTE getCode() const {
+        return m_Code;
+    }
+    void setCode(BYTE code) {
+        m_Code = code;
+    }
 
 private:
-	ObjectID_t m_TargetObjectID; // 교환을 원하는 상대방의 ObjectID
-	Gold_t     m_Gold;           // 원하는 액수
-	BYTE       m_Code;           // 코드
-
+    ObjectID_t m_TargetObjectID; // 교환을 원하는 상대방의 ObjectID
+    Gold_t m_Gold;               // 원하는 액수
+    BYTE m_Code;                 // 코드
 };
 
 
@@ -66,13 +81,20 @@ private:
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGTradeMoneyFactory : public PacketFactory 
-{
+class CGTradeMoneyFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGTradeMoney(); }
-	string getPacketName() const  { return "CGTradeMoney"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_TRADE_MONEY; }
-	PacketSize_t getPacketMaxSize() const  { return szObjectID + szGold + szBYTE; }
+    Packet* createPacket() {
+        return new CGTradeMoney();
+    }
+    string getPacketName() const {
+        return "CGTradeMoney";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_TRADE_MONEY;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szGold + szBYTE;
+    }
 };
 
 
@@ -82,14 +104,13 @@ public:
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGTradeMoneyHandler 
-{
+class CGTradeMoneyHandler {
 public:
-	static void execute(CGTradeMoney* pPacket, Player* player) ;
-	static void executeSlayer(CGTradeMoney* pPacket, Player* player) ;
-	static void executeVampire(CGTradeMoney* pPacket, Player* player) ;
-	static void executeOusters(CGTradeMoney* pPacket, Player* player) ;
-	static void executeError(CGTradeMoney* pPacket, Player* player, BYTE ErrorCode) ;
+    static void execute(CGTradeMoney* pPacket, Player* player);
+    static void executeSlayer(CGTradeMoney* pPacket, Player* player);
+    static void executeVampire(CGTradeMoney* pPacket, Player* player);
+    static void executeOusters(CGTradeMoney* pPacket, Player* player);
+    static void executeError(CGTradeMoney* pPacket, Player* player, BYTE ErrorCode);
 };
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Tendril.h 
-// Written By  : 
-// Description : 
+// Filename    : Tendril.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TENDRIL_HANDLER_H__
@@ -13,18 +13,21 @@
 // class Tendril;
 //////////////////////////////////////////////////////////////////////////////
 
-class Tendril : public SkillHandler 
-{
+class Tendril : public SkillHandler {
 public:
-	Tendril() throw() {}
-	~Tendril() throw() {}
-	
-public:
-    string getSkillHandlerName() const throw() { return "Tendril"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TENDRIL; }
+    Tendril() throw() {}
+    ~Tendril() throw() {}
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+public:
+    string getSkillHandlerName() const throw() {
+        return "Tendril";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TENDRIL;
+    }
+
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename	: EffectDonation200501.h
-// Written by  : 
+// Written by  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,21 +13,22 @@
 // class EffectDonation200501
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDonation200501 : public Effect 
-{
+class EffectDonation200501 : public Effect {
 public:
-	EffectDonation200501(Creature* pCreature) ;
+    EffectDonation200501(Creature* pCreature);
 
 public:
-	EffectClass getEffectClass() const  { return EFFECT_CLASS_DONATION_200501; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_DONATION_200501;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 
 private:
 };

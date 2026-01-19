@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CauseCriticalWounds.h 
-// Written By  : 
-// Description : 
+// Filename    : CauseCriticalWounds.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CAUSE_CRITICAL_WOUNDS_HANDLER_H__
@@ -13,19 +13,22 @@
 // class CauseCriticalWounds;
 //////////////////////////////////////////////////////////////////////////////
 
-class CauseCriticalWounds : public SkillHandler 
-{
+class CauseCriticalWounds : public SkillHandler {
 public:
-	CauseCriticalWounds() throw() {}
-	~CauseCriticalWounds() throw() {}
-	
+    CauseCriticalWounds() throw() {}
+    ~CauseCriticalWounds() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CauseCriticalWounds"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CAUSE_CRITICAL_WOUNDS; }
+    string getSkillHandlerName() const throw() {
+        return "CauseCriticalWounds";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CAUSE_CRITICAL_WOUNDS;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

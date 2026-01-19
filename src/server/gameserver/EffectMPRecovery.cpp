@@ -1,249 +1,226 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectMPRecovery.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
-#include "Assert.h"
 #include "EffectMPRecovery.h"
-#include "GCMPRecoveryEnd.h"
-#include "Zone.h"
-#include "Slayer.h"
-#include "Ousters.h"
+
+#include "Assert.h"
 #include "Creature.h"
+#include "GCMPRecoveryEnd.h"
+#include "Ousters.h"
 #include "Player.h"
+#include "Slayer.h"
+#include "Zone.h"
 
-EffectMPRecovery::EffectMPRecovery () 
-	
+EffectMPRecovery::EffectMPRecovery()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
-	m_bBroadcastingEffect = false;
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
+    m_bBroadcastingEffect = false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-EffectMPRecovery::EffectMPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	
-: Effect(pZone,x,y,pCreature,delay) 
-{
-	__BEGIN_TRY
+EffectMPRecovery::EffectMPRecovery(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature, Turn_t delay)
 
-	Assert(getZone() != NULL);
-	Assert(getTarget() != NULL);
+    : Effect(pZone, x, y, pCreature, delay) {
+    __BEGIN_TRY
 
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
-	m_bBroadcastingEffect = false;
+    Assert(getZone() != NULL);
+    Assert(getTarget() != NULL);
 
-	__END_CATCH
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
+    m_bBroadcastingEffect = false;
+
+    __END_CATCH
 }
 
-EffectMPRecovery::~EffectMPRecovery () 
-	
+EffectMPRecovery::~EffectMPRecovery()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 void EffectMPRecovery::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// Delay에 따른 체력 회복.
-	setNextTime(m_Delay);
+    // Delay에 따른 체력 회복.
+    setNextTime(m_Delay);
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
-	affect(pCreature);
+    affect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectMPRecovery::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
-	{
-		cout << "Pleasure Explosion 땜에 안 찬다." << endl;
-		return;
-	}
+    if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION)) {
+        cout << "Pleasure Explosion 땜에 안 찬다." << endl;
+        return;
+    }
 
-	Timeval CurrentTime;
+    Timeval CurrentTime;
 
-	getCurrentTime(CurrentTime);
+    getCurrentTime(CurrentTime);
 
-	if ( pCreature->isSlayer() )
-	{
-		Turn_t timegapSec =  m_Deadline.tv_sec - CurrentTime.tv_sec;
-		Turn_t timegapUSec = m_Deadline.tv_usec - CurrentTime.tv_usec;
+    if (pCreature->isSlayer()) {
+        Turn_t timegapSec = m_Deadline.tv_sec - CurrentTime.tv_sec;
+        Turn_t timegapUSec = m_Deadline.tv_usec - CurrentTime.tv_usec;
 
-		Turn_t timegap = timegapSec* 1000000 + timegapUSec;
+        Turn_t timegap = timegapSec * 1000000 + timegapUSec;
 
-		int RecoveryPeriod = (timegap / (m_Delay* 100000));
+        int RecoveryPeriod = (timegap / (m_Delay * 100000));
 
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-		if (pSlayer->getMP(ATTR_CURRENT) != pSlayer->getMP(ATTR_MAX) && m_Period != 0) 
-		{
-			// 플레그 걸귀
-			pSlayer->setFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
+        if (pSlayer->getMP(ATTR_CURRENT) != pSlayer->getMP(ATTR_MAX) && m_Period != 0) {
+            // 플레그 걸귀
+            pSlayer->setFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
 
-			// 한 턴에 얼마나 회복 시킬 것인가.
-			MP_t CurrentMP = pSlayer->getMP(ATTR_CURRENT);
-			MP_t NewMP     = min((int)(pSlayer->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity* (m_Period - RecoveryPeriod)));
+            // 한 턴에 얼마나 회복 시킬 것인가.
+            MP_t CurrentMP = pSlayer->getMP(ATTR_CURRENT);
+            MP_t NewMP =
+                min((int)(pSlayer->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity * (m_Period - RecoveryPeriod)));
 
-			pSlayer->setMP(NewMP, ATTR_CURRENT);
-		} 
-		else 
-		{
-			setDeadline(0);
-		}
+            pSlayer->setMP(NewMP, ATTR_CURRENT);
+        } else {
+            setDeadline(0);
+        }
 
-		m_Period = RecoveryPeriod;
-	}
-	else if ( pCreature->isOusters() )
-	{
-		Turn_t timegapSec =  m_Deadline.tv_sec - CurrentTime.tv_sec;
-		Turn_t timegapUSec = m_Deadline.tv_usec - CurrentTime.tv_usec;
+        m_Period = RecoveryPeriod;
+    } else if (pCreature->isOusters()) {
+        Turn_t timegapSec = m_Deadline.tv_sec - CurrentTime.tv_sec;
+        Turn_t timegapUSec = m_Deadline.tv_usec - CurrentTime.tv_usec;
 
-		Turn_t timegap = timegapSec* 1000000 + timegapUSec;
+        Turn_t timegap = timegapSec * 1000000 + timegapUSec;
 
-		int RecoveryPeriod = (timegap / (m_Delay* 100000));
+        int RecoveryPeriod = (timegap / (m_Delay * 100000));
 
-		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
+        Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-		if (pOusters->getMP(ATTR_CURRENT) <= pOusters->getMP(ATTR_MAX) && m_Period != 0) 
-		{
-			// 플레그 걸귀
-			pOusters->setFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
+        if (pOusters->getMP(ATTR_CURRENT) <= pOusters->getMP(ATTR_MAX) && m_Period != 0) {
+            // 플레그 걸귀
+            pOusters->setFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
 
-			// 한 턴에 얼마나 회복 시킬 것인가.
-			MP_t CurrentMP = pOusters->getMP(ATTR_CURRENT);
-			MP_t NewMP     = min((int)(pOusters->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity* (m_Period - RecoveryPeriod)));
+            // 한 턴에 얼마나 회복 시킬 것인가.
+            MP_t CurrentMP = pOusters->getMP(ATTR_CURRENT);
+            MP_t NewMP =
+                min((int)(pOusters->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity * (m_Period - RecoveryPeriod)));
 
-			pOusters->setMP(NewMP, ATTR_CURRENT);
-		} 
-		else 
-		{
-			setDeadline(0);
-		}
+            pOusters->setMP(NewMP, ATTR_CURRENT);
+        } else {
+            setDeadline(0);
+        }
 
-		m_Period = RecoveryPeriod;
-	}
+        m_Period = RecoveryPeriod;
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectMPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	
-{
-	__BEGIN_TRY
+void EffectMPRecovery::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
 
-	throw UnsupportedError(__PRETTY_FUNCTION__);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    throw UnsupportedError(__PRETTY_FUNCTION__);
+
+    __END_CATCH
 }
 
 void EffectMPRecovery::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
-	unaffect(pCreature);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectMPRecovery::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	
-	if ( pCreature->isSlayer() )
-	{
-			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    __BEGIN_TRY
 
-		if (m_Period != 0)
-		{
-			MP_t CurrentMP = pSlayer->getMP(ATTR_CURRENT);
-			MP_t NewMP     = min((int)(pSlayer->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity* m_Period));
+    if (pCreature->isSlayer()) {
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-			pSlayer->setMP(NewMP, ATTR_CURRENT);
-		}
+        if (m_Period != 0) {
+            MP_t CurrentMP = pSlayer->getMP(ATTR_CURRENT);
+            MP_t NewMP = min((int)(pSlayer->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity * m_Period));
 
-		// 현재 MP를 브로드캐스팅한다.
-		// 이제 회복이 끝났나는 것을 알리도록 한다.
-		// 자신에게 먼저
-		GCMPRecoveryEnd gcEffectMPRecoveryEnd;
-		gcEffectMPRecoveryEnd.setCurrentMP(pSlayer->getMP(ATTR_CURRENT));
-		pSlayer->getPlayer()->sendPacket(&gcEffectMPRecoveryEnd);
+            pSlayer->setMP(NewMP, ATTR_CURRENT);
+        }
 
-		pSlayer->removeFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
-	}
-	else if ( pCreature->isOusters() )
-	{
-		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
+        // 현재 MP를 브로드캐스팅한다.
+        // 이제 회복이 끝났나는 것을 알리도록 한다.
+        // 자신에게 먼저
+        GCMPRecoveryEnd gcEffectMPRecoveryEnd;
+        gcEffectMPRecoveryEnd.setCurrentMP(pSlayer->getMP(ATTR_CURRENT));
+        pSlayer->getPlayer()->sendPacket(&gcEffectMPRecoveryEnd);
 
-		if (pOusters->getMP(ATTR_CURRENT) <= pOusters->getMP(ATTR_MAX) && m_Period != 0)
-		{
-			MP_t CurrentMP = pOusters->getMP(ATTR_CURRENT);
-			MP_t NewMP     = min((int)(pOusters->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity* m_Period));
+        pSlayer->removeFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
+    } else if (pCreature->isOusters()) {
+        Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-			pOusters->setMP(NewMP, ATTR_CURRENT);
-		}
+        if (pOusters->getMP(ATTR_CURRENT) <= pOusters->getMP(ATTR_MAX) && m_Period != 0) {
+            MP_t CurrentMP = pOusters->getMP(ATTR_CURRENT);
+            MP_t NewMP = min((int)(pOusters->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity * m_Period));
 
-		// 현재 MP를 브로드캐스팅한다.
-		// 이제 회복이 끝났나는 것을 알리도록 한다.
-		// 자신에게 먼저
-		GCMPRecoveryEnd gcEffectMPRecoveryEnd;
-		gcEffectMPRecoveryEnd.setCurrentMP(pOusters->getMP(ATTR_CURRENT));
-		pOusters->getPlayer()->sendPacket(&gcEffectMPRecoveryEnd);
+            pOusters->setMP(NewMP, ATTR_CURRENT);
+        }
 
-		pOusters->removeFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
-	}
+        // 현재 MP를 브로드캐스팅한다.
+        // 이제 회복이 끝났나는 것을 알리도록 한다.
+        // 자신에게 먼저
+        GCMPRecoveryEnd gcEffectMPRecoveryEnd;
+        gcEffectMPRecoveryEnd.setCurrentMP(pOusters->getMP(ATTR_CURRENT));
+        pOusters->getPlayer()->sendPacket(&gcEffectMPRecoveryEnd);
 
-	__END_CATCH
+        pOusters->removeFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
+    }
+
+    __END_CATCH
 }
 
-void EffectMPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	
+void EffectMPRecovery::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
+
+    {__BEGIN_TRY
+
+         __END_CATCH}
+
+string EffectMPRecovery::toString() const
+
 {
-	__BEGIN_TRY
+    StringStream msg;
 
-	__END_CATCH
-}
+    if (m_pZone) {
+        msg << "EffectMPRecovery("
+            << "ZoneID:" << (int)m_pZone->getZoneID() << ",X:" << (int)getX() << ",Y:" << (int)getY();
+    }
 
-string EffectMPRecovery::toString () const 
-	
-{
-	StringStream msg;
+    if (m_pTarget) {
+        msg << ",Target:" << m_pTarget->toString();
+    } else {
+        msg << ",Target:NULL";
+    }
 
-	if (m_pZone) 
-	{
-		msg << "EffectMPRecovery("
-				<< "ZoneID:" << (int)m_pZone->getZoneID()
-				<< ",X:"     << (int)getX()
-				<< ",Y:"     << (int)getY();
-	}
+    msg << ",Deadline:" << (int)m_Deadline.tv_sec << "." << (int)m_Deadline.tv_usec << ")";
 
-	if (m_pTarget)
-	{
-		msg << ",Target:" << m_pTarget->toString();
-	}
-	else
-	{
-		msg << ",Target:NULL";
-	}
-
-	msg << ",Deadline:" << (int)m_Deadline.tv_sec 
-			<< "." << (int)m_Deadline.tv_usec
-			<< ")";
-
-	return msg.toString();
+    return msg.toString();
 }

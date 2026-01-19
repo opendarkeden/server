@@ -1,46 +1,46 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGStoreOpen.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGStoreOpen.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGStoreOpen.h"
 
-void CGStoreOpen::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
+void CGStoreOpen::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
-void CGStoreOpen::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+void CGStoreOpen::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
-void CGStoreOpen::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGStoreOpenHandler::execute(this , pPlayer);
+void CGStoreOpen::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGStoreOpenHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGStoreOpen::toString () const
-       
+string CGStoreOpen::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGStoreOpen("
-		<< ")" ;
-	return msg.toString();
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

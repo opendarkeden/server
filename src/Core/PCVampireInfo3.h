@@ -7,8 +7,8 @@
 #ifndef __PC_VAMPIRE_INFO_3_H__
 #define __PC_VAMPIRE_INFO_3_H__
 
-#include "PCInfo.h"
 #include "Assert.h"
+#include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class PCVampireInfo3;
@@ -16,243 +16,315 @@
 // GCAddSlayer, GCAddVampireCorpse 에 담겨서 전송된다.
 //////////////////////////////////////////////////////////////////////////////
 
-class PCVampireInfo3 : public PCInfo 
-{
+class PCVampireInfo3 : public PCInfo {
 public:
-	// Vampire Color Informations
-	enum VampireColors 
-	{
-		VAMPIRE_COLOR_BAT ,
-		VAMPIRE_COLOR_SKIN ,
-		VAMPIRE_COLOR_COAT1 ,
-		VAMPIRE_COLOR_COAT2 ,
-		VAMPIRE_COLOR_MAX
-	};
+    // Vampire Color Informations
+    enum VampireColors {
+        VAMPIRE_COLOR_BAT,
+        VAMPIRE_COLOR_SKIN,
+        VAMPIRE_COLOR_COAT1,
+        VAMPIRE_COLOR_COAT2,
+        VAMPIRE_COLOR_MAX
+    };
 
 public:
-	PCVampireInfo3 ()  
-	{
-	}
+    PCVampireInfo3() {}
 
-	PCVampireInfo3 (const PCVampireInfo3 & vampireInfo) 
-		: m_ObjectID(vampireInfo.m_ObjectID), m_Name(vampireInfo.m_Name), 
-		m_X(vampireInfo.m_X), m_Y(vampireInfo.m_Y), m_Dir(vampireInfo.m_Dir),
-		m_Sex(vampireInfo.m_Sex), m_CoatType(vampireInfo.m_CoatType), 
-		m_MasterEffectColor(vampireInfo.m_MasterEffectColor),
-		m_CurrentHP(vampireInfo.m_CurrentHP), m_MaxHP(vampireInfo.m_MaxHP), m_AttackSpeed(vampireInfo.m_AttackSpeed),
-		m_Alignment(vampireInfo.m_Alignment), m_Shape(vampireInfo.m_Shape), m_GuildID(vampireInfo.m_GuildID),
-		m_Rank(vampireInfo.m_Rank), m_AdvancementLevel(vampireInfo.m_AdvancementLevel)
-	{
-		for (uint i = 0 ; i < VAMPIRE_COLOR_MAX ; i ++)
-			m_Colors[i] = vampireInfo.m_Colors[i];
+    PCVampireInfo3(const PCVampireInfo3& vampireInfo)
+        : m_ObjectID(vampireInfo.m_ObjectID), m_Name(vampireInfo.m_Name), m_X(vampireInfo.m_X), m_Y(vampireInfo.m_Y),
+          m_Dir(vampireInfo.m_Dir), m_Sex(vampireInfo.m_Sex), m_CoatType(vampireInfo.m_CoatType),
+          m_MasterEffectColor(vampireInfo.m_MasterEffectColor), m_CurrentHP(vampireInfo.m_CurrentHP),
+          m_MaxHP(vampireInfo.m_MaxHP), m_AttackSpeed(vampireInfo.m_AttackSpeed), m_Alignment(vampireInfo.m_Alignment),
+          m_Shape(vampireInfo.m_Shape), m_GuildID(vampireInfo.m_GuildID), m_Rank(vampireInfo.m_Rank),
+          m_AdvancementLevel(vampireInfo.m_AdvancementLevel) {
+        for (uint i = 0; i < VAMPIRE_COLOR_MAX; i++)
+            m_Colors[i] = vampireInfo.m_Colors[i];
 
-		m_Competence = vampireInfo.m_Competence;
-	}
-	
-public:
-	PCType getPCType () const  { return PC_VAMPIRE; }
-
-	void read (SocketInputStream & iStream) ;
-	void write (SocketOutputStream & oStream) const ;
-
-	uint getSize () const 
-	{
-		return szObjectID					// ObjectID
-			+ szBYTE + m_Name.size() 		// 뱀파이어 이름
-			+ szCoord + szCoord + szDir 	// 좌표와 방향				
-			+ szSex							// 성별
-			+ szBYTE						// coatType
-			+ szColor* VAMPIRE_COLOR_MAX	// 색상
-			+ szBYTE
-			+ szHP* 2						// 최대 체력
-			+ szAlignment					// 성향
-			+ szShape						// 모양
-			+ szSpeed						// 공격 속도
-			+ szGuildID						// 길드 아이디
-			+ szRank						// 계급
-			+ szBYTE						// 권한
-			+ szuint
-			+ szLevel;
-	}
-
-	// get max size of object
-	static uint getMaxSize () 
-	{
-		return szObjectID					// ObjectID
-			+ szBYTE + 20 					// 뱀파이어 이름
-			+ szCoord + szCoord + szDir 	// 좌표와 방향				
-			+ szSex							// 성별
-			+ szBYTE						// coatType
-			+ szColor* VAMPIRE_COLOR_MAX	// 색상
-			+ szBYTE
-			+ szHP* 2						// 최대 체력
-			+ szShape						// 모양
-			+ szSpeed						// 공격 속도
-			+ szGuildID						// 길드 아이디
-			+ szRank						// 계급
-			+ szBYTE						// 권한
-			+ szuint
-			+ szLevel;
-	}
-
-	PCVampireInfo3 & operator = (const PCVampireInfo3 & vampireInfo) 
-	{
-		if (&vampireInfo == this)
-			return *this;
-
-		m_ObjectID = vampireInfo.m_ObjectID;
-		m_Name = vampireInfo.m_Name;
-		m_X = vampireInfo.m_X;
-		m_Y = vampireInfo.m_Y;
-		m_Dir = vampireInfo.m_Dir;
-		m_Sex = vampireInfo.m_Sex;
-		m_CoatType = vampireInfo.m_CoatType;
-		m_CurrentHP = vampireInfo.m_CurrentHP;
-		m_MaxHP = vampireInfo.m_MaxHP;
-		m_AttackSpeed = vampireInfo.m_AttackSpeed;
-		m_Alignment = vampireInfo.m_Alignment;
-		m_Shape = vampireInfo.m_Shape;
-
-		for (uint i = 0 ; i < VAMPIRE_COLOR_MAX ; i ++)
-			m_Colors[i] = vampireInfo.m_Colors[i];
-
-		m_MasterEffectColor = vampireInfo.m_MasterEffectColor;
-		m_Competence = vampireInfo.m_Competence;
-
-		m_GuildID = vampireInfo.m_GuildID;
-		m_UnionID = vampireInfo.m_UnionID;
-		m_Rank = vampireInfo.m_Rank;
-		m_AdvancementLevel = vampireInfo.m_AdvancementLevel;
-
-		return *this;
-	}
-
-	string toString () const ;
+        m_Competence = vampireInfo.m_Competence;
+    }
 
 public:
-	ObjectID_t getObjectID () const  { return m_ObjectID; }
-	void setObjectID (ObjectID_t objectID)  { m_ObjectID = objectID; }
+    PCType getPCType() const {
+        return PC_VAMPIRE;
+    }
 
-    string getName () const  { return m_Name; }
-    void setName (const string & name)  { m_Name = name; Assert(m_Name != ""); }
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
 
-	Coord_t getX () const  { return m_X; }
-	void setX (Coord_t x)  { m_X = x; }
+    uint getSize() const {
+        return szObjectID                    // ObjectID
+               + szBYTE + m_Name.size()      // 뱀파이어 이름
+               + szCoord + szCoord + szDir   // 좌표와 방향
+               + szSex                       // 성별
+               + szBYTE                      // coatType
+               + szColor * VAMPIRE_COLOR_MAX // 색상
+               + szBYTE + szHP * 2           // 최대 체력
+               + szAlignment                 // 성향
+               + szShape                     // 모양
+               + szSpeed                     // 공격 속도
+               + szGuildID                   // 길드 아이디
+               + szRank                      // 계급
+               + szBYTE                      // 권한
+               + szuint + szLevel;
+    }
 
-	Coord_t getY () const  { return m_Y; }
-	void setY (Coord_t y)  { m_Y = y; }
+    // get max size of object
+    static uint getMaxSize() {
+        return szObjectID                    // ObjectID
+               + szBYTE + 20                 // 뱀파이어 이름
+               + szCoord + szCoord + szDir   // 좌표와 방향
+               + szSex                       // 성별
+               + szBYTE                      // coatType
+               + szColor * VAMPIRE_COLOR_MAX // 색상
+               + szBYTE + szHP * 2           // 최대 체력
+               + szShape                     // 모양
+               + szSpeed                     // 공격 속도
+               + szGuildID                   // 길드 아이디
+               + szRank                      // 계급
+               + szBYTE                      // 권한
+               + szuint + szLevel;
+    }
 
-	Dir_t getDir () const  { return m_Dir; }
-	void setDir (Dir_t dir)  { m_Dir = dir; }
+    PCVampireInfo3& operator=(const PCVampireInfo3& vampireInfo) {
+        if (&vampireInfo == this)
+            return *this;
 
-	Sex getSex () const  { return m_Sex; }
-	void setSex (Sex sex)  { m_Sex = sex; }
-	void setSex (const string & sex) 
-	{
-		if (sex == Sex2String[MALE]) 
-			m_Sex = MALE;
-		else if (sex == Sex2String[FEMALE]) 
-			m_Sex = FEMALE;
-		else
-			throw InvalidProtocolException("invalid sex value");
-	}
+        m_ObjectID = vampireInfo.m_ObjectID;
+        m_Name = vampireInfo.m_Name;
+        m_X = vampireInfo.m_X;
+        m_Y = vampireInfo.m_Y;
+        m_Dir = vampireInfo.m_Dir;
+        m_Sex = vampireInfo.m_Sex;
+        m_CoatType = vampireInfo.m_CoatType;
+        m_CurrentHP = vampireInfo.m_CurrentHP;
+        m_MaxHP = vampireInfo.m_MaxHP;
+        m_AttackSpeed = vampireInfo.m_AttackSpeed;
+        m_Alignment = vampireInfo.m_Alignment;
+        m_Shape = vampireInfo.m_Shape;
 
-	Color_t getBatColor () const  { return m_Colors[VAMPIRE_COLOR_BAT]; }
-	void setBatColor (Color_t batColor)  { m_Colors[VAMPIRE_COLOR_BAT] = batColor; }
+        for (uint i = 0; i < VAMPIRE_COLOR_MAX; i++)
+            m_Colors[i] = vampireInfo.m_Colors[i];
 
-	Color_t getSkinColor () const  { return m_Colors[VAMPIRE_COLOR_SKIN]; }
-	void setSkinColor (Color_t skinColor)  { m_Colors[VAMPIRE_COLOR_SKIN] = skinColor; }
+        m_MasterEffectColor = vampireInfo.m_MasterEffectColor;
+        m_Competence = vampireInfo.m_Competence;
 
-	ItemType_t getCoatType() const  { return m_CoatType; }
-    void setCoatType(ItemType_t CoatType)  { m_CoatType = CoatType; }
+        m_GuildID = vampireInfo.m_GuildID;
+        m_UnionID = vampireInfo.m_UnionID;
+        m_Rank = vampireInfo.m_Rank;
+        m_AdvancementLevel = vampireInfo.m_AdvancementLevel;
 
-	Color_t getCoatColor (ColorType colorType = MAIN_COLOR) const  { return m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType]; }
-	void setCoatColor (Color_t coatColor, ColorType colorType = MAIN_COLOR)  { m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType] = coatColor; }
+        return *this;
+    }
 
-	BYTE getMasterEffectColor() const { return m_MasterEffectColor; }
-	void setMasterEffectColor( BYTE color ) { m_MasterEffectColor = color; }
+    string toString() const;
 
-	HP_t getCurrentHP() const  { return m_CurrentHP; }
-	void setCurrentHP(HP_t CurrentHP)  { m_CurrentHP = CurrentHP; }
+public:
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t objectID) {
+        m_ObjectID = objectID;
+    }
 
-	HP_t getMaxHP() const  { return m_MaxHP; }
-	void setMaxHP(HP_t MaxHP)  { m_MaxHP = MaxHP; }
+    string getName() const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+        Assert(m_Name != "");
+    }
 
-	Speed_t getAttackSpeed() const  { return m_AttackSpeed; }
-	void setAttackSpeed(Speed_t AttackSpeed)  { m_AttackSpeed = AttackSpeed; }
+    Coord_t getX() const {
+        return m_X;
+    }
+    void setX(Coord_t x) {
+        m_X = x;
+    }
 
-	Alignment_t getAlignment() const  { return m_Alignment; }
-	void setAlignment(Alignment_t Alignment)   { m_Alignment = Alignment; }
+    Coord_t getY() const {
+        return m_Y;
+    }
+    void setY(Coord_t y) {
+        m_Y = y;
+    }
 
-	Shape_t getShape() const  { return m_Shape; }
-	void setShape(Shape_t Shape)   { m_Shape = Shape; }
+    Dir_t getDir() const {
+        return m_Dir;
+    }
+    void setDir(Dir_t dir) {
+        m_Dir = dir;
+    }
 
-	BYTE getCompetence(void) const { return m_Competence; }
-	void setCompetence(BYTE competence) { m_Competence = competence; }
+    Sex getSex() const {
+        return m_Sex;
+    }
+    void setSex(Sex sex) {
+        m_Sex = sex;
+    }
+    void setSex(const string& sex) {
+        if (sex == Sex2String[MALE])
+            m_Sex = MALE;
+        else if (sex == Sex2String[FEMALE])
+            m_Sex = FEMALE;
+        else
+            throw InvalidProtocolException("invalid sex value");
+    }
 
-	GuildID_t getGuildID(void) const { return m_GuildID; }
-	void setGuildID(GuildID_t GuildID ) { m_GuildID = GuildID; }
+    Color_t getBatColor() const {
+        return m_Colors[VAMPIRE_COLOR_BAT];
+    }
+    void setBatColor(Color_t batColor) {
+        m_Colors[VAMPIRE_COLOR_BAT] = batColor;
+    }
 
-	uint getUnionID(void) const { return m_UnionID; }
-	void setUnionID(uint UnionID ) { m_UnionID = UnionID; }
+    Color_t getSkinColor() const {
+        return m_Colors[VAMPIRE_COLOR_SKIN];
+    }
+    void setSkinColor(Color_t skinColor) {
+        m_Colors[VAMPIRE_COLOR_SKIN] = skinColor;
+    }
 
-	Rank_t getRank () const  { return m_Rank; }
-	void setRank (Rank_t rank)  { m_Rank = rank; }
+    ItemType_t getCoatType() const {
+        return m_CoatType;
+    }
+    void setCoatType(ItemType_t CoatType) {
+        m_CoatType = CoatType;
+    }
 
-	Level_t	getAdvancementLevel() const { return m_AdvancementLevel; }
-	void setAdvancementLevel( Level_t level ) { m_AdvancementLevel = level; }
+    Color_t getCoatColor(ColorType colorType = MAIN_COLOR) const {
+        return m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType];
+    }
+    void setCoatColor(Color_t coatColor, ColorType colorType = MAIN_COLOR) {
+        m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType] = coatColor;
+    }
 
-private :
+    BYTE getMasterEffectColor() const {
+        return m_MasterEffectColor;
+    }
+    void setMasterEffectColor(BYTE color) {
+        m_MasterEffectColor = color;
+    }
 
-	// PC's object id
-	ObjectID_t m_ObjectID;
+    HP_t getCurrentHP() const {
+        return m_CurrentHP;
+    }
+    void setCurrentHP(HP_t CurrentHP) {
+        m_CurrentHP = CurrentHP;
+    }
 
-	// PC name
-	string m_Name;
+    HP_t getMaxHP() const {
+        return m_MaxHP;
+    }
+    void setMaxHP(HP_t MaxHP) {
+        m_MaxHP = MaxHP;
+    }
 
-	Coord_t m_X;
-	Coord_t m_Y;
-	Dir_t m_Dir;
+    Speed_t getAttackSpeed() const {
+        return m_AttackSpeed;
+    }
+    void setAttackSpeed(Speed_t AttackSpeed) {
+        m_AttackSpeed = AttackSpeed;
+    }
 
-	// PC sex
-	Sex m_Sex;
+    Alignment_t getAlignment() const {
+        return m_Alignment;
+    }
+    void setAlignment(Alignment_t Alignment) {
+        m_Alignment = Alignment;
+    }
 
-	// CoatType
-	ItemType_t m_CoatType;
+    Shape_t getShape() const {
+        return m_Shape;
+    }
+    void setShape(Shape_t Shape) {
+        m_Shape = Shape;
+    }
 
-	// colors
-	Color_t m_Colors[VAMPIRE_COLOR_MAX];
+    BYTE getCompetence(void) const {
+        return m_Competence;
+    }
+    void setCompetence(BYTE competence) {
+        m_Competence = competence;
+    }
 
-	// 마스터 이펙트 색깔
-	BYTE m_MasterEffectColor;
+    GuildID_t getGuildID(void) const {
+        return m_GuildID;
+    }
+    void setGuildID(GuildID_t GuildID) {
+        m_GuildID = GuildID;
+    }
 
-	// Current HP
-	HP_t m_CurrentHP;
+    uint getUnionID(void) const {
+        return m_UnionID;
+    }
+    void setUnionID(uint UnionID) {
+        m_UnionID = UnionID;
+    }
 
-	// Max HP
-	HP_t m_MaxHP;
+    Rank_t getRank() const {
+        return m_Rank;
+    }
+    void setRank(Rank_t rank) {
+        m_Rank = rank;
+    }
 
-	// Attack Speed
-	Speed_t m_AttackSpeed;
+    Level_t getAdvancementLevel() const {
+        return m_AdvancementLevel;
+    }
+    void setAdvancementLevel(Level_t level) {
+        m_AdvancementLevel = level;
+    }
 
-	// 성향
-	Alignment_t m_Alignment;
+private:
+    // PC's object id
+    ObjectID_t m_ObjectID;
 
-	// 뱀파이어 모양
-	Shape_t m_Shape;
+    // PC name
+    string m_Name;
 
-	// 권한
-	BYTE m_Competence; 
+    Coord_t m_X;
+    Coord_t m_Y;
+    Dir_t m_Dir;
 
-	// 길드 아이디
-	GuildID_t m_GuildID;
+    // PC sex
+    Sex m_Sex;
 
-	uint	m_UnionID;
+    // CoatType
+    ItemType_t m_CoatType;
 
-	// 계급
-	Rank_t		m_Rank;
+    // colors
+    Color_t m_Colors[VAMPIRE_COLOR_MAX];
 
-	Level_t		m_AdvancementLevel;
+    // 마스터 이펙트 색깔
+    BYTE m_MasterEffectColor;
+
+    // Current HP
+    HP_t m_CurrentHP;
+
+    // Max HP
+    HP_t m_MaxHP;
+
+    // Attack Speed
+    Speed_t m_AttackSpeed;
+
+    // 성향
+    Alignment_t m_Alignment;
+
+    // 뱀파이어 모양
+    Shape_t m_Shape;
+
+    // 권한
+    BYTE m_Competence;
+
+    // 길드 아이디
+    GuildID_t m_GuildID;
+
+    uint m_UnionID;
+
+    // 계급
+    Rank_t m_Rank;
+
+    Level_t m_AdvancementLevel;
 };
 
 #endif

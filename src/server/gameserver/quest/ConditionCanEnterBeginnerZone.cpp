@@ -1,45 +1,45 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterBeginnerZone.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionCanEnterBeginnerZone.h"
+
 #include "CreatureUtil.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionCanEnterBeginnerZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionCanEnterBeginnerZone::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	return canEnterBeginnerZone( pCreature2 );
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
+
+    return canEnterBeginnerZone(pCreature2);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionCanEnterBeginnerZone::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionCanEnterBeginnerZone::read(PropertyBuffer& propertyBuffer)
+
+{}
+
+////////////////////////////////////////////////////////////////////////////////
+// get debug string
+////////////////////////////////////////////////////////////////////////////////
+string ConditionCanEnterBeginnerZone::toString() const
+
 {
-}
+    __BEGIN_TRY
 
-////////////////////////////////////////////////////////////////////////////////
-	// get debug string
-////////////////////////////////////////////////////////////////////////////////
-string ConditionCanEnterBeginnerZone::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+    StringStream msg;
+    msg << "ConditionCanEnterBeginnerZone("
+        << ")";
+    return msg.toString();
 
-	StringStream msg;
-	msg << "ConditionCanEnterBeginnerZone("
-		<< ")"; 
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

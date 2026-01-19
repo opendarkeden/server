@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAttackMeleeOK1.cpp 
+//
+// Filename    : GCAttackMeleeOK1.cpp
 // Written By  : elca@ewestsoft.com
 // Description : Packet class to notify the attacker that a melee attack succeeded.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -15,71 +15,67 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCAttackMeleeOK1::GCAttackMeleeOK1 ()
-     
-{
-	__BEGIN_TRY
+GCAttackMeleeOK1::GCAttackMeleeOK1()
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
 
-	
+         __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCAttackMeleeOK1::~GCAttackMeleeOK1 ()
-    
+GCAttackMeleeOK1::~GCAttackMeleeOK1()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // Initialize from the incoming stream.
 //////////////////////////////////////////////////////////////////////
-void GCAttackMeleeOK1::read (SocketInputStream & iStream )
-	 
-{
-	__BEGIN_TRY
-		
-	
-	iStream.read(m_ObjectID);
-	
-	ModifyInfo::read(iStream);
+void GCAttackMeleeOK1::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+
+    iStream.read(m_ObjectID);
+
+    ModifyInfo::read(iStream);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Write the packet to the outgoing stream.
 //////////////////////////////////////////////////////////////////////
-void GCAttackMeleeOK1::write (SocketOutputStream & oStream )
-     const 
-{
-	__BEGIN_TRY
-		
+void GCAttackMeleeOK1::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
 
-	ModifyInfo::write(oStream);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    ModifyInfo::write(oStream);
+
+    __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////
 //
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCAttackMeleeOK1::execute (Player * pPlayer ) 
-	 
+void GCAttackMeleeOK1::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAttackMeleeOK1Handler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAttackMeleeOK1Handler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -88,20 +84,14 @@ void GCAttackMeleeOK1::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAttackMeleeOK1::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCAttackMeleeOK1::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GCAttackMeleeOK1("
-		<< "ObjectID:" << (int)m_ObjectID 
-		<< ModifyInfo::toString() 
-		<< ")";
-	return msg.toString();
+    msg << "GCAttackMeleeOK1("
+        << "ObjectID:" << (int)m_ObjectID << ModifyInfo::toString() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -10,11 +10,11 @@
 #define __GAME_SERVER_MANANGER_H__
 
 // include files
-#include "Types.h"
+#include "DatagramSocket.h"
 #include "Exception.h"
 #include "Thread.h"
-#include "DatagramSocket.h"
 #include "Timeval.h"
+#include "Types.h"
 
 class Datagram;
 class DatagramPacket;
@@ -29,34 +29,36 @@ class DatagramPacket;
 //
 //////////////////////////////////////////////////////////////////////
 
-class GameServerManager
-{
-public :
-	GameServerManager () throw (Error);
-	~GameServerManager () throw (Error);
+class GameServerManager {
+public:
+    GameServerManager() throw(Error);
+    ~GameServerManager() throw(Error);
 
-	void init () throw (Error) {}
+    void init() throw(Error) {}
 
-	void start() throw (Error) { m_bRunning = true; run(); }
-	void stop() throw (Error) { m_bRunning = false; }
+    void start() throw(Error) {
+        m_bRunning = true;
+        run();
+    }
+    void stop() throw(Error) {
+        m_bRunning = false;
+    }
 
-	// main method
-	void run() throw (Error);
+    // main method
+    void run() throw(Error);
 
-	void sendDatagram ( Datagram * pDatagram ) throw ( ConnectException , Error );
-	void sendPacket ( string host , uint port , DatagramPacket * pPacket ) throw ( ConnectException , Error );
+    void sendDatagram(Datagram* pDatagram) throw(ConnectException, Error);
+    void sendPacket(string host, uint port, DatagramPacket* pPacket) throw(ConnectException, Error);
 
-private :
+private:
+    // UDP 辑滚 家南
+    DatagramSocket* m_pDatagramSocket;
+    bool m_bRunning;
 
-	// UDP 辑滚 家南
-	DatagramSocket * m_pDatagramSocket;
-	bool m_bRunning;
-
-	Timeval m_ExpireTime;
-	
+    Timeval m_ExpireTime;
 };
 
 // global variable declaration
-extern GameServerManager * g_pGameServerManager;
+extern GameServerManager* g_pGameServerManager;
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Sacrifice.h 
+// Filename    : Sacrifice.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SACRIFICE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Sacrifice;
 //////////////////////////////////////////////////////////////////////////////
 
-class Sacrifice : public SkillHandler 
-{
+class Sacrifice : public SkillHandler {
 public:
-	Sacrifice() throw() {}
-	~Sacrifice() throw() {}
-	
+    Sacrifice() throw() {}
+    ~Sacrifice() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Sacrifice"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SACRIFICE; }
+    string getSkillHandlerName() const throw() {
+        return "Sacrifice";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SACRIFICE;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

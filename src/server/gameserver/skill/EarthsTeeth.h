@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : EarthsTeeth.h 
-// Written By  : 
-// Description : 
+// Filename    : EarthsTeeth.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_EARTHS_TEETH_HANDLER_H__
@@ -13,19 +13,22 @@
 // class EarthsTeeth;
 //////////////////////////////////////////////////////////////////////////////
 
-class EarthsTeeth : public SkillHandler 
-{
+class EarthsTeeth : public SkillHandler {
 public:
-	EarthsTeeth() throw() {}
-	~EarthsTeeth() throw() {}
-	
+    EarthsTeeth() throw() {}
+    ~EarthsTeeth() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "EarthsTeeth"; }
-	SkillType_t getSkillType() const throw() { return SKILL_EARTHS_TEETH; }
+    string getSkillHandlerName() const throw() {
+        return "EarthsTeeth";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_EARTHS_TEETH;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

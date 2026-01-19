@@ -10,9 +10,9 @@
 #define __GAME_WORLD_INFO_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "StringStream.h"
+#include "Types.h"
 
 
 //----------------------------------------------------------------------
@@ -25,43 +25,48 @@
 //----------------------------------------------------------------------
 
 class GameWorldInfo {
+public:
+    // get/set GameWorldID
+    WorldID_t getID() const {
+        return m_ID;
+    }
+    void setID(WorldID_t ID) {
+        m_ID = ID;
+    }
 
-public :
+    // get/set host name
+    string getName() const {
+        return m_Name;
+    }
+    void setName(string Name) {
+        m_Name = Name;
+    }
 
-	// get/set GameWorldID
-	WorldID_t getID() const  { return m_ID; }
-	void setID( WorldID_t ID )  { m_ID = ID; }
+    // get/set World Status
+    WorldStatus getStatus() const {
+        return m_Status;
+    }
+    void setStatus(WorldStatus status) {
+        m_Status = status;
+    }
 
-	// get/set host name
-	string getName() const  { return m_Name; }
-	void setName( string Name )  { m_Name = Name; }
-	
-	// get/set World Status
-	WorldStatus getStatus() const  { return m_Status; }
-	void setStatus( WorldStatus status )  { m_Status = status; } 
-	
-	// get debug string
-	string toString () const  
-	{
-		StringStream msg;
-		msg << "GameWorldInfo("
-			<< "WorldID: " << (int)m_ID
-			<< ",Name:" << m_Name
-			<< ")";
-		return msg.toString();
-	}
+    // get debug string
+    string toString() const {
+        StringStream msg;
+        msg << "GameWorldInfo("
+            << "WorldID: " << (int)m_ID << ",Name:" << m_Name << ")";
+        return msg.toString();
+    }
 
-private :
+private:
+    // GameWorld ID
+    WorldID_t m_ID;
 
-	// GameWorld ID
-	WorldID_t m_ID;
+    // GameWorld Process's nick name
+    string m_Name;
 
-	// GameWorld Process's nick name
-	string m_Name;
-
-	// GameWorld status
-	WorldStatus m_Status;
-
+    // GameWorld status
+    WorldStatus m_Status;
 };
 
 #endif

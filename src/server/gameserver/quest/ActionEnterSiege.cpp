@@ -1,179 +1,158 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionEnterSiege.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionEnterSiege.h"
-#include "PlayerCreature.h"
-#include "GamePlayer.h"
-#include "CastleInfoManager.h"
-#include "StringStream.h"
-#include "StringPool.h"
-#include "Zone.h"
-#include "WarScheduler.h"
-#include "ZoneUtil.h"
-#include "WarSchedule.h"
-#include "WarSystem.h"
-#include "SiegeWar.h"
-#include "SiegeManager.h"
-#include "GuildManager.h"
-#include "EventTransport.h"
-#include "CreatureUtil.h"
-#include "WarSystem.h"
 
 #include <stdio.h>
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
+#include "CastleInfoManager.h"
+#include "CreatureUtil.h"
+#include "EventTransport.h"
 #include "GCModifyInformation.h"
+#include "GCMoveOK.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCUpdateInfo.h"
+#include "GamePlayer.h"
+#include "GuildManager.h"
+#include "PlayerCreature.h"
+#include "SiegeManager.h"
+#include "SiegeWar.h"
+#include "StringPool.h"
+#include "StringStream.h"
+#include "WarSchedule.h"
+#include "WarScheduler.h"
+#include "WarSystem.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void ActionEnterSiege::read (PropertyBuffer & pb)
-    
+void ActionEnterSiege::read(PropertyBuffer& pb)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		m_ZoneID = pb.getPropertyInt("ZoneID");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        m_ZoneID = pb.getPropertyInt("ZoneID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 咀记阑 角青茄促.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionEnterSiege::execute (Creature * pNPC , Creature * pCreature) 
-	
+void ActionEnterSiege::execute(Creature* pNPC, Creature* pCreature)
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isPC());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isPC());
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
-	if ( !g_pWarSystem->hasCastleActiveWar( m_ZoneID ) )
-	{
-		GCSystemMessage gcSM;
-		gcSM.setMessage( "只能在进行攻城战中进入.");
-		pGamePlayer->sendPacket( &gcSM );
-		return;
-	}
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
+    if (!g_pWarSystem->hasCastleActiveWar(m_ZoneID)) {
+        GCSystemMessage gcSM;
+        gcSM.setMessage("只能在进行攻城战中进入.");
+        pGamePlayer->sendPacket(&gcSM);
+        return;
+    }
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	Assert( pPC != NULL );
+    Assert(pPC != NULL);
 
-	Zone* pZone = getZoneByZoneID( m_ZoneID );
-	Assert( pZone != NULL );
+    Zone* pZone = getZoneByZoneID(m_ZoneID);
+    Assert(pZone != NULL);
 
-	WarScheduler* pWS = pZone->getWarScheduler();
-	Assert( pWS != NULL );
+    WarScheduler* pWS = pZone->getWarScheduler();
+    Assert(pWS != NULL);
 
-	ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID( m_ZoneID );
-	Assert(siegeZoneID != 0 );
+    ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID(m_ZoneID);
+    Assert(siegeZoneID != 0);
 
-/*	WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(pWS->getRecentSchedule());
-	if ( pSchedule == NULL )
-	{
-		return;
-	}*/
+    /*	WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(pWS->getRecentSchedule());
+        if ( pSchedule == NULL )
+        {
+            return;
+        }*/
 
-	SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(g_pWarSystem->getActiveWar( m_ZoneID ));
-	if ( pSiegeWar == NULL )
-	{
-		GCSystemMessage gcSM;
-		gcSM.setMessage( "第1个服务器发生故障，请与运营商联系.");
-		pGamePlayer->sendPacket( &gcSM );
-		return;
-	}
+    SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(g_pWarSystem->getActiveWar(m_ZoneID));
+    if (pSiegeWar == NULL) {
+        GCSystemMessage gcSM;
+        gcSM.setMessage("第1个服务器发生故障，请与运营商联系.");
+        pGamePlayer->sendPacket(&gcSM);
+        return;
+    }
 
-	int side = pSiegeWar->getGuildSide( pPC->getGuildID() );
-	if ( side == 0 )
-	{
-		GCSystemMessage gcSM;
-		gcSM.setMessage( "不是申请战斗的行会.");
-		pGamePlayer->sendPacket( &gcSM );
-		return;
-	}
-	
-	if ( !g_pGuildManager->isGuildMaster( pPC->getGuildID(), pPC ) )
-	{
-		GCSystemMessage gcSM;
-		gcSM.setMessage( "只有行会会长,才可以进行申请.");
-		pGamePlayer->sendPacket( &gcSM );
-		return;
-	}
+    int side = pSiegeWar->getGuildSide(pPC->getGuildID());
+    if (side == 0) {
+        GCSystemMessage gcSM;
+        gcSM.setMessage("不是申请战斗的行会.");
+        pGamePlayer->sendPacket(&gcSM);
+        return;
+    }
 
-	static TPOINT targetPos[7] =
-	{
-		{172, 38},
-		{172, 38},
-		{20, 232},
-		{20, 232},
-		{20, 232},
-		{20, 232},
-		{20, 232}
-	};
+    if (!g_pGuildManager->isGuildMaster(pPC->getGuildID(), pPC)) {
+        GCSystemMessage gcSM;
+        gcSM.setMessage("只有行会会长,才可以进行申请.");
+        pGamePlayer->sendPacket(&gcSM);
+        return;
+    }
 
-	// 家券磊狼 粮苞 谅钎.
-	ZoneID_t ZoneNum = siegeZoneID;
-	Coord_t ZoneX = targetPos[side-1].x;
-	Coord_t ZoneY = targetPos[side-1].y;
+    static TPOINT targetPos[7] = {{172, 38}, {172, 38}, {20, 232}, {20, 232}, {20, 232}, {20, 232}, {20, 232}};
 
-	for ( int i=0; i<7; ++i )
-	{
-		deleteCreatureEffect( pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + i) );
-	}
+    // 家券磊狼 粮苞 谅钎.
+    ZoneID_t ZoneNum = siegeZoneID;
+    Coord_t ZoneX = targetPos[side - 1].x;
+    Coord_t ZoneY = targetPos[side - 1].y;
 
-	if ( side < 8 && side > 0 )
-	{
-		cout << "side : " << side << endl;
-		addSimpleCreatureEffect( pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + side - 1) );
-	}
+    for (int i = 0; i < 7; ++i) {
+        deleteCreatureEffect(pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + i));
+    }
 
-	EventTransport* pEvent = dynamic_cast<EventTransport*>(pGamePlayer->getEvent(Event::EVENT_CLASS_TRANSPORT));
-	bool newEvent = false;
-	if (pEvent==NULL)
-	{
-		pEvent = new EventTransport(pGamePlayer);
-		newEvent = true;
-	}
+    if (side < 8 && side > 0) {
+        cout << "side : " << side << endl;
+        addSimpleCreatureEffect(pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + side - 1));
+    }
 
-//		pEvent = new EventTransport(pGamePlayer);
-	pEvent->setTargetZone( ZoneNum, ZoneX, ZoneY );
-	pEvent->setDeadline(0);
+    EventTransport* pEvent = dynamic_cast<EventTransport*>(pGamePlayer->getEvent(Event::EVENT_CLASS_TRANSPORT));
+    bool newEvent = false;
+    if (pEvent == NULL) {
+        pEvent = new EventTransport(pGamePlayer);
+        newEvent = true;
+    }
 
-	if ( newEvent )
-		pGamePlayer->addEvent( pEvent );
+    //		pEvent = new EventTransport(pGamePlayer);
+    pEvent->setTargetZone(ZoneNum, ZoneX, ZoneY);
+    pEvent->setDeadline(0);
 
-	__END_DEBUG
-	__END_CATCH
+    if (newEvent)
+        pGamePlayer->addEvent(pEvent);
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionEnterSiege::toString () const 
-	
+string ActionEnterSiege::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionEnterSiege("
-	    << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionEnterSiege("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

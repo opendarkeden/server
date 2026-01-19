@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCTakeOutOKHandler::execute (GCTakeOutOK * pGCTakeOutOK , Player * pPlayer )
-	 
+void GCTakeOutOKHandler::execute(GCTakeOutOK* pGCTakeOutOK, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCTakeOutOK->toString() << endl;
-	
+    // cout << pGCTakeOutOK->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCTakeOutOK->toString().c_str());
+        AfxMessageBox(pGCTakeOutOK->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -2,7 +2,7 @@
 //
 // Filename    : LCLoginOKHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //----------------------------------------------------------------------
 
@@ -11,8 +11,8 @@
 
 #ifdef __GAME_CLIENT__
 
-	#include "ClientPlayer.h"
-	#include "CLGetPCList.h"
+#include "CLGetPCList.h"
+#include "ClientPlayer.h"
 
 #endif
 
@@ -23,23 +23,23 @@
 // 이제 로그인 서버에게 PC 의 리스트를 요청하는 패킷을 전송하면 된다.
 //
 //----------------------------------------------------------------------
-void LCLoginOKHandler::execute (LCLoginOK * pPacket , Player * pPlayer )
-	 
+void LCLoginOKHandler::execute(LCLoginOK* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_CLIENT__
 
-	ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
+        ClientPlayer* pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 
-	CLGetPCList clGetPCList;
+    CLGetPCList clGetPCList;
 
-	pClientPlayer->sendPacket(&clGetPCList);
-	
-	// 플레이어의 상태를 바꾼다.
-	pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_GET_PC_LIST);
+    pClientPlayer->sendPacket(&clGetPCList);
+
+    // 플레이어의 상태를 바꾼다.
+    pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_GET_PC_LIST);
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+    __END_DEBUG_EX __END_CATCH
 }

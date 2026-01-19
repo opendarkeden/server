@@ -1,99 +1,88 @@
 #include "EffectPoisonMesh.h"
+
 #include "Creature.h"
-#include "PlayerCreature.h"
-#include "Player.h"
-#include "SkillUtil.h"
-#include "Zone.h"
 #include "GCModifyInformation.h"
 #include "GCRemoveEffect.h"
+#include "Player.h"
+#include "PlayerCreature.h"
+#include "SkillUtil.h"
+#include "Zone.h"
 
-EffectPoisonMesh::EffectPoisonMesh(Creature* pCreature) 
-{
-	__BEGIN_TRY
+EffectPoisonMesh::EffectPoisonMesh(Creature* pCreature) {
+    __BEGIN_TRY
 
-	m_pTarget = pCreature;
-	m_pZone = pCreature->getZone();
+    m_pTarget = pCreature;
+    m_pZone = pCreature->getZone();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectPoisonMesh::affect() 
-{
-	__BEGIN_TRY
+void EffectPoisonMesh::affect() {
+    __BEGIN_TRY
 
-	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-	{
-		affect( dynamic_cast<Creature*>(m_pTarget) );
-	}
+    if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+        affect(dynamic_cast<Creature*>(m_pTarget));
+    }
 
-	setNextTime(10);
+    setNextTime(10);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectPoisonMesh::affect(Creature* pCreature) 
-{
-	__BEGIN_TRY
+void EffectPoisonMesh::affect(Creature* pCreature) {
+    __BEGIN_TRY
 
-	if ( pCreature == NULL ) return;
-	
-	Creature* pCastCreature = m_pZone->getCreature( getCasterID() );
+    if (pCreature == NULL)
+        return;
 
-	if ( canAttack( pCastCreature, pCreature )
-	&& !(m_pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
-	{
-		if ( pCreature->isPC() )
-		{
-			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    Creature* pCastCreature = m_pZone->getCreature(getCasterID());
 
-			GCModifyInformation gcMI;
-			::setDamage( pPC, getDamage(), pCastCreature, SKILL_POISON_MESH, &gcMI );
-			pPC->getPlayer()->sendPacket( &gcMI );
-		}
-		else if ( pCreature->isMonster() )
-		{
-			::setDamage( pCreature, getDamage(), pCastCreature, SKILL_POISON_MESH );
-		}
-	}
+    if (canAttack(pCastCreature, pCreature) && !(m_pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)) {
+        if (pCreature->isPC()) {
+            PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	__END_CATCH
+            GCModifyInformation gcMI;
+            ::setDamage(pPC, getDamage(), pCastCreature, SKILL_POISON_MESH, &gcMI);
+            pPC->getPlayer()->sendPacket(&gcMI);
+        } else if (pCreature->isMonster()) {
+            ::setDamage(pCreature, getDamage(), pCastCreature, SKILL_POISON_MESH);
+        }
+    }
+
+    __END_CATCH
 }
 
-void EffectPoisonMesh::unaffect() 
-{
-	__BEGIN_TRY
+void EffectPoisonMesh::unaffect() {
+    __BEGIN_TRY
 
-	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-	{
-		unaffect( dynamic_cast<Creature*>(m_pTarget) );
-	}
+    if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+        unaffect(dynamic_cast<Creature*>(m_pTarget));
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectPoisonMesh::unaffect( Creature* pCreature ) 
-{
-	__BEGIN_TRY
+void EffectPoisonMesh::unaffect(Creature* pCreature) {
+    __BEGIN_TRY
 
-	pCreature->removeFlag( getEffectClass() );
+    pCreature->removeFlag(getEffectClass());
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList( getSendEffectClass() );
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EffectPoisonMesh::toString() const throw()
-{
-	__BEGIN_TRY
+string EffectPoisonMesh::toString() const throw() {
+    __BEGIN_TRY
 
-	return "EffectPoisonMesh";
+    return "EffectPoisonMesh";
 
-	__END_CATCH
+    __END_CATCH
 }

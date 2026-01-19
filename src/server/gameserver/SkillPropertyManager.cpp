@@ -1,9 +1,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SkillProperty.cpp
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SkillPropertyManager.h"
+
 #include "Skill.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -11,57 +12,46 @@
 //////////////////////////////////////////////////////////////////////////////
 
 const int DefaultSkillMax = 20;
-const int DefaultSkill[DefaultSkillMax][4] = 
-{
-	// SkillType, bMelee, bMagic, bPhysic
-	{ SKILL_ATTACK_MELEE,		1, 0, 1 },
-	{ SKILL_ATTACK_ARMS,		0, 0, 1 },
-	{ SKILL_SELF,				0, 0, 0 },
-	{ SKILL_TILE,				0, 0, 0 },
-	{ SKILL_OBJECT,				0, 0, 0 },
-	{ SKILL_UN_BURROW,			0, 0, 0 },
-	{ SKILL_UN_TRANSFORM,		0, 0, 0 },
-	{ SKILL_UN_INVISIBILITY,	0, 0, 0 },
-	{ SKILL_THROW_HOLY_WATER,	0, 0, 0 },
-	{ SKILL_SUMMON_BAT,			0, 0, 0 },
-	{ SKILL_CHARM,				0, 0, 0 },
-	{ SKILL_POLYMORPH,			0, 0, 0 },
-	{ SKILL_HYPNOSIS,			0, 0, 0 },
-	{ SKILL_CURE_EFFECT,		0, 0, 0 },
-	{ SKILL_CRITICAL_EFFECT,	0, 0, 0 },
-	{ SKILL_REFLECTION_EFFECT,	0, 0, 0 },
-	{ SKILL_TEMP,				0, 0, 0 },
-	{ SKILL_DARKNESS_WIDE,		0, 1, 0 },
-	{ SKILL_POISON_STORM_WIDE,	0, 1, 0 },
-	{ SKILL_ACID_STORM_WIDE,	0, 1, 0 },
+const int DefaultSkill[DefaultSkillMax][4] = {
+    // SkillType, bMelee, bMagic, bPhysic
+    {SKILL_ATTACK_MELEE, 1, 0, 1},
+    {SKILL_ATTACK_ARMS, 0, 0, 1},
+    {SKILL_SELF, 0, 0, 0},
+    {SKILL_TILE, 0, 0, 0},
+    {SKILL_OBJECT, 0, 0, 0},
+    {SKILL_UN_BURROW, 0, 0, 0},
+    {SKILL_UN_TRANSFORM, 0, 0, 0},
+    {SKILL_UN_INVISIBILITY, 0, 0, 0},
+    {SKILL_THROW_HOLY_WATER, 0, 0, 0},
+    {SKILL_SUMMON_BAT, 0, 0, 0},
+    {SKILL_CHARM, 0, 0, 0},
+    {SKILL_POLYMORPH, 0, 0, 0},
+    {SKILL_HYPNOSIS, 0, 0, 0},
+    {SKILL_CURE_EFFECT, 0, 0, 0},
+    {SKILL_CRITICAL_EFFECT, 0, 0, 0},
+    {SKILL_REFLECTION_EFFECT, 0, 0, 0},
+    {SKILL_TEMP, 0, 0, 0},
+    {SKILL_DARKNESS_WIDE, 0, 1, 0},
+    {SKILL_POISON_STORM_WIDE, 0, 1, 0},
+    {SKILL_ACID_STORM_WIDE, 0, 1, 0},
 };
 
-SkillProperty::SkillProperty()
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+SkillProperty::SkillProperty(){__BEGIN_TRY __END_CATCH}
 
-SkillProperty::~SkillProperty()
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
+SkillProperty::~SkillProperty(){__BEGIN_TRY __END_CATCH_NO_RETHROW}
 
-string SkillProperty::toString() const
-{
-	__BEGIN_TRY
-	
-	StringStream msg;
-	msg << "(" << (int)m_SkillType << ":";
-	for ( int i = 0; i < SKILL_PROPERTY_TYPE_MAX; i++ )
-	{
-		msg << ( m_PropertyType.test( i ) ? "1" : "0" );
-	}
-	msg << ")";
-	return msg.toString();
+string SkillProperty::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "(" << (int)m_SkillType << ":";
+    for (int i = 0; i < SKILL_PROPERTY_TYPE_MAX; i++) {
+        msg << (m_PropertyType.test(i) ? "1" : "0");
+    }
+    msg << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 
@@ -70,137 +60,124 @@ string SkillProperty::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 SkillPropertyManager::SkillPropertyManager()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 SkillPropertyManager::~SkillPropertyManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	clear();
+    clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 void SkillPropertyManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_SkillProperties.reserve( SKILL_MAX );
+    m_SkillProperties.reserve(SKILL_MAX);
 
-	for ( int i = 0 ; i < SKILL_MAX; i++ )
-	{
-		m_SkillProperties[i] = NULL;
-	}
-	
-	initDefaultSkillProperty();
+    for (int i = 0; i < SKILL_MAX; i++) {
+        m_SkillProperties[i] = NULL;
+    }
 
-	__END_CATCH
+    initDefaultSkillProperty();
+
+    __END_CATCH
 }
 
 void SkillPropertyManager::clear()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	for ( int i = 0 ; i < SKILL_MAX; i++ )
-	{
-		SAFE_DELETE( m_SkillProperties[i] );
-	}
-	
-	m_SkillProperties.clear();
+    for (int i = 0; i < SKILL_MAX; i++) {
+        SAFE_DELETE(m_SkillProperties[i]);
+    }
 
-	__END_CATCH
+    m_SkillProperties.clear();
+
+    __END_CATCH
 }
 
 void SkillPropertyManager::initDefaultSkillProperty()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	for ( int i = 0; i < DefaultSkillMax; i++ )
-	{
-		SkillProperty* pSkillProperty = new SkillProperty();
-		pSkillProperty->setType( DefaultSkill[i][0] );
-		pSkillProperty->setMelee( DefaultSkill[i][1] );
-		pSkillProperty->setMagic( DefaultSkill[i][2] );
-		pSkillProperty->setPhysic( DefaultSkill[i][3] );
+    for (int i = 0; i < DefaultSkillMax; i++) {
+        SkillProperty* pSkillProperty = new SkillProperty();
+        pSkillProperty->setType(DefaultSkill[i][0]);
+        pSkillProperty->setMelee(DefaultSkill[i][1]);
+        pSkillProperty->setMagic(DefaultSkill[i][2]);
+        pSkillProperty->setPhysic(DefaultSkill[i][3]);
 
-		addSkillProperty( pSkillProperty );
-	}
+        addSkillProperty(pSkillProperty);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-SkillProperty* SkillPropertyManager::getSkillProperty(SkillType_t SkillType)
-	const 
-{
-	__BEGIN_TRY
+SkillProperty* SkillPropertyManager::getSkillProperty(SkillType_t SkillType) const {
+    __BEGIN_TRY
 
-	if (SkillType >= SKILL_MAX)
-	{
-		cerr << "SkillPropertyManager::getSkillProperty() : out of bounds" << endl;
-		throw OutOfBoundException ();
-	}
+    if (SkillType >= SKILL_MAX) {
+        cerr << "SkillPropertyManager::getSkillProperty() : out of bounds" << endl;
+        throw OutOfBoundException();
+    }
 
-	if (m_SkillProperties[SkillType] == NULL)
-	{
-		cerr << "SkillPropertyManager::getSkillProperty() : no such element" << endl;
-		throw NoSuchElementException ();
-	}
+    if (m_SkillProperties[SkillType] == NULL) {
+        cerr << "SkillPropertyManager::getSkillProperty() : no such element" << endl;
+        throw NoSuchElementException();
+    }
 
-	return m_SkillProperties[SkillType];
-	
-	__END_CATCH
+    return m_SkillProperties[SkillType];
+
+    __END_CATCH
 }
 
-void SkillPropertyManager::addSkillProperty( SkillProperty* pSkillProperty )
-{
-	__BEGIN_TRY
+void SkillPropertyManager::addSkillProperty(SkillProperty* pSkillProperty) {
+    __BEGIN_TRY
 
-	if (pSkillProperty->getType() >= SKILL_MAX)
-	{
-		cerr << "SkillPropertyManager::getSkillProperty() : out of bounds" << endl;
-		throw OutOfBoundException ();
-	}
+    if (pSkillProperty->getType() >= SKILL_MAX) {
+        cerr << "SkillPropertyManager::getSkillProperty() : out of bounds" << endl;
+        throw OutOfBoundException();
+    }
 
-	if (m_SkillProperties[pSkillProperty->getType()] != NULL)
-	{
-		cerr << "SkillPropertyManager::getSkillProperty() : Dup element" << endl;
-		throw DuplicatedException ();
-	}
+    if (m_SkillProperties[pSkillProperty->getType()] != NULL) {
+        cerr << "SkillPropertyManager::getSkillProperty() : Dup element" << endl;
+        throw DuplicatedException();
+    }
 
-	m_SkillProperties[ pSkillProperty->getType() ] = pSkillProperty;
+    m_SkillProperties[pSkillProperty->getType()] = pSkillProperty;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // SkillPropertyManager:: toString()
 string SkillPropertyManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "SkillPropertyManager(\n";
+    msg << "SkillPropertyManager(\n";
 
-	for (int i = 0 ; i < (int)SKILL_MAX; i ++)
-	{
-		msg << m_SkillProperties[i]->toString() << ",";
-	}
+    for (int i = 0; i < (int)SKILL_MAX; i++) {
+        msg << m_SkillProperties[i]->toString() << ",";
+    }
 
-	msg << "\n)";
+    msg << "\n)";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Global Variable definition

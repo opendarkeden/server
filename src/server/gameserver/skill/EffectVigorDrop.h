@@ -5,9 +5,9 @@
 // Writer      : 장홍창
 // Date        : 2002.3.28
 // Description :
-//               해당 Effect는 Vigor Drop이 땅으로 떨어질때의 Effect를 구현하기 
-//               위한 Effect이다. 
-//             
+//               해당 Effect는 Vigor Drop이 땅으로 떨어질때의 Effect를 구현하기
+//               위한 Effect이다.
+//
 // History
 //     DATE      WRITER         DESCRIPTION
 // =========== =========== =====================================================
@@ -21,63 +21,84 @@
 #include "Effect.h"
 #include "EffectLoader.h"
 
-class EffectVigorDrop : public Effect
-{
+class EffectVigorDrop : public Effect {
 public:
-	EffectVigorDrop(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
+    EffectVigorDrop(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_VIGOR_DROP; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_VIGOR_DROP;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void affect();
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	string toString() const throw();
+    string toString() const throw();
 
 public:
-//	string getCasterName(void) const { return m_CasterName; }
-//	void setCasterName(const string & CasterName ) { m_CasterName = CasterName; }
+    //	string getCasterName(void) const { return m_CasterName; }
+    //	void setCasterName(const string & CasterName ) { m_CasterName = CasterName; }
 
-//	int getPartyID(void) const { return m_PartyID; }
-//	void setPartyID(int PartyID) { m_PartyID = PartyID; }
+    //	int getPartyID(void) const { return m_PartyID; }
+    //	void setPartyID(int PartyID) { m_PartyID = PartyID; }
 
-	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+    ObjectID_t getUserObjectID() const {
+        return m_UserObjectID;
+    }
+    void setUserObjectID(ObjectID_t UserObjectID) {
+        m_UserObjectID = UserObjectID;
+    }
 
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
 
-	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t Tick) { m_Tick = Tick; }
+    Turn_t getTick() const {
+        return m_Tick;
+    }
+    void setTick(Turn_t Tick) {
+        m_Tick = Tick;
+    }
 
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
+    int getLevel(void) const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
 
-	bool affectCreature(Creature* pCreature, bool bAffectByMove) ; 
+    bool affectCreature(Creature* pCreature, bool bAffectByMove);
+
 private:
-//	string  m_CasterName;
-//	int     m_PartyID;
-	ObjectID_t	m_UserObjectID;
-	int 	 	m_Damage;  	    // EffectVigorDrop Damage;
-	Turn_t 		m_Tick;			// EffectVigorDrop turn;	
-	int 		m_Level;		// EffectVigorDrop level;
-	Duration_t 	m_Duration;		// EffectVigorDrop Duration;
-	Duration_t  m_StormDuration; // VigorDrop Effect 지속 시간 
+    //	string  m_CasterName;
+    //	int     m_PartyID;
+    ObjectID_t m_UserObjectID;
+    int m_Damage;               // EffectVigorDrop Damage;
+    Turn_t m_Tick;              // EffectVigorDrop turn;
+    int m_Level;                // EffectVigorDrop level;
+    Duration_t m_Duration;      // EffectVigorDrop Duration;
+    Duration_t m_StormDuration; // VigorDrop Effect 지속 시간
 };
 
-class EffectVigorDropLoader : public EffectLoader
-{
+class EffectVigorDropLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_VIGOR_DROP; }
-	virtual string getEffectClassName() const throw() { return "EffectVigorDrop"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_VIGOR_DROP;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectVigorDrop";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 extern EffectVigorDropLoader* g_pEffectVigorDropLoader;

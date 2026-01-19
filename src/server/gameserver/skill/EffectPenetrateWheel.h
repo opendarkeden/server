@@ -14,35 +14,48 @@
 // class EffectPenetrateWheel
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectPenetrateWheel : public Effect 
-{
+class EffectPenetrateWheel : public Effect {
 public:
-	EffectPenetrateWheel(Creature* pCreature);
-
-public:
-  EffectClass getEffectClass() const { return EFFECT_CLASS_Penetrate_Wheel; }
-
-	void affect() ;
-	void affect(Creature* pCreature);
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature);
-	string toString() const;
+    EffectPenetrateWheel(Creature* pCreature);
 
 public:
-	void		setCasterID( ObjectID_t objectID ) { m_CasterID = objectID; }
-	ObjectID_t	getCasterID() const { return m_CasterID; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_Penetrate_Wheel;
+    }
 
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    void affect();
+    void affect(Creature* pCreature);
 
-	bool		canSteal() const { return m_CanSteal; }
-	void		setSteal(bool steal) { m_CanSteal = steal; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    string toString() const;
+
+public:
+    void setCasterID(ObjectID_t objectID) {
+        m_CasterID = objectID;
+    }
+    ObjectID_t getCasterID() const {
+        return m_CasterID;
+    }
+
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
+
+    bool canSteal() const {
+        return m_CanSteal;
+    }
+    void setSteal(bool steal) {
+        m_CanSteal = steal;
+    }
 
 private:
-	ObjectID_t	m_CasterID;
-	Damage_t	m_Damage;
-	bool		m_CanSteal;
+    ObjectID_t m_CasterID;
+    Damage_t m_Damage;
+    bool m_CanSteal;
 };
 
 #endif // __EFFECT_Penetrate_Wheel__

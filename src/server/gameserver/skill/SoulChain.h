@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SoulChain.h 
+// Filename    : SoulChain.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SOUL_CHAIN_HANDLER_H__
@@ -13,21 +13,26 @@
 // class SoulChain;
 //////////////////////////////////////////////////////////////////////////////
 
-class SoulChain: public SkillHandler 
-{
+class SoulChain : public SkillHandler {
 public:
-	SoulChain() throw() {}
-	~SoulChain() throw() {}
-	
+    SoulChain() throw() {}
+    ~SoulChain() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SoulChain"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SOUL_CHAIN; }
+    string getSkillHandlerName() const throw() {
+        return "SoulChain";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SOUL_CHAIN;
+    }
 
-	void execute(Slayer* pSlayer, const string& targetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, const string& targetName, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, const string& targetName, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, const string& targetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, const string& targetName, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, const string& targetName, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

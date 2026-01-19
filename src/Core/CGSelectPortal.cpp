@@ -1,64 +1,60 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSelectPortal.cpp 
+// Filename    : CGSelectPortal.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGSelectPortal.h"
 
-CGSelectPortal::CGSelectPortal () 
-     
+CGSelectPortal::CGSelectPortal()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGSelectPortal::~CGSelectPortal()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGSelectPortal::~CGSelectPortal () 
-    
+void CGSelectPortal::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ZoneID);
+
+    __END_CATCH
 }
 
-void CGSelectPortal::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_ZoneID);
+void CGSelectPortal::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ZoneID);
+
+    __END_CATCH
 }
 
-void CGSelectPortal::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_ZoneID);
+void CGSelectPortal::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGSelectPortalHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-void CGSelectPortal::execute (Player* pPlayer) 
-	 
+string CGSelectPortal::toString() const
+
 {
-	__BEGIN_TRY
-		
-	CGSelectPortalHandler::execute(this , pPlayer);
+    __BEGIN_TRY
 
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGSelectPortal(ZoneID " << (int)m_ZoneID << ")";
+    return msg.toString();
 
-string CGSelectPortal::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-    msg << "CGSelectPortal(ZoneID " <<(int) m_ZoneID
-		<< ")" ;
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

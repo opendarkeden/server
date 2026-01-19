@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddGearToZone.h 
+// Filename    : GCAddGearToZone.h
 // Written By  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ADD_GEAR_TO_ZONE_H__
@@ -14,27 +14,36 @@
 // class GCAddGearToZone;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddGearToZone : public Packet 
-{
+class GCAddGearToZone : public Packet {
 public:
-	GCAddGearToZone() ;
-	~GCAddGearToZone() noexcept ;
+    GCAddGearToZone();
+    ~GCAddGearToZone() noexcept;
 
-public :
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_ADD_GEAR_TO_ZONE; }
-	PacketSize_t getPacketSize() const  { return szSlotID; }
-	string getPacketName() const  { return "GCAddGearToZone"; }
-	string toString() const ;
-	
 public:
-	SlotID_t getSlotID()  { return m_SlotID; }
-	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_ADD_GEAR_TO_ZONE;
+    }
+    PacketSize_t getPacketSize() const {
+        return szSlotID;
+    }
+    string getPacketName() const {
+        return "GCAddGearToZone";
+    }
+    string toString() const;
+
+public:
+    SlotID_t getSlotID() {
+        return m_SlotID;
+    }
+    void setSlotID(SlotID_t SlotID) {
+        m_SlotID = SlotID;
+    }
 
 private:
-	SlotID_t m_SlotID; // SlotID
+    SlotID_t m_SlotID; // SlotID
 };
 
 
@@ -42,23 +51,29 @@ private:
 // class GCAddGearToZoneFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddGearToZoneFactory : public PacketFactory 
-{
+class GCAddGearToZoneFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new GCAddGearToZone(); }
-	string getPacketName() const  { return "GCAddGearToZone"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_GEAR_TO_ZONE; }
-	PacketSize_t getPacketMaxSize() const  { return szSlotID; }
+    Packet* createPacket() {
+        return new GCAddGearToZone();
+    }
+    string getPacketName() const {
+        return "GCAddGearToZone";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_ADD_GEAR_TO_ZONE;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szSlotID;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddGearToZoneHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddGearToZoneHandler 
-{
+class GCAddGearToZoneHandler {
 public:
-	static void execute(GCAddGearToZone* pPacket, Player* player) ;
+    static void execute(GCAddGearToZone* pPacket, Player* player);
 };
 
 #endif

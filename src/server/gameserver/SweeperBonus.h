@@ -7,45 +7,64 @@
 #ifndef __SWEEPER_BONUS_H__
 #define __SWEEPER_BONUS_H__
 
-#include "Types.h"
 #include "ItemUtil.h"
+#include "Types.h"
 
-typedef list<OptionType_t>				OptionTypeList;
-typedef OptionTypeList::iterator		OptionTypeListItor;
-typedef OptionTypeList::const_iterator	OptionTypeListConstItor;
+typedef list<OptionType_t> OptionTypeList;
+typedef OptionTypeList::iterator OptionTypeListItor;
+typedef OptionTypeList::const_iterator OptionTypeListConstItor;
 
-class SweeperBonus
-{
+class SweeperBonus {
+public:
+    SweeperBonus() {}
+    ~SweeperBonus() {
+        clearOptionTypeList();
+    }
 
 public:
-	SweeperBonus()  {}
-	~SweeperBonus()  { clearOptionTypeList(); }
+    SweeperBonusType_t getType() const {
+        return m_Type;
+    }
+    void setType(DWORD type) {
+        m_Type = type;
+    }
 
-public:
-	SweeperBonusType_t getType() const { return m_Type; }
-	void setType( DWORD type ) { m_Type = type; }
+    string getName() const {
+        return m_Name;
+    }
+    void setName(string name) {
+        m_Name = name;
+    }
 
-	string getName() const { return m_Name; }
-	void setName( string name ) { m_Name = name; }
+    int getLevel() const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
 
-	int getLevel() const { return m_Level; }
-	void setLevel( int level ) { m_Level = level; }
+    Race_t getRace() const {
+        return m_Race;
+    }
+    void setRace(Race_t race);
 
-	Race_t getRace() const { return m_Race; }
-	void setRace( Race_t race );
-
-	void clearOptionTypeList() { m_OptionTypeList.clear(); }
-	const OptionTypeList& getOptionTypeList() const { return m_OptionTypeList; }
-	void setOptionTypeList( const string& optionList ) { makeOptionList( optionList, m_OptionTypeList ); } 
-	string toString() const ;
+    void clearOptionTypeList() {
+        m_OptionTypeList.clear();
+    }
+    const OptionTypeList& getOptionTypeList() const {
+        return m_OptionTypeList;
+    }
+    void setOptionTypeList(const string& optionList) {
+        makeOptionList(optionList, m_OptionTypeList);
+    }
+    string toString() const;
 
 protected:
-	SweeperBonusType_t		m_Type;
-	string					m_Name;
-	int						m_Level;
-	Race_t					m_Race;
-	OptionTypeList			m_OptionTypeList;
-
+    SweeperBonusType_t m_Type;
+    string m_Name;
+    int m_Level;
+    Race_t m_Race;
+    OptionTypeList m_OptionTypeList;
 };
 
 #endif

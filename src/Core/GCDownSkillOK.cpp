@@ -1,73 +1,69 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCDownSkillOK.cc 
+//
+// Filename    : GCDownSkillOK.cc
 // Written By  : elca@ewestsoft.com
 // Description : Skill이 실패 했을때 날려주는 패킷의 멤버 정의
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCDownSkillOK.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCDownSkillOK::GCDownSkillOK () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCDownSkillOK::GCDownSkillOK()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCDownSkillOK::~GCDownSkillOK () 
-    
+GCDownSkillOK::~GCDownSkillOK()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCDownSkillOK::read (SocketInputStream & iStream ) 
-	 
+void GCDownSkillOK::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	iStream.read(m_SkillType);
-	__END_CATCH
+    __BEGIN_TRY
+    iStream.read(m_SkillType);
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCDownSkillOK::write (SocketOutputStream & oStream ) const 
-     
+void GCDownSkillOK::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	oStream.write(m_SkillType);
-	__END_CATCH
+    __BEGIN_TRY
+    oStream.write(m_SkillType);
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCDownSkillOK::execute (Player * pPlayer ) 
-	 
+void GCDownSkillOK::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCDownSkillOKHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCDownSkillOKHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -76,18 +72,15 @@ void GCDownSkillOK::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCDownSkillOK::toString () const
-       
+string GCDownSkillOK::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCDownSkillOK("
-		<< "SkillType:" << (int)m_SkillType
-		<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCDownSkillOK("
+        << "SkillType:" << (int)m_SkillType << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

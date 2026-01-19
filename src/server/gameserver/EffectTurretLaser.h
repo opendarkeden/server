@@ -13,20 +13,21 @@
 // class EffectTurretLaser
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectTurretLaser : public Effect 
-{
+class EffectTurretLaser : public Effect {
 public:
-	EffectTurretLaser(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
+    EffectTurretLaser(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_TURRET_LASER; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_TURRET_LASER;
+    }
 
-	void affect() ;
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void affect();
+    void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void unaffect() ;
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 };
 
 #endif

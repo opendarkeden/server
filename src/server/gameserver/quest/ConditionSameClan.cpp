@@ -1,48 +1,49 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionSameClan.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionSameClan.h"
-#include "PlayerCreature.h"
+
 #include "FlagSet.h"
+#include "PlayerCreature.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionSameClan::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionSameClan::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	if (pCreature1->getClanType() == pCreature2->getClanType()) return true;
+{
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	return false;
+    if (pCreature1->getClanType() == pCreature2->getClanType())
+        return true;
+
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionSameClan::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionSameClan::read(PropertyBuffer& propertyBuffer)
+
+{}
+
+////////////////////////////////////////////////////////////////////////////////
+// get debug string
+////////////////////////////////////////////////////////////////////////////////
+string ConditionSameClan::toString() const
+
 {
-}
+    __BEGIN_TRY
 
-////////////////////////////////////////////////////////////////////////////////
-	// get debug string
-////////////////////////////////////////////////////////////////////////////////
-string ConditionSameClan::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+    StringStream msg;
+    msg << "ConditionSameClan("
+        << ")";
+    return msg.toString();
 
-	StringStream msg;
-	msg << "ConditionSameClan("
-		<< ")"; 
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

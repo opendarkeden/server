@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : JabbingVein.h 
+// Filename    : JabbingVein.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_JABBING_VEIN_HANDLER_H__
@@ -13,20 +13,23 @@
 // class JabbingVein;
 //////////////////////////////////////////////////////////////////////////////
 
-class JabbingVein : public SkillHandler 
-{
+class JabbingVein : public SkillHandler {
 public:
-	JabbingVein() throw() {}
-	~JabbingVein() throw() {}
+    JabbingVein() throw() {}
+    ~JabbingVein() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "JabbingVein"; }
-	SkillType_t getSkillType() const throw() { return SKILL_JABBING_VEIN; }
+    string getSkillHandlerName() const throw() {
+        return "JabbingVein";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_JABBING_VEIN;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

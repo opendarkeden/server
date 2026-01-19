@@ -1,74 +1,72 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLQueryCharacterName.cpp 
+// Filename    : CLQueryCharacterName.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLQueryCharacterName.h"
 
-void CLQueryCharacterName::read (SocketInputStream & iStream) 
-	 
+void CLQueryCharacterName::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// read player id
-	BYTE szCharacterName;
+    // read player id
+    BYTE szCharacterName;
 
-	iStream.read(szCharacterName);
+    iStream.read(szCharacterName);
 
-	if (szCharacterName == 0)
-		throw InvalidProtocolException("szCharacterName == 0");
+    if (szCharacterName == 0)
+        throw InvalidProtocolException("szCharacterName == 0");
 
-	if (szCharacterName > 20)
-		throw InvalidProtocolException("too long CharacterName length");
+    if (szCharacterName > 20)
+        throw InvalidProtocolException("too long CharacterName length");
 
-	iStream.read(m_CharacterName , szCharacterName);
+    iStream.read(m_CharacterName, szCharacterName);
 
-	__END_CATCH
-}
-		    
-void CLQueryCharacterName::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-
-	// write player id
-	BYTE szCharacterName = m_CharacterName.size();
-
-	if (szCharacterName == 0)
-		throw InvalidProtocolException("empty CharacterName");
-
-	if (szCharacterName > 20)
-		throw InvalidProtocolException("too long CharacterName length");
-
-	oStream.write(szCharacterName);
-
-	oStream.write(m_CharacterName);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLQueryCharacterName::execute (Player* pPlayer) 
-	 
+void CLQueryCharacterName::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	CLQueryCharacterNameHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    // write player id
+    BYTE szCharacterName = m_CharacterName.size();
+
+    if (szCharacterName == 0)
+        throw InvalidProtocolException("empty CharacterName");
+
+    if (szCharacterName > 20)
+        throw InvalidProtocolException("too long CharacterName length");
+
+    oStream.write(szCharacterName);
+
+    oStream.write(m_CharacterName);
+
+    __END_CATCH
 }
 
-string CLQueryCharacterName::toString () const
-	
+void CLQueryCharacterName::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CLQueryCharacterName("
-		<< "CharacterName:" << m_CharacterName 
-		<< ")";
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CLQueryCharacterNameHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
+string CLQueryCharacterName::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CLQueryCharacterName("
+        << "CharacterName:" << m_CharacterName << ")";
+    return msg.toString();
+
+    __END_CATCH
+}

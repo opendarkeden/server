@@ -2,7 +2,7 @@
 //
 // Filename    : GCUpdateInfoHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //----------------------------------------------------------------------
 
@@ -11,10 +11,10 @@
 
 #ifdef __GAME_CLIENT__
 
-	#include "ClientPlayer.h"
-	#include "PCSlayerInfo2.h"
-	#include "PCVampireInfo2.h"
-	#include "CGReady.h"
+#include "CGReady.h"
+#include "ClientPlayer.h"
+#include "PCSlayerInfo2.h"
+#include "PCVampireInfo2.h"
 
 #endif
 
@@ -23,32 +23,32 @@
 // 패킷 안의 데이터들을 클라이언트에 저장한 후, 데이터 로딩이
 // 끝이 나면 게임 서버로 CGReady 패킷을 보내면 된다.
 //----------------------------------------------------------------------
-void GCUpdateInfoHandler::execute (GCUpdateInfo * pPacket , Player * pPlayer )
-	 
+void GCUpdateInfoHandler::execute(GCUpdateInfo* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_CLIENT__
 
-	ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
+        ClientPlayer* pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 
-	//cout << pPacket->toString() << endl;
+    // cout << pPacket->toString() << endl;
 
-	//--------------------------------------------------
-	// 데이터 로딩을 시작한다.
-	//--------------------------------------------------
-	pClientPlayer->setPlayerStatus(CPS_WAITING_FOR_LOADING);
+    //--------------------------------------------------
+    // 데이터 로딩을 시작한다.
+    //--------------------------------------------------
+    pClientPlayer->setPlayerStatus(CPS_WAITING_FOR_LOADING);
 
-		// ... 로딩 로딩 ... 
+    // ... 로딩 로딩 ...
 
-	//--------------------------------------------------
-	// 게임 서버로 CGReady 패킷을 보낸다.
-	//--------------------------------------------------
-	CGReady cgReady;
-	pClientPlayer->sendPacket(&cgReady);
-	pClientPlayer->setPlayerStatus(CPS_WAITING_FOR_GC_SET_POSITION);
+    //--------------------------------------------------
+    // 게임 서버로 CGReady 패킷을 보낸다.
+    //--------------------------------------------------
+    CGReady cgReady;
+    pClientPlayer->sendPacket(&cgReady);
+    pClientPlayer->setPlayerStatus(CPS_WAITING_FOR_GC_SET_POSITION);
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+    __END_DEBUG_EX __END_CATCH
 }

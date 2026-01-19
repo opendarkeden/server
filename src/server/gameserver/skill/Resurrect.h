@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Resurrect.h 
+// Filename    : Resurrect.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_RESURRECT_HANDLER_H__
@@ -13,20 +13,23 @@
 // class Resurrect;
 //////////////////////////////////////////////////////////////////////////////
 
-class Resurrect : public SkillHandler 
-{
+class Resurrect : public SkillHandler {
 public:
-	Resurrect() throw() {}
-	~Resurrect() throw() {}
-	
+    Resurrect() throw() {}
+    ~Resurrect() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Resurrect"; }
+    string getSkillHandlerName() const throw() {
+        return "Resurrect";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_RESURRECT; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_RESURRECT;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

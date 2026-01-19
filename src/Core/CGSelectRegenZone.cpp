@@ -1,50 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSelectRegenZone.cpp 
+// Filename    : CGSelectRegenZone.cpp
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGSelectRegenZone.h"
 
-void CGSelectRegenZone::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
+void CGSelectRegenZone::read(SocketInputStream& iStream)
 
-	iStream.read(m_RegenZoneID);
-		
-	__END_CATCH
-}
-		    
-void CGSelectRegenZone::write (SocketOutputStream & oStream) const 
-     
 {
-	__BEGIN_TRY
-		
-	oStream.write(m_RegenZoneID);
+    __BEGIN_TRY
 
-	__END_CATCH
+    iStream.read(m_RegenZoneID);
+
+    __END_CATCH
 }
 
-void CGSelectRegenZone::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGSelectRegenZoneHandler::execute(this , pPlayer);
+void CGSelectRegenZone::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_RegenZoneID);
+
+    __END_CATCH
 }
 
-string CGSelectRegenZone::toString () const
-       
+void CGSelectRegenZone::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    CGSelectRegenZoneHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string CGSelectRegenZone::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGSelectRegenZone("
-		<< ")" ;
-	return msg.toString();
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

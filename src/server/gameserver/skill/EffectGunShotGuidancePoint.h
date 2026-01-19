@@ -13,19 +13,20 @@
 // class EffectGunShotGuidancePoint
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectGunShotGuidancePoint : public Effect 
-{
+class EffectGunShotGuidancePoint : public Effect {
 public:
-	EffectGunShotGuidancePoint(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
+    EffectGunShotGuidancePoint(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GUN_SHOT_GUIDANCE_POINT; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_GUN_SHOT_GUIDANCE_POINT;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect() ;
+    void unaffect();
 
-	string toString() const throw();
+    string toString() const throw();
 
 private:
 };

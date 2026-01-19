@@ -6,8 +6,8 @@
 #define __BROADCAST_FILTER_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 // forward declaration
 class GamePlayer;
@@ -15,34 +15,31 @@ class GamePlayer;
 /////////////////////////////////////////////////////////////////////////////
 // class BroadcastFilter
 /////////////////////////////////////////////////////////////////////////////
-class BroadcastFilter
-{
+class BroadcastFilter {
 public:
-	BroadcastFilter() {}
-	virtual ~BroadcastFilter() {}
+    BroadcastFilter() {}
+    virtual ~BroadcastFilter() {}
 
 public:
-	virtual bool isSatisfy( GamePlayer* )  = 0;
-	virtual BroadcastFilter* Clone()  = 0;
+    virtual bool isSatisfy(GamePlayer*) = 0;
+    virtual BroadcastFilter* Clone() = 0;
 };
 
 
 /////////////////////////////////////////////////////////////////////////////
 // class BroadcastFilterRace
 /////////////////////////////////////////////////////////////////////////////
-class BroadcastFilterRace : public BroadcastFilter
-{
+class BroadcastFilterRace : public BroadcastFilter {
 public:
-	BroadcastFilterRace( Race_t race ) : m_Race(race) {}
-	virtual ~BroadcastFilterRace() {}
+    BroadcastFilterRace(Race_t race) : m_Race(race) {}
+    virtual ~BroadcastFilterRace() {}
 
 public:
-	virtual bool isSatisfy( GamePlayer* ) ;
-	virtual BroadcastFilter* Clone() ;
+    virtual bool isSatisfy(GamePlayer*);
+    virtual BroadcastFilter* Clone();
 
 private:
-	Race_t m_Race;
+    Race_t m_Race;
 };
 
 #endif
-

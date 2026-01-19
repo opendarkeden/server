@@ -10,14 +10,12 @@
 #include "RCSay.h"
 
 //----------------------------------------------------------------------
-// 
+//
 // RCSayHander::execute()
-// 
+//
 //----------------------------------------------------------------------
-void RCSayHandler::execute ( RCSay * pPacket )
-	 throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
-	
-	__END_CATCH
+void RCSayHandler::execute(RCSay* pPacket) throw(ProtocolException, Error) {
+    __BEGIN_TRY
+
+    __END_CATCH
 }

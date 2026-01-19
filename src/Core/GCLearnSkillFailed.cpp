@@ -1,75 +1,71 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCLearnSkillFailed.cc 
+//
+// Filename    : GCLearnSkillFailed.cc
 // Written By  : elca@ewestsoft.com
 // Description : Skill이 실패 했을때 날려주는 패킷의 멤버 정의
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCLearnSkillFailed.h"
 
 
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+GCLearnSkillFailed::GCLearnSkillFailed()
+
+    {__BEGIN_TRY __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-GCLearnSkillFailed::GCLearnSkillFailed() 
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCLearnSkillFailed::~GCLearnSkillFailed()
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-GCLearnSkillFailed::~GCLearnSkillFailed() 
-	
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCLearnSkillFailed::read (SocketInputStream & iStream ) 
-	 
+void GCLearnSkillFailed::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_SkillType);
-	iStream.read(m_Desc);
+    iStream.read(m_SkillType);
+    iStream.read(m_Desc);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCLearnSkillFailed::write (SocketOutputStream & oStream ) const 
-     
+void GCLearnSkillFailed::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_SkillType);
-	oStream.write(m_Desc);
+    oStream.write(m_SkillType);
+    oStream.write(m_Desc);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCLearnSkillFailed::execute (Player * pPlayer ) 
-	 
+void GCLearnSkillFailed::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCLearnSkillFailedHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCLearnSkillFailedHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -78,19 +74,16 @@ void GCLearnSkillFailed::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCLearnSkillFailed::toString () const
-       
+string GCLearnSkillFailed::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCLearnSkillFailed(" 
-	 		<< "SkillType:" << (int)m_SkillType << ","
-			<< "Desc:"      << (int)m_Desc
-			<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCLearnSkillFailed("
+        << "SkillType:" << (int)m_SkillType << ","
+        << "Desc:" << (int)m_Desc << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

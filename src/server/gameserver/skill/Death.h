@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Death.h 
-// Written By  : 
-// Description : 
+// Filename    : Death.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DEATH_HANDLER_H__
@@ -13,22 +13,25 @@
 // class Death;
 //////////////////////////////////////////////////////////////////////////////
 
-class Death : public SkillHandler 
-{
+class Death : public SkillHandler {
 public:
-	Death() throw() {}
-	~Death() throw() {}
-	
+    Death() throw() {}
+    ~Death() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Death"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DEATH; }
+    string getSkillHandlerName() const throw() {
+        return "Death";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DEATH;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) ;
+    void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -5,118 +5,109 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectProtectionFromAcid.h"
+
 #include "Creature.h"
-#include "Slayer.h"
 #include "DB.h"
 #include "GCRemoveEffect.h"
+#include "Slayer.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectProtectionFromAcid::EffectProtectionFromAcid(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectProtectionFromAcid::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Resist_t resist = pCreature->getResist(MAGIC_DOMAIN_ACID);
-	resist = min(MAX_RESIST,(int)(resist + m_Resist));
-	pCreature->setResist(MAGIC_DOMAIN_ACID, resist);
+    Resist_t resist = pCreature->getResist(MAGIC_DOMAIN_ACID);
+    resist = min(MAX_RESIST, (int)(resist + m_Resist));
+    pCreature->setResist(MAGIC_DOMAIN_ACID, resist);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectProtectionFromAcid::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectProtectionFromAcid::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectProtectionFromAcid::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectProtectionFromAcid::unaffect()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
-	
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	pCreature->removeFlag(Effect::EFFECT_CLASS_PROTECTION_FROM_ACID);
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Resist_t resist = pCreature->getResist(MAGIC_DOMAIN_ACID);
-	resist = max(0,(int)(resist - m_Resist));
-	pCreature->setResist(MAGIC_DOMAIN_ACID, resist);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_PROTECTION_FROM_ACID);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Resist_t resist = pCreature->getResist(MAGIC_DOMAIN_ACID);
+    resist = max(0, (int)(resist - m_Resist));
+    pCreature->setResist(MAGIC_DOMAIN_ACID, resist);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_PROTECTION_FROM_ACID);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	__END_DEBUG
-	__END_CATCH
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_PROTECTION_FROM_ACID);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectProtectionFromAcid::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
+void EffectProtectionFromAcid::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
+    {__BEGIN_TRY __END_CATCH}
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+string EffectProtectionFromAcid::toString() const throw() {
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "EffectProtectionFromAcid("
+        << "ObjectID:" << getObjectID() << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectProtectionFromAcid::toString()
-	const throw()
-{
-	__BEGIN_TRY
+void EffectProtectionFromAcidLoader::load(Creature* pCreature)
 
-	StringStream msg;
-
-	msg << "EffectProtectionFromAcid("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-
-	return msg.toString();
-
-	__END_CATCH
-
-}
-
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-void EffectProtectionFromAcidLoader::load(Creature* pCreature) 
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+    {__BEGIN_TRY __END_CATCH}
 
 EffectProtectionFromAcidLoader* g_pEffectProtectionFromAcidLoader = NULL;

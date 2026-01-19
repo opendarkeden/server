@@ -1,67 +1,60 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGAddMouseToGear.cpp 
+// Filename    : CGAddMouseToGear.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGAddMouseToGear.h"
 
-CGAddMouseToGear::CGAddMouseToGear () 
-     
+CGAddMouseToGear::CGAddMouseToGear()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGAddMouseToGear::~CGAddMouseToGear()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGAddMouseToGear::~CGAddMouseToGear () 
-    
+void CGAddMouseToGear::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_SlotID);
+
+    __END_CATCH
 }
 
-void CGAddMouseToGear::read (SocketInputStream & iStream) 
-	 
+void CGAddMouseToGear::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
-	iStream.read(m_SlotID);
+    oStream.write(m_ObjectID);
+    oStream.write(m_SlotID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGAddMouseToGear::write (SocketOutputStream & oStream) const 
-     
+void CGAddMouseToGear::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_SlotID);
+    CGAddMouseToGearHandler::execute(this, pPlayer);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGAddMouseToGear::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+string CGAddMouseToGear::toString() const {
+    __BEGIN_TRY
 
-	CGAddMouseToGearHandler::execute (this , pPlayer);
-		
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGAddMouseToGear(ObjectID : " << (int)m_ObjectID << ",SlotID" << (int)m_SlotID << ")";
+    return msg.toString();
 
-string CGAddMouseToGear::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGAddMouseToGear(ObjectID : " << (int)m_ObjectID 
-		<< ",SlotID" << (int)m_SlotID
-		<< ")";
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

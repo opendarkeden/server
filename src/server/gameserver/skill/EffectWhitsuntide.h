@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectWhitsuntide.h
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_WHITSUNTIDE__
@@ -13,24 +13,29 @@
 // class EffectWhitsuntide
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectWhitsuntide : public Effect 
-{
+class EffectWhitsuntide : public Effect {
 public:
-	EffectWhitsuntide(Creature* pCreature) ;
+    EffectWhitsuntide(Creature* pCreature);
 
 public:
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_WHITSUNTIDE; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_WHITSUNTIDE;
+    }
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const throw();
+    string toString() const throw();
 
-	int getBonus() const { return m_Bonus; }
-	void setBonus(int bonus) { m_Bonus = bonus; }
+    int getBonus() const {
+        return m_Bonus;
+    }
+    void setBonus(int bonus) {
+        m_Bonus = bonus;
+    }
 
-private :
-	int m_Bonus;
+private:
+    int m_Bonus;
 };
 
 #endif // __EFFECT_WHITSUNTIDE__

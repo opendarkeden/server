@@ -5,31 +5,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionSimpleQuestComplete.h"
+
 #include "Creature.h"
+#include "GCNPCAskDynamic.h"
 #include "GamePlayer.h"
 #include "Script.h"
 #include "ScriptManager.h"
 
-#include "GCNPCAskDynamic.h"
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
+void ActionSimpleQuestComplete::read(PropertyBuffer& propertyBuffer)
 
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-void ActionSimpleQuestComplete::read (PropertyBuffer & propertyBuffer)
-    
 {
     __BEGIN_TRY
 
-	try 
-	{
-		// read script id
-		//m_ScriptID = propertyBuffer.getPropertyInt("ScriptID");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        // read script id
+        // m_ScriptID = propertyBuffer.getPropertyInt("ScriptID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -37,49 +34,46 @@ void ActionSimpleQuestComplete::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSimpleQuestComplete::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
-{
-	__BEGIN_TRY
+void ActionSimpleQuestComplete::execute(Creature* pCreature1, Creature* pCreature2)
 
-/*	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    {__BEGIN_TRY
 
-	const Script* pScript = g_pPublicScriptManager->getScript(m_ScriptID);
+         /*	Assert(pCreature1 != NULL);
+              Assert(pCreature2 != NULL);
+              Assert(pCreature1->isNPC());
+              Assert(pCreature2->isPC());
 
-	GCNPCAskDynamic gcNPCAskDynamic;
-	gcNPCAskDynamic.setObjectID(pCreature1->getObjectID());
-	gcNPCAskDynamic.setScriptID(m_ScriptID);
-	gcNPCAskDynamic.setSubject(pScript->getSubject(0));
+              const Script* pScript = g_pPublicScriptManager->getScript(m_ScriptID);
 
-	for (uint c=0; c<pScript->getContentCount(); c++)
-	{
-		gcNPCAskDynamic.addContent(pScript->getContent(c));
-	}
+              GCNPCAskDynamic gcNPCAskDynamic;
+              gcNPCAskDynamic.setObjectID(pCreature1->getObjectID());
+              gcNPCAskDynamic.setScriptID(m_ScriptID);
+              gcNPCAskDynamic.setSubject(pScript->getSubject(0));
 
-	Player* pPlayer = pCreature2->getPlayer();
-	pPlayer->sendPacket(&gcNPCAskDynamic);*/
+              for (uint c=0; c<pScript->getContentCount(); c++)
+              {
+                  gcNPCAskDynamic.addContent(pScript->getContent(c));
+              }
 
-	__END_CATCH
-}
+              Player* pPlayer = pCreature2->getPlayer();
+              pPlayer->sendPacket(&gcNPCAskDynamic);*/
+
+         __END_CATCH}
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionSimpleQuestComplete::toString () const 
-	
+string ActionSimpleQuestComplete::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionSimpleQuestComplete("
-	    << ",ScriptID:"  << (int)m_ScriptID
-	    << ")";
+    StringStream msg;
+    msg << "ActionSimpleQuestComplete("
+        << ",ScriptID:" << (int)m_ScriptID << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

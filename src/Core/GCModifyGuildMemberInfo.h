@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCModifyGuildMemberInfo.h 
+//
+// Filename    : GCModifyGuildMemberInfo.h
 // Written By  : Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_MODIFY_GUILD_MEMBER_INFO_H__
@@ -24,54 +24,69 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCModifyGuildMemberInfo : public Packet {
-
-public :
-	GCModifyGuildMemberInfo() {};
+public:
+    GCModifyGuildMemberInfo() {};
     ~GCModifyGuildMemberInfo() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_MODIFY_GUILD_MEMBER_INFO; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szGuildID + szBYTE + m_GuildName.size() + szGuildMemberRank; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_MODIFY_GUILD_MEMBER_INFO;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCModifyGuildMemberInfo"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szGuildID + szBYTE + m_GuildName.size() + szGuildMemberRank;
+    }
 
-	// get/set Guild ID
-	GuildID_t getGuildID() const  { return m_GuildID; }
-	void setGuildID(GuildID_t guildID )  { m_GuildID = guildID; }
+    // get packet name
+    string getPacketName() const {
+        return "GCModifyGuildMemberInfo";
+    }
 
-	// get/set Guild Name
-	string getGuildName() const  { return m_GuildName; }
-	void setGuildName(const string& guildName)  { m_GuildName = guildName; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set Guild ID
-	GuildMemberRank_t getGuildMemberRank() const  { return m_GuildMemberRank; }
-	void setGuildMemberRank(GuildMemberRank_t guildMemberRank )  { m_GuildMemberRank = guildMemberRank; }
+    // get/set Guild ID
+    GuildID_t getGuildID() const {
+        return m_GuildID;
+    }
+    void setGuildID(GuildID_t guildID) {
+        m_GuildID = guildID;
+    }
 
-private :
+    // get/set Guild Name
+    string getGuildName() const {
+        return m_GuildName;
+    }
+    void setGuildName(const string& guildName) {
+        m_GuildName = guildName;
+    }
 
-	// Guild ID
-	GuildID_t m_GuildID;
+    // get/set Guild ID
+    GuildMemberRank_t getGuildMemberRank() const {
+        return m_GuildMemberRank;
+    }
+    void setGuildMemberRank(GuildMemberRank_t guildMemberRank) {
+        m_GuildMemberRank = guildMemberRank;
+    }
 
-	// Guild Name
-	string m_GuildName;
+private:
+    // Guild ID
+    GuildID_t m_GuildID;
 
-	// Guild Member Rank
-	GuildMemberRank_t m_GuildMemberRank;
-	
+    // Guild Name
+    string m_GuildName;
+
+    // Guild Member Rank
+    GuildMemberRank_t m_GuildMemberRank;
 };
 
 
@@ -84,23 +99,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCModifyGuildMemberInfoFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCModifyGuildMemberInfo();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCModifyGuildMemberInfo(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCModifyGuildMemberInfo";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCModifyGuildMemberInfo"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MODIFY_GUILD_MEMBER_INFO; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_MODIFY_GUILD_MEMBER_INFO;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCModifyGuildMemberInfoPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  { return szGuildID + szBYTE + 30 + szGuildMemberRank; }
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCModifyGuildMemberInfoPacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szGuildID + szBYTE + 30 + szGuildMemberRank;
+    }
 };
 
 
@@ -111,12 +131,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCModifyGuildMemberInfoHandler {
-	
-public :
-	
-	// execute packet's handler
-	static void execute(GCModifyGuildMemberInfo* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCModifyGuildMemberInfo* pPacket, Player* pPlayer);
 };
 
 #endif

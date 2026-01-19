@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
+//
 // Filename    : GCUseBonusPointFail.cpp
 // Written By  : crazydog
-// Description :  
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,37 +12,37 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCUseBonusPointFail::read (SocketInputStream & iStream ) 
-	 
+void GCUseBonusPointFail::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCUseBonusPointFail::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
+void GCUseBonusPointFail::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCUseBonusPointFail::execute (Player * pPlayer ) 
-	 
+void GCUseBonusPointFail::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCUseBonusPointFailHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCUseBonusPointFailHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -51,16 +51,14 @@ void GCUseBonusPointFail::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCUseBonusPointFail::toString () const
-       
+string GCUseBonusPointFail::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCUseBonusPointFail()";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCUseBonusPointFail()";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

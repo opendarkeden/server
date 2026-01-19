@@ -5,13 +5,12 @@
 
 
 class GameServerExpTest : public GameServerTest {
-	CPPUNIT_TEST_SUB_SUITE( GameServerExpTest, GameServerTest );
-	CPPUNIT_TEST( testRankExp );
-	CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUB_SUITE(GameServerExpTest, GameServerTest);
+    CPPUNIT_TEST(testRankExp);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-	void testRankExp();
+    void testRankExp();
 };
 
 #endif
-

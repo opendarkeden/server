@@ -2,24 +2,24 @@
 //
 // Filename    : Datagram.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __DATAGRAM_H__
 #define __DATAGRAM_H__
 
-#include "Types.h"
 #include "Exception.h"
-#include "SocketAPI.h"
 #include "Packet.h"
+#include "SocketAPI.h"
+#include "Types.h"
 
 #if defined(__LINUX__) || defined(__APPLE__)
-	#include <sys/socket.h>
-	#include <arpa/inet.h>
-	#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 #elif __WINDOWS__
-	#include <winsock.h>
+#include <winsock.h>
 #endif
 
 // forward declaration
@@ -35,91 +35,133 @@ class DatagramPacket;
 //////////////////////////////////////////////////////////////////////
 
 class Datagram {
+public:
+    // constructor
+    Datagram();
 
-public :
+    // destructor
+    ~Datagram();
 
-	// constructor
-	Datagram () ;
+    // read DatagramPacket from datagram's internal buffer
+    void read(char* buf, uint len);
+    void read(string& str, uint len);
+    void read(DatagramPacket*& pPacket);
 
-	// destructor
-	~Datagram () ;
+    void read(char& buf) {
+        read((char*)&buf, szchar);
+    }
+    void read(uchar& buf) {
+        read((char*)&buf, szuchar);
+    }
+    void read(short& buf) {
+        read((char*)&buf, szshort);
+    }
+    void read(ushort& buf) {
+        read((char*)&buf, szushort);
+    }
+    void read(int& buf) {
+        read((char*)&buf, szint);
+    }
+    void read(uint& buf) {
+        read((char*)&buf, szuint);
+    }
+    void read(long& buf) {
+        read((char*)&buf, szlong);
+    }
+    void read(ulong& buf) {
+        read((char*)&buf, szulong);
+    }
 
-	// read DatagramPacket from datagram's internal buffer
-	void read (char* buf, uint len) ;
-	void read (string & str, uint len) ;
-	void read (DatagramPacket* & pPacket) ;
+    // write DatagramPacket into datagram's internal buffer
+    void write(const char* buf, uint len);
+    void write(const string& buf);
+    void write(const DatagramPacket* pPacket);
 
-	void read (char   & buf)  { read((char*)&buf, szchar  ); }
-    void read (uchar  & buf)  { read((char*)&buf, szuchar ); }
-    void read (short  & buf)  { read((char*)&buf, szshort ); }
-    void read (ushort & buf)  { read((char*)&buf, szushort); }
-    void read (int    & buf)  { read((char*)&buf, szint   ); }
-    void read (uint   & buf)  { read((char*)&buf, szuint  ); }
-    void read (long   & buf)  { read((char*)&buf, szlong  ); }
-    void read (ulong  & buf)  { read((char*)&buf, szulong ); }
+    void write(char buf) {
+        write((char*)&buf, szchar);
+    }
+    void write(uchar buf) {
+        write((char*)&buf, szuchar);
+    }
+    void write(short buf) {
+        write((char*)&buf, szshort);
+    }
+    void write(ushort buf) {
+        write((char*)&buf, szushort);
+    }
+    void write(int buf) {
+        write((char*)&buf, szint);
+    }
+    void write(uint buf) {
+        write((char*)&buf, szuint);
+    }
+    void write(long buf) {
+        write((char*)&buf, szlong);
+    }
+    void write(ulong buf) {
+        write((char*)&buf, szulong);
+    }
 
-	// write DatagramPacket into datagram's internal buffer
-	void write (const char* buf, uint len) ;
-	void write (const string & buf) ;
-	void write (const DatagramPacket* pPacket) ;
+    // get data
+    char* getData() {
+        return m_Data;
+    }
 
-	void write (char   buf)  { write((char*)&buf, szchar  ); }
-    void write (uchar  buf)  { write((char*)&buf, szuchar ); }
-    void write (short  buf)  { write((char*)&buf, szshort ); }
-    void write (ushort buf)  { write((char*)&buf, szushort); }
-    void write (int    buf)  { write((char*)&buf, szint   ); }
-    void write (uint   buf)  { write((char*)&buf, szuint  ); }
-    void write (long   buf)  { write((char*)&buf, szlong  ); }
-    void write (ulong  buf)  { write((char*)&buf, szulong ); }
+    // set data
+    void setData(char* data, uint len);
+    void setData(uint len);
 
-	// get data
-	char* getData ()  { return m_Data; }
+    // get length
+    uint getLength() const {
+        return m_Length;
+    }
 
-	// set data
-	void setData (char* data, uint len) ;
-	void setData (uint len) ; 
-	
-	// get length
-	uint getLength () const  { return m_Length; }
+    // get address
+    SOCKADDR* getAddress() {
+        return (SOCKADDR*)&m_SockAddr;
+    }
 
-	// get address
-	SOCKADDR* getAddress ()  { return (SOCKADDR*)&m_SockAddr; }
+    // set address
+    void setAddress(SOCKADDR_IN* pSockAddr);
 
-	// set address
-	void setAddress (SOCKADDR_IN* pSockAddr) ;
+    // get host
+    string getHost() const {
+        return string(inet_ntoa(m_SockAddr.sin_addr));
+    }
 
-	// get host
-	string getHost () const  { return string(inet_ntoa(m_SockAddr.sin_addr)); }
+    // set host
+    void setHost(const string& host) {
+        m_SockAddr.sin_addr.s_addr = inet_addr(host.c_str());
+    }
 
-	// set host
-	void setHost (const string & host)  { m_SockAddr.sin_addr.s_addr = inet_addr(host.c_str()); }
+    // get port
+    uint getPort() const {
+        return ntohs(m_SockAddr.sin_port);
+    }
 
-	// get port 
-	uint getPort () const  { return ntohs(m_SockAddr.sin_port); }
+    // set port
+    void setPort(uint port) {
+        m_SockAddr.sin_port = htons(port);
+    }
 
-	// set port
-	void setPort (uint port)  { m_SockAddr.sin_port = htons(port); }
+    string toString() const;
 
-	string toString () const ;
+    // �ж��Ƿ���udp����
+    bool isDatagram(PacketID_t packetID);
 
-	//�ж��Ƿ���udp����
-	bool isDatagram(PacketID_t packetID);
+private:
+    // buffer length
+    uint m_Length;
 
-private :
+    // reading/writing offset
+    uint m_InputOffset;
+    uint m_OutputOffset;
 
-	// buffer length
-	uint m_Length;
+    // internal buffer
+    char* m_Data;
 
-	// reading/writing offset
-	uint m_InputOffset;
-	uint m_OutputOffset;
-
-	// internal buffer
-	char* m_Data;
-
-	// socket address
-	SOCKADDR_IN m_SockAddr;
-
+    // socket address
+    SOCKADDR_IN m_SockAddr;
 };
 
 #endif

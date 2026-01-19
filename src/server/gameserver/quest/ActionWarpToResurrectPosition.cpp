@@ -1,37 +1,33 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionWarpToResurrectPosition.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionWarpToResurrectPosition.h"
+
 #include "Creature.h"
-#include "NPC.h"
+#include "GCNPCResponse.h"
 #include "GamePlayer.h"
+#include "NPC.h"
 #include "PlayerCreature.h"
 #include "ResurrectLocationManager.h"
 #include "ZoneUtil.h"
-
 #include "couple/PartnerWaitingManager.h"
 
-#include "GCNPCResponse.h"
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
+void ActionWarpToResurrectPosition::read(PropertyBuffer& propertyBuffer)
 
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-void ActionWarpToResurrectPosition::read (PropertyBuffer & propertyBuffer)
-    
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -39,39 +35,40 @@ void ActionWarpToResurrectPosition::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionWarpToResurrectPosition::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionWarpToResurrectPosition::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	if ( pPC == NULL ) return;
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    if (pPC == NULL)
+        return;
 
-	ZONE_COORD zoneCoord;
-	g_pResurrectLocationManager->getPosition( pPC, zoneCoord );
+    ZONE_COORD zoneCoord;
+    g_pResurrectLocationManager->getPosition(pPC, zoneCoord);
 
-	transportCreature( pCreature2, zoneCoord.id, zoneCoord.x, zoneCoord.y );
+    transportCreature(pCreature2, zoneCoord.id, zoneCoord.x, zoneCoord.y);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionWarpToResurrectPosition::toString () const 
-	
+string ActionWarpToResurrectPosition::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionWarpToResurrectPosition("
-	    << ")";
+    StringStream msg;
+    msg << "ActionWarpToResurrectPosition("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

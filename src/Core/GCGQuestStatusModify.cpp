@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCGQuestStatusModify.cpp 
+//
+// Filename    : GCGQuestStatusModify.cpp
 // Written By  : elca@ewestsoft.com
 // Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
 //               멤버 정의.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -15,21 +15,18 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCGQuestStatusModify::GCGQuestStatusModify () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
-	
+GCGQuestStatusModify::GCGQuestStatusModify()
+
+    {__BEGIN_TRY __END_CATCH}
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCGQuestStatusModify::~GCGQuestStatusModify () 
-    
+GCGQuestStatusModify::~GCGQuestStatusModify()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -37,14 +34,14 @@ GCGQuestStatusModify::~GCGQuestStatusModify ()
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCGQuestStatusModify::execute (Player * pPlayer ) 
-	 
+void GCGQuestStatusModify::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCGQuestStatusModifyHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCGQuestStatusModifyHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -53,16 +50,13 @@ void GCGQuestStatusModify::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCGQuestStatusModify::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCGQuestStatusModify::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCGQuestStatusModify("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCGQuestStatusModify("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

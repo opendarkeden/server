@@ -1,15 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : LuckInfo.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __LUCK_INFO_H__
 #define __LUCK_INFO_H__
 
+#include <vector>
+
 #include "Exception.h"
 #include "Types.h"
-#include <vector>
 
 const int MAX_LUCK_LEVEL = 140;
 
@@ -17,25 +18,25 @@ const int MAX_LUCK_LEVEL = 140;
 // Class LuckInfoManager
 ////////////////////////////////////////////////////////////////////////////////
 /*
-class LuckInfoManager 
+class LuckInfoManager
 {
 public:
-	LuckInfoManager() ;
-	~LuckInfoManager() ;
+    LuckInfoManager() ;
+    ~LuckInfoManager() ;
 
 public:
-	void init() ;
-	void load() ;
+    void init() ;
+    void load() ;
 
-	const LuckInfo& getLuckInfo(int level) const ;
+    const LuckInfo& getLuckInfo(int level) const ;
 
-	string toString() const ;
+    string toString() const ;
 
 private:
-	vector<int>	m_ItemTypeUpgradeRatio[3];
-	vector<int>	m_OptionTypeUpgradeRatio[3];
+    vector<int>	m_ItemTypeUpgradeRatio[3];
+    vector<int>	m_OptionTypeUpgradeRatio[3];
 };
 
 extern LuckInfoManager* g_pLuckInfoManager;
 */
-#endif	
+#endif

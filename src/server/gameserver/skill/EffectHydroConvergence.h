@@ -7,48 +7,65 @@
 #ifndef __EFFECT_HYDRO_CONVERGENCE__
 #define __EFFECT_HYDRO_CONVERGENCE__
 
-#include "Effect.h"
 #include "Creature.h"
+#include "Effect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectHydroConvergence
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHydroConvergence : public Effect 
-{
+class EffectHydroConvergence : public Effect {
 public:
-	EffectHydroConvergence(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HYDRO_CONVERGENCE; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-
-	string toString() const throw();
+    EffectHydroConvergence(Creature* pCreature);
 
 public:
-	ObjectID_t getUserOID(void) const { return m_UserOID; }
-	void setUserOID(ObjectID_t UserOID ) { m_UserOID = UserOID; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_HYDRO_CONVERGENCE;
+    }
 
-	Damage_t getDamage(void) const { return m_Damage; }
-	void setDamage(Damage_t Damage ) { m_Damage = Damage; }
+    void affect();
+    void affect(Creature* pCreature);
 
-	Turn_t getDuration(void) const { return m_Duration; }
-	void setDuration(Turn_t Duration ) { m_Duration = Duration; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	int getAttackNum(void) const { return m_AttackNum; }
-	void setAttackNum(int AttackNum ) { m_AttackNum = AttackNum; }
+    string toString() const throw();
+
+public:
+    ObjectID_t getUserOID(void) const {
+        return m_UserOID;
+    }
+    void setUserOID(ObjectID_t UserOID) {
+        m_UserOID = UserOID;
+    }
+
+    Damage_t getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(Damage_t Damage) {
+        m_Damage = Damage;
+    }
+
+    Turn_t getDuration(void) const {
+        return m_Duration;
+    }
+    void setDuration(Turn_t Duration) {
+        m_Duration = Duration;
+    }
+
+    int getAttackNum(void) const {
+        return m_AttackNum;
+    }
+    void setAttackNum(int AttackNum) {
+        m_AttackNum = AttackNum;
+    }
 
 private:
-	ObjectID_t  			m_UserOID;
-	Damage_t				m_Damage;
-	Turn_t					m_Duration;
-	int						m_AttackNum;
-	HP_t					m_TrageSaveHP;
+    ObjectID_t m_UserOID;
+    Damage_t m_Damage;
+    Turn_t m_Duration;
+    int m_AttackNum;
+    HP_t m_TrageSaveHP;
 };
 
 #endif // __EFFECT_FIRECE_FLAME__

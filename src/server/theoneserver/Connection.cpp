@@ -8,6 +8,7 @@
 
 // include files
 #include "Connection.h"
+
 #include "Statement.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -19,20 +20,17 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-Connection::Connection ()
-	throw ( Error )
-: m_bConnected(false), m_bBusy(false)
-{
-	__BEGIN_TRY
+Connection::Connection() throw(Error) : m_bConnected(false), m_bBusy(false) {
+    __BEGIN_TRY
 
-	m_Mutex.setName("Connection");
+    m_Mutex.setName("Connection");
 
-	// MYSQL 객체를 초기화한다.
-	if ( mysql_init(&m_Mysql) == NULL ) {
-		throw Error( mysql_error(&m_Mysql) );
-	}
+    // MYSQL 객체를 초기화한다.
+    if (mysql_init(&m_Mysql) == NULL) {
+        throw Error(mysql_error(&m_Mysql));
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -45,22 +43,21 @@ Connection::Connection ()
 //
 //////////////////////////////////////////////////////////////////////
 
-Connection::Connection ( string host , string db , string user , string password , uint port )
-	throw ( SQLConnectException , Error )
-: m_bConnected(false), m_Host(host), m_Port(port), m_Database(db), m_User(user), m_Password(password)
-{
-	__BEGIN_TRY
+Connection::Connection(string host, string db, string user, string password, uint port) throw(SQLConnectException,
+                                                                                              Error)
+    : m_bConnected(false), m_Host(host), m_Port(port), m_Database(db), m_User(user), m_Password(password) {
+    __BEGIN_TRY
 
-	m_Mutex.setName("Connection");
-		
-	// MYSQL 객체를 초기화한다.
-	if ( mysql_init(&m_Mysql) == NULL )
-		throw Error( mysql_error(&m_Mysql) );
+    m_Mutex.setName("Connection");
 
-	// 바로 연결을 시도한다.
-	connect( m_Host , m_Database , m_User , m_Password , m_Port );
-	
-	__END_CATCH
+    // MYSQL 객체를 초기화한다.
+    if (mysql_init(&m_Mysql) == NULL)
+        throw Error(mysql_error(&m_Mysql));
+
+    // 바로 연결을 시도한다.
+    connect(m_Host, m_Database, m_User, m_Password, m_Port);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -69,26 +66,24 @@ Connection::Connection ( string host , string db , string user , string password
 //
 //////////////////////////////////////////////////////////////////////
 
-Connection::~Connection() 
-	throw ( Error )
-{
-	__BEGIN_TRY
-		
-	// 연결되어 있을 경우, 연결을 끊는다.
-    if ( m_bConnected ) {
-		close();
+Connection::~Connection() throw(Error) {
+    __BEGIN_TRY
+
+    // 연결되어 있을 경우, 연결을 끊는다.
+    if (m_bConnected) {
+        close();
     }
-	
-	__END_CATCH
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 //
-// connect()	
+// connect()
 //
 // Connection 객체가 생성될 때, 어디에 연결할 지 알지 못할 경우
-// 일단 default constructor 를 사용해서 객체를 생성한 다음, 
-// 연결할 때 값을 받아서 내부 데이터멤버들을 초기화한 후 연결한다. 
+// 일단 default constructor 를 사용해서 객체를 생성한 다음,
+// 연결할 때 값을 받아서 내부 데이터멤버들을 초기화한 후 연결한다.
 //
 // *CAUTION*
 //
@@ -103,107 +98,97 @@ Connection::~Connection()
 //
 //////////////////////////////////////////////////////////////////////
 
-void Connection::connect ( string host , string db , string user , string password , uint port )
-	throw ( SQLConnectException )
-{
-	__BEGIN_TRY
+void Connection::connect(string host, string db, string user, string password, uint port) throw(SQLConnectException) {
+    __BEGIN_TRY
 
-	m_Host = host;
-	m_Port = port;
-	m_Database = db;
-	m_User = user;
-	m_Password = password;
+    m_Host = host;
+    m_Port = port;
+    m_Database = db;
+    m_User = user;
+    m_Password = password;
 
-	connect();
+    connect();
 
-	__END_CATCH
+    __END_CATCH
 }
-	
+
 //////////////////////////////////////////////////////////////////////
 //
-// connect()	
+// connect()
 //
 // 생성자에서 직접  정보를 입력받을 경우, 바로 이 메쏘드를 호출해서
 // 연결을 시도한다.
 //
 //////////////////////////////////////////////////////////////////////
 
-void Connection::connect ()
-	throw ( SQLConnectException )
-{
-	__BEGIN_TRY
-		
-	// 연결을 하려구 하는데 이미 연결이 되어있다면 에러다.
-	if ( m_bConnected ) 
-	{
-		// 이럴 경우, 연결은 닫아 주고 예외를 던져야 할 것이다.
-		close();
+void Connection::connect() throw(SQLConnectException) {
+    __BEGIN_TRY
 
-		throw SQLConnectException("Already Connected"); 
-	}
+    // 연결을 하려구 하는데 이미 연결이 되어있다면 에러다.
+    if (m_bConnected) {
+        // 이럴 경우, 연결은 닫아 주고 예외를 던져야 할 것이다.
+        close();
 
-	//--------------------------------------------------
-	// 에러가 생기는지 체크해야 함...
-	//--------------------------------------------------
-	m_bConnected = ( mysql_real_connect( &m_Mysql, m_Host.c_str(), m_User.c_str(), m_Password.c_str(), m_Database.c_str(), m_Port , 0, 0 ) != NULL );
-	//cout << "Connection Calls~~~" << endl;
-	
-	// 연결상태가 아니라면 에러다.
-	if( ! m_bConnected ) 
-	{
-		throw SQLConnectException( mysql_error(&m_Mysql) );
-	}
-	
-	__END_CATCH
+        throw SQLConnectException("Already Connected");
+    }
+
+    //--------------------------------------------------
+    // 에러가 생기는지 체크해야 함...
+    //--------------------------------------------------
+    m_bConnected = (mysql_real_connect(&m_Mysql, m_Host.c_str(), m_User.c_str(), m_Password.c_str(), m_Database.c_str(),
+                                       m_Port, 0, 0) != NULL);
+    // cout << "Connection Calls~~~" << endl;
+
+    // 연결상태가 아니라면 에러다.
+    if (!m_bConnected) {
+        throw SQLConnectException(mysql_error(&m_Mysql));
+    }
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-//	
+//
 //	close()
 //
 //	연결을 끊는다.
 //
 //////////////////////////////////////////////////////////////////////
 
-void Connection::close () 
-	throw ( SQLConnectException , Error )
-{
-	__BEGIN_TRY
-		
-    if( ! m_bConnected ) 
-	{
-		throw SQLConnectException("Not Connected");
-    }
-	
-	// void 이므로 무시.. - -;
-    mysql_close( &m_Mysql );
+void Connection::close() throw(SQLConnectException, Error) {
+    __BEGIN_TRY
 
-	m_bConnected = false;
-	
-	__END_CATCH
+    if (!m_bConnected) {
+        throw SQLConnectException("Not Connected");
+    }
+
+    // void 이므로 무시.. - -;
+    mysql_close(&m_Mysql);
+
+    m_bConnected = false;
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-//	
+//
 //	createStatement
 //
 //	새로운 Statement 객체를 만들어 그 객체의 포인터를 리턴한다.
 //
 //////////////////////////////////////////////////////////////////////
 
-Statement * Connection::createStatement ()
-	throw ()
-{
-	__BEGIN_TRY
-		
-	// 새로운 Statement 객체를 만든다.
-	Statement * pStatement = new Statement();
-	
-	// 만든 객체의 커넥션 값을 이 커넥션 객체로 하고..
-	pStatement->setConnection(this);
-	
-	// 리턴한다.
-	return pStatement;
-	
-	__END_CATCH
+Statement* Connection::createStatement() throw() {
+    __BEGIN_TRY
+
+    // 새로운 Statement 객체를 만든다.
+    Statement* pStatement = new Statement();
+
+    // 만든 객체의 커넥션 값을 이 커넥션 객체로 하고..
+    pStatement->setConnection(this);
+
+    // 리턴한다.
+    return pStatement;
+
+    __END_CATCH
 }

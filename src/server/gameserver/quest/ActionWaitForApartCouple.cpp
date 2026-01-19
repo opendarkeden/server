@@ -1,33 +1,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionWaitForApartCouple.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionWaitForApartCouple.h"
-#include "SystemAvailabilitiesManager.h"
+
 #include "Creature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
-
 #include "GCNPCResponse.h"
+#include "GamePlayer.h"
+#include "NPC.h"
+#include "SystemAvailabilitiesManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionWaitForApartCouple::read (PropertyBuffer & propertyBuffer)
-    
+void ActionWaitForApartCouple::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -35,41 +32,41 @@ void ActionWaitForApartCouple::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionWaitForApartCouple::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionWaitForApartCouple::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT( SYSTEM_COUPLE );
+    SYSTEM_RETURN_IF_NOT(SYSTEM_COUPLE);
 
-	GCNPCResponse gcNPCResponse;
-	gcNPCResponse.setCode( NPC_RESPONSE_WAIT_FOR_APART_COUPLE );
+    GCNPCResponse gcNPCResponse;
+    gcNPCResponse.setCode(NPC_RESPONSE_WAIT_FOR_APART_COUPLE);
 
-	Player* pPlayer = pCreature2->getPlayer();
-	pPlayer->sendPacket(&gcNPCResponse);
+    Player* pPlayer = pCreature2->getPlayer();
+    pPlayer->sendPacket(&gcNPCResponse);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionWaitForApartCouple::toString () const 
-	
+string ActionWaitForApartCouple::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionWaitForApartCouple("
-	    << ")";
+    StringStream msg;
+    msg << "ActionWaitForApartCouple("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

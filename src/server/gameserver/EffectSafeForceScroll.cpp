@@ -1,230 +1,221 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectSafeForceScroll.cpp
 // Written by  : bezz
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectSafeForceScroll.h"
-#include "PlayerCreature.h"
-#include "Zone.h"
-#include "GCRemoveEffect.h"
-#include "Timeval.h"
+
 #include "DB.h"
+#include "GCRemoveEffect.h"
+#include "PlayerCreature.h"
+#include "Timeval.h"
+#include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectSafeForceScroll::EffectSafeForceScroll(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSafeForceScroll::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	affect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    affect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSafeForceScroll::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    Assert(pPC != NULL);
 
-	pPC->initAllStatAndSend();
+    pPC->initAllStatAndSend();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSafeForceScroll::unaffect() 
-	
+void EffectSafeForceScroll::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSafeForceScroll::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    Assert(pPC != NULL);
 
-	Zone* pZone = pPC->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pPC->getZone();
+    Assert(pZone != NULL);
 
-	pPC->removeFlag(getEffectClass());
-	pPC->initAllStatAndSend();
+    pPC->removeFlag(getEffectClass());
+    pPC->initAllStatAndSend();
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(getEffectClass());
-	pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(getEffectClass());
+    pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcRemoveEffect);
 
-	destroy(pPC->getName());
+    destroy(pPC->getName());
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSafeForceScroll::create(const string& ownerID )
-	
+void EffectSafeForceScroll::create(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Timeval currentTime;
-		getCurrentTime(currentTime);
+        Timeval currentTime;
+        getCurrentTime(currentTime);
 
-		Timeval remainTime = timediff(m_Deadline, currentTime);
-		Turn_t remainTurn = remainTime.tv_sec * 10 + remainTime.tv_usec / 100000;
+        Timeval remainTime = timediff(m_Deadline, currentTime);
+        Turn_t remainTurn = remainTime.tv_sec * 10 + remainTime.tv_usec / 100000;
 
-		pStmt->executeQuery("INSERT INTO EffectSafeForceScroll (OwnerID, RemainTime ) VALUES('%s',%lu)",
-								ownerID.c_str(), remainTurn);
+        pStmt->executeQuery("INSERT INTO EffectSafeForceScroll (OwnerID, RemainTime ) VALUES('%s',%lu)",
+                            ownerID.c_str(), remainTurn);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSafeForceScroll::destroy(const string& ownerID )
-	
+void EffectSafeForceScroll::destroy(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("DELETE FROM EffectSafeForceScroll WHERE OwnerID = '%s'",
-								ownerID.c_str());
+        pStmt->executeQuery("DELETE FROM EffectSafeForceScroll WHERE OwnerID = '%s'", ownerID.c_str());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSafeForceScroll::save(const string& ownerID )
-	
+void EffectSafeForceScroll::save(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Timeval currentTime;
-		getCurrentTime(currentTime);
+        Timeval currentTime;
+        getCurrentTime(currentTime);
 
-		Timeval remainTime = timediff(m_Deadline, currentTime);
-		Turn_t remainTurn = remainTime.tv_sec * 10 + remainTime.tv_usec / 100000;
+        Timeval remainTime = timediff(m_Deadline, currentTime);
+        Turn_t remainTurn = remainTime.tv_sec * 10 + remainTime.tv_usec / 100000;
 
-		pStmt->executeQuery("UPDATE EffectSafeForceScroll SET RemainTime = %lu WHERE OwnerID = '%s'",
-								remainTurn, ownerID.c_str());
+        pStmt->executeQuery("UPDATE EffectSafeForceScroll SET RemainTime = %lu WHERE OwnerID = '%s'", remainTurn,
+                            ownerID.c_str());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectSafeForceScroll::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectSafeForceScroll::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectSafeForceScroll("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectSafeForceScroll("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSafeForceScrollLoader::load(Creature* pCreature )
-	
+void EffectSafeForceScrollLoader::load(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECt RemainTime FROM EffectSafeForceScroll WHERE OwnerID = '%s'",
-													pCreature->getName().c_str());
+        Result* pResult = pStmt->executeQuery("SELECt RemainTime FROM EffectSafeForceScroll WHERE OwnerID = '%s'",
+                                              pCreature->getName().c_str());
 
-		if (pResult->next() )
-		{
-			Turn_t remainTurn = pResult->getDWORD(1);
+        if (pResult->next()) {
+            Turn_t remainTurn = pResult->getDWORD(1);
 
-			Timeval currentTime;
-			getCurrentTime(currentTime);
+            Timeval currentTime;
+            getCurrentTime(currentTime);
 
-			EffectSafeForceScroll* pEffect = new EffectSafeForceScroll(pCreature);
+            EffectSafeForceScroll* pEffect = new EffectSafeForceScroll(pCreature);
 
-			pEffect->setDeadline(remainTurn);
-			pCreature->addEffect(pEffect);
-			pCreature->setFlag(pEffect->getEffectClass());
-		}
+            pEffect->setDeadline(remainTurn);
+            pCreature->addEffect(pEffect);
+            pCreature->setFlag(pEffect->getEffectClass());
+        }
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 EffectSafeForceScrollLoader* g_pEffectSafeForceScrollLoader = NULL;
-

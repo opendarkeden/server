@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodDrain.h 
+// Filename    : BloodDrain.h
 // Written By  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOOD_DRAIN_HANDLER_H__
@@ -9,27 +9,30 @@
 
 #include "SkillHandler.h"
 
-#define BLOODDRAIN_DURATION		(3*4*3600*10)	//3 ¿œ
+#define BLOODDRAIN_DURATION (3 * 4 * 3600 * 10) // 3 ¿œ
 
 //////////////////////////////////////////////////////////////////////
 // class BloodDrain;
 //////////////////////////////////////////////////////////////////////
 
-class BloodDrain : public SkillHandler 
-{
+class BloodDrain : public SkillHandler {
 public:
-	BloodDrain() throw() {}
-	~BloodDrain() throw() {}
-	
+    BloodDrain() throw() {}
+    ~BloodDrain() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodDrain"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLOOD_DRAIN; }
+    string getSkillHandlerName() const throw() {
+        return "BloodDrain";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOOD_DRAIN;
+    }
 
-	void execute(Vampire* pCreature, ObjectID_t ObjectID) ;
-	void execute(Monster* pMonster, Creature* pTargetCreature) ;
-	bool executeMonster(Monster* pMonster, Creature* pTargetCreature) ;
+    void execute(Vampire* pCreature, ObjectID_t ObjectID);
+    void execute(Monster* pMonster, Creature* pTargetCreature);
+    bool executeMonster(Monster* pMonster, Creature* pTargetCreature);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

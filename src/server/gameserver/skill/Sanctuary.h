@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Sanctuary.h 
-// Written By  : 
-// Description : 
+// Filename    : Sanctuary.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SANCTUARY_HANDLER_H__
@@ -13,21 +13,24 @@
 // class Sanctuary;
 //////////////////////////////////////////////////////////////////////////////
 
-class Sanctuary : public SkillHandler 
-{
+class Sanctuary : public SkillHandler {
 public:
-	Sanctuary() throw() {}
-	~Sanctuary() throw() {}
-	
+    Sanctuary() throw() {}
+    ~Sanctuary() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Sanctuary"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SANCTUARY; }
+    string getSkillHandlerName() const throw() {
+        return "Sanctuary";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SANCTUARY;
+    }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ObjectID_t, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
- 	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ObjectID_t, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

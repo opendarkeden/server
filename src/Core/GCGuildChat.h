@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCGuildChat.h 
+//
+// Filename    : GCGuildChat.h
 // Written By  : elca
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_GUILD_CHAT_H__
@@ -21,71 +21,90 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCGuildChat : public Packet {
-
-public :
-	GCGuildChat() {};
+public:
+    GCGuildChat() {};
     ~GCGuildChat() {};
-	// Initialize packet by reading data from the incoming stream.
-    void read(SocketInputStream & iStream) ;
-		    
-	// Serialize packet data to the outgoing stream.
-    void write(SocketOutputStream & oStream) const ;
+    // Initialize packet by reading data from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize packet data to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_GUILD_CHAT; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const 
-	{
-		return ((m_Type==0)?(szBYTE):(szBYTE+szBYTE+m_SendGuildName.size())) +
-			   szBYTE +					// sender size
-			   m_Sender.size() +		// sender
-			   szuint +					// text color
-			   szBYTE +					// message size
-			   m_Message.size();		// message
-	}
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "GCGuildChat"; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_GUILD_CHAT;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return ((m_Type == 0) ? (szBYTE) : (szBYTE + szBYTE + m_SendGuildName.size())) + szBYTE + // sender size
+               m_Sender.size() +                                                                  // sender
+               szuint +                                                                           // text color
+               szBYTE +                                                                           // message size
+               m_Message.size();                                                                  // message
+    }
 
-	BYTE getType() const  { return m_Type; }
-	void setType(BYTE type )  { m_Type = type; }
+    // get packet name
+    string getPacketName() const {
+        return "GCGuildChat";
+    }
 
-	// get/set sender
-	string getSendGuildName() const  { return m_SendGuildName; }
-	void setSendGuildName(const string& sender )  { m_SendGuildName = sender; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set sender
-	string getSender() const  { return m_Sender; }
-	void setSender(const string& sender )  { m_Sender = sender; }
+    BYTE getType() const {
+        return m_Type;
+    }
+    void setType(BYTE type) {
+        m_Type = type;
+    }
 
-	// get/set text color
-	uint getColor() const  { return m_Color; }
-	void setColor(uint color )  { m_Color = color; }
+    // get/set sender
+    string getSendGuildName() const {
+        return m_SendGuildName;
+    }
+    void setSendGuildName(const string& sender) {
+        m_SendGuildName = sender;
+    }
 
-	// get/set chatting message
-	string getMessage() const  { return m_Message; }
-	void setMessage(const string & msg)  { m_Message = msg; }
-	
-private :
+    // get/set sender
+    string getSender() const {
+        return m_Sender;
+    }
+    void setSender(const string& sender) {
+        m_Sender = sender;
+    }
 
-	BYTE m_Type;
-	string m_SendGuildName;
-	// sender
-	string m_Sender;
+    // get/set text color
+    uint getColor() const {
+        return m_Color;
+    }
+    void setColor(uint color) {
+        m_Color = color;
+    }
 
-	// text color
-	uint m_Color;
-	
-	// chatting message
-	string m_Message;
+    // get/set chatting message
+    string getMessage() const {
+        return m_Message;
+    }
+    void setMessage(const string& msg) {
+        m_Message = msg;
+    }
 
+private:
+    BYTE m_Type;
+    string m_SendGuildName;
+    // sender
+    string m_Sender;
+
+    // text color
+    uint m_Color;
+
+    // chatting message
+    string m_Message;
 };
 
 
@@ -98,33 +117,32 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCGuildChatFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCGuildChat();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCGuildChat(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCGuildChat";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCGuildChat"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GUILD_CHAT; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_GUILD_CHAT;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// Use const static GCGuildChatPacketMaxSize when possible.
-	PacketSize_t getPacketMaxSize() const 
-	{
-		return szBYTE +
-			   szBYTE +
-			   20 +
-			   szBYTE +				// sender size
-			   10 +					// sender max size
-			   szuint +				// text color size
-			   szBYTE +				// message size
-			   128;					// message
-	}
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // Use const static GCGuildChatPacketMaxSize when possible.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + szBYTE + 20 + szBYTE + // sender size
+               10 +                            // sender max size
+               szuint +                        // text color size
+               szBYTE +                        // message size
+               128;                            // message
+    }
 };
 
 
@@ -135,12 +153,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCGuildChatHandler {
-	
-public :
-	
-	// execute packet's handler
-	static void execute(GCGuildChat* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCGuildChat* pPacket, Player* pPlayer);
 };
 
 #endif

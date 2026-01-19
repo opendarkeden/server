@@ -4,19 +4,20 @@
 #include "GQuestElement.h"
 #include "Item.h"
 
-class GQuestGiveItemElement : public GQuestElement
-{
+class GQuestGiveItemElement : public GQuestElement {
 public:
-	GQuestGiveItemElement() { }
-	string 				getElementName() const { return "GiveItem"; }
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
-	GQuestGiveItemElement*	makeElement(XMLTree* pTree);
+    GQuestGiveItemElement() {}
+    string getElementName() const {
+        return "GiveItem";
+    }
+    ResultType checkCondition(PlayerCreature* pPC) const;
+    GQuestGiveItemElement* makeElement(XMLTree* pTree);
 
 private:
-	Item::ItemClass	m_ItemClass;
-	ItemType_t	m_ItemType;
-	list<OptionType_t>	m_Option;
-	ItemNum_t	m_Num;
+    Item::ItemClass m_ItemClass;
+    ItemType_t m_ItemType;
+    list<OptionType_t> m_Option;
+    ItemNum_t m_Num;
 };
 
 extern GQuestGiveItemElement g_GiveItemElement;

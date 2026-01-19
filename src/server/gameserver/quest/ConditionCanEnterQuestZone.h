@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterQuestZone.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,29 +15,37 @@
 // class ConditionCanEnterQuestZone;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanEnterQuestZone : public Condition 
-{
+class ConditionCanEnterQuestZone : public Condition {
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_CAN_ENTER_QUEST_ZONE; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_CAN_ENTER_QUEST_ZONE;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 public:
-	ZoneID_t	m_QuestZoneID;
+    ZoneID_t m_QuestZoneID;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionCanEnterQuestZoneFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanEnterQuestZoneFactory : public ConditionFactory 
-{
+class ConditionCanEnterQuestZoneFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_CAN_ENTER_QUEST_ZONE; }
-    virtual Condition* createCondition() const  { return new ConditionCanEnterQuestZone(); }
-    virtual string getConditionName() const  { return "CanEnterQuestZone"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_CAN_ENTER_QUEST_ZONE;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionCanEnterQuestZone();
+    }
+    virtual string getConditionName() const {
+        return "CanEnterQuestZone";
+    }
 };
 
 #endif

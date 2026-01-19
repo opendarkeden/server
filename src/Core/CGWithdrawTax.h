@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGWithdrawTax.h 
+//
+// Filename    : CGWithdrawTax.h
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_WITHDRAW_TAX_H__
 #define __CG_WITHDRAW_TAX_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,40 +21,48 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class CGWithdrawTax : public Packet
-{
+class CGWithdrawTax : public Packet {
 public:
-	CGWithdrawTax() {};
+    CGWithdrawTax() {};
     virtual ~CGWithdrawTax() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_WITHDRAW_TAX; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szGold; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_WITHDRAW_TAX;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGWithdrawTax"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szGold;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet name
+    string getPacketName() const {
+        return "CGWithdrawTax";
+    }
 
-	// get/set Gold
-	Gold_t getGold() const { return m_Gold; }
-	void setGold(Gold_t gold ) { m_Gold = gold; }
+    // get packet's debug string
+    string toString() const;
+
+    // get/set Gold
+    Gold_t getGold() const {
+        return m_Gold;
+    }
+    void setGold(Gold_t gold) {
+        m_Gold = gold;
+    }
 
 
-private :
-
-	Gold_t m_Gold;
+private:
+    Gold_t m_Gold;
 };
 
 
@@ -67,29 +75,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGWithdrawTaxFactory : public PacketFactory {
+public:
+    // constructor
+    CGWithdrawTaxFactory() {}
+
+    // destructor
+    virtual ~CGWithdrawTaxFactory() {}
+
 
 public:
-	
-	// constructor
-	CGWithdrawTaxFactory()  {}
-	
-	// destructor
-	virtual ~CGWithdrawTaxFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGWithdrawTax();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGWithdrawTax(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGWithdrawTax";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGWithdrawTax"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_WITHDRAW_TAX; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_WITHDRAW_TAX;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szGold; }
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szGold;
+    }
 };
 
 
@@ -100,12 +113,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGWithdrawTaxHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGWithdrawTax* pCGWithdrawTax, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGWithdrawTax* pCGWithdrawTax, Player* pPlayer);
 };
 
 #endif

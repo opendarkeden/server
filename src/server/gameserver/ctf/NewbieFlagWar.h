@@ -3,14 +3,16 @@
 
 #include "FlagWar.h"
 
-class NewbieFlagWar : public FlagWar
-{
+class NewbieFlagWar : public FlagWar {
 public:
-	virtual int getWarTime() const { return 3600; }
+    virtual int getWarTime() const {
+        return 3600;
+    }
+
 protected:
-	virtual void executeEnd() ;
-	virtual VSDateTime getNextFlagWarTime();
-	virtual void addFlags();
+    virtual void executeEnd();
+    virtual VSDateTime getNextFlagWarTime();
+    virtual void addFlags();
 };
 
 #endif

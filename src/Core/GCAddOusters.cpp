@@ -1,146 +1,134 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCAddOusters.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddOusters.h"
+
 #include <exception>
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddOusters member methods
 //////////////////////////////////////////////////////////////////////////////
 
-GCAddOusters::GCAddOusters()
-{
-	m_pEffectInfo = NULL;
-	m_pPetInfo = NULL;
-	m_pNicknameInfo = NULL;
+GCAddOusters::GCAddOusters() {
+    m_pEffectInfo = NULL;
+    m_pPetInfo = NULL;
+    m_pNicknameInfo = NULL;
 }
 
-GCAddOusters::GCAddOusters(const PCOustersInfo3& info)
-	: m_OustersInfo(info)
-{
-	m_pEffectInfo = NULL;
-	m_pPetInfo = NULL;
-	m_pNicknameInfo = NULL;
+GCAddOusters::GCAddOusters(const PCOustersInfo3& info) : m_OustersInfo(info) {
+    m_pEffectInfo = NULL;
+    m_pPetInfo = NULL;
+    m_pNicknameInfo = NULL;
 }
 
 GCAddOusters::~GCAddOusters() noexcept
-	
+
 {
-	try
-	{
-		SAFE_DELETE(m_pEffectInfo);
-		SAFE_DELETE(m_pPetInfo);
-		SAFE_DELETE(m_pNicknameInfo);
-	}
-	catch (const std::exception&)
-	{
-		// ignore during teardown
-	}
+    try {
+        SAFE_DELETE(m_pEffectInfo);
+        SAFE_DELETE(m_pPetInfo);
+        SAFE_DELETE(m_pNicknameInfo);
+    } catch (const std::exception&) {
+        // ignore during teardown
+    }
 }
 
-void GCAddOusters::read (SocketInputStream & iStream ) 
-	 
+void GCAddOusters::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	m_OustersInfo.read(iStream);
-	m_pEffectInfo = new EffectInfo();
-	m_pEffectInfo->read(iStream);
+    __BEGIN_TRY
 
-	m_pPetInfo = new PetInfo();
-	m_pPetInfo->read(iStream);
-	if (m_pPetInfo->getPetType() == PET_NONE ) SAFE_DELETE(m_pPetInfo);
+    m_OustersInfo.read(iStream);
+    m_pEffectInfo = new EffectInfo();
+    m_pEffectInfo->read(iStream);
 
-	m_pNicknameInfo = new NicknameInfo;
-	m_pNicknameInfo->read(iStream);
+    m_pPetInfo = new PetInfo();
+    m_pPetInfo->read(iStream);
+    if (m_pPetInfo->getPetType() == PET_NONE)
+        SAFE_DELETE(m_pPetInfo);
 
-	m_StoreOutlook.read(iStream);
+    m_pNicknameInfo = new NicknameInfo;
+    m_pNicknameInfo->read(iStream);
 
-	__END_CATCH
-}
-		    
-void GCAddOusters::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
+    m_StoreOutlook.read(iStream);
 
-	PetInfo NullPetInfo;
-		
-	m_OustersInfo.write(oStream);
-	m_pEffectInfo->write(oStream);
-
-	if (m_pPetInfo == NULL )
-		NullPetInfo.write(oStream);
-	else
-	{
-		m_pPetInfo->setSummonInfo(0);
-		m_pPetInfo->write(oStream);
-	}
-
-	if (m_pNicknameInfo == NULL )
-	{
-		NicknameInfo noNick;
-		noNick.setNicknameType(NicknameInfo::NICK_NONE);
-		noNick.write(oStream);
-	}
-	else
-	{
-		m_pNicknameInfo->write(oStream);
-	}
-
-	m_StoreOutlook.write(oStream);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void GCAddOusters::execute (Player * pPlayer ) 
-	 
+void GCAddOusters::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	GCAddOustersHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    PetInfo NullPetInfo;
+
+    m_OustersInfo.write(oStream);
+    m_pEffectInfo->write(oStream);
+
+    if (m_pPetInfo == NULL)
+        NullPetInfo.write(oStream);
+    else {
+        m_pPetInfo->setSummonInfo(0);
+        m_pPetInfo->write(oStream);
+    }
+
+    if (m_pNicknameInfo == NULL) {
+        NicknameInfo noNick;
+        noNick.setNicknameType(NicknameInfo::NICK_NONE);
+        noNick.write(oStream);
+    } else {
+        m_pNicknameInfo->write(oStream);
+    }
+
+    m_StoreOutlook.write(oStream);
+
+    __END_CATCH
 }
 
-PacketSize_t GCAddOusters::getPacketSize() const 
-	
-{   
-	__BEGIN_TRY
+void GCAddOusters::execute(Player* pPlayer)
 
-	PacketSize_t ret = m_OustersInfo.getSize() + m_pEffectInfo->getSize() + ((m_pPetInfo!=NULL)?m_pPetInfo->getSize():szPetType);
-	if (m_pNicknameInfo == NULL )
-	{
-		NicknameInfo noNick;
-		noNick.setNicknameType(NicknameInfo::NICK_NONE);
-		ret += noNick.getSize();
-	}
-	else
-	{
-		ret += m_pNicknameInfo->getSize();
-	}
+{
+    __BEGIN_TRY
 
-	ret += m_StoreOutlook.getSize();
+    GCAddOustersHandler::execute(this, pPlayer);
 
-	return ret;
-
-	__END_CATCH
+    __END_CATCH
 }
 
-string GCAddOusters::toString () const
-       
+PacketSize_t GCAddOusters::getPacketSize() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddOusters("
-		<< "OustersInfo:" << m_OustersInfo.toString()
-		<< "EffectInfo:" << m_pEffectInfo->toString()
-		<< ")";
-	return msg.toString();
+    PacketSize_t ret =
+        m_OustersInfo.getSize() + m_pEffectInfo->getSize() + ((m_pPetInfo != NULL) ? m_pPetInfo->getSize() : szPetType);
+    if (m_pNicknameInfo == NULL) {
+        NicknameInfo noNick;
+        noNick.setNicknameType(NicknameInfo::NICK_NONE);
+        ret += noNick.getSize();
+    } else {
+        ret += m_pNicknameInfo->getSize();
+    }
 
-	__END_CATCH
+    ret += m_StoreOutlook.getSize();
+
+    return ret;
+
+    __END_CATCH
+}
+
+string GCAddOusters::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCAddOusters("
+        << "OustersInfo:" << m_OustersInfo.toString() << "EffectInfo:" << m_pEffectInfo->toString() << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

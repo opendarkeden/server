@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
-// 
-// Filename    : CLDeletePC.h 
+//
+// Filename    : CLDeletePC.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //----------------------------------------------------------------------
 
 #ifndef __CL_DELETE_PC_H__
@@ -22,54 +22,69 @@
 //----------------------------------------------------------------------
 
 class CLDeletePC : public Packet {
-
 public:
-	CLDeletePC() {};
+    CLDeletePC() {};
     virtual ~CLDeletePC() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CL_DELETE_PC; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szBYTE + m_Name.size() + szSlot + szBYTE + m_SSN.size(); }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CL_DELETE_PC;
+    }
 
-	// get packet's name
-	string getPacketName() const  { return "CLDeletePC"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_Name.size() + szSlot + szBYTE + m_SSN.size();
+    }
 
-	// get/set name
-	string getName() const  { return m_Name; }
-	void setName(string name)  { m_Name = name; }
+    // get packet's name
+    string getPacketName() const {
+        return "CLDeletePC";
+    }
 
-	// get/set Slot
-	Slot getSlot() const  { return m_Slot; }
-	void setSlot(Slot slot)  { m_Slot = slot; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set SSN
-	string getSSN() const  { return m_SSN; }
-	void setSSN(const string & SSN)  { m_SSN = SSN; }
+    // get/set name
+    string getName() const {
+        return m_Name;
+    }
+    void setName(string name) {
+        m_Name = name;
+    }
 
-private :
-	
-	// PC name
-	string m_Name;
+    // get/set Slot
+    Slot getSlot() const {
+        return m_Slot;
+    }
+    void setSlot(Slot slot) {
+        m_Slot = slot;
+    }
 
-	// Slot
-	Slot m_Slot;
+    // get/set SSN
+    string getSSN() const {
+        return m_SSN;
+    }
+    void setSSN(const string& SSN) {
+        m_SSN = SSN;
+    }
 
-	// 주민등록번호
-	string m_SSN;
+private:
+    // PC name
+    string m_Name;
 
+    // Slot
+    Slot m_Slot;
+
+    // 주민등록번호
+    string m_SSN;
 };
 
 
@@ -82,21 +97,26 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CLDeletePCFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CLDeletePC(); }
+    // create packet
+    Packet* createPacket() {
+        return new CLDeletePC();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CLDeletePC"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CL_DELETE_PC; }
+    // get packet name
+    string getPacketName() const {
+        return "CLDeletePC";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + 20 + szSlot + szBYTE + 20; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CL_DELETE_PC;
+    }
 
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 20 + szSlot + szBYTE + 20;
+    }
 };
 
 
@@ -107,12 +127,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CLDeletePCHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CLDeletePC* pPacket, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CLDeletePC* pPacket, Player* pPlayer);
 };
 
 #endif

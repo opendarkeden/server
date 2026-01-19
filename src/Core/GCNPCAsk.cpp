@@ -1,90 +1,85 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCNPCAsk.cpp 
+// Filename    : GCNPCAsk.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCNPCAsk.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCNPCAsk::GCNPCAsk() 
-	
-{
-	__BEGIN_TRY 
+GCNPCAsk::GCNPCAsk()
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCNPCAsk::~GCNPCAsk() 
-	
+GCNPCAsk::~GCNPCAsk()
+
 {
-	__BEGIN_TRY 
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // Initialize from the incoming stream.
 //////////////////////////////////////////////////////////////////////////////
-void GCNPCAsk::read (SocketInputStream & iStream ) 
-	 
+void GCNPCAsk::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
-	iStream.read(m_ScriptID);
-	iStream.read(m_NPCID);
+    iStream.read(m_ObjectID);
+    iStream.read(m_ScriptID);
+    iStream.read(m_NPCID);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // Write to the outgoing stream.
 //////////////////////////////////////////////////////////////////////////////
-void GCNPCAsk::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
+void GCNPCAsk::write(SocketOutputStream& oStream) const
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_ScriptID);
-	oStream.write(m_NPCID);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+    oStream.write(m_ScriptID);
+    oStream.write(m_NPCID);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCNPCAsk::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCNPCAskHandler::execute(this , pPlayer);
+void GCNPCAsk::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCNPCAskHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCNPCAsk::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCNPCAsk("
-		<< "ObjectID:" << m_ObjectID 
-		<< ",ScriptID: " << m_ScriptID
-		<< ")" ;
-	return msg.toString();
-		
-	__END_CATCH
-}
+string GCNPCAsk::toString() const
 
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCNPCAsk("
+        << "ObjectID:" << m_ObjectID << ",ScriptID: " << m_ScriptID << ")";
+    return msg.toString();
+
+    __END_CATCH
+}

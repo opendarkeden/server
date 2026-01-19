@@ -14,61 +14,85 @@
 // class EffectBloodyWallBlocked
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBloodyWallBlocked : public Effect 
-{
+class EffectBloodyWallBlocked : public Effect {
 public:
-	EffectBloodyWallBlocked(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLOODY_WALL_BLOCKED; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	string toString() const throw();
+    EffectBloodyWallBlocked(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
 public:
-	string getCasterName(void) const { return m_CasterName; }
-	void setCasterName(const string & CasterName ) { m_CasterName = CasterName; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_BLOODY_WALL_BLOCKED;
+    }
 
-	int getPartyID(void) const { return m_PartyID; }
-	void setPartyID(int PartyID) { m_PartyID = PartyID; }
+    void affect();
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t Tick) { m_Tick = Tick; }
+    string toString() const throw();
 
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
+public:
+    string getCasterName(void) const {
+        return m_CasterName;
+    }
+    void setCasterName(const string& CasterName) {
+        m_CasterName = CasterName;
+    }
+
+    int getPartyID(void) const {
+        return m_PartyID;
+    }
+    void setPartyID(int PartyID) {
+        m_PartyID = PartyID;
+    }
+
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
+
+    Turn_t getTick() const {
+        return m_Tick;
+    }
+    void setTick(Turn_t Tick) {
+        m_Tick = Tick;
+    }
+
+    int getLevel(void) const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
 
 private:
-	string  m_CasterName;
-	int	    m_PartyID;
-	int     m_Damage;
-	Turn_t  m_Tick;
-	int     m_Level;
+    string m_CasterName;
+    int m_PartyID;
+    int m_Damage;
+    Turn_t m_Tick;
+    int m_Level;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectBloodyWallBlockedLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBloodyWallBlockedLoader : public EffectLoader 
-{
+class EffectBloodyWallBlockedLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_BLOODY_WALL_BLOCKED; }
-	virtual string getEffectClassName() const throw() { return "EffectBloodyWallBlocked"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_BLOODY_WALL_BLOCKED;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectBloodyWallBlocked";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 extern EffectBloodyWallBlockedLoader* g_pEffectBloodyWallBlockedLoader;

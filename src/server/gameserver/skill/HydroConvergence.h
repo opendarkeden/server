@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HydroConvergence.h 
+// Filename    : HydroConvergence.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HYDRO_CONVERGENCE_HANDLER_H__
@@ -13,20 +13,24 @@
 // class HydroConvergence;
 //////////////////////////////////////////////////////////////////////////////
 
-class HydroConvergence: public SkillHandler 
-{
+class HydroConvergence : public SkillHandler {
 public:
-	HydroConvergence() throw() {}
-	~HydroConvergence() throw() {}
-	
+    HydroConvergence() throw() {}
+    ~HydroConvergence() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HydroConvergence"; }
+    string getSkillHandlerName() const throw() {
+        return "HydroConvergence";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_HYDRO_CONVERGENCE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HYDRO_CONVERGENCE;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

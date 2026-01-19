@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AcidBolt.h 
-// Written By  : 
-// Description : 
+// Filename    : AcidBolt.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ACID_BOLT_HANDLER_H__
@@ -13,20 +13,23 @@
 // class AcidBolt;
 //////////////////////////////////////////////////////////////////////////////
 
-class AcidBolt : public SkillHandler 
-{
+class AcidBolt : public SkillHandler {
 public:
-	AcidBolt() throw() {}
-	~AcidBolt() throw() {}
-	
+    AcidBolt() throw() {}
+    ~AcidBolt() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AcidBolt"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ACID_BOLT; }
+    string getSkillHandlerName() const throw() {
+        return "AcidBolt";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ACID_BOLT;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

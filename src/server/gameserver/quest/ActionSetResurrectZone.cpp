@@ -1,94 +1,87 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionSetResurrectZone.cpp
-// Written By  : 
-// Description : 
+// Written By  :
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionSetResurrectZone.h"
+
 #include "Creature.h"
-#include "Trigger.h"
-#include "GamePlayer.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "StringPool.h"
 #include "GCNPCResponse.h"
 #include "GCSystemMessage.h"
+#include "GamePlayer.h"
+#include "Ousters.h"
+#include "Slayer.h"
+#include "StringPool.h"
+#include "Trigger.h"
+#include "Vampire.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSetResurrectZone::read (PropertyBuffer & propertyBuffer)
-    
+void ActionSetResurrectZone::read(PropertyBuffer& propertyBuffer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	try 
-	{
-		m_ZoneID = propertyBuffer.getPropertyInt("ZoneID"); 
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+    try {
+        m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSetResurrectZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionSetResurrectZone::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	// 일단 클라이언트를 위해서 OK 패킷을 함 날린다.
-	GCNPCResponse okpkt;
-	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
-	pPlayer->sendPacket(&okpkt);
+    // 일단 클라이언트를 위해서 OK 패킷을 함 날린다.
+    GCNPCResponse okpkt;
+    Player* pPlayer = pCreature2->getPlayer();
+    Assert(pPlayer != NULL);
+    pPlayer->sendPacket(&okpkt);
 
-	if (pCreature2->isSlayer())
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
-		pSlayer->setResurrectZoneIDEx(m_ZoneID);
-	}
-	else if (pCreature2->isVampire())
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature2);
-		pVampire->setResurrectZoneIDEx(m_ZoneID);
-	}
-	else if (pCreature2->isOusters())
-	{
-		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature2);
-		pOusters->setResurrectZoneIDEx(m_ZoneID);
-	}
+    if (pCreature2->isSlayer()) {
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
+        pSlayer->setResurrectZoneIDEx(m_ZoneID);
+    } else if (pCreature2->isVampire()) {
+        Vampire* pVampire = dynamic_cast<Vampire*>(pCreature2);
+        pVampire->setResurrectZoneIDEx(m_ZoneID);
+    } else if (pCreature2->isOusters()) {
+        Ousters* pOusters = dynamic_cast<Ousters*>(pCreature2);
+        pOusters->setResurrectZoneIDEx(m_ZoneID);
+    }
 
-	GCSystemMessage msg;
-	msg.setMessage( g_pStringPool->getString( STRID_SET_RESURRECTION_POSITION ) );
-	pPlayer->sendPacket(&msg);
+    GCSystemMessage msg;
+    msg.setMessage(g_pStringPool->getString(STRID_SET_RESURRECTION_POSITION));
+    pPlayer->sendPacket(&msg);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionSetResurrectZone::toString () const 
-	
+string ActionSetResurrectZone::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionSetResurrectZone(" << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionSetResurrectZone(" << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : LCQueryResultCharacterName.h 
+//
+// Filename    : LCQueryResultCharacterName.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __LC_QUERY_RESULT_CHARACTER_NAME_H__
@@ -23,58 +23,62 @@
 //////////////////////////////////////////////////////////////////////
 
 class LCQueryResultCharacterName : public Packet {
-
 public:
-
-	// constructor
-	LCQueryResultCharacterName()  : m_bExist(false) {}
+    // constructor
+    LCQueryResultCharacterName() : m_bExist(false) {}
     ~LCQueryResultCharacterName() {};
 
 public:
-
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_LC_QUERY_RESULT_CHARACTER_NAME; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szbool
-			+ szBYTE + m_CharacterName.size(); 
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_LC_QUERY_RESULT_CHARACTER_NAME;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "LCQueryResultCharacterName"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szbool + szBYTE + m_CharacterName.size();
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "LCQueryResultCharacterName";
+    }
+
+    // get packet's debug string
+    string toString() const;
 
 public:
+    // get/set player id
+    string getCharacterName() const {
+        return m_CharacterName;
+    }
+    void setCharacterName(const string& playerID) {
+        m_CharacterName = playerID;
+    }
 
-	// get/set player id
-	string getCharacterName() const  { return m_CharacterName; }
-	void setCharacterName(const string & playerID)  { m_CharacterName = playerID; }
+    // get/set player id's existence
+    bool isExist() const {
+        return m_bExist;
+    }
+    void setExist(bool bExist = true) {
+        m_bExist = bExist;
+    }
 
-	// get/set player id's existence
-	bool isExist() const  { return m_bExist; }
-	void setExist(bool bExist = true)  { m_bExist = bExist; }
+private:
+    // player id
+    string m_CharacterName;
 
-private :
-
-	// player id
-	string m_CharacterName;
-
-	// player id's existence
-	bool m_bExist;
-
+    // player id's existence
+    bool m_bExist;
 };
 
 
@@ -87,25 +91,26 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class LCQueryResultCharacterNameFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new LCQueryResultCharacterName(); }
+    // create packet
+    Packet* createPacket() {
+        return new LCQueryResultCharacterName();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "LCQueryResultCharacterName"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_LC_QUERY_RESULT_CHARACTER_NAME; }
+    // get packet name
+    string getPacketName() const {
+        return "LCQueryResultCharacterName";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const 
-	{ 
-		return szbool
-			+ szBYTE + 20; 
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_LC_QUERY_RESULT_CHARACTER_NAME;
+    }
 
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szbool + szBYTE + 20;
+    }
 };
 
 
@@ -116,12 +121,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class LCQueryResultCharacterNameHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(LCQueryResultCharacterName* pPacket, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(LCQueryResultCharacterName* pPacket, Player* pPlayer);
 };
 
 #endif

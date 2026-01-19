@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCTakeOutOK.cc 
+//
+// Filename    : GCTakeOutOK.cc
 // Written By  : elca@ewestsoft.com
 // Description : Client-side handler to confirm a take-out request succeeded.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,41 +13,41 @@
 //////////////////////////////////////////////////////////////////////
 // Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
-void GCTakeOutOK::read (SocketInputStream & iStream ) 
-	 
+void GCTakeOutOK::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
+    iStream.read(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
-void GCTakeOutOK::write (SocketOutputStream & oStream ) const 
-     
+void GCTakeOutOK::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCTakeOutOK::execute (Player * pPlayer ) 
-	 
+void GCTakeOutOK::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCTakeOutOKHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCTakeOutOKHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -55,17 +55,15 @@ void GCTakeOutOK::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCTakeOutOK::toString () const
-       
+string GCTakeOutOK::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCTakeOutOK("
-		<< "ObjectId:" << (int)m_ObjectID
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCTakeOutOK("
+        << "ObjectId:" << (int)m_ObjectID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

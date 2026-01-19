@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHowl.h
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_HOWL__
@@ -13,21 +13,22 @@
 // class EffectHowl
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHowl : public Effect 
-{
+class EffectHowl : public Effect {
 public:
-	EffectHowl(Creature* pCreature) ;
+    EffectHowl(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HOWL; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_HOWL;
+    }
 
-	void affect()  {}
-	void affect(Creature* pCreature) ;
+    void affect() {}
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const throw();
+    string toString() const throw();
 };
 
 #endif // __EFFECT_HOWL__

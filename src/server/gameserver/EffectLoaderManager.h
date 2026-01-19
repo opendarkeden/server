@@ -1,15 +1,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectLoaderManager.h
 // Written By  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_LOADER_MANAGER_H__
 #define __EFFECT_LOADER_MANAGER_H__
 
-#include "Types.h"
 #include "Effect.h"
 #include "EffectLoader.h"
+#include "Types.h"
 
 class Slayer;
 class Vampire;
@@ -19,25 +19,24 @@ class Ousters;
 // class EffectLoaderManager;
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectLoaderManager 
-{
+class EffectLoaderManager {
 public:
-	EffectLoaderManager() ;
-	~EffectLoaderManager() ;
+    EffectLoaderManager();
+    ~EffectLoaderManager();
 
 public:
-	void init() ;
+    void init();
 
-	void load(Slayer* pSlayer) ;
-	void load(Vampire* pVampire) ;
-	void load(Ousters* pOusters) ;
+    void load(Slayer* pSlayer);
+    void load(Vampire* pVampire);
+    void load(Ousters* pOusters);
 
-	void load(Zone* pZone) ;
+    void load(Zone* pZone);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	EffectLoader* m_pEffectLoaders[Effect::EFFECT_CLASS_MAX];
+    EffectLoader* m_pEffectLoaders[Effect::EFFECT_CLASS_MAX];
 };
 
 extern EffectLoaderManager* g_pEffectLoaderManager;

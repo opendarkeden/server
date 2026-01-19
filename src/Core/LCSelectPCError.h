@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : LCSelectPCError.h 
+//
+// Filename    : LCSelectPCError.h
 // Written By  : Reiot
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __LC_SELECT_PC_ERROR_H__
@@ -13,14 +13,13 @@
 #include "Packet.h"
 #include "PacketFactory.h"
 
-enum SELECT_PC_ERROR
-{
-	SELECT_PC_ERROR_NULL,
+enum SELECT_PC_ERROR {
+    SELECT_PC_ERROR_NULL,
 
-	SELECT_PC_CANNOT_PLAY,			// 게임 할 수 없는 캐릭터(빌링 관련)
-	SELECT_PC_NOT_BILLING_CHECK,	// 아직 결제 정보가 체크되지 않았다.
-	SELECT_PC_CANNOT_PLAY_BY_ATTR,	// 능력치 문제로 더 이상 무료겜 못한다.
-	SELECT_PC_DIDNOT_AGREE,			// 넷마블 약관에 동의하지 않아서 플레이 할 수 없다.
+    SELECT_PC_CANNOT_PLAY,         // 게임 할 수 없는 캐릭터(빌링 관련)
+    SELECT_PC_NOT_BILLING_CHECK,   // 아직 결제 정보가 체크되지 않았다.
+    SELECT_PC_CANNOT_PLAY_BY_ATTR, // 능력치 문제로 더 이상 무료겜 못한다.
+    SELECT_PC_DIDNOT_AGREE,        // 넷마블 약관에 동의하지 않아서 플레이 할 수 없다.
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -34,40 +33,47 @@ enum SELECT_PC_ERROR
 //////////////////////////////////////////////////////////////////////
 
 class LCSelectPCError : public Packet {
-
 public:
-	LCSelectPCError() {};
+    LCSelectPCError() {};
     ~LCSelectPCError() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_LC_SELECT_PC_ERROR; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szBYTE; }
-	
-	// get packet's name
-	string getPacketName() const  { return "LCSelectPCError"; }
-	
-	// get packet's debug string
-	string toString() const ;
-	
-	// get/set error message
-	BYTE getCode() const  { return m_Code; }
-	void setCode(BYTE code)  { m_Code = code; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_LC_SELECT_PC_ERROR;
+    }
 
-private : 
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE;
+    }
 
-	// 에러 메시지
-	BYTE  m_Code;
+    // get packet's name
+    string getPacketName() const {
+        return "LCSelectPCError";
+    }
 
+    // get packet's debug string
+    string toString() const;
+
+    // get/set error message
+    BYTE getCode() const {
+        return m_Code;
+    }
+    void setCode(BYTE code) {
+        m_Code = code;
+    }
+
+private:
+    // 에러 메시지
+    BYTE m_Code;
 };
 
 
@@ -80,21 +86,26 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class LCSelectPCErrorFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new LCSelectPCError(); }
+    // create packet
+    Packet* createPacket() {
+        return new LCSelectPCError();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "LCSelectPCError"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_LC_SELECT_PC_ERROR; }
+    // get packet name
+    string getPacketName() const {
+        return "LCSelectPCError";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
-	
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_LC_SELECT_PC_ERROR;
+    }
+
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE;
+    }
 };
 
 
@@ -105,12 +116,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class LCSelectPCErrorHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(LCSelectPCError* pPacket, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(LCSelectPCError* pPacket, Player* pPlayer);
 };
 
 #endif

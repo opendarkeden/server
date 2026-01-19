@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AuraBall.h 
-// Written By  : 
-// Description : 
+// Filename    : AuraBall.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_AURA_BALL_HANDLER_H__
@@ -13,20 +13,23 @@
 // class AuraBall;
 //////////////////////////////////////////////////////////////////////////////
 
-class AuraBall : public SkillHandler 
-{
+class AuraBall : public SkillHandler {
 public:
-	AuraBall() throw() {}
-	~AuraBall() throw() {}
-	
+    AuraBall() throw() {}
+    ~AuraBall() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AuraBall"; }
+    string getSkillHandlerName() const throw() {
+        return "AuraBall";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_AURA_BALL; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_AURA_BALL;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

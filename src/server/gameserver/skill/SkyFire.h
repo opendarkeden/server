@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SkyFire.h 
+// Filename    : SkyFire.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_Sky_Fire_HANDLER_H__
@@ -13,20 +13,23 @@
 // class SkyFire;
 //////////////////////////////////////////////////////////////////////////////
 
-class SkyFire : public SkillHandler 
-{
+class SkyFire : public SkillHandler {
 public:
-	SkyFire() throw() {}
-	~SkyFire() throw() {}
-	
+    SkyFire() throw() {}
+    ~SkyFire() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SkyFire"; }
-	SkillType_t getSkillType() const throw() { return SKILL_Sky_Fire; }
+    string getSkillHandlerName() const throw() {
+        return "SkyFire";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_Sky_Fire;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

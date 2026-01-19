@@ -4,73 +4,73 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectAutoTurret.h"
-#include "Zone.h"
+
 #include "Tile.h"
+#include "Zone.h"
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectAutoTurret::EffectAutoTurret( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
-	
+EffectAutoTurret::EffectAutoTurret(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = X;
-	m_Y = Y;
+    m_pZone = pZone;
+    m_X = X;
+    m_Y = Y;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectAutoTurret::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert( m_pZone != NULL );
+    Assert(m_pZone != NULL);
 
-	affect( m_pZone, m_X, m_Y );
-	
-	__END_CATCH
+    affect(m_pZone, m_X, m_Y);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectAutoTurret::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectAutoTurret::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile( m_X, m_Y );
-	tile.deleteEffect( m_ObjectID );
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    Tile& tile = m_pZone->getTile(m_X, m_Y);
+    tile.deleteEffect(m_ObjectID);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectAutoTurret::toString() const 
-	
+string EffectAutoTurret::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectAutoTurret("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectAutoTurret("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

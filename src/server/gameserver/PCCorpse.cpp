@@ -14,21 +14,19 @@
 //----------------------------------------------------------------------
 // 크리처의 인벤토리에서 아이템을 꺼내서, 시체에 집어넣는다.
 //----------------------------------------------------------------------
-void PCCorpse::transportItems (Creature* pCreature) 
-	
-{
-}
+void PCCorpse::transportItems(Creature* pCreature)
+
+{}
 
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string PCCorpse::toString () const 
-	
+string PCCorpse::toString() const
+
 {
-	StringStream msg;
+    StringStream msg;
 
-	msg << "PCCorpse()";
+    msg << "PCCorpse()";
 
-	return msg.toString();
+    return msg.toString();
 }
-

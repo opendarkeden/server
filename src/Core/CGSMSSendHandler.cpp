@@ -7,69 +7,65 @@
 #include "CGSMSSend.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "Assert1.h"
-	#include "SMSServiceThread.h"
-	#include "PlayerCreature.h"
+#include <cstdio>
 
-	#include "GCAddressListVerify.h"
-
-	#include <cstdio>
+#include "Assert1.h"
+#include "GCAddressListVerify.h"
+#include "GamePlayer.h"
+#include "PlayerCreature.h"
+#include "SMSServiceThread.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGSMSSendHandler::execute (CGSMSSend* pPacket , Player* pPlayer)
-	 
+void CGSMSSendHandler::execute(CGSMSSend* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	filelog("SMS.log", "[%s:%s] %s", pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->toString().c_str());
-	GCAddressListVerify gcVerify;
+    filelog("SMS.log", "[%s:%s] %s", pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->toString().c_str());
+    GCAddressListVerify gcVerify;
 
-	if (pPC->getSMSCharge() < pPacket->getNumbersList().size() )
-	{
-		filelog("SMS.log", "[%s:%s] Charge가 모자랍니다.", pGamePlayer->getID().c_str(), pPC->getName().c_str());
-		gcVerify.setCode(GCAddressListVerify::SMS_SEND_FAIL);
-		gcVerify.setParameter(GCAddressListVerify::SMS_SEND_FAIL_NOT_ENOUGH_CHARGE);
-		pGamePlayer->sendPacket(&gcVerify);
-		return;
-	}
+    if (pPC->getSMSCharge() < pPacket->getNumbersList().size()) {
+        filelog("SMS.log", "[%s:%s] Charge가 모자랍니다.", pGamePlayer->getID().c_str(), pPC->getName().c_str());
+        gcVerify.setCode(GCAddressListVerify::SMS_SEND_FAIL);
+        gcVerify.setParameter(GCAddressListVerify::SMS_SEND_FAIL_NOT_ENOUGH_CHARGE);
+        pGamePlayer->sendPacket(&gcVerify);
+        return;
+    }
 
-	pPC->setSMSCharge(pPC->getSMSCharge() - pPacket->getNumbersList().size());
+    pPC->setSMSCharge(pPC->getSMSCharge() - pPacket->getNumbersList().size());
 
-	char buffer[100];
-	sprintf(buffer, "SMSCharge=%u", pPC->getSMSCharge());
-	pPC->tinysave(buffer);
+    char buffer[100];
+    sprintf(buffer, "SMSCharge=%u", pPC->getSMSCharge());
+    pPC->tinysave(buffer);
 
-	list<string>::const_iterator itr = pPacket->getNumbersList().begin();
-	list<string>::const_iterator endItr = pPacket->getNumbersList().end();
+    list<string>::const_iterator itr = pPacket->getNumbersList().begin();
+    list<string>::const_iterator endItr = pPacket->getNumbersList().end();
 
-	for (; itr != endItr ; ++itr )
-	{
-		if (SMSServiceThread::Instance().isValidNumber(*itr ) )
-		{
-			SMSMessage* pMsg = new SMSMessage(pPC->getName(), *itr, pPacket->getCallerNumber(), pPacket->getMessage());
-			SMSServiceThread::Instance().pushMessage(pMsg);
-		}
-	}
+    for (; itr != endItr; ++itr) {
+        if (SMSServiceThread::Instance().isValidNumber(*itr)) {
+            SMSMessage* pMsg = new SMSMessage(pPC->getName(), *itr, pPacket->getCallerNumber(), pPacket->getMessage());
+            SMSServiceThread::Instance().pushMessage(pMsg);
+        }
+    }
 
-	gcVerify.setCode(GCAddressListVerify::SMS_SEND_OK);
-	gcVerify.setParameter(pPC->getSMSCharge());
-	pGamePlayer->sendPacket(&gcVerify);
+    gcVerify.setCode(GCAddressListVerify::SMS_SEND_OK);
+    gcVerify.setParameter(pPC->getSMSCharge());
+    pGamePlayer->sendPacket(&gcVerify);
 
 #endif
-	
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

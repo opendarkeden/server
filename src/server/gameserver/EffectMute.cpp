@@ -5,265 +5,253 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectMute.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Monster.h"
+#include "DB.h"
 #include "EventMorph.h"
-#include "PCManager.h"
-#include "GamePlayer.h"
+#include "EventRegeneration.h"
+#include "GCChangeDarkLight.h"
+#include "GCModifyInformation.h"
 #include "GCMorph1.h"
 #include "GCMorphVampire2.h"
-#include "GCModifyInformation.h"
-#include "GCChangeDarkLight.h"
 #include "GCRemoveEffect.h"
+#include "GamePlayer.h"
+#include "Monster.h"
 #include "PCFinder.h"
-#include "EventRegeneration.h"
-#include "DB.h"
+#include "PCManager.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectMute::EffectMute(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMute::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY 
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMute::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectMute::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY 
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMute::unaffect(Creature* pFromCreature)
-	
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	Assert(pFromCreature != NULL);
+    Assert(pFromCreature != NULL);
 
-	pFromCreature->removeFlag(Effect::EFFECT_CLASS_MUTE);
+    pFromCreature->removeFlag(Effect::EFFECT_CLASS_MUTE);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID( pFromCreature->getObjectID() );
-	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_MUTE );
-	pFromCreature->getPlayer()->sendPacket( &gcRemoveEffect );
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pFromCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_MUTE);
+    pFromCreature->getPlayer()->sendPacket(&gcRemoveEffect);
 
-	destroy( pFromCreature->getName() );
+    destroy(pFromCreature->getName());
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMute::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectMute" << "unaffect BEGIN" << endl;
+    // cout << "EffectMute" << "unaffect BEGIN" << endl;
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	//cout << "EffectMute" << "unaffect END" << endl;
-						
-	__END_CATCH
+    // cout << "EffectMute" << "unaffect END" << endl;
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMute::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectMute::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMute::create(const string & ownerID) 
-	
+void EffectMute::create(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-
-
-		Turn_t currentYearTime;
-
-		getCurrentYearTime(currentYearTime);
-
-		pStmt->executeQuery( "INSERT INTO EffectMute (OwnerID , YearTime, DayTime) VALUES('%s', %ld, %ld)",
-								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
-}
+        Turn_t currentYearTime;
+
+        getCurrentYearTime(currentYearTime);
+
+        pStmt->executeQuery("INSERT INTO EffectMute (OwnerID , YearTime, DayTime) VALUES('%s', %ld, %ld)",
+                            ownerID.c_str(), currentYearTime, m_Deadline.tv_sec);
 
 
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-void EffectMute::destroy(const string & ownerID)
-	
-{
-	__BEGIN_TRY
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	Statement* pStmt;
-
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-
-		/*
-		StringStream sql;
-		sql << "DELETE FROM EffectMute WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQueryString(sql.toString());
-		*/
-
-		pStmt->executeQuery("DELETE FROM EffectMute WHERE OwnerID = '%s'", 
-								ownerID.c_str());
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMute::save(const string & ownerID) 
-	
+void EffectMute::destroy(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Turn_t currentYearTime;
+        /*
+        StringStream sql;
+        sql << "DELETE FROM EffectMute WHERE OwnerID = '" << ownerID << "'";
+        pStmt->executeQueryString(sql.toString());
+        */
 
-		getCurrentYearTime(currentYearTime);
+        pStmt->executeQuery("DELETE FROM EffectMute WHERE OwnerID = '%s'", ownerID.c_str());
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-		/*
-		StringStream sql;
-
-		sql << "UPDATE EffectMute SET "
-			<< "YearTime = " << currentYearTime
-			<< ",DayTime = " << m_Deadline.tv_sec
-			<< ", Level = " <<(int)m_Level
-			<< " WHERE OwnerID = '" << ownerID << "'";
-
-		pStmt->executeQueryString(sql.toString());
-		*/
-
-		pStmt->executeQuery( "UPDATE EffectMute SET YearTime=%ld, DayTime=%ld WHERE OwnerID='%s'", 
-								currentYearTime, m_Deadline.tv_sec, ownerID.c_str() );
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectMute::toString()
-	const 
+void EffectMute::save(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    Statement* pStmt;
 
-	msg << "EffectMute("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-	return msg.toString();
+        Turn_t currentYearTime;
 
-	__END_CATCH
+        getCurrentYearTime(currentYearTime);
 
+        /*
+        StringStream sql;
+
+        sql << "UPDATE EffectMute SET "
+            << "YearTime = " << currentYearTime
+            << ",DayTime = " << m_Deadline.tv_sec
+            << ", Level = " <<(int)m_Level
+            << " WHERE OwnerID = '" << ownerID << "'";
+
+        pStmt->executeQueryString(sql.toString());
+        */
+
+        pStmt->executeQuery("UPDATE EffectMute SET YearTime=%ld, DayTime=%ld WHERE OwnerID='%s'", currentYearTime,
+                            m_Deadline.tv_sec, ownerID.c_str());
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+string EffectMute::toString() const {
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "EffectMute("
+        << "ObjectID:" << getObjectID() << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMuteLoader::load(Creature* pCreature) 
-	
+void EffectMuteLoader::load(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery( "SELECT DayTime FROM EffectMute WHERE OwnerID='%s'", 
-												pCreature->getName().c_str());
+        Result* pResult =
+            pStmt->executeQuery("SELECT DayTime FROM EffectMute WHERE OwnerID='%s'", pCreature->getName().c_str());
 
-		while(pResult->next())
-		{
-			uint i = 0;
+        while (pResult->next()) {
+            uint i = 0;
 
-			int DayTime = pResult->getDWORD(++i);
+            int DayTime = pResult->getDWORD(++i);
 
-			Timeval currentTime;
-			getCurrentTime(currentTime);
+            Timeval currentTime;
+            getCurrentTime(currentTime);
 
-			EffectMute* pEffectMute = new EffectMute(pCreature);
-	
-			if (currentTime.tv_sec < DayTime) 
-			{
-				pEffectMute->setDeadline((DayTime - currentTime.tv_sec)* 10);
+            EffectMute* pEffectMute = new EffectMute(pCreature);
 
-				pCreature->addEffect(pEffectMute);
-				pCreature->setFlag(Effect::EFFECT_CLASS_MUTE);
-			} 
-			else 
-			{
-				pEffectMute->destroy( pCreature->getName() );
-			}
-		}
+            if (currentTime.tv_sec < DayTime) {
+                pEffectMute->setDeadline((DayTime - currentTime.tv_sec) * 10);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+                pCreature->addEffect(pEffectMute);
+                pCreature->setFlag(Effect::EFFECT_CLASS_MUTE);
+            } else {
+                pEffectMute->destroy(pCreature->getName());
+            }
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 EffectMuteLoader* g_pEffectMuteLoader = NULL;

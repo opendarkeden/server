@@ -1,75 +1,72 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventSystemMessage.cpp
 // Written by  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EventSystemMessage.h"
-#include "GamePlayer.h"
-	
+
 #include "GCSystemMessage.h"
+#include "GamePlayer.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
 // class EventSystemMessage member methods
 //////////////////////////////////////////////////////////////////////////////
 
-EventSystemMessage::EventSystemMessage(GamePlayer* pGamePlayer) 
-	
-: Event(pGamePlayer)
-{
-//	m_pSystemMessageZone = NULL;
-//	m_X = m_Y = 0;
+EventSystemMessage::EventSystemMessage(GamePlayer* pGamePlayer)
+
+    : Event(pGamePlayer) {
+    //	m_pSystemMessageZone = NULL;
+    //	m_X = m_Y = 0;
 }
 
-EventSystemMessage::~EventSystemMessage() 
-	
+EventSystemMessage::~EventSystemMessage()
+
+{}
+
+void EventSystemMessage::addMessage(const string& msg)
+
 {
-}
+    __BEGIN_TRY
 
-void EventSystemMessage::addMessage (const string& msg) 
-	
-{
-	__BEGIN_TRY
+    m_Messages.push_back(msg);
 
-	m_Messages.push_back( msg );
-
-	__END_CATCH
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 // affect
 //----------------------------------------------------------------------
-void EventSystemMessage::activate () 
-	
+void EventSystemMessage::activate()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(m_pGamePlayer != NULL);
-	Creature * pCreature = m_pGamePlayer->getCreature();
+    Assert(m_pGamePlayer != NULL);
+    Creature* pCreature = m_pGamePlayer->getCreature();
 
-	GCSystemMessage gcSystemMessage;
+    GCSystemMessage gcSystemMessage;
 
-	list<string>::const_iterator itr = m_Messages.begin();
+    list<string>::const_iterator itr = m_Messages.begin();
 
-	while (itr!=m_Messages.end())
-	{
-		gcSystemMessage.setMessage( *itr );
-		pCreature->getPlayer()->sendPacket( &gcSystemMessage );
+    while (itr != m_Messages.end()) {
+        gcSystemMessage.setMessage(*itr);
+        pCreature->getPlayer()->sendPacket(&gcSystemMessage);
 
-		itr++;
-	}
+        itr++;
+    }
 
-	//setNextTime( m_MessageTick );
+    // setNextTime( m_MessageTick );
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EventSystemMessage::toString () const 
-	
+string EventSystemMessage::toString() const
+
 {
-	StringStream msg;
-	msg << "EventSystemMessage("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EventSystemMessage("
+        << ")";
+    return msg.toString();
 }

@@ -1,77 +1,77 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSay.cpp 
+// Filename    : CGSay.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGSay.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
+#include "GamePlayer.h"
 #endif
 
-void CGSay::read (SocketInputStream & iStream) 
-	 
+void CGSay::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_Color);
-		
-	BYTE szMessage;
+    iStream.read(m_Color);
 
-	iStream.read(szMessage);
+    BYTE szMessage;
 
-	if (szMessage == 0)
-		throw InvalidProtocolException("szMessage == 0");
+    iStream.read(szMessage);
 
-	if (szMessage > 128)
-		throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	iStream.read(m_Message , szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	__END_CATCH
+    iStream.read(m_Message, szMessage);
+
+    __END_CATCH
 }
 
-void CGSay::write (SocketOutputStream & oStream) const 
-     
+void CGSay::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	oStream.write(m_Color);
+    __BEGIN_TRY
 
-	BYTE szMessage = m_Message.size();
+    oStream.write(m_Color);
 
-	if (szMessage == 0)
-		throw InvalidProtocolException("szMessage == 0");
+    BYTE szMessage = m_Message.size();
 
-	if (szMessage > 128)
-		throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	oStream.write(szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	oStream.write(m_Message);
+    oStream.write(szMessage);
 
-	__END_CATCH
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
-void CGSay::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGSayHandler::execute(this , pPlayer);
+void CGSay::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGSayHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGSay::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGSay(Color:" << m_Color << ", Message:" << m_Message << ")" ;
-	return msg.toString();
+string CGSay::toString() const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGSay(Color:" << m_Color << ", Message:" << m_Message << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

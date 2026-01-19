@@ -1,95 +1,90 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectCrossGuard.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectCrossGuard.h"
-#include "Ousters.h"
 
 #include "GCRemoveEffect.h"
+#include "Ousters.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectCrossGuard::EffectCrossGuard(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isOusters());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isOusters());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectCrossGuard::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectCrossGuard" << "unaffect BEGIN" << endl;
+    // cout << "EffectCrossGuard" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isOusters());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isOusters());
 
-	// 플래그를 끈다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_CROSS_GUARD);
+    // 플래그를 끈다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_CROSS_GUARD);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-	Assert( pTargetOusters != NULL );
+    Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
+    Assert(pTargetOusters != NULL);
 
-	OUSTERS_RECORD prev;
+    OUSTERS_RECORD prev;
 
-	pTargetOusters->getOustersRecord(prev);
-	pTargetOusters->initAllStat();
-	pTargetOusters->sendRealWearingInfo();
-	pTargetOusters->sendModifyInfo(prev);
+    pTargetOusters->getOustersRecord(prev);
+    pTargetOusters->initAllStat();
+    pTargetOusters->sendRealWearingInfo();
+    pTargetOusters->sendModifyInfo(prev);
 
-	// 이펙트를 삭제하라고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_CROSS_GUARD);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트를 삭제하라고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_CROSS_GUARD);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectCrossGuard" << "unaffect END" << endl;
+    // cout << "EffectCrossGuard" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectCrossGuard::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectCrossGuard::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectCrossGuard::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectCrossGuard("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectCrossGuard("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

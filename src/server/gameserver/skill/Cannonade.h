@@ -1,8 +1,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Cannonade.h 
+// Filename    : Cannonade.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CANNONADE_HANDLER_H__
@@ -14,19 +14,22 @@
 // class Cannonade;
 //////////////////////////////////////////////////////////////////////////////
 
-class Cannonade : public SkillHandler 
-{
+class Cannonade : public SkillHandler {
 public:
-	Cannonade() throw() {}
-	~Cannonade() throw() {}
-	
+    Cannonade() throw() {}
+    ~Cannonade() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Cannonade"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CANNONADE; }
+    string getSkillHandlerName() const throw() {
+        return "Cannonade";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CANNONADE;
+    }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

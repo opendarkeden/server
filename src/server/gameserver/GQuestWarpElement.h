@@ -3,16 +3,17 @@
 
 #include "GQuestElement.h"
 
-class GQuestWarpElement : public GQuestElement
-{
+class GQuestWarpElement : public GQuestElement {
 public:
-	GQuestWarpElement() : m_ZoneID(0), m_X(0), m_Y(0) { }
-	string 				getElementName() const { return "Warp"; }
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
-	GQuestWarpElement*	makeElement(XMLTree* pTree);
+    GQuestWarpElement() : m_ZoneID(0), m_X(0), m_Y(0) {}
+    string getElementName() const {
+        return "Warp";
+    }
+    ResultType checkCondition(PlayerCreature* pPC) const;
+    GQuestWarpElement* makeElement(XMLTree* pTree);
 
 private:
-	int	m_ZoneID, m_X, m_Y;
+    int m_ZoneID, m_X, m_Y;
 };
 
 extern GQuestWarpElement g_WarpElement;

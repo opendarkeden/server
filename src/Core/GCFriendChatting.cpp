@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCFriendChatting.cpp 
+//
+// Filename    : GCFriendChatting.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,98 +13,87 @@
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-GCFriendChatting::GCFriendChatting()
-{
-
-	m_Command = 0;
-	m_IsBlack = 0;
-	m_IsOnLine = 0;
+GCFriendChatting::GCFriendChatting() {
+    m_Command = 0;
+    m_IsBlack = 0;
+    m_IsOnLine = 0;
 }
-void GCFriendChatting::read ( SocketInputStream & iStream )
-{
-	__BEGIN_TRY
-		
-	iStream.read( m_Command );
+void GCFriendChatting::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	BYTE szPlayerName;
-	iStream.read( szPlayerName );
-	if ( szPlayerName>32 )
-		throw InvalidProtocolException("PlayerName Lenth error");
-	iStream.read(m_PlayerName, szPlayerName);
+    iStream.read(m_Command);
 
-	WORD szMessage;
-	iStream.read( szMessage);
-	if ( szMessage > 128 )
-		throw InvalidProtocolException("Too large Message length");
-	iStream.read( m_Message , szMessage );
+    BYTE szPlayerName;
+    iStream.read(szPlayerName);
+    if (szPlayerName > 32)
+        throw InvalidProtocolException("PlayerName Lenth error");
+    iStream.read(m_PlayerName, szPlayerName);
 
-	iStream.read(m_IsBlack);
-	iStream.read(m_IsOnLine);
+    WORD szMessage;
+    iStream.read(szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("Too large Message length");
+    iStream.read(m_Message, szMessage);
 
-	__END_CATCH
+    iStream.read(m_IsBlack);
+    iStream.read(m_IsOnLine);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void GCFriendChatting::write ( SocketOutputStream & oStream ) const
-{
-	__BEGIN_TRY
-		
-	oStream.write( m_Command );
+void GCFriendChatting::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	BYTE szPlayerName = m_PlayerName.size();
-	if(szPlayerName>32)
-		throw InvalidProtocolException("Too Large PlayerName Lenth");
-	oStream.write(szPlayerName);
-	oStream.write(m_PlayerName);
+    oStream.write(m_Command);
 
-	WORD szMessage = m_Message.size();
-	if(szMessage>512)
-		throw InvalidProtocolException("Too Large Message Lenth");
-	oStream.write(szMessage);
-	oStream.write(m_Message);
+    BYTE szPlayerName = m_PlayerName.size();
+    if (szPlayerName > 32)
+        throw InvalidProtocolException("Too Large PlayerName Lenth");
+    oStream.write(szPlayerName);
+    oStream.write(m_PlayerName);
 
-	oStream.write(m_IsBlack);
-	oStream.write(m_IsOnLine);
+    WORD szMessage = m_Message.size();
+    if (szMessage > 512)
+        throw InvalidProtocolException("Too Large Message Lenth");
+    oStream.write(szMessage);
+    oStream.write(m_Message);
 
-	__END_CATCH
+    oStream.write(m_IsBlack);
+    oStream.write(m_IsOnLine);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCFriendChatting::execute ( Player * pPlayer )
-{
-	__BEGIN_TRY
-		 
-	GCFriendChattingHandler::execute( this , pPlayer );
+void GCFriendChatting::execute(Player* pPlayer) {
+    __BEGIN_TRY
 
-	__END_CATCH
+    GCFriendChattingHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCFriendChatting::toString () const
-       
+string GCFriendChatting::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCFriendChatting("
-		<< "Command:" << m_Command 
-		<< ",PlayerName:" << m_PlayerName
-		<< ",Message:" << m_Message 
-		<< ",m_IsBlack:"<<m_IsBlack
-		<< ",m_IsOnLine:"<<m_IsOnLine
-		<< ")" ;
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCFriendChatting("
+        << "Command:" << m_Command << ",PlayerName:" << m_PlayerName << ",Message:" << m_Message
+        << ",m_IsBlack:" << m_IsBlack << ",m_IsOnLine:" << m_IsOnLine << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

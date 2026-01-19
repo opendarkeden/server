@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ActionFactory.h 
+// Filename    : ActionFactory.h
 // Written By  : excel96
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -13,14 +13,12 @@
 // class ActionFactory
 //////////////////////////////////////////////////////////////////////////////
 
-class ActionFactory 
-{
+class ActionFactory {
 public:
-	virtual ~ActionFactory()  {}
-	virtual ActionType_t getActionType() const  = 0;
-	virtual string getActionName() const  = 0;
-	virtual Action* createAction() const  = 0;
-
+    virtual ~ActionFactory() {}
+    virtual ActionType_t getActionType() const = 0;
+    virtual string getActionName() const = 0;
+    virtual Action* createAction() const = 0;
 };
 
 #endif

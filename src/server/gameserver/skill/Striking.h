@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Striking.h 
-// Written By  : 
-// Description : 
+// Filename    : Striking.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_STRIKING_HANDLER_H__
@@ -13,20 +13,23 @@
 // class Striking;
 //////////////////////////////////////////////////////////////////////////////
 
-class Striking : public SkillHandler 
-{
+class Striking : public SkillHandler {
 public:
-	Striking() throw() {}
-	~Striking() throw() {}
+    Striking() throw() {}
+    ~Striking() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "Striking"; }
-	SkillType_t getSkillType() const throw() { return SKILL_STRIKING; }
+    string getSkillHandlerName() const throw() {
+        return "Striking";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_STRIKING;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SummonMigaAttack.h 
+// Filename    : SummonMigaAttack.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SUMMON_MIGA_ATTACK_HANDLER_H__
@@ -13,21 +13,24 @@
 // class SummonMigaAttack;
 //////////////////////////////////////////////////////////////////////////////
 
-class SummonMigaAttack: public SkillHandler 
-{
+class SummonMigaAttack : public SkillHandler {
 public:
-	SummonMigaAttack() throw();
-	~SummonMigaAttack() throw() {}
-	
+    SummonMigaAttack() throw();
+    ~SummonMigaAttack() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SummonMigaAttack"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SUMMON_MIGA_ATTACK; }
+    string getSkillHandlerName() const throw() {
+        return "SummonMigaAttack";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SUMMON_MIGA_ATTACK;
+    }
 
-	void execute(Monster* pMonster) ;
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
-private :
+private:
 };
 
 // global variable declaration

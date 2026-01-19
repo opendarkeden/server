@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Whitsuntide.h 
+// Filename    : Whitsuntide.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_WHITSUNTIDE_HANDLER_H__
@@ -13,20 +13,23 @@
 // class Whitsuntide;
 //////////////////////////////////////////////////////////////////////////////
 
-class Whitsuntide : public SkillHandler 
-{
+class Whitsuntide : public SkillHandler {
 public:
-	Whitsuntide() throw() {}
-	~Whitsuntide() throw() {}
-	
+    Whitsuntide() throw() {}
+    ~Whitsuntide() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Whitsuntide"; }
-	SkillType_t getSkillType() const throw() { return SKILL_WHITSUNTIDE; }
+    string getSkillHandlerName() const throw() {
+        return "Whitsuntide";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_WHITSUNTIDE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BurningSolLaunch.h 
+// Filename    : BurningSolLaunch.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BURNING_SOL_LAUNCH_HANDLER_H__
@@ -13,20 +13,23 @@
 // class BurningSolLaunch;
 //////////////////////////////////////////////////////////////////////////////
 
-class BurningSolLaunch : public SkillHandler 
-{
+class BurningSolLaunch : public SkillHandler {
 public:
-	BurningSolLaunch() throw() {}
-	~BurningSolLaunch() throw() {}
-	
+    BurningSolLaunch() throw() {}
+    ~BurningSolLaunch() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BurningSolLaunch"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BURNING_SOL_LAUNCH; }
+    string getSkillHandlerName() const throw() {
+        return "BurningSolLaunch";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BURNING_SOL_LAUNCH;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

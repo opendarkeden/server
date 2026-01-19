@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectFrozenArmor.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_FROZEN_ARMOR__
@@ -14,31 +14,40 @@
 // class EffectFrozenArmor
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectFrozenArmor : public Effect 
-{
+class EffectFrozenArmor : public Effect {
 public:
-	EffectFrozenArmor(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_FROZEN_ARMOR; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectFrozenArmor(Creature* pCreature);
 
 public:
-	void setBonus( uint bonus ) { m_Bonus = bonus; }
-	uint getBonus() const { return m_Bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_FROZEN_ARMOR;
+    }
 
-	void setTargetDuration( Duration_t dur ) { m_Dur = dur; }
-	Duration_t getTargetDuration() const { return m_Dur; }
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setBonus(uint bonus) {
+        m_Bonus = bonus;
+    }
+    uint getBonus() const {
+        return m_Bonus;
+    }
+
+    void setTargetDuration(Duration_t dur) {
+        m_Dur = dur;
+    }
+    Duration_t getTargetDuration() const {
+        return m_Dur;
+    }
 
 private:
-	uint	m_Bonus;
-	Duration_t	m_Dur;
+    uint m_Bonus;
+    Duration_t m_Dur;
 };
 
 #endif // __EFFECT_FROZEN_ARMOR__

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectWaterBarrier.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_WATER_BARRIER__
@@ -14,27 +14,32 @@
 // class EffectWaterBarrier
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectWaterBarrier : public Effect 
-{
+class EffectWaterBarrier : public Effect {
 public:
-	EffectWaterBarrier(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_WATER_BARRIER; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectWaterBarrier(Creature* pCreature);
 
 public:
-	void setBonus( uint bonus ) { m_Bonus = bonus; }
-	uint getBonus() const { return m_Bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_WATER_BARRIER;
+    }
+
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setBonus(uint bonus) {
+        m_Bonus = bonus;
+    }
+    uint getBonus() const {
+        return m_Bonus;
+    }
 
 private:
-	uint	m_Bonus;
+    uint m_Bonus;
 };
 
 #endif // __EFFECT_WATER_BARRIER__

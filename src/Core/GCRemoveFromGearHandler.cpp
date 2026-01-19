@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCRemoveFromGearHandler::execute (GCRemoveFromGear * pGCRemoveFromGear , Player * pPlayer )
-	 
+void GCRemoveFromGearHandler::execute(GCRemoveFromGear* pGCRemoveFromGear, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCRemoveFromGear->toString() << endl;
-	
+    // cout << pGCRemoveFromGear->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -4,340 +4,311 @@
 // Description	:
 //////////////////////////////////////////////////////////////////////////////
 
+#include "Guild.h"
+
 #include <algorithm>
 
-#include "Guild.h"
-#include "StringStream.h"
 #include "DB.h"
+#include "StringStream.h"
 
 #ifdef __SHARED_SERVER__
-	#include "GuildInfo2.h"
-	#include "GuildMemberInfo2.h"
+#include "GuildInfo2.h"
+#include "GuildMemberInfo2.h"
 #endif
 
-#include "GuildInfo.h"
+#include <stdio.h>
+
 #include "GCGuildMemberList.h"
+#include "GuildInfo.h"
 #include "GuildMemberInfo.h"
 #include "Properties.h"
-
-#include <stdio.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildMember member methods
 //////////////////////////////////////////////////////////////////////////////
 
-GuildMember::GuildMember() noexcept
-{
-	m_bLogOn = false;
-//	m_ServerID = 255;
+GuildMember::GuildMember() noexcept {
+    m_bLogOn = false;
+    //	m_ServerID = 255;
 }
 
-void GuildMember::create() noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::create() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
-	Result* pResult = NULL;
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery( "SELECT GuildID FROM GuildMember WHERE Name = '%s'", m_Name.c_str() );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT GuildID FROM GuildMember WHERE Name = '%s'", m_Name.c_str());
 
-		if ( pResult->getRowCount() != 0 )
-		{
-			// �̹� ��� �����ϹǷ� �����͸� �����ش�.(��, ���� �ٸ� ��忡 ���� ���� �ִ�)
-			if ( m_Rank == GUILDMEMBER_RANK_WAIT )
-			{
-				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '', RequestDateTime = '%s' WHERE Name = '%s'",
-										m_GuildID, m_Rank, getRequestDateTime().c_str(), m_Name.c_str() );
-			}
-			else
-			{
-				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '' WHERE Name = '%s'",
-										m_GuildID, m_Rank, m_Name.c_str() );
-			}
-		}
-		else
-		{
-			if ( m_Rank == GUILDMEMBER_RANK_WAIT )
-			{
-				pStmt->executeQuery( "INSERT INTO GuildMember( GuildID, Name, `Rank`, RequestDateTime ) VALUES ( %d, '%s', %d, '%s' )",
-										m_GuildID, m_Name.c_str(),  m_Rank, getRequestDateTime().c_str() );
-			}
-			else
-			{
-				pStmt->executeQuery( "INSERT INTO GuildMember( GuildID, Name, `Rank` ) VALUES ( %d, '%s', %d )",
-										m_GuildID, m_Name.c_str(),  m_Rank );
-			}
-		}
+        if (pResult->getRowCount() != 0) {
+            // �̹� ��� �����ϹǷ� �����͸� �����ش�.(��, ����
+            // �ٸ� ��忡 ���� ���� �ִ�)
+            if (m_Rank == GUILDMEMBER_RANK_WAIT) {
+                pStmt->executeQuery("UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '', "
+                                    "RequestDateTime = '%s' WHERE Name = '%s'",
+                                    m_GuildID, m_Rank, getRequestDateTime().c_str(), m_Name.c_str());
+            } else {
+                pStmt->executeQuery(
+                    "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '' WHERE Name = '%s'", m_GuildID,
+                    m_Rank, m_Name.c_str());
+            }
+        } else {
+            if (m_Rank == GUILDMEMBER_RANK_WAIT) {
+                pStmt->executeQuery(
+                    "INSERT INTO GuildMember( GuildID, Name, `Rank`, RequestDateTime ) VALUES ( %d, '%s', %d, '%s' )",
+                    m_GuildID, m_Name.c_str(), m_Rank, getRequestDateTime().c_str());
+            } else {
+                pStmt->executeQuery("INSERT INTO GuildMember( GuildID, Name, `Rank` ) VALUES ( %d, '%s', %d )",
+                                    m_GuildID, m_Name.c_str(), m_Rank);
+            }
+        }
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
-	
+    __END_CATCH
 }
 
 
-bool GuildMember::load() noexcept(false)
-{
-	__BEGIN_TRY
-	
-	Statement* pStmt = NULL;
-	Result* pResult = NULL;
+bool GuildMember::load() noexcept(false) {
+    __BEGIN_TRY
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery( "SELECT GuildID, Name, `Rank`, LogOn FROM GuildMember WHERE Name = '%s'", m_Name.c_str() );
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		if ( pResult->getRowCount() != 1 )
-		{
-			SAFE_DELETE( pStmt );
-			return false;
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT GuildID, Name, `Rank`, LogOn FROM GuildMember WHERE Name = '%s'",
+                                      m_Name.c_str());
 
-		pResult->next();
+        if (pResult->getRowCount() != 1) {
+            SAFE_DELETE(pStmt);
+            return false;
+        }
 
-		m_GuildID	= pResult->getInt(1);
-		m_Name		= pResult->getString(2);
-		m_Rank		= pResult->getInt(3);
-		m_bLogOn	= pResult->getInt(4);
+        pResult->next();
 
-//		m_ServerID  = g_pConfig->getPropertyInt("ServerID");
+        m_GuildID = pResult->getInt(1);
+        m_Name = pResult->getString(2);
+        m_Rank = pResult->getInt(3);
+        m_bLogOn = pResult->getInt(4);
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        //		m_ServerID  = g_pConfig->getPropertyInt("ServerID");
 
-	return true;
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    return true;
+
+    __END_CATCH
 }
 
 
-void GuildMember::save() noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::save() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		
-		pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d WHERE Name = '%s'",
-								m_GuildID, m_Rank, m_Name.c_str() );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        pStmt->executeQuery("UPDATE GuildMember SET GuildID = %d, `Rank` = %d WHERE Name = '%s'", m_GuildID, m_Rank,
+                            m_Name.c_str());
 
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
-void GuildMember::destroy() noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::destroy() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "DELETE FROM GuildMember WHERE Name = '%s'", m_Name.c_str() );
+        pStmt->executeQuery("DELETE FROM GuildMember WHERE Name = '%s'", m_Name.c_str());
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void GuildMember::expire() noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::expire() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		// ���� �ǽð� ��¥�� ���Ѵ�.
-		time_t daytime = time(0);
-		tm Timec;
-		localtime_r( &daytime, &Timec );
-		char ExpireDate[8];
-		sprintf( ExpireDate, "%03d%02d%02d", Timec.tm_year, Timec.tm_mon, Timec.tm_mday );
+    BEGIN_DB {
+        // ���� �ǽð� ��¥�� ���Ѵ�.
+        time_t daytime = time(0);
+        tm Timec;
+        localtime_r(&daytime, &Timec);
+        char ExpireDate[8];
+        sprintf(ExpireDate, "%03d%02d%02d", Timec.tm_year, Timec.tm_mon, Timec.tm_mday);
 
-		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildMember SET `Rank` = %d, ExpireDate = '%s' WHERE Name = '%s'", GUILDMEMBER_RANK_DENY, ExpireDate, m_Name.c_str() );
+        pStmt->executeQuery("UPDATE GuildMember SET `Rank` = %d, ExpireDate = '%s' WHERE Name = '%s'",
+                            GUILDMEMBER_RANK_DENY, ExpireDate, m_Name.c_str());
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void GuildMember::leave() noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::leave() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		// ���� �ǽð� ��¥�� ���Ѵ�.
-		time_t daytime = time(0);
-		tm Timec;
-		localtime_r( &daytime, &Timec );
-		char ExpireDate[8];
-		sprintf( ExpireDate, "%03d%02d%02d", Timec.tm_year, Timec.tm_mon, Timec.tm_mday );
+    BEGIN_DB {
+        // ���� �ǽð� ��¥�� ���Ѵ�.
+        time_t daytime = time(0);
+        tm Timec;
+        localtime_r(&daytime, &Timec);
+        char ExpireDate[8];
+        sprintf(ExpireDate, "%03d%02d%02d", Timec.tm_year, Timec.tm_mon, Timec.tm_mday);
 
-		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildMember SET `Rank` = %d, ExpireDate = '%s' WHERE Name = '%s'", GUILDMEMBER_RANK_LEAVE, ExpireDate, m_Name.c_str() );
+        pStmt->executeQuery("UPDATE GuildMember SET `Rank` = %d, ExpireDate = '%s' WHERE Name = '%s'",
+                            GUILDMEMBER_RANK_LEAVE, ExpireDate, m_Name.c_str());
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void GuildMember::saveIntro( const string& intro ) noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::saveIntro(const string& intro) noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	string modifyIntro = Guild::correctString( intro );
+    string modifyIntro = Guild::correctString(intro);
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildMember SET Intro = '%s' WHERE Name = '%s'", modifyIntro.c_str(), m_Name.c_str() );
+        pStmt->executeQuery("UPDATE GuildMember SET Intro = '%s' WHERE Name = '%s'", modifyIntro.c_str(),
+                            m_Name.c_str());
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-string GuildMember::getIntro() const noexcept(false)
-{
-	__BEGIN_TRY
+string GuildMember::getIntro() const noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt;
-	Result* pResult;
+    Statement* pStmt;
+    Result* pResult;
 
-	string intro = "";
+    string intro = "";
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
-		pResult = pStmt->executeQuery( "SELECT Intro FROM GuildMember WHERE Name = '%s'", m_Name.c_str() );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT Intro FROM GuildMember WHERE Name = '%s'", m_Name.c_str());
 
-		if ( pResult->next() )
-		{
-			intro = pResult->getString(1);
-		}
+        if (pResult->next()) {
+            intro = pResult->getString(1);
+        }
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	return intro;
+    return intro;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-string GuildMember::toString() const noexcept
-{
-	StringStream msg;
-	msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << "\n";
-	return msg.toString();
+string GuildMember::toString() const noexcept {
+    StringStream msg;
+    msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << "\n";
+    return msg.toString();
 }
 
 
-GuildMember& GuildMember::operator=( GuildMember& Member )
-{
-	m_GuildID		= Member.m_GuildID;
-	m_Name			= Member.m_Name;
-	m_Rank			= Member.m_Rank;
+GuildMember& GuildMember::operator=(GuildMember& Member) {
+    m_GuildID = Member.m_GuildID;
+    m_Name = Member.m_Name;
+    m_Rank = Member.m_Rank;
 
-	return *this;
+    return *this;
 }
 
-string GuildMember::getRequestDateTime() const noexcept(false)
-{
-	__BEGIN_TRY
+string GuildMember::getRequestDateTime() const noexcept(false) {
+    __BEGIN_TRY
 
-	char buf[20];
+    char buf[20];
 
-	sprintf( buf, "%4d-%02d-%02d %02d:%02d:%02d",
-			m_RequestDateTime.date().year(), m_RequestDateTime.date().month(), m_RequestDateTime.date().day(),
-			m_RequestDateTime.time().hour(), m_RequestDateTime.time().minute(), m_RequestDateTime.time().second() );
+    sprintf(buf, "%4d-%02d-%02d %02d:%02d:%02d", m_RequestDateTime.date().year(), m_RequestDateTime.date().month(),
+            m_RequestDateTime.date().day(), m_RequestDateTime.time().hour(), m_RequestDateTime.time().minute(),
+            m_RequestDateTime.time().second());
 
-	cout << buf << endl;
+    cout << buf << endl;
 
-	return string(buf);
+    return string(buf);
 
-	__END_CATCH
-}
-
-
-void GuildMember::setRank(GuildMemberRank_t rank) noexcept(false)
-	{
-	__BEGIN_TRY
-
-	m_Rank = rank;
-
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void GuildMember::setRequestDateTime( const string& rtime ) noexcept(false)
-{
-	__BEGIN_TRY
+void GuildMember::setRank(GuildMemberRank_t rank) noexcept(false) {
+    __BEGIN_TRY
 
-	// 0123456789012345678
-	// YYYY-MM-DD HH:MM:SS
-	if ( rtime.size() == 19 )
-	{
-		int year	= atoi( rtime.substr(0,4).c_str() );
-		int month	= atoi( rtime.substr(5,2).c_str() );
-		int day		= atoi( rtime.substr(8,2).c_str() );
-		int hour	= atoi( rtime.substr(11,2).c_str() );
-		int min		= atoi( rtime.substr(14,2).c_str() );
-		int second	= atoi( rtime.substr(17,2).c_str() );
+    m_Rank = rank;
 
-		m_RequestDateTime.setDate( VSDate( year, month, day ) );
-		m_RequestDateTime.setTime( VSTime( hour, min, second ) );
-	}
-	else
-	{
-		m_RequestDateTime.setDate( VSDate( 2000, 1, 1 ) );
-		m_RequestDateTime.setTime( VSTime( 0, 0, 0 ) );
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
 
-bool GuildMember::isRequestDateTimeOut( const VSDateTime& currentDateTime ) const noexcept
-{
-	VSDateTime limitDateTime = m_RequestDateTime.addDays(7);
-	return currentDateTime > limitDateTime;
+
+void GuildMember::setRequestDateTime(const string& rtime) noexcept(false) {
+    __BEGIN_TRY
+
+    // 0123456789012345678
+    // YYYY-MM-DD HH:MM:SS
+    if (rtime.size() == 19) {
+        int year = atoi(rtime.substr(0, 4).c_str());
+        int month = atoi(rtime.substr(5, 2).c_str());
+        int day = atoi(rtime.substr(8, 2).c_str());
+        int hour = atoi(rtime.substr(11, 2).c_str());
+        int min = atoi(rtime.substr(14, 2).c_str());
+        int second = atoi(rtime.substr(17, 2).c_str());
+
+        m_RequestDateTime.setDate(VSDate(year, month, day));
+        m_RequestDateTime.setTime(VSTime(hour, min, second));
+    } else {
+        m_RequestDateTime.setDate(VSDate(2000, 1, 1));
+        m_RequestDateTime.setTime(VSTime(0, 0, 0));
+    }
+
+    __END_CATCH
+}
+
+bool GuildMember::isRequestDateTimeOut(const VSDateTime& currentDateTime) const noexcept {
+    VSDateTime limitDateTime = m_RequestDateTime.addDays(7);
+    return currentDateTime > limitDateTime;
 }
 
 
@@ -354,687 +325,615 @@ ZoneID_t Guild::m_MaxOustersZoneID = 30000;
 // class Guild member methods
 //////////////////////////////////////////////////////////////////////////////
 
-Guild::Guild() noexcept(false)
-{
-	m_ID			= 0;
-	m_Name			= "";
-	m_Type			= 0;
-	m_State			= 0;
-	m_ServerGroupID	= 0;
-	m_ZoneID		= 0;
-	m_Master		= "";
-	m_Date			= "";
-	m_Intro			= "";
+Guild::Guild() noexcept(false) {
+    m_ID = 0;
+    m_Name = "";
+    m_Type = 0;
+    m_State = 0;
+    m_ServerGroupID = 0;
+    m_ZoneID = 0;
+    m_Master = "";
+    m_Date = "";
+    m_Intro = "";
 
-	m_ActiveMemberCount = 0;
-	m_WaitMemberCount = 0;
+    m_ActiveMemberCount = 0;
+    m_WaitMemberCount = 0;
 
-	__BEGIN_TRY
-	
-	m_Mutex.setName( "Guild" );
+    __BEGIN_TRY
 
-	__END_CATCH
+    m_Mutex.setName("Guild");
+
+    __END_CATCH
 }
 
 
-Guild::~Guild() noexcept
-{
-	try
-	{
-		__ENTER_CRITICAL_SECTION( m_Mutex )
+Guild::~Guild() noexcept {
+    try {
+        __ENTER_CRITICAL_SECTION(m_Mutex)
 
-		HashMapGuildMemberItor itr = m_Members.begin();
-		for ( ; itr != m_Members.end(); itr++ )
-		{
-			SAFE_DELETE( itr->second );
-		}
+        HashMapGuildMemberItor itr = m_Members.begin();
+        for (; itr != m_Members.end(); itr++) {
+            SAFE_DELETE(itr->second);
+        }
 
-		m_Members.clear();
+        m_Members.clear();
 
 #ifdef __GAME_SERVER__
-		m_CurrentMembers.clear();
+        m_CurrentMembers.clear();
 #endif
 
-		__LEAVE_CRITICAL_SECTION( m_Mutex )
-	}
-	catch (...)
-	{
-		// destructor must not throw
-	}
+        __LEAVE_CRITICAL_SECTION(m_Mutex)
+    } catch (...) {
+        // destructor must not throw
+    }
 }
 
 
-void Guild::create() noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::create() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	string correctIntro = correctString( m_Intro );
+    string correctIntro = correctString(m_Intro);
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "INSERT INTO GuildInfo ( GuildID, GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, Master, Date, Intro ) VALUES ( %d, '%s', %d, %d, %d, %d, %d, '%s', '%s', '%s' )",
-				m_ID, m_Name.c_str(), m_Type, m_Race, m_State, m_ServerGroupID, m_ZoneID, m_Master.c_str(), m_Date.c_str(), correctIntro.c_str() );
+        pStmt->executeQuery(
+            "INSERT INTO GuildInfo ( GuildID, GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, "
+            "Master, Date, Intro ) VALUES ( %d, '%s', %d, %d, %d, %d, %d, '%s', '%s', '%s' )",
+            m_ID, m_Name.c_str(), m_Type, m_Race, m_State, m_ServerGroupID, m_ZoneID, m_Master.c_str(), m_Date.c_str(),
+            correctIntro.c_str());
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-bool Guild::load() noexcept(false)
-{
-	__BEGIN_TRY
+bool Guild::load() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement*	pStmt	= NULL;
-	Result*		pResult	= NULL;	
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	BEGIN_DB
-	{
-		pStmt	= g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult	= pStmt->executeQuery( "SELECT GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, Master, Date FROM GuildInfo WHERE GuildID = %d", m_ID );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, "
+                                      "Master, Date FROM GuildInfo WHERE GuildID = %d",
+                                      m_ID);
 
-		if ( pResult->getRowCount() != 1 )
-		{
-			SAFE_DELETE( pStmt );
-			m_Mutex.unlock();
+        if (pResult->getRowCount() != 1) {
+            SAFE_DELETE(pStmt);
+            m_Mutex.unlock();
 
-			return false;
-		}
+            return false;
+        }
 
-		pResult->next();
+        pResult->next();
 
-		m_Name			= pResult->getString( 1 );
-		m_Type			= pResult->getInt( 2 );
-		m_Race			= pResult->getInt( 3 );
-		m_State			= pResult->getInt( 4 );
-		m_ServerGroupID	= pResult->getInt( 5 );
-		m_ZoneID		= pResult->getInt( 6 );
-		m_Master		= pResult->getString( 7 );
-		m_Date			= pResult->getString( 8 );
+        m_Name = pResult->getString(1);
+        m_Type = pResult->getInt(2);
+        m_Race = pResult->getInt(3);
+        m_State = pResult->getInt(4);
+        m_ServerGroupID = pResult->getInt(5);
+        m_ZoneID = pResult->getInt(6);
+        m_Master = pResult->getString(7);
+        m_Date = pResult->getString(8);
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	return true;
+    return true;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void Guild::save() noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::save() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildInfo SET GuildName = '%s', GuildType = %d, GuildRace = %d, GuildState = %d, ServerGroupID = %d, GuildZoneID = %d, Master = '%s', Date = '%s' WHERE GuildID = %d",
-								m_Name.c_str(), m_Type, m_Race, m_State, m_ServerGroupID, m_ZoneID, m_Master.c_str(), m_Date.c_str(), m_ID );
+        pStmt->executeQuery("UPDATE GuildInfo SET GuildName = '%s', GuildType = %d, GuildRace = %d, GuildState = %d, "
+                            "ServerGroupID = %d, GuildZoneID = %d, Master = '%s', Date = '%s' WHERE GuildID = %d",
+                            m_Name.c_str(), m_Type, m_Race, m_State, m_ServerGroupID, m_ZoneID, m_Master.c_str(),
+                            m_Date.c_str(), m_ID);
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void Guild::destroy() noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::destroy() noexcept(false) {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "DELETE FROM GuildInfo WHERE GuildID = %d", m_ID );
-		pStmt->executeQuery( "DELETE FROM GuildUnionMember WHERE OwnerGuildID = %d", m_ID );
+        pStmt->executeQuery("DELETE FROM GuildInfo WHERE GuildID = %d", m_ID);
+        pStmt->executeQuery("DELETE FROM GuildUnionMember WHERE OwnerGuildID = %d", m_ID);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
+
+    __END_CATCH
 }
 
 
 #ifdef __SHARED_SERVER__
-void Guild::saveIntro( const string& intro ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::saveIntro(const string& intro) noexcept(false) {
+    __BEGIN_TRY
 
-	m_Intro = intro;
+    m_Intro = intro;
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	string modifyIntro = Guild::correctString( intro );
+    string modifyIntro = Guild::correctString(intro);
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildInfo SET Intro = '%s' WHERE GuildID = %u", modifyIntro.c_str(), m_ID );
+        pStmt->executeQuery("UPDATE GuildInfo SET Intro = '%s' WHERE GuildID = %u", modifyIntro.c_str(), m_ID);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Guild::tinysave( const char* field ) const noexcept(false)
-{
-	__BEGIN_TRY
-	
-	Statement* pStmt = NULL;
+void Guild::tinysave(const char* field) const noexcept(false) {
+    __BEGIN_TRY
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    Statement* pStmt = NULL;
 
-		pStmt->executeQuery( "UPDATE GuildInfo SET %s WHERE GuildID = %u", field, m_ID );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		SAFE_DELETE( pStmt );
-	}
-	END_DB( pStmt )
+        pStmt->executeQuery("UPDATE GuildInfo SET %s WHERE GuildID = %u", field, m_ID);
 
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
-void Guild::saveCount() const noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::saveCount() const noexcept(false){__BEGIN_TRY
 
-//	char buffer[200];
-//	sprintf(buffer, "MemberCount=%u", m_ActiveMemberCount);
-//	tinysave(buffer);
+                                                  //	char buffer[200];
+                                                  //	sprintf(buffer, "MemberCount=%u", m_ActiveMemberCount);
+                                                  //	tinysave(buffer);
 
-	__END_CATCH
-}
+                                                  __END_CATCH}
 #endif
 
 
-GuildMember* Guild::getMember( const string& name ) const noexcept(false)
-{
-	__BEGIN_TRY
+GuildMember* Guild::getMember(const string& name) const noexcept(false) {
+    __BEGIN_TRY
 
-	HashMapGuildMemberConstItor itr;
-	GuildMember* pGuildMember = NULL;
+    HashMapGuildMemberConstItor itr;
+    GuildMember* pGuildMember = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
-	
-	itr = m_Members.find( name );
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	if ( itr == m_Members.end() )
-	{
-		//cout << "Guild::getMember() : NoSuchMember" << endl;
-		m_Mutex.unlock();
+    itr = m_Members.find(name);
 
-		return NULL;
-	}
+    if (itr == m_Members.end()) {
+        // cout << "Guild::getMember() : NoSuchMember" << endl;
+        m_Mutex.unlock();
 
-	pGuildMember = itr->second;
+        return NULL;
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
-	
-	return pGuildMember;
+    pGuildMember = itr->second;
 
-	__END_CATCH
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
+
+    return pGuildMember;
+
+    __END_CATCH
 }
 
 
-GuildMember* Guild::getMember_NOLOCKED( const string& name ) const noexcept(false)
-{
-	__BEGIN_TRY
+GuildMember* Guild::getMember_NOLOCKED(const string& name) const noexcept(false) {
+    __BEGIN_TRY
 
-	HashMapGuildMemberConstItor itr;
-	GuildMember* pGuildMember = NULL;
+    HashMapGuildMemberConstItor itr;
+    GuildMember* pGuildMember = NULL;
 
-	itr = m_Members.find( name );
+    itr = m_Members.find(name);
 
-	if ( itr == m_Members.end() )
-	{
-		//cerr << "Guild::getMember() : NoSuchMember" << endl;
+    if (itr == m_Members.end()) {
+        // cerr << "Guild::getMember() : NoSuchMember" << endl;
 
-		return NULL;
-	}
+        return NULL;
+    }
 
-	pGuildMember = itr->second;
+    pGuildMember = itr->second;
 
-	return pGuildMember;
+    return pGuildMember;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Guild::addMember( GuildMember* pMember ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::addMember(GuildMember* pMember) noexcept(false) {
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	Assert( pMember );
+    Assert(pMember);
 
-	HashMapGuildMemberConstItor itr;
+    HashMapGuildMemberConstItor itr;
 
-	itr = m_Members.find( pMember->getName() );
+    itr = m_Members.find(pMember->getName());
 
-	if ( itr != m_Members.end() )
-	{
-		m_Mutex.unlock();
-		throw DuplicatedException();
-	}
+    if (itr != m_Members.end()) {
+        m_Mutex.unlock();
+        throw DuplicatedException();
+    }
 
-	m_Members[ pMember->getName() ] = pMember;
+    m_Members[pMember->getName()] = pMember;
 
-	GuildMemberRank_t rank = pMember->getRank();
-	
-	if ( rank == GuildMember::GUILDMEMBER_RANK_NORMAL ||
-		 rank == GuildMember::GUILDMEMBER_RANK_MASTER ||
-		 rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
-	{
-		// �Ϲ�ȸ���̳� (����)�����Ͱ� �߰��ɶ� ActiverMemberCount�� ������Ų��.
-		m_ActiveMemberCount++;
-	}
-	else if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
-	{
-		// ���� ����ڰ� �߰��ɶ� WaitMemberCount �� ���� ��Ų��.
-		m_WaitMemberCount++;
-	}
+    GuildMemberRank_t rank = pMember->getRank();
+
+    if (rank == GuildMember::GUILDMEMBER_RANK_NORMAL || rank == GuildMember::GUILDMEMBER_RANK_MASTER ||
+        rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
+        // �Ϲ�ȸ���̳� (����)�����Ͱ� �߰��ɶ� ActiverMemberCount�� ������Ų��.
+        m_ActiveMemberCount++;
+    } else if (rank == GuildMember::GUILDMEMBER_RANK_WAIT) {
+        // ���� ����ڰ� �߰��ɶ� WaitMemberCount �� ���� ��Ų��.
+        m_WaitMemberCount++;
+    }
 
 #ifdef __SHARED_SERVER__
-	saveCount();
+    saveCount();
 #endif
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void Guild::deleteMember( const string& name ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::deleteMember(const string& name) noexcept(false) {
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	HashMapGuildMemberItor itr;
+    HashMapGuildMemberItor itr;
 
-	itr = m_Members.find( name );
+    itr = m_Members.find(name);
 
-	if ( itr == m_Members.end() )
-	{
-		cerr << "Guild::deleteMember() : NoSuchElementException" << endl;
-		m_Mutex.unlock();
+    if (itr == m_Members.end()) {
+        cerr << "Guild::deleteMember() : NoSuchElementException" << endl;
+        m_Mutex.unlock();
 
-		return;
-	}
+        return;
+    }
 
-	GuildMemberRank_t rank = itr->second->getRank();
+    GuildMemberRank_t rank = itr->second->getRank();
 
-	if ( rank == GuildMember::GUILDMEMBER_RANK_NORMAL
-	  || rank == GuildMember::GUILDMEMBER_RANK_MASTER
-	  || rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
-	{
-		// Ȱ������ ȸ���� ī���͸� ���� ��Ų��
-		m_ActiveMemberCount--;
-	}
-	else if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
-	{
-		m_WaitMemberCount--;
-	}
+    if (rank == GuildMember::GUILDMEMBER_RANK_NORMAL || rank == GuildMember::GUILDMEMBER_RANK_MASTER ||
+        rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
+        // Ȱ������ ȸ���� ī���͸� ���� ��Ų��
+        m_ActiveMemberCount--;
+    } else if (rank == GuildMember::GUILDMEMBER_RANK_WAIT) {
+        m_WaitMemberCount--;
+    }
 
-	SAFE_DELETE( itr->second );
+    SAFE_DELETE(itr->second);
 
-	m_Members.erase(itr);
+    m_Members.erase(itr);
 
 #ifdef __SHARED_SERVER__
-	saveCount();
+    saveCount();
 #endif
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void Guild::modifyMember( GuildMember& Member ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::modifyMember(GuildMember& Member) noexcept(false) {
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	HashMapGuildMemberConstItor itr;
+    HashMapGuildMemberConstItor itr;
 
-	itr = m_Members.find( Member.getName() );
+    itr = m_Members.find(Member.getName());
 
-	if ( itr == m_Members.end() )
-	{
-		cerr << "Guild::modifyMember() : NoSuchElementException" << endl;
-		m_Mutex.unlock();
+    if (itr == m_Members.end()) {
+        cerr << "Guild::modifyMember() : NoSuchElementException" << endl;
+        m_Mutex.unlock();
 
-		return;
-	}
+        return;
+    }
 
-	*(itr->second) = Member;
+    *(itr->second) = Member;
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void Guild::modifyMemberRank( const string& name, GuildMemberRank_t rank ) noexcept(false)
-{
-	__BEGIN_TRY
-	
-	GuildMember* pMember = getMember( name );
-	if ( pMember == NULL ) return;
+void Guild::modifyMemberRank(const string& name, GuildMemberRank_t rank) noexcept(false) {
+    __BEGIN_TRY
 
-	GuildMemberRank_t oldRank = pMember->getRank();
+    GuildMember* pMember = getMember(name);
+    if (pMember == NULL)
+        return;
 
-	if ( oldRank == rank )
-		return;
+    GuildMemberRank_t oldRank = pMember->getRank();
 
-	if ( oldRank == GuildMember::GUILDMEMBER_RANK_WAIT )
-	{
-		m_WaitMemberCount--;
-	}
-	else if ( oldRank == GuildMember::GUILDMEMBER_RANK_NORMAL
-			|| oldRank == GuildMember::GUILDMEMBER_RANK_MASTER
-			|| oldRank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
-	{
-		m_ActiveMemberCount--;
-	}
-	
-	if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
-	{
-		m_WaitMemberCount++;
-	}
-	else if ( rank == GuildMember::GUILDMEMBER_RANK_NORMAL
-			|| rank == GuildMember::GUILDMEMBER_RANK_MASTER
-			|| rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
-	{
-		m_ActiveMemberCount++;
-	}
+    if (oldRank == rank)
+        return;
 
-	pMember->setRank( rank );
+    if (oldRank == GuildMember::GUILDMEMBER_RANK_WAIT) {
+        m_WaitMemberCount--;
+    } else if (oldRank == GuildMember::GUILDMEMBER_RANK_NORMAL || oldRank == GuildMember::GUILDMEMBER_RANK_MASTER ||
+               oldRank == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
+        m_ActiveMemberCount--;
+    }
+
+    if (rank == GuildMember::GUILDMEMBER_RANK_WAIT) {
+        m_WaitMemberCount++;
+    } else if (rank == GuildMember::GUILDMEMBER_RANK_NORMAL || rank == GuildMember::GUILDMEMBER_RANK_MASTER ||
+               rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
+        m_ActiveMemberCount++;
+    }
+
+    pMember->setRank(rank);
 
 #ifdef __SHARED_SERVER__
-	pMember->save();
-	saveCount();
+    pMember->save();
+    saveCount();
 #endif
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 #ifdef __GAME_SERVER__
-void Guild::addCurrentMember( const string& name ) noexcept(false)
-{
-	__BEGIN_TRY
-	
-	__ENTER_CRITICAL_SECTION(m_Mutex)		// �ٸ� ���ؽ� �ᵵ �� ���ѵ�.. ������..
+void Guild::addCurrentMember(const string& name) noexcept(false) {
+    __BEGIN_TRY
 
-	if ( m_CurrentMembers.end() != find( m_CurrentMembers.begin(), m_CurrentMembers.end(), name ) )
-	{
-		m_Mutex.unlock();
-		return;
-	}
+    __ENTER_CRITICAL_SECTION(m_Mutex) // �ٸ� ���ؽ� �ᵵ �� ���ѵ�.. ������..
 
-	m_CurrentMembers.push_back( name );
+    if (m_CurrentMembers.end() != find(m_CurrentMembers.begin(), m_CurrentMembers.end(), name)) {
+        m_Mutex.unlock();
+        return;
+    }
 
-	// Guild Member ��ü�� �α׿��� �����Ѵ�.
-	GuildMember* pGuildMember = getMember_NOLOCKED( name );
-	if ( pGuildMember == NULL ) 
-	{
-		m_Mutex.unlock();
-		return;
-	}
+    m_CurrentMembers.push_back(name);
 
-	pGuildMember->setLogOn( true );
+    // Guild Member ��ü�� �α׿��� �����Ѵ�.
+    GuildMember* pGuildMember = getMember_NOLOCKED(name);
+    if (pGuildMember == NULL) {
+        m_Mutex.unlock();
+        return;
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    pGuildMember->setLogOn(true);
 
-	__END_CATCH
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
+
+    __END_CATCH
 }
 
-void Guild::deleteCurrentMember( const string& name ) noexcept(false)
-{
-	__BEGIN_TRY
-	
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+void Guild::deleteCurrentMember(const string& name) noexcept(false) {
+    __BEGIN_TRY
 
-	list<string>::iterator itr =  find( m_CurrentMembers.begin(), m_CurrentMembers.end(), name );
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	if ( m_CurrentMembers.end() == itr )
-	{
-		m_Mutex.unlock();
-		return;
-	}
+    list<string>::iterator itr = find(m_CurrentMembers.begin(), m_CurrentMembers.end(), name);
 
-	m_CurrentMembers.erase( itr );
+    if (m_CurrentMembers.end() == itr) {
+        m_Mutex.unlock();
+        return;
+    }
 
-	// Guild Member ��ü�� �α׿����� �����Ѵ�.
-	GuildMember* pGuildMember = getMember_NOLOCKED( name );
-	if ( pGuildMember == NULL ) 
-	{
-		m_Mutex.unlock();
-		return;
-	}
+    m_CurrentMembers.erase(itr);
 
-	pGuildMember->setLogOn( false );
+    // Guild Member ��ü�� �α׿����� �����Ѵ�.
+    GuildMember* pGuildMember = getMember_NOLOCKED(name);
+    if (pGuildMember == NULL) {
+        m_Mutex.unlock();
+        return;
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    pGuildMember->setLogOn(false);
 
-	__END_CATCH
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
+
+    __END_CATCH
 }
 
-list<string> Guild::getCurrentMembers() noexcept(false)
-{
-	__BEGIN_TRY
-	
-	list<string> cmList;
+list<string> Guild::getCurrentMembers() noexcept(false) {
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    list<string> cmList;
 
-	cmList = m_CurrentMembers;
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    cmList = m_CurrentMembers;
 
-	return cmList;
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    return cmList;
+
+    __END_CATCH
 }
 #endif
 
 #ifdef __SHARED_SERVER__
-void Guild::makeInfo( GuildInfo2* pGuildInfo ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::makeInfo(GuildInfo2* pGuildInfo) noexcept(false) {
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION( m_Mutex )
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	pGuildInfo->setID( m_ID );
-	pGuildInfo->setName( m_Name );
-	pGuildInfo->setType( m_Type );
-	pGuildInfo->setRace( m_Race );
-	pGuildInfo->setState( m_State );
-	pGuildInfo->setServerGroupID( m_ServerGroupID );
-	pGuildInfo->setZoneID( m_ZoneID );
-	pGuildInfo->setMaster( m_Master );
-	pGuildInfo->setDate( m_Date );
-	pGuildInfo->setIntro( m_Intro );
+    pGuildInfo->setID(m_ID);
+    pGuildInfo->setName(m_Name);
+    pGuildInfo->setType(m_Type);
+    pGuildInfo->setRace(m_Race);
+    pGuildInfo->setState(m_State);
+    pGuildInfo->setServerGroupID(m_ServerGroupID);
+    pGuildInfo->setZoneID(m_ZoneID);
+    pGuildInfo->setMaster(m_Master);
+    pGuildInfo->setDate(m_Date);
+    pGuildInfo->setIntro(m_Intro);
 
-	HashMapGuildMemberConstItor itr = m_Members.begin();
-	for ( ; itr != m_Members.end(); itr++ )
-	{
-		GuildMemberInfo2* pGuildMemberInfo = new GuildMemberInfo2();
-		pGuildMemberInfo->setGuildID( itr->second->getGuildID() );
-		pGuildMemberInfo->setName( itr->second->getName() );
-		pGuildMemberInfo->setRank( itr->second->getRank() );
-		pGuildMemberInfo->setLogOn( itr->second->getLogOn() );
+    HashMapGuildMemberConstItor itr = m_Members.begin();
+    for (; itr != m_Members.end(); itr++) {
+        GuildMemberInfo2* pGuildMemberInfo = new GuildMemberInfo2();
+        pGuildMemberInfo->setGuildID(itr->second->getGuildID());
+        pGuildMemberInfo->setName(itr->second->getName());
+        pGuildMemberInfo->setRank(itr->second->getRank());
+        pGuildMemberInfo->setLogOn(itr->second->getLogOn());
 
-		pGuildInfo->addGuildMemberInfo( pGuildMemberInfo );
-	}
+        pGuildInfo->addGuildMemberInfo(pGuildMemberInfo);
+    }
 
-	__LEAVE_CRITICAL_SECTION( m_Mutex )
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 #endif
 
-void Guild::makeInfo( GuildInfo* pGuildInfo ) noexcept(false)
-{
-	__BEGIN_TRY
-	
-	__ENTER_CRITICAL_SECTION( m_Mutex )
+void Guild::makeInfo(GuildInfo* pGuildInfo) noexcept(false) {
+    __BEGIN_TRY
 
-	pGuildInfo->setGuildID( m_ID );
-	pGuildInfo->setGuildName( m_Name );
-	pGuildInfo->setGuildMaster( m_Master );
-	pGuildInfo->setGuildMemberCount( m_ActiveMemberCount );
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	__LEAVE_CRITICAL_SECTION( m_Mutex )
+    pGuildInfo->setGuildID(m_ID);
+    pGuildInfo->setGuildName(m_Name);
+    pGuildInfo->setGuildMaster(m_Master);
+    pGuildInfo->setGuildMemberCount(m_ActiveMemberCount);
 
-	__END_CATCH
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
+
+    __END_CATCH
 }
 
-void Guild::makeMemberInfo( GCGuildMemberList& gcGuildMemberList ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::makeMemberInfo(GCGuildMemberList& gcGuildMemberList) noexcept(false) {
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION( m_Mutex )
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	HashMapGuildMember& Members = getMembers();
-	HashMapGuildMemberConstItor itr = Members.begin();
+    HashMapGuildMember& Members = getMembers();
+    HashMapGuildMemberConstItor itr = Members.begin();
 
-	for ( ; itr != Members.end(); itr++ )
-	{
-		GuildMember* pGuildMember = itr->second;
+    for (; itr != Members.end(); itr++) {
+        GuildMember* pGuildMember = itr->second;
 
-		GuildMemberInfo* pGuildMemberInfo = new GuildMemberInfo();
-		pGuildMemberInfo->setName( pGuildMember->getName() );
-		pGuildMemberInfo->setRank( pGuildMember->getRank() );
-		pGuildMemberInfo->setLogOn( pGuildMember->getLogOn() );
-//		pGuildMemberInfo->setServerID( pGuildMember->getServerID() );
+        GuildMemberInfo* pGuildMemberInfo = new GuildMemberInfo();
+        pGuildMemberInfo->setName(pGuildMember->getName());
+        pGuildMemberInfo->setRank(pGuildMember->getRank());
+        pGuildMemberInfo->setLogOn(pGuildMember->getLogOn());
+        //		pGuildMemberInfo->setServerID( pGuildMember->getServerID() );
 
-		gcGuildMemberList.addGuildMemberInfo( pGuildMemberInfo );
-	}
+        gcGuildMemberList.addGuildMemberInfo(pGuildMemberInfo);
+    }
 
-	__LEAVE_CRITICAL_SECTION( m_Mutex )
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList ) noexcept(false)
-{
-	__BEGIN_TRY
+void Guild::expireTimeOutWaitMember(VSDateTime currentDateTime, list<string>& mList) noexcept(false) {
+    __BEGIN_TRY
 
 #ifdef __SHARED_SERVER__
 
-	HashMapGuildMemberItor itr = m_Members.begin();
+    HashMapGuildMemberItor itr = m_Members.begin();
 
-	while ( itr != m_Members.end() )
-	{
-		GuildMember* pGuildMember = itr->second;
+    while (itr != m_Members.end()) {
+        GuildMember* pGuildMember = itr->second;
 
-		if ( pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT
-		  && pGuildMember->isRequestDateTimeOut( currentDateTime ) )
-		{
-			mList.push_back( pGuildMember->getName() );
+        if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT &&
+            pGuildMember->isRequestDateTimeOut(currentDateTime)) {
+            mList.push_back(pGuildMember->getName());
 
-			// wait member count �� ���δ�.
-			m_WaitMemberCount--;
+            // wait member count �� ���δ�.
+            m_WaitMemberCount--;
 
-			pGuildMember->expire();
+            pGuildMember->expire();
 
-			SAFE_DELETE( pGuildMember );
+            SAFE_DELETE(pGuildMember);
 
-			m_Members.erase( itr++ );
-		}
-		else
-		{
-			itr++;
-		}
-	}
+            m_Members.erase(itr++);
+        } else {
+            itr++;
+        }
+    }
 
 #endif
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-string Guild::toString() const noexcept
-{
-	StringStream msg;
-	msg << " GuildID = " << m_ID
-		<< " GuildName = " << m_Name
-		<< " GuildType = " << (int)m_Type
-		<< " GuildState = " << (int)m_State
-		<< " ServerGroupID = " << (int)m_ServerGroupID
-		<< " GuildZoneID = " << (int)m_ZoneID
-		<< " Master = " << m_Master
-		<< " Date = " << m_Date
-		<< " \n";
+string Guild::toString() const noexcept {
+    StringStream msg;
+    msg << " GuildID = " << m_ID << " GuildName = " << m_Name << " GuildType = " << (int)m_Type
+        << " GuildState = " << (int)m_State << " ServerGroupID = " << (int)m_ServerGroupID
+        << " GuildZoneID = " << (int)m_ZoneID << " Master = " << m_Master << " Date = " << m_Date << " \n";
 
-	return msg.toString();
+    return msg.toString();
 }
 
-string Guild::correctString( const string& str ) noexcept
-{
-	string correct = str;
+string Guild::correctString(const string& str) noexcept {
+    string correct = str;
 
-	unsigned int i = 0;
-	unsigned int size = str.size();
+    unsigned int i = 0;
+    unsigned int size = str.size();
 
-	while( i < size )
-	{
-		if ( correct[i] == '\\' )
-		{
-			correct.replace( i, 1, "\\\\" );
-			i = i + 2;
-			size++;
-		}
-		else if ( correct[i] == '\'' )
-		{
-			correct.replace( i, 1, "\\'" );
-			i = i + 2;
-			size++;
-		}
-		else 
-		{
-			i++;
-		}
-	}
+    while (i < size) {
+        if (correct[i] == '\\') {
+            correct.replace(i, 1, "\\\\");
+            i = i + 2;
+            size++;
+        } else if (correct[i] == '\'') {
+            correct.replace(i, 1, "\\'");
+            i = i + 2;
+            size++;
+        } else {
+            i++;
+        }
+    }
 
-	return correct;
+    return correct;
 }

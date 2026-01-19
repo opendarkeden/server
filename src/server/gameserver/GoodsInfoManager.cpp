@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GoodsInfo.cpp
 // Written By  : beowulf
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GoodsInfoManager.h"
+
 #include "Assert.h"
 #include "DB.h"
 #include "ItemFactoryManager.h"
@@ -15,34 +16,20 @@
 // class GoodsInfo member methods
 //////////////////////////////////////////////////////////////////////////////
 
-GoodsInfo::GoodsInfo()
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GoodsInfo::GoodsInfo(){__BEGIN_TRY __END_CATCH}
 
-GoodsInfo::~GoodsInfo()
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
+GoodsInfo::~GoodsInfo(){__BEGIN_TRY __END_CATCH_NO_RETHROW}
 
-string GoodsInfo::toString() const
-{
-	__BEGIN_TRY
-	
-	StringStream msg;
-	msg << "GoodsInfo ("
-		<< "Type:"			<< (int)m_ItemType
-		<< ",Name:"			<< m_Name
-		<< ",ItemClass:"	<< (int)m_ItemClass
-		<< ",ItemType:"		<< (int)m_ItemType
-		<< ",TimeLimit:"	<< (m_bTimeLimit?"Y":"N")
-		<< ",Hour:"			<< m_Hour
-		<< ")";
-	return msg.toString();
+string GoodsInfo::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GoodsInfo ("
+        << "Type:" << (int)m_ItemType << ",Name:" << m_Name << ",ItemClass:" << (int)m_ItemClass
+        << ",ItemType:" << (int)m_ItemType << ",TimeLimit:" << (m_bTimeLimit ? "Y" : "N") << ",Hour:" << m_Hour << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 
@@ -51,148 +38,143 @@ string GoodsInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 GoodsInfoManager::GoodsInfoManager()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 GoodsInfoManager::~GoodsInfoManager()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 void GoodsInfoManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void GoodsInfoManager::clear()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	HashMapGoodsInfoItr itr = m_GoodsInfos.begin();
+    HashMapGoodsInfoItr itr = m_GoodsInfos.begin();
 
-	for ( ; itr != m_GoodsInfos.end(); itr++ )
-	{
-		SAFE_DELETE( itr->second );
-	}
+    for (; itr != m_GoodsInfos.end(); itr++) {
+        SAFE_DELETE(itr->second);
+    }
 
-	m_GoodsInfos.clear();
-	
-	__END_CATCH
+    m_GoodsInfos.clear();
+
+    __END_CATCH
 }
 
 void GoodsInfoManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	clear();
+    clear();
 
-	Statement* pStmt    = NULL;
-	Result*    pResult  = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
-		pResult = pStmt->executeQuery("SELECT GoodsID, Name, ItemClass, ItemType, Grade, OptionType, Num, Limited+0, Hour FROM GoodsListInfo WHERE Kind<>'SET'");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		while (pResult->next()) 
-		{
-			GoodsInfo* pGoodsInfo = new GoodsInfo();
-			int i = 0;
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
+        pResult = pStmt->executeQuery("SELECT GoodsID, Name, ItemClass, ItemType, Grade, OptionType, Num, Limited+0, "
+                                      "Hour FROM GoodsListInfo WHERE Kind<>'SET'");
 
-			pGoodsInfo->setID( pResult->getInt(++i) );
-			pGoodsInfo->setName( pResult->getString(++i) );
-			pGoodsInfo->setItemClass( (Item::ItemClass)(pResult->getInt(++i)) );
-			pGoodsInfo->setItemType( pResult->getInt(++i) );
-			pGoodsInfo->setGrade( pResult->getInt(++i) );
-			string optionField = pResult->getString(++i);
-			pGoodsInfo->setNum( pResult->getInt(++i) );
-			pGoodsInfo->setTimeLimit( pResult->getInt(++i) == 1 ); // enum( 'LIMITED'(1), 'UNLIMITED'(2) ) 
-			pGoodsInfo->setHour( pResult->getInt(++i) );
+        while (pResult->next()) {
+            GoodsInfo* pGoodsInfo = new GoodsInfo();
+            int i = 0;
 
-			list<OptionType_t> optionTypes;
-			setOptionTypeFromField( optionTypes, optionField );
-			pGoodsInfo->setOptionTypeList( optionTypes );
+            pGoodsInfo->setID(pResult->getInt(++i));
+            pGoodsInfo->setName(pResult->getString(++i));
+            pGoodsInfo->setItemClass((Item::ItemClass)(pResult->getInt(++i)));
+            pGoodsInfo->setItemType(pResult->getInt(++i));
+            pGoodsInfo->setGrade(pResult->getInt(++i));
+            string optionField = pResult->getString(++i);
+            pGoodsInfo->setNum(pResult->getInt(++i));
+            pGoodsInfo->setTimeLimit(pResult->getInt(++i) == 1); // enum( 'LIMITED'(1), 'UNLIMITED'(2) )
+            pGoodsInfo->setHour(pResult->getInt(++i));
 
-			addGoodsInfo(pGoodsInfo);
-		}
-		
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            list<OptionType_t> optionTypes;
+            setOptionTypeFromField(optionTypes, optionField);
+            pGoodsInfo->setOptionTypeList(optionTypes);
 
-	__END_DEBUG
-	__END_CATCH
+            addGoodsInfo(pGoodsInfo);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void GoodsInfoManager::addGoodsInfo(GoodsInfo* pGoodsInfo)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert (pGoodsInfo != NULL);
+    Assert(pGoodsInfo != NULL);
 
-	HashMapGoodsInfoItr itr = m_GoodsInfos.find( pGoodsInfo->getID() );
+    HashMapGoodsInfoItr itr = m_GoodsInfos.find(pGoodsInfo->getID());
 
-	if ( itr != m_GoodsInfos.end() )
-		throw DuplicatedException();
+    if (itr != m_GoodsInfos.end())
+        throw DuplicatedException();
 
-	m_GoodsInfos[ pGoodsInfo->getID() ] = pGoodsInfo;
+    m_GoodsInfos[pGoodsInfo->getID()] = pGoodsInfo;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-GoodsInfo* GoodsInfoManager::getGoodsInfo( DWORD id ) const
-	
+GoodsInfo* GoodsInfoManager::getGoodsInfo(DWORD id) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	HashMapGoodsInfoConstItr itr = m_GoodsInfos.find( id );
+    HashMapGoodsInfoConstItr itr = m_GoodsInfos.find(id);
 
-	if ( itr == m_GoodsInfos.end() )
-		return NULL;
+    if (itr == m_GoodsInfos.end())
+        return NULL;
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 string GoodsInfoManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GoodsInfoManager(\n";
+    msg << "GoodsInfoManager(\n";
 
-	HashMapGoodsInfoConstItr itr = m_GoodsInfos.begin();
+    HashMapGoodsInfoConstItr itr = m_GoodsInfos.begin();
 
-	for ( ; itr != m_GoodsInfos.end(); itr++ )
-	{
-		msg << "GoodsInfos[" << itr->second->getID() << "] == ";
-		msg	<< itr->second->getName();
-		msg << "\n";
-		msg << itr->second->toString() << "\n";
-	}
+    for (; itr != m_GoodsInfos.end(); itr++) {
+        msg << "GoodsInfos[" << itr->second->getID() << "] == ";
+        msg << itr->second->getName();
+        msg << "\n";
+        msg << itr->second->toString() << "\n";
+    }
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Global Variable definition

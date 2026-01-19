@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Unburrow.h 
+// Filename    : Unburrow.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_UN_BURROW_HANDLER_H__
@@ -13,20 +13,23 @@
 // class Unburrow;
 //////////////////////////////////////////////////////////////////////////////
 
-class Unburrow: public SkillHandler 
-{
+class Unburrow : public SkillHandler {
 public:
-	Unburrow() throw() {}
-	~Unburrow() throw() {}
-	
+    Unburrow() throw() {}
+    ~Unburrow() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Unburrow"; }
-	SkillType_t getSkillType() const throw() { return SKILL_UN_BURROW; }
+    string getSkillHandlerName() const throw() {
+        return "Unburrow";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_UN_BURROW;
+    }
 
-	void execute(Vampire* pVampire) ;
-	void execute(Monster* pMonster) ;
+    void execute(Vampire* pVampire);
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

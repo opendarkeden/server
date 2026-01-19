@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HandsOfFire.h 
-// Written By  : 
-// Description : 
+// Filename    : HandsOfFire.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HANDS_OF_FIRE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class HandsOfFire;
 //////////////////////////////////////////////////////////////////////////////
 
-class HandsOfFire : public SkillHandler 
-{
+class HandsOfFire : public SkillHandler {
 public:
-	HandsOfFire() throw() {}
-	~HandsOfFire() throw() {}
-	
+    HandsOfFire() throw() {}
+    ~HandsOfFire() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HandsOfFire"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HANDS_OF_FIRE; }
+    string getSkillHandlerName() const throw() {
+        return "HandsOfFire";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HANDS_OF_FIRE;
+    }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

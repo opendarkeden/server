@@ -1,195 +1,192 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : ScriptManager.cpp
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ScriptManager.h"
-#include "DB.h"
-#include "SXml.h"
-#include "Properties.h"
+
 #include "Assert.h"
+#include "DB.h"
+#include "Properties.h"
+#include "SXml.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // load from database with NPC ID
 //////////////////////////////////////////////////////////////////////////////
-void ScriptManager::load (const string & ownerID) 
-	
+void ScriptManager::load(const string& ownerID)
+
 {
-	__BEGIN_TRY
-	
-	Statement* pStmt = NULL;
-	Result* pResult = NULL;
+    __BEGIN_TRY
 
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		//pResult = pStmt->executeQuery("SELECT ScriptID, Subject, Content FROM Script WHERE OwnerID='%s'", ownerID.c_str());
-		pResult = pStmt->executeQuery("SELECT ScriptID, OwnerID, Subject, Content FROM Script ORDER BY ScriptID");
-//		XMLTree* pTree = new XMLTree("Scripts");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		while (pResult->next())
-		{
-			ScriptID_t scriptID = pResult->getInt(1);
-			string	   owner	= pResult->getString(2);
-			string     subject  = pResult->getString(3);
-			string     content  = pResult->getString(4);
-			Script*    pScript  = new Script;
-			XMLTree*	pChild = new XMLTree("Script");
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        // pResult = pStmt->executeQuery("SELECT ScriptID, Subject, Content FROM Script WHERE OwnerID='%s'",
+        // ownerID.c_str());
+        pResult = pStmt->executeQuery("SELECT ScriptID, OwnerID, Subject, Content FROM Script ORDER BY ScriptID");
+        //		XMLTree* pTree = new XMLTree("Scripts");
 
-			pScript->setScriptID(scriptID);
-			pChild->AddAttribute("ScriptID", scriptID);
-//			pChild->AddAttribute("Owner", owner);
+        while (pResult->next()) {
+            ScriptID_t scriptID = pResult->getInt(1);
+            string owner = pResult->getString(2);
+            string subject = pResult->getString(3);
+            string content = pResult->getString(4);
+            Script* pScript = new Script;
+            XMLTree* pChild = new XMLTree("Script");
 
-			if ( m_XMLS[owner] == NULL ) m_XMLS[owner] = new XMLTree("Scripts");
+            pScript->setScriptID(scriptID);
+            pChild->AddAttribute("ScriptID", scriptID);
+            //			pChild->AddAttribute("Owner", owner);
 
-			string     seperator    = "**";
-			size_t       start        = 0;
-			size_t       end          = 0;
-			string     msg;
+            if (m_XMLS[owner] == NULL)
+                m_XMLS[owner] = new XMLTree("Scripts");
 
-			////////////////////////////////////////////////////////////
-			// subject¸¦ ÆÄ½ÌÇÑ´Ù.
-			////////////////////////////////////////////////////////////
-			start = 0;
-			end   = 0;
+            string seperator = "**";
+            size_t start = 0;
+            size_t end = 0;
+            string msg;
 
-			while (end < subject.size())
-			{
-				start = end;
-				end   = subject.find(seperator, start);
+            ////////////////////////////////////////////////////////////
+            // subject¸¦ ÆÄ½ÌÇÑ´Ù.
+            ////////////////////////////////////////////////////////////
+            start = 0;
+            end = 0;
 
-				if (end == string::npos) end = subject.size();
-				end++;
+            while (end < subject.size()) {
+                start = end;
+                end = subject.find(seperator, start);
 
-				msg = trim(subject.substr(start, end-start-1));
+                if (end == string::npos)
+                    end = subject.size();
+                end++;
 
-				pScript->addSubject(msg);
+                msg = trim(subject.substr(start, end - start - 1));
 
-				XMLTree* pSubject = new XMLTree("Subject");
-				pSubject->SetText(msg);
-				pChild->AddChild(pSubject);
+                pScript->addSubject(msg);
 
-				//cout << "SUBJECT:" << msg << endl;
-			}
+                XMLTree* pSubject = new XMLTree("Subject");
+                pSubject->SetText(msg);
+                pChild->AddChild(pSubject);
 
-			////////////////////////////////////////////////////////////
-			// content¸¦ ÆÄ½ÌÇÑ´Ù.
-			////////////////////////////////////////////////////////////
-			start = 0;
-			end   = 0;
-			uint answerid = 0;
+                // cout << "SUBJECT:" << msg << endl;
+            }
 
-			while (end < content.size())
-			{
-				start = end;
-				end   = content.find(seperator, start);
+            ////////////////////////////////////////////////////////////
+            // content¸¦ ÆÄ½ÌÇÑ´Ù.
+            ////////////////////////////////////////////////////////////
+            start = 0;
+            end = 0;
+            uint answerid = 0;
 
-				if (end == string::npos) end = content.size();
-				end++;
+            while (end < content.size()) {
+                start = end;
+                end = content.find(seperator, start);
 
-				msg = trim(content.substr(start, end-start-1));
+                if (end == string::npos)
+                    end = content.size();
+                end++;
 
-				pScript->addContent(msg);
+                msg = trim(content.substr(start, end - start - 1));
 
-				end++;
+                pScript->addContent(msg);
 
-				XMLTree* pContent = new XMLTree("Content");
-				pContent->SetText(msg);
-				pContent->AddAttribute("AuintnswerID", ++answerid);
-				pChild->AddChild(pContent);
+                end++;
 
-				//cout << "CONTENT:" << msg << endl;
-			}
+                XMLTree* pContent = new XMLTree("Content");
+                pContent->SetText(msg);
+                pContent->AddAttribute("AuintnswerID", ++answerid);
+                pChild->AddChild(pContent);
 
-			setScript(scriptID, pScript);
-			m_XMLS[owner]->AddChild(pChild);
-			Assert( m_ScriptXMLs[scriptID] == NULL );
-			m_ScriptXMLs[scriptID] = pChild;
-//			pTree->AddChild(pChild);
-		}
+                // cout << "CONTENT:" << msg << endl;
+            }
 
-//		pTree->SaveToFile( (g_pConfig->getProperty("HomePath") + "/data/Script.xml").c_str() );
-//		SAFE_DELETE( pTree );
+            setScript(scriptID, pScript);
+            m_XMLS[owner]->AddChild(pChild);
+            Assert(m_ScriptXMLs[scriptID] == NULL);
+            m_ScriptXMLs[scriptID] = pChild;
+            //			pTree->AddChild(pChild);
+        }
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        //		pTree->SaveToFile( (g_pConfig->getProperty("HomePath") + "/data/Script.xml").c_str() );
+        //		SAFE_DELETE( pTree );
 
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get script
 //////////////////////////////////////////////////////////////////////////////
-Script* ScriptManager::getScript (ScriptID_t scriptID) const 
-{
-	__BEGIN_TRY
+Script* ScriptManager::getScript(ScriptID_t scriptID) const {
+    __BEGIN_TRY
 
-	unordered_map<ScriptID_t , Script*>::const_iterator itr = m_Scripts.find(scriptID);
+    unordered_map<ScriptID_t, Script*>::const_iterator itr = m_Scripts.find(scriptID);
 
-	if (itr == m_Scripts.end()) 
-	{
-		StringStream msg;
-		msg << "No Such Script(ID:" << scriptID << ") exist...";
-		cerr << msg.toString() << endl;
-		throw NoSuchElementException(msg.toString());
-	}
+    if (itr == m_Scripts.end()) {
+        StringStream msg;
+        msg << "No Such Script(ID:" << scriptID << ") exist...";
+        cerr << msg.toString() << endl;
+        throw NoSuchElementException(msg.toString());
+    }
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // set script
 //////////////////////////////////////////////////////////////////////////////
-void ScriptManager::setScript (ScriptID_t scriptID , Script* pScript) 
-	
+void ScriptManager::setScript(ScriptID_t scriptID, Script* pScript)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ScriptID_t , Script*>::iterator itr = m_Scripts.find(scriptID);
+    unordered_map<ScriptID_t, Script*>::iterator itr = m_Scripts.find(scriptID);
 
-	if (itr != m_Scripts.end()) 
-	{
-		StringStream msg;
-		msg << scriptID << " script already exist.";
-		throw DuplicatedException(msg.toString());
-	}
+    if (itr != m_Scripts.end()) {
+        StringStream msg;
+        msg << scriptID << " script already exist.";
+        throw DuplicatedException(msg.toString());
+    }
 
-	m_Scripts[scriptID] = pScript;
+    m_Scripts[scriptID] = pScript;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
-string ScriptManager::toString () const
-	
+string ScriptManager::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "ScriptManager(";
+    msg << "ScriptManager(";
 
-	unordered_map<ScriptID_t, Script*>::const_iterator i = m_Scripts.begin();
-	for (; i != m_Scripts.end() ; i++) 
-	{
-		msg << "(ScriptID:" << (int)(i->first) << ",";
-		msg << i->second->toString() << ")";
-	}
+    unordered_map<ScriptID_t, Script*>::const_iterator i = m_Scripts.begin();
+    for (; i != m_Scripts.end(); i++) {
+        msg << "(ScriptID:" << (int)(i->first) << ",";
+        msg << i->second->toString() << ")";
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // global variable definition

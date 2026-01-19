@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionFlagOff.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,34 +15,45 @@
 // class ConditionFlagOff;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionFlagOff : public Condition 
-{
+class ConditionFlagOff : public Condition {
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_FLAG_OFF; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_FLAG_OFF;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 public:
-	int getIndex(void) const  { return m_Index; }
-	void setIndex(int index)  { m_Index = index; }
+    int getIndex(void) const {
+        return m_Index;
+    }
+    void setIndex(int index) {
+        m_Index = index;
+    }
 
 private:
-	int m_Index; // 플래그의 값
-
+    int m_Index; // 플래그의 값
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionFlagOffFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionFlagOffFactory : public ConditionFactory 
-{
+class ConditionFlagOffFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_FLAG_OFF; }
-    virtual Condition* createCondition() const  { return new ConditionFlagOff(); }
-    virtual string getConditionName() const  { return "FlagOff"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_FLAG_OFF;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionFlagOff();
+    }
+    virtual string getConditionName() const {
+        return "FlagOff";
+    }
 };
 
 #endif

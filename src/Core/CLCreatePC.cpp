@@ -1,109 +1,101 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CLCreatePC.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLCreatePC.h"
 
-void CLCreatePC::read (SocketInputStream & iStream) 
-	 
+void CLCreatePC::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szName;
+    BYTE szName;
 
-	iStream.read(szName);
+    iStream.read(szName);
 
-	if (szName == 0)
-		throw InvalidProtocolException("szName == 0");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	if (szName > 20)
-		throw InvalidProtocolException("too long name length");
-		
-	iStream.read(m_Name , szName);
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	BYTE slot;
-	iStream.read(slot);
-	m_Slot = Slot(slot);
+    iStream.read(m_Name, szName);
 
-	BYTE flags;
-	iStream.read(flags);
-	m_BitSet = flags;
+    BYTE slot;
+    iStream.read(slot);
+    m_Slot = Slot(slot);
 
-	for (uint i = 0 ; i < SLAYER_COLOR_MAX ; i ++)
-		iStream.read(m_Colors[i]);	
+    BYTE flags;
+    iStream.read(flags);
+    m_BitSet = flags;
 
-	iStream.read(m_STR);
-	iStream.read(m_DEX);
-	iStream.read(m_INT);
+    for (uint i = 0; i < SLAYER_COLOR_MAX; i++)
+        iStream.read(m_Colors[i]);
 
-	iStream.read(m_Race);
+    iStream.read(m_STR);
+    iStream.read(m_DEX);
+    iStream.read(m_INT);
 
-	__END_CATCH
+    iStream.read(m_Race);
+
+    __END_CATCH
 }
 
-void CLCreatePC::write (SocketOutputStream & oStream) const 
-     
+void CLCreatePC::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szName = m_Name.size();
+    BYTE szName = m_Name.size();
 
-	if (szName == 0)
-		throw InvalidProtocolException("szName == 0");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	if (szName > 20)
-		throw InvalidProtocolException("too long name length");
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	oStream.write(szName);
-	oStream.write(m_Name);
+    oStream.write(szName);
+    oStream.write(m_Name);
 
-	oStream.write((BYTE)m_Slot);
+    oStream.write((BYTE)m_Slot);
 
-	oStream.write((BYTE)m_BitSet.to_ulong());
+    oStream.write((BYTE)m_BitSet.to_ulong());
 
-	for (uint i = 0 ; i < SLAYER_COLOR_MAX ; i ++)
-		oStream.write(m_Colors[i]);	
+    for (uint i = 0; i < SLAYER_COLOR_MAX; i++)
+        oStream.write(m_Colors[i]);
 
-	oStream.write(m_STR);
-	oStream.write(m_DEX);
-	oStream.write(m_INT);
+    oStream.write(m_STR);
+    oStream.write(m_DEX);
+    oStream.write(m_INT);
 
-	oStream.write(m_Race);
+    oStream.write(m_Race);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLCreatePC::execute (Player* pPlayer) 
-	 
+void CLCreatePC::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	CLCreatePCHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CLCreatePCHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CLCreatePC::toString () const
-       
+string CLCreatePC::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CLCreatePC(Name: " << m_Name 
-		<< ",Slot:" << Slot2String[m_Slot]
-		<< ",Sex:" << Sex2String[getSex()]
-		<< ",HairStyle:" << HairStyle2String[getHairStyle()] 
-		<< ",HairColor:" << (int)getHairColor()
-		<< ",SkinColor:" << (int)getSkinColor()
-		<< ",STR:" << (int)m_STR
-		<< ",DEX:" << (int)m_DEX
-		<< ",INT:" << (int)m_INT
-		<< ",Race:" << (int)m_Race
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CLCreatePC(Name: " << m_Name << ",Slot:" << Slot2String[m_Slot] << ",Sex:" << Sex2String[getSex()]
+        << ",HairStyle:" << HairStyle2String[getHairStyle()] << ",HairColor:" << (int)getHairColor()
+        << ",SkinColor:" << (int)getSkinColor() << ",STR:" << (int)m_STR << ",DEX:" << (int)m_DEX
+        << ",INT:" << (int)m_INT << ",Race:" << (int)m_Race << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

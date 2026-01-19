@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DivineSpirits.h 
-// Written By  : 
-// Description : 
+// Filename    : DivineSpirits.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DIVINE_SPIRITS_HANDLER_H__
@@ -13,19 +13,22 @@
 // class DivineSpirits;
 //////////////////////////////////////////////////////////////////////////////
 
-class DivineSpirits : public SkillHandler 
-{
+class DivineSpirits : public SkillHandler {
 public:
-	DivineSpirits() throw() {}
-	~DivineSpirits() throw() {}
-	
+    DivineSpirits() throw() {}
+    ~DivineSpirits() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DivineSpirits"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DIVINE_SPIRITS; }
+    string getSkillHandlerName() const throw() {
+        return "DivineSpirits";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DIVINE_SPIRITS;
+    }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

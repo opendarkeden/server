@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : GCSearchMotorcycleOK.h 
+//
+// Filename    : GCSearchMotorcycleOK.h
 // Written By  : elca@ewestsoft.com
 // Description : Packet informing the player where a searched motorcycle is.
-// 
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __GC_SEARCH_MOTORCYCLE_OK_H__
@@ -20,32 +20,48 @@
 //
 //--------------------------------------------------------------------------------
 
-class GCSearchMotorcycleOK : public Packet 
-{
-public :
+class GCSearchMotorcycleOK : public Packet {
+public:
     GCSearchMotorcycleOK() {};
     ~GCSearchMotorcycleOK() {};
-	void read(SocketInputStream & iStream) ;
-	void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_SEARCH_MOTORCYCLE_OK; }
-	PacketSize_t getPacketSize() const  { return szZoneID+szCoord*2; }
-	string getPacketName() const  { return "GCSearchMotorcycleOK"; }
-	string toString() const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_SEARCH_MOTORCYCLE_OK;
+    }
+    PacketSize_t getPacketSize() const {
+        return szZoneID + szCoord * 2;
+    }
+    string getPacketName() const {
+        return "GCSearchMotorcycleOK";
+    }
+    string toString() const;
 
-public :
-	ZoneID_t getZoneID(void) const   { return m_ZoneID;}
-	Coord_t  getX(void) const        { return m_ZoneX;}
-	Coord_t  getY(void) const        { return m_ZoneY;}
-	void     setZoneID(ZoneID_t id)  { m_ZoneID = id;}
-	void     setX(Coord_t x)         { m_ZoneX = x;}
-	void     setY(Coord_t y)         { m_ZoneY = y;}
+public:
+    ZoneID_t getZoneID(void) const {
+        return m_ZoneID;
+    }
+    Coord_t getX(void) const {
+        return m_ZoneX;
+    }
+    Coord_t getY(void) const {
+        return m_ZoneY;
+    }
+    void setZoneID(ZoneID_t id) {
+        m_ZoneID = id;
+    }
+    void setX(Coord_t x) {
+        m_ZoneX = x;
+    }
+    void setY(Coord_t y) {
+        m_ZoneY = y;
+    }
 
-private :
-	ZoneID_t m_ZoneID;
-	Coord_t  m_ZoneX;
-	Coord_t  m_ZoneY;
-
+private:
+    ZoneID_t m_ZoneID;
+    Coord_t m_ZoneX;
+    Coord_t m_ZoneY;
 };
 
 
@@ -57,25 +73,29 @@ private :
 //
 //////////////////////////////////////////////////////////////////////
 
-class GCSearchMotorcycleOKFactory : public PacketFactory 
-{
+class GCSearchMotorcycleOKFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCSearchMotorcycleOK();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCSearchMotorcycleOK(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCSearchMotorcycleOK";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCSearchMotorcycleOK"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SEARCH_MOTORCYCLE_OK; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_SEARCH_MOTORCYCLE_OK;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// Use GCSearchMotorcycleOKPacketMaxSize if that constant is defined.
-	PacketSize_t getPacketMaxSize() const  { return szZoneID + szCoord*2; }
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // Use GCSearchMotorcycleOKPacketMaxSize if that constant is defined.
+    PacketSize_t getPacketMaxSize() const {
+        return szZoneID + szCoord * 2;
+    }
 };
 
 
@@ -85,14 +105,10 @@ public :
 //
 //////////////////////////////////////////////////////////////////////
 
-class GCSearchMotorcycleOKHandler 
-{
-	
-public :
-	
-	// execute packet's handler
-	static void execute(GCSearchMotorcycleOK* pPacket, Player* pPlayer) ;
-
+class GCSearchMotorcycleOKHandler {
+public:
+    // execute packet's handler
+    static void execute(GCSearchMotorcycleOK* pPacket, Player* pPlayer);
 };
 
 #endif

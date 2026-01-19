@@ -1,28 +1,25 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : ScriptParameter.cpp 
+//
+// Filename    : ScriptParameter.cpp
 // Written By  :
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
 // include files
 //////////////////////////////////////////////////////////////////////
 #include "ScriptParameter.h"
+
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-ScriptParameter::ScriptParameter()
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+ScriptParameter::ScriptParameter(){__BEGIN_TRY __END_CATCH}
 
-	
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
@@ -32,85 +29,78 @@ ScriptParameter::~ScriptParameter() noexcept = default;
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-void ScriptParameter::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
+void ScriptParameter::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	BYTE szName, szValue;
+    BYTE szName, szValue;
 
-	iStream.read( szName );
-	if ( szName == 0 )
-		throw InvalidProtocolException( "szName == 0" );
+    iStream.read(szName);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	iStream.read( m_Name, szName );
+    iStream.read(m_Name, szName);
 
-	iStream.read( szValue );
-	if ( szValue == 0 )
-		throw InvalidProtocolException( "szValue == 0" );
+    iStream.read(szValue);
+    if (szValue == 0)
+        throw InvalidProtocolException("szValue == 0");
 
-	iStream.read( m_Value, szValue );
+    iStream.read(m_Value, szValue);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void ScriptParameter::write ( SocketOutputStream & oStream ) const
-{
-	__BEGIN_TRY
-		
-	BYTE szName = m_Name.size();
-	BYTE szValue = m_Value.size();
+void ScriptParameter::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	if ( szName == 0 )
-		throw InvalidProtocolException( "szName == 0" );
-	if ( szValue == 0 )
-		throw InvalidProtocolException( "szValue == 0" );
+    BYTE szName = m_Name.size();
+    BYTE szValue = m_Value.size();
 
-	oStream.write( szName );
-	oStream.write( m_Name );
-	oStream.write( szValue );
-	oStream.write( m_Value );
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szValue == 0)
+        throw InvalidProtocolException("szValue == 0");
 
-	__END_CATCH
+    oStream.write(szName);
+    oStream.write(m_Name);
+    oStream.write(szValue);
+    oStream.write(m_Value);
+
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
 // getSize
 //--------------------------------------------------------------------
-PacketSize_t ScriptParameter::getSize()
-{
-	__BEGIN_TRY
+PacketSize_t ScriptParameter::getSize() {
+    __BEGIN_TRY
 
-	BYTE szName = m_Name.size();
-	BYTE szValue = m_Value.size();
+    BYTE szName = m_Name.size();
+    BYTE szValue = m_Value.size();
 
-	PacketSize_t PacketSize = szBYTE + szName + szBYTE + szValue;
+    PacketSize_t PacketSize = szBYTE + szName + szBYTE + szValue;
 
-	return PacketSize;
+    return PacketSize;
 
-	__END_CATCH
+    __END_CATCH
 }
 
- /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 //
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string ScriptParameter::toString () const
-{
-	__BEGIN_TRY
+string ScriptParameter::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "ScriptParameter( "
-		<< "Name:" << m_Name
-		<< ",Value:" << m_Value
-		<< ")";
+    msg << "ScriptParameter( "
+        << "Name:" << m_Name << ",Value:" << m_Value << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

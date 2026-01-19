@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "DefaultOptionSetInfo.h"
+
 #include "DB.h"
 #include "ItemUtil.h"
 
@@ -12,13 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // DefalutOptionSetInfo class
 //////////////////////////////////////////////////////////////////////////////
-DefaultOptionSetInfo::DefaultOptionSetInfo()
-{
-}
+DefaultOptionSetInfo::DefaultOptionSetInfo() {}
 
-DefaultOptionSetInfo::~DefaultOptionSetInfo()
-{
-}
+DefaultOptionSetInfo::~DefaultOptionSetInfo() {}
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -29,63 +26,53 @@ DefaultOptionSetInfoManager* g_pDefaultOptionSetInfoManager = NULL;
 //////////////////////////////////////////////////////////////////////////////
 // DefalutOptionSetInfoManager class
 //////////////////////////////////////////////////////////////////////////////
-DefaultOptionSetInfoManager::DefaultOptionSetInfoManager()
-{
-}
+DefaultOptionSetInfoManager::DefaultOptionSetInfoManager() {}
 
-DefaultOptionSetInfoManager::~DefaultOptionSetInfoManager()
-{
-}
+DefaultOptionSetInfoManager::~DefaultOptionSetInfoManager() {}
 
 void DefaultOptionSetInfoManager::load()
-	
+
 {
-	Statement* pStmt = NULL;
-	Result* pResult = NULL;
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery( "SELECT Type, OptionList FROM DefaultOptionSetInfo" );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT Type, OptionList FROM DefaultOptionSetInfo");
 
-		while ( pResult->next() )
-		{
-			uint i = 0;
+        while (pResult->next()) {
+            uint i = 0;
 
-			DefaultOptionSetInfo* pDefaultOptionSetInfo = new DefaultOptionSetInfo();
+            DefaultOptionSetInfo* pDefaultOptionSetInfo = new DefaultOptionSetInfo();
 
-			pDefaultOptionSetInfo->setType( (DefaultOptionSetType_t)pResult->getInt(++i) );
-			string optionField = pResult->getString(++i);
-			list<OptionType_t> optionList;
-			makeOptionList( optionField, optionList );
-			pDefaultOptionSetInfo->setOptionTypeList( optionList );
+            pDefaultOptionSetInfo->setType((DefaultOptionSetType_t)pResult->getInt(++i));
+            string optionField = pResult->getString(++i);
+            list<OptionType_t> optionList;
+            makeOptionList(optionField, optionList);
+            pDefaultOptionSetInfo->setOptionTypeList(optionList);
 
-			addDefaultOptionSetInfo( pDefaultOptionSetInfo );
-		}
-	}
-	END_DB(pStmt)
+            addDefaultOptionSetInfo(pDefaultOptionSetInfo);
+        }
+    }
+    END_DB(pStmt)
 }
 
-DefaultOptionSetInfo* DefaultOptionSetInfoManager::getDefaultOptionSetInfo( DefaultOptionSetType_t type )
-{
-	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find( type );
+DefaultOptionSetInfo* DefaultOptionSetInfoManager::getDefaultOptionSetInfo(DefaultOptionSetType_t type) {
+    HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find(type);
 
-	if ( itr == m_DefaultOptionSetInfos.end() )
-		return NULL;
+    if (itr == m_DefaultOptionSetInfos.end())
+        return NULL;
 
-	return itr->second;
+    return itr->second;
 }
 
-void DefaultOptionSetInfoManager::addDefaultOptionSetInfo( DefaultOptionSetInfo* pDefaultOptionSetInfo )
-{
-	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find( pDefaultOptionSetInfo->getType() );
+void DefaultOptionSetInfoManager::addDefaultOptionSetInfo(DefaultOptionSetInfo* pDefaultOptionSetInfo) {
+    HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find(pDefaultOptionSetInfo->getType());
 
-	if ( itr != m_DefaultOptionSetInfos.end() )
-	{
-		throw DuplicatedException();
-		return;
-	}
+    if (itr != m_DefaultOptionSetInfos.end()) {
+        throw DuplicatedException();
+        return;
+    }
 
-	m_DefaultOptionSetInfos[pDefaultOptionSetInfo->getType()] = pDefaultOptionSetInfo;
+    m_DefaultOptionSetInfos[pDefaultOptionSetInfo->getType()] = pDefaultOptionSetInfo;
 }
-

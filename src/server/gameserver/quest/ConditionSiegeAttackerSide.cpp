@@ -1,60 +1,58 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionSiegeAttackerSide.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionSiegeAttackerSide.h"
-#include "GDRLairManager.h"
+
 #include "Effect.h"
 #include "GCSystemMessage.h"
+#include "GDRLairManager.h"
 #include "Player.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionSiegeAttackerSide::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionSiegeAttackerSide::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	if ( !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_ATTACKER_1 )
-		&& !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_ATTACKER_2 )
-		&& !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_ATTACKER_3 )
-		&& !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_ATTACKER_4 )
-		&& !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_ATTACKER_5 )
-		)
-	{
-/*		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage( "수비측만 사용할 수 있습니다." );
-		pCreature2->getPlayer()->sendPacket (&gcSystemMessage);*/
-		return false;
-	}
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	return true;
+    if (!pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_ATTACKER_1) &&
+        !pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_ATTACKER_2) &&
+        !pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_ATTACKER_3) &&
+        !pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_ATTACKER_4) &&
+        !pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_ATTACKER_5)) {
+        /*		GCSystemMessage gcSystemMessage;
+                gcSystemMessage.setMessage( "수비측만 사용할 수 있습니다." );
+                pCreature2->getPlayer()->sendPacket (&gcSystemMessage);*/
+        return false;
+    }
+
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionSiegeAttackerSide::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionSiegeAttackerSide::read(PropertyBuffer& propertyBuffer)
+
+{}
+
+////////////////////////////////////////////////////////////////////////////////
+// get debug string
+////////////////////////////////////////////////////////////////////////////////
+string ConditionSiegeAttackerSide::toString() const
+
 {
-}
+    __BEGIN_TRY
 
-////////////////////////////////////////////////////////////////////////////////
-	// get debug string
-////////////////////////////////////////////////////////////////////////////////
-string ConditionSiegeAttackerSide::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+    StringStream msg;
+    msg << "ConditionSiegeAttackerSide("
+        << ")";
+    return msg.toString();
 
-	StringStream msg;
-	msg << "ConditionSiegeAttackerSide("
-		<< ")"; 
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

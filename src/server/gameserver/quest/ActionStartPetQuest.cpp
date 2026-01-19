@@ -1,38 +1,36 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionStartPetQuest.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionStartPetQuest.h"
+
 #include "Creature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
-#include "PlayerCreature.h"
 #include "GCMonsterKillQuestInfo.h"
 #include "GCSystemMessage.h"
-#include "mission/QuestManager.h"
-#include "mission/MonsterKillQuestStatus.h"
-#include "VariableManager.h"
-#include "StringPool.h"
+#include "GamePlayer.h"
 #include "MonsterInfo.h"
+#include "NPC.h"
+#include "PlayerCreature.h"
+#include "StringPool.h"
+#include "VariableManager.h"
+#include "mission/MonsterKillQuestStatus.h"
+#include "mission/QuestManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionStartPetQuest::read (PropertyBuffer & propertyBuffer)
-    
+void ActionStartPetQuest::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -40,75 +38,77 @@ void ActionStartPetQuest::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionStartPetQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionStartPetQuest::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    Assert(pPC != NULL);
 
-	if ( g_pVariableManager->getVariable(RACE_PET_QUEST) == 0 )
-	{
-		GCSystemMessage gcSM;
-		gcSM.setMessage( g_pStringPool->getString( STRID_NOT_SUPPORT ) );
+    if (g_pVariableManager->getVariable(RACE_PET_QUEST) == 0) {
+        GCSystemMessage gcSM;
+        gcSM.setMessage(g_pStringPool->getString(STRID_NOT_SUPPORT));
 
-		pPC->getPlayer()->sendPacket( &gcSM );
-	
-		return;
-	}
+        pPC->getPlayer()->sendPacket(&gcSM);
 
-	if ( !pPC->getQuestManager()->canStartMoreQuest() )
-	{
-		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
-		gcNPCResponse.setParameter( (uint)START_FAIL_QUEST_NUM_EXCEEDED );
+        return;
+    }
 
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
-		return;
-	}
+    if (!pPC->getQuestManager()->canStartMoreQuest()) {
+        GCNPCResponse gcNPCResponse;
+        gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
+        gcNPCResponse.setParameter((uint)START_FAIL_QUEST_NUM_EXCEEDED);
 
-	GCMonsterKillQuestInfo gcMKQI;
-	GCMonsterKillQuestInfo::QuestInfo* pQI = pPC->getPetQuestInfo();
-	gcMKQI.addQuestInfo( pQI );
-	pPC->getPlayer()->sendPacket( &gcMKQI );
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
+        return;
+    }
 
-	const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( pQI->sType );
-	Assert( pMonsterInfo != NULL );
+    GCMonsterKillQuestInfo gcMKQI;
+    GCMonsterKillQuestInfo::QuestInfo* pQI = pPC->getPetQuestInfo();
+    gcMKQI.addQuestInfo(pQI);
+    pPC->getPlayer()->sendPacket(&gcMKQI);
 
-	MonsterKillQuestStatus* pQS = new MonsterKillQuestStatus( pQI->questID, VSDateTime::currentDateTime().addSecs(pQI->timeLimit),
-			pMonsterInfo->getSpriteType(), false, pQI->goal );
-	pQS->setTimeLimit( true );
+    const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pQI->sType);
+    Assert(pMonsterInfo != NULL);
 
-	if ( pPC->isSlayer() ) pQS->setRewardClass( 70 );
-	else if ( pPC->isVampire() ) pQS->setRewardClass( 71 );
-	else if ( pPC->isOusters() ) pQS->setRewardClass( 72 );
+    MonsterKillQuestStatus* pQS =
+        new MonsterKillQuestStatus(pQI->questID, VSDateTime::currentDateTime().addSecs(pQI->timeLimit),
+                                   pMonsterInfo->getSpriteType(), false, pQI->goal);
+    pQS->setTimeLimit(true);
 
-	pPC->getQuestManager()->addQuest( pQS );
-	pPC->sendCurrentQuestInfo();
+    if (pPC->isSlayer())
+        pQS->setRewardClass(70);
+    else if (pPC->isVampire())
+        pQS->setRewardClass(71);
+    else if (pPC->isOusters())
+        pQS->setRewardClass(72);
 
-	__END_CATCH
+    pPC->getQuestManager()->addQuest(pQS);
+    pPC->sendCurrentQuestInfo();
+
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionStartPetQuest::toString () const 
-	
+string ActionStartPetQuest::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionStartPetQuest("
-	    << ")";
+    StringStream msg;
+    msg << "ActionStartPetQuest("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

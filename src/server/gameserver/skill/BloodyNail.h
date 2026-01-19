@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyNail.h 
+// Filename    : BloodyNail.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_NAIL_HANDLER_H__
@@ -13,21 +13,25 @@
 // class BloodyNail;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyNail: public SkillHandler 
-{
+class BloodyNail : public SkillHandler {
 public:
-	BloodyNail() throw() {}
-	~BloodyNail() throw() {}
-	
+    BloodyNail() throw() {}
+    ~BloodyNail() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyNail"; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyNail";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_NAIL; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_NAIL;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,57 +1,52 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGStashToMouse.cpp 
+// Filename    : CGStashToMouse.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGStashToMouse.h"
 
-void CGStashToMouse::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY 
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_Rack);
-	iStream.read(m_Index);
+void CGStashToMouse::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_Rack);
+    iStream.read(m_Index);
+
+    __END_CATCH
 }
 
-void CGStashToMouse::write (SocketOutputStream & oStream) const 
-     
+void CGStashToMouse::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_Rack);
-	oStream.write(m_Index);
+    oStream.write(m_ObjectID);
+    oStream.write(m_Rack);
+    oStream.write(m_Index);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGStashToMouse::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGStashToMouse::execute(Player* pPlayer)
 
-	CGStashToMouseHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGStashToMouseHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGStashToMouse::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGMouseToStash("
-		<< " ObjectID : " << (int)m_ObjectID
-		<< " Rack : "     << (int)m_Rack
-		<< " Index : "    << (int)m_Index
-		<< ")";
-	return msg.toString();
+string CGStashToMouse::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "CGMouseToStash("
+        << " ObjectID : " << (int)m_ObjectID << " Rack : " << (int)m_Rack << " Index : " << (int)m_Index << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

@@ -4,17 +4,20 @@
 #include "LuaSelectItem.h"
 
 class LuaTradeEventVampireItem : public LuaSelectItem {
-public :
-	LuaTradeEventVampireItem(LuaState* pState);
+public:
+    LuaTradeEventVampireItem(LuaState* pState);
 
-	virtual void	prepare() ;
+    virtual void prepare();
 
-	int		getLevel() const	{ return m_Level; }
-	void	setLevel(int sum) 	{ m_Level = sum; }
+    int getLevel() const {
+        return m_Level;
+    }
+    void setLevel(int sum) {
+        m_Level = sum;
+    }
 
-protected :
-	int		m_Level;
+protected:
+    int m_Level;
 };
 
 #endif
-

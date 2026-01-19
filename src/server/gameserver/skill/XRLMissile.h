@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : XRL Missile.h 
+// Filename    : XRL Missile.h
 // Written By  : rallser
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_XRL_Missile_HANDLER_H__
@@ -13,19 +13,22 @@
 // class XRLMissile;
 //////////////////////////////////////////////////////////////////////////////
 
-class XRLMissile: public SkillHandler 
-{
+class XRLMissile : public SkillHandler {
 public:
-	XRLMissile() throw() {}
-	~XRLMissile() throw() {}
+    XRLMissile() throw() {}
+    ~XRLMissile() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "XRLMissile"; }
-	SkillType_t getSkillType() const throw() { return SKILL_XRL_Missile; }
+    string getSkillHandlerName() const throw() {
+        return "XRLMissile";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_XRL_Missile;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

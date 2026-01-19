@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGSkillToSelf.h 
+//
+// Filename    : CGSkillToSelf.h
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SKILL_TO_SELF_H__
 #define __CG_SKILL_TO_SELF_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -22,56 +22,64 @@
 //////////////////////////////////////////////////////////////////////
 
 class CGSkillToSelf : public Packet {
+public:
+    // constructor
+    CGSkillToSelf();
+
+    // destructor
+    ~CGSkillToSelf();
+
 
 public:
-	
-	// constructor
-	CGSkillToSelf() ;
-	
-	// destructor
-	~CGSkillToSelf() ;
+    // Initialize packet by reading data from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	
-public:
-	
-	
-	// Initialize packet by reading data from the incoming stream.
-    void read(SocketInputStream & iStream) ;
-		    
-	// Serialize packet data to the outgoing stream.
-    void write(SocketOutputStream & oStream) const ;
+    // Serialize packet data to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_SKILL_TO_SELF; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szSkillType + szCEffectID; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_SKILL_TO_SELF;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGSkillToSelf"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szSkillType + szCEffectID;
+    }
 
-	// get SkillType
-	SkillType_t getSkillType() const   { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
+    // get packet name
+    string getPacketName() const {
+        return "CGSkillToSelf";
+    }
 
-	// get CEffectID
-	CEffectID_t getCEffectID() const  { return m_CEffectID; }
-	void setCEffectID(CEffectID_t CEffectID)  { m_CEffectID = CEffectID; }
+    // get SkillType
+    SkillType_t getSkillType() const {
+        return m_SkillType;
+    }
+    void setSkillType(SkillType_t SkillType) {
+        m_SkillType = SkillType;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get CEffectID
+    CEffectID_t getCEffectID() const {
+        return m_CEffectID;
+    }
+    void setCEffectID(CEffectID_t CEffectID) {
+        m_CEffectID = CEffectID;
+    }
 
-private :
+    // get packet's debug string
+    string toString() const;
 
-	// SkillType
-	SkillType_t m_SkillType;
+private:
+    // SkillType
+    SkillType_t m_SkillType;
 
-	// CEffectID
-	CEffectID_t m_CEffectID;
-
+    // CEffectID
+    CEffectID_t m_CEffectID;
 };
 
 
@@ -84,30 +92,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGSkillToSelfFactory : public PacketFactory {
+public:
+    // constructor
+    CGSkillToSelfFactory() {}
+
+    // destructor
+    virtual ~CGSkillToSelfFactory() {}
+
 
 public:
-	
-	// constructor
-	CGSkillToSelfFactory()  {}
-	
-	// destructor
-	virtual ~CGSkillToSelfFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGSkillToSelf();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGSkillToSelf(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGSkillToSelf";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGSkillToSelf"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SKILL_TO_SELF; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_SKILL_TO_SELF;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID; }
-
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szSkillType + szCEffectID;
+    }
 };
 
 
@@ -118,12 +130,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGSkillToSelfHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGSkillToSelf* pCGSkillToSelf, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGSkillToSelf* pCGSkillToSelf, Player* pPlayer);
 };
 
 #endif

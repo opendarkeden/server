@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCCastingSkillHandler::execute (GCCastingSkill * pGCCastingSkill , Player * pPlayer )
-	 
+void GCCastingSkillHandler::execute(GCCastingSkill* pGCCastingSkill, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCCastingSkill->toString() << endl;
-	
+    // cout << pGCCastingSkill->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -1,114 +1,106 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectReflection.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectReflection.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Monster.h"
 
 #include "GCRemoveEffect.h"
+#include "Monster.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectReflection::EffectReflection(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectReflection::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectReflection::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectReflection::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectReflection::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectReflection" << "unaffect BEGIN" << endl;
+    // cout << "EffectReflection" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer());
 
-	// 플래그를 끈다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_REFLECTION);
+    // 플래그를 끈다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_REFLECTION);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	// 이펙트를 삭제하라고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_REFLECTION);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트를 삭제하라고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_REFLECTION);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectReflection" << "unaffect END" << endl;
+    // cout << "EffectReflection" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectReflection::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectReflection::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+void EffectReflection::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
+    {__BEGIN_TRY __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectReflection::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectReflection::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectReflection("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectReflection("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

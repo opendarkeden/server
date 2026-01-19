@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCAddNicknameHandler::execute (GCAddNickname * pGCAddNickname , Player * pPlayer )
-	 
+void GCAddNicknameHandler::execute(GCAddNickname* pGCAddNickname, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_CLIENT__
 
-	//cout << pGCAddNickname->toString() << endl;
-	
+    // cout << pGCAddNickname->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

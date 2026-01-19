@@ -11,9 +11,8 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCPhoneConnectionFailedHandler::execute (GCPhoneConnectionFailed * pGCPhoneConnectionFailed , Player * pPlayer )
-	 
+void GCPhoneConnectionFailedHandler::execute(GCPhoneConnectionFailed* pGCPhoneConnectionFailed, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-	__END_DEBUG_EX __END_CATCH
+    __BEGIN_TRY __BEGIN_DEBUG_EX __END_DEBUG_EX __END_CATCH
 }

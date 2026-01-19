@@ -1,363 +1,343 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Mephisto.cpp
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 #include "Mephisto.h"
-#include "EffectMephisto.h"
-#include "RankBonus.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
+#include "EffectMephisto.h"
+#include "GCAddEffect.h"
 #include "GCSkillToObjectOK1.h"
 #include "GCSkillToObjectOK2.h"
 #include "GCSkillToObjectOK3.h"
 #include "GCSkillToObjectOK4.h"
 #include "GCSkillToObjectOK5.h"
-#include "GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
 #include "HitRoll.h"
+#include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerself)" << endl;
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerself)" << endl;
 
-	Assert(pVampire != NULL);
-	Assert(pVampireSkillSlot != NULL);
+    Assert(pVampire != NULL);
+    Assert(pVampireSkillSlot != NULL);
 
-	try 
-	{
-		Player* pPlayer = pVampire->getPlayer();
-		Zone* pZone = pVampire->getZone();
+    try {
+        Player* pPlayer = pVampire->getPlayer();
+        Zone* pZone = pVampire->getZone();
 
-		Assert(pPlayer != NULL);
-		Assert(pZone != NULL);
+        Assert(pPlayer != NULL);
+        Assert(pZone != NULL);
 
-		GCSkillToSelfOK1 _GCSkillToSelfOK1;
-		GCSkillToSelfOK2 _GCSkillToSelfOK2;
+        GCSkillToSelfOK1 _GCSkillToSelfOK1;
+        GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
-		SkillType_t       SkillType  = pVampireSkillSlot->getSkillType();
-		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+        SkillType_t SkillType = pVampireSkillSlot->getSkillType();
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-		// Knowledge of Curse 가 있다면 hit bonus 10
-		int HitBonus = 0;
-		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE ) )
-		{
-			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE );
-			Assert( pRankBonus != NULL );
+        // Knowledge of Curse 가 있다면 hit bonus 10
+        int HitBonus = 0;
+        if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE)) {
+            RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
+            Assert(pRankBonus != NULL);
 
-			HitBonus = pRankBonus->getPoint();
-		}
+            HitBonus = pRankBonus->getPoint();
+        }
 
-		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
-		bool bManaCheck  = hasEnoughMana(pVampire, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pVampireSkillSlot);
-		bool bRangeCheck = checkZoneLevelToUseSkill(pVampire);
-		bool bHitRoll    = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot, HitBonus);
-		bool bEffected   = pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO);
+        int RequiredMP = (int)pSkillInfo->getConsumeMP();
+        bool bManaCheck = hasEnoughMana(pVampire, RequiredMP);
+        bool bTimeCheck = verifyRunTime(pVampireSkillSlot);
+        bool bRangeCheck = checkZoneLevelToUseSkill(pVampire);
+        bool bHitRoll = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot, HitBonus);
+        bool bEffected = pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected)
-		{
-			decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
+        if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
+            decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-			// 스킬 레벨에 따라 데미지 보너스가 달라진다.
-			SkillInput input( pVampire );
-			SkillOutput output;
-			input.SkillLevel = pVampire->getSTR()+pVampire->getDEX()+pVampire->getINT();
-			input.DomainLevel = pVampire->getLevel();
-			computeOutput(input, output);
+            // 스킬 레벨에 따라 데미지 보너스가 달라진다.
+            SkillInput input(pVampire);
+            SkillOutput output;
+            input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
+            input.DomainLevel = pVampire->getLevel();
+            computeOutput(input, output);
 
-			// 이펙트 클래스를 만들어 붙인다.
-			EffectMephisto* pEffect = new EffectMephisto(pVampire);
-			pEffect->setDeadline(output.Duration);
-			pEffect->setBonus(output.Damage);
-			pVampire->addEffect(pEffect);
-			pVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
+            // 이펙트 클래스를 만들어 붙인다.
+            EffectMephisto* pEffect = new EffectMephisto(pVampire);
+            pEffect->setDeadline(output.Duration);
+            pEffect->setBonus(output.Damage);
+            pVampire->addEffect(pEffect);
+            pVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-			// 이로 인하여 바뀌는 능력치를 보낸다.
-			VAMPIRE_RECORD prev;
-			pVampire->getVampireRecord(prev);
-			pVampire->initAllStat();
-			pVampire->sendRealWearingInfo();
-			pVampire->sendModifyInfo(prev);
+            // 이로 인하여 바뀌는 능력치를 보낸다.
+            VAMPIRE_RECORD prev;
+            pVampire->getVampireRecord(prev);
+            pVampire->initAllStat();
+            pVampire->sendRealWearingInfo();
+            pVampire->sendModifyInfo(prev);
 
-			// 패킷을 만들어 보낸다.
-			_GCSkillToSelfOK1.setSkillType(SkillType);
-			_GCSkillToSelfOK1.setCEffectID(CEffectID);
-			_GCSkillToSelfOK1.setDuration(output.Duration);
-		
-			_GCSkillToSelfOK2.setObjectID(pVampire->getObjectID());
-			_GCSkillToSelfOK2.setSkillType(SkillType);
-			_GCSkillToSelfOK2.setDuration(output.Duration);
-		
-			pPlayer->sendPacket(&_GCSkillToSelfOK1);
-		
-			pZone->broadcastPacket(pVampire->getX(), pVampire->getY(),  &_GCSkillToSelfOK2, pVampire);
+            // 패킷을 만들어 보낸다.
+            _GCSkillToSelfOK1.setSkillType(SkillType);
+            _GCSkillToSelfOK1.setCEffectID(CEffectID);
+            _GCSkillToSelfOK1.setDuration(output.Duration);
 
-			// 이펙트가 붙었다고 알려준다.
-			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pVampire->getObjectID());
-			gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
-			gcAddEffect.setDuration(output.Duration);
-			pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcAddEffect);
+            _GCSkillToSelfOK2.setObjectID(pVampire->getObjectID());
+            _GCSkillToSelfOK2.setSkillType(SkillType);
+            _GCSkillToSelfOK2.setDuration(output.Duration);
 
-			// set Next Run Time
-			pVampireSkillSlot->setRunTime(output.Delay);
-		} 
-		else 
-		{
-			executeSkillFailNormal(pVampire, getSkillType(), NULL);
-		}
-	} 
-	catch (Throwable & t) 
-	{
-		executeSkillFailException(pVampire, getSkillType());
-	}
+            pPlayer->sendPacket(&_GCSkillToSelfOK1);
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerself)" << endl;
+            pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &_GCSkillToSelfOK2, pVampire);
 
-	__END_CATCH
+            // 이펙트가 붙었다고 알려준다.
+            GCAddEffect gcAddEffect;
+            gcAddEffect.setObjectID(pVampire->getObjectID());
+            gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
+            gcAddEffect.setDuration(output.Duration);
+            pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcAddEffect);
+
+            // set Next Run Time
+            pVampireSkillSlot->setRunTime(output.Delay);
+        } else {
+            executeSkillFailNormal(pVampire, getSkillType(), NULL);
+        }
+    } catch (Throwable& t) {
+        executeSkillFailException(pVampire, getSkillType());
+    }
+
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerself)" << endl;
+
+    __END_CATCH
 }
 
-void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	
+void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
+                       CEffectID_t CEffectID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerself)" << endl;
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerself)" << endl;
 
-	Assert(pVampire != NULL);
-	Assert(pVampireSkillSlot != NULL);
+    Assert(pVampire != NULL);
+    Assert(pVampireSkillSlot != NULL);
 
 
-	try 
-	{
-		Player* pPlayer = pVampire->getPlayer();
-		Zone* pZone = pVampire->getZone();
-		Assert(pPlayer != NULL);
-		Assert(pZone != NULL);
+    try {
+        Player* pPlayer = pVampire->getPlayer();
+        Zone* pZone = pVampire->getZone();
+        Assert(pPlayer != NULL);
+        Assert(pZone != NULL);
 
-		Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
-		//Assert(pTargetCreature != NULL);
+        Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+        // Assert(pTargetCreature != NULL);
 
-		// NoSuch제거. by sigi. 2002.5.2
-		if (pTargetCreature==NULL)
-		{
-			executeSkillFailException(pVampire, getSkillType());
-			return;
-		}
+        // NoSuch제거. by sigi. 2002.5.2
+        if (pTargetCreature == NULL) {
+            executeSkillFailException(pVampire, getSkillType());
+            return;
+        }
 
-		GCSkillToObjectOK1 _GCSkillToObjectOK1;
-		GCSkillToObjectOK2 _GCSkillToObjectOK2;
-		GCSkillToObjectOK3 _GCSkillToObjectOK3;
+        GCSkillToObjectOK1 _GCSkillToObjectOK1;
+        GCSkillToObjectOK2 _GCSkillToObjectOK2;
+        GCSkillToObjectOK3 _GCSkillToObjectOK3;
 
-		SkillType_t       SkillType  = pVampireSkillSlot->getSkillType();
-		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+        SkillType_t SkillType = pVampireSkillSlot->getSkillType();
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
-		bool bManaCheck  = hasEnoughMana(pVampire, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pVampireSkillSlot);
-		bool bRangeCheck = checkZoneLevelToUseSkill(pVampire);
-		bool bHitRoll    = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot);
-		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_MEPHISTO);
+        int RequiredMP = (int)pSkillInfo->getConsumeMP();
+        bool bManaCheck = hasEnoughMana(pVampire, RequiredMP);
+        bool bTimeCheck = verifyRunTime(pVampireSkillSlot);
+        bool bRangeCheck = checkZoneLevelToUseSkill(pVampire);
+        bool bHitRoll = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot);
+        bool bEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-		ZoneCoord_t myX = pVampire->getX();
-		ZoneCoord_t myY = pVampire->getY();
+        ZoneCoord_t myX = pVampire->getX();
+        ZoneCoord_t myY = pVampire->getY();
 
-		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && pTargetCreature->isVampire() )
-		{
-			Vampire* pTargetVampire= dynamic_cast<Vampire*>(pTargetCreature);
+        if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && pTargetCreature->isVampire()) {
+            Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
 
-			ZoneCoord_t X   = pTargetVampire->getX();
-			ZoneCoord_t Y   = pTargetVampire->getY();
+            ZoneCoord_t X = pTargetVampire->getX();
+            ZoneCoord_t Y = pTargetVampire->getY();
 
-			decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
+            decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
 
-			// 스킬 레벨에 따라 데미지 보너스가 달라진다.
-			SkillInput input(pVampire);
-			SkillOutput output;
-			input.SkillLevel = pVampire->getSTR()+pVampire->getDEX()+pVampire->getINT();
-			input.DomainLevel = pVampire->getLevel();
-			computeOutput(input, output);
+            // 스킬 레벨에 따라 데미지 보너스가 달라진다.
+            SkillInput input(pVampire);
+            SkillOutput output;
+            input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
+            input.DomainLevel = pVampire->getLevel();
+            computeOutput(input, output);
 
-			// 이펙트 클래스를 만들어 붙인다.
-			EffectMephisto* pEffect = new EffectMephisto(pTargetVampire);
-			pEffect->setDeadline(output.Duration);
-			pEffect->setBonus(output.Damage);
-			pTargetVampire->addEffect(pEffect);
-			pTargetVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
+            // 이펙트 클래스를 만들어 붙인다.
+            EffectMephisto* pEffect = new EffectMephisto(pTargetVampire);
+            pEffect->setDeadline(output.Duration);
+            pEffect->setBonus(output.Damage);
+            pTargetVampire->addEffect(pEffect);
+            pTargetVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-			// 이로 인하여 바뀌는 능력치를 보낸다.
-			VAMPIRE_RECORD prev;
-			pTargetVampire->getVampireRecord(prev);
-			pTargetVampire->initAllStat();
-			pTargetVampire->sendRealWearingInfo();
-			pTargetVampire->sendModifyInfo(prev);
+            // 이로 인하여 바뀌는 능력치를 보낸다.
+            VAMPIRE_RECORD prev;
+            pTargetVampire->getVampireRecord(prev);
+            pTargetVampire->initAllStat();
+            pTargetVampire->sendRealWearingInfo();
+            pTargetVampire->sendModifyInfo(prev);
 
-			// 패킷을 만들어 보낸다.
-			_GCSkillToObjectOK1.setSkillType(SkillType);
-			_GCSkillToObjectOK1.setCEffectID(CEffectID);
-			_GCSkillToObjectOK1.setDuration(output.Duration);
-		
-			_GCSkillToObjectOK2.setObjectID(pVampire->getObjectID());
-			_GCSkillToObjectOK2.setSkillType(SkillType);
-			_GCSkillToObjectOK2.setDuration(output.Duration);
+            // 패킷을 만들어 보낸다.
+            _GCSkillToObjectOK1.setSkillType(SkillType);
+            _GCSkillToObjectOK1.setCEffectID(CEffectID);
+            _GCSkillToObjectOK1.setDuration(output.Duration);
 
-			_GCSkillToObjectOK3.setObjectID(pVampire->getObjectID());
-		    _GCSkillToObjectOK3.setSkillType(SkillType);
-		    _GCSkillToObjectOK3.setTargetXY (X, Y);
+            _GCSkillToObjectOK2.setObjectID(pVampire->getObjectID());
+            _GCSkillToObjectOK2.setSkillType(SkillType);
+            _GCSkillToObjectOK2.setDuration(output.Duration);
 
-			pPlayer->sendPacket(&_GCSkillToObjectOK1);
+            _GCSkillToObjectOK3.setObjectID(pVampire->getObjectID());
+            _GCSkillToObjectOK3.setSkillType(SkillType);
+            _GCSkillToObjectOK3.setTargetXY(X, Y);
 
-			if (pTargetCreature->isPC())
-			{
-				Player* pTargetPlayer = pTargetCreature->getPlayer();
-				Assert(pTargetPlayer != NULL);
-	
-				_GCSkillToObjectOK2.setObjectID(pVampire->getObjectID());
-	
-				pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
-			}
-			else
-			{
-				Assert(false);
-			}
+            pPlayer->sendPacket(&_GCSkillToObjectOK1);
 
-			list<Creature *> cList;
-			cList.push_back(pTargetCreature);
-			cList.push_back(pVampire);
-			pZone->broadcastPacket(myX, myY, &_GCSkillToObjectOK3, cList);
+            if (pTargetCreature->isPC()) {
+                Player* pTargetPlayer = pTargetCreature->getPlayer();
+                Assert(pTargetPlayer != NULL);
 
-			// 이펙트가 붙었다고 알려준다.
-			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pTargetVampire->getObjectID());
-			gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
-			gcAddEffect.setDuration(output.Duration);
-			pZone->broadcastPacket(pTargetVampire->getX(), pTargetVampire->getY(), &gcAddEffect);
+                _GCSkillToObjectOK2.setObjectID(pVampire->getObjectID());
 
-			// set Next Run Time
-			pVampireSkillSlot->setRunTime(output.Delay);
-		} 
-		else 
-		{
-			executeSkillFailNormal(pVampire, getSkillType(), NULL);
-		}
-	} 
-	catch (Throwable & t) 
-	{
-		executeSkillFailException(pVampire, getSkillType());
-	}
+                pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
+            } else {
+                Assert(false);
+            }
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerself)" << endl;
+            list<Creature*> cList;
+            cList.push_back(pTargetCreature);
+            cList.push_back(pVampire);
+            pZone->broadcastPacket(myX, myY, &_GCSkillToObjectOK3, cList);
 
-	__END_CATCH
+            // 이펙트가 붙었다고 알려준다.
+            GCAddEffect gcAddEffect;
+            gcAddEffect.setObjectID(pTargetVampire->getObjectID());
+            gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
+            gcAddEffect.setDuration(output.Duration);
+            pZone->broadcastPacket(pTargetVampire->getX(), pTargetVampire->getY(), &gcAddEffect);
+
+            // set Next Run Time
+            pVampireSkillSlot->setRunTime(output.Delay);
+        } else {
+            executeSkillFailNormal(pVampire, getSkillType(), NULL);
+        }
+    } catch (Throwable& t) {
+        executeSkillFailException(pVampire, getSkillType());
+    }
+
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerself)" << endl;
+
+    __END_CATCH
 }
 
 void Mephisto::execute(Vampire* pVampire)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerself)" << endl;
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerself)" << endl;
 
-	Assert(pVampire != NULL);
+    Assert(pVampire != NULL);
 
-	if( !pVampire->hasSkill(SKILL_MEPHISTO) ) return;
+    if (!pVampire->hasSkill(SKILL_MEPHISTO))
+        return;
 
-	try 
-	{
-		Player* pPlayer = pVampire->getPlayer();
-		Zone* pZone = pVampire->getZone();
-		Assert(pPlayer != NULL);
-		Assert(pZone != NULL);
+    try {
+        Player* pPlayer = pVampire->getPlayer();
+        Zone* pZone = pVampire->getZone();
+        Assert(pPlayer != NULL);
+        Assert(pZone != NULL);
 
 
-		GCSkillToObjectOK1 _GCSkillToObjectOK1;
-		GCSkillToObjectOK2 _GCSkillToObjectOK2;
-		GCSkillToObjectOK3 _GCSkillToObjectOK3;
+        GCSkillToObjectOK1 _GCSkillToObjectOK1;
+        GCSkillToObjectOK2 _GCSkillToObjectOK2;
+        GCSkillToObjectOK3 _GCSkillToObjectOK3;
 
-		ZoneCoord_t myX = pVampire->getX();
-		ZoneCoord_t myY = pVampire->getY();
+        ZoneCoord_t myX = pVampire->getX();
+        ZoneCoord_t myY = pVampire->getY();
 
-		int oX, oY;
+        int oX, oY;
 
-		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
+        VSRect rect(0, 0, pZone->getWidth() - 1, pZone->getHeight() - 1);
 
-		for(oX = -4; oX <= 4; oX++)
-		for(oY = -4; oY <= 4; oY++)
-		{
-			int tileX = myX+oX;
-			int tileY = myY+oY;
-			if (!rect.ptInRect(tileX, tileY)) continue;
+        for (oX = -4; oX <= 4; oX++)
+            for (oY = -4; oY <= 4; oY++) {
+                int tileX = myX + oX;
+                int tileY = myY + oY;
+                if (!rect.ptInRect(tileX, tileY))
+                    continue;
 
-			// 타일 위에! 뱀파이어가 있는지 본다!
-			Tile& tile = pZone->getTile(tileX, tileY);
-			Creature * pTargetCreature = NULL;
-			if(tile.hasCreature(Creature::MOVE_MODE_WALKING)) pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
+                // 타일 위에! 뱀파이어가 있는지 본다!
+                Tile& tile = pZone->getTile(tileX, tileY);
+                Creature* pTargetCreature = NULL;
+                if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
+                    pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
-			if( pTargetCreature != NULL && pTargetCreature != pVampire && pTargetCreature->isVampire() ) {
+                if (pTargetCreature != NULL && pTargetCreature != pVampire && pTargetCreature->isVampire()) {
+                    bool bEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-				bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_MEPHISTO);
+                    if (bEffected)
+                        continue;
 
-				if( bEffected ) continue;
+                    Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
 
-				Vampire* pTargetVampire= dynamic_cast<Vampire*>(pTargetCreature);
+                    // 스킬 레벨에 따라 데미지 보너스가 달라진다.
+                    SkillInput input(pVampire);
+                    SkillOutput output;
+                    input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
+                    input.DomainLevel = pVampire->getLevel();
+                    computeOutput(input, output);
 
-				// 스킬 레벨에 따라 데미지 보너스가 달라진다.
-				SkillInput input(pVampire);
-				SkillOutput output;
-				input.SkillLevel = pVampire->getSTR()+pVampire->getDEX()+pVampire->getINT();
-				input.DomainLevel = pVampire->getLevel();
-				computeOutput(input, output);
+                    // 이펙트 클래스를 만들어 붙인다.
+                    EffectMephisto* pEffect = new EffectMephisto(pTargetVampire);
+                    pEffect->setDeadline(output.Duration);
+                    pEffect->setBonus(output.Damage);
+                    pTargetVampire->addEffect(pEffect);
+                    pTargetVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-				// 이펙트 클래스를 만들어 붙인다.
-				EffectMephisto* pEffect = new EffectMephisto(pTargetVampire);
-				pEffect->setDeadline(output.Duration);
-				pEffect->setBonus(output.Damage);
-				pTargetVampire->addEffect(pEffect);
-				pTargetVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
+                    // 이로 인하여 바뀌는 능력치를 보낸다.
+                    VAMPIRE_RECORD prev;
+                    pTargetVampire->getVampireRecord(prev);
+                    pTargetVampire->initAllStat();
+                    pTargetVampire->sendRealWearingInfo();
+                    pTargetVampire->sendModifyInfo(prev);
 
-				// 이로 인하여 바뀌는 능력치를 보낸다.
-				VAMPIRE_RECORD prev;
-				pTargetVampire->getVampireRecord(prev);
-				pTargetVampire->initAllStat();
-				pTargetVampire->sendRealWearingInfo();
-				pTargetVampire->sendModifyInfo(prev);
+                    if (pTargetCreature->isPC()) {
+                        Player* pTargetPlayer = pTargetCreature->getPlayer();
+                        Assert(pTargetPlayer != NULL);
 
-				if (pTargetCreature->isPC())
-				{
-					Player* pTargetPlayer = pTargetCreature->getPlayer();
-					Assert(pTargetPlayer != NULL);
+                        pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
+                    } else {
+                        Assert(false);
+                    }
 
-					pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
-				}
-				else
-				{
-					Assert(false);
-				}
+                    // 이펙트가 붙었다고 알려준다.
+                    GCAddEffect gcAddEffect;
+                    gcAddEffect.setObjectID(pTargetVampire->getObjectID());
+                    gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
+                    gcAddEffect.setDuration(output.Duration);
+                    pZone->broadcastPacket(pTargetVampire->getX(), pTargetVampire->getY(), &gcAddEffect);
+                }
+            }
+    } catch (Throwable& t) {
+        executeSkillFailException(pVampire, getSkillType());
+    }
 
-				// 이펙트가 붙었다고 알려준다.
-				GCAddEffect gcAddEffect;
-				gcAddEffect.setObjectID(pTargetVampire->getObjectID());
-				gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
-				gcAddEffect.setDuration(output.Duration);
-				pZone->broadcastPacket(pTargetVampire->getX(), pTargetVampire->getY(), &gcAddEffect);
-			}
-		}
-	} 
-	catch (Throwable & t) 
-	{
-		executeSkillFailException(pVampire, getSkillType());
-	}
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerself)" << endl;
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerself)" << endl;
-
-	__END_CATCH
+    __END_CATCH
 }
 
 

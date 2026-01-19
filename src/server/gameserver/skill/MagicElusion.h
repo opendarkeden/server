@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MagicElusion.h 
-// Written By  : 
-// Description : 
+// Filename    : MagicElusion.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_MAGIC_ELUSION_HANDLER_H__
@@ -13,20 +13,23 @@
 // class MagicElusion;
 //////////////////////////////////////////////////////////////////////////////
 
-class MagicElusion : public SkillHandler 
-{
+class MagicElusion : public SkillHandler {
 public:
-	MagicElusion() throw() {}
-	~MagicElusion() throw() {}
-	
+    MagicElusion() throw() {}
+    ~MagicElusion() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MagicElusion"; }
-	SkillType_t getSkillType() const throw() { return SKILL_MAGIC_ELUSION; }
+    string getSkillHandlerName() const throw() {
+        return "MagicElusion";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_MAGIC_ELUSION;
+    }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
- 	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

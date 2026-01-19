@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Rebuke.h 
-// Written By  : 
-// Description : 
+// Filename    : Rebuke.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REBUKE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Rebuke;
 //////////////////////////////////////////////////////////////////////////////
 
-class Rebuke : public SkillHandler 
-{
+class Rebuke : public SkillHandler {
 public:
-	Rebuke() throw() {}
-	~Rebuke() throw() {}
-	
+    Rebuke() throw() {}
+    ~Rebuke() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Rebuke"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REBUKE; }
+    string getSkillHandlerName() const throw() {
+        return "Rebuke";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REBUKE;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

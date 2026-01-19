@@ -1,91 +1,80 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Uninvisibility.cpp
 // Written by  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Uninvisibility.h"
+
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void Uninvisibility::execute(Vampire * pVampire)
-	
+void Uninvisibility::execute(Vampire* pVampire)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
 
-	Assert(pVampire != NULL);
+    Assert(pVampire != NULL);
 
-	try 
-	{
-		if (pVampire->isDead())
-		{
-			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
-			return;
-		}
+    try {
+        if (pVampire->isDead()) {
+            // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+            return;
+        }
 
-		Zone* pZone = pVampire->getZone();
-		Assert(pZone != NULL);
-		
-								
-		if (!pVampire->isFlag(Effect::EFFECT_CLASS_INVISIBILITY))
-		{
-			executeSkillFailException(pVampire, getSkillType());
-			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
-			return;
-		}
+        Zone* pZone = pVampire->getZone();
+        Assert(pZone != NULL);
 
-		addVisibleCreature(pZone, pVampire, true);
-	} 
-	catch(Throwable & t) 
-	{
-		executeSkillFailException(pVampire, getSkillType());
-	}
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+        if (!pVampire->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)) {
+            executeSkillFailException(pVampire, getSkillType());
+            // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+            return;
+        }
 
-	__END_CATCH
+        addVisibleCreature(pZone, pVampire, true);
+    } catch (Throwable& t) {
+        executeSkillFailException(pVampire, getSkillType());
+    }
 
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void Uninvisibility::execute(Monster* pMonster)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
 
-	Assert(pMonster != NULL);
+    Assert(pMonster != NULL);
 
-	try 
-	{
-		if (pMonster->isDead())
-		{
-			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
-			return;
-		}
+    try {
+        if (pMonster->isDead()) {
+            // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+            return;
+        }
 
-		Zone* pZone = pMonster->getZone();
-		Assert(pZone != NULL);
-		
-		if (pMonster->isFlag(Effect::EFFECT_CLASS_INVISIBILITY))
-		{
-			addVisibleCreature(pZone, pMonster, true);
-		}
-	} 
-	catch(Throwable & t) 
-	{
-		//cout << t.toString() << endl;
-	}
+        Zone* pZone = pMonster->getZone();
+        Assert(pZone != NULL);
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+        if (pMonster->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)) {
+            addVisibleCreature(pZone, pMonster, true);
+        }
+    } catch (Throwable& t) {
+        // cout << t.toString() << endl;
+    }
 
-	__END_CATCH
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
 
+    __END_CATCH
 }
 
 Uninvisibility g_Uninvisibility;

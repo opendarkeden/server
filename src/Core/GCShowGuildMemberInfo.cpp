@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCShowGuildMemberInfo.cpp 
-// Written By  : 
-// 
+//
+// Filename    : GCShowGuildMemberInfo.cpp
+// Written By  :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,94 +12,90 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCShowGuildMemberInfo::read (SocketInputStream & iStream ) 
-	 
+void GCShowGuildMemberInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName, szGuildMemberIntro;
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
-	iStream.read(szName);
+    BYTE szName, szGuildMemberIntro;
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long szName length");
+    iStream.read(m_GuildID);
+    iStream.read(szName);
 
-	iStream.read(m_Name, szName);
-	iStream.read(m_GuildMemberRank);
-	iStream.read(szGuildMemberIntro);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName length");
 
-	if (szGuildMemberIntro > 0 )
-		iStream.read(m_GuildMemberIntro, szGuildMemberIntro);
+    iStream.read(m_Name, szName);
+    iStream.read(m_GuildMemberRank);
+    iStream.read(szGuildMemberIntro);
 
-	__END_CATCH
+    if (szGuildMemberIntro > 0)
+        iStream.read(m_GuildMemberIntro, szGuildMemberIntro);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCShowGuildMemberInfo::write (SocketOutputStream & oStream ) const 
-     
+void GCShowGuildMemberInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName = m_Name.size();
-	BYTE szGuildMemberIntro = m_GuildMemberIntro.size();
+    __BEGIN_TRY
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long szName length");
+    BYTE szName = m_Name.size();
+    BYTE szGuildMemberIntro = m_GuildMemberIntro.size();
 
-	oStream.write(m_GuildID);
-	oStream.write(szName);
-	oStream.write(m_Name);
-	oStream.write(m_GuildMemberRank);
-	oStream.write(szGuildMemberIntro);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName length");
 
-	if (szGuildMemberIntro > 0 )
-		oStream.write(m_GuildMemberIntro);
+    oStream.write(m_GuildID);
+    oStream.write(szName);
+    oStream.write(m_Name);
+    oStream.write(m_GuildMemberRank);
+    oStream.write(szGuildMemberIntro);
 
-	__END_CATCH
+    if (szGuildMemberIntro > 0)
+        oStream.write(m_GuildMemberIntro);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCShowGuildMemberInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCShowGuildMemberInfoHandler::execute(this , pPlayer);
+void GCShowGuildMemberInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCShowGuildMemberInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCShowGuildMemberInfo::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCShowGuildMemberInfo("
-		<< "GuildID:" << m_GuildID
-		<< "Name:" << m_Name
-		<< "GuildMemberRank:" << (int)m_GuildMemberRank
-		<< "GuildMemberIntro:" << m_GuildMemberIntro
-		<< ")";
-	
-	return msg.toString();
-		
-	__END_CATCH
-}
+string GCShowGuildMemberInfo::toString() const
 
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "GCShowGuildMemberInfo("
+        << "GuildID:" << m_GuildID << "Name:" << m_Name << "GuildMemberRank:" << (int)m_GuildMemberRank
+        << "GuildMemberIntro:" << m_GuildMemberIntro << ")";
+
+    return msg.toString();
+
+    __END_CATCH
+}

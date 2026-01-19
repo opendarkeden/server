@@ -1,61 +1,57 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGPetGamble.cpp 
+// Filename    : CGPetGamble.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGPetGamble.h"
+
 #include "Assert1.h"
 
 
-CGPetGamble::CGPetGamble () 
-     
+CGPetGamble::CGPetGamble()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGPetGamble::~CGPetGamble()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGPetGamble::~CGPetGamble () 
-    
+void CGPetGamble::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
-void CGPetGamble::read (SocketInputStream & iStream) 
-	 
+void CGPetGamble::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
-void CGPetGamble::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+void CGPetGamble::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGPetGambleHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-void CGPetGamble::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+string CGPetGamble::toString() const {
+    __BEGIN_TRY
 
-	CGPetGambleHandler::execute (this , pPlayer);
-		
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGPetGamble()";
+    return msg.toString();
 
-string CGPetGamble::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGPetGamble()";
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

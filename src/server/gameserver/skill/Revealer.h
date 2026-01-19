@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Revealer.h 
+// Filename    : Revealer.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REVEALER_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Revealer;
 //////////////////////////////////////////////////////////////////////////////
 
-class Revealer: public SkillHandler 
-{
+class Revealer : public SkillHandler {
 public:
-	Revealer() throw() {}
-	~Revealer() throw() {}
-	
+    Revealer() throw() {}
+    ~Revealer() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Revealer"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REVEALER; }
+    string getSkillHandlerName() const throw() {
+        return "Revealer";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REVEALER;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

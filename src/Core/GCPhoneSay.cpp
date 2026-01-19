@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCPhoneSay.cpp 
+//
+// Filename    : GCPhoneSay.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,85 +13,81 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCPhoneSay::read (SocketInputStream & iStream ) 
-	 
+void GCPhoneSay::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_SlotID);
+    __BEGIN_TRY
 
-	BYTE szMessage;
+    iStream.read(m_SlotID);
 
-	iStream.read(szMessage);
+    BYTE szMessage;
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    iStream.read(szMessage);
 
-	if (szMessage > 128 )
-		throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	iStream.read(m_Message , szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	__END_CATCH
+    iStream.read(m_Message, szMessage);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCPhoneSay::write (SocketOutputStream & oStream ) const 
-     
+void GCPhoneSay::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	oStream.write(m_SlotID);
+    __BEGIN_TRY
 
-	BYTE szMessage = m_Message.size();
+    oStream.write(m_SlotID);
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    BYTE szMessage = m_Message.size();
 
-	if (szMessage > 128 )
-		throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	oStream.write(szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	oStream.write(m_Message);
+    oStream.write(szMessage);
 
-	__END_CATCH
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCPhoneSay::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCPhoneSayHandler::execute(this , pPlayer);
+void GCPhoneSay::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCPhoneSayHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCPhoneSay::toString () const
-       
+string GCPhoneSay::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCPhoneSay("
-		<< "SlotID:" << (int)m_SlotID
-		<< ",Message:" << m_Message 
-		<< ")" ;
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCPhoneSay("
+        << "SlotID:" << (int)m_SlotID << ",Message:" << m_Message << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

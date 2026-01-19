@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AirShield.h 
+// Filename    : AirShield.h
 // Written By  : Sequoia
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_AIR_SHIELD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class AirShield;
 //////////////////////////////////////////////////////////////////////////////
 
-class AirShield : public SkillHandler 
-{
+class AirShield : public SkillHandler {
 public:
-	AirShield() throw() {}
-	~AirShield() throw() {}
-	
+    AirShield() throw() {}
+    ~AirShield() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AirShield"; }
-	SkillType_t getSkillType() const throw() { return SKILL_AIR_SHIELD; }
+    string getSkillHandlerName() const throw() {
+        return "AirShield";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_AIR_SHIELD;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

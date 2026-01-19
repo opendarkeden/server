@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGAddMouseToGear.h 
+// Filename    : CGAddMouseToGear.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_ADD_MOUSE_TO_GEAR_H__
@@ -14,55 +14,73 @@
 // class CGAddMouseToGear;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGAddMouseToGear : public Packet 
-{
+class CGAddMouseToGear : public Packet {
 public:
-	CGAddMouseToGear() ;
-	~CGAddMouseToGear() ;
+    CGAddMouseToGear();
+    ~CGAddMouseToGear();
 
 public:
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_ADD_MOUSE_TO_GEAR; }
-	PacketSize_t getPacketSize() const  { return szObjectID + szSlotID; }
-	string getPacketName() const  { return "CGAddMouseToGear"; }
-	string toString() const ;
-	
-public:
-	ObjectID_t getObjectID()  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_ADD_MOUSE_TO_GEAR;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szSlotID;
+    }
+    string getPacketName() const {
+        return "CGAddMouseToGear";
+    }
+    string toString() const;
 
-	SlotID_t getSlotID() const  { return m_SlotID; }
-	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
+public:
+    ObjectID_t getObjectID() {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
+
+    SlotID_t getSlotID() const {
+        return m_SlotID;
+    }
+    void setSlotID(SlotID_t SlotID) {
+        m_SlotID = SlotID;
+    }
 
 private:
-	ObjectID_t m_ObjectID;
-	SlotID_t   m_SlotID;
-
+    ObjectID_t m_ObjectID;
+    SlotID_t m_SlotID;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class CGAddMouseToGearFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGAddMouseToGearFactory : public PacketFactory 
-{
+class CGAddMouseToGearFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGAddMouseToGear(); }
-	string getPacketName() const  { return "CGAddMouseToGear"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_MOUSE_TO_GEAR; }
-	PacketSize_t getPacketMaxSize() const  { return szObjectID + szSlotID; }
+    Packet* createPacket() {
+        return new CGAddMouseToGear();
+    }
+    string getPacketName() const {
+        return "CGAddMouseToGear";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_ADD_MOUSE_TO_GEAR;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szSlotID;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class CGAddMouseToGearHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGAddMouseToGearHandler 
-{
+class CGAddMouseToGearHandler {
 public:
-	static void execute(CGAddMouseToGear* pPacket, Player* player) ;
+    static void execute(CGAddMouseToGear* pPacket, Player* player);
 };
 
 #endif

@@ -1,25 +1,24 @@
 #include "GQuestGiveAdvancementClassExpElement.h"
-#include "PlayerCreature.h"
-#include "Slayer.h"
-#include "skill/SkillUtil.h"
+
 #include "GCModifyInformation.h"
 #include "GCSystemMessage.h"
 #include "Player.h"
+#include "PlayerCreature.h"
+#include "Slayer.h"
+#include "skill/SkillUtil.h"
 
-GQuestElement::ResultType GQuestGiveAdvancementClassExpElement::checkCondition( PlayerCreature* pPC ) const
-{
-	pPC->increaseAdvancementClassExp( m_Amount );
+GQuestElement::ResultType GQuestGiveAdvancementClassExpElement::checkCondition(PlayerCreature* pPC) const {
+    pPC->increaseAdvancementClassExp(m_Amount);
 
-	return OK;
+    return OK;
 }
 
-GQuestGiveAdvancementClassExpElement* GQuestGiveAdvancementClassExpElement::makeElement(XMLTree* pTree)
-{
-	GQuestGiveAdvancementClassExpElement* pRet = new GQuestGiveAdvancementClassExpElement;
+GQuestGiveAdvancementClassExpElement* GQuestGiveAdvancementClassExpElement::makeElement(XMLTree* pTree) {
+    GQuestGiveAdvancementClassExpElement* pRet = new GQuestGiveAdvancementClassExpElement;
 
-	pTree->GetAttribute("amount", pRet->m_Amount);
+    pTree->GetAttribute("amount", pRet->m_Amount);
 
-	return pRet;
+    return pRet;
 }
 
 GQuestGiveAdvancementClassExpElement g_GiveAdvancementClassExpElement;

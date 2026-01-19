@@ -1,78 +1,78 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCRemoveStoreItem.cpp 
+// Filename    : GCRemoveStoreItem.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCRemoveStoreItem.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCRemoveStoreItem::~GCRemoveStoreItem() 
-	
-{
-	__BEGIN_TRY 
+GCRemoveStoreItem::~GCRemoveStoreItem()
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCRemoveStoreItem::read (SocketInputStream & iStream ) 
-	 
+void GCRemoveStoreItem::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_OwnerObjectID);
-	iStream.read(m_Index);
+    iStream.read(m_OwnerObjectID);
+    iStream.read(m_Index);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCRemoveStoreItem::write (SocketOutputStream & oStream ) const 
-     
+void GCRemoveStoreItem::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_OwnerObjectID);
-	oStream.write(m_Index);
+    oStream.write(m_OwnerObjectID);
+    oStream.write(m_Index);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCRemoveStoreItem::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCRemoveStoreItemHandler::execute(this , pPlayer);
+void GCRemoveStoreItem::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCRemoveStoreItemHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCRemoveStoreItem::toString () const
-       
+string GCRemoveStoreItem::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCRemoveStoreItem(";
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
-		
-	__END_CATCH
+    StringStream msg;
+    msg << "GCRemoveStoreItem(";
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

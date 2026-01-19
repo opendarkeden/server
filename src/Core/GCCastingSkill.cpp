@@ -1,77 +1,73 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCCastingSkill.cc 
+//
+// Filename    : GCCastingSkill.cc
 // Written By  : elca@ewestsoft.com
 // Description : Skill이 실패 했을때 날려주는 패킷의 멤버 정의
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCCastingSkill.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCCastingSkill::GCCastingSkill () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCCastingSkill::GCCastingSkill()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCCastingSkill::~GCCastingSkill () 
-    
+GCCastingSkill::~GCCastingSkill()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCCastingSkill::read (SocketInputStream & iStream ) 
-	 
+void GCCastingSkill::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_SkillType);
+    iStream.read(m_SkillType);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCCastingSkill::write (SocketOutputStream & oStream ) const 
-     
+void GCCastingSkill::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_SkillType);
+    oStream.write(m_SkillType);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCCastingSkill::execute (Player * pPlayer ) 
-	 
+void GCCastingSkill::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCCastingSkillHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCCastingSkillHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -80,16 +76,15 @@ void GCCastingSkill::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCCastingSkill::toString () const
-       
+string GCCastingSkill::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCCastingSkill("
-		<< "SkillType:" << (int)m_SkillType 
-		<< " )" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCCastingSkill("
+        << "SkillType:" << (int)m_SkillType << " )";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

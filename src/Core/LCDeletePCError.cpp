@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : LCDeletePCError.cpp 
+//
+// Filename    : LCDeletePCError.cpp
 // Written By  : Reiot
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,42 +12,42 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void LCDeletePCError::read (SocketInputStream & iStream ) 
-	 
+void LCDeletePCError::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ErrorID);
+    iStream.read(m_ErrorID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void LCDeletePCError::write (SocketOutputStream & oStream ) const 
-     
+void LCDeletePCError::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ErrorID);
+    oStream.write(m_ErrorID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void LCDeletePCError::execute (Player * pPlayer ) 
-	 
+void LCDeletePCError::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	LCDeletePCErrorHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    LCDeletePCErrorHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -56,16 +56,14 @@ void LCDeletePCError::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string LCDeletePCError::toString () const
-       
+string LCDeletePCError::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "LCDeletePCError(" << (int)m_ErrorID << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "LCDeletePCError(" << (int)m_ErrorID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -4,30 +4,39 @@
 #include "GQuestElement.h"
 #include "GQuestStatus.h"
 
-class GQuestTamePetMission : public GQuestMission
-{
+class GQuestTamePetMission : public GQuestMission {
 public:
-	GQuestTamePetMission() : m_bTame(false) { }
+    GQuestTamePetMission() : m_bTame(false) {}
 
-	bool	isTamed() const { return m_bTame; }
-	void	tame() { m_bTame = true; }
+    bool isTamed() const {
+        return m_bTame;
+    }
+    void tame() {
+        m_bTame = true;
+    }
 
-	string	getMissionName() const { return "TamePetMission"; }
+    string getMissionName() const {
+        return "TamePetMission";
+    }
+
 private:
-	bool	m_bTame;
+    bool m_bTame;
 };
 
-class GQuestTamePetElement : public GQuestElement
-{
+class GQuestTamePetElement : public GQuestElement {
 public:
-	GQuestTamePetElement() { }
-	string 				getElementName() const { return "TamePet"; }
-	GQuestManager::EventTypes	getEventType() const { return GQuestManager::TAMEPET; }
+    GQuestTamePetElement() {}
+    string getElementName() const {
+        return "TamePet";
+    }
+    GQuestManager::EventTypes getEventType() const {
+        return GQuestManager::TAMEPET;
+    }
 
-	ResultType			checkMission(GQuestMission* pStatus) const;
+    ResultType checkMission(GQuestMission* pStatus) const;
 
-	GQuestMission*		makeInitMission(PlayerCreature* pPC) const;
-	GQuestTamePetElement*	makeElement(XMLTree* pTree);
+    GQuestMission* makeInitMission(PlayerCreature* pPC) const;
+    GQuestTamePetElement* makeElement(XMLTree* pTree);
 
 private:
 };

@@ -7,9 +7,9 @@
 #ifndef __CBILLING_PACKET_REQUEST_MINUS_POINT_BODY__
 #define __CBILLING_PACKET_REQUEST_MINUS_POINT_BODY__
 
-//include files
-#include "Exception.h"
+// include files
 #include "CBillingInfo.h"
+#include "Exception.h"
 
 // forward declaration
 class SocketInputStream;
@@ -18,18 +18,16 @@ class SocketOutputStream;
 ///////////////////////////////////////////////////
 // class CBillingPacketRequestMinusPointBody
 ///////////////////////////////////////////////////
-class CBillingPacketRequestMinusPointBody : public CBillingPacketRequestMinusPointBodyInfo
-{
+class CBillingPacketRequestMinusPointBody : public CBillingPacketRequestMinusPointBodyInfo {
 public:
-	// constructor
-	CBillingPacketRequestMinusPointBody();
+    // constructor
+    CBillingPacketRequestMinusPointBody();
 
 public:
-	void read( SocketInputStream& iStream );
-	void write( SocketOutputStream& oStream );
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream);
 
-	string toString() const;
+    string toString() const;
 };
 
 #endif
-

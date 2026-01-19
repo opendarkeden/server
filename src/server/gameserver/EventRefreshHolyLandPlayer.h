@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventRefreshHolyLandPlayer.h
 // Written by  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EVENT_REFRESH_HOLY_LAND_PLAYER_H__
@@ -13,16 +13,17 @@
 // class EventRefreshHolyLandPlayer
 //////////////////////////////////////////////////////////////////////////////
 
-class EventRefreshHolyLandPlayer : public Event 
-{
+class EventRefreshHolyLandPlayer : public Event {
 public:
-	EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer ) ;
-	~EventRefreshHolyLandPlayer()  {}
-			
+    EventRefreshHolyLandPlayer(GamePlayer* pGamePlayer);
+    ~EventRefreshHolyLandPlayer() {}
+
 public:
-	virtual EventClass getEventClass() const  { return EVENT_CLASS_REFRESH_HOLY_LAND_PLAYER; }
-	virtual void activate() ;
-	virtual string toString() const ;
+    virtual EventClass getEventClass() const {
+        return EVENT_CLASS_REFRESH_HOLY_LAND_PLAYER;
+    }
+    virtual void activate();
+    virtual string toString() const;
 
 private:
 };

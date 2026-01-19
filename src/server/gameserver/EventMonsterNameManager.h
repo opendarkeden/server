@@ -1,15 +1,16 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterNameManager.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MONSTERNAMEMANAGER_H__
 #define __MONSTERNAMEMANAGER_H__
 
-#include "Types.h"
-#include "Exception.h"
 #include <unordered_map>
+
+#include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class MonsterNameManager
@@ -17,33 +18,30 @@
 
 class Monster;
 
-class MonsterNameManager
-{
-
-///// Member methods /////
+class MonsterNameManager {
+    ///// Member methods /////
 
 public:
-	MonsterNameManager() ;
-	virtual ~MonsterNameManager() ;
+    MonsterNameManager();
+    virtual ~MonsterNameManager();
 
 public:
-	void init(void) ;
+    void init(void);
 
-	string getRandomName(Monster* pMonster) ;
+    string getRandomName(Monster* pMonster);
 
-///// Member data ///// 
+    ///// Member data /////
 
 protected:
-	string* m_pFirstName;
-	string* m_pMiddleName;
-	string* m_pLastName;
+    string* m_pFirstName;
+    string* m_pMiddleName;
+    string* m_pLastName;
 
-	short   m_nFirstNameCount;
-	short   m_nMiddleNameCount;
-	short   m_nLastNameCount;
+    short m_nFirstNameCount;
+    short m_nMiddleNameCount;
+    short m_nLastNameCount;
 
-	unordered_map<ulonglong, string> m_UsedName;
-
+    unordered_map<ulonglong, string> m_UsedName;
 };
 
 // global varible definition

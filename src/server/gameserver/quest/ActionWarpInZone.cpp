@@ -1,120 +1,112 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionWarpInZone.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionWarpInZone.h"
+
 #include "Creature.h"
+#include "GCAddNPC.h"
+#include "GCDeleteObject.h"
 #include "NPC.h"
+#include "PacketUtil.h"
 #include "Utility.h"
 
-#include "PacketUtil.h"
-
-#include "GCDeleteObject.h"
-#include "GCAddNPC.h"
-
-static const POINT d [] = {
-    POINT(-1, 0),   // 0 == LEFT
-    POINT(-1, 1),   // 1 == LEFTDOWN
+static const POINT d[] = {
+    POINT(-1, 0),  // 0 == LEFT
+    POINT(-1, 1),  // 1 == LEFTDOWN
     POINT(0, 1),   // 2 == DOWN
     POINT(1, 1),   // 3 == RIGHTDOWN
     POINT(1, 0),   // 4 == RIGHT
-    POINT(1,-1),   // 5 == RIGHTUP
-    POINT(0,-1),   // 6 == UP
-    POINT(-1,-1),   // 7 == LEFTUP
+    POINT(1, -1),  // 5 == RIGHTUP
+    POINT(0, -1),  // 6 == UP
+    POINT(-1, -1), // 7 == LEFTUP
 };
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
-void ActionWarpInZone::read (PropertyBuffer & propertyBuffer)
-    
+void ActionWarpInZone::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try
-	{
-		m_MovePercentage = propertyBuffer.getPropertyInt("MovePercentage");
+    try {
+        m_MovePercentage = propertyBuffer.getPropertyInt("MovePercentage");
 
-		Assert(m_MovePercentage <= 100);
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+        Assert(m_MovePercentage <= 100);
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionWarpInZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionWarpInZone::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
+    Assert(pCreature1 != NULL);
 
-	Assert( pCreature1->isNPC() );
+    Assert(pCreature1->isNPC());
 
-	// 이번 턴에 움직일 것인지 체크한다.
-	uint diceResult = Dice(1,100);
-	
-	if (diceResult < m_MovePercentage)
-	{
-		Zone * pZone = pCreature1->getZone();
+    // 이번 턴에 움직일 것인지 체크한다.
+    uint diceResult = Dice(1, 100);
 
-		ZoneCoord_t	tx = rand() % (pZone->getWidth() - 10 ) + 5;
-		ZoneCoord_t	ty = rand() % (pZone->getHeight() - 10 ) + 5;
+    if (diceResult < m_MovePercentage) {
+        Zone* pZone = pCreature1->getZone();
 
-		int count = 0;
+        ZoneCoord_t tx = rand() % (pZone->getWidth() - 10) + 5;
+        ZoneCoord_t ty = rand() % (pZone->getHeight() - 10) + 5;
 
-		while ( !pCreature1->canMove(tx,ty) )
-		{
-			tx = rand() % (pZone->getWidth() - 10 ) + 5;
-			ty = rand() % (pZone->getHeight() - 10 ) + 5;
+        int count = 0;
 
-			// 10 넘게 못 찾으면 걍 둔다.
-			if ( ++count > 10 )
-				return;
-		}
+        while (!pCreature1->canMove(tx, ty)) {
+            tx = rand() % (pZone->getWidth() - 10) + 5;
+            ty = rand() % (pZone->getHeight() - 10) + 5;
 
-		Dir_t		dir = rand()% 8;
+            // 10 넘게 못 찾으면 걍 둔다.
+            if (++count > 10)
+                return;
+        }
 
-		pZone->getTile( pCreature1->getX(), pCreature1->getY() ).deleteCreature( pCreature1->getObjectID() );
-		GCDeleteObject gcDeleteObject( pCreature1->getObjectID() );
-		pZone->broadcastPacket( pCreature1->getX(), pCreature1->getY(), &gcDeleteObject );
+        Dir_t dir = rand() % 8;
 
-		pZone->getTile( tx, ty ).addCreature( pCreature1, false );
-		pCreature1->setXYDir(tx, ty, dir);
-		GCAddNPC gcAddNPC;
-		makeGCAddNPC(&gcAddNPC, dynamic_cast<NPC*>(pCreature1));
-		pZone->broadcastPacket( tx, ty, &gcAddNPC );
+        pZone->getTile(pCreature1->getX(), pCreature1->getY()).deleteCreature(pCreature1->getObjectID());
+        GCDeleteObject gcDeleteObject(pCreature1->getObjectID());
+        pZone->broadcastPacket(pCreature1->getX(), pCreature1->getY(), &gcDeleteObject);
 
-	}
+        pZone->getTile(tx, ty).addCreature(pCreature1, false);
+        pCreature1->setXYDir(tx, ty, dir);
+        GCAddNPC gcAddNPC;
+        makeGCAddNPC(&gcAddNPC, dynamic_cast<NPC*>(pCreature1));
+        pZone->broadcastPacket(tx, ty, &gcAddNPC);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionWarpInZone::toString () const
-	
+string ActionWarpInZone::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "ActionWarpInZone("
-		<< "MovePercentage:" << (int)m_MovePercentage
-		<< ")";
+    msg << "ActionWarpInZone("
+        << "MovePercentage:" << (int)m_MovePercentage << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

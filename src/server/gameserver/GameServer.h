@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GameServer.h 
+// Filename    : GameServer.h
 // Written By  : reiot@ewestsoft.com
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -7,9 +7,9 @@
 #ifndef __GAME_SERVER_H__
 #define __GAME_SERVER_H__
 
-#include "Types.h"
 #include "Exception.h"
 #include "Properties.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class GameServer
@@ -18,22 +18,21 @@
 class ClientManager;
 class ThreadManager;
 
-class GameServer 
-{
+class GameServer {
 public:
-	GameServer() ;
-	~GameServer() ;
+    GameServer();
+    ~GameServer();
 
 public:
-	void init() ;
+    void init();
 
-	void start() ;
-	
-	void stop() ;
+    void start();
+
+    void stop();
 
 private:
-	void sysinit() ;
-	void goBackground() ;
+    void sysinit();
+    void goBackground();
 };
 
 // global variable

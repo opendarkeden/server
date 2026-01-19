@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCThrowItemOK3Handler::execute (GCThrowItemOK3 * pGCThrowItemOK3 , Player * pPlayer )
-	 
+void GCThrowItemOK3Handler::execute(GCThrowItemOK3* pGCThrowItemOK3, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __GAME_CLIENT__
 
-	//cout << pGCThrowItemOK3->toString() << endl;
-	
+    // cout << pGCThrowItemOK3->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCThrowItemOK3->toString().c_str());
+        AfxMessageBox(pGCThrowItemOK3->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

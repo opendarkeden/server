@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SummonMiga.h 
-// Written By  : 
-// Description : 
+// Filename    : SummonMiga.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SUMMON_MIGA_HANDLER_H__
@@ -15,23 +15,27 @@
 // class SummonMiga;
 //////////////////////////////////////////////////////////////////////////////
 
-class SummonMiga : public SkillHandler 
-{
+class SummonMiga : public SkillHandler {
 public:
-	SummonMiga() throw();
-	~SummonMiga() throw() {}
-	
-public:
-    string getSkillHandlerName() const throw() { return "SummonMiga"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SUMMON_MIGA; }
+    SummonMiga() throw();
+    ~SummonMiga() throw() {}
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+public:
+    string getSkillHandlerName() const throw() {
+        return "SummonMiga";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SUMMON_MIGA;
+    }
+
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
-	POINT m_ElementalMask[4][25];
-	int m_MaskIndex[4];
+    POINT m_ElementalMask[4][25];
+    int m_MaskIndex[4];
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SpiralSlay.h 
+// Filename    : SpiralSlay.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SPIRAL_SLAY_HANDLER_H__
@@ -13,19 +13,22 @@
 // class SpiralSlay;
 //////////////////////////////////////////////////////////////////////////////
 
-class SpiralSlay : public SkillHandler 
-{
+class SpiralSlay : public SkillHandler {
 public:
-	SpiralSlay() throw() {}
-	~SpiralSlay() throw() {}
+    SpiralSlay() throw() {}
+    ~SpiralSlay() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "SpiralSlay"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SPIRAL_SLAY; }
+    string getSkillHandlerName() const throw() {
+        return "SpiralSlay";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SPIRAL_SLAY;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

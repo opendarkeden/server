@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HandsOfNizie.h 
+// Filename    : HandsOfNizie.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HANDS_OF_NIZIE_HANDLER_H__
@@ -13,20 +13,24 @@
 // class HandsOfNizie;
 //////////////////////////////////////////////////////////////////////////////
 
-class HandsOfNizie: public SkillHandler 
-{
+class HandsOfNizie : public SkillHandler {
 public:
-	HandsOfNizie() throw() {}
-	~HandsOfNizie() throw() {}
-	
+    HandsOfNizie() throw() {}
+    ~HandsOfNizie() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HandsOfNizie"; }
+    string getSkillHandlerName() const throw() {
+        return "HandsOfNizie";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_HANDS_OF_NIZIE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HANDS_OF_NIZIE;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

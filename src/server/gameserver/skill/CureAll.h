@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CureAll.h 
+// Filename    : CureAll.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CURE_ALL_HANDLER_H__
@@ -13,20 +13,23 @@
 // class CureAll;
 //////////////////////////////////////////////////////////////////////////////
 
-class CureAll: public SkillHandler 
-{
+class CureAll : public SkillHandler {
 public:
-	CureAll() throw() {}
-	~CureAll() throw() {}
-	
+    CureAll() throw() {}
+    ~CureAll() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CureAll"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CURE_ALL; }
+    string getSkillHandlerName() const throw() {
+        return "CureAll";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CURE_ALL;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

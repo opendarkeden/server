@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyZenith.h 
-// Written By  : 
-// Description : 
+// Filename    : BloodyZenith.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_ZENITH_HANDLER_H__
@@ -13,21 +13,25 @@
 // class BloodyZenith;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyZenith: public SkillHandler 
-{
+class BloodyZenith : public SkillHandler {
 public:
-	BloodyZenith() throw() {}
-	~BloodyZenith() throw() {}
-	
+    BloodyZenith() throw() {}
+    ~BloodyZenith() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyZenith"; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyZenith";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_ZENITH; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_ZENITH;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

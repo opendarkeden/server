@@ -1,47 +1,46 @@
 #include "EffectTrying.h"
+
 #include "Creature.h"
-#include "Zone.h"
 #include "GCDeleteEffectFromTile.h"
 #include "GCRemoveEffect.h"
+#include "Zone.h"
 
-/*EffectTrying::EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) 
+/*EffectTrying::EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	setXY( X, Y );
+    m_pZone = pZone;
+    setXY( X, Y );
 
-	__END_CATCH
+    __END_CATCH
 }*/
 
-EffectTrying::EffectTrying(Creature* pCreature) 
-{
-	__BEGIN_TRY
+EffectTrying::EffectTrying(Creature* pCreature) {
+    __BEGIN_TRY
 
-	setTarget( pCreature );
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectTrying::unaffect() 
-{
-	__BEGIN_TRY
+void EffectTrying::unaffect() {
+    __BEGIN_TRY
 
-/*	GCDeleteEffectFromTile gcDeleteEffect;
-	gcDeleteEffect.setEffectID( getSendEffectClass() );
-	gcDeleteEffect.setObjectID( getObjectID() );
-	gcDeleteEffect.setXY( m_X, m_Y );
+    /*	GCDeleteEffectFromTile gcDeleteEffect;
+        gcDeleteEffect.setEffectID( getSendEffectClass() );
+        gcDeleteEffect.setObjectID( getObjectID() );
+        gcDeleteEffect.setXY( m_X, m_Y );
 
-	m_pZone->broadcastPacket( m_X, m_Y, &gcDeleteEffect );*/
-	
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	Assert( pCreature != NULL );
+        m_pZone->broadcastPacket( m_X, m_Y, &gcDeleteEffect );*/
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.addEffectList( getSendEffectClass() );
-	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    Assert(pCreature != NULL);
 
-	pCreature->getZone()->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect );
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
 
-	__END_CATCH
+    pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+    __END_CATCH
 }

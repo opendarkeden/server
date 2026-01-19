@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Darkness.h 
-// Written By  : 
-// Description : 
+// Filename    : Darkness.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DARKNESS_HANDLER_H__
@@ -13,22 +13,26 @@
 // class Darkness;
 //////////////////////////////////////////////////////////////////////////////
 
-class Darkness : public SkillHandler 
-{
+class Darkness : public SkillHandler {
 public:
-	Darkness() throw() {}
-	~Darkness() throw() {}
-	
+    Darkness() throw() {}
+    ~Darkness() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Darkness"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DARKNESS; }
+    string getSkillHandlerName() const throw() {
+        return "Darkness";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DARKNESS;
+    }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
-	void execute(Monster*, ZoneCoord_t x, ZoneCoord_t y) ;
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
+    void execute(Monster*, ZoneCoord_t x, ZoneCoord_t y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

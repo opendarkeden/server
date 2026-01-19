@@ -10,10 +10,10 @@
 #define __PC_INFO_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
+#include "Types.h"
 
 //----------------------------------------------------------------------
 //
@@ -27,31 +27,28 @@
 //----------------------------------------------------------------------
 
 class PCInfo {
+public:
+    // destructor
+    virtual ~PCInfo() {}
 
-public :
+    // 현재 인스턴스가 슬레이어인지 뱀파이어인지..
+    virtual PCType getPCType() const = 0;
 
-	// destructor
-	virtual ~PCInfo () {}	
+    //----------------------------------------------------------------------
+    // 패킷에 embedding 되려는 객체는 아래와 같은 데이타를 명시해야 한다.
+    //----------------------------------------------------------------------
 
-	// 현재 인스턴스가 슬레이어인지 뱀파이어인지..
-	virtual PCType getPCType () const  = 0;	
+    // read data from socket input stream
+    virtual void read(SocketInputStream& iStream) = 0;
 
-	//----------------------------------------------------------------------
-	// 패킷에 embedding 되려는 객체는 아래와 같은 데이타를 명시해야 한다.
-	//----------------------------------------------------------------------
+    // write data to socket output stream
+    virtual void write(SocketOutputStream& oStream) const = 0;
 
-	// read data from socket input stream
-	virtual void read (SocketInputStream & iStream)  = 0;
+    // get size of object
+    virtual uint getSize() const = 0;
 
-	// write data to socket output stream
-	virtual void write (SocketOutputStream & oStream) const  = 0;
-
-	// get size of object
-	virtual uint getSize () const  = 0;
-
-	// get debug string
-	virtual string toString () const  = 0;
-
+    // get debug string
+    virtual string toString() const = 0;
 };
 
 #endif

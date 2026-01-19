@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCThrowBombOK3.cpp 
+//
+// Filename    : GCThrowBombOK3.cpp
 // Written By  : elca@ewestsoft.com
 // Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
 //               멤버 정의.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -13,95 +13,92 @@
 #include "GCThrowBombOK3.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCThrowBombOK3::GCThrowBombOK3 () 
-     
+GCThrowBombOK3::GCThrowBombOK3()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_CListNum = 0;
+    m_CListNum = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-	
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCThrowBombOK3::~GCThrowBombOK3 () 
-    
+GCThrowBombOK3::~GCThrowBombOK3()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCThrowBombOK3::read (SocketInputStream & iStream ) 
-	 
+void GCThrowBombOK3::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_ObjectID);
-	iStream.read(m_X);
-	iStream.read(m_Y);
-	iStream.read(m_Dir);
-	iStream.read(m_ItemType);
-	
+    __BEGIN_TRY
+
+    // 최적화 작업시 실제 크기를 명시하도록 한다.
+    iStream.read(m_ObjectID);
+    iStream.read(m_X);
+    iStream.read(m_Y);
+    iStream.read(m_Dir);
+    iStream.read(m_ItemType);
+
     iStream.read(m_CListNum);
 
     ObjectID_t m_Value;
-	int i;
+    int i;
 
-	for(i = 0; i < m_CListNum; i++ ) {
-		iStream.read(m_Value);
-		m_CList.push_back(m_Value);
-	}
+    for (i = 0; i < m_CListNum; i++) {
+        iStream.read(m_Value);
+        m_CList.push_back(m_Value);
+    }
 
-	
-	__END_CATCH
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCThrowBombOK3::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
-		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_ObjectID);
-	oStream.write(m_X);
-	oStream.write(m_Y);
-	oStream.write(m_Dir);
-	oStream.write(m_ItemType);
+void GCThrowBombOK3::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
+
+    // 최적화 작업시 실제 크기를 명시하도록 한다.
+    oStream.write(m_ObjectID);
+    oStream.write(m_X);
+    oStream.write(m_Y);
+    oStream.write(m_Dir);
+    oStream.write(m_ItemType);
     oStream.write(m_CListNum);
 
-    for (list<ObjectID_t>::const_iterator itr = m_CList.begin(); itr!= m_CList.end() ; itr++ ) {
-		oStream.write(*itr);
-	}
+    for (list<ObjectID_t>::const_iterator itr = m_CList.begin(); itr != m_CList.end(); itr++) {
+        oStream.write(*itr);
+    }
 
-	
-	__END_CATCH
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 //
 // GCThrowBombOK3::addListElement()
-// 
-// (변화부위, 변화수치 ) 의 한 셋을 리스트에 넣기 위한 멤버 함수. 
+//
+// (변화부위, 변화수치 ) 의 한 셋을 리스트에 넣기 위한 멤버 함수.
 //
 //////////////////////////////////////////////////////////////////////
-void GCThrowBombOK3::addCListElement(ObjectID_t ObjectID )
-    
+void GCThrowBombOK3::addCListElement(ObjectID_t ObjectID)
+
 {
     __BEGIN_TRY
 
@@ -112,19 +109,18 @@ void GCThrowBombOK3::addCListElement(ObjectID_t ObjectID )
     m_CListNum++;
 
     __END_CATCH
-
 }
 
 /*
 //////////////////////////////////////////////////////////////////////
 //
 // GCThrowBombOK3::deleteCListElement()
-// 
+//
 // Creature List의 요소를 지울때 필요한 멤버 함수.
 //
 //////////////////////////////////////////////////////////////////////
 void GCThrowBombOK3::deleteCListElement()
-    
+
 {
     __BEGIN_TRY
 
@@ -144,14 +140,14 @@ void GCThrowBombOK3::deleteCListElement()
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCThrowBombOK3::execute (Player * pPlayer ) 
-	 
+void GCThrowBombOK3::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCThrowBombOK3Handler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCThrowBombOK3Handler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -160,29 +156,22 @@ void GCThrowBombOK3::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCThrowBombOK3::toString () const
-       
+string GCThrowBombOK3::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCThrowBombOK3(ObjectID:" << (int)m_ObjectID
-		<< ",X:" << (int)m_X
-		<< ",Y:" << (int)m_Y
-		<< ",Dir:" << (int)m_Dir
-		<< ",ItemType:" << (int)m_ItemType
-		<< ",CListNum: " << (int)m_CListNum 
-		<< " CListSet(";
+    StringStream msg;
+    msg << "GCThrowBombOK3(ObjectID:" << (int)m_ObjectID << ",X:" << (int)m_X << ",Y:" << (int)m_Y
+        << ",Dir:" << (int)m_Dir << ",ItemType:" << (int)m_ItemType << ",CListNum: " << (int)m_CListNum << " CListSet(";
 
-	for (list<ObjectID_t>::const_iterator itr = m_CList.begin(); itr!= m_CList.end() ; itr++ ) {
-		msg << (int)(*itr) << ",";
-	}
+    for (list<ObjectID_t>::const_iterator itr = m_CList.begin(); itr != m_CList.end(); itr++) {
+        msg << (int)(*itr) << ",";
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------
-// 
+//
 // Filename    : GCAddVampireFromBurrowing.cpp
 // Written By  : Reiot
-// 
+//
 //----------------------------------------------------------------------
 
 // include files
@@ -12,74 +12,72 @@
 // destructor
 //----------------------------------------------------------------------
 GCAddVampireFromBurrowing::~GCAddVampireFromBurrowing() noexcept
-	
+
 {
-	SAFE_DELETE(m_pEffectInfo);
+    SAFE_DELETE(m_pEffectInfo);
 }
 
 //----------------------------------------------------------------------
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //----------------------------------------------------------------------
-void GCAddVampireFromBurrowing::read (SocketInputStream & iStream ) 
-	 
+void GCAddVampireFromBurrowing::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	m_VampireInfo.read(iStream);
+    __BEGIN_TRY
 
-	m_pEffectInfo = new EffectInfo();
-	m_pEffectInfo->read(iStream);
+    m_VampireInfo.read(iStream);
 
-	__END_CATCH
+    m_pEffectInfo = new EffectInfo();
+    m_pEffectInfo->read(iStream);
+
+    __END_CATCH
 }
 
-		    
+
 //--------------------------------------------------------------------------------
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //--------------------------------------------------------------------------------
-void GCAddVampireFromBurrowing::write (SocketOutputStream & oStream ) const 
-     
+void GCAddVampireFromBurrowing::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	m_VampireInfo.write(oStream);
+    __BEGIN_TRY
 
-	m_pEffectInfo->write(oStream);
+    m_VampireInfo.write(oStream);
 
-	__END_CATCH
+    m_pEffectInfo->write(oStream);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void GCAddVampireFromBurrowing::execute (Player * pPlayer ) 
-	 
+void GCAddVampireFromBurrowing::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddVampireFromBurrowingHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddVampireFromBurrowingHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get packet's debug string
 //--------------------------------------------------------------------------------
-string GCAddVampireFromBurrowing::toString () const
-       
+string GCAddVampireFromBurrowing::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GCAddVampireFromBurrowing("
-		<< "VampireInfo:" << m_VampireInfo.toString()
-		<< "EffectInfo:" << m_pEffectInfo->toString()
-		<< ")" ;
+    msg << "GCAddVampireFromBurrowing("
+        << "VampireInfo:" << m_VampireInfo.toString() << "EffectInfo:" << m_pEffectInfo->toString() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

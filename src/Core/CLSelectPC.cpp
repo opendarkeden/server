@@ -1,92 +1,88 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLSelectPC.cpp 
+// Filename    : CLSelectPC.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLSelectPC.h"
 
-void CLSelectPC::read (SocketInputStream & iStream) 
-	 
+void CLSelectPC::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	// read creature's name
-	BYTE szPCName;
+    __BEGIN_TRY
 
-	iStream.read(szPCName);
+    // read creature's name
+    BYTE szPCName;
 
-	if (szPCName == 0) 
-		throw InvalidProtocolException("szPCName == 0");
+    iStream.read(szPCName);
 
-	if (szPCName > 20) 
-		throw InvalidProtocolException("too long pc name length");
+    if (szPCName == 0)
+        throw InvalidProtocolException("szPCName == 0");
 
-	iStream.read(m_PCName , szPCName);
+    if (szPCName > 20)
+        throw InvalidProtocolException("too long pc name length");
 
-	// read pc type
-	BYTE pcType;
-	iStream.read(pcType);
-	m_PCType = PCType(pcType);
+    iStream.read(m_PCName, szPCName);
 
-	if (m_PCType != PC_SLAYER && m_PCType != PC_VAMPIRE && m_PCType != PC_OUSTERS)
-		throw InvalidProtocolException("invalid pc type");
+    // read pc type
+    BYTE pcType;
+    iStream.read(pcType);
+    m_PCType = PCType(pcType);
 
-	__END_CATCH
+    if (m_PCType != PC_SLAYER && m_PCType != PC_VAMPIRE && m_PCType != PC_OUSTERS)
+        throw InvalidProtocolException("invalid pc type");
+
+    __END_CATCH
 }
-		    
-void CLSelectPC::write (SocketOutputStream & oStream) const 
-     
+
+void CLSelectPC::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// write creature's name
-	BYTE szPCName = m_PCName.size();
+    // write creature's name
+    BYTE szPCName = m_PCName.size();
 
-	if (szPCName == 0) 
-		throw InvalidProtocolException("szPCName == 0");
+    if (szPCName == 0)
+        throw InvalidProtocolException("szPCName == 0");
 
-	if (szPCName > 20) 
-		throw InvalidProtocolException("too long pc name length");
+    if (szPCName > 20)
+        throw InvalidProtocolException("too long pc name length");
 
-	oStream.write(szPCName);
+    oStream.write(szPCName);
 
-	oStream.write(m_PCName);
+    oStream.write(m_PCName);
 
-	// write pc type
-	if (m_PCType != PC_SLAYER && m_PCType != PC_VAMPIRE && m_PCType != PC_OUSTERS)
-		throw InvalidProtocolException("invalid pc type");
+    // write pc type
+    if (m_PCType != PC_SLAYER && m_PCType != PC_VAMPIRE && m_PCType != PC_OUSTERS)
+        throw InvalidProtocolException("invalid pc type");
 
-	oStream.write((BYTE)m_PCType);
+    oStream.write((BYTE)m_PCType);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // execute packet's handler
-void CLSelectPC::execute (Player* pPlayer) 
-	 
+void CLSelectPC::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	CLSelectPCHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CLSelectPCHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 // get packet's debug string
-string CLSelectPC::toString () const
-       
+string CLSelectPC::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CLSelectPC("
-		<< "PCName:" << m_PCName 
-		<< ",PCType:" << PCType2String[m_PCType] 
-		<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "CLSelectPC("
+        << "PCName:" << m_PCName << ",PCType:" << PCType2String[m_PCType] << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

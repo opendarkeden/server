@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGVerifyTime.h 
+//
+// Filename    : CGVerifyTime.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_VERIFY_TIME_H__
@@ -11,9 +11,9 @@
 
 // include files
 
-//#ifdef __GAME_SERVER__
-//#include "GamePlayer.h"
-//#endif
+// #ifdef __GAME_SERVER__
+// #include "GamePlayer.h"
+// #endif
 
 #include "Packet.h"
 #include "PacketFactory.h"
@@ -31,33 +31,37 @@ class Player;
 class GamePlayer;
 
 class CGVerifyTime : public Packet {
-
-public :
-	CGVerifyTime() {};
+public:
+    CGVerifyTime() {};
     virtual ~CGVerifyTime() {};
-	// Initialize packet from the input stream.
-    void read (SocketInputStream & iStream ) ;
-		    
-	// Write the packet body to the output stream.
-    void write (SocketOutputStream & oStream ) const ;
+    // Initialize packet from the input stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute (Player * pPlayer ) ;
+    // Write the packet body to the output stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID () const  { return PACKET_CG_VERIFY_TIME; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize () const  { return 0; }
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName () const  { return "CGVerifyTime"; }
-	
-	// get packet's debug string
-	string toString () const ;
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_VERIFY_TIME;
+    }
 
-private :
-	
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return 0;
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "CGVerifyTime";
+    }
+
+    // get packet's debug string
+    string toString() const;
+
+private:
 };
 
 
@@ -70,22 +74,27 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGVerifyTimeFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new CGVerifyTime();
+    }
 
-public :
-	
-	// create packet
-	Packet * createPacket ()  { return new CGVerifyTime(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGVerifyTime";
+    }
 
-	// get packet name
-	string getPacketName () const  { return "CGVerifyTime"; }
-	
-	// get packet id
-	PacketID_t getPacketID () const  { return Packet::PACKET_CG_VERIFY_TIME; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_VERIFY_TIME;
+    }
 
-	// get packet's max body size
-	// Reserve enough space for the message payload.
-	PacketSize_t getPacketMaxSize () const  { return 0; }
-
+    // get packet's max body size
+    // Reserve enough space for the message payload.
+    PacketSize_t getPacketMaxSize() const {
+        return 0;
+    }
 };
 
 
@@ -96,15 +105,12 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class CGVerifyTimeHandler {
+public:
+    // execute packet's handler
+    static void execute(CGVerifyTime* pPacket, Player* pPlayer);
 
-public :
-
-	// execute packet's handler
-	static void execute (CGVerifyTime * pPacket , Player * pPlayer ) ;
-
-	// Persist players flagged for speed-hack detection.
-	static void saveSpeedHackPlayer(Player* pPlayer);
-
+    // Persist players flagged for speed-hack detection.
+    static void saveSpeedHackPlayer(Player* pPlayer);
 };
 
 #endif

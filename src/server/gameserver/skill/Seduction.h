@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Seduction.h 
-// Written By  : 
-// Description : 
+// Filename    : Seduction.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SEDUCTION_HANDLER_H__
@@ -13,22 +13,25 @@
 // class Seduction;
 //////////////////////////////////////////////////////////////////////////////
 
-class Seduction : public SkillHandler 
-{
+class Seduction : public SkillHandler {
 public:
-	Seduction() throw() {}
-	~Seduction() throw() {}
-	
+    Seduction() throw() {}
+    ~Seduction() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Seduction"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SEDUCTION; }
+    string getSkillHandlerName() const throw() {
+        return "Seduction";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SEDUCTION;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) ;
+    void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

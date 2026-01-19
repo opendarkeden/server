@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : OpenCasket.h 
-// Written By  : 
-// Description : 
+// Filename    : OpenCasket.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_OPEN_CASKET_HANDLER_H__
@@ -13,20 +13,23 @@
 // class OpenCasket;
 //////////////////////////////////////////////////////////////////////////////
 
-class OpenCasket : public SkillHandler 
-{
+class OpenCasket : public SkillHandler {
 public:
-	OpenCasket() throw() {}
-	~OpenCasket() throw() {}
-	
+    OpenCasket() throw() {}
+    ~OpenCasket() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "OpenCasket"; }
-	SkillType_t getSkillType() const throw() { return SKILL_OPEN_CASKET; }
+    string getSkillHandlerName() const throw() {
+        return "OpenCasket";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_OPEN_CASKET;
+    }
 
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
 
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

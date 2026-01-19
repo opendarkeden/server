@@ -10,9 +10,9 @@
 #define __STATEMENT_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
 #include "Connection.h"
+#include "Exception.h"
+#include "Types.h"
 
 // forward declaration
 class Result;
@@ -26,63 +26,65 @@ class Result;
 //////////////////////////////////////////////////////////////////////
 
 class Statement {
+public:
+    // constructor
+    Statement() throw();
+
+    // constructor
+    Statement(char* fmt, ...) throw(Error);
+
+    // destructor
+    ~Statement() throw();
 
 public:
-	
-	// constructor
-	Statement() throw(); 
+    // 사전에 지정된 SQL 문을 가지고 쿼리한다.
+    Result* executeQuery() throw(SQLQueryException, Error);
 
-	// constructor
-    Statement(char * fmt, ...) throw(Error);
+    // SQL 문을 받아서 쿼리한다.
+    Result* executeQuery(char*, ...) throw(SQLQueryException, Error);
+    Result* executeQuery(const string& sqlStatement) throw(SQLQueryException, Error);
 
-	// destructor
-	~Statement() throw();
+    // get SQL statement
+    string getStatement() const throw() {
+        return m_Statement;
+    }
 
-public:
-    
-	// 사전에 지정된 SQL 문을 가지고 쿼리한다.
-    Result * executeQuery() throw(SQLQueryException, Error);
-	
-	// SQL 문을 받아서 쿼리한다.
-	Result * executeQuery(char *,...) throw(SQLQueryException, Error);
-	Result * executeQuery(const string& sqlStatement) throw(SQLQueryException, Error);
-	
-	// get SQL statement
-	string getStatement() const throw() { return m_Statement; }
+    // SQL 문을 지정한다.
+    void setStatement(char* fmt, ...) throw(Error);
 
-	// SQL 문을 지정한다.
-	void setStatement(char * fmt, ...) throw(Error);
+    // get connection object
+    Connection* getConnection() const throw() {
+        return m_pConnection;
+    }
 
-	// get connection object
-	Connection * getConnection() const throw() { return m_pConnection; }
+    // set connection object
+    void setConnection(Connection* pConnection) throw() {
+        m_pConnection = pConnection;
+    }
 
-	// set connection object
-	void setConnection(Connection * pConnection) throw() { m_pConnection = pConnection; }
+    // get warning/error string
+    string getError() const throw() {
+        return (m_pConnection == NULL) ? ("Not Associated with Connection Object") : (m_pConnection->getError());
+    }
 
-	// get warning/error string
-	string getError() const throw() 
-	{ 
-		return(m_pConnection == NULL) ?("Not Associated with Connection Object") :(m_pConnection->getError()); 
-	}
+    // get affected rows
+    uint getAffectedRowCount() const throw() {
+        return m_nAffectedRows;
+    }
 
-	// get affected rows
-	uint getAffectedRowCount() const throw() { return m_nAffectedRows; }
 
-	
 private:
-	
-	// Connection
-	Connection * m_pConnection;
+    // Connection
+    Connection* m_pConnection;
 
-	// SQL Statement�
-	string m_Statement;
+    // SQL Statement�
+    string m_Statement;
 
-	// Query Result 
-	Result * m_pResult;
+    // Query Result
+    Result* m_pResult;
 
-	// insert, update, delete 했을 때 영향을 받은 row 의 개수
-	uint m_nAffectedRows;
-
+    // insert, update, delete 했을 때 영향을 받은 row 의 개수
+    uint m_nAffectedRows;
 };
 
 #endif // __STATEMENT_H__

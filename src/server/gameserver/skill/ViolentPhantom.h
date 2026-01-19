@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ViolentPhantom.h 
+// Filename    : ViolentPhantom.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_VIOLENT_PHANTOM_HANDLER_H__
@@ -13,25 +13,29 @@
 // class ViolentPhantom;
 //////////////////////////////////////////////////////////////////////////////
 
-class ViolentPhantom : public SkillHandler 
-{
+class ViolentPhantom : public SkillHandler {
 public:
-	ViolentPhantom() throw();
-	~ViolentPhantom() throw() {}
-	
+    ViolentPhantom() throw();
+    ~ViolentPhantom() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ViolentPhantom"; }
-	SkillType_t getSkillType() const throw() { return SKILL_VIOLENT_PHANTOM; }
+    string getSkillHandlerName() const throw() {
+        return "ViolentPhantom";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_VIOLENT_PHANTOM;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 protected:
-	POINT m_pViolentPhantomMask[9];
+    POINT m_pViolentPhantomMask[9];
 };
 
 // global variable declaration

@@ -2,7 +2,7 @@
 //
 // Filename    : LCVersionCheckOKHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //----------------------------------------------------------------------
 
@@ -16,9 +16,8 @@
 // 이제 로그인 서버에게 PC 의 리스트를 요청하는 패킷을 전송하면 된다.
 //
 //----------------------------------------------------------------------
-void LCVersionCheckOKHandler::execute (LCVersionCheckOK * pPacket , Player * pPlayer )
-	 
+void LCVersionCheckOKHandler::execute(LCVersionCheckOK* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-	__END_DEBUG_EX __END_CATCH
+    __BEGIN_TRY __BEGIN_DEBUG_EX __END_DEBUG_EX __END_CATCH
 }

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : PowerOfLand.h 
+// Filename    : PowerOfLand.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_POWER_OF_LAND_HANDLER_H__
@@ -13,20 +13,23 @@
 // class PowerOfLand;
 //////////////////////////////////////////////////////////////////////////////
 
-class PowerOfLand : public SkillHandler 
-{
+class PowerOfLand : public SkillHandler {
 public:
-	PowerOfLand() throw() {}
-	~PowerOfLand() throw() {}
-	
+    PowerOfLand() throw() {}
+    ~PowerOfLand() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "PowerOfLand"; }
-	SkillType_t getSkillType() const throw() { return SKILL_POWER_OF_LAND; }
+    string getSkillHandlerName() const throw() {
+        return "PowerOfLand";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_POWER_OF_LAND;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

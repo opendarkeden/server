@@ -7,78 +7,70 @@
 #include "CGRequestIP.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "Creature.h"
-	#include "PCFinder.h"
-	#include "DB.h"
-
-	#include "GCRequestedIP.h"
-	#include "GCRequestFailed.h"
+#include "Creature.h"
+#include "DB.h"
+#include "GCRequestFailed.h"
+#include "GCRequestedIP.h"
+#include "GamePlayer.h"
+#include "PCFinder.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGRequestIPHandler::execute (CGRequestIP* pPacket , Player* pPlayer)
-	 
+void CGRequestIPHandler::execute(CGRequestIP* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	try 
-	{
-		// UserIPInfo 테이블에서 사용자 IP를 쿼리 한다.
-		Statement* pStmt = NULL;
+    try {
+        // UserIPInfo 테이블에서 사용자 IP를 쿼리 한다.
+        Statement* pStmt = NULL;
 
-		BEGIN_DB
-		{
-			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			Result* pResult = pStmt->executeQuery("SELECT IP, Port FROM UserIPInfo WHERE Name='%s'", pPacket->getName().c_str());
+        BEGIN_DB {
+            pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+            Result* pResult =
+                pStmt->executeQuery("SELECT IP, Port FROM UserIPInfo WHERE Name='%s'", pPacket->getName().c_str());
 
-			if (pResult->getRowCount() == 0)
-			{
-				SAFE_DELETE(pStmt);
-				throw NoSuchElementException("요청한 ID의 IP정보가 없음다.");
-			}
-			else
-			{
-				pResult->next();
-				IP_t IP = pResult->getDWORD(1);
-				uint Port = pResult->getDWORD(2);
-				//cout << "Requested IP : " << IP	<< endl;
+            if (pResult->getRowCount() == 0) {
+                SAFE_DELETE(pStmt);
+                throw NoSuchElementException("요청한 ID의 IP정보가 없음다.");
+            } else {
+                pResult->next();
+                IP_t IP = pResult->getDWORD(1);
+                uint Port = pResult->getDWORD(2);
+                // cout << "Requested IP : " << IP	<< endl;
 
-				GCRequestedIP gcRequestedIP;
-				gcRequestedIP.setIP(IP);
-				gcRequestedIP.setPort(Port);
-				gcRequestedIP.setName(pPacket->getName().c_str());
-				pPlayer->sendPacket(&gcRequestedIP);
+                GCRequestedIP gcRequestedIP;
+                gcRequestedIP.setIP(IP);
+                gcRequestedIP.setPort(Port);
+                gcRequestedIP.setName(pPacket->getName().c_str());
+                pPlayer->sendPacket(&gcRequestedIP);
 
-				SAFE_DELETE(pStmt);
-			}
-		} 
-		END_DB(pStmt)
-	} 
-	//catch (NoSuchElementException & nsee) 
-	catch (Throwable & t) 
-	{
-		// no such인 경우..
-		GCRequestFailed gcRequestFailed;
-		gcRequestFailed.setCode(REQUEST_FAILED_IP);
-		gcRequestFailed.setName(pPacket->getName());
-		pPlayer->sendPacket(&gcRequestFailed);
-	}
-	catch (...)
-	{
-		GCRequestFailed gcRequestFailed;
-		gcRequestFailed.setCode(REQUEST_FAILED_IP);
-		gcRequestFailed.setName(pPacket->getName());
-		pPlayer->sendPacket(&gcRequestFailed);
-	}
+                SAFE_DELETE(pStmt);
+            }
+        }
+        END_DB(pStmt)
+    }
+    // catch (NoSuchElementException & nsee)
+    catch (Throwable& t) {
+        // no such인 경우..
+        GCRequestFailed gcRequestFailed;
+        gcRequestFailed.setCode(REQUEST_FAILED_IP);
+        gcRequestFailed.setName(pPacket->getName());
+        pPlayer->sendPacket(&gcRequestFailed);
+    } catch (...) {
+        GCRequestFailed gcRequestFailed;
+        gcRequestFailed.setCode(REQUEST_FAILED_IP);
+        gcRequestFailed.setName(pPacket->getName());
+        pPlayer->sendPacket(&gcRequestFailed);
+    }
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

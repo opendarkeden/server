@@ -10,8 +10,8 @@
 #define __LOGIN_CLIENT_MANAGER_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -32,30 +32,27 @@
 //////////////////////////////////////////////////////////////////////
 
 class ClientManager {
+public:
+    // constructor
+    ClientManager() throw(Error);
 
-public :
+    // destructor
+    ~ClientManager() throw(Error);
 
-	// constructor
-	ClientManager () throw ( Error );
+    // 클라이언트 매니저를 초기화한다.
+    void init() throw(Error);
 
-	// destructor
-	~ClientManager () throw ( Error );
+    // 클라이언트 매니저를 시작한다.
+    void start() throw(Error);
 
-	// 클라이언트 매니저를 초기화한다.
-	void init () throw ( Error );
+    // 클라이언트 매니저를 중단한다.
+    void stop() throw(Error);
 
-	// 클라이언트 매니저를 시작한다.
-	void start () throw ( Error );
-
-	// 클라이언트 매니저를 중단한다.
-	void stop () throw ( Error );
-
-	// 클라이언트 매니저의 메인 메쏘드
-	void run () throw ( Error );
-
+    // 클라이언트 매니저의 메인 메쏘드
+    void run() throw(Error);
 };
 
 // external variable declaration
-extern ClientManager * g_pClientManager;
+extern ClientManager* g_pClientManager;
 
 #endif

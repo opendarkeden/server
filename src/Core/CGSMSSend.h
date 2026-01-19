@@ -1,24 +1,24 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGSMSSend.h 
+//
+// Filename    : CGSMSSend.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SMS_SEND_H__
 #define __CG_SMS_SEND_H__
 
 // include files
-#include "Packet.h"
-#include "PacketFactory.h"
-
 #include <list>
 #include <string>
 
-#define MAX_NUMBER_LENGTH	11
-#define MAX_RECEVIER_NUM	5
-#define MAX_MESSAGE_LENGTH	80
+#include "Packet.h"
+#include "PacketFactory.h"
+
+#define MAX_NUMBER_LENGTH 11
+#define MAX_RECEVIER_NUM 5
+#define MAX_MESSAGE_LENGTH 80
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -27,31 +27,44 @@
 //////////////////////////////////////////////////////////////////////
 
 class CGSMSSend : public Packet {
-
 public:
     CGSMSSend() {};
     virtual ~CGSMSSend() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_SMS_SEND; }
-	PacketSize_t getPacketSize() const ;
-	string getPacketName() const  { return "CGSMSSend"; }
-	string toString() const ;
-	
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_SMS_SEND;
+    }
+    PacketSize_t getPacketSize() const;
+    string getPacketName() const {
+        return "CGSMSSend";
+    }
+    string toString() const;
+
 public:
-	list<string>& getNumbersList() { return m_Numbers; }
+    list<string>& getNumbersList() {
+        return m_Numbers;
+    }
 
-	const string&	getCallerNumber() const { return m_CallerNumber; }
-	void			setCallerNumber(const string& Num ) { m_CallerNumber = Num; }
+    const string& getCallerNumber() const {
+        return m_CallerNumber;
+    }
+    void setCallerNumber(const string& Num) {
+        m_CallerNumber = Num;
+    }
 
-	const string&	getMessage() const { return m_Message; }
-	void			setMessage(const string& msg ) { m_Message = msg; }
+    const string& getMessage() const {
+        return m_Message;
+    }
+    void setMessage(const string& msg) {
+        m_Message = msg;
+    }
 
 private:
-	list<string>	m_Numbers;
-	string			m_CallerNumber;
-	string			m_Message;
+    list<string> m_Numbers;
+    string m_CallerNumber;
+    string m_Message;
 };
 
 
@@ -65,10 +78,19 @@ private:
 
 class CGSMSSendFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGSMSSend(); }
-	string getPacketName() const  { return "CGSMSSend"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SMS_SEND; }
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + (szBYTE + MAX_NUMBER_LENGTH)*MAX_RECEVIER_NUM + szBYTE + MAX_RECEVIER_NUM + szBYTE + MAX_MESSAGE_LENGTH; }
+    Packet* createPacket() {
+        return new CGSMSSend();
+    }
+    string getPacketName() const {
+        return "CGSMSSend";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_SMS_SEND;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + (szBYTE + MAX_NUMBER_LENGTH) * MAX_RECEVIER_NUM + szBYTE + MAX_RECEVIER_NUM + szBYTE +
+               MAX_MESSAGE_LENGTH;
+    }
 };
 
 
@@ -80,7 +102,7 @@ public:
 
 class CGSMSSendHandler {
 public:
-	static void execute(CGSMSSend* pPacket, Player* player) ;
+    static void execute(CGSMSSend* pPacket, Player* player);
 };
 
 #endif

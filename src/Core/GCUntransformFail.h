@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCUntransformFail.h 
+//
+// Filename    : GCUntransformFail.h
 // Written By  : crazydog
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_UNTRANSFORM_FAIL_H__
@@ -20,44 +20,43 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCUntransformFail : public Packet {
-
-public :
-
-	// constructor
-	GCUntransformFail()  {}
+public:
+    // constructor
+    GCUntransformFail() {}
     ~GCUntransformFail() {};
-	
 
-public :
 
+public:
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_UNTRANSFORM_FAIL; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return 0; }
-	
-	// get packet's name
-	string getPacketName() const  { return "GCUntransformFail"; }
-	
-	// get packet's debug string
-	string toString() const ;
-	
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_UNTRANSFORM_FAIL;
+    }
 
-public :
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return 0;
+    }
+
+    // get packet's name
+    string getPacketName() const {
+        return "GCUntransformFail";
+    }
+
+    // get packet's debug string
+    string toString() const;
 
 
-private : 
-
-
+public:
+private:
 };
 
 
@@ -69,22 +68,27 @@ private :
 //
 //////////////////////////////////////////////////////////////////////
 
-class  GCUntransformFailFactory : public PacketFactory {
+class GCUntransformFailFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCUntransformFail();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCUntransformFail(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCUntransformFail";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCUntransformFail"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_UNTRANSFORM_FAIL; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_UNTRANSFORM_FAIL;
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  { return 0; }
-	
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return 0;
+    }
 };
 
 
@@ -94,13 +98,10 @@ public :
 //
 //////////////////////////////////////////////////////////////////////
 
-class  GCUntransformFailHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCUntransformFail* pPacket, Player* pPlayer) ;
-
+class GCUntransformFailHandler {
+public:
+    // execute packet's handler
+    static void execute(GCUntransformFail* pPacket, Player* pPlayer);
 };
 
 #endif

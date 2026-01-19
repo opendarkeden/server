@@ -1,99 +1,95 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLDeletePC.cpp 
+// Filename    : CLDeletePC.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLDeletePC.h"
 
-void CLDeletePC::read (SocketInputStream & iStream) 
-	 
+void CLDeletePC::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName;
-	iStream.read(szName);
+    __BEGIN_TRY
 
-	if (szName == 0)
-		throw InvalidProtocolException("szName == 0");
+    BYTE szName;
+    iStream.read(szName);
 
-	if (szName > 20)
-		throw InvalidProtocolException("too long name length");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	iStream.read(m_Name , szName);
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	BYTE slot;
-	iStream.read(slot);
-	m_Slot = Slot(slot);
+    iStream.read(m_Name, szName);
 
-	BYTE szSSN;
-	iStream.read(szSSN);
+    BYTE slot;
+    iStream.read(slot);
+    m_Slot = Slot(slot);
 
-	if (szSSN == 0)
-		throw InvalidProtocolException("szSSN == 0");
+    BYTE szSSN;
+    iStream.read(szSSN);
 
-	if (szSSN > 14)
-		throw InvalidProtocolException("too long name length");
+    if (szSSN == 0)
+        throw InvalidProtocolException("szSSN == 0");
 
-	iStream.read(m_SSN, szSSN);
+    if (szSSN > 14)
+        throw InvalidProtocolException("too long name length");
 
-	__END_CATCH
-}
-		    
-void CLDeletePC::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-		
-	BYTE szName = m_Name.size();
+    iStream.read(m_SSN, szSSN);
 
-	if (szName == 0)
-		throw InvalidProtocolException("szName == 0");
-
-	if (szName > 20)
-		throw InvalidProtocolException("too long name length");
-
-	oStream.write(szName);
-	oStream.write(m_Name);
-
-	oStream.write((BYTE)m_Slot);
-
-	BYTE szSSN = m_SSN.size();
-
-	if (szSSN== 0)
-		throw InvalidProtocolException("szSSN == 0");
-
-	if (szSSN > 14)
-		throw InvalidProtocolException("too long name length");
-
-	oStream.write(szSSN);
-	oStream.write(m_SSN);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLDeletePC::execute (Player* pPlayer) 
-	 
+void CLDeletePC::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	CLDeletePCHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    BYTE szName = m_Name.size();
+
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
+
+    oStream.write(szName);
+    oStream.write(m_Name);
+
+    oStream.write((BYTE)m_Slot);
+
+    BYTE szSSN = m_SSN.size();
+
+    if (szSSN == 0)
+        throw InvalidProtocolException("szSSN == 0");
+
+    if (szSSN > 14)
+        throw InvalidProtocolException("too long name length");
+
+    oStream.write(szSSN);
+    oStream.write(m_SSN);
+
+    __END_CATCH
 }
 
-string CLDeletePC::toString () const
-       
+void CLDeletePC::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CLDeletePC(Name:" << m_Name
-		<< ",Slot:" << (int)m_Slot
-		<< ",SSN:" << m_SSN
-		<< ")" ;
-	return msg.toString();
+    CLDeletePCHandler::execute(this, pPlayer);
 
-	__END_CATCH
+    __END_CATCH
 }
 
+string CLDeletePC::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CLDeletePC(Name:" << m_Name << ",Slot:" << (int)m_Slot << ",SSN:" << m_SSN << ")";
+    return msg.toString();
+
+    __END_CATCH
+}

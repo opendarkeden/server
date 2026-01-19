@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCNicknameVerify.cpp
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCNicknameVerify.h"
@@ -9,74 +9,72 @@
 //////////////////////////////////////////////////////////////////////////////
 // Initialize from the incoming stream.
 //////////////////////////////////////////////////////////////////////////////
-void GCNicknameVerify::read (SocketInputStream & iStream ) 
-	 
+void GCNicknameVerify::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_Code);
-	iStream.read(m_Parameter);
+    iStream.read(m_Code);
+    iStream.read(m_Parameter);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // Write the packet to the outgoing stream.
 //////////////////////////////////////////////////////////////////////////////
-void GCNicknameVerify::write (SocketOutputStream & oStream ) const 
-     
+void GCNicknameVerify::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_Code);
-	oStream.write(m_Parameter);
+    oStream.write(m_Code);
+    oStream.write(m_Parameter);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCNicknameVerify::execute (Player * pPlayer ) 
-	 
+void GCNicknameVerify::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCNicknameVerifyHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCNicknameVerifyHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // Packet size
 //////////////////////////////////////////////////////////////////////////////
 
-PacketSize_t GCNicknameVerify::getPacketSize () const 
-	 
+PacketSize_t GCNicknameVerify::getPacketSize() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PacketSize_t size = szBYTE + szuint;
+    PacketSize_t size = szBYTE + szuint;
 
-	return size;
+    return size;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCNicknameVerify::toString () const
-       
+string GCNicknameVerify::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCNicknameVerify(" 
-	    << "Code : " << (int)m_Code 
-		<< "Parameter : " << (int)m_Parameter
-	    << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCNicknameVerify("
+        << "Code : " << (int)m_Code << "Parameter : " << (int)m_Parameter << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

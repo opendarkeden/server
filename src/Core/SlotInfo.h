@@ -10,11 +10,12 @@
 #define __SLOT_INFO_H__
 
 // include files
-#include "Types.h"
+#include <list>
+
 #include "Exception.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include <list>
+#include "Types.h"
 
 //----------------------------------------------------------------------
 //
@@ -26,87 +27,120 @@
 //----------------------------------------------------------------------
 
 class SlotInfo {
+public:
+    // read data from socket input stream
+    void read(SocketInputStream& iStream);
 
-public :
+    // write data to socket output stream
+    void write(SocketOutputStream& oStream) const;
 
-	// read data from socket input stream
-	void read (SocketInputStream & iStream) ;
+    // get size of object
+    uint getSize() const {
+        return 0;
+    }
 
-	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const ;
+    // get max size of object
+    static uint getMaxSize() {
+        return 0;
+    }
 
-	// get size of object
-	uint getSize () const 
-	{ return 0; }
+    // get debug string
+    string toString() const;
 
-	// get max size of object
-	static uint getMaxSize () 
-	{ return 0; }
+public:
+    // get/set ObjectID
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
 
-	// get debug string
-	string toString () const ;
+    // get/set ItemClass
+    void setItemClass(BYTE IClass) {
+        m_IClass = IClass;
+    }
+    BYTE getItemClass() const {
+        return m_IClass;
+    }
 
-public :
+    // get/set ItemType
+    void setItemType(ItemType_t ItemType) {
+        m_ItemType = ItemType;
+    }
+    ItemType_t getItemType() const {
+        return m_ItemType;
+    }
 
-	// get/set ObjectID
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
-	ObjectID_t getObjectID() const  { return m_ObjectID; }
+    // get/set OptionType
+    void addOptionType(OptionType_t OptionType) {
+        m_OptionType.push_back(OptionType);
+    }
+    void setOptionType(const list<OptionType_t>& OptionType) {
+        m_OptionType = OptionType;
+    }
+    int getOptionTypeSize() const {
+        return m_OptionType.size();
+    }
+    const list<OptionType_t>& getOptionType() const {
+        return m_OptionType;
+    }
+    OptionType_t popOptionType() {
+        if (m_OptionType.empty())
+            return 0;
+        OptionType_t optionType = m_OptionType.front();
+        m_OptionType.pop_front();
+        return optionType;
+    }
 
-	// get/set ItemClass
-	void setItemClass (BYTE IClass)  { m_IClass = IClass; }
-	BYTE getItemClass () const  { return m_IClass; }
+    // get/set InvenX
+    void setInvenX(CoordInven_t InvenX) {
+        m_InvenX = InvenX;
+    }
+    CoordInven_t getInvenX() const {
+        return m_InvenX;
+    }
 
-	// get/set ItemType
-	void setItemType (ItemType_t ItemType)  { m_ItemType = ItemType; }
-	ItemType_t getItemType() const  { return m_ItemType; }
+    // get/set InvenY
+    void setInvenY(CoordInven_t InvenY) {
+        m_InvenY = InvenY;
+    }
+    CoordInven_t getInvenY() const {
+        return m_InvenY;
+    }
 
-	// get/set OptionType
-	void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back( OptionType ); }
-	void setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
-	int getOptionTypeSize() const 	{ return m_OptionType.size(); }
-	const list<OptionType_t>& getOptionType() const  { return m_OptionType; }
-	OptionType_t popOptionType() 
-	{
-		if (m_OptionType.empty()) return 0;
-		OptionType_t optionType = m_OptionType.front();
-		m_OptionType.pop_front();
-		return optionType;
-	}
+    // get/set ItemNum
+    void setItemNum(ItemNum_t ItemNum) {
+        m_ItemNum = ItemNum;
+    }
+    ItemNum_t getItemNum() const {
+        return m_ItemNum;
+    }
 
-	// get/set InvenX
-	void setInvenX(CoordInven_t InvenX)  { m_InvenX = InvenX; }
-	CoordInven_t getInvenX() const  { return m_InvenX; }
+    // get/set MainColor
+    void setMainColor(WORD MainColor) {
+        m_MainColor = MainColor;
+    }
+    WORD getMainColor() const {
+        return m_MainColor;
+    }
 
-	// get/set InvenY
-	void setInvenY(CoordInven_t InvenY)  { m_InvenY = InvenY; }
-	CoordInven_t getInvenY() const  { return m_InvenY; }
+private:
+    ObjectID_t m_ObjectID;
 
-	// get/set ItemNum
-	void setItemNum (ItemNum_t ItemNum)  { m_ItemNum = ItemNum; }
-	ItemNum_t getItemNum() const  { return m_ItemNum; }
+    BYTE m_IClass;
 
-	// get/set MainColor
-	void setMainColor(WORD MainColor)  { m_MainColor = MainColor; }
-	WORD getMainColor() const  { return m_MainColor; }
+    ItemType_t m_ItemType;
 
-private :
+    list<OptionType_t> m_OptionType;
 
-	ObjectID_t m_ObjectID;
+    CoordInven_t m_InvenX;
 
-	BYTE m_IClass;
+    CoordInven_t m_InvenY;
 
-	ItemType_t m_ItemType;
+    ItemNum_t m_ItemNum;
 
-	list<OptionType_t> m_OptionType;
-
-	CoordInven_t m_InvenX;
-
-	CoordInven_t m_InvenY;
-
-	ItemNum_t m_ItemNum;
-
-	WORD m_MainColor;
-
+    WORD m_MainColor;
 };
 
 #endif

@@ -2,93 +2,81 @@
 // 占쏙옙占쏙옙占쌕몌옙占쏙옙 占쌜억옙占쏙옙 占쏙옙占쏙옙 Schedule 클占쏙옙占쏙옙 占쏙옙占쏙옙
 ///////////////////////////////////////////////////////////////////
 
-#include "Exception.h"
-#include "Work.h"
-#include "StringStream.h"
-
 #include "Schedule.h"
 
-Schedule::Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type )
-	
-: m_ScheduleType( type ), m_pWork( pWork ), m_ScheduledTime( Time )
-{
-	__BEGIN_TRY
+#include "Exception.h"
+#include "StringStream.h"
+#include "Work.h"
 
-	//m_LimitCheckDateTime 	= VSDateTime::currentDateTime().addDays(1);
-	//m_LimitCheckTime	 	= VSTime::currentTime().addSecs(60);
-//	m_WrongCount 			= 0;
+Schedule::Schedule(Work* pWork, const VSDateTime& Time, ScheduleType type)
 
-	__END_CATCH
+    : m_ScheduleType(type), m_pWork(pWork),
+      m_ScheduledTime(Time){__BEGIN_TRY
+
+                                // m_LimitCheckDateTime 	= VSDateTime::currentDateTime().addDays(1);
+                                // m_LimitCheckTime	 	= VSTime::currentTime().addSecs(60);
+                                //	m_WrongCount 			= 0;
+
+                                __END_CATCH}
+
+      Schedule::~Schedule() noexcept {
+    try {
+        SAFE_DELETE(m_pWork);
+    } catch (...) {
+        // destructor must not throw
+    }
 }
 
-Schedule::~Schedule() noexcept
-{
-	try
-	{
-		SAFE_DELETE(m_pWork);
-	}
-	catch (...)
-	{
-		// destructor must not throw
-	}
-}
+Work* Schedule::popWork() {
+    Work* pWork = m_pWork;
 
-Work*
-Schedule::popWork()
-{
-	Work* pWork = m_pWork;
+    m_pWork = NULL;
 
-	m_pWork = NULL;
-
-	return pWork;
+    return pWork;
 }
 
 bool Schedule::heartbeat()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//VSDateTime current( VSDateTime::currentDateTime() );
-	VSDate cd = VSDate::currentDate();
-	VSTime ct = VSTime::currentTime();
+    // VSDateTime current( VSDateTime::currentDateTime() );
+    VSDate cd = VSDate::currentDate();
+    VSTime ct = VSTime::currentTime();
 
-	VSDateTime current = VSDateTime( cd, ct );
+    VSDateTime current = VSDateTime(cd, ct);
 
-	if( current >= m_ScheduledTime )
-	{
-		filelog("Schedule.txt", "Execute(%s >= %s) : %s", 
-					current.toString().c_str(), 
-					m_ScheduledTime.toString().c_str(),
-					m_pWork->toString().c_str());
+    if (current >= m_ScheduledTime) {
+        filelog("Schedule.txt", "Execute(%s >= %s) : %s", current.toString().c_str(),
+                m_ScheduledTime.toString().c_str(), m_pWork->toString().c_str());
 
-		m_pWork->execute();
-		return true;
-	}
+        m_pWork->execute();
+        return true;
+    }
 
-	return false;
+    return false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 string Schedule::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "Schedule("
-		<< "ScheduleType:" << (int)m_ScheduleType
-		<< ",ScheduledTime:" << m_ScheduledTime.toString();
+    msg << "Schedule("
+        << "ScheduleType:" << (int)m_ScheduleType << ",ScheduledTime:" << m_ScheduledTime.toString();
 
-		if (m_pWork==NULL)
-			msg << ",Work:NULL";
-		else
-			msg << ",Work:" << m_pWork->toString();
+    if (m_pWork == NULL)
+        msg << ",Work:NULL";
+    else
+        msg << ",Work:" << m_pWork->toString();
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -1,198 +1,194 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCGoodsList.cpp 
+// Filename    : GCGoodsList.cpp
 // Written By  : 김성민
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCGoodsList.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 
-GCGoodsList::GCGoodsList() 
-	
-{
-	__BEGIN_TRY
+GCGoodsList::GCGoodsList()
 
-	m_GoodsList.clear();
- 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    m_GoodsList.clear();
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-GCGoodsList::~GCGoodsList() 
-	
+GCGoodsList::~GCGoodsList()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	list<GoodsInfo*>::iterator itr = m_GoodsList.begin();
-	list<GoodsInfo*>::iterator endItr = m_GoodsList.end();
+    list<GoodsInfo*>::iterator itr = m_GoodsList.begin();
+    list<GoodsInfo*>::iterator endItr = m_GoodsList.end();
 
-	for (; itr != endItr ; ++itr )
-	{
-		if (*itr != NULL ) SAFE_DELETE(*itr);
-	}
+    for (; itr != endItr; ++itr) {
+        if (*itr != NULL)
+            SAFE_DELETE(*itr);
+    }
 
-	m_GoodsList.clear();
-	
-	__END_CATCH_NO_RETHROW
+    m_GoodsList.clear();
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCGoodsList::read (SocketInputStream & iStream ) 
-	 
+void GCGoodsList::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE totalNum;
-	iStream.read(totalNum);
-	if (totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : totalNum greater than MAX_GOODS_LIST");
+    BYTE totalNum;
+    iStream.read(totalNum);
+    if (totalNum > MAX_GOODS_LIST)
+        throw DisconnectException("GCGoodsList : totalNum greater than MAX_GOODS_LIST");
 
-	for (int i=0; i < totalNum ; ++i )
-	{
-		GoodsInfo* pGI = new GoodsInfo;
+    for (int i = 0; i < totalNum; ++i) {
+        GoodsInfo* pGI = new GoodsInfo;
 
-		iStream.read(pGI->objectID);
-		iStream.read(pGI->itemClass);
-		iStream.read(pGI->itemType);
-		iStream.read(pGI->grade);
+        iStream.read(pGI->objectID);
+        iStream.read(pGI->itemClass);
+        iStream.read(pGI->itemType);
+        iStream.read(pGI->grade);
 
-		BYTE optionNum;
-		iStream.read(optionNum);
+        BYTE optionNum;
+        iStream.read(optionNum);
 
-		pGI->optionType.clear();
+        pGI->optionType.clear();
 
-		for (int j=0; j < optionNum ; ++j )
-		{
-			OptionType_t optionType;
-			iStream.read(optionType);
-			pGI->optionType.push_back(optionType);
-		}
-		
-		iStream.read(pGI->num);
-		iStream.read(pGI->timeLimit);
+        for (int j = 0; j < optionNum; ++j) {
+            OptionType_t optionType;
+            iStream.read(optionType);
+            pGI->optionType.push_back(optionType);
+        }
 
-		addGoodsInfo(pGI);
-	}
+        iStream.read(pGI->num);
+        iStream.read(pGI->timeLimit);
 
-	__END_CATCH
+        addGoodsInfo(pGI);
+    }
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCGoodsList::write (SocketOutputStream & oStream ) const 
-     
+void GCGoodsList::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
-		
-	BYTE totalNum = m_GoodsList.size();
-	if (totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : totalNum greater than MAX_GOODS_LIST");
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	oStream.write(totalNum);
-	
-	list<GoodsInfo*>::const_iterator itr = m_GoodsList.begin();
-	list<GoodsInfo*>::const_iterator endItr = m_GoodsList.end();
+    BYTE totalNum = m_GoodsList.size();
+    if (totalNum > MAX_GOODS_LIST)
+        throw DisconnectException("GCGoodsList : totalNum greater than MAX_GOODS_LIST");
 
-	for (; itr != endItr ; ++itr )
-	{
-		GoodsInfo* pGI = *itr;
-		Assert(pGI != NULL);
+    oStream.write(totalNum);
 
-		oStream.write(pGI->objectID);
-		oStream.write(pGI->itemClass);
-		oStream.write(pGI->itemType);
-		oStream.write(pGI->grade);
-		
-		BYTE optionNum = pGI->optionType.size();
-		oStream.write(optionNum);
+    list<GoodsInfo*>::const_iterator itr = m_GoodsList.begin();
+    list<GoodsInfo*>::const_iterator endItr = m_GoodsList.end();
 
-		list<OptionType_t>::const_iterator oitr = pGI->optionType.begin();
-		list<OptionType_t>::const_iterator endoItr = pGI->optionType.end();
+    for (; itr != endItr; ++itr) {
+        GoodsInfo* pGI = *itr;
+        Assert(pGI != NULL);
 
-		for (; oitr != endoItr ; ++oitr )
-		{
-			oStream.write(*oitr);
-		}
+        oStream.write(pGI->objectID);
+        oStream.write(pGI->itemClass);
+        oStream.write(pGI->itemType);
+        oStream.write(pGI->grade);
 
-		oStream.write(pGI->num);
-		oStream.write(pGI->timeLimit);
-	}
+        BYTE optionNum = pGI->optionType.size();
+        oStream.write(optionNum);
 
-	__END_DEBUG
-	__END_CATCH
+        list<OptionType_t>::const_iterator oitr = pGI->optionType.begin();
+        list<OptionType_t>::const_iterator endoItr = pGI->optionType.end();
+
+        for (; oitr != endoItr; ++oitr) {
+            oStream.write(*oitr);
+        }
+
+        oStream.write(pGI->num);
+        oStream.write(pGI->timeLimit);
+    }
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCGoodsList::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-	__BEGIN_DEBUG
-		
-	GCGoodsListHandler::execute(this , pPlayer);
+void GCGoodsList::execute(Player* pPlayer)
 
-	__END_DEBUG
-	__END_CATCH
+{
+    __BEGIN_TRY
+    __BEGIN_DEBUG
+
+    GCGoodsListHandler::execute(this, pPlayer);
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-PacketSize_t GCGoodsList::getPacketSize () const 
-	
-{ 
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+PacketSize_t GCGoodsList::getPacketSize() const
 
-	PacketSize_t size = szBYTE;
+{
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	list<GoodsInfo*>::const_iterator itr = m_GoodsList.begin();
-	list<GoodsInfo*>::const_iterator endItr = m_GoodsList.end();
+    PacketSize_t size = szBYTE;
 
-	for (; itr != endItr ; ++itr )
-	{
-		size += (*itr)->getPacketSize();
-	}
+    list<GoodsInfo*>::const_iterator itr = m_GoodsList.begin();
+    list<GoodsInfo*>::const_iterator endItr = m_GoodsList.end();
 
-	return size;
+    for (; itr != endItr; ++itr) {
+        size += (*itr)->getPacketSize();
+    }
 
-	__END_DEBUG
-	__END_CATCH
+    return size;
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCGoodsList::toString () const
-       
+string GCGoodsList::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCGoodsList(";
+    __BEGIN_TRY
 
-	list<GoodsInfo*>::const_iterator itr = m_GoodsList.begin();
-	list<GoodsInfo*>::const_iterator endItr = m_GoodsList.end();
+    StringStream msg;
+    msg << "GCGoodsList(";
 
-	for (; itr != endItr ; ++itr )
-	{
-		msg << (*itr)->toString();
-	}
+    list<GoodsInfo*>::const_iterator itr = m_GoodsList.begin();
+    list<GoodsInfo*>::const_iterator endItr = m_GoodsList.end();
 
-	msg << ")";
-	return msg.toString();
-		
-	__END_CATCH
+    for (; itr != endItr; ++itr) {
+        msg << (*itr)->toString();
+    }
+
+    msg << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-

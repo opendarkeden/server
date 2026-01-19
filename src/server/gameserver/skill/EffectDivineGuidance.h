@@ -14,35 +14,48 @@
 // class EffectDivineGuidance
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDivineGuidance : public Effect 
-{
+class EffectDivineGuidance : public Effect {
 public:
-	EffectDivineGuidance(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DIVINE_GUIDANCE; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	string toString() const throw();
+    EffectDivineGuidance(Creature* pCreature);
 
 public:
-	HP_t getPoint() const throw() { return m_Point; }
-	void setPoint(HP_t Point) throw() { m_Point = Point; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_DIVINE_GUIDANCE;
+    }
 
-	Turn_t getTick() const throw() { return m_Tick; }
-	void setTick(Turn_t Tick) throw() { m_Tick = Tick; }
+    void affect();
+    void affect(Creature* pCreature);
 
-	void setUserObjectID(ObjectID_t oid) throw() { m_UserObjectID = oid; }
-	ObjectID_t getUserObjectID() const throw() { return m_UserObjectID; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    string toString() const throw();
+
+public:
+    HP_t getPoint() const throw() {
+        return m_Point;
+    }
+    void setPoint(HP_t Point) throw() {
+        m_Point = Point;
+    }
+
+    Turn_t getTick() const throw() {
+        return m_Tick;
+    }
+    void setTick(Turn_t Tick) throw() {
+        m_Tick = Tick;
+    }
+
+    void setUserObjectID(ObjectID_t oid) throw() {
+        m_UserObjectID = oid;
+    }
+    ObjectID_t getUserObjectID() const throw() {
+        return m_UserObjectID;
+    }
 
 private:
-	HP_t    m_Point;
-	Turn_t	m_Tick;
-	ObjectID_t m_UserObjectID;
+    HP_t m_Point;
+    Turn_t m_Tick;
+    ObjectID_t m_UserObjectID;
 };
 
 #endif // __EFFECT_DIVINE_GUIDANCE__

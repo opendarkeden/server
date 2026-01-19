@@ -7,8 +7,8 @@
 #ifndef __PC_OUSTERS_INFO_3_H__
 #define __PC_OUSTERS_INFO_3_H__
 
-#include "PCInfo.h"
 #include "Assert.h"
+#include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class PCOustersInfo3;
@@ -16,253 +16,333 @@
 // GCAddOusters, GCAddOustersCorpse 에 담겨서 전송된다.
 //////////////////////////////////////////////////////////////////////////////
 
-class PCOustersInfo3 : public PCInfo 
-{
+class PCOustersInfo3 : public PCInfo {
 public:
-	// Ousters Color Informations
-	enum OustersColors 
-	{
-		OUSTERS_COLOR_COAT,
-		OUSTERS_COLOR_HAIR,
-		OUSTERS_COLOR_ARM,
-		OUSTERS_COLOR_BOOTS,
-		OUSTERS_COLOR_MAX
-	};
+    // Ousters Color Informations
+    enum OustersColors {
+        OUSTERS_COLOR_COAT,
+        OUSTERS_COLOR_HAIR,
+        OUSTERS_COLOR_ARM,
+        OUSTERS_COLOR_BOOTS,
+        OUSTERS_COLOR_MAX
+    };
 
 public:
-	PCOustersInfo3 ()  
-	{
-	}
+    PCOustersInfo3() {}
 
-	PCOustersInfo3 (const PCOustersInfo3 & oustersInfo) 
-		: m_ObjectID(oustersInfo.m_ObjectID), m_Name(oustersInfo.m_Name), 
-		m_X(oustersInfo.m_X), m_Y(oustersInfo.m_Y), m_Dir(oustersInfo.m_Dir),
-		m_Sex(oustersInfo.m_Sex), m_CoatType(oustersInfo.m_CoatType), m_ArmType(oustersInfo.m_ArmType), m_SylphType(oustersInfo.m_SylphType),
-		m_MasterEffectColor(oustersInfo.m_MasterEffectColor),
-		m_CurrentHP(oustersInfo.m_CurrentHP), m_MaxHP(oustersInfo.m_MaxHP), m_AttackSpeed(oustersInfo.m_AttackSpeed),
-		m_Alignment(oustersInfo.m_Alignment), m_GuildID(oustersInfo.m_GuildID),
-		m_Rank(oustersInfo.m_Rank), m_AdvancementLevel(oustersInfo.m_AdvancementLevel)
-	{
-		for (uint i = 0 ; i < OUSTERS_COLOR_MAX ; i ++)
-			m_Colors[i] = oustersInfo.m_Colors[i];
+    PCOustersInfo3(const PCOustersInfo3& oustersInfo)
+        : m_ObjectID(oustersInfo.m_ObjectID), m_Name(oustersInfo.m_Name), m_X(oustersInfo.m_X), m_Y(oustersInfo.m_Y),
+          m_Dir(oustersInfo.m_Dir), m_Sex(oustersInfo.m_Sex), m_CoatType(oustersInfo.m_CoatType),
+          m_ArmType(oustersInfo.m_ArmType), m_SylphType(oustersInfo.m_SylphType),
+          m_MasterEffectColor(oustersInfo.m_MasterEffectColor), m_CurrentHP(oustersInfo.m_CurrentHP),
+          m_MaxHP(oustersInfo.m_MaxHP), m_AttackSpeed(oustersInfo.m_AttackSpeed), m_Alignment(oustersInfo.m_Alignment),
+          m_GuildID(oustersInfo.m_GuildID), m_Rank(oustersInfo.m_Rank),
+          m_AdvancementLevel(oustersInfo.m_AdvancementLevel) {
+        for (uint i = 0; i < OUSTERS_COLOR_MAX; i++)
+            m_Colors[i] = oustersInfo.m_Colors[i];
 
-		m_Competence = oustersInfo.m_Competence;
-	}
-	
-public:
-	PCType getPCType () const  { return PC_OUSTERS; }
-
-	void read (SocketInputStream & iStream) ;
-	void write (SocketOutputStream & oStream) const ;
-
-	uint getSize () const 
-	{
-		return szObjectID					// ObjectID
-			+ szBYTE + m_Name.size() 		// 뱀파이어 이름
-			+ szCoord + szCoord + szDir 	// 좌표와 방향				
-			+ szSex							// 성별
-			+ szBYTE						// shape
-			+ szColor* OUSTERS_COLOR_MAX	// 색상
-			+ szBYTE
-			+ szHP* 2						// 최대 체력
-			+ szAlignment					// 성향
-			+ szSpeed						// 공격 속도
-			+ szGuildID						// 길드 아이디
-			+ szRank						// 계급
-			+ szBYTE						// 권한
-			+ szuint
-			+ szLevel;
-	}
-
-	// get max size of object
-	static uint getMaxSize () 
-	{
-		return szObjectID					// ObjectID
-			+ szBYTE + 20 					// 뱀파이어 이름
-			+ szCoord + szCoord + szDir 	// 좌표와 방향				
-			+ szSex							// 성별
-			+ szBYTE						// shape
-			+ szColor* OUSTERS_COLOR_MAX	// 색상
-			+ szBYTE
-			+ szHP* 2						// 최대 체력
-			+ szSpeed						// 공격 속도
-			+ szGuildID						// 길드 아이디
-			+ szRank						// 계급
-			+ szBYTE						// 권한
-			+ szuint
-			+ szLevel;
-	}
-
-	PCOustersInfo3 & operator = (const PCOustersInfo3 & oustersInfo) 
-	{
-		if (&oustersInfo == this)
-			return *this;
-
-		m_ObjectID = oustersInfo.m_ObjectID;
-		m_Name = oustersInfo.m_Name;
-		m_X = oustersInfo.m_X;
-		m_Y = oustersInfo.m_Y;
-		m_Dir = oustersInfo.m_Dir;
-		m_Sex = oustersInfo.m_Sex;
-		m_CoatType = oustersInfo.m_CoatType;
-		m_ArmType = oustersInfo.m_ArmType;
-		m_SylphType = oustersInfo.m_SylphType;
-		m_CurrentHP = oustersInfo.m_CurrentHP;
-		m_MaxHP = oustersInfo.m_MaxHP;
-		m_AttackSpeed = oustersInfo.m_AttackSpeed;
-		m_Alignment = oustersInfo.m_Alignment;
-
-		for (uint i = 0 ; i < OUSTERS_COLOR_MAX ; i ++)
-			m_Colors[i] = oustersInfo.m_Colors[i];
-
-		m_MasterEffectColor = oustersInfo.m_MasterEffectColor;
-
-		m_Competence = oustersInfo.m_Competence;
-
-		m_GuildID = oustersInfo.m_GuildID;
-		m_UnionID = oustersInfo.m_UnionID;
-		m_Rank = oustersInfo.m_Rank;
-		m_AdvancementLevel = oustersInfo.m_AdvancementLevel;
-
-		return *this;
-	}
-
-	string toString () const ;
+        m_Competence = oustersInfo.m_Competence;
+    }
 
 public:
-	ObjectID_t getObjectID () const  { return m_ObjectID; }
-	void setObjectID (ObjectID_t objectID)  { m_ObjectID = objectID; }
+    PCType getPCType() const {
+        return PC_OUSTERS;
+    }
 
-    string getName () const  { return m_Name; }
-    void setName (const string & name)  { m_Name = name; Assert(m_Name != ""); }
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
 
-	Coord_t getX () const  { return m_X; }
-	void setX (Coord_t x)  { m_X = x; }
+    uint getSize() const {
+        return szObjectID                    // ObjectID
+               + szBYTE + m_Name.size()      // 뱀파이어 이름
+               + szCoord + szCoord + szDir   // 좌표와 방향
+               + szSex                       // 성별
+               + szBYTE                      // shape
+               + szColor * OUSTERS_COLOR_MAX // 색상
+               + szBYTE + szHP * 2           // 최대 체력
+               + szAlignment                 // 성향
+               + szSpeed                     // 공격 속도
+               + szGuildID                   // 길드 아이디
+               + szRank                      // 계급
+               + szBYTE                      // 권한
+               + szuint + szLevel;
+    }
 
-	Coord_t getY () const  { return m_Y; }
-	void setY (Coord_t y)  { m_Y = y; }
+    // get max size of object
+    static uint getMaxSize() {
+        return szObjectID                    // ObjectID
+               + szBYTE + 20                 // 뱀파이어 이름
+               + szCoord + szCoord + szDir   // 좌표와 방향
+               + szSex                       // 성별
+               + szBYTE                      // shape
+               + szColor * OUSTERS_COLOR_MAX // 색상
+               + szBYTE + szHP * 2           // 최대 체력
+               + szSpeed                     // 공격 속도
+               + szGuildID                   // 길드 아이디
+               + szRank                      // 계급
+               + szBYTE                      // 권한
+               + szuint + szLevel;
+    }
 
-	Dir_t getDir () const  { return m_Dir; }
-	void setDir (Dir_t dir)  { m_Dir = dir; }
+    PCOustersInfo3& operator=(const PCOustersInfo3& oustersInfo) {
+        if (&oustersInfo == this)
+            return *this;
 
-	Sex getSex () const  { return m_Sex; }
-	void setSex (Sex sex)  { m_Sex = sex; }
-	void setSex (const string & sex) 
-	{
-		if (sex == Sex2String[MALE]) 
-			m_Sex = MALE;
-		else if (sex == Sex2String[FEMALE]) 
-			m_Sex = FEMALE;
-		else
-			throw InvalidProtocolException("invalid sex value");
-	}
+        m_ObjectID = oustersInfo.m_ObjectID;
+        m_Name = oustersInfo.m_Name;
+        m_X = oustersInfo.m_X;
+        m_Y = oustersInfo.m_Y;
+        m_Dir = oustersInfo.m_Dir;
+        m_Sex = oustersInfo.m_Sex;
+        m_CoatType = oustersInfo.m_CoatType;
+        m_ArmType = oustersInfo.m_ArmType;
+        m_SylphType = oustersInfo.m_SylphType;
+        m_CurrentHP = oustersInfo.m_CurrentHP;
+        m_MaxHP = oustersInfo.m_MaxHP;
+        m_AttackSpeed = oustersInfo.m_AttackSpeed;
+        m_Alignment = oustersInfo.m_Alignment;
 
-	Color_t getCoatColor () const  { return m_Colors[OUSTERS_COLOR_COAT]; }
-	void setCoatColor (Color_t coatColor)  { m_Colors[OUSTERS_COLOR_COAT] = coatColor; }
+        for (uint i = 0; i < OUSTERS_COLOR_MAX; i++)
+            m_Colors[i] = oustersInfo.m_Colors[i];
 
-	Color_t getHairColor () const  { return m_Colors[OUSTERS_COLOR_HAIR]; }
-	void setHairColor (Color_t hairColor)  { m_Colors[OUSTERS_COLOR_HAIR] = hairColor; }
+        m_MasterEffectColor = oustersInfo.m_MasterEffectColor;
 
-	Color_t getArmColor () const  { return m_Colors[OUSTERS_COLOR_ARM]; }
-	void setArmColor (Color_t armColor)  { m_Colors[OUSTERS_COLOR_ARM] = armColor; }
+        m_Competence = oustersInfo.m_Competence;
 
-	Color_t getBootsColor () const  { return m_Colors[OUSTERS_COLOR_BOOTS]; }
-	void setBootsColor (Color_t bootsColor)  { m_Colors[OUSTERS_COLOR_BOOTS] = bootsColor; }
+        m_GuildID = oustersInfo.m_GuildID;
+        m_UnionID = oustersInfo.m_UnionID;
+        m_Rank = oustersInfo.m_Rank;
+        m_AdvancementLevel = oustersInfo.m_AdvancementLevel;
 
-	BYTE getMasterEffectColor() const { return m_MasterEffectColor; }
-	void setMasterEffectColor( BYTE color ) { m_MasterEffectColor = color; }
+        return *this;
+    }
 
-	OustersCoatType getCoatType() const  { return m_CoatType; }
-    void setCoatType(OustersCoatType CoatType)  { m_CoatType = CoatType; }
+    string toString() const;
 
-	OustersArmType getArmType() const  { return m_ArmType; }
-    void setArmType(OustersArmType ArmType)  { m_ArmType = ArmType; }
+public:
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t objectID) {
+        m_ObjectID = objectID;
+    }
 
-	OustersSylphType getSylphType() const  { return m_SylphType; }
-    void setSylphType(OustersSylphType SylphType)  { m_SylphType = SylphType; }
+    string getName() const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+        Assert(m_Name != "");
+    }
 
-	HP_t getCurrentHP() const  { return m_CurrentHP; }
-	void setCurrentHP(HP_t CurrentHP)  { m_CurrentHP = CurrentHP; }
+    Coord_t getX() const {
+        return m_X;
+    }
+    void setX(Coord_t x) {
+        m_X = x;
+    }
 
-	HP_t getMaxHP() const  { return m_MaxHP; }
-	void setMaxHP(HP_t MaxHP)  { m_MaxHP = MaxHP; }
+    Coord_t getY() const {
+        return m_Y;
+    }
+    void setY(Coord_t y) {
+        m_Y = y;
+    }
 
-	Speed_t getAttackSpeed() const  { return m_AttackSpeed; }
-	void setAttackSpeed(Speed_t AttackSpeed)  { m_AttackSpeed = AttackSpeed; }
+    Dir_t getDir() const {
+        return m_Dir;
+    }
+    void setDir(Dir_t dir) {
+        m_Dir = dir;
+    }
 
-	Alignment_t getAlignment() const  { return m_Alignment; }
-	void setAlignment(Alignment_t Alignment)   { m_Alignment = Alignment; }
+    Sex getSex() const {
+        return m_Sex;
+    }
+    void setSex(Sex sex) {
+        m_Sex = sex;
+    }
+    void setSex(const string& sex) {
+        if (sex == Sex2String[MALE])
+            m_Sex = MALE;
+        else if (sex == Sex2String[FEMALE])
+            m_Sex = FEMALE;
+        else
+            throw InvalidProtocolException("invalid sex value");
+    }
 
-	BYTE getCompetence(void) const { return m_Competence; }
-	void setCompetence(BYTE competence) { m_Competence = competence; }
+    Color_t getCoatColor() const {
+        return m_Colors[OUSTERS_COLOR_COAT];
+    }
+    void setCoatColor(Color_t coatColor) {
+        m_Colors[OUSTERS_COLOR_COAT] = coatColor;
+    }
 
-	GuildID_t getGuildID(void) const { return m_GuildID; }
-	void setGuildID(GuildID_t GuildID ) { m_GuildID = GuildID; }
+    Color_t getHairColor() const {
+        return m_Colors[OUSTERS_COLOR_HAIR];
+    }
+    void setHairColor(Color_t hairColor) {
+        m_Colors[OUSTERS_COLOR_HAIR] = hairColor;
+    }
 
-	uint getUnionID(void) const { return m_UnionID; }
-	void setUnionID(uint UnionID ) { m_UnionID = UnionID; }
+    Color_t getArmColor() const {
+        return m_Colors[OUSTERS_COLOR_ARM];
+    }
+    void setArmColor(Color_t armColor) {
+        m_Colors[OUSTERS_COLOR_ARM] = armColor;
+    }
 
-	Rank_t getRank () const  { return m_Rank; }
-	void setRank (Rank_t rank)  { m_Rank = rank; }
+    Color_t getBootsColor() const {
+        return m_Colors[OUSTERS_COLOR_BOOTS];
+    }
+    void setBootsColor(Color_t bootsColor) {
+        m_Colors[OUSTERS_COLOR_BOOTS] = bootsColor;
+    }
 
-	Level_t	getAdvancementLevel() const { return m_AdvancementLevel; }
-	void setAdvancementLevel( Level_t level ) { m_AdvancementLevel = level; }
+    BYTE getMasterEffectColor() const {
+        return m_MasterEffectColor;
+    }
+    void setMasterEffectColor(BYTE color) {
+        m_MasterEffectColor = color;
+    }
 
-private :
+    OustersCoatType getCoatType() const {
+        return m_CoatType;
+    }
+    void setCoatType(OustersCoatType CoatType) {
+        m_CoatType = CoatType;
+    }
 
-	// PC's object id
-	ObjectID_t m_ObjectID;
+    OustersArmType getArmType() const {
+        return m_ArmType;
+    }
+    void setArmType(OustersArmType ArmType) {
+        m_ArmType = ArmType;
+    }
 
-	// PC name
-	string m_Name;
+    OustersSylphType getSylphType() const {
+        return m_SylphType;
+    }
+    void setSylphType(OustersSylphType SylphType) {
+        m_SylphType = SylphType;
+    }
 
-	Coord_t m_X;
-	Coord_t m_Y;
-	Dir_t m_Dir;
+    HP_t getCurrentHP() const {
+        return m_CurrentHP;
+    }
+    void setCurrentHP(HP_t CurrentHP) {
+        m_CurrentHP = CurrentHP;
+    }
 
-	// PC sex
-	Sex m_Sex;
+    HP_t getMaxHP() const {
+        return m_MaxHP;
+    }
+    void setMaxHP(HP_t MaxHP) {
+        m_MaxHP = MaxHP;
+    }
 
-	// CoatType
-	OustersCoatType m_CoatType;
+    Speed_t getAttackSpeed() const {
+        return m_AttackSpeed;
+    }
+    void setAttackSpeed(Speed_t AttackSpeed) {
+        m_AttackSpeed = AttackSpeed;
+    }
 
-	// ArmType
-	OustersArmType m_ArmType;
+    Alignment_t getAlignment() const {
+        return m_Alignment;
+    }
+    void setAlignment(Alignment_t Alignment) {
+        m_Alignment = Alignment;
+    }
 
-	// SylphType
-	OustersSylphType m_SylphType;
+    BYTE getCompetence(void) const {
+        return m_Competence;
+    }
+    void setCompetence(BYTE competence) {
+        m_Competence = competence;
+    }
 
-	// colors
-	Color_t m_Colors[OUSTERS_COLOR_MAX];
+    GuildID_t getGuildID(void) const {
+        return m_GuildID;
+    }
+    void setGuildID(GuildID_t GuildID) {
+        m_GuildID = GuildID;
+    }
 
-	// 마스터 이펙트 색깔
-	BYTE m_MasterEffectColor;
+    uint getUnionID(void) const {
+        return m_UnionID;
+    }
+    void setUnionID(uint UnionID) {
+        m_UnionID = UnionID;
+    }
 
-	// Current HP
-	HP_t m_CurrentHP;
+    Rank_t getRank() const {
+        return m_Rank;
+    }
+    void setRank(Rank_t rank) {
+        m_Rank = rank;
+    }
 
-	// Max HP
-	HP_t m_MaxHP;
+    Level_t getAdvancementLevel() const {
+        return m_AdvancementLevel;
+    }
+    void setAdvancementLevel(Level_t level) {
+        m_AdvancementLevel = level;
+    }
 
-	// Attack Speed
-	Speed_t m_AttackSpeed;
+private:
+    // PC's object id
+    ObjectID_t m_ObjectID;
 
-	// 성향
-	Alignment_t m_Alignment;
+    // PC name
+    string m_Name;
 
-	// 권한
-	BYTE m_Competence; 
+    Coord_t m_X;
+    Coord_t m_Y;
+    Dir_t m_Dir;
 
-	// 길드 아이디
-	GuildID_t m_GuildID;
+    // PC sex
+    Sex m_Sex;
 
-	uint m_UnionID;
+    // CoatType
+    OustersCoatType m_CoatType;
 
-	// 계급
-	Rank_t		m_Rank;
+    // ArmType
+    OustersArmType m_ArmType;
 
-	Level_t		m_AdvancementLevel;
+    // SylphType
+    OustersSylphType m_SylphType;
 
+    // colors
+    Color_t m_Colors[OUSTERS_COLOR_MAX];
+
+    // 마스터 이펙트 색깔
+    BYTE m_MasterEffectColor;
+
+    // Current HP
+    HP_t m_CurrentHP;
+
+    // Max HP
+    HP_t m_MaxHP;
+
+    // Attack Speed
+    Speed_t m_AttackSpeed;
+
+    // 성향
+    Alignment_t m_Alignment;
+
+    // 권한
+    BYTE m_Competence;
+
+    // 길드 아이디
+    GuildID_t m_GuildID;
+
+    uint m_UnionID;
+
+    // 계급
+    Rank_t m_Rank;
+
+    Level_t m_AdvancementLevel;
 };
 
 #endif

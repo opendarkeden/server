@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TornadoSever.h 
+// Filename    : TornadoSever.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TORNADO_SEVER_HANDLER_H__
@@ -13,24 +13,26 @@
 // class TornadoSever;
 //////////////////////////////////////////////////////////////////////////////
 
-class TornadoSever : public SkillHandler 
-{
+class TornadoSever : public SkillHandler {
 public:
-	TornadoSever() throw();
-	~TornadoSever() throw() {}
-	
+    TornadoSever() throw();
+    ~TornadoSever() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "TornadoSever"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TORNADO_SEVER; }
+    string getSkillHandlerName() const throw() {
+        return "TornadoSever";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TORNADO_SEVER;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 protected:
-	POINT m_pTornadoSeverMask[9];
-
+    POINT m_pTornadoSeverMask[9];
 };
 
 // global variable declaration

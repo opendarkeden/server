@@ -1,72 +1,59 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCPartyInvite.cpp 
+// Filename    : GCPartyInvite.cpp
 // Written By  : Rewster
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCPartyInvite.h"
 
-const string GCPartyInvite2String[] =
-{
-	"REQUEST",
-	"CANCEL",
-	"ACCEPT",
-	"REJECT",
-	"BUSY",
-	"ANOTHER_PARTY",
-	"MEMBER_FULL",
-	"MAX"
-};
+const string GCPartyInvite2String[] = {"REQUEST", "CANCEL",        "ACCEPT",      "REJECT",
+                                       "BUSY",    "ANOTHER_PARTY", "MEMBER_FULL", "MAX"};
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCPartyInvite member methods
 //////////////////////////////////////////////////////////////////////////////
 
-void GCPartyInvite::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
+void GCPartyInvite::read(SocketInputStream& iStream)
 
-	iStream.read(m_Code);
-	iStream.read(m_TargetObjectID);
-		
-	__END_CATCH
-}
-		    
-void GCPartyInvite::write (SocketOutputStream & oStream) const 
-     
 {
-	__BEGIN_TRY
-	
-	oStream.write(m_Code);
-	oStream.write(m_TargetObjectID);
+    __BEGIN_TRY
 
-	__END_CATCH
+    iStream.read(m_Code);
+    iStream.read(m_TargetObjectID);
+
+    __END_CATCH
 }
 
-void GCPartyInvite::execute (Player * pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCPartyInviteHandler::execute(this , pPlayer);
+void GCPartyInvite::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_Code);
+    oStream.write(m_TargetObjectID);
+
+    __END_CATCH
 }
 
-string GCPartyInvite::toString () const
-       
+void GCPartyInvite::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCPartyInvite("
-		<< "CODE:" << GCPartyInvite2String[m_Code]
-		<< "TOID:" << m_TargetObjectID
-		<< ")";
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCPartyInviteHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
+string GCPartyInvite::toString() const
 
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCPartyInvite("
+        << "CODE:" << GCPartyInvite2String[m_Code] << "TOID:" << m_TargetObjectID << ")";
+    return msg.toString();
+
+    __END_CATCH
+}

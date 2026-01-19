@@ -1,38 +1,33 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionTutorial.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionTutorial.h"
+
 #include "Creature.h"
 #include "GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionTutorial::read (PropertyBuffer & propertyBuffer)
-    
+void ActionTutorial::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		m_Interface = propertyBuffer.getProperty("Interface");
+    try {
+        m_Interface = propertyBuffer.getProperty("Interface");
 
-		if (m_Interface != "COMPUTER" && 
-			m_Interface != "BRIEFING" && 
-			m_Interface != "BOOKCASE") 
-		{
-			throw Error("ActionTutorial::read() : Unknown interface type");
-		}
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+        if (m_Interface != "COMPUTER" && m_Interface != "BRIEFING" && m_Interface != "BOOKCASE") {
+            throw Error("ActionTutorial::read() : Unknown interface type");
+        }
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -40,53 +35,47 @@ void ActionTutorial::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionTutorial::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionTutorial::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	GCNPCResponse pkt;
+    GCNPCResponse pkt;
 
-	if (m_Interface == "COMPUTER")
-	{
-		pkt.setCode(NPC_RESPONSE_INTERFACE_TUTORIAL_COMPUTER);
-	}
-	else if (m_Interface == "BRIEFING")
-	{
-		pkt.setCode(NPC_RESPONSE_INTERFACE_TUTORIAL_BRIEFING);
-	}
-	else if (m_Interface == "BOOKCASE")
-	{
-		pkt.setCode(NPC_RESPONSE_INTERFACE_TUTORIAL_BOOKCASE);
-	}
+    if (m_Interface == "COMPUTER") {
+        pkt.setCode(NPC_RESPONSE_INTERFACE_TUTORIAL_COMPUTER);
+    } else if (m_Interface == "BRIEFING") {
+        pkt.setCode(NPC_RESPONSE_INTERFACE_TUTORIAL_BRIEFING);
+    } else if (m_Interface == "BOOKCASE") {
+        pkt.setCode(NPC_RESPONSE_INTERFACE_TUTORIAL_BOOKCASE);
+    }
 
-	Player* pPlayer = pCreature2->getPlayer();
-	pPlayer->sendPacket(&pkt);
+    Player* pPlayer = pCreature2->getPlayer();
+    pPlayer->sendPacket(&pkt);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionTutorial::toString () const 
-	
+string ActionTutorial::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "ActionTutorial("
-		<< "Interface : " << m_Interface
-	    << ")";
+    msg << "ActionTutorial("
+        << "Interface : " << m_Interface << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

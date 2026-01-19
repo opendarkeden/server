@@ -1,54 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGTradePrepare.cpp 
+// Filename    : CGTradePrepare.cpp
 // Written By  : Rewster
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGTradePrepare.h"
 
-void CGTradePrepare::read (SocketInputStream & iStream) 
-	 
+void CGTradePrepare::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_TargetObjectID);
-	iStream.read(m_Code);
+    iStream.read(m_TargetObjectID);
+    iStream.read(m_Code);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGTradePrepare::write (SocketOutputStream & oStream) const 
-     
+void CGTradePrepare::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_TargetObjectID);
-	oStream.write(m_Code);
+    oStream.write(m_TargetObjectID);
+    oStream.write(m_Code);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGTradePrepare::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGTradePrepare::execute(Player* pPlayer)
 
-	CGTradePrepareHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGTradePrepareHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGTradePrepare::toString () 
-	const 
-{
-	__BEGIN_TRY
+string CGTradePrepare::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CGTradePrepare(" 
-		<< "TargetObjectID:" << (int)m_TargetObjectID
-		<< ",CODE:"          << (int)m_Code 
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CGTradePrepare("
+        << "TargetObjectID:" << (int)m_TargetObjectID << ",CODE:" << (int)m_Code << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

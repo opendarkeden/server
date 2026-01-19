@@ -13,22 +13,23 @@
 // class SimpleTileEffect
 //////////////////////////////////////////////////////////////////////////////
 
-class SimpleTileEffect : public Effect 
-{
+class SimpleTileEffect : public Effect {
 public:
-	SimpleTileEffect(EffectClass eClass, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
+    SimpleTileEffect(EffectClass eClass, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y);
 
 public:
-    EffectClass getEffectClass() const  { return m_EffectClass; }
+    EffectClass getEffectClass() const {
+        return m_EffectClass;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect() ;
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	EffectClass	m_EffectClass;
+    EffectClass m_EffectClass;
 };
 
 #endif

@@ -1,65 +1,69 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGGlobalChat.cpp 
+// Filename    : CGGlobalChat.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGGlobalChat.h"
 
-void CGGlobalChat::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-	
-	iStream.read(m_Color);
-		
-	BYTE szMessage;
-	iStream.read(szMessage);
-	if (szMessage == 0) throw InvalidProtocolException("szMessage == 0");
-	if (szMessage > 128) throw InvalidProtocolException("too large message length");
-	iStream.read(m_Message , szMessage);
+void CGGlobalChat::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_Color);
+
+    BYTE szMessage;
+    iStream.read(szMessage);
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
+    iStream.read(m_Message, szMessage);
+
+    __END_CATCH
 }
 
-void CGGlobalChat::write (SocketOutputStream & oStream) const 
-     
+void CGGlobalChat::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_Color);
-	
-	BYTE szMessage = m_Message.size();
+    oStream.write(m_Color);
 
-	if (szMessage == 0) throw InvalidProtocolException("szMessage == 0");
+    BYTE szMessage = m_Message.size();
 
-	if (szMessage > 128) throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	oStream.write(szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	oStream.write(m_Message);
+    oStream.write(szMessage);
 
-	__END_CATCH
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
-void CGGlobalChat::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGGlobalChatHandler::execute(this , pPlayer);
+void CGGlobalChat::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGGlobalChatHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGGlobalChat::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGGlobalChat(Color:" << m_Color << ",Message:" << m_Message << ")" ;
-	return msg.toString();
+string CGGlobalChat::toString() const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGGlobalChat(Color:" << m_Color << ",Message:" << m_Message << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

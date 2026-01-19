@@ -5,15 +5,14 @@
 
 
 class GameServerUserGatewayTest : public GameServerTest {
-	CPPUNIT_TEST_SUB_SUITE( GameServerUserGatewayTest, GameServerTest );
-	CPPUNIT_TEST( testUserPass );
-	CPPUNIT_TEST( testUserPassToString );
-	CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUB_SUITE(GameServerUserGatewayTest, GameServerTest);
+    CPPUNIT_TEST(testUserPass);
+    CPPUNIT_TEST(testUserPassToString);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-	void testUserPass();
-	void testUserPassToString();
+    void testUserPass();
+    void testUserPassToString();
 };
 
 #endif
-

@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
+//
 // Filename    : LCRegisterPlayerOK.cpp
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,48 +12,46 @@
 //////////////////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////
-void LCRegisterPlayerOK::read (SocketInputStream & iStream )
-	
+void LCRegisterPlayerOK::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szGroupName;
-	iStream.read(szGroupName);
-	iStream.read(m_GroupName, szGroupName);
-	iStream.read(m_isAdult);
+    BYTE szGroupName;
+    iStream.read(szGroupName);
+    iStream.read(m_GroupName, szGroupName);
+    iStream.read(m_isAdult);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////
-void LCRegisterPlayerOK::write (SocketOutputStream & oStream ) const
-	
+void LCRegisterPlayerOK::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
     BYTE szGroupName = m_GroupName.size();
-	oStream.write(szGroupName);
-	oStream.write(m_GroupName);
-	oStream.write(m_isAdult);
+    oStream.write(szGroupName);
+    oStream.write(m_GroupName);
+    oStream.write(m_isAdult);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void LCRegisterPlayerOK::execute (Player * pPlayer ) 
-	 
+void LCRegisterPlayerOK::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	LCRegisterPlayerOKHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    LCRegisterPlayerOKHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
-
-

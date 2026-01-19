@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCFriendChatting.h 
+//
+// Filename    : GCFriendChatting.h
 // Written By  : alivviva@gmail.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_FRIENDCHATTING_H__
@@ -21,90 +21,113 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-enum
-{
-	////////CG////////////////
-	CG_ADD_FRIEND=0,
-	CG_MESSAGE,
-	CG_UPDATE,
-	CG_ADD_FRIEND_AGREE, 
-	CG_ADD_FRIEND_REFUSE,
-	CG_ADD_FRIEND_BLACK,
-	CG_FRIEND_DELETE,
-	MAX_CG,
-	/////////GC////////////////
-	GC_ADD_FRIEND_REQUEST,
-	GC_ADD_FRIEND_OK,
-	GC_ADD_FRIEND_REFUSE,
-	GC_ADD_FRIEND_WAIT,
-	GC_ADD_FRIEND_ERROR,
-	GC_ADD_FRIEND_EXIST,
-	GC_ADD_FRIEND_BLACK,
-	GC_MESSAGE,
-	GC_UPDATE,
-	GC_NO_ONLINE,
-	GC_FRIEND_DELETE,
-	MAX_GC
+enum {
+    ////////CG////////////////
+    CG_ADD_FRIEND = 0,
+    CG_MESSAGE,
+    CG_UPDATE,
+    CG_ADD_FRIEND_AGREE,
+    CG_ADD_FRIEND_REFUSE,
+    CG_ADD_FRIEND_BLACK,
+    CG_FRIEND_DELETE,
+    MAX_CG,
+    /////////GC////////////////
+    GC_ADD_FRIEND_REQUEST,
+    GC_ADD_FRIEND_OK,
+    GC_ADD_FRIEND_REFUSE,
+    GC_ADD_FRIEND_WAIT,
+    GC_ADD_FRIEND_ERROR,
+    GC_ADD_FRIEND_EXIST,
+    GC_ADD_FRIEND_BLACK,
+    GC_MESSAGE,
+    GC_UPDATE,
+    GC_NO_ONLINE,
+    GC_FRIEND_DELETE,
+    MAX_GC
 };
 
 class GCFriendChatting : public Packet {
+public:
+    GCFriendChatting();
+    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ��
+    // �ʱ�ȭ�Ѵ�.
+    void read(SocketInputStream& iStream);
 
-public :
-	GCFriendChatting();
-    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
-	void read(SocketInputStream & iStream);
-	    
-	// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
-	void write(SocketOutputStream & oStream) const;
+    // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer);
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_FRIEND_CHATTING; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szDWORD + szBYTE + m_PlayerName.size() + szWORD + m_Message.size() + szBYTE + szBYTE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_FRIEND_CHATTING;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCFriendChatting"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szDWORD + szBYTE + m_PlayerName.size() + szWORD + m_Message.size() + szBYTE + szBYTE;
+    }
 
-	// get/set sender's creature id
-	DWORD getCommand() const  { return m_Command; }
-	void setCommand(const DWORD & Command)  { m_Command = Command; }
+    // get packet name
+    string getPacketName() const {
+        return "GCFriendChatting";
+    }
 
-	//get/set text color
-	string getPlayerName() const  { return m_PlayerName; }
-	void setPlayerName(const string& PlayerName )  { m_PlayerName = PlayerName; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set chatting message
-	string getMessage() const  { return m_Message; }
-	void setMessage(const string & msg)  { m_Message = msg; }
-	
-	BYTE getIsBlack() const  { return m_IsBlack; }
-	void setIsBlack(const BYTE& IsBlack)  { m_IsBlack = IsBlack; };
+    // get/set sender's creature id
+    DWORD getCommand() const {
+        return m_Command;
+    }
+    void setCommand(const DWORD& Command) {
+        m_Command = Command;
+    }
 
-	BYTE getIsOnLine() const  { return m_IsOnLine; }
-	void setIsOnLine(const BYTE& IsOnLine)  { m_IsOnLine = IsOnLine; };
+    // get/set text color
+    string getPlayerName() const {
+        return m_PlayerName;
+    }
+    void setPlayerName(const string& PlayerName) {
+        m_PlayerName = PlayerName;
+    }
 
-private :
-	
-	// character's creature id
-	DWORD m_Command;
+    // get/set chatting message
+    string getMessage() const {
+        return m_Message;
+    }
+    void setMessage(const string& msg) {
+        m_Message = msg;
+    }
 
-	// chatting playername
-	string m_PlayerName;		//max size 32
-	
-	// chatting message
-	string m_Message;		//max size 512
+    BYTE getIsBlack() const {
+        return m_IsBlack;
+    }
+    void setIsBlack(const BYTE& IsBlack) {
+        m_IsBlack = IsBlack;
+    };
 
-	BYTE m_IsBlack;
+    BYTE getIsOnLine() const {
+        return m_IsOnLine;
+    }
+    void setIsOnLine(const BYTE& IsOnLine) {
+        m_IsOnLine = IsOnLine;
+    };
 
-	BYTE m_IsOnLine;
-	
+private:
+    // character's creature id
+    DWORD m_Command;
+
+    // chatting playername
+    string m_PlayerName; // max size 32
+
+    // chatting message
+    string m_Message; // max size 512
+
+    BYTE m_IsBlack;
+
+    BYTE m_IsOnLine;
 };
 
 
@@ -117,23 +140,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCFriendChattingFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCFriendChatting();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCFriendChatting(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCFriendChatting";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCFriendChatting"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_FRIEND_CHATTING; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_FRIEND_CHATTING;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCSayPacketMaxSize �� ����, �����϶�.
-	PacketSize_t getPacketMaxSize() const  { return szDWORD + szBYTE + 32 + szWORD + 512 + szBYTE + szBYTE; }
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCSayPacketMaxSize �� ����, �����϶�.
+    PacketSize_t getPacketMaxSize() const {
+        return szDWORD + szBYTE + 32 + szWORD + 512 + szBYTE + szBYTE;
+    }
 };
 
 
@@ -144,9 +172,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCFriendChattingHandler {
-public :
-	// execute packet's handler
-	static void execute(GCFriendChatting* pPacket, Player* pPlayer);
+public:
+    // execute packet's handler
+    static void execute(GCFriendChatting* pPacket, Player* pPlayer);
 };
 
 #endif

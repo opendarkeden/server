@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionEveryTime.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -9,70 +9,63 @@
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionEveryTime::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Timeval currentTime;
+bool ConditionEveryTime::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	getCurrentTime(currentTime);
+{
+    Timeval currentTime;
 
-	bool expired = pCreature1 != NULL && pCreature2 == NULL && currentTime > m_NextTurn;
+    getCurrentTime(currentTime);
 
-	////////////////////////////////////////////////////////////////////////////////
-	// 시간이 초과되었으면, 다음 실행시간을 m_Turn 이후로 재설정한다.
-	////////////////////////////////////////////////////////////////////////////////
-	if (expired)
-	{
-		Timeval delay;
-		delay.tv_sec = m_Turn / 10;
-		delay.tv_usec = (m_Turn % 10) * 100000;
+    bool expired = pCreature1 != NULL && pCreature2 == NULL && currentTime > m_NextTurn;
 
-		m_NextTurn = m_NextTurn + delay;
-	}
+    ////////////////////////////////////////////////////////////////////////////////
+    // 시간이 초과되었으면, 다음 실행시간을 m_Turn 이후로 재설정한다.
+    ////////////////////////////////////////////////////////////////////////////////
+    if (expired) {
+        Timeval delay;
+        delay.tv_sec = m_Turn / 10;
+        delay.tv_usec = (m_Turn % 10) * 100000;
 
-	return expired;
+        m_NextTurn = m_NextTurn + delay;
+    }
+
+    return expired;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionEveryTime::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionEveryTime::read(PropertyBuffer& propertyBuffer)
+
 {
-	try
-	{
-		// read turn
-		m_Turn = propertyBuffer.getPropertyInt("Turn");
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+    try {
+        // read turn
+        m_Turn = propertyBuffer.getPropertyInt("Turn");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 
-	// set next turn (current time + m_Turn)
-	Timeval delay;
-	delay.tv_sec = m_Turn / 10;		
-	delay.tv_usec = (m_Turn % 10) * 100000;
+    // set next turn (current time + m_Turn)
+    Timeval delay;
+    delay.tv_sec = m_Turn / 10;
+    delay.tv_usec = (m_Turn % 10) * 100000;
 
-	getCurrentTime(m_NextTurn);
-	m_NextTurn = m_NextTurn + delay;
+    getCurrentTime(m_NextTurn);
+    m_NextTurn = m_NextTurn + delay;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionEveryTime::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionEveryTime::toString() const
 
-	StringStream msg;
-	msg << "ConditionEveryTime("
-			<< "Turn:"      << (int)m_Turn
-			<< ",NextTurn:" << (int)m_NextTurn.tv_sec 
-			<< "."          << (int)m_NextTurn.tv_usec
-			<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionEveryTime("
+        << "Turn:" << (int)m_Turn << ",NextTurn:" << (int)m_NextTurn.tv_sec << "." << (int)m_NextTurn.tv_usec << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

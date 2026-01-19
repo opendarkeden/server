@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectMasterLairPass.h
-// Written by  : 
+// Written by  :
 // Description : ZoneID 마스터 레어 출입증
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,28 +13,33 @@
 // class EffectMasterLairPass
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectMasterLairPass : public Effect 
-{
+class EffectMasterLairPass : public Effect {
 public:
-	EffectMasterLairPass(Creature* pCreature, ZoneID_t zoneID) ;
-
-public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_MASTER_LAIR_PASS; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const ;
+    EffectMasterLairPass(Creature* pCreature, ZoneID_t zoneID);
 
 public:
-	ZoneID_t    getZoneID(void) const { return m_ZoneID; }
-	void   setZoneID(ZoneID_t zoneID)  { m_ZoneID = zoneID; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_MASTER_LAIR_PASS;
+    }
+
+    void affect();
+    void affect(Creature* pCreature);
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const;
+
+public:
+    ZoneID_t getZoneID(void) const {
+        return m_ZoneID;
+    }
+    void setZoneID(ZoneID_t zoneID) {
+        m_ZoneID = zoneID;
+    }
 
 private:
-	ZoneID_t m_ZoneID; 
+    ZoneID_t m_ZoneID;
 };
 
 #endif

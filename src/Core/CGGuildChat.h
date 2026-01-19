@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGGuildChat.h 
+//
+// Filename    : CGGuildChat.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_GUILD_CHAT_H__
@@ -20,56 +20,67 @@
 //////////////////////////////////////////////////////////////////////
 
 class CGGuildChat : public Packet {
-
 public:
-	// Initialize packet by reading data from the incoming stream.
-    void read(SocketInputStream & iStream) ;
-	    
-	// Serialize packet data to the outgoing stream.
-    void write(SocketOutputStream & oStream) const ;
+    // Initialize packet by reading data from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize packet data to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_GUILD_CHAT; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const 
-	{
-		return szBYTE +
-			   szuint +				// text color
-			   szBYTE +				// message size
-			   m_Message.size();	// chatting message
-	}
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "CGGuildChat"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_GUILD_CHAT;
+    }
 
-	BYTE getType() const  { return m_Type; }
-	void setType(BYTE type )  { m_Type = type; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + szuint + // text color
+               szBYTE +          // message size
+               m_Message.size(); // chatting message
+    }
 
-	// get/set text color
-	uint getColor() const  { return m_Color; }
-	void setColor(uint color )  { m_Color = color; }
+    // get packet name
+    string getPacketName() const {
+        return "CGGuildChat";
+    }
 
-	// get/set chatting message
-	string getMessage() const  { return m_Message; }
-	void setMessage(const string & msg)  { m_Message = msg; }
-	
+    // get packet's debug string
+    string toString() const;
 
-private :
+    BYTE getType() const {
+        return m_Type;
+    }
+    void setType(BYTE type) {
+        m_Type = type;
+    }
 
-	BYTE m_Type;
-	// text color
-	uint m_Color;
+    // get/set text color
+    uint getColor() const {
+        return m_Color;
+    }
+    void setColor(uint color) {
+        m_Color = color;
+    }
 
-	// chatting message
-	string m_Message;
-	
+    // get/set chatting message
+    string getMessage() const {
+        return m_Message;
+    }
+    void setMessage(const string& msg) {
+        m_Message = msg;
+    }
+
+
+private:
+    BYTE m_Type;
+    // text color
+    uint m_Color;
+
+    // chatting message
+    string m_Message;
 };
 
 
@@ -82,28 +93,29 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGGuildChatFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGGuildChat(); }
+    // create packet
+    Packet* createPacket() {
+        return new CGGuildChat();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGGuildChat"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_GUILD_CHAT; }
+    // get packet name
+    string getPacketName() const {
+        return "CGGuildChat";
+    }
 
-	// get packet's max body size
-	// Depends on the maximum message length.
-	PacketSize_t getPacketMaxSize() const 
-	{
-		return szBYTE +
-			   szuint +			// text color
-			   szBYTE +			// message size
-			   128;				// chatting message
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_GUILD_CHAT;
+    }
 
+    // get packet's max body size
+    // Depends on the maximum message length.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + szuint + // text color
+               szBYTE +          // message size
+               128;              // chatting message
+    }
 };
 
 
@@ -114,12 +126,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGGuildChatHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGGuildChat* pPacket, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGGuildChat* pPacket, Player* pPlayer);
 };
 
 #endif

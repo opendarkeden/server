@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCAttackArmsOK3Handler::execute (GCAttackArmsOK3 * pGCAttackArmsOK3 , Player * pPlayer )
-	 
+void GCAttackArmsOK3Handler::execute(GCAttackArmsOK3* pGCAttackArmsOK3, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCAttackArmsOK3->toString() << endl;
-	
+    // cout << pGCAttackArmsOK3->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCAttackArmsOK3->toString().c_str());
+        AfxMessageBox(pGCAttackArmsOK3->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

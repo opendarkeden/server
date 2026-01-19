@@ -1,262 +1,233 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Blunting.cpp
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Blunting.h"
+
 #include "EffectBlunting.h"
 #include "EffectProtectionFromCurse.h"
-#include "RankBonus.h"
-
+#include "GCAddEffect.h"
+#include "GCRemoveEffect.h"
 #include "GCSkillToObjectOK1.h"
 #include "GCSkillToObjectOK2.h"
 #include "GCSkillToObjectOK3.h"
 #include "GCSkillToObjectOK4.h"
 #include "GCSkillToObjectOK5.h"
 #include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "RankBonus.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
-void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	
+void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pSkillSlot,
+                       CEffectID_t CEffectID)
+
 {
-	__BEGIN_TRY
-		
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << "begin " << endl;
+    __BEGIN_TRY
 
-	Assert(pOusters != NULL);
-	Assert(pSkillSlot != NULL);
-	
-	try 
-	{
-		Player* pPlayer = pOusters->getPlayer();
-		Zone* pZone = pOusters->getZone();
-		Assert(pPlayer != NULL);
-		Assert(pZone != NULL);
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << "begin " << endl;
 
-		Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
-		//Assert(pTargetCreature != NULL);
-		//
-		
-		Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
+    Assert(pOusters != NULL);
+    Assert(pSkillSlot != NULL);
 
-		// NPC는 공격할 수 없다.
-		// 저주 면역. by sigi. 2002.9.13
-		// NoSuch제거. by sigi. 2002.5.2
-		if (pTargetCreature==NULL
-			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE)
-			|| !canAttack( pOusters, pTargetCreature )
-			|| pTargetCreature->isNPC()
-			|| pWeapon == NULL
-			|| pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM
-			|| !pOusters->isRealWearingEx( Ousters::WEAR_RIGHTHAND )
-		)
-		{
-			executeSkillFailException(pOusters, getSkillType());
-			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
-			return;
-		}
+    try {
+        Player* pPlayer = pOusters->getPlayer();
+        Zone* pZone = pOusters->getZone();
+        Assert(pPlayer != NULL);
+        Assert(pZone != NULL);
 
-		GCSkillToObjectOK1 _GCSkillToObjectOK1;
-		GCSkillToObjectOK2 _GCSkillToObjectOK2;
-		GCSkillToObjectOK3 _GCSkillToObjectOK3;
-		GCSkillToObjectOK4 _GCSkillToObjectOK4;
-		GCSkillToObjectOK5 _GCSkillToObjectOK5;
-		GCSkillToObjectOK6 _GCSkillToObjectOK6;
+        Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+        // Assert(pTargetCreature != NULL);
+        //
 
-		SkillType_t SkillType  = pSkillSlot->getSkillType();
-		SkillInfo*  pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+        Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
 
-		SkillInput input(pOusters, pSkillSlot);
-		SkillOutput output;
-		computeOutput(input, output);
+        // NPC는 공격할 수 없다.
+        // 저주 면역. by sigi. 2002.9.13
+        // NoSuch제거. by sigi. 2002.5.2
+        if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE) ||
+            !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC() || pWeapon == NULL ||
+            pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM ||
+            !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
+            executeSkillFailException(pOusters, getSkillType());
+            // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
+            return;
+        }
 
-		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
-		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pSkillSlot);
-		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, output.Range);
-		bool bHitRoll    = HitRoll::isSuccessBackStab(pOusters);
-		bool bHitRoll2   = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
-		bool bCanHit     = canHit(pOusters, pTargetCreature, SkillType);
-		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLUNTING);
-		bool bPK         = verifyPK(pOusters, pTargetCreature);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
+        GCSkillToObjectOK1 _GCSkillToObjectOK1;
+        GCSkillToObjectOK2 _GCSkillToObjectOK2;
+        GCSkillToObjectOK3 _GCSkillToObjectOK3;
+        GCSkillToObjectOK4 _GCSkillToObjectOK4;
+        GCSkillToObjectOK5 _GCSkillToObjectOK5;
+        GCSkillToObjectOK6 _GCSkillToObjectOK6;
 
-		ZoneCoord_t targetX = pTargetCreature->getX();
-		ZoneCoord_t targetY = pTargetCreature->getY();
-		ZoneCoord_t myX     = pOusters->getX();
-		ZoneCoord_t myY     = pOusters->getY();
+        SkillType_t SkillType = pSkillSlot->getSkillType();
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bHitRoll2 && bCanHit && !bEffected && bPK && bSatisfyRequire)
-		{
-			decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
+        SkillInput input(pOusters, pSkillSlot);
+        SkillOutput output;
+        computeOutput(input, output);
 
-        	bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
+        int RequiredMP = (int)pSkillInfo->getConsumeMP();
+        bool bManaCheck = hasEnoughMana(pOusters, RequiredMP);
+        bool bTimeCheck = verifyRunTime(pSkillSlot);
+        bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, output.Range);
+        bool bHitRoll = HitRoll::isSuccessBackStab(pOusters);
+        bool bHitRoll2 = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
+        bool bCanHit = canHit(pOusters, pTargetCreature, SkillType);
+        bool bEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLUNTING);
+        bool bPK = verifyPK(pOusters, pTargetCreature);
+        bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
 
-			// pTargetCreature가 저주마법을 반사하는 경우
-			if (CheckReflection(pOusters, pTargetCreature, getSkillType()))
-			{
-				pTargetCreature = (Creature*)pOusters;
-				TargetObjectID = pOusters->getObjectID();
-			}
+        ZoneCoord_t targetX = pTargetCreature->getX();
+        ZoneCoord_t targetY = pTargetCreature->getY();
+        ZoneCoord_t myX = pOusters->getX();
+        ZoneCoord_t myY = pOusters->getY();
 
-			// 이펙트 오브젝트를 생성해 붙인다.
-			EffectBlunting* pEffect = new EffectBlunting(pTargetCreature);
-			pEffect->setDeadline(output.Duration);
-			pEffect->setLevel(47 + (pSkillSlot->getExpLevel()/2));
-			pEffect->setDefensePenalty(output.Damage);
-			pTargetCreature->addEffect(pEffect);
-			pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLUNTING);
+        if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bHitRoll2 && bCanHit && !bEffected && bPK &&
+            bSatisfyRequire) {
+            decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
-			// 능력치를 계산해서 보내준다.
-			if (pTargetCreature->isSlayer())
-			{
-				Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
+            bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
 
-				if (bCanSeeCaster) 
-				{
-					SLAYER_RECORD prev;
-					pTargetSlayer->getSlayerRecord(prev);
-					pTargetSlayer->initAllStat();
-					pTargetSlayer->addModifyInfo(prev, _GCSkillToObjectOK2);
-				} 
-				else 
-				{
-					SLAYER_RECORD prev;
-					pTargetSlayer->getSlayerRecord(prev);
-					pTargetSlayer->initAllStat();
-					pTargetSlayer->addModifyInfo(prev, _GCSkillToObjectOK6);
-				}
-			}
-			else if (pTargetCreature->isVampire())
-			{
-				Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
-				VAMPIRE_RECORD prev;
+            // pTargetCreature가 저주마법을 반사하는 경우
+            if (CheckReflection(pOusters, pTargetCreature, getSkillType())) {
+                pTargetCreature = (Creature*)pOusters;
+                TargetObjectID = pOusters->getObjectID();
+            }
 
-				pTargetVampire->getVampireRecord(prev);
-				pTargetVampire->initAllStat();
-				if ( bCanSeeCaster )
-				{
-					pTargetVampire->addModifyInfo(prev, _GCSkillToObjectOK2);
-				}
-				else
-				{
-					pTargetVampire->addModifyInfo(prev, _GCSkillToObjectOK6);
-				}
-			}
-			else if (pTargetCreature->isOusters())
-			{
-				Ousters* pTargetOusters = dynamic_cast<Ousters*>(pTargetCreature);
-				OUSTERS_RECORD prev;
+            // 이펙트 오브젝트를 생성해 붙인다.
+            EffectBlunting* pEffect = new EffectBlunting(pTargetCreature);
+            pEffect->setDeadline(output.Duration);
+            pEffect->setLevel(47 + (pSkillSlot->getExpLevel() / 2));
+            pEffect->setDefensePenalty(output.Damage);
+            pTargetCreature->addEffect(pEffect);
+            pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLUNTING);
 
-				pTargetOusters->getOustersRecord(prev);
-				pTargetOusters->initAllStat();
-				if ( bCanSeeCaster )
-				{
-					pTargetOusters->addModifyInfo(prev, _GCSkillToObjectOK2);
-				}
-				else
-				{
-					pTargetOusters->addModifyInfo(prev, _GCSkillToObjectOK6);
-				}
-			}
-			else if (pTargetCreature->isMonster())
-			{
-				Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
-				pTargetMonster->initAllStat();
-			}
-			else Assert(false);
-								
-			_GCSkillToObjectOK1.setSkillType(SkillType);
-			_GCSkillToObjectOK1.setCEffectID(CEffectID);
-			_GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
-			_GCSkillToObjectOK1.setDuration(output.Duration);
-		
-			_GCSkillToObjectOK2.setObjectID(pOusters->getObjectID());
-			_GCSkillToObjectOK2.setSkillType(SkillType);
-			_GCSkillToObjectOK2.setDuration(output.Duration);
-		
-			_GCSkillToObjectOK3.setObjectID(pOusters->getObjectID());
-			_GCSkillToObjectOK3.setSkillType(SkillType);
-			_GCSkillToObjectOK3.setTargetXY (targetX, targetY);
-			
-			_GCSkillToObjectOK4.setSkillType(SkillType);
-			_GCSkillToObjectOK4.setTargetObjectID(TargetObjectID);
-			_GCSkillToObjectOK4.setDuration(output.Duration);
-			
-			_GCSkillToObjectOK5.setObjectID(pOusters->getObjectID());
-			_GCSkillToObjectOK5.setSkillType(SkillType);
-			_GCSkillToObjectOK5.setTargetObjectID (TargetObjectID);
-			_GCSkillToObjectOK5.setDuration(output.Duration);
-			
-			_GCSkillToObjectOK6.setXY(myX, myY);
-			_GCSkillToObjectOK6.setSkillType(SkillType);
-			_GCSkillToObjectOK6.setDuration(output.Duration);
+            // 능력치를 계산해서 보내준다.
+            if (pTargetCreature->isSlayer()) {
+                Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
-			if (bCanSeeCaster) // 10은 땜빵 수치다.
-			{
-				computeAlignmentChange(pTargetCreature, 10, pOusters, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-			}
-			else // 10은 땜빵 수치다.
-			{
-				computeAlignmentChange(pTargetCreature, 10, pOusters, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
-			}
-								
-			list<Creature *> cList;
-			cList.push_back(pTargetCreature);
-			cList.push_back(pOusters);
-			cList = pZone->broadcastSkillPacket(myX, myY, targetX, targetY, &_GCSkillToObjectOK5, cList);
+                if (bCanSeeCaster) {
+                    SLAYER_RECORD prev;
+                    pTargetSlayer->getSlayerRecord(prev);
+                    pTargetSlayer->initAllStat();
+                    pTargetSlayer->addModifyInfo(prev, _GCSkillToObjectOK2);
+                } else {
+                    SLAYER_RECORD prev;
+                    pTargetSlayer->getSlayerRecord(prev);
+                    pTargetSlayer->initAllStat();
+                    pTargetSlayer->addModifyInfo(prev, _GCSkillToObjectOK6);
+                }
+            } else if (pTargetCreature->isVampire()) {
+                Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
+                VAMPIRE_RECORD prev;
 
-			pZone->broadcastPacket(myX, myY, &_GCSkillToObjectOK3, cList);
-			pZone->broadcastPacket(targetX, targetY, &_GCSkillToObjectOK4, cList);
+                pTargetVampire->getVampireRecord(prev);
+                pTargetVampire->initAllStat();
+                if (bCanSeeCaster) {
+                    pTargetVampire->addModifyInfo(prev, _GCSkillToObjectOK2);
+                } else {
+                    pTargetVampire->addModifyInfo(prev, _GCSkillToObjectOK6);
+                }
+            } else if (pTargetCreature->isOusters()) {
+                Ousters* pTargetOusters = dynamic_cast<Ousters*>(pTargetCreature);
+                OUSTERS_RECORD prev;
 
-			// Send Packet
-			pPlayer->sendPacket(&_GCSkillToObjectOK1);
+                pTargetOusters->getOustersRecord(prev);
+                pTargetOusters->initAllStat();
+                if (bCanSeeCaster) {
+                    pTargetOusters->addModifyInfo(prev, _GCSkillToObjectOK2);
+                } else {
+                    pTargetOusters->addModifyInfo(prev, _GCSkillToObjectOK6);
+                }
+            } else if (pTargetCreature->isMonster()) {
+                Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
+                pTargetMonster->initAllStat();
+            } else
+                Assert(false);
 
-			if (pTargetCreature->isPC()) 
-			{
-				Player* pTargetPlayer = pTargetCreature->getPlayer();
-				if (pTargetPlayer == NULL)
-				{
-					//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
-					return;
-				}
+            _GCSkillToObjectOK1.setSkillType(SkillType);
+            _GCSkillToObjectOK1.setCEffectID(CEffectID);
+            _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
+            _GCSkillToObjectOK1.setDuration(output.Duration);
 
-				if (bCanSeeCaster) pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
-				else pTargetPlayer->sendPacket(&_GCSkillToObjectOK6);
-			}
-			else if (pTargetCreature->isMonster())
-			{
-				Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
-				pTargetMonster->addEnemy(pOusters);
-			}
+            _GCSkillToObjectOK2.setObjectID(pOusters->getObjectID());
+            _GCSkillToObjectOK2.setSkillType(SkillType);
+            _GCSkillToObjectOK2.setDuration(output.Duration);
 
-			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(TargetObjectID);
-			gcAddEffect.setEffectID(Effect::EFFECT_CLASS_BLUNTING);
-			gcAddEffect.setDuration(output.Duration);
-			pZone->broadcastPacket(targetX, targetY, &gcAddEffect);
-			
-			pSkillSlot->setRunTime(output.Delay);
-		} 
-		else 
-		{
-			executeSkillFailNormal(pOusters, getSkillType(), pTargetCreature);
-		}
-	}
-	catch (Throwable & t) 
-	{
-		executeSkillFailException(pOusters, getSkillType());
-	}
+            _GCSkillToObjectOK3.setObjectID(pOusters->getObjectID());
+            _GCSkillToObjectOK3.setSkillType(SkillType);
+            _GCSkillToObjectOK3.setTargetXY(targetX, targetY);
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
+            _GCSkillToObjectOK4.setSkillType(SkillType);
+            _GCSkillToObjectOK4.setTargetObjectID(TargetObjectID);
+            _GCSkillToObjectOK4.setDuration(output.Duration);
 
-	__END_CATCH
+            _GCSkillToObjectOK5.setObjectID(pOusters->getObjectID());
+            _GCSkillToObjectOK5.setSkillType(SkillType);
+            _GCSkillToObjectOK5.setTargetObjectID(TargetObjectID);
+            _GCSkillToObjectOK5.setDuration(output.Duration);
+
+            _GCSkillToObjectOK6.setXY(myX, myY);
+            _GCSkillToObjectOK6.setSkillType(SkillType);
+            _GCSkillToObjectOK6.setDuration(output.Duration);
+
+            if (bCanSeeCaster) // 10은 땜빵 수치다.
+            {
+                computeAlignmentChange(pTargetCreature, 10, pOusters, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
+            } else // 10은 땜빵 수치다.
+            {
+                computeAlignmentChange(pTargetCreature, 10, pOusters, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
+            }
+
+            list<Creature*> cList;
+            cList.push_back(pTargetCreature);
+            cList.push_back(pOusters);
+            cList = pZone->broadcastSkillPacket(myX, myY, targetX, targetY, &_GCSkillToObjectOK5, cList);
+
+            pZone->broadcastPacket(myX, myY, &_GCSkillToObjectOK3, cList);
+            pZone->broadcastPacket(targetX, targetY, &_GCSkillToObjectOK4, cList);
+
+            // Send Packet
+            pPlayer->sendPacket(&_GCSkillToObjectOK1);
+
+            if (pTargetCreature->isPC()) {
+                Player* pTargetPlayer = pTargetCreature->getPlayer();
+                if (pTargetPlayer == NULL) {
+                    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
+                    return;
+                }
+
+                if (bCanSeeCaster)
+                    pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
+                else
+                    pTargetPlayer->sendPacket(&_GCSkillToObjectOK6);
+            } else if (pTargetCreature->isMonster()) {
+                Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
+                pTargetMonster->addEnemy(pOusters);
+            }
+
+            GCAddEffect gcAddEffect;
+            gcAddEffect.setObjectID(TargetObjectID);
+            gcAddEffect.setEffectID(Effect::EFFECT_CLASS_BLUNTING);
+            gcAddEffect.setDuration(output.Duration);
+            pZone->broadcastPacket(targetX, targetY, &gcAddEffect);
+
+            pSkillSlot->setRunTime(output.Delay);
+        } else {
+            executeSkillFailNormal(pOusters, getSkillType(), pTargetCreature);
+        }
+    } catch (Throwable& t) {
+        executeSkillFailException(pOusters, getSkillType());
+    }
+
+    // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
+
+    __END_CATCH
 }
 
 Blunting g_Blunting;

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Halo.h 
+// Filename    : Halo.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HALO_HANDLER_H__
@@ -13,20 +13,24 @@
 // class Halo;
 //////////////////////////////////////////////////////////////////////////////
 
-class Halo: public SkillHandler 
-{
+class Halo : public SkillHandler {
 public:
-	Halo() throw() {}
-	~Halo() throw() {}
-	
+    Halo() throw() {}
+    ~Halo() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Halo"; }
+    string getSkillHandlerName() const throw() {
+        return "Halo";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_HALO; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HALO;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

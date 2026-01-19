@@ -1,52 +1,48 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SweeperBonus.cpp
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
-#include "DB.h"
 #include "SweeperBonus.h"
 
-void SweeperBonus::setRace( Race_t race )
-{
-	__BEGIN_TRY
+#include "DB.h"
 
-	if ( m_Race != race) 
-	{
-		m_Race = race;
-		Statement* pStmt    = NULL;
+void SweeperBonus::setRace(Race_t race) {
+    __BEGIN_TRY
 
-		BEGIN_DB
-		{
-			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			pStmt->executeQuery( "UPDATE SweeperBonusInfo SET OwnerRace = %d WHERE Type = %d", m_Race, m_Type);
+    if (m_Race != race) {
+        m_Race = race;
+        Statement* pStmt = NULL;
 
-			SAFE_DELETE(pStmt);
-		}
-		END_DB(pStmt)
-	}
+        BEGIN_DB {
+            pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+            pStmt->executeQuery("UPDATE SweeperBonusInfo SET OwnerRace = %d WHERE Type = %d", m_Race, m_Type);
 
-	__END_CATCH
+            SAFE_DELETE(pStmt);
+        }
+        END_DB(pStmt)
+    }
+
+    __END_CATCH
 }
 
 string SweeperBonus::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "SweeperBonus(\n";
+    msg << "SweeperBonus(\n";
 
-	OptionTypeListConstItor itr = m_OptionTypeList.begin();
-	for ( ; itr != m_OptionTypeList.end() ; itr++) 
-	{
-		msg << (int)(*itr) << ",";
-	}
+    OptionTypeListConstItor itr = m_OptionTypeList.begin();
+    for (; itr != m_OptionTypeList.end(); itr++) {
+        msg << (int)(*itr) << ",";
+    }
 
-	msg << ")\n";
+    msg << ")\n";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

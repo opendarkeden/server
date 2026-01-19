@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPKZoneResurrection.h
-// Written by  : 
+// Written by  :
 // Description : PKZoneResurrection에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -15,23 +15,23 @@ class Creature;
 // class EffectPKZoneResurrection
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectPKZoneResurrection : public Effect 
-{
+class EffectPKZoneResurrection : public Effect {
 public:
-	EffectPKZoneResurrection( Creature* pCreature );
-
-public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_PK_ZONE_RESURRECTION; }
-
-	void affect() ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const ;
+    EffectPKZoneResurrection(Creature* pCreature);
 
 public:
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_PK_ZONE_RESURRECTION;
+    }
 
+    void affect();
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const;
+
+public:
 private:
 };
 

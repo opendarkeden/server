@@ -2,7 +2,7 @@
 #define __ZONE_H__
 
 class Zone {
-public :
+public:
 };
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Hymn.h 
-// Written By  : 
-// Description : 
+// Filename    : Hymn.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HYMN_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Hymn;
 //////////////////////////////////////////////////////////////////////////////
 
-class Hymn : public SkillHandler 
-{
+class Hymn : public SkillHandler {
 public:
-	Hymn() throw() {}
-	~Hymn() throw() {}
-	
+    Hymn() throw() {}
+    ~Hymn() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Hymn"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HYMN; }
+    string getSkillHandlerName() const throw() {
+        return "Hymn";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HYMN;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

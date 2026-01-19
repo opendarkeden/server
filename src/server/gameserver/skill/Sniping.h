@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Sniping.h 
+// Filename    : Sniping.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SNIPING_HANDLER_H__
@@ -13,22 +13,25 @@
 // class Sniping;
 //////////////////////////////////////////////////////////////////////////////
 
-class Sniping: public SkillHandler 
-{
+class Sniping : public SkillHandler {
 public:
-	Sniping() throw() {}
-	~Sniping() throw() {}
-
-public:
-    string getSkillHandlerName() const throw() { return "Sniping"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SNIPING; }
-
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    Sniping() throw() {}
+    ~Sniping() throw() {}
 
 public:
-	void checkRevealRatio(Creature* pCreature, int base, int divisor);
+    string getSkillHandlerName() const throw() {
+        return "Sniping";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SNIPING;
+    }
+
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+
+    void computeOutput(const SkillInput& input, SkillOutput& output);
+
+public:
+    void checkRevealRatio(Creature* pCreature, int base, int divisor);
 };
 
 // global variable declaration

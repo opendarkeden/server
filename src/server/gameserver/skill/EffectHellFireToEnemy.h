@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHellFireToEnemy.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_HELLFIRE_TO_ENEMY__
@@ -13,34 +13,44 @@
 // class EffectHellFireToEnemy
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHellFireToEnemy : public Effect 
-{
+class EffectHellFireToEnemy : public Effect {
 public:
-	EffectHellFireToEnemy(Creature* pCreature) ;
+    EffectHellFireToEnemy(Creature* pCreature);
 
 public:
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HELLFIRE_TO_ENEMY; }
-	EffectClass getSendEffectClass() const throw() { return EFFECT_CLASS_HELLFIRE_TO_ENEMY; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_HELLFIRE_TO_ENEMY;
+    }
+    EffectClass getSendEffectClass() const throw() {
+        return EFFECT_CLASS_HELLFIRE_TO_ENEMY;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const throw();
+    string toString() const throw();
 
-	Damage_t    getDamage() const { return m_Damage; }
-	void        setDamage( Damage_t Damage ) { m_Damage = Damage; }
+    Damage_t getDamage() const {
+        return m_Damage;
+    }
+    void setDamage(Damage_t Damage) {
+        m_Damage = Damage;
+    }
 
-	ObjectID_t  getCasterOID() const { return m_CasterOID; }
-	void        setCasterOID( ObjectID_t CasterOID ) { m_CasterOID = CasterOID; }
+    ObjectID_t getCasterOID() const {
+        return m_CasterOID;
+    }
+    void setCasterOID(ObjectID_t CasterOID) {
+        m_CasterOID = CasterOID;
+    }
 
 
 private:
-	Damage_t		m_Damage;
-	ObjectID_t		m_CasterOID;
-
+    Damage_t m_Damage;
+    ObjectID_t m_CasterOID;
 };
 
 #endif // __EFFECT_HELLFIRE_TO_ENEMY__

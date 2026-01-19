@@ -1,87 +1,81 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCPhoneConnectionFailed.cpp 
+//
+// Filename    : GCPhoneConnectionFailed.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCPhoneConnectionFailed.h"
 
 
-
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCPhoneConnectionFailed::GCPhoneConnectionFailed () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCPhoneConnectionFailed::GCPhoneConnectionFailed()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCPhoneConnectionFailed::~GCPhoneConnectionFailed () 
-    
+GCPhoneConnectionFailed::~GCPhoneConnectionFailed()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCPhoneConnectionFailed::read (SocketInputStream & iStream ) 
-	 
+void GCPhoneConnectionFailed::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCPhoneConnectionFailed::write (SocketOutputStream & oStream ) const 
-     
+void GCPhoneConnectionFailed::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCPhoneConnectionFailed::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
+void GCPhoneConnectionFailed::execute(Player* pPlayer)
 
-	GCPhoneConnectionFailedHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCPhoneConnectionFailedHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // toString()
 //////////////////////////////////////////////////////////////////////
-string GCPhoneConnectionFailed::toString () const
-    
+string GCPhoneConnectionFailed::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCPhoneConnectionFailed()";
-	return msg.toString();
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCPhoneConnectionFailed()";
+    return msg.toString();
+
+    __END_CATCH
 }
-

@@ -1,22 +1,21 @@
 
 #include "QuestStatus.h"
-#include "QuestManager.h"
 
+#include "QuestManager.h"
 #include "StringStream.h"
 
-string QuestStatus::toString() const 
-{
-	__BEGIN_TRY
+string QuestStatus::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "QuestStatus("
-		<< "QuestID : " << (unsigned long)m_QuestID
-		<< "Deadline : " << m_Deadline.toString().c_str()
-		<< ")";
+    StringStream msg;
+    msg << "QuestStatus("
+        << "QuestID : " << (unsigned long)m_QuestID << "Deadline : " << m_Deadline.toString().c_str() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-PlayerCreature* QuestStatus::getOwnerPC() const { return m_pOwnerQM->getOwner(); }
+PlayerCreature* QuestStatus::getOwnerPC() const {
+    return m_pOwnerQM->getOwner();
+}

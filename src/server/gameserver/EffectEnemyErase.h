@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectEnemyErase.h
-// Written by  : 
+// Written by  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -14,46 +14,54 @@
 // class EffectEffectEnemyErase
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectEnemyErase : public Effect 
-{
+class EffectEnemyErase : public Effect {
 public:
-	EffectEnemyErase(Creature* pCreature) ;
-	~EffectEnemyErase() ;
+    EffectEnemyErase(Creature* pCreature);
+    ~EffectEnemyErase();
 
 public:
-	void affect()  {}
-	void affect(Creature* pCreature) ;
+    void affect() {}
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_ENEMY_ERASE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_ENEMY_ERASE;
+    }
 
-	string getEnemyName() const  { return m_EnemyName ;}
-	void setEnemyName(const string & EnemyName)  { m_EnemyName = EnemyName;}
+    string getEnemyName() const {
+        return m_EnemyName;
+    }
+    void setEnemyName(const string& EnemyName) {
+        m_EnemyName = EnemyName;
+    }
 
-    virtual void create(const string & ownerID) ;
-    virtual void save(const string & ownerID) ;
-    virtual void destroy(const string & ownerID) ;
+    virtual void create(const string& ownerID);
+    virtual void save(const string& ownerID);
+    virtual void destroy(const string& ownerID);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	string m_EnemyName;
+    string m_EnemyName;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectEnemyEraseLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectEnemyEraseLoader : public EffectLoader 
-{
+class EffectEnemyEraseLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_ENEMY_ERASE; }
-	virtual string getEffectClassName() const  { return "EffectEnemyErase"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_ENEMY_ERASE;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectEnemyErase";
+    }
 
 public:
-	virtual void load(Creature* pCreature) ;
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectEnemyEraseLoader* g_pEffectEnemyEraseLoader;

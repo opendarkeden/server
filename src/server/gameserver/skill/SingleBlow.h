@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SingleBlow.h 
+// Filename    : SingleBlow.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SINGLE_BLOW_HANDLER_H__
@@ -13,20 +13,23 @@
 // class SingleBlow;
 //////////////////////////////////////////////////////////////////////////////
 
-class SingleBlow : public SkillHandler 
-{
+class SingleBlow : public SkillHandler {
 public:
-	SingleBlow() throw() {}
-	~SingleBlow() throw() {}
-	
+    SingleBlow() throw() {}
+    ~SingleBlow() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SingleBlow"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SINGLE_BLOW; }
+    string getSkillHandlerName() const throw() {
+        return "SingleBlow";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SINGLE_BLOW;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

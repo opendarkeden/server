@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddVampirePortal.h 
+// Filename    : GCAddVampirePortal.h
 // Written By  : excel96
 // Description :
 // 뱀파이어 포탈은 현재 이펙트의 일종으로서 구현되는데, 이 패킷은
@@ -9,98 +9,137 @@
 #ifndef __GC_ADD_VAMPIRE_PORTAL_H__
 #define __GC_ADD_VAMPIRE_PORTAL_H__
 
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddVampirePortal;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddVampirePortal : public Packet 
-{
+class GCAddVampirePortal : public Packet {
 public:
     GCAddVampirePortal() {};
     ~GCAddVampirePortal() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_ADD_VAMPIRE_PORTAL; }
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szObjectID + szBYTE + m_OwnerID.size() + szDuration 
-			+ szCoord*2 + szZoneID + szCoord*2 + szBYTE;
-	}
-	string getPacketName() const  { return "GCAddVampirePortal"; }
-	string toString() const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_ADD_VAMPIRE_PORTAL;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szBYTE + m_OwnerID.size() + szDuration + szCoord * 2 + szZoneID + szCoord * 2 + szBYTE;
+    }
+    string getPacketName() const {
+        return "GCAddVampirePortal";
+    }
+    string toString() const;
 
 public:
-	ObjectID_t getObjectID(void) const { return m_ObjectID; }
-	void setObjectID(ObjectID_t d) { m_ObjectID = d; }
+    ObjectID_t getObjectID(void) const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t d) {
+        m_ObjectID = d;
+    }
 
-	string getOwnerID(void) const { return m_OwnerID; }
-	void setOwnerID(string ownerID) { m_OwnerID = ownerID; }
+    string getOwnerID(void) const {
+        return m_OwnerID;
+    }
+    void setOwnerID(string ownerID) {
+        m_OwnerID = ownerID;
+    }
 
-	Duration_t getDuration() const { return m_Duration; }
-	void setDuration(Duration_t d) { m_Duration = d; }
+    Duration_t getDuration() const {
+        return m_Duration;
+    }
+    void setDuration(Duration_t d) {
+        m_Duration = d;
+    }
 
-	Coord_t getX(void) const { return m_X; }
-	void setX(Coord_t x) { m_X = x; }
-	
-	Coord_t getY(void) const { return m_Y; }
-	void setY(Coord_t x) { m_Y = x; }
+    Coord_t getX(void) const {
+        return m_X;
+    }
+    void setX(Coord_t x) {
+        m_X = x;
+    }
 
-	ZoneID_t getTargetZoneID(void) const { return m_TargetZoneID; }
-	void setTargetZoneID(ZoneID_t id) { m_TargetZoneID = id; }
+    Coord_t getY(void) const {
+        return m_Y;
+    }
+    void setY(Coord_t x) {
+        m_Y = x;
+    }
 
-	Coord_t getTargetX(void) const { return m_TargetX; }
-	void setTargetX(Coord_t x) { m_TargetX = x; }
-	
-	Coord_t getTargetY(void) const { return m_TargetY; }
-	void setTargetY(Coord_t x) { m_TargetY = x; }
+    ZoneID_t getTargetZoneID(void) const {
+        return m_TargetZoneID;
+    }
+    void setTargetZoneID(ZoneID_t id) {
+        m_TargetZoneID = id;
+    }
 
-	BYTE getCreateFlag(void) const { return m_CreateFlag; }
-	void setCreateFlag(BYTE flag) { m_CreateFlag = flag; }
+    Coord_t getTargetX(void) const {
+        return m_TargetX;
+    }
+    void setTargetX(Coord_t x) {
+        m_TargetX = x;
+    }
 
-	
+    Coord_t getTargetY(void) const {
+        return m_TargetY;
+    }
+    void setTargetY(Coord_t x) {
+        m_TargetY = x;
+    }
+
+    BYTE getCreateFlag(void) const {
+        return m_CreateFlag;
+    }
+    void setCreateFlag(BYTE flag) {
+        m_CreateFlag = flag;
+    }
+
+
 private:
-	ObjectID_t  m_ObjectID;       // 이펙트의 OID
-	string      m_OwnerID;        // 포탈 주인
-	Duration_t	m_Duration;       // 포탈의 지속 시간
-	Coord_t     m_X;              // 포탈이 붙어있는 타일의 좌표 x
-	Coord_t     m_Y;              // 포탈이 붙어있는 타일의 좌표 y
-	ZoneID_t    m_TargetZoneID;   // 포탈의 목표 존 ID
-	Coord_t     m_TargetX;        // 포탈의 목표 좌표 x
-	Coord_t     m_TargetY;        // 포탈의 목표 좌표 y
-	BYTE        m_CreateFlag;     // 방금 생성되었는가? (0이면 생성된지 시간이 좀 지난 것...)
+    ObjectID_t m_ObjectID;   // 이펙트의 OID
+    string m_OwnerID;        // 포탈 주인
+    Duration_t m_Duration;   // 포탈의 지속 시간
+    Coord_t m_X;             // 포탈이 붙어있는 타일의 좌표 x
+    Coord_t m_Y;             // 포탈이 붙어있는 타일의 좌표 y
+    ZoneID_t m_TargetZoneID; // 포탈의 목표 존 ID
+    Coord_t m_TargetX;       // 포탈의 목표 좌표 x
+    Coord_t m_TargetY;       // 포탈의 목표 좌표 y
+    BYTE m_CreateFlag;       // 방금 생성되었는가? (0이면 생성된지 시간이 좀 지난 것...)
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddVampirePortalFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddVampirePortalFactory : public PacketFactory 
-{
+class GCAddVampirePortalFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new GCAddVampirePortal(); }
-	string getPacketName() const  { return "GCAddVampirePortal"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_VAMPIRE_PORTAL; }
-	PacketSize_t getPacketMaxSize() const 
-	{ 
-		return szObjectID + szBYTE + 20 + szDuration 
-			+ szCoord*2 + szZoneID + szCoord*2 + szBYTE;
-	}
+    Packet* createPacket() {
+        return new GCAddVampirePortal();
+    }
+    string getPacketName() const {
+        return "GCAddVampirePortal";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_ADD_VAMPIRE_PORTAL;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szBYTE + 20 + szDuration + szCoord * 2 + szZoneID + szCoord * 2 + szBYTE;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddVampirePortalHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddVampirePortalHandler 
-{
+class GCAddVampirePortalHandler {
 public:
-	static void execute(GCAddVampirePortal* pGCAddVampirePortal, Player* pPlayer) ;
+    static void execute(GCAddVampirePortal* pGCAddVampirePortal, Player* pPlayer);
 };
 
 #endif

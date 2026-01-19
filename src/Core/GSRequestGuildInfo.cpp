@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GSRequestGuildInfo.cpp 
+//
+// Filename    : GSRequestGuildInfo.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,33 +13,32 @@
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GSRequestGuildInfo::read (SocketInputStream & iStream ) 
-	 
+void GSRequestGuildInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GSRequestGuildInfo::write (SocketOutputStream & oStream ) const 
-     
+void GSRequestGuildInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GSRequestGuildInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-	GSRequestGuildInfoHandler::execute(this, pPlayer);
-	__END_CATCH
-}
+void GSRequestGuildInfo::execute(Player* pPlayer)
 
+{
+    __BEGIN_TRY
+    GSRequestGuildInfoHandler::execute(this, pPlayer);
+    __END_CATCH
+}

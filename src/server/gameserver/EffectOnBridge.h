@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectOnBridge.h
-// Written by  : 
+// Written by  :
 // Description : OnBridge에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -16,33 +16,36 @@ class Zone;
 // class EffectOnBridge
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectOnBridge : public Effect 
-{
+class EffectOnBridge : public Effect {
 public:
-	EffectOnBridge(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
+    EffectOnBridge(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_ON_BRIDGE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_ON_BRIDGE;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
-
+    string toString() const;
 };
 
-class EffectOnBridgeLoader : public EffectLoader
-{
+class EffectOnBridgeLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_ON_BRIDGE; }
-	virtual string getEffectClassName() const  { return "EffectOnLoader"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_ON_BRIDGE;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectOnLoader";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
-	virtual void load(Zone* pZone) ;
+    virtual void load(Creature* pCreature) {}
+    virtual void load(Zone* pZone);
 };
 
 extern EffectOnBridgeLoader* g_pEffectOnBridgeLoader;

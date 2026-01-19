@@ -5,126 +5,118 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectMindControl.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
 #include "Monster.h"
 #include "Player.h"
-
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectMindControl::EffectMindControl(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMindControl::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMindControl::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectMindControl::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMindControl::unaffect() 
-	
+void EffectMindControl::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-	//cout << "EffectMindControl" << "unaffect BEGIN" << endl;
+    // cout << "EffectMindControl" << "unaffect BEGIN" << endl;
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	//cout << "EffectMindControl" << "unaffect END" << endl;
+    // cout << "EffectMindControl" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMindControl::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectMindControl" << "unaffect BEGIN" << endl;
+    // cout << "EffectMindControl" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer()); // 슬레이어말고는 걸리지 않는다.
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer()); // 슬레이어말고는 걸리지 않는다.
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_MIND_CONTROL);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_MIND_CONTROL);
 
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-	SLAYER_RECORD prev;
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    SLAYER_RECORD prev;
 
-	pSlayer->getSlayerRecord(prev);
-	pSlayer->initAllStat();
-	pSlayer->sendRealWearingInfo();
-	pSlayer->sendModifyInfo(prev);
+    pSlayer->getSlayerRecord(prev);
+    pSlayer->initAllStat();
+    pSlayer->sendRealWearingInfo();
+    pSlayer->sendModifyInfo(prev);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_MIND_CONTROL);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_MIND_CONTROL);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectMindControl" << "unaffect END" << endl;
+    // cout << "EffectMindControl" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectMindControl::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+void EffectMindControl::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
+    {__BEGIN_TRY __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectMindControl::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectMindControl::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectMindControl("
-		<< "ObjectID:" << getObjectID()
-		<< ",ToHit:" << m_ToHitBonus
-		<< ",Defense:" << m_DefenseBonus
-		<< ")";
+    msg << "EffectMindControl("
+        << "ObjectID:" << getObjectID() << ",ToHit:" << m_ToHitBonus << ",Defense:" << m_DefenseBonus << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

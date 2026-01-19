@@ -1,64 +1,59 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGDeleteSMSAddress.cpp 
+// Filename    : CGDeleteSMSAddress.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGDeleteSMSAddress.h"
 
-CGDeleteSMSAddress::CGDeleteSMSAddress () 
-     
+CGDeleteSMSAddress::CGDeleteSMSAddress()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGDeleteSMSAddress::~CGDeleteSMSAddress()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGDeleteSMSAddress::~CGDeleteSMSAddress () 
-    
+void CGDeleteSMSAddress::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ElementID);
+
+    __END_CATCH
 }
 
-void CGDeleteSMSAddress::read (SocketInputStream & iStream) 
-	 
+void CGDeleteSMSAddress::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ElementID);
+    oStream.write(m_ElementID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGDeleteSMSAddress::write (SocketOutputStream & oStream) const 
-     
+void CGDeleteSMSAddress::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ElementID);
+    CGDeleteSMSAddressHandler::execute(this, pPlayer);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGDeleteSMSAddress::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+string CGDeleteSMSAddress::toString() const {
+    __BEGIN_TRY
 
-	CGDeleteSMSAddressHandler::execute (this , pPlayer);
-		
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGDeleteSMSAddress("
+        << ")";
+    return msg.toString();
 
-string CGDeleteSMSAddress::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGDeleteSMSAddress("
-		<< ")";
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

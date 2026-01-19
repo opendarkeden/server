@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCSkillToObjectOK3Handler::execute (GCSkillToObjectOK3 * pGCSkillToObjectOK3 , Player * pPlayer )
-	 
+void GCSkillToObjectOK3Handler::execute(GCSkillToObjectOK3* pGCSkillToObjectOK3, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCSkillToObjectOK3->toString() << endl;
-	
+    // cout << pGCSkillToObjectOK3->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCSkillToObjectOK3->toString().c_str());
+        AfxMessageBox(pGCSkillToObjectOK3->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

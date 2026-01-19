@@ -5,27 +5,27 @@
 //////////////////////////////////////////////////////////////////////////////
 
 // include files
-#include "CLLogout.h"
 #include "Assert1.h"
+#include "CLLogout.h"
 
 #ifdef __LOGIN_SERVER__
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CLLogoutHandler::execute (CLLogout* pPacket , Player* pPlayer)
-	 
+void CLLogoutHandler::execute(CLLogout* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __LOGIN_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	throw DisconnectException("logout");
+    throw DisconnectException("logout");
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+    __END_DEBUG_EX __END_CATCH
 }

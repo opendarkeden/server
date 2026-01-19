@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCReconnect.cpp 
+//
+// Filename    : GCReconnect.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,110 +13,105 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCReconnect::read (SocketInputStream & iStream ) 
-	 
+void GCReconnect::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName;
-	
-	iStream.read(szName);
+    __BEGIN_TRY
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
+    BYTE szName;
 
-	if (szName > 20 )
-		throw InvalidProtocolException("too long name length");
+    iStream.read(szName);
 
-	iStream.read(m_Name , szName);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	BYTE szServerIP;
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	iStream.read(szServerIP);
+    iStream.read(m_Name, szName);
 
-	if (szServerIP == 0 )
-		throw InvalidProtocolException("szServerIP == 0");
+    BYTE szServerIP;
 
-	if (szServerIP > 15 )
-		throw InvalidProtocolException("too long IP length");
+    iStream.read(szServerIP);
 
-	iStream.read(m_ServerIP , szServerIP);
+    if (szServerIP == 0)
+        throw InvalidProtocolException("szServerIP == 0");
 
-	iStream.read(m_Key);
+    if (szServerIP > 15)
+        throw InvalidProtocolException("too long IP length");
 
-	__END_CATCH
+    iStream.read(m_ServerIP, szServerIP);
+
+    iStream.read(m_Key);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCReconnect::write (SocketOutputStream & oStream ) const 
-     
+void GCReconnect::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName = m_Name.size();
-	
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
+    __BEGIN_TRY
 
-	if (szName > 20 )
-		throw InvalidProtocolException("too long name length");
+    BYTE szName = m_Name.size();
 
-	oStream.write(szName);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	oStream.write(m_Name);
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	BYTE szServerIP = m_ServerIP.size();
+    oStream.write(szName);
 
-	if (szServerIP == 0 )
-		throw InvalidProtocolException("szServerIP == 0");
+    oStream.write(m_Name);
 
-	if (szServerIP > 15 )
-		throw InvalidProtocolException("too long IP length");
+    BYTE szServerIP = m_ServerIP.size();
 
-	oStream.write(szServerIP);
+    if (szServerIP == 0)
+        throw InvalidProtocolException("szServerIP == 0");
 
-	oStream.write(m_ServerIP);
+    if (szServerIP > 15)
+        throw InvalidProtocolException("too long IP length");
 
-	oStream.write(m_Key);
+    oStream.write(szServerIP);
 
-	__END_CATCH
+    oStream.write(m_ServerIP);
+
+    oStream.write(m_Key);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCReconnect::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCReconnectHandler::execute(this , pPlayer);
+void GCReconnect::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCReconnectHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCReconnect::toString () const
-       
+string GCReconnect::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCReconnect("
-		<< "Name:" << m_Name 
-		<< ",ServerIP:" << m_ServerIP 
-		<< ",KEY:" << m_Key 
-		<< ")" ;
-	return msg.toString();
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCReconnect("
+        << "Name:" << m_Name << ",ServerIP:" << m_ServerIP << ",KEY:" << m_Key << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

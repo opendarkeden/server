@@ -8,20 +8,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCOtherModifyInfoHandler::execute (GCOtherModifyInfo * pGCOtherModifyInfo , Player * pPlayer )
-	 
+void GCOtherModifyInfoHandler::execute(GCOtherModifyInfo* pGCOtherModifyInfo, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCOtherModifyInfo->toString() << endl;
-	
+    // cout << pGCOtherModifyInfo->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCOtherModifyInfo->toString().c_str());
+        AfxMessageBox(pGCOtherModifyInfo->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

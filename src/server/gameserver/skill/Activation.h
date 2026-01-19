@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Activation.h 
+// Filename    : Activation.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ACTIVATION_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Activation;
 //////////////////////////////////////////////////////////////////////////////
 
-class Activation: public SkillHandler 
-{
+class Activation : public SkillHandler {
 public:
-	Activation() throw() {}
-	~Activation() throw() {}
-	
+    Activation() throw() {}
+    ~Activation() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Activation"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ACTIVATION; }
+    string getSkillHandlerName() const throw() {
+        return "Activation";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ACTIVATION;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,52 +1,51 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGExpelGuild.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGExpelGuild.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGExpelGuild.h"
 
 
-void CGExpelGuild::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_GuildID);
+void CGExpelGuild::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_GuildID);
+
+    __END_CATCH
 }
 
-void CGExpelGuild::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_GuildID);
+void CGExpelGuild::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_GuildID);
+
+    __END_CATCH
 }
 
-void CGExpelGuild::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGExpelGuildHandler::execute(this , pPlayer);
+void CGExpelGuild::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGExpelGuildHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGExpelGuild::toString () const
-       
+string CGExpelGuild::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGExpelGuild("
-		<< "GuildID:" << m_GuildID
-		<< ")" ;
-	return msg.toString();
+        << "GuildID:" << m_GuildID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

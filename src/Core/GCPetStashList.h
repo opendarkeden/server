@@ -1,55 +1,68 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCPetStashList.h 
+// Filename    : GCPetStashList.h
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_PET_STASH_LIST_H__
 #define __GC_PET_STASH_LIST_H__
 
+#include <vector>
+
 #include "Packet.h"
 #include "PacketFactory.h"
 #include "PetInfo.h"
-#include <vector>
 
-#define MAX_PET_STASH	20
+#define MAX_PET_STASH 20
 
-struct PetStashItemInfo
-{
-	PetInfo* pPetInfo;
-	DWORD KeepDays;
+struct PetStashItemInfo {
+    PetInfo* pPetInfo;
+    DWORD KeepDays;
 
-	PacketSize_t getPacketSize() const { return szBYTE + pPetInfo->getSize() + szDWORD; }
-	static PacketSize_t	getPacketMaxSize() { return szBYTE + PetInfo::getMaxSize() + szDWORD; }
+    PacketSize_t getPacketSize() const {
+        return szBYTE + pPetInfo->getSize() + szDWORD;
+    }
+    static PacketSize_t getPacketMaxSize() {
+        return szBYTE + PetInfo::getMaxSize() + szDWORD;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCPetStashList;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCPetStashList : public Packet 
-{
+class GCPetStashList : public Packet {
 public:
-	GCPetStashList() ;
-	virtual ~GCPetStashList() ;
+    GCPetStashList();
+    virtual ~GCPetStashList();
 
-	void read(SocketInputStream & iStream) ;
-	void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_PET_STASH_LIST; }
-	PacketSize_t getPacketSize() const ;
-	string getPacketName() const  { return "GCPetStashList"; }
-	string toString() const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_PET_STASH_LIST;
+    }
+    PacketSize_t getPacketSize() const;
+    string getPacketName() const {
+        return "GCPetStashList";
+    }
+    string toString() const;
 
 public:
-	BYTE	getCode() const { return m_Code; }
-	void	setCode(BYTE code ) { m_Code = code; }
+    BYTE getCode() const {
+        return m_Code;
+    }
+    void setCode(BYTE code) {
+        m_Code = code;
+    }
 
-	vector<PetStashItemInfo*>& getPetStashItemInfos() { return m_PetStashItemInfos; }
+    vector<PetStashItemInfo*>& getPetStashItemInfos() {
+        return m_PetStashItemInfos;
+    }
 
 private:
-	BYTE						m_Code;
-	vector<PetStashItemInfo*>	m_PetStashItemInfos;
+    BYTE m_Code;
+    vector<PetStashItemInfo*> m_PetStashItemInfos;
 };
 
 
@@ -57,13 +70,20 @@ private:
 // class GCPetStashListFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCPetStashListFactory : public PacketFactory 
-{
-public :
-	Packet* createPacket()  { return new GCPetStashList(); }
-	string getPacketName() const  { return "GCPetStashList"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PET_STASH_LIST; }
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + PetStashItemInfo::getPacketMaxSize() * MAX_PET_STASH; }
+class GCPetStashListFactory : public PacketFactory {
+public:
+    Packet* createPacket() {
+        return new GCPetStashList();
+    }
+    string getPacketName() const {
+        return "GCPetStashList";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_PET_STASH_LIST;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + PetStashItemInfo::getPacketMaxSize() * MAX_PET_STASH;
+    }
 };
 
 
@@ -71,11 +91,9 @@ public :
 // class GCPetStashListHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCPetStashListHandler 
-{
-public :
-	static void execute(GCPetStashList* pPacket, Player* pPlayer) ;
-
+class GCPetStashListHandler {
+public:
+    static void execute(GCPetStashList* pPacket, Player* pPlayer);
 };
 
 #endif

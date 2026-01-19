@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    :  GCVisibleOK.h 
+//
+// Filename    :  GCVisibleOK.h
 // Written By  :  Elca
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_VISIBLE_OK_H__
@@ -16,47 +16,50 @@
 //
 // class  GCVisibleOK;
 //
-// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄 
+// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄
 // 때 사용하는 패킷 객체이다.(CreatureID,X,Y,DIR) 을 포함한다.
 //
 //////////////////////////////////////////////////////////////////////
 
 class GCVisibleOK : public Packet {
-
-public :
-
-	// constructor
-	GCVisibleOK()  {}
+public:
+    // constructor
+    GCVisibleOK() {}
     ~GCVisibleOK() {};
 
 
-public :
-	
+public:
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_VISIBLE_OK; }
-	
-	// get packet body size
-	// *OPTIMIZATION HINT*
-	// const static GCVisibleOKPacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketSize() const  { return 0; }
-	
-	// get packet's name
-	string getPacketName() const  { return "GCVisibleOK"; }
-	
-	// get packet's debug string
-	string toString() const ;
-	
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_VISIBLE_OK;
+    }
 
-public :
+    // get packet body size
+    // *OPTIMIZATION HINT*
+    // const static GCVisibleOKPacketSize 를 정의, 리턴하라.
+    PacketSize_t getPacketSize() const {
+        return 0;
+    }
+
+    // get packet's name
+    string getPacketName() const {
+        return "GCVisibleOK";
+    }
+
+    // get packet's debug string
+    string toString() const;
+
+
+public:
 };
 
 
@@ -68,24 +71,29 @@ public :
 //
 //////////////////////////////////////////////////////////////////////
 
-class  GCVisibleOKFactory : public PacketFactory {
+class GCVisibleOKFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCVisibleOK();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCVisibleOK(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCVisibleOK";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCVisibleOK"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_VISIBLE_OK; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_VISIBLE_OK;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCVisibleOKPacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  { return 0; }
-	
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCVisibleOKPacketSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return 0;
+    }
 };
 
 
@@ -95,13 +103,10 @@ public :
 //
 //////////////////////////////////////////////////////////////////////
 
-class  GCVisibleOKHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCVisibleOK* pPacket, Player* pPlayer) ;
-
+class GCVisibleOKHandler {
+public:
+    // execute packet's handler
+    static void execute(GCVisibleOK* pPacket, Player* pPlayer);
 };
 
 #endif

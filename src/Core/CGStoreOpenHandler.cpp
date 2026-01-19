@@ -7,68 +7,63 @@
 #include "CGStoreOpen.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "PlayerCreature.h"
-	#include "Store.h"
-	#include "Zone.h"
-	#include "skill/SkillUtil.h"
-
-	#include "GCMyStoreInfo.h"
-	#include "GCOtherStoreInfo.h"
-#endif	// __GAME_SERVER__
+#include "GCMyStoreInfo.h"
+#include "GCOtherStoreInfo.h"
+#include "GamePlayer.h"
+#include "PlayerCreature.h"
+#include "Store.h"
+#include "Zone.h"
+#include "skill/SkillUtil.h"
+#endif // __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGStoreOpenHandler::execute (CGStoreOpen* pPacket , Player* pPlayer)
-	 
+void CGStoreOpenHandler::execute(CGStoreOpen* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-//#ifndef __TEST_SERVER__
-//	return;
-//#endif
+        // #ifndef __TEST_SERVER__
+        //	return;
+        // #endif
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	if ( checkZoneLevelToHitTarget(pPC) )
-	{
-		return;
-	}
+    if (checkZoneLevelToHitTarget(pPC)) {
+        return;
+    }
 
-	Store* pStore = pPC->getStore();
-	Assert( pStore != NULL );
+    Store* pStore = pPC->getStore();
+    Assert(pStore != NULL);
 
-	if ( pStore->isOpen() )
-	{
-		filelog("Store.log", "[%s:%s] store already open",
-				pGamePlayer->getID().c_str(), pPC->getName().c_str());
-		return;
-	}
+    if (pStore->isOpen()) {
+        filelog("Store.log", "[%s:%s] store already open", pGamePlayer->getID().c_str(), pPC->getName().c_str());
+        return;
+    }
 
-	pStore->open();
-	cout << pPC->getName() << " opened the store." << endl;
+    pStore->open();
+    cout << pPC->getName() << " opened the store." << endl;
 
-	GCMyStoreInfo gcInfo;
-	gcInfo.setStoreInfo( &(pStore->getStoreInfo()) );
-	pGamePlayer->sendPacket( &gcInfo );
+    GCMyStoreInfo gcInfo;
+    gcInfo.setStoreInfo(&(pStore->getStoreInfo()));
+    pGamePlayer->sendPacket(&gcInfo);
 
-	GCOtherStoreInfo gcOtherInfo;
-	gcOtherInfo.setObjectID( pPC->getObjectID() );
-	gcOtherInfo.setRequested(0);
-	gcOtherInfo.setStoreInfo( &(pStore->getStoreInfo()) );
-	pPC->getZone()->broadcastPacket( pPC->getX(), pPC->getY(), &gcOtherInfo, pPC );
+    GCOtherStoreInfo gcOtherInfo;
+    gcOtherInfo.setObjectID(pPC->getObjectID());
+    gcOtherInfo.setRequested(0);
+    gcOtherInfo.setStoreInfo(&(pStore->getStoreInfo()));
+    pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcOtherInfo, pPC);
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

@@ -1,15 +1,16 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Sector.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SECTOR_H__
 #define __SECTOR_H__
 
-#include "Types.h"
-#include "Exception.h"
 #include <unordered_map>
+
+#include "Exception.h"
+#include "Types.h"
 
 const int SECTOR_SIZE = 13;
 
@@ -19,28 +20,31 @@ const int SECTOR_SIZE = 13;
 
 class Object;
 
-class Sector
-{
+class Sector {
 public:
-	Sector() ;
-	~Sector() ;
+    Sector();
+    ~Sector();
 
 public:
-	void addObject(Object* pObject) ;
-	void deleteObject(ObjectID_t id) ;
-	Object* getObject(ObjectID_t id) ;
+    void addObject(Object* pObject);
+    void deleteObject(ObjectID_t id);
+    Object* getObject(ObjectID_t id);
 
-	Sector* getNearbySector(uint dir) ;
-	void setNearbySector(uint dir, Sector* pSector) ;
+    Sector* getNearbySector(uint dir);
+    void setNearbySector(uint dir, Sector* pSector);
 
-	const unordered_map<ObjectID_t, Object*>& getObjects(void) const { return m_Objects; }
-	uint getSize(void) const  { return m_Objects.size(); }
+    const unordered_map<ObjectID_t, Object*>& getObjects(void) const {
+        return m_Objects;
+    }
+    uint getSize(void) const {
+        return m_Objects.size();
+    }
 
-	string toString(void) const ;
+    string toString(void) const;
 
 protected:
-	unordered_map<ObjectID_t, Object*> m_Objects;
-	Sector* m_pNearbySectors[9];
+    unordered_map<ObjectID_t, Object*> m_Objects;
+    Sector* m_pNearbySectors[9];
 };
 
 #endif

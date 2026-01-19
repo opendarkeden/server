@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename    : GCTradePrepare.cpp 
+// Filename    : GCTradePrepare.cpp
 // Written By  : 김성민
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
@@ -9,61 +9,57 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 ////////////////////////////////////////////////////////////////////////////////
-void GCTradePrepare::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
+void GCTradePrepare::read(SocketInputStream& iStream)
 
-	iStream.read(m_TargetObjectID);
-	iStream.read(m_Code);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_TargetObjectID);
+    iStream.read(m_Code);
+
+    __END_CATCH
 }
 
-		    
+
 ////////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 ////////////////////////////////////////////////////////////////////////////////
-void GCTradePrepare::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-	
-	oStream.write(m_TargetObjectID);
-	oStream.write(m_Code);
+void GCTradePrepare::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_TargetObjectID);
+    oStream.write(m_Code);
+
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 ////////////////////////////////////////////////////////////////////////////////
-void GCTradePrepare::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCTradePrepareHandler::execute(this , pPlayer);
+void GCTradePrepare::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCTradePrepareHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 ////////////////////////////////////////////////////////////////////////////////
-string GCTradePrepare::toString () const
-       
+string GCTradePrepare::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCTradePrepare("
-		<< "TargetObjectID:" << (int)m_TargetObjectID
-		<< ",CODE:" << (int)m_Code
-		<< ")";
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCTradePrepare("
+        << "TargetObjectID:" << (int)m_TargetObjectID << ",CODE:" << (int)m_Code << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

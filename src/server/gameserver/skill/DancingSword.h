@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DancingSword.h 
-// Written By  : 
-// Description : 
+// Filename    : DancingSword.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DANCING_SWORD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class DancingSword;
 //////////////////////////////////////////////////////////////////////////////
 
-class DancingSword : public SkillHandler 
-{
+class DancingSword : public SkillHandler {
 public:
-	DancingSword() throw() {}
-	~DancingSword() throw() {}
-	
+    DancingSword() throw() {}
+    ~DancingSword() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DancingSword"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DANCING_SWORD; }
+    string getSkillHandlerName() const throw() {
+        return "DancingSword";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DANCING_SWORD;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

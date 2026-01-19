@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DetectHidden.h 
+// Filename    : DetectHidden.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DETECT_HIDDEN_HANDLER_H__
@@ -13,19 +13,22 @@
 // class DetectHidden;
 //////////////////////////////////////////////////////////////////////////////
 
-class DetectHidden: public SkillHandler 
-{
+class DetectHidden : public SkillHandler {
 public:
-	DetectHidden() throw() {}
-	~DetectHidden() throw() {}
-	
+    DetectHidden() throw() {}
+    ~DetectHidden() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DetectHidden"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DETECT_HIDDEN; }
+    string getSkillHandlerName() const throw() {
+        return "DetectHidden";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DETECT_HIDDEN;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : RefusalEther.h 
-// Written By  : 
-// Description : 
+// Filename    : RefusalEther.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REFUSAL_ETHER_HANDLER_H__
@@ -13,20 +13,24 @@
 // class RefusalEther;
 //////////////////////////////////////////////////////////////////////////////
 
-class RefusalEther : public SkillHandler 
-{
+class RefusalEther : public SkillHandler {
 public:
-	RefusalEther() throw();
-	~RefusalEther() throw() {}
-	
+    RefusalEther() throw();
+    ~RefusalEther() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "RefusalEther"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REFUSAL_ETHER; }
+    string getSkillHandlerName() const throw() {
+        return "RefusalEther";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REFUSAL_ETHER;
+    }
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
 };

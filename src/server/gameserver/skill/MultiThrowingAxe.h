@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MultiThrowingAxe.h 
+// Filename    : MultiThrowingAxe.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_MULTI_THROWING_AXE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class MultiThrowingAxe;
 //////////////////////////////////////////////////////////////////////////////
 
-class MultiThrowingAxe : public SkillHandler 
-{
+class MultiThrowingAxe : public SkillHandler {
 public:
-	MultiThrowingAxe() throw() {}
-	~MultiThrowingAxe() throw() {}
-	
+    MultiThrowingAxe() throw() {}
+    ~MultiThrowingAxe() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MultiThrowingAxe"; }
-	SkillType_t getSkillType() const throw() { return SKILL_MULTI_THROWING_AXE; }
+    string getSkillHandlerName() const throw() {
+        return "MultiThrowingAxe";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_MULTI_THROWING_AXE;
+    }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

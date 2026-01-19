@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : KasasArrow.h 
-// Written By  : 
-// Description : 
+// Filename    : KasasArrow.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_KASAS_ARROW_HANDLER_H__
@@ -13,19 +13,22 @@
 // class KasasArrow;
 //////////////////////////////////////////////////////////////////////////////
 
-class KasasArrow : public SkillHandler 
-{
+class KasasArrow : public SkillHandler {
 public:
-	KasasArrow() throw() {}
-	~KasasArrow() throw() {}
-	
+    KasasArrow() throw() {}
+    ~KasasArrow() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "KasasArrow"; }
-	SkillType_t getSkillType() const throw() { return SKILL_KASAS_ARROW; }
+    string getSkillHandlerName() const throw() {
+        return "KasasArrow";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_KASAS_ARROW;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

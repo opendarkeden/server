@@ -5,14 +5,13 @@
 
 
 class GameServerSkillTest : public GameServerTest {
-	CPPUNIT_TEST_SUB_SUITE( GameServerSkillTest, GameServerTest );
-	CPPUNIT_TEST( testSharpShieldFormula );
-	CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUB_SUITE(GameServerSkillTest, GameServerTest);
+    CPPUNIT_TEST(testSharpShieldFormula);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-	void testSharpShieldFormula();
-	void testSharpShieldExecute();
+    void testSharpShieldFormula();
+    void testSharpShieldExecute();
 };
 
 #endif
-

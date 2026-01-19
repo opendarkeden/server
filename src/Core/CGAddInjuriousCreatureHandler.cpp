@@ -7,19 +7,18 @@
 #include "CGAddInjuriousCreature.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "Creature.h"
-	#include "PCFinder.h"
-
-	#include "GCAddInjuriousCreature.h"
-	#include "GCAddInjuriousCreatureFailed.h"
+#include "Creature.h"
+#include "GCAddInjuriousCreature.h"
+#include "GCAddInjuriousCreatureFailed.h"
+#include "GamePlayer.h"
+#include "PCFinder.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGAddInjuriousCreatureHandler::execute (CGAddInjuriousCreature* pPacket , Player* pPlayer)
-	 
+void CGAddInjuriousCreatureHandler::execute(CGAddInjuriousCreature* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }

@@ -1,10 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ShopTemplate.cpp
 // Written By  : 김성민
-// Description : 
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ShopTemplate.h"
+
 #include "DB.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,46 +18,38 @@ ShopTemplateManager* g_pShopTemplateManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 ShopTemplate::ShopTemplate()
-	
+
 {
-	__BEGIN_TRY
-	
-	m_ID             = 0;
-	m_RackType       = 0;
-	m_ItemClass      = 0;
-	m_MinItemType    = 0;
-	m_MaxItemType    = 0;
-	m_MinOptionLevel  = 0;
-	m_MaxOptionLevel  = 0;
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    m_ID = 0;
+    m_RackType = 0;
+    m_ItemClass = 0;
+    m_MinItemType = 0;
+    m_MaxItemType = 0;
+    m_MinOptionLevel = 0;
+    m_MaxOptionLevel = 0;
+
+    __END_CATCH
 }
 
 ShopTemplate::~ShopTemplate()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
 
-string ShopTemplate::toString () const
-	
-{
-	__BEGIN_TRY
+    {__BEGIN_TRY __END_CATCH_NO_RETHROW}
 
-	StringStream msg;
-	msg << "ShopTemplate("
-		<< "TemplateID : "     << (int)m_ID
-		<< ",RackType : "      << (int)m_RackType 
-		<< ",ItemClass : "     << (int)m_ItemClass
-		<< ",MinItemType : "   << (int)m_MinItemType
-		<< ",MaxItemType : "   << (int)m_MaxItemType
-		<< ",MinOptionLevel : " << (int)m_MinOptionLevel
-		<< ",MaxOptionLevel : " << (int)m_MaxOptionLevel 
-		<< ")";
-	return msg.toString();
-	
-	__END_CATCH
+string ShopTemplate::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "ShopTemplate("
+        << "TemplateID : " << (int)m_ID << ",RackType : " << (int)m_RackType << ",ItemClass : " << (int)m_ItemClass
+        << ",MinItemType : " << (int)m_MinItemType << ",MaxItemType : " << (int)m_MaxItemType
+        << ",MinOptionLevel : " << (int)m_MinOptionLevel << ",MaxOptionLevel : " << (int)m_MaxOptionLevel << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 
@@ -65,118 +58,113 @@ string ShopTemplate::toString () const
 ////////////////////////////////////////////////////////////////////////////////
 
 ShopTemplateManager::ShopTemplateManager()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 ShopTemplateManager::~ShopTemplateManager()
-	
+
 {
-	__BEGIN_TRY
-		
-	unordered_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.begin();
-	for (; itr != m_Entries.end(); itr++)
-	{
-		ShopTemplate* pTemplate = itr->second;
-		SAFE_DELETE(pTemplate);
-	}
+    __BEGIN_TRY
 
-	m_Entries.clear();
+    unordered_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.begin();
+    for (; itr != m_Entries.end(); itr++) {
+        ShopTemplate* pTemplate = itr->second;
+        SAFE_DELETE(pTemplate);
+    }
 
-	__END_CATCH_NO_RETHROW
+    m_Entries.clear();
+
+    __END_CATCH_NO_RETHROW
 }
 
-void ShopTemplateManager::init() 
-	
+void ShopTemplateManager::init()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void ShopTemplateManager::load() 
-	
+void ShopTemplateManager::load()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt   = NULL;
-	Result*    pResult = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT ID, ShopType, ItemClass, MinItemType, MaxItemType, MinOptionLevel, MaxOptionLevel FROM ShopTemplate");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		while (pResult->next()) 
-		{
-			ShopTemplate* pTemplate = new ShopTemplate();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT ID, ShopType, ItemClass, MinItemType, MaxItemType, MinOptionLevel, "
+                                      "MaxOptionLevel FROM ShopTemplate");
 
-			pTemplate->setID(pResult->getInt(1));
-			pTemplate->setShopType(pResult->getInt(2));
-			pTemplate->setItemClass(pResult->getInt(3));
-			pTemplate->setMinItemType(pResult->getInt(4));
-			pTemplate->setMaxItemType(pResult->getInt(5));
-			pTemplate->setMinOptionLevel(pResult->getInt(6));
-			pTemplate->setMaxOptionLevel(pResult->getInt(7));
+        while (pResult->next()) {
+            ShopTemplate* pTemplate = new ShopTemplate();
 
-			setTemplate(pTemplate->getID(), pTemplate);
-		}
+            pTemplate->setID(pResult->getInt(1));
+            pTemplate->setShopType(pResult->getInt(2));
+            pTemplate->setItemClass(pResult->getInt(3));
+            pTemplate->setMinItemType(pResult->getInt(4));
+            pTemplate->setMaxItemType(pResult->getInt(5));
+            pTemplate->setMinOptionLevel(pResult->getInt(6));
+            pTemplate->setMaxOptionLevel(pResult->getInt(7));
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            setTemplate(pTemplate->getID(), pTemplate);
+        }
 
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
-ShopTemplate* ShopTemplateManager::getTemplate(ShopTemplateID_t id) const 
-{
-	__BEGIN_TRY
+ShopTemplate* ShopTemplateManager::getTemplate(ShopTemplateID_t id) const {
+    __BEGIN_TRY
 
-	unordered_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.find(id);
+    unordered_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.find(id);
 
-	if (itr == m_Entries.end())
-	{
-		cerr << "ShopTemplateManager::getTemplate() : NoSuchElementException" << endl;
-		throw NoSuchElementException("template not exist.");
-	}
+    if (itr == m_Entries.end()) {
+        cerr << "ShopTemplateManager::getTemplate() : NoSuchElementException" << endl;
+        throw NoSuchElementException("template not exist.");
+    }
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void ShopTemplateManager::setTemplate(ShopTemplateID_t id, ShopTemplate* pTemplate) 
-	
+void ShopTemplateManager::setTemplate(ShopTemplateID_t id, ShopTemplate* pTemplate)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.find(id);
+    unordered_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.find(id);
 
-	if (itr != m_Entries.end()) throw ("ShopTemplateManager::setTemplate() : Same ID already exist!");
+    if (itr != m_Entries.end())
+        throw("ShopTemplateManager::setTemplate() : Same ID already exist!");
 
-	m_Entries[id] = pTemplate;
+    m_Entries[id] = pTemplate;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 string ShopTemplateManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ShopTemplateManager(";
-	unordered_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.begin();
-	for (; itr != m_Entries.end(); itr++) 
-		msg << "(ShopTemplate:" << (int)(itr->first) << "," << itr->second->toString() << ")"; msg << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ShopTemplateManager(";
+    unordered_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.begin();
+    for (; itr != m_Entries.end(); itr++)
+        msg << "(ShopTemplate:" << (int)(itr->first) << "," << itr->second->toString() << ")";
+    msg << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

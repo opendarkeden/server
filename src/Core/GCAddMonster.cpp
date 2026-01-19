@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddMonster.cpp 
+// Filename    : GCAddMonster.cpp
 // Written By  : Reiot
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -10,14 +10,14 @@
 // Constructor
 //////////////////////////////////////////////////////////////////////////////
 GCAddMonster::GCAddMonster()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pEffectInfo = NULL;
-	m_FromFlag = 0;
+    m_pEffectInfo = NULL;
+    m_FromFlag = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -26,112 +26,105 @@ GCAddMonster::GCAddMonster()
 GCAddMonster::~GCAddMonster() noexcept
 
 {
-	SAFE_DELETE(m_pEffectInfo);
+    SAFE_DELETE(m_pEffectInfo);
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////////////
-void GCAddMonster::read (SocketInputStream & iStream ) 
-	 
+void GCAddMonster::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE name_length = 0;
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
-	iStream.read(m_MonsterType);
+    BYTE name_length = 0;
 
-	iStream.read(name_length);
-	if (name_length != 0) iStream.read(m_MonsterName, name_length);
+    iStream.read(m_ObjectID);
+    iStream.read(m_MonsterType);
 
-	iStream.read(m_MainColor);
-	iStream.read(m_SubColor);
-	iStream.read(m_X);
-	iStream.read(m_Y);
-	iStream.read(m_Dir);
+    iStream.read(name_length);
+    if (name_length != 0)
+        iStream.read(m_MonsterName, name_length);
 
-	m_pEffectInfo = new EffectInfo();
-	m_pEffectInfo->read(iStream);
+    iStream.read(m_MainColor);
+    iStream.read(m_SubColor);
+    iStream.read(m_X);
+    iStream.read(m_Y);
+    iStream.read(m_Dir);
 
-	iStream.read(m_CurrentHP);
-	iStream.read(m_MaxHP);
+    m_pEffectInfo = new EffectInfo();
+    m_pEffectInfo->read(iStream);
 
-	iStream.read(m_FromFlag);
+    iStream.read(m_CurrentHP);
+    iStream.read(m_MaxHP);
 
-	__END_CATCH
+    iStream.read(m_FromFlag);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////////////
-void GCAddMonster::write (SocketOutputStream & oStream ) const 
-     
+void GCAddMonster::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE name_length = m_MonsterName.size();
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_MonsterType);
-	oStream.write(name_length);
-	if (m_MonsterName.size() != 0) oStream.write(m_MonsterName);
-	oStream.write(m_MainColor);
-	oStream.write(m_SubColor);
-	oStream.write(m_X);
-	oStream.write(m_Y);
-	oStream.write(m_Dir);
+    BYTE name_length = m_MonsterName.size();
 
-	m_pEffectInfo->write(oStream);
+    oStream.write(m_ObjectID);
+    oStream.write(m_MonsterType);
+    oStream.write(name_length);
+    if (m_MonsterName.size() != 0)
+        oStream.write(m_MonsterName);
+    oStream.write(m_MainColor);
+    oStream.write(m_SubColor);
+    oStream.write(m_X);
+    oStream.write(m_Y);
+    oStream.write(m_Dir);
 
-	oStream.write(m_CurrentHP);
-	oStream.write(m_MaxHP);
+    m_pEffectInfo->write(oStream);
 
-	oStream.write(m_FromFlag);
+    oStream.write(m_CurrentHP);
+    oStream.write(m_MaxHP);
 
-	__END_CATCH
+    oStream.write(m_FromFlag);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCAddMonster::execute (Player * pPlayer ) 
-	 
+void GCAddMonster::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddMonsterHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddMonsterHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCAddMonster::toString () const
-       
+string GCAddMonster::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddMonster("
-		<< "ObjectID:"     << (int)m_ObjectID
-		<< ",MonsterType:" << (int)m_MonsterType
-		<< ",MonsterName:" << m_MonsterName
-		<< ",MainColor:"   << (int)m_MainColor
-		<< ",SubColor:"    << (int)m_SubColor
-		<< ",X:"           << (int)m_X 
-		<< ",Y:"           << (int)m_Y 
-		<< ",Dir:"         << Dir2String[m_Dir]
-		<< ",Effects:"     << m_pEffectInfo->toString()
-		<< ",CurrentHP:"   << (int)m_CurrentHP
-		<< ",MaxHP:"       << (int)m_MaxHP
-		<< ",FromFlag:"       << (int)m_FromFlag
-		<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCAddMonster("
+        << "ObjectID:" << (int)m_ObjectID << ",MonsterType:" << (int)m_MonsterType << ",MonsterName:" << m_MonsterName
+        << ",MainColor:" << (int)m_MainColor << ",SubColor:" << (int)m_SubColor << ",X:" << (int)m_X
+        << ",Y:" << (int)m_Y << ",Dir:" << Dir2String[m_Dir] << ",Effects:" << m_pEffectInfo->toString()
+        << ",CurrentHP:" << (int)m_CurrentHP << ",MaxHP:" << (int)m_MaxHP << ",FromFlag:" << (int)m_FromFlag << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

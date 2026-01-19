@@ -3,5 +3,4 @@
 //--------------------------------------------------------------------------------
 #include "Quest.h"
 
-QuestID_t    Quest::m_QuestIDRegistry = 1;
-
+QuestID_t Quest::m_QuestIDRegistry = 1;

@@ -1,45 +1,46 @@
 #ifndef __GLOBAL_ITEM_POSITION_H__
 #define __GLOBAL_ITEM_POSITION_H__
 
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 class Zone;
 class Item;
 
-class GlobalItemPosition
-{
+class GlobalItemPosition {
 public:
-	enum PositionType
-	{
-		POS_TYPE_ZONE,		// 0
-		POS_TYPE_INVENTORY,	// 1
-		POS_TYPE_MOUSE,		// 2
-		POS_TYPE_CORPSE,	// 3
-	};
+    enum PositionType {
+        POS_TYPE_ZONE,      // 0
+        POS_TYPE_INVENTORY, // 1
+        POS_TYPE_MOUSE,     // 2
+        POS_TYPE_CORPSE,    // 3
+    };
 
 protected:
-	// 이 클래스를 직접 생성할 수는 없다.
-	GlobalItemPosition( PositionType type ) : m_ItemPosType( type ) { }
+    // 이 클래스를 직접 생성할 수는 없다.
+    GlobalItemPosition(PositionType type) : m_ItemPosType(type) {}
 
 public:
-	virtual ~GlobalItemPosition(){ };
+    virtual ~GlobalItemPosition() {};
 
 public:
-	void			setType( PositionType type ) { m_ItemPosType = type; }
-	PositionType	getType() const { return m_ItemPosType; }
+    void setType(PositionType type) {
+        m_ItemPosType = type;
+    }
+    PositionType getType() const {
+        return m_ItemPosType;
+    }
 
 public:
-	// 아이템을 뽑아낸다.
-	virtual Item*	popItem( bool bLock = true )  = 0;
-	virtual Zone*	getZone()  = 0;
+    // 아이템을 뽑아낸다.
+    virtual Item* popItem(bool bLock = true) = 0;
+    virtual Zone* getZone() = 0;
 
 public:
-	virtual string	toString() const  = 0;
+    virtual string toString() const = 0;
 
 private:
-	PositionType	m_ItemPosType;
+    PositionType m_ItemPosType;
 };
 
 #endif // __GLOBAL_ITEM_POSITION_H__
-

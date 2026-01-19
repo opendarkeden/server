@@ -1,243 +1,223 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : WarItem.cpp
 // Written By  : Changaya
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
-#include <stdio.h>
 #include "WarItem.h"
-#include "ItemInfoManager.h"
+
+#include <stdio.h>
+
 #include "DB.h"
+#include "ItemInfoManager.h"
 
 // global variable declaration
 WarItemInfoManager* g_pWarItemInfoManager = NULL;
 
 ItemID_t WarItem::m_ItemIDRegistry = 0;
-Mutex    WarItem::m_Mutex;
+Mutex WarItem::m_Mutex;
 
 //--------------------------------------------------------------------------------
 // constructor
 //--------------------------------------------------------------------------------
 WarItem::WarItem()
-	
-: m_ItemType(0)
-{
-}
+
+    : m_ItemType(0) {}
 
 WarItem::WarItem(ItemType_t itemType, const list<OptionType_t>& optionType)
-	
-: m_ItemType(itemType)
-{
-	try
-	{
-		if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
-		{
-			filelog("itembug.log", "WarItem::WarItem() : Invalid item type or option type");
-			throw ("WarItem::WarItem() : Invalid item type or optionType");
-		}
-	} catch (Throwable& t) {
-		cout << t.toString().c_str() << endl;
-		Assert(false);
-	}
+
+    : m_ItemType(itemType) {
+    try {
+        if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType)) {
+            filelog("itembug.log", "WarItem::WarItem() : Invalid item type or option type");
+            throw("WarItem::WarItem() : Invalid item type or optionType");
+        }
+    } catch (Throwable& t) {
+        cout << t.toString().c_str() << endl;
+        Assert(false);
+    }
 }
 
 
 //--------------------------------------------------------------------------------
 // create item
 //--------------------------------------------------------------------------------
-void WarItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	
+void WarItem::create(const string& ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	if (itemID==0)
-	{
-		__ENTER_CRITICAL_SECTION(m_Mutex)
+    if (itemID == 0) {
+        __ENTER_CRITICAL_SECTION(m_Mutex)
 
-		m_ItemIDRegistry += g_pItemInfoManager->getItemIDSuccessor();
-		m_ItemID = m_ItemIDRegistry;
+        m_ItemIDRegistry += g_pItemInfoManager->getItemIDSuccessor();
+        m_ItemID = m_ItemIDRegistry;
 
-		__LEAVE_CRITICAL_SECTION(m_Mutex)
-	}
-	else
-	{
-		m_ItemID = itemID;
-	}
-	
-	BEGIN_DB 
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        __LEAVE_CRITICAL_SECTION(m_Mutex)
+    } else {
+        m_ItemID = itemID;
+    }
 
-		StringStream sql;
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		sql << "INSERT INTO WarItemObject "
-			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
-			<< " X, Y)"
-			<< " VALUES(" 
-			<< m_ItemID << ", "
-			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
-			<<(int)x << ", " <<(int)y << ")";
+        StringStream sql;
 
-		pStmt->executeQueryString(sql.toString());
-		filelog( "WarLog.txt", "%s", sql.toString().c_str() );
+        sql << "INSERT INTO WarItemObject "
+            << "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
+            << " X, Y)"
+            << " VALUES(" << m_ItemID << ", " << m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', "
+            << (int)storage << ", " << storageID << ", " << (int)x << ", " << (int)y << ")";
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        pStmt->executeQueryString(sql.toString());
+        filelog("WarLog.txt", "%s", sql.toString().c_str());
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
-
 
 
 //--------------------------------------------------------------------------------
 // save item
 //--------------------------------------------------------------------------------
 void WarItem::tinysave(const char* field) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
-	char query[255];
+    Statement* pStmt = NULL;
+    char query[255];
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		sprintf( query, "UPDATE WarItemObject SET %s WHERE ItemID=%ld",
-								field, m_ItemID);
-		pStmt->executeQuery( query );
-		filelog( "WarLog.txt", "%s", query );
+        sprintf(query, "UPDATE WarItemObject SET %s WHERE ItemID=%ld", field, m_ItemID);
+        pStmt->executeQuery(query);
+        filelog("WarLog.txt", "%s", query);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------------------
 // save item
 //--------------------------------------------------------------------------------
-void WarItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	
+void WarItem::save(const string& ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB 
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE WarItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d WHERE ItemID=%ld",
-									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_ItemID );
+        pStmt->executeQuery("UPDATE WarItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, "
+                            "StorageID=%ld, X=%d, Y=%d WHERE ItemID=%ld",
+                            m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_ItemID);
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get debug string
 //--------------------------------------------------------------------------------
-string WarItem::toString() const 
-	
+string WarItem::toString() const
+
 {
-	StringStream msg;
+    StringStream msg;
 
-	msg << "WarItem("
-		<< "ItemID:"        << m_ItemID
-		<< ",ItemType:"     <<(int)m_ItemType
-		<< ")";
+    msg << "WarItem("
+        << "ItemID:" << m_ItemID << ",ItemType:" << (int)m_ItemType << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
 
 
 //--------------------------------------------------------------------------------
 // get width
 //--------------------------------------------------------------------------------
-VolumeWidth_t WarItem::getVolumeWidth() const 
-	
+VolumeWidth_t WarItem::getVolumeWidth() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return g_pWarItemInfoManager->getItemInfo(m_ItemType)->getVolumeWidth();
+    return g_pWarItemInfoManager->getItemInfo(m_ItemType)->getVolumeWidth();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-	
+
 //--------------------------------------------------------------------------------
 // get height
 //--------------------------------------------------------------------------------
-VolumeHeight_t WarItem::getVolumeHeight() const 
-	
+VolumeHeight_t WarItem::getVolumeHeight() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return g_pWarItemInfoManager->getItemInfo(m_ItemType)->getVolumeHeight();
+    return g_pWarItemInfoManager->getItemInfo(m_ItemType)->getVolumeHeight();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-	
+
 //--------------------------------------------------------------------------------
 // get weight
 //--------------------------------------------------------------------------------
-Weight_t WarItem::getWeight() const 
-	
+Weight_t WarItem::getWeight() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return g_pWarItemInfoManager->getItemInfo(m_ItemType)->getWeight();
+    return g_pWarItemInfoManager->getItemInfo(m_ItemType)->getWeight();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get debug string
 //--------------------------------------------------------------------------------
-string WarItemInfo::toString() const 
-	
+string WarItemInfo::toString() const
+
 {
-	StringStream msg;
+    StringStream msg;
 
-	msg << "WarItemInfo("
-		<< "ItemType:" << m_ItemType
-		<< ",Name:" << m_Name
-		<< ",EName:" << m_EName
-		<< ",Price:" << m_Price
-		<< ",VolumeType:" << Volume2String[m_VolumeType]
-		<< ",Weight:" << m_Weight
-		<< ",Description:" << m_Description
-		<< ")";
+    msg << "WarItemInfo("
+        << "ItemType:" << m_ItemType << ",Name:" << m_Name << ",EName:" << m_EName << ",Price:" << m_Price
+        << ",VolumeType:" << Volume2String[m_VolumeType] << ",Weight:" << m_Weight << ",Description:" << m_Description
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
 
 
 //--------------------------------------------------------------------------------
 // load from DB
 //--------------------------------------------------------------------------------
-void WarItemInfoManager::load() 
-	
+void WarItemInfoManager::load()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB 
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
         Result* pResult = pStmt->executeQuery("SELECT MAX(ItemType) FROM WarItemInfo");
 
@@ -245,77 +225,72 @@ void WarItemInfoManager::load()
 
         m_InfoCount = pResult->getInt(1);
 
-        m_pItemInfos = new ItemInfo*[m_InfoCount+1];
+        m_pItemInfos = new ItemInfo*[m_InfoCount + 1];
 
-        for (uint i = 0 ; i <= m_InfoCount ; i ++)
+        for (uint i = 0; i <= m_InfoCount; i++)
             m_pItemInfos[i] = NULL;
 
-        pResult = pStmt->executeQuery(
-			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio FROM WarItemInfo"
-		);
+        pResult = pStmt->executeQuery("SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio FROM WarItemInfo");
 
-		while (pResult->next()) 
-		{
-			uint i = 0;
+        while (pResult->next()) {
+            uint i = 0;
 
-			WarItemInfo* pWarItemInfo = new WarItemInfo();
+            WarItemInfo* pWarItemInfo = new WarItemInfo();
 
-			pWarItemInfo->setItemType(pResult->getInt(++i));
-			pWarItemInfo->setName(pResult->getString(++i));
-			pWarItemInfo->setEName(pResult->getString(++i));
-			pWarItemInfo->setPrice(pResult->getInt(++i));
-			pWarItemInfo->setVolumeType(pResult->getInt(++i));
-			pWarItemInfo->setWeight(pResult->getInt(++i));
-			pWarItemInfo->setRatio(pResult->getInt(++i));
+            pWarItemInfo->setItemType(pResult->getInt(++i));
+            pWarItemInfo->setName(pResult->getString(++i));
+            pWarItemInfo->setEName(pResult->getString(++i));
+            pWarItemInfo->setPrice(pResult->getInt(++i));
+            pWarItemInfo->setVolumeType(pResult->getInt(++i));
+            pWarItemInfo->setWeight(pResult->getInt(++i));
+            pWarItemInfo->setRatio(pResult->getInt(++i));
 
-			addItemInfo(pWarItemInfo);
-		}
-		
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+            addItemInfo(pWarItemInfo);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // load to creature
 //--------------------------------------------------------------------------------
-void WarItemLoader::load(Creature* pCreature) 
-	
-{
-	__BEGIN_TRY
+void WarItemLoader::load(Creature* pCreature)
 
-	Assert(pCreature != NULL);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    Assert(pCreature != NULL);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // load to zone
 //--------------------------------------------------------------------------------
-void WarItemLoader::load(Zone* pZone) 
-	
+void WarItemLoader::load(Zone* pZone)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pZone != NULL);
+    Assert(pZone != NULL);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // load to inventory
 //--------------------------------------------------------------------------------
-void WarItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	
-{
-	__BEGIN_TRY
+void WarItemLoader::load(StorageID_t storageID, Inventory* pInventory)
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 WarItemLoader* g_pWarItemLoader = NULL;

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterBeginnerZone.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,29 +15,36 @@
 // class ConditionCanEnterBeginnerZone;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanEnterBeginnerZone : public Condition 
-{
+class ConditionCanEnterBeginnerZone : public Condition {
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_CAN_ENTER_BEGINNER_ZONE; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_CAN_ENTER_BEGINNER_ZONE;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 public:
-
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionCanEnterBeginnerZoneFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanEnterBeginnerZoneFactory : public ConditionFactory 
-{
+class ConditionCanEnterBeginnerZoneFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_CAN_ENTER_BEGINNER_ZONE; }
-    virtual Condition* createCondition() const  { return new ConditionCanEnterBeginnerZone(); }
-    virtual string getConditionName() const  { return "CanEnterBeginnerZone"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_CAN_ENTER_BEGINNER_ZONE;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionCanEnterBeginnerZone();
+    }
+    virtual string getConditionName() const {
+        return "CanEnterBeginnerZone";
+    }
 };
 
 #endif

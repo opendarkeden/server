@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MagnumSpear.h 
+// Filename    : MagnumSpear.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_MAGNUM_SPEAR_HANDLER_H__
@@ -13,19 +13,22 @@
 // class MagnumSpear;
 //////////////////////////////////////////////////////////////////////////////
 
-class MagnumSpear : public SkillHandler 
-{
+class MagnumSpear : public SkillHandler {
 public:
-	MagnumSpear() throw() {}
-	~MagnumSpear() throw() {}
-	
+    MagnumSpear() throw() {}
+    ~MagnumSpear() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MagnumSpear"; }
-	SkillType_t getSkillType() const throw() { return SKILL_MAGNUM_SPEAR; }
+    string getSkillHandlerName() const throw() {
+        return "MagnumSpear";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_MAGNUM_SPEAR;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

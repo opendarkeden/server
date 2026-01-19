@@ -1,395 +1,383 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : PCFinder.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PCFinder.h"
+
 #include "Player.h"
 #include "PlayerCreature.h"
-//#include "GamePlayer.h"
+// #include "GamePlayer.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class PCFinder member methods
 //////////////////////////////////////////////////////////////////////////////
 
 PCFinder::PCFinder()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_Mutex.setName("PCFinder");
+    m_Mutex.setName("PCFinder");
 
-	__END_CATCH
+    __END_CATCH
 }
 
 PCFinder::~PCFinder()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_PCs.clear();
+    m_PCs.clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 // add creature to unordered_map
 // execute just once at PC's login
-void PCFinder::addCreature (Creature* pCreature) 
-	
+void PCFinder::addCreature(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	const string& Name = pCreature->getName();
-	const string& ID = pCreature->getPlayer()->getID();
+    const string& Name = pCreature->getName();
+    const string& ID = pCreature->getPlayer()->getID();
 
-	unordered_map< string , Creature* >::iterator itr = m_PCs.find(Name);
-	unordered_map< string , Creature* >::iterator itr2 = m_IDs.find(ID); // for BillingServer. by sigi. 2002.11.18
+    unordered_map<string, Creature*>::iterator itr = m_PCs.find(Name);
+    unordered_map<string, Creature*>::iterator itr2 = m_IDs.find(ID); // for BillingServer. by sigi. 2002.11.18
 
-	if (itr != m_PCs.end() 
-		|| itr2 != m_IDs.end())
-	{
-		//m_Mutex.unlock();
-		throw DuplicatedException();
-	}
+    if (itr != m_PCs.end() || itr2 != m_IDs.end()) {
+        // m_Mutex.unlock();
+        throw DuplicatedException();
+    }
 
-	m_PCs[ Name ]	= pCreature;
-	m_IDs[ ID ] 	= pCreature; // for BillingServer. by sigi. 2002.11.18
+    m_PCs[Name] = pCreature;
+    m_IDs[ID] = pCreature; // for BillingServer. by sigi. 2002.11.18
 
-	if ( pCreature->isPC() )
-	{
-		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-//		m_GuildMap.insert( pair<GuildID_t, Creature*>( pPC->getGuildID(), pCreature ) );
-	}
+    if (pCreature->isPC()) {
+        PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+        //		m_GuildMap.insert( pair<GuildID_t, Creature*>( pPC->getGuildID(), pCreature ) );
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Delete creature from unordered_map
 // execute just once at PC's logout
-void PCFinder::deleteCreature (const string & name) 
-	//NoSuchElementException , Error)
+void PCFinder::deleteCreature(const string& name)
+// NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	unordered_map< string , Creature* >::iterator itr = m_PCs.find(name);
+    unordered_map<string, Creature*>::iterator itr = m_PCs.find(name);
 
-	if (itr == m_PCs.end())
-	{
-		//cerr << "PCFinder::deleteCreature() : NoSuchElementException" << endl;
-		//throw NoSuchElementException();
-		// NoSuch제거. by sigi. 2002.5.2
+    if (itr == m_PCs.end()) {
+        // cerr << "PCFinder::deleteCreature() : NoSuchElementException" << endl;
+        // throw NoSuchElementException();
+        //  NoSuch제거. by sigi. 2002.5.2
 
-		m_Mutex.unlock();
-		return;
-	}
+        m_Mutex.unlock();
+        return;
+    }
 
 
-	// for BillingServer. by sigi. 2002.11.18
-	Creature* pCreature = itr->second;
-	Player* pPlayer = pCreature->getPlayer();
-	Assert(pPlayer!=NULL);
+    // for BillingServer. by sigi. 2002.11.18
+    Creature* pCreature = itr->second;
+    Player* pPlayer = pCreature->getPlayer();
+    Assert(pPlayer != NULL);
 
-	const string& ID = pPlayer->getID();
+    const string& ID = pPlayer->getID();
 
-	unordered_map< string , Creature* >::iterator itr2 = m_IDs.find(ID);
+    unordered_map<string, Creature*>::iterator itr2 = m_IDs.find(ID);
 
-	if (itr != m_IDs.end())
-	{
-		m_IDs.erase(itr2);
-	}
-	// 요기까지 2002.11.18
+    if (itr != m_IDs.end()) {
+        m_IDs.erase(itr2);
+    }
+    // 요기까지 2002.11.18
 
-/*	if ( pCreature->isPC() )
-	{
-		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-		pair<multimap< GuildID_t, Creature* >::iterator, multimap< GuildID_t, Creature* >::iterator> range = m_GuildMap.equal_range( pPC->getGuildID() );
-		for ( multimap<GuildID_t, Creature*>::iterator itr = range.first ; itr != range.second ; ++itr )
-		{
-			if ( itr->second == pCreature )
-			{
-				m_GuildMap.erase( itr );
-				break;
-			}
-		}
-	}*/
+    /*	if ( pCreature->isPC() )
+        {
+            PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+            pair<multimap< GuildID_t, Creature* >::iterator, multimap< GuildID_t, Creature* >::iterator> range =
+       m_GuildMap.equal_range( pPC->getGuildID() ); for ( multimap<GuildID_t, Creature*>::iterator itr = range.first ;
+       itr != range.second ; ++itr )
+            {
+                if ( itr->second == pCreature )
+                {
+                    m_GuildMap.erase( itr );
+                    break;
+                }
+            }
+        }*/
 
-	m_PCs.erase(itr);
+    m_PCs.erase(itr);
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // get creature with PC-name
-Creature* PCFinder::getCreature_LOCKED (const string & name) const 
-	//NoSuchElementException , Error)
+Creature* PCFinder::getCreature_LOCKED(const string& name) const
+// NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map<string, Creature*>::const_iterator itr;
 
-	//__ENTER_CRITICAL_SECTION(m_Mutex)
+    //__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_PCs.find(name);
+    itr = m_PCs.find(name);
 
-	if (itr == m_PCs.end())
-	{
-		//cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
-		//cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
-		//m_Mutex.unlock();
+    if (itr == m_PCs.end()) {
+        // cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
+        // cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
+        // m_Mutex.unlock();
 
-		//throw NoSuchElementException();
-		// NoSuch제거. by sigi. 2002.5.2
-		return NULL;
-	}
+        // throw NoSuchElementException();
+        //  NoSuch제거. by sigi. 2002.5.2
+        return NULL;
+    }
 
-	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+    //__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	return itr->second;
+    return itr->second;
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // get creature with PlayerID
-Creature* PCFinder::getCreatureByID_LOCKED (const string & ID) const 
-	//NoSuchElementException , Error)
+Creature* PCFinder::getCreatureByID_LOCKED(const string& ID) const
+// NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map<string, Creature*>::const_iterator itr;
 
-	//__ENTER_CRITICAL_SECTION(m_Mutex)
+    //__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_IDs.find(ID);
+    itr = m_IDs.find(ID);
 
-	if (itr == m_IDs.end())
-	{
-		//cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
-		//cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
-		//m_Mutex.unlock();
+    if (itr == m_IDs.end()) {
+        // cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
+        // cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
+        // m_Mutex.unlock();
 
-		//throw NoSuchElementException();
-		// NoSuch제거. by sigi. 2002.5.2
-		return NULL;
-	}
+        // throw NoSuchElementException();
+        //  NoSuch제거. by sigi. 2002.5.2
+        return NULL;
+    }
 
-	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+    //__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	return itr->second;
+    return itr->second;
 
 
-	__END_CATCH
+    __END_CATCH
 }
-
 
 
 // get creature with PC-name
-Creature* PCFinder::getCreature (const string & name) const 
-	//NoSuchElementException , Error)
+Creature* PCFinder::getCreature(const string& name) const
+// NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map<string, Creature*>::const_iterator itr;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_PCs.find(name);
+    itr = m_PCs.find(name);
 
-	if (itr == m_PCs.end())
-	{
-		//cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
-		//cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
-		m_Mutex.unlock();
+    if (itr == m_PCs.end()) {
+        // cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
+        // cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
+        m_Mutex.unlock();
 
-		//throw NoSuchElementException();
-		// NoSuch제거. by sigi. 2002.5.2
-		return NULL;
-	}
+        // throw NoSuchElementException();
+        //  NoSuch제거. by sigi. 2002.5.2
+        return NULL;
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	return itr->second;
+    return itr->second;
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // get creature with PlayerID
-Creature* PCFinder::getCreatureByID (const string & ID) const 
-	//NoSuchElementException , Error)
+Creature* PCFinder::getCreatureByID(const string& ID) const
+// NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map<string, Creature*>::const_iterator itr;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_IDs.find(ID);
+    itr = m_IDs.find(ID);
 
-	if (itr == m_IDs.end())
-	{
-		//cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
-		//cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
-		m_Mutex.unlock();
+    if (itr == m_IDs.end()) {
+        // cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
+        // cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
+        m_Mutex.unlock();
 
-		//throw NoSuchElementException();
-		// NoSuch제거. by sigi. 2002.5.2
-		return NULL;
-	}
+        // throw NoSuchElementException();
+        //  NoSuch제거. by sigi. 2002.5.2
+        return NULL;
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	return itr->second;
+    return itr->second;
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
-// get creature's IP address 
-IP_t PCFinder::getIP (const string & name) const 
-{
-	__BEGIN_TRY
+// get creature's IP address
+IP_t PCFinder::getIP(const string& name) const {
+    __BEGIN_TRY
 
-	IP_t IP = 0;
+    IP_t IP = 0;
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map<string, Creature*>::const_iterator itr;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_PCs.find(name);
+    itr = m_PCs.find(name);
 
-	if (itr == m_PCs.end())
-	{
-		cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
-		//m_Mutex.unlock();
-		throw NoSuchElementException();
-	}
+    if (itr == m_PCs.end()) {
+        cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
+        // m_Mutex.unlock();
+        throw NoSuchElementException();
+    }
 
-	Creature* pCreature = itr->second;
-	Assert( pCreature->isPC() );
+    Creature* pCreature = itr->second;
+    Assert(pCreature->isPC());
 
-	Player* pPlayer = pCreature->getPlayer();
-	Assert( pPlayer != NULL );
+    Player* pPlayer = pCreature->getPlayer();
+    Assert(pPlayer != NULL);
 
-	Socket* pSocket = pPlayer->getSocket();
-	Assert( pSocket != NULL );
+    Socket* pSocket = pPlayer->getSocket();
+    Assert(pSocket != NULL);
 
-	IP = pSocket->getHostIP();
+    IP = pSocket->getHostIP();
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	return IP;
+    return IP;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-list<Creature*> PCFinder::getGuildCreatures(GuildID_t gID, uint Num)
-{
-	unordered_map<string, Creature*>::iterator itr = m_PCs.begin();
-	list<Creature*> ret;
+list<Creature*> PCFinder::getGuildCreatures(GuildID_t gID, uint Num) {
+    unordered_map<string, Creature*>::iterator itr = m_PCs.begin();
+    list<Creature*> ret;
 
-	for ( uint i=0 ; itr != m_PCs.end() && i < Num ; ++itr, ++i )
-	{
-		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
-		if ( pPC != NULL && pPC->getGuildID() == gID ) ret.push_back( pPC );
-	}
+    for (uint i = 0; itr != m_PCs.end() && i < Num; ++itr, ++i) {
+        PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
+        if (pPC != NULL && pPC->getGuildID() == gID)
+            ret.push_back(pPC);
+    }
 
-	return ret;
+    return ret;
 }
 
 /*
 // get creature with PC-name
 bool PCFinder::sendPacket (const string& name, Packet* pPacket) const
-	//NoSuchElementException , Error)
+    //NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map< string , Creature* >::const_iterator itr;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_PCs.find(name);
+    itr = m_PCs.find(name);
 
-	if (itr == m_PCs.end())
-	{
-		m_Mutex.unlock();
+    if (itr == m_PCs.end())
+    {
+        m_Mutex.unlock();
 
-		return false;
-	}
+        return false;
+    }
 
-	// sendPacket
-	try {
-		Creature* pCreature = itr->second;
-		Player* pPlayer = pCreature->getPlayer();
-		pPlayer->sendPacket( pPacket );
-	} catch (Throwable& ) {
-		// 그냥 무시한다.
-	}
+    // sendPacket
+    try {
+        Creature* pCreature = itr->second;
+        Player* pPlayer = pCreature->getPlayer();
+        pPlayer->sendPacket( pPacket );
+    } catch (Throwable& ) {
+        // 그냥 무시한다.
+    }
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 
-	return true;
+    return true;
 }
 
 // kick
-bool PCFinder::setKickCharacter (const string & name, const string& host, uint port) const 
-	//NoSuchElementException , Error)
+bool PCFinder::setKickCharacter (const string & name, const string& host, uint port) const
+    //NoSuchElementException , Error)
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< string , Creature* >::const_iterator itr;
+    unordered_map< string , Creature* >::const_iterator itr;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	itr = m_PCs.find(name);
+    itr = m_PCs.find(name);
 
-	if (itr == m_PCs.end())
-	{
-		//cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
-		//cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
-		m_Mutex.unlock();
+    if (itr == m_PCs.end())
+    {
+        //cerr << "PCFinder::getCreature() : NoSuchElementException" << endl;
+        //cerr << "PCFinder::getCreature() : NoSuchCreature" << endl;
+        m_Mutex.unlock();
 
-		//throw NoSuchElementException();
-		// NoSuch제거. by sigi. 2002.5.2
-		return false;
-	}
+        //throw NoSuchElementException();
+        // NoSuch제거. by sigi. 2002.5.2
+        return false;
+    }
 
-	Creature* pCreature = itr->second;
-	Player* pPlayer = pCreature->getPlayer();
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>( pPlayer );
-	Assert(pGamePlayer!=NULL);
+    Creature* pCreature = itr->second;
+    Player* pPlayer = pCreature->getPlayer();
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>( pPlayer );
+    Assert(pGamePlayer!=NULL);
 
-	// 강제 종료 시킨다.
-	pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
-	pGamePlayer->setKickForLogin(true);
+    // 강제 종료 시킨다.
+    pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
+    pGamePlayer->setKickForLogin(true);
 
-	// 접속 해제 후, 응답을 보내줄 곳..
-	pGamePlayer->setKickRequestHost( host );
-	pGamePlayer->setKickRequestPort( port );
+    // 접속 해제 후, 응답을 보내줄 곳..
+    pGamePlayer->setKickRequestHost( host );
+    pGamePlayer->setKickRequestPort( port );
 
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+    __END_CATCH
 
-	return true;
+    return true;
 }
 */
 
-void PCFinder::addNPC(NPC *pNPC) 
-{
+void PCFinder::addNPC(NPC* pNPC) {
     __BEGIN_TRY
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
@@ -398,15 +386,14 @@ void PCFinder::addNPC(NPC *pNPC)
 
     const string& Name = pNPC->getName();
 
-    unordered_map< string , NPC* >::iterator itr = m_NPCs.find(Name);
+    unordered_map<string, NPC*>::iterator itr = m_NPCs.find(Name);
 
-    if (itr != m_NPCs.end())
-    {
-		return;
-        //throw DuplicatedException();
+    if (itr != m_NPCs.end()) {
+        return;
+        // throw DuplicatedException();
     }
 
-    m_NPCs[ Name ] = pNPC;
+    m_NPCs[Name] = pNPC;
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
 
@@ -414,19 +401,17 @@ void PCFinder::addNPC(NPC *pNPC)
 }
 
 
-void PCFinder::deleteNPC (const string & name)
-    
-{
+void PCFinder::deleteNPC(const string& name)
 
+{
     // 실제로 사용 안 할 함수라고 생각함 그래도 그냥 add 랑 쌍을 맞추기 위해 =_=
     __BEGIN_TRY
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
-    unordered_map< string , NPC* >::iterator itr = m_NPCs.find(name);
+    unordered_map<string, NPC*>::iterator itr = m_NPCs.find(name);
 
-    if (itr == m_NPCs.end())
-    {
+    if (itr == m_NPCs.end()) {
         return;
     }
 
@@ -438,19 +423,18 @@ void PCFinder::deleteNPC (const string & name)
 }
 
 
-NPC* PCFinder::getNPC (const string & name) const
-    
+NPC* PCFinder::getNPC(const string& name) const
+
 {
     __BEGIN_TRY
 
-    unordered_map< string , NPC* >::const_iterator itr;
+    unordered_map<string, NPC*>::const_iterator itr;
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
     itr = m_NPCs.find(name);
 
-    if (itr == m_NPCs.end())
-    {
+    if (itr == m_NPCs.end()) {
         m_Mutex.unlock();
         return NULL;
     }
@@ -464,17 +448,16 @@ NPC* PCFinder::getNPC (const string & name) const
 }
 
 
-NPC* PCFinder::getNPC_LOCKED (const string & name) const
-    
+NPC* PCFinder::getNPC_LOCKED(const string& name) const
+
 {
     __BEGIN_TRY
 
-    unordered_map< string , NPC* >::const_iterator itr;
+    unordered_map<string, NPC*>::const_iterator itr;
 
     itr = m_NPCs.find(name);
 
-    if (itr == m_NPCs.end())
-    {
+    if (itr == m_NPCs.end()) {
         return NULL;
     }
 

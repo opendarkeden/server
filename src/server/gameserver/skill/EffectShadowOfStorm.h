@@ -7,38 +7,48 @@
 #ifndef __EFFECT_SHADOW_OF_STORM__
 #define __EFFECT_SHADOW_OF_STORM__
 
-#include "Effect.h"
 #include <unordered_map>
+
+#include "Effect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectShadowOfStorm
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectShadowOfStorm : public Effect 
-{
+class EffectShadowOfStorm : public Effect {
 public:
-	EffectShadowOfStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SHADOW_OF_STORM; }
-
-	void affect() ;
-	void unaffect() ;
-	string toString() const throw();
+    EffectShadowOfStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
 public:
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_SHADOW_OF_STORM;
+    }
 
-	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+    void affect();
+    void unaffect();
+    string toString() const throw();
 
-	void checkPosition();
+public:
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
+
+    ObjectID_t getUserObjectID() const {
+        return m_UserObjectID;
+    }
+    void setUserObjectID(ObjectID_t UserObjectID) {
+        m_UserObjectID = UserObjectID;
+    }
+
+    void checkPosition();
 
 private:
-	int     						m_Damage;
-	ObjectID_t						m_UserObjectID;
-	unordered_map<ObjectID_t, TPOINT>	m_TargetPositions;
+    int m_Damage;
+    ObjectID_t m_UserObjectID;
+    unordered_map<ObjectID_t, TPOINT> m_TargetPositions;
 };
 
 #endif // __EFFECT_SHADOW_OF_STORM__

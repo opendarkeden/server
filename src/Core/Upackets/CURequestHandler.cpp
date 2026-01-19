@@ -9,17 +9,17 @@
 #include "CURequest.h"
 
 #ifdef __UPDATE_SERVER__
-	#include <sys/types.h>
-	#include <stdio.h>
-	#include <fcntl.h>
-	#include <unistd.h>
-	#include <sys/sendfile.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-	#include "Properties.h"
+#include <sys/sendfile.h>
+#include <sys/types.h>
 
-	#include "UpdateServerPlayer.h"
-	#include "Upackets/UCUpdate.h"
-	#include "Resource.h"
+#include "Properties.h"
+#include "Resource.h"
+#include "Upackets/UCUpdate.h"
+#include "UpdateServerPlayer.h"
 #endif
 
 //--------------------------------------------------------------------------------
@@ -28,92 +28,87 @@
 // 존재할 경우, sendfile()을 사용해서 클라이언트로 전송한다.
 //
 //--------------------------------------------------------------------------------
-void CURequestHandler::execute ( CURequest * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
-		
+void CURequestHandler::execute(CURequest* pPacket, Player* pPlayer) throw(ProtocolException, Error) {
+    __BEGIN_TRY
+
 #ifdef __UPDATE_SERVER__
 
-	UpdateServerPlayer * pUpdateServerPlayer = dynamic_cast<UpdateServerPlayer*>(pPlayer);
+    UpdateServerPlayer* pUpdateServerPlayer = dynamic_cast<UpdateServerPlayer*>(pPlayer);
 
-	Socket * pSocket = pUpdateServerPlayer->getSocket();
+    Socket* pSocket = pUpdateServerPlayer->getSocket();
 
-	const Resource & resource = pPacket->getResource();
+    const Resource& resource = pPacket->getResource();
 
-	Version_t ClientVersion = 0;
+    Version_t ClientVersion = 0;
 
-	if( resource.getVersion() < 2000 ) {
-		ClientVersion = 1;
-	}
+    if (resource.getVersion() < 2000) {
+        ClientVersion = 1;
+    }
 
-	char filename[ maxFilename + 1 ];
-	sprintf( filename , "%s/%s/v%05d/%s" ,
-		g_pConfig->getProperty("HomeDir").c_str() ,
-		g_pConfig->getProperty("PatchDir").c_str() ,
-//		resource.getVersion() , 
-		ClientVersion, 
-		resource.getFilename().c_str() 
-	);
+    char filename[maxFilename + 1];
+    sprintf(filename, "%s/%s/v%05d/%s", g_pConfig->getProperty("HomeDir").c_str(),
+            g_pConfig->getProperty("PatchDir").c_str(),
+            //		resource.getVersion() ,
+            ClientVersion, resource.getFilename().c_str());
 
-	//cout << "Try to open " << filename << "..." << endl;
+    // cout << "Try to open " << filename << "..." << endl;
 
-	ifstream ifile( filename , ios::in | ios::binary );
-		
-	if ( !ifile ) {
-		// 존재하지 않는 파일을 요청한 것은 해킹으로 간주한다.
-		// 로그를 한 후, BAN 시켜야 한다.
-		throw InvalidProtocolException(filename);
-	}
+    ifstream ifile(filename, ios::in | ios::binary);
 
-	// 파일 크기를 알아내기 위해서 파일 포인터를 맨 뒤로 움직인다.
-	ifile.seekg( 0 , ios::end );
-	FileSize_t filesize = ifile.tellg();
+    if (!ifile) {
+        // 존재하지 않는 파일을 요청한 것은 해킹으로 간주한다.
+        // 로그를 한 후, BAN 시켜야 한다.
+        throw InvalidProtocolException(filename);
+    }
 
-	//cout << "Original FileSize  : " << filesize << endl;
-	//cout << "Requested FileSize : " << resource.getFileSize() << endl;
+    // 파일 크기를 알아내기 위해서 파일 포인터를 맨 뒤로 움직인다.
+    ifile.seekg(0, ios::end);
+    FileSize_t filesize = ifile.tellg();
 
-	// 클라이언트에서 요청한 파일의 크기와 다를 경우, 해킹 시도로 간주한다.
-	if ( resource.getFileSize() != filesize ) {
-		throw InvalidProtocolException("invalid filesize");
-	}
+    // cout << "Original FileSize  : " << filesize << endl;
+    // cout << "Requested FileSize : " << resource.getFileSize() << endl;
 
-	//--------------------------------------------------------------------------------
-	// CURequest 에 담겨온 리소스를 다시 UCUpdate 에 담아서 먼저 전송한다.
-	// 그다음 파일 내용을 전송한다.
-	//--------------------------------------------------------------------------------
-	UCUpdate ucUpdate;
-	ucUpdate.setResource( resource );	
+    // 클라이언트에서 요청한 파일의 크기와 다를 경우, 해킹 시도로 간주한다.
+    if (resource.getFileSize() != filesize) {
+        throw InvalidProtocolException("invalid filesize");
+    }
 
-	pUpdateServerPlayer->sendPacket( &ucUpdate );
+    //--------------------------------------------------------------------------------
+    // CURequest 에 담겨온 리소스를 다시 UCUpdate 에 담아서 먼저 전송한다.
+    // 그다음 파일 내용을 전송한다.
+    //--------------------------------------------------------------------------------
+    UCUpdate ucUpdate;
+    ucUpdate.setResource(resource);
 
-	//--------------------------------------------------------------------------------
-	// write file content
-	//--------------------------------------------------------------------------------
-	// 파일 포인터를 다시 맨 처음으로 되돌린다.
-	ifile.seekg(0);
-	long offset = 0;
+    pUpdateServerPlayer->sendPacket(&ucUpdate);
 
-	//cout << "=======================================================================" << endl;
-	//cout << resource.getFilename() << " (" << filesize << "bytes) : ";
+    //--------------------------------------------------------------------------------
+    // write file content
+    //--------------------------------------------------------------------------------
+    // 파일 포인터를 다시 맨 처음으로 되돌린다.
+    ifile.seekg(0);
+    long offset = 0;
 
-  // TODO: make fd() work??
-	// 파일 내용을 전송한다.
-	// DWORD nSent = sendfile( pSocket->getSOCKET() , ifile.rdbuf()->fd() , &offset, filesize );
+    // cout << "=======================================================================" << endl;
+    // cout << resource.getFilename() << " (" << filesize << "bytes) : ";
 
-	//cout << nSent << " bytes sent to client." << endl;
-	//cout << "=======================================================================" << endl;
+    // TODO: make fd() work??
+    // 파일 내용을 전송한다.
+    // DWORD nSent = sendfile( pSocket->getSOCKET() , ifile.rdbuf()->fd() , &offset, filesize );
 
-	// if ( nSent != filesize ) {
-	// 	throw Error("파일 전송 오류");
-	// }
+    // cout << nSent << " bytes sent to client." << endl;
+    // cout << "=======================================================================" << endl;
 
-	// 파일을 닫는다.
-	ifile.close();
+    // if ( nSent != filesize ) {
+    // 	throw Error("파일 전송 오류");
+    // }
 
-	pUpdateServerPlayer->setPlayerStatus( USPS_AFTER_SENDING_UC_UPDATE );
+    // 파일을 닫는다.
+    ifile.close();
+
+    pUpdateServerPlayer->setPlayerStatus(USPS_AFTER_SENDING_UC_UPDATE);
 
 #endif
-		
-	__END_CATCH
+
+    __END_CATCH
 }

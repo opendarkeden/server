@@ -8,9 +8,9 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void GCRemoveInjuriousCreatureHandler::execute (GCRemoveInjuriousCreature* pPacket , Player* pPlayer)
-	 
+void GCRemoveInjuriousCreatureHandler::execute(GCRemoveInjuriousCreature* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }

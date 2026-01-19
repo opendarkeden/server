@@ -13,8 +13,9 @@
 // include files
 //////////////////////////////////////////////////
 #include <pthread.h>
-#include "Types.h"
+
 #include "Exception.h"
+#include "Types.h"
 
 
 //////////////////////////////////////////////////
@@ -27,8 +28,8 @@ class ThreadAttrException;
 //
 // class ThreadAttr;
 //
-// Thread-Attribute 클래스는 동일한 속성(attribute)의 Thread 클래스를 
-// 여러 개 생성할 필요가 있을 때 pthread_create()의 파라미터로 사용된다. 
+// Thread-Attribute 클래스는 동일한 속성(attribute)의 Thread 클래스를
+// 여러 개 생성할 필요가 있을 때 pthread_create()의 파라미터로 사용된다.
 // 즉 하나의 Thread-Attribute 객체만 생성해놓으면 된다는 뜻이다.
 // (솔라리스 쓰레드에 있어서 생성할때마다 thread-flag 를 지정했던
 // 기억을 되살려 보라~)
@@ -40,70 +41,74 @@ class ThreadAttrException;
 //////////////////////////////////////////////////////////////////////
 
 class ThreadAttr {
+    //////////////////////////////////////////////////
+    // constructor / destructor
+    //////////////////////////////////////////////////
+public:
+    // constructor
+    ThreadAttr();
 
-//////////////////////////////////////////////////
-// constructor / destructor
-//////////////////////////////////////////////////
-public :
-	
-	// constructor
-	ThreadAttr () ;
-
-	// destructor
-	~ThreadAttr () ;
-	
-
-//////////////////////////////////////////////////
-// public methods
-//////////////////////////////////////////////////
-public :
-	
-	//
-	// return thread-attribute object
-	//
-	// *CAUTION* 
-	//
-	// do not return pthread_attr_t value !!
-	// use pthread_attr_t pointer instead.
-	// (pthread_attr_t 에 대해 assignment 가 지원되지 않을 가능성 있음)
-	//
-	pthread_attr_t * getAttr ()  { return &attr; }
-
-	// is thread attribute detached state?
-	bool isDetached () const  { return getDetachState() == PTHREAD_CREATE_DETACHED; }
-	
-	// set thread attribute detached state
-	void setDetached ()  { setDetachState(PTHREAD_CREATE_DETACHED); }
-
-	// is thread attribute joinable state?
-	bool isJoinable () const  { return getDetachState() == PTHREAD_CREATE_JOINABLE; }
-	
-	// set thread attribute joinable state
-	void setJoinable ()  { setDetachState(PTHREAD_CREATE_JOINABLE); }
+    // destructor
+    ~ThreadAttr();
 
 
-//////////////////////////////////////////////////
-// protected methods
-//////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // public methods
+    //////////////////////////////////////////////////
+public:
+    //
+    // return thread-attribute object
+    //
+    // *CAUTION*
+    //
+    // do not return pthread_attr_t value !!
+    // use pthread_attr_t pointer instead.
+    // (pthread_attr_t 에 대해 assignment 가 지원되지 않을 가능성 있음)
+    //
+    pthread_attr_t* getAttr() {
+        return &attr;
+    }
 
-protected :
+    // is thread attribute detached state?
+    bool isDetached() const {
+        return getDetachState() == PTHREAD_CREATE_DETACHED;
+    }
 
-	// get thread attribute's state
-	int getDetachState () const ;
+    // set thread attribute detached state
+    void setDetached() {
+        setDetachState(PTHREAD_CREATE_DETACHED);
+    }
 
-	// set thread attribute's state
-	void setDetachState ( int state ) ;
+    // is thread attribute joinable state?
+    bool isJoinable() const {
+        return getDetachState() == PTHREAD_CREATE_JOINABLE;
+    }
+
+    // set thread attribute joinable state
+    void setJoinable() {
+        setDetachState(PTHREAD_CREATE_JOINABLE);
+    }
 
 
-//////////////////////////////////////////////////
-// attributes
-//////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // protected methods
+    //////////////////////////////////////////////////
 
-private :
-	
-	// thread attribute
-	pthread_attr_t attr;
+protected:
+    // get thread attribute's state
+    int getDetachState() const;
 
+    // set thread attribute's state
+    void setDetachState(int state);
+
+
+    //////////////////////////////////////////////////
+    // attributes
+    //////////////////////////////////////////////////
+
+private:
+    // thread attribute
+    pthread_attr_t attr;
 };
 
 #endif

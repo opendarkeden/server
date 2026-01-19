@@ -7,10 +7,10 @@
 #ifndef __MOTORCYCLE_H__
 #define __MOTORCYCLE_H__
 
-#include "Item.h"
-#include "ItemInfo.h"
 #include "InfoClassManager.h"
+#include "Item.h"
 #include "ItemFactory.h"
+#include "ItemInfo.h"
 #include "ItemLoader.h"
 #include "Mutex.h"
 
@@ -18,57 +18,103 @@
 // class Motorcycle;
 //////////////////////////////////////////////////////////////////////////////
 
-class Motorcycle : public Item 
-{
+class Motorcycle : public Item {
 public:
-	Motorcycle() ;
-	Motorcycle(ItemType_t itemType, const list<OptionType_t>& optionType) ;
-	~Motorcycle() ;
-	
-public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
-	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const ;
-	virtual string toString() const ;
-
-	static void initItemIDRegistry(void) ;
+    Motorcycle();
+    Motorcycle(ItemType_t itemType, const list<OptionType_t>& optionType);
+    ~Motorcycle();
 
 public:
-	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_MOTORCYCLE; }
-	virtual string getObjectTableName() const  { return "MotorcycleObject"; }
+    virtual void create(const string& ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y,
+                        ItemID_t itemID = 0);
+    virtual void save(const string& ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y);
+    void tinysave(const string& field) const {
+        tinysave(field.c_str());
+    }
+    void tinysave(const char* field) const;
+    virtual string toString() const;
 
-	virtual ItemType_t getItemType() const  { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
-
-	virtual bool hasOptionType() const  { return !m_OptionType.empty(); }
-	virtual int getOptionTypeSize() const  { return m_OptionType.size(); }
-	virtual int getRandomOptionType() const  { if (m_OptionType.empty()) return 0; int pos = rand()%m_OptionType.size(); list<OptionType_t>::const_iterator itr = m_OptionType.begin(); for (int i=0; i<pos; i++) itr++; return *itr; }
-	virtual const list<OptionType_t>& getOptionTypeList() const  { return m_OptionType; }
-	virtual OptionType_t getFirstOptionType() const  { if (m_OptionType.empty()) return 0; return m_OptionType.front(); }
-	virtual void removeOptionType(OptionType_t OptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end()) m_OptionType.erase(itr); }
-	virtual void changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; }
-	virtual void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back(OptionType); }
-	virtual void setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
-
-	virtual VolumeWidth_t getVolumeWidth() const ;
-	virtual VolumeHeight_t getVolumeHeight() const ;
-	virtual Weight_t getWeight() const ;
+    static void initItemIDRegistry(void);
 
 public:
-	virtual Durability_t getDurability() const  { return m_Durability; }
-	void setDurability(Durability_t durability)  { m_Durability = durability; }
+    virtual ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_MOTORCYCLE;
+    }
+    virtual string getObjectTableName() const {
+        return "MotorcycleObject";
+    }
 
-	Inventory* getInventory()  { return m_pInventory; }
+    virtual ItemType_t getItemType() const {
+        return m_ItemType;
+    }
+    virtual void setItemType(ItemType_t itemType) {
+        m_ItemType = itemType;
+    }
+
+    virtual bool hasOptionType() const {
+        return !m_OptionType.empty();
+    }
+    virtual int getOptionTypeSize() const {
+        return m_OptionType.size();
+    }
+    virtual int getRandomOptionType() const {
+        if (m_OptionType.empty())
+            return 0;
+        int pos = rand() % m_OptionType.size();
+        list<OptionType_t>::const_iterator itr = m_OptionType.begin();
+        for (int i = 0; i < pos; i++)
+            itr++;
+        return *itr;
+    }
+    virtual const list<OptionType_t>& getOptionTypeList() const {
+        return m_OptionType;
+    }
+    virtual OptionType_t getFirstOptionType() const {
+        if (m_OptionType.empty())
+            return 0;
+        return m_OptionType.front();
+    }
+    virtual void removeOptionType(OptionType_t OptionType) {
+        list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType);
+        if (itr != m_OptionType.end())
+            m_OptionType.erase(itr);
+    }
+    virtual void changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType) {
+        list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType);
+        if (itr != m_OptionType.end())
+            *itr = newOptionType;
+    }
+    virtual void addOptionType(OptionType_t OptionType) {
+        m_OptionType.push_back(OptionType);
+    }
+    virtual void setOptionType(const list<OptionType_t>& OptionType) {
+        m_OptionType = OptionType;
+    }
+
+    virtual VolumeWidth_t getVolumeWidth() const;
+    virtual VolumeHeight_t getVolumeHeight() const;
+    virtual Weight_t getWeight() const;
+
+public:
+    virtual Durability_t getDurability() const {
+        return m_Durability;
+    }
+    void setDurability(Durability_t durability) {
+        m_Durability = durability;
+    }
+
+    Inventory* getInventory() {
+        return m_pInventory;
+    }
 
 private:
-	ItemType_t			m_ItemType;			// 아이템 타입
-	list<OptionType_t>		m_OptionType;		// 옵션 타입
-	Durability_t		m_Durability;		// 내구성
-	Inventory*			m_pInventory;		// 인벤토리
-	
-	static Mutex    m_Mutex;          // 아이템 ID 관련 락
-	static ItemID_t m_ItemIDRegistry; // 클래스별 고유 아이템 아이디 발급기
+    ItemType_t m_ItemType;           // 아이템 타입
+    list<OptionType_t> m_OptionType; // 옵션 타입
+    Durability_t m_Durability;       // 내구성
+    Inventory* m_pInventory;         // 인벤토리
+
+    static Mutex m_Mutex;             // 아이템 ID 관련 락
+    static ItemID_t m_ItemIDRegistry; // 클래스별 고유 아이템 아이디 발급기
 };
 
 
@@ -76,18 +122,23 @@ private:
 // class MotorcycleInfo
 //////////////////////////////////////////////////////////////////////////////
 
-class MotorcycleInfo : public ItemInfo 
-{
+class MotorcycleInfo : public ItemInfo {
 public:
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MOTORCYCLE; }
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_MOTORCYCLE;
+    }
 
-	virtual Durability_t getDurability() const  { return m_Durability; }
-	virtual void setDurability(Durability_t durability)  { m_Durability = durability; }
+    virtual Durability_t getDurability() const {
+        return m_Durability;
+    }
+    virtual void setDurability(Durability_t durability) {
+        m_Durability = durability;
+    }
 
-	virtual string toString() const ;
+    virtual string toString() const;
 
 private:
-	Durability_t m_Durability;	// 내구성
+    Durability_t m_Durability; // 내구성
 };
 
 
@@ -95,11 +146,12 @@ private:
 // class MotorcycleInfoManager;
 //////////////////////////////////////////////////////////////////////////////
 
-class MotorcycleInfoManager : public InfoClassManager 
-{
+class MotorcycleInfoManager : public InfoClassManager {
 public:
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MOTORCYCLE; }
-	virtual void load() ;
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_MOTORCYCLE;
+    }
+    virtual void load();
 };
 
 // global variable declaration
@@ -110,14 +162,19 @@ extern MotorcycleInfoManager* g_pMotorcycleInfoManager;
 // class MotorcycleFactory
 //////////////////////////////////////////////////////////////////////////////
 
-class MotorcycleFactory : public ItemFactory 
-{
+class MotorcycleFactory : public ItemFactory {
 public:
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MOTORCYCLE; }
-	virtual string getItemClassName() const  { return "Motorcycle"; }
-	
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_MOTORCYCLE;
+    }
+    virtual string getItemClassName() const {
+        return "Motorcycle";
+    }
+
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Motorcycle(ItemType,OptionType); }
+    virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) {
+        return new Motorcycle(ItemType, OptionType);
+    }
 };
 
 
@@ -125,16 +182,19 @@ public:
 // class MotorcycleLoader;
 //////////////////////////////////////////////////////////////////////////////
 
-class MotorcycleLoader : public ItemLoader 
-{
+class MotorcycleLoader : public ItemLoader {
 public:
-	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MOTORCYCLE; }
-	virtual string getItemClassName() const  { return "Motorcycle"; }
+    virtual Item::ItemClass getItemClass() const {
+        return Item::ITEM_CLASS_MOTORCYCLE;
+    }
+    virtual string getItemClassName() const {
+        return "Motorcycle";
+    }
 
 public:
-	virtual void load(Creature* pCreature) ;
-	virtual void load(Zone* pZone) ;
-	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
+    virtual void load(Creature* pCreature);
+    virtual void load(Zone* pZone);
+    virtual void load(StorageID_t storageID, Inventory* pInventory);
 };
 
 extern MotorcycleLoader* g_pMotorcycleLoader;

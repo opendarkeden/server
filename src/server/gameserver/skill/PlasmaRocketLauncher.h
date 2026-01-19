@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : PlasmaRocketLauncher.h 
+// Filename    : PlasmaRocketLauncher.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_PLASMA_ROCKET_LAUNCHER_HANDLER_H__
@@ -13,19 +13,22 @@
 // class PlasmaRocketLauncher;
 //////////////////////////////////////////////////////////////////////////////
 
-class PlasmaRocketLauncher: public SkillHandler 
-{
+class PlasmaRocketLauncher : public SkillHandler {
 public:
-	PlasmaRocketLauncher() throw() {}
-	~PlasmaRocketLauncher() throw() {}
+    PlasmaRocketLauncher() throw() {}
+    ~PlasmaRocketLauncher() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "PlasmaRocketLauncher"; }
-	SkillType_t getSkillType() const throw() { return SKILL_PLASMA_ROCKET_LAUNCHER; }
+    string getSkillHandlerName() const throw() {
+        return "PlasmaRocketLauncher";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_PLASMA_ROCKET_LAUNCHER;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,24 +1,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionQuitDialogue.cpp
-// Written By  : 
-// Description : 
+// Written By  :
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionQuitDialogue.h"
+
 #include "Creature.h"
 #include "GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionQuitDialogue::read (PropertyBuffer & propertyBuffer)
-    
+void ActionQuitDialogue::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	// 이 액션은 NPC와 플레이어 간의 대화를 종료시키는 역할을 하므로
-	// 특별히 읽어들여야 할 파라미터가 존재하지 않는다.
+    // 이 액션은 NPC와 플레이어 간의 대화를 종료시키는 역할을 하므로
+    // 특별히 읽어들여야 할 파라미터가 존재하지 않는다.
 
     __END_CATCH
 }
@@ -26,37 +27,37 @@ void ActionQuitDialogue::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionQuitDialogue::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionQuitDialogue::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+    Player* pPlayer = pCreature2->getPlayer();
+    Assert(pPlayer != NULL);
 
-	GCNPCResponse response;
-	response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPlayer->sendPacket(&response);
+    GCNPCResponse response;
+    response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+    pPlayer->sendPacket(&response);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionQuitDialogue::toString () const 
-	
+string ActionQuitDialogue::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionQuitDialogue(" << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionQuitDialogue(" << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

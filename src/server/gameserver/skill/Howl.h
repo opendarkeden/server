@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Howl.h 
+// Filename    : Howl.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HOWL_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Howl;
 //////////////////////////////////////////////////////////////////////////////
 
-class Howl: public SkillHandler 
-{
+class Howl : public SkillHandler {
 public:
-	Howl() throw() {}
-	~Howl() throw() {}
-	
+    Howl() throw() {}
+    ~Howl() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Howl"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HOWL; }
+    string getSkillHandlerName() const throw() {
+        return "Howl";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HOWL;
+    }
 
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

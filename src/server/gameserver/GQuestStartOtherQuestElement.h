@@ -3,16 +3,17 @@
 
 #include "GQuestElement.h"
 
-class GQuestStartOtherQuestElement : public GQuestElement
-{
+class GQuestStartOtherQuestElement : public GQuestElement {
 public:
-	GQuestStartOtherQuestElement() : m_QuestID(0) { }
-	string 				getElementName() const { return "StartOtherQuest"; }
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
-	GQuestStartOtherQuestElement*	makeElement(XMLTree* pTree);
+    GQuestStartOtherQuestElement() : m_QuestID(0) {}
+    string getElementName() const {
+        return "StartOtherQuest";
+    }
+    ResultType checkCondition(PlayerCreature* pPC) const;
+    GQuestStartOtherQuestElement* makeElement(XMLTree* pTree);
 
 private:
-	DWORD	m_QuestID;
+    DWORD m_QuestID;
 };
 
 extern GQuestStartOtherQuestElement g_StartOtherQuestElement;

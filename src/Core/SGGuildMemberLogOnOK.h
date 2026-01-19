@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
-// 
-// Filename    : SGGuildMemberLogOnOK.h 
+//
+// Filename    : SGGuildMemberLogOnOK.h
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //----------------------------------------------------------------------
 
 #ifndef __SG_GUILDMEMBER_LOGON_OK_H__
@@ -25,70 +25,85 @@
 //----------------------------------------------------------------------
 
 class SGGuildMemberLogOnOK : public Packet {
-
 public:
-	SGGuildMemberLogOnOK() {};
+    SGGuildMemberLogOnOK() {};
     ~SGGuildMemberLogOnOK() {};
-	// Initialize the packet by reading data from the input stream.
-    void read(SocketInputStream& iStream) ;
-		    
-	// Serialize the packet into the output stream.
-    void write(SocketOutputStream& oStream) const ;
+    // Initialize the packet by reading data from the input stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize the packet into the output stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_SG_GUILDMEMBER_LOGON_OK; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szGuildID +			// guild ID
-			   szBYTE +				// name length
-			   m_Name.size() +		// name size
-			   szbool +				// log on
-			   szServerID;			// server id
-	}
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "SGGuildMemberLogOnOK"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_SG_GUILDMEMBER_LOGON_OK;
+    }
+
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szGuildID +     // guild ID
+               szBYTE +        // name length
+               m_Name.size() + // name size
+               szbool +        // log on
+               szServerID;     // server id
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "SGGuildMemberLogOnOK";
+    }
+
+    // get packet's debug string
+    string toString() const;
 
 public:
+    // get/set guildID
+    GuildID_t getGuildID() const {
+        return m_GuildID;
+    }
+    void setGuildID(GuildID_t guildID) {
+        m_GuildID = guildID;
+    }
 
-	// get/set guildID
-	GuildID_t getGuildID() const  { return m_GuildID; }
-	void setGuildID(GuildID_t guildID )  { m_GuildID = guildID; }
+    // get/set guild name
+    const string& getName() const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+    }
 
-	// get/set guild name
-	const string& getName() const  { return m_Name; }
-	void setName(const string& name )  { m_Name = name; }
+    // get/set logon
+    bool getLogOn() const {
+        return m_bLogOn;
+    }
+    void setLogOn(bool logOn) {
+        m_bLogOn = logOn;
+    }
 
-	// get/set logon
-	bool getLogOn() const  { return m_bLogOn; }
-	void setLogOn(bool logOn )  { m_bLogOn = logOn; }
+    // get/set serverid
+    ServerID_t getServerID() const {
+        return m_ServerID;
+    }
+    void setServerID(ServerID_t ServerID) {
+        m_ServerID = ServerID;
+    }
 
-	// get/set serverid
-	ServerID_t	getServerID() const  { return m_ServerID; }
-	void		setServerID(ServerID_t ServerID )  { m_ServerID = ServerID; }
-	
-private :
+private:
+    // GuildID
+    GuildID_t m_GuildID;
 
-	// GuildID
-	GuildID_t m_GuildID;
+    // name
+    string m_Name;
 
-	// name
-	string m_Name;
+    // logon
+    bool m_bLogOn;
 
-	// logon
-	bool m_bLogOn;
-
-	// serverid
-	ServerID_t	m_ServerID;
-
+    // serverid
+    ServerID_t m_ServerID;
 };
 
 
@@ -101,30 +116,32 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class SGGuildMemberLogOnOKFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new SGGuildMemberLogOnOK(); }
+    // create packet
+    Packet* createPacket() {
+        return new SGGuildMemberLogOnOK();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "SGGuildMemberLogOnOK"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_SG_GUILDMEMBER_LOGON_OK; }
+    // get packet name
+    string getPacketName() const {
+        return "SGGuildMemberLogOnOK";
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// Use LGIncomingConnectionPacketMaxSize if that constant is defined.
-	PacketSize_t getPacketMaxSize() const  
-	{ 
-		return szGuildID +				// guild ID
-			   szBYTE +					// name length
-			   20 + 					// name max size
-			   szbool +					// logon
-			   szServerID;				// serverid
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_SG_GUILDMEMBER_LOGON_OK;
+    }
 
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // Use LGIncomingConnectionPacketMaxSize if that constant is defined.
+    PacketSize_t getPacketMaxSize() const {
+        return szGuildID + // guild ID
+               szBYTE +    // name length
+               20 +        // name max size
+               szbool +    // logon
+               szServerID; // serverid
+    }
 };
 
 
@@ -135,12 +152,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class SGGuildMemberLogOnOKHandler {
-	
 public:
-
-	// execute packet's handler
-	static void execute(SGGuildMemberLogOnOK* pPacket) ;
-
+    // execute packet's handler
+    static void execute(SGGuildMemberLogOnOK* pPacket);
 };
 
 #endif

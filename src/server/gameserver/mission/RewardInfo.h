@@ -6,12 +6,11 @@
 #ifndef __REWARD_INFO_H__
 #define __REWARD_INFO_H__
 
-#include "Types.h"
-#include "Exception.h"
-
-#include "GCNPCResponse.h"
-
 #include <vector>
+
+#include "Exception.h"
+#include "GCNPCResponse.h"
+#include "Types.h"
 
 class PlayerCreature;
 
@@ -19,23 +18,24 @@ class PlayerCreature;
 // class RewardInfo;
 //////////////////////////////////////////////////////////////////////////////
 
-class RewardInfo 
-{
+class RewardInfo {
 public:
-	RewardInfo( RewardID_t rID, RewardClass_t rClass );
-	virtual ~RewardInfo();
+    RewardInfo(RewardID_t rID, RewardClass_t rClass);
+    virtual ~RewardInfo();
 
 public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const  = 0;
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const  = 0;
+    virtual QuestMessage canGiveReward(PlayerCreature* pPC) const = 0;
+    virtual QuestMessage giveReward(PlayerCreature* pPC) const = 0;
 
-	virtual string	toString() const ;
+    virtual string toString() const;
 
-	virtual bool	isAnotherQuest() const { return false; }
+    virtual bool isAnotherQuest() const {
+        return false;
+    }
 
 private:
-	RewardID_t		m_RewardID;
-	RewardClass_t	m_RewardClass;
+    RewardID_t m_RewardID;
+    RewardClass_t m_RewardClass;
 };
 
 #endif

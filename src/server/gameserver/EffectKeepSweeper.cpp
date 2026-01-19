@@ -1,35 +1,33 @@
 
 #include "EffectKeepSweeper.h"
-#include "Item.h"
+
 #include "GCRemoveEffect.h"
+#include "Item.h"
 
-EffectKeepSweeper::EffectKeepSweeper(Item* pItem) 
-{
-	__BEGIN_TRY
+EffectKeepSweeper::EffectKeepSweeper(Item* pItem) {
+    __BEGIN_TRY
 
-	setTarget( pItem );
-	m_Part = 0;
+    setTarget(pItem);
+    m_Part = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectKeepSweeper::unaffect() 
-{
-	__BEGIN_TRY
+void EffectKeepSweeper::unaffect() {
+    __BEGIN_TRY
 
-	Item* pItem = dynamic_cast<Item*>(m_pTarget);
-	Assert( pItem != NULL );
+    Item* pItem = dynamic_cast<Item*>(m_pTarget);
+    Assert(pItem != NULL);
 
-	pItem->removeFlag( getEffectClass() );
+    pItem->removeFlag(getEffectClass());
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EffectKeepSweeper::toString() const 
-{
-	__BEGIN_TRY
+string EffectKeepSweeper::toString() const {
+    __BEGIN_TRY
 
-	return "EffectKeepSweeper";
+    return "EffectKeepSweeper";
 
-	__END_CATCH
+    __END_CATCH
 }

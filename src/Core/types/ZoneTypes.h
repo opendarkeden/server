@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : ZoneTypes.h
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ZONE_TYPES_H__
@@ -11,8 +11,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-#define DARK_MAX	13
-#define	LIGHT_MAX	15
+#define DARK_MAX 13
+#define LIGHT_MAX 15
 
 //////////////////////////////////////////////////////////////////////////////
 // 존 그룹 아이디 : 존 그룹 매니저에서 존을 구분하는 identifier이다.
@@ -34,19 +34,19 @@ const uint szZoneID = sizeof(ZoneID_t);
 typedef BYTE ZoneLevel_t;
 const uint szZoneLevel = sizeof(ZoneLevel_t);
 
-const BYTE NO_SAFE_ZONE       = 0x00;
-const BYTE SLAYER_SAFE_ZONE   = 0x01;
-const BYTE VAMPIRE_SAFE_ZONE  = 0x02;
+const BYTE NO_SAFE_ZONE = 0x00;
+const BYTE SLAYER_SAFE_ZONE = 0x01;
+const BYTE VAMPIRE_SAFE_ZONE = 0x02;
 const BYTE COMPLETE_SAFE_ZONE = 0x04;
-const BYTE NO_PK_ZONE         = 0x08;
-const BYTE SAFE_ZONE          = 0x17;
-const BYTE OUSTERS_SAFE_ZONE  = 0x10;
+const BYTE NO_PK_ZONE = 0x08;
+const BYTE SAFE_ZONE = 0x17;
+const BYTE OUSTERS_SAFE_ZONE = 0x10;
 
 
 //////////////////////////////////////////////////////////////////////////////
 // 존의 가로/세로 크기
 //////////////////////////////////////////////////////////////////////////////
-const uint maxZoneWidth  = 256;
+const uint maxZoneWidth = 256;
 const uint maxZoneHeight = 256;
 
 typedef WORD ZoneCoord_t;
@@ -59,20 +59,9 @@ const uint szZoneCoord = sizeof(ZoneCoord_t);
 
 const uint szWeather = szBYTE;
 
-enum Weather 
-{
-	WEATHER_CLEAR, 
-	WEATHER_RAINY, 
-	WEATHER_SNOWY,
-	WEATHER_MAX
-};
+enum Weather { WEATHER_CLEAR, WEATHER_RAINY, WEATHER_SNOWY, WEATHER_MAX };
 
-const string Weather2String [] = 
-{
-	"WEATHER_CLEAR" , 
-	"WEATHER_RAINY" , 
-	"WEATHER_SNOWY" 
-};
+const string Weather2String[] = {"WEATHER_CLEAR", "WEATHER_RAINY", "WEATHER_SNOWY"};
 
 // 1 - 20 사이의 정수로, 비나 눈의 양을 나타내는 단위이다.
 typedef BYTE WeatherLevel_t;
@@ -82,7 +71,7 @@ const uint szWeatherLevel = sizeof(WeatherLevel_t);
 //////////////////////////////////////////////////////////////////////////////
 // 존에서의 NPC와 Monster 종류의 최대 개수
 //////////////////////////////////////////////////////////////////////////////
-const uint maxNPCPerZone     = 255;
+const uint maxNPCPerZone = 255;
 const uint maxMonsterPerZone = 255;
 
 
@@ -97,26 +86,32 @@ const uint szLightLevel = sizeof(LightLevel_t);
 //////////////////////////////////////////////////////////////////////////////
 // point structure
 //////////////////////////////////////////////////////////////////////////////
-typedef struct _TPOINT 
-{
-	int x;
-	int y;
+typedef struct _TPOINT {
+    int x;
+    int y;
 } TPOINT;
 
 //////////////////////////////////////////////////////////////////////////////
 // zone coord structure
 //////////////////////////////////////////////////////////////////////////////
-class ZONE_COORD 
-{
+class ZONE_COORD {
 public:
-	ZONE_COORD(ZoneID_t ZID=0, ZoneCoord_t ZX=0, ZoneCoord_t ZY=0) { id = ZID; x = ZX; y = ZY; }
-	void set(ZoneID_t ZID, ZoneCoord_t ZX, ZoneCoord_t ZY) { id = ZID; x = ZX; y = ZY; }
+    ZONE_COORD(ZoneID_t ZID = 0, ZoneCoord_t ZX = 0, ZoneCoord_t ZY = 0) {
+        id = ZID;
+        x = ZX;
+        y = ZY;
+    }
+    void set(ZoneID_t ZID, ZoneCoord_t ZX, ZoneCoord_t ZY) {
+        id = ZID;
+        x = ZX;
+        y = ZY;
+    }
 
 public:
-	ZoneID_t    id;
-	ZoneCoord_t x;
-	ZoneCoord_t y;
-}; 
+    ZoneID_t id;
+    ZoneCoord_t x;
+    ZoneCoord_t y;
+};
 
 
 #endif

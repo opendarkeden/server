@@ -1,105 +1,100 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectFuryOfGnome.cpp
 // Written by  :
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
+
+#include "EffectFuryOfGnome.h"
 
 #include "DB.h"
-#include "EffectFuryOfGnome.h"
-#include "Slayer.h"
-#include "Ousters.h"
-#include "Monster.h"
+#include "GCDeleteEffectFromTile.h"
 #include "GamePlayer.h"
+#include "Monster.h"
+#include "Ousters.h"
 #include "SkillUtil.h"
+#include "Slayer.h"
 #include "ZoneUtil.h"
 
-#include "GCDeleteEffectFromTile.h"
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+EffectFuryOfGnome::EffectFuryOfGnome(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
 
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-EffectFuryOfGnome::EffectFuryOfGnome(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) 
-	
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = zoneX;
-	m_Y = zoneY;
-	m_CasterName ="";
-	m_CasterID = 0;
+    m_pZone = pZone;
+    m_X = zoneX;
+    m_Y = zoneY;
+    m_CasterName = "";
+    m_CasterID = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnome::affect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectFuryOfGnome" << "affect BEGIN" << endl;
-	
-	__END_CATCH 
+{
+    __BEGIN_TRY
+
+    // cout << "EffectFuryOfGnome" << "affect BEGIN" << endl;
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnome::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnome::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnome::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectFuryOfGnome" << "unaffect BEGIN" << endl;
+{
+    __BEGIN_TRY
+
+    // cout << "EffectFuryOfGnome" << "unaffect BEGIN" << endl;
 
     Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+    tile.deleteEffect(m_ObjectID);
 
-	GCDeleteEffectFromTile gcDT;
-	gcDT.setXY(m_X, m_Y);
-	gcDT.setObjectID(getObjectID());
-	gcDT.setEffectID(Effect::EFFECT_CLASS_FURY_OF_GNOME);
-	m_pZone->broadcastPacket( m_X, m_Y, &gcDT );
+    GCDeleteEffectFromTile gcDT;
+    gcDT.setXY(m_X, m_Y);
+    gcDT.setObjectID(getObjectID());
+    gcDT.setEffectID(Effect::EFFECT_CLASS_FURY_OF_GNOME);
+    m_pZone->broadcastPacket(m_X, m_Y, &gcDT);
 
-	//cout << "EffectFuryOfGnome" << "unaffect END" << endl;
+    // cout << "EffectFuryOfGnome" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectFuryOfGnome::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectFuryOfGnome::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectFuryOfGnome("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectFuryOfGnome("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

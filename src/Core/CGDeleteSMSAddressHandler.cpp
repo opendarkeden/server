@@ -7,52 +7,50 @@
 #include "CGDeleteSMSAddress.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "PlayerCreature.h"
-	#include "SMSAddressBook.h"
-	#include "Assert.h"
-
-	#include "GCAddressListVerify.h"
+#include "Assert.h"
+#include "GCAddressListVerify.h"
+#include "GamePlayer.h"
+#include "PlayerCreature.h"
+#include "SMSAddressBook.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGDeleteSMSAddressHandler::execute (CGDeleteSMSAddress* pPacket , Player* pPlayer)
-	
+void CGDeleteSMSAddressHandler::execute(CGDeleteSMSAddress* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert( pGamePlayer != NULL );
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	GCAddressListVerify gcVerify;
+    GCAddressListVerify gcVerify;
 
-	SMSAddressBook* pBook = pPC->getAddressBook();
-	Assert( pBook != NULL );
-	
-	int result = pBook->removeAddressElement( pPacket->getElementID() );
+    SMSAddressBook* pBook = pPC->getAddressBook();
+    Assert(pBook != NULL);
 
-	if ( result != 0 )
-	{
-		gcVerify.setCode( GCAddressListVerify::ADDRESS_LIST_DELETE_FAIL );
-		gcVerify.setParameter( result );
-		pGamePlayer->sendPacket( &gcVerify );
-		return;
-	}
+    int result = pBook->removeAddressElement(pPacket->getElementID());
 
-	gcVerify.setCode( GCAddressListVerify::ADDRESS_LIST_DELETE_OK );
-	gcVerify.setParameter( result );
-	pGamePlayer->sendPacket( &gcVerify );
+    if (result != 0) {
+        gcVerify.setCode(GCAddressListVerify::ADDRESS_LIST_DELETE_FAIL);
+        gcVerify.setParameter(result);
+        pGamePlayer->sendPacket(&gcVerify);
+        return;
+    }
 
-#endif	// __GAME_SERVER__
+    gcVerify.setCode(GCAddressListVerify::ADDRESS_LIST_DELETE_OK);
+    gcVerify.setParameter(result);
+    pGamePlayer->sendPacket(&gcVerify);
+
+#endif // __GAME_SERVER__
 
     __END_DEBUG_EX __END_CATCH
 }

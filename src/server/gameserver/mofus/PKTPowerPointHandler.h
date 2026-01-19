@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTPowerPointHandler.h
-// Desc		: 
+// Desc		:
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_POWER_POINT_HANDLER_H__
@@ -10,15 +10,13 @@
 #include "MPacketHandler.h"
 
 // class PKTPowerPointHandler
-class PKTPowerPointHandler : public MPacketHandler
-{
+class PKTPowerPointHandler : public MPacketHandler {
 public:
-	// 해당 패킷의 ID
-	MPacketID_t getID() const;
+    // 해당 패킷의 ID
+    MPacketID_t getID() const;
 
-	// 실행 함수
-	void execute( MPlayer* pPlayer, MPacket* pPacket );
+    // 실행 함수
+    void execute(MPlayer* pPlayer, MPacket* pPacket);
 };
 
 #endif
-

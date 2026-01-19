@@ -5,50 +5,51 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectMiracleShield.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectMiracleShield::EffectMiracleShield(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMiracleShield::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-																															    	
-	__END_CATCH
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMiracleShield::unaffect()
-	    
+
 {
     __BEGIN_TRY
 
-	//cout << "EffectMiracleShield " << "unaffect BEGIN" << endl;
+    // cout << "EffectMiracleShield " << "unaffect BEGIN" << endl;
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
     unaffect(pCreature);
 
-	//cout << "EffectMiracleShield " << "unaffect END" << endl;
+    // cout << "EffectMiracleShield " << "unaffect END" << endl;
 
     __END_CATCH
 }
@@ -56,56 +57,52 @@ void EffectMiracleShield::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectMiracleShield::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//cout << "EffectMiracleShield " << "unaffect BEGIN" << endl;
+    // cout << "EffectMiracleShield " << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer() == true);
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer() == true);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_MIRACLE_SHIELD);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_MIRACLE_SHIELD);
 
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-	SLAYER_RECORD prev;
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    SLAYER_RECORD prev;
 
-	pSlayer->getSlayerRecord(prev);
-	pSlayer->initAllStat();
-	pSlayer->sendRealWearingInfo();
-	pSlayer->sendModifyInfo(prev);
+    pSlayer->getSlayerRecord(prev);
+    pSlayer->initAllStat();
+    pSlayer->sendRealWearingInfo();
+    pSlayer->sendModifyInfo(prev);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pSlayer->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_MIRACLE_SHIELD);
-	pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pSlayer->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_MIRACLE_SHIELD);
+    pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
 
-	//cout << "EffectMiracleShield " << "unaffect END" << endl;
+    // cout << "EffectMiracleShield " << "unaffect END" << endl;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectMiracleShield::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectMiracleShield::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectMiracleShield("
-		<< "Defense:" << m_DefenseBonus
-		<< ",Protection:" << m_ProtectionBonus
-		<< ")";
+    msg << "EffectMiracleShield("
+        << "Defense:" << m_DefenseBonus << ",Protection:" << m_ProtectionBonus << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

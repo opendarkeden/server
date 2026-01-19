@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MeteorStrike.h 
+// Filename    : MeteorStrike.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_METEOR_STRIKE_HANDLER_H__
@@ -13,21 +13,25 @@
 // class MeteorStrike;
 //////////////////////////////////////////////////////////////////////////////
 
-class MeteorStrike : public SkillHandler 
-{
+class MeteorStrike : public SkillHandler {
 public:
-	MeteorStrike() throw() {}
-	~MeteorStrike() throw() {}
-	
+    MeteorStrike() throw() {}
+    ~MeteorStrike() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MeteorStrike"; }
-	SkillType_t getSkillType() const throw() { return SKILL_METEOR_STRIKE; }
+    string getSkillHandlerName() const throw() {
+        return "MeteorStrike";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_METEOR_STRIKE;
+    }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ObjectID_t,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

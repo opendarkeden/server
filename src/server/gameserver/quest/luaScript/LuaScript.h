@@ -5,19 +5,20 @@
 
 #include "LuaState.h"
 
-class LuaScript
-{
-public :
-	LuaScript(LuaState* pState) : m_pState(pState) {}
-	virtual ~LuaScript() { m_pState = NULL; }
-	
-	virtual void	prepare()  = 0;
-	virtual int		executeFile(const string& filename)  = 0;
+class LuaScript {
+public:
+    LuaScript(LuaState* pState) : m_pState(pState) {}
+    virtual ~LuaScript() {
+        m_pState = NULL;
+    }
 
-	virtual void 	clear();
+    virtual void prepare() = 0;
+    virtual int executeFile(const string& filename) = 0;
 
-protected :
-	LuaState* m_pState;
+    virtual void clear();
+
+protected:
+    LuaState* m_pState;
 };
 
 #endif

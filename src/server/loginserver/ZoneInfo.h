@@ -10,8 +10,8 @@
 #define __ZONE_INFO_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //----------------------------------------------------------------------
 //
@@ -24,33 +24,36 @@
 //----------------------------------------------------------------------
 
 class ZoneInfo {
+public:
+    // get/set zone id
+    ZoneID_t getZoneID() const throw() {
+        return m_ZoneID;
+    }
+    void setZoneID(ZoneID_t zoneID) throw() {
+        m_ZoneID = zoneID;
+    }
 
-public :
+    // get/set zone group id
+    ZoneGroupID_t getZoneGroupID() const throw() {
+        return m_ZoneGroupID;
+    }
+    void setZoneGroupID(ZoneGroupID_t zoneGroupID) throw() {
+        m_ZoneGroupID = zoneGroupID;
+    }
 
-	// get/set zone id
-	ZoneID_t getZoneID () const throw () { return m_ZoneID; }
-	void setZoneID ( ZoneID_t zoneID ) throw () { m_ZoneID = zoneID; }
+    // get debug string
+    string toString() const throw() {
+        StringStream msg;
+        msg << "ZoneInfo(ZoneID:" << m_ZoneID << ",ZoneGroupID:" << m_ZoneGroupID << ")";
+        return msg.toString();
+    }
 
-	// get/set zone group id
-	ZoneGroupID_t getZoneGroupID () const throw () { return m_ZoneGroupID; }
-	void setZoneGroupID ( ZoneGroupID_t zoneGroupID ) throw () { m_ZoneGroupID = zoneGroupID; }
+private:
+    // 존 아이디
+    ZoneID_t m_ZoneID;
 
-	// get debug string
-	string toString () const throw ()
-	{
-		StringStream msg;
-		msg << "ZoneInfo(ZoneID:" << m_ZoneID << ",ZoneGroupID:" << m_ZoneGroupID << ")";
-		return msg.toString();
-	}
-
-private :
-
-	// 존 아이디
-	ZoneID_t m_ZoneID;
-
-	// 존 그룹 아이디
-	ZoneGroupID_t m_ZoneGroupID;
-
+    // 존 그룹 아이디
+    ZoneGroupID_t m_ZoneGroupID;
 };
 
 #endif

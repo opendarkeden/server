@@ -4,27 +4,25 @@
 
 #include "Timeval.h"
 
-class SProfile
-{
+class SProfile {
 public:
-	SProfile();
-	~SProfile() {}
+    SProfile();
+    ~SProfile() {}
 
 public:
-	void addTime( Timeval tv );
+    void addTime(Timeval tv);
 
-	void print();
+    void print();
 
 private:
-	Timeval		m_Total;
-	Timeval		m_Max;
-	Timeval		m_Min;
-	int			m_Count;
-	Timeval		m_IntervalTotal;
-	int			m_IntervalCount;
+    Timeval m_Total;
+    Timeval m_Max;
+    Timeval m_Min;
+    int m_Count;
+    Timeval m_IntervalTotal;
+    int m_IntervalCount;
 };
 
 extern SProfile* g_pSProfile;
 
 #endif
-

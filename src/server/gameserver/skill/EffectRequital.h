@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRequital.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_REQUITAL__
@@ -15,41 +15,49 @@
 // class EffectRequital
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectRequital : public Effect 
-{
+class EffectRequital : public Effect {
 public:
-	EffectRequital(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REQUITAL; }
-
-	void affect() {}
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-
-	string toString() const throw();
+    EffectRequital(Creature* pCreature);
 
 public:
-	void setReflection( int ref ) { m_Reflection = ref; }
-	int getReflection() const { return m_Reflection; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_REQUITAL;
+    }
+
+    void affect() {}
+
+    void unaffect();
+    void unaffect(Creature* pCreature);
+
+    string toString() const throw();
+
+public:
+    void setReflection(int ref) {
+        m_Reflection = ref;
+    }
+    int getReflection() const {
+        return m_Reflection;
+    }
 
 private:
-	int m_Reflection;
+    int m_Reflection;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectRequitalLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectRequitalLoader : public EffectLoader 
-{
+class EffectRequitalLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_REQUITAL; }
-	virtual string getEffectClassName() const throw() { return "EffectRequital"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_REQUITAL;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectRequital";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 

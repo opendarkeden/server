@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddOusters.h 
+// Filename    : GCAddOusters.h
 // Written By  : Reiot
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -7,91 +7,120 @@
 #ifndef __GC_ADD_OUSTERS_H__
 #define __GC_ADD_OUSTERS_H__
 
+#include "EffectInfo.h"
+#include "NicknameInfo.h"
+#include "PCOustersInfo3.h"
 #include "Packet.h"
 #include "PacketFactory.h"
-#include "PCOustersInfo3.h"
-#include "EffectInfo.h"
 #include "PetInfo.h"
-#include "NicknameInfo.h"
 #include "StoreInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddOusters;
-// 로그인이나 포탈, 텔레포트 등으로 슬레이어가 존에 새로 들어갔을 경우, 또는 
-// 슬레이어가 존에서 이동할 경우,(1) 이미 이 슬레이어에 대한 정보를 갖고 있는 
-//(즉 이 슬레이어를 보고 있는..) 영역에 존재하는 PC들에게는 GCMove 패킷을 
-// 브로드캐스트한다. 그러나,(2) 이 슬레이어를 처음 보게 되는 영역에 존재하는 
-// PC들에게는 GCAddOusters 패킷을 브로드캐스트한다. 또한,(3) 이 슬레이어는 
-// 자신이 새로 개척한 시야(?) 안에 존재하는 슬레이어들의 정보를 GCAddOusters에 
+// 로그인이나 포탈, 텔레포트 등으로 슬레이어가 존에 새로 들어갔을 경우, 또는
+// 슬레이어가 존에서 이동할 경우,(1) 이미 이 슬레이어에 대한 정보를 갖고 있는
+//(즉 이 슬레이어를 보고 있는..) 영역에 존재하는 PC들에게는 GCMove 패킷을
+// 브로드캐스트한다. 그러나,(2) 이 슬레이어를 처음 보게 되는 영역에 존재하는
+// PC들에게는 GCAddOusters 패킷을 브로드캐스트한다. 또한,(3) 이 슬레이어는
+// 자신이 새로 개척한 시야(?) 안에 존재하는 슬레이어들의 정보를 GCAddOusters에
 // 담아서 받게 된다.
 // 멍~~
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddOusters : public Packet 
-{
+class GCAddOusters : public Packet {
 public:
-	GCAddOusters();
-	GCAddOusters(const PCOustersInfo3 & slayerInfo);
-	virtual ~GCAddOusters() ;
-
-public:
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_ADD_OUSTERS; }
-	PacketSize_t getPacketSize() const ;
-	string getPacketName() const  { return "GCAddOusters"; }
-	string toString() const ;
+    GCAddOusters();
+    GCAddOusters(const PCOustersInfo3& slayerInfo);
+    virtual ~GCAddOusters();
 
 public:
-	PCOustersInfo3 & getOustersInfo()  { return m_OustersInfo; }
-	const PCOustersInfo3 & getOustersInfo() const  { return m_OustersInfo; }
-	void setOustersInfo(const PCOustersInfo3 & slayerInfo)  { m_OustersInfo = slayerInfo; }
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_ADD_OUSTERS;
+    }
+    PacketSize_t getPacketSize() const;
+    string getPacketName() const {
+        return "GCAddOusters";
+    }
+    string toString() const;
 
-	EffectInfo* getEffectInfo() const  { return m_pEffectInfo; }
-	void setEffectInfo(EffectInfo* pEffectInfo)  { m_pEffectInfo = pEffectInfo; }
+public:
+    PCOustersInfo3& getOustersInfo() {
+        return m_OustersInfo;
+    }
+    const PCOustersInfo3& getOustersInfo() const {
+        return m_OustersInfo;
+    }
+    void setOustersInfo(const PCOustersInfo3& slayerInfo) {
+        m_OustersInfo = slayerInfo;
+    }
 
-	PetInfo* getPetInfo() const  { return m_pPetInfo; }
-	void setPetInfo(PetInfo* pPetInfo)  { m_pPetInfo = pPetInfo; }
+    EffectInfo* getEffectInfo() const {
+        return m_pEffectInfo;
+    }
+    void setEffectInfo(EffectInfo* pEffectInfo) {
+        m_pEffectInfo = pEffectInfo;
+    }
 
-	NicknameInfo* getNicknameInfo() const  { return m_pNicknameInfo; }
-	void setNicknameInfo(NicknameInfo* pNicknameInfo)  { m_pNicknameInfo = pNicknameInfo; }
+    PetInfo* getPetInfo() const {
+        return m_pPetInfo;
+    }
+    void setPetInfo(PetInfo* pPetInfo) {
+        m_pPetInfo = pPetInfo;
+    }
 
-	StoreOutlook	getStoreOutlook() const { return m_StoreOutlook; }
-	void		setStoreInfo(StoreInfo* pInfo) { pInfo->makeStoreOutlook(m_StoreOutlook); }
+    NicknameInfo* getNicknameInfo() const {
+        return m_pNicknameInfo;
+    }
+    void setNicknameInfo(NicknameInfo* pNicknameInfo) {
+        m_pNicknameInfo = pNicknameInfo;
+    }
+
+    StoreOutlook getStoreOutlook() const {
+        return m_StoreOutlook;
+    }
+    void setStoreInfo(StoreInfo* pInfo) {
+        pInfo->makeStoreOutlook(m_StoreOutlook);
+    }
 
 private:
-	PCOustersInfo3  m_OustersInfo;  // 슬레이어의 외모 정보
-	EffectInfo*    m_pEffectInfo; // 걸려있는 이펙트 정보
-	PetInfo*    m_pPetInfo; // 걸려있는 이펙트 정보
-	NicknameInfo*	m_pNicknameInfo;
-	StoreOutlook	m_StoreOutlook;
+    PCOustersInfo3 m_OustersInfo; // 슬레이어의 외모 정보
+    EffectInfo* m_pEffectInfo;    // 걸려있는 이펙트 정보
+    PetInfo* m_pPetInfo;          // 걸려있는 이펙트 정보
+    NicknameInfo* m_pNicknameInfo;
+    StoreOutlook m_StoreOutlook;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddOustersFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddOustersFactory : public PacketFactory 
-{
+class GCAddOustersFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new GCAddOusters(); }
-	string getPacketName() const  { return "GCAddOusters"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_OUSTERS; }
-	PacketSize_t getPacketMaxSize() const 
-	{ 
-		return PCOustersInfo3::getMaxSize() + EffectInfo::getMaxSize() + PetInfo::getMaxSize() + NicknameInfo::getMaxSize() + StoreOutlook::getMaxSize();
-	}
+    Packet* createPacket() {
+        return new GCAddOusters();
+    }
+    string getPacketName() const {
+        return "GCAddOusters";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_ADD_OUSTERS;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return PCOustersInfo3::getMaxSize() + EffectInfo::getMaxSize() + PetInfo::getMaxSize() +
+               NicknameInfo::getMaxSize() + StoreOutlook::getMaxSize();
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddOustersHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddOustersHandler 
-{
+class GCAddOustersHandler {
 public:
-	static void execute(GCAddOusters* pPacket, Player* pPlayer) ;
+    static void execute(GCAddOusters* pPacket, Player* pPlayer);
 };
 
 #endif

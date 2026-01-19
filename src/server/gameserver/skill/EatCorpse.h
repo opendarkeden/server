@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : EatCorpse.h 
-// Written By  : 
-// Description : 
+// Filename    : EatCorpse.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_EAT_CORPSE_HANDLER_H__
@@ -13,19 +13,23 @@
 // class EatCorpse;
 //////////////////////////////////////////////////////////////////////////////
 
-class EatCorpse : public SkillHandler 
-{
+class EatCorpse : public SkillHandler {
 public:
-	EatCorpse() throw() {}
-	~EatCorpse() throw() {}
-	
+    EatCorpse() throw() {}
+    ~EatCorpse() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "EatCorpse"; }
-	SkillType_t getSkillType() const throw() { return SKILL_EAT_CORPSE; }
+    string getSkillHandlerName() const throw() {
+        return "EatCorpse";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_EAT_CORPSE;
+    }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

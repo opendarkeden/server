@@ -7,13 +7,13 @@
 #ifndef __BILLING_PLAYER_MANANGER_H__
 #define __BILLING_PLAYER_MANANGER_H__
 
-#include "Types.h"
+#include "BillingInfo.h" // for #define __CONNECT_BILLING_SYSTEM__
 #include "Exception.h"
-#include "Thread.h"
-#include "Socket.h"
-#include "Packet.h"
 #include "Mutex.h"
-#include "BillingInfo.h"	// for #define __CONNECT_BILLING_SYSTEM__
+#include "Packet.h"
+#include "Socket.h"
+#include "Thread.h"
+#include "Types.h"
 
 class BillingPlayer;
 class CommonBillingPacket;
@@ -25,37 +25,36 @@ class CommonBillingPacket;
 // 연결 끊기면 다시 연결해야 된다. 될 때까지~~
 //////////////////////////////////////////////////////////////////////////////
 
-class BillingPlayerManager : public Thread 
-{
+class BillingPlayerManager : public Thread {
 public:
-	BillingPlayerManager() ;
-	~BillingPlayerManager() ;
+    BillingPlayerManager();
+    ~BillingPlayerManager();
 
 public:
-	void init()  {}
+    void init() {}
 
-	void stop() ;
+    void stop();
 
-	void run() ;
+    void run();
 
-	void sendPacket( Packet* pPacket ) ;
+    void sendPacket(Packet* pPacket);
 
-	// Pay Login/Logout
-	void sendPayInit() ;
-	void sendPayCheck( CommonBillingPacket* pPacket ) ;
-	void sendPayLogin( Player* pPlayer ) ;
-	void sendPayLogout( Player* pPlayer ) ;
+    // Pay Login/Logout
+    void sendPayInit();
+    void sendPayCheck(CommonBillingPacket* pPacket);
+    void sendPayLogin(Player* pPlayer);
+    void sendPayLogout(Player* pPlayer);
 
-	void setForceDisconnect( bool bForceDisconnect = true ) { m_bForceDisconnect = bForceDisconnect; }
+    void setForceDisconnect(bool bForceDisconnect = true) {
+        m_bForceDisconnect = bForceDisconnect;
+    }
 
 private:
+    BillingPlayer* m_pBillingPlayer;
 
-	BillingPlayer* m_pBillingPlayer;
+    mutable Mutex m_Mutex;
 
-	mutable Mutex	m_Mutex;
-
-	bool m_bForceDisconnect;
-
+    bool m_bForceDisconnect;
 };
 
 // global variable declaration

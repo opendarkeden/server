@@ -2,82 +2,85 @@
 #define __PARTNER_WAITING_MANAGER_H__
 
 #include <unordered_map>
+
 #include "Exception.h"
-#include "Types.h"
-#include "Timeval.h"
 #include "PlayerCreature.h"
+#include "Timeval.h"
+#include "Types.h"
 
 class Zone;
 
-enum WaitType
-{
-	WAIT_FOR_MEET,		// 0
-	WAIT_FOR_APART		// 1
+enum WaitType {
+    WAIT_FOR_MEET, // 0
+    WAIT_FOR_APART // 1
 };
 
-class PartnerWaitInfo
-{
+class PartnerWaitInfo {
 protected:
-	PartnerWaitInfo( PlayerCreature* pWaitingPC, string RequestedPCName );
-public:
-	virtual ~PartnerWaitInfo() { }
-
-	// Factory Method
-	static PartnerWaitInfo*	getPartnerWaitInfo(PlayerCreature* pWaitingPC, string RequestedPCName, WaitType waitType) ;
+    PartnerWaitInfo(PlayerCreature* pWaitingPC, string RequestedPCName);
 
 public:
-	virtual uint			waitPartner( PlayerCreature* pTargetPC )  = 0;
-	virtual uint			acceptPartner( PlayerCreature* pPC )  = 0;
-	virtual void			timeExpired()  = 0;
-	virtual WaitType		getWaitType() = 0;
+    virtual ~PartnerWaitInfo() {}
+
+    // Factory Method
+    static PartnerWaitInfo* getPartnerWaitInfo(PlayerCreature* pWaitingPC, string RequestedPCName, WaitType waitType);
 
 public:
-	PlayerCreature*	getWaitingPC() const;
-	Timeval			getDeadline() const { return m_Deadline; }
+    virtual uint waitPartner(PlayerCreature* pTargetPC) = 0;
+    virtual uint acceptPartner(PlayerCreature* pPC) = 0;
+    virtual void timeExpired() = 0;
+    virtual WaitType getWaitType() = 0;
 
 public:
-	static Item::ItemClass getItemClass( PlayerCreature* pPC )
-	{
-		return ( pPC->getRace() == RACE_SLAYER )? Item::ITEM_CLASS_COUPLE_RING : Item::ITEM_CLASS_VAMPIRE_COUPLE_RING;
-	}
-	static ItemType_t getItemType( PlayerCreature* pPC ) { return ( pPC->getSex() == FEMALE )? 1 : 0; }
-	static bool	isMatchCoupleRing( PlayerCreature* pPC, Item* pRing )
-	{
-		return pRing->getItemClass() == getItemClass( pPC ) &&	pRing->getItemType() == getItemType( pPC );
-	}
+    PlayerCreature* getWaitingPC() const;
+    Timeval getDeadline() const {
+        return m_Deadline;
+    }
+
+public:
+    static Item::ItemClass getItemClass(PlayerCreature* pPC) {
+        return (pPC->getRace() == RACE_SLAYER) ? Item::ITEM_CLASS_COUPLE_RING : Item::ITEM_CLASS_VAMPIRE_COUPLE_RING;
+    }
+    static ItemType_t getItemType(PlayerCreature* pPC) {
+        return (pPC->getSex() == FEMALE) ? 1 : 0;
+    }
+    static bool isMatchCoupleRing(PlayerCreature* pPC, Item* pRing) {
+        return pRing->getItemClass() == getItemClass(pPC) && pRing->getItemType() == getItemType(pPC);
+    }
 
 private:
-	string			m_RequestedPCName;
-	ObjectID_t		m_WaitingPCOID;
-	Zone*			m_pZone;
-	Timeval			m_Deadline;
+    string m_RequestedPCName;
+    ObjectID_t m_WaitingPCOID;
+    Zone* m_pZone;
+    Timeval m_Deadline;
 };
 
-class PartnerWaitingManager
-{
+class PartnerWaitingManager {
 public:
-	typedef unordered_map<string, PartnerWaitInfo*>	WaitInfoHashMap;
-public:
-	PartnerWaitingManager( WaitType waitType ) : m_WaitType( waitType ) { };
-	virtual ~PartnerWaitingManager();
+    typedef unordered_map<string, PartnerWaitInfo*> WaitInfoHashMap;
 
 public:
-	WaitType	getWaitType() const { return m_WaitType; }
+    PartnerWaitingManager(WaitType waitType) : m_WaitType(waitType) {};
+    virtual ~PartnerWaitingManager();
 
 public:
-	uint		waitForPartner( PlayerCreature* pWaitingPC, string RequestedPCName ) ;
-	bool		stopWaitForPartner( PlayerCreature* pWaitingPC ) ;
-	uint		acceptPartner( PlayerCreature* pRequestedPC ) ;
-	bool		isWaitForPartner( PlayerCreature* pRequestedPC ) ;
-	PlayerCreature* getWaitingPartner( PlayerCreature* pRequestedPC ) ;
+    WaitType getWaitType() const {
+        return m_WaitType;
+    }
 
 public:
-	void		heartbeat() ;
+    uint waitForPartner(PlayerCreature* pWaitingPC, string RequestedPCName);
+    bool stopWaitForPartner(PlayerCreature* pWaitingPC);
+    uint acceptPartner(PlayerCreature* pRequestedPC);
+    bool isWaitForPartner(PlayerCreature* pRequestedPC);
+    PlayerCreature* getWaitingPartner(PlayerCreature* pRequestedPC);
+
+public:
+    void heartbeat();
 
 private:
-	WaitInfoHashMap	m_WaitInfos;
-	WaitType		m_WaitType;
+    WaitInfoHashMap m_WaitInfos;
+    WaitType m_WaitType;
 };
 
-#endif// __PARTNER_WAITING_MANAGER_H__
-
+#endif // __PARTNER_WAITING_MANAGER_H__

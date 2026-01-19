@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ClaymoreExplosion.h 
+// Filename    : ClaymoreExplosion.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CLAYMORE_EXPLOSION_HANDLER_H__
@@ -13,22 +13,25 @@
 // class ClaymoreExplosion;
 //////////////////////////////////////////////////////////////////////////////
 
-class ClaymoreExplosion: public SkillHandler 
-{
+class ClaymoreExplosion : public SkillHandler {
 public:
-	ClaymoreExplosion() throw();
-	~ClaymoreExplosion() throw() {}
-	
+    ClaymoreExplosion() throw();
+    ~ClaymoreExplosion() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ClaymoreExplosion"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CLAYMORE_EXPLOSION; }
+    string getSkillHandlerName() const throw() {
+        return "ClaymoreExplosion";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CLAYMORE_EXPLOSION;
+    }
 
-	void execute(Monster* pMonster) ;
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
-private :
-	POINT	m_pClaymoreExplosionMask[15];
+private:
+    POINT m_pClaymoreExplosionMask[15];
 };
 
 // global variable declaration

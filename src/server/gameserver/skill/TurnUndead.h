@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TurnUndead.h 
+// Filename    : TurnUndead.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TURN_UNDEAD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class TurnUndead;
 //////////////////////////////////////////////////////////////////////////////
 
-class TurnUndead : public SkillHandler 
-{
+class TurnUndead : public SkillHandler {
 public:
-	TurnUndead() throw() {}
-	~TurnUndead() throw() {}
-	
+    TurnUndead() throw() {}
+    ~TurnUndead() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "TurnUndead"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TURN_UNDEAD; }
+    string getSkillHandlerName() const throw() {
+        return "TurnUndead";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TURN_UNDEAD;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

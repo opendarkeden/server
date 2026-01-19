@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCCrossCounterOK3Handler::execute (GCCrossCounterOK3 * pGCCrossCounterOK3 , Player * pPlayer )
-	 
+void GCCrossCounterOK3Handler::execute(GCCrossCounterOK3* pGCCrossCounterOK3, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCCrossCounterOK3->toString() << endl;
-	
+    // cout << pGCCrossCounterOK3->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCCrossCounterOK3->toString().c_str());
+        AfxMessageBox(pGCCrossCounterOK3->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

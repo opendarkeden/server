@@ -1,20 +1,21 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : UpdateServerPlayer.h 
+//
+// Filename    : UpdateServerPlayer.h
 // Written by  : Reiot
-// 
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __UPDATE_SERVER_PLAYER_H__
 #define __UPDATE_SERVER_PLAYER_H__
 
 // include files
+#include <bitset>
+#include <deque>
+
+#include "Packet.h"
 #include "Player.h"
 #include "PlayerStatus.h"
-#include <deque>
-#include "Packet.h"
 #include "Timeval.h"
-#include <bitset>
 
 //--------------------------------------------------------------------------------
 //
@@ -27,64 +28,71 @@
 //--------------------------------------------------------------------------------
 
 class UpdateServerPlayer : public Player {
+public:
+    // constructor
+    UpdateServerPlayer(Socket* pSocket) throw(Error);
 
-public :
-	
-	// constructor
-	UpdateServerPlayer ( Socket * pSocket ) throw ( Error );
-	
-	// destructor
-	~UpdateServerPlayer () throw ( Error );
+    // destructor
+    ~UpdateServerPlayer() throw(Error);
 
-public :
+public:
+    // read socket's receive buffer and fill input buffer
+    // virtual void processInput () throw ( IOException , Error );
 
-	// read socket's receive buffer and fill input buffer
-	// virtual void processInput () throw ( IOException , Error );
-	
-	// parse packet and execute handler for the packet
-	virtual void processCommand () throw ( IOException , Error );
-	
-	// flush output buffer to socket's send buffer
-	virtual void processOutput () throw ( IOException , Error );
-	
-	// send packet to player's output buffer
-	virtual void sendPacket ( Packet * packet ) throw ( ProtocolException , Error );
+    // parse packet and execute handler for the packet
+    virtual void processCommand() throw(IOException, Error);
 
-	// disconnect
-	// 정식 로그아웃의 경우 disconnect(UNDISCONNECTED)
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
-	
-	// get debug string
-	virtual string toString () const throw ( Error );
+    // flush output buffer to socket's send buffer
+    virtual void processOutput() throw(IOException, Error);
 
-	void setPenaltyFlag(PenaltyType PenaltyFlag) throw() { m_PenaltyFlag.set(PenaltyFlag); }
+    // send packet to player's output buffer
+    virtual void sendPacket(Packet* packet) throw(ProtocolException, Error);
 
-	// remove Flag
-	void removePenaltyFlag(PenaltyType PenaltyFlag) throw() { m_PenaltyFlag.reset(PenaltyFlag); }
+    // disconnect
+    // 정식 로그아웃의 경우 disconnect(UNDISCONNECTED)
+    virtual void disconnect(bool bDisconnected = DISCONNECTED) throw(Error);
 
-	// Is Flag?
-	bool isPenaltyFlag(PenaltyType PenaltyFlag) throw() { return m_PenaltyFlag.test(PenaltyFlag); }
+    // get debug string
+    virtual string toString() const throw(Error);
 
-	void setExpiredTime ( int t ) throw() { getCurrentTime(m_ExpireTime); m_ExpireTime.tv_sec += 5; }
+    void setPenaltyFlag(PenaltyType PenaltyFlag) throw() {
+        m_PenaltyFlag.set(PenaltyFlag);
+    }
 
-	
-public :
+    // remove Flag
+    void removePenaltyFlag(PenaltyType PenaltyFlag) throw() {
+        m_PenaltyFlag.reset(PenaltyFlag);
+    }
 
-	// get/set player's status
-	PlayerStatus getPlayerStatus () const throw () { return m_PlayerStatus; }
-	void setPlayerStatus ( PlayerStatus playerStatus ) throw () { m_PlayerStatus = playerStatus; }
+    // Is Flag?
+    bool isPenaltyFlag(PenaltyType PenaltyFlag) throw() {
+        return m_PenaltyFlag.test(PenaltyFlag);
+    }
 
-private :
+    void setExpiredTime(int t) throw() {
+        getCurrentTime(m_ExpireTime);
+        m_ExpireTime.tv_sec += 5;
+    }
 
-	// player status
-	PlayerStatus m_PlayerStatus;
 
-	// expire time
-	Timeval m_ExpireTime;
+public:
+    // get/set player's status
+    PlayerStatus getPlayerStatus() const throw() {
+        return m_PlayerStatus;
+    }
+    void setPlayerStatus(PlayerStatus playerStatus) throw() {
+        m_PlayerStatus = playerStatus;
+    }
 
-	// Flag set
-	bitset<PENALTY_TYPE_MAX> m_PenaltyFlag;
+private:
+    // player status
+    PlayerStatus m_PlayerStatus;
 
+    // expire time
+    Timeval m_ExpireTime;
+
+    // Flag set
+    bitset<PENALTY_TYPE_MAX> m_PenaltyFlag;
 };
 
 #endif

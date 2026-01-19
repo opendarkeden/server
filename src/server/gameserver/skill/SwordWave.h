@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SwordWave.h 
-// Written By  : 
-// Description : 
+// Filename    : SwordWave.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SWORD_WAVE_HANDLER_H__
@@ -13,25 +13,27 @@
 // class SwordWave;
 //////////////////////////////////////////////////////////////////////////////
 
-class SwordWave : public SkillHandler 
-{
+class SwordWave : public SkillHandler {
 public:
-	SwordWave() throw();
-	~SwordWave() throw() {}
-	
+    SwordWave() throw();
+    ~SwordWave() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SwordWave"; }
+    string getSkillHandlerName() const throw() {
+        return "SwordWave";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_SWORD_WAVE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SWORD_WAVE;
+    }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ObjectID_t targetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 protected:
-	POINT m_pSwordWaveMask[8][3]; // 각 방향에 따른 타격 마스크
-
+    POINT m_pSwordWaveMask[8][3]; // 각 방향에 따른 타격 마스크
 };
 
 // global variable declaration

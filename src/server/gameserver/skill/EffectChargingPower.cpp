@@ -5,93 +5,91 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectChargingPower.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 EffectChargingPower::EffectChargingPower(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
 
-	setTarget(pCreature);
-
-	__END_CATCH
-}
-
-void EffectChargingPower::affect(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
-
-void EffectChargingPower::unaffect()
-	    
 {
     __BEGIN_TRY
 
-	//cout << "EffectChargingPower" << "unaffect BEGIN" << endl;
+    setTarget(pCreature);
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
+    __END_CATCH
+}
+
+void EffectChargingPower::affect(Creature* pCreature)
+
+{
+    __BEGIN_TRY
+    __END_CATCH
+}
+
+void EffectChargingPower::unaffect()
+
+{
+    __BEGIN_TRY
+
+    // cout << "EffectChargingPower" << "unaffect BEGIN" << endl;
+
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
     unaffect(pCreature);
 
-	//cout << "EffectChargingPower" << "unaffect END" << endl;
+    // cout << "EffectChargingPower" << "unaffect END" << endl;
 
     __END_CATCH
 }
 
 void EffectChargingPower::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//cout << "EffectChargingPower" << "unaffect BEGIN" << endl;
+    // cout << "EffectChargingPower" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer());
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_CHARGING_POWER);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_CHARGING_POWER);
 
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-	SLAYER_RECORD prev;
-	pSlayer->getSlayerRecord(prev);
-	pSlayer->initAllStat();
-	pSlayer->sendRealWearingInfo();
-	pSlayer->sendModifyInfo(prev);
+    SLAYER_RECORD prev;
+    pSlayer->getSlayerRecord(prev);
+    pSlayer->initAllStat();
+    pSlayer->sendRealWearingInfo();
+    pSlayer->sendModifyInfo(prev);
 
-	Zone* pZone = pSlayer->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pSlayer->getZone();
+    Assert(pZone != NULL);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pSlayer->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_CHARGING_POWER);
-	pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pSlayer->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_CHARGING_POWER);
+    pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
 
-	//cout << "EffectChargingPower" << "unaffect END" << endl;
+    // cout << "EffectChargingPower" << "unaffect END" << endl;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
-string EffectChargingPower::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectChargingPower::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectChargingPower("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectChargingPower("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

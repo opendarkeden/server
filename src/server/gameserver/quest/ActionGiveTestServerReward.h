@@ -1,44 +1,45 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionGiveTestServerReward.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_GIVE_TEST_SERVER_REWARD_H__
 #define __ACTION_GIVE_TEST_SERVER_REWARD_H__
 
-#include "Types.h"
-#include "Exception.h"
 #include "Action.h"
 #include "ActionFactory.h"
+#include "Exception.h"
 #include "LuaTradeEventSlayerItem.h"
 #include "LuaTradeEventVampireItem.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ActionGiveTestServerReward
 //////////////////////////////////////////////////////////////////////////////
 
-class ActionGiveTestServerReward : public Action 
-{
+class ActionGiveTestServerReward : public Action {
 public:
-	ActionGiveTestServerReward();
-	~ActionGiveTestServerReward();
+    ActionGiveTestServerReward();
+    ~ActionGiveTestServerReward();
 
-	virtual ActionType_t getActionType() const  { return ACTION_GIVE_TEST_SERVER_REWARD; }
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
-	virtual string toString() const ;
+    virtual ActionType_t getActionType() const {
+        return ACTION_GIVE_TEST_SERVER_REWARD;
+    }
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL);
+    virtual string toString() const;
 
-	void						load() ;
+    void load();
 
-private :
-	LuaState*					m_pLuaState;
-	LuaTradeEventSlayerItem*	m_pLuaSlayerItem;
-	LuaTradeEventVampireItem*	m_pLuaVampireItem;
+private:
+    LuaState* m_pLuaState;
+    LuaTradeEventSlayerItem* m_pLuaSlayerItem;
+    LuaTradeEventVampireItem* m_pLuaVampireItem;
 
-	string						m_CommonFilename;
-	string						m_SlayerFilename;
-	string						m_VampireFilename;
+    string m_CommonFilename;
+    string m_SlayerFilename;
+    string m_VampireFilename;
 };
 
 
@@ -46,12 +47,17 @@ private :
 // class ActionGiveTestServerRewardFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ActionGiveTestServerRewardFactory : public ActionFactory 
-{
+class ActionGiveTestServerRewardFactory : public ActionFactory {
 public:
-	virtual ActionType_t getActionType() const  { return Action::ACTION_GIVE_TEST_SERVER_REWARD; }
-	virtual string getActionName() const  { return "GiveTestServerReward"; }
-	virtual Action* createAction() const  { return new ActionGiveTestServerReward(); }
+    virtual ActionType_t getActionType() const {
+        return Action::ACTION_GIVE_TEST_SERVER_REWARD;
+    }
+    virtual string getActionName() const {
+        return "GiveTestServerReward";
+    }
+    virtual Action* createAction() const {
+        return new ActionGiveTestServerReward();
+    }
 };
 
 #endif

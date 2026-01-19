@@ -1,72 +1,68 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCNPCSayDynamic.cpp 
+// Filename    : GCNPCSayDynamic.cpp
 // Written By  : excel96
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCNPCSayDynamic.h"
 
-void GCNPCSayDynamic::read (SocketInputStream & iStream ) 
-	 
+void GCNPCSayDynamic::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
+    __BEGIN_TRY
 
-	BYTE szMessage;
+    iStream.read(m_ObjectID);
 
-	iStream.read(szMessage);
+    BYTE szMessage;
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    iStream.read(szMessage);
 
-	iStream.read(m_Message , szMessage);
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	__END_CATCH
-}
-		    
-void GCNPCSayDynamic::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_ObjectID);
+    iStream.read(m_Message, szMessage);
 
-	BYTE szMessage = m_Message.size();
-
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
-
-	oStream.write(szMessage);
-
-	oStream.write(m_Message);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void GCNPCSayDynamic::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCNPCSayDynamicHandler::execute(this , pPlayer);
+void GCNPCSayDynamic::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+
+    BYTE szMessage = m_Message.size();
+
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
+
+    oStream.write(szMessage);
+
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
-string GCNPCSayDynamic::toString () const
-       
+void GCNPCSayDynamic::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCNPCSayDynamic("
-		<< "ObjectID:" << m_ObjectID 
-		<< ",Message:" << m_Message 
-		<< ")" ;
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCNPCSayDynamicHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
+string GCNPCSayDynamic::toString() const
 
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCNPCSayDynamic("
+        << "ObjectID:" << m_ObjectID << ",Message:" << m_Message << ")";
+    return msg.toString();
+
+    __END_CATCH
+}

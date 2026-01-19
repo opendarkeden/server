@@ -1,98 +1,90 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCPhoneDisconnected.cpp 
+//
+// Filename    : GCPhoneDisconnected.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCPhoneDisconnected.h"
 
 
-
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCPhoneDisconnected::GCPhoneDisconnected () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCPhoneDisconnected::GCPhoneDisconnected()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCPhoneDisconnected::~GCPhoneDisconnected () 
-    
+GCPhoneDisconnected::~GCPhoneDisconnected()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCPhoneDisconnected::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_PhoneNumber);
-	iStream.read(m_SlotID);
+void GCPhoneDisconnected::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_PhoneNumber);
+    iStream.read(m_SlotID);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCPhoneDisconnected::write (SocketOutputStream & oStream ) const 
-     
+void GCPhoneDisconnected::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_PhoneNumber);
-	oStream.write(m_SlotID);
+    oStream.write(m_PhoneNumber);
+    oStream.write(m_SlotID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCPhoneDisconnected::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
+void GCPhoneDisconnected::execute(Player* pPlayer)
 
-	GCPhoneDisconnectedHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCPhoneDisconnectedHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // toString()
 //////////////////////////////////////////////////////////////////////
-string GCPhoneDisconnected::toString () const
-    
+string GCPhoneDisconnected::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCPhoneDisconnected("
-		<< "PhoneNumber:" << (int)m_PhoneNumber
-		<< ",SlotID:" << (int)m_SlotID
-		<< " )";
-	return msg.toString();
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCPhoneDisconnected("
+        << "PhoneNumber:" << (int)m_PhoneNumber << ",SlotID:" << (int)m_SlotID << " )";
+    return msg.toString();
+
+    __END_CATCH
 }
-

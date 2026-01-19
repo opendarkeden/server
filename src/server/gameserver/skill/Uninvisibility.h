@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Uninvisibility.h 
+// Filename    : Uninvisibility.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_UN_INVISIBILITY_HANDLER_H__
@@ -13,20 +13,23 @@
 // class Uninvisibility;
 //////////////////////////////////////////////////////////////////////////////
 
-class Uninvisibility: public SkillHandler 
-{
+class Uninvisibility : public SkillHandler {
 public:
-	Uninvisibility() throw() {}
-	~Uninvisibility() throw() {}
-	
+    Uninvisibility() throw() {}
+    ~Uninvisibility() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Uninvisibility"; }
-	SkillType_t getSkillType() const throw() { return SKILL_UN_INVISIBILITY; }
+    string getSkillHandlerName() const throw() {
+        return "Uninvisibility";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_UN_INVISIBILITY;
+    }
 
-	void execute(Vampire* pVampire) ;
-	void execute(Monster* pMonster) ;
+    void execute(Vampire* pVampire);
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

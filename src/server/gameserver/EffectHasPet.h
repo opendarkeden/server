@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHasPet.h
-// Written by  : 
+// Written by  :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_HAS_PET__
@@ -12,21 +12,22 @@
 // class EffectHasPet
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHasPet : public Effect 
-{
+class EffectHasPet : public Effect {
 public:
-	EffectHasPet(Creature* pCreature) ;
+    EffectHasPet(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_HAS_PET; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_HAS_PET;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 
 private:
 };

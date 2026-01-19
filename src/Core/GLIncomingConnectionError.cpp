@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GLIncomingConnectionError.cpp 
+//
+// Filename    : GLIncomingConnectionError.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,113 +13,107 @@
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GLIncomingConnectionError::read (Datagram & iDatagram ) 
-	 
+void GLIncomingConnectionError::read(Datagram& iDatagram)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//--------------------------------------------------
-	//--------------------------------------------------
-	BYTE szMessage;
+    //--------------------------------------------------
+    //--------------------------------------------------
+    BYTE szMessage;
 
-	iDatagram.read(szMessage);
+    iDatagram.read(szMessage);
 
-	if (szMessage == 0 ) 
-		throw InvalidProtocolException("szMessage == 0");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	if (szMessage >= 128 )
-		throw InvalidProtocolException("too large message length");
+    if (szMessage >= 128)
+        throw InvalidProtocolException("too large message length");
 
-	iDatagram.read(m_Message , szMessage);
-
-
-	//--------------------------------------------------
-	//--------------------------------------------------
-	BYTE szPlayerID;
-
-	iDatagram.read(szPlayerID);
-
-	if (szPlayerID == 0 ) 
-		throw InvalidProtocolException("szPlayerID == 0");
-
-	if (szPlayerID >= 128 )
-		throw InvalidProtocolException("too large playerID length");
-
-	iDatagram.read(m_PlayerID , szPlayerID);
+    iDatagram.read(m_Message, szMessage);
 
 
-	__END_CATCH
+    //--------------------------------------------------
+    //--------------------------------------------------
+    BYTE szPlayerID;
+
+    iDatagram.read(szPlayerID);
+
+    if (szPlayerID == 0)
+        throw InvalidProtocolException("szPlayerID == 0");
+
+    if (szPlayerID >= 128)
+        throw InvalidProtocolException("too large playerID length");
+
+    iDatagram.read(m_PlayerID, szPlayerID);
+
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GLIncomingConnectionError::write (Datagram & oDatagram ) const 
-{
-	__BEGIN_TRY
+void GLIncomingConnectionError::write(Datagram& oDatagram) const {
+    __BEGIN_TRY
 
-	//--------------------------------------------------
-	//--------------------------------------------------
-	BYTE szMessage = m_Message.size();
+    //--------------------------------------------------
+    //--------------------------------------------------
+    BYTE szMessage = m_Message.size();
 
-	if (szMessage == 0 ) 
-		throw InvalidProtocolException("szMessage == 0");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	if (szMessage >= 128 )
-		throw InvalidProtocolException("too large message length");
+    if (szMessage >= 128)
+        throw InvalidProtocolException("too large message length");
 
-	oDatagram.write(szMessage);
+    oDatagram.write(szMessage);
 
-	oDatagram.write(m_Message);
+    oDatagram.write(m_Message);
 
 
-	//--------------------------------------------------
-	//--------------------------------------------------
-	BYTE szPlayerID = m_PlayerID.size();
+    //--------------------------------------------------
+    //--------------------------------------------------
+    BYTE szPlayerID = m_PlayerID.size();
 
-	if (szPlayerID == 0 ) 
-		throw InvalidProtocolException("szPlayerID == 0");
+    if (szPlayerID == 0)
+        throw InvalidProtocolException("szPlayerID == 0");
 
-	if (szPlayerID >= 128 )
-		throw InvalidProtocolException("too large playerID length");
+    if (szPlayerID >= 128)
+        throw InvalidProtocolException("too large playerID length");
 
-	oDatagram.write(szPlayerID);
+    oDatagram.write(szPlayerID);
 
-	oDatagram.write(m_PlayerID);
+    oDatagram.write(m_PlayerID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GLIncomingConnectionError::execute (Player * pPlayer ) 
-{
-	__BEGIN_TRY
-		
-	//cout << "GLIncomingConnectionError::execute() called." << endl;
+void GLIncomingConnectionError::execute(Player* pPlayer) {
+    __BEGIN_TRY
 
-	GLIncomingConnectionErrorHandler::execute(this);
-		
-	__END_CATCH
+    // cout << "GLIncomingConnectionError::execute() called." << endl;
+
+    GLIncomingConnectionErrorHandler::execute(this);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string GLIncomingConnectionError::toString () const
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GLIncomingConnectionError("
-		<< "Message:" << m_Message 
-		<< "PlayerID:" << m_PlayerID
-		<< ")";
-	return msg.toString();
+string GLIncomingConnectionError::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GLIncomingConnectionError("
+        << "Message:" << m_Message << "PlayerID:" << m_PlayerID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-

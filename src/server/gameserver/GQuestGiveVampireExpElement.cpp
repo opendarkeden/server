@@ -1,34 +1,34 @@
 #include "GQuestGiveVampireExpElement.h"
-#include "PlayerCreature.h"
-#include "Vampire.h"
-#include "skill/SkillUtil.h"
+
 #include "GCModifyInformation.h"
 #include "GCSystemMessage.h"
 #include "Player.h"
+#include "PlayerCreature.h"
+#include "Vampire.h"
+#include "skill/SkillUtil.h"
 
-GQuestElement::ResultType GQuestGiveVampireExpElement::checkCondition( PlayerCreature* pPC ) const
-{
-	if ( !pPC->isVampire() ) return FAIL;
+GQuestElement::ResultType GQuestGiveVampireExpElement::checkCondition(PlayerCreature* pPC) const {
+    if (!pPC->isVampire())
+        return FAIL;
 
-	GCModifyInformation gcMI;
-	Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-	increaseVampExp( pVampire, m_Amount, gcMI );
-	pVampire->getPlayer()->sendPacket( &gcMI );
+    GCModifyInformation gcMI;
+    Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
+    increaseVampExp(pVampire, m_Amount, gcMI);
+    pVampire->getPlayer()->sendPacket(&gcMI);
 
-	GCSystemMessage gcSM;
-	gcSM.setMessage("获得经验值.");
-	pPC->getPlayer()->sendPacket( &gcSM );
+    GCSystemMessage gcSM;
+    gcSM.setMessage("获得经验值.");
+    pPC->getPlayer()->sendPacket(&gcSM);
 
-	return OK;
+    return OK;
 }
 
-GQuestGiveVampireExpElement* GQuestGiveVampireExpElement::makeElement(XMLTree* pTree)
-{
-	GQuestGiveVampireExpElement* pRet = new GQuestGiveVampireExpElement;
+GQuestGiveVampireExpElement* GQuestGiveVampireExpElement::makeElement(XMLTree* pTree) {
+    GQuestGiveVampireExpElement* pRet = new GQuestGiveVampireExpElement;
 
-	pTree->GetAttribute("amount", pRet->m_Amount);
+    pTree->GetAttribute("amount", pRet->m_Amount);
 
-	return pRet;
+    return pRet;
 }
 
 GQuestGiveVampireExpElement g_GiveVampireExpElement;

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectGnomesWhisper.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_GNOMES_WHISPER__
@@ -14,31 +14,42 @@
 // class EffectGnomesWhisper
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectGnomesWhisper : public Effect 
-{
+class EffectGnomesWhisper : public Effect {
 public:
-	EffectGnomesWhisper(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GNOMES_WHISPER; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	bool canSeeHide() const { return true; }
-	bool canSeeInvisibility() const { return m_Level >= 15; }
-	bool canSeeSniping() const { return m_Level >= 25; }
-
-	string toString() const throw();
+    EffectGnomesWhisper(Creature* pCreature);
 
 public:
-	void setLevel( uint level ) { m_Level = level; }
-	uint getLevel() const { return m_Level; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_GNOMES_WHISPER;
+    }
+
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    bool canSeeHide() const {
+        return true;
+    }
+    bool canSeeInvisibility() const {
+        return m_Level >= 15;
+    }
+    bool canSeeSniping() const {
+        return m_Level >= 25;
+    }
+
+    string toString() const throw();
+
+public:
+    void setLevel(uint level) {
+        m_Level = level;
+    }
+    uint getLevel() const {
+        return m_Level;
+    }
 
 private:
-	uint	m_Level;
+    uint m_Level;
 };
 
 #endif // __EFFECT_GNOMES_WHISPER__

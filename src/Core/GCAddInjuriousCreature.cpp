@@ -1,72 +1,71 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddInjuriousCreature.cpp 
+// Filename    : GCAddInjuriousCreature.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddInjuriousCreature.h"
 
-void GCAddInjuriousCreature::read (SocketInputStream & iStream) 
-	 
+void GCAddInjuriousCreature::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	// 이름 읽기
-	BYTE szName;
+    __BEGIN_TRY
 
-	iStream.read(szName);
+    // 이름 읽기
+    BYTE szName;
 
-	if (szName == 0)
-		throw InvalidProtocolException("szName == 0");
+    iStream.read(szName);
 
-	if (szName > 10)
-		throw InvalidProtocolException("too large name length");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	iStream.read(m_Name , szName);
+    if (szName > 10)
+        throw InvalidProtocolException("too large name length");
 
-	__END_CATCH
-}
-		    
-void GCAddInjuriousCreature::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-		
-	// 이름 쓰기
-	BYTE szName = m_Name.size();
+    iStream.read(m_Name, szName);
 
-	if (szName == 0)
-		throw InvalidProtocolException("szName == 0");
-
-	if (szName > 10)
-		throw InvalidProtocolException("too large name length");
-
-	oStream.write(szName);
-
-	oStream.write(m_Name);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void GCAddInjuriousCreature::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCAddInjuriousCreatureHandler::execute(this , pPlayer);
+void GCAddInjuriousCreature::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    // 이름 쓰기
+    BYTE szName = m_Name.size();
+
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+
+    if (szName > 10)
+        throw InvalidProtocolException("too large name length");
+
+    oStream.write(szName);
+
+    oStream.write(m_Name);
+
+    __END_CATCH
 }
 
-string GCAddInjuriousCreature::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCAddInjuriousCreature(Name :" << m_Name 
-		<< ")" ;
-	return msg.toString();
+void GCAddInjuriousCreature::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCAddInjuriousCreatureHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string GCAddInjuriousCreature::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCAddInjuriousCreature(Name :" << m_Name << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

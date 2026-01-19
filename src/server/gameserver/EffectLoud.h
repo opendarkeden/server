@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectLoud.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_LOUD__
@@ -13,21 +13,21 @@
 // class EffectLoud
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectLoud : public Effect 
-{
+class EffectLoud : public Effect {
 public:
-	EffectLoud(Creature* pCreature) ;
+    EffectLoud(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_LOUD; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_LOUD;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
-
+    string toString() const;
 };
 
 #endif // __EFFECT_LOUD__

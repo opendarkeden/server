@@ -10,12 +10,13 @@
 #define __ZONE_INFO_MANAGER_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
-#include "ZoneInfo.h"
 #include <unordered_map>
 
-typedef unordered_map< ZoneID_t , ZoneInfo * > HashMapZoneInfo;
+#include "Exception.h"
+#include "Types.h"
+#include "ZoneInfo.h"
+
+typedef unordered_map<ZoneID_t, ZoneInfo*> HashMapZoneInfo;
 
 //----------------------------------------------------------------------
 //
@@ -26,47 +27,45 @@ typedef unordered_map< ZoneID_t , ZoneInfo * > HashMapZoneInfo;
 //----------------------------------------------------------------------
 
 class ZoneInfoManager {
-	
-public :
-	
-	// constructor
-	ZoneInfoManager () ;
-	
-	// destructor
-	~ZoneInfoManager () ;
+public:
+    // constructor
+    ZoneInfoManager();
 
-	// initialize manager
-	void init ();
+    // destructor
+    ~ZoneInfoManager();
 
-	// load from database
-	void load ();
-	
-	// add info
-	void addZoneInfo ( ZoneInfo * pZoneInfo );
-	
-	// delete info
-	void deleteZoneInfo ( ZoneID_t zoneID );
-	
-	// get info
-	ZoneInfo * getZoneInfo ( ZoneID_t zoneID ) ;
+    // initialize manager
+    void init();
 
-	// get count of info
-	uint getSize () const { return m_ZoneInfos.size(); }
+    // load from database
+    void load();
 
-	// get debug string
-	string toString () const ;
+    // add info
+    void addZoneInfo(ZoneInfo* pZoneInfo);
 
-private :
-	
-	// hash map of ZoneInfo
-	// key   : ZoneID_t
-	// value : ZoneInfo *
-	HashMapZoneInfo m_ZoneInfos;
+    // delete info
+    void deleteZoneInfo(ZoneID_t zoneID);
 
+    // get info
+    ZoneInfo* getZoneInfo(ZoneID_t zoneID);
+
+    // get count of info
+    uint getSize() const {
+        return m_ZoneInfos.size();
+    }
+
+    // get debug string
+    string toString() const;
+
+private:
+    // hash map of ZoneInfo
+    // key   : ZoneID_t
+    // value : ZoneInfo *
+    HashMapZoneInfo m_ZoneInfos;
 };
 
 
 // global variable declaration
-extern ZoneInfoManager * g_pZoneInfoManager;
+extern ZoneInfoManager* g_pZoneInfoManager;
 
 #endif

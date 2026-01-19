@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCShowMessageBox.cpp 
-// Written By  : 
-// 
+//
+// Filename    : GCShowMessageBox.cpp
+// Written By  :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,76 +12,74 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCShowMessageBox::read (SocketInputStream & iStream ) 
-	 
+void GCShowMessageBox::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szMessage;
-	iStream.read(szMessage);
+    __BEGIN_TRY
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
-	else
-		throw InvalidProtocolException("too long Message size");
+    BYTE szMessage;
+    iStream.read(szMessage);
 
-	iStream.read(m_Message, szMessage);
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
+    else
+        throw InvalidProtocolException("too long Message size");
 
-	__END_CATCH
+    iStream.read(m_Message, szMessage);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCShowMessageBox::write (SocketOutputStream & oStream ) const 
-     
+void GCShowMessageBox::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szMessage = m_Message.size();
+    __BEGIN_TRY
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
-	else
-		throw InvalidProtocolException("too long Message size");
-	
-	oStream.write(m_Message);
+    BYTE szMessage = m_Message.size();
 
-	__END_CATCH
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
+    else
+        throw InvalidProtocolException("too long Message size");
+
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCShowMessageBox::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCShowMessageBoxHandler::execute(this , pPlayer);
+void GCShowMessageBox::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCShowMessageBoxHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCShowMessageBox::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCShowMessageBox("
-		<< "Message:" << m_Message
-		<< ")";
-	
-	return msg.toString();
-		
-	__END_CATCH
-}
+string GCShowMessageBox::toString() const
 
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "GCShowMessageBox("
+        << "Message:" << m_Message << ")";
+
+    return msg.toString();
+
+    __END_CATCH
+}

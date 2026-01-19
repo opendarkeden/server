@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : NooseOfWraith.h 
+// Filename    : NooseOfWraith.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_NOOSE_OF_WRAITH_HANDLER_H__
@@ -13,23 +13,26 @@
 // class NooseOfWraith;
 //////////////////////////////////////////////////////////////////////////////
 
-class NooseOfWraith : public SkillHandler 
-{
+class NooseOfWraith : public SkillHandler {
 public:
-	NooseOfWraith() throw();
-	~NooseOfWraith() throw() {}
-	
+    NooseOfWraith() throw();
+    ~NooseOfWraith() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "NooseOfWraith"; }
-	SkillType_t getSkillType() const throw() { return SKILL_NOOSE_OF_WRAITH; }
+    string getSkillHandlerName() const throw() {
+        return "NooseOfWraith";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_NOOSE_OF_WRAITH;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
-
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

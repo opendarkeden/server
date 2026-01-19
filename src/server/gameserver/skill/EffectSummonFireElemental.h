@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectSummonFireElemental.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SUMMON_FIRE_ELEMENTAL__
@@ -14,31 +14,40 @@
 // class EffectSummonFireElemental
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSummonFireElemental : public Effect 
-{
+class EffectSummonFireElemental : public Effect {
 public:
-	EffectSummonFireElemental(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_FIRE_ELEMENTAL; }
-
-	void affect() ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectSummonFireElemental(Creature* pCreature);
 
 public:
-	void setDamage( uint bonus ) { m_Damage = bonus; }
-	uint getDamage() const { return m_Damage; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_FIRE_ELEMENTAL;
+    }
 
-	void setRange( Range_t Range ) { m_Range = Range; }
-	Range_t getRange() const { return m_Range; }
+    void affect();
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setDamage(uint bonus) {
+        m_Damage = bonus;
+    }
+    uint getDamage() const {
+        return m_Damage;
+    }
+
+    void setRange(Range_t Range) {
+        m_Range = Range;
+    }
+    Range_t getRange() const {
+        return m_Range;
+    }
 
 private:
-	uint	m_Damage;
-	Range_t	m_Range;
+    uint m_Damage;
+    Range_t m_Range;
 };
 
 #endif // __EFFECT_SUMMON_FIRE_ELEMENTAL__

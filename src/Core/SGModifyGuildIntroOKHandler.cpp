@@ -7,42 +7,46 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "SGModifyGuildIntroOK.h"
 #include "Properties.h"
+#include "SGModifyGuildIntroOK.h"
 
 #ifdef __GAME_SERVER__
 
-	#include "DB.h"
-	#include "Guild.h"
-	#include "GuildManager.h"
-	#include "Player.h"
-	#include "GCSystemMessage.h"
+#include "DB.h"
+#include "GCSystemMessage.h"
+#include "Guild.h"
+#include "GuildManager.h"
+#include "Player.h"
 
 #endif
 
 //----------------------------------------------------------------------
-// 
+//
 // SGModifyGuildIntroOKHandler::execute()
-// 
+//
 //----------------------------------------------------------------------
-void SGModifyGuildIntroOKHandler::execute (SGModifyGuildIntroOK* pPacket )
-	 
+void SGModifyGuildIntroOKHandler::execute(SGModifyGuildIntroOK* pPacket)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	//cout << "SGModifyGuildIntro received" << endl;
+        // cout << "SGModifyGuildIntro received" << endl;
 
-	Assert(pPacket != NULL);
+        Assert(pPacket != NULL);
 
-	// 길드를 가져온다.
-	Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
-	try { Assert(pGuild != NULL); } catch (Throwable& ) { return; }
+    // 길드를 가져온다.
+    Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
+    try {
+        Assert(pGuild != NULL);
+    } catch (Throwable&) {
+        return;
+    }
 
-	pGuild->setIntro(pPacket->getGuildIntro());
+    pGuild->setIntro(pPacket->getGuildIntro());
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

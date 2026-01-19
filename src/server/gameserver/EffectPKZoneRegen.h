@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPKZoneRegen.h
-// Written by  : 
+// Written by  :
 // Description : PKZoneRegen에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -15,47 +15,68 @@ class Zone;
 // class EffectPKZoneRegen
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectPKZoneRegen : public Effect 
-{
+class EffectPKZoneRegen : public Effect {
 public:
-	EffectPKZoneRegen(Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, ZoneCoord_t right, ZoneCoord_t bottom) ;
-
-public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_PK_ZONE_REGEN; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const ;
+    EffectPKZoneRegen(Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, ZoneCoord_t right, ZoneCoord_t bottom);
 
 public:
-	Turn_t	getTurn() const { return m_Turn; }
-	void	setTurn( Turn_t	t ) { m_Turn = t; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_PK_ZONE_REGEN;
+    }
 
-	bool	isSlayer() const { return m_bSlayer; }
-	void	setSlayer( bool bSlayer = true ) { m_bSlayer = bSlayer; }
+    void affect();
+    void affect(Creature* pCreature);
 
-	bool	isVampire() const { return m_bVampire; }
-	void	setVampire( bool bVampire = true ) { m_bVampire = bVampire; }
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	bool	isOusters() const { return m_bOusters; }
-	void	setOusters( bool bOusters = true ) { m_bOusters = bOusters; }
+    string toString() const;
 
-	HP_t	getHP() const { return m_HP; }
-	void	setHP( HP_t hp ) { m_HP = hp; }
+public:
+    Turn_t getTurn() const {
+        return m_Turn;
+    }
+    void setTurn(Turn_t t) {
+        m_Turn = t;
+    }
+
+    bool isSlayer() const {
+        return m_bSlayer;
+    }
+    void setSlayer(bool bSlayer = true) {
+        m_bSlayer = bSlayer;
+    }
+
+    bool isVampire() const {
+        return m_bVampire;
+    }
+    void setVampire(bool bVampire = true) {
+        m_bVampire = bVampire;
+    }
+
+    bool isOusters() const {
+        return m_bOusters;
+    }
+    void setOusters(bool bOusters = true) {
+        m_bOusters = bOusters;
+    }
+
+    HP_t getHP() const {
+        return m_HP;
+    }
+    void setHP(HP_t hp) {
+        m_HP = hp;
+    }
 
 private:
-	Turn_t	m_Turn;
-	VSRect	m_Rect;
+    Turn_t m_Turn;
+    VSRect m_Rect;
 
-	bool	m_bSlayer;
-	bool	m_bVampire;
-	bool	m_bOusters;
+    bool m_bSlayer;
+    bool m_bVampire;
+    bool m_bOusters;
 
-	HP_t	m_HP;
+    HP_t m_HP;
 };
 
 #endif // __EFFECT_PK_ZONE_REGEN__

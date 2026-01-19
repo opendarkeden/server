@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectCrossCounter.h
 // Written by  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_CROSS_COUNTER__
@@ -14,42 +14,44 @@
 // class EffectCrossCounter
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectCrossCounter : public Effect 
-{
+class EffectCrossCounter : public Effect {
 public:
-	EffectCrossCounter(Creature* pCreature) ;
+    EffectCrossCounter(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_CROSS_COUNTER; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_CROSS_COUNTER;
+    }
 
-	void affect() {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	string toString() const throw();
+    string toString() const throw();
 
 private:
-
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectCrossCounterLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectCrossCounterLoader : public EffectLoader 
-{
+class EffectCrossCounterLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_CROSS_COUNTER; }
-	virtual string getEffectClassName() const throw() { return "EffectCrossCounter"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_CROSS_COUNTER;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectCrossCounter";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
-
+    virtual void load(Creature* pCreature) {}
 };
 
 extern EffectCrossCounterLoader* g_pEffectCrossCounterLoader;

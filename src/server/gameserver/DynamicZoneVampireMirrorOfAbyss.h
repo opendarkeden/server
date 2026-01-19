@@ -11,35 +11,33 @@
 ///////////////////////////////////////////////////////////
 // class DynamicZoneVampireMirrorOfAbyss
 ///////////////////////////////////////////////////////////
-class DynamicZoneVampireMirrorOfAbyss : public DynamicZone
-{
+class DynamicZoneVampireMirrorOfAbyss : public DynamicZone {
 public:
-	DynamicZoneVampireMirrorOfAbyss();
-	virtual ~DynamicZoneVampireMirrorOfAbyss();
+    DynamicZoneVampireMirrorOfAbyss();
+    virtual ~DynamicZoneVampireMirrorOfAbyss();
 
 public:
-	void init();		// 다이나믹 존 초기화
-	void heartbeat();	// 다이나믹 존 하트비트
+    void init();      // 다이나믹 존 초기화
+    void heartbeat(); // 다이나믹 존 하트비트
 
 public:
-	bool checkPC();
-	bool addMono();
-	bool clearMono();
-	bool openGateToOut();
-	bool checkComplete();
-	bool checkMono();
+    bool checkPC();
+    bool addMono();
+    bool clearMono();
+    bool openGateToOut();
+    bool checkComplete();
+    bool checkMono();
 
-	void processEntering();
-	void killPC();
+    void processEntering();
+    void killPC();
 
 private:
-	int m_VMOAStatus;
-	ObjectID_t m_MonoObjectID;
-	Timeval m_EndTime;
+    int m_VMOAStatus;
+    ObjectID_t m_MonoObjectID;
+    Timeval m_EndTime;
 };
 
 
-DECLARE_DYNAMIC_ZONE_FACTORY( DynamicZoneVampireMirrorOfAbyss )
+DECLARE_DYNAMIC_ZONE_FACTORY(DynamicZoneVampireMirrorOfAbyss)
 
 #endif
-

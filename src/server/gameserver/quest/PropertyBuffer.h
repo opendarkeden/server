@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : PropertyBuffer.h
-// Written By  : 
+// Written By  :
 // Description :
 // DB에 TEXT 로 저장된 Condition/Action 필드를 파싱해준다.
 // Properties 와 다른 점은, Properties 는 파일 내용을 모두 파싱해서 map 으로
@@ -12,39 +12,37 @@
 #ifndef __PROPERTY_BUFFER_H__
 #define __PROPERTY_BUFFER_H__
 
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class PropertyBuffer;
 //////////////////////////////////////////////////////////////////////////////
 
-class PropertyBuffer 
-{
+class PropertyBuffer {
 public:
-	static const char Comment;
-	static const char Separator;
-	static const char EOL;
-	static const char* WhiteSpaces;
-	static const char* SpaceTab;
-	
-public:
-	PropertyBuffer(const string & buffer) ;
-	~PropertyBuffer() ;
-	
-public:
-	string getProperty(string key) ;
-	int getPropertyInt(string key) ;
+    static const char Comment;
+    static const char Separator;
+    static const char EOL;
+    static const char* WhiteSpaces;
+    static const char* SpaceTab;
 
-	bool getProperty(string key, string& value) ;
-	bool getPropertyInt(string key, int& value) ;
+public:
+    PropertyBuffer(const string& buffer);
+    ~PropertyBuffer();
 
-	string toString() const ;
-	
+public:
+    string getProperty(string key);
+    int getPropertyInt(string key);
+
+    bool getProperty(string key, string& value);
+    bool getPropertyInt(string key, int& value);
+
+    string toString() const;
+
 private:
-	size_t   m_Index;
-	string m_Buffer;
-	
+    size_t m_Index;
+    string m_Buffer;
 };
 
 #endif

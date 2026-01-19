@@ -1,53 +1,50 @@
 
 #include "AnotherQuestRewardInfo.h"
-#include "QuestManager.h"
+
 #include "PlayerCreature.h"
+#include "QuestManager.h"
 
-AnotherQuestRewardInfo::AnotherQuestRewardInfo( RewardID_t rID, RewardClass_t rClass, QuestID_t qID )
-	: RewardInfo( rID, rClass ), m_QuestID(qID)
+AnotherQuestRewardInfo::AnotherQuestRewardInfo(RewardID_t rID, RewardClass_t rClass, QuestID_t qID)
+    : RewardInfo(rID, rClass), m_QuestID(qID) {}
+
+AnotherQuestRewardInfo::~AnotherQuestRewardInfo() {}
+
+QuestMessage AnotherQuestRewardInfo::canGiveReward(PlayerCreature* pPC) const
+
 {
+    __BEGIN_TRY
+
+    return COMPLETE_SUCCESS;
+
+    __END_CATCH
 }
 
-AnotherQuestRewardInfo::~AnotherQuestRewardInfo()
+QuestMessage AnotherQuestRewardInfo::giveReward(PlayerCreature* pPC) const
+
 {
+    __BEGIN_TRY
+
+    QuestMessage result = canGiveReward(pPC);
+
+    if (result != COMPLETE_SUCCESS)
+        return result;
+
+    Assert(false);
+    return COMPLETE_SUCCESS;
+
+    __END_CATCH
 }
 
-QuestMessage AnotherQuestRewardInfo::canGiveReward( PlayerCreature* pPC ) const
-	
-{
-	__BEGIN_TRY
+string AnotherQuestRewardInfo::toString() const {
+    __BEGIN_TRY
 
-	return COMPLETE_SUCCESS;
+    StringStream msg;
 
-	__END_CATCH
-}
+    msg << "AnotherQuestRewardInfo("
+        << "QuestID : " << (uint)m_QuestID << ") : " << "\n"
+        << RewardInfo::toString().c_str();
 
-QuestMessage AnotherQuestRewardInfo::giveReward( PlayerCreature *pPC ) const
-	
-{
-	__BEGIN_TRY
+    return msg.toString();
 
-	QuestMessage result = canGiveReward( pPC );
-
-	if ( result != COMPLETE_SUCCESS ) return result;
-
-	Assert( false );
-	return COMPLETE_SUCCESS;
-
-	__END_CATCH
-}
-
-string AnotherQuestRewardInfo::toString() const 
-{
-	__BEGIN_TRY
-
-	StringStream msg;
-
-	msg << "AnotherQuestRewardInfo("
-		<< "QuestID : " << (uint)m_QuestID
-		<< ") : " << "\n" << RewardInfo::toString().c_str();
-
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

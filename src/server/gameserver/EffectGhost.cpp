@@ -1,108 +1,106 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectGhost.cpp
 // Written by  : 쉭
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectGhost.h"
+
 #include "Creature.h"
+#include "GCRemoveEffect.h"
+#include "GCSystemMessage.h"
 #include "Player.h"
 #include "ZoneInfoManager.h"
-#include "GCSystemMessage.h"
-#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectGhost::EffectGhost(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGhost::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect( pCreature );
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    affect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGhost::affect(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
 
-																														    	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+
+    __END_CATCH
 }
 
-void EffectGhost::unaffect() 
-	
+void EffectGhost::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGhost::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//cout << "EffectGhost" << "unaffect BEGIN" << endl;
+    // cout << "EffectGhost" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
-	// initAllStat을 불러야 한다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_GHOST);
+    // 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
+    // initAllStat을 불러야 한다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_GHOST);
 
-	/*
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    /*
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GHOST);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GHOST);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	*/
+    */
 
-	//cout << "EffectGhost" << "unaffect END" << endl;
+    // cout << "EffectGhost" << "unaffect END" << endl;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectGhost::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectGhost::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectGhost("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectGhost("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

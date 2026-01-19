@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GreatHeal.h 
+// Filename    : GreatHeal.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GREAT_HEAL_HANDLER_H__
@@ -13,20 +13,23 @@
 // class GreatHeal;
 //////////////////////////////////////////////////////////////////////////////
 
-class GreatHeal: public SkillHandler 
-{
+class GreatHeal : public SkillHandler {
 public:
-	GreatHeal() throw() {}
-	~GreatHeal() throw() {}
-	
+    GreatHeal() throw() {}
+    ~GreatHeal() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GreatHeal"; }
-	SkillType_t getSkillType() const throw() { return SKILL_GREAT_HEAL; }
+    string getSkillHandlerName() const throw() {
+        return "GreatHeal";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GREAT_HEAL;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

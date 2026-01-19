@@ -5,32 +5,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionSimpleQuestList.h"
+
 #include "Creature.h"
 #include "GamePlayer.h"
 #include "Script.h"
 #include "ScriptManager.h"
-//#include "Quest.h"
-#include "NPC.h"
+// #include "Quest.h"
 #include "GCNPCAskDynamic.h"
+#include "NPC.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSimpleQuestList::read (PropertyBuffer & propertyBuffer)
-    
+void ActionSimpleQuestList::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		// read script id
-		m_ScriptID = propertyBuffer.getPropertyInt("ScriptID");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        // read script id
+        m_ScriptID = propertyBuffer.getPropertyInt("ScriptID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -38,59 +36,56 @@ void ActionSimpleQuestList::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSimpleQuestList::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
-{
-	__BEGIN_TRY
+void ActionSimpleQuestList::execute(Creature* pCreature1, Creature* pCreature2)
 
-/*#ifdef __ACTIVE_QUEST__
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    {__BEGIN_TRY
 
-	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
+         /*#ifdef __ACTIVE_QUEST__
+              Assert(pCreature1 != NULL);
+              Assert(pCreature2 != NULL);
+              Assert(pCreature1->isNPC());
+              Assert(pCreature2->isPC());
 
-	// m_ScriptID와 관련된 정보를 PublicScriptManager에 생성
-	Script* pScript = g_pPublicScriptManager->getScript(m_ScriptID);
+              NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
 
-	pNPC->setSimpleQuestListScript( pScript );
+              // m_ScriptID와 관련된 정보를 PublicScriptManager에 생성
+              Script* pScript = g_pPublicScriptManager->getScript(m_ScriptID);
 
-	// 패킷 보냄
-	GCNPCAskDynamic gcNPCAskDynamic;
-	gcNPCAskDynamic.setObjectID(pCreature1->getObjectID());
-	gcNPCAskDynamic.setScriptID(m_ScriptID);
-	gcNPCAskDynamic.setSubject(pScript->getSubject(0));
+              pNPC->setSimpleQuestListScript( pScript );
 
-	for (uint c=0; c<pScript->getContentCount(); c++)
-	{
-		gcNPCAskDynamic.addContent(pScript->getContent(c));
-	}
+              // 패킷 보냄
+              GCNPCAskDynamic gcNPCAskDynamic;
+              gcNPCAskDynamic.setObjectID(pCreature1->getObjectID());
+              gcNPCAskDynamic.setScriptID(m_ScriptID);
+              gcNPCAskDynamic.setSubject(pScript->getSubject(0));
 
-	Player* pPlayer = pCreature2->getPlayer();
-	pPlayer->sendPacket(&gcNPCAskDynamic);
+              for (uint c=0; c<pScript->getContentCount(); c++)
+              {
+                  gcNPCAskDynamic.addContent(pScript->getContent(c));
+              }
 
-	
-#endif*/
+              Player* pPlayer = pCreature2->getPlayer();
+              pPlayer->sendPacket(&gcNPCAskDynamic);
 
-	__END_CATCH
-}
+
+          #endif*/
+
+         __END_CATCH}
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionSimpleQuestList::toString () const 
-	
+string ActionSimpleQuestList::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionSimpleQuestList("
-	    << ")";
+    StringStream msg;
+    msg << "ActionSimpleQuestList("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : GCLightning.cpp 
+//
+// Filename    : GCLightning.cpp
 // Written By  : Reiot
-// 
+//
 //--------------------------------------------------------------------------------
 
 // include files
@@ -12,60 +12,57 @@
 //--------------------------------------------------------------------------------
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
-void GCLightning::read (SocketInputStream & iStream ) 
-	 
+void GCLightning::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_Delay);
+    iStream.read(m_Delay);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //--------------------------------------------------------------------------------
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
-void GCLightning::write (SocketOutputStream & oStream ) const 
-     
+void GCLightning::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_Delay);
+    oStream.write(m_Delay);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void GCLightning::execute (Player * pPlayer ) 
-	 
+void GCLightning::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCLightningHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCLightningHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get packet's debug string
 //--------------------------------------------------------------------------------
-string GCLightning::toString () const
-       
+string GCLightning::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCLightning("
-		<< "Delay:" << (int)m_Delay
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCLightning("
+        << "Delay:" << (int)m_Delay << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

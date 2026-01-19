@@ -1,82 +1,80 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRegistGuild.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGRegistGuild.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRegistGuild.h"
 
 
-void CGRegistGuild::read (SocketInputStream & iStream) 
-	 
+void CGRegistGuild::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szGuildName, szGuildIntro;
+    __BEGIN_TRY
 
-	iStream.read(szGuildName);
+    BYTE szGuildName, szGuildIntro;
 
-	if (szGuildName == 0 )
-		throw InvalidProtocolException("szGuildName == 0 ");
-	if (szGuildName > 30 ) 
-		throw InvalidProtocolException("szGuildName > 30");
+    iStream.read(szGuildName);
 
-	iStream.read(m_GuildName, szGuildName);
+    if (szGuildName == 0)
+        throw InvalidProtocolException("szGuildName == 0 ");
+    if (szGuildName > 30)
+        throw InvalidProtocolException("szGuildName > 30");
 
-	iStream.read(szGuildIntro);
+    iStream.read(m_GuildName, szGuildName);
 
-	if (szGuildIntro != 0 )
-		iStream.read(m_GuildIntro, szGuildIntro);
-	else
-		m_GuildIntro = "";
+    iStream.read(szGuildIntro);
 
-	__END_CATCH
+    if (szGuildIntro != 0)
+        iStream.read(m_GuildIntro, szGuildIntro);
+    else
+        m_GuildIntro = "";
+
+    __END_CATCH
 }
 
-void CGRegistGuild::write (SocketOutputStream & oStream) const 
-     
+void CGRegistGuild::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szGuildName = m_GuildName.size();
-	BYTE szGuildIntro = m_GuildIntro.size();
+    __BEGIN_TRY
 
-	if (szGuildName == 0 )
-		throw InvalidProtocolException("szGuildName == 0 ");
-	if (szGuildName > 30 ) 
-		throw InvalidProtocolException("szGuildName > 30");
+    BYTE szGuildName = m_GuildName.size();
+    BYTE szGuildIntro = m_GuildIntro.size();
 
-	oStream.write(szGuildName);
-	oStream.write(m_GuildName);
-	oStream.write(szGuildIntro);
+    if (szGuildName == 0)
+        throw InvalidProtocolException("szGuildName == 0 ");
+    if (szGuildName > 30)
+        throw InvalidProtocolException("szGuildName > 30");
 
-	if (szGuildIntro != 0 )
-		oStream.write(m_GuildIntro); 
+    oStream.write(szGuildName);
+    oStream.write(m_GuildName);
+    oStream.write(szGuildIntro);
 
-	__END_CATCH
+    if (szGuildIntro != 0)
+        oStream.write(m_GuildIntro);
+
+    __END_CATCH
 }
 
-void CGRegistGuild::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGRegistGuildHandler::execute(this , pPlayer);
+void CGRegistGuild::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGRegistGuildHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGRegistGuild::toString () const
-       
+string CGRegistGuild::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGRegistGuild("
-		<< "GuildName:" << m_GuildName
-		<< "GuildIntro:" << m_GuildIntro
-		<< ")" ;
-	return msg.toString();
+        << "GuildName:" << m_GuildName << "GuildIntro:" << m_GuildIntro << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

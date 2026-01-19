@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGSetVampireHotKey.h 
+//
+// Filename    : CGSetVampireHotKey.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SET_VAMPIRE_HOT_KEY_H__
@@ -21,43 +21,49 @@
 //////////////////////////////////////////////////////////////////////
 
 class CGSetVampireHotKey : public Packet {
-
 public:
-	CGSetVampireHotKey() {};
+    CGSetVampireHotKey() {};
     virtual ~CGSetVampireHotKey() {};
-	// Initialize the packet by reading data from the input stream.
-    void read(SocketInputStream & iStream) ;
-		    
-	// Serialize the packet into the output stream.
-    void write(SocketOutputStream & oStream) const ;
+    // Initialize the packet by reading data from the input stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize the packet into the output stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_SET_VAMPIRE_HOT_KEY; }
-	
-	// get packet's body size
-	// *OPTIMIZATION HINT*
-	// Use CGSetVampireHotKeyPacketSize if that constant is defined.
-	PacketSize_t getPacketSize() const  { return szSkillType* 8; }
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "CGSetVampireHotKey"; }
-	
-	// get packet's debug string
-	string toString() const ;
-	
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_SET_VAMPIRE_HOT_KEY;
+    }
+
+    // get packet's body size
+    // *OPTIMIZATION HINT*
+    // Use CGSetVampireHotKeyPacketSize if that constant is defined.
+    PacketSize_t getPacketSize() const {
+        return szSkillType * 8;
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "CGSetVampireHotKey";
+    }
+
+    // get packet's debug string
+    string toString() const;
+
 public:
+    // get/set X Coordicate
+    SkillType_t getHotKey(BYTE pos) const {
+        return m_HotKey[pos];
+    }
+    void setHotKey(BYTE pos, SkillType_t SkillType) {
+        m_HotKey[pos] = SkillType;
+    }
 
-	// get/set X Coordicate
-	SkillType_t getHotKey(BYTE pos) const  { return m_HotKey[pos]; }
-	void setHotKey(BYTE pos, SkillType_t SkillType)  { m_HotKey[pos] = SkillType; }
-
-private :
-
-	SkillType_t m_HotKey[8];
-	
+private:
+    SkillType_t m_HotKey[8];
 };
 
 
@@ -70,23 +76,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGSetVampireHotKeyFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGSetVampireHotKey(); }
+    // create packet
+    Packet* createPacket() {
+        return new CGSetVampireHotKey();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGSetVampireHotKey"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SET_VAMPIRE_HOT_KEY; }
+    // get packet name
+    string getPacketName() const {
+        return "CGSetVampireHotKey";
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// Use CGSetVampireHotKeyPacketSize if that constant is defined.
-	PacketSize_t getPacketMaxSize() const  { return szSkillType* 8; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_SET_VAMPIRE_HOT_KEY;
+    }
 
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // Use CGSetVampireHotKeyPacketSize if that constant is defined.
+    PacketSize_t getPacketMaxSize() const {
+        return szSkillType * 8;
+    }
 };
 
 
@@ -97,11 +108,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGSetVampireHotKeyHandler {
-	
 public:
-
-	// execute packet's handler
-	static void execute(CGSetVampireHotKey* pPacket, Player* player) ;
+    // execute packet's handler
+    static void execute(CGSetVampireHotKey* pPacket, Player* player);
 };
 
 #endif

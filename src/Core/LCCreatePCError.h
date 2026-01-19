@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : LCCreatePCError.h 
+// Filename    : LCCreatePCError.h
 // Written By  : Reiot
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -17,47 +17,61 @@
 // º¸³½´Ù.
 //////////////////////////////////////////////////////////////////////////////
 
-class LCCreatePCError : public Packet 
-{
+class LCCreatePCError : public Packet {
 public:
     LCCreatePCError() {};
     ~LCCreatePCError() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_LC_CREATE_PC_ERROR; }
-	PacketSize_t getPacketSize() const  { return szBYTE; }
-	string getPacketName() const  { return "LCCreatePCError"; }
-	string toString() const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_LC_CREATE_PC_ERROR;
+    }
+    PacketSize_t getPacketSize() const {
+        return szBYTE;
+    }
+    string getPacketName() const {
+        return "LCCreatePCError";
+    }
+    string toString() const;
 
 public:
-	BYTE getErrorID() const  { return m_ErrorID; }
-	void setErrorID(BYTE ErrorID)  { m_ErrorID = ErrorID; }
+    BYTE getErrorID() const {
+        return m_ErrorID;
+    }
+    void setErrorID(BYTE ErrorID) {
+        m_ErrorID = ErrorID;
+    }
 
-private: 
-	BYTE m_ErrorID;
+private:
+    BYTE m_ErrorID;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class LCCreatePCErrorFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class LCCreatePCErrorFactory : public PacketFactory 
-{
+class LCCreatePCErrorFactory : public PacketFactory {
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new LCCreatePCError(); }
+    // create packet
+    Packet* createPacket() {
+        return new LCCreatePCError();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "LCCreatePCError"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_LC_CREATE_PC_ERROR; }
+    // get packet name
+    string getPacketName() const {
+        return "LCCreatePCError";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
-	
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_LC_CREATE_PC_ERROR;
+    }
+
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE;
+    }
 };
 
 
@@ -68,12 +82,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class LCCreatePCErrorHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(LCCreatePCError* pPacket, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(LCCreatePCError* pPacket, Player* pPlayer);
 };
 
 #endif

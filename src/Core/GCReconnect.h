@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCReconnect.h 
+//
+// Filename    : GCReconnect.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_RECONNECT_H__
@@ -17,76 +17,91 @@
 //
 // class GCReconnect;
 //
-// 서버간 이동시, 이전 서버가 클라이언트에게 다음 서버로 연결하라고 
+// 서버간 이동시, 이전 서버가 클라이언트에게 다음 서버로 연결하라고
 // 하면서 접속을 끊도록 하는 패킷이다. 클라이언트는 이 패킷을 받으면,
 // 서버와의 연결을 끊고 패킷에 담긴 서버의 IP/Port 로 접속하면 된다.
 //
 //////////////////////////////////////////////////////////////////////
 
 class GCReconnect : public Packet {
-
-public :
-	GCReconnect() {};
+public:
+    GCReconnect() {};
     ~GCReconnect() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_RECONNECT; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szBYTE + m_Name.size() 		// 캐릭터 이름
-			+ szPCType 						// 슬레이어 or 뱀파이어?
-			+ szBYTE + m_ServerIP.size() 	// 새로 접속할 게임 서버 IP
-			+ szDWORD; 						// 인증 키
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_RECONNECT;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCReconnect"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_Name.size()       // 캐릭터 이름
+               + szPCType                   // 슬레이어 or 뱀파이어?
+               + szBYTE + m_ServerIP.size() // 새로 접속할 게임 서버 IP
+               + szDWORD;                   // 인증 키
+    }
 
-public :
+    // get packet name
+    string getPacketName() const {
+        return "GCReconnect";
+    }
 
-	// get/set creature name
-	string getName() const  { return m_Name; }
-	void setName(const string & name)  { m_Name = name; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set pc type
-	PCType getPCType() const  { return m_PCType; }
-	void setPCType(PCType pcType)  { m_PCType = pcType; }
+public:
+    // get/set creature name
+    string getName() const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+    }
 
-	// get/set server ip
-	string getServerIP() const  { return m_ServerIP; }
-	void setServerIP(const string & serverIP)  { m_ServerIP = serverIP; }
+    // get/set pc type
+    PCType getPCType() const {
+        return m_PCType;
+    }
+    void setPCType(PCType pcType) {
+        m_PCType = pcType;
+    }
 
-	// get/set key
-	DWORD getKey() const  { return m_Key; }
-	void setKey(DWORD key)  { m_Key = key; }
+    // get/set server ip
+    string getServerIP() const {
+        return m_ServerIP;
+    }
+    void setServerIP(const string& serverIP) {
+        m_ServerIP = serverIP;
+    }
 
-private :
-	
-	// creature name
-	string m_Name;
+    // get/set key
+    DWORD getKey() const {
+        return m_Key;
+    }
+    void setKey(DWORD key) {
+        m_Key = key;
+    }
 
-	// pc type
-	PCType m_PCType;
-	
-	// New Server IP
-	string m_ServerIP;
+private:
+    // creature name
+    string m_Name;
 
-	// authentication key
-	DWORD m_Key;
+    // pc type
+    PCType m_PCType;
 
+    // New Server IP
+    string m_ServerIP;
+
+    // authentication key
+    DWORD m_Key;
 };
 
 
@@ -99,29 +114,31 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCReconnectFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCReconnect();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCReconnect(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCReconnect";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCReconnect"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_RECONNECT; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_RECONNECT;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCReconnectPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const 
-	{
-		return szBYTE + 20 		 		// 캐릭터 이름
-			+ szPCType 					// 슬레이어 or 뱀파이어?
-			+ szBYTE + 15			 	// 새로 접속할 게임 서버 IP
-			+ szDWORD; 					// 인증 키
-	}
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCReconnectPacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 20   // 캐릭터 이름
+               + szPCType    // 슬레이어 or 뱀파이어?
+               + szBYTE + 15 // 새로 접속할 게임 서버 IP
+               + szDWORD;    // 인증 키
+    }
 };
 
 
@@ -132,12 +149,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCReconnectHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCReconnect* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCReconnect* pPacket, Player* pPlayer);
 };
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BulletOfLight.h 
+// Filename    : BulletOfLight.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BULLET_OF_LIGHT_HANDLER_H__
@@ -13,19 +13,22 @@
 // class BulletOfLight;
 //////////////////////////////////////////////////////////////////////////////
 
-class BulletOfLight : public SkillHandler 
-{
+class BulletOfLight : public SkillHandler {
 public:
-	BulletOfLight() throw() {}
-	~BulletOfLight() throw() {}
+    BulletOfLight() throw() {}
+    ~BulletOfLight() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "BulletOfLight"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BULLET_OF_LIGHT; }
+    string getSkillHandlerName() const throw() {
+        return "BulletOfLight";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BULLET_OF_LIGHT;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

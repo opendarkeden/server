@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ModifyInfo.cpp 
+// Filename    : ModifyInfo.cpp
 // Written By  : elca@ewestsoft.com
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -9,191 +9,169 @@
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-ModifyInfo::ModifyInfo () 
-{
-	__BEGIN_TRY
+ModifyInfo::ModifyInfo() {
+    __BEGIN_TRY
 
-	m_ShortCount = 0;
-	m_LongCount = 0;
+    m_ShortCount = 0;
+    m_LongCount = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-ModifyInfo::~ModifyInfo () noexcept
-{
-	m_ShortList.clear();
-	m_LongList.clear();
+ModifyInfo::~ModifyInfo() noexcept {
+    m_ShortList.clear();
+    m_LongList.clear();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////////////
-void ModifyInfo::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
-		
-	SHORTDATA short_data;
-	LONGDATA  long_data;
+void ModifyInfo::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read(m_ShortCount);
+    SHORTDATA short_data;
+    LONGDATA long_data;
 
-	for (BYTE s=0; s<m_ShortCount; s++)
-	{
-		iStream.read(short_data.type);
-		iStream.read(short_data.value);
+    iStream.read(m_ShortCount);
 
-		m_ShortList.push_back(short_data);
-	}
+    for (BYTE s = 0; s < m_ShortCount; s++) {
+        iStream.read(short_data.type);
+        iStream.read(short_data.value);
 
-	iStream.read(m_LongCount);
+        m_ShortList.push_back(short_data);
+    }
 
-	for (BYTE s=0; s<m_LongCount; s++)
-	{
-		iStream.read(long_data.type);
-		iStream.read(long_data.value);
+    iStream.read(m_LongCount);
 
-		m_LongList.push_back(long_data);
-	}
+    for (BYTE s = 0; s < m_LongCount; s++) {
+        iStream.read(long_data.type);
+        iStream.read(long_data.value);
 
-	__END_CATCH
+        m_LongList.push_back(long_data);
+    }
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////////////
-void ModifyInfo::write ( SocketOutputStream & oStream ) 
-     const
-{
-	__BEGIN_TRY
+void ModifyInfo::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write(m_ShortCount);
-	list<SHORTDATA>::const_iterator short_itr = m_ShortList.begin();
-	for (; short_itr != m_ShortList.end(); short_itr++)
-	{
-		SHORTDATA short_data = *short_itr;
-		oStream.write(short_data.type);
-		oStream.write(short_data.value);
-	}
+    oStream.write(m_ShortCount);
+    list<SHORTDATA>::const_iterator short_itr = m_ShortList.begin();
+    for (; short_itr != m_ShortList.end(); short_itr++) {
+        SHORTDATA short_data = *short_itr;
+        oStream.write(short_data.type);
+        oStream.write(short_data.value);
+    }
 
-	oStream.write(m_LongCount);
-	list<LONGDATA>::const_iterator long_itr = m_LongList.begin();
-	for (; long_itr != m_LongList.end(); long_itr++)
-	{
-		LONGDATA long_data = *long_itr;
-		oStream.write(long_data.type);
-		oStream.write(long_data.value);
-	}
+    oStream.write(m_LongCount);
+    list<LONGDATA>::const_iterator long_itr = m_LongList.begin();
+    for (; long_itr != m_LongList.end(); long_itr++) {
+        LONGDATA long_data = *long_itr;
+        oStream.write(long_data.type);
+        oStream.write(long_data.value);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string ModifyInfo::toString () 
-	const
-{
-	__BEGIN_TRY
+string ModifyInfo::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "ModifyInfo["
-		<< "ShortCount:" << (int)m_ShortCount
-		<< ",ShortListSet(";
+    msg << "ModifyInfo["
+        << "ShortCount:" << (int)m_ShortCount << ",ShortListSet(";
 
-	list<SHORTDATA>::const_iterator short_itr = m_ShortList.begin();
-	for (; short_itr != m_ShortList.end(); short_itr++)
-	{
-		SHORTDATA short_data = *short_itr;
-		msg << ModifyType2String[short_data.type] << ":"
-			<< (int)short_data.value << ",";
-	}
+    list<SHORTDATA>::const_iterator short_itr = m_ShortList.begin();
+    for (; short_itr != m_ShortList.end(); short_itr++) {
+        SHORTDATA short_data = *short_itr;
+        msg << ModifyType2String[short_data.type] << ":" << (int)short_data.value << ",";
+    }
 
-	msg << "),LongCount:" << (int)m_LongCount
-		<< ",LongListSet(";
+    msg << "),LongCount:" << (int)m_LongCount << ",LongListSet(";
 
-	list<LONGDATA>::const_iterator long_itr = m_LongList.begin();
-	for (; long_itr != m_LongList.end(); long_itr++)
-	{
-		LONGDATA long_data = *long_itr;
-		msg << ModifyType2String[long_data.type] << ":"
-			<< (int)long_data.value << ",";
-	}
+    list<LONGDATA>::const_iterator long_itr = m_LongList.begin();
+    for (; long_itr != m_LongList.end(); long_itr++) {
+        LONGDATA long_data = *long_itr;
+        msg << ModifyType2String[long_data.type] << ":" << (int)long_data.value << ",";
+    }
 
-	msg << ")]";
+    msg << ")]";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ModifyInfo::addShortData(ModifyType type, ushort value)
-{
-	__BEGIN_TRY
+void ModifyInfo::addShortData(ModifyType type, ushort value) {
+    __BEGIN_TRY
 
-	SHORTDATA short_data;
-	short_data.type = type;
-	short_data.value = value;
+    SHORTDATA short_data;
+    short_data.type = type;
+    short_data.value = value;
 
-	m_ShortList.push_back(short_data);
+    m_ShortList.push_back(short_data);
 
-	m_ShortCount++;
+    m_ShortCount++;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ModifyInfo::addLongData(ModifyType type, ulong value)
-{
-	__BEGIN_TRY
+void ModifyInfo::addLongData(ModifyType type, ulong value) {
+    __BEGIN_TRY
 
-	LONGDATA long_data;
-	long_data.type = type;
-	long_data.value = value;
+    LONGDATA long_data;
+    long_data.type = type;
+    long_data.value = value;
 
-	m_LongList.push_back(long_data);
+    m_LongList.push_back(long_data);
 
-	m_LongCount++;
+    m_LongCount++;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ModifyInfo::popShortData(SHORTDATA& rData)
-{
-	__BEGIN_TRY
+void ModifyInfo::popShortData(SHORTDATA& rData) {
+    __BEGIN_TRY
 
-	SHORTDATA short_data = m_ShortList.front();
+    SHORTDATA short_data = m_ShortList.front();
 
-	rData.type = short_data.type;
-	rData.value = short_data.value;
+    rData.type = short_data.type;
+    rData.value = short_data.value;
 
-	m_ShortList.pop_front();
-	m_ShortCount--;
+    m_ShortList.pop_front();
+    m_ShortCount--;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ModifyInfo::popLongData(LONGDATA& rData)
-{
-	__BEGIN_TRY
+void ModifyInfo::popLongData(LONGDATA& rData) {
+    __BEGIN_TRY
 
-	LONGDATA long_data = m_LongList.front();
+    LONGDATA long_data = m_LongList.front();
 
-	rData.type = long_data.type;
-	rData.value = long_data.value;
+    rData.type = long_data.type;
+    rData.value = long_data.value;
 
-	m_LongList.pop_front();
-	m_LongCount--;
+    m_LongList.pop_front();
+    m_LongCount--;
 
-	__END_CATCH
+    __END_CATCH
 }
-

@@ -3,19 +3,26 @@
 
 #include "Effect.h"
 
-class EffectGDRLairClose : public Effect
-{
+class EffectGDRLairClose : public Effect {
 public:
-	EffectGDRLairClose( int minutes ) { setDeadline(minutes*600); m_MinutesCount = minutes; setNextTime(0); }
-	EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
+    EffectGDRLairClose(int minutes) {
+        setDeadline(minutes * 600);
+        m_MinutesCount = minutes;
+        setNextTime(0);
+    }
+    EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_TRANSPORT_CREATURE;
+    }
 
-	void affect() ;
-	void unaffect() ;
+    void affect();
+    void unaffect();
 
-	string toString() const  { return "EffectGDRLairClose"; }
+    string toString() const {
+        return "EffectGDRLairClose";
+    }
 
 private:
-	int	m_MinutesCount;
+    int m_MinutesCount;
 };
 
 #endif

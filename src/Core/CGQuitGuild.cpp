@@ -1,50 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGQuitGuild.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGQuitGuild.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGQuitGuild.h"
 
 
-void CGQuitGuild::read (SocketInputStream & iStream) 
-	 
+void CGQuitGuild::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
+    iStream.read(m_GuildID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGQuitGuild::write (SocketOutputStream & oStream) const 
-     
+void CGQuitGuild::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_GuildID);
+    oStream.write(m_GuildID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGQuitGuild::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGQuitGuildHandler::execute(this , pPlayer);
+void CGQuitGuild::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGQuitGuildHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGQuitGuild::toString () const
-       
+string CGQuitGuild::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGQuitGuild()";
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

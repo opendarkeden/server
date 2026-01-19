@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DarkBluePoison.h 
-// Written By  : 
-// Description : 
+// Filename    : DarkBluePoison.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DARKBLUE_POISON_HANDLER_H__
@@ -13,20 +13,23 @@
 // class DarkBluePoison;
 //////////////////////////////////////////////////////////////////////////////
 
-class DarkBluePoison : public SkillHandler 
-{
+class DarkBluePoison : public SkillHandler {
 public:
-	DarkBluePoison() throw() {}
-	~DarkBluePoison() throw() {}
-	
+    DarkBluePoison() throw() {}
+    ~DarkBluePoison() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DarkBluePoison"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DARKBLUE_POISON; }
+    string getSkillHandlerName() const throw() {
+        return "DarkBluePoison";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DARKBLUE_POISON;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

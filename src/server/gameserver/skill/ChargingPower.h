@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ChargingPower.h 
-// Written By  : 
-// Description : 
+// Filename    : ChargingPower.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CHARGING_POWER_HANDLER_H__
@@ -13,19 +13,22 @@
 // class ChargingPower;
 //////////////////////////////////////////////////////////////////////////////
 
-class ChargingPower : public SkillHandler 
-{
+class ChargingPower : public SkillHandler {
 public:
-	ChargingPower() throw() {}
-	~ChargingPower() throw() {}
-	
+    ChargingPower() throw() {}
+    ~ChargingPower() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ChargingPower"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CHARGING_POWER; }
+    string getSkillHandlerName() const throw() {
+        return "ChargingPower";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CHARGING_POWER;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

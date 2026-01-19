@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : FatalSnick.h 
-// Description : 
+// Filename    : FatalSnick.h
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_FATAL_SNICK_HANDLER_H__
@@ -12,20 +12,24 @@
 // class FatalSnick;
 //////////////////////////////////////////////////////////////////////////////
 
-class FatalSnick: public SkillHandler 
-{
+class FatalSnick : public SkillHandler {
 public:
-	FatalSnick() throw() {}
-	~FatalSnick() throw() {}
-	
+    FatalSnick() throw() {}
+    ~FatalSnick() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "FatalSnick"; }
+    string getSkillHandlerName() const throw() {
+        return "FatalSnick";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_FATAL_SNICK; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_FATAL_SNICK;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

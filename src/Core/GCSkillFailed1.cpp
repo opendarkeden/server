@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCSkillFailed1.cc 
+// Filename    : GCSkillFailed1.cc
 // Written By  : elca@ewestsoft.com
 // Description : Skill이 실패 했을때 날려주는 패킷의 멤버 정의
 //////////////////////////////////////////////////////////////////////////////
@@ -9,67 +9,64 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-GCSkillFailed1::GCSkillFailed1 () 
-     
+GCSkillFailed1::GCSkillFailed1()
+
 {
-	__BEGIN_TRY
-	m_Grade=0;
-	__END_CATCH
-}
-	
-GCSkillFailed1::~GCSkillFailed1 () 
-    
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    m_Grade = 0;
+    __END_CATCH
 }
 
-void GCSkillFailed1::read (SocketInputStream & iStream ) 
-	 
+GCSkillFailed1::~GCSkillFailed1()
+
 {
-	__BEGIN_TRY
-
-	iStream.read(m_SkillType);
-	iStream.read(m_Grade);
-	ModifyInfo::read(iStream);
-	
-	__END_CATCH
-}
-		    
-void GCSkillFailed1::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-
-	oStream.write(m_SkillType);
-	oStream.write(m_Grade);
-	ModifyInfo::write(oStream);
-
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-void GCSkillFailed1::execute (Player * pPlayer ) 
-	 
+void GCSkillFailed1::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	GCSkillFailed1Handler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    iStream.read(m_SkillType);
+    iStream.read(m_Grade);
+    ModifyInfo::read(iStream);
+
+    __END_CATCH
 }
 
-string GCSkillFailed1::toString () const
-       
+void GCSkillFailed1::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCSkillFailed1("
-		<< "SkillType:" << (int)m_SkillType << ")" 
-		<< ModifyInfo::toString();
-	return msg.toString();
+    oStream.write(m_SkillType);
+    oStream.write(m_Grade);
+    ModifyInfo::write(oStream);
 
-	__END_CATCH
+    __END_CATCH
 }
 
+void GCSkillFailed1::execute(Player* pPlayer)
 
+{
+    __BEGIN_TRY
+
+    GCSkillFailed1Handler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string GCSkillFailed1::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCSkillFailed1("
+        << "SkillType:" << (int)m_SkillType << ")" << ModifyInfo::toString();
+    return msg.toString();
+
+    __END_CATCH
+}

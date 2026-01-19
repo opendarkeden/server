@@ -1,118 +1,115 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCSelectQuestID.cpp 
+// Filename    : GCSelectQuestID.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCSelectQuestID.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCSelectQuestID::~GCSelectQuestID() 
-	
-{
-	__BEGIN_TRY 
+GCSelectQuestID::~GCSelectQuestID()
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCSelectQuestID::read (SocketInputStream & iStream ) 
-	 
+void GCSelectQuestID::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE num;
+    BYTE num;
 
-	iStream.read(num);
+    iStream.read(num);
 
-	for (int i=0; i<num; ++i )
-	{
-		QuestID_t qID;
-		iStream.read(qID);
+    for (int i = 0; i < num; ++i) {
+        QuestID_t qID;
+        iStream.read(qID);
 
-		m_QuestIDList.push_back(qID);
-	}
+        m_QuestIDList.push_back(qID);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCSelectQuestID::write (SocketOutputStream & oStream ) const 
-     
+void GCSelectQuestID::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(m_QuestIDList.size() <= maxQuestNum);
+    Assert(m_QuestIDList.size() <= maxQuestNum);
 
-	BYTE num = m_QuestIDList.size();
+    BYTE num = m_QuestIDList.size();
 
-	oStream.write(num);
+    oStream.write(num);
 
-	list<QuestID_t>::const_iterator itr = m_QuestIDList.begin();
+    list<QuestID_t>::const_iterator itr = m_QuestIDList.begin();
 
-	for (int i=0; i<num; i++ )
-	{
-		oStream.write(*itr++);
-	}
+    for (int i = 0; i < num; i++) {
+        oStream.write(*itr++);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCSelectQuestID::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCSelectQuestIDHandler::execute(this , pPlayer);
+void GCSelectQuestID::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCSelectQuestIDHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 PacketSize_t GCSelectQuestID::getPacketSize() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PacketSize_t result = 0;
+    PacketSize_t result = 0;
 
-	result += szBYTE + szQuestID * m_QuestIDList.size();
+    result += szBYTE + szQuestID * m_QuestIDList.size();
 
-	return result;
+    return result;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCSelectQuestID::toString () const
-       
+string GCSelectQuestID::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCSelectQuestID("
-		<< "Parameters: (" ;
+    __BEGIN_TRY
 
-	list<QuestID_t>::const_iterator itr = m_QuestIDList.begin();
-	for(; itr != m_QuestIDList.end() ; itr++ )
-	{
-		msg << *itr << ", ";
-	}
-	msg << ") )";
+    StringStream msg;
+    msg << "GCSelectQuestID("
+        << "Parameters: (";
 
-	return msg.toString();
-		
-	__END_CATCH
+    list<QuestID_t>::const_iterator itr = m_QuestIDList.begin();
+    for (; itr != m_QuestIDList.end(); itr++) {
+        msg << *itr << ", ";
+    }
+    msg << ") )";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

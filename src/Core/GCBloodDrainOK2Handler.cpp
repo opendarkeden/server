@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCBloodDrainOK2Handler::execute (GCBloodDrainOK2 * pGCBloodDrainOK2 , Player * pPlayer )
-	 
+void GCBloodDrainOK2Handler::execute(GCBloodDrainOK2* pGCBloodDrainOK2, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCBloodDrainOK2->toString() << endl;
-	
+    // cout << pGCBloodDrainOK2->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCBloodDrainOK2->toString().c_str());
+        AfxMessageBox(pGCBloodDrainOK2->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

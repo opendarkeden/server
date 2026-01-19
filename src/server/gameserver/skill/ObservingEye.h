@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ObservingEye.h 
-// Written By  : 
-// Description : 
+// Filename    : ObservingEye.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_OBSERVING_EYE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class ObservingEye;
 //////////////////////////////////////////////////////////////////////////////
 
-class ObservingEye : public SkillHandler 
-{
+class ObservingEye : public SkillHandler {
 public:
-	ObservingEye() throw() {}
-	~ObservingEye() throw() {}
-	
-public :
-    string getSkillHandlerName() const throw() { return "ObservingEye"; }
-	SkillType_t getSkillType() const throw() { return SKILL_OBSERVING_EYE; }
+    ObservingEye() throw() {}
+    ~ObservingEye() throw() {}
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+public:
+    string getSkillHandlerName() const throw() {
+        return "ObservingEye";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_OBSERVING_EYE;
+    }
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

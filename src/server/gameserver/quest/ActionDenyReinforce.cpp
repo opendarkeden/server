@@ -1,49 +1,45 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionDenyReinforce.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionDenyReinforce.h"
+
+#include "CastleInfoManager.h"
 #include "Creature.h"
-#include "NPC.h"
+#include "GCModifyInformation.h"
+#include "GCNPCResponse.h"
 #include "GamePlayer.h"
-#include "GuildWar.h"
-#include "SiegeWar.h"
-#include "WarScheduler.h"
-#include "WarSchedule.h"
-#include "GuildManager.h"
 #include "Guild.h"
+#include "GuildManager.h"
+#include "GuildWar.h"
+#include "NPC.h"
+#include "PlayerCreature.h"
+#include "Properties.h"
+#include "SiegeWar.h"
+#include "SystemAvailabilitiesManager.h"
+#include "VariableManager.h"
+#include "WarSchedule.h"
+#include "WarScheduler.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
-#include "PlayerCreature.h"
-#include "VariableManager.h"
-#include "Properties.h"
-#include "CastleInfoManager.h"
-
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
-
-#include "SystemAvailabilitiesManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionDenyReinforce::read (PropertyBuffer & propertyBuffer)
-    
+void ActionDenyReinforce::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		// read script id
-		m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        // read script id
+        m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -51,121 +47,112 @@ void ActionDenyReinforce::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionDenyReinforce::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionDenyReinforce::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 #ifndef __OLD_GUILD_WAR__
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT( SYSTEM_GUILD_WAR );
+    SYSTEM_RETURN_IF_NOT(SYSTEM_GUILD_WAR);
 
-	GCNPCResponse gcNPCResponse;
+    GCNPCResponse gcNPCResponse;
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
-	GuildID_t guildID = pPC->getGuildID();
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    GuildID_t guildID = pPC->getGuildID();
 
-	if ( !g_pVariableManager->isWarActive() || !g_pVariableManager->isActiveGuildWar() )
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_WAR_UNAVAILABLE );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
-		return;
-	}
+    if (!g_pVariableManager->isWarActive() || !g_pVariableManager->isActiveGuildWar()) {
+        gcNPCResponse.setCode(NPC_RESPONSE_WAR_UNAVAILABLE);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
+        return;
+    }
 
-	if ( !g_pGuildManager->isGuildMaster( guildID, pPC ) )
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_NOT_GUILD_MASTER );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
-		return;
-	}
+    if (!g_pGuildManager->isGuildMaster(guildID, pPC)) {
+        gcNPCResponse.setCode(NPC_RESPONSE_NOT_GUILD_MASTER);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
+        return;
+    }
 
-	Zone* pZone = getZoneByZoneID( m_ZoneID );
-	Assert( pZone != NULL );
-	Assert( pZone->isCastle() );
+    Zone* pZone = getZoneByZoneID(m_ZoneID);
+    Assert(pZone != NULL);
+    Assert(pZone->isCastle());
 
-	WarScheduler* pWarScheduler = pZone->getWarScheduler();
-	Assert( pWarScheduler != NULL );
+    WarScheduler* pWarScheduler = pZone->getWarScheduler();
+    Assert(pWarScheduler != NULL);
 
-	CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_ZoneID );
-	GuildID_t ownerGuildID = pCastleInfo->getGuildID();
+    CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_ZoneID);
+    GuildID_t ownerGuildID = pCastleInfo->getGuildID();
 
-	if ( guildID != ownerGuildID )
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_NOT_YOUR_CASTLE );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
-		return;
-	}
+    if (guildID != ownerGuildID) {
+        gcNPCResponse.setCode(NPC_RESPONSE_NOT_YOUR_CASTLE);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
+        return;
+    }
 
-	Schedule* pNextSchedule = pWarScheduler->getRecentSchedule();
+    Schedule* pNextSchedule = pWarScheduler->getRecentSchedule();
 
-	Work* pNextWork = NULL;
-	if ( pNextSchedule != NULL ) pNextWork = pNextSchedule->getWork();
+    Work* pNextWork = NULL;
+    if (pNextSchedule != NULL)
+        pNextWork = pNextSchedule->getWork();
 
-	SiegeWar* pNextWar = dynamic_cast<SiegeWar*>(pNextWork);
+    SiegeWar* pNextWar = dynamic_cast<SiegeWar*>(pNextWork);
 
-	if ( pNextWar == NULL || pNextWar->recentReinforceCandidate() == 0 )
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_NO_WAR_REGISTERED );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
+    if (pNextWar == NULL || pNextWar->recentReinforceCandidate() == 0) {
+        gcNPCResponse.setCode(NPC_RESPONSE_NO_WAR_REGISTERED);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-		//SAFE_DELETE( pNextWar );
-		return;
-	}
-	else if ( pNextWar->getReinforceGuildID() == 0 )
-	{
-		WarSchedule* pNextWarSchedule = dynamic_cast<WarSchedule*>(pNextSchedule);
-		Assert( pNextWarSchedule != NULL );
+        // SAFE_DELETE( pNextWar );
+        return;
+    } else if (pNextWar->getReinforceGuildID() == 0) {
+        WarSchedule* pNextWarSchedule = dynamic_cast<WarSchedule*>(pNextSchedule);
+        Assert(pNextWarSchedule != NULL);
 
-		if ( !pNextWar->denyReinforce() )
-		{
-			gcNPCResponse.setCode( NPC_RESPONSE_CANNOT_ACCEPT );
-			pPC->getPlayer()->sendPacket( &gcNPCResponse );
+        if (!pNextWar->denyReinforce()) {
+            gcNPCResponse.setCode(NPC_RESPONSE_CANNOT_ACCEPT);
+            pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-			//SAFE_DELETE( pNextWar );
-			return;
-		}
-	}
-	else
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_ALREADY_REINFORCE_ACCEPTED );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
+            // SAFE_DELETE( pNextWar );
+            return;
+        }
+    } else {
+        gcNPCResponse.setCode(NPC_RESPONSE_ALREADY_REINFORCE_ACCEPTED);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-		//SAFE_DELETE( pNextWar );
-		return;
-	}
+        // SAFE_DELETE( pNextWar );
+        return;
+    }
 
-	gcNPCResponse.setCode( NPC_RESPONSE_ACCEPT_OK );
-	pPC->getPlayer()->sendPacket( &gcNPCResponse );
+    gcNPCResponse.setCode(NPC_RESPONSE_ACCEPT_OK);
+    pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-	gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+    gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+    pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-	return;
+    return;
 
 #endif
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionDenyReinforce::toString () const 
-	
+string ActionDenyReinforce::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionDenyReinforce("
-	    << ",ZoneID:"  << (int)m_ZoneID
-	    << ")";
+    StringStream msg;
+    msg << "ActionDenyReinforce("
+        << ",ZoneID:" << (int)m_ZoneID << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -11,17 +11,17 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCThrowItemOK2Handler::execute (GCThrowItemOK2 * pGCThrowItemOK2 , Player * pPlayer )
-	 
+void GCThrowItemOK2Handler::execute(GCThrowItemOK2* pGCThrowItemOK2, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __GAME_CLIENT__
 
-	//cout << pGCThrowItemOK2->toString() << endl;
-	
+    // cout << pGCThrowItemOK2->toString() << endl;
+
 #elif __WINDOWS__
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -1,48 +1,46 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLVersionCheck.cpp 
+// Filename    : CLVersionCheck.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLVersionCheck.h"
 
-void CLVersionCheck::read (SocketInputStream & iStream) 
-	 
+void CLVersionCheck::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_Version);
+    iStream.read(m_Version);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLVersionCheck::write (SocketOutputStream & oStream) const 
-     
+void CLVersionCheck::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_Version);
+    oStream.write(m_Version);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLVersionCheck::execute (Player* pPlayer) 
-	 
+void CLVersionCheck::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	CLVersionCheckHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CLVersionCheckHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CLVersionCheck::toString () const
-	
-{
-	StringStream msg;
-	msg << "CLVersionCheck("
-		<< "Version:" << (int)m_Version
-		<< ")";
-	return msg.toString();
-}
+string CLVersionCheck::toString() const
 
+{
+    StringStream msg;
+    msg << "CLVersionCheck("
+        << "Version:" << (int)m_Version << ")";
+    return msg.toString();
+}

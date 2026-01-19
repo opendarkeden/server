@@ -1,42 +1,47 @@
 #ifndef __MOUSE_ITEM_POSITION_H__
 #define __MOUSE_ITEM_POSITION_H__
 
-#include "Types.h"
 #include "GlobalItemPosition.h"
+#include "Types.h"
 
 class Creature;
 class Zone;
 
-class MouseItemPosition : public GlobalItemPosition
-{
+class MouseItemPosition : public GlobalItemPosition {
+public:
+    MouseItemPosition() : GlobalItemPosition(POS_TYPE_MOUSE) {
+        m_bSetZone = false;
+    }
+    ~MouseItemPosition() {}
 
 public:
-	MouseItemPosition() : GlobalItemPosition( POS_TYPE_MOUSE ){ m_bSetZone = false; }
-	~MouseItemPosition(){ }
+    virtual Item* popItem(bool bLock = true);
+    virtual Zone* getZone();
+
+    string getOwnerName() const {
+        return m_OwnerName;
+    }
+    void setOwnerName(const string& ownerName) {
+        m_bSetZone = false;
+        m_OwnerName = ownerName;
+    }
 
 public:
-	virtual Item*	popItem( bool bLock = true ) ;
-	virtual Zone*	getZone() ;
-
-	string			getOwnerName() const { return m_OwnerName; }
-	void			setOwnerName( const string& ownerName ) { m_bSetZone = false; m_OwnerName = ownerName; }
-
-public:
-	virtual string	toString() const ;
+    virtual string toString() const;
 
 protected:
-	Item*			popItem_LOCKED() ;
-	Item*			popItem_UNLOCKED() ;
-	Creature*		findCreature() ;
-	Zone*			getZoneByCreature( Creature* pCreature ) ;
-	Item*			popItem_CORE( PlayerCreature* pPC ) ;
+    Item* popItem_LOCKED();
+    Item* popItem_UNLOCKED();
+    Creature* findCreature();
+    Zone* getZoneByCreature(Creature* pCreature);
+    Item* popItem_CORE(PlayerCreature* pPC);
 
 private:
-	string			m_OwnerName;
+    string m_OwnerName;
 
-	// getZone 을 위한......
-	Zone*			m_pZone;
-	bool			m_bSetZone;
+    // getZone 을 위한......
+    Zone* m_pZone;
+    bool m_bSetZone;
 };
 
 #endif // __MOUSE_ITEM_POSITION_H__

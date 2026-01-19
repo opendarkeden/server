@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TripleShot.h 
+// Filename    : TripleShot.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TRIPLE_SHOT_HANDLER_H__
@@ -13,19 +13,22 @@
 // class TripleShot;
 //////////////////////////////////////////////////////////////////////////////
 
-class TripleShot : public SkillHandler 
-{
+class TripleShot : public SkillHandler {
 public:
-	TripleShot() throw() {}
-	~TripleShot() throw() {}
+    TripleShot() throw() {}
+    ~TripleShot() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "TripleShot"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TRIPLE_SHOT; }
+    string getSkillHandlerName() const throw() {
+        return "TripleShot";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TRIPLE_SHOT;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

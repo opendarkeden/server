@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectKillTimer.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectKillTimer.h"
+
 #include "Creature.h"
 #include "Monster.h"
 #include "Zone.h"
@@ -12,71 +13,64 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectKillTimer::EffectKillTimer(Creature* pCreature, bool kill)
-	
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
-	m_bBroadcastingEffect = false;
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
+    m_bBroadcastingEffect = false;
 
-	setTarget(pCreature);
-	m_bKill = kill;
+    setTarget(pCreature);
+    m_bKill = kill;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectKillTimer::~EffectKillTimer()
-	
+
 {
-	__BEGIN_TRY 
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectKillTimer::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectKillTimer" << "unaffect BEGIN" << endl;
+    // cout << "EffectKillTimer" << "unaffect BEGIN" << endl;
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
-	if ( pCreature == NULL ) return;
-	if ( pCreature->isMonster() )
-	{
-		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		if ( m_bKill )
-		{
-			pMonster->setHP(0);
-		}
-		else
-		{
-			pMonster->getZone()->deleteCreature( pMonster, pMonster->getX(), pMonster->getY() );
-		}
-	}
+    if (pCreature == NULL)
+        return;
+    if (pCreature->isMonster()) {
+        Monster* pMonster = dynamic_cast<Monster*>(pCreature);
+        if (m_bKill) {
+            pMonster->setHP(0);
+        } else {
+            pMonster->getZone()->deleteCreature(pMonster, pMonster->getX(), pMonster->getY());
+        }
+    }
 
-	//cout << "EffectKillTimer" << "unaffect END" << endl;
-						
-	__END_CATCH
+    // cout << "EffectKillTimer" << "unaffect END" << endl;
+
+    __END_CATCH
 }
 
-string EffectKillTimer::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectKillTimer::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectKillTimer("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectKillTimer("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }

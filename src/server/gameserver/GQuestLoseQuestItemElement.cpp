@@ -1,34 +1,35 @@
 #include "GQuestLoseQuestItemElement.h"
-#include "PlayerCreature.h"
+
+#include "GCSystemMessage.h"
 #include "GQuestInventory.h"
 #include "Player.h"
-#include "GCSystemMessage.h"
+#include "PlayerCreature.h"
 
-GQuestElement::ResultType GQuestLoseQuestItemElement::checkCondition( PlayerCreature* pPC ) const
-{
-	GQuestInventory& inventory = pPC->getGQuestManager()->getGQuestInventory();
+GQuestElement::ResultType GQuestLoseQuestItemElement::checkCondition(PlayerCreature* pPC) const {
+    GQuestInventory& inventory = pPC->getGQuestManager()->getGQuestInventory();
 
-	list<ItemType_t>::iterator itr = find( inventory.getItems().begin(), inventory.getItems().end(), m_ItemType );
-	if ( itr == inventory.getItems().end() ) return FAIL;
+    list<ItemType_t>::iterator itr = find(inventory.getItems().begin(), inventory.getItems().end(), m_ItemType);
+    if (itr == inventory.getItems().end())
+        return FAIL;
 
-	inventory.getItems().erase(itr);
-	pPC->getPlayer()->sendPacket(inventory.getInventoryPacket());
+    inventory.getItems().erase(itr);
+    pPC->getPlayer()->sendPacket(inventory.getInventoryPacket());
 
-	GCSystemMessage gcSM;
-	gcSM.setMessage("获得任务道具.");
-	pPC->getPlayer()->sendPacket( &gcSM );
+    GCSystemMessage gcSM;
+    gcSM.setMessage("获得任务道具.");
+    pPC->getPlayer()->sendPacket(&gcSM);
 
-	return OK;
+    return OK;
 }
 
-GQuestLoseQuestItemElement* GQuestLoseQuestItemElement::makeElement(XMLTree* pTree)
-{
-	GQuestLoseQuestItemElement* pRet = new GQuestLoseQuestItemElement;
+GQuestLoseQuestItemElement* GQuestLoseQuestItemElement::makeElement(XMLTree* pTree) {
+    GQuestLoseQuestItemElement* pRet = new GQuestLoseQuestItemElement;
 
-	DWORD itemType;
-	if ( pTree->GetAttribute("id", itemType ) ) pRet->m_ItemType = itemType;
+    DWORD itemType;
+    if (pTree->GetAttribute("id", itemType))
+        pRet->m_ItemType = itemType;
 
-	return pRet;
+    return pRet;
 }
 
 GQuestLoseQuestItemElement g_LoseQuestItemElement;

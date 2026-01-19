@@ -1,83 +1,77 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventAuth.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EventAuth.h"
-#include "GamePlayer.h"
-#include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "Item.h"
 
+#include "Creature.h"
+#include "EventKick.h"
 #include "GCAuthKey.h"
 #include "GCSystemMessage.h"
-#include "EventKick.h"
+#include "GamePlayer.h"
+#include "Item.h"
+#include "Ousters.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-EventAuth::EventAuth (GamePlayer* pGamePlayer) 
-	
-: Event(pGamePlayer)
-{
-	// 1ºÐ
-	setDeadline(600);
+EventAuth::EventAuth(GamePlayer* pGamePlayer)
+
+    : Event(pGamePlayer) {
+    // 1ºÐ
+    setDeadline(600);
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-EventAuth::~EventAuth () 
-	
-{
-}
+EventAuth::~EventAuth()
+
+{}
 
 //////////////////////////////////////////////////////////////////////////////
 // activate
 //////////////////////////////////////////////////////////////////////////////
-void EventAuth::activate () 
-	
+void EventAuth::activate()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_pGamePlayer->getPlayerStatus() == GPS_NORMAL) 
-	{
-		Assert(m_pGamePlayer != NULL);
+    if (m_pGamePlayer->getPlayerStatus() == GPS_NORMAL) {
+        Assert(m_pGamePlayer != NULL);
 
-		// if ( !m_pGamePlayer->getCSAuth().IsAuth() )
-    if (true)
-		{
-			filelog("CSAuth.log", "[%s] ÀÎÁõ ½Ã°£ Á¦ÇÑÀ» ÃÊ°úÇß½À´Ï´Ù.", m_pGamePlayer->getID().c_str() );
+        // if ( !m_pGamePlayer->getCSAuth().IsAuth() )
+        if (true) {
+            filelog("CSAuth.log", "[%s] ÀÎÁõ ½Ã°£ Á¦ÇÑÀ» ÃÊ°úÇß½À´Ï´Ù.", m_pGamePlayer->getID().c_str());
 
-			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage("nProtect GameGuard ÈÏÖ¤Ê§°Ü.Ö´ÐÐÎÄ¼þ´íÎó»òGameGuardÎÄ¼þËð»µ.");
-			m_pGamePlayer->sendPacket( &gcSystemMessage );
+            GCSystemMessage gcSystemMessage;
+            gcSystemMessage.setMessage("nProtect GameGuard ÈÏÖ¤Ê§°Ü.Ö´ÐÐÎÄ¼þ´íÎó»òGameGuardÎÄ¼þËð»µ.");
+            m_pGamePlayer->sendPacket(&gcSystemMessage);
 
-			EventKick* pKick = new EventKick( m_pGamePlayer );
-			pKick->setDeadline(100);
-//			pKick->setMessage("GameGuard ÀÎÁõ Á¦ÇÑ ½Ã°£ÀÌ ÃÊ°úÇß½À´Ï´Ù.. 10ÃÊ µÚ¿¡ Á¢¼ÓÀÌ Á¾·áµË´Ï´Ù.");
-			pKick->sendMessage();
+            EventKick* pKick = new EventKick(m_pGamePlayer);
+            pKick->setDeadline(100);
+            //			pKick->setMessage("GameGuard ÀÎÁõ Á¦ÇÑ ½Ã°£ÀÌ ÃÊ°úÇß½À´Ï´Ù.. 10ÃÊ µÚ¿¡ Á¢¼ÓÀÌ Á¾·áµË´Ï´Ù.");
+            pKick->sendMessage();
 
-			m_pGamePlayer->addEvent( pKick );
-		}
-		else
-		{
-			// DWORD key = m_pGamePlayer->getCSAuth().GetAuthDword();
-			// GCAuthKey gcKey;
-			// gcKey.setKey(key);
-			// m_pGamePlayer->sendPacket(&gcKey);
-		}
-	}
+            m_pGamePlayer->addEvent(pKick);
+        } else {
+            // DWORD key = m_pGamePlayer->getCSAuth().GetAuthDword();
+            // GCAuthKey gcKey;
+            // gcKey.setKey(key);
+            // m_pGamePlayer->sendPacket(&gcKey);
+        }
+    }
 
-	// 5ºÐ¿¡ ÇÑ¹ø
-	Timeval delay;
-	delay.tv_sec = 300;
-	delay.tv_usec = 0;
+    // 5ºÐ¿¡ ÇÑ¹ø
+    Timeval delay;
+    delay.tv_sec = 300;
+    delay.tv_usec = 0;
 
-	m_Deadline = m_Deadline + delay;
-	
-	__END_CATCH
+    m_Deadline = m_Deadline + delay;
+
+    __END_CATCH
 }

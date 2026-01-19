@@ -1,43 +1,40 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionShowWarSchedule.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionShowWarSchedule.h"
+
 #include "Creature.h"
-#include "NPC.h"
+#include "GCNPCResponse.h"
+#include "GCWarScheduleList.h"
 #include "GamePlayer.h"
-#include "WarScheduler.h"
-#include "GuildManager.h"
 #include "Guild.h"
-#include "Zone.h"
-#include "ZoneUtil.h"
+#include "GuildManager.h"
+#include "NPC.h"
 #include "PacketUtil.h"
 #include "PlayerCreature.h"
 #include "VariableManager.h"
-
-#include "GCNPCResponse.h"
-#include "GCWarScheduleList.h"
+#include "WarScheduler.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionShowWarSchedule::read (PropertyBuffer & propertyBuffer)
-    
+void ActionShowWarSchedule::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		// read script id
-		m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        // read script id
+        m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -45,50 +42,45 @@ void ActionShowWarSchedule::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionShowWarSchedule::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionShowWarSchedule::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	GCWarScheduleList gcWarScheduleList;
+    GCWarScheduleList gcWarScheduleList;
 
-	if ( g_pVariableManager->isWarActive()
-		&& makeGCWarScheduleList( &gcWarScheduleList, m_ZoneID ) )
-	{
-		pPC->getPlayer()->sendPacket( &gcWarScheduleList );
-	}
-	else
-	{
-		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
-		pPC->getPlayer()->sendPacket( &gcNPCResponse );
-	}
+    if (g_pVariableManager->isWarActive() && makeGCWarScheduleList(&gcWarScheduleList, m_ZoneID)) {
+        pPC->getPlayer()->sendPacket(&gcWarScheduleList);
+    } else {
+        GCNPCResponse gcNPCResponse;
+        gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+        pPC->getPlayer()->sendPacket(&gcNPCResponse);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionShowWarSchedule::toString () const 
-	
+string ActionShowWarSchedule::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionShowWarSchedule("
-	    << ",ZoneID:"  << (int)m_ZoneID
-	    << ")";
+    StringStream msg;
+    msg << "ActionShowWarSchedule("
+        << ",ZoneID:" << (int)m_ZoneID << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

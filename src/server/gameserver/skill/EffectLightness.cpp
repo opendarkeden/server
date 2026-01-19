@@ -6,98 +6,92 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectLightness.h"
+
 #include "Creature.h"
-#include "Zone.h"
-#include "Player.h"
-#include "GCRemoveEffect.h"
 #include "GCChangeDarkLight.h"
 #include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "Player.h"
+#include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectLightness::EffectLightness(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectLightness::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectLightness::unaffect()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
-	
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	pCreature->removeFlag(Effect::EFFECT_CLASS_LIGHTNESS);
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_LIGHTNESS);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_LIGHTNESS);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	Player* pPlayer = pCreature->getPlayer();
-	if ( pPlayer != NULL )
-	{
-		GCModifyInformation gcMI;
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_LIGHTNESS);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-		Sight_t oldSight = pCreature->getSight();
-		Sight_t newSight = pCreature->getEffectedSight();
+    Player* pPlayer = pCreature->getPlayer();
+    if (pPlayer != NULL) {
+        GCModifyInformation gcMI;
 
-		if ( oldSight != newSight )
-		{
-			pCreature->setSight( newSight );
-			pZone->updateScan(pCreature, oldSight, newSight);
-			gcMI.addShortData(MODIFY_VISION, newSight);
-			pPlayer->sendPacket( &gcMI );
-		}
+        Sight_t oldSight = pCreature->getSight();
+        Sight_t newSight = pCreature->getEffectedSight();
 
-		GCChangeDarkLight gcChangeDarkLight;
-		gcChangeDarkLight.setDarkLevel(pZone->getDarkLevel());
-		gcChangeDarkLight.setLightLevel(pZone->getLightLevel());
+        if (oldSight != newSight) {
+            pCreature->setSight(newSight);
+            pZone->updateScan(pCreature, oldSight, newSight);
+            gcMI.addShortData(MODIFY_VISION, newSight);
+            pPlayer->sendPacket(&gcMI);
+        }
 
-		pPlayer->sendPacket(&gcChangeDarkLight);
-	}
+        GCChangeDarkLight gcChangeDarkLight;
+        gcChangeDarkLight.setDarkLevel(pZone->getDarkLevel());
+        gcChangeDarkLight.setLightLevel(pZone->getLightLevel());
+
+        pPlayer->sendPacket(&gcChangeDarkLight);
+    }
 
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectLightness::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectLightness::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectLightness("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectLightness("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

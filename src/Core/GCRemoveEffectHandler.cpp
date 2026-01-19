@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCRemoveEffectHandler::execute (GCRemoveEffect * pGCRemoveEffect , Player * pPlayer )
-	 
+void GCRemoveEffectHandler::execute(GCRemoveEffect* pGCRemoveEffect, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __GAME_CLIENT__
 
-	//cout << pGCRemoveEffect->toString() << endl;
-	
+    // cout << pGCRemoveEffect->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCRemoveEffect->toString().c_str());
+        AfxMessageBox(pGCRemoveEffect->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

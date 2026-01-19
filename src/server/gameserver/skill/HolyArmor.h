@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HolyArmor.h 
-// Written By  : 
-// Description : 
+// Filename    : HolyArmor.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HOLY_ARMOR_HANDLER_H__
@@ -13,19 +13,22 @@
 // class HolyArmor;
 //////////////////////////////////////////////////////////////////////////////
 
-class HolyArmor : public SkillHandler 
-{
+class HolyArmor : public SkillHandler {
 public:
-	HolyArmor() throw() {}
-	~HolyArmor() throw() {}
-	
+    HolyArmor() throw() {}
+    ~HolyArmor() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HolyArmor"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HOLY_ARMOR; }
+    string getSkillHandlerName() const throw() {
+        return "HolyArmor";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HOLY_ARMOR;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

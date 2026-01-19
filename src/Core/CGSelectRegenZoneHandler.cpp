@@ -7,35 +7,36 @@
 #include "CGSelectRegenZone.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "PlayerCreature.h"
-	#include "RegenZoneManager.h"
-#endif	// __GAME_SERVER__
+#include "GamePlayer.h"
+#include "PlayerCreature.h"
+#include "RegenZoneManager.h"
+#endif // __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGSelectRegenZoneHandler::execute(CGSelectRegenZone* pPacket , Player* pPlayer)
-	 
+void CGSelectRegenZoneHandler::execute(CGSelectRegenZone* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert( pGamePlayer != NULL );
-	
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert( pPC != NULL );
+        GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	cout << pPC->getName() << " ... RegenZone ... " << (int)pPacket->getRegenZoneID() << endl;
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	if ( !RegenZoneManager::getInstance()->canRegen( pPC, pPacket->getRegenZoneID() ) ) return;
+    cout << pPC->getName() << " ... RegenZone ... " << (int)pPacket->getRegenZoneID() << endl;
 
-	cout << pPC->getName() << " ... Can Regen ... " << (int)pPacket->getRegenZoneID() << endl;
+    if (!RegenZoneManager::getInstance()->canRegen(pPC, pPacket->getRegenZoneID()))
+        return;
 
-	RegenZoneManager::getInstance()->regeneratePC( pPC, pPacket->getRegenZoneID() );
+    cout << pPC->getName() << " ... Can Regen ... " << (int)pPacket->getRegenZoneID() << endl;
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+    RegenZoneManager::getInstance()->regeneratePC(pPC, pPacket->getRegenZoneID());
+
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }

@@ -9,12 +9,12 @@
 #define __UPDATE_H__
 
 // include files
-#include "Types.h"
-#include "UpdateDef.h"
-#include "Exception.h"
 #include "Assert.h"
+#include "Exception.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
+#include "Types.h"
+#include "UpdateDef.h"
 
 // forward declaration
 class Socket;
@@ -24,36 +24,27 @@ class Socket;
 // update types
 //--------------------------------------------------------------------------------
 enum UPDATETYPE {
-	UPDATETYPE_CREATE_DIRECTORY ,
-	UPDATETYPE_DELETE_DIRECTORY ,
-	UPDATETYPE_RENAME_DIRECTORY ,
-	UPDATETYPE_CREATE_FILE,
-	UPDATETYPE_DELETE_FILE,
-	UPDATETYPE_RENAME_FILE,
-	UPDATETYPE_APPEND_SPRITE_PACK ,
-	UPDATETYPE_DELETE_SPRITE_PACK ,
-	UPDATETYPE_UPDATE_SPRITE_PACK ,
-	UPDATETYPE_APPEND_FRAME_PACK ,
-	UPDATETYPE_APPEND_INFO,
-	UPDATETYPE_VERIFY,
-	UPDATETYPE_MAX	
+    UPDATETYPE_CREATE_DIRECTORY,
+    UPDATETYPE_DELETE_DIRECTORY,
+    UPDATETYPE_RENAME_DIRECTORY,
+    UPDATETYPE_CREATE_FILE,
+    UPDATETYPE_DELETE_FILE,
+    UPDATETYPE_RENAME_FILE,
+    UPDATETYPE_APPEND_SPRITE_PACK,
+    UPDATETYPE_DELETE_SPRITE_PACK,
+    UPDATETYPE_UPDATE_SPRITE_PACK,
+    UPDATETYPE_APPEND_FRAME_PACK,
+    UPDATETYPE_APPEND_INFO,
+    UPDATETYPE_VERIFY,
+    UPDATETYPE_MAX
 };
 
 
 const string UPDATETYPE2String[] = {
-	"UPDATETYPE_CREATE_DIRECTORY" ,
-	"UPDATETYPE_DELETE_DIRECTORY" ,
-	"UPDATETYPE_RENAME_DIRECTORY" ,
-	"UPDATETYPE_CREATE_FILE",
-	"UPDATETYPE_DELETE_FILE",
-	"UPDATETYPE_RENAME_FILE",
-	"UPDATETYPE_APPEND_SPRITE_PACK" ,
-	"UPDATETYPE_DELETE_SPRITE_PACK" ,
-	"UPDATETYPE_UPDATE_SPRITE_PACK" ,
-	"UPDATETYPE_APPEND_FRAME_PACK" ,
-	"UPDATETYPE_APPEND_INFO" ,
-	"UPDATETYPE_VERIFY"
-};
+    "UPDATETYPE_CREATE_DIRECTORY",   "UPDATETYPE_DELETE_DIRECTORY",   "UPDATETYPE_RENAME_DIRECTORY",
+    "UPDATETYPE_CREATE_FILE",        "UPDATETYPE_DELETE_FILE",        "UPDATETYPE_RENAME_FILE",
+    "UPDATETYPE_APPEND_SPRITE_PACK", "UPDATETYPE_DELETE_SPRITE_PACK", "UPDATETYPE_UPDATE_SPRITE_PACK",
+    "UPDATETYPE_APPEND_FRAME_PACK",  "UPDATETYPE_APPEND_INFO",        "UPDATETYPE_VERIFY"};
 
 
 //--------------------------------------------------------------------------------
@@ -61,90 +52,85 @@ const string UPDATETYPE2String[] = {
 // class Update;
 //
 // 특정 버전의 Smart Update 명령 하나와 대응되는 클래스이다.
-// 
+//
 //--------------------------------------------------------------------------------
 class Update {
+public:
+    // load from file
+    void load(ifstream& ifile);
 
-public :
+    // save to file
+    void save(ofstream& ofile) const;
 
-	// load from file
-	void load (ifstream & ifile);
+    // read from socket input stream
+    void read(SocketInputStream& iStream);
 
-	// save to file
-	void save (ofstream & ofile) const;
+    // read from socket directly
+    void read(Socket* pSocket);
 
-	// read from socket input stream
-	void read (SocketInputStream & iStream);
+    // write to socket output stream
+    void write(SocketOutputStream& oStream) const;
 
-	// read from socket directly
-	void read (Socket* pSocket);
+    // write to socket directly
+    void write(Socket* pSocket) const;
 
-	// write to socket output stream
-	void write (SocketOutputStream & oStream) const;
+    // get size
+    uint getSize() const;
 
-	// write to socket directly
-	void write (Socket* pSocket) const;
+    // get max size
+    static uint getMaxSize();
 
-	// get size
-	uint getSize () const;
-
-	// get max size
-	static uint getMaxSize ();
-
-	// execute update
-	void execute ();
+    // execute update
+    void execute();
 
 
-public :
+public:
+    // get/set update type
+    Version_t getVersion() const {
+        return m_Version;
+    }
+    void setVersion(Version_t version) {
+        m_Version = version;
+    }
 
-	// get/set update type
-	Version_t getVersion () const { return m_Version; }
-	void setVersion (Version_t version) { m_Version = version; }
+    // get update type
+    UPDATETYPE getUpdateType() const {
+        Assert(m_UpdateType < UPDATETYPE_MAX);
+        return m_UpdateType;
+    }
 
-	// get update type
-	UPDATETYPE getUpdateType () const 
-	{ 
-		Assert(m_UpdateType < UPDATETYPE_MAX); 
-		return m_UpdateType; 
-	}
+    // set update type
+    void setUpdateType(UPDATETYPE updateType) {
+        Assert(updateType < UPDATETYPE_MAX);
+        m_UpdateType = updateType;
+    }
 
-	// set update type
-	void setUpdateType (UPDATETYPE updateType) 
-	{ 
-		Assert(updateType < UPDATETYPE_MAX); 
-		m_UpdateType = updateType; 
-	}
+    // get parameter
+    string getParam(uint i) const {
+        Assert(i < maxParams);
+        return m_Params[i];
+    }
 
-	// get parameter
-	string getParam (uint i) const 
-	{ 
-		Assert(i < maxParams); 
-		return m_Params[i]; 
-	}
+    // set parameter
+    void setParam(uint i, const string& param) {
+        Assert(i < maxParams);
+        Assert(param.size() < maxParameterLen);
+        m_Params[i] = param;
+    }
 
-	// set parameter
-	void setParam (uint i, const string & param) 
-	{ 
-		Assert(i < maxParams); 
-		Assert(param.size() < maxParameterLen);
-		m_Params[i] = param; 
-	}
-
-	// get debug string
-	string toString () const;
+    // get debug string
+    string toString() const;
 
 
-private :
+private:
+    // Client Version
+    Version_t m_Version;
 
-	// Client Version
-	Version_t m_Version;
+    // update type
+    UPDATETYPE m_UpdateType;
 
-	// update type
-	UPDATETYPE m_UpdateType;
-
-	// parameters
-	string m_Params[maxParams];
-
+    // parameters
+    string m_Params[maxParams];
 };
 
 #endif

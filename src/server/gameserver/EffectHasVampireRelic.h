@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHasVampireRelic.h
-// Written by  : 
+// Written by  :
 // Description : Doom에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,20 +13,20 @@
 // class EffectHasVampireRelic
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHasVampireRelic : public EffectHasRelic
-{
+class EffectHasVampireRelic : public EffectHasRelic {
 public:
-	EffectHasVampireRelic(Creature* pCreature) ;
-	EffectHasVampireRelic(Item* pItem) ;
+    EffectHasVampireRelic(Creature* pCreature);
+    EffectHasVampireRelic(Item* pItem);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_HAS_VAMPIRE_RELIC; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_HAS_VAMPIRE_RELIC;
+    }
 
-	void affect(Creature* pCreature) ;
-	void affect(Item* pItem) ;
+    void affect(Creature* pCreature);
+    void affect(Item* pItem);
 
-	string toString() const ;
-
+    string toString() const;
 };
 
 #endif // __EFFECT_DOOM__

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AttackArms.h 
+// Filename    : AttackArms.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ATTACK_ARMS_HANDLER_H__
@@ -13,20 +13,23 @@
 // class AttackArms;
 //////////////////////////////////////////////////////////////////////////////
 
-class AttackArms : public SkillHandler 
-{
+class AttackArms : public SkillHandler {
 public:
-	AttackArms() throw() {}
-	~AttackArms() throw() {}
-	
+    AttackArms() throw() {}
+    ~AttackArms() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AttackArms"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ATTACK_ARMS; }
+    string getSkillHandlerName() const throw() {
+        return "AttackArms";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ATTACK_ARMS;
+    }
 
-	void execute(Slayer* pPlayer, ObjectID_t ObjectID) ;
-	void execute(Monster* pPlayer, Creature* pEnemy) ;
+    void execute(Slayer* pPlayer, ObjectID_t ObjectID);
+    void execute(Monster* pPlayer, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

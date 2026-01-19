@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
-// 
-// Filename    : RCSay.h 
+//
+// Filename    : RCSay.h
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //----------------------------------------------------------------------
 
 #ifndef __RC_SAY_H__
@@ -23,48 +23,55 @@
 //----------------------------------------------------------------------
 
 class RCSay : public DatagramPacket {
-
-public :
-	
+public:
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read ( Datagram & iDatagram ) throw ( ProtocolException , Error );
-		    
+    void read(Datagram& iDatagram) throw(ProtocolException, Error);
+
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write ( Datagram & oDatagram ) const throw ( ProtocolException , Error );
+    void write(Datagram& oDatagram) const throw(ProtocolException, Error);
 
-	// execute packet's handler
-	void execute ( Player * pPlayer ) throw ( ProtocolException , Error );
+    // execute packet's handler
+    void execute(Player* pPlayer) throw(ProtocolException, Error);
 
-	// get packet id
-	PacketID_t getPacketID () const throw () { return PACKET_RC_SAY; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize () const throw () 
-	{ 
-		return szBYTE + m_Name.size()
-				+ szBYTE + m_Message.size();			
-	}
+    // get packet id
+    PacketID_t getPacketID() const throw() {
+        return PACKET_RC_SAY;
+    }
 
-		// get packet name
-		string getPacketName () const throw () { return "RCSay"; }
-		
-		// get packet's debug string
-		string toString () const throw ();
+    // get packet's body size
+    PacketSize_t getPacketSize() const throw() {
+        return szBYTE + m_Name.size() + szBYTE + m_Message.size();
+    }
 
-public :
+    // get packet name
+    string getPacketName() const throw() {
+        return "RCSay";
+    }
 
-	// get/set Name
-	string getName () const throw () { return m_Name; }
-	void setName ( string msg ) throw () { m_Name = msg; }
+    // get packet's debug string
+    string toString() const throw();
 
-	// get/set Message
-	string getMessage () const throw () { return m_Message; }
-	void setMessage ( string msg ) throw () { m_Message = msg; }
-	
-	
-private :
-	string m_Name;
-	string m_Message;	
+public:
+    // get/set Name
+    string getName() const throw() {
+        return m_Name;
+    }
+    void setName(string msg) throw() {
+        m_Name = msg;
+    }
+
+    // get/set Message
+    string getMessage() const throw() {
+        return m_Message;
+    }
+    void setMessage(string msg) throw() {
+        m_Message = msg;
+    }
+
+
+private:
+    string m_Name;
+    string m_Message;
 };
 
 
@@ -77,23 +84,25 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class RCSayFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() throw() {
+        return new RCSay();
+    }
 
-public :
-	
-	// create packet
-	Packet * createPacket () throw () { return new RCSay(); }
+    // get packet name
+    string getPacketName() const throw() {
+        return "RCSay";
+    }
 
-		// get packet name
-		string getPacketName () const throw () { return "RCSay"; }
-	
-	// get packet id
-	PacketID_t getPacketID () const throw () { return Packet::PACKET_RC_SAY; }
+    // get packet id
+    PacketID_t getPacketID() const throw() {
+        return Packet::PACKET_RC_SAY;
+    }
 
-	PacketSize_t getPacketMaxSize () const throw () 
-	{ 
-		return szBYTE + 128 + szBYTE + 20;			
-	}
-
+    PacketSize_t getPacketMaxSize() const throw() {
+        return szBYTE + 128 + szBYTE + 20;
+    }
 };
 
 
@@ -104,12 +113,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class RCSayHandler {
-	
-public :
-
-	// execute packet's handler
-	static void execute ( RCSay * pPacket ) throw ( ProtocolException , Error );
-
+public:
+    // execute packet's handler
+    static void execute(RCSay* pPacket) throw(ProtocolException, Error);
 };
 
 #endif

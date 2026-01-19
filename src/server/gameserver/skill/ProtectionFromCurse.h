@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ProtectionFromCurse.h 
+// Filename    : ProtectionFromCurse.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_PROTECTION_FROM_CURSE_HANDLER_H__
@@ -13,20 +13,23 @@
 // class ProtectionFromCurse;
 //////////////////////////////////////////////////////////////////////////////
 
-class ProtectionFromCurse: public SkillHandler 
-{
+class ProtectionFromCurse : public SkillHandler {
 public:
-	ProtectionFromCurse() throw() {}
-	~ProtectionFromCurse() throw() {}
+    ProtectionFromCurse() throw() {}
+    ~ProtectionFromCurse() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "ProtectionFromCurse"; }
-	SkillType_t getSkillType() const throw() { return SKILL_PROTECTION_FROM_CURSE; }
+    string getSkillHandlerName() const throw() {
+        return "ProtectionFromCurse";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_PROTECTION_FROM_CURSE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

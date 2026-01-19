@@ -1,65 +1,64 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionHasInvenSpace.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionHasInvenSpace.h"
-#include "PlayerCreature.h"
-#include "Inventory.h"
+
 #include "FlagSet.h"
+#include "Inventory.h"
+#include "PlayerCreature.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionHasInvenSpace::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionHasInvenSpace::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	Inventory* pInventory = pPC->getInventory();
-	if ( pInventory == NULL ) return false;
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	_TPOINT tp;
-	return pInventory->getEmptySlot( m_Width, m_Height, tp );
+    Inventory* pInventory = pPC->getInventory();
+    if (pInventory == NULL)
+        return false;
 
-	return false;
+    _TPOINT tp;
+    return pInventory->getEmptySlot(m_Width, m_Height, tp);
+
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionHasInvenSpace::read (PropertyBuffer & propertyBuffer) 
-	
-{
-	try
-	{
-		// read turn
-		m_Height = propertyBuffer.getPropertyInt("Height");
-		m_Width = propertyBuffer.getPropertyInt("Width");
+void ConditionHasInvenSpace::read(PropertyBuffer& propertyBuffer)
 
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+{
+    try {
+        // read turn
+        m_Height = propertyBuffer.getPropertyInt("Height");
+        m_Width = propertyBuffer.getPropertyInt("Width");
+
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionHasInvenSpace::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionHasInvenSpace::toString() const
 
-	StringStream msg;
-	msg << "ConditionHasInvenSpace("
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionHasInvenSpace("
+        << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

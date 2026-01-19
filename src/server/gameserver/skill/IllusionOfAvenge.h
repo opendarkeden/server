@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : IllusionOfAvenge.h 
+// Filename    : IllusionOfAvenge.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ILLUSION_OF_AVENGE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class IllusionOfAvenge;
 //////////////////////////////////////////////////////////////////////////////
 
-class IllusionOfAvenge : public SkillHandler 
-{
+class IllusionOfAvenge : public SkillHandler {
 public:
-	IllusionOfAvenge() throw() {}
-	~IllusionOfAvenge() throw() {}
-	
+    IllusionOfAvenge() throw() {}
+    ~IllusionOfAvenge() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "IllusionOfAvenge"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ILLUSION_OF_AVENGE; }
+    string getSkillHandlerName() const throw() {
+        return "IllusionOfAvenge";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ILLUSION_OF_AVENGE;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

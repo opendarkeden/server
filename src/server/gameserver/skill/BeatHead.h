@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BeatHead.h 
-// Written By  : 
-// Description : 
+// Filename    : BeatHead.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BEAT_HEAD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class BeatHead;
 //////////////////////////////////////////////////////////////////////////////
 
-class BeatHead : public SkillHandler 
-{
+class BeatHead : public SkillHandler {
 public:
-	BeatHead() throw() {}
-	~BeatHead() throw() {}
-	
+    BeatHead() throw() {}
+    ~BeatHead() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BeatHead"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BEAT_HEAD; }
+    string getSkillHandlerName() const throw() {
+        return "BeatHead";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BEAT_HEAD;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

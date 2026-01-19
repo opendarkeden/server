@@ -14,29 +14,30 @@
 // class EffectKillAftermath
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectKillAftermath : public Effect 
-{
+class EffectKillAftermath : public Effect {
 public:
-	EffectKillAftermath(Creature* pCreature) ;
-	~EffectKillAftermath() ;
+    EffectKillAftermath(Creature* pCreature);
+    ~EffectKillAftermath();
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_KILL_AFTERMATH; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_KILL_AFTERMATH;
+    }
 
-	void affect()  {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect();
+    void unaffect(Item* pItem) {}
+    void unaffect(Creature* pCreature);
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	virtual void create(const string & ownerID) ;
-	virtual void destroy(const string & ownerID) ;
-	virtual void save(const string & ownerID) ;
+    virtual void create(const string& ownerID);
+    virtual void destroy(const string& ownerID);
+    virtual void save(const string& ownerID);
 
-	string toString() const ;
+    string toString() const;
 };
 
 
@@ -44,14 +45,17 @@ public:
 // class EffectKillAftermathLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectKillAftermathLoader : public EffectLoader 
-{
+class EffectKillAftermathLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_KILL_AFTERMATH; }
-	virtual string getEffectClassName() const  { return "EffectKillAftermath"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_KILL_AFTERMATH;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectKillAftermath";
+    }
 
 public:
-	virtual void load(Creature* pCreature) ;
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectKillAftermathLoader* g_pEffectKillAftermathLoader;

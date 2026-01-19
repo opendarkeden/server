@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Flourish.h 
+// Filename    : Flourish.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_FLOURISH_HANDLER_H__
@@ -13,20 +13,24 @@
 // class Flourish;
 //////////////////////////////////////////////////////////////////////////////
 
-class Flourish: public SkillHandler 
-{
+class Flourish : public SkillHandler {
 public:
-	Flourish() throw() {}
-	~Flourish() throw() {}
-	
+    Flourish() throw() {}
+    ~Flourish() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Flourish"; }
+    string getSkillHandlerName() const throw() {
+        return "Flourish";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_FLOURISH; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_FLOURISH;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

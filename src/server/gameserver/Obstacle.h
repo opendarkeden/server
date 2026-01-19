@@ -26,30 +26,28 @@ const uint szObstacleType = sizeof(ObstacleType_t);
 // 여기에 속한다.
 //////////////////////////////////////////////////////////////////////////////
 
-class Obstacle : public Object 
-{
+class Obstacle : public Object {
 public:
-	enum ObstacleClass 
-	{
-		OBSTACLE_CLASS_DOOR ,
-		OBSTACLE_CLASS_SWITCH ,
-		OBSTACLE_CLASS_TRAP
-	};
+    enum ObstacleClass { OBSTACLE_CLASS_DOOR, OBSTACLE_CLASS_SWITCH, OBSTACLE_CLASS_TRAP };
 
 public:
-	Obstacle(ObjectID_t objectID)  : Object(objectID) {}
-	virtual ~Obstacle()  {}
-	
-// methods from Object
-public:
-	virtual ObjectClass getObjectClass() const  { return OBJECT_CLASS_OBSTACLE; }
-	virtual ObjectPriority getObjectPriority() const  { return OBJECT_PRIORITY_OBSTACLE; }
-	virtual string toString() const  = 0;
+    Obstacle(ObjectID_t objectID) : Object(objectID) {}
+    virtual ~Obstacle() {}
 
-// own methods
+    // methods from Object
 public:
-	virtual ObstacleClass getObstacleClass() const  = 0;
-	virtual ObstacleType_t getObstacleType() const  = 0;
+    virtual ObjectClass getObjectClass() const {
+        return OBJECT_CLASS_OBSTACLE;
+    }
+    virtual ObjectPriority getObjectPriority() const {
+        return OBJECT_PRIORITY_OBSTACLE;
+    }
+    virtual string toString() const = 0;
+
+    // own methods
+public:
+    virtual ObstacleClass getObstacleClass() const = 0;
+    virtual ObstacleType_t getObstacleType() const = 0;
 };
 
 #endif

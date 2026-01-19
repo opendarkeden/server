@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCCrossCounterOK1.cpp 
+//
+// Filename    : GCCrossCounterOK1.cpp
 // Written By  : elca@ewestsoft.com
 // Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
 //               멤버 정의.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -13,79 +13,74 @@
 #include "GCCrossCounterOK1.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCCrossCounterOK1::GCCrossCounterOK1 ()
-     
-{
-	__BEGIN_TRY
+GCCrossCounterOK1::GCCrossCounterOK1()
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
 
-	
+         __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCCrossCounterOK1::~GCCrossCounterOK1 ()
-    
+GCCrossCounterOK1::~GCCrossCounterOK1()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCCrossCounterOK1::read (SocketInputStream & iStream )
-	 
+void GCCrossCounterOK1::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_ObjectID);
-	
-	ModifyInfo::read(iStream);
+    __BEGIN_TRY
 
-	iStream.read(m_SkillType);
+    // 최적화 작업시 실제 크기를 명시하도록 한다.
+    iStream.read(m_ObjectID);
 
-	__END_CATCH
+    ModifyInfo::read(iStream);
+
+    iStream.read(m_SkillType);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCCrossCounterOK1::write (SocketOutputStream & oStream )
-     const 
-{
-	__BEGIN_TRY
-		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_ObjectID);
+void GCCrossCounterOK1::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	ModifyInfo::write(oStream);
+    // 최적화 작업시 실제 크기를 명시하도록 한다.
+    oStream.write(m_ObjectID);
 
-	oStream.write(m_SkillType);
+    ModifyInfo::write(oStream);
 
-	__END_CATCH
+    oStream.write(m_SkillType);
+
+    __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////
 //
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCCrossCounterOK1::execute (Player * pPlayer ) 
-	 
+void GCCrossCounterOK1::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCCrossCounterOK1Handler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCCrossCounterOK1Handler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -94,20 +89,13 @@ void GCCrossCounterOK1::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCCrossCounterOK1::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCCrossCounterOK1::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCCrossCounterOK1("
-		<< "ObjectID:" << (int)m_ObjectID 
-		<< ModifyInfo::toString()
-		<< "SkillType:" << (int)m_SkillType
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCCrossCounterOK1("
+        << "ObjectID:" << (int)m_ObjectID << ModifyInfo::toString() << "SkillType:" << (int)m_SkillType << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

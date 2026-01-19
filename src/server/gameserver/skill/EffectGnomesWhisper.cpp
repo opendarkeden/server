@@ -1,90 +1,85 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectGnomesWhisper.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectGnomesWhisper.h"
-#include "Ousters.h"
 
 #include "GCRemoveEffect.h"
+#include "Ousters.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectGnomesWhisper::EffectGnomesWhisper(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-//	Assert(pCreature->isOusters());
+    Assert(pCreature != NULL);
+    //	Assert(pCreature->isOusters());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGnomesWhisper::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectGnomesWhisper" << "unaffect BEGIN" << endl;
+    // cout << "EffectGnomesWhisper" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-//	Assert(pCreature->isOusters());
+    Assert(pCreature != NULL);
+    //	Assert(pCreature->isOusters());
 
-	// 플래그를 끈다.
-	pCreature->removeFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER);
+    // 플래그를 끈다.
+    pCreature->removeFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	pZone->updateInvisibleScan(pCreature);
+    pZone->updateInvisibleScan(pCreature);
 
-//	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-//	Assert( pTargetOusters != NULL );
+    //	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
+    //	Assert( pTargetOusters != NULL );
 
-	// 이펙트를 삭제하라고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GNOMES_WHISPER);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트를 삭제하라고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GNOMES_WHISPER);
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectGnomesWhisper" << "unaffect END" << endl;
+    // cout << "EffectGnomesWhisper" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGnomesWhisper::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectGnomesWhisper::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectGnomesWhisper::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectGnomesWhisper("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectGnomesWhisper("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

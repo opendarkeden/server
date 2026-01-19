@@ -5,9 +5,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "LuckInfo.h"
+
 #include "Assert.h"
-#include "VariableManager.h"
 #include "DB.h"
+#include "VariableManager.h"
 // #include <algo.h>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,34 +21,34 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 LuckInfoManager::LuckInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	for ( int i=0; i<3; ++i )
-	{
-		m_ItemTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
-		m_OptionTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
-	}
+    for ( int i=0; i<3; ++i )
+    {
+        m_ItemTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
+        m_OptionTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 LuckInfoManager::~LuckInfoManager()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 void LuckInfoManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
 */

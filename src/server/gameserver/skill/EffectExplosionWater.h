@@ -14,28 +14,32 @@
 // class EffectExplosionWater
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectExplosionWater : public Effect
-{
+class EffectExplosionWater : public Effect {
 public:
-    EffectExplosionWater(Creature* pCreature) ;
-
-public:
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_EXPLOSION_WATER; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-
-	string toString() const throw();
-
-	void setDamageReduce( int dr ) { m_DamageReduce = dr; }
-	int getDamageReduce() const { return m_DamageReduce; }
+    EffectExplosionWater(Creature* pCreature);
 
 public:
-	int m_DamageReduce;
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_EXPLOSION_WATER;
+    }
+
+    void affect();
+    void affect(Creature* pCreature);
+
+    void unaffect();
+    void unaffect(Creature* pCreature);
+
+    string toString() const throw();
+
+    void setDamageReduce(int dr) {
+        m_DamageReduce = dr;
+    }
+    int getDamageReduce() const {
+        return m_DamageReduce;
+    }
+
+public:
+    int m_DamageReduce;
 };
 
 #endif // __EFFECT_EXPLOSION_WATER__
-

@@ -1,164 +1,153 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHalo.cpp
 // Written by  :
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
+
+#include "EffectHalo.h"
 
 #include "DB.h"
-#include "EffectHalo.h"
-#include "Slayer.h"
-#include "Ousters.h"
-#include "Monster.h"
+#include "GCAddEffectToTile.h"
+#include "GCDeleteEffectFromTile.h"
 #include "GamePlayer.h"
+#include "Monster.h"
+#include "Ousters.h"
 #include "SkillUtil.h"
+#include "Slayer.h"
 #include "ZoneUtil.h"
 
-#include "GCDeleteEffectFromTile.h"
-#include "GCAddEffectToTile.h"
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+EffectHalo::EffectHalo(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
 
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-EffectHalo::EffectHalo(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) 
-	
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = zoneX;
-	m_Y = zoneY;
-	m_UserOID = 0;
-	m_TargetOID = 0;
-	m_Damage = 0;
+    m_pZone = pZone;
+    m_X = zoneX;
+    m_Y = zoneY;
+    m_UserOID = 0;
+    m_TargetOID = 0;
+    m_Damage = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHalo::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setNextTime(10);
+    setNextTime(10);
 
-	//cout << "EffectHalo" << "affect BEGIN" << endl;
-	Creature* pCreature = m_pZone->getCreature( m_TargetOID );
-	affect(pCreature);
-	
-	__END_CATCH 
+    // cout << "EffectHalo" << "affect BEGIN" << endl;
+    Creature* pCreature = m_pZone->getCreature(m_TargetOID);
+    affect(pCreature);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHalo::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if ( pCreature == NULL ) return;
+    if (pCreature == NULL)
+        return;
 
-	Zone* pZone = m_pZone;
-	Assert( pZone != NULL );
+    Zone* pZone = m_pZone;
+    Assert(pZone != NULL);
 
-	if ( abs((int)pCreature->getX() - (int)m_X) > 6 ||
-		abs((int)pCreature->getY() - (int)m_Y) > 6 ) return;
+    if (abs((int)pCreature->getX() - (int)m_X) > 6 || abs((int)pCreature->getY() - (int)m_Y) > 6)
+        return;
 
-	Creature* pCastCreature = pZone->getCreature( m_UserOID );
+    Creature* pCastCreature = pZone->getCreature(m_UserOID);
 
-	GCModifyInformation gcMI, gcAttackerMI;
+    GCModifyInformation gcMI, gcAttackerMI;
 
-	if ( canAttack( pCastCreature, pCreature )
-	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
-	{
-		if ( pCreature->isPC() )
-		{
-			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    if (canAttack(pCastCreature, pCreature) && !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)) {
+        if (pCreature->isPC()) {
+            PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-			::setDamage( pPC, getDamage(), pCastCreature, SKILL_HALO, &gcMI, &gcAttackerMI );
-			pPC->getPlayer()->sendPacket( &gcMI );
-		}
-		else if ( pCreature->isMonster() )
-		{
-			::setDamage( pCreature, getDamage(), pCastCreature, SKILL_HALO, NULL, &gcAttackerMI );
-		}
+            ::setDamage(pPC, getDamage(), pCastCreature, SKILL_HALO, &gcMI, &gcAttackerMI);
+            pPC->getPlayer()->sendPacket(&gcMI);
+        } else if (pCreature->isMonster()) {
+            ::setDamage(pCreature, getDamage(), pCastCreature, SKILL_HALO, NULL, &gcAttackerMI);
+        }
 
-		if ( pCastCreature != NULL && pCastCreature->isOusters() )
-		{
-			Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
+        if (pCastCreature != NULL && pCastCreature->isOusters()) {
+            Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
 
-			computeAlignmentChange(pCreature, getDamage(), pOusters, &gcMI, &gcAttackerMI);
-			increaseAlignment(pOusters, pCreature, gcAttackerMI);
+            computeAlignmentChange(pCreature, getDamage(), pOusters, &gcMI, &gcAttackerMI);
+            increaseAlignment(pOusters, pCreature, gcAttackerMI);
 
-			if (pCreature->isDead())
-			{
-				int exp = computeCreatureExp(pCreature, 100, pOusters);
-				shareOustersExp(pOusters, exp, gcAttackerMI);
-			}
+            if (pCreature->isDead()) {
+                int exp = computeCreatureExp(pCreature, 100, pOusters);
+                shareOustersExp(pOusters, exp, gcAttackerMI);
+            }
 
-			pOusters->getPlayer()->sendPacket( &gcAttackerMI );
-		}
-	}
+            pOusters->getPlayer()->sendPacket(&gcAttackerMI);
+        }
+    }
 
-	GCAddEffectToTile gcAET;
-	gcAET.setEffectID( getSendEffectClass() );
-	gcAET.setDuration( 15 );
-	gcAET.setObjectID( pCreature->getObjectID() );
-	gcAET.setXY( m_X, m_Y );
+    GCAddEffectToTile gcAET;
+    gcAET.setEffectID(getSendEffectClass());
+    gcAET.setDuration(15);
+    gcAET.setObjectID(pCreature->getObjectID());
+    gcAET.setXY(m_X, m_Y);
 
-	pZone->broadcastPacket( m_X, m_Y, &gcAET );
+    pZone->broadcastPacket(m_X, m_Y, &gcAET);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHalo::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHalo::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectHalo" << "unaffect BEGIN" << endl;
+{
+    __BEGIN_TRY
+
+    // cout << "EffectHalo" << "unaffect BEGIN" << endl;
 
     Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+    tile.deleteEffect(m_ObjectID);
 
-	GCDeleteEffectFromTile gcDT;
-	gcDT.setXY(m_X, m_Y);
-	gcDT.setObjectID(getObjectID());
-	gcDT.setEffectID(Effect::EFFECT_CLASS_HALO);
-	m_pZone->broadcastPacket( m_X, m_Y, &gcDT );
+    GCDeleteEffectFromTile gcDT;
+    gcDT.setXY(m_X, m_Y);
+    gcDT.setObjectID(getObjectID());
+    gcDT.setEffectID(Effect::EFFECT_CLASS_HALO);
+    m_pZone->broadcastPacket(m_X, m_Y, &gcDT);
 
-	//cout << "EffectHalo" << "unaffect END" << endl;
+    // cout << "EffectHalo" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectHalo::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectHalo::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectHalo("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectHalo("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

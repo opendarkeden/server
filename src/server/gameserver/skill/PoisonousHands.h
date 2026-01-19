@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : PoisonousHands.h 
-// Written By  : 
-// Description : 
+// Filename    : PoisonousHands.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_POISONOUS_HANDS_HANDLER_H__
@@ -13,20 +13,24 @@
 // class PoisonousHands;
 //////////////////////////////////////////////////////////////////////////////
 
-class PoisonousHands: public SkillHandler 
-{
+class PoisonousHands : public SkillHandler {
 public:
-	PoisonousHands() throw() {}
-	~PoisonousHands() throw() {}
-	
+    PoisonousHands() throw() {}
+    ~PoisonousHands() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "PoisonousHands"; }
-	SkillType_t getSkillType() const throw() { return SKILL_POISONOUS_HANDS; }
+    string getSkillHandlerName() const throw() {
+        return "PoisonousHands";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_POISONOUS_HANDS;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

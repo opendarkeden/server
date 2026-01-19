@@ -6,12 +6,12 @@
 #ifndef __ITEM_REWARD_INFO_H__
 #define __ITEM_REWARD_INFO_H__
 
-#include "Types.h"
+#include <list>
+
 #include "Exception.h"
 #include "Item.h"
 #include "RewardInfo.h"
-
-#include <list>
+#include "Types.h"
 
 class RewardClass;
 
@@ -19,29 +19,31 @@ class RewardClass;
 // class ItemRewardInfo;
 //////////////////////////////////////////////////////////////////////////////
 
-class ItemRewardInfo : public RewardInfo
-{
+class ItemRewardInfo : public RewardInfo {
 public:
-	ItemRewardInfo( RewardID_t rID, RewardClass_t rClass, Item::ItemClass iClass, ItemType_t iType, const string& option, DWORD time );
-	virtual ~ItemRewardInfo();
-
-public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const ;
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const ;
-
-	Item::ItemClass	getItemClass() const { return m_IClass; }
-
-	virtual string	toString() const ;
+    ItemRewardInfo(RewardID_t rID, RewardClass_t rClass, Item::ItemClass iClass, ItemType_t iType, const string& option,
+                   DWORD time);
+    virtual ~ItemRewardInfo();
 
 public:
-//	static void		loadRewardClass( RewardClass& rClass ) ;
+    virtual QuestMessage canGiveReward(PlayerCreature* pPC) const;
+    virtual QuestMessage giveReward(PlayerCreature* pPC) const;
+
+    Item::ItemClass getItemClass() const {
+        return m_IClass;
+    }
+
+    virtual string toString() const;
+
+public:
+    //	static void		loadRewardClass( RewardClass& rClass ) ;
 
 private:
-	Item::ItemClass			m_IClass;
-	ItemType_t				m_IType;
-	list<OptionType_t>		m_OptionType;
+    Item::ItemClass m_IClass;
+    ItemType_t m_IType;
+    list<OptionType_t> m_OptionType;
 
-	DWORD					m_TimeLimit;
+    DWORD m_TimeLimit;
 };
 
 #endif

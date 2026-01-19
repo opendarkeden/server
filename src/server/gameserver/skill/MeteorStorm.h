@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MeteorStorm.h 
-// Written By  : 
-// Description : 
+// Filename    : MeteorStorm.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_METEOR_STORM_HANDLER_H__
@@ -13,20 +13,24 @@
 // class MeteorStorm;
 //////////////////////////////////////////////////////////////////////////////
 
-class MeteorStorm : public SkillHandler 
-{
+class MeteorStorm : public SkillHandler {
 public:
-	MeteorStorm() throw() {}
-	~MeteorStorm() throw() {}
-	
+    MeteorStorm() throw() {}
+    ~MeteorStorm() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MeteorStorm"; }
-	SkillType_t getSkillType() const throw() { return SKILL_METEOR_STORM; }
+    string getSkillHandlerName() const throw() {
+        return "MeteorStorm";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_METEOR_STORM;
+    }
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

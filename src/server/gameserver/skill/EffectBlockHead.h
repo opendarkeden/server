@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectBlockHead.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_BLOCK_HEAD__
@@ -14,21 +14,21 @@
 // class EffectBlockHead
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBlockHead : public Effect 
-{
+class EffectBlockHead : public Effect {
 public:
-	EffectBlockHead(Creature* pCreature) ;
+    EffectBlockHead(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLOCK_HEAD; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_BLOCK_HEAD;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const throw();
-
+    string toString() const throw();
 };
 
 #endif // __EFFECT_BLOCK_HEAD__

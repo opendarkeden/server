@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : VoodooRing.h 
+// Filename    : VoodooRing.h
 // Written By  : rallser
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_Voodoo_Ring_HANDLER_H__
@@ -13,23 +13,26 @@
 // class Voodoo Ring;
 //////////////////////////////////////////////////////////////////////////////
 
-class VoodooRing : public SkillHandler 
-{
+class VoodooRing : public SkillHandler {
 public:
-	VoodooRing() throw();
-	~VoodooRing() throw() {}
-	
+    VoodooRing() throw();
+    ~VoodooRing() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "VoodooRing"; }
-	SkillType_t getSkillType() const throw() { return SKILL_Voodoo_Ring; }
+    string getSkillHandlerName() const throw() {
+        return "VoodooRing";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_Voodoo_Ring;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
-
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

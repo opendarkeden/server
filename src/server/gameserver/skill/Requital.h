@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Requital.h 
+// Filename    : Requital.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REQUITAL_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Requital;
 //////////////////////////////////////////////////////////////////////////////
 
-class Requital: public SkillHandler 
-{
+class Requital : public SkillHandler {
 public:
-	Requital() throw() {}
-	~Requital() throw() {}
-	
+    Requital() throw() {}
+    ~Requital() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Requital"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REQUITAL; }
+    string getSkillHandlerName() const throw() {
+        return "Requital";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REQUITAL;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

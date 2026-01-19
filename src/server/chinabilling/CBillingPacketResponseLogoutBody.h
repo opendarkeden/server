@@ -7,9 +7,9 @@
 #ifndef __CBILLING_PACKET_RESPONSE_LOGOUT_BODY__
 #define __CBILLING_PACKET_RESPONSE_LOGOUT_BODY__
 
-//include files
-#include "Exception.h"
+// include files
 #include "CBillingInfo.h"
+#include "Exception.h"
 
 // forward declaration
 class SocketInputStream;
@@ -18,18 +18,16 @@ class SocketOutputStream;
 ///////////////////////////////////////////////////
 // class CBillingPacketResponseLogoutBody
 ///////////////////////////////////////////////////
-class CBillingPacketResponseLogoutBody : public CBillingPacketResponseLogoutBodyInfo
-{
+class CBillingPacketResponseLogoutBody : public CBillingPacketResponseLogoutBodyInfo {
 public:
-	// constructor
-	CBillingPacketResponseLogoutBody();
+    // constructor
+    CBillingPacketResponseLogoutBody();
 
 public:
-	void read( SocketInputStream& iStream );
-	void write( SocketOutputStream& oStream );
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream);
 
-	string toString() const;
+    string toString() const;
 };
 
 #endif
-

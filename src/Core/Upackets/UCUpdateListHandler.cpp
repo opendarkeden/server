@@ -2,7 +2,7 @@
 //
 // Filename    : UCUpdateListHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //--------------------------------------------------------------------------------
 
@@ -10,10 +10,11 @@
 #include "UCUpdateList.h"
 
 #ifdef __UPDATE_CLIENT__
-	#include <stdio.h>
-	#include "Properties.h"
-	#include "Upackets/CURequest.h"
-	#include "Upackets/CUEndUpdate.h"
+#include <stdio.h>
+
+#include "Properties.h"
+#include "Upackets/CUEndUpdate.h"
+#include "Upackets/CURequest.h"
 #endif
 
 //--------------------------------------------------------------------------------
@@ -25,9 +26,7 @@
 // (5) 리소스가 존재하지 않으면 연결을 종료한다.
 //
 //--------------------------------------------------------------------------------
-void UCUpdateListHandler::execute ( UCUpdateList * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
-	__END_CATCH
+void UCUpdateListHandler::execute(UCUpdateList* pPacket, Player* pPlayer) throw(ProtocolException, Error) {
+    __BEGIN_TRY
+    __END_CATCH
 }

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ChargingAttack.h 
-// Written By  : 
-// Description : 
+// Filename    : ChargingAttack.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CHARGING_ATTACK_HANDLER_H__
@@ -13,19 +13,23 @@
 // class ChargingAttack;
 //////////////////////////////////////////////////////////////////////////////
 
-class ChargingAttack : public SkillHandler 
-{
+class ChargingAttack : public SkillHandler {
 public:
-	ChargingAttack() throw() {}
-	~ChargingAttack() throw() {}
-	
+    ChargingAttack() throw() {}
+    ~ChargingAttack() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ChargingAttack"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CHARGING_ATTACK; }
+    string getSkillHandlerName() const throw() {
+        return "ChargingAttack";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CHARGING_ATTACK;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

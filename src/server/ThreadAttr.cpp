@@ -14,6 +14,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "ThreadAttr.h"
+
 #include "pthreadAPI.h"
 
 using namespace pthreadAPI;
@@ -23,13 +24,12 @@ using namespace pthreadAPI;
 // constructor
 //
 //////////////////////////////////////////////////////////////////////
-ThreadAttr::ThreadAttr () 
-{
-	__BEGIN_TRY
+ThreadAttr::ThreadAttr() {
+    __BEGIN_TRY
 
-	pthread_attr_init_ex( &attr );
-	
-	__END_CATCH
+    pthread_attr_init_ex(&attr);
+
+    __END_CATCH
 }
 
 
@@ -38,13 +38,12 @@ ThreadAttr::ThreadAttr ()
 // destructor
 //
 //////////////////////////////////////////////////////////////////////
-ThreadAttr::~ThreadAttr () 
-{
-	// __BEGIN_TRY
+ThreadAttr::~ThreadAttr() {
+    // __BEGIN_TRY
 
-	pthread_attr_destroy_ex( &attr );
-	
-	// __END_CATCH
+    pthread_attr_destroy_ex(&attr);
+
+    // __END_CATCH
 }
 
 
@@ -53,28 +52,26 @@ ThreadAttr::~ThreadAttr ()
 // 쓰레드의 DETACHED attribute를 리턴한다.
 //
 //////////////////////////////////////////////////////////////////////
-int ThreadAttr::getDetachState () const 
-{
-	__BEGIN_TRY
+int ThreadAttr::getDetachState() const {
+    __BEGIN_TRY
 
-	int state;
-	pthread_attr_getdetachstate_ex( &attr , &state );
-	return state;
-	
-	__END_CATCH
+    int state;
+    pthread_attr_getdetachstate_ex(&attr, &state);
+    return state;
+
+    __END_CATCH
 }
-	
+
 
 //////////////////////////////////////////////////////////////////////
 //
 // 쓰레드의 DETACHED attribute를 설정한다.
 //
 //////////////////////////////////////////////////////////////////////
-void ThreadAttr::setDetachState ( int state ) 
-{
-	__BEGIN_TRY
+void ThreadAttr::setDetachState(int state) {
+    __BEGIN_TRY
 
-	pthread_attr_setdetachstate_ex( &attr , state );
-	
-	__END_CATCH
+    pthread_attr_setdetachstate_ex(&attr, state);
+
+    __END_CATCH
 }

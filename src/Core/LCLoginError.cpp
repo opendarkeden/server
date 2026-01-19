@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : LCLoginError.cpp 
+//
+// Filename    : LCLoginError.cpp
 // Written By  : Reiot
 // Description : 로그인 실패시 로그인 서버에서 클라이언트에게 전송하는 패킷
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,42 +12,42 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void LCLoginError::read (SocketInputStream & iStream ) 
-	 
+void LCLoginError::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ErrorID);
+    iStream.read(m_ErrorID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void LCLoginError::write (SocketOutputStream & oStream ) const 
-     
+void LCLoginError::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ErrorID);
+    oStream.write(m_ErrorID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void LCLoginError::execute (Player * pPlayer ) 
-	 
+void LCLoginError::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	LCLoginErrorHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    LCLoginErrorHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -56,16 +56,14 @@ void LCLoginError::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string LCLoginError::toString () const
-       
+string LCLoginError::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "LCLoginError(" << (int)m_ErrorID<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "LCLoginError(" << (int)m_ErrorID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -13,16 +13,14 @@
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-void CUEndUpdateHandler::execute ( CUEndUpdate * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
-		
+void CUEndUpdateHandler::execute(CUEndUpdate* pPacket, Player* pPlayer) throw(ProtocolException, Error) {
+    __BEGIN_TRY
+
 #ifdef __UPDATE_SERVER__
 
-	throw DisconnectException();
+    throw DisconnectException();
 
 #endif
-		
-	__END_CATCH
+
+    __END_CATCH
 }

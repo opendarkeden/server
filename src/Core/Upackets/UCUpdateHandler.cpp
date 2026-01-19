@@ -2,7 +2,7 @@
 //
 // Filename    : UCUpdateHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //--------------------------------------------------------------------------------
 
@@ -12,29 +12,25 @@
 #ifdef __UPDATE_CLIENT__
 
 /*
-	#include <stdio.h>
-	#include <sys/types.h>
-	#include <fcntl.h>
-	#include <unistd.h>
-	#include <errno.h>
+    #include <stdio.h>
+    #include <sys/types.h>
+    #include <fcntl.h>
+    #include <unistd.h>
+    #include <errno.h>
 */
 
-	#include "Assert.h"
-	#include "Properties.h"
-
-	#include "Resource.h"
-	#include "ResourceManager.h"
-	#include "UpdateManager.h"
-
-	#include "Upackets/CUEndUpdate.h"
-	#include "Upackets/CURequest.h"
+#include "Assert.h"
+#include "Properties.h"
+#include "Resource.h"
+#include "ResourceManager.h"
+#include "Upackets/CUEndUpdate.h"
+#include "Upackets/CURequest.h"
+#include "UpdateManager.h"
 #endif
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-void UCUpdateHandler::execute ( UCUpdate * pPacket , Player * pPlayer )
-	 throw ( ProtocolException , Error )
-{
-	__BEGIN_TRY
-	__END_CATCH
+void UCUpdateHandler::execute(UCUpdate* pPacket, Player* pPlayer) throw(ProtocolException, Error) {
+    __BEGIN_TRY
+    __END_CATCH
 }

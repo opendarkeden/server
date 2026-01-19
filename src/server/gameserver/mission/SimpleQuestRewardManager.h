@@ -3,14 +3,13 @@
 
 #include "RewardClassInfoManager.h"
 
-class SimpleQuestRewardManager : public RewardClassInfoManager
-{
+class SimpleQuestRewardManager : public RewardClassInfoManager {
 public:
-	SimpleQuestRewardManager(NPC* pNPC) : RewardClassInfoManager(pNPC) { }
-	~SimpleQuestRewardManager() { }
+    SimpleQuestRewardManager(NPC* pNPC) : RewardClassInfoManager(pNPC) {}
+    ~SimpleQuestRewardManager() {}
 
 public:
-	void load(const string& name) ;
+    void load(const string& name);
 };
 
-#endif// __SIMPLE_QUEST_REWARD_MANAGER_H__
+#endif // __SIMPLE_QUEST_REWARD_MANAGER_H__

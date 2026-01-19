@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename    : CGBuyStoreItem.h 
+// Filename    : CGBuyStoreItem.h
 // Written By  : 김성민
-// Description : 
+// Description :
 // 플레이어가 상점 NPC의 진열창을 보고, 물건을 구입하고자 할 때
-// 보내는 패킷이다. 서버는 플레이어에게 충분한 돈과 인벤토리에 
+// 보내는 패킷이다. 서버는 플레이어에게 충분한 돈과 인벤토리에
 // 자리가 있는지 검증한 후, 플레이어에게 아이템을 넘긴다.
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -19,33 +19,50 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGBuyStoreItem : public Packet 
-{
+class CGBuyStoreItem : public Packet {
 public:
     CGBuyStoreItem() {};
     ~CGBuyStoreItem() {};
-	void read(SocketInputStream & iStream) ;
-	void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_BUY_STORE_ITEM; }
-	PacketSize_t getPacketSize() const  { return szObjectID+szObjectID+szBYTE; }
-	string getPacketName() const  { return "CGBuyStoreItem"; }
-	string toString() const ;
-	
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_BUY_STORE_ITEM;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szObjectID + szBYTE;
+    }
+    string getPacketName() const {
+        return "CGBuyStoreItem";
+    }
+    string toString() const;
+
 public:
-	ObjectID_t getOwnerObjectID()  { return m_OwnerObjectID; }
-	void setOwnerObjectID(ObjectID_t ObjectID)  { m_OwnerObjectID = ObjectID; }
+    ObjectID_t getOwnerObjectID() {
+        return m_OwnerObjectID;
+    }
+    void setOwnerObjectID(ObjectID_t ObjectID) {
+        m_OwnerObjectID = ObjectID;
+    }
 
-	ObjectID_t getItemObjectID()  { return m_ItemObjectID; }
-	void setItemObjectID(ObjectID_t ObjectID)  { m_ItemObjectID = ObjectID; }
+    ObjectID_t getItemObjectID() {
+        return m_ItemObjectID;
+    }
+    void setItemObjectID(ObjectID_t ObjectID) {
+        m_ItemObjectID = ObjectID;
+    }
 
-	BYTE getIndex(void) const  { return m_Index; }
-	void setIndex(BYTE index)  { m_Index = index;}
+    BYTE getIndex(void) const {
+        return m_Index;
+    }
+    void setIndex(BYTE index) {
+        m_Index = index;
+    }
 
 private:
-	ObjectID_t		m_OwnerObjectID;
-	ObjectID_t		m_ItemObjectID;
-	BYTE			m_Index;
+    ObjectID_t m_OwnerObjectID;
+    ObjectID_t m_ItemObjectID;
+    BYTE m_Index;
 };
 
 
@@ -55,13 +72,20 @@ private:
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGBuyStoreItemFactory : public PacketFactory 
-{
+class CGBuyStoreItemFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGBuyStoreItem(); }
-	string getPacketName() const  { return "CGBuyStoreItem"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_BUY_STORE_ITEM; }
-	PacketSize_t getPacketMaxSize() const  { return szObjectID+szObjectID+szBYTE; }
+    Packet* createPacket() {
+        return new CGBuyStoreItem();
+    }
+    string getPacketName() const {
+        return "CGBuyStoreItem";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_BUY_STORE_ITEM;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szObjectID + szBYTE;
+    }
 };
 
 
@@ -71,10 +95,9 @@ public:
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGBuyStoreItemHandler 
-{
+class CGBuyStoreItemHandler {
 public:
-	static void execute(CGBuyStoreItem* pPacket, Player* player) ;
+    static void execute(CGBuyStoreItem* pPacket, Player* player);
 };
 
 #endif

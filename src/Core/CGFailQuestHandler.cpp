@@ -8,52 +8,47 @@
 
 #ifdef __GAME_SERVER__
 
-#include "GamePlayer.h"
-#include "PlayerCreature.h"
-#include "NPC.h"
-#include "mission/EventQuestAdvance.h"
-#include "mission/QuestManager.h"
-#include "mission/QuestInfoManager.h"
-
-#include "GCNPCResponse.h"
-
 #include <cstdio>
 
-#endif	// __GAME_SERVER__
+#include "GCNPCResponse.h"
+#include "GamePlayer.h"
+#include "NPC.h"
+#include "PlayerCreature.h"
+#include "mission/EventQuestAdvance.h"
+#include "mission/QuestInfoManager.h"
+#include "mission/QuestManager.h"
 
-void CGFailQuestHandler::execute (CGFailQuest* pPacket , Player* pPlayer)
-	 
+#endif // __GAME_SERVER__
+
+void CGFailQuestHandler::execute(CGFailQuest* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	GamePlayer* pGP = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGP != NULL);
-		
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGP->getCreature());
+        GamePlayer* pGP = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGP != NULL);
 
-	pPC->getQuestManager()->adjustQuestStatus();
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGP->getCreature());
 
-	QuestMessage code;
-	if (pPacket->isFail() )
-		code = pPC->getQuestManager()->failQuest();
-	else
-		code = pPC->getQuestManager()->cancelQuest();
+    pPC->getQuestManager()->adjustQuestStatus();
 
-	if (code == CANCEL_SUCCESS )
-	{
-		pPC->sendCurrentQuestInfo();
+    QuestMessage code;
+    if (pPacket->isFail())
+        code = pPC->getQuestManager()->failQuest();
+    else
+        code = pPC->getQuestManager()->cancelQuest();
 
-		//cout << "Quest 시작 " << pPC->getName() << " " << pPacket->getQuestID() << endl;
-	}
-	else
-	{
-		//cout << "Quest 시작 실패 " << pPC->getName() << " " << (int)code << endl;
-	}
+    if (code == CANCEL_SUCCESS) {
+        pPC->sendCurrentQuestInfo();
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+        // cout << "Quest 시작 " << pPC->getName() << " " << pPacket->getQuestID() << endl;
+    } else {
+        // cout << "Quest 시작 실패 " << pPC->getName() << " " << (int)code << endl;
+    }
+
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

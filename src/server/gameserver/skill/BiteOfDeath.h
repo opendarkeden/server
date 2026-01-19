@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BiteOfDeath.h 
-// Written By  : 
-// Description : 
+// Filename    : BiteOfDeath.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BITE_OF_DEATH_HANDLER_H__
@@ -13,19 +13,22 @@
 // class BiteOfDeath;
 //////////////////////////////////////////////////////////////////////////////
 
-class BiteOfDeath : public SkillHandler 
-{
+class BiteOfDeath : public SkillHandler {
 public:
-	BiteOfDeath() throw() {}
-	~BiteOfDeath() throw() {}
-	
+    BiteOfDeath() throw() {}
+    ~BiteOfDeath() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BiteOfDeath"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BITE_OF_DEATH; }
+    string getSkillHandlerName() const throw() {
+        return "BiteOfDeath";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BITE_OF_DEATH;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) { }
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

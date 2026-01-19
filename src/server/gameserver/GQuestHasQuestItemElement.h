@@ -4,21 +4,24 @@
 #include "GQuestElement.h"
 #include "GQuestStatus.h"
 
-class GQuestHasQuestItemElement : public GQuestElement
-{
+class GQuestHasQuestItemElement : public GQuestElement {
 public:
-	GQuestHasQuestItemElement() : m_Num(1) { }
-	string		 				getElementName() const { return "HasQuestItem"; }
+    GQuestHasQuestItemElement() : m_Num(1) {}
+    string getElementName() const {
+        return "HasQuestItem";
+    }
 
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
+    ResultType checkCondition(PlayerCreature* pPC) const;
 
-	GQuestHasQuestItemElement*	makeElement(XMLTree* pTree);
+    GQuestHasQuestItemElement* makeElement(XMLTree* pTree);
 
-	ItemType_t	getType() const { return m_Type; }
+    ItemType_t getType() const {
+        return m_Type;
+    }
 
 private:
-	ItemType_t	m_Type;
-	ItemNum_t	m_Num;
+    ItemType_t m_Type;
+    ItemNum_t m_Num;
 };
 
 extern GQuestHasQuestItemElement g_HasQuestItemElement;

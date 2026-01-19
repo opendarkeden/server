@@ -1,188 +1,191 @@
+#include "PKZoneInfoManager.h"
+
 #include "DB.h"
 #include "StringStream.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
-#include "PKZoneInfoManager.h"
 
 PKZoneInfoManager* g_pPKZoneInfoManager = NULL;
 
 string PKZoneInfo::toString()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "PKZoneInfo("
-		<< "ZoneID: " << getZoneID()
-		<< ",isFree: " << ((isFree())?("true"):("false"))
-		<< ",Race: " << getRace()
-		<< ",EnterPosition( " << getEnterX() << ", " << getEnterY() << ") "
-		<< ",PCLimit: " << getPCLimit() << ")";
+    msg << "PKZoneInfo("
+        << "ZoneID: " << getZoneID() << ",isFree: " << ((isFree()) ? ("true") : ("false")) << ",Race: " << getRace()
+        << ",EnterPosition( " << getEnterX() << ", " << getEnterY() << ") "
+        << ",PCLimit: " << getPCLimit() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void PKZoneInfoManager::load()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery( "SELECT ZoneID, Race, EnterX, EnterY, ResurrectX, ResurrectY, PCLimit FROM PKZoneInfo");
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult =
+            pStmt->executeQuery("SELECT ZoneID, Race, EnterX, EnterY, ResurrectX, ResurrectY, PCLimit FROM PKZoneInfo");
 
-		// UPDATE인 경우는 Result* 대신에.. pStmt->getAffectedRowCount()
+        // UPDATE인 경우는 Result* 대신에.. pStmt->getAffectedRowCount()
 
-		while (pResult->next()) 
-		{
-			int count = 0;
-			ZoneID_t	zoneID 	= pResult->getInt( ++count );
-			int			race	= pResult->getInt( ++count );
-			ZoneCoord_t	X		= pResult->getInt( ++count );
-			ZoneCoord_t	Y		= pResult->getInt( ++count );
-			ZoneCoord_t	rX		= pResult->getInt( ++count );
-			ZoneCoord_t	rY		= pResult->getInt( ++count );
-			int			pcLimit	= pResult->getInt( ++count );
+        while (pResult->next()) {
+            int count = 0;
+            ZoneID_t zoneID = pResult->getInt(++count);
+            int race = pResult->getInt(++count);
+            ZoneCoord_t X = pResult->getInt(++count);
+            ZoneCoord_t Y = pResult->getInt(++count);
+            ZoneCoord_t rX = pResult->getInt(++count);
+            ZoneCoord_t rY = pResult->getInt(++count);
+            int pcLimit = pResult->getInt(++count);
 
-			PKZoneInfo* pPKZoneInfo = new PKZoneInfo( zoneID, X, Y, rX, rY, race, pcLimit );
-			addPKZoneInfo( pPKZoneInfo );
-		}
+            PKZoneInfo* pPKZoneInfo = new PKZoneInfo(zoneID, X, Y, rX, rY, race, pcLimit);
+            addPKZoneInfo(pPKZoneInfo);
+        }
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void PKZoneInfoManager::addPKZoneInfo( PKZoneInfo* pPKZoneInfo )
-	
+void PKZoneInfoManager::addPKZoneInfo(PKZoneInfo* pPKZoneInfo)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PKZoneInfoMap::iterator itr = m_PKZoneInfos.find( pPKZoneInfo->getZoneID() );
-	if ( itr != m_PKZoneInfos.end() ) throw Error("Duplicated PK Zone ID");
+    PKZoneInfoMap::iterator itr = m_PKZoneInfos.find(pPKZoneInfo->getZoneID());
+    if (itr != m_PKZoneInfos.end())
+        throw Error("Duplicated PK Zone ID");
 
-	m_PKZoneInfos[ pPKZoneInfo->getZoneID() ] = pPKZoneInfo;
-	
-	Zone* pZone = getZoneByZoneID( pPKZoneInfo->getZoneID() );
-	if ( pZone != NULL )
-	{
-//		pZone->stopTime();
-//		pZone->setTimeband( 2 );
-//		pZone->resetDarkLightInfo();
-	}
+    m_PKZoneInfos[pPKZoneInfo->getZoneID()] = pPKZoneInfo;
 
-	cout << "[" << pPKZoneInfo->getZoneID() << "]" << pPKZoneInfo->toString().c_str() << endl;
+    Zone* pZone = getZoneByZoneID(pPKZoneInfo->getZoneID());
+    if (pZone != NULL) {
+        //		pZone->stopTime();
+        //		pZone->setTimeband( 2 );
+        //		pZone->resetDarkLightInfo();
+    }
 
-	__END_CATCH
+    cout << "[" << pPKZoneInfo->getZoneID() << "]" << pPKZoneInfo->toString().c_str() << endl;
+
+    __END_CATCH
 }
 
-PKZoneInfo*	PKZoneInfoManager::getPKZoneInfo( ZoneID_t	zoneID ) const
-	
+PKZoneInfo* PKZoneInfoManager::getPKZoneInfo(ZoneID_t zoneID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PKZoneInfoMap::const_iterator itr = m_PKZoneInfos.find( zoneID );
-	if ( itr == m_PKZoneInfos.end() ) return NULL;
+    PKZoneInfoMap::const_iterator itr = m_PKZoneInfos.find(zoneID);
+    if (itr == m_PKZoneInfos.end())
+        return NULL;
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool PKZoneInfoManager::isPKZone( ZoneID_t zoneID ) const
-	
+bool PKZoneInfoManager::isPKZone(ZoneID_t zoneID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PKZoneInfoMap::const_iterator itr = m_PKZoneInfos.find( zoneID );
-	return itr != m_PKZoneInfos.end();
+    PKZoneInfoMap::const_iterator itr = m_PKZoneInfos.find(zoneID);
+    return itr != m_PKZoneInfos.end();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool PKZoneInfoManager::enterPKZone( ZoneID_t zoneID )
-	
+bool PKZoneInfoManager::enterPKZone(ZoneID_t zoneID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PKZoneInfo* pPKZoneInfo = getPKZoneInfo( zoneID );
-	if ( pPKZoneInfo == NULL ) return true;
+    PKZoneInfo* pPKZoneInfo = getPKZoneInfo(zoneID);
+    if (pPKZoneInfo == NULL)
+        return true;
 
-	bool ret = false;
+    bool ret = false;
 
-	__ENTER_CRITICAL_SECTION( (*pPKZoneInfo) )
+    __ENTER_CRITICAL_SECTION((*pPKZoneInfo))
 
-	ret = pPKZoneInfo->enterZone();
+    ret = pPKZoneInfo->enterZone();
 
-	__LEAVE_CRITICAL_SECTION( (*pPKZoneInfo) )
+    __LEAVE_CRITICAL_SECTION((*pPKZoneInfo))
 
-	return ret;
+    return ret;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool PKZoneInfoManager::leavePKZone( ZoneID_t zoneID )
-	
+bool PKZoneInfoManager::leavePKZone(ZoneID_t zoneID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PKZoneInfo* pPKZoneInfo = getPKZoneInfo( zoneID );
-	if ( pPKZoneInfo == NULL ) return true;
+    PKZoneInfo* pPKZoneInfo = getPKZoneInfo(zoneID);
+    if (pPKZoneInfo == NULL)
+        return true;
 
-	bool ret = false;
+    bool ret = false;
 
-	__ENTER_CRITICAL_SECTION( (*pPKZoneInfo) )
+    __ENTER_CRITICAL_SECTION((*pPKZoneInfo))
 
-	ret = pPKZoneInfo->leaveZone();
+    ret = pPKZoneInfo->leaveZone();
 
-	__LEAVE_CRITICAL_SECTION( (*pPKZoneInfo) )
+    __LEAVE_CRITICAL_SECTION((*pPKZoneInfo))
 
-	return ret;
+    return ret;
 
-	__END_CATCH
-}
-	
-bool PKZoneInfoManager::canEnterPKZone( ZoneID_t zoneID )
-	
-{
-	__BEGIN_TRY
-
-	PKZoneInfo* pPKZoneInfo = getPKZoneInfo( zoneID );
-	if ( pPKZoneInfo == NULL ) return true;
-
-	bool ret = false;
-
-	__ENTER_CRITICAL_SECTION( (*pPKZoneInfo) )
-
-	ret = pPKZoneInfo->canEnter();
-
-	__LEAVE_CRITICAL_SECTION( (*pPKZoneInfo) )
-
-	return ret;
-
-	__END_CATCH
+    __END_CATCH
 }
 
+bool PKZoneInfoManager::canEnterPKZone(ZoneID_t zoneID)
 
-bool PKZoneInfoManager::getResurrectPosition( ZoneID_t zoneID, ZONE_COORD& zoneCoord ) const
-	
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PKZoneInfo* pPKZoneInfo = getPKZoneInfo( zoneID );
-	if ( pPKZoneInfo == NULL ) return false;
-	
-	zoneCoord.set( zoneID, pPKZoneInfo->getResurrectX(), pPKZoneInfo->getResurrectY() );
+    PKZoneInfo* pPKZoneInfo = getPKZoneInfo(zoneID);
+    if (pPKZoneInfo == NULL)
+        return true;
 
-	return true;
+    bool ret = false;
 
-	__END_CATCH
+    __ENTER_CRITICAL_SECTION((*pPKZoneInfo))
+
+    ret = pPKZoneInfo->canEnter();
+
+    __LEAVE_CRITICAL_SECTION((*pPKZoneInfo))
+
+    return ret;
+
+    __END_CATCH
+}
+
+
+bool PKZoneInfoManager::getResurrectPosition(ZoneID_t zoneID, ZONE_COORD& zoneCoord) const
+
+{
+    __BEGIN_TRY
+
+    PKZoneInfo* pPKZoneInfo = getPKZoneInfo(zoneID);
+    if (pPKZoneInfo == NULL)
+        return false;
+
+    zoneCoord.set(zoneID, pPKZoneInfo->getResurrectX(), pPKZoneInfo->getResurrectY());
+
+    return true;
+
+    __END_CATCH
 }

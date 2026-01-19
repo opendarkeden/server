@@ -1,131 +1,127 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Sector.cpp
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Sector.h"
+
 #include "Object.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class Sector member methods
 //////////////////////////////////////////////////////////////////////////////
 
-Sector::Sector() 
-	
+Sector::Sector()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	for (int i=0; i<8; i++)
-		m_pNearbySectors[i] = NULL;
+    for (int i = 0; i < 8; i++)
+        m_pNearbySectors[i] = NULL;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Sector::~Sector() 
-	
+Sector::~Sector()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_Objects.clear();
+    m_Objects.clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
-void Sector::addObject(Object* pObject) 
-	
+void Sector::addObject(Object* pObject)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pObject != NULL);
+    Assert(pObject != NULL);
 
-	unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
-	if (itr != m_Objects.end())
-	{
-		cerr << "Sector::addObjectID() : DuplicatedException" << endl;
-		throw DuplicatedException();
-	}
+    unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
+    if (itr != m_Objects.end()) {
+        cerr << "Sector::addObjectID() : DuplicatedException" << endl;
+        throw DuplicatedException();
+    }
 
-	m_Objects[pObject->getObjectID()] = pObject;
+    m_Objects[pObject->getObjectID()] = pObject;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Sector::deleteObject(ObjectID_t id) 
-	
+void Sector::deleteObject(ObjectID_t id)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
-	if (itr == m_Objects.end())
-	{
-		cerr << "Sector::deleteObjectID() : NoSuchElementException" << endl;
-		throw NoSuchElementException();
-	}
+    unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+    if (itr == m_Objects.end()) {
+        cerr << "Sector::deleteObjectID() : NoSuchElementException" << endl;
+        throw NoSuchElementException();
+    }
 
-	m_Objects.erase(itr);
+    m_Objects.erase(itr);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Object* Sector::getObject(ObjectID_t id) 
-	
+Object* Sector::getObject(ObjectID_t id)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
-	if (itr == m_Objects.end())
-	{
-		cerr << "Sector::getObjectID() : NoSuchElementException" << endl;
-		throw NoSuchElementException();
-	}
+    unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+    if (itr == m_Objects.end()) {
+        cerr << "Sector::getObjectID() : NoSuchElementException" << endl;
+        throw NoSuchElementException();
+    }
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Sector* Sector::getNearbySector(uint dir) 
-	
+Sector* Sector::getNearbySector(uint dir)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(dir <= DIR_MAX);
-	return m_pNearbySectors[dir];
+    Assert(dir <= DIR_MAX);
+    return m_pNearbySectors[dir];
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Sector::setNearbySector(uint dir, Sector* pSector) 
-	
+void Sector::setNearbySector(uint dir, Sector* pSector)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(dir <= DIR_MAX);
-	m_pNearbySectors[dir] = pSector;
+    Assert(dir <= DIR_MAX);
+    m_pNearbySectors[dir] = pSector;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string Sector::toString(void) const 
-	
+string Sector::toString(void) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "Sector("
-		<< "Size:" << (int)m_Objects.size() << ",";
+    StringStream msg;
+    msg << "Sector("
+        << "Size:" << (int)m_Objects.size() << ",";
 
-	unordered_map<ObjectID_t, Object*>::const_iterator itr = m_Objects.begin();
-	for (; itr != m_Objects.end(); itr++)
-	{
-		msg << itr->second->toString() << ",";
-	}
+    unordered_map<ObjectID_t, Object*>::const_iterator itr = m_Objects.begin();
+    for (; itr != m_Objects.end(); itr++) {
+        msg << itr->second->toString() << ",";
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

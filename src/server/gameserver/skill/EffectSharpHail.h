@@ -14,41 +14,62 @@
 // class EffectSharpHail
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSharpHail : public Effect 
-{
+class EffectSharpHail : public Effect {
 public:
-	EffectSharpHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PROMINENCE; }
-
-	void affect() ;
-	void unaffect() ;
-	string toString() const throw();
+    EffectSharpHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
 public:
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_PROMINENCE;
+    }
 
-	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t Tick) { m_Tick = Tick; }
+    void affect();
+    void unaffect();
+    string toString() const throw();
 
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
+public:
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
 
-	void setForce( bool force ) { m_bForce = force; }
-	bool isForce() const { return m_bForce; }
+    Turn_t getTick() const {
+        return m_Tick;
+    }
+    void setTick(Turn_t Tick) {
+        m_Tick = Tick;
+    }
 
-	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+    int getLevel(void) const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
+
+    void setForce(bool force) {
+        m_bForce = force;
+    }
+    bool isForce() const {
+        return m_bForce;
+    }
+
+    ObjectID_t getUserObjectID() const {
+        return m_UserObjectID;
+    }
+    void setUserObjectID(ObjectID_t UserObjectID) {
+        m_UserObjectID = UserObjectID;
+    }
 
 private:
-	int     m_Damage;
-	Turn_t  m_Tick;
-	int     m_Level;
-	bool	m_bForce;
+    int m_Damage;
+    Turn_t m_Tick;
+    int m_Level;
+    bool m_bForce;
 
-	ObjectID_t	m_UserObjectID;
+    ObjectID_t m_UserObjectID;
 };
 
 #endif // __EFFECT_SHARP_HAIL__

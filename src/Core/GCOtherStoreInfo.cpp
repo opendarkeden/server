@@ -1,80 +1,80 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCOtherStoreInfo.cpp 
+// Filename    : GCOtherStoreInfo.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCOtherStoreInfo.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCOtherStoreInfo::~GCOtherStoreInfo() 
-	
-{
-	__BEGIN_TRY 
+GCOtherStoreInfo::~GCOtherStoreInfo()
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCOtherStoreInfo::read (SocketInputStream & iStream ) 
-	 
+void GCOtherStoreInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
-	iStream.read(m_IsRequested);
-	m_pInfo->read(iStream, true);
+    iStream.read(m_ObjectID);
+    iStream.read(m_IsRequested);
+    m_pInfo->read(iStream, true);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCOtherStoreInfo::write (SocketOutputStream & oStream ) const 
-     
+void GCOtherStoreInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_IsRequested);
-	m_pInfo->write(oStream, true);
+    oStream.write(m_ObjectID);
+    oStream.write(m_IsRequested);
+    m_pInfo->write(oStream, true);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCOtherStoreInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCOtherStoreInfoHandler::execute(this , pPlayer);
+void GCOtherStoreInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCOtherStoreInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCOtherStoreInfo::toString () const
-       
+string GCOtherStoreInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCOtherStoreInfo(";
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
-		
-	__END_CATCH
+    StringStream msg;
+    msg << "GCOtherStoreInfo(";
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

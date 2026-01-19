@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : StoneSkin.h 
-// Written By  : 
-// Description : 
+// Filename    : StoneSkin.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_STONE_SKIN_HANDLER_H__
@@ -13,20 +13,23 @@
 // class StoneSkin;
 //////////////////////////////////////////////////////////////////////////////
 
-class StoneSkin : public SkillHandler 
-{
+class StoneSkin : public SkillHandler {
 public:
-	StoneSkin() throw() {}
-	~StoneSkin() throw() {}
-	
+    StoneSkin() throw() {}
+    ~StoneSkin() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "StoneSkin"; }
-	SkillType_t getSkillType() const throw() { return SKILL_STONE_SKIN; }
+    string getSkillHandlerName() const throw() {
+        return "StoneSkin";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_STONE_SKIN;
+    }
 
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
 
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

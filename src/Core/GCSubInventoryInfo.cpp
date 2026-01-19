@@ -1,83 +1,84 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCSubInventoryInfo.cpp 
+// Filename    : GCSubInventoryInfo.cpp
 // Written By  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCSubInventoryInfo.h"
-#include "RaceWarInfo.h"
-#include "LevelWarInfo.h"
-#include "GuildWarInfo.h"
+
 #include "Assert1.h"
+#include "GuildWarInfo.h"
+#include "LevelWarInfo.h"
+#include "RaceWarInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-GCSubInventoryInfo::GCSubInventoryInfo() 
-	
+GCSubInventoryInfo::GCSubInventoryInfo()
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	m_pInventoryInfo = NULL;
-	m_ObjectID = 0;
+    m_pInventoryInfo = NULL;
+    m_ObjectID = 0;
 
-	__END_CATCH;
+    __END_CATCH;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-GCSubInventoryInfo::~GCSubInventoryInfo() 
-	
+GCSubInventoryInfo::~GCSubInventoryInfo()
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	SAFE_DELETE(m_pInventoryInfo);
+    SAFE_DELETE(m_pInventoryInfo);
 
-	__END_CATCH_NO_RETHROW 
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCSubInventoryInfo::read (SocketInputStream & iStream) 
-	 
+void GCSubInventoryInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pInventoryInfo = new InventoryInfo;
-	m_pInventoryInfo->read(iStream);
-	iStream.read(m_ObjectID);
+    m_pInventoryInfo = new InventoryInfo;
+    m_pInventoryInfo->read(iStream);
+    iStream.read(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCSubInventoryInfo::write (SocketOutputStream & oStream) const 
-     
+void GCSubInventoryInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pInventoryInfo->write(oStream);
-	oStream.write(m_ObjectID);
+    m_pInventoryInfo->write(oStream);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCSubInventoryInfo::execute (Player * pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCSubInventoryInfoHandler::execute(this , pPlayer);
+void GCSubInventoryInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCSubInventoryInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -86,18 +87,17 @@ void GCSubInventoryInfo::execute (Player * pPlayer)
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCSubInventoryInfo::toString () const
-       
+string GCSubInventoryInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCSubInventoryInfo(" ;
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
-		
-	__END_CATCH
+    StringStream msg;
+
+    msg << "GCSubInventoryInfo(";
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

@@ -1,30 +1,29 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ObjectManager.h 
+// Filename    : ObjectManager.h
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __OBJECT_MANAGER_H__
 #define __OBJECT_MANAGER_H__
 
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ObjectManager;
 // 하위 게임 객체들의 매니저를 관리하는 상위 관리 클래스이다.
 //////////////////////////////////////////////////////////////////////////////
 
-class ObjectManager 
-{
+class ObjectManager {
 public:
-	ObjectManager() ;
-	~ObjectManager() ;
+    ObjectManager();
+    ~ObjectManager();
 
 public:
-	void init() ;
-	void load() ;
-	void save() ;
+    void init();
+    void load();
+    void save();
 };
 
 // global variable declaration

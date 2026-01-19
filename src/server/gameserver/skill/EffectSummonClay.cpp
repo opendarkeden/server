@@ -4,85 +4,81 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectSummonClay.h"
-#include "Zone.h"
-#include "Tile.h"
 
 #include "EffectTrapTriggered.h"
-#include "Monster.h"
-
-#include "GCDeleteEffectFromTile.h"
 #include "GCAddEffect.h"
+#include "GCDeleteEffectFromTile.h"
+#include "Monster.h"
+#include "Tile.h"
+#include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectSummonClay::EffectSummonClay( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
-	
+EffectSummonClay::EffectSummonClay(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = X;
-	m_Y = Y;
+    m_pZone = pZone;
+    m_X = X;
+    m_Y = Y;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSummonClay::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert( m_pZone != NULL );
+    Assert(m_pZone != NULL);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSummonClay::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pZone != NULL);
+    Assert(pZone != NULL);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSummonClay::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile( m_X, m_Y );
-	tile.deleteEffect( m_ObjectID );
+    Tile& tile = m_pZone->getTile(m_X, m_Y);
+    tile.deleteEffect(m_ObjectID);
 
-	GCDeleteEffectFromTile gcDeleteEffect;
-	gcDeleteEffect.setXY( m_X, m_Y );
-	gcDeleteEffect.setObjectID( getObjectID() );
-	gcDeleteEffect.setEffectID( getSendEffectClass() );
+    GCDeleteEffectFromTile gcDeleteEffect;
+    gcDeleteEffect.setXY(m_X, m_Y);
+    gcDeleteEffect.setObjectID(getObjectID());
+    gcDeleteEffect.setEffectID(getSendEffectClass());
 
-	m_pZone->broadcastPacket( m_X, m_Y, &gcDeleteEffect );
-	
-	__END_CATCH
+    m_pZone->broadcastPacket(m_X, m_Y, &gcDeleteEffect);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectSummonClay::toString() const 
-	throw()
-{
-	__BEGIN_TRY
+string EffectSummonClay::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectSummonClay("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectSummonClay("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

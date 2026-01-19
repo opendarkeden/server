@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : PlayerTypes.h
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PLAYER_TYPES_H__
@@ -13,28 +13,28 @@
 // 플레이어 생성 및 변경 관련 에러 ID
 //////////////////////////////////////////////////////////////////////////////
 enum ErrorID {
-	INVALID_ID_PASSWORD,
-	ALREADY_CONNECTED,
-	ALREADY_REGISTER_ID,
-	ALREADY_REGISTER_SSN,
-	EMPTY_ID,
-	SMALL_ID_LENGTH,
-	EMPTY_PASSWORD,
-	SMALL_PASSWORD_LENGTH,
-	EMPTY_NAME,
-	EMPTY_SSN,
-	INVALID_SSN,
-	NOT_FOUND_PLAYER,
-	NOT_FOUND_ID,
-	NOT_PAY_ACCOUNT,
-	NOT_ALLOW_ACCOUNT,
-	ETC_ERROR,
-	IP_DENYED,
-	CHILDGUARD_DENYED,
-	CANNOT_AUTHORIZE_BILLING,	// 빌링 정보를 찾을 수 없습니다.
-	CANNOT_CREATE_PC_BILLING,	// 유료 사용자가 아니라서 캐릭터를 못 만듭니다.
-	KEY_EXPIRED,				// 키 유효기간이 지났다.
-	NOT_FOUND_KEY				// 키가 없다.
+    INVALID_ID_PASSWORD,
+    ALREADY_CONNECTED,
+    ALREADY_REGISTER_ID,
+    ALREADY_REGISTER_SSN,
+    EMPTY_ID,
+    SMALL_ID_LENGTH,
+    EMPTY_PASSWORD,
+    SMALL_PASSWORD_LENGTH,
+    EMPTY_NAME,
+    EMPTY_SSN,
+    INVALID_SSN,
+    NOT_FOUND_PLAYER,
+    NOT_FOUND_ID,
+    NOT_PAY_ACCOUNT,
+    NOT_ALLOW_ACCOUNT,
+    ETC_ERROR,
+    IP_DENYED,
+    CHILDGUARD_DENYED,
+    CANNOT_AUTHORIZE_BILLING, // 빌링 정보를 찾을 수 없습니다.
+    CANNOT_CREATE_PC_BILLING, // 유료 사용자가 아니라서 캐릭터를 못 만듭니다.
+    KEY_EXPIRED,              // 키 유효기간이 지났다.
+    NOT_FOUND_KEY             // 키가 없다.
 };
 
 
@@ -112,42 +112,30 @@ const uint maxProfileLength = 200;
 typedef BYTE Nation_t;
 const uint szNation = szBYTE;
 
-enum Nation
-{   
-	KOREA,
-	USA,
-	JAPAN
-};
+enum Nation { KOREA, USA, JAPAN };
 
-const string Nation2String [] =
-{   
-	"KOREA",
-	"USA",
-	"JAPAN"
-};
+const string Nation2String[] = {"KOREA", "USA", "JAPAN"};
 
 
 //////////////////////////////////////////////////////////////////////////////
 // 패널티 타입
 //////////////////////////////////////////////////////////////////////////////
-enum PenaltyType 
-{
-	PENALTY_TYPE_KICKED,				// 나가라
-	PENALTY_TYPE_MUTE,					// 닥쳐라
-	PENALTY_TYPE_FREEZING,				// 멈춰라
-	PENALTY_TYPE_MAX
+enum PenaltyType {
+    PENALTY_TYPE_KICKED,   // 나가라
+    PENALTY_TYPE_MUTE,     // 닥쳐라
+    PENALTY_TYPE_FREEZING, // 멈춰라
+    PENALTY_TYPE_MAX
 };
 
 
 //////////////////////////////////////////////////////////////////////////////
 // 로그인 모드
 //////////////////////////////////////////////////////////////////////////////
-enum LoginMode
-{
-	LOGIN_MODE_NORMAL = 0,				// 그냥 로그인
-	LOGIN_MODE_WEBLOGIN,				// 웹에서 로그인
+enum LoginMode {
+    LOGIN_MODE_NORMAL = 0, // 그냥 로그인
+    LOGIN_MODE_WEBLOGIN,   // 웹에서 로그인
 
-	LOGIN_MODE_MAX
+    LOGIN_MODE_MAX
 };
 
 #endif

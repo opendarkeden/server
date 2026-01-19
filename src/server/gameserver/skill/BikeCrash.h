@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BikeCrash.h 
-// Written By  : 
-// Description : 
+// Filename    : BikeCrash.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BIKE_CRASH_HANDLER_H__
@@ -13,19 +13,22 @@
 // class BikeCrash;
 //////////////////////////////////////////////////////////////////////////////
 
-class BikeCrash : public SkillHandler 
-{
+class BikeCrash : public SkillHandler {
 public:
-	BikeCrash() throw() {}
-	~BikeCrash() throw() {}
-	
+    BikeCrash() throw() {}
+    ~BikeCrash() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BikeCrash"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BIKE_CRASH; }
+    string getSkillHandlerName() const throw() {
+        return "BikeCrash";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BIKE_CRASH;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

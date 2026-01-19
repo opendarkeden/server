@@ -1,47 +1,44 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRequestNewbieItem.cpp 
+// Filename    : CGRequestNewbieItem.cpp
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRequestNewbieItem.h"
 
-void CGRequestNewbieItem::read (SocketInputStream & iStream) 
-	 
+void CGRequestNewbieItem::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_ItemClass);
+    __BEGIN_TRY
 
-	__END_CATCH
-}
-		    
-void CGRequestNewbieItem::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+    iStream.read(m_ItemClass);
 
-	oStream.write(m_ItemClass);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGRequestNewbieItem::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGRequestNewbieItem::write(SocketOutputStream& oStream) const
 
-	CGRequestNewbieItemHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ItemClass);
+
+    __END_CATCH
 }
 
-string CGRequestNewbieItem::toString () 
-	const 
+void CGRequestNewbieItem::execute(Player* pPlayer)
+
 {
-	StringStream msg;
-	msg << "CGRequestNewbieItem(" 
-		<< "ItemClass : " << (int)m_ItemClass
-		<< ")";
-	return msg.toString();
+    __BEGIN_TRY
+
+    CGRequestNewbieItemHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string CGRequestNewbieItem::toString() const {
+    StringStream msg;
+    msg << "CGRequestNewbieItem("
+        << "ItemClass : " << (int)m_ItemClass << ")";
+    return msg.toString();
 }

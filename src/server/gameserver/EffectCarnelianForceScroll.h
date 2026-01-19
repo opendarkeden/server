@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectCarnelianForceScroll.h
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_CARNELIAN_FORCE_SCROLL__
@@ -14,25 +14,26 @@
 // class EffectCarnelianForceScroll
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectCarnelianForceScroll : public Effect
-{
+class EffectCarnelianForceScroll : public Effect {
 public:
-	EffectCarnelianForceScroll(Creature* pCreature) ;
+    EffectCarnelianForceScroll(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_CARNELIAN_FORCE_SCROLL; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_CARNELIAN_FORCE_SCROLL;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect() ; 
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	virtual void create(const string& ownerID ) ;
-	virtual void destroy(const string& ownerID ) ;
-	virtual void save(const string& ownerID ) ;
+    virtual void create(const string& ownerID);
+    virtual void destroy(const string& ownerID);
+    virtual void save(const string& ownerID);
 
-	string toString() const ;
+    string toString() const;
 
 private:
 };
@@ -41,17 +42,19 @@ private:
 // class EffectCarnelianForceScrollLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectCarnelianForceScrollLoader : public EffectLoader
-{
+class EffectCarnelianForceScrollLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL; }
-	virtual string getEffectClassName() const  { return "EffectCarnelianForceScroll"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectCarnelianForceScroll";
+    }
 
 public:
-	virtual void load(Creature* pCreature ) ;
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectCarnelianForceScrollLoader* g_pEffectCarnelianForceScrollLoader;
 
-#endif 
-
+#endif

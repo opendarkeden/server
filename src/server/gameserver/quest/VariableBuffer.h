@@ -1,16 +1,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : VariableBuffer.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __VARIABLE_BUFFER_H__
 #define __VARIABLE_BUFFER_H__
 
-#include "Types.h"
-#include "Exception.h"
-
 #include <vector>
+
+#include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class VariableBuffer;
@@ -18,34 +18,35 @@
 
 class VariableInfo;
 
-class VariableBuffer 
-{
+class VariableBuffer {
 public:
-	static const char Comment;
-	static const char Separator;
-	static const char EOL;
-	static const char* WhiteSpaces;
-	static const char* SpaceTab;
-	
-public:
-	VariableBuffer(const string & buffer) ;
-	~VariableBuffer() ;
-	
-public:
-	int getCount() const { return m_VariableInfos.size(); }
-	VariableInfo* getVariableInfo( int index ) ;
+    static const char Comment;
+    static const char Separator;
+    static const char EOL;
+    static const char* WhiteSpaces;
+    static const char* SpaceTab;
 
-	string toString() const ;
-	
-private:
-	void parse() ;
-	
-	void clear();
+public:
+    VariableBuffer(const string& buffer);
+    ~VariableBuffer();
+
+public:
+    int getCount() const {
+        return m_VariableInfos.size();
+    }
+    VariableInfo* getVariableInfo(int index);
+
+    string toString() const;
 
 private:
-	vector<VariableInfo*> m_VariableInfos;
+    void parse();
 
-	string m_Buffer;
+    void clear();
+
+private:
+    vector<VariableInfo*> m_VariableInfos;
+
+    string m_Buffer;
 };
 
 #endif

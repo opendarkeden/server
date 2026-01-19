@@ -1,70 +1,74 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionExistReinforce.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionExistReinforce.h"
-#include "ZoneUtil.h"
-#include "Zone.h"
-#include "war/WarScheduler.h"
-#include "war/WarSchedule.h"
-#include "war/SiegeWar.h"
-#include "GuildManager.h"
+
 #include "Guild.h"
+#include "GuildManager.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
+#include "war/SiegeWar.h"
+#include "war/WarSchedule.h"
+#include "war/WarScheduler.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionExistReinforce::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionExistReinforce::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	Zone* pZone = getZoneByZoneID( m_ZoneID );
-	Assert( pZone != NULL );
-	Assert( pZone->isCastle() );
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	WarScheduler* pWarScheduler = pZone->getWarScheduler();
-	Assert( pWarScheduler != NULL );
+    Zone* pZone = getZoneByZoneID(m_ZoneID);
+    Assert(pZone != NULL);
+    Assert(pZone->isCastle());
 
-	Schedule* pNextSchedule = pWarScheduler->getRecentSchedule();
+    WarScheduler* pWarScheduler = pZone->getWarScheduler();
+    Assert(pWarScheduler != NULL);
 
-	Work* pNextWork = NULL;
-	if ( pNextSchedule != NULL ) pNextWork = pNextSchedule->getWork();
+    Schedule* pNextSchedule = pWarScheduler->getRecentSchedule();
 
-	SiegeWar* pNextWar = dynamic_cast<SiegeWar*>(pNextWork);
-	if ( pNextWork == NULL ) return false;
+    Work* pNextWork = NULL;
+    if (pNextSchedule != NULL)
+        pNextWork = pNextSchedule->getWork();
 
-	GuildID_t gID = pNextWar->recentReinforceGuild();
-	Guild* pGuild = g_pGuildManager->getGuild( gID );
+    SiegeWar* pNextWar = dynamic_cast<SiegeWar*>(pNextWork);
+    if (pNextWork == NULL)
+        return false;
 
-	if ( pGuild == NULL ) return false;
-	return true;
+    GuildID_t gID = pNextWar->recentReinforceGuild();
+    Guild* pGuild = g_pGuildManager->getGuild(gID);
+
+    if (pGuild == NULL)
+        return false;
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionExistReinforce::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionExistReinforce::read(PropertyBuffer& propertyBuffer)
+
 {
-	m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionExistReinforce::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionExistReinforce::toString() const
 
-	StringStream msg;
-	msg << "ConditionExistReinforce("
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionExistReinforce("
+        << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

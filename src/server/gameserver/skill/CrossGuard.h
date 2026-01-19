@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CrossGuard.h 
-// Written By  : 
-// Description : 
+// Filename    : CrossGuard.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CROSS_GUARD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class CrossGuard;
 //////////////////////////////////////////////////////////////////////////////
 
-class CrossGuard : public SkillHandler 
-{
+class CrossGuard : public SkillHandler {
 public:
-	CrossGuard() throw() {}
-	~CrossGuard() throw() {}
-	
+    CrossGuard() throw() {}
+    ~CrossGuard() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CrossGuard"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CROSS_GUARD; }
+    string getSkillHandlerName() const throw() {
+        return "CrossGuard";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CROSS_GUARD;
+    }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

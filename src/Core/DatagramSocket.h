@@ -10,10 +10,10 @@
 #define __DATAGRAM_SOCKET_H__
 
 // include files
-#include "Types.h"
+#include "Datagram.h"
 #include "Exception.h"
 #include "SocketAPI.h"
-#include "Datagram.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -27,38 +27,36 @@
 const uint DATAGRAM_SOCKET_BUFFER_LEN = 65536;
 
 class DatagramSocket {
+public:
+    // constructor for UDP Client Socket
+    DatagramSocket();
 
-public :
+    // constructor for UDP Server Socket
+    DatagramSocket(uint port);
 
-	// constructor for UDP Client Socket
-	DatagramSocket ();
+    // destructor
+    ~DatagramSocket();
 
-	// constructor for UDP Server Socket
-	DatagramSocket (uint port);
+    // send datagram to peer
+    uint send(Datagram* pDatagram);
 
-	// destructor
-	~DatagramSocket () ;
+    // receive datagram from peer
+    Datagram* receive();
 
-	// send datagram to peer
-	uint send (Datagram* pDatagram);
+    // get socket descriptor
+    SOCKET getSOCKET() const {
+        return m_SocketID;
+    }
 
-	// receive datagram from peer
-	Datagram* receive ();
-	
-	// get socket descriptor
-	SOCKET getSOCKET () const  { return m_SocketID; }
+private:
+    // socket descriptor
+    SOCKET m_SocketID;
 
-private :
+    // socket address
+    SOCKADDR_IN m_SockAddr;
 
-	// socket descriptor
-	SOCKET m_SocketID;
-
-	// socket address
-	SOCKADDR_IN m_SockAddr;
-
-	// internal socket input buffer
-	char m_Buffer[DATAGRAM_SOCKET_BUFFER_LEN];
-
+    // internal socket input buffer
+    char m_Buffer[DATAGRAM_SOCKET_BUFFER_LEN];
 };
 
 #endif

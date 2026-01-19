@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CutStorm.h 
+// Filename    : CutStorm.h
 // Written By  : rallser
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_Cut_Storm_HANDLER_H__
@@ -13,20 +13,23 @@
 // class CutStorm;
 //////////////////////////////////////////////////////////////////////////////
 
-class CutStorm : public SkillHandler 
-{
+class CutStorm : public SkillHandler {
 public:
-	CutStorm() throw() {}
-	~CutStorm() throw() {}
-	
+    CutStorm() throw() {}
+    ~CutStorm() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CutStorm"; }
-	SkillType_t getSkillType() const throw() { return SKILL_Cut_Storm; }
+    string getSkillHandlerName() const throw() {
+        return "CutStorm";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_Cut_Storm;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t targetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

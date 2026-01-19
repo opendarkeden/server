@@ -1,267 +1,252 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCWarList.cpp 
+// Filename    : GCWarList.cpp
 // Written By  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCWarList.h"
-#include "RaceWarInfo.h"
-#include "LevelWarInfo.h"
-#include "GuildWarInfo.h"
+
 #include "Assert1.h"
+#include "GuildWarInfo.h"
+#include "LevelWarInfo.h"
+#include "RaceWarInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-GCWarList::GCWarList() 
-	
-{
-	__BEGIN_TRY 
+GCWarList::GCWarList()
 
-	__END_CATCH;
+{
+    __BEGIN_TRY
+
+    __END_CATCH;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-GCWarList::~GCWarList() 
-	
+GCWarList::~GCWarList()
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	clear();
+    clear();
 
-	__END_CATCH_NO_RETHROW 
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // clear
 //////////////////////////////////////////////////////////////////////////////
-void
-GCWarList::clear()
-	
+void GCWarList::clear()
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	WarInfoList::iterator itr = m_WarInfos.begin();
+    WarInfoList::iterator itr = m_WarInfos.begin();
 
-	for(; itr != m_WarInfos.end() ; itr++ )
-	{
-		WarInfo* pWarInfo = *itr;
+    for (; itr != m_WarInfos.end(); itr++) {
+        WarInfo* pWarInfo = *itr;
 
-		SAFE_DELETE(pWarInfo);
-	}
+        SAFE_DELETE(pWarInfo);
+    }
 
-	m_WarInfos.clear();
-	
-	__END_CATCH;
+    m_WarInfos.clear();
+
+    __END_CATCH;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCWarList::read (SocketInputStream & iStream) 
-	 
+void GCWarList::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE count = 0;
-	iStream.read(count);
+    BYTE count = 0;
+    iStream.read(count);
 
-	WarType_t warType;
-	for(int i=0; i<count; i++ )
-	{
-		WarInfo* pWarInfo = NULL;
-		iStream.read(warType);
+    WarType_t warType;
+    for (int i = 0; i < count; i++) {
+        WarInfo* pWarInfo = NULL;
+        iStream.read(warType);
 
-		switch ((WarType)warType)
-		{
-			case WAR_GUILD :
-				pWarInfo = new GuildWarInfo;
-			break;
+        switch ((WarType)warType) {
+        case WAR_GUILD:
+            pWarInfo = new GuildWarInfo;
+            break;
 
-			case WAR_RACE :
-				pWarInfo = new RaceWarInfo;
-			break;
+        case WAR_RACE:
+            pWarInfo = new RaceWarInfo;
+            break;
 
-			case WAR_LEVEL :
-				pWarInfo = new LevelWarInfo;
-			break;
+        case WAR_LEVEL:
+            pWarInfo = new LevelWarInfo;
+            break;
 
-			default :
-				throw Error("wrong WarType");
-		}
+        default:
+            throw Error("wrong WarType");
+        }
 
-		pWarInfo->read(iStream);
+        pWarInfo->read(iStream);
 
-		addWarInfo(pWarInfo);
-	}
+        addWarInfo(pWarInfo);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCWarList::write (SocketOutputStream & oStream) const 
-     
+void GCWarList::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE count = m_WarInfos.size();
-		
-	oStream.write(count);
+    BYTE count = m_WarInfos.size();
 
-	WarInfoListItor itr = m_WarInfos.begin();
+    oStream.write(count);
 
-	for(; itr != m_WarInfos.end(); itr++ )
-	{
-		WarInfo* pWarInfo = *itr;
+    WarInfoListItor itr = m_WarInfos.begin();
 
-		WarType_t warType = pWarInfo->getWarType();
-		oStream.write(warType);
+    for (; itr != m_WarInfos.end(); itr++) {
+        WarInfo* pWarInfo = *itr;
 
-		pWarInfo->write(oStream);
-	}
+        WarType_t warType = pWarInfo->getWarType();
+        oStream.write(warType);
 
-	__END_CATCH
+        pWarInfo->write(oStream);
+    }
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCWarList::execute (Player * pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCWarListHandler::execute(this , pPlayer);
+void GCWarList::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCWarListHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-PacketSize_t GCWarList::getPacketSize () const 
-	
-{ 
-	__BEGIN_TRY
+PacketSize_t GCWarList::getPacketSize() const
 
-	PacketSize_t size = szBYTE;
+{
+    __BEGIN_TRY
 
-	WarInfoListItor itr = m_WarInfos.begin();
-	
-	for(; itr != m_WarInfos.end(); itr++ )
-	{
-		WarInfo* pWarInfo = *itr;
-		size += szWarType;
-		size += pWarInfo->getSize();
-	}
-		
-	return size;
+    PacketSize_t size = szBYTE;
 
-	__END_CATCH
+    WarInfoListItor itr = m_WarInfos.begin();
+
+    for (; itr != m_WarInfos.end(); itr++) {
+        WarInfo* pWarInfo = *itr;
+        size += szWarType;
+        size += pWarInfo->getSize();
+    }
+
+    return size;
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCWarList::toString () const
-       
+string GCWarList::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCWarList(" 
-		<< "WarNum : " << m_WarInfos.size();
+    __BEGIN_TRY
 
-	WarInfoListItor itr = m_WarInfos.begin();
+    StringStream msg;
 
-	for(; itr != m_WarInfos.end(); itr++ )
-	{
-		WarInfo* pWarInfo = *itr;
-		msg << pWarInfo->toString();
-	}
+    msg << "GCWarList("
+        << "WarNum : " << m_WarInfos.size();
 
-	msg << ")";
+    WarInfoListItor itr = m_WarInfos.begin();
 
-	return msg.toString();
-		
-	__END_CATCH
+    for (; itr != m_WarInfos.end(); itr++) {
+        WarInfo* pWarInfo = *itr;
+        msg << pWarInfo->toString();
+    }
+
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
 
-WarInfo* GCWarList::popWarInfo() 
-	
+WarInfo* GCWarList::popWarInfo()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if(m_WarInfos.empty() ) return NULL;
+    if (m_WarInfos.empty())
+        return NULL;
 
-	WarInfo* pWarInfo = m_WarInfos.front();
-	m_WarInfos.pop_front();
+    WarInfo* pWarInfo = m_WarInfos.front();
+    m_WarInfos.pop_front();
 
-	return pWarInfo;
+    return pWarInfo;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void GCWarList::operator = (const GCWarList& WL)
-{
-	clear();
+void GCWarList::operator=(const GCWarList& WL) {
+    clear();
 
-	WarInfoListItor itr = WL.m_WarInfos.begin();
+    WarInfoListItor itr = WL.m_WarInfos.begin();
 
-	for(; itr != WL.m_WarInfos.end(); itr++ )
-	{
-		WarInfo* pWarInfo = *itr;
-		WarInfo* pNewWarInfo = NULL;
+    for (; itr != WL.m_WarInfos.end(); itr++) {
+        WarInfo* pWarInfo = *itr;
+        WarInfo* pNewWarInfo = NULL;
 
-		switch (pWarInfo->getWarType())
-		{
-			case WAR_GUILD 	: 
-			{
-				GuildWarInfo* pGWI = dynamic_cast<GuildWarInfo*>(pWarInfo);
-				Assert(pGWI!=NULL);
+        switch (pWarInfo->getWarType()) {
+        case WAR_GUILD: {
+            GuildWarInfo* pGWI = dynamic_cast<GuildWarInfo*>(pWarInfo);
+            Assert(pGWI != NULL);
 
-				GuildWarInfo* pNewGWI = new GuildWarInfo; 	
-				*pNewGWI = *pGWI;
-				pNewWarInfo = pNewGWI;
-			}
-			break;
+            GuildWarInfo* pNewGWI = new GuildWarInfo;
+            *pNewGWI = *pGWI;
+            pNewWarInfo = pNewGWI;
+        } break;
 
-			case WAR_RACE 	: 
-			{
-				RaceWarInfo* pRWI = dynamic_cast<RaceWarInfo*>(pWarInfo);
-				Assert(pRWI!=NULL);
+        case WAR_RACE: {
+            RaceWarInfo* pRWI = dynamic_cast<RaceWarInfo*>(pWarInfo);
+            Assert(pRWI != NULL);
 
-				RaceWarInfo* pNewRWI = new RaceWarInfo; 	
-				*pNewRWI = *pRWI;
-				pNewWarInfo = pNewRWI;
-			}
-			break;
+            RaceWarInfo* pNewRWI = new RaceWarInfo;
+            *pNewRWI = *pRWI;
+            pNewWarInfo = pNewRWI;
+        } break;
 
-			case WAR_LEVEL	:
-			{
-				LevelWarInfo* pLWI = dynamic_cast<LevelWarInfo*>(pWarInfo);
-				Assert(pLWI!=NULL);
+        case WAR_LEVEL: {
+            LevelWarInfo* pLWI = dynamic_cast<LevelWarInfo*>(pWarInfo);
+            Assert(pLWI != NULL);
 
-				LevelWarInfo* pNewLWI = new LevelWarInfo;
-				*pNewLWI = *pLWI;
-				pNewWarInfo = pNewLWI;
-			}
-			break;
+            LevelWarInfo* pNewLWI = new LevelWarInfo;
+            *pNewLWI = *pLWI;
+            pNewWarInfo = pNewLWI;
+        } break;
 
-			default :
-				throw Error("wrong WarType");
-		}
+        default:
+            throw Error("wrong WarType");
+        }
 
-		addWarInfo(pNewWarInfo);
-//		cout << "GCWarList::operator = New ()" << pNewWarInfo->getStartTime() << endl;
-//		cout << "GCWarList::operator = Ori ()" << pWarInfo->getStartTime() << endl;
-	}
+        addWarInfo(pNewWarInfo);
+        //		cout << "GCWarList::operator = New ()" << pNewWarInfo->getStartTime() << endl;
+        //		cout << "GCWarList::operator = Ori ()" << pWarInfo->getStartTime() << endl;
+    }
 }
-

@@ -1,34 +1,31 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionMiniGame.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionMiniGame.h"
+
 #include "Creature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
-
 #include "GCNoticeEvent.h"
+#include "GamePlayer.h"
+#include "NPC.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionMiniGame::read (PropertyBuffer & propertyBuffer)
-    
+void ActionMiniGame::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		// read script id
-		m_GameType = propertyBuffer.getPropertyInt("GameType");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        // read script id
+        m_GameType = propertyBuffer.getPropertyInt("GameType");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -36,42 +33,41 @@ void ActionMiniGame::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionMiniGame::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionMiniGame::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	GCNoticeEvent gcNoticeEvent;
-	gcNoticeEvent.setCode(NOTICE_EVENT_MINI_GAME);
-	gcNoticeEvent.setParameter((uint)m_GameType);
-//	gcNoticeEvent.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
+    GCNoticeEvent gcNoticeEvent;
+    gcNoticeEvent.setCode(NOTICE_EVENT_MINI_GAME);
+    gcNoticeEvent.setParameter((uint)m_GameType);
+    //	gcNoticeEvent.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
-	Player* pPlayer = pCreature2->getPlayer();
-	pPlayer->sendPacket(&gcNoticeEvent);
+    Player* pPlayer = pCreature2->getPlayer();
+    pPlayer->sendPacket(&gcNoticeEvent);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionMiniGame::toString () const 
-	
+string ActionMiniGame::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionMiniGame("
-	    << ",GameType:"  << (int)m_GameType
-	    << ")";
+    StringStream msg;
+    msg << "ActionMiniGame("
+        << ",GameType:" << (int)m_GameType << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

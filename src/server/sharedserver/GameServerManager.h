@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GameServerManager.h
 // Written by  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GAME_SERVER_MANAGER_H__
 #define __GAME_SERVER_MANAGER_H__
 
-#include "Thread.h"
-#include "Types.h"
-#include "Timeval.h"
 #include "Exception.h"
 #include "GameServerPlayer.h"
-#include "ServerSocket.h"
 #include "Mutex.h"
+#include "ServerSocket.h"
+#include "Thread.h"
+#include "Timeval.h"
+#include "Types.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -22,84 +22,84 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-class GameServerManager : public Thread
-{
+class GameServerManager : public Thread {
 public:
-	GameServerManager() ;
-	~GameServerManager() ;
+    GameServerManager();
+    ~GameServerManager();
 
 public:
+    // 쉐어드서버에서 받아들이는 최대 게임서버 수
+    const static uint nMaxGameServers = 100;
 
-	// 쉐어드서버에서 받아들이는 최대 게임서버 수
-	const static uint nMaxGameServers = 100;
+    // initialize
+    void init();
 
-	// initialize 
-	void init() ;
+    void run();
 
-	void run() ;
-
-	// broadcast packet to all players
-	void broadcast(Packet* pPacket) ;
-	void broadcast(Packet* pPacket, Player* pPlayer) ;
+    // broadcast packet to all players
+    void broadcast(Packet* pPacket);
+    void broadcast(Packet* pPacket, Player* pPlayer);
 
 
-	// select 
-	void select() ;
+    // select
+    void select();
 
-	// process all inputs
-	void processInputs() ;
+    // process all inputs
+    void processInputs();
 
-	// process all outputs
-	void processOutputs() ;
+    // process all outputs
+    void processOutputs();
 
-	// process all exceptions
-	void processExceptions() ;
-	
-	// process all commands
-	void processCommands() ;
+    // process all exceptions
+    void processExceptions();
 
-	// accept new connection
-	void acceptNewConnection() ;
+    // process all commands
+    void processCommands();
 
-	// add/delete player
-	void addGameServerPlayer(GameServerPlayer* pGameServerPlayer) ;
-	void deleteGameServerPlayer(SOCKET fd) ;
+    // accept new connection
+    void acceptNewConnection();
 
-	// lock/unlock
-	void lock()  { m_Mutex.lock(); }
-	void unlock()  { m_Mutex.unlock(); }
+    // add/delete player
+    void addGameServerPlayer(GameServerPlayer* pGameServerPlayer);
+    void deleteGameServerPlayer(SOCKET fd);
 
-	void heartbeat() ;
+    // lock/unlock
+    void lock() {
+        m_Mutex.lock();
+    }
+    void unlock() {
+        m_Mutex.unlock();
+    }
+
+    void heartbeat();
 
 private:
+    // TCP 서버 소켓과 소켓 디스크립터
+    ServerSocket* m_pServerSocket;
+    SOCKET m_SocketID;
 
-	// TCP 서버 소켓과 소켓 디스크립터
-	ServerSocket* m_pServerSocket;
-	SOCKET m_SocketID;
+    // 소속된 플레이어들의 소켓 디스크립터의 집합이다.
+    // m_XXXXFDs[0]은 저장용이며, m_XXXFDs[1]이 실제로 select()의 파라미터로 사용된다.
+    // 즉 select()하기 전에 [0] -> [1] 로 복사가 이루어져야 한다.
+    fd_set m_ReadFDs[2];
+    fd_set m_WriteFDs[2];
+    fd_set m_ExceptFDs[2];
 
-	// 소속된 플레이어들의 소켓 디스크립터의 집합이다.
-	// m_XXXXFDs[0]은 저장용이며, m_XXXFDs[1]이 실제로 select()의 파라미터로 사용된다.
-	// 즉 select()하기 전에 [0] -> [1] 로 복사가 이루어져야 한다.
-	fd_set m_ReadFDs[2];
-	fd_set m_WriteFDs[2];
-	fd_set m_ExceptFDs[2];
+    // select에 사용되는 시간
+    Timeval m_Timeout[2];
 
-	// select에 사용되는 시간
-	Timeval m_Timeout[2];
+    // min_fd, max_fd
+    // select()후 iterating 할 때 속도 증가를 위해서 사용한다.
+    // 또한 select()의 첫번째 파라미터를 계산하기 위해서 사용한다.
+    SOCKET m_MinFD;
+    SOCKET m_MaxFD;
 
-	// min_fd, max_fd
-	// select()후 iterating 할 때 속도 증가를 위해서 사용한다.
-	// 또한 select()의 첫번째 파라미터를 계산하기 위해서 사용한다.
-	SOCKET m_MinFD;
-	SOCKET m_MaxFD;
-
-	// mutex
-	mutable Mutex m_Mutex;
+    // mutex
+    mutable Mutex m_Mutex;
 
 
-	// 게임서버의 포인터 배열. 소켓 디스크립터를 인덱스로 사용한다.
-	GameServerPlayer* m_pGameServerPlayers[nMaxGameServers];
-
+    // 게임서버의 포인터 배열. 소켓 디스크립터를 인덱스로 사용한다.
+    GameServerPlayer* m_pGameServerPlayers[nMaxGameServers];
 };
 
 // external variable declaration

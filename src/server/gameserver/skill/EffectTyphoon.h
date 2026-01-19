@@ -13,21 +13,22 @@
 // class EffectTyphoon
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectTyphoon : public Effect 
-{
+class EffectTyphoon : public Effect {
 public:
-	EffectTyphoon(Creature* pCreature) ;
+    EffectTyphoon(Creature* pCreature);
 
 public:
-	void affect()  {}
-	void affect(Creature* pCreature) ;
+    void affect() {}
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TYPHOON; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_TYPHOON;
+    }
 
-	string toString() const throw();
+    string toString() const throw();
 };
 
 #endif // __EFFECT_TYPHOON__

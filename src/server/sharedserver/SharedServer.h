@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : SharedServer.h 
+//
+// Filename    : SharedServer.h
 // Written By  : reiot@ewestsoft.com
 // Description : 로그인 서버용 메인 클래스
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SHARED_SERVER_H__
@@ -15,8 +15,8 @@
 #endif
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -27,27 +27,24 @@
 //////////////////////////////////////////////////////////////////////
 
 class SharedServer {
+public:
+    // constructor
+    SharedServer() throw(Error);
 
-public :
-	
-	// constructor
-	SharedServer () throw ( Error );
-	
-	// destructor
-	~SharedServer () throw ( Error );
+    // destructor
+    ~SharedServer() throw(Error);
 
-	// intialize game server
-	void init () throw ( Error );
+    // intialize game server
+    void init() throw(Error);
 
-	// start game server
-	void start () throw ( Error );
-	
-	// stop game server
-	void stop () throw ( Error );
+    // start game server
+    void start() throw(Error);
 
+    // stop game server
+    void stop() throw(Error);
 };
 
 // global variable declaration
-extern SharedServer * g_pSharedServer;
+extern SharedServer* g_pSharedServer;
 
 #endif

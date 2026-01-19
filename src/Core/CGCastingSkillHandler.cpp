@@ -7,49 +7,42 @@
 #include "CGCastingSkill.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "SkillHandlerManager.h"
-	#include "Creature.h"
-
-	#include "item/Motorcycle.h"
-
-	#include "GCCastingSkill.h"
-#endif	// __GAME_SERVER__
+#include "Creature.h"
+#include "GCCastingSkill.h"
+#include "GamePlayer.h"
+#include "SkillHandlerManager.h"
+#include "item/Motorcycle.h"
+#endif // __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGCastingSkillHandler::execute (CGCastingSkill* pPacket , Player* pPlayer)
-	 
+void CGCastingSkillHandler::execute(CGCastingSkill* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	try 
-	{
-		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    try {
+        GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
-		if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) 
-		{
-			// Creature를 받아온다.
-			Creature* pCreature = pGamePlayer->getCreature();
+        if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) {
+            // Creature를 받아온다.
+            Creature* pCreature = pGamePlayer->getCreature();
 
-			Assert (pCreature != NULL);
+            Assert(pCreature != NULL);
 
-			GCCastingSkill _GCCastingSkill;
-			_GCCastingSkill.setSkillType(pPacket->getSkillType());
-		}
-	} 
-	catch (Throwable & t) 
-	{
-		//cout << t.toString() << endl;
-	}
+            GCCastingSkill _GCCastingSkill;
+            _GCCastingSkill.setSkillType(pPacket->getSkillType());
+        }
+    } catch (Throwable& t) {
+        // cout << t.toString() << endl;
+    }
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

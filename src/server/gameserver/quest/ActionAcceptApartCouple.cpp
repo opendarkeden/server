@@ -1,36 +1,32 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionAcceptApartCouple.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionAcceptApartCouple.h"
-#include "SystemAvailabilitiesManager.h"
-#include "Creature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
-#include "PlayerCreature.h"
 
+#include "Creature.h"
+#include "GCNPCResponse.h"
+#include "GamePlayer.h"
+#include "NPC.h"
+#include "PlayerCreature.h"
+#include "SystemAvailabilitiesManager.h"
 #include "couple/PartnerWaitingManager.h"
 
-#include "GCNPCResponse.h"
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
+void ActionAcceptApartCouple::read(PropertyBuffer& propertyBuffer)
 
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-void ActionAcceptApartCouple::read (PropertyBuffer & propertyBuffer)
-    
 {
     __BEGIN_TRY
 
-	try 
-	{
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -38,64 +34,61 @@ void ActionAcceptApartCouple::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionAcceptApartCouple::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionAcceptApartCouple::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT( SYSTEM_COUPLE );
+    SYSTEM_RETURN_IF_NOT(SYSTEM_COUPLE);
 
-	GCNPCResponse gcNPCResponse;
+    GCNPCResponse gcNPCResponse;
 
-	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	Assert( pNPC != NULL );
-	Assert( pPC != NULL );
+    Assert(pNPC != NULL);
+    Assert(pPC != NULL);
 
-	PartnerWaitingManager *pPWM = pNPC->getCoupleUnregisterManager();
-	Assert( pPWM != NULL );
+    PartnerWaitingManager* pPWM = pNPC->getCoupleUnregisterManager();
+    Assert(pPWM != NULL);
 
-	PlayerCreature* pWaitingPC = pPWM->getWaitingPartner( pPC );
+    PlayerCreature* pWaitingPC = pPWM->getWaitingPartner(pPC);
 
-	uint result = pPWM->acceptPartner( pPC );
-	if ( result != 0 )
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_NOT_COUPLE );
-		gcNPCResponse.setParameter( result );
-	}
-	else
-	{
-		gcNPCResponse.setCode( NPC_RESPONSE_COUPLE_APART_SUCCESS );
-	}
+    uint result = pPWM->acceptPartner(pPC);
+    if (result != 0) {
+        gcNPCResponse.setCode(NPC_RESPONSE_NOT_COUPLE);
+        gcNPCResponse.setParameter(result);
+    } else {
+        gcNPCResponse.setCode(NPC_RESPONSE_COUPLE_APART_SUCCESS);
+    }
 
-	pPC->getPlayer()->sendPacket( &gcNPCResponse );
+    pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-	if ( pWaitingPC != NULL )
-		pWaitingPC->getPlayer()->sendPacket( &gcNPCResponse );
+    if (pWaitingPC != NULL)
+        pWaitingPC->getPlayer()->sendPacket(&gcNPCResponse);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionAcceptApartCouple::toString () const 
-	
+string ActionAcceptApartCouple::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionAcceptApartCouple("
-	    << ")";
+    StringStream msg;
+    msg << "ActionAcceptApartCouple("
+        << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

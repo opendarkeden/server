@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectSummonSylph.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SUMMON_SYLPH__
@@ -14,32 +14,43 @@
 // class EffectSummonSylph
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSummonSylph : public Effect 
-{
+class EffectSummonSylph : public Effect {
 public:
-	EffectSummonSylph(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SUMMON_SYLPH; }
-    EffectClass getSendEffectClass() const throw() { return m_EClass; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectSummonSylph(Creature* pCreature);
 
 public:
-	void setBonus( uint bonus ) { m_Bonus = bonus; }
-	uint getBonus() const { return m_Bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_SUMMON_SYLPH;
+    }
+    EffectClass getSendEffectClass() const throw() {
+        return m_EClass;
+    }
 
-	void setEClass( EffectClass eclass ) { m_EClass = eclass; }
-	EffectClass getEClass() const { return m_EClass; }
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setBonus(uint bonus) {
+        m_Bonus = bonus;
+    }
+    uint getBonus() const {
+        return m_Bonus;
+    }
+
+    void setEClass(EffectClass eclass) {
+        m_EClass = eclass;
+    }
+    EffectClass getEClass() const {
+        return m_EClass;
+    }
 
 private:
-	uint	m_Bonus;
-	EffectClass m_EClass;
+    uint m_Bonus;
+    EffectClass m_EClass;
 };
 
 #endif // __EFFECT_SUMMON_SYLPH__

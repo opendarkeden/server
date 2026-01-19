@@ -1,308 +1,293 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SweeperBonusManager.cpp
 // Written By  : beowulf
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
-#include "Zone.h"
-#include "ZoneUtil.h"
-#include "SweeperBonus.h"
 #include "SweeperBonusManager.h"
+
+#include "DB.h"
+#include "GCSweeperBonusInfo.h"
 #include "LevelWarManager.h"
 #include "LevelWarZoneInfoManager.h"
-#include "DB.h"
-
-#include "GCSweeperBonusInfo.h"
+#include "SweeperBonus.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class SweeperBonusManager member methods
 //////////////////////////////////////////////////////////////////////////////
 
 SweeperBonusManager::SweeperBonusManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_Count = 0;
+    m_Count = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 SweeperBonusManager::~SweeperBonusManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	clear();
+    clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 void SweeperBonusManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void SweeperBonusManager::clear()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	SweeperBonusHashMapItor itr = m_SweeperBonuses.begin();
-	for ( ; itr != m_SweeperBonuses.end(); itr++ )
-	{
-		SAFE_DELETE( itr->second );
-	}
+    SweeperBonusHashMapItor itr = m_SweeperBonuses.begin();
+    for (; itr != m_SweeperBonuses.end(); itr++) {
+        SAFE_DELETE(itr->second);
+    }
 
-	m_SweeperBonuses.clear();
-	
-	__END_CATCH
+    m_SweeperBonuses.clear();
+
+    __END_CATCH
 }
 
 void SweeperBonusManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	clear();
+    clear();
 
-	Statement* pStmt    = NULL;
-	Result*    pResult  = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(Type) FROM SweeperBonusInfo");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		if (pResult->getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in SweeperBonusInfo Table");
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(Type) FROM SweeperBonusInfo");
 
-		pResult->next();
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in SweeperBonusInfo Table");
+        }
 
-		m_Count = pResult->getInt(1) + 1;
+        pResult->next();
 
-		Assert (m_Count > 0);
+        m_Count = pResult->getInt(1) + 1;
 
-		pResult = pStmt->executeQuery("SELECT Type, Name, OptionList, OwnerRace, Level FROM SweeperBonusInfo");
+        Assert(m_Count > 0);
 
-		while (pResult->next()) 
-		{
-			SweeperBonus* pSweeperBonus = new SweeperBonus();
-			int i = 0;
+        pResult = pStmt->executeQuery("SELECT Type, Name, OptionList, OwnerRace, Level FROM SweeperBonusInfo");
 
-			pSweeperBonus->setType( pResult->getInt(++i) );
-			pSweeperBonus->setName( pResult->getString(++i) );
-			pSweeperBonus->setOptionTypeList( pResult->getString(++i) );
-			pSweeperBonus->setRace( pResult->getInt(++i) );
-			pSweeperBonus->setLevel( pResult->getInt(++i) );
+        while (pResult->next()) {
+            SweeperBonus* pSweeperBonus = new SweeperBonus();
+            int i = 0;
 
-			addSweeperBonus(pSweeperBonus);
-		}
-		
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            pSweeperBonus->setType(pResult->getInt(++i));
+            pSweeperBonus->setName(pResult->getString(++i));
+            pSweeperBonus->setOptionTypeList(pResult->getString(++i));
+            pSweeperBonus->setRace(pResult->getInt(++i));
+            pSweeperBonus->setLevel(pResult->getInt(++i));
 
-	__END_DEBUG
-	__END_CATCH
+            addSweeperBonus(pSweeperBonus);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void SweeperBonusManager::reloadOwner(int level)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Statement* pStmt    = NULL;
-	Result*    pResult  = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(Type) FROM SweeperBonusInfo");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		if (pResult->getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in SweeperBonusInfo Table");
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(Type) FROM SweeperBonusInfo");
 
-		pResult->next();
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in SweeperBonusInfo Table");
+        }
 
-		m_Count = pResult->getInt(1) + 1;
+        pResult->next();
 
-		Assert (m_Count > 0);
+        m_Count = pResult->getInt(1) + 1;
 
-		pResult = pStmt->executeQuery("SELECT Type, OwnerRace FROM SweeperBonusInfo WHERE Level = %d", level);
+        Assert(m_Count > 0);
 
-		while (pResult->next()) 
-		{
-			int i = 0;
-			SweeperBonusType_t type = pResult->getInt(++i);
+        pResult = pStmt->executeQuery("SELECT Type, OwnerRace FROM SweeperBonusInfo WHERE Level = %d", level);
 
-			SweeperBonusHashMapItor itr = m_SweeperBonuses.find(type);
+        while (pResult->next()) {
+            int i = 0;
+            SweeperBonusType_t type = pResult->getInt(++i);
 
-			if ( itr != m_SweeperBonuses.end() )
-			{
-				itr->second->setRace( pResult->getInt(++i) );
-			}
+            SweeperBonusHashMapItor itr = m_SweeperBonuses.find(type);
 
-		}
-		
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            if (itr != m_SweeperBonuses.end()) {
+                itr->second->setRace(pResult->getInt(++i));
+            }
+        }
 
-	__END_DEBUG
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void SweeperBonusManager::save()
-	
-{
-	__BEGIN_TRY
 
-	throw UnsupportedError (__PRETTY_FUNCTION__);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    throw UnsupportedError(__PRETTY_FUNCTION__);
+
+    __END_CATCH
 }
 
-SweeperBonus* SweeperBonusManager::getSweeperBonus( SweeperBonusType_t sweeperBonusType ) const
-{
-	__BEGIN_TRY
+SweeperBonus* SweeperBonusManager::getSweeperBonus(SweeperBonusType_t sweeperBonusType) const {
+    __BEGIN_TRY
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find( sweeperBonusType );
+    SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find(sweeperBonusType);
 
-	if ( itr == m_SweeperBonuses.end() )
-	{
-		cerr << "SweeperBonusManager::getSweeperBonus() : no such element" << endl;
-		throw NoSuchElementException();
-	}
+    if (itr == m_SweeperBonuses.end()) {
+        cerr << "SweeperBonusManager::getSweeperBonus() : no such element" << endl;
+        throw NoSuchElementException();
+    }
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void SweeperBonusManager::addSweeperBonus(SweeperBonus* pSweeperBonus)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert (pSweeperBonus != NULL);
+    Assert(pSweeperBonus != NULL);
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find( pSweeperBonus->getType() );
-	if ( itr != m_SweeperBonuses.end() )
-	{
-		throw DuplicatedException ();
-	}
+    SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find(pSweeperBonus->getType());
+    if (itr != m_SweeperBonuses.end()) {
+        throw DuplicatedException();
+    }
 
-	m_SweeperBonuses[pSweeperBonus->getType()] = pSweeperBonus;
+    m_SweeperBonuses[pSweeperBonus->getType()] = pSweeperBonus;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
-bool SweeperBonusManager::isAble(ZoneID_t zoneID) const
-{
-	__BEGIN_TRY
+bool SweeperBonusManager::isAble(ZoneID_t zoneID) const {
+    __BEGIN_TRY
 
-	ZoneID_t levelWarZoneID;
-	if ( g_pLevelWarZoneInfoManager->getLevelWarZoneID( zoneID, levelWarZoneID ) )
-	{
-		Zone* pZone = getZoneByZoneID( levelWarZoneID );
-		if ( pZone == NULL ) return false;
+    ZoneID_t levelWarZoneID;
+    if (g_pLevelWarZoneInfoManager->getLevelWarZoneID(zoneID, levelWarZoneID)) {
+        Zone* pZone = getZoneByZoneID(levelWarZoneID);
+        if (pZone == NULL)
+            return false;
 
-		LevelWarManager* pLevelWarManager = pZone->getLevelWarManager();
-		if ( pLevelWarManager == NULL ) return false;
+        LevelWarManager* pLevelWarManager = pZone->getLevelWarManager();
+        if (pLevelWarManager == NULL)
+            return false;
 
-		return !pLevelWarManager->hasWar();
-	}
+        return !pLevelWarManager->hasWar();
+    }
 
-	return false;
+    return false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void SweeperBonusManager::setSweeperBonusRace( SweeperBonusType_t sweeperBonusType, Race_t race )
-	
+void SweeperBonusManager::setSweeperBonusRace(SweeperBonusType_t sweeperBonusType, Race_t race)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	getSweeperBonus( sweeperBonusType )->setRace( race );
+    getSweeperBonus(sweeperBonusType)->setRace(race);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void SweeperBonusManager::makeSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo )
-	
+void SweeperBonusManager::makeSweeperBonusInfo(GCSweeperBonusInfo& gcSweeperBonusInfo)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
-	for ( ; itr != m_SweeperBonuses.end(); itr++ )
-	{
-		SweeperBonusInfo* pInfo = new SweeperBonusInfo();
-		SweeperBonus* pBonus = itr->second;
+    SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
+    for (; itr != m_SweeperBonuses.end(); itr++) {
+        SweeperBonusInfo* pInfo = new SweeperBonusInfo();
+        SweeperBonus* pBonus = itr->second;
 
-		pInfo->setType( pBonus->getType() );
-		pInfo->setRace( pBonus->getRace() );
-		pInfo->setOptionType( pBonus->getOptionTypeList() );
+        pInfo->setType(pBonus->getType());
+        pInfo->setRace(pBonus->getRace());
+        pInfo->setOptionType(pBonus->getOptionTypeList());
 
-		gcSweeperBonusInfo.addSweeperBonusInfo( pInfo );
-	}
+        gcSweeperBonusInfo.addSweeperBonusInfo(pInfo);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void SweeperBonusManager::makeVoidSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo )
-	
+void SweeperBonusManager::makeVoidSweeperBonusInfo(GCSweeperBonusInfo& gcSweeperBonusInfo)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
-	for ( ; itr != m_SweeperBonuses.end(); itr++ )
-	{
-		SweeperBonusInfo* pInfo = new SweeperBonusInfo();
-		SweeperBonus* pBonus = itr->second;
+    SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
+    for (; itr != m_SweeperBonuses.end(); itr++) {
+        SweeperBonusInfo* pInfo = new SweeperBonusInfo();
+        SweeperBonus* pBonus = itr->second;
 
-		pInfo->setType( pBonus->getType() );
-		pInfo->setRace( 3 );
-		pInfo->setOptionType( pBonus->getOptionTypeList() );
+        pInfo->setType(pBonus->getType());
+        pInfo->setRace(3);
+        pInfo->setOptionType(pBonus->getOptionTypeList());
 
-		gcSweeperBonusInfo.addSweeperBonusInfo( pInfo );
-	}
+        gcSweeperBonusInfo.addSweeperBonusInfo(pInfo);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 string SweeperBonusManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "SweeperBonusManager(\n";
+    msg << "SweeperBonusManager(\n";
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
-	for ( ; itr != m_SweeperBonuses.end(); itr++ )
-	{
-		msg << itr->second->toString() << ",";
-	}
+    SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
+    for (; itr != m_SweeperBonuses.end(); itr++) {
+        msg << itr->second->toString() << ",";
+    }
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Global Variable definition

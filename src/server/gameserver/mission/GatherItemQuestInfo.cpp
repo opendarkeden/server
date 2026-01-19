@@ -1,13 +1,14 @@
 
-#include "GatherItemQuestStatus.h"
 #include "GatherItemQuestInfo.h"
+
+#include "GatherItemQuestStatus.h"
 #include "PlayerCreature.h"
 
-GatherItemQuestStatus* GatherItemQuestInfo::makeQuestStatus( PlayerCreature* pPC ) const 
-{
-	__BEGIN_TRY
+GatherItemQuestStatus* GatherItemQuestInfo::makeQuestStatus(PlayerCreature* pPC) const {
+    __BEGIN_TRY
 
-	return new GatherItemQuestStatus( getQuestID(), VSDateTime::currentDateTime().addSecs(getTimeLimit()), m_TargetItemClass, m_TargetItemType, m_TargetNum );
+    return new GatherItemQuestStatus(getQuestID(), VSDateTime::currentDateTime().addSecs(getTimeLimit()),
+                                     m_TargetItemClass, m_TargetItemType, m_TargetNum);
 
-	__END_CATCH
+    __END_CATCH
 }

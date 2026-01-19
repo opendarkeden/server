@@ -1,103 +1,93 @@
 #include "EffectBlindness.h"
+
 #include "Creature.h"
-#include "PlayerCreature.h"
-#include "Ousters.h"
-#include "Player.h"
-#include "SkillUtil.h"
-#include "Zone.h"
 #include "GCModifyInformation.h"
 #include "GCRemoveEffect.h"
+#include "Ousters.h"
+#include "Player.h"
+#include "PlayerCreature.h"
+#include "SkillUtil.h"
+#include "Zone.h"
 
-EffectBlindness::EffectBlindness(Creature* pCreature) 
-{
-	__BEGIN_TRY
+EffectBlindness::EffectBlindness(Creature* pCreature) {
+    __BEGIN_TRY
 
-	m_pTarget = pCreature;
+    m_pTarget = pCreature;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectBlindness::affect() 
-{
-	__BEGIN_TRY
+void EffectBlindness::affect() {
+    __BEGIN_TRY
 
-	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-	{
-		affect( dynamic_cast<Creature*>(m_pTarget) );
-	}
+    if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+        affect(dynamic_cast<Creature*>(m_pTarget));
+    }
 
-//	setNextTime(10);
+    //	setNextTime(10);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectBlindness::affect(Creature* pCreature) 
-{
-	__BEGIN_TRY
+void EffectBlindness::affect(Creature* pCreature) {
+    __BEGIN_TRY
 
-	if ( pCreature == NULL ) return;
-	
-	Zone* pZone = pCreature->getZone();
-	if ( pZone == NULL ) return;
+    if (pCreature == NULL)
+        return;
 
-	GCModifyInformation gcMI;
+    Zone* pZone = pCreature->getZone();
+    if (pZone == NULL)
+        return;
 
-	if ( !pCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
-	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
-	{
-		if ( pCreature->isPC() )
-		{
-			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    GCModifyInformation gcMI;
 
-			::setDamage( pPC, getDamage(), NULL, SKILL_ATTACK_MELEE, &gcMI, NULL );
-			pPC->getPlayer()->sendPacket( &gcMI );
-		}
-		else if ( pCreature->isMonster() )
-		{
-			::setDamage( pCreature, getDamage(), NULL, SKILL_ATTACK_MELEE, NULL, NULL );
-		}
-	}
+    if (!pCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE) && !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)) {
+        if (pCreature->isPC()) {
+            PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	setNextTime(30);
+            ::setDamage(pPC, getDamage(), NULL, SKILL_ATTACK_MELEE, &gcMI, NULL);
+            pPC->getPlayer()->sendPacket(&gcMI);
+        } else if (pCreature->isMonster()) {
+            ::setDamage(pCreature, getDamage(), NULL, SKILL_ATTACK_MELEE, NULL, NULL);
+        }
+    }
 
-	__END_CATCH
+    setNextTime(30);
+
+    __END_CATCH
 }
 
-void EffectBlindness::unaffect() 
-{
-	__BEGIN_TRY
+void EffectBlindness::unaffect() {
+    __BEGIN_TRY
 
-	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-	{
-		unaffect( dynamic_cast<Creature*>(m_pTarget) );
-	}
+    if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+        unaffect(dynamic_cast<Creature*>(m_pTarget));
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectBlindness::unaffect( Creature* pCreature ) 
-{
-	__BEGIN_TRY
+void EffectBlindness::unaffect(Creature* pCreature) {
+    __BEGIN_TRY
 
-	pCreature->removeFlag( getEffectClass() );
+    pCreature->removeFlag(getEffectClass());
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList( getSendEffectClass() );
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EffectBlindness::toString() const throw()
-{
-	__BEGIN_TRY
+string EffectBlindness::toString() const throw() {
+    __BEGIN_TRY
 
-	return "EffectBlindness";
+    return "EffectBlindness";
 
-	__END_CATCH
+    __END_CATCH
 }

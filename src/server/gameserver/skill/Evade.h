@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Evade.h 
-// Written By  : 
-// Description : 
+// Filename    : Evade.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_EVADE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Evade;
 //////////////////////////////////////////////////////////////////////////////
 
-class Evade : public SkillHandler 
-{
+class Evade : public SkillHandler {
 public:
-	Evade() throw() {}
-	~Evade() throw() {}
-	
+    Evade() throw() {}
+    ~Evade() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Evade"; }
-	SkillType_t getSkillType() const throw() { return SKILL_EVADE; }
+    string getSkillHandlerName() const throw() {
+        return "Evade";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_EVADE;
+    }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -9,11 +9,12 @@
 #define __TELEPHONE_CENTER_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
-#include "Slayer.h"
-#include "Mutex.h"
 #include <unordered_map>
+
+#include "Exception.h"
+#include "Mutex.h"
+#include "Slayer.h"
+#include "Types.h"
 
 //--------------------------------------------------------------------------------
 // class TelephoneCenter;
@@ -23,25 +24,22 @@
 //
 //--------------------------------------------------------------------------------
 class TelephoneCenter {
-
 public:
+    // add creature to unordered_map
+    // execute just once at PC's login
+    void addSlayer(Slayer* pSlayer);
 
-	// add creature to unordered_map
-	// execute just once at PC's login
-	void addSlayer(Slayer* pSlayer) ;
+    // delete creature from unordered_map
+    // execute just once at PC's logout
+    void deleteSlayer(PhoneNumber_t PhoneNumber);
 
-	// delete creature from unordered_map
-	// execute just once at PC's logout
-	void deleteSlayer(PhoneNumber_t PhoneNumber) ;
-
-	// get creature with PC-name
-	Slayer* getSlayer(PhoneNumber_t PhoneNumber) const ;
+    // get creature with PC-name
+    Slayer* getSlayer(PhoneNumber_t PhoneNumber) const;
 
 private:
+    unordered_map<PhoneNumber_t, const Slayer*> m_PCs;
 
-	unordered_map< PhoneNumber_t, const Slayer* > m_PCs;
-
-	mutable Mutex m_Mutex;
+    mutable Mutex m_Mutex;
 };
 
 // global variable declaration

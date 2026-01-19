@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ShadowOfStorm.h 
-// Written By  : 
-// Description : 
+// Filename    : ShadowOfStorm.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SHADOW_OF_STORM_HANDLER_H__
@@ -13,20 +13,24 @@
 // class ShadowOfStorm;
 //////////////////////////////////////////////////////////////////////////////
 
-class ShadowOfStorm : public SkillHandler 
-{
+class ShadowOfStorm : public SkillHandler {
 public:
-	ShadowOfStorm() throw() {}
-	~ShadowOfStorm() throw() {}
-	
+    ShadowOfStorm() throw() {}
+    ~ShadowOfStorm() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ShadowOfStorm"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SHADOW_OF_STORM; }
+    string getSkillHandlerName() const throw() {
+        return "ShadowOfStorm";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SHADOW_OF_STORM;
+    }
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCDeleteObject.cpp 
+//
+// Filename    : GCDeleteObject.cpp
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,55 +12,53 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCDeleteObject::read (SocketInputStream & iStream ) 
-	 
+void GCDeleteObject::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
+    iStream.read(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCDeleteObject::write (SocketOutputStream & oStream ) const 
-     
+void GCDeleteObject::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCDeleteObject::execute (Player * pPlayer ) 
-	 
+void GCDeleteObject::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCDeleteObjectHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCDeleteObjectHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get debug string
 //////////////////////////////////////////////////////////////////////
-string GCDeleteObject::toString () const
-	
-{
-	StringStream msg;
-	msg << "GCDeleteObject("
-		<< "ObjectID:" << m_ObjectID
-		<< ")";
-	return msg.toString();
-}
+string GCDeleteObject::toString() const
 
+{
+    StringStream msg;
+    msg << "GCDeleteObject("
+        << "ObjectID:" << m_ObjectID << ")";
+    return msg.toString();
+}

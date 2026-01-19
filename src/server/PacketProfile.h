@@ -1,50 +1,48 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : PacketProfile.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PACKET_PROFILE_H__
 #define __PACKET_PROFILE_H__
 
-#include "Types.h"
-#include "Timeval.h"
 #include <unordered_map>
 
+#include "Timeval.h"
+#include "Types.h"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-class PacketProfile
-{
+class PacketProfile {
 public:
-	PacketProfile()
-	{
-		PacketName = "";
-		CallCount  = 0;
-		AccuTime.tv_sec = 0;
-		AccuTime.tv_usec = 0;
-	}
+    PacketProfile() {
+        PacketName = "";
+        CallCount = 0;
+        AccuTime.tv_sec = 0;
+        AccuTime.tv_usec = 0;
+    }
 
 public:
-	string  PacketName;
-	int     CallCount;
-	Timeval AccuTime;
+    string PacketName;
+    int CallCount;
+    Timeval AccuTime;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-class PacketProfileManager
-{
+class PacketProfileManager {
 public:
-	PacketProfileManager();
-	~PacketProfileManager();
+    PacketProfileManager();
+    ~PacketProfileManager();
 
 public:
-	void init(void);
-	void addAccuTime(const string& PacketName, const Timeval& start, const Timeval& end);
-	void outputResultToFile(const string& filename);
+    void init(void);
+    void addAccuTime(const string& PacketName, const Timeval& start, const Timeval& end);
+    void outputResultToFile(const string& filename);
 
 protected:
-	unordered_map<string, PacketProfile*> m_NameMap;
+    unordered_map<string, PacketProfile*> m_NameMap;
 };
 
 extern PacketProfileManager g_PacketProfileManager;

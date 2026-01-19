@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCSystemMessage.cpp 
+//
+// Filename    : GCSystemMessage.cpp
 // Written By  : reiot@ewestsoft.com
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,89 +12,84 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCSystemMessage::read (SocketInputStream & iStream ) 
-	 
+void GCSystemMessage::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szMessage;
+    __BEGIN_TRY
 
-	iStream.read(szMessage);
+    BYTE szMessage;
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    iStream.read(szMessage);
 
-	iStream.read(m_Message , szMessage);
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	iStream.read(m_Color);
+    iStream.read(m_Message, szMessage);
 
-	BYTE t;
-	iStream.read(t);
-	m_Type = (SystemMessageType)t;
+    iStream.read(m_Color);
 
-	__END_CATCH
+    BYTE t;
+    iStream.read(t);
+    m_Type = (SystemMessageType)t;
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCSystemMessage::write (SocketOutputStream & oStream ) const 
-     
+void GCSystemMessage::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szMessage = m_Message.size();
+    __BEGIN_TRY
 
-	oStream.write(szMessage);
+    BYTE szMessage = m_Message.size();
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    oStream.write(szMessage);
 
-	oStream.write(m_Message);
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	oStream.write(m_Color);
+    oStream.write(m_Message);
 
-	BYTE t = (BYTE)m_Type;
-	oStream.write(t);
+    oStream.write(m_Color);
 
-	__END_CATCH
+    BYTE t = (BYTE)m_Type;
+    oStream.write(t);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCSystemMessage::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCSystemMessageHandler::execute(this , pPlayer);
+void GCSystemMessage::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCSystemMessageHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCSystemMessage::toString () const
-       
+string GCSystemMessage::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCSystemMessage("
-		<< "Type:" << (int)m_Type 
-		<< ",Color:" << m_Color 
-		<< ",Message:" << m_Message 
-		<< ")" ;
-	
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "GCSystemMessage("
+        << "Type:" << (int)m_Type << ",Color:" << m_Color << ",Message:" << m_Message << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

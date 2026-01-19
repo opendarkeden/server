@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Illendue.h 
-// Written By  : 
-// Description : 
+// Filename    : Illendue.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ILLENDUE_HANDLER_H__
@@ -13,20 +13,23 @@
 // class Illendue;
 //////////////////////////////////////////////////////////////////////////////
 
-class Illendue : public SkillHandler 
-{
+class Illendue : public SkillHandler {
 public:
-	Illendue() throw() {}
-	~Illendue() throw() {}
-	
+    Illendue() throw() {}
+    ~Illendue() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Illendue"; }
+    string getSkillHandlerName() const throw() {
+        return "Illendue";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_ILLENDUE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ILLENDUE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

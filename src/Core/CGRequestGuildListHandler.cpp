@@ -6,103 +6,97 @@
 
 #include "CGRequestGuildList.h"
 #include "Creature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "Guild.h"
-#include "GuildManager.h"
-#include "GuildInfo.h"
-#include "GCWaitGuildList.h"
 #include "GCActiveGuildList.h"
 #include "GCSystemMessage.h"
+#include "GCWaitGuildList.h"
+#include "GamePlayer.h"
+#include "Guild.h"
+#include "GuildInfo.h"
+#include "GuildManager.h"
+#include "NPC.h"
+#include "Ousters.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 
 #ifdef __GAME_SERVER__
-	#include "SystemAvailabilitiesManager.h"
-	#include "Assert1.h"
-#endif	// __GAME_SERVER__
+#include "Assert1.h"
+#include "SystemAvailabilitiesManager.h"
+#endif // __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGRequestGuildListHandler::execute (CGRequestGuildList* pPacket , Player* pPlayer)
-	 
+void CGRequestGuildListHandler::execute(CGRequestGuildList* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	SYSTEM_ASSERT(SYSTEM_GUILD);
+    SYSTEM_ASSERT(SYSTEM_GUILD);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	Creature* pCreature = pGamePlayer->getCreature();
-	Assert(pCreature != NULL);
+    Creature* pCreature = pGamePlayer->getCreature();
+    Assert(pCreature != NULL);
 
 #ifdef __OLD_GUILD_WAR__
-	GCSystemMessage gcSM;
-	gcSM.setMessage("아직 지원되지 않는 기능입니다.");
-	pGamePlayer->sendPacket(&gcSM);
-	return;
+    GCSystemMessage gcSM;
+    gcSM.setMessage("아직 지원되지 않는 기능입니다.");
+    pGamePlayer->sendPacket(&gcSM);
+    return;
 #endif
 
-	GuildType_t	tmpGuildType	= pPacket->getGuildType();
+    GuildType_t tmpGuildType = pPacket->getGuildType();
 
-	// 대기길드 이면
-	if (tmpGuildType == CGRequestGuildList::GUILDTYPE_WAIT )
-	{
-		GCWaitGuildList gcWaitGuildList;
+    // 대기길드 이면
+    if (tmpGuildType == CGRequestGuildList::GUILDTYPE_WAIT) {
+        GCWaitGuildList gcWaitGuildList;
 
-		GuildRace_t	race;
-		if (pCreature->isSlayer() )
-			race = Guild::GUILD_RACE_SLAYER;
-		else if (pCreature->isVampire() )
-			race = Guild::GUILD_RACE_VAMPIRE;
-		else if (pCreature->isOusters() )
-			race = Guild::GUILD_RACE_OUSTERS;
-		else
-			return;
+        GuildRace_t race;
+        if (pCreature->isSlayer())
+            race = Guild::GUILD_RACE_SLAYER;
+        else if (pCreature->isVampire())
+            race = Guild::GUILD_RACE_VAMPIRE;
+        else if (pCreature->isOusters())
+            race = Guild::GUILD_RACE_OUSTERS;
+        else
+            return;
 
-		g_pGuildManager->makeWaitGuildList(gcWaitGuildList, race);
+        g_pGuildManager->makeWaitGuildList(gcWaitGuildList, race);
 
-		pPlayer->sendPacket(&gcWaitGuildList);
+        pPlayer->sendPacket(&gcWaitGuildList);
 
-	}
-	// 일반길드 이면
-	else if(tmpGuildType == CGRequestGuildList::GUILDTYPE_NORMAL )
-	{
-		GCActiveGuildList gcActiveGuildList;
+    }
+    // 일반길드 이면
+    else if (tmpGuildType == CGRequestGuildList::GUILDTYPE_NORMAL) {
+        GCActiveGuildList gcActiveGuildList;
 
-		GuildRace_t race;
+        GuildRace_t race;
 
-		if (pCreature->isSlayer() )
-			race = Guild::GUILD_RACE_SLAYER;
-		else if (pCreature->isVampire() )
-			race = Guild::GUILD_RACE_VAMPIRE;
-		else if (pCreature->isOusters() )
-			race = Guild::GUILD_RACE_OUSTERS;
-		else
-			return;
+        if (pCreature->isSlayer())
+            race = Guild::GUILD_RACE_SLAYER;
+        else if (pCreature->isVampire())
+            race = Guild::GUILD_RACE_VAMPIRE;
+        else if (pCreature->isOusters())
+            race = Guild::GUILD_RACE_OUSTERS;
+        else
+            return;
 
-		g_pGuildManager->makeActiveGuildList(gcActiveGuildList, race);
+        g_pGuildManager->makeActiveGuildList(gcActiveGuildList, race);
 
-		pPlayer->sendPacket(&gcActiveGuildList);
+        pPlayer->sendPacket(&gcActiveGuildList);
 
-	}
-	else
-	{
-		return;
-	}
+    } else {
+        return;
+    }
 
 
-	
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

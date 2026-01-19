@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : BloodBibleBonusManager.cpp
 // Written By  : beowulf
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
-#include "BloodBibleBonus.h"
 #include "BloodBibleBonusManager.h"
-#include "DB.h"
 
+#include "BloodBibleBonus.h"
+#include "DB.h"
 #include "GCHolyLandBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -15,196 +15,186 @@
 //////////////////////////////////////////////////////////////////////////////
 
 BloodBibleBonusManager::BloodBibleBonusManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_Count = 0;
+    m_Count = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 BloodBibleBonusManager::~BloodBibleBonusManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	clear();
+    clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 void BloodBibleBonusManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void BloodBibleBonusManager::clear()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BloodBibleBonusHashMapItor itr = m_BloodBibleBonuses.begin();
-	for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
-	{
-		SAFE_DELETE( itr->second );
-	}
+    BloodBibleBonusHashMapItor itr = m_BloodBibleBonuses.begin();
+    for (; itr != m_BloodBibleBonuses.end(); itr++) {
+        SAFE_DELETE(itr->second);
+    }
 
-	m_BloodBibleBonuses.clear();
-	
-	__END_CATCH
+    m_BloodBibleBonuses.clear();
+
+    __END_CATCH
 }
 
 void BloodBibleBonusManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	clear();
+    clear();
 
-	Statement* pStmt    = NULL;
-	Result*    pResult  = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(Type) FROM BloodBibleBonusInfo");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		if (pResult->getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in BloodBibleBonusInfo Table");
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(Type) FROM BloodBibleBonusInfo");
 
-		pResult->next();
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in BloodBibleBonusInfo Table");
+        }
 
-		m_Count = pResult->getInt(1) + 1;
+        pResult->next();
 
-		Assert (m_Count > 0);
+        m_Count = pResult->getInt(1) + 1;
 
-		pResult = pStmt->executeQuery("SELECT Type, Name, OptionList FROM BloodBibleBonusInfo");
+        Assert(m_Count > 0);
 
-		while (pResult->next()) 
-		{
-			BloodBibleBonus* pBloodBibleBonus = new BloodBibleBonus();
-			int i = 0;
+        pResult = pStmt->executeQuery("SELECT Type, Name, OptionList FROM BloodBibleBonusInfo");
 
-			pBloodBibleBonus->setType( pResult->getInt(++i) );
-			pBloodBibleBonus->setName( pResult->getString(++i) );
-			pBloodBibleBonus->setOptionTypeList( pResult->getString(++i) );
-			pBloodBibleBonus->setRace( 0 );
+        while (pResult->next()) {
+            BloodBibleBonus* pBloodBibleBonus = new BloodBibleBonus();
+            int i = 0;
 
-			addBloodBibleBonus(pBloodBibleBonus);
-		}
-		
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            pBloodBibleBonus->setType(pResult->getInt(++i));
+            pBloodBibleBonus->setName(pResult->getString(++i));
+            pBloodBibleBonus->setOptionTypeList(pResult->getString(++i));
+            pBloodBibleBonus->setRace(0);
 
-	__END_DEBUG
-	__END_CATCH
+            addBloodBibleBonus(pBloodBibleBonus);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void BloodBibleBonusManager::save()
-	
-{
-	__BEGIN_TRY
 
-	throw UnsupportedError (__PRETTY_FUNCTION__);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    throw UnsupportedError(__PRETTY_FUNCTION__);
+
+    __END_CATCH
 }
 
-BloodBibleBonus* BloodBibleBonusManager::getBloodBibleBonus( BloodBibleBonusType_t bloodBibleBonusType ) const
-{
-	__BEGIN_TRY
+BloodBibleBonus* BloodBibleBonusManager::getBloodBibleBonus(BloodBibleBonusType_t bloodBibleBonusType) const {
+    __BEGIN_TRY
 
-	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find( bloodBibleBonusType );
+    BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find(bloodBibleBonusType);
 
-	if ( itr == m_BloodBibleBonuses.end() )
-	{
-		cerr << "BloodBibleBonusManager::getBloodBibleBonus() : no such element" << endl;
-		throw NoSuchElementException();
-	}
+    if (itr == m_BloodBibleBonuses.end()) {
+        cerr << "BloodBibleBonusManager::getBloodBibleBonus() : no such element" << endl;
+        throw NoSuchElementException();
+    }
 
-	return itr->second;
+    return itr->second;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void BloodBibleBonusManager::addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonus)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert (pBloodBibleBonus != NULL);
+    Assert(pBloodBibleBonus != NULL);
 
-	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find( pBloodBibleBonus->getType() );
-	if ( itr != m_BloodBibleBonuses.end() )
-	{
-		throw DuplicatedException ();
-	}
+    BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find(pBloodBibleBonus->getType());
+    if (itr != m_BloodBibleBonuses.end()) {
+        throw DuplicatedException();
+    }
 
-	m_BloodBibleBonuses[pBloodBibleBonus->getType()] = pBloodBibleBonus;
+    m_BloodBibleBonuses[pBloodBibleBonus->getType()] = pBloodBibleBonus;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void BloodBibleBonusManager::setBloodBibleBonusRace( BloodBibleBonusType_t bloodBibleBonusType, Race_t race )
-	
+void BloodBibleBonusManager::setBloodBibleBonusRace(BloodBibleBonusType_t bloodBibleBonusType, Race_t race)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	getBloodBibleBonus( bloodBibleBonusType )->setRace( race );
+    getBloodBibleBonus(bloodBibleBonusType)->setRace(race);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void BloodBibleBonusManager::makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyLandBonusInfo )
-	
-{
-	__BEGIN_TRY
+void BloodBibleBonusManager::makeHolyLandBonusInfo(GCHolyLandBonusInfo& gcHolyLandBonusInfo)
 
-/*	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
-	for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
-	{
-		BloodBibleBonusInfo* pInfo = new BloodBibleBonusInfo();
-		BloodBibleBonus* pBonus = itr->second;
+    {__BEGIN_TRY
 
-		pInfo->setType( pBonus->getType() );
-		pInfo->setRace( pBonus->getRace() );
-		pInfo->setOptionType( pBonus->getOptionTypeList() );
+         /*	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
+              for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
+              {
+                  BloodBibleBonusInfo* pInfo = new BloodBibleBonusInfo();
+                  BloodBibleBonus* pBonus = itr->second;
 
-		gcHolyLandBonusInfo.addBloodBibleBonusInfo( pInfo );
-	}*/
+                  pInfo->setType( pBonus->getType() );
+                  pInfo->setRace( pBonus->getRace() );
+                  pInfo->setOptionType( pBonus->getOptionTypeList() );
 
-	__END_CATCH
-}
+                  gcHolyLandBonusInfo.addBloodBibleBonusInfo( pInfo );
+              }*/
+
+         __END_CATCH}
 
 string BloodBibleBonusManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "BloodBibleBonusManager(\n";
+    msg << "BloodBibleBonusManager(\n";
 
-	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
-	for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
-	{
-		msg << itr->second->toString() << ",";
-	}
+    BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
+    for (; itr != m_BloodBibleBonuses.end(); itr++) {
+        msg << itr->second->toString() << ",";
+    }
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Global Variable definition

@@ -4,3 +4,23 @@ build/
 *.o
 *.a
 .deps
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.clang-format-backup
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile.bak
+
+# Compiled files
+*.so
+*.dylib
+*.exe

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : WildSmash.h 
+// Filename    : WildSmash.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_WILD_SMASH_HANDLER_H__
@@ -13,19 +13,22 @@
 // class WildSmash;
 //////////////////////////////////////////////////////////////////////////////
 
-class WildSmash : public SkillHandler 
-{
+class WildSmash : public SkillHandler {
 public:
-	WildSmash() throw() {}
-	~WildSmash() throw() {}
-	
+    WildSmash() throw() {}
+    ~WildSmash() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "WildSmash"; }
-	SkillType_t getSkillType() const throw() { return SKILL_WILD_SMASH; }
+    string getSkillHandlerName() const throw() {
+        return "WildSmash";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_WILD_SMASH;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

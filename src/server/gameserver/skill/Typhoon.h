@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Typhoon.h 
+// Filename    : Typhoon.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TYPHOON_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Typhoon;
 //////////////////////////////////////////////////////////////////////////////
 
-class Typhoon : public SkillHandler 
-{
+class Typhoon : public SkillHandler {
 public:
-	Typhoon() throw() {}
-	~Typhoon() throw() {}
-	
+    Typhoon() throw() {}
+    ~Typhoon() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Typhoon"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TYPHOON; }
+    string getSkillHandlerName() const throw() {
+        return "Typhoon";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TYPHOON;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

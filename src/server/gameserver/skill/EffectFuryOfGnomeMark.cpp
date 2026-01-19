@@ -1,101 +1,96 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectFuryOfGnomeMark.cpp
 // Written by  :
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
+
+#include "EffectFuryOfGnomeMark.h"
 
 #include "DB.h"
-#include "EffectFuryOfGnomeMark.h"
-#include "Slayer.h"
-#include "Ousters.h"
-#include "Monster.h"
-#include "GamePlayer.h"
-#include "SkillUtil.h"
-#include "ZoneUtil.h"
-
+#include "GCAddEffect.h"
 #include "GCModifyInformation.h"
 #include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "GamePlayer.h"
+#include "Monster.h"
+#include "Ousters.h"
+#include "SkillUtil.h"
+#include "Slayer.h"
+#include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectFuryOfGnomeMark::EffectFuryOfGnomeMark(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) 
-	
+EffectFuryOfGnomeMark::EffectFuryOfGnomeMark(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = zoneX;
-	m_Y = zoneY;
-	m_CasterName ="";
-	m_CasterID = 0;
+    m_pZone = pZone;
+    m_X = zoneX;
+    m_Y = zoneY;
+    m_CasterName = "";
+    m_CasterID = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnomeMark::affect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectFuryOfGnomeMark" << "affect BEGIN" << endl;
-	
-	__END_CATCH 
+{
+    __BEGIN_TRY
+
+    // cout << "EffectFuryOfGnomeMark" << "affect BEGIN" << endl;
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnomeMark::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnomeMark::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectFuryOfGnomeMark::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectFuryOfGnomeMark" << "unaffect BEGIN" << endl;
+{
+    __BEGIN_TRY
+
+    // cout << "EffectFuryOfGnomeMark" << "unaffect BEGIN" << endl;
 
     Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+    tile.deleteEffect(m_ObjectID);
 
-	//cout << "EffectFuryOfGnomeMark" << "unaffect END" << endl;
+    // cout << "EffectFuryOfGnomeMark" << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectFuryOfGnomeMark::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectFuryOfGnomeMark::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectFuryOfGnomeMark("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectFuryOfGnomeMark("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

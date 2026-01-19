@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AttackMelee.h 
+// Filename    : AttackMelee.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ATTACK_MELEE_HANDLER_H__
@@ -13,23 +13,26 @@
 // class AttackMelee;
 //////////////////////////////////////////////////////////////////////////////
 
-class AttackMelee : public SkillHandler 
-{
+class AttackMelee : public SkillHandler {
 public:
-	AttackMelee() throw() {}
-	~AttackMelee() throw() {}
-	
+    AttackMelee() throw() {}
+    ~AttackMelee() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AttackMelee"; }
+    string getSkillHandlerName() const throw() {
+        return "AttackMelee";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_ATTACK_MELEE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ATTACK_MELEE;
+    }
 
-	void execute(Slayer* pPlayer, ObjectID_t ObjectID) ;
-	void execute(Vampire* pCreature, ObjectID_t ObjectID) ;
-	void execute(Monster* pCreature, Creature* pEnemy) ;
-	void execute(Ousters* pCreature, ObjectID_t ObjectID) ;
+    void execute(Slayer* pPlayer, ObjectID_t ObjectID);
+    void execute(Vampire* pCreature, ObjectID_t ObjectID);
+    void execute(Monster* pCreature, Creature* pEnemy);
+    void execute(Ousters* pCreature, ObjectID_t ObjectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

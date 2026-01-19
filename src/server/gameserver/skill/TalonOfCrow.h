@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TalonOfCrow.h 
+// Filename    : TalonOfCrow.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TALON_OF_CROW_HANDLER_H__
@@ -13,21 +13,25 @@
 // class TalonOfCrow;
 //////////////////////////////////////////////////////////////////////////////
 
-class TalonOfCrow: public SkillHandler 
-{
+class TalonOfCrow : public SkillHandler {
 public:
-	TalonOfCrow() throw() {}
-	~TalonOfCrow() throw() {}
-	
+    TalonOfCrow() throw() {}
+    ~TalonOfCrow() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "TalonOfCrow"; }
+    string getSkillHandlerName() const throw() {
+        return "TalonOfCrow";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_TALON_OF_CROW; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TALON_OF_CROW;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

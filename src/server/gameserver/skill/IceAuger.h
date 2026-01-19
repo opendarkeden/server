@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : IceAuger.h 
-// Written By  : 
-// Description : 
+// Filename    : IceAuger.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ICE_AUGER_HANDLER_H__
@@ -13,19 +13,22 @@
 // class IceAuger;
 //////////////////////////////////////////////////////////////////////////////
 
-class IceAuger : public SkillHandler 
-{
+class IceAuger : public SkillHandler {
 public:
-	IceAuger() throw() {}
-	~IceAuger() throw() {}
-	
+    IceAuger() throw() {}
+    ~IceAuger() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "IceAuger"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ICE_AUGER; }
+    string getSkillHandlerName() const throw() {
+        return "IceAuger";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ICE_AUGER;
+    }
 
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

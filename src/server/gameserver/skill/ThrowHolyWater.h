@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ThrowHolyWater.h 
+// Filename    : ThrowHolyWater.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_THROW_HOLY_WATER_HANDLER_H__
@@ -13,19 +13,22 @@
 // class ThrowHolyWater;
 //////////////////////////////////////////////////////////////////////////////
 
-class ThrowHolyWater : public SkillHandler 
-{
+class ThrowHolyWater : public SkillHandler {
 public:
-	ThrowHolyWater() throw() {}
-	~ThrowHolyWater() throw() {}
-	
+    ThrowHolyWater() throw() {}
+    ~ThrowHolyWater() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ThrowHolyWater"; }
-	SkillType_t getSkillType() const throw() { return SKILL_THROW_HOLY_WATER; }
+    string getSkillHandlerName() const throw() {
+        return "ThrowHolyWater";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_THROW_HOLY_WATER;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectID_t ItemObjectID, CoordInven_t X, CoordInven_t Y) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectID_t ItemObjectID, CoordInven_t X, CoordInven_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

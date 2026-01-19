@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGSelectQuest.h 
+//
+// Filename    : CGSelectQuest.h
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SELECT_QUEST_H__
 #define __CG_SELECT_QUEST_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,47 +21,58 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class CGSelectQuest : public Packet
-{
+class CGSelectQuest : public Packet {
 public:
-	CGSelectQuest() {};
+    CGSelectQuest() {};
     virtual ~CGSelectQuest() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_SELECT_QUEST; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szQuestID + szObjectID; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_SELECT_QUEST;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGSelectQuest"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szQuestID + szObjectID;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet name
+    string getPacketName() const {
+        return "CGSelectQuest";
+    }
 
-	// get/set QuestID
-	QuestID_t getQuestID() const  { return m_QuestID; }
-	void setQuestID(QuestID_t QuestID )  { m_QuestID = QuestID; }
+    // get packet's debug string
+    string toString() const;
 
-	ObjectID_t	getNPCObjectID() const { return m_NPCOID; }
-	void		setNPCObjectID(ObjectID_t oid) { m_NPCOID = oid; }
+    // get/set QuestID
+    QuestID_t getQuestID() const {
+        return m_QuestID;
+    }
+    void setQuestID(QuestID_t QuestID) {
+        m_QuestID = QuestID;
+    }
 
-private :
+    ObjectID_t getNPCObjectID() const {
+        return m_NPCOID;
+    }
+    void setNPCObjectID(ObjectID_t oid) {
+        m_NPCOID = oid;
+    }
 
-	// Quest ID
-	QuestID_t m_QuestID;
+private:
+    // Quest ID
+    QuestID_t m_QuestID;
 
-	// NPC의 ObjectID
-	ObjectID_t	m_NPCOID;
-	
+    // NPC의 ObjectID
+    ObjectID_t m_NPCOID;
 };
 
 
@@ -74,29 +85,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGSelectQuestFactory : public PacketFactory {
+public:
+    // constructor
+    CGSelectQuestFactory() {}
+
+    // destructor
+    virtual ~CGSelectQuestFactory() {}
+
 
 public:
-	
-	// constructor
-	CGSelectQuestFactory()  {}
-	
-	// destructor
-	virtual ~CGSelectQuestFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGSelectQuest();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGSelectQuest(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGSelectQuest";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGSelectQuest"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SELECT_QUEST; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_SELECT_QUEST;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szQuestID + szObjectID; }
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szQuestID + szObjectID;
+    }
 };
 
 
@@ -107,12 +123,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGSelectQuestHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGSelectQuest* pCGSelectQuest, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGSelectQuest* pCGSelectQuest, Player* pPlayer);
 };
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SetAfire.h 
-// Written By  : 
-// Description : 
+// Filename    : SetAfire.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SET_AFIRE_HANDLER_H__
@@ -13,20 +13,24 @@
 // class SetAfire;
 //////////////////////////////////////////////////////////////////////////////
 
-class SetAfire: public SkillHandler 
-{
+class SetAfire : public SkillHandler {
 public:
-	SetAfire() throw() {}
-	~SetAfire() throw() {}
-	
+    SetAfire() throw() {}
+    ~SetAfire() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SetAfire"; }
+    string getSkillHandlerName() const throw() {
+        return "SetAfire";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_SET_AFIRE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SET_AFIRE;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

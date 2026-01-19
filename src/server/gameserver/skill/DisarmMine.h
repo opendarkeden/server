@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DisarmMine.h 
+// Filename    : DisarmMine.h
 // Written By  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DISARM_MINE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class DisarmMine;
 //////////////////////////////////////////////////////////////////////////////
 
-class DisarmMine: public SkillHandler 
-{
-public :
-	DisarmMine () throw () {}
-	~DisarmMine () throw () {}
-	
-public :
-    string getSkillHandlerName () const throw () { return "DisarmMine"; }
-	SkillType_t getSkillType () const throw () { return SKILL_DISARM_MINE; }
+class DisarmMine : public SkillHandler {
+public:
+    DisarmMine() throw() {}
+    ~DisarmMine() throw() {}
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID) ;
+public:
+    string getSkillHandlerName() const throw() {
+        return "DisarmMine";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DISARM_MINE;
+    }
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

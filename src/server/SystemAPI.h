@@ -12,17 +12,17 @@
 //////////////////////////////////////////////////
 // include files
 //////////////////////////////////////////////////
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 
 namespace SystemAPI {
-	
+
 //
 // exception version of fork()
 //
-int fork_ex () ;
+int fork_ex();
 
-};
+}; // namespace SystemAPI
 
 #endif

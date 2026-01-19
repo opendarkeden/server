@@ -1,38 +1,37 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLSelectWorld.cpp 
+// Filename    : CLSelectWorld.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLSelectWorld.h"
 
-void CLSelectWorld::read (SocketInputStream & iStream) 
-	 
+void CLSelectWorld::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_WorldID);
+    iStream.read(m_WorldID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CLSelectWorld::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-	
-	oStream.write(m_WorldID);
+void CLSelectWorld::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_WorldID);
+
+    __END_CATCH
 }
 
-void CLSelectWorld::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CLSelectWorldHandler::execute (this , pPlayer);
-		
-	__END_CATCH
-}
+void CLSelectWorld::execute(Player* pPlayer)
 
+{
+    __BEGIN_TRY
+
+    CLSelectWorldHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}

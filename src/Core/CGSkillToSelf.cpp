@@ -1,100 +1,90 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSkillToSelf.cpp 
+// Filename    : CGSkillToSelf.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGSkillToSelf.h"
+
+#include "Assert1.h"
 #include "SocketEncryptInputStream.h"
 #include "SocketEncryptOutputStream.h"
-#include "Assert1.h"
 
 
-CGSkillToSelf::CGSkillToSelf () 
-     
+CGSkillToSelf::CGSkillToSelf()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGSkillToSelf::~CGSkillToSelf()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGSkillToSelf::~CGSkillToSelf () 
-    
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
+void CGSkillToSelf::read(SocketInputStream& iStream)
 
-void CGSkillToSelf::read (SocketInputStream & iStream) 
-	 
 {
-	__BEGIN_TRY
-		
+    __BEGIN_TRY
+
 #ifdef __USE_ENCRYPTER__
-	SocketEncryptInputStream* pEIStream = dynamic_cast<SocketEncryptInputStream*>(&iStream);
-    Assert(pEIStream!=NULL);
+    SocketEncryptInputStream* pEIStream = dynamic_cast<SocketEncryptInputStream*>(&iStream);
+    Assert(pEIStream != NULL);
 
-	if (pEIStream->getEncryptCode()!=0)
-	{
-		SHUFFLE_STATEMENT_2(pEIStream->getEncryptCode(),
-							pEIStream->readEncrypt(m_SkillType),
-							pEIStream->readEncrypt(m_CEffectID));
-	}
-	else
+    if (pEIStream->getEncryptCode() != 0) {
+        SHUFFLE_STATEMENT_2(pEIStream->getEncryptCode(), pEIStream->readEncrypt(m_SkillType),
+                            pEIStream->readEncrypt(m_CEffectID));
+    } else
 #endif
-	{
-		iStream.read((char*)&m_SkillType , szSkillType);
-		iStream.read((char*)&m_CEffectID , szCEffectID);
-	}
+    {
+        iStream.read((char*)&m_SkillType, szSkillType);
+        iStream.read((char*)&m_CEffectID, szCEffectID);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGSkillToSelf::write (SocketOutputStream & oStream) const 
-     
+void CGSkillToSelf::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
+    __BEGIN_TRY
+
 #ifdef __USE_ENCRYPTER__
-	SocketEncryptOutputStream* pEOStream = dynamic_cast<SocketEncryptOutputStream*>(&oStream);
-    Assert(pEOStream!=NULL);
+    SocketEncryptOutputStream* pEOStream = dynamic_cast<SocketEncryptOutputStream*>(&oStream);
+    Assert(pEOStream != NULL);
 
-	if (pEOStream->getEncryptCode()!=0)
-	{
-		SHUFFLE_STATEMENT_2(pEOStream->getEncryptCode(),
-							pEOStream->writeEncrypt(m_SkillType),
-							pEOStream->writeEncrypt(m_CEffectID));
-	}
-	else
+    if (pEOStream->getEncryptCode() != 0) {
+        SHUFFLE_STATEMENT_2(pEOStream->getEncryptCode(), pEOStream->writeEncrypt(m_SkillType),
+                            pEOStream->writeEncrypt(m_CEffectID));
+    } else
 #endif
-	{
-		oStream.write((char*)&m_SkillType , szSkillType);
-		oStream.write((char*)&m_CEffectID , szCEffectID);
-	}
+    {
+        oStream.write((char*)&m_SkillType, szSkillType);
+        oStream.write((char*)&m_CEffectID, szCEffectID);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGSkillToSelf::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGSkillToSelfHandler::execute(this , pPlayer);
+void CGSkillToSelf::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGSkillToSelfHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGSkillToSelf::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGSkillToSelf("
-		<< "SkillType:" << (int)m_SkillType 
-		<< ",CEffectID:" << (int)m_CEffectID 
-		<< ")" ;
-	return msg.toString();
+string CGSkillToSelf::toString() const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGSkillToSelf("
+        << "SkillType:" << (int)m_SkillType << ",CEffectID:" << (int)m_CEffectID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

@@ -8,8 +8,9 @@
 #define __MUTEX_H__
 
 #include <pthread.h>
-#include "Types.h"
+
 #include "Exception.h"
+#include "Types.h"
 
 // forward declaration
 class MutexAttr;
@@ -18,26 +19,31 @@ class MutexAttr;
 // class Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
-class Mutex 
-{
+class Mutex {
 public:
-	Mutex ( MutexAttr * attr = NULL ) ;
-	virtual ~Mutex () noexcept;
+    Mutex(MutexAttr* attr = NULL);
+    virtual ~Mutex() noexcept;
 
 public:
-	string getName(void) const { return m_Name; }
-	void setName(string name) { m_Name = name; }
+    string getName(void) const {
+        return m_Name;
+    }
+    void setName(string name) {
+        m_Name = name;
+    }
 
-	void lock () ;
-	void unlock () ;
-	void trylock () ;
-	
-	pthread_mutex_t * getMutex () { return &m_Mutex; }
+    void lock();
+    void unlock();
+    void trylock();
+
+    pthread_mutex_t* getMutex() {
+        return &m_Mutex;
+    }
 
 private:
-	pthread_mutex_t 	m_Mutex; 		// ���ؽ� ��ü
-	string 				m_Name; 		// �� ���ؽ��� ������ Ŭ���� �̸�
-	int 				m_LockTID;		// ���� ���� �� ���� precoess id
+    pthread_mutex_t m_Mutex; // ���ؽ� ��ü
+    string m_Name;           // �� ���ؽ��� ������ Ŭ���� �̸�
+    int m_LockTID;           // ���� ���� �� ���� precoess id
 };
 
 #endif

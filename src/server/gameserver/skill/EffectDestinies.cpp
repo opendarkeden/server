@@ -1,205 +1,193 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectDestinies.cpp
 // Written by  :
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
-#include "DB.h"
 #include "EffectDestinies.h"
-#include "Monster.h"
-#include "GamePlayer.h"
-#include "SkillUtil.h"
-#include "ZoneUtil.h"
-#include "Zone.h"
 
+#include "DB.h"
 #include "GCSkillToObjectOK4.h"
 #include "GCSkillToObjectOK6.h"
+#include "GamePlayer.h"
+#include "Monster.h"
+#include "SkillUtil.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectDestinies::EffectDestinies(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pTarget = pCreature;
-	m_UserOID = 0;
-	m_Damage = 0;
-	m_TargetClass = Creature::CREATURE_CLASS_MAX;
-	m_TargetSpriteType = 0;
+    m_pTarget = pCreature;
+    m_UserOID = 0;
+    m_Damage = 0;
+    m_TargetClass = Creature::CREATURE_CLASS_MAX;
+    m_TargetSpriteType = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectDestinies::setTargetType( Creature* pCreature )
-{
-	if ( pCreature == NULL ) return;
-	m_TargetClass = pCreature->getCreatureClass();
+void EffectDestinies::setTargetType(Creature* pCreature) {
+    if (pCreature == NULL)
+        return;
+    m_TargetClass = pCreature->getCreatureClass();
 
-	if ( m_TargetClass == Creature::CREATURE_CLASS_MONSTER )
-	{
-		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		m_TargetSpriteType = pMonster->getSpriteType();
-	}
+    if (m_TargetClass == Creature::CREATURE_CLASS_MONSTER) {
+        Monster* pMonster = dynamic_cast<Monster*>(pCreature);
+        m_TargetSpriteType = pMonster->getSpriteType();
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectDestinies::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setDeadline(0);
+    setDeadline(0);
 
-	Creature* pCaster = dynamic_cast<Creature*>(m_pTarget);
-	int cx = pCaster->getX();
-	int cy = pCaster->getY();
+    Creature* pCaster = dynamic_cast<Creature*>(m_pTarget);
+    int cx = pCaster->getX();
+    int cy = pCaster->getY();
 
-	Zone* pZone = pCaster->getZone();
+    Zone* pZone = pCaster->getZone();
 
-	for ( int i=-8; i<=8; ++i )
-	for ( int j=-8; j<=8; ++j )
-	{
-		int tx = cx + i;
-		int ty = cy + j;
-		if ( tx < 0 || ty < 0 ) continue;
-		if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
+    for (int i = -8; i <= 8; ++i)
+        for (int j = -8; j <= 8; ++j) {
+            int tx = cx + i;
+            int ty = cy + j;
+            if (tx < 0 || ty < 0)
+                continue;
+            if (!isValidZoneCoord(pZone, tx, ty))
+                continue;
 
-		forward_list<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
-		forward_list<Object*>::iterator itr = olist.begin();
-		for ( ; itr != olist.end() ; ++itr )
-		{
-			Object* pObject = *itr;
-			if ( pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+            forward_list<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
+            forward_list<Object*>::iterator itr = olist.begin();
+            for (; itr != olist.end(); ++itr) {
+                Object* pObject = *itr;
+                if (pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE)
+                    continue;
 
-			Creature* pCreature = dynamic_cast<Creature*>(pObject);
-			if ( pCreature == NULL ) continue;
+                Creature* pCreature = dynamic_cast<Creature*>(pObject);
+                if (pCreature == NULL)
+                    continue;
 
-			bool isTarget = false;
-			if ( pCreature->getCreatureClass() == m_TargetClass )
-			{
-				isTarget = true;
-				if ( m_TargetClass == Creature::CREATURE_CLASS_MONSTER )
-				{
-					Monster* pTargetMonster = dynamic_cast<Monster*>(pCreature);
-					if ( pTargetMonster->getSpriteType() != m_TargetSpriteType ) isTarget = false;
-				}
-			}
+                bool isTarget = false;
+                if (pCreature->getCreatureClass() == m_TargetClass) {
+                    isTarget = true;
+                    if (m_TargetClass == Creature::CREATURE_CLASS_MONSTER) {
+                        Monster* pTargetMonster = dynamic_cast<Monster*>(pCreature);
+                        if (pTargetMonster->getSpriteType() != m_TargetSpriteType)
+                            isTarget = false;
+                    }
+                }
 
-			if ( isTarget ) affect(pCreature);
-		}
-	}
+                if (isTarget)
+                    affect(pCreature);
+            }
+        }
 
-	//cout << "EffectDestinies" << "affect BEGIN" << endl;
+    // cout << "EffectDestinies" << "affect BEGIN" << endl;
 
-	__END_CATCH 
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectDestinies::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if ( pCreature == NULL ) return;
+    if (pCreature == NULL)
+        return;
 
-	Zone* pZone = pCreature->getZone();
-	Assert( pZone != NULL );
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	Ousters* pOusters = dynamic_cast<Ousters*>(m_pTarget);
-	if ( pOusters == NULL ) return;
+    Ousters* pOusters = dynamic_cast<Ousters*>(m_pTarget);
+    if (pOusters == NULL)
+        return;
 
-	GCModifyInformation gcMI, gcAttackerMI;
+    GCModifyInformation gcMI, gcAttackerMI;
 
-	if ( canAttack( pOusters, pCreature )
-	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
-	{
-		Damage_t damage = computeOustersMagicDamage( pOusters, pCreature, getDamage(), SKILL_DESTINIES );
-		damage /= 2;
-		if ( pCreature->isPC() )
-		{
-			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    if (canAttack(pOusters, pCreature) && !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)) {
+        Damage_t damage = computeOustersMagicDamage(pOusters, pCreature, getDamage(), SKILL_DESTINIES);
+        damage /= 2;
+        if (pCreature->isPC()) {
+            PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-			::setDamage( pPC, damage, pOusters, SKILL_DESTINIES, &gcMI, &gcAttackerMI, true, false );
-			pPC->getPlayer()->sendPacket( &gcMI );
-		}
-		else if ( pCreature->isMonster() )
-		{
-			::setDamage( pCreature, damage, pOusters, SKILL_DESTINIES, NULL, &gcAttackerMI, true, false );
-		}
+            ::setDamage(pPC, damage, pOusters, SKILL_DESTINIES, &gcMI, &gcAttackerMI, true, false);
+            pPC->getPlayer()->sendPacket(&gcMI);
+        } else if (pCreature->isMonster()) {
+            ::setDamage(pCreature, damage, pOusters, SKILL_DESTINIES, NULL, &gcAttackerMI, true, false);
+        }
 
-		computeAlignmentChange(pCreature, damage, pOusters, &gcMI, &gcAttackerMI);
-		increaseAlignment(pOusters, pCreature, gcAttackerMI);
+        computeAlignmentChange(pCreature, damage, pOusters, &gcMI, &gcAttackerMI);
+        increaseAlignment(pOusters, pCreature, gcAttackerMI);
 
-		if (pCreature->isDead())
-		{
-			int exp = computeCreatureExp(pCreature, 100, pOusters);
-			shareOustersExp(pOusters, exp, gcAttackerMI);
-		}
+        if (pCreature->isDead()) {
+            int exp = computeCreatureExp(pCreature, 100, pOusters);
+            shareOustersExp(pOusters, exp, gcAttackerMI);
+        }
 
-		pOusters->getPlayer()->sendPacket( &gcAttackerMI );
+        pOusters->getPlayer()->sendPacket(&gcAttackerMI);
 
-		GCSkillToObjectOK4 gcOK;
-		gcOK.setTargetObjectID( pCreature->getObjectID() );
-		gcOK.setSkillType( SKILL_DESTINIES );
+        GCSkillToObjectOK4 gcOK;
+        gcOK.setTargetObjectID(pCreature->getObjectID());
+        gcOK.setSkillType(SKILL_DESTINIES);
 
-		pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcOK, pCreature );
+        pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcOK, pCreature);
 
-		if ( pCreature->isPC() )
-		{
-			GCSkillToObjectOK6 gcOK6;
-			gcOK6.setXY( pCreature->getX(), pCreature->getY() );
-			gcOK6.setSkillType( SKILL_DESTINIES );
+        if (pCreature->isPC()) {
+            GCSkillToObjectOK6 gcOK6;
+            gcOK6.setXY(pCreature->getX(), pCreature->getY());
+            gcOK6.setSkillType(SKILL_DESTINIES);
 
-			pCreature->getPlayer()->sendPacket( &gcOK6 );
-		}
+            pCreature->getPlayer()->sendPacket(&gcOK6);
+        }
+    }
 
-	}
-
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectDestinies::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectDestinies::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	//cout << "EffectDestinies" << "unaffect BEGIN" << endl;
+    {__BEGIN_TRY
 
-	//cout << "EffectDestinies" << "unaffect END" << endl;
+         // cout << "EffectDestinies" << "unaffect BEGIN" << endl;
 
-	__END_CATCH
-}
+         // cout << "EffectDestinies" << "unaffect END" << endl;
+
+         __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectDestinies::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectDestinies::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectDestinies("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectDestinies("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
-
+    __END_CATCH
 }
-

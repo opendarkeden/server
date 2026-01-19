@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Hallucination.h 
-// Written By  : 
-// Description : 
+// Filename    : Hallucination.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HALLUCINATION_HANDLER_H__
@@ -13,21 +13,24 @@
 // class Hallucination;
 //////////////////////////////////////////////////////////////////////////////
 
-class Hallucination : public SkillHandler 
-{
+class Hallucination : public SkillHandler {
 public:
-	Hallucination() throw() {}
-	~Hallucination() throw() {}
-	
+    Hallucination() throw() {}
+    ~Hallucination() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Hallucination"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HALLUCINATION; }
+    string getSkillHandlerName() const throw() {
+        return "Hallucination";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HALLUCINATION;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
+    void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

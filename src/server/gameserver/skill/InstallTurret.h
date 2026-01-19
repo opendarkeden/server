@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : InstallTurret.h 
-// Written By  : 
-// Description : 
+// Filename    : InstallTurret.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_INSTALL_TURRET_HANDLER_H__
@@ -13,19 +13,22 @@
 // class InstallTurret;
 //////////////////////////////////////////////////////////////////////////////
 
-class InstallTurret : public SkillHandler 
-{
+class InstallTurret : public SkillHandler {
 public:
-	InstallTurret() throw() {}
-	~InstallTurret() throw() {}
-	
+    InstallTurret() throw() {}
+    ~InstallTurret() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "InstallTurret"; }
-	SkillType_t getSkillType() const throw() { return SKILL_INSTALL_TURRET; }
+    string getSkillHandlerName() const throw() {
+        return "InstallTurret";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_INSTALL_TURRET;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCStatusCurrentHP.cpp 
+//
+// Filename    : GCStatusCurrentHP.cpp
 // Written By  : Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,65 +12,65 @@
 // Constructor
 //--------------------------------------------------------------------
 GCStatusCurrentHP::GCStatusCurrentHP()
-	
+
 {
-	__BEGIN_TRY
-	m_CurrentHP = 0;
-	m_ObjectID = 0;
-	__END_CATCH
+    __BEGIN_TRY
+    m_CurrentHP = 0;
+    m_ObjectID = 0;
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
 GCStatusCurrentHP::~GCStatusCurrentHP()
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCStatusCurrentHP::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_CurrentHP);
+void GCStatusCurrentHP::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_CurrentHP);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCStatusCurrentHP::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_ObjectID);
-	oStream.write(m_CurrentHP);
+void GCStatusCurrentHP::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+    oStream.write(m_CurrentHP);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCStatusCurrentHP::execute (Player * pPlayer ) 
-	 
+void GCStatusCurrentHP::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCStatusCurrentHPHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCStatusCurrentHPHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -79,19 +79,17 @@ void GCStatusCurrentHP::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCStatusCurrentHP::toString () const
-       
+string GCStatusCurrentHP::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GCStatusCurrentHP("
-		<< "ObjectID:" << m_ObjectID
-		<< ",CurrentHP:" << (int)m_CurrentHP
-		<< ")" ;
+    msg << "GCStatusCurrentHP("
+        << "ObjectID:" << m_ObjectID << ",CurrentHP:" << (int)m_CurrentHP << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

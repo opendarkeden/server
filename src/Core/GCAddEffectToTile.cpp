@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddEffectToTile.cpp 
+//
+// Filename    : GCAddEffectToTile.cpp
 // Written By  : crazydog
-// Description : 
-//               
-// 
+// Description :
+//
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -13,61 +13,53 @@
 #include "GCAddEffectToTile.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCAddEffectToTile::GCAddEffectToTile () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddEffectToTile::GCAddEffectToTile()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCAddEffectToTile::~GCAddEffectToTile () noexcept
-{
-}
+GCAddEffectToTile::~GCAddEffectToTile() noexcept {}
 
 
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-void GCAddEffectToTile::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
-	iStream.read(m_ObjectID);
-	iStream.read(m_X);
-	iStream.read(m_Y);
-	iStream.read(m_EffectID);
-	iStream.read(m_Duration);
+void GCAddEffectToTile::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    iStream.read(m_ObjectID);
+    iStream.read(m_X);
+    iStream.read(m_Y);
+    iStream.read(m_EffectID);
+    iStream.read(m_Duration);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void GCAddEffectToTile::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
-		
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
-	oStream.write(m_ObjectID);
-	oStream.write(m_X);
-	oStream.write(m_Y);
-	oStream.write(m_EffectID);
-	oStream.write(m_Duration);
+void GCAddEffectToTile::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    oStream.write(m_ObjectID);
+    oStream.write(m_X);
+    oStream.write(m_Y);
+    oStream.write(m_EffectID);
+    oStream.write(m_Duration);
+
+    __END_CATCH
 }
 
 
@@ -76,14 +68,14 @@ void GCAddEffectToTile::write (SocketOutputStream & oStream )
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCAddEffectToTile::execute (Player * pPlayer ) 
-	 
+void GCAddEffectToTile::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddEffectToTileHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddEffectToTileHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -92,20 +84,14 @@ void GCAddEffectToTile::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAddEffectToTile::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCAddEffectToTile::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddEffectToTile("
-		<< ",ObjectID:" << (int)m_ObjectID
-		<< ",X,Y:" << (int)m_X << "," << (int)m_Y
-		<< ",EffectID:" << (int)m_EffectID
-		<< ",Duration:" << (int)m_Duration
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCAddEffectToTile("
+        << ",ObjectID:" << (int)m_ObjectID << ",X,Y:" << (int)m_X << "," << (int)m_Y << ",EffectID:" << (int)m_EffectID
+        << ",Duration:" << (int)m_Duration << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

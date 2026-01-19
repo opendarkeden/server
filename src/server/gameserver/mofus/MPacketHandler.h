@@ -13,15 +13,13 @@
 class MPlayer;
 
 // class MPacketHandler
-class MPacketHandler
-{
+class MPacketHandler {
 public:
-	virtual ~MPacketHandler() = default;
+    virtual ~MPacketHandler() = default;
 
-	virtual MPacketID_t getID() const = 0;
+    virtual MPacketID_t getID() const = 0;
 
-	virtual void execute( MPlayer* pPlayer, MPacket* pPacket ) = 0;
+    virtual void execute(MPlayer* pPlayer, MPacket* pPacket) = 0;
 };
 
 #endif
-

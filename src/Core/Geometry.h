@@ -1,14 +1,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Geometry.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GEOMETRY_H__
 #define __GEOMETRY_H__
 
-#include "Types.h"
 #include <list>
+
+#include "Types.h"
 
 uint getPointsFromLine(int x1, int y1, int x2, int y2, list<POINT>& rList);
 uint getPointsFromVLine(int y1, int y2, int X, list<POINT>& rList);

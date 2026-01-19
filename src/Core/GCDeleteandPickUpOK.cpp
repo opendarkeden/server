@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCDeleteandPickUpOK.cc 
+//
+// Filename    : GCDeleteandPickUpOK.cc
 // Written By  : elca@ewestsoft.com
 // Description : CGMove가 날아 왓을때 자기 자신에게 OK 사인을 날리기
 //               위한 패킷 클래스 함수 정의
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -14,41 +14,41 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCDeleteandPickUpOK::read (SocketInputStream & iStream ) 
-	 
+void GCDeleteandPickUpOK::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ObjectID);
+    iStream.read(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCDeleteandPickUpOK::write (SocketOutputStream & oStream ) const 
-     
+void GCDeleteandPickUpOK::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCDeleteandPickUpOK::execute (Player * pPlayer ) 
-	 
+void GCDeleteandPickUpOK::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCDeleteandPickUpOKHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCDeleteandPickUpOKHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -56,17 +56,15 @@ void GCDeleteandPickUpOK::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCDeleteandPickUpOK::toString () const
-       
+string GCDeleteandPickUpOK::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCDeleteandPickUpOK("
-		<< "ObjectId:" << (int)m_ObjectID
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCDeleteandPickUpOK("
+        << "ObjectId:" << (int)m_ObjectID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

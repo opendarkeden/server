@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ConditionFactory.h 
-// Written By  : 
+// Filename    : ConditionFactory.h
+// Written By  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,13 +13,12 @@
 // class ConditionFactory
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionFactory 
-{
+class ConditionFactory {
 public:
-	virtual ~ConditionFactory()  {}
-	virtual ConditionType_t getConditionType() const  = 0;
-	virtual string getConditionName() const  = 0;
-	virtual Condition* createCondition() const  = 0;
+    virtual ~ConditionFactory() {}
+    virtual ConditionType_t getConditionType() const = 0;
+    virtual string getConditionName() const = 0;
+    virtual Condition* createCondition() const = 0;
 };
 
 #endif

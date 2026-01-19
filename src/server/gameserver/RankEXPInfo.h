@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : RankEXPInfo.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -8,35 +8,46 @@
 #define __RANK_EXP_INFO_H__
 
 #include "Exception.h"
-#include "Types.h"
 #include "RankExpTable.h"
+#include "Types.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class RankEXPInfo
 ////////////////////////////////////////////////////////////////////////////////
 
-class RankEXPInfo 
-{
+class RankEXPInfo {
 public:
-	RankEXPInfo() ;
-	~RankEXPInfo() ;
+    RankEXPInfo();
+    ~RankEXPInfo();
 
 public:
-	void setLevel(uint lev)  { m_Level = lev; }
-	uint getLevel() const  { return m_Level; }
+    void setLevel(uint lev) {
+        m_Level = lev;
+    }
+    uint getLevel() const {
+        return m_Level;
+    }
 
-	void setGoalExp(uint sum)  { m_GoalExp = sum; }
-	uint getGoalExp() const  { return m_GoalExp; }
+    void setGoalExp(uint sum) {
+        m_GoalExp = sum;
+    }
+    uint getGoalExp() const {
+        return m_GoalExp;
+    }
 
-	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
-	uint getAccumExp() const  { return m_AccumExp; }
+    void setAccumExp(uint accum) {
+        m_AccumExp = accum;
+    }
+    uint getAccumExp() const {
+        return m_AccumExp;
+    }
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint m_Level;
-	uint m_GoalExp;
-	uint m_AccumExp;
+    uint m_Level;
+    uint m_GoalExp;
+    uint m_AccumExp;
 };
 
 
@@ -44,27 +55,26 @@ private:
 // Class RankEXPInfoManager
 ////////////////////////////////////////////////////////////////////////////////
 
-class RankEXPInfoManager 
-{
+class RankEXPInfoManager {
 public:
-	RankEXPInfoManager() ;
-	~RankEXPInfoManager() ;
+    RankEXPInfoManager();
+    ~RankEXPInfoManager();
 
 public:
-	void init(RankType rankType) ;
-	void load(RankType rankType) ;
+    void init(RankType rankType);
+    void load(RankType rankType);
 
-	RankEXPInfo* getRankEXPInfo(uint value) const ;
-	void addRankEXPInfo(RankEXPInfo* pRankEXPInfo) ;
+    RankEXPInfo* getRankEXPInfo(uint value) const;
+    void addRankEXPInfo(RankEXPInfo* pRankEXPInfo);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint             m_RankEXPCount;
-	RankEXPInfo** m_RankEXPInfoList;
+    uint m_RankEXPCount;
+    RankEXPInfo** m_RankEXPInfoList;
 };
 
 // global variable definition
 extern RankEXPInfoManager* g_pRankEXPInfoManager[RANK_TYPE_MAX];
 
-#endif	
+#endif

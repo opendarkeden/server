@@ -4,15 +4,13 @@
 #include "NameManager.h"
 
 class LogNameManager : public NameManager<int> {
-public :
-	virtual void	init();
+public:
+    virtual void init();
 
-	static LogNameManager& getInstance()
-	{
-		static LogNameManager LNM;
-		return LNM;
-	}
+    static LogNameManager& getInstance() {
+        static LogNameManager LNM;
+        return LNM;
+    }
 };
 
 #endif
-

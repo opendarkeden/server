@@ -1,51 +1,48 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRequestRepair.cpp 
+// Filename    : CGRequestRepair.cpp
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRequestRepair.h"
 
-void CGRequestRepair::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
+void CGRequestRepair::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+
+    __END_CATCH
 }
 
-void CGRequestRepair::write (SocketOutputStream & oStream) const 
-     
+void CGRequestRepair::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGRequestRepair::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGRequestRepair::execute(Player* pPlayer)
 
-	CGRequestRepairHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGRequestRepairHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGRequestRepair::toString () 
-	const 
-{
-	__BEGIN_TRY
+string CGRequestRepair::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CGRequestRepair("
-		<< "ObjectID : " << (int)m_ObjectID 
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CGRequestRepair("
+        << "ObjectID : " << (int)m_ObjectID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

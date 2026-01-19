@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : WideLightning.h 
+// Filename    : WideLightning.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_WIDE_LIGHTNING_HANDLER_H__
@@ -13,20 +13,23 @@
 // class WideLightning;
 //////////////////////////////////////////////////////////////////////////////
 
-class WideLightning : public SkillHandler 
-{
+class WideLightning : public SkillHandler {
 public:
-	WideLightning() throw() {}
-	~WideLightning() throw() {}
-	
+    WideLightning() throw() {}
+    ~WideLightning() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "WideLightning"; }
-	SkillType_t getSkillType() const throw() { return SKILL_WIDE_LIGHTNING; }
+    string getSkillHandlerName() const throw() {
+        return "WideLightning";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_WIDE_LIGHTNING;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

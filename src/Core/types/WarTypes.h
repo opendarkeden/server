@@ -1,27 +1,17 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : WarTypes.h
-// Written By  : 
+// Written By  :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __WAR_TYPES_H__
 #define __WAR_TYPES_H__
 
-enum WarType 
-{ 
-	WAR_GUILD, 
-	WAR_RACE,
-	WAR_LEVEL
-};
+enum WarType { WAR_GUILD, WAR_RACE, WAR_LEVEL };
 
-const string WarType2String [] = 
-{
-	"WAR_GUILD" ,
-	"WAR_RACE"  ,
-	"WAR_LEVEL"
-};
+const string WarType2String[] = {"WAR_GUILD", "WAR_RACE", "WAR_LEVEL"};
 
 //////////////////////////////////////////////////////////////////////////////
-// 
+//
 //////////////////////////////////////////////////////////////////////////////
 typedef BYTE WarType_t;
 const int szWarType = sizeof(WarType_t);

@@ -10,33 +10,34 @@
 #include "Player.h"
 
 #ifdef __GAME_CLIENT__
-	#include "CGMove.h"
-	#include "ClientPlayer.h"
+#include "CGMove.h"
+#include "ClientPlayer.h"
 #endif
 
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-void GCMoveHandler::execute (GCMove * pPacket , Player * pPlayer )
-	 
+void GCMoveHandler::execute(GCMove* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_CLIENT__
 
-	#if __LINUX__
+#if __LINUX__
 
-//		ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
+    //		ClientPlayer * pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 
-		//cout << "ObjectID[" << pPacket->getObjectID() << "] move to (" << (int)pPacket->getX() << "," << (int)pPacket->getY() << ")" << endl;
+    // cout << "ObjectID[" << pPacket->getObjectID() << "] move to (" << (int)pPacket->getX() << "," <<
+    // (int)pPacket->getY() << ")" << endl;
 
-	#elif __WINDOW__
+#elif __WINDOW__
 
-		AfxMessageBox(pPacket->toString().c_str());
-
-	#endif
+        AfxMessageBox(pPacket->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+#endif
+
+        __END_DEBUG_EX __END_CATCH
 }

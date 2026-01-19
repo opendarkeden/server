@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectGhost.h
-// Written by  : 
+// Written by  :
 // Description : ZoneID 마스터 레어 출입증
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,21 +13,22 @@
 // class EffectGhost
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectGhost : public Effect 
-{
+class EffectGhost : public Effect {
 public:
-	EffectGhost(Creature* pCreature) ;
+    EffectGhost(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_GHOST; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_GHOST;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 
 private:
 };

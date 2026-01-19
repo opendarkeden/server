@@ -5,13 +5,12 @@
 
 
 class GameServerWarTest : public GameServerTest {
-	CPPUNIT_TEST_SUB_SUITE( GameServerWarTest, GameServerTest );
-	CPPUNIT_TEST( testWarEndTime );
-	CPPUNIT_TEST_SUITE_END();
+    CPPUNIT_TEST_SUB_SUITE(GameServerWarTest, GameServerTest);
+    CPPUNIT_TEST(testWarEndTime);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-	void testWarEndTime();
+    void testWarEndTime();
 };
 
 #endif
-

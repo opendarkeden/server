@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHideSight.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_HIDE_SIGHT__
@@ -14,41 +14,49 @@
 // class EffectHideSight
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHideSight : public Effect 
-{
+class EffectHideSight : public Effect {
 public:
-	EffectHideSight(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HIDE_SIGHT; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectHideSight(Creature* pCreature);
 
 public:
-	void setBonus( uint bonus ) { m_Bonus = bonus; }
-	uint getBonus() const { return m_Bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_HIDE_SIGHT;
+    }
+
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setBonus(uint bonus) {
+        m_Bonus = bonus;
+    }
+    uint getBonus() const {
+        return m_Bonus;
+    }
 
 private:
-	uint	m_Bonus;
+    uint m_Bonus;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectHideSightLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHideSightLoader : public EffectLoader 
-{
+class EffectHideSightLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_HIDE_SIGHT; }
-	virtual string getEffectClassName() const throw() { return "EffectHideSight"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_HIDE_SIGHT;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectHideSight";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 

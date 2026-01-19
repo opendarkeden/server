@@ -1,24 +1,23 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTConnectAskHandler.cpp
-// Desc		: 
+// Desc		:
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
-#include "Mofus.h"
 #include "PKTConnectAskHandler.h"
-#include "PKTConnectAccept.h"
+
 #include "GameServerPlayer.h"
+#include "Mofus.h"
+#include "PKTConnectAccept.h"
 
 
 // 실행 함수
-void PKTConnectAskHandler::execute( GameServerPlayer* pPlayer, MPacket* pPacket )
-{
-	cout << "RECV ConnectAsk" << endl;
+void PKTConnectAskHandler::execute(GameServerPlayer* pPlayer, MPacket* pPacket) {
+    cout << "RECV ConnectAsk" << endl;
 
-	PKTConnectAccept pkt;
+    PKTConnectAccept pkt;
 
-	pPlayer->sendPacket( &pkt );
+    pPlayer->sendPacket(&pkt);
 
-	cout << "SEND ConnectAccept" << endl;
+    cout << "SEND ConnectAccept" << endl;
 }
-

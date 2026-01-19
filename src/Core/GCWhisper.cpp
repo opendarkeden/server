@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCWhisper.cpp 
+//
+// Filename    : GCWhisper.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,115 +13,109 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCWhisper::read (SocketInputStream & iStream ) 
-	 
+void GCWhisper::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szName;
+    BYTE szName;
 
-	iStream.read(szName);
+    iStream.read(szName);
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	if (szName > 10 )
-		throw InvalidProtocolException("too large name length");
+    if (szName > 10)
+        throw InvalidProtocolException("too large name length");
 
-	iStream.read(m_Name, szName);
+    iStream.read(m_Name, szName);
 
-	iStream.read(m_Color);
+    iStream.read(m_Color);
 
-	BYTE szMessage;
+    BYTE szMessage;
 
-	iStream.read(szMessage);
+    iStream.read(szMessage);
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	if (szMessage > 128 )
-		throw InvalidProtocolException("too large message length");
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	iStream.read(m_Message , szMessage);
+    iStream.read(m_Message, szMessage);
 
-	iStream.read(m_Race);
+    iStream.read(m_Race);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCWhisper::write (SocketOutputStream & oStream ) const 
-     
+void GCWhisper::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szName = m_Name.size();
+    BYTE szName = m_Name.size();
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
 
-	if (szName > 10 )
-		throw InvalidProtocolException("too large name length");
+    if (szName > 10)
+        throw InvalidProtocolException("too large name length");
 
-	oStream.write(szName);
+    oStream.write(szName);
 
-	oStream.write(m_Name);
+    oStream.write(m_Name);
 
-	oStream.write(m_Color);
-		
-	BYTE szMessage = m_Message.size();
+    oStream.write(m_Color);
 
-	if (szMessage == 0 )
-		throw InvalidProtocolException("szMessage == 0");
+    BYTE szMessage = m_Message.size();
 
-	if (szMessage > 128 )
-		throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	oStream.write(szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	oStream.write(m_Message);
+    oStream.write(szMessage);
 
-	oStream.write(m_Race);
+    oStream.write(m_Message);
 
-	__END_CATCH
+    oStream.write(m_Race);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCWhisper::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCWhisperHandler::execute(this , pPlayer);
+void GCWhisper::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCWhisperHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCWhisper::toString () const
-       
+string GCWhisper::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCWhisper("
-		<< "Name :" << m_Name
-		<< ",Color:" << m_Color
-		<< ",Message:" << m_Message 
-		<< ",Race :" << (int)m_Race
-		<< ")" ;
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCWhisper("
+        << "Name :" << m_Name << ",Color:" << m_Color << ",Message:" << m_Message << ",Race :" << (int)m_Race << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

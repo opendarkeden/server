@@ -1,1391 +1,1259 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : CastleInfoManager.cpp
-// Written By  : 
+// Written By  :
 // Description : Information about the castles near Adam's sanctuary
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "CastleInfoManager.h"
-#include "PlayerCreature.h"
-#include "ItemUtil.h"
+
 #include <stdio.h>
-#include "Properties.h"
-#include "ZoneInfoManager.h"
-#include "ZoneGroupManager.h"
-#include "VariableManager.h"
+
 #include "Guild.h"
 #include "GuildManager.h"
-//#include "HolyLandRaceBonus.h"
-#include "ZoneUtil.h"
-#include "NPCManager.h"
-#include "Zone.h"
-#include "War.h"
-#include "WarSystem.h"
-#include "WarScheduler.h"
-#include "ClientManager.h"
-#include "PCManager.h"
-#include "EventRefreshHolyLandPlayer.h"
-#include "ShrineInfoManager.h"
-#include "EffectHasBloodBible.h"
+#include "ItemUtil.h"
+#include "PlayerCreature.h"
+#include "Properties.h"
+#include "VariableManager.h"
+#include "ZoneGroupManager.h"
+#include "ZoneInfoManager.h"
+// #include "HolyLandRaceBonus.h"
 #include "CastleSkillInfo.h"
+#include "ClientManager.h"
+#include "DB.h"
+#include "EffectHasBloodBible.h"
+#include "EventRefreshHolyLandPlayer.h"
+#include "GCModifyInformation.h"
+#include "GCNoticeEvent.h"
+#include "GCSystemMessage.h"
 #include "GamePlayer.h"
 #include "NPC.h"
-
-#include "DB.h"
-#include "StringPool.h"
-
+#include "NPCManager.h"
+#include "PCManager.h"
+#include "ShrineInfoManager.h"
 #include "Skill.h"
+#include "StringPool.h"
+#include "War.h"
+#include "WarScheduler.h"
+#include "WarSystem.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
 
-#include "GCSystemMessage.h"
-#include "GCNoticeEvent.h"
-#include "GCModifyInformation.h"
-
-CastleInfo::CastleInfo() : m_Name(""), m_BonusOptionList() , m_CastleZoneIDList()
-{
-	m_ZoneID = 0;
-	m_ShrineID = 0;
-	m_GuildID = 0;
-	m_ItemTaxRatio = 0;
-	m_EntranceFee = 0;
-	m_TaxBalance = 0;
+CastleInfo::CastleInfo() : m_Name(""), m_BonusOptionList(), m_CastleZoneIDList() {
+    m_ZoneID = 0;
+    m_ShrineID = 0;
+    m_GuildID = 0;
+    m_ItemTaxRatio = 0;
+    m_EntranceFee = 0;
+    m_TaxBalance = 0;
 }
 
-CastleInfo::~CastleInfo()
-{
+CastleInfo::~CastleInfo() {}
+
+Gold_t CastleInfo::increaseTaxBalance(Gold_t tax) {
+    if (tax > GUILD_TAX_BALANCE_MAX - m_TaxBalance) // Clamp when the total would overflow
+    {
+        tax = GUILD_TAX_BALANCE_MAX - m_TaxBalance;
+    }
+
+    m_TaxBalance = min(GUILD_TAX_BALANCE_MAX, m_TaxBalance + tax);
+
+    return m_TaxBalance;
 }
 
-Gold_t CastleInfo::increaseTaxBalance( Gold_t tax )
-{
-	if( tax > GUILD_TAX_BALANCE_MAX - m_TaxBalance ) // Clamp when the total would overflow
-	{
-		tax = GUILD_TAX_BALANCE_MAX - m_TaxBalance;
-	}
+Gold_t CastleInfo::decreaseTaxBalance(Gold_t tax) {
+    if (tax > m_TaxBalance)
+        tax = m_TaxBalance;
 
-	m_TaxBalance = min( GUILD_TAX_BALANCE_MAX, m_TaxBalance + tax );
-
-	return m_TaxBalance;
+    m_TaxBalance = max(0, (int)m_TaxBalance - (int)tax);
+    return m_TaxBalance;
 }
 
-Gold_t CastleInfo::decreaseTaxBalance( Gold_t tax )
-{
-	if( tax > m_TaxBalance ) tax = m_TaxBalance;
+Gold_t CastleInfo::increaseTaxBalanceEx(Gold_t tax)
 
-	m_TaxBalance = max( 0, (int)m_TaxBalance - (int)tax );
-	return m_TaxBalance;
+{
+    __BEGIN_TRY
+
+    static char query[100];
+
+    increaseTaxBalance(tax);
+
+    if (!isCommon()) {
+        sprintf(query, "TaxBalance=%d", (int)getTaxBalance());
+        g_pCastleInfoManager->tinysave(getZoneID(), query);
+    }
+
+    return getTaxBalance();
+
+    __END_CATCH
 }
 
-Gold_t CastleInfo::increaseTaxBalanceEx( Gold_t tax )
-	
+Gold_t CastleInfo::decreaseTaxBalanceEx(Gold_t tax)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	static char query[100];
+    static char query[100];
 
-	increaseTaxBalance(tax);
+    decreaseTaxBalance(tax);
 
-	if( !isCommon() )
-	{
-		sprintf( query, "TaxBalance=%d", (int)getTaxBalance() );
-		g_pCastleInfoManager->tinysave( getZoneID(), query );
-	}
+    if (!isCommon()) {
+        sprintf(query, "TaxBalance=%d", (int)getTaxBalance());
+        g_pCastleInfoManager->tinysave(getZoneID(), query);
+    }
 
-	return getTaxBalance();
+    return getTaxBalance();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Gold_t CastleInfo::decreaseTaxBalanceEx( Gold_t tax )
-	
+void CastleInfo::setOptionTypeList(const string& options)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	static char query[100];
+    makeOptionList(options, m_BonusOptionList);
 
-	decreaseTaxBalance(tax);
-
-	if( !isCommon() )
-	{
-		sprintf( query, "TaxBalance=%d", (int)getTaxBalance() );
-		g_pCastleInfoManager->tinysave( getZoneID(), query );
-	}
-	
-	return getTaxBalance();
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CastleInfo::setOptionTypeList( const string& options )
-	
+void CastleInfo::setZoneIDList(const string& zoneIDs)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	makeOptionList( options, m_BonusOptionList );
+    makeZoneIDList(zoneIDs, m_CastleZoneIDList);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CastleInfo::setZoneIDList( const string& zoneIDs ) 
-	
-{
-	__BEGIN_TRY
-
-	makeZoneIDList( zoneIDs, m_CastleZoneIDList );
-
-	__END_CATCH
+void CastleInfo::setResurrectPosition(ResurrectPriority resurrectPriority, const ZONE_COORD& zoneCoord) {
+    m_ResurrectPosition[resurrectPriority].set(zoneCoord.id, zoneCoord.x, zoneCoord.y);
 }
 
-void CastleInfo::setResurrectPosition( ResurrectPriority resurrectPriority, const ZONE_COORD& zoneCoord )
-{
-	m_ResurrectPosition[resurrectPriority].set( zoneCoord.id, zoneCoord.x, zoneCoord.y );
-}
-
-void CastleInfo::getResurrectPosition( ResurrectPriority resurrectPriority, ZONE_COORD& zoneCoord )
-{
-	zoneCoord.set( m_ResurrectPosition[resurrectPriority].id, m_ResurrectPosition[resurrectPriority].x, m_ResurrectPosition[resurrectPriority].y );
+void CastleInfo::getResurrectPosition(ResurrectPriority resurrectPriority, ZONE_COORD& zoneCoord) {
+    zoneCoord.set(m_ResurrectPosition[resurrectPriority].id, m_ResurrectPosition[resurrectPriority].x,
+                  m_ResurrectPosition[resurrectPriority].y);
 }
 
 void CastleInfo::broadcast(Packet* pPacket) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert( pPacket != NULL );
+    Assert(pPacket != NULL);
 
-	list<ZoneID_t>::const_iterator itr = m_CastleZoneIDList.begin();
+    list<ZoneID_t>::const_iterator itr = m_CastleZoneIDList.begin();
 
-	for ( ; itr != m_CastleZoneIDList.end() ; itr++)
-	{
-		Zone* pCastleZone = getZoneByZoneID( *itr );
-		pCastleZone->broadcastPacket( pPacket );
-	}
+    for (; itr != m_CastleZoneIDList.end(); itr++) {
+        Zone* pCastleZone = getZoneByZoneID(*itr);
+        pCastleZone->broadcastPacket(pPacket);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool CastleInfo::isCastleZone(ZoneID_t targetZoneID) const 
-	
+bool CastleInfo::isCastleZone(ZoneID_t targetZoneID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	list<ZoneID_t>::const_iterator itr = m_CastleZoneIDList.begin();
+    list<ZoneID_t>::const_iterator itr = m_CastleZoneIDList.begin();
 
-	for ( ; itr != m_CastleZoneIDList.end() ; itr++)
-	{
-		ZoneID_t zoneID = *itr;
+    for (; itr != m_CastleZoneIDList.end(); itr++) {
+        ZoneID_t zoneID = *itr;
 
-		if (zoneID==targetZoneID)
-			return true;
-	}
+        if (zoneID == targetZoneID)
+            return true;
+    }
 
-	return false;
+    return false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 string CastleInfo::toString() const
-	
-{
-	__BEGIN_TRY
-	
-	StringStream msg;
-	msg << "CastleInfo("
-		<< "ZoneID:" << m_ZoneID
-		<< ",Item Tax Ratie:" << m_ItemTaxRatio
-		<< ",Entrance Fee:" << m_EntranceFee
-		<< ",Tax Balance:" << m_TaxBalance
-		<< ")";
-	return msg.toString();
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CastleInfo("
+        << "ZoneID:" << m_ZoneID << ",Item Tax Ratie:" << m_ItemTaxRatio << ",Entrance Fee:" << m_EntranceFee
+        << ",Tax Balance:" << m_TaxBalance << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-CastleInfoManager::CastleInfoManager () 
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+CastleInfoManager::CastleInfoManager(){__BEGIN_TRY __END_CATCH}
 
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-CastleInfoManager::~CastleInfoManager () 
-{
-	__BEGIN_TRY
+CastleInfoManager::~CastleInfoManager() {
+    __BEGIN_TRY
 
-	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.begin();
-	for (; itr != m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pInfo = itr->second;
-		SAFE_DELETE(pInfo);
-	}
-	
-	// Remove all pairs from the hashmap.
-	m_CastleInfos.clear();
+    unordered_map<ZoneID_t, CastleInfo*>::iterator itr = m_CastleInfos.begin();
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pInfo = itr->second;
+        SAFE_DELETE(pInfo);
+    }
 
-	__END_CATCH_NO_RETHROW
+    // Remove all pairs from the hashmap.
+    m_CastleInfos.clear();
+
+    __END_CATCH_NO_RETHROW
 }
-	
+
 
 //////////////////////////////////////////////////////////////////////////////
 // initialize zone info manager
 //////////////////////////////////////////////////////////////////////////////
-void CastleInfoManager::init () 
-	
-{
-	__BEGIN_TRY
+void CastleInfoManager::init()
 
-	// init == load
-	load();
-			
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    // init == load
+    load();
+
+    __END_CATCH
 }
 
-	
-//void testMaxMemory();
+
+// void testMaxMemory();
 
 //////////////////////////////////////////////////////////////////////////////
 // load from database
 //////////////////////////////////////////////////////////////////////////////
-void CastleInfoManager::load ()
-	
+void CastleInfoManager::load()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	clearCastleZoneIDs();
+    clearCastleZoneIDs();
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
+    BEGIN_DB {
+        // create statement
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		// create statement
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult =
+            pStmt->executeQuery("SELECT ZoneID, ShrineID, GuildID, Name, Race, ItemTaxRatio, EntranceFee, TaxBalance, "
+                                "BonusOptionType, FirstResurrectZoneID, FirstResurrectX, FirstResurrectY, "
+                                "SecondResurrectZoneID, SecondResurrectX, SecondResurrectY, ThirdResurrectZoneID, "
+                                "ThirdResurrectX, ThirdResurrectY, ZoneIDList FROM CastleInfo WHERE ServerID = %d",
+                                g_pConfig->getPropertyInt("ServerID"));
 
-		Result* pResult = pStmt->executeQuery(
-			"SELECT ZoneID, ShrineID, GuildID, Name, Race, ItemTaxRatio, EntranceFee, TaxBalance, BonusOptionType, FirstResurrectZoneID, FirstResurrectX, FirstResurrectY, SecondResurrectZoneID, SecondResurrectX, SecondResurrectY, ThirdResurrectZoneID, ThirdResurrectX, ThirdResurrectY, ZoneIDList FROM CastleInfo WHERE ServerID = %d",
-			g_pConfig->getPropertyInt( "ServerID" ) );
+        ZoneCoord_t x, y;
+        ZONE_COORD zoneCoord;
 
-		ZoneCoord_t x, y;
-		ZONE_COORD zoneCoord;
+        while (pResult->next()) {
+            uint i = 0;
 
-		while (pResult->next()) 
-		{
-			uint i = 0;
+            ZoneID_t zoneID = pResult->getInt(++i);
 
-			ZoneID_t zoneID = pResult->getInt(++i);
+            ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(zoneID);
+            Assert(pZoneInfo != NULL);
 
-			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( zoneID );
-			Assert( pZoneInfo!=NULL );
+            pZoneInfo->setCastle();
 
-			pZoneInfo->setCastle();
+            CastleInfo* pCastleInfo = new CastleInfo();
+            // cout << "new OK" << endl;
 
-			CastleInfo* pCastleInfo = new CastleInfo();
-			//cout << "new OK" << endl;
+            pCastleInfo->setZoneID(zoneID);
+            pCastleInfo->setShrineID(pResult->getInt(++i));
+            pCastleInfo->setGuildID(pResult->getInt(++i));
+            pCastleInfo->setName(pResult->getString(++i));
+            pCastleInfo->setRace(pResult->getInt(++i));
+            pCastleInfo->setItemTaxRatio(pResult->getInt(++i));
+            pCastleInfo->setEntranceFee(pResult->getInt(++i));
+            pCastleInfo->setTaxBalance(pResult->getInt(++i));
+            pCastleInfo->setOptionTypeList(pResult->getString(++i));
 
-			pCastleInfo->setZoneID( zoneID );
-			pCastleInfo->setShrineID( pResult->getInt(++i) );
-			pCastleInfo->setGuildID( pResult->getInt(++i) );
-			pCastleInfo->setName( pResult->getString(++i) );
-			pCastleInfo->setRace( pResult->getInt(++i) );
-			pCastleInfo->setItemTaxRatio( pResult->getInt(++i) );
-			pCastleInfo->setEntranceFee( pResult->getInt(++i) );
-			pCastleInfo->setTaxBalance( pResult->getInt(++i) );
-			pCastleInfo->setOptionTypeList( pResult->getString(++i) );
+            zoneID = pResult->getInt(++i);
+            x = pResult->getInt(++i);
+            y = pResult->getInt(++i);
 
-			zoneID	= pResult->getInt( ++i );
-			x		= pResult->getInt( ++i );
-			y		= pResult->getInt( ++i );
+            zoneCoord.set(zoneID, x, y);
+            pCastleInfo->setResurrectPosition(CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST, zoneCoord);
 
-			zoneCoord.set( zoneID, x, y );
-			pCastleInfo->setResurrectPosition( CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST, zoneCoord );
+            zoneID = pResult->getInt(++i);
+            x = pResult->getInt(++i);
+            y = pResult->getInt(++i);
 
-			zoneID	= pResult->getInt( ++i );
-			x		= pResult->getInt( ++i );
-			y		= pResult->getInt( ++i );
+            zoneCoord.set(zoneID, x, y);
+            pCastleInfo->setResurrectPosition(CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND, zoneCoord);
 
-			zoneCoord.set( zoneID, x, y );
-			pCastleInfo->setResurrectPosition( CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND, zoneCoord );
+            zoneID = pResult->getInt(++i);
+            x = pResult->getInt(++i);
+            y = pResult->getInt(++i);
 
-			zoneID	= pResult->getInt( ++i );
-			x		= pResult->getInt( ++i );
-			y		= pResult->getInt( ++i );
+            zoneCoord.set(zoneID, x, y);
+            pCastleInfo->setResurrectPosition(CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD, zoneCoord);
 
-			zoneCoord.set( zoneID, x, y );
-			pCastleInfo->setResurrectPosition( CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD, zoneCoord );
+            pCastleInfo->setZoneIDList(pResult->getString(++i));
 
-			pCastleInfo->setZoneIDList( pResult->getString(++i) );
+            addCastleInfo(pCastleInfo);
 
-			addCastleInfo(pCastleInfo);
+            cout << pCastleInfo->toString().c_str() << endl;
+        }
 
-			cout << pCastleInfo->toString().c_str() << endl;
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-		}
-			
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CastleInfoManager::save( ZoneID_t zoneID )
-	
+void CastleInfoManager::save(ZoneID_t zoneID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	CastleInfo* pCastleInfo = getCastleInfo( zoneID );
-	if( pCastleInfo == NULL ) return;
+    CastleInfo* pCastleInfo = getCastleInfo(zoneID);
+    if (pCastleInfo == NULL)
+        return;
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		// create statement
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        // create statement
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery(
-			"UPDATE CastleInfo SET GuildID=%d, Name='%s', Race=%d, ItemTaxRatio=%d, EntranceFee=%d, TaxBalance=%d WHERE ServerID=%d AND ZoneID=%d",
-							(int)pCastleInfo->getGuildID(), 
-							pCastleInfo->getName().c_str(), 
-							(int)pCastleInfo->getRace(), 
-							pCastleInfo->getItemTaxRatio(), 
-							(int)pCastleInfo->getEntranceFee(), 
-							(int)pCastleInfo->getTaxBalance(), 
-							(int)g_pConfig->getPropertyInt( "ServerID" ),
-							(int)zoneID );
+        pStmt->executeQuery("UPDATE CastleInfo SET GuildID=%d, Name='%s', Race=%d, ItemTaxRatio=%d, EntranceFee=%d, "
+                            "TaxBalance=%d WHERE ServerID=%d AND ZoneID=%d",
+                            (int)pCastleInfo->getGuildID(), pCastleInfo->getName().c_str(), (int)pCastleInfo->getRace(),
+                            pCastleInfo->getItemTaxRatio(), (int)pCastleInfo->getEntranceFee(),
+                            (int)pCastleInfo->getTaxBalance(), (int)g_pConfig->getPropertyInt("ServerID"), (int)zoneID);
 
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
-
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // add zone info to zone info manager
 //////////////////////////////////////////////////////////////////////////////
-void CastleInfoManager::addCastleInfo (CastleInfo* pCastleInfo) 
-	
+void CastleInfoManager::addCastleInfo(CastleInfo* pCastleInfo)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// First check if a zone with the same ID already exists.
-	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(pCastleInfo->getZoneID());
-	
-	if (itr != m_CastleInfos.end())
-		// Duplicate zone ID.
-		throw Error("duplicated zone id");
+    // First check if a zone with the same ID already exists.
+    unordered_map<ZoneID_t, CastleInfo*>::iterator itr = m_CastleInfos.find(pCastleInfo->getZoneID());
 
-	m_CastleInfos[ pCastleInfo->getZoneID() ] = pCastleInfo;
+    if (itr != m_CastleInfos.end())
+        // Duplicate zone ID.
+        throw Error("duplicated zone id");
 
-	// Register every zone ID that belongs to this castle.
-	const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
-	list<ZoneID_t>::const_iterator iZoneID = zoneIDs.begin();
+    m_CastleInfos[pCastleInfo->getZoneID()] = pCastleInfo;
 
-	for (; iZoneID!=zoneIDs.end(); iZoneID++)
-	{
-		ZoneID_t zoneID = *iZoneID;
-		setCastleZoneID(zoneID, pCastleInfo->getZoneID());
-	}
+    // Register every zone ID that belongs to this castle.
+    const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
+    list<ZoneID_t>::const_iterator iZoneID = zoneIDs.begin();
 
-	__END_CATCH
+    for (; iZoneID != zoneIDs.end(); iZoneID++) {
+        ZoneID_t zoneID = *iZoneID;
+        setCastleZoneID(zoneID, pCastleInfo->getZoneID());
+    }
+
+    __END_CATCH
 }
 
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // Delete zone info from zone info manager
 //////////////////////////////////////////////////////////////////////////////
-void CastleInfoManager::deleteCastleInfo (ZoneID_t zoneID) 
-	
+void CastleInfoManager::deleteCastleInfo(ZoneID_t zoneID)
+
 {
-	__BEGIN_TRY
-		
-	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(zoneID);
-	
-	if (itr != m_CastleInfos.end()) 
-	{
-		// Delete the zone.
-		SAFE_DELETE(itr->second);
+    __BEGIN_TRY
 
-		// Remove the pair entry.
-		m_CastleInfos.erase(itr);
-	} 
-	else 
-	{
-		// If no such zone ID is found
-		return;
-	}
+    unordered_map<ZoneID_t, CastleInfo*>::iterator itr = m_CastleInfos.find(zoneID);
 
-	__END_CATCH
+    if (itr != m_CastleInfos.end()) {
+        // Delete the zone.
+        SAFE_DELETE(itr->second);
+
+        // Remove the pair entry.
+        m_CastleInfos.erase(itr);
+    } else {
+        // If no such zone ID is found
+        return;
+    }
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get zone from zone info manager
 //////////////////////////////////////////////////////////////////////////////
-CastleInfo* CastleInfoManager::getCastleInfo (ZoneID_t zoneID) const
-	
+CastleInfo* CastleInfoManager::getCastleInfo(ZoneID_t zoneID) const
+
 {
-	__BEGIN_TRY
-		
-	CastleInfo* pCastleInfo = NULL;
+    __BEGIN_TRY
 
-	unordered_map< ZoneID_t , CastleInfo *>::const_iterator itr = m_CastleInfos.find(zoneID);
-	
-	if (itr != m_CastleInfos.end()) {
+    CastleInfo* pCastleInfo = NULL;
 
-		pCastleInfo = itr->second;
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.find(zoneID);
 
-	} else {
+    if (itr != m_CastleInfos.end()) {
+        pCastleInfo = itr->second;
 
-		// If no such zone ID exists
+    } else {
+        // If no such zone ID exists
 
-		return NULL;
+        return NULL;
+    }
 
-	}
+    return pCastleInfo;
 
-	return pCastleInfo;
-
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
-string CastleInfoManager::toString () const
-	
+string CastleInfoManager::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "CastleInfoManager(";
+    msg << "CastleInfoManager(";
 
-	if (m_CastleInfos.empty()) msg << "EMPTY";
-	else 
-	{
-		for (unordered_map< ZoneID_t , CastleInfo* >::const_iterator itr = m_CastleInfos.begin() ; itr != m_CastleInfos.end() ; itr ++) 
-		{
-			msg << itr->second->toString();
-		}
-	}
+    if (m_CastleInfos.empty())
+        msg << "EMPTY";
+    else {
+        for (unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+             itr != m_CastleInfos.end(); itr++) {
+            msg << itr->second->toString();
+        }
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, PlayerCreature* pPC )
-	
+bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, PlayerCreature* pPC)
+
 {
-	__BEGIN_TRY
-
-	Assert( pPC != NULL );
-
-	Race_t 		race 	= pPC->getRace();
-	GuildID_t 	guildID = pPC->getGuildID();
-
-	return modifyCastleOwner( zoneID, race, guildID );
-
-	__END_CATCH
-}
-
-bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_t guildID )
-	
-{
-	__BEGIN_TRY
-
-	CastleInfo* pCastleInfo = getCastleInfo( zoneID );
-	if( pCastleInfo == NULL ) return false;
-
-	Race_t oldRace = pCastleInfo->getRace();
-
-	pCastleInfo->setGuildID( guildID );
-	pCastleInfo->setRace( race );
-	pCastleInfo->setTaxBalance( 0 );
-
-	Zone* pZone = getZoneByZoneID(zoneID);
-
-	if( pCastleInfo->isCommon() )
-	{
-		pCastleInfo->setEntranceFee( g_pVariableManager->getVariable( COMMON_CASTLE_ENTRANCE_FEE ) );
-		setItemTaxRatio( pZone, g_pVariableManager->getVariable( COMMON_CASTLE_ITEM_TAX_RATIO ) );
-	}
-	else
-	{
-		pCastleInfo->setEntranceFee( g_pVariableManager->getVariable( GUILD_CASTLE_ENTRANCE_FEE ) );
-		setItemTaxRatio( pZone, g_pVariableManager->getVariable( GUILD_CASTLE_ITEM_TAX_RATIO ) );
-	}
-
-	StringStream msg;
-
-	msg << "GuildID = " << (int)pCastleInfo->getGuildID()
-		<< ",Race = " << (int)pCastleInfo->getRace()
-		<< ",TaxBalance = " << (int)pCastleInfo->getTaxBalance()
-		<< ",ItemTaxRatio = " << (int)pCastleInfo->getItemTaxRatio()
-		<< ",EntranceFee = " << (int)pCastleInfo->getEntranceFee();
-
-	if( tinysave( zoneID, msg.toString() ) )
-	{
-//		StringStream msg;
-		char msg[100];
-		if( guildID == SlayerCommon )
-		{
-			//msg << pCastleInfo->getName() << " castle became a Slayer common castle.";
-			sprintf( msg, g_pStringPool->c_str( STRID_BECOME_SLAYER_COMMON_CASTLE ),
-							pCastleInfo->getName().c_str() );
-		}
-		else if ( guildID == VampireCommon )
-		{
-			//msg << pCastleInfo->getName() << " castle became a Vampire common castle.";
-			sprintf( msg, g_pStringPool->c_str( STRID_BECOME_VAMPIRE_COMMON_CASTLE ),
-							pCastleInfo->getName().c_str() );
-		}
-		else if ( guildID == OustersCommon )
-		{
-			sprintf( msg, "%s castle became an Ousters common castle.", pCastleInfo->getName().c_str() );
-		}
-		else
-		{
-			Guild* pGuild = g_pGuildManager->getGuild( guildID );
-
-			if( pGuild == NULL )
-			{
-				filelog( "CastleError.log", "Unknown guildID : %d", (int)guildID );
-			}
-			else
-			{
-				if ( pGuild->getRace() == Guild::GUILD_RACE_SLAYER )
-				{
-					//msg << pGuild->getName() << " team conquered the castle.";
-					sprintf( msg, g_pStringPool->c_str( STRID_BECOME_SLAYER_GUILD_CASTLE ),
-							pGuild->getName().c_str(), pCastleInfo->getName().c_str() );
-				}
-				else
-				{
-					//msg << pGuild->getName() << " clan conquered the castle.";
-					sprintf( msg, g_pStringPool->c_str( STRID_BECOME_VAMPIRE_GUILD_CASTLE ),
-							pGuild->getName().c_str(), pCastleInfo->getName().c_str() );
-				}
-			}
-
-//			msg << pCastleInfo->getName() << " castle was captured.";
-		}
-
-		// Handle when the owning race of the castle changes
-		if ( oldRace != race )
-		{
-			// Re-apply castle-related bonuses
-			//g_pHolyLandRaceBonus->refresh();
-
-			// [NPC reset] --> handled in War
-			/*
-			Zone* pZone = getZoneByZoneID( zoneID );
-
-			// Remove all castle NPCs.
-			pZone->deleteNPCs( oldRace );
-
-			// Reload castle NPCs.
-			pZone->loadNPCs( race );
-			*/
-
-			// Cancel every war schedule for this castle.
-			WarScheduler* pWarScheduler = pZone->getWarScheduler();
-			Assert(pWarScheduler!=NULL);
-
-			// Cancel all guild war schedules.
-			pWarScheduler->cancelGuildSchedules();
-		}
-
-		filelog( "WarLog.txt", "[CastleZoneID:%u]%s", (uint)pCastleInfo->getZoneID(), msg );
-
-		// Apply the Holy Land Race Bonus to players immediately.
-		EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer( NULL );
-		pEvent->setDeadline(0);
-		g_pClientManager->addEvent( pEvent );
-
-		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setType( SYSTEM_MESSAGE_HOLY_LAND );
-		gcSystemMessage.setMessage( msg );
-		g_pZoneGroupManager->broadcast( &gcSystemMessage );
-	}
-
-	return true;
-
-	__END_CATCH
-}
-
-bool CastleInfoManager::increaseTaxBalance( ZoneID_t zoneID, Gold_t tax )
-	
-{
-	__BEGIN_TRY
-
-	CastleInfo* pCastleInfo = getCastleInfo( zoneID );
-	if ( pCastleInfo == NULL) return false;
-
-	Gold_t TaxBalance = pCastleInfo->increaseTaxBalance(tax);
-
-	char str[40];
-	sprintf(str, "TaxBalance=%d", (int)TaxBalance );
-
-	return tinysave( zoneID, str );
-
-	__END_CATCH
-}
-bool CastleInfoManager::decreaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) 
-	
-{
-	__BEGIN_TRY
-
-	CastleInfo* pCastleInfo = getCastleInfo( zoneID );
-	if ( pCastleInfo == NULL) return false;
-
-	Gold_t TaxBalance = pCastleInfo->decreaseTaxBalance(tax);
-
-	char str[40];
-	sprintf(str, "TaxBalance=%d", (int)TaxBalance );
-
-	return tinysave( zoneID, str );
-
-	__END_CATCH
-}
-
-bool CastleInfoManager::setItemTaxRatio( Zone* pZone, int itemTaxRatio ) 
-	
-{
-	__BEGIN_TRY
-
-	Assert(pZone != NULL);
-	CastleInfo* pCastleInfo = getCastleInfo( pZone->getZoneID() );
-	if ( pCastleInfo == NULL) return false;
-
-	pCastleInfo->setItemTaxRatio( itemTaxRatio );
-
-	char str[40];
-	sprintf(str,"ItemTaxRatio=%d", (int)itemTaxRatio);
-
-	tinysave( pZone->getZoneID(), str );
-
-	GCNoticeEvent gcNoticeEvent;
-	gcNoticeEvent.setCode(NOTICE_EVENT_SHOP_TAX_CHANGE);
-	gcNoticeEvent.setParameter((uint)itemTaxRatio);
-
-	pZone->broadcastPacket(&gcNoticeEvent);
-
-	return true;
-
-	__END_CATCH
-}
-
-int CastleInfoManager::getItemTaxRatio( const PlayerCreature* pPC, const NPC* pNPC ) const
-	
-{
-	__BEGIN_TRY
-
-	if ( pNPC == NULL ) return 100;
-
-	ZoneID_t castleZoneID = pNPC->getTaxingCastleZoneID();
-	if ( castleZoneID == 0 ) return 100;
-
-	Assert(pPC != NULL);
-//	Zone* pZone = pPC->getZone();
-	const CastleInfo* pCastleInfo = getCastleInfo( castleZoneID );
-
-	if (pCastleInfo != NULL) 
-	{
-		GuildID_t 	OwnerGuildID = pCastleInfo->getGuildID();
-		GuildID_t 	PlayerGuildID = pPC->getGuildID();
-		int			ItemTaxRatio = pCastleInfo->getItemTaxRatio();
-		
-
-		if ( PlayerGuildID == SlayerCommon 
-			 || PlayerGuildID == VampireCommon
-			 || PlayerGuildID == OustersCommon
-			 || PlayerGuildID != OwnerGuildID )
-		{
-			return ItemTaxRatio;
-		}
-	}
-
-	return 100;
-
-	__END_CATCH
-}
-
-Gold_t CastleInfoManager::getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	
-{
-	__BEGIN_TRY
+    __BEGIN_TRY
 
     Assert(pPC != NULL);
-    const CastleInfo* pCastleInfo = getCastleInfo( zoneID );
 
-	// If the castle is in war, entrance fee is waived.
-    if ( pCastleInfo != NULL && !g_pWarSystem->hasCastleActiveWar( zoneID ) && !g_pWarSystem->hasActiveRaceWar() )
-    {
-        GuildID_t   OwnerGuildID = pCastleInfo->getGuildID();
-        GuildID_t   PlayerGuildID = pPC->getGuildID();
-        Gold_t      EntranceFee = pCastleInfo->getEntranceFee();
+    Race_t race = pPC->getRace();
+    GuildID_t guildID = pPC->getGuildID();
 
-        if ( PlayerGuildID == SlayerCommon
-             || PlayerGuildID == VampireCommon
-             || PlayerGuildID == OustersCommon
-             || PlayerGuildID != OwnerGuildID )
-        {
+    return modifyCastleOwner(zoneID, race, guildID);
+
+    __END_CATCH
+}
+
+bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_t guildID)
+
+{
+    __BEGIN_TRY
+
+    CastleInfo* pCastleInfo = getCastleInfo(zoneID);
+    if (pCastleInfo == NULL)
+        return false;
+
+    Race_t oldRace = pCastleInfo->getRace();
+
+    pCastleInfo->setGuildID(guildID);
+    pCastleInfo->setRace(race);
+    pCastleInfo->setTaxBalance(0);
+
+    Zone* pZone = getZoneByZoneID(zoneID);
+
+    if (pCastleInfo->isCommon()) {
+        pCastleInfo->setEntranceFee(g_pVariableManager->getVariable(COMMON_CASTLE_ENTRANCE_FEE));
+        setItemTaxRatio(pZone, g_pVariableManager->getVariable(COMMON_CASTLE_ITEM_TAX_RATIO));
+    } else {
+        pCastleInfo->setEntranceFee(g_pVariableManager->getVariable(GUILD_CASTLE_ENTRANCE_FEE));
+        setItemTaxRatio(pZone, g_pVariableManager->getVariable(GUILD_CASTLE_ITEM_TAX_RATIO));
+    }
+
+    StringStream msg;
+
+    msg << "GuildID = " << (int)pCastleInfo->getGuildID() << ",Race = " << (int)pCastleInfo->getRace()
+        << ",TaxBalance = " << (int)pCastleInfo->getTaxBalance()
+        << ",ItemTaxRatio = " << (int)pCastleInfo->getItemTaxRatio()
+        << ",EntranceFee = " << (int)pCastleInfo->getEntranceFee();
+
+    if (tinysave(zoneID, msg.toString())) {
+        //		StringStream msg;
+        char msg[100];
+        if (guildID == SlayerCommon) {
+            // msg << pCastleInfo->getName() << " castle became a Slayer common castle.";
+            sprintf(msg, g_pStringPool->c_str(STRID_BECOME_SLAYER_COMMON_CASTLE), pCastleInfo->getName().c_str());
+        } else if (guildID == VampireCommon) {
+            // msg << pCastleInfo->getName() << " castle became a Vampire common castle.";
+            sprintf(msg, g_pStringPool->c_str(STRID_BECOME_VAMPIRE_COMMON_CASTLE), pCastleInfo->getName().c_str());
+        } else if (guildID == OustersCommon) {
+            sprintf(msg, "%s castle became an Ousters common castle.", pCastleInfo->getName().c_str());
+        } else {
+            Guild* pGuild = g_pGuildManager->getGuild(guildID);
+
+            if (pGuild == NULL) {
+                filelog("CastleError.log", "Unknown guildID : %d", (int)guildID);
+            } else {
+                if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER) {
+                    // msg << pGuild->getName() << " team conquered the castle.";
+                    sprintf(msg, g_pStringPool->c_str(STRID_BECOME_SLAYER_GUILD_CASTLE), pGuild->getName().c_str(),
+                            pCastleInfo->getName().c_str());
+                } else {
+                    // msg << pGuild->getName() << " clan conquered the castle.";
+                    sprintf(msg, g_pStringPool->c_str(STRID_BECOME_VAMPIRE_GUILD_CASTLE), pGuild->getName().c_str(),
+                            pCastleInfo->getName().c_str());
+                }
+            }
+
+            //			msg << pCastleInfo->getName() << " castle was captured.";
+        }
+
+        // Handle when the owning race of the castle changes
+        if (oldRace != race) {
+            // Re-apply castle-related bonuses
+            // g_pHolyLandRaceBonus->refresh();
+
+            // [NPC reset] --> handled in War
+            /*
+            Zone* pZone = getZoneByZoneID( zoneID );
+
+            // Remove all castle NPCs.
+            pZone->deleteNPCs( oldRace );
+
+            // Reload castle NPCs.
+            pZone->loadNPCs( race );
+            */
+
+            // Cancel every war schedule for this castle.
+            WarScheduler* pWarScheduler = pZone->getWarScheduler();
+            Assert(pWarScheduler != NULL);
+
+            // Cancel all guild war schedules.
+            pWarScheduler->cancelGuildSchedules();
+        }
+
+        filelog("WarLog.txt", "[CastleZoneID:%u]%s", (uint)pCastleInfo->getZoneID(), msg);
+
+        // Apply the Holy Land Race Bonus to players immediately.
+        EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
+        pEvent->setDeadline(0);
+        g_pClientManager->addEvent(pEvent);
+
+        GCSystemMessage gcSystemMessage;
+        gcSystemMessage.setType(SYSTEM_MESSAGE_HOLY_LAND);
+        gcSystemMessage.setMessage(msg);
+        g_pZoneGroupManager->broadcast(&gcSystemMessage);
+    }
+
+    return true;
+
+    __END_CATCH
+}
+
+bool CastleInfoManager::increaseTaxBalance(ZoneID_t zoneID, Gold_t tax)
+
+{
+    __BEGIN_TRY
+
+    CastleInfo* pCastleInfo = getCastleInfo(zoneID);
+    if (pCastleInfo == NULL)
+        return false;
+
+    Gold_t TaxBalance = pCastleInfo->increaseTaxBalance(tax);
+
+    char str[40];
+    sprintf(str, "TaxBalance=%d", (int)TaxBalance);
+
+    return tinysave(zoneID, str);
+
+    __END_CATCH
+}
+bool CastleInfoManager::decreaseTaxBalance(ZoneID_t zoneID, Gold_t tax)
+
+{
+    __BEGIN_TRY
+
+    CastleInfo* pCastleInfo = getCastleInfo(zoneID);
+    if (pCastleInfo == NULL)
+        return false;
+
+    Gold_t TaxBalance = pCastleInfo->decreaseTaxBalance(tax);
+
+    char str[40];
+    sprintf(str, "TaxBalance=%d", (int)TaxBalance);
+
+    return tinysave(zoneID, str);
+
+    __END_CATCH
+}
+
+bool CastleInfoManager::setItemTaxRatio(Zone* pZone, int itemTaxRatio)
+
+{
+    __BEGIN_TRY
+
+    Assert(pZone != NULL);
+    CastleInfo* pCastleInfo = getCastleInfo(pZone->getZoneID());
+    if (pCastleInfo == NULL)
+        return false;
+
+    pCastleInfo->setItemTaxRatio(itemTaxRatio);
+
+    char str[40];
+    sprintf(str, "ItemTaxRatio=%d", (int)itemTaxRatio);
+
+    tinysave(pZone->getZoneID(), str);
+
+    GCNoticeEvent gcNoticeEvent;
+    gcNoticeEvent.setCode(NOTICE_EVENT_SHOP_TAX_CHANGE);
+    gcNoticeEvent.setParameter((uint)itemTaxRatio);
+
+    pZone->broadcastPacket(&gcNoticeEvent);
+
+    return true;
+
+    __END_CATCH
+}
+
+int CastleInfoManager::getItemTaxRatio(const PlayerCreature* pPC, const NPC* pNPC) const
+
+{
+    __BEGIN_TRY
+
+    if (pNPC == NULL)
+        return 100;
+
+    ZoneID_t castleZoneID = pNPC->getTaxingCastleZoneID();
+    if (castleZoneID == 0)
+        return 100;
+
+    Assert(pPC != NULL);
+    //	Zone* pZone = pPC->getZone();
+    const CastleInfo* pCastleInfo = getCastleInfo(castleZoneID);
+
+    if (pCastleInfo != NULL) {
+        GuildID_t OwnerGuildID = pCastleInfo->getGuildID();
+        GuildID_t PlayerGuildID = pPC->getGuildID();
+        int ItemTaxRatio = pCastleInfo->getItemTaxRatio();
+
+
+        if (PlayerGuildID == SlayerCommon || PlayerGuildID == VampireCommon || PlayerGuildID == OustersCommon ||
+            PlayerGuildID != OwnerGuildID) {
+            return ItemTaxRatio;
+        }
+    }
+
+    return 100;
+
+    __END_CATCH
+}
+
+Gold_t CastleInfoManager::getEntranceFee(ZoneID_t zoneID, PlayerCreature* pPC) const
+
+{
+    __BEGIN_TRY
+
+    Assert(pPC != NULL);
+    const CastleInfo* pCastleInfo = getCastleInfo(zoneID);
+
+    // If the castle is in war, entrance fee is waived.
+    if (pCastleInfo != NULL && !g_pWarSystem->hasCastleActiveWar(zoneID) && !g_pWarSystem->hasActiveRaceWar()) {
+        GuildID_t OwnerGuildID = pCastleInfo->getGuildID();
+        GuildID_t PlayerGuildID = pPC->getGuildID();
+        Gold_t EntranceFee = pCastleInfo->getEntranceFee();
+
+        if (PlayerGuildID == SlayerCommon || PlayerGuildID == VampireCommon || PlayerGuildID == OustersCommon ||
+            PlayerGuildID != OwnerGuildID) {
             return EntranceFee;
         }
     }
 
     return 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool CastleInfoManager::isCastleMember( PlayerCreature* pPC ) const
-	
+bool CastleInfoManager::isCastleMember(PlayerCreature* pPC) const
+
 {
-	__BEGIN_TRY
-
-    Assert(pPC != NULL);
-    Zone* pZone = pPC->getZone();
-    const CastleInfo* pCastleInfo = getCastleInfo( pZone->getZoneID() );
-
-    if (pCastleInfo != NULL)
-    {
-        GuildID_t   OwnerGuildID = pCastleInfo->getGuildID();
-        GuildID_t   PlayerGuildID = pPC->getGuildID();
-
-        if ( PlayerGuildID == SlayerCommon
-             || PlayerGuildID == VampireCommon
-			 || PlayerGuildID == OustersCommon
-             || PlayerGuildID != OwnerGuildID )
-        {
-            return false;
-        }
-    }
-
-    return true;
-
-	__END_CATCH
-}
-
-bool CastleInfoManager::isCastleMember( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	
-{
-	__BEGIN_TRY
-
-    Assert(pPC != NULL);
-    const CastleInfo* pCastleInfo = getCastleInfo( zoneID );
-
-    if (pCastleInfo != NULL)
-    {
-        GuildID_t   OwnerGuildID = pCastleInfo->getGuildID();
-        GuildID_t   PlayerGuildID = pPC->getGuildID();
-
-        if ( PlayerGuildID == SlayerCommon
-             || PlayerGuildID == VampireCommon
-             || PlayerGuildID == OustersCommon
-             || PlayerGuildID != OwnerGuildID )
-        {
-            return false;
-        }
-    }
-	else
-		return false;
-
-    return true;
-
-	__END_CATCH
-}
-
-bool CastleInfoManager::hasOtherBloodBible( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	
-{
-	__BEGIN_TRY
-
-	if ( pPC->isFlag( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) )
-	{
-		// Block entry if carrying a Blood Bible that does not belong to this castle.
-		EffectHasBloodBible* pEffect = dynamic_cast<EffectHasBloodBible*>( pPC->findEffect( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) );
-		Assert( pEffect != NULL );
-		
-		int part = pEffect->getPart();
-		ShrineSet* pShrineSet = g_pShrineInfoManager->getShrineSet( part );
-		if ( pShrineSet->getVampireGuardShrine().getZoneID() == zoneID
-		||	 pShrineSet->getSlayerGuardShrine().getZoneID() == zoneID
-		||	 pShrineSet->getOustersGuardShrine().getZoneID() == zoneID )
-		{
-			return false;
-		}
-
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-	__END_CATCH
-}
-	
-bool CastleInfoManager::isPossibleEnter( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	
-{
-
     __BEGIN_TRY
 
     Assert(pPC != NULL);
-    const CastleInfo* pCastleInfo = getCastleInfo( zoneID );
+    Zone* pZone = pPC->getZone();
+    const CastleInfo* pCastleInfo = getCastleInfo(pZone->getZoneID());
 
-    if (pCastleInfo != NULL)
-    {
-        Race_t   OwnerRace = pCastleInfo->getRace();
-        Race_t   PlayerRace = pPC->getRace();//(pPC->isSlayer()? RACE_SLAYER : RACE_VAMPIRE);
+    if (pCastleInfo != NULL) {
+        GuildID_t OwnerGuildID = pCastleInfo->getGuildID();
+        GuildID_t PlayerGuildID = pPC->getGuildID();
 
-		if ( g_pWarSystem->hasActiveRaceWar() )
-		{
-			if ( hasOtherBloodBible( zoneID, pPC ) )
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-		else if ( OwnerRace == PlayerRace ) 
-		{
-			return true;
-		}
-		return false;
+        if (PlayerGuildID == SlayerCommon || PlayerGuildID == VampireCommon || PlayerGuildID == OustersCommon ||
+            PlayerGuildID != OwnerGuildID) {
+            return false;
+        }
     }
 
     return true;
 
     __END_CATCH
-
 }
 
-bool CastleInfoManager::canPortalActivate( ZoneID_t zoneID, PlayerCreature* pPC ) const 
-	
+bool CastleInfoManager::isCastleMember(ZoneID_t zoneID, PlayerCreature* pPC) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	const CastleInfo* pCastleInfo = getCastleInfo( zoneID );
+    Assert(pPC != NULL);
+    const CastleInfo* pCastleInfo = getCastleInfo(zoneID);
 
-	if ( pCastleInfo == NULL )
-	{
-		filelog( "CastleError.log", "CastleInfoManager::canPortalActivate() CastleInfo(%d) is missing.", (int)zoneID );
-		Assert( false );
-	}
+    if (pCastleInfo != NULL) {
+        GuildID_t OwnerGuildID = pCastleInfo->getGuildID();
+        GuildID_t PlayerGuildID = pPC->getGuildID();
 
-	if ( g_pWarSystem->hasActiveRaceWar() )
-	{
-		if ( hasOtherBloodBible( zoneID, pPC ) )
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
+        if (PlayerGuildID == SlayerCommon || PlayerGuildID == VampireCommon || PlayerGuildID == OustersCommon ||
+            PlayerGuildID != OwnerGuildID) {
+            return false;
+        }
+    } else
+        return false;
 
-	if ( g_pWarSystem->hasCastleActiveWar( zoneID ) )
-	{
-		War* pWar = g_pWarSystem->getActiveWar( zoneID );
-		
-		if ( pWar != NULL )
-		{
-			return pPC->getRace() == pCastleInfo->getRace();
-		}
-	}
+    return true;
 
-	return false;
-
-	__END_CATCH
+    __END_CATCH
 }
 
-CastleInfo* CastleInfoManager::getGuildCastleInfo( GuildID_t guildID ) const
-	
+bool CastleInfoManager::hasOtherBloodBible(ZoneID_t zoneID, PlayerCreature* pPC) const
+
 {
+    __BEGIN_TRY
 
-	__BEGIN_TRY
+    if (pPC->isFlag(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE)) {
+        // Block entry if carrying a Blood Bible that does not belong to this castle.
+        EffectHasBloodBible* pEffect =
+            dynamic_cast<EffectHasBloodBible*>(pPC->findEffect(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE));
+        Assert(pEffect != NULL);
 
-	if (guildID==SlayerCommon 
-		|| guildID==VampireCommon
-		|| guildID==OustersCommon
-		)
-	{
-		return NULL;
-	}
+        int part = pEffect->getPart();
+        ShrineSet* pShrineSet = g_pShrineInfoManager->getShrineSet(part);
+        if (pShrineSet->getVampireGuardShrine().getZoneID() == zoneID ||
+            pShrineSet->getSlayerGuardShrine().getZoneID() == zoneID ||
+            pShrineSet->getOustersGuardShrine().getZoneID() == zoneID) {
+            return false;
+        }
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+        return true;
+    } else {
+        return false;
+    }
 
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
-
-		if (pCastleInfo->getGuildID()==guildID)
-		{
-			return pCastleInfo;
-		}
-	}
-	
-	return NULL;
-
-	__END_CATCH
-
+    __END_CATCH
 }
 
-list<CastleInfo*> CastleInfoManager::getGuildCastleInfos( GuildID_t guildID ) const
-	
+bool CastleInfoManager::isPossibleEnter(ZoneID_t zoneID, PlayerCreature* pPC) const
+
 {
+    __BEGIN_TRY
 
-	__BEGIN_TRY
+    Assert(pPC != NULL);
+    const CastleInfo* pCastleInfo = getCastleInfo(zoneID);
 
-	list<CastleInfo*> castleList;
+    if (pCastleInfo != NULL) {
+        Race_t OwnerRace = pCastleInfo->getRace();
+        Race_t PlayerRace = pPC->getRace(); //(pPC->isSlayer()? RACE_SLAYER : RACE_VAMPIRE);
 
-	if (guildID==SlayerCommon 
-		|| guildID==VampireCommon
-		|| guildID==OustersCommon
-		)
-	{
-		return castleList;
-	}
+        if (g_pWarSystem->hasActiveRaceWar()) {
+            if (hasOtherBloodBible(zoneID, pPC)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (OwnerRace == PlayerRace) {
+            return true;
+        }
+        return false;
+    }
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+    return true;
 
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
-
-		if (pCastleInfo->getGuildID()==guildID)
-		{
-			castleList.push_back(pCastleInfo);
-		}
-	}
-	
-	return castleList;
-
-	__END_CATCH
-
+    __END_CATCH
 }
 
-bool CastleInfoManager::getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& zoneCoord ) 
-	
+bool CastleInfoManager::canPortalActivate(ZoneID_t zoneID, PlayerCreature* pPC) const
+
 {
-	CastleInfo::ResurrectPriority resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND;
+    __BEGIN_TRY
 
-	ZoneID_t castleZoneID;
-	bool isCastleZone = g_pCastleInfoManager->getCastleZoneID( pPC->getResurrectZoneID(), castleZoneID );
+    const CastleInfo* pCastleInfo = getCastleInfo(zoneID);
 
-	if (!isCastleZone)
-		return false;
+    if (pCastleInfo == NULL) {
+        filelog("CastleError.log", "CastleInfoManager::canPortalActivate() CastleInfo(%d) is missing.", (int)zoneID);
+        Assert(false);
+    }
 
-	CastleInfo* pCastleInfo = getCastleInfo( castleZoneID );
+    if (g_pWarSystem->hasActiveRaceWar()) {
+        if (hasOtherBloodBible(zoneID, pPC)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	if ( pCastleInfo != NULL )
-	{
-		if ( pCastleInfo->getZoneID() != pPC->getResurrectZoneID() || g_pWarSystem->hasCastleActiveWar( castleZoneID ) )
-		{
-			// Resurrect outside the castle.
-			// If the resurrect point is a castle dungeon, treat it as outside.
-			// Hard-coded because each zone only supports one resurrect point.
-			// Example: west/east of Adam's sanctuary has two nearby castles; cannot set both outside points.
-			// Also, if the castle is at war, resurrect outside.
-			if ( isCastleMember( castleZoneID, pPC ) )
-				resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND;
-			else
-				resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD;
-		}
-		else
-		{
-			// Resurrect inside the castle.
-			// Non-guild members pay a fee; if short on gold, resurrect outside.
-			if ( isCastleMember( castleZoneID, pPC ) )
-				resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST;
-			else
-			{
-				Gold_t fee = pCastleInfo->getEntranceFee();
-				Gold_t remain = pPC->getGold();
+    if (g_pWarSystem->hasCastleActiveWar(zoneID)) {
+        War* pWar = g_pWarSystem->getActiveWar(zoneID);
 
-				if ( remain < fee )
-				{
-					// Not enough fee: resurrect outside.
-					resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD;
-				}
-				else
-				{
-					// Charge the fee and resurrect inside.
-					pPC->decreaseGoldEx( fee );
-					increaseTaxBalance( pCastleInfo->getZoneID(), fee );
+        if (pWar != NULL) {
+            return pPC->getRace() == pCastleInfo->getRace();
+        }
+    }
 
-					GCModifyInformation gcMI;
-					gcMI.addLongData( MODIFY_GOLD, pPC->getGold() );
+    return false;
 
-					GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
-					if ( pGamePlayer->getPlayerStatus() == GPS_NORMAL )
-						pGamePlayer->sendPacket( &gcMI );
-
-					resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST;
-				}
-			}
-		}
-	}
-	else
-	{
-		return false;
-	}
-
-	pCastleInfo->getResurrectPosition( resurrectPriority, zoneCoord );
-
-	return true;
+    __END_CATCH
 }
 
-bool CastleInfoManager::tinysave( ZoneID_t zoneID, const string& query )
-	
+CastleInfo* CastleInfoManager::getGuildCastleInfo(GuildID_t guildID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	CastleInfo* pCastleInfo = getCastleInfo( zoneID );
-	if( pCastleInfo == NULL ) return false;
+    if (guildID == SlayerCommon || guildID == VampireCommon || guildID == OustersCommon) {
+        return NULL;
+    }
 
-	Statement* pStmt = NULL;
-	bool isAffected = false;
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
-	BEGIN_DB
-	{
-		// create statement
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
 
-		pStmt->executeQuery(
-			"UPDATE CastleInfo SET %s WHERE ZoneID=%d AND ServerID=%d",
-			query.c_str(), pCastleInfo->getZoneID(), g_pConfig->getPropertyInt("ServerID") );
+        if (pCastleInfo->getGuildID() == guildID) {
+            return pCastleInfo;
+        }
+    }
 
-		if( pStmt->getAffectedRowCount() > 0 )
-			isAffected = true;
+    return NULL;
 
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
-
-	return isAffected;
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void    CastleInfoManager::deleteAllNPCs() 
-	
+list<CastleInfo*> CastleInfoManager::getGuildCastleInfos(GuildID_t guildID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+    list<CastleInfo*> castleList;
 
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
+    if (guildID == SlayerCommon || guildID == VampireCommon || guildID == OustersCommon) {
+        return castleList;
+    }
 
-		Zone* pZone = getZoneByZoneID( pCastleInfo->getZoneID() );
-		Assert( pZone != NULL );
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
-		__ENTER_CRITICAL_SECTION( (*pZone) )
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
 
-		// Remove all NPCs.
-		pZone->deleteNPCs( RACE_SLAYER );
-		pZone->deleteNPCs( RACE_VAMPIRE );
+        if (pCastleInfo->getGuildID() == guildID) {
+            castleList.push_back(pCastleInfo);
+        }
+    }
 
-		__LEAVE_CRITICAL_SECTION( (*pZone) )
-	}
+    return castleList;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void    CastleInfoManager::releaseAllSafeZone() 
-	
+bool CastleInfoManager::getResurrectPosition(PlayerCreature* pPC, ZONE_COORD& zoneCoord)
+
 {
-	__BEGIN_TRY
+    CastleInfo::ResurrectPriority resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND;
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+    ZoneID_t castleZoneID;
+    bool isCastleZone = g_pCastleInfoManager->getCastleZoneID(pPC->getResurrectZoneID(), castleZoneID);
 
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
+    if (!isCastleZone)
+        return false;
 
-		Zone* pZone = getZoneByZoneID( pCastleInfo->getZoneID() );
-		Assert( pZone != NULL );
+    CastleInfo* pCastleInfo = getCastleInfo(castleZoneID);
 
-		__ENTER_CRITICAL_SECTION( (*pZone) )
+    if (pCastleInfo != NULL) {
+        if (pCastleInfo->getZoneID() != pPC->getResurrectZoneID() || g_pWarSystem->hasCastleActiveWar(castleZoneID)) {
+            // Resurrect outside the castle.
+            // If the resurrect point is a castle dungeon, treat it as outside.
+            // Hard-coded because each zone only supports one resurrect point.
+            // Example: west/east of Adam's sanctuary has two nearby castles; cannot set both outside points.
+            // Also, if the castle is at war, resurrect outside.
+            if (isCastleMember(castleZoneID, pPC))
+                resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND;
+            else
+                resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD;
+        } else {
+            // Resurrect inside the castle.
+            // Non-guild members pay a fee; if short on gold, resurrect outside.
+            if (isCastleMember(castleZoneID, pPC))
+                resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST;
+            else {
+                Gold_t fee = pCastleInfo->getEntranceFee();
+                Gold_t remain = pPC->getGold();
 
-		pZone->releaseSafeZone();
+                if (remain < fee) {
+                    // Not enough fee: resurrect outside.
+                    resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD;
+                } else {
+                    // Charge the fee and resurrect inside.
+                    pPC->decreaseGoldEx(fee);
+                    increaseTaxBalance(pCastleInfo->getZoneID(), fee);
 
-		__LEAVE_CRITICAL_SECTION( (*pZone) )
-	}
+                    GCModifyInformation gcMI;
+                    gcMI.addLongData(MODIFY_GOLD, pPC->getGold());
 
-	__END_CATCH
+                    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
+                    if (pGamePlayer->getPlayerStatus() == GPS_NORMAL)
+                        pGamePlayer->sendPacket(&gcMI);
+
+                    resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST;
+                }
+            }
+        }
+    } else {
+        return false;
+    }
+
+    pCastleInfo->getResurrectPosition(resurrectPriority, zoneCoord);
+
+    return true;
 }
 
-void    CastleInfoManager::resetAllSafeZone() 
-	
+bool CastleInfoManager::tinysave(ZoneID_t zoneID, const string& query)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+    CastleInfo* pCastleInfo = getCastleInfo(zoneID);
+    if (pCastleInfo == NULL)
+        return false;
 
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
+    Statement* pStmt = NULL;
+    bool isAffected = false;
 
-		Zone* pZone = getZoneByZoneID( pCastleInfo->getZoneID() );
-		Assert( pZone != NULL );
+    BEGIN_DB {
+        // create statement
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		__ENTER_CRITICAL_SECTION( (*pZone) )
+        pStmt->executeQuery("UPDATE CastleInfo SET %s WHERE ZoneID=%d AND ServerID=%d", query.c_str(),
+                            pCastleInfo->getZoneID(), g_pConfig->getPropertyInt("ServerID"));
 
-		pZone->resetSafeZone();
+        if (pStmt->getAffectedRowCount() > 0)
+            isAffected = true;
 
-		__LEAVE_CRITICAL_SECTION( (*pZone) )
-	}
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    return isAffected;
+
+    __END_CATCH
 }
 
-void	CastleInfoManager::transportAllOtherRace()
-	
-{	
-	__BEGIN_TRY
+void CastleInfoManager::deleteAllNPCs()
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
-
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
-
-		// Register every zone ID that belongs to this castle.
-		const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
-		list<ZoneID_t>::const_iterator iZoneID = zoneIDs.begin();
-
-		for (; iZoneID!=zoneIDs.end(); iZoneID++)
-		{
-			ZoneID_t zoneID = *iZoneID;
-
-			Zone* pZone = getZoneByZoneID( zoneID );
-			Assert( pZone != NULL );
-
-			__ENTER_CRITICAL_SECTION( (*pZone) )
-
-			// Send the losing race of the race war to the resurrect point.
-			Race_t otherRace = (pCastleInfo->getRace()==RACE_SLAYER? RACE_VAMPIRE : RACE_SLAYER);
-
-			ZONE_COORD zoneCoord;
-			pCastleInfo->getResurrectPosition( CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND, zoneCoord);
-
-			PCManager* pPCManager = (PCManager*)(pZone->getPCManager());
-			pPCManager->transportAllCreatures( zoneCoord.id, zoneCoord.x, zoneCoord.y, otherRace );
-
-			__LEAVE_CRITICAL_SECTION( (*pZone) )
-		}
-	}
-
-	__END_CATCH
-
-}
-
-void	CastleInfoManager::loadAllNPCs()
-	
-{	
-	__BEGIN_TRY
-
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
-
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
-
-		Zone* pZone = getZoneByZoneID( pCastleInfo->getZoneID() );
-		Assert( pZone != NULL );
-
-		__ENTER_CRITICAL_SECTION( (*pZone) )
-
-		// Load NPCs
-		pZone->loadNPCs( pCastleInfo->getRace() );
-
-		__LEAVE_CRITICAL_SECTION( (*pZone) )
-	}
-
-	__END_CATCH
-
-}
-
-ZoneID_t    CastleInfoManager::getCastleZoneID(ShrineID_t shrineID) const
-	
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
-	for (; itr!=m_CastleInfos.end(); itr++)
-	{
-		CastleInfo* pCastleInfo = itr->second;		
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
 
-		if (pCastleInfo->getShrineID()==shrineID)
-		{
-			return pCastleInfo->getZoneID();
-		}
-	}
+        Zone* pZone = getZoneByZoneID(pCastleInfo->getZoneID());
+        Assert(pZone != NULL);
 
-	StringStream msg;
-	msg << "No such ShrineID(" << (int)shrineID << ").";
+        __ENTER_CRITICAL_SECTION((*pZone))
 
-	throw Error(msg.toString());
+        // Remove all NPCs.
+        pZone->deleteNPCs(RACE_SLAYER);
+        pZone->deleteNPCs(RACE_VAMPIRE);
 
-	return 0;
+        __LEAVE_CRITICAL_SECTION((*pZone))
+    }
 
-	__END_CATCH
+    __END_CATCH
+}
+
+void CastleInfoManager::releaseAllSafeZone()
+
+{
+    __BEGIN_TRY
+
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
+
+        Zone* pZone = getZoneByZoneID(pCastleInfo->getZoneID());
+        Assert(pZone != NULL);
+
+        __ENTER_CRITICAL_SECTION((*pZone))
+
+        pZone->releaseSafeZone();
+
+        __LEAVE_CRITICAL_SECTION((*pZone))
+    }
+
+    __END_CATCH
+}
+
+void CastleInfoManager::resetAllSafeZone()
+
+{
+    __BEGIN_TRY
+
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
+
+        Zone* pZone = getZoneByZoneID(pCastleInfo->getZoneID());
+        Assert(pZone != NULL);
+
+        __ENTER_CRITICAL_SECTION((*pZone))
+
+        pZone->resetSafeZone();
+
+        __LEAVE_CRITICAL_SECTION((*pZone))
+    }
+
+    __END_CATCH
+}
+
+void CastleInfoManager::transportAllOtherRace()
+
+{
+    __BEGIN_TRY
+
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
+
+        // Register every zone ID that belongs to this castle.
+        const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
+        list<ZoneID_t>::const_iterator iZoneID = zoneIDs.begin();
+
+        for (; iZoneID != zoneIDs.end(); iZoneID++) {
+            ZoneID_t zoneID = *iZoneID;
+
+            Zone* pZone = getZoneByZoneID(zoneID);
+            Assert(pZone != NULL);
+
+            __ENTER_CRITICAL_SECTION((*pZone))
+
+            // Send the losing race of the race war to the resurrect point.
+            Race_t otherRace = (pCastleInfo->getRace() == RACE_SLAYER ? RACE_VAMPIRE : RACE_SLAYER);
+
+            ZONE_COORD zoneCoord;
+            pCastleInfo->getResurrectPosition(CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND, zoneCoord);
+
+            PCManager* pPCManager = (PCManager*)(pZone->getPCManager());
+            pPCManager->transportAllCreatures(zoneCoord.id, zoneCoord.x, zoneCoord.y, otherRace);
+
+            __LEAVE_CRITICAL_SECTION((*pZone))
+        }
+    }
+
+    __END_CATCH
+}
+
+void CastleInfoManager::loadAllNPCs()
+
+{
+    __BEGIN_TRY
+
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
+
+        Zone* pZone = getZoneByZoneID(pCastleInfo->getZoneID());
+        Assert(pZone != NULL);
+
+        __ENTER_CRITICAL_SECTION((*pZone))
+
+        // Load NPCs
+        pZone->loadNPCs(pCastleInfo->getRace());
+
+        __LEAVE_CRITICAL_SECTION((*pZone))
+    }
+
+    __END_CATCH
+}
+
+ZoneID_t CastleInfoManager::getCastleZoneID(ShrineID_t shrineID) const
+
+{
+    __BEGIN_TRY
+
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+
+    for (; itr != m_CastleInfos.end(); itr++) {
+        CastleInfo* pCastleInfo = itr->second;
+
+        if (pCastleInfo->getShrineID() == shrineID) {
+            return pCastleInfo->getZoneID();
+        }
+    }
+
+    StringStream msg;
+    msg << "No such ShrineID(" << (int)shrineID << ").";
+
+    throw Error(msg.toString());
+
+    return 0;
+
+    __END_CATCH
 }
 
 void CastleInfoManager::broadcastShrinePacket(ShrineID_t shrineID, Packet* pPacket) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	ZoneID_t castleZoneID = getCastleZoneID( shrineID );
+    ZoneID_t castleZoneID = getCastleZoneID(shrineID);
 
-	const CastleInfo* pCastleInfo = getCastleInfo( castleZoneID );
-	Assert(pCastleInfo!=NULL);
+    const CastleInfo* pCastleInfo = getCastleInfo(castleZoneID);
+    Assert(pCastleInfo != NULL);
 
-	pCastleInfo->broadcast( pPacket );
+    pCastleInfo->broadcast(pPacket);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 bool CastleInfoManager::isCastleZone(ZoneID_t castleZoneID, ZoneID_t targetZoneID) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	const CastleInfo* pCastleInfo = getCastleInfo( castleZoneID );
-	Assert(pCastleInfo!=NULL);
+    const CastleInfo* pCastleInfo = getCastleInfo(castleZoneID);
+    Assert(pCastleInfo != NULL);
 
-	return pCastleInfo->isCastleZone( targetZoneID );
+    return pCastleInfo->isCastleZone(targetZoneID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool CastleInfoManager::isCastleZone(ZoneID_t zoneID) const
-{
-	__BEGIN_TRY
+bool CastleInfoManager::isCastleZone(ZoneID_t zoneID) const {
+    __BEGIN_TRY
 
-	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+    unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
-	for ( ; itr != m_CastleInfos.end() ; ++itr )
-	{
-		if ( itr->second->isCastleZone( zoneID ) ) return true;
-	}
+    for (; itr != m_CastleInfos.end(); ++itr) {
+        if (itr->second->isCastleZone(zoneID))
+            return true;
+    }
 
-	return false;
+    return false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void  
-CastleInfoManager::clearCastleZoneIDs()
-	
+void CastleInfoManager::clearCastleZoneIDs()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_CastleZoneIDs.clear();
+    m_CastleZoneIDs.clear();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool 
-CastleInfoManager::getCastleZoneID(ZoneID_t zoneID, ZoneID_t &castleZoneID) const
-	
+bool CastleInfoManager::getCastleZoneID(ZoneID_t zoneID, ZoneID_t& castleZoneID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<ZoneID_t, ZoneID_t>::const_iterator itr = m_CastleZoneIDs.find( zoneID );
+    unordered_map<ZoneID_t, ZoneID_t>::const_iterator itr = m_CastleZoneIDs.find(zoneID);
 
-	if (itr!=m_CastleZoneIDs.end())
-	{
-		castleZoneID = itr->second;
-		return true;
-	}
+    if (itr != m_CastleZoneIDs.end()) {
+        castleZoneID = itr->second;
+        return true;
+    }
 
-	return false;
+    return false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void  
-CastleInfoManager::setCastleZoneID(ZoneID_t zoneID, ZoneID_t castleZoneID)
-	
+void CastleInfoManager::setCastleZoneID(ZoneID_t zoneID, ZoneID_t castleZoneID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_CastleZoneIDs[zoneID] = castleZoneID;
+    m_CastleZoneIDs[zoneID] = castleZoneID;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool        
-CastleInfoManager::isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const 
-	
+bool CastleInfoManager::isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	ZoneID_t castleZoneID1, castleZoneID2;
+    ZoneID_t castleZoneID1, castleZoneID2;
 
-	bool isCastle1 = getCastleZoneID(zoneID1, castleZoneID1);
-	bool isCastle2 = getCastleZoneID(zoneID2, castleZoneID2);
+    bool isCastle1 = getCastleZoneID(zoneID1, castleZoneID1);
+    bool isCastle2 = getCastleZoneID(zoneID2, castleZoneID2);
 
-	// If either zone is not a castle, they are not in the same castle group.
-	if (!isCastle1 || !isCastle2)
-		return false;
+    // If either zone is not a castle, they are not in the same castle group.
+    if (!isCastle1 || !isCastle2)
+        return false;
 
-	return castleZoneID1==castleZoneID2;
+    return castleZoneID1 == castleZoneID2;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-SkillType_t CastleInfoManager::getCastleSkillType( ZoneID_t zoneID, GuildID_t guildID ) const
-	
+SkillType_t CastleInfoManager::getCastleSkillType(ZoneID_t zoneID, GuildID_t guildID) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-    const CastleInfo* pCastleInfo = getCastleInfo( zoneID );
+    const CastleInfo* pCastleInfo = getCastleInfo(zoneID);
 
-    if (pCastleInfo != NULL)
-    {
-        GuildID_t   OwnerGuildID = pCastleInfo->getGuildID();
+    if (pCastleInfo != NULL) {
+        GuildID_t OwnerGuildID = pCastleInfo->getGuildID();
 
-		// If the guild does not own the castle, return none.
-        if ( guildID == SlayerCommon
-             || guildID == VampireCommon
-             || guildID == OustersCommon
-             || guildID != OwnerGuildID )
-        {
+        // If the guild does not own the castle, return none.
+        if (guildID == SlayerCommon || guildID == VampireCommon || guildID == OustersCommon ||
+            guildID != OwnerGuildID) {
             return SKILL_MAX;
         }
 
-		// If the castle is in a guild war, none is available.
-		if ( g_pWarSystem->hasCastleActiveWar( zoneID ) )
-		{
-			return SKILL_MAX;
-		}
+        // If the castle is in a guild war, none is available.
+        if (g_pWarSystem->hasCastleActiveWar(zoneID)) {
+            return SKILL_MAX;
+        }
 
-		return g_pCastleSkillInfoManager->getSkillType( zoneID );
+        return g_pCastleSkillInfoManager->getSkillType(zoneID);
     }
 
     return SKILL_MAX;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // global variable definition

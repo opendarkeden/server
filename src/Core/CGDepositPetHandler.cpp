@@ -7,79 +7,72 @@
 #include "CGDepositPet.h"
 
 #ifdef __GAME_SERVER__
+#include <cstdio>
+
+#include "CreatureUtil.h"
+#include "GCPetStashList.h"
+#include "GCPetStashVerify.h"
 #include "GamePlayer.h"
-#include "PlayerCreature.h"
 #include "Inventory.h"
 #include "PetItem.h"
-#include "CreatureUtil.h"
-#include "GCPetStashVerify.h"
-#include "GCPetStashList.h"
-
-#include <cstdio>
+#include "PlayerCreature.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGDepositPetHandler::execute (CGDepositPet* pPacket , Player* pPlayer)
-{
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-	__BEGIN_DEBUG
+void CGDepositPetHandler::execute(CGDepositPet* pPacket, Player* pPlayer) {
+    __BEGIN_TRY __BEGIN_DEBUG_EX __BEGIN_DEBUG
 
 #ifdef __GAME_SERVER__
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+        GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	GCPetStashVerify gcPetStashVerify;
+    GCPetStashVerify gcPetStashVerify;
 
-	if (pPacket->getIndex() >= MAX_PET_STASH )
-	{
-		gcPetStashVerify.setCode(PET_STASH_INVALID_INDEX);
-		pGamePlayer->sendPacket(&gcPetStashVerify);
-		return;
-	}
+    if (pPacket->getIndex() >= MAX_PET_STASH) {
+        gcPetStashVerify.setCode(PET_STASH_INVALID_INDEX);
+        pGamePlayer->sendPacket(&gcPetStashVerify);
+        return;
+    }
 
-	if (pPC->getPetStashItem(pPacket->getIndex() ) != NULL )
-	{
-		gcPetStashVerify.setCode(PET_STASH_RACK_IS_NOT_EMPTY);
-		pGamePlayer->sendPacket(&gcPetStashVerify);
-		return;
-	}
+    if (pPC->getPetStashItem(pPacket->getIndex()) != NULL) {
+        gcPetStashVerify.setCode(PET_STASH_RACK_IS_NOT_EMPTY);
+        pGamePlayer->sendPacket(&gcPetStashVerify);
+        return;
+    }
 
-	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory != NULL);
+    Inventory* pInventory = pPC->getInventory();
+    Assert(pInventory != NULL);
 
-	PetItem* pPetItem = dynamic_cast<PetItem*>(pInventory->getItemWithObjectID(pPacket->getObjectID() ));
-	if (pPetItem == NULL )
-	{
-		gcPetStashVerify.setCode(PET_STASH_INVALID_OID);
-		pGamePlayer->sendPacket(&gcPetStashVerify);
-		return;
-	}
+    PetItem* pPetItem = dynamic_cast<PetItem*>(pInventory->getItemWithObjectID(pPacket->getObjectID()));
+    if (pPetItem == NULL) {
+        gcPetStashVerify.setCode(PET_STASH_INVALID_OID);
+        pGamePlayer->sendPacket(&gcPetStashVerify);
+        return;
+    }
 
-	pInventory->deleteItem(pPetItem->getObjectID());
-	pPC->addPetStashItem(pPacket->getIndex(), pPetItem);
-	pGamePlayer->sendPacket(&gcPetStashVerify);
+    pInventory->deleteItem(pPetItem->getObjectID());
+    pPC->addPetStashItem(pPacket->getIndex(), pPetItem);
+    pGamePlayer->sendPacket(&gcPetStashVerify);
 
-	char pField[80];
-	sprintf(pField, "Storage=%d, StorageID=%d ", STORAGE_PET_STASH, pPacket->getIndex());
-	pPetItem->tinysave(pField);
+    char pField[80];
+    sprintf(pField, "Storage=%d, StorageID=%d ", STORAGE_PET_STASH, pPacket->getIndex());
+    pPetItem->tinysave(pField);
 
-	pPetItem->getPetInfo()->setFeedTurn(2);
+    pPetItem->getPetInfo()->setFeedTurn(2);
 
-	if (pPetItem != NULL && pPetItem->getPetInfo() != NULL && pPetItem->getPetInfo() == pPC->getPetInfo() )
-	{
-		pPC->setPetInfo(NULL);
-		pPC->initAllStatAndSend();
-		sendPetInfo(pGamePlayer, true);
-	}
+    if (pPetItem != NULL && pPetItem->getPetInfo() != NULL && pPetItem->getPetInfo() == pPC->getPetInfo()) {
+        pPC->setPetInfo(NULL);
+        pPC->initAllStatAndSend();
+        sendPetInfo(pGamePlayer, true);
+    }
 
-#endif	// __GAME_SERVER__
+#endif // __GAME_SERVER__
 
     __END_DEBUG
-	__END_DEBUG_EX __END_CATCH
+    __END_DEBUG_EX __END_CATCH
 }
-

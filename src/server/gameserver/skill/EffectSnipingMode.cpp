@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectSnipingMode.h"
+
 #include "DB.h"
 #include "Slayer.h"
 #include "ZoneUtil.h"
@@ -12,103 +13,95 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectSnipingMode::EffectSnipingMode(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	m_RevealRatio = 0;
+    m_RevealRatio = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSnipingMode::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSnipingMode::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectSnipingMode::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSnipingMode::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectSnipingMode " << "unaffect BEGIN" << endl;
+    // cout << "EffectSnipingMode " << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer()); // 슬레이어말고는 걸리지 않는다.
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer()); // 슬레이어말고는 걸리지 않는다.
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	// addUnSnipingModeCreature() 내부에서 플래그를 끄므로...
-	//pCreature->removeFlag(Effect::EFFECT_CLASS_SNIPING_MODE);
-	addUnSnipingModeCreature(pZone, pCreature, false);
+    // addUnSnipingModeCreature() 내부에서 플래그를 끄므로...
+    // pCreature->removeFlag(Effect::EFFECT_CLASS_SNIPING_MODE);
+    addUnSnipingModeCreature(pZone, pCreature, false);
 
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-	SLAYER_RECORD prev;
-	pSlayer->getSlayerRecord(prev);
-	pSlayer->initAllStat();
-	pSlayer->sendRealWearingInfo();
-	pSlayer->sendModifyInfo(prev);
+    SLAYER_RECORD prev;
+    pSlayer->getSlayerRecord(prev);
+    pSlayer->initAllStat();
+    pSlayer->sendRealWearingInfo();
+    pSlayer->sendModifyInfo(prev);
 
-	//cout << "EffectSnipingMode " << "unaffect END" << endl;
+    // cout << "EffectSnipingMode " << "unaffect END" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectSnipingMode::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectSnipingMode::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+void EffectSnipingMode::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
+    {__BEGIN_TRY __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectSnipingMode::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectSnipingMode::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectSnipingMode("
-		<< "ObjectID:" << getObjectID()
-		<< "RevealRatio:" << m_RevealRatio
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectSnipingMode("
+        << "ObjectID:" << getObjectID() << "RevealRatio:" << m_RevealRatio << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

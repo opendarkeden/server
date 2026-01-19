@@ -7,10 +7,11 @@
 #ifndef __RESULT_H__
 #define __RESULT_H__
 
-#include "Types.h"
-#include "Exception.h"
-#include <sys/time.h>
 #include <mysql/mysql.h>
+#include <sys/time.h>
+
+#include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // forward declaration
@@ -25,38 +26,55 @@ class Statement;
 // Result 는 삭제할 필요가 없다. 사용자는 Statement 만 삭제하면 된다.
 //////////////////////////////////////////////////////////////////////////////
 
-class Result 
-{
+class Result {
 public:
-	Result(T_RESULT *, const string& statement) ;
-	~Result() ;
+    Result(T_RESULT*, const string& statement);
+    ~Result();
 
 public:
-	// 다음 row로 넘어간다.
-	bool next() ;
-	
-	// 특정 필드(컬럼) 값을 가지고 온다.
-	char * getField(uint index) ;
-	char getChar(uint index)  { return(getField(index))[0]; }
-	int getInt(uint index)  { return atoi(getField(index)); }
-	uint getUInt(uint index)  { return(uint)atoi(getField(index)); }
-	BYTE getBYTE(uint index)  { return(BYTE)atoi(getField(index)); }
-	WORD getWORD(uint index)  { return(WORD)atoi(getField(index)); }
-	DWORD getDWORD(uint index)  { return strtoul(getField(index), (char**)NULL, 10); }
-	const char* getString(uint index) ;
+    // 다음 row로 넘어간다.
+    bool next();
 
-	// 쿼리 결과값이 포함하는 row/column의 숫자를 리턴한다.
-	uint getRowCount() const  { return m_RowCount; }
-	uint getFieldCount() const  { return m_FieldCount; }
+    // 특정 필드(컬럼) 값을 가지고 온다.
+    char* getField(uint index);
+    char getChar(uint index) {
+        return (getField(index))[0];
+    }
+    int getInt(uint index) {
+        return atoi(getField(index));
+    }
+    uint getUInt(uint index) {
+        return (uint)atoi(getField(index));
+    }
+    BYTE getBYTE(uint index) {
+        return (BYTE)atoi(getField(index));
+    }
+    WORD getWORD(uint index) {
+        return (WORD)atoi(getField(index));
+    }
+    DWORD getDWORD(uint index) {
+        return strtoul(getField(index), (char**)NULL, 10);
+    }
+    const char* getString(uint index);
 
-	string getStatement(void) const { return m_Statement; }
+    // 쿼리 결과값이 포함하는 row/column의 숫자를 리턴한다.
+    uint getRowCount() const {
+        return m_RowCount;
+    }
+    uint getFieldCount() const {
+        return m_FieldCount;
+    }
+
+    string getStatement(void) const {
+        return m_Statement;
+    }
 
 private:
-	T_RESULT*  m_pResult;    // 결과값을 나타내는 MYSQL structure
-	MYSQL_ROW  m_pRow;       // 현재 처리하고 있는 row
-	uint       m_RowCount;   // 쿼리 결과로 얻어낸 row의 숫자
-	uint       m_FieldCount;
-	string     m_Statement;  // 어떤 query문에 의한 결과인가...?
+    T_RESULT* m_pResult; // 결과값을 나타내는 MYSQL structure
+    MYSQL_ROW m_pRow;    // 현재 처리하고 있는 row
+    uint m_RowCount;     // 쿼리 결과로 얻어낸 row의 숫자
+    uint m_FieldCount;
+    string m_Statement; // 어떤 query문에 의한 결과인가...?
 };
 
 #endif // __RESULT_H__

@@ -1,173 +1,164 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHasRelic.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectHasRelic.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Relic.h"
-#include "Vampire.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
+#include "GCSystemMessage.h"
 #include "Monster.h"
 #include "MonsterCorpse.h"
 #include "Player.h"
+#include "Relic.h"
+#include "Slayer.h"
+#include "Vampire.h"
 #include "WarSystem.h"
-#include "ZoneInfoManager.h"
 #include "ZoneGroupManager.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
+#include "ZoneInfoManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectHasRelic::EffectHasRelic(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectHasRelic::EffectHasRelic(Item* pItem)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pItem);
+    setTarget(pItem);
 
-	__END_CATCH
+    __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHasRelic::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(m_pTarget!=NULL);
+    Assert(m_pTarget != NULL);
 
-	switch ( m_pTarget->getObjectClass() )
-	{
-		case OBJECT_CLASS_CREATURE :
-		{
-			Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-			affect( pCreature );
-		}
-		break;
+    switch (m_pTarget->getObjectClass()) {
+    case OBJECT_CLASS_CREATURE: {
+        Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+        affect(pCreature);
+    } break;
 
-		case OBJECT_CLASS_ITEM :
-		{
-			Item* pItem = dynamic_cast<Item*>(m_pTarget);
-			affect( pItem );
-		}
-		break;
+    case OBJECT_CLASS_ITEM: {
+        Item* pItem = dynamic_cast<Item*>(m_pTarget);
+        affect(pItem);
+    } break;
 
-		default :
-			return;
-	}
+    default:
+        return;
+    }
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectHasRelic::unaffect() 
-	
+void EffectHasRelic::unaffect()
+
 {
-	__BEGIN_TRY	
+    __BEGIN_TRY
 
-	
-	switch (m_pTarget->getObjectClass())
-	{
-		case OBJECT_CLASS_CREATURE :
-		{
-			Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-			unaffect(pCreature);
-		}
-		break;
 
-		case OBJECT_CLASS_ITEM :
-		{
-			Item* pItem = dynamic_cast<Item *>(m_pTarget);
-			unaffect(pItem);
-		}
-		break;
+    switch (m_pTarget->getObjectClass()) {
+    case OBJECT_CLASS_CREATURE: {
+        Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+        unaffect(pCreature);
+    } break;
 
-		default :
-			throw Error("Wrong Object Class");
-	}
+    case OBJECT_CLASS_ITEM: {
+        Item* pItem = dynamic_cast<Item*>(m_pTarget);
+        unaffect(pItem);
+    } break;
 
-	__END_CATCH
+    default:
+        throw Error("Wrong Object Class");
+    }
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHasRelic::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//cout << "EffectHasCastleSymbol" << "unaffect BEGIN" << endl;
+    // cout << "EffectHasCastleSymbol" << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
-	// initAllStat을 불러야 한다.
-	pCreature->removeFlag( getEffectClass() );
+    // 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
+    // initAllStat을 불러야 한다.
+    pCreature->removeFlag(getEffectClass());
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
-	gcRemoveEffect.addEffectList( getSendEffectClass() );
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	//cout << "EffectHasCastleSymbol" << "unaffect END" << endl;
+    // cout << "EffectHasCastleSymbol" << "unaffect END" << endl;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHasRelic::unaffect(Item* pItem)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
 
-	//cout << "EffectCastleSymbol" << "unaffect BEGIN" << endl;
+    // cout << "EffectCastleSymbol" << "unaffect BEGIN" << endl;
 
-	Assert(pItem != NULL);
+    Assert(pItem != NULL);
 
-	Assert(pItem->getItemClass()==Item::ITEM_CLASS_CORPSE);
-	Assert(pItem->getItemType()==MONSTER_CORPSE);
+    Assert(pItem->getItemClass() == Item::ITEM_CLASS_CORPSE);
+    Assert(pItem->getItemType() == MONSTER_CORPSE);
 
-	MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
+    MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
 
-	pCorpse->removeFlag( getEffectClass() );
+    pCorpse->removeFlag(getEffectClass());
 
-	Zone* pZone = pCorpse->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCorpse->getZone();
+    Assert(pZone != NULL);
 
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID( pItem->getObjectID() );
-	gcRemoveEffect.addEffectList( getSendEffectClass() );
-	pZone->broadcastPacket( pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect );
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pItem->getObjectID());
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
 
-	//cout << "EffectCastleSymbol" << "unaffect END" << endl;
+    // cout << "EffectCastleSymbol" << "unaffect END" << endl;
 
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }

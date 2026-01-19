@@ -1,73 +1,71 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGModifyGuildIntro.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGModifyGuildIntro.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGModifyGuildIntro.h"
 
 
-void CGModifyGuildIntro::read (SocketInputStream & iStream) 
-	 
+void CGModifyGuildIntro::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szGuildIntro;
+    BYTE szGuildIntro;
 
-	iStream.read(m_GuildID);
-	iStream.read(szGuildIntro);
+    iStream.read(m_GuildID);
+    iStream.read(szGuildIntro);
 
-	if (szGuildIntro > 255 )
-		throw InvalidProtocolException("too long szGuildIntro length");
+    if (szGuildIntro > 255)
+        throw InvalidProtocolException("too long szGuildIntro length");
 
-	if (szGuildIntro > 0 )
-		iStream.read(m_GuildIntro, szGuildIntro);
-	else
-		m_GuildIntro = "";
+    if (szGuildIntro > 0)
+        iStream.read(m_GuildIntro, szGuildIntro);
+    else
+        m_GuildIntro = "";
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGModifyGuildIntro::write (SocketOutputStream & oStream) const 
-     
+void CGModifyGuildIntro::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szGuildIntro = m_GuildIntro.size();
+    BYTE szGuildIntro = m_GuildIntro.size();
 
-	if (szGuildIntro > 255 )
-		throw InvalidProtocolException("too long szGuildIntro length");
+    if (szGuildIntro > 255)
+        throw InvalidProtocolException("too long szGuildIntro length");
 
-	oStream.write(m_GuildID);
-	oStream.write(szGuildIntro);
+    oStream.write(m_GuildID);
+    oStream.write(szGuildIntro);
 
-	if (szGuildIntro > 0 )
-		oStream.write(m_GuildIntro);
+    if (szGuildIntro > 0)
+        oStream.write(m_GuildIntro);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGModifyGuildIntro::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGModifyGuildIntroHandler::execute(this , pPlayer);
+void CGModifyGuildIntro::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGModifyGuildIntroHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGModifyGuildIntro::toString () const
-       
+string CGModifyGuildIntro::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGModifyGuildIntro("
-		<< "GuildID:" << (int)m_GuildID
-		<< "GuildIntro:" << m_GuildIntro
-		<< ")";
-	return msg.toString();
+        << "GuildID:" << (int)m_GuildID << "GuildIntro:" << m_GuildIntro << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

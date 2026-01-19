@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventKick.h
 // Written by  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EVENT_KICK_H__
@@ -14,19 +14,20 @@
 // class EventKick;
 //////////////////////////////////////////////////////////////////////////////
 
-class EventKick : public Event 
-{
+class EventKick : public Event {
 public:
-	EventKick(GamePlayer* pGamePlayer) ;
-	~EventKick() ;			
+    EventKick(GamePlayer* pGamePlayer);
+    ~EventKick();
 
 public:
-	virtual EventClass getEventClass() const  { return EVENT_CLASS_KICK; }
+    virtual EventClass getEventClass() const {
+        return EVENT_CLASS_KICK;
+    }
 
-	virtual void activate() ;
-	void sendMessage() ;
+    virtual void activate();
+    void sendMessage();
 
-	virtual string toString() const ;
+    virtual string toString() const;
 };
 
 #endif

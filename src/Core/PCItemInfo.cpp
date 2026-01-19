@@ -1,149 +1,132 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : PCItemInfo.cpp 
+// Filename    : PCItemInfo.cpp
 // Written By  : elca@ewestsoft.com
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PCItemInfo.h"
+
+#include "Assert.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 #include "StringStream.h"
-#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-PCItemInfo::PCItemInfo () 
-{
-	__BEGIN_TRY
+PCItemInfo::PCItemInfo() {
+    __BEGIN_TRY
 
-	m_ObjectID     = 0;
-	m_IClass       = 0;
-	m_ItemType     = 0;
-	m_Durability   = 0;
-	m_Silver       = 0;
-	m_Grade        = 0;
-	m_EnchantLevel = 0;
-	m_ItemNum      = 0;
-	m_MainColor    = 0;
-	m_ListNum      = 0;
+    m_ObjectID = 0;
+    m_IClass = 0;
+    m_ItemType = 0;
+    m_Durability = 0;
+    m_Silver = 0;
+    m_Grade = 0;
+    m_EnchantLevel = 0;
+    m_ItemNum = 0;
+    m_MainColor = 0;
+    m_ListNum = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-PCItemInfo::~PCItemInfo () noexcept
-{
-	while (!m_SubItemInfoList.empty()) 
-	{
-		SubItemInfo* pSubItemInfo = m_SubItemInfoList.front();
-		SAFE_DELETE(pSubItemInfo);
-		m_SubItemInfoList.pop_front();
-	}
+PCItemInfo::~PCItemInfo() noexcept {
+    while (!m_SubItemInfoList.empty()) {
+        SubItemInfo* pSubItemInfo = m_SubItemInfoList.front();
+        SAFE_DELETE(pSubItemInfo);
+        m_SubItemInfoList.pop_front();
+    }
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////////////
-void PCItemInfo::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
-		
-	iStream.read( m_ObjectID );
-	iStream.read( m_IClass );
-	iStream.read( m_ItemType );
+void PCItemInfo::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	BYTE optionSize;
-	iStream.read( optionSize );
+    iStream.read(m_ObjectID);
+    iStream.read(m_IClass);
+    iStream.read(m_ItemType);
 
-	m_OptionType.clear();
-	for (int i = 0; i < optionSize; i++) 
-	{
-		OptionType_t optionType;
-		iStream.read( optionType );
-		m_OptionType.push_back( optionType );
-	}
+    BYTE optionSize;
+    iStream.read(optionSize);
 
-	iStream.read( m_Durability );
-	iStream.read( m_Silver );
-	iStream.read( m_Grade );
-	iStream.read( m_EnchantLevel );
-	iStream.read( m_ItemNum );
-	iStream.read( m_MainColor );
-	iStream.read( m_ListNum );
+    m_OptionType.clear();
+    for (int i = 0; i < optionSize; i++) {
+        OptionType_t optionType;
+        iStream.read(optionType);
+        m_OptionType.push_back(optionType);
+    }
 
-	for (int i = 0; i < m_ListNum; i++) 
-	{
-		SubItemInfo* pSubItemInfo = new SubItemInfo();
-		pSubItemInfo->read(iStream);
-		m_SubItemInfoList.push_back( pSubItemInfo );
-	}
+    iStream.read(m_Durability);
+    iStream.read(m_Silver);
+    iStream.read(m_Grade);
+    iStream.read(m_EnchantLevel);
+    iStream.read(m_ItemNum);
+    iStream.read(m_MainColor);
+    iStream.read(m_ListNum);
 
-	__END_CATCH
+    for (int i = 0; i < m_ListNum; i++) {
+        SubItemInfo* pSubItemInfo = new SubItemInfo();
+        pSubItemInfo->read(iStream);
+        m_SubItemInfoList.push_back(pSubItemInfo);
+    }
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////////////
-void PCItemInfo::write ( SocketOutputStream & oStream ) 
-     const
-{
-	__BEGIN_TRY
-		
-	oStream.write( m_ObjectID );
-	oStream.write( m_IClass );
-	oStream.write( m_ItemType );
+void PCItemInfo::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	BYTE optionSize = m_OptionType.size();
-	oStream.write( optionSize );
+    oStream.write(m_ObjectID);
+    oStream.write(m_IClass);
+    oStream.write(m_ItemType);
 
-	list<OptionType_t>::const_iterator iOption = m_OptionType.begin();
-    for (; iOption!= m_OptionType.end(); iOption++) 
-	{
-		OptionType_t optionType = *iOption;
-		oStream.write( optionType );
-	}
+    BYTE optionSize = m_OptionType.size();
+    oStream.write(optionSize);
 
-	oStream.write( m_Durability );
-	oStream.write( m_Silver );
-	oStream.write( m_Grade );
-	oStream.write( m_EnchantLevel );
-	oStream.write( m_ItemNum );
-	oStream.write( m_MainColor );
-	oStream.write( m_ListNum );
+    list<OptionType_t>::const_iterator iOption = m_OptionType.begin();
+    for (; iOption != m_OptionType.end(); iOption++) {
+        OptionType_t optionType = *iOption;
+        oStream.write(optionType);
+    }
 
-	list<SubItemInfo*>::const_iterator itr = m_SubItemInfoList.begin();
-    for (; itr!= m_SubItemInfoList.end(); itr++) 
-		(*itr)->write(oStream);
+    oStream.write(m_Durability);
+    oStream.write(m_Silver);
+    oStream.write(m_Grade);
+    oStream.write(m_EnchantLevel);
+    oStream.write(m_ItemNum);
+    oStream.write(m_MainColor);
+    oStream.write(m_ListNum);
 
-	//cout << toString().c_str() << endl;
+    list<SubItemInfo*>::const_iterator itr = m_SubItemInfoList.begin();
+    for (; itr != m_SubItemInfoList.end(); itr++)
+        (*itr)->write(oStream);
 
-	__END_CATCH
+    // cout << toString().c_str() << endl;
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // debug string
 //////////////////////////////////////////////////////////////////////////////
-string PCItemInfo::toString() const
-{
-	StringStream msg;
-	msg << "PCItemInfo("
-		<< "ObjectID:" << (int)m_ObjectID
-		<< "ItemClass:" << (int)m_IClass
-		<< "ItemType:" << (int)m_ItemType
-		<< "OptionTypeSize:" << (int)m_OptionType.size()
-		<< "Durability:" << (int)m_Durability
-		<< "Silver:" << (int)m_Silver
-		<< "Grade:" << (int)m_Grade
-		<< "EnchantLevel:" << (int)m_EnchantLevel
-		<< "ItemNum:" << (int)m_ItemNum
-		<< "MainColor:" << (int)m_MainColor
-		<< "ListNum:" << (int)m_ListNum
-		<< ")";
-	return msg.toString();
+string PCItemInfo::toString() const {
+    StringStream msg;
+    msg << "PCItemInfo("
+        << "ObjectID:" << (int)m_ObjectID << "ItemClass:" << (int)m_IClass << "ItemType:" << (int)m_ItemType
+        << "OptionTypeSize:" << (int)m_OptionType.size() << "Durability:" << (int)m_Durability
+        << "Silver:" << (int)m_Silver << "Grade:" << (int)m_Grade << "EnchantLevel:" << (int)m_EnchantLevel
+        << "ItemNum:" << (int)m_ItemNum << "MainColor:" << (int)m_MainColor << "ListNum:" << (int)m_ListNum << ")";
+    return msg.toString();
 }

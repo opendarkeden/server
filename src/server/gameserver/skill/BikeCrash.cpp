@@ -5,68 +5,65 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "BikeCrash.h"
-#include "SimpleMeleeSkill.h"
-#include "SimpleTileMissileSkill.h"
+
 #include <list>
 
-void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
-{
-	__BEGIN_TRY
+#include "SimpleMeleeSkill.h"
+#include "SimpleTileMissileSkill.h"
 
-	Zone* pZone = pSlayer->getZone();
-	Assert(pZone != NULL);
-	
-	Creature* pTargetCreature = pZone->getCreature(targetObjectID);
-	if ( pTargetCreature == NULL )
-	{
-		executeSkillFailException(pSlayer, getSkillType());
-		return;
-	}
+void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) {
+    __BEGIN_TRY
 
-	ZoneCoord_t X = pTargetCreature->getX();
-	ZoneCoord_t Y = pTargetCreature->getY();
+    Zone* pZone = pSlayer->getZone();
+    Assert(pZone != NULL);
 
-	SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(getSkillType());
-	bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
+    Creature* pTargetCreature = pZone->getCreature(targetObjectID);
+    if (pTargetCreature == NULL) {
+        executeSkillFailException(pSlayer, getSkillType());
+        return;
+    }
 
-	if ( !bRangeCheck || !pZone->moveFastPC( pSlayer, pSlayer->getX(), pSlayer->getY(), X, Y, getSkillType()) )
-	{
-		executeSkillFailNormal(pSlayer, getSkillType(), pTargetCreature);
-		return;
-	}
+    ZoneCoord_t X = pTargetCreature->getX();
+    ZoneCoord_t Y = pTargetCreature->getY();
 
-	X = pSlayer->getX();
-	Y = pSlayer->getY();
+    SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(getSkillType());
+    bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
 
-	SkillInput input(pSlayer, pSkillSlot);
-	SkillOutput output;
-	computeOutput(input, output);
+    if (!bRangeCheck || !pZone->moveFastPC(pSlayer, pSlayer->getX(), pSlayer->getY(), X, Y, getSkillType())) {
+        executeSkillFailNormal(pSlayer, getSkillType(), pTargetCreature);
+        return;
+    }
 
-	SIMPLE_SKILL_INPUT param;
-	param.SkillType     = getSkillType();
-	param.SkillDamage   = output.Damage;
-	param.Delay         = output.Delay;
-	param.ItemClass     = Item::ITEM_CLASS_SWORD;
-	param.STRMultiplier = 8;
-	param.DEXMultiplier = 1;
-	param.INTMultiplier = 1;
-	param.bMagicHitRoll = false;
-	param.bMagicDamage  = false;
-	param.bAdd          = true;
-	param.bExpForTotalDamage = false;
+    X = pSlayer->getX();
+    Y = pSlayer->getY();
 
-	for ( int i=-2; i<=2; ++i )
-	for ( int j=-2; j<=2; ++j )
-	{
-		param.addMask(i, j, 100);
-	}
+    SkillInput input(pSlayer, pSkillSlot);
+    SkillOutput output;
+    computeOutput(input, output);
 
-	SIMPLE_SKILL_OUTPUT result;
+    SIMPLE_SKILL_INPUT param;
+    param.SkillType = getSkillType();
+    param.SkillDamage = output.Damage;
+    param.Delay = output.Delay;
+    param.ItemClass = Item::ITEM_CLASS_SWORD;
+    param.STRMultiplier = 8;
+    param.DEXMultiplier = 1;
+    param.INTMultiplier = 1;
+    param.bMagicHitRoll = false;
+    param.bMagicDamage = false;
+    param.bAdd = true;
+    param.bExpForTotalDamage = false;
 
-	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
+    for (int i = -2; i <= 2; ++i)
+        for (int j = -2; j <= 2; ++j) {
+            param.addMask(i, j, 100);
+        }
 
-	__END_CATCH
+    SIMPLE_SKILL_OUTPUT result;
+
+    g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
+
+    __END_CATCH
 }
 
 BikeCrash g_BikeCrash;
-

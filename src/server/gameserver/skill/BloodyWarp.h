@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyWarp.h 
+// Filename    : BloodyWarp.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_WARP_HANDLER_H__
@@ -14,24 +14,28 @@ class VampireSkillSlot;
 // class BloodyWarp;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyWarp : public SkillHandler 
-{
+class BloodyWarp : public SkillHandler {
 public:
-	BloodyWarp() throw() {}
-	~BloodyWarp() throw() {}
-	
+    BloodyWarp() throw() {}
+    ~BloodyWarp() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyWarp"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_WARP; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyWarp";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_WARP;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
-	POINT getWarpPosition(int myX, int myY, int targetX, int targetY) throw();
+    POINT getWarpPosition(int myX, int myY, int targetX, int targetY) throw();
 };
 
 // global variable declaration

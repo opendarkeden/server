@@ -4,59 +4,84 @@
 #include "Effect.h"
 #include "EffectLoader.h"
 
-class EffectPoisonStorm : public Effect
-{
+class EffectPoisonStorm : public Effect {
 public:
-	EffectPoisonStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
+    EffectPoisonStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_POISON_STORM; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_POISON_STORM;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void affect();
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	string toString() const throw();
+    string toString() const throw();
 
 public:
-	int getDamage(void) const { return m_Damage; }
-	void setDamage(int damage) { m_Damage = damage; }
+    int getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(int damage) {
+        m_Damage = damage;
+    }
 
-	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t Tick) { m_Tick = Tick; }
+    Turn_t getTick() const {
+        return m_Tick;
+    }
+    void setTick(Turn_t Tick) {
+        m_Tick = Tick;
+    }
 
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
+    int getLevel(void) const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
 
-	void setUserObjectID(ObjectID_t oid) throw() { m_UserObjectID = oid; }
-	ObjectID_t getUserObjectID() const throw() { return m_UserObjectID; }
+    void setUserObjectID(ObjectID_t oid) throw() {
+        m_UserObjectID = oid;
+    }
+    ObjectID_t getUserObjectID() const throw() {
+        return m_UserObjectID;
+    }
 
-	void setVampire( bool bVampire = true ) { m_bVampire = bVampire; }
-	bool isVampire() const { return m_bVampire; }
+    void setVampire(bool bVampire = true) {
+        m_bVampire = bVampire;
+    }
+    bool isVampire() const {
+        return m_bVampire;
+    }
 
-	bool affectCreature(Creature* pCreature, bool bAffectByMove) ; 
+    bool affectCreature(Creature* pCreature, bool bAffectByMove);
+
 private:
-	int 	 	m_Damage;  	    // EffectPoisonStorm Damage;
-	Turn_t 		m_Tick;			// EffectPoisonStorm turn;	
-	int 		m_Level;		// EffectPoisonStorm level;
-	Duration_t 	m_Duration;		// EffectPoisonStorm Duration;
-	Duration_t  m_StormDuration; // PoisonStorm Effect 지속 시간 
-	ObjectID_t	m_UserObjectID;
-	bool		m_bVampire;
+    int m_Damage;               // EffectPoisonStorm Damage;
+    Turn_t m_Tick;              // EffectPoisonStorm turn;
+    int m_Level;                // EffectPoisonStorm level;
+    Duration_t m_Duration;      // EffectPoisonStorm Duration;
+    Duration_t m_StormDuration; // PoisonStorm Effect 지속 시간
+    ObjectID_t m_UserObjectID;
+    bool m_bVampire;
 };
 
-class EffectPoisonStormLoader : public EffectLoader
-{
+class EffectPoisonStormLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_POISON_STORM; }
-	virtual string getEffectClassName() const throw() { return "EffectPoisonStorm"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_POISON_STORM;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectPoisonStorm";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 extern EffectPoisonStormLoader* g_pEffectPoisonStormLoader;

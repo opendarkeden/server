@@ -1,123 +1,109 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GuildMemberInfo2.cpp 
+//
+// Filename    : GuildMemberInfo2.cpp
 // Written By  :
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
 // include files
 //////////////////////////////////////////////////////////////////////
 #include "GuildMemberInfo2.h"
+
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GuildMemberInfo2::GuildMemberInfo2 () 
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GuildMemberInfo2::GuildMemberInfo2(){__BEGIN_TRY __END_CATCH}
 
-	
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GuildMemberInfo2::~GuildMemberInfo2 () 
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+GuildMemberInfo2::~GuildMemberInfo2() {
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GuildMemberInfo2::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
-		
-	BYTE szName;
+void GuildMemberInfo2::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read( m_GuildID );
-	iStream.read( szName );
+    BYTE szName;
 
-	if ( szName == 0 )
-		throw InvalidProtocolException( "szName == 0" );
-	if ( szName > 20 )
-		throw InvalidProtocolException( "too long szName size" );
+    iStream.read(m_GuildID);
+    iStream.read(szName);
 
-	iStream.read( m_Name, szName );
-	iStream.read( m_Rank );
-	iStream.read( m_bLogOn );
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName size");
 
-	__END_CATCH
+    iStream.read(m_Name, szName);
+    iStream.read(m_Rank);
+    iStream.read(m_bLogOn);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GuildMemberInfo2::write ( SocketOutputStream & oStream ) 
-     const
-{
-	__BEGIN_TRY
-		
-	BYTE szName = m_Name.size();
-	
-	if ( szName == 0 )
-		throw InvalidProtocolException( "szName == 0" );
-	if ( szName > 20 )
-		throw InvalidProtocolException( "too long szName size" );
+void GuildMemberInfo2::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write( m_GuildID );
-	oStream.write( szName );
-	oStream.write( m_Name );
-	oStream.write( m_Rank );
-	oStream.write( m_bLogOn );
+    BYTE szName = m_Name.size();
 
-	__END_CATCH
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName size");
+
+    oStream.write(m_GuildID);
+    oStream.write(szName);
+    oStream.write(m_Name);
+    oStream.write(m_Rank);
+    oStream.write(m_bLogOn);
+
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
 // getSize
 //--------------------------------------------------------------------
-PacketSize_t GuildMemberInfo2::getSize()
-{
-	__BEGIN_TRY
+PacketSize_t GuildMemberInfo2::getSize() {
+    __BEGIN_TRY
 
-	BYTE szName = m_Name.size();
+    BYTE szName = m_Name.size();
 
-	PacketSize_t PacketSize = szGuildID + szBYTE + szName + szGuildMemberRank + szbool;
+    PacketSize_t PacketSize = szGuildID + szBYTE + szName + szGuildMemberRank + szbool;
 
-	return PacketSize;
+    return PacketSize;
 
-	__END_CATCH
+    __END_CATCH
 }
 
- /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 //
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GuildMemberInfo2::toString () 
-	const
-{
-	__BEGIN_TRY
+string GuildMemberInfo2::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GuildMemberInfo2( "
-		<< "GuildID:" << (int)m_GuildID
-		<< ",Name:" << m_Name
-		<< ",GuildMemberRank:" << (int)m_Rank
-		<< ",LogOn:" << (int)m_bLogOn
-		<< ")";
+    msg << "GuildMemberInfo2( "
+        << "GuildID:" << (int)m_GuildID << ",Name:" << m_Name << ",GuildMemberRank:" << (int)m_Rank
+        << ",LogOn:" << (int)m_bLogOn << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

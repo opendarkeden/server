@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectTranslation.h
-// Written by  : 
+// Written by  :
 // Description : Doom에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,21 +13,22 @@
 // class EffectTranslation
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectTranslation : public Effect 
-{
+class EffectTranslation : public Effect {
 public:
-	EffectTranslation(Creature* pCreature) ;
+    EffectTranslation(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSLATION; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_TRANSLATION;
+    }
 
-	void affect()  {}
-	void affect(Creature* pCreature) ;
+    void affect() {}
+    void affect(Creature* pCreature);
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 };
 
 #endif // __EFFECT_DOOM__

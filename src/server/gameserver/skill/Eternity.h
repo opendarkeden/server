@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Eternity.h 
-// Written By  : 
-// Description : 
+// Filename    : Eternity.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ETERNITY_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Eternity;
 //////////////////////////////////////////////////////////////////////////////
 
-class Eternity : public SkillHandler 
-{
+class Eternity : public SkillHandler {
 public:
-	Eternity() throw() {}
-	~Eternity() throw() {}
-	
+    Eternity() throw() {}
+    ~Eternity() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Eternity"; }
-	SkillType_t getSkillType() const throw() { return SKILL_ETERNITY; }
+    string getSkillHandlerName() const throw() {
+        return "Eternity";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ETERNITY;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

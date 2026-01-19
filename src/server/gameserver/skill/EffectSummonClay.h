@@ -13,23 +13,23 @@
 // class EffectSummonClay
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSummonClay : public Effect 
-{
+class EffectSummonClay : public Effect {
 public:
-	EffectSummonClay(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SUMMON_CLAY; }
-
-	void affect() ;
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectSummonClay(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_SUMMON_CLAY;
+    }
 
+    void affect();
+    void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
+
+    void unaffect();
+
+    string toString() const throw();
+
+public:
 private:
 };
 

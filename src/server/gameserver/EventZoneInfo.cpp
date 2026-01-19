@@ -1,109 +1,102 @@
 #include "EventZoneInfo.h"
-#include "Zone.h"
-#include "PCManager.h"
-#include "ZoneUtil.h"
+
 #include "DB.h"
+#include "PCManager.h"
+#include "Zone.h"
+#include "ZoneUtil.h"
 
-EventZoneInfo::EventZoneInfo( WORD eventID, ZoneID_t zoneID )
-	: m_EventID( eventID )
-{
-	m_pZone = getZoneByZoneID( zoneID );
-	Assert( m_pZone != NULL );
+EventZoneInfo::EventZoneInfo(WORD eventID, ZoneID_t zoneID) : m_EventID(eventID) {
+    m_pZone = getZoneByZoneID(zoneID);
+    Assert(m_pZone != NULL);
 }
 
-ZoneID_t EventZoneInfo::getZoneID() const
-{
-	return m_pZone->getZoneID();
+ZoneID_t EventZoneInfo::getZoneID() const {
+    return m_pZone->getZoneID();
 }
 
-bool EventZoneInfo::canEnter() const
-{
-	if ( !isEventOn() ) return false;
+bool EventZoneInfo::canEnter() const {
+    if (!isEventOn())
+        return false;
 
-	const PCManager* pPCManager = m_pZone->getPCManager();
-	if ( pPCManager->getSize() >= m_PCLimit ) return false;
+    const PCManager* pPCManager = m_pZone->getPCManager();
+    if (pPCManager->getSize() >= m_PCLimit)
+        return false;
 
-	return true;
+    return true;
 }
 
-EventZoneInfo* ZoneEventInfo::getEventZoneInfo( ZoneID_t zoneID ) const
-{
-	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find( zoneID );
+EventZoneInfo* ZoneEventInfo::getEventZoneInfo(ZoneID_t zoneID) const {
+    unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find(zoneID);
 
-	if ( itr == m_EventZoneInfos.end() ) return NULL;
-	return itr->second;
+    if (itr == m_EventZoneInfos.end())
+        return NULL;
+    return itr->second;
 }
 
-void ZoneEventInfo::addEventZoneInfo( EventZoneInfo* pEventZoneInfo )
-{
-	m_EventZoneInfos[pEventZoneInfo->getZoneID()] = pEventZoneInfo;
+void ZoneEventInfo::addEventZoneInfo(EventZoneInfo* pEventZoneInfo) {
+    m_EventZoneInfos[pEventZoneInfo->getZoneID()] = pEventZoneInfo;
 }
 
-EventZoneInfo* ZoneEventInfo::getCurrentEventZoneInfo() const
-{
-	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.begin();
-	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator endItr = m_EventZoneInfos.end();
+EventZoneInfo* ZoneEventInfo::getCurrentEventZoneInfo() const {
+    unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.begin();
+    unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator endItr = m_EventZoneInfos.end();
 
-	for ( ; itr != endItr ; ++itr )
-	{
-		if ( itr->second->isEventOn() ) return itr->second;
-	}
+    for (; itr != endItr; ++itr) {
+        if (itr->second->isEventOn())
+            return itr->second;
+    }
 
-	return NULL;
+    return NULL;
 }
 
-ZoneEventInfo* EventZoneInfoManager::getZoneEventInfo( WORD eventID ) const 
-{
-	unordered_map<WORD, ZoneEventInfo*>::const_iterator itr = m_ZoneEventInfos.find( eventID );
+ZoneEventInfo* EventZoneInfoManager::getZoneEventInfo(WORD eventID) const {
+    unordered_map<WORD, ZoneEventInfo*>::const_iterator itr = m_ZoneEventInfos.find(eventID);
 
-	if ( itr == m_ZoneEventInfos.end() ) return NULL;
-	return itr->second;
+    if (itr == m_ZoneEventInfos.end())
+        return NULL;
+    return itr->second;
 }
 
-EventZoneInfo* EventZoneInfoManager::getEventZoneInfo( ZoneID_t zoneID ) const 
-{
-	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find( zoneID );
+EventZoneInfo* EventZoneInfoManager::getEventZoneInfo(ZoneID_t zoneID) const {
+    unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find(zoneID);
 
-	if ( itr == m_EventZoneInfos.end() ) return NULL;
-	return itr->second;
+    if (itr == m_EventZoneInfos.end())
+        return NULL;
+    return itr->second;
 }
 
-void EventZoneInfoManager::load() 
-{
-	__BEGIN_TRY
+void EventZoneInfoManager::load() {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery("SELECT EventID, ZoneID, EnterX, EnterY, ResurrectX, ResurrectY, PCLimit FROM EventZoneInfo");
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult = pStmt->executeQuery(
+            "SELECT EventID, ZoneID, EnterX, EnterY, ResurrectX, ResurrectY, PCLimit FROM EventZoneInfo");
 
-		while ( pResult->next() )
-		{
-			WORD		eventID		= pResult->getInt(1);
-			ZoneID_t	zoneID		= pResult->getInt(2);
-			EventZoneInfo*	pEventZoneInfo = new EventZoneInfo( eventID, zoneID );
-			
-			pEventZoneInfo->m_EnterX = pResult->getInt(3);
-			pEventZoneInfo->m_EnterY = pResult->getInt(4);
-			pEventZoneInfo->m_ResurrectX = pResult->getInt(5);
-			pEventZoneInfo->m_ResurrectY = pResult->getInt(6);
+        while (pResult->next()) {
+            WORD eventID = pResult->getInt(1);
+            ZoneID_t zoneID = pResult->getInt(2);
+            EventZoneInfo* pEventZoneInfo = new EventZoneInfo(eventID, zoneID);
 
-			pEventZoneInfo->m_PCLimit = pResult->getInt(7);
-			pEventZoneInfo->m_bEventOn = false;
+            pEventZoneInfo->m_EnterX = pResult->getInt(3);
+            pEventZoneInfo->m_EnterY = pResult->getInt(4);
+            pEventZoneInfo->m_ResurrectX = pResult->getInt(5);
+            pEventZoneInfo->m_ResurrectY = pResult->getInt(6);
 
-			if ( m_ZoneEventInfos[eventID] == NULL )
-			{
-				m_ZoneEventInfos[eventID] = new ZoneEventInfo( eventID );
-			}
+            pEventZoneInfo->m_PCLimit = pResult->getInt(7);
+            pEventZoneInfo->m_bEventOn = false;
 
-			m_ZoneEventInfos[eventID]->addEventZoneInfo( pEventZoneInfo );
-			m_EventZoneInfos[zoneID] = pEventZoneInfo;
-		}
-	}
-	END_DB(pStmt)
+            if (m_ZoneEventInfos[eventID] == NULL) {
+                m_ZoneEventInfos[eventID] = new ZoneEventInfo(eventID);
+            }
 
-	__END_CATCH
+            m_ZoneEventInfos[eventID]->addEventZoneInfo(pEventZoneInfo);
+            m_EventZoneInfos[zoneID] = pEventZoneInfo;
+        }
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
-

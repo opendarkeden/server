@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SimpleTileCureSkill.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SIMPLETILECURESKILL__
@@ -9,36 +9,32 @@
 
 #include "SimpleSkill.h"
 
-class SimpleTileCureSkill
-{
+class SimpleTileCureSkill {
 public:
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, 
-		const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	/*
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, 
-		const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	void execute(Monster* pMonster,  
-		const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	*/
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
+                 CEffectID_t CEffectID = 0);
+    /*
+    void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
+        const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
+        CEffectID_t CEffectID=0) ;
+    void execute(Monster* pMonster,
+        const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
+        CEffectID_t CEffectID=0) ;
+    */
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, 
-		const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot,
-		const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	/*
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, 
-		const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	void execute(Monster* pMonster, Creature* pEnemy, 
-		const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-		CEffectID_t CEffectID=0) ;
-	*/
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, const SIMPLE_SKILL_INPUT& param,
+                 SIMPLE_SKILL_OUTPUT& result, CEffectID_t CEffectID = 0);
+
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, const SIMPLE_SKILL_INPUT& param,
+                 SIMPLE_SKILL_OUTPUT& result, CEffectID_t CEffectID = 0);
+    /*
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot,
+        const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
+        CEffectID_t CEffectID=0) ;
+    void execute(Monster* pMonster, Creature* pEnemy,
+        const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
+        CEffectID_t CEffectID=0) ;
+    */
 };
 
 extern SimpleTileCureSkill g_SimpleTileCureSkill;

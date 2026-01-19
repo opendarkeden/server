@@ -4,30 +4,39 @@
 #include "GQuestElement.h"
 #include "GQuestStatus.h"
 
-class GQuestIllegalWarpMission : public GQuestMission
-{
+class GQuestIllegalWarpMission : public GQuestMission {
 public:
-	GQuestIllegalWarpMission() : m_bRide(false) { }
+    GQuestIllegalWarpMission() : m_bRide(false) {}
 
-	bool	isRide() const { return m_bRide; }
-	void	ride() { m_bRide = true; }
+    bool isRide() const {
+        return m_bRide;
+    }
+    void ride() {
+        m_bRide = true;
+    }
 
-	string	getMissionName() const { return "IllegalWarpMission"; }
+    string getMissionName() const {
+        return "IllegalWarpMission";
+    }
+
 private:
-	bool	m_bRide;
+    bool m_bRide;
 };
 
-class GQuestIllegalWarpElement : public GQuestElement
-{
+class GQuestIllegalWarpElement : public GQuestElement {
 public:
-	GQuestIllegalWarpElement() { }
-	string 				getElementName() const { return "IllegalWarp"; }
-	GQuestManager::EventTypes	getEventType() const { return GQuestManager::ILLEGAL_WARP; }
+    GQuestIllegalWarpElement() {}
+    string getElementName() const {
+        return "IllegalWarp";
+    }
+    GQuestManager::EventTypes getEventType() const {
+        return GQuestManager::ILLEGAL_WARP;
+    }
 
-	ResultType			checkMission(GQuestMission* pStatus) const;
+    ResultType checkMission(GQuestMission* pStatus) const;
 
-	GQuestMission*		makeInitMission(PlayerCreature* pPC) const;
-	GQuestIllegalWarpElement*	makeElement(XMLTree* pTree);
+    GQuestMission* makeInitMission(PlayerCreature* pPC) const;
+    GQuestIllegalWarpElement* makeElement(XMLTree* pTree);
 
 private:
 };

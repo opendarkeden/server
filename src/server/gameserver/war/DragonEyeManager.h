@@ -6,42 +6,41 @@
 #define __DRAGON_EYE_MANAGER_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
 #include <vector>
+
+#include "Exception.h"
+#include "Types.h"
 #include "item/WarItem.h"
 
 ///////////////////////////////////////////////////////////////////////////
 // class DragonEyeManager
 ///////////////////////////////////////////////////////////////////////////
-class DragonEyeManager
-{
+class DragonEyeManager {
 public:
-	typedef vector<WarItem*>			VectorWarItem;
-	typedef vector<ZONE_COORD>			VectorZoneCoord;
-
-public:
-	// constructor & desctructor
-	DragonEyeManager();
-	~DragonEyeManager();
+    typedef vector<WarItem*> VectorWarItem;
+    typedef vector<ZONE_COORD> VectorZoneCoord;
 
 public:
-	void init() ;
-	void initDefaultPositions() ;
-	void createAllDragonEyes() ;
+    // constructor & desctructor
+    DragonEyeManager();
+    ~DragonEyeManager();
 
-	void addAllDragonEyesToZone() ;
+public:
+    void init();
+    void initDefaultPositions();
+    void createAllDragonEyes();
 
-	void removeAllDragonEyes() ;
+    void addAllDragonEyesToZone();
 
-	void warpToDefaultPosition( Creature* pCreature ) ;
+    void removeAllDragonEyes();
+
+    void warpToDefaultPosition(Creature* pCreature);
 
 private:
-	VectorWarItem		m_DragonEyes;
-	VectorZoneCoord		m_DefaultPositions;
+    VectorWarItem m_DragonEyes;
+    VectorZoneCoord m_DefaultPositions;
 };
 
 extern DragonEyeManager* g_pDragonEyeManager;
 
 #endif
-

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : UnterfeldwebelFire.h 
+// Filename    : UnterfeldwebelFire.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_UNTERFELDWEBEL_FIRE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class UnterfeldwebelFire;
 //////////////////////////////////////////////////////////////////////////////
 
-class UnterfeldwebelFire : public SkillHandler 
-{
+class UnterfeldwebelFire : public SkillHandler {
 public:
-	UnterfeldwebelFire() throw() {}
-	~UnterfeldwebelFire() throw() {}
-	
+    UnterfeldwebelFire() throw() {}
+    ~UnterfeldwebelFire() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "UnterfeldwebelFire"; }
-	SkillType_t getSkillType() const throw() { return SKILL_UNTERFELDWEBEL_FIRE; }
+    string getSkillHandlerName() const throw() {
+        return "UnterfeldwebelFire";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_UNTERFELDWEBEL_FIRE;
+    }
 
-	void execute(Monster* pPlayer, Creature* pEnemy) ;
+    void execute(Monster* pPlayer, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

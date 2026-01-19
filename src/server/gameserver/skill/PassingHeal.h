@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : PassingHeal.h 
+// Filename    : PassingHeal.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_PASSING_HEAL_HANDLER_H__
@@ -13,20 +13,23 @@
 // class PassingHeal;
 //////////////////////////////////////////////////////////////////////////////
 
-class PassingHeal: public SkillHandler 
-{
+class PassingHeal : public SkillHandler {
 public:
-	PassingHeal() throw() {}
-	~PassingHeal() throw() {}
+    PassingHeal() throw() {}
+    ~PassingHeal() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "PassingHeal"; }
-	SkillType_t getSkillType() const throw() { return SKILL_PASSING_HEAL; }
+    string getSkillHandlerName() const throw() {
+        return "PassingHeal";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_PASSING_HEAL;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

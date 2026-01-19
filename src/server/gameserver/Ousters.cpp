@@ -1,819 +1,765 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Ousters.cpp
 // Written By  : Elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Ousters.h"
-#include "Player.h"
-#include "OptionInfo.h"
-#include "SkillInfo.h"
-#include "ItemLoaderManager.h"
-#include "EffectLoaderManager.h"
-#include "SkillParentInfo.h"
-#include "DB.h"
-#include "ItemInfoManager.h"
+
 #include "AbilityBalance.h"
+#include "CreatureUtil.h"
+#include "DB.h"
+#include "EffectLoaderManager.h"
+#include "FlagSet.h"
+#include "GamePlayer.h"
+#include "ItemInfoManager.h"
+#include "ItemLoaderManager.h"
+#include "ItemUtil.h"
+#include "OptionInfo.h"
+#include "OustersEXPInfo.h"
+#include "PacketUtil.h"
+#include "Party.h"
+#include "Player.h"
+#include "Shape.h"
+#include "SkillInfo.h"
+#include "SkillParentInfo.h"
+#include "SkillUtil.h"
 #include "Stash.h"
 #include "TradeManager.h"
-#include "CreatureUtil.h"
-#include "FlagSet.h"
-#include "OustersEXPInfo.h"
-#include "Party.h"
-#include "ItemUtil.h"
-#include "PacketUtil.h"
-#include "SkillUtil.h"
-#include "Shape.h"
-#include "GamePlayer.h"
-//#include "RankEXPInfo.h"
-#include "RankExpTable.h"
-#include "VariableManager.h"
-#include "WarSystem.h"
-#include "ResurrectLocationManager.h"
-#include "PKZoneInfoManager.h"
-#include "TimeLimitItemManager.h"
+// #include "RankEXPInfo.h"
 #include <stdio.h>
 
-#include "item/AR.h"
-#include "item/SR.h"
-#include "item/SG.h"
-#include "item/SMG.h"
-#include "item/Belt.h"
-#include "item/Skull.h"
-#include "item/OustersWristlet.h"
-#include "item/OustersStone.h"
-#include "item/OustersArmsband.h"
-
-#include "skill/EffectBless.h"
-#include "skill/EffectParalyze.h"
-#include "skill/EffectDoom.h"
-#include "skill/EffectTransformToWolf.h"
-#include "skill/EffectTransformToBat.h"
+#include "AdvancementClassExpTable.h"
+#include "CastleSkillInfo.h"
+#include "DynamicZone.h"
 #include "EffectGrandMasterOusters.h"
-#include "RaceWarLimiter.h"
-
-#include "GCModifyInformation.h"
 #include "GCChangeShape.h"
-#include "GCSkillInfo.h"
-#include "GCRealWearingInfo.h"
-#include "GCStatusCurrentHP.h"
-#include "GCTakeOff.h"
+#include "GCModifyInformation.h"
 #include "GCOtherModifyInfo.h"
 #include "GCPetStashList.h"
-
-#include "MonsterInfo.h"
-#include "CastleSkillInfo.h"
-#include "skill/OustersCastleSkillSlot.h"
+#include "GCRealWearingInfo.h"
+#include "GCSkillInfo.h"
+#include "GCStatusCurrentHP.h"
+#include "GCTakeOff.h"
 #include "GuildUnion.h"
+#include "MonsterInfo.h"
+#include "PKZoneInfoManager.h"
+#include "RaceWarLimiter.h"
+#include "RankExpTable.h"
+#include "ResurrectLocationManager.h"
 #include "Store.h"
-#include "AdvancementClassExpTable.h"
-#include "DynamicZone.h"
-
 #include "SystemAvailabilitiesManager.h"
+#include "TimeLimitItemManager.h"
+#include "VariableManager.h"
+#include "WarSystem.h"
+#include "item/AR.h"
+#include "item/Belt.h"
+#include "item/OustersArmsband.h"
+#include "item/OustersStone.h"
+#include "item/OustersWristlet.h"
+#include "item/SG.h"
+#include "item/SMG.h"
+#include "item/SR.h"
+#include "item/Skull.h"
+#include "skill/EffectBless.h"
+#include "skill/EffectDoom.h"
+#include "skill/EffectParalyze.h"
+#include "skill/EffectTransformToBat.h"
+#include "skill/EffectTransformToWolf.h"
+#include "skill/OustersCastleSkillSlot.h"
 
 const Color_t UNIQUE_COLOR = 0xFFFF;
 const Color_t QUEST_COLOR = 0xFFFE;
 
 const Level_t MAX_OUSTERS_LEVEL = 150;
 
-Ousters::Ousters () 
-	 
-: PlayerCreature(0, NULL)
-{
-	__BEGIN_TRY
+Ousters::Ousters()
 
-	m_CClass = CREATURE_CLASS_OUSTERS;
+    : PlayerCreature(0, NULL) {
+    __BEGIN_TRY
 
-	m_Mutex.setName("Ousters");
+    m_CClass = CREATURE_CLASS_OUSTERS;
 
-	// Initialize melee skill slots except double impact.
-	for (int i=0; i<SKILL_DOUBLE_IMPACT; i++)
-	{
-		OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
-		pOustersSkillSlot->setName(m_Name);
-		pOustersSkillSlot->setSkillType(i);
-		pOustersSkillSlot->setInterval(5);
-		pOustersSkillSlot->setRunTime();
+    m_Mutex.setName("Ousters");
 
-		addSkill(pOustersSkillSlot);
-	}
+    // Initialize melee skill slots except double impact.
+    for (int i = 0; i < SKILL_DOUBLE_IMPACT; i++) {
+        OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
+        pOustersSkillSlot->setName(m_Name);
+        pOustersSkillSlot->setSkillType(i);
+        pOustersSkillSlot->setInterval(5);
+        pOustersSkillSlot->setRunTime();
 
-	//////////////////////////////////////
-	//////////////////////////////////////
-	// Default absorb/sylph skills
-	//////////////////////////////////////
-	//////////////////////////////////////
-	{
-		OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
-		pOustersSkillSlot->setName(m_Name);
-		pOustersSkillSlot->setSkillType(SKILL_ABSORB_SOUL);
-		pOustersSkillSlot->setExpLevel(1);
-		pOustersSkillSlot->setInterval(5);
-		pOustersSkillSlot->setRunTime();
+        addSkill(pOustersSkillSlot);
+    }
 
-		addSkill(pOustersSkillSlot);
-	}
-	{
-		OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
-		pOustersSkillSlot->setName(m_Name);
-		pOustersSkillSlot->setSkillType(SKILL_SUMMON_SYLPH);
-		pOustersSkillSlot->setExpLevel(1);
-		pOustersSkillSlot->setInterval(5);
-		pOustersSkillSlot->setRunTime();
+    //////////////////////////////////////
+    //////////////////////////////////////
+    // Default absorb/sylph skills
+    //////////////////////////////////////
+    //////////////////////////////////////
+    {
+        OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
+        pOustersSkillSlot->setName(m_Name);
+        pOustersSkillSlot->setSkillType(SKILL_ABSORB_SOUL);
+        pOustersSkillSlot->setExpLevel(1);
+        pOustersSkillSlot->setInterval(5);
+        pOustersSkillSlot->setRunTime();
 
-		addSkill(pOustersSkillSlot);
-	}
+        addSkill(pOustersSkillSlot);
+    }
+    {
+        OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
+        pOustersSkillSlot->setName(m_Name);
+        pOustersSkillSlot->setSkillType(SKILL_SUMMON_SYLPH);
+        pOustersSkillSlot->setExpLevel(1);
+        pOustersSkillSlot->setInterval(5);
+        pOustersSkillSlot->setRunTime();
 
-    for (int i = 0; i < OUSTERS_WEAR_MAX; i++) 
+        addSkill(pOustersSkillSlot);
+    }
+
+    for (int i = 0; i < OUSTERS_WEAR_MAX; i++)
         m_pWearItem[i] = NULL;
 
-	getCurrentTime(m_MPRegenTime);
+    getCurrentTime(m_MPRegenTime);
 
-	// Reset save counters.
-//	m_RankExpSaveCount		= 0;
-//	m_RankExpSaveCount		= 0;
-	m_ExpSaveCount			= 0;
-	m_FameSaveCount			= 0;
-	m_AlignmentSaveCount	= 0;
+    // Reset save counters.
+    //	m_RankExpSaveCount		= 0;
+    //	m_RankExpSaveCount		= 0;
+    m_ExpSaveCount = 0;
+    m_FameSaveCount = 0;
+    m_AlignmentSaveCount = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Ousters::~Ousters() 
-    
+Ousters::~Ousters()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// Persist outlook info before destruction. by sigi. 2002.6.18
-	char pField[128];
-	sprintf(pField, "CoatType=%d,ArmType=%d,CoatColor=%d,ArmColor=%d,BootsColor=%d",
-					m_OustersInfo.getCoatType(),
-					m_OustersInfo.getArmType(),
-					m_OustersInfo.getCoatColor(),
-					m_OustersInfo.getArmColor(),
-					m_OustersInfo.getBootsColor() );
+    // Persist outlook info before destruction. by sigi. 2002.6.18
+    char pField[128];
+    sprintf(pField, "CoatType=%d,ArmType=%d,CoatColor=%d,ArmColor=%d,BootsColor=%d", m_OustersInfo.getCoatType(),
+            m_OustersInfo.getArmType(), m_OustersInfo.getCoatColor(), m_OustersInfo.getArmColor(),
+            m_OustersInfo.getBootsColor());
 
-	tinysave(pField);
+    tinysave(pField);
 
-	// Persist equipment/exp/skills before destruction.
-	saveGears();
-	saveExps();
-	saveSkills();
+    // Persist equipment/exp/skills before destruction.
+    saveGears();
+    saveExps();
+    saveSkills();
 
-	// Destroy equipped items (ownership transfers to garbage collector).
-	destroyGears();
+    // Destroy equipped items (ownership transfers to garbage collector).
+    destroyGears();
 
-	// Cancel any pending trade tied to this character before cleanup.
-	TradeManager* pTradeManager = m_pZone->getTradeManager();
-	TradeInfo* pInfo = pTradeManager->getTradeInfo(getName());
-	if (pInfo != NULL)
-	{
-		// Cancel the live trade session if one exists.
-		pTradeManager->cancelTrade(this);
-	}
+    // Cancel any pending trade tied to this character before cleanup.
+    TradeManager* pTradeManager = m_pZone->getTradeManager();
+    TradeInfo* pInfo = pTradeManager->getTradeInfo(getName());
+    if (pInfo != NULL) {
+        // Cancel the live trade session if one exists.
+        pTradeManager->cancelTrade(this);
+    }
 
-	// Clear party info to avoid stale references in zone cleanup flows.
-	deleteAllPartyInfo(this);
+    // Clear party info to avoid stale references in zone cleanup flows.
+    deleteAllPartyInfo(this);
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
-	for (; itr != m_SkillSlot.end(); itr++)
-	{
-		OustersSkillSlot* pOustersSkillSlot = itr->second;
-		SAFE_DELETE(pOustersSkillSlot);
-	}
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+    for (; itr != m_SkillSlot.end(); itr++) {
+        OustersSkillSlot* pOustersSkillSlot = itr->second;
+        SAFE_DELETE(pOustersSkillSlot);
+    }
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 // registerObject
 // Register this Ousters in the zone object registry and assign object IDs.
-void Ousters::registerObject ()
-    
+void Ousters::registerObject()
+
 {
     __BEGIN_TRY
 
     Assert(getZone() != NULL);
 
-	// Register within the zone object registry.
-    ObjectRegistry & OR = getZone()->getObjectRegistry();
+    // Register within the zone object registry.
+    ObjectRegistry& OR = getZone()->getObjectRegistry();
 
     __ENTER_CRITICAL_SECTION(OR)
 
-	// Clear any time-limit manager state before registering items.
-	if (m_pTimeLimitItemManager != NULL)
-		m_pTimeLimitItemManager->clear();
+    // Clear any time-limit manager state before registering items.
+    if (m_pTimeLimitItemManager != NULL)
+        m_pTimeLimitItemManager->clear();
 
-	// Register self without locking (caller holds the lock).
-	OR.registerObject_NOLOCKED(this);
+    // Register self without locking (caller holds the lock).
+    OR.registerObject_NOLOCKED(this);
 
-	// Register inventory items.
-	registerInventory(OR);
+    // Register inventory items.
+    registerInventory(OR);
 
-	// Register goods inventory items.
-	registerGoodsInventory(OR);
+    // Register goods inventory items.
+    registerGoodsInventory(OR);
 
-	// Register equipped items.
-	for (int i = 0; i < OUSTERS_WEAR_MAX; i++) 
-	{
-		Item* pItem = m_pWearItem[i];
+    // Register equipped items.
+    for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
+        Item* pItem = m_pWearItem[i];
 
-		if (pItem != NULL) 
-		{
-			bool bCheck = true;
+        if (pItem != NULL) {
+            bool bCheck = true;
 
-			// Skip registering the left hand if a two-hand weapon occupies the right.
-			if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
-				bCheck = false;
+            // Skip registering the left hand if a two-hand weapon occupies the right.
+            if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
+                bCheck = false;
 
-			if (bCheck) registerItem(pItem, OR);
-		}
-	}
+            if (bCheck)
+                registerItem(pItem, OR);
+        }
+    }
 
-	// Register extra-slot item if present.
-	Item* pSlotItem = m_pExtraInventorySlot->getItem();
-	if (pSlotItem != NULL) registerItem(pSlotItem, OR);
+    // Register extra-slot item if present.
+    Item* pSlotItem = m_pExtraInventorySlot->getItem();
+    if (pSlotItem != NULL)
+        registerItem(pSlotItem, OR);
 
-	m_Garbage.registerObject(OR);
+    m_Garbage.registerObject(OR);
 
-	for ( int i=0; i<MAX_PET_STASH; ++i )
-	{
-		Item* pItem = getPetStashItem(i);
-		if ( pItem != NULL ) registerItem( pItem, OR );
-	}
+    for (int i = 0; i < MAX_PET_STASH; ++i) {
+        Item* pItem = getPetStashItem(i);
+        if (pItem != NULL)
+            registerItem(pItem, OR);
+    }
 
     __LEAVE_CRITICAL_SECTION(OR)
 
-	m_OustersInfo.setObjectID(m_ObjectID);
-	m_pStore->updateStoreInfo();
+    m_OustersInfo.setObjectID(m_ObjectID);
+    m_pStore->updateStoreInfo();
 
     __END_CATCH
 }
 
 // Register this Ousters and items during initial load (with trace logging where needed).
-void Ousters::registerInitObject ()
-    
+void Ousters::registerInitObject()
+
 {
     __BEGIN_TRY
 
     Assert(getZone() != NULL);
 
-    ObjectRegistry & OR = getZone()->getObjectRegistry();
+    ObjectRegistry& OR = getZone()->getObjectRegistry();
 
     __ENTER_CRITICAL_SECTION(OR)
 
-	// Clear any time-limit manager state before registering items.
-	if (m_pTimeLimitItemManager != NULL)
-		m_pTimeLimitItemManager->clear();
+    // Clear any time-limit manager state before registering items.
+    if (m_pTimeLimitItemManager != NULL)
+        m_pTimeLimitItemManager->clear();
 
-	// Register self without locking (caller holds the lock).
-	OR.registerObject_NOLOCKED(this);
+    // Register self without locking (caller holds the lock).
+    OR.registerObject_NOLOCKED(this);
 
-	// Register inventory items (initial load path).
-	registerInitInventory(OR);
+    // Register inventory items (initial load path).
+    registerInitInventory(OR);
 
-	// Register goods inventory items (initial load path).
-	registerGoodsInventory(OR);
+    // Register goods inventory items (initial load path).
+    registerGoodsInventory(OR);
 
-	// Register equipped items (initial load path).
-	for (int i = 0; i < OUSTERS_WEAR_MAX; i++) 
-	{
-		Item* pItem = m_pWearItem[i];
+    // Register equipped items (initial load path).
+    for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
+        Item* pItem = m_pWearItem[i];
 
-		if (pItem != NULL) 
-		{
-			// Enable trace logging for registered item.
-			pItem->setTraceItem( bTraceLog( pItem ) );
+        if (pItem != NULL) {
+            // Enable trace logging for registered item.
+            pItem->setTraceItem(bTraceLog(pItem));
 
-			bool bCheck = true;
+            bool bCheck = true;
 
-			// Skip registering the left hand if a two-hand weapon occupies the right.
-			if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
-				bCheck = false;
+            // Skip registering the left hand if a two-hand weapon occupies the right.
+            if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
+                bCheck = false;
 
-			if (bCheck) registerItem(pItem, OR);
-		}
-	}
+            if (bCheck)
+                registerItem(pItem, OR);
+        }
+    }
 
-	// Sweep equipped items for expiration.
-	Item* pSlotItem = m_pExtraInventorySlot->getItem();
-	if (pSlotItem != NULL)
-	{
-		pSlotItem->setTraceItem( bTraceLog( pSlotItem ) );
-		registerItem(pSlotItem, OR);
-	}
+    // Sweep equipped items for expiration.
+    Item* pSlotItem = m_pExtraInventorySlot->getItem();
+    if (pSlotItem != NULL) {
+        pSlotItem->setTraceItem(bTraceLog(pSlotItem));
+        registerItem(pSlotItem, OR);
+    }
 
-	m_Garbage.registerObject(OR);
+    m_Garbage.registerObject(OR);
 
     __LEAVE_CRITICAL_SECTION(OR)
 
-	m_OustersInfo.setObjectID(m_ObjectID);
+    m_OustersInfo.setObjectID(m_ObjectID);
 
     __END_CATCH
 }
 
-void Ousters::checkItemTimeLimit() 
-{
-	__BEGIN_TRY
+void Ousters::checkItemTimeLimit() {
+    __BEGIN_TRY
 
-	{
-		list<Item*> ItemList;
-		int height = m_pInventory->getHeight();
-		int width  = m_pInventory->getWidth();
+    {
+        list<Item*> ItemList;
+        int height = m_pInventory->getHeight();
+        int width = m_pInventory->getWidth();
 
-		for (int j=0; j<height; j++)
-		{
-			for (int i=0; i<width; i++)
-			{
-				Item* pItem = m_pInventory->getItem(i, j);
-				if (pItem != NULL)
-				{
-					list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                Item* pItem = m_pInventory->getItem(i, j);
+                if (pItem != NULL) {
+                    list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
-					if (itr == ItemList.end())
-					{
-						i += pItem->getVolumeWidth() - 1;
+                    if (itr == ItemList.end()) {
+                        i += pItem->getVolumeWidth() - 1;
 
-						if ( wasteIfTimeLimitExpired( pItem ) )
-						{
-							m_pInventory->deleteItem( pItem->getObjectID() );
-							SAFE_DELETE( pItem );
-						}
-						else
-						{
-							ItemList.push_back(pItem);
-						}
-					}
-				}
-			}
-		}
-	}
+                        if (wasteIfTimeLimitExpired(pItem)) {
+                            m_pInventory->deleteItem(pItem->getObjectID());
+                            SAFE_DELETE(pItem);
+                        } else {
+                            ItemList.push_back(pItem);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	// Sweep equipped items for expiration.
-	{
-		for (int i = 0; i < OUSTERS_WEAR_MAX; i++) 
-		{
-			Item* pItem = m_pWearItem[i];
+    // Sweep equipped items for expiration.
+    {
+        for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
+            Item* pItem = m_pWearItem[i];
 
-			if (pItem != NULL) 
-			{
-				bool bCheck = true;
+            if (pItem != NULL) {
+                bool bCheck = true;
 
-				// Skip left hand check if right hand holds a two-hand weapon.
-				if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
-					bCheck = false;
+                // Skip left hand check if right hand holds a two-hand weapon.
+                if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
+                    bCheck = false;
 
-				if (bCheck) 
-				{
-					if ( wasteIfTimeLimitExpired( pItem ) )
-					{
-						deleteWearItem( (WearPart)i );
-						if ( i == WEAR_LEFTHAND && isTwohandWeapon(pItem) )
-							deleteWearItem( WEAR_RIGHTHAND );
-						SAFE_DELETE( pItem );
-					}
-				}
-			}
-		}
-	}
+                if (bCheck) {
+                    if (wasteIfTimeLimitExpired(pItem)) {
+                        deleteWearItem((WearPart)i);
+                        if (i == WEAR_LEFTHAND && isTwohandWeapon(pItem))
+                            deleteWearItem(WEAR_RIGHTHAND);
+                        SAFE_DELETE(pItem);
+                    }
+                }
+            }
+        }
+    }
 
-	// Sweep extra inventory slot for expiration.
-	{
-		Item* pSlotItem = m_pExtraInventorySlot->getItem();
-		if (pSlotItem != NULL && wasteIfTimeLimitExpired( pSlotItem ))
-		{
-			deleteItemFromExtraInventorySlot();
-			SAFE_DELETE( pSlotItem );
-		}
-	}
+    // Sweep extra inventory slot for expiration.
+    {
+        Item* pSlotItem = m_pExtraInventorySlot->getItem();
+        if (pSlotItem != NULL && wasteIfTimeLimitExpired(pSlotItem)) {
+            deleteItemFromExtraInventorySlot();
+            SAFE_DELETE(pSlotItem);
+        }
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Ousters::updateEventItemTime( DWORD time ) 
-{
-	__BEGIN_TRY
+void Ousters::updateEventItemTime(DWORD time) {
+    __BEGIN_TRY
 
-	{
-		list<Item*> ItemList;
-		int height = m_pInventory->getHeight();
-		int width  = m_pInventory->getWidth();
+    {
+        list<Item*> ItemList;
+        int height = m_pInventory->getHeight();
+        int width = m_pInventory->getWidth();
 
-		for (int j=0; j<height; j++)
-		{
-			for (int i=0; i<width; i++)
-			{
-				Item* pItem = m_pInventory->getItem(i, j);
-				if (pItem != NULL)
-				{
-					list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
+        for (int j = 0; j < height; j++) {
+            for (int i = 0; i < width; i++) {
+                Item* pItem = m_pInventory->getItem(i, j);
+                if (pItem != NULL) {
+                    list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
-					if (itr == ItemList.end())
-					{
-						i += pItem->getVolumeWidth() - 1;
-						updateItemTimeLimit( pItem, time );
-						ItemList.push_back(pItem);
-					}
-				}
-			}
-		}
-	}
+                    if (itr == ItemList.end()) {
+                        i += pItem->getVolumeWidth() - 1;
+                        updateItemTimeLimit(pItem, time);
+                        ItemList.push_back(pItem);
+                    }
+                }
+            }
+        }
+    }
 
-	{
-		for (int i = 0; i < OUSTERS_WEAR_MAX; i++) 
-		{
-			Item* pItem = m_pWearItem[i];
+    {
+        for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
+            Item* pItem = m_pWearItem[i];
 
-			if (pItem != NULL) 
-			{
-				bool bCheck = true;
+            if (pItem != NULL) {
+                bool bCheck = true;
 
-				if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
-					bCheck = false;
+                if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
+                    bCheck = false;
 
-				if (bCheck) 
-				{
-					updateItemTimeLimit( pItem, time );
-				}
-			}
-		}
-	}
+                if (bCheck) {
+                    updateItemTimeLimit(pItem, time);
+                }
+            }
+        }
+    }
 
-	{
-		Item* pSlotItem = m_pExtraInventorySlot->getItem();
-		if (pSlotItem != NULL)
-		{
-			updateItemTimeLimit( pSlotItem, time );
-		}
-	}
+    {
+        Item* pSlotItem = m_pExtraInventorySlot->getItem();
+        if (pSlotItem != NULL) {
+            updateItemTimeLimit(pSlotItem, time);
+        }
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ///////////////////////////////////////////
 //
-void Ousters::loadItem( bool checkTimeLimit )
-	
+void Ousters::loadItem(bool checkTimeLimit)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PlayerCreature::loadItem();
+    PlayerCreature::loadItem();
 
-	SAFE_DELETE(m_pInventory);
-	m_pInventory = new Inventory(10, 6);
-	m_pInventory->setOwner(getName());
+    SAFE_DELETE(m_pInventory);
+    m_pInventory = new Inventory(10, 6);
+    m_pInventory->setOwner(getName());
 
-	g_pItemLoaderManager->load(this);
+    g_pItemLoaderManager->load(this);
 
-	PlayerCreature::loadGoods();
+    PlayerCreature::loadGoods();
 
     registerInitObject();
 
-	if( !m_pFlagSet->isOn( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO ) )
-	{
-		addNewbieItemToInventory( this );
-		addNewbieGoldToInventory( this );
-		addNewbieItemToGear( this );
-		m_pFlagSet->turnOn( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO );
-		m_pFlagSet->save( getName() );
-	}
+    if (!m_pFlagSet->isOn(FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO)) {
+        addNewbieItemToInventory(this);
+        addNewbieGoldToInventory(this);
+        addNewbieItemToGear(this);
+        m_pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO);
+        m_pFlagSet->save(getName());
+    }
 
-	if ( checkTimeLimit )
-	{
-		checkItemTimeLimit();
-	}
+    if (checkTimeLimit) {
+        checkItemTimeLimit();
+    }
 
-	initAllStat();
+    initAllStat();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-bool Ousters::load ()
-	
+bool Ousters::load()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if ( !PlayerCreature::load() ) return false;
+    if (!PlayerCreature::load())
+        return false;
 
-	Statement* pStmt   = NULL;
-	Result*    pResult = NULL;
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(
-			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex,MasterEffectColor,\
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT Name, AdvancementClass, AdvancementGoalExp, Sex,MasterEffectColor,\
 			STR, DEX, INTE, HP, CurrentHP, MP, CurrentMP, Fame, \
 			GoalExp, Level, Bonus, SkillBonus, Gold, GuildID, \
 			ZoneID, XCoord, YCoord, Sight, Alignment,\
 			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, SMSCharge,\
 			`Rank`, RankGoalExp, HairColor FROM Ousters WHERE Name = '%s' AND Active = 'ACTIVE'",
-			m_Name.c_str()
-		);
+                                      m_Name.c_str());
 
-		if (pResult->getRowCount() == 0) 
-		{
-			SAFE_DELETE(pStmt);
-			return false;
-		}
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            return false;
+        }
 
-		pResult->next();
+        pResult->next();
 
-		uint i = 0;
+        uint i = 0;
 
-		setName(pResult->getString(++i));
+        setName(pResult->getString(++i));
 
-		Level_t advLevel = pResult->getInt(++i);
-		Exp_t	advGoalExp = pResult->getInt(++i);
+        Level_t advLevel = pResult->getInt(++i);
+        Exp_t advGoalExp = pResult->getInt(++i);
 
-		m_pAdvancementClass = new AdvancementClass( advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable );
-		if ( getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
+        m_pAdvancementClass =
+            new AdvancementClass(advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable);
+        if (getAdvancementClassLevel() > 0)
+            m_bAdvanced = true;
 
-		setSex(pResult->getString(++i));
-		setMasterEffectColor(pResult->getInt(++i));
+        setSex(pResult->getString(++i));
+        setMasterEffectColor(pResult->getInt(++i));
 
-		m_STR[ATTR_BASIC]   = pResult->getInt(++i);
-		m_STR[ATTR_CURRENT] = m_STR[ATTR_BASIC];
-	   	m_STR[ATTR_MAX]     = m_STR[ATTR_BASIC];
+        m_STR[ATTR_BASIC] = pResult->getInt(++i);
+        m_STR[ATTR_CURRENT] = m_STR[ATTR_BASIC];
+        m_STR[ATTR_MAX] = m_STR[ATTR_BASIC];
 
-		m_DEX[ATTR_BASIC]   = pResult->getInt(++i);
-		m_DEX[ATTR_CURRENT] = m_DEX[ATTR_BASIC];
-	   	m_DEX[ATTR_MAX]     = m_DEX[ATTR_BASIC];
+        m_DEX[ATTR_BASIC] = pResult->getInt(++i);
+        m_DEX[ATTR_CURRENT] = m_DEX[ATTR_BASIC];
+        m_DEX[ATTR_MAX] = m_DEX[ATTR_BASIC];
 
-		m_INT[ATTR_BASIC]   = pResult->getInt(++i);
-		m_INT[ATTR_CURRENT] = m_INT[ATTR_BASIC];
-	   	m_INT[ATTR_MAX]     = m_INT[ATTR_BASIC];
+        m_INT[ATTR_BASIC] = pResult->getInt(++i);
+        m_INT[ATTR_CURRENT] = m_INT[ATTR_BASIC];
+        m_INT[ATTR_MAX] = m_INT[ATTR_BASIC];
 
-		setHP(pResult->getInt(++i) , ATTR_MAX);
-		setHP(getHP(ATTR_MAX) , ATTR_BASIC);
-		setHP(pResult->getInt(++i) , ATTR_CURRENT);
+        setHP(pResult->getInt(++i), ATTR_MAX);
+        setHP(getHP(ATTR_MAX), ATTR_BASIC);
+        setHP(pResult->getInt(++i), ATTR_CURRENT);
 
-		setMP(pResult->getInt(++i) , ATTR_MAX);
-		setMP(getMP(ATTR_MAX) , ATTR_BASIC);
-		setMP(pResult->getInt(++i) , ATTR_CURRENT);
-		
-		setFame(pResult->getInt(++i));
+        setMP(pResult->getInt(++i), ATTR_MAX);
+        setMP(getMP(ATTR_MAX), ATTR_BASIC);
+        setMP(pResult->getInt(++i), ATTR_CURRENT);
 
-//		setExp(pResult->getInt(++i));
-		setGoalExp(pResult->getInt(++i));
-//		setExpOffset(pResult->getInt(++i));
-		setLevel(pResult->getInt(++i));
-		setBonus(pResult->getInt(++i));
-		setSkillBonus(pResult->getInt(++i));
+        setFame(pResult->getInt(++i));
 
-		setGold(pResult->getInt(++i));
-		setGuildID(pResult->getInt(++i));
+        //		setExp(pResult->getInt(++i));
+        setGoalExp(pResult->getInt(++i));
+        //		setExpOffset(pResult->getInt(++i));
+        setLevel(pResult->getInt(++i));
+        setBonus(pResult->getInt(++i));
+        setSkillBonus(pResult->getInt(++i));
 
-		ZoneID_t zoneID = pResult->getInt(++i);
-		setX(pResult->getInt(++i));
-		setY(pResult->getInt(++i));
+        setGold(pResult->getInt(++i));
+        setGuildID(pResult->getInt(++i));
 
-		setSight (pResult->getInt(++i));
+        ZoneID_t zoneID = pResult->getInt(++i);
+        setX(pResult->getInt(++i));
+        setY(pResult->getInt(++i));
 
-		setAlignment(pResult->getInt(++i));
+        setSight(pResult->getInt(++i));
 
-		setStashGold(pResult->getInt(++i));
-		setStashNum(pResult->getBYTE(++i));
-		
-		m_Competence = pResult->getBYTE(++i);
+        setAlignment(pResult->getInt(++i));
 
-		if ( m_Competence >= 4 )
-			m_Competence = 3;
+        setStashGold(pResult->getInt(++i));
+        setStashNum(pResult->getBYTE(++i));
 
-		m_CompetenceShape = pResult->getBYTE(++i);
+        m_Competence = pResult->getBYTE(++i);
 
-		setResurrectZoneID(pResult->getInt(++i));
-		setSilverDamage(pResult->getInt(++i));
+        if (m_Competence >= 4)
+            m_Competence = 3;
 
-		setSMSCharge( pResult->getInt(++i) );
+        m_CompetenceShape = pResult->getBYTE(++i);
 
-		Rank_t CurRank               = pResult->getInt(++i);
-		RankExp_t RankGoalExp        = pResult->getInt(++i);
+        setResurrectZoneID(pResult->getInt(++i));
+        setSilverDamage(pResult->getInt(++i));
 
-		m_pRank = new Rank( CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_OUSTERS] );
+        setSMSCharge(pResult->getInt(++i));
 
-//		setRank( pResult->getInt(++i) );
-//		setRankExp( pResult->getInt(++i) );
-//		setRankGoalExp( pResult->getInt(++i) );
+        Rank_t CurRank = pResult->getInt(++i);
+        RankExp_t RankGoalExp = pResult->getInt(++i);
 
-		setHairColor(pResult->getInt(++i));
+        m_pRank = new Rank(CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_OUSTERS]);
 
-		// 2002.7.15 by sigi
-		int maxHP = m_STR[ATTR_CURRENT]*2 + m_INT[ATTR_CURRENT] + m_DEX[ATTR_CURRENT] + m_Level;
-		maxHP = min((int)maxHP, OUSTERS_MAX_HP);
-		setHP( maxHP, ATTR_MAX );
+        //		setRank( pResult->getInt(++i) );
+        //		setRankExp( pResult->getInt(++i) );
+        //		setRankGoalExp( pResult->getInt(++i) );
 
-		try
-		{
-			setZoneID( zoneID );
-		}
-		catch ( Error& e )
-		{
-			ZONE_COORD ResurrectCoord;
-			g_pResurrectLocationManager->getOustersPosition( 1311, ResurrectCoord );
-			setZoneID( ResurrectCoord.id );
-			setX( ResurrectCoord.x );
-			setY( ResurrectCoord.y );
-		}
+        setHairColor(pResult->getInt(++i));
 
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+        // 2002.7.15 by sigi
+        int maxHP = m_STR[ATTR_CURRENT] * 2 + m_INT[ATTR_CURRENT] + m_DEX[ATTR_CURRENT] + m_Level;
+        maxHP = min((int)maxHP, OUSTERS_MAX_HP);
+        setHP(maxHP, ATTR_MAX);
 
-	//----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	m_OustersInfo.setObjectID(m_ObjectID);
-	m_OustersInfo.setName(m_Name);
-	m_OustersInfo.setSex(m_Sex);
-	m_OustersInfo.setHairColor(m_HairColor);
-	m_OustersInfo.setMasterEffectColor(m_MasterEffectColor);
+        try {
+            setZoneID(zoneID);
+        } catch (Error& e) {
+            ZONE_COORD ResurrectCoord;
+            g_pResurrectLocationManager->getOustersPosition(1311, ResurrectCoord);
+            setZoneID(ResurrectCoord.id);
+            setX(ResurrectCoord.x);
+            setY(ResurrectCoord.y);
+        }
 
-	m_OustersInfo.setCompetence(m_CompetenceShape);
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
     //----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT SkillType, SkillLevel, Delay, CastingTime, NextTime FROM OustersSkillSave WHERE OwnerID = '%s'", m_Name.c_str());
-	
-		while(pResult->next()) 
-		{
-			int         i          = 0;
-			SkillType_t SkillType = pResult->getInt(++i);
+    //----------------------------------------------------------------------
+    m_OustersInfo.setObjectID(m_ObjectID);
+    m_OustersInfo.setName(m_Name);
+    m_OustersInfo.setSex(m_Sex);
+    m_OustersInfo.setHairColor(m_HairColor);
+    m_OustersInfo.setMasterEffectColor(m_MasterEffectColor);
 
-			if (hasSkill(SkillType) == NULL) 
-			{
-				OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot();
-		
-				pOustersSkillSlot->setName(m_Name);
-				pOustersSkillSlot->setSkillType(SkillType);
-				pOustersSkillSlot->setExpLevel(pResult->getInt(++i));
-				pOustersSkillSlot->setInterval (pResult->getInt(++i));
-				pOustersSkillSlot->setCastingTime (pResult->getInt(++i));
-				pOustersSkillSlot->setRunTime();
-		
-				addSkill(pOustersSkillSlot);
-			}
-		}
-	
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+    m_OustersInfo.setCompetence(m_CompetenceShape);
 
     //----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	loadRankBonus();
+    //----------------------------------------------------------------------
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery(
+            "SELECT SkillType, SkillLevel, Delay, CastingTime, NextTime FROM OustersSkillSave WHERE OwnerID = '%s'",
+            m_Name.c_str());
+
+        while (pResult->next()) {
+            int i = 0;
+            SkillType_t SkillType = pResult->getInt(++i);
+
+            if (hasSkill(SkillType) == NULL) {
+                OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot();
+
+                pOustersSkillSlot->setName(m_Name);
+                pOustersSkillSlot->setSkillType(SkillType);
+                pOustersSkillSlot->setExpLevel(pResult->getInt(++i));
+                pOustersSkillSlot->setInterval(pResult->getInt(++i));
+                pOustersSkillSlot->setCastingTime(pResult->getInt(++i));
+                pOustersSkillSlot->setRunTime();
+
+                addSkill(pOustersSkillSlot);
+            }
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
     //----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	g_pEffectLoaderManager->load(this);
+    //----------------------------------------------------------------------
+    loadRankBonus();
 
-	//----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	// by sigi. 2002.11.8
-	if (m_Level>=100
-		&& SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
-	{
-		if (!isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS))
-		{
-			EffectGrandMasterOusters* pEffect = new EffectGrandMasterOusters(this);
-			pEffect->setDeadline(999999);
-			getEffectManager()->addEffect( pEffect );
-			setFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS);
-		}
-	}
+    //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
+    g_pEffectLoaderManager->load(this);
 
-	//----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	m_pFlagSet->load(getName());
-
-	//----------------------------------------------------------------------
-	//----------------------------------------------------------------------
-	m_OustersInfo.setCoatType(OUSTERS_COAT_BASIC);
-	m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
-	m_OustersInfo.setSylphType(OUSTERS_SYLPH_NONE);
-	m_OustersInfo.setHairColor(m_HairColor);
-
-	m_OustersInfo.setCoatColor( 377 );
-	m_OustersInfo.setAdvancementLevel( getAdvancementClassLevel() );
-
-/*	OustersEXPInfo* pOustersEXPInfo = g_pOustersEXPInfoManager->getOustersEXPInfo(m_Level);
-
-	if ( (pOustersEXPInfo->getAccumExp() != m_Exp + m_GoalExp) 
-		&& m_Level > 1 && m_Level < OUSTERS_MAX_LEVEL ) 
-	{
-		m_Exp = pOustersEXPInfo->getAccumExp() - m_GoalExp;
-
-		char pField[80];
-		sprintf(pField, "Exp=%lu", m_Exp);
-		tinysave(pField);
-	}
-*/
-	if (getRank()==0)
-	{
-		saveInitialRank();
-	}
-
-
-/*	RankEXPInfo* pRankEXPInfo = g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->getRankEXPInfo(m_Rank);
-
-	if ((pRankEXPInfo->getAccumExp() != m_RankExp + m_RankGoalExp) 
-		&& m_Rank > 1 && m_Rank < OUSTERS_MAX_RANK) 
-	{
-		m_RankExp = pRankEXPInfo->getAccumExp() - m_RankGoalExp;
-
-		char pField[80];
-		sprintf(pField, "RankExp=%lu", m_RankExp);
-		tinysave(pField);
-	}
-*/
-
-	initAllStat();
-
-	if ( RaceWarLimiter::isInPCList( this ) )
-	{
-		setFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
-	}
-
-	if (m_pZone->isHolyLand()
-        && g_pWarSystem->hasActiveRaceWar()
-        && !isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
-	{
-        ZONE_COORD ResurrectCoord;
-        g_pResurrectLocationManager->getPosition( this, ResurrectCoord );
-        setZoneID( ResurrectCoord.id );
-        setX( ResurrectCoord.x );
-        setY( ResurrectCoord.y );
+    //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
+    // by sigi. 2002.11.8
+    if (m_Level >= 100 && SystemAvailabilitiesManager::getInstance()->isAvailable(
+                              SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT)) {
+        if (!isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS)) {
+            EffectGrandMasterOusters* pEffect = new EffectGrandMasterOusters(this);
+            pEffect->setDeadline(999999);
+            getEffectManager()->addEffect(pEffect);
+            setFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS);
+        }
     }
 
-	return true;
+    //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
+    m_pFlagSet->load(getName());
 
-	__END_CATCH
+    //----------------------------------------------------------------------
+    //----------------------------------------------------------------------
+    m_OustersInfo.setCoatType(OUSTERS_COAT_BASIC);
+    m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
+    m_OustersInfo.setSylphType(OUSTERS_SYLPH_NONE);
+    m_OustersInfo.setHairColor(m_HairColor);
+
+    m_OustersInfo.setCoatColor(377);
+    m_OustersInfo.setAdvancementLevel(getAdvancementClassLevel());
+
+    /*	OustersEXPInfo* pOustersEXPInfo = g_pOustersEXPInfoManager->getOustersEXPInfo(m_Level);
+
+        if ( (pOustersEXPInfo->getAccumExp() != m_Exp + m_GoalExp)
+            && m_Level > 1 && m_Level < OUSTERS_MAX_LEVEL )
+        {
+            m_Exp = pOustersEXPInfo->getAccumExp() - m_GoalExp;
+
+            char pField[80];
+            sprintf(pField, "Exp=%lu", m_Exp);
+            tinysave(pField);
+        }
+    */
+    if (getRank() == 0) {
+        saveInitialRank();
+    }
+
+
+    /*	RankEXPInfo* pRankEXPInfo = g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->getRankEXPInfo(m_Rank);
+
+        if ((pRankEXPInfo->getAccumExp() != m_RankExp + m_RankGoalExp)
+            && m_Rank > 1 && m_Rank < OUSTERS_MAX_RANK)
+        {
+            m_RankExp = pRankEXPInfo->getAccumExp() - m_RankGoalExp;
+
+            char pField[80];
+            sprintf(pField, "RankExp=%lu", m_RankExp);
+            tinysave(pField);
+        }
+    */
+
+    initAllStat();
+
+    if (RaceWarLimiter::isInPCList(this)) {
+        setFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+    }
+
+    if (m_pZone->isHolyLand() && g_pWarSystem->hasActiveRaceWar() &&
+        !isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET)) {
+        ZONE_COORD ResurrectCoord;
+        g_pResurrectLocationManager->getPosition(this, ResurrectCoord);
+        setZoneID(ResurrectCoord.id);
+        setX(ResurrectCoord.x);
+        setY(ResurrectCoord.y);
+    }
+
+    return true;
+
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-void Ousters::save () const
-	
+void Ousters::save() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex)
+    __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	//--------------------------------------------------------------------------------
-	//--------------------------------------------------------------------------------
-	BEGIN_DB
-	{
-		StringStream sql;
-		sql << "UPDATE Ousters SET"
-			<< " CurrentHP = " << (int)m_HP[ATTR_CURRENT]
-			<< ", HP = " << (int)m_HP[ATTR_MAX]
-			<< ", CurrentMP = " << (int)m_MP[ATTR_CURRENT]
-			<< ", MP = " << (int)m_MP[ATTR_MAX]
-			<< ", ZoneID = " << (int)getZoneID()
-			<< ", XCoord = " << (int)m_X
-			<< ", YCoord = " << (int)m_Y
-			<< " WHERE Name = '" << m_Name << "'";
-		
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    //--------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------
+    BEGIN_DB {
+        StringStream sql;
+        sql << "UPDATE Ousters SET"
+            << " CurrentHP = " << (int)m_HP[ATTR_CURRENT] << ", HP = " << (int)m_HP[ATTR_MAX]
+            << ", CurrentMP = " << (int)m_MP[ATTR_CURRENT] << ", MP = " << (int)m_MP[ATTR_MAX]
+            << ", ZoneID = " << (int)getZoneID() << ", XCoord = " << (int)m_X << ", YCoord = " << (int)m_Y
+            << " WHERE Name = '" << m_Name << "'";
 
-		pStmt->executeQueryString(sql.toString());
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+        pStmt->executeQueryString(sql.toString());
 
-	//--------------------------------------------------
-	//--------------------------------------------------
-	m_pEffectManager->save(m_Name);
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
+    //--------------------------------------------------
+    //--------------------------------------------------
+    m_pEffectManager->save(m_Name);
 
-	__END_CATCH
+    __LEAVE_CRITICAL_SECTION(m_Mutex)
+
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 // tinysave
 //----------------------------------------------------------------------
-void Ousters::tinysave(const string & field)	// by sigi. 2002.5.15
-	    const 
-{
+void Ousters::tinysave(const string& field) // by sigi. 2002.5.15
+    const {
     __BEGIN_TRY
 
     Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("UPDATE Ousters SET %s WHERE Name='%s'", field.c_str(), m_Name.c_str());
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pStmt->executeQuery("UPDATE Ousters SET %s WHERE Name='%s'", field.c_str(), m_Name.c_str());
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
     __END_CATCH
 }
@@ -821,13 +767,13 @@ void Ousters::tinysave(const string & field)	// by sigi. 2002.5.15
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 SkillBonus_t Ousters::getSumOfUsedSkillBonus() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return 0;
+    return 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -837,171 +783,159 @@ SkillBonus_t Ousters::getSumOfUsedSkillBonus() const
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-OustersSkillSlot* Ousters::getSkill (SkillType_t SkillType) const 
-	
+OustersSkillSlot* Ousters::getSkill(SkillType_t SkillType) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
-	if (itr != m_SkillSlot.end())
-	{
-		return itr->second;
-	}
+    unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+    if (itr != m_SkillSlot.end()) {
+        return itr->second;
+    }
 
-	return NULL;
+    return NULL;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void Ousters::addSkill(SkillType_t SkillType)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	switch (SkillType)
-	{
-		case SKILL_UN_BURROW:
-		case SKILL_UN_TRANSFORM:
-		case SKILL_UN_INVISIBILITY:
-		case SKILL_THROW_HOLY_WATER:
-		case SKILL_EAT_CORPSE:
-		case SKILL_HOWL:
-			filelog("OustersError.log", "SkillType[%d], %s", SkillType, toString().c_str());
-			Assert(false);
-			break;
-		default:
-			break;
-	}
+    switch (SkillType) {
+    case SKILL_UN_BURROW:
+    case SKILL_UN_TRANSFORM:
+    case SKILL_UN_INVISIBILITY:
+    case SKILL_THROW_HOLY_WATER:
+    case SKILL_EAT_CORPSE:
+    case SKILL_HOWL:
+        filelog("OustersError.log", "SkillType[%d], %s", SkillType, toString().c_str());
+        Assert(false);
+        break;
+    default:
+        break;
+    }
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
-	if (itr == m_SkillSlot.end())
-	{
-		SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
-		Turn_t Delay = pSkillInfo->getMaxDelay();
+    if (itr == m_SkillSlot.end()) {
+        SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+        Turn_t Delay = pSkillInfo->getMaxDelay();
 
-		OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
+        OustersSkillSlot* pOustersSkillSlot = new OustersSkillSlot;
 
-		pOustersSkillSlot->setName(m_Name);
-		pOustersSkillSlot->setSkillType(SkillType);
-		pOustersSkillSlot->setInterval(Delay);
-		pOustersSkillSlot->setRunTime();
-		pOustersSkillSlot->setExpLevel(1);
-		pOustersSkillSlot->create(m_Name);
+        pOustersSkillSlot->setName(m_Name);
+        pOustersSkillSlot->setSkillType(SkillType);
+        pOustersSkillSlot->setInterval(Delay);
+        pOustersSkillSlot->setRunTime();
+        pOustersSkillSlot->setExpLevel(1);
+        pOustersSkillSlot->create(m_Name);
 
-		m_SkillSlot[SkillType] = pOustersSkillSlot;
-	}
+        m_SkillSlot[SkillType] = pOustersSkillSlot;
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void Ousters::addSkill(OustersSkillSlot* pOustersSkillSlot)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	SkillType_t SkillType = pOustersSkillSlot->getSkillType();
-	switch (SkillType)
-	{
-		case SKILL_UN_BURROW:
-		case SKILL_UN_TRANSFORM:
-		case SKILL_UN_INVISIBILITY:
-		case SKILL_THROW_HOLY_WATER:
-		case SKILL_EAT_CORPSE:
-		case SKILL_HOWL:
-			filelog("OustersError.log", "SkillType[%d], %s", SkillType, toString().c_str());
-			Assert(false);
-			break;
-		default:
-			break;
-	}
+    SkillType_t SkillType = pOustersSkillSlot->getSkillType();
+    switch (SkillType) {
+    case SKILL_UN_BURROW:
+    case SKILL_UN_TRANSFORM:
+    case SKILL_UN_INVISIBILITY:
+    case SKILL_THROW_HOLY_WATER:
+    case SKILL_EAT_CORPSE:
+    case SKILL_HOWL:
+        filelog("OustersError.log", "SkillType[%d], %s", SkillType, toString().c_str());
+        Assert(false);
+        break;
+    default:
+        break;
+    }
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(pOustersSkillSlot->getSkillType());
-	
-	if (itr == m_SkillSlot.end())
-	{
-		m_SkillSlot[pOustersSkillSlot->getSkillType()] = pOustersSkillSlot;
-	}
-	// 2002.1.16 by sigi
-	else
-	{
-		delete pOustersSkillSlot;
-	}
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(pOustersSkillSlot->getSkillType());
 
-	__END_CATCH
+    if (itr == m_SkillSlot.end()) {
+        m_SkillSlot[pOustersSkillSlot->getSkillType()] = pOustersSkillSlot;
+    }
+    // 2002.1.16 by sigi
+    else {
+        delete pOustersSkillSlot;
+    }
+
+    __END_CATCH
 }
 
 void Ousters::removeSkill(SkillType_t SkillType)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
-	
-	if (itr != m_SkillSlot.end())
-	{
-		OustersSkillSlot* pSkillSlot = itr->second;
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
-		SAFE_DELETE( pSkillSlot );
+    if (itr != m_SkillSlot.end()) {
+        OustersSkillSlot* pSkillSlot = itr->second;
 
-		m_SkillSlot.erase( itr );
-	}
+        SAFE_DELETE(pSkillSlot);
 
-	__END_CATCH
+        m_SkillSlot.erase(itr);
+    }
+
+    __END_CATCH
 }
 
 void Ousters::removeCastleSkill(SkillType_t SkillType)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
+    if (g_pCastleSkillInfoManager->getZoneID(SkillType) == 0)
+        return;
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
-	
-	if (itr != m_SkillSlot.end())
-	{
-		OustersCastleSkillSlot* pCastleSkillSlot = dynamic_cast<OustersCastleSkillSlot*>(itr->second);
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
-		SAFE_DELETE( pCastleSkillSlot );
+    if (itr != m_SkillSlot.end()) {
+        OustersCastleSkillSlot* pCastleSkillSlot = dynamic_cast<OustersCastleSkillSlot*>(itr->second);
 
-		m_SkillSlot.erase( itr );
-	}
+        SAFE_DELETE(pCastleSkillSlot);
 
-	__END_CATCH
+        m_SkillSlot.erase(itr);
+    }
+
+    __END_CATCH
 }
 
 void Ousters::removeAllCastleSkill()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 
-	while ( itr != m_SkillSlot.end() )
-	{
-		if ( itr->second != NULL )
-		{
-			OustersSkillSlot* pSkillSlot = itr->second;
-			if ( g_pCastleSkillInfoManager->getZoneID( pSkillSlot->getSkillType() ) == 0 )
-			{
-				++itr;
-				continue;
-			}
+    while (itr != m_SkillSlot.end()) {
+        if (itr->second != NULL) {
+            OustersSkillSlot* pSkillSlot = itr->second;
+            if (g_pCastleSkillInfoManager->getZoneID(pSkillSlot->getSkillType()) == 0) {
+                ++itr;
+                continue;
+            }
 
-			SAFE_DELETE( pSkillSlot );
-			unordered_map<SkillType_t, OustersSkillSlot*>::iterator prevItr = itr;
-			
-			++itr;
-			m_SkillSlot.erase( prevItr );
-		}
-		else
-		{
-			Assert(false);
-		}
-	}
+            SAFE_DELETE(pSkillSlot);
+            unordered_map<SkillType_t, OustersSkillSlot*>::iterator prevItr = itr;
 
-	__END_CATCH
+            ++itr;
+            m_SkillSlot.erase(prevItr);
+        } else {
+            Assert(false);
+        }
+    }
+
+    __END_CATCH
 }
 
 
@@ -1019,134 +953,116 @@ void Ousters::removeAllCastleSkill()
 //
 //----------------------------------------------------------------------
 void Ousters::wearItem(WearPart Part, Item* pItem)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pItem != NULL);
+    Assert(pItem != NULL);
 
-	Item* pPrevItem = NULL;
-	Item* pLeft = NULL;
-	Item* pRight = NULL;
+    Item* pPrevItem = NULL;
+    Item* pLeft = NULL;
+    Item* pRight = NULL;
 
-	if (isTwohandWeapon(pItem))
-	{
-		if (isWear(WEAR_RIGHTHAND) && isWear(WEAR_LEFTHAND))
-		{
-			pLeft  = getWearItem(WEAR_RIGHTHAND);
-			pRight = getWearItem(WEAR_LEFTHAND);
-			
-			if (pLeft == pRight)
-			{
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
+    if (isTwohandWeapon(pItem)) {
+        if (isWear(WEAR_RIGHTHAND) && isWear(WEAR_LEFTHAND)) {
+            pLeft = getWearItem(WEAR_RIGHTHAND);
+            pRight = getWearItem(WEAR_LEFTHAND);
 
-				// by sigi. 2002.5.15
-				char pField[80];
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
+            if (pLeft == pRight) {
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-				addItemToExtraInventorySlot(pLeft);
-				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-				pLeft->tinysave(pField);
-			}
-			else
-			{
-				return;
-			}
-		}
-		else 
-		{
-			char pField[80];
+                // by sigi. 2002.5.15
+                char pField[80];
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
 
-			if (isWear(WEAR_RIGHTHAND))
-			{
-				pRight = getWearItem(WEAR_RIGHTHAND);
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
+                addItemToExtraInventorySlot(pLeft);
+                sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+                pLeft->tinysave(pField);
+            } else {
+                return;
+            }
+        } else {
+            char pField[80];
 
-				// by sigi. 2002.5.15
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
+            if (isWear(WEAR_RIGHTHAND)) {
+                pRight = getWearItem(WEAR_RIGHTHAND);
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-				addItemToExtraInventorySlot(pRight);
-				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-				pRight->tinysave(pField);
-			}
-			else if (isWear(WEAR_LEFTHAND))
-			{
-				pLeft = getWearItem(WEAR_LEFTHAND);
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
+                // by sigi. 2002.5.15
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
 
-				// by sigi. 2002.5.15
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
+                addItemToExtraInventorySlot(pRight);
+                sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+                pRight->tinysave(pField);
+            } else if (isWear(WEAR_LEFTHAND)) {
+                pLeft = getWearItem(WEAR_LEFTHAND);
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-				addItemToExtraInventorySlot(pLeft);
-				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-				pLeft->tinysave(pField);
-			}
-			else
-			{
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
+                // by sigi. 2002.5.15
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
 
-				// by sigi. 2002.5.15
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
-			}
-		}
-	}
-	else 
-	{
-		if (isWear(Part))
-		{
-			pPrevItem = getWearItem(Part);
-			m_pWearItem[Part] = pItem;
+                addItemToExtraInventorySlot(pLeft);
+                sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+                pLeft->tinysave(pField);
+            } else {
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-			// by sigi. 2002.5.15
-			char pField[80];
-			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-			pItem->tinysave(pField);
+                // by sigi. 2002.5.15
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
+            }
+        }
+    } else {
+        if (isWear(Part)) {
+            pPrevItem = getWearItem(Part);
+            m_pWearItem[Part] = pItem;
 
-			addItemToExtraInventorySlot(pPrevItem);
-			sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-			pPrevItem->tinysave(pField);
-		}
-		else
-		{
-			m_pWearItem[Part] = pItem;
+            // by sigi. 2002.5.15
+            char pField[80];
+            sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+            pItem->tinysave(pField);
 
-			// by sigi. 2002.5.15
-			char pField[80];
-			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-			pItem->tinysave(pField);
-		}
-	}
+            addItemToExtraInventorySlot(pPrevItem);
+            sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+            pPrevItem->tinysave(pField);
+        } else {
+            m_pWearItem[Part] = pItem;
 
-	switch ( pItem->getItemClass() )
-	{
-		case Item::ITEM_CLASS_OUSTERS_COAT:
-			m_OustersInfo.setCoatType( getOustersCoatType( pItem->getItemType() ) );
-			m_OustersInfo.setCoatColor( getItemShapeColor( pItem ) );
-			break;
-		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
-			m_OustersInfo.setArmType( OUSTERS_ARM_CHAKRAM );
-			m_OustersInfo.setArmColor( getItemShapeColor( pItem ) );
-			break;
-		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
-			m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
-			m_OustersInfo.setArmColor( getItemShapeColor( pItem ) );
-			break;
-		case Item::ITEM_CLASS_OUSTERS_BOOTS:
-			m_OustersInfo.setBootsColor( getItemShapeColor( pItem ) );
-			break;
-		default:
-			break;
-	}
+            // by sigi. 2002.5.15
+            char pField[80];
+            sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+            pItem->tinysave(pField);
+        }
+    }
 
-	__END_CATCH
+    switch (pItem->getItemClass()) {
+    case Item::ITEM_CLASS_OUSTERS_COAT:
+        m_OustersInfo.setCoatType(getOustersCoatType(pItem->getItemType()));
+        m_OustersInfo.setCoatColor(getItemShapeColor(pItem));
+        break;
+    case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
+        m_OustersInfo.setArmType(OUSTERS_ARM_CHAKRAM);
+        m_OustersInfo.setArmColor(getItemShapeColor(pItem));
+        break;
+    case Item::ITEM_CLASS_OUSTERS_WRISTLET:
+        m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
+        m_OustersInfo.setArmColor(getItemShapeColor(pItem));
+        break;
+    case Item::ITEM_CLASS_OUSTERS_BOOTS:
+        m_OustersInfo.setBootsColor(getItemShapeColor(pItem));
+        break;
+    default:
+        break;
+    }
+
+    __END_CATCH
 }
 
 
@@ -1154,190 +1070,168 @@ void Ousters::wearItem(WearPart Part, Item* pItem)
 // Ousters::WearItem()
 //----------------------------------------------------------------------
 void Ousters::wearItem(WearPart Part)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Item* pItem = getExtraInventorySlotItem();
-	Assert(pItem != NULL);
+    Item* pItem = getExtraInventorySlotItem();
+    Assert(pItem != NULL);
 
-	Item* pPrevItem = NULL;
-	Item* pLeft = NULL;
-	Item* pRight = NULL;
+    Item* pPrevItem = NULL;
+    Item* pLeft = NULL;
+    Item* pRight = NULL;
 
-	OUSTERS_RECORD prev;
-	getOustersRecord(prev);
+    OUSTERS_RECORD prev;
+    getOustersRecord(prev);
 
-	char pField[80];
+    char pField[80];
 
-	if (isTwohandWeapon(pItem))
-	{
-		if (isWear(WEAR_RIGHTHAND) && isWear(WEAR_LEFTHAND))
-		{
-			pLeft  = getWearItem(WEAR_RIGHTHAND);
-			pRight = getWearItem(WEAR_LEFTHAND);
-			
-			if (pLeft == pRight)
-			{
-				takeOffItem(WEAR_LEFTHAND, false, false);
+    if (isTwohandWeapon(pItem)) {
+        if (isWear(WEAR_RIGHTHAND) && isWear(WEAR_LEFTHAND)) {
+            pLeft = getWearItem(WEAR_RIGHTHAND);
+            pRight = getWearItem(WEAR_LEFTHAND);
 
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
-				// by sigi. 2002.5.15
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
+            if (pLeft == pRight) {
+                takeOffItem(WEAR_LEFTHAND, false, false);
 
-				deleteItemFromExtraInventorySlot();
-				addItemToExtraInventorySlot(pLeft);
-				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-				pLeft->tinysave(pField);
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
+                // by sigi. 2002.5.15
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
 
-			}
-			else
-			{
-				return;
-			}
-		}
-		else 
-		{
-			// by sigi. 2002.5.15
-			if (isWear(WEAR_RIGHTHAND))
-			{
-				pRight = getWearItem(WEAR_RIGHTHAND);
+                deleteItemFromExtraInventorySlot();
+                addItemToExtraInventorySlot(pLeft);
+                sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+                pLeft->tinysave(pField);
 
-				takeOffItem(WEAR_RIGHTHAND, false, false);
+            } else {
+                return;
+            }
+        } else {
+            // by sigi. 2002.5.15
+            if (isWear(WEAR_RIGHTHAND)) {
+                pRight = getWearItem(WEAR_RIGHTHAND);
 
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
+                takeOffItem(WEAR_RIGHTHAND, false, false);
 
-				// by sigi. 2002.5.15
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-				deleteItemFromExtraInventorySlot();
-				addItemToExtraInventorySlot(pRight);
-				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-				pRight->tinysave(pField);
-				
-			}
-			else if (isWear(WEAR_LEFTHAND))
-			{
-				pLeft = getWearItem(WEAR_LEFTHAND);
-				
-				takeOffItem(WEAR_LEFTHAND, false, false);
+                // by sigi. 2002.5.15
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
 
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
-				
-				// by sigi. 2002.5.15
-				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-				pItem->tinysave(pField);
+                deleteItemFromExtraInventorySlot();
+                addItemToExtraInventorySlot(pRight);
+                sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+                pRight->tinysave(pField);
 
-				deleteItemFromExtraInventorySlot();
-				addItemToExtraInventorySlot(pLeft);
-				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-				pLeft->tinysave(pField);
-			}
-			else
-			{
-				m_pWearItem[WEAR_RIGHTHAND] = pItem;
-				m_pWearItem[WEAR_LEFTHAND]  = pItem;
+            } else if (isWear(WEAR_LEFTHAND)) {
+                pLeft = getWearItem(WEAR_LEFTHAND);
 
-				pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
-				deleteItemFromExtraInventorySlot();
-			}
-		}
-	}
-	else
-	{
-		if (isWear(Part))
-		{
-			pPrevItem = getWearItem(Part);
-			takeOffItem(Part, false, false);
-			m_pWearItem[Part] = pItem;
+                takeOffItem(WEAR_LEFTHAND, false, false);
 
-			// by sigi. 2002.5.15
-			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-			pItem->tinysave(pField);
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-			deleteItemFromExtraInventorySlot();
-			addItemToExtraInventorySlot(pPrevItem);
+                // by sigi. 2002.5.15
+                sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+                pItem->tinysave(pField);
 
-			sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
-			pPrevItem->tinysave(pField);
-		}
-		else
-		{
-			m_pWearItem[Part] = pItem;
-			deleteItemFromExtraInventorySlot();
+                deleteItemFromExtraInventorySlot();
+                addItemToExtraInventorySlot(pLeft);
+                sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+                pLeft->tinysave(pField);
+            } else {
+                m_pWearItem[WEAR_RIGHTHAND] = pItem;
+                m_pWearItem[WEAR_LEFTHAND] = pItem;
 
-			// by sigi. 2002.5.15
-			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
-			pItem->tinysave(pField);
-		}
-	}
+                pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
+                deleteItemFromExtraInventorySlot();
+            }
+        }
+    } else {
+        if (isWear(Part)) {
+            pPrevItem = getWearItem(Part);
+            takeOffItem(Part, false, false);
+            m_pWearItem[Part] = pItem;
 
-	initAllStat();
-	sendRealWearingInfo();
-	sendModifyInfo(prev);
+            // by sigi. 2002.5.15
+            sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+            pItem->tinysave(pField);
 
-	if (m_pRealWearingCheck[Part])
-	{
-		if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT
-			|| pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_WRISTLET
-			|| pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_CHAKRAM
-			|| pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS ) 
-		{
-			Color_t color = getItemShapeColor( pItem );
+            deleteItemFromExtraInventorySlot();
+            addItemToExtraInventorySlot(pPrevItem);
 
-			GCChangeShape pkt;
-			pkt.setObjectID(getObjectID());
-			pkt.setItemClass(pItem->getItemClass());
-			pkt.setItemType(pItem->getItemType());
-			pkt.setOptionType(pItem->getFirstOptionType());
-			pkt.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
+            sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
+            pPrevItem->tinysave(pField);
+        } else {
+            m_pWearItem[Part] = pItem;
+            deleteItemFromExtraInventorySlot();
 
-			if ( color == QUEST_COLOR )
-				pkt.setFlag( SHAPE_FLAG_QUEST );
+            // by sigi. 2002.5.15
+            sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
+            pItem->tinysave(pField);
+        }
+    }
 
-			Zone* pZone = getZone();
-			pZone->broadcastPacket(m_X, m_Y , &pkt, this);
+    initAllStat();
+    sendRealWearingInfo();
+    sendModifyInfo(prev);
 
-			switch ( pItem->getItemClass() )
-			{
-				case Item::ITEM_CLASS_OUSTERS_COAT:
-					m_OustersInfo.setCoatType( getOustersCoatType( pItem->getItemType() ) );
-					m_OustersInfo.setCoatColor( color );
-					break;
-				case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
-					m_OustersInfo.setArmType( OUSTERS_ARM_CHAKRAM );
-					m_OustersInfo.setArmColor( color );
-					break;
-				case Item::ITEM_CLASS_OUSTERS_WRISTLET:
-					m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
-					m_OustersInfo.setArmColor( color );
-					break;
-				case Item::ITEM_CLASS_OUSTERS_BOOTS:
-					m_OustersInfo.setBootsColor( color );
-					break;
-				default:
-					break;
-			}
-		}
-	}
+    if (m_pRealWearingCheck[Part]) {
+        if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT ||
+            pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_WRISTLET ||
+            pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_CHAKRAM ||
+            pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS) {
+            Color_t color = getItemShapeColor(pItem);
 
-	if (m_pZone != NULL)
-	{
-		GCOtherModifyInfo gcOtherModifyInfo;
-		makeGCOtherModifyInfo(&gcOtherModifyInfo, this, &prev);
+            GCChangeShape pkt;
+            pkt.setObjectID(getObjectID());
+            pkt.setItemClass(pItem->getItemClass());
+            pkt.setItemType(pItem->getItemType());
+            pkt.setOptionType(pItem->getFirstOptionType());
+            pkt.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
 
-		if (gcOtherModifyInfo.getShortCount() != 0 || gcOtherModifyInfo.getLongCount() != 0)
-		{
-			m_pZone->broadcastPacket(m_X, m_Y, &gcOtherModifyInfo, this);
-		}
-	}
-	
-	__END_CATCH
+            if (color == QUEST_COLOR)
+                pkt.setFlag(SHAPE_FLAG_QUEST);
+
+            Zone* pZone = getZone();
+            pZone->broadcastPacket(m_X, m_Y, &pkt, this);
+
+            switch (pItem->getItemClass()) {
+            case Item::ITEM_CLASS_OUSTERS_COAT:
+                m_OustersInfo.setCoatType(getOustersCoatType(pItem->getItemType()));
+                m_OustersInfo.setCoatColor(color);
+                break;
+            case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
+                m_OustersInfo.setArmType(OUSTERS_ARM_CHAKRAM);
+                m_OustersInfo.setArmColor(color);
+                break;
+            case Item::ITEM_CLASS_OUSTERS_WRISTLET:
+                m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
+                m_OustersInfo.setArmColor(color);
+                break;
+            case Item::ITEM_CLASS_OUSTERS_BOOTS:
+                m_OustersInfo.setBootsColor(color);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    if (m_pZone != NULL) {
+        GCOtherModifyInfo gcOtherModifyInfo;
+        makeGCOtherModifyInfo(&gcOtherModifyInfo, this, &prev);
+
+        if (gcOtherModifyInfo.getShortCount() != 0 || gcOtherModifyInfo.getLongCount() != 0) {
+            m_pZone->broadcastPacket(m_X, m_Y, &gcOtherModifyInfo, this);
+        }
+    }
+
+    __END_CATCH
 }
 
 
@@ -1347,299 +1241,279 @@ void Ousters::wearItem(WearPart Part)
 //
 //----------------------------------------------------------------------
 void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	OUSTERS_RECORD prev;
+    OUSTERS_RECORD prev;
 
-	Item* pItem = m_pWearItem[Part];
-	Assert(pItem != NULL);
+    Item* pItem = m_pWearItem[Part];
+    Assert(pItem != NULL);
 
-	//Item::ItemClass IClass = pItem->getItemClass();
+    // Item::ItemClass IClass = pItem->getItemClass();
 
-	if (Part == WEAR_LEFTHAND || Part == WEAR_RIGHTHAND)
-	{
-		if (m_pWearItem[WEAR_RIGHTHAND] && m_pWearItem[WEAR_LEFTHAND])
-		{
-			if (m_pWearItem[WEAR_RIGHTHAND] == m_pWearItem[WEAR_LEFTHAND])
-			{
-				m_pWearItem[WEAR_RIGHTHAND] = NULL;
-				m_pWearItem[WEAR_LEFTHAND] = NULL;
-			}
-		}
-	}
+    if (Part == WEAR_LEFTHAND || Part == WEAR_RIGHTHAND) {
+        if (m_pWearItem[WEAR_RIGHTHAND] && m_pWearItem[WEAR_LEFTHAND]) {
+            if (m_pWearItem[WEAR_RIGHTHAND] == m_pWearItem[WEAR_LEFTHAND]) {
+                m_pWearItem[WEAR_RIGHTHAND] = NULL;
+                m_pWearItem[WEAR_LEFTHAND] = NULL;
+            }
+        }
+    }
 
-	if (isTwohandWeapon(pItem))
-	{
-		m_pWearItem[WEAR_RIGHTHAND] = NULL;
-		m_pWearItem[WEAR_LEFTHAND] = NULL;
-	}
-	else m_pWearItem[Part] = NULL;
+    if (isTwohandWeapon(pItem)) {
+        m_pWearItem[WEAR_RIGHTHAND] = NULL;
+        m_pWearItem[WEAR_LEFTHAND] = NULL;
+    } else
+        m_pWearItem[Part] = NULL;
 
-	if (bSendModifyInfo)
-	{
-		getOustersRecord(prev);
-		initAllStat();
-		sendRealWearingInfo();
-		sendModifyInfo(prev);
-	}
-	else
-	{
-		initAllStat();
-	}
+    if (bSendModifyInfo) {
+        getOustersRecord(prev);
+        initAllStat();
+        sendRealWearingInfo();
+        sendModifyInfo(prev);
+    } else {
+        initAllStat();
+    }
 
-	//---------------------------------------------
-	//---------------------------------------------
-	if (bAddOnMouse) 
-	{
-		addItemToExtraInventorySlot(pItem);
-		char pField[80];
+    //---------------------------------------------
+    //---------------------------------------------
+    if (bAddOnMouse) {
+        addItemToExtraInventorySlot(pItem);
+        char pField[80];
         sprintf(pField, "Storage=%d, Durability=%d", STORAGE_EXTRASLOT, pItem->getDurability());
         pItem->tinysave(pField);
-	}
+    }
 
-	switch ( pItem->getItemClass() )
-	{
-		case Item::ITEM_CLASS_OUSTERS_COAT:
-			{
-				m_OustersInfo.setCoatType( OUSTERS_COAT_BASIC );
-				m_OustersInfo.setCoatColor( 377 );
-				GCTakeOff pkt;
-				pkt.setObjectID(getObjectID());
-				pkt.setSlotID((SlotID_t)ADDON_COAT);
-				m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
-			}
-			break;
-		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
-			{
-				m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
-				m_OustersInfo.setArmColor( 377 );
-				GCTakeOff pkt;
-				pkt.setObjectID(getObjectID());
-				pkt.setSlotID((SlotID_t)ADDON_LEFTHAND);
-				m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
-			}
-			break;
-		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
-			{
-				m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
-				m_OustersInfo.setArmColor( 377 );
-				GCTakeOff pkt;
-				pkt.setObjectID(getObjectID());
-				pkt.setSlotID((SlotID_t)ADDON_LEFTHAND);
-				m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
-			}
-			break;
-		case Item::ITEM_CLASS_OUSTERS_BOOTS:
-			{
-				m_OustersInfo.setBootsColor( 377 );
-				GCTakeOff pkt;
-				pkt.setObjectID(getObjectID());
-				pkt.setSlotID((SlotID_t)ADDON_TROUSER);
-				m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
-			}
-			break;
-		default:
-			break;
-	}
+    switch (pItem->getItemClass()) {
+    case Item::ITEM_CLASS_OUSTERS_COAT: {
+        m_OustersInfo.setCoatType(OUSTERS_COAT_BASIC);
+        m_OustersInfo.setCoatColor(377);
+        GCTakeOff pkt;
+        pkt.setObjectID(getObjectID());
+        pkt.setSlotID((SlotID_t)ADDON_COAT);
+        m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
+    } break;
+    case Item::ITEM_CLASS_OUSTERS_CHAKRAM: {
+        m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
+        m_OustersInfo.setArmColor(377);
+        GCTakeOff pkt;
+        pkt.setObjectID(getObjectID());
+        pkt.setSlotID((SlotID_t)ADDON_LEFTHAND);
+        m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
+    } break;
+    case Item::ITEM_CLASS_OUSTERS_WRISTLET: {
+        m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
+        m_OustersInfo.setArmColor(377);
+        GCTakeOff pkt;
+        pkt.setObjectID(getObjectID());
+        pkt.setSlotID((SlotID_t)ADDON_LEFTHAND);
+        m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
+    } break;
+    case Item::ITEM_CLASS_OUSTERS_BOOTS: {
+        m_OustersInfo.setBootsColor(377);
+        GCTakeOff pkt;
+        pkt.setObjectID(getObjectID());
+        pkt.setSlotID((SlotID_t)ADDON_TROUSER);
+        m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
+    } break;
+    default:
+        break;
+    }
 
-	if (m_pZone != NULL)
-	{
-		GCOtherModifyInfo gcOtherModifyInfo;
-		makeGCOtherModifyInfo(&gcOtherModifyInfo, this, &prev);
+    if (m_pZone != NULL) {
+        GCOtherModifyInfo gcOtherModifyInfo;
+        makeGCOtherModifyInfo(&gcOtherModifyInfo, this, &prev);
 
-		if (gcOtherModifyInfo.getShortCount() != 0 || gcOtherModifyInfo.getLongCount() != 0)
-		{
-			m_pZone->broadcastPacket(m_X, m_Y, &gcOtherModifyInfo, this);
-		}
-	}
+        if (gcOtherModifyInfo.getShortCount() != 0 || gcOtherModifyInfo.getLongCount() != 0) {
+            m_pZone->broadcastPacket(m_X, m_Y, &gcOtherModifyInfo, this);
+        }
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
-
-
 
 
 //----------------------------------------------------------------------
 // destroyGears
 //----------------------------------------------------------------------
-void Ousters::destroyGears() 
-	
+void Ousters::destroyGears()
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	for (int j = 0; j < OUSTERS_WEAR_MAX; j++) 
-	{
-		Item* pItem = m_pWearItem[j];
-		if (pItem != NULL)
-		{
-			Item::ItemClass IClass = pItem->getItemClass();
+    for (int j = 0; j < OUSTERS_WEAR_MAX; j++) {
+        Item* pItem = m_pWearItem[j];
+        if (pItem != NULL) {
+            Item::ItemClass IClass = pItem->getItemClass();
 
-			//-------------------------------------------------------------
-			//-------------------------------------------------------------
-			Assert(IClass != Item::ITEM_CLASS_AR);
-			Assert(IClass != Item::ITEM_CLASS_SR);
-			Assert(IClass != Item::ITEM_CLASS_SG);
-			Assert(IClass != Item::ITEM_CLASS_SMG);
-			Assert(IClass != Item::ITEM_CLASS_SWORD);
-			Assert(IClass != Item::ITEM_CLASS_BLADE);
-			Assert(IClass != Item::ITEM_CLASS_SHIELD);
-			Assert(IClass != Item::ITEM_CLASS_CROSS);
-			Assert(IClass != Item::ITEM_CLASS_MACE);
-			Assert(IClass != Item::ITEM_CLASS_HELM);
-			Assert(IClass != Item::ITEM_CLASS_GLOVE);
-			Assert(IClass != Item::ITEM_CLASS_TROUSER);
-			Assert(IClass != Item::ITEM_CLASS_COAT);
+            //-------------------------------------------------------------
+            //-------------------------------------------------------------
+            Assert(IClass != Item::ITEM_CLASS_AR);
+            Assert(IClass != Item::ITEM_CLASS_SR);
+            Assert(IClass != Item::ITEM_CLASS_SG);
+            Assert(IClass != Item::ITEM_CLASS_SMG);
+            Assert(IClass != Item::ITEM_CLASS_SWORD);
+            Assert(IClass != Item::ITEM_CLASS_BLADE);
+            Assert(IClass != Item::ITEM_CLASS_SHIELD);
+            Assert(IClass != Item::ITEM_CLASS_CROSS);
+            Assert(IClass != Item::ITEM_CLASS_MACE);
+            Assert(IClass != Item::ITEM_CLASS_HELM);
+            Assert(IClass != Item::ITEM_CLASS_GLOVE);
+            Assert(IClass != Item::ITEM_CLASS_TROUSER);
+            Assert(IClass != Item::ITEM_CLASS_COAT);
 
-			if (isTwohandWeapon(pItem))
-			{
-				m_pWearItem[WEAR_RIGHTHAND] = NULL;
-				m_pWearItem[WEAR_LEFTHAND]  = NULL;
-			}
-			else m_pWearItem[j] = NULL;
+            if (isTwohandWeapon(pItem)) {
+                m_pWearItem[WEAR_RIGHTHAND] = NULL;
+                m_pWearItem[WEAR_LEFTHAND] = NULL;
+            } else
+                m_pWearItem[j] = NULL;
 
-			SAFE_DELETE(pItem);
-		}
-	}
+            SAFE_DELETE(pItem);
+        }
+    }
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Ousters::isRealWearing(WearPart part) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (part >= OUSTERS_WEAR_MAX) throw("Ousters::isRealWearing() : invalid wear point!");
+    if (part >= OUSTERS_WEAR_MAX)
+        throw("Ousters::isRealWearing() : invalid wear point!");
 
-	if (m_pWearItem[part] == NULL) return false;
-	if (part >= WEAR_ZAP1 && part <= WEAR_ZAP4)
-	{
-		if ( m_pWearItem[part-WEAR_ZAP1+WEAR_STONE1]==NULL ) return false;
-	}
+    if (m_pWearItem[part] == NULL)
+        return false;
+    if (part >= WEAR_ZAP1 && part <= WEAR_ZAP4) {
+        if (m_pWearItem[part - WEAR_ZAP1 + WEAR_STONE1] == NULL)
+            return false;
+    }
 
-	return isRealWearing(m_pWearItem[part]);
+    return isRealWearing(m_pWearItem[part]);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Ousters::isRealWearing(Item* pItem) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (pItem == NULL) return false;
+    if (pItem == NULL)
+        return false;
 
-/*	if ( m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4005 )
-	{
-		if ( !isOustersWeapon( pItem->getItemClass() ) ) return false;
-	}*/
+    /*	if ( m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4005 )
+        {
+            if ( !isOustersWeapon( pItem->getItemClass() ) ) return false;
+        }*/
 
-	if ( pItem->isTimeLimitItem() )
-	{
-		return true;
-	}
+    if (pItem->isTimeLimitItem()) {
+        return true;
+    }
 
-	if (getZone()->isPremiumZone()
-		&& (pItem->isUnique() || pItem->getOptionTypeSize()>1  ) )
-			//pItem->getItemClass() == Item::ITEM_CLASS_COUPLE_RING || pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COUPLE_RING))
-	{
-		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(getPlayer());
-		if (!pGamePlayer->isPayPlaying() 
-			&& !pGamePlayer->isPremiumPlay())
-		{
-			return false;
-		}
-	}
+    if (getZone()->isPremiumZone() && (pItem->isUnique() || pItem->getOptionTypeSize() > 1))
+    // pItem->getItemClass() == Item::ITEM_CLASS_COUPLE_RING || pItem->getItemClass() ==
+    // Item::ITEM_CLASS_OUSTERS_COUPLE_RING))
+    {
+        GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(getPlayer());
+        if (!pGamePlayer->isPayPlaying() && !pGamePlayer->isPremiumPlay()) {
+            return false;
+        }
+    }
 
-	Item::ItemClass IClass    = pItem->getItemClass();
-	ItemInfo*       pItemInfo = g_pItemInfoManager->getItemInfo(IClass, pItem->getItemType());
+    Item::ItemClass IClass = pItem->getItemClass();
+    ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(IClass, pItem->getItemType());
 
-	Level_t			ReqAdvancedLevel = pItemInfo->getReqAdvancedLevel();
-	if ( ReqAdvancedLevel > 0 && ( !isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
+    Level_t ReqAdvancedLevel = pItemInfo->getReqAdvancedLevel();
+    if (ReqAdvancedLevel > 0 && (!isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel))
+        return false;
 
-	if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT || pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS ||
-		isOustersWeapon(pItem->getItemClass()) )
-	{
-		if ( ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
-	}
-	
-	Level_t         ReqLevel  = pItemInfo->getReqLevel();
-	Attr_t			ReqSTR    = pItemInfo->getReqSTR();
-	Attr_t			ReqDEX    = pItemInfo->getReqDEX();
-	Attr_t			ReqINT    = pItemInfo->getReqINT();
-	Attr_t			ReqSum    = pItemInfo->getReqSum();
+    if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT ||
+        pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS || isOustersWeapon(pItem->getItemClass())) {
+        if (ReqAdvancedLevel <= 0 && isAdvanced())
+            return false;
+    }
 
-	const list<OptionType_t>& optionTypes = pItem->getOptionTypeList();
-	list<OptionType_t>::const_iterator itr;
+    Level_t ReqLevel = pItemInfo->getReqLevel();
+    Attr_t ReqSTR = pItemInfo->getReqSTR();
+    Attr_t ReqDEX = pItemInfo->getReqDEX();
+    Attr_t ReqINT = pItemInfo->getReqINT();
+    Attr_t ReqSum = pItemInfo->getReqSum();
 
-	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
-	{
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
-		if (ReqLevel != 0) ReqLevel += pOptionInfo->getReqLevel();
-		if (ReqSTR != 0) ReqSTR += (pOptionInfo->getReqSum() * 2);
-		if (ReqDEX != 0) ReqDEX += (pOptionInfo->getReqSum() * 2);
-		if (ReqINT != 0) ReqINT += (pOptionInfo->getReqSum() * 2);
-		if (ReqSum != 0) ReqSum += pOptionInfo->getReqSum();
-	}
+    const list<OptionType_t>& optionTypes = pItem->getOptionTypeList();
+    list<OptionType_t>::const_iterator itr;
 
-	ReqLevel = min(ReqLevel, MAX_OUSTERS_LEVEL );
-//	ReqSum = min((int)ReqSum, OUSTERS_MAX_SUM);
-//	ReqSTR = min((int)ReqSTR, OUSTERS_MAX_ATTR);
-//	ReqDEX = min((int)ReqDEX, OUSTERS_MAX_ATTR);
-//	ReqINT = min((int)ReqINT, OUSTERS_MAX_ATTR);
+    for (itr = optionTypes.begin(); itr != optionTypes.end(); itr++) {
+        OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+        if (ReqLevel != 0)
+            ReqLevel += pOptionInfo->getReqLevel();
+        if (ReqSTR != 0)
+            ReqSTR += (pOptionInfo->getReqSum() * 2);
+        if (ReqDEX != 0)
+            ReqDEX += (pOptionInfo->getReqSum() * 2);
+        if (ReqINT != 0)
+            ReqINT += (pOptionInfo->getReqSum() * 2);
+        if (ReqSum != 0)
+            ReqSum += pOptionInfo->getReqSum();
+    }
 
-	Attr_t CSTR = m_STR[ATTR_CURRENT];
-	Attr_t CDEX = m_DEX[ATTR_CURRENT];
-	Attr_t CINT = m_INT[ATTR_CURRENT];
-	Attr_t CSUM = CSTR + CDEX + CINT;
+    ReqLevel = min(ReqLevel, MAX_OUSTERS_LEVEL);
+    //	ReqSum = min((int)ReqSum, OUSTERS_MAX_SUM);
+    //	ReqSTR = min((int)ReqSTR, OUSTERS_MAX_ATTR);
+    //	ReqDEX = min((int)ReqDEX, OUSTERS_MAX_ATTR);
+    //	ReqINT = min((int)ReqINT, OUSTERS_MAX_ATTR);
 
-	if ( CSTR < ReqSTR || CDEX < ReqDEX || CINT < ReqINT || CSUM < ReqSum || m_Level < ReqLevel )
-	{
-		return false;
-	}
+    Attr_t CSTR = m_STR[ATTR_CURRENT];
+    Attr_t CDEX = m_DEX[ATTR_CURRENT];
+    Attr_t CINT = m_INT[ATTR_CURRENT];
+    Attr_t CSUM = CSTR + CDEX + CINT;
 
-	return true;
+    if (CSTR < ReqSTR || CDEX < ReqDEX || CINT < ReqINT || CSUM < ReqSum || m_Level < ReqLevel) {
+        return false;
+    }
 
-	__END_CATCH
+    return true;
+
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-bool Ousters::isRealWearingEx(WearPart part) const
-{
-	if (part >= OUSTERS_WEAR_MAX) return false;
-	return m_pRealWearingCheck[part];
+bool Ousters::isRealWearingEx(WearPart part) const {
+    if (part >= OUSTERS_WEAR_MAX)
+        return false;
+    return m_pRealWearingCheck[part];
 }
 
 DWORD Ousters::sendRealWearingInfo(void) const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	DWORD info = 0;
-	DWORD flag = 1;
+    DWORD info = 0;
+    DWORD flag = 1;
 
-	for (int i=0; i<OUSTERS_WEAR_MAX; i++)
-	{
-		if (isRealWearing((Ousters::WearPart)i)) info |= flag;
-		flag <<= 1;
-	}
+    for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
+        if (isRealWearing((Ousters::WearPart)i))
+            info |= flag;
+        flag <<= 1;
+    }
 
-	GCRealWearingInfo pkt;
-	pkt.setInfo(info);
-	m_pPlayer->sendPacket(&pkt);
+    GCRealWearingInfo pkt;
+    pkt.setInfo(info);
+    m_pPlayer->sendPacket(&pkt);
 
-	return info;
+    return info;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1649,102 +1523,106 @@ DWORD Ousters::sendRealWearingInfo(void) const
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-PCOustersInfo2* Ousters::getOustersInfo2 ()
-	
+PCOustersInfo2* Ousters::getOustersInfo2()
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	PCOustersInfo2* pInfo = new PCOustersInfo2();
+    PCOustersInfo2* pInfo = new PCOustersInfo2();
 
-	pInfo->setObjectID(m_ObjectID);
-	pInfo->setName(m_Name);
-	pInfo->setLevel(m_Level);
-	pInfo->setSex(m_Sex);
-	pInfo->setHairColor(m_HairColor);
-	pInfo->setMasterEffectColor(m_MasterEffectColor);
+    pInfo->setObjectID(m_ObjectID);
+    pInfo->setName(m_Name);
+    pInfo->setLevel(m_Level);
+    pInfo->setSex(m_Sex);
+    pInfo->setHairColor(m_HairColor);
+    pInfo->setMasterEffectColor(m_MasterEffectColor);
 
-	pInfo->setAlignment(m_Alignment);
+    pInfo->setAlignment(m_Alignment);
 
-	pInfo->setSTR(m_STR[ATTR_CURRENT], ATTR_CURRENT);
-	pInfo->setSTR(m_STR[ATTR_MAX], ATTR_MAX);
-	pInfo->setSTR(m_STR[ATTR_BASIC], ATTR_BASIC);
-	pInfo->setDEX(m_DEX[ATTR_CURRENT], ATTR_CURRENT);
-	pInfo->setDEX(m_DEX[ATTR_MAX], ATTR_MAX);
-	pInfo->setDEX(m_DEX[ATTR_BASIC], ATTR_BASIC);
-	pInfo->setINT(m_INT[ATTR_CURRENT], ATTR_CURRENT);
-	pInfo->setINT(m_INT[ATTR_MAX], ATTR_MAX);
-	pInfo->setINT(m_INT[ATTR_BASIC], ATTR_BASIC);
-	
-	pInfo->setHP(m_HP[ATTR_CURRENT] , m_HP[ATTR_MAX]);
-	pInfo->setMP(m_MP[ATTR_CURRENT] , m_MP[ATTR_MAX]);
-	pInfo->setSilverDamage( m_SilverDamage );
+    pInfo->setSTR(m_STR[ATTR_CURRENT], ATTR_CURRENT);
+    pInfo->setSTR(m_STR[ATTR_MAX], ATTR_MAX);
+    pInfo->setSTR(m_STR[ATTR_BASIC], ATTR_BASIC);
+    pInfo->setDEX(m_DEX[ATTR_CURRENT], ATTR_CURRENT);
+    pInfo->setDEX(m_DEX[ATTR_MAX], ATTR_MAX);
+    pInfo->setDEX(m_DEX[ATTR_BASIC], ATTR_BASIC);
+    pInfo->setINT(m_INT[ATTR_CURRENT], ATTR_CURRENT);
+    pInfo->setINT(m_INT[ATTR_MAX], ATTR_MAX);
+    pInfo->setINT(m_INT[ATTR_BASIC], ATTR_BASIC);
 
-	pInfo->setFame(m_Fame);
-	pInfo->setExp(m_GoalExp);
-	pInfo->setGold(m_Gold);
-	pInfo->setSight(m_Sight);
-	pInfo->setBonus(m_Bonus);
-	pInfo->setSkillBonus(m_SkillBonus);
+    pInfo->setHP(m_HP[ATTR_CURRENT], m_HP[ATTR_MAX]);
+    pInfo->setMP(m_MP[ATTR_CURRENT], m_MP[ATTR_MAX]);
+    pInfo->setSilverDamage(m_SilverDamage);
 
-	// by sigi. 2002.8.30
-	pInfo->setRank(getRank());
-	pInfo->setRankExp(getRankGoalExp());
+    pInfo->setFame(m_Fame);
+    pInfo->setExp(m_GoalExp);
+    pInfo->setGold(m_Gold);
+    pInfo->setSight(m_Sight);
+    pInfo->setBonus(m_Bonus);
+    pInfo->setSkillBonus(m_SkillBonus);
 
-	pInfo->setCompetence(m_CompetenceShape);
-	pInfo->setGuildID(m_GuildID);
-	pInfo->setGuildName( getGuildName() );
-	pInfo->setGuildMemberRank( getGuildMemberRank() );
+    // by sigi. 2002.8.30
+    pInfo->setRank(getRank());
+    pInfo->setRankExp(getRankGoalExp());
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
-	if ( pUnion == NULL ) pInfo->setUnionID( 0 );
-	else pInfo->setUnionID( pUnion->getUnionID() );
+    pInfo->setCompetence(m_CompetenceShape);
+    pInfo->setGuildID(m_GuildID);
+    pInfo->setGuildName(getGuildName());
+    pInfo->setGuildMemberRank(getGuildMemberRank());
 
-	pInfo->setAdvancementLevel( getAdvancementClassLevel() );
-	pInfo->setAdvancementGoalExp( getAdvancementClassGoalExp() );
+    GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
+    if (pUnion == NULL)
+        pInfo->setUnionID(0);
+    else
+        pInfo->setUnionID(pUnion->getUnionID());
 
-	return pInfo;
+    pInfo->setAdvancementLevel(getAdvancementClassLevel());
+    pInfo->setAdvancementGoalExp(getAdvancementClassGoalExp());
 
-	__END_DEBUG
-	__END_CATCH
+    return pInfo;
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // Ousters Outlook Information
 //----------------------------------------------------------------------
-PCOustersInfo3 Ousters::getOustersInfo3 () const 
-	
+PCOustersInfo3 Ousters::getOustersInfo3() const
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	m_OustersInfo.setObjectID(m_ObjectID);
-	m_OustersInfo.setX(m_X);
-	m_OustersInfo.setY(m_Y);
-	m_OustersInfo.setDir(m_Dir);
-	m_OustersInfo.setCurrentHP(m_HP[ATTR_CURRENT]);
-	m_OustersInfo.setMaxHP(m_HP[ATTR_MAX]);
-	m_OustersInfo.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
-	m_OustersInfo.setAlignment(m_Alignment);
-	m_OustersInfo.setGuildID(m_GuildID);
+    m_OustersInfo.setObjectID(m_ObjectID);
+    m_OustersInfo.setX(m_X);
+    m_OustersInfo.setY(m_Y);
+    m_OustersInfo.setDir(m_Dir);
+    m_OustersInfo.setCurrentHP(m_HP[ATTR_CURRENT]);
+    m_OustersInfo.setMaxHP(m_HP[ATTR_MAX]);
+    m_OustersInfo.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
+    m_OustersInfo.setAlignment(m_Alignment);
+    m_OustersInfo.setGuildID(m_GuildID);
 
-	// by sigi. 2002.9.10
-	m_OustersInfo.setRank(getRank());
+    // by sigi. 2002.9.10
+    m_OustersInfo.setRank(getRank());
 
     m_OustersInfo.setHairColor(m_HairColor);
     m_OustersInfo.setMasterEffectColor(m_MasterEffectColor);
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
-	if ( pUnion == NULL ) m_OustersInfo.setUnionID( 0 );
-	else m_OustersInfo.setUnionID( pUnion->getUnionID() );
+    GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
+    if (pUnion == NULL)
+        m_OustersInfo.setUnionID(0);
+    else
+        m_OustersInfo.setUnionID(pUnion->getUnionID());
 
-	m_OustersInfo.setAdvancementLevel( getAdvancementClassLevel() );
+    m_OustersInfo.setAdvancementLevel(getAdvancementClassLevel());
 
-	return m_OustersInfo;
+    return m_OustersInfo;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
@@ -1753,76 +1631,74 @@ PCOustersInfo3 Ousters::getOustersInfo3 () const
 //
 //----------------------------------------------------------------------
 ExtraInfo* Ousters::getExtraInfo() const
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	BYTE ItemCount = 0;
+    BYTE ItemCount = 0;
 
-	ExtraInfo* pExtraInfo = new ExtraInfo();
+    ExtraInfo* pExtraInfo = new ExtraInfo();
 
-	Item* pItem = m_pExtraInventorySlot->getItem();
+    Item* pItem = m_pExtraInventorySlot->getItem();
 
-	if (pItem != NULL) {
-	
-	//	Item::ItemClass IClass = pItem->getItemClass();
+    if (pItem != NULL) {
+        //	Item::ItemClass IClass = pItem->getItemClass();
 
-		ExtraSlotInfo* pExtraSlotInfo = new ExtraSlotInfo();
-		pItem->makePCItemInfo( *pExtraSlotInfo );
+        ExtraSlotInfo* pExtraSlotInfo = new ExtraSlotInfo();
+        pItem->makePCItemInfo(*pExtraSlotInfo);
 
-/*		pExtraSlotInfo->setObjectID(pItem->getObjectID());
-		pExtraSlotInfo->setItemClass(pItem->getItemClass());
-		pExtraSlotInfo->setItemType(pItem->getItemType());
-		pExtraSlotInfo->setOptionType(pItem->getOptionTypeList());
-		pExtraSlotInfo->setDurability(pItem->getDurability());
-		pExtraSlotInfo->setSilver(pItem->getSilver());
-		pExtraSlotInfo->setSilver(pItem->getEnchantLevel());
-		pExtraSlotInfo->setItemNum(pItem->getNum());
+        /*		pExtraSlotInfo->setObjectID(pItem->getObjectID());
+                pExtraSlotInfo->setItemClass(pItem->getItemClass());
+                pExtraSlotInfo->setItemType(pItem->getItemType());
+                pExtraSlotInfo->setOptionType(pItem->getOptionTypeList());
+                pExtraSlotInfo->setDurability(pItem->getDurability());
+                pExtraSlotInfo->setSilver(pItem->getSilver());
+                pExtraSlotInfo->setSilver(pItem->getEnchantLevel());
+                pExtraSlotInfo->setItemNum(pItem->getNum());
 
-		if (IClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND) 
-		{
-			OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
-			Inventory* pOustersArmsbandInventory = ((OustersArmsband*)pItem)->getInventory();
-			BYTE SubItemCount = 0;
+                if (IClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND)
+                {
+                    OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
+                    Inventory* pOustersArmsbandInventory = ((OustersArmsband*)pItem)->getInventory();
+                    BYTE SubItemCount = 0;
 
-			for (int i = 0; i < pOustersArmsband->getPocketCount(); i++) 
-			{
-				Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
+                    for (int i = 0; i < pOustersArmsband->getPocketCount(); i++)
+                    {
+                        Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
 
-				if (pOustersArmsbandItem != NULL) 
-				{
-					SubItemInfo* pSubItemInfo = new SubItemInfo();
-					pSubItemInfo->setObjectID(pOustersArmsbandItem->getObjectID());
-					pSubItemInfo->setItemClass(pOustersArmsbandItem->getItemClass());
-					pSubItemInfo->setItemType(pOustersArmsbandItem->getItemType());
-					pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
-					pSubItemInfo->setSlotID(i);
+                        if (pOustersArmsbandItem != NULL)
+                        {
+                            SubItemInfo* pSubItemInfo = new SubItemInfo();
+                            pSubItemInfo->setObjectID(pOustersArmsbandItem->getObjectID());
+                            pSubItemInfo->setItemClass(pOustersArmsbandItem->getItemClass());
+                            pSubItemInfo->setItemType(pOustersArmsbandItem->getItemType());
+                            pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
+                            pSubItemInfo->setSlotID(i);
 
-					pExtraSlotInfo->addListElement(pSubItemInfo);
+                            pExtraSlotInfo->addListElement(pSubItemInfo);
 
-					SubItemCount++;
-				}
-			}
+                            SubItemCount++;
+                        }
+                    }
 
-			pExtraSlotInfo->setListNum(SubItemCount);
+                    pExtraSlotInfo->setListNum(SubItemCount);
 
-		}
+                }
 
-		pExtraSlotInfo->setMainColor(0);*/
-	
-		pExtraInfo->addListElement(pExtraSlotInfo);
+                pExtraSlotInfo->setMainColor(0);*/
 
-		ItemCount++;
+        pExtraInfo->addListElement(pExtraSlotInfo);
 
-	}
+        ItemCount++;
+    }
 
-	pExtraInfo->setListNum(ItemCount);
+    pExtraInfo->setListNum(ItemCount);
 
-	return pExtraInfo;
+    return pExtraInfo;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
@@ -1831,234 +1707,225 @@ ExtraInfo* Ousters::getExtraInfo() const
 //
 //----------------------------------------------------------------------
 GearInfo* Ousters::getGearInfo() const
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	int ItemCount = 0;
+    int ItemCount = 0;
 
-	GearInfo* pGearInfo = new GearInfo();
+    GearInfo* pGearInfo = new GearInfo();
 
-	for (int i = 0; i < OUSTERS_WEAR_MAX; i++) 
-	{
-		Item* pItem = m_pWearItem[i];
+    for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
+        Item* pItem = m_pWearItem[i];
 
-		if (pItem != NULL) 
-		{
-			//Item::ItemClass IClass = pItem->getItemClass();
+        if (pItem != NULL) {
+            // Item::ItemClass IClass = pItem->getItemClass();
 
-			GearSlotInfo* pGearSlotInfo = new GearSlotInfo();
-			pItem->makePCItemInfo( *pGearSlotInfo );
-			pGearSlotInfo->setSlotID(i);
-/*
-			pGearSlotInfo->setObjectID(pItem->getObjectID());
-			pGearSlotInfo->setItemClass(pItem->getItemClass());
-			pGearSlotInfo->setItemType(pItem->getItemType());
-			pGearSlotInfo->setOptionType(pItem->getOptionTypeList());
-			pGearSlotInfo->setDurability(pItem->getDurability());
-			pGearSlotInfo->setSilver(pItem->getSilver());
-			pGearSlotInfo->setEnchantLevel(pItem->getEnchantLevel());
+            GearSlotInfo* pGearSlotInfo = new GearSlotInfo();
+            pItem->makePCItemInfo(*pGearSlotInfo);
+            pGearSlotInfo->setSlotID(i);
+            /*
+                        pGearSlotInfo->setObjectID(pItem->getObjectID());
+                        pGearSlotInfo->setItemClass(pItem->getItemClass());
+                        pGearSlotInfo->setItemType(pItem->getItemType());
+                        pGearSlotInfo->setOptionType(pItem->getOptionTypeList());
+                        pGearSlotInfo->setDurability(pItem->getDurability());
+                        pGearSlotInfo->setSilver(pItem->getSilver());
+                        pGearSlotInfo->setEnchantLevel(pItem->getEnchantLevel());
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND)
-			{
-				ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
+                        if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND)
+                        {
+                            ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(),
+               pItem->getItemType());
 
-				BYTE PocketNum = ((OustersArmsbandInfo*)pItemInfo)->getPocketCount();
+                            BYTE PocketNum = ((OustersArmsbandInfo*)pItemInfo)->getPocketCount();
 
-				Inventory* pOustersArmsbandInventory = ((OustersArmsband*)pItem)->getInventory();
+                            Inventory* pOustersArmsbandInventory = ((OustersArmsband*)pItem)->getInventory();
 
-				BYTE SubItemCount = 0;
+                            BYTE SubItemCount = 0;
 
-				for (int i = 0; i < PocketNum ; i++)
-				{
-					Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
-					if (pOustersArmsbandItem != NULL)
-					{
-						SubItemInfo* pSubItemInfo = new SubItemInfo();
-						pSubItemInfo->setObjectID(pOustersArmsbandItem->getObjectID());
-						pSubItemInfo->setItemClass(pOustersArmsbandItem->getItemClass());
-						pSubItemInfo->setItemType(pOustersArmsbandItem->getItemType());
-						pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
-						pSubItemInfo->setSlotID(i);
+                            for (int i = 0; i < PocketNum ; i++)
+                            {
+                                Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
+                                if (pOustersArmsbandItem != NULL)
+                                {
+                                    SubItemInfo* pSubItemInfo = new SubItemInfo();
+                                    pSubItemInfo->setObjectID(pOustersArmsbandItem->getObjectID());
+                                    pSubItemInfo->setItemClass(pOustersArmsbandItem->getItemClass());
+                                    pSubItemInfo->setItemType(pOustersArmsbandItem->getItemType());
+                                    pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
+                                    pSubItemInfo->setSlotID(i);
 
-						pGearSlotInfo->addListElement(pSubItemInfo);
+                                    pGearSlotInfo->addListElement(pSubItemInfo);
 
-						SubItemCount++;
-					}
-				}
-				pGearSlotInfo->setListNum(SubItemCount);
-			}
+                                    SubItemCount++;
+                                }
+                            }
+                            pGearSlotInfo->setListNum(SubItemCount);
+                        }
 
-			pGearSlotInfo->setSlotID(i);
-	
-			pGearSlotInfo->setMainColor(0);*/
-		
-			pGearInfo->addListElement(pGearSlotInfo);
+                        pGearSlotInfo->setSlotID(i);
 
-			ItemCount++;
-		}
-	}
+                        pGearSlotInfo->setMainColor(0);*/
 
-	pGearInfo->setListNum(ItemCount);
+            pGearInfo->addListElement(pGearSlotInfo);
 
-	return pGearInfo;
+            ItemCount++;
+        }
+    }
 
-	__END_DEBUG
-	__END_CATCH
+    pGearInfo->setListNum(ItemCount);
+
+    return pGearInfo;
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get Inventory Info
 //////////////////////////////////////////////////////////////////////////////
 InventoryInfo* Ousters::getInventoryInfo() const
-    
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	BYTE ItemCount = 0;
+    BYTE ItemCount = 0;
 
-	InventoryInfo* pInventoryInfo = new InventoryInfo();
-	list<Item*> ItemList;
-	VolumeHeight_t Height = m_pInventory->getHeight();
-	VolumeWidth_t Width = m_pInventory->getWidth();
+    InventoryInfo* pInventoryInfo = new InventoryInfo();
+    list<Item*> ItemList;
+    VolumeHeight_t Height = m_pInventory->getHeight();
+    VolumeWidth_t Width = m_pInventory->getWidth();
 
-	for (int j = 0; j < Height; j++) 
-	{
-		for (int i = 0 ; i < Width ; i ++) 
-		{
-			if (m_pInventory->hasItem(i, j)) 
-			{
-				Item* pItem = m_pInventory->getItem(i , j);
-				VolumeWidth_t ItemWidth = pItem->getVolumeWidth();
-				//Item::ItemClass IClass = pItem->getItemClass();
-				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
+    for (int j = 0; j < Height; j++) {
+        for (int i = 0; i < Width; i++) {
+            if (m_pInventory->hasItem(i, j)) {
+                Item* pItem = m_pInventory->getItem(i, j);
+                VolumeWidth_t ItemWidth = pItem->getVolumeWidth();
+                // Item::ItemClass IClass = pItem->getItemClass();
+                list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
-				if (itr == ItemList.end()) 
-				{
-					ItemList.push_back(pItem);
+                if (itr == ItemList.end()) {
+                    ItemList.push_back(pItem);
 
-					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
-					pItem->makePCItemInfo( *pInventorySlotInfo );
-					pInventorySlotInfo->setInvenX(i);
-					pInventorySlotInfo->setInvenY(j);
-/*
-					pInventorySlotInfo->setObjectID(pItem->getObjectID());
-					pInventorySlotInfo->setItemClass(pItem->getItemClass());
-					pInventorySlotInfo->setItemType(pItem->getItemType());
-					pInventorySlotInfo->setOptionType(pItem->getOptionTypeList());
-					pInventorySlotInfo->setSilver(pItem->getSilver());
-					pInventorySlotInfo->setDurability(pItem->getDurability());
-					pInventorySlotInfo->setEnchantLevel(pItem->getEnchantLevel());
-					pInventorySlotInfo->setInvenX(i);
-					pInventorySlotInfo->setInvenY(j);
-					pInventorySlotInfo->setItemNum(pItem->getNum());
+                    InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
+                    pItem->makePCItemInfo(*pInventorySlotInfo);
+                    pInventorySlotInfo->setInvenX(i);
+                    pInventorySlotInfo->setInvenY(j);
+                    /*
+                                        pInventorySlotInfo->setObjectID(pItem->getObjectID());
+                                        pInventorySlotInfo->setItemClass(pItem->getItemClass());
+                                        pInventorySlotInfo->setItemType(pItem->getItemType());
+                                        pInventorySlotInfo->setOptionType(pItem->getOptionTypeList());
+                                        pInventorySlotInfo->setSilver(pItem->getSilver());
+                                        pInventorySlotInfo->setDurability(pItem->getDurability());
+                                        pInventorySlotInfo->setEnchantLevel(pItem->getEnchantLevel());
+                                        pInventorySlotInfo->setInvenX(i);
+                                        pInventorySlotInfo->setInvenY(j);
+                                        pInventorySlotInfo->setItemNum(pItem->getNum());
 
-					if (IClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND) 
-					{
-						OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
-						Inventory* pOustersArmsbandInventory = ((OustersArmsband*)pItem)->getInventory();
+                                        if (IClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND)
+                                        {
+                                            OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
+                                            Inventory* pOustersArmsbandInventory =
+                       ((OustersArmsband*)pItem)->getInventory();
 
-						BYTE SubItemCount = 0;
+                                            BYTE SubItemCount = 0;
 
-						for (int i = 0; i < pOustersArmsband->getPocketCount() ; i++) 
-						{
-							Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
-							if (pOustersArmsbandItem != NULL) 
-							{
-								SubItemInfo* pSubItemInfo = new SubItemInfo();
-								pSubItemInfo->setObjectID(pOustersArmsbandItem->getObjectID());
-								pSubItemInfo->setItemClass(pOustersArmsbandItem->getItemClass());
-								pSubItemInfo->setItemType(pOustersArmsbandItem->getItemType());
-								pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
-								pSubItemInfo->setSlotID(i);
+                                            for (int i = 0; i < pOustersArmsband->getPocketCount() ; i++)
+                                            {
+                                                Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
+                                                if (pOustersArmsbandItem != NULL)
+                                                {
+                                                    SubItemInfo* pSubItemInfo = new SubItemInfo();
+                                                    pSubItemInfo->setObjectID(pOustersArmsbandItem->getObjectID());
+                                                    pSubItemInfo->setItemClass(pOustersArmsbandItem->getItemClass());
+                                                    pSubItemInfo->setItemType(pOustersArmsbandItem->getItemType());
+                                                    pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
+                                                    pSubItemInfo->setSlotID(i);
 
-								pInventorySlotInfo->addListElement(pSubItemInfo);
+                                                    pInventorySlotInfo->addListElement(pSubItemInfo);
 
-								SubItemCount++;
-							}
-						}
+                                                    SubItemCount++;
+                                                }
+                                            }
 
-						pInventorySlotInfo->setListNum(SubItemCount);
-					}
+                                            pInventorySlotInfo->setListNum(SubItemCount);
+                                        }
 
-					pInventorySlotInfo->setMainColor(0);*/
+                                        pInventorySlotInfo->setMainColor(0);*/
 
-					pInventoryInfo->addListElement(pInventorySlotInfo);
-					ItemCount++;
-					i = i + ItemWidth - 1;
-				}
-			}
-		}
-	}
+                    pInventoryInfo->addListElement(pInventorySlotInfo);
+                    ItemCount++;
+                    i = i + ItemWidth - 1;
+                }
+            }
+        }
+    }
 
-	pInventoryInfo->setListNum(ItemCount);
+    pInventoryInfo->setListNum(ItemCount);
 
-	return pInventoryInfo;
+    return pInventoryInfo;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //----------------------------------------------------------------------
 // getSkillInfo
 //----------------------------------------------------------------------
 void Ousters::sendOustersSkillInfo()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	OustersSkillInfo* pOustersSkillInfo = new OustersSkillInfo();
+    OustersSkillInfo* pOustersSkillInfo = new OustersSkillInfo();
 
-	BYTE SkillCount = 0;
+    BYTE SkillCount = 0;
 
-	Timeval currentTime;
-	getCurrentTime( currentTime );
+    Timeval currentTime;
+    getCurrentTime(currentTime);
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
-	for (; itr != m_SkillSlot.end(); itr++)
-	{
-		OustersSkillSlot* pOustersSkillSlot = itr->second;
-		Assert(pOustersSkillSlot != NULL);
+    unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+    for (; itr != m_SkillSlot.end(); itr++) {
+        OustersSkillSlot* pOustersSkillSlot = itr->second;
+        Assert(pOustersSkillSlot != NULL);
 
-		if (pOustersSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT)
-		{
-			SubOustersSkillInfo* pSubOustersSkillInfo = new SubOustersSkillInfo();
-			pSubOustersSkillInfo->setSkillType(pOustersSkillSlot->getSkillType());
-			pSubOustersSkillInfo->setExpLevel(pOustersSkillSlot->getExpLevel());
-			pSubOustersSkillInfo->setSkillTurn(pOustersSkillSlot->getInterval());
-			pSubOustersSkillInfo->setCastingTime(pOustersSkillSlot->getRemainTurn( currentTime ) );
+        if (pOustersSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT) {
+            SubOustersSkillInfo* pSubOustersSkillInfo = new SubOustersSkillInfo();
+            pSubOustersSkillInfo->setSkillType(pOustersSkillSlot->getSkillType());
+            pSubOustersSkillInfo->setExpLevel(pOustersSkillSlot->getExpLevel());
+            pSubOustersSkillInfo->setSkillTurn(pOustersSkillSlot->getInterval());
+            pSubOustersSkillInfo->setCastingTime(pOustersSkillSlot->getRemainTurn(currentTime));
 
-			pOustersSkillInfo->addListElement(pSubOustersSkillInfo);
+            pOustersSkillInfo->addListElement(pSubOustersSkillInfo);
 
-			SkillCount++;
-		}
-	}
+            SkillCount++;
+        }
+    }
 
-	GCSkillInfo gcSkillInfo;
-	gcSkillInfo.setPCType(PC_OUSTERS);
-	SkillType_t LearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(SKILL_DOMAIN_OUSTERS , m_Level);
+    GCSkillInfo gcSkillInfo;
+    gcSkillInfo.setPCType(PC_OUSTERS);
+    SkillType_t LearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(SKILL_DOMAIN_OUSTERS, m_Level);
 
-	if (LearnSkillType != 0) 
-	{
-		if (hasSkill(LearnSkillType) == NULL) 
-		{
-			pOustersSkillInfo->setLearnNewSkill(true);
-		}
-	}
+    if (LearnSkillType != 0) {
+        if (hasSkill(LearnSkillType) == NULL) {
+            pOustersSkillInfo->setLearnNewSkill(true);
+        }
+    }
 
-	pOustersSkillInfo->setListNum(SkillCount);
+    pOustersSkillInfo->setListNum(SkillCount);
 
-	gcSkillInfo.addListElement(pOustersSkillInfo);
+    gcSkillInfo.addListElement(pOustersSkillInfo);
 
-	m_pPlayer->sendPacket(&gcSkillInfo);
+    m_pPlayer->sendPacket(&gcSkillInfo);
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
-
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2068,401 +1935,377 @@ void Ousters::sendOustersSkillInfo()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Ousters::setGold(Gold_t gold)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// 2003.1.8  by bezz.
-	m_Gold = min( (Gold_t)MAX_MONEY, gold );
+    // 2003.1.8  by bezz.
+    m_Gold = min((Gold_t)MAX_MONEY, gold);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void Ousters::setGoldEx(Gold_t gold)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setGold(gold);
+    setGold(gold);
 
-	// by sigi. 2002.5.15
-	char pField[80];
-	sprintf(pField, "Gold=%ld", m_Gold);
-	tinysave(pField);
+    // by sigi. 2002.5.15
+    char pField[80];
+    sprintf(pField, "Gold=%ld", m_Gold);
+    tinysave(pField);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void Ousters::increaseGoldEx(Gold_t gold)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	// 2003.1.8  by bezz.
-	if ( m_Gold + gold > MAX_MONEY )
-		gold = MAX_MONEY - m_Gold;
+    // 2003.1.8  by bezz.
+    if (m_Gold + gold > MAX_MONEY)
+        gold = MAX_MONEY - m_Gold;
 
-	setGold(m_Gold+gold);
+    setGold(m_Gold + gold);
 
     Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("UPDATE Ousters SET Gold=Gold+%u WHERE NAME='%s'", gold, m_Name.c_str());
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pStmt->executeQuery("UPDATE Ousters SET Gold=Gold+%u WHERE NAME='%s'", gold, m_Name.c_str());
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 void Ousters::decreaseGoldEx(Gold_t gold)
-	
-{
-	__BEGIN_TRY
-	__BEGIN_DEBUG
 
-	// 2003.1.8  by bezz.
-	if ( m_Gold < gold )
+{
+    __BEGIN_TRY
+    __BEGIN_DEBUG
+
+    // 2003.1.8  by bezz.
+    if (m_Gold < gold)
         gold = m_Gold;
-	
-	setGold(m_Gold-gold);
+
+    setGold(m_Gold - gold);
 
     Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("UPDATE Ousters SET Gold=Gold-%u WHERE NAME='%s'", gold, m_Name.c_str());
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pStmt->executeQuery("UPDATE Ousters SET Gold=Gold-%u WHERE NAME='%s'", gold, m_Name.c_str());
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 void Ousters::saveSilverDamage(Silver_t damage)
-	    
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setSilverDamage(damage);
+    setSilverDamage(damage);
 
-	// by sigi. 2002.5.15
-	char pField[80];
-	sprintf(pField, "SilverDamage=%d", m_SilverDamage);
-	tinysave(pField);
+    // by sigi. 2002.5.15
+    char pField[80];
+    sprintf(pField, "SilverDamage=%d", m_SilverDamage);
+    tinysave(pField);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool Ousters::checkGoldIntegrity()
-{
-	__BEGIN_TRY
+bool Ousters::checkGoldIntegrity() {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
-	bool ret = false;
+    Statement* pStmt = NULL;
+    bool ret = false;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery("SELECT Gold FROM Ousters WHERE NAME='%s'", m_Name.c_str());
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult = pStmt->executeQuery("SELECT Gold FROM Ousters WHERE NAME='%s'", m_Name.c_str());
 
-		if ( pResult->next() )
-		{
-			ret = pResult->getInt(1) == m_Gold;
-		}
+        if (pResult->next()) {
+            ret = pResult->getInt(1) == m_Gold;
+        }
 
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	return ret;
+    return ret;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool Ousters::checkStashGoldIntegrity()
-{
-	__BEGIN_TRY
+bool Ousters::checkStashGoldIntegrity() {
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
-	bool ret = false;
+    Statement* pStmt = NULL;
+    bool ret = false;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery("SELECT StashGold FROM Ousters WHERE NAME='%s'", m_Name.c_str());
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        Result* pResult = pStmt->executeQuery("SELECT StashGold FROM Ousters WHERE NAME='%s'", m_Name.c_str());
 
-		if ( pResult->next() )
-		{
-			ret = pResult->getInt(1) == m_StashGold;
-		}
+        if (pResult->next()) {
+            ret = pResult->getInt(1) == m_StashGold;
+        }
 
-		SAFE_DELETE(pStmt);
-	} 
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	return ret;
+    return ret;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void Ousters::heartbeat(const Timeval& currentTime)
-    
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	PlayerCreature::heartbeat( currentTime );
+    PlayerCreature::heartbeat(currentTime);
 
-	OustersSkillSlot* pDriftingSoul = hasSkill(SKILL_DRIFTING_SOUL);
+    OustersSkillSlot* pDriftingSoul = hasSkill(SKILL_DRIFTING_SOUL);
 
-	if ( pDriftingSoul != NULL && m_MPRegenTime < currentTime && !isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
-	{
-		SkillLevel_t level = pDriftingSoul->getExpLevel();
-		int bonus = 0;
+    if (pDriftingSoul != NULL && m_MPRegenTime < currentTime && !isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION)) {
+        SkillLevel_t level = pDriftingSoul->getExpLevel();
+        int bonus = 0;
 
-		if ( getMP() < getMP(ATTR_MAX ) )
-		{
-			if ( level <= 15 ) bonus +=1;
-			else if ( level <= 25 ) bonus += 2;
-			else if ( level <= 29 ) bonus += 3;
-			else if ( level <= 30 ) bonus += 4;
+        if (getMP() < getMP(ATTR_MAX)) {
+            if (level <= 15)
+                bonus += 1;
+            else if (level <= 25)
+                bonus += 2;
+            else if (level <= 29)
+                bonus += 3;
+            else if (level <= 30)
+                bonus += 4;
 
-			MP_t oldMP = getMP();
-			MP_t newMP = min( (int)getMP(ATTR_MAX), oldMP + bonus );
+            MP_t oldMP = getMP();
+            MP_t newMP = min((int)getMP(ATTR_MAX), oldMP + bonus);
 
-			if ( oldMP != newMP )
-			{
-				setMP(newMP);
+            if (oldMP != newMP) {
+                setMP(newMP);
 
-				GCModifyInformation gcMI;
-				gcMI.addShortData(MODIFY_CURRENT_MP, newMP);
-				m_pPlayer->sendPacket(&gcMI);
-			}
-		}
+                GCModifyInformation gcMI;
+                gcMI.addShortData(MODIFY_CURRENT_MP, newMP);
+                m_pPlayer->sendPacket(&gcMI);
+            }
+        }
 
-		m_MPRegenTime.tv_sec = currentTime.tv_sec + 2;
-		m_MPRegenTime.tv_usec = currentTime.tv_usec;
-	}
+        m_MPRegenTime.tv_sec = currentTime.tv_sec + 2;
+        m_MPRegenTime.tv_usec = currentTime.tv_usec;
+    }
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 void Ousters::getOustersRecord(OUSTERS_RECORD& record) const
-	
+
 {
     __BEGIN_TRY
 
-	record.pSTR[0]     = m_STR[0];
-	record.pSTR[1]     = m_STR[1];
-	record.pSTR[2]     = m_STR[2];
+    record.pSTR[0] = m_STR[0];
+    record.pSTR[1] = m_STR[1];
+    record.pSTR[2] = m_STR[2];
 
-	record.pDEX[0]     = m_DEX[0];
-	record.pDEX[1]     = m_DEX[1];
-	record.pDEX[2]     = m_DEX[2];
+    record.pDEX[0] = m_DEX[0];
+    record.pDEX[1] = m_DEX[1];
+    record.pDEX[2] = m_DEX[2];
 
-	record.pINT[0]     = m_INT[0];
-	record.pINT[1]     = m_INT[1];
-	record.pINT[2]     = m_INT[2];
+    record.pINT[0] = m_INT[0];
+    record.pINT[1] = m_INT[1];
+    record.pINT[2] = m_INT[2];
 
-	record.pHP[0]      = m_HP[0];
-	record.pHP[1]      = m_HP[1];
+    record.pHP[0] = m_HP[0];
+    record.pHP[1] = m_HP[1];
 
-	record.pMP[0]      = m_MP[0];
-	record.pMP[1]      = m_MP[1];
+    record.pMP[0] = m_MP[0];
+    record.pMP[1] = m_MP[1];
 
-	record.pDamage[0]  = m_Damage[0];
-	record.pDamage[1]  = m_Damage[1];
+    record.pDamage[0] = m_Damage[0];
+    record.pDamage[1] = m_Damage[1];
 
-	record.Rank     = getRank();
+    record.Rank = getRank();
 
-	record.Defense     = m_Defense[0];
-	record.ToHit       = m_ToHit[0];
-	record.Protection  = m_Protection[0];
-	record.AttackSpeed = m_AttackSpeed[0];
+    record.Defense = m_Defense[0];
+    record.ToHit = m_ToHit[0];
+    record.Protection = m_Protection[0];
+    record.AttackSpeed = m_AttackSpeed[0];
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void Ousters::setResurrectZoneIDEx(ZoneID_t id)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setResurrectZoneID(id);
+    setResurrectZoneID(id);
 
-	// by sigi. 2002.5.15
-	char pField[80];
-	sprintf(pField, "ResurrectZone=%d", id);
-	tinysave(pField);
+    // by sigi. 2002.5.15
+    char pField[80];
+    sprintf(pField, "ResurrectZone=%d", id);
+    tinysave(pField);
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void Ousters::saveAlignment(Alignment_t alignment)
-	    
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setAlignment(alignment);
+    setAlignment(alignment);
 
-	// by sigi. 2002.5.15
-	char pField[80];
-	sprintf(pField, "Alignment=%d", alignment);
-	tinysave(pField);
+    // by sigi. 2002.5.15
+    char pField[80];
+    sprintf(pField, "Alignment=%d", alignment);
+    tinysave(pField);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string Ousters::toString () const
-	
+string Ousters::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "Ousters("
-		//<< "ObjectID:"   << (int)getObjectID()
-		<< ",Name:"      << m_Name
-		<< ",HairColor:" << (int)m_HairColor
-		<< ",STR:"       << (int)m_STR[ATTR_CURRENT] << "/" << (int)m_STR[ATTR_MAX]
-		<< ",DEX:"       << (int)m_DEX[ATTR_CURRENT] << "/" << (int)m_DEX[ATTR_MAX]
-		<< ",INT:"       << (int)m_INT[ATTR_CURRENT] << "/" << (int)m_INT[ATTR_MAX]
-		<< ",HP:"        << (int)m_HP[ATTR_CURRENT] << "/" << (int)m_HP[ATTR_MAX]
-		<< ",MP:"        << (int)m_MP[ATTR_CURRENT] << "/" << (int)m_MP[ATTR_MAX]
-		<< ",Fame:"      << (int)m_Fame
-//		<< ",Exp:"       << (int)m_Exp
-//		<< ",ExpOffset:" << (int)m_ExpOffset
-		<< ",Rank:"       << (int)getRank()
-		<< ",RankGoalExp:" << (int)getRankGoalExp()
-		<< ",Level:"     << (int)m_Level
-		<< ",Bonus:"     << (int)m_Bonus
-		<< ",Gold:"      << (int)m_Gold
-		<< ",ZoneID:"    << (int)getZoneID()
-		<< ",XCoord:"    << (int)m_X
-		<< ",YCoord:"    << (int)m_Y
-		<< ",Sight:"     << (int)m_Sight
-		<< ")";
+    msg << "Ousters("
+        //<< "ObjectID:"   << (int)getObjectID()
+        << ",Name:" << m_Name << ",HairColor:" << (int)m_HairColor << ",STR:" << (int)m_STR[ATTR_CURRENT] << "/"
+        << (int)m_STR[ATTR_MAX] << ",DEX:" << (int)m_DEX[ATTR_CURRENT] << "/" << (int)m_DEX[ATTR_MAX]
+        << ",INT:" << (int)m_INT[ATTR_CURRENT] << "/" << (int)m_INT[ATTR_MAX] << ",HP:" << (int)m_HP[ATTR_CURRENT]
+        << "/" << (int)m_HP[ATTR_MAX] << ",MP:" << (int)m_MP[ATTR_CURRENT] << "/" << (int)m_MP[ATTR_MAX] << ",Fame:"
+        << (int)m_Fame
+        //		<< ",Exp:"       << (int)m_Exp
+        //		<< ",ExpOffset:" << (int)m_ExpOffset
+        << ",Rank:" << (int)getRank() << ",RankGoalExp:" << (int)getRankGoalExp() << ",Level:" << (int)m_Level
+        << ",Bonus:" << (int)m_Bonus << ",Gold:" << (int)m_Gold << ",ZoneID:" << (int)getZoneID()
+        << ",XCoord:" << (int)m_X << ",YCoord:" << (int)m_Y << ",Sight:" << (int)m_Sight << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Ousters::saveSkills(void) const 
-	
+void Ousters::saveSkills(void) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
-	for (; itr != m_SkillSlot.end(); itr++)
-	{
-		OustersSkillSlot* pOustersSkillSlot = itr->second;
-		Assert(pOustersSkillSlot != NULL);
+    unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+    for (; itr != m_SkillSlot.end(); itr++) {
+        OustersSkillSlot* pOustersSkillSlot = itr->second;
+        Assert(pOustersSkillSlot != NULL);
 
-		if (pOustersSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT)
-		{
-			pOustersSkillSlot->save(m_Name);
-		}
-	}
+        if (pOustersSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT) {
+            pOustersSkillSlot->save(m_Name);
+        }
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-Sight_t Ousters::getEffectedSight() 
-{
-	__BEGIN_TRY
+Sight_t Ousters::getEffectedSight() {
+    __BEGIN_TRY
 
-	Sight_t sight = Creature::getEffectedSight();
+    Sight_t sight = Creature::getEffectedSight();
 
-	if ( sight == DEFAULT_SIGHT )
-	{
-//		if ( isFlag( Effect::EFFECT_CLASS_BLOOD_DRAIN ) )
-//		{
-//			sight = (Sight_t) 3;
-//		}
-	}
+    if (sight == DEFAULT_SIGHT) {
+        //		if ( isFlag( Effect::EFFECT_CLASS_BLOOD_DRAIN ) )
+        //		{
+        //			sight = (Sight_t) 3;
+        //		}
+    }
 
-	return sight;
+    return sight;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-IP_t Ousters::getIP(void) const
-{
-	Assert(m_pPlayer != NULL);
-	Socket* pSocket = m_pPlayer->getSocket();
-	Assert(pSocket != NULL);
-	return pSocket->getHostIP();
+IP_t Ousters::getIP(void) const {
+    Assert(m_pPlayer != NULL);
+    Socket* pSocket = m_pPlayer->getSocket();
+    Assert(pSocket != NULL);
+    return pSocket->getHostIP();
 }
 
 void Ousters::saveGears(void) const
-    
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	char pField[80];
+    char pField[80];
 
-	for (int i=0; i < Ousters::OUSTERS_WEAR_MAX; i++)
-	{
-		Item* pItem = m_pWearItem[i];
-		if (pItem != NULL)
-		{
-			Durability_t maxDurability = computeMaxDurability(pItem);
-			if (pItem->getDurability() < maxDurability)
-			{
-				//pItem->save(m_Name, STORAGE_GEAR, 0, i, 0);
-				sprintf(pField, "Durability=%d", pItem->getDurability());
-				pItem->tinysave(pField);
-			}
-		}
-	}
+    for (int i = 0; i < Ousters::OUSTERS_WEAR_MAX; i++) {
+        Item* pItem = m_pWearItem[i];
+        if (pItem != NULL) {
+            Durability_t maxDurability = computeMaxDurability(pItem);
+            if (pItem->getDurability() < maxDurability) {
+                // pItem->save(m_Name, STORAGE_GEAR, 0, i, 0);
+                sprintf(pField, "Durability=%d", pItem->getDurability());
+                pItem->tinysave(pField);
+            }
+        }
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 void Ousters::saveExps(void) const
-    
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-/*	char silverDam[40];
-	if (m_SilverDamage != 0)
-	{
-		sprintf(silverDam, ",SilverDamage = %d", m_SilverDamage);
-	}
-	else silverDam[0]='\0'; */
+    /*	char silverDam[40];
+        if (m_SilverDamage != 0)
+        {
+            sprintf(silverDam, ",SilverDamage = %d", m_SilverDamage);
+        }
+        else silverDam[0]='\0'; */
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery( "UPDATE Ousters SET Alignment=%d, Fame=%d, GoalExp=%lu, SilverDamage = %d, `Rank`=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%d WHERE Name='%s'",
-							m_Alignment, m_Fame, m_GoalExp, m_SilverDamage, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str() );
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pStmt->executeQuery("UPDATE Ousters SET Alignment=%d, Fame=%d, GoalExp=%lu, SilverDamage = %d, `Rank`=%d, "
+                            "RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%d WHERE Name='%s'",
+                            m_Alignment, m_Fame, m_GoalExp, m_SilverDamage, getRank(), getRankGoalExp(),
+                            getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
@@ -2474,40 +2317,40 @@ void Ousters::saveExps(void) const
 //
 //----------------------------------------------------------------------
 /*void Ousters::getShapeInfo (DWORD& flag, Color_t colors[PCOustersInfo::OUSTERS_COLOR_MAX]) const
-//	
+//
 {
-	__BEGIN_DEBUG
+    __BEGIN_DEBUG
 
-	Item* 						pItem;
-	//OptionInfo* 				pOptionInfo;
-	int							oustersBit;
-	int							oustersColor;
-	WearPart					Part;
+    Item* 						pItem;
+    //OptionInfo* 				pOptionInfo;
+    int							oustersBit;
+    int							oustersColor;
+    WearPart					Part;
 
-	flag = 0;
+    flag = 0;
 
-	//-----------------------------------------------------------------
-	//-----------------------------------------------------------------
-	Part = WEAR_COAT;
-	pItem = m_pWearItem[Part];
-	oustersBit = 0;
-	oustersColor = 0;
+    //-----------------------------------------------------------------
+    //-----------------------------------------------------------------
+    Part = WEAR_COAT;
+    pItem = m_pWearItem[Part];
+    oustersBit = 0;
+    oustersColor = 0;
 
-	if (pItem!=NULL && m_pRealWearingCheck[Part])
-	{
-		ItemType_t IType = pItem->getItemType();
+    if (pItem!=NULL && m_pRealWearingCheck[Part])
+    {
+        ItemType_t IType = pItem->getItemType();
 
-		colors[oustersColor] = getItemShapeColor( pItem );
+        colors[oustersColor] = getItemShapeColor( pItem );
 
-		flag = IType;
-	} 
-	else 
-	{
-		colors[oustersColor] = 377;
-		flag = (m_Sex? 0 : 1);
-	}
+        flag = IType;
+    }
+    else
+    {
+        colors[oustersColor] = 377;
+        flag = (m_Sex? 0 : 1);
+    }
 
-	__END_DEBUG
+    __END_DEBUG
 }*/
 
 
@@ -2516,341 +2359,297 @@ void Ousters::saveExps(void) const
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 void Ousters::saveInitialRank(void)
-	
+
 {
-	OUSTERS_RECORD prev;
-	getOustersRecord(prev);
+    OUSTERS_RECORD prev;
+    getOustersRecord(prev);
 
-	int curRank = max(1, (m_Level+3) / 4);
-	m_pRank->SET_LEVEL(curRank);
+    int curRank = max(1, (m_Level + 3) / 4);
+    m_pRank->SET_LEVEL(curRank);
 
-/*	RankExp_t accumExp = 0;
+    /*	RankExp_t accumExp = 0;
 
-	if (curRank!=1)
-	{
-		RankEXPInfo* pBeforeExpInfo = g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->getRankEXPInfo(curRank-1);
-		accumExp = pBeforeExpInfo->getAccumExp();
-	}
-	
-	RankEXPInfo* pNextExpInfo = g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->getRankEXPInfo(curRank);
-	Exp_t NextGoalExp = pNextExpInfo->getGoalExp();
+        if (curRank!=1)
+        {
+            RankEXPInfo* pBeforeExpInfo = g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->getRankEXPInfo(curRank-1);
+            accumExp = pBeforeExpInfo->getAccumExp();
+        }
 
-	setRankGoalExp(NextGoalExp);
-*/
-	char pField[80];
-	sprintf(pField, "`Rank`=%d, RankExp=%lu, RankGoalExp=%lu",
-					getRank(), getRankExp(), getRankGoalExp());
-	tinysave(pField);
-	setRankExpSaveCount(0);
+        RankEXPInfo* pNextExpInfo = g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->getRankEXPInfo(curRank);
+        Exp_t NextGoalExp = pNextExpInfo->getGoalExp();
+
+        setRankGoalExp(NextGoalExp);
+    */
+    char pField[80];
+    sprintf(pField, "`Rank`=%d, RankExp=%lu, RankGoalExp=%lu", getRank(), getRankExp(), getRankGoalExp());
+    tinysave(pField);
+    setRankExpSaveCount(0);
 }
 
-bool
-Ousters::addShape(Item::ItemClass IClass, ItemType_t IType, Color_t color)
-{
-	bool bisChange = false;
-
-	switch (IClass)
-	{
-		/*case Item::ITEM_CLASS_OUSTERS_COAT:
-		{
-			bisChange = true;
-
-			m_OustersInfo.setCoatColor( color );
-			m_OustersInfo.setCoatType( IType );
-		}
-		break;
-*/
-		default:
-			break;
-	}
-
-	return bisChange;
-}
-
-
-bool
-Ousters::removeShape(Item::ItemClass IClass, bool bSendPacket)
-{
+bool Ousters::addShape(Item::ItemClass IClass, ItemType_t IType, Color_t color) {
     bool bisChange = false;
 
-	switch (IClass)
-	{
-		/*case Item::ITEM_CLASS_OUSTERS_COAT :
-		{
-			m_OustersInfo.setCoatColor(377);
-			m_OustersInfo.setCoatType( 0 );
+    switch (IClass) {
+    /*case Item::ITEM_CLASS_OUSTERS_COAT:
+    {
+        bisChange = true;
 
-			if (bSendPacket)	// by sigi. 2002.11.6
-			{
-				GCTakeOff pkt;
-				pkt.setObjectID(getObjectID());
-				pkt.setSlotID((SlotID_t)ADDON_COAT);
-				m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
-			}
-		}
-		break;
+        m_OustersInfo.setCoatColor( color );
+        m_OustersInfo.setCoatType( IType );
+    }
+    break;
 */
-		default :
-			return false;
-	}
+    default:
+        break;
+    }
 
-	return bisChange;
+    return bisChange;
 }
 
-Color_t 
-Ousters::getItemShapeColor(Item* pItem, OptionInfo* pOptionInfo) const
-{
-	Color_t color;
 
-	if (pItem->isTimeLimitItem())
-	{
-		color = QUEST_COLOR;
-	}
-	else if (pItem->isUnique())
-	{
-		color = UNIQUE_COLOR;
-	}
-	else if (pOptionInfo != NULL) 
-	{
-		color = pOptionInfo->getColor();
-	}
-	else if (pItem->getFirstOptionType() != 0)
-	{
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getFirstOptionType());
-		color = pOptionInfo->getColor();
-	}
-	else 
-	{
-		color = 377;
-	}
+bool Ousters::removeShape(Item::ItemClass IClass, bool bSendPacket) {
+    bool bisChange = false;
 
-	return color;
+    switch (IClass) {
+    /*case Item::ITEM_CLASS_OUSTERS_COAT :
+    {
+        m_OustersInfo.setCoatColor(377);
+        m_OustersInfo.setCoatType( 0 );
+
+        if (bSendPacket)	// by sigi. 2002.11.6
+        {
+            GCTakeOff pkt;
+            pkt.setObjectID(getObjectID());
+            pkt.setSlotID((SlotID_t)ADDON_COAT);
+            m_pZone->broadcastPacket(getX(), getY(), &pkt, this);
+        }
+    }
+    break;
+*/
+    default:
+        return false;
+    }
+
+    return bisChange;
+}
+
+Color_t Ousters::getItemShapeColor(Item* pItem, OptionInfo* pOptionInfo) const {
+    Color_t color;
+
+    if (pItem->isTimeLimitItem()) {
+        color = QUEST_COLOR;
+    } else if (pItem->isUnique()) {
+        color = UNIQUE_COLOR;
+    } else if (pOptionInfo != NULL) {
+        color = pOptionInfo->getColor();
+    } else if (pItem->getFirstOptionType() != 0) {
+        OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getFirstOptionType());
+        color = pOptionInfo->getColor();
+    } else {
+        color = 377;
+    }
+
+    return color;
 }
 
 bool Ousters::canPlayFree()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return m_Level <= g_pVariableManager->getVariable(FREE_PLAY_OUSTERS_LEVEL);
+    return m_Level <= g_pVariableManager->getVariable(FREE_PLAY_OUSTERS_LEVEL);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool Ousters::satisfySkillRequire( SkillInfo* pSkillInfo )
-{
-	if ( isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
-		return false;
-	if ( pSkillInfo->getRequireFire() > m_ElementalFire )
-		return false;
-	if ( pSkillInfo->getRequireWater() > m_ElementalWater )
-		return false;
-	if ( pSkillInfo->getRequireEarth() > m_ElementalEarth )
-		return false;
-	if ( pSkillInfo->getRequireWind() > m_ElementalWind )
-		return false;
-	if ( pSkillInfo->getRequireSum() > getElementalSum() )
-		return false;
+bool Ousters::satisfySkillRequire(SkillInfo* pSkillInfo) {
+    if (isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH))
+        return false;
+    if (pSkillInfo->getRequireFire() > m_ElementalFire)
+        return false;
+    if (pSkillInfo->getRequireWater() > m_ElementalWater)
+        return false;
+    if (pSkillInfo->getRequireEarth() > m_ElementalEarth)
+        return false;
+    if (pSkillInfo->getRequireWind() > m_ElementalWind)
+        return false;
+    if (pSkillInfo->getRequireSum() > getElementalSum())
+        return false;
 
-	if ( pSkillInfo->getRequireWristletElemental() != ELEMENTAL_ANY )
-	{
-		if ( !isRealWearing(WEAR_LEFTHAND)
-				|| m_pWearItem[WEAR_LEFTHAND]->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET )
-			return false;
+    if (pSkillInfo->getRequireWristletElemental() != ELEMENTAL_ANY) {
+        if (!isRealWearing(WEAR_LEFTHAND) ||
+            m_pWearItem[WEAR_LEFTHAND]->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET)
+            return false;
 
-		OustersWristlet* pWristlet = dynamic_cast<OustersWristlet*>(m_pWearItem[WEAR_LEFTHAND]);
-		Assert( pWristlet != NULL );
+        OustersWristlet* pWristlet = dynamic_cast<OustersWristlet*>(m_pWearItem[WEAR_LEFTHAND]);
+        Assert(pWristlet != NULL);
 
-		if ( pSkillInfo->getRequireWristletElemental() != pWristlet->getElementalType() )
-			return false;
-	}
+        if (pSkillInfo->getRequireWristletElemental() != pWristlet->getElementalType())
+            return false;
+    }
 
-	if ( pSkillInfo->getRequireStone1Elemental() != ELEMENTAL_ANY )
-	{
-		if ( !isRealWearing(WEAR_STONE1)
-				|| m_pWearItem[WEAR_STONE1]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
-			return false;
+    if (pSkillInfo->getRequireStone1Elemental() != ELEMENTAL_ANY) {
+        if (!isRealWearing(WEAR_STONE1) || m_pWearItem[WEAR_STONE1]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE)
+            return false;
 
-		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE1]);
-		Assert( pStone != NULL );
+        OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE1]);
+        Assert(pStone != NULL);
 
-		if ( pSkillInfo->getRequireStone1Elemental() != pStone->getElementalType() )
-			return false;
-	}
+        if (pSkillInfo->getRequireStone1Elemental() != pStone->getElementalType())
+            return false;
+    }
 
-	if ( pSkillInfo->getRequireStone2Elemental() != ELEMENTAL_ANY )
-	{
-		if ( !isRealWearing(WEAR_STONE2)
-				|| m_pWearItem[WEAR_STONE2]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
-			return false;
+    if (pSkillInfo->getRequireStone2Elemental() != ELEMENTAL_ANY) {
+        if (!isRealWearing(WEAR_STONE2) || m_pWearItem[WEAR_STONE2]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE)
+            return false;
 
-		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE2]);
-		Assert( pStone != NULL );
+        OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE2]);
+        Assert(pStone != NULL);
 
-		if ( pSkillInfo->getRequireStone2Elemental() != pStone->getElementalType() )
-			return false;
-	}
+        if (pSkillInfo->getRequireStone2Elemental() != pStone->getElementalType())
+            return false;
+    }
 
-	if ( pSkillInfo->getRequireStone3Elemental() != ELEMENTAL_ANY )
-	{
-		if ( !isRealWearing(WEAR_STONE3)
-				|| m_pWearItem[WEAR_STONE3]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
-			return false;
+    if (pSkillInfo->getRequireStone3Elemental() != ELEMENTAL_ANY) {
+        if (!isRealWearing(WEAR_STONE3) || m_pWearItem[WEAR_STONE3]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE)
+            return false;
 
-		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE3]);
-		Assert( pStone != NULL );
+        OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE3]);
+        Assert(pStone != NULL);
 
-		if ( pSkillInfo->getRequireStone3Elemental() != pStone->getElementalType() )
-			return false;
-	}
+        if (pSkillInfo->getRequireStone3Elemental() != pStone->getElementalType())
+            return false;
+    }
 
-	if ( pSkillInfo->getRequireStone4Elemental() != ELEMENTAL_ANY )
-	{
-		if ( !isRealWearing(WEAR_STONE4)
-				|| m_pWearItem[WEAR_STONE4]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
-			return false;
+    if (pSkillInfo->getRequireStone4Elemental() != ELEMENTAL_ANY) {
+        if (!isRealWearing(WEAR_STONE4) || m_pWearItem[WEAR_STONE4]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE)
+            return false;
 
-		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE4]);
-		Assert( pStone != NULL );
+        OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE4]);
+        Assert(pStone != NULL);
 
-		if ( pSkillInfo->getRequireStone4Elemental() != pStone->getElementalType() )
-			return false;
-	}
+        if (pSkillInfo->getRequireStone4Elemental() != pStone->getElementalType())
+            return false;
+    }
 
-	return true;
+    return true;
 }
 
-SkillBonus_t Ousters::getSkillPointCount( ElementalDomain eDomain )
-{
-	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
-	SkillBonus_t ret = 0;
+SkillBonus_t Ousters::getSkillPointCount(ElementalDomain eDomain) {
+    unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+    SkillBonus_t ret = 0;
 
-	for ( ; itr != m_SkillSlot.end() ; ++itr )
-	{
-		OustersSkillSlot* pSlot = itr->second;
-		if ( pSlot->getSkillType() < SKILL_DOUBLE_IMPACT ) continue;
-		SkillInfo* pInfo = g_pSkillInfoManager->getSkillInfo( pSlot->getSkillType() );
-		if ( pInfo == NULL ) continue;
-		if ( pInfo->getElementalDomain() == eDomain )
-		{
-			ret += (pInfo->getSkillPoint() + pInfo->getLevelUpPoint() * (pSlot->getExpLevel()-1));
-		}
-	}
+    for (; itr != m_SkillSlot.end(); ++itr) {
+        OustersSkillSlot* pSlot = itr->second;
+        if (pSlot->getSkillType() < SKILL_DOUBLE_IMPACT)
+            continue;
+        SkillInfo* pInfo = g_pSkillInfoManager->getSkillInfo(pSlot->getSkillType());
+        if (pInfo == NULL)
+            continue;
+        if (pInfo->getElementalDomain() == eDomain) {
+            ret += (pInfo->getSkillPoint() + pInfo->getLevelUpPoint() * (pSlot->getExpLevel() - 1));
+        }
+    }
 
-	cout << "Elemental domain " << static_cast<int>(eDomain)
-	     << " points: " << ret << endl;
+    cout << "Elemental domain " << static_cast<int>(eDomain) << " points: " << ret << endl;
 
-	return ret;
+    return ret;
 }
 
-bool Ousters::isPayPlayAvaiable() 
-	
+bool Ousters::isPayPlayAvaiable()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_pPlayer==NULL)
-		return false;
+    if (m_pPlayer == NULL)
+        return false;
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayer);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayer);
 
 #ifdef __CONNECT_BILLING_SYSTEM__
-	if (pGamePlayer->isPayPlaying())
-	{
-		if (pGamePlayer->getPayType()==PAY_TYPE_FREE)
-			return true;
+    if (pGamePlayer->isPayPlaying()) {
+        if (pGamePlayer->getPayType() == PAY_TYPE_FREE)
+            return true;
 
-		if (m_Level <= g_pVariableManager->getVariable(FREE_PLAY_OUSTERS_LEVEL))
-		{
-			return true;
-		}
-	}
+        if (m_Level <= g_pVariableManager->getVariable(FREE_PLAY_OUSTERS_LEVEL)) {
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 
 #elif defined(__PAY_SYSTEM_FREE_LIMIT__)
 
-	if (!pGamePlayer->isPayPlaying())
-	{
-		if (m_Level <= g_pVariableManager->getVariable(FREE_PLAY_OUSTERS_LEVEL))
-		{
-			return true;
-		}
+    if (!pGamePlayer->isPayPlaying()) {
+        if (m_Level <= g_pVariableManager->getVariable(FREE_PLAY_OUSTERS_LEVEL)) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	return true;
+    return true;
 
 #else
 
-	return pGamePlayer->isPayPlaying();
+    return pGamePlayer->isPayPlaying();
 
 #endif
 
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void Ousters::initPetQuestTarget()
-{
-	int minClass = 1, maxClass = 1;
+void Ousters::initPetQuestTarget() {
+    int minClass = 1, maxClass = 1;
 
-	if ( getLevel() <= 50 )
-	{
-		minClass = 6; maxClass = 7;
-	}
-	else if ( getLevel() <= 60 )
-	{
-		minClass = 7; maxClass = 8;
-	}
-	else if ( getLevel() <= 70 )
-	{
-		minClass = maxClass = 9;
-	}
-	else if ( getLevel() <= 80 )
-	{
-		minClass = 9; maxClass = 10;
-	}
-	else if ( getLevel() <= 90 )
-	{
-		minClass = maxClass = 10;
-	}
-	else if ( getLevel() <= 110 )
-	{
-		minClass = 10; maxClass = 11;
-	}
-	else if ( getLevel() <= 130 )
-	{
-		minClass = 11; maxClass = 12;
-	}
-	else
-	{
-		minClass = 12; maxClass = 13;
-	}
+    if (getLevel() <= 50) {
+        minClass = 6;
+        maxClass = 7;
+    } else if (getLevel() <= 60) {
+        minClass = 7;
+        maxClass = 8;
+    } else if (getLevel() <= 70) {
+        minClass = maxClass = 9;
+    } else if (getLevel() <= 80) {
+        minClass = 9;
+        maxClass = 10;
+    } else if (getLevel() <= 90) {
+        minClass = maxClass = 10;
+    } else if (getLevel() <= 110) {
+        minClass = 10;
+        maxClass = 11;
+    } else if (getLevel() <= 130) {
+        minClass = 11;
+        maxClass = 12;
+    } else {
+        minClass = 12;
+        maxClass = 13;
+    }
 
-	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass( minClass, maxClass );
-	m_TargetNum = 80;
-	m_TimeLimit = 3600;
+    m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass(minClass, maxClass);
+    m_TargetNum = 80;
+    m_TimeLimit = 3600;
 }
 
-bool Ousters::canLearnSkill(SkillType_t skill)
-{
+bool Ousters::canLearnSkill(SkillType_t skill) {
     SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(skill);
-    if ( pSkillInfo == NULL ) return false;
+    if (pSkillInfo == NULL)
+        return false;
 
-    if ( pSkillInfo->getLevel() >= 150 )
-    {
+    if (pSkillInfo->getLevel() >= 150) {
         unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 
-        for ( ; itr != m_SkillSlot.end() ; ++itr )
-        {
-            if ( itr->first < SKILL_DOUBLE_IMPACT ) continue;
-            SkillInfo* pHasSkillInfo = g_pSkillInfoManager->getSkillInfo( itr->first );
-            if ( pHasSkillInfo == NULL ) continue;
-            //if ( pHasSkillInfo->getLevel() == pSkillInfo->getLevel() && !(pSkillInfo->getType() > 400 )) return false;
-            if ( (skill >= 370 && skill <= 373) &&
-                 (pHasSkillInfo->getType() >= 370 && pHasSkillInfo->getType() <= 373 ))
-            {
+        for (; itr != m_SkillSlot.end(); ++itr) {
+            if (itr->first < SKILL_DOUBLE_IMPACT)
+                continue;
+            SkillInfo* pHasSkillInfo = g_pSkillInfoManager->getSkillInfo(itr->first);
+            if (pHasSkillInfo == NULL)
+                continue;
+            // if ( pHasSkillInfo->getLevel() == pSkillInfo->getLevel() && !(pSkillInfo->getType() > 400 )) return
+            // false;
+            if ((skill >= 370 && skill <= 373) &&
+                (pHasSkillInfo->getType() >= 370 && pHasSkillInfo->getType() <= 373)) {
                 return false;
             }
         }

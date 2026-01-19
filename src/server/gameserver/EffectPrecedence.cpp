@@ -1,122 +1,117 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPrecedence.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectPrecedence.h"
+
 #include "Assert.h"
-#include "Zone.h"
-#include "DB.h"
 #include "Creature.h"
+#include "DB.h"
+#include "Zone.h"
 
-EffectPrecedence::EffectPrecedence(Creature* pCreature) 
-	
+EffectPrecedence::EffectPrecedence(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isMonster());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isMonster());
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
-	m_bBroadcastingEffect = false;
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
+    m_bBroadcastingEffect = false;
 
-	m_bItem = false;
+    m_bItem = false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-EffectPrecedence::EffectPrecedence(Item* pItem) 
-	
+EffectPrecedence::EffectPrecedence(Item* pItem)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pItem != NULL);
-	setTarget(pItem);
+    Assert(pItem != NULL);
+    setTarget(pItem);
 
-	m_bItem = true;
+    m_bItem = true;
 
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
-	m_bBroadcastingEffect = false;
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
+    m_bBroadcastingEffect = false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectPrecedence::affect()
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 void EffectPrecedence::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-void EffectPrecedence::affect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
-	
-{
-	__BEGIN_TRY
+void EffectPrecedence::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
 
-	throw UnsupportedError(__PRETTY_FUNCTION__);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    throw UnsupportedError(__PRETTY_FUNCTION__);
+
+    __END_CATCH
 }
 
 void EffectPrecedence::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_bItem)
-	{
-		Item* pItem = dynamic_cast<Item*>(m_pTarget);
-		pItem->removeFlag(getEffectClass());
-	}
-	else
-	{
-		Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-		Assert(pCreature != NULL);
-		Assert(pCreature->isMonster());
-		pCreature->removeFlag(getEffectClass());
-	}
+    if (m_bItem) {
+        Item* pItem = dynamic_cast<Item*>(m_pTarget);
+        pItem->removeFlag(getEffectClass());
+    } else {
+        Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+        Assert(pCreature != NULL);
+        Assert(pCreature->isMonster());
+        pCreature->removeFlag(getEffectClass());
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void EffectPrecedence::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(false);
+    Assert(false);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectPrecedence::unaffect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
-	
+void EffectPrecedence::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(false);
+    Assert(false);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EffectPrecedence::toString () const 
-	
+string EffectPrecedence::toString() const
+
 {
-	StringStream msg;
-	msg << "EffectPrecedence("
-		<< "HostName:" << m_HostName
-		<< ",PartyID:" << m_HostPartyID
-		<< ",bItem:" << m_bItem
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectPrecedence("
+        << "HostName:" << m_HostName << ",PartyID:" << m_HostPartyID << ",bItem:" << m_bItem << ")";
+    return msg.toString();
 }

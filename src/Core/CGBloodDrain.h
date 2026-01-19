@@ -1,22 +1,22 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGBloodDrain 
+//
+// Filename    : CGBloodDrain
 // Written By  : crazydog
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_BLOOD_DRAIN_H__
 #define __CG_BLOOD_DRAIN_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 #ifdef __LINUX__
-//#include "GCGlobalHandler.h"
+// #include "GCGlobalHandler.h"
 #endif // __LINUX__
 
 
@@ -27,64 +27,69 @@
 //////////////////////////////////////////////////////////////////////
 
 class CGBloodDrain : public Packet {
+public:
+    // constructor
+    CGBloodDrain();
+
+    // destructor
+    ~CGBloodDrain();
+
 
 public:
-	
-	// constructor
-	CGBloodDrain() ;
-	
-	// destructor
-	~CGBloodDrain() ;
-
-	
-public:
-	
-	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_BLOOD_DRAIN; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szObjectID; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_BLOOD_DRAIN;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGBloodDrain"; }
-	
-	// get packet's debug string
-	string toString() const ;
-/*	
-	// get/set X Coordicate
-	Coord_t getX() const  { return m_X; }
-	void setX(Coord_t x)  { m_X = x; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szObjectID;
+    }
 
-	// get/set Y Coordicate
-	Coord_t getY() const  { return m_Y; }
-	void setY(Coord_t y)  { m_Y = y; }
+    // get packet name
+    string getPacketName() const {
+        return "CGBloodDrain";
+    }
 
-	// get/set Direction
-	Dir_t getDir() const  { return m_Dir; }
-	void setDir(Dir_t dir)  { m_Dir = dir; }
-*/	
-	// get/set ObjectID
-	ObjectID_t getObjectID() const  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
-	
-private :
-	
-	ObjectID_t m_ObjectID;  // ObjectID
-/*	
-	Coord_t m_X;			// X 좌표
-	Coord_t m_Y;			// Y 좌표
-	Dir_t m_Dir;			// 방향
-*/
+    // get packet's debug string
+    string toString() const;
+    /*
+        // get/set X Coordicate
+        Coord_t getX() const  { return m_X; }
+        void setX(Coord_t x)  { m_X = x; }
+
+        // get/set Y Coordicate
+        Coord_t getY() const  { return m_Y; }
+        void setY(Coord_t y)  { m_Y = y; }
+
+        // get/set Direction
+        Dir_t getDir() const  { return m_Dir; }
+        void setDir(Dir_t dir)  { m_Dir = dir; }
+    */
+    // get/set ObjectID
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
+
+private:
+    ObjectID_t m_ObjectID; // ObjectID
+    /*
+        Coord_t m_X;			// X 좌표
+        Coord_t m_Y;			// Y 좌표
+        Dir_t m_Dir;			// 방향
+    */
 };
 
 
@@ -97,30 +102,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGBloodDrainFactory : public PacketFactory {
+public:
+    // constructor
+    CGBloodDrainFactory() {}
+
+    // destructor
+    virtual ~CGBloodDrainFactory() {}
+
 
 public:
-	
-	// constructor
-	CGBloodDrainFactory()  {}
-	
-	// destructor
-	virtual ~CGBloodDrainFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGBloodDrain();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGBloodDrain(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGBloodDrain";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGBloodDrain"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_BLOOD_DRAIN; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_BLOOD_DRAIN;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
-
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -130,11 +139,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGBloodDrainHandler {
-	
 public:
-
-	// execute packet's handler
-	static void execute(CGBloodDrain* pCGBloodDrain, Player* player) ;
+    // execute packet's handler
+    static void execute(CGBloodDrain* pCGBloodDrain, Player* player);
 };
 
 #endif

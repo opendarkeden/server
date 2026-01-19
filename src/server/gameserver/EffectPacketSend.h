@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPacketSend.h
-// Written by  : 
+// Written by  :
 // Description : PacketSend에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -16,26 +16,31 @@ class Packet;
 // class EffectPacketSend
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectPacketSend : public Effect 
-{
+class EffectPacketSend : public Effect {
 public:
-	EffectPacketSend(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-public:
-	// 안 쓴다 -_-; KIN
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_PK_ZONE_REGEN; }
-
-	void unaffect() ; 
-
-	string toString() const ;
+    EffectPacketSend(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
-	Packet* getPacket() const { return m_pPacket; }
-	void setPacket( Packet* pPacket ) { m_pPacket = pPacket; }
+    // 안 쓴다 -_-; KIN
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_PK_ZONE_REGEN;
+    }
+
+    void unaffect();
+
+    string toString() const;
+
+public:
+    Packet* getPacket() const {
+        return m_pPacket;
+    }
+    void setPacket(Packet* pPacket) {
+        m_pPacket = pPacket;
+    }
 
 private:
-	Packet* m_pPacket;
-	ZoneCoord_t m_X, m_Y;
+    Packet* m_pPacket;
+    ZoneCoord_t m_X, m_Y;
 };
 
 #endif // __EFFECT_PACKET_SEND__

@@ -1,14 +1,15 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : NPCManager.h 
+// Filename    : NPCManager.h
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __NPC_MANANGER_H__
 #define __NPC_MANANGER_H__
 
-#include "CreatureManager.h"
 #include <unordered_map>
+
+#include "CreatureManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class NPCManager
@@ -16,16 +17,15 @@
 
 class Zone;
 
-class NPCManager : public CreatureManager 
-{
+class NPCManager : public CreatureManager {
 public:
-	NPCManager() ;
-	~NPCManager() ;
-	
+    NPCManager();
+    ~NPCManager();
+
 public:
-	void load(ZoneID_t zoneID, int race=0xFF) ;	// 0xFF이면 ALL.. -_-;
-	void processCreatures() ;
-	string toString() const ;
+    void load(ZoneID_t zoneID, int race = 0xFF); // 0xFF이면 ALL.. -_-;
+    void processCreatures();
+    string toString() const;
 };
 
 #endif

@@ -14,21 +14,22 @@
 // class EffectKillTimer
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectKillTimer : public Effect 
-{
+class EffectKillTimer : public Effect {
 public:
-	EffectKillTimer(Creature* pCreature, bool kill = true) ;
-	~EffectKillTimer() ;
+    EffectKillTimer(Creature* pCreature, bool kill = true);
+    ~EffectKillTimer();
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSPORT_CREATURE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_TRANSPORT_CREATURE;
+    }
 
-	void unaffect() ;
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	bool	m_bKill;
+    bool m_bKill;
 };
 
 

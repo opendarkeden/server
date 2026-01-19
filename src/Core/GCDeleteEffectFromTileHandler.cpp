@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCDeleteEffectFromTileHandler::execute (GCDeleteEffectFromTile * pGCDeleteEffectFromTile , Player * pPlayer )
-	 
+void GCDeleteEffectFromTileHandler::execute(GCDeleteEffectFromTile* pGCDeleteEffectFromTile, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_CLIENT__
 
-	//cout << pGCDeleteEffectFromTile->toString() << endl;
-	
+    // cout << pGCDeleteEffectFromTile->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

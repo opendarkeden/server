@@ -14,38 +14,41 @@
 // class EffectDeleteTile
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDeleteTile : public Effect 
-{
+class EffectDeleteTile : public Effect {
 public:
-	EffectDeleteTile(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
+    EffectDeleteTile(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_DELETE_TILE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_DELETE_TILE;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	string toString() const ;
+    string toString() const;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectDeleteTileLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDeleteTileLoader : public EffectLoader 
-{
+class EffectDeleteTileLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_DELETE_TILE; }
-	virtual string getEffectClassName() const  { return "EffectDeleteTile"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_DELETE_TILE;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectDeleteTile";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 extern EffectDeleteTileLoader* g_pEffectDeleteTileLoader;
 
 #endif // __EFFECT_DELETE_TILE__
-

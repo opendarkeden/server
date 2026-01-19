@@ -1,27 +1,22 @@
 //////////////////////////////////////////////////////////////////////
-// 
+//
 // SocketEncryptOutputStream.cpp
-// 
+//
 // by Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #include "SocketEncryptOutputStream.h"
+
 #include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketEncryptOutputStream::SocketEncryptOutputStream ( Socket * sock , uint BufferLen ) 
-: SocketOutputStream(sock, BufferLen)
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+SocketEncryptOutputStream::SocketEncryptOutputStream(Socket* sock, uint BufferLen)
+    : SocketOutputStream(sock, BufferLen){__BEGIN_TRY __END_CATCH}
 
-SocketEncryptOutputStream::~SocketEncryptOutputStream()
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+      SocketEncryptOutputStream::~SocketEncryptOutputStream() {
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
-

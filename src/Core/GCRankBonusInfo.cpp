@@ -1,107 +1,104 @@
-//-------------------------------------------------------------------------------- // 
-// Filename    : GCRankBonusInfo.cpp 
+//-------------------------------------------------------------------------------- //
+// Filename    : GCRankBonusInfo.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //--------------------------------------------------------------------------------
 
 // include files
 #include "GCRankBonusInfo.h"
+
 #include "Assert1.h"
 
 //--------------------------------------------------------------------------------
 // constructor
 //--------------------------------------------------------------------------------
-GCRankBonusInfo::GCRankBonusInfo ()
-	
-{
-}
+GCRankBonusInfo::GCRankBonusInfo()
+
+{}
 
 //--------------------------------------------------------------------------------
 // destructor
 //--------------------------------------------------------------------------------
-GCRankBonusInfo::~GCRankBonusInfo ()
-	
+GCRankBonusInfo::~GCRankBonusInfo()
+
 {
-	m_RankBonusInfoList.clear();
+    m_RankBonusInfoList.clear();
 }
 
 //--------------------------------------------------------------------------------
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
-void GCRankBonusInfo::read (SocketInputStream & iStream ) 
-	 
+void GCRankBonusInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE ListNum;
-	iStream.read(ListNum);
+    BYTE ListNum;
+    iStream.read(ListNum);
 
-	for (WORD i = 0; i < ListNum; i++ )
-	{
-		DWORD rankBonusType;
-		iStream.read(rankBonusType);
-		m_RankBonusInfoList.push_back(rankBonusType);
-	}
+    for (WORD i = 0; i < ListNum; i++) {
+        DWORD rankBonusType;
+        iStream.read(rankBonusType);
+        m_RankBonusInfoList.push_back(rankBonusType);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------------------
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
-void GCRankBonusInfo::write (SocketOutputStream & oStream ) const 
-     
+void GCRankBonusInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//--------------------------------------------------
-	// write pc type
-	//--------------------------------------------------
-	BYTE size = m_RankBonusInfoList.size();
-	oStream.write(size);
+    //--------------------------------------------------
+    // write pc type
+    //--------------------------------------------------
+    BYTE size = m_RankBonusInfoList.size();
+    oStream.write(size);
 
-	for (list<DWORD>::const_iterator itr = m_RankBonusInfoList.begin(); itr!= m_RankBonusInfoList.end(); itr++) 
-	{
-		oStream.write((*itr));
-	}
+    for (list<DWORD>::const_iterator itr = m_RankBonusInfoList.begin(); itr != m_RankBonusInfoList.end(); itr++) {
+        oStream.write((*itr));
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void GCRankBonusInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCRankBonusInfoHandler::execute(this , pPlayer);
+void GCRankBonusInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCRankBonusInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get packet's debug string
 //--------------------------------------------------------------------------------
-string GCRankBonusInfo::toString () const
-       
+string GCRankBonusInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCRankBonusInfo(";
-	for (list<DWORD>::const_iterator itr = m_RankBonusInfoList.begin(); itr!= m_RankBonusInfoList.end(); itr++) 
-	{
-		msg << (*itr) << ",";
-	}
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
+    StringStream msg;
 
-	__END_CATCH
+    msg << "GCRankBonusInfo(";
+    for (list<DWORD>::const_iterator itr = m_RankBonusInfoList.begin(); itr != m_RankBonusInfoList.end(); itr++) {
+        msg << (*itr) << ",";
+    }
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }

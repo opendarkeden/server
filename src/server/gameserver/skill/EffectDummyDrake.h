@@ -7,43 +7,56 @@
 #ifndef __EFFECT_DUMMY_DRAKE__
 #define __EFFECT_DUMMY_DRAKE__
 
-#include "Effect.h"
 #include "Creature.h"
+#include "Effect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectDummyDrake
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDummyDrake : public Effect 
-{
+class EffectDummyDrake : public Effect {
 public:
-	EffectDummyDrake(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DUMMY_DRAKE; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-
-	string toString() const throw();
+    EffectDummyDrake(Creature* pCreature);
 
 public:
-	ObjectID_t getUserOID(void) const { return m_UserOID; }
-	void setUserOID(ObjectID_t UserOID ) { m_UserOID = UserOID; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_DUMMY_DRAKE;
+    }
 
-	Damage_t getDamage(void) const { return m_Damage; }
-	void setDamage(Damage_t Damage ) { m_Damage = Damage; }
+    void affect();
+    void affect(Creature* pCreature);
 
-	Turn_t getDuration(void) const { return m_Duration; }
-	void setDuration(Turn_t Duration ) { m_Duration = Duration; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
+
+    string toString() const throw();
+
+public:
+    ObjectID_t getUserOID(void) const {
+        return m_UserOID;
+    }
+    void setUserOID(ObjectID_t UserOID) {
+        m_UserOID = UserOID;
+    }
+
+    Damage_t getDamage(void) const {
+        return m_Damage;
+    }
+    void setDamage(Damage_t Damage) {
+        m_Damage = Damage;
+    }
+
+    Turn_t getDuration(void) const {
+        return m_Duration;
+    }
+    void setDuration(Turn_t Duration) {
+        m_Duration = Duration;
+    }
 
 private:
-	ObjectID_t  			m_UserOID;
-	Damage_t				m_Damage;
-	Turn_t					m_Duration;
+    ObjectID_t m_UserOID;
+    Damage_t m_Damage;
+    Turn_t m_Duration;
 };
 
 #endif // __EFFECT_FIRECE_FLAME__

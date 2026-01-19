@@ -1,78 +1,87 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    :  GCGetDamage.h 
+//
+// Filename    :  GCGetDamage.h
 // Written By  :  elca@ewestsoft.com
-// Description :  클라이언트로 부터 CGMove 패킷이 날라 왔을때 
+// Description :  클라이언트로 부터 CGMove 패킷이 날라 왔을때
 //                날린 클라이언트에게 무브해도 좋다는 허가를 낼때
 //                보내주는 패킷 클래스이다.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_GET_DAMAGE_H__
 #define __GC_GET_DAMAGE_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
 // class  GCGetDamage;
 //
-// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄 
+// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄
 // 때 사용하는 패킷 객체이다.(CreatureID,X,Y,DIR) 을 포함한다.
 //
 //////////////////////////////////////////////////////////////////////
 
 class GCGetDamage : public Packet {
+public:
+    // constructor
+    GCGetDamage();
 
-public :
-	
-	// constructor
-	GCGetDamage() ;
-	
-	// destructor
-	~GCGetDamage() ;
+    // destructor
+    ~GCGetDamage();
 
-	
-public :
-	
-	
+
+public:
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_GET_DAMAGE; }
-	
-	// get packet size
-	PacketSize_t getPacketSize() const  { return szObjectID + szWORD; }
-	
-	// get packet's name
-	string getPacketName() const  { return "GCGetDamage"; }
-	
-	// get packet's debug string
-	string toString() const ;
-	
-	// get/set ObjectID
-	ObjectID_t getObjectID() const  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_GET_DAMAGE;
+    }
 
-	// get/set Damage
-	WORD getDamage() const  { return m_GetDamage; }
-	void setDamage(WORD GetDamage)  { m_GetDamage = GetDamage; }
-	
-private : 
-	ObjectID_t m_ObjectID;  // ObjectID..
-	WORD m_GetDamage;   		// Damage..
+    // get packet size
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szWORD;
+    }
 
+    // get packet's name
+    string getPacketName() const {
+        return "GCGetDamage";
+    }
+
+    // get packet's debug string
+    string toString() const;
+
+    // get/set ObjectID
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
+
+    // get/set Damage
+    WORD getDamage() const {
+        return m_GetDamage;
+    }
+    void setDamage(WORD GetDamage) {
+        m_GetDamage = GetDamage;
+    }
+
+private:
+    ObjectID_t m_ObjectID; // ObjectID..
+    WORD m_GetDamage;      // Damage..
 };
 
 
@@ -84,30 +93,35 @@ private :
 //
 //////////////////////////////////////////////////////////////////////
 
-class  GCGetDamageFactory : public PacketFactory {
+class GCGetDamageFactory : public PacketFactory {
+public:
+    // constructor
+    GCGetDamageFactory() {}
 
-public :
-	
-	// constructor
-	 GCGetDamageFactory()  {}
-	
-	// destructor
-	virtual ~GCGetDamageFactory()  {}
+    // destructor
+    virtual ~GCGetDamageFactory() {}
 
-	
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCGetDamage(); }
 
-	// get packet name
-	string getPacketName() const  { return "GCGetDamage"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GET_DAMAGE; }
-	
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szObjectID + szWORD; }
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCGetDamage();
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "GCGetDamage";
+    }
+
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_GET_DAMAGE;
+    }
+
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szWORD;
+    }
 };
 
 
@@ -117,13 +131,10 @@ public :
 //
 //////////////////////////////////////////////////////////////////////
 
-class  GCGetDamageHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCGetDamage* pGCGetDamage, Player* pPlayer) ;
-
+class GCGetDamageHandler {
+public:
+    // execute packet's handler
+    static void execute(GCGetDamage* pGCGetDamage, Player* pPlayer);
 };
 
 #endif

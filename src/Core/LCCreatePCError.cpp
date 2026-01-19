@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : LCCreatePCError.cpp 
+//
+// Filename    : LCCreatePCError.cpp
 // Written By  : Reiot
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,39 +12,36 @@
 //////////////////////////////////////////////////////////////////////
 // Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
-void LCCreatePCError::read (SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
+void LCCreatePCError::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read(m_ErrorID);
+    iStream.read(m_ErrorID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
-void LCCreatePCError::write (SocketOutputStream & oStream ) const 
-{
-	__BEGIN_TRY
+void LCCreatePCError::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write(m_ErrorID);
+    oStream.write(m_ErrorID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void LCCreatePCError::execute (Player * pPlayer ) 
-{
-	__BEGIN_TRY
-		
-	LCCreatePCErrorHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+void LCCreatePCError::execute(Player* pPlayer) {
+    __BEGIN_TRY
+
+    LCCreatePCErrorHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -53,15 +50,12 @@ void LCCreatePCError::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string LCCreatePCError::toString () const
-{
-	__BEGIN_TRY
+string LCCreatePCError::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "LCCreatePCError(" << (int)m_ErrorID << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "LCCreatePCError(" << (int)m_ErrorID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

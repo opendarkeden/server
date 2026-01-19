@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SharpShield.h 
-// Written By  : 
-// Description : 
+// Filename    : SharpShield.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SHARP_SHIELD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class SharpShield;
 //////////////////////////////////////////////////////////////////////////////
 
-class SharpShield : public SkillHandler 
-{
+class SharpShield : public SkillHandler {
 public:
-	SharpShield() throw() {}
-	~SharpShield() throw() {}
-	
+    SharpShield() throw() {}
+    ~SharpShield() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SharpShield"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SHARP_SHIELD; }
+    string getSkillHandlerName() const throw() {
+        return "SharpShield";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SHARP_SHIELD;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

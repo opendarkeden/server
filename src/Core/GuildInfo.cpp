@@ -1,155 +1,141 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GuildInfo.cpp 
+//
+// Filename    : GuildInfo.cpp
 // Written By  :
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
 // include files
 //////////////////////////////////////////////////////////////////////
 #include "GuildInfo.h"
+
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GuildInfo::GuildInfo () 
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GuildInfo::GuildInfo(){__BEGIN_TRY __END_CATCH}
 
-	
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GuildInfo::~GuildInfo () noexcept = default;
+GuildInfo::~GuildInfo() noexcept = default;
 
 
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-void GuildInfo::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
-		
-	BYTE szGuildName, szGuildMaster, szGuildExpireDate;
+void GuildInfo::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
-	iStream.read( m_GuildID );
-	iStream.read( szGuildName );
+    BYTE szGuildName, szGuildMaster, szGuildExpireDate;
 
-	if ( szGuildName == 0 )
-		throw InvalidProtocolException( "szGuildName == 0" );
-	if ( szGuildName > 30 )
-		throw InvalidProtocolException( "too long szGuildName size" );
+    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    iStream.read(m_GuildID);
+    iStream.read(szGuildName);
 
-	iStream.read( m_GuildName, szGuildName );
-	iStream.read( szGuildMaster );
+    if (szGuildName == 0)
+        throw InvalidProtocolException("szGuildName == 0");
+    if (szGuildName > 30)
+        throw InvalidProtocolException("too long szGuildName size");
 
-	if ( szGuildMaster == 0 )
-		throw InvalidProtocolException( "szGuildMaster == 0" );
-	if ( szGuildMaster > 20 )
-		throw InvalidProtocolException( "too long szGuildMaster size" );
+    iStream.read(m_GuildName, szGuildName);
+    iStream.read(szGuildMaster);
 
-	iStream.read( m_GuildMaster, szGuildMaster );
-	iStream.read( m_GuildMemberCount );
-	iStream.read( szGuildExpireDate );
+    if (szGuildMaster == 0)
+        throw InvalidProtocolException("szGuildMaster == 0");
+    if (szGuildMaster > 20)
+        throw InvalidProtocolException("too long szGuildMaster size");
 
-	if ( szGuildExpireDate > 11 )
-		throw InvalidProtocolException( "too long szGuildExpireDate size" );
+    iStream.read(m_GuildMaster, szGuildMaster);
+    iStream.read(m_GuildMemberCount);
+    iStream.read(szGuildExpireDate);
 
-	if ( szGuildExpireDate != 0 )
-		iStream.read( m_GuildExpireDate, szGuildExpireDate );
-	else
-		m_GuildExpireDate = "";
+    if (szGuildExpireDate > 11)
+        throw InvalidProtocolException("too long szGuildExpireDate size");
 
-	__END_CATCH
+    if (szGuildExpireDate != 0)
+        iStream.read(m_GuildExpireDate, szGuildExpireDate);
+    else
+        m_GuildExpireDate = "";
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void GuildInfo::write ( SocketOutputStream & oStream ) 
-     const
-{
-	__BEGIN_TRY
-		
-	BYTE szGuildName = m_GuildName.size();
-	BYTE szGuildMaster = m_GuildMaster.size();
-	BYTE szGuildExpireDate = m_GuildExpireDate.size();
-	
-	if ( szGuildName == 0 )
-		throw InvalidProtocolException( "szGuildName == 0" );
-	if ( szGuildName > 30 )
-		throw InvalidProtocolException( "too long szGuildName size" );
+void GuildInfo::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	if ( szGuildMaster == 0 )
-		throw InvalidProtocolException( "szGuildMaster == 0" );
-	if ( szGuildMaster > 20 )
-		throw InvalidProtocolException( "too long szGuildMaster size" );
+    BYTE szGuildName = m_GuildName.size();
+    BYTE szGuildMaster = m_GuildMaster.size();
+    BYTE szGuildExpireDate = m_GuildExpireDate.size();
 
-	if ( szGuildExpireDate > 11 )
-		throw InvalidProtocolException( "too long szGuildExpireDate size" );
+    if (szGuildName == 0)
+        throw InvalidProtocolException("szGuildName == 0");
+    if (szGuildName > 30)
+        throw InvalidProtocolException("too long szGuildName size");
 
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
-	oStream.write( m_GuildID );
-	oStream.write( szGuildName );
-	oStream.write( m_GuildName );
-	oStream.write( szGuildMaster );
-	oStream.write( m_GuildMaster );
-	oStream.write( m_GuildMemberCount );
+    if (szGuildMaster == 0)
+        throw InvalidProtocolException("szGuildMaster == 0");
+    if (szGuildMaster > 20)
+        throw InvalidProtocolException("too long szGuildMaster size");
 
-	oStream.write( szGuildExpireDate );
+    if (szGuildExpireDate > 11)
+        throw InvalidProtocolException("too long szGuildExpireDate size");
 
-	if ( szGuildExpireDate != 0 )
-		oStream.write( m_GuildExpireDate );
+    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    oStream.write(m_GuildID);
+    oStream.write(szGuildName);
+    oStream.write(m_GuildName);
+    oStream.write(szGuildMaster);
+    oStream.write(m_GuildMaster);
+    oStream.write(m_GuildMemberCount);
 
-	__END_CATCH
+    oStream.write(szGuildExpireDate);
+
+    if (szGuildExpireDate != 0)
+        oStream.write(m_GuildExpireDate);
+
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
 // getSize
 //--------------------------------------------------------------------
-PacketSize_t GuildInfo::getSize()
-{
-	__BEGIN_TRY
+PacketSize_t GuildInfo::getSize() {
+    __BEGIN_TRY
 
-	BYTE szGuildName = m_GuildName.size();
-	BYTE szGuildMaster = m_GuildMaster.size();
+    BYTE szGuildName = m_GuildName.size();
+    BYTE szGuildMaster = m_GuildMaster.size();
 
-	PacketSize_t PacketSize = szGuildID + szBYTE + szGuildName + szBYTE + szGuildMaster + szBYTE;
+    PacketSize_t PacketSize = szGuildID + szBYTE + szGuildName + szBYTE + szGuildMaster + szBYTE;
 
-	return PacketSize;
+    return PacketSize;
 
-	__END_CATCH
+    __END_CATCH
 }
 
- /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 //
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GuildInfo::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GuildInfo::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GuildInfo( "
-		<< "GuildID:" << m_GuildID
-		<< "GuildName:" << m_GuildName
-		<< "GuildMaster:" << m_GuildMaster
-		<< "GuildMemberCount:" << m_GuildMemberCount
-		<< "GuildExpireDate:" << m_GuildExpireDate
-		<< ")";
+    msg << "GuildInfo( "
+        << "GuildID:" << m_GuildID << "GuildName:" << m_GuildName << "GuildMaster:" << m_GuildMaster
+        << "GuildMemberCount:" << m_GuildMemberCount << "GuildExpireDate:" << m_GuildExpireDate << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

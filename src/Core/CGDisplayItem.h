@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGDisplayItem.h 
+//
+// Filename    : CGDisplayItem.h
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_DISPLAY_ITEM_H__
 #define __CG_DISPLAY_ITEM_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,50 +21,74 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class CGDisplayItem : public Packet
-{
+class CGDisplayItem : public Packet {
 public:
-	CGDisplayItem() {};
+    CGDisplayItem() {};
     ~CGDisplayItem() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_DISPLAY_ITEM; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szCoordInven + szCoordInven + szObjectID + szGold + szBYTE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_DISPLAY_ITEM;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGDisplayItem"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szCoordInven + szCoordInven + szObjectID + szGold + szBYTE;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet name
+    string getPacketName() const {
+        return "CGDisplayItem";
+    }
 
-	CoordInven_t	getX() const { return m_X; }
-	CoordInven_t	getY() const { return m_Y; }
-	void			setXY(CoordInven_t x, CoordInven_t y) { m_X = x; m_Y = y; }
+    // get packet's debug string
+    string toString() const;
 
-	ObjectID_t		getItemObjectID() const { return m_ItemObjectID; }
-	void			setItemObjectID(ObjectID_t oid) { m_ItemObjectID = oid; }
+    CoordInven_t getX() const {
+        return m_X;
+    }
+    CoordInven_t getY() const {
+        return m_Y;
+    }
+    void setXY(CoordInven_t x, CoordInven_t y) {
+        m_X = x;
+        m_Y = y;
+    }
 
-	Gold_t			getPrice() const { return m_Price; }
-	void			setPrice(Gold_t price) { m_Price = price; }
+    ObjectID_t getItemObjectID() const {
+        return m_ItemObjectID;
+    }
+    void setItemObjectID(ObjectID_t oid) {
+        m_ItemObjectID = oid;
+    }
 
-	BYTE			getIndex() const { return m_Index; }
-	void			setIndex(BYTE index) { m_Index = index; }
-private :
+    Gold_t getPrice() const {
+        return m_Price;
+    }
+    void setPrice(Gold_t price) {
+        m_Price = price;
+    }
 
-	CoordInven_t	m_X, m_Y;
-	ObjectID_t		m_ItemObjectID;
-	Gold_t			m_Price;
-	BYTE			m_Index;
+    BYTE getIndex() const {
+        return m_Index;
+    }
+    void setIndex(BYTE index) {
+        m_Index = index;
+    }
+
+private:
+    CoordInven_t m_X, m_Y;
+    ObjectID_t m_ItemObjectID;
+    Gold_t m_Price;
+    BYTE m_Index;
 };
 
 
@@ -77,29 +101,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGDisplayItemFactory : public PacketFactory {
+public:
+    // constructor
+    CGDisplayItemFactory() {}
+
+    // destructor
+    virtual ~CGDisplayItemFactory() {}
+
 
 public:
-	
-	// constructor
-	CGDisplayItemFactory()  {}
-	
-	// destructor
-	virtual ~CGDisplayItemFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGDisplayItem();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGDisplayItem(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGDisplayItem";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGDisplayItem"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_DISPLAY_ITEM; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_DISPLAY_ITEM;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szCoordInven + szCoordInven + szObjectID + szGold + szBYTE; }
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szCoordInven + szCoordInven + szObjectID + szGold + szBYTE;
+    }
 };
 
 
@@ -110,12 +139,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGDisplayItemHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGDisplayItem* pCGDisplayItem, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGDisplayItem* pCGDisplayItem, Player* pPlayer);
 };
 
 #endif

@@ -7,46 +7,45 @@
 #include "CGRequestPowerPoint.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "Creature.h"
-	#include "Assert1.h"
-	#include "mofus/Mofus.h"
+#include "Assert1.h"
+#include "Creature.h"
+#include "GamePlayer.h"
+#include "mofus/Mofus.h"
 
-	#ifdef __MOFUS__
-		#include "mofus/MPlayerManager.h"
-	#endif
+#ifdef __MOFUS__
+#include "mofus/MPlayerManager.h"
+#endif
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGRequestPowerPointHandler::execute (CGRequestPowerPoint* pPacket , Player* pPlayer)
-	 
+void CGRequestPowerPointHandler::execute(CGRequestPowerPoint* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	Creature* pCreature = pGamePlayer->getCreature();
-	Assert(pCreature != NULL);
+    Creature* pCreature = pGamePlayer->getCreature();
+    Assert(pCreature != NULL);
 
 
-    //cout << "--------------------------------------------------" << endl;
-    //cout << "RECV RequestPowerPoint (CellNum:" << pPacket->getCellNum() << ",Name:" << pCreature->getName() << ")" << endl;
-    //cout << "--------------------------------------------------" << endl;
+    // cout << "--------------------------------------------------" << endl;
+    // cout << "RECV RequestPowerPoint (CellNum:" << pPacket->getCellNum() << ",Name:" << pCreature->getName() << ")" <<
+    // endl; cout << "--------------------------------------------------" << endl;
 
 
 #ifdef __MOFUS__
-	g_pMPlayerManager->addJob(pGamePlayer->getID(), pCreature->getName(), pPacket->getCellNum());
+    g_pMPlayerManager->addJob(pGamePlayer->getID(), pCreature->getName(), pPacket->getCellNum());
 #endif
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }
-

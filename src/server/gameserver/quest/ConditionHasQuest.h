@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionHasQuest.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -14,33 +14,41 @@
 // class ConditionHasQuest;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionHasQuest : public Condition 
-{
+class ConditionHasQuest : public Condition {
 public:
-	ConditionHasQuest() ;
-	virtual ~ConditionHasQuest() ;
+    ConditionHasQuest();
+    virtual ~ConditionHasQuest();
 
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_HAS_QUEST; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_HAS_QUEST;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 private:
-	QuestID_t m_QuestID;
+    QuestID_t m_QuestID;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionHasQuestFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionHasQuestFactory : public ConditionFactory 
-{
+class ConditionHasQuestFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_HAS_QUEST; }
-    virtual Condition* createCondition() const  { return new ConditionHasQuest(); }
-    virtual string getConditionName() const  { return "HasQuest"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_HAS_QUEST;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionHasQuest();
+    }
+    virtual string getConditionName() const {
+        return "HasQuest";
+    }
 };
 
 #endif

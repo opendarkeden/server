@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : LightningHand.h 
-// Written By  : 
-// Description : 
+// Filename    : LightningHand.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_LIGHTNING_HAND_HANDLER_H__
@@ -13,19 +13,22 @@
 // class LightningHand;
 //////////////////////////////////////////////////////////////////////////////
 
-class LightningHand : public SkillHandler 
-{
+class LightningHand : public SkillHandler {
 public:
-	LightningHand() throw() {}
-	~LightningHand() throw() {}
-	
+    LightningHand() throw() {}
+    ~LightningHand() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "LightningHand"; }
-	SkillType_t getSkillType() const throw() { return SKILL_LIGHTNING_HAND; }
+    string getSkillHandlerName() const throw() {
+        return "LightningHand";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_LIGHTNING_HAND;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

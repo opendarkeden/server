@@ -14,23 +14,22 @@
 // class EffectCauseCriticalWounds
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectCauseCriticalWounds : public Effect
-{
+class EffectCauseCriticalWounds : public Effect {
 public:
-    EffectCauseCriticalWounds(Creature* pCreature) ;
+    EffectCauseCriticalWounds(Creature* pCreature);
 
 public:
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	string toString() const throw();
-
+    string toString() const throw();
 };
 
 #endif // __EFFECT_CAUSE_CRITICAL_WOUNDS__
-

@@ -1,70 +1,64 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRideMotorCycle.cpp 
+// Filename    : CGRideMotorCycle.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRideMotorCycle.h"
 
-CGRideMotorCycle::CGRideMotorCycle () 
-     
+CGRideMotorCycle::CGRideMotorCycle()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGRideMotorCycle::~CGRideMotorCycle()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGRideMotorCycle::~CGRideMotorCycle () 
-    
+void CGRideMotorCycle::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_X);
+    iStream.read(m_Y);
+
+    __END_CATCH
 }
 
-void CGRideMotorCycle::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_X);
-	iStream.read(m_Y);
+void CGRideMotorCycle::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+    oStream.write(m_X);
+    oStream.write(m_Y);
+
+    __END_CATCH
 }
 
-void CGRideMotorCycle::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_ObjectID);
-	oStream.write(m_X);
-	oStream.write(m_Y);
+void CGRideMotorCycle::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGRideMotorCycleHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-void CGRideMotorCycle::execute (Player* pPlayer) 
-	 
+string CGRideMotorCycle::toString() const
+
 {
-	__BEGIN_TRY
-		
-	CGRideMotorCycleHandler::execute(this , pPlayer);
+    __BEGIN_TRY
 
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGRideMotorCycle(ObjectID :" << (int)m_ObjectID << ", X: " << (int)m_X << ", Y: " << (int)m_Y << ")";
+    return msg.toString();
 
-string CGRideMotorCycle::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGRideMotorCycle(ObjectID :" << (int)m_ObjectID
-		<< ", X: " << (int)m_X 
-		<< ", Y: " << (int)m_Y 
-		<< ")" ;
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

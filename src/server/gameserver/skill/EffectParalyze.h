@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectParalyze.h
 // Written by  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PARALYZE__
@@ -14,32 +14,37 @@
 // class EffectParalyze
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectParalyze : public Effect 
-{
+class EffectParalyze : public Effect {
 public:
-	EffectParalyze(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PARALYZE; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-
-	string toString() const throw();
+    EffectParalyze(Creature* pCreature);
 
 public:
-	Level_t getLevel() const throw() { return m_Level; }
-	void setLevel(Level_t level) throw() { m_Level = level; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_PARALYZE;
+    }
 
-//	int getDefensePenalty(void) const throw() { return m_DefensePenalty; }
-//	void setDefensePenalty(int penalty) { m_DefensePenalty = penalty; }
-	
+    void affect();
+    void affect(Creature* pCreature);
+
+    void unaffect();
+    void unaffect(Creature* pCreature);
+
+    string toString() const throw();
+
+public:
+    Level_t getLevel() const throw() {
+        return m_Level;
+    }
+    void setLevel(Level_t level) throw() {
+        m_Level = level;
+    }
+
+    //	int getDefensePenalty(void) const throw() { return m_DefensePenalty; }
+    //	void setDefensePenalty(int penalty) { m_DefensePenalty = penalty; }
+
 private:
-	Level_t  m_Level;
-//	int     m_DefensePenalty;
+    Level_t m_Level;
+    //	int     m_DefensePenalty;
 };
 
 #endif // __EFFECT_PARALYZE__

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DeleoEfficio.h 
-// Written By  : 
-// Description : 
+// Filename    : DeleoEfficio.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DELEO_EFFICIO_HANDLER_H__
@@ -13,18 +13,21 @@
 // class DeleoEfficio;
 //////////////////////////////////////////////////////////////////////////////
 
-class DeleoEfficio : public SkillHandler 
-{
+class DeleoEfficio : public SkillHandler {
 public:
-	DeleoEfficio() throw() {}
-	~DeleoEfficio() throw() {}
-	
-public:
-    string getSkillHandlerName() const throw() { return "DeleoEfficio"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DELEO_EFFICIO; }
+    DeleoEfficio() throw() {}
+    ~DeleoEfficio() throw() {}
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+public:
+    string getSkillHandlerName() const throw() {
+        return "DeleoEfficio";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DELEO_EFFICIO;
+    }
+
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

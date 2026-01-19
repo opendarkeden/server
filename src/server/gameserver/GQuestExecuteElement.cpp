@@ -1,30 +1,30 @@
 #include "GQuestExecuteElement.h"
-#include "PlayerCreature.h"
-#include "GQuestInfo.h"
+
 #include "GCExecuteElement.h"
+#include "GQuestInfo.h"
 #include "Player.h"
+#include "PlayerCreature.h"
 
-GQuestElement::ResultType GQuestExecuteElement::checkCondition( PlayerCreature* pPC ) const
-{
-	GCExecuteElement gcEE;
+GQuestElement::ResultType GQuestExecuteElement::checkCondition(PlayerCreature* pPC) const {
+    GCExecuteElement gcEE;
 
-	gcEE.setQuestID( m_pParent->getQuestID() );
-	gcEE.setCondition( m_Condition );
-	gcEE.setIndex( m_Index );
+    gcEE.setQuestID(m_pParent->getQuestID());
+    gcEE.setCondition(m_Condition);
+    gcEE.setIndex(m_Index);
 
-	pPC->getPlayer()->sendPacket( &gcEE );
+    pPC->getPlayer()->sendPacket(&gcEE);
 
-	return OK;
+    return OK;
 }
 
-GQuestExecuteElement* GQuestExecuteElement::makeElement(XMLTree* pTree)
-{
-	GQuestExecuteElement* pRet = new GQuestExecuteElement(getElementName());
+GQuestExecuteElement* GQuestExecuteElement::makeElement(XMLTree* pTree) {
+    GQuestExecuteElement* pRet = new GQuestExecuteElement(getElementName());
 
-	DWORD index;
-	if (pTree->GetAttribute("index", index)) pRet->m_Index = index;
+    DWORD index;
+    if (pTree->GetAttribute("index", index))
+        pRet->m_Index = index;
 
-	return pRet;
+    return pRet;
 }
 
 GQuestExecuteElement g_ScriptElement("Script");

@@ -1,70 +1,68 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGJoinGuild.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGJoinGuild.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGJoinGuild.h"
 
 
-void CGJoinGuild::read (SocketInputStream & iStream) 
-	 
+void CGJoinGuild::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szGuildMemberIntro;
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
-	iStream.read(m_GuildMemberRank);
-	iStream.read(szGuildMemberIntro);
+    BYTE szGuildMemberIntro;
 
-	if (szGuildMemberIntro != 0 )
-		iStream.read(m_GuildMemberIntro, szGuildMemberIntro);
-	else
-		m_GuildMemberIntro = "";
+    iStream.read(m_GuildID);
+    iStream.read(m_GuildMemberRank);
+    iStream.read(szGuildMemberIntro);
 
-	__END_CATCH
+    if (szGuildMemberIntro != 0)
+        iStream.read(m_GuildMemberIntro, szGuildMemberIntro);
+    else
+        m_GuildMemberIntro = "";
+
+    __END_CATCH
 }
 
-void CGJoinGuild::write (SocketOutputStream & oStream) const 
-     
+void CGJoinGuild::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szGuildMemberIntro = m_GuildMemberIntro.size();
+    BYTE szGuildMemberIntro = m_GuildMemberIntro.size();
 
-	oStream.write(m_GuildID);
-	oStream.write(m_GuildMemberRank);
-	oStream.write(szGuildMemberIntro);
+    oStream.write(m_GuildID);
+    oStream.write(m_GuildMemberRank);
+    oStream.write(szGuildMemberIntro);
 
-	if (szGuildMemberIntro != 0 )
-		oStream.write(m_GuildMemberIntro);
+    if (szGuildMemberIntro != 0)
+        oStream.write(m_GuildMemberIntro);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGJoinGuild::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGJoinGuildHandler::execute(this , pPlayer);
+void CGJoinGuild::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGJoinGuildHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGJoinGuild::toString () const
-       
+string CGJoinGuild::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGJoinGuild("
-		<< "GuildID:" << (int)m_GuildID
-		<< "GuildMemberRank:" << (int)m_GuildMemberRank
-		<< "GuildMemberIntro:" << m_GuildMemberIntro
-		<< ")" ;
-	return msg.toString();
+        << "GuildID:" << (int)m_GuildID << "GuildMemberRank:" << (int)m_GuildMemberRank
+        << "GuildMemberIntro:" << m_GuildMemberIntro << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

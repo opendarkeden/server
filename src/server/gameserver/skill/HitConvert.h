@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HitConvert.h 
-// Written By  : 
-// Description : 
+// Filename    : HitConvert.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HIT_CONVERT_HANDLER_H__
@@ -13,20 +13,23 @@
 // class HitConvert;
 //////////////////////////////////////////////////////////////////////////////
 
-class HitConvert : public SkillHandler 
-{
+class HitConvert : public SkillHandler {
 public:
-	HitConvert() throw() {}
-	~HitConvert() throw() {}
-	
+    HitConvert() throw() {}
+    ~HitConvert() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HitConvert"; }
+    string getSkillHandlerName() const throw() {
+        return "HitConvert";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_HIT_CONVERT; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HIT_CONVERT;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

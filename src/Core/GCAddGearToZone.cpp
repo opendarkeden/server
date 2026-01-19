@@ -1,87 +1,80 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddGearToZone.cpp 
+//
+// Filename    : GCAddGearToZone.cpp
 // Written By  : crazydog
-// Description : 	
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCAddGearToZone.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCAddGearToZone::GCAddGearToZone () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddGearToZone::GCAddGearToZone()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCAddGearToZone::~GCAddGearToZone () noexcept = default;
+GCAddGearToZone::~GCAddGearToZone() noexcept = default;
 
 
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-void GCAddGearToZone::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_SlotID);
+void GCAddGearToZone::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_SlotID);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void GCAddGearToZone::write (SocketOutputStream & oStream ) const 
-     
+void GCAddGearToZone::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_SlotID);
+    oStream.write(m_SlotID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCAddGearToZone::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
+void GCAddGearToZone::execute(Player* pPlayer)
 
-	GCAddGearToZoneHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCAddGearToZoneHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string GCAddGearToZone::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCAddGearToZone("
-		<< "SlotID:" << (int)m_SlotID 
-		<< ")";
-	return msg.toString();
+string GCAddGearToZone::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCAddGearToZone("
+        << "SlotID:" << (int)m_SlotID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

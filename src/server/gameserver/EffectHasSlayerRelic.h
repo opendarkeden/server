@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHasSlayerRelic.h
-// Written by  : 
+// Written by  :
 // Description : Doom에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,19 +13,20 @@
 // class EffectHasSlayerRelic
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectHasSlayerRelic : public EffectHasRelic 
-{
+class EffectHasSlayerRelic : public EffectHasRelic {
 public:
-	EffectHasSlayerRelic(Creature* pCreature) ;
-	EffectHasSlayerRelic(Item* pItem) ;
+    EffectHasSlayerRelic(Creature* pCreature);
+    EffectHasSlayerRelic(Item* pItem);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_HAS_SLAYER_RELIC; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_HAS_SLAYER_RELIC;
+    }
 
-	void affect(Creature* pCreature) ;
-	void affect(Item* pItem) ;
+    void affect(Creature* pCreature);
+    void affect(Item* pItem);
 
-	string toString() const ;
+    string toString() const;
 };
 
 #endif // __EFFECT_DOOM__

@@ -1,21 +1,21 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : Resource.h 
+//
+// Filename    : Resource.h
 // Written By  : Reiot
-// 
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __RESOURCE_H__
 #define __RESOURCE_H__
 
 // include files
-#include "Types.h"
+#include <stdlib.h>
+
 #include "Exception.h"
-#include "UpdateDef.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-
-#include <stdlib.h>
+#include "Types.h"
+#include "UpdateDef.h"
 
 
 // forward declaration
@@ -31,84 +31,91 @@ class Socket;
 //--------------------------------------------------------------------------------
 
 class Resource {
+public:
+    // constructor
+    Resource(Version_t version = 0, const string& str = "");
 
-public :
+    // copy constructor
+    Resource(const Resource& resource);
 
-	// constructor
-	Resource (Version_t version = 0, const string & str = "") ;
+public:
+    // load from file
+    void load(ifstream& ifile);
 
-	// copy constructor
-	Resource (const Resource & resource) ;
+    // save to file
+    void save(ofstream& ofile) const;
 
-public :
+    // read from socket input stream
+    void read(SocketInputStream& iStream);
 
-	// load from file
-	void load (ifstream & ifile) ;
+    // read from socket
+    void read(Socket* pSocket);
 
-	// save to file
-	void save (ofstream & ofile) const ;
+    // write to socket output stream
+    void write(SocketOutputStream& oStream) const;
 
-	// read from socket input stream
-	void read (SocketInputStream & iStream) ;
+    // write to socket
+    void write(Socket* pSocket) const;
 
-	// read from socket
-	void read (Socket* pSocket) ;
+    // get size
+    uint getSize() const {
+        return szVersion + (szFilenameLen + m_Filename.size()) + szFileSize;
+    }
 
-	// write to socket output stream
-	void write (SocketOutputStream & oStream) const ;
+    // get max size
+    static uint getMaxSize() {
+        return szVersion + (szFilenameLen + maxFilename) + szFileSize;
+    }
 
-	// write to socket
-	void write (Socket* pSocket) const ;
+    // equality operator
+    bool operator==(const Resource& resource) const {
+        return m_Version == resource.m_Version && m_Filename == resource.m_Filename &&
+               m_FileSize == resource.m_FileSize;
+    }
 
-	// get size
-	uint getSize () const  { return szVersion + (szFilenameLen + m_Filename.size()) + szFileSize; }
-
-	// get max size
-	static uint getMaxSize ()  { return szVersion + (szFilenameLen + maxFilename) + szFileSize; }
-
-	// equality operator
-	bool operator == (const Resource & resource) const 
-	{
-		return m_Version == resource.m_Version &&
-				m_Filename == resource.m_Filename &&
-				m_FileSize == resource.m_FileSize;	
-	}
-
-	// !equality operator
-	bool operator != (const Resource & resource) const 
-	{
-		return m_Version != resource.m_Version ||
-				m_Filename != resource.m_Filename ||
-				m_FileSize != resource.m_FileSize;	
-	}
+    // !equality operator
+    bool operator!=(const Resource& resource) const {
+        return m_Version != resource.m_Version || m_Filename != resource.m_Filename ||
+               m_FileSize != resource.m_FileSize;
+    }
 
 
-	
-public :
+public:
+    // get/set version
+    Version_t getVersion() const {
+        return m_Version;
+    }
+    void setVersion(Version_t version) {
+        m_Version = version;
+    }
 
-	// get/set version
-	Version_t getVersion () const  { return m_Version; }
-	void setVersion (Version_t version)  { m_Version = version; }
-	
-	// get/set filename
-	string getFilename () const  { return m_Filename; }
-	void setFilename (const string & filename)  { m_Filename = filename; }
+    // get/set filename
+    string getFilename() const {
+        return m_Filename;
+    }
+    void setFilename(const string& filename) {
+        m_Filename = filename;
+    }
 
-	// get/set filesize
-	FileSize_t getFileSize () const  { return m_FileSize; }
-	void setFileSize (FileSize_t filesize)  { m_FileSize = filesize; }
-	void setFileSize (const string & filesize)  { m_FileSize = atoi(filesize.c_str()); }
-	
-	// get debug string
-	string toString () const ;
+    // get/set filesize
+    FileSize_t getFileSize() const {
+        return m_FileSize;
+    }
+    void setFileSize(FileSize_t filesize) {
+        m_FileSize = filesize;
+    }
+    void setFileSize(const string& filesize) {
+        m_FileSize = atoi(filesize.c_str());
+    }
+
+    // get debug string
+    string toString() const;
 
 
-private :
-
-	Version_t m_Version; 	// 클라이언트 버전
-	string m_Filename;		// 다운받아야 할 파일명
-	DWORD m_FileSize;		// 파일 크기
-
+private:
+    Version_t m_Version; // 클라이언트 버전
+    string m_Filename;   // 다운받아야 할 파일명
+    DWORD m_FileSize;    // 파일 크기
 };
 
 #endif

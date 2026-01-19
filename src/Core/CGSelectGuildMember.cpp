@@ -1,71 +1,70 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSelectGuildMember.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGSelectGuildMember.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGSelectGuildMember.h"
 
 
-void CGSelectGuildMember::read (SocketInputStream & iStream) 
-	 
+void CGSelectGuildMember::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName;
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
-	iStream.read(szName);
+    BYTE szName;
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long szName length");
+    iStream.read(m_GuildID);
+    iStream.read(szName);
 
-	iStream.read(m_Name, szName);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName length");
 
-	__END_CATCH
+    iStream.read(m_Name, szName);
+
+    __END_CATCH
 }
 
-void CGSelectGuildMember::write (SocketOutputStream & oStream) const 
-     
+void CGSelectGuildMember::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szName = m_Name.size();
+    __BEGIN_TRY
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long szName length");
+    BYTE szName = m_Name.size();
 
-	oStream.write(m_GuildID);
-	oStream.write(szName);
-	oStream.write(m_Name);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName length");
 
-	__END_CATCH
+    oStream.write(m_GuildID);
+    oStream.write(szName);
+    oStream.write(m_Name);
+
+    __END_CATCH
 }
 
-void CGSelectGuildMember::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGSelectGuildMemberHandler::execute(this , pPlayer);
+void CGSelectGuildMember::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGSelectGuildMemberHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGSelectGuildMember::toString () const
-       
+string CGSelectGuildMember::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGSelectGuildMember("
-		<< "GuildID:" << m_GuildID
-		<< ")" ;
-	return msg.toString();
+        << "GuildID:" << m_GuildID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

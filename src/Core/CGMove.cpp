@@ -1,90 +1,81 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGMove.cpp 
+// Filename    : CGMove.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGMove.h"
+
+#include "Assert1.h"
 #include "SocketEncryptInputStream.h"
 #include "SocketEncryptOutputStream.h"
-#include "Assert1.h"
 
 
-void CGMove::read (SocketInputStream & iStream) 
-	 
+void CGMove::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-#ifdef __USE_ENCRYPTER__
-	SocketEncryptInputStream* pEIStream = dynamic_cast<SocketEncryptInputStream*>(&iStream);
-    Assert(pEIStream!=NULL);
+    __BEGIN_TRY
 
-	if (pEIStream->getEncryptCode()!=0)
-	{
-		SHUFFLE_STATEMENT_3(pEIStream->getEncryptCode(),
-							pEIStream->readEncrypt(m_X),
-							pEIStream->readEncrypt(m_Y),
-							pEIStream->readEncrypt(m_Dir));
-	}
-	else
+#ifdef __USE_ENCRYPTER__
+    SocketEncryptInputStream* pEIStream = dynamic_cast<SocketEncryptInputStream*>(&iStream);
+    Assert(pEIStream != NULL);
+
+    if (pEIStream->getEncryptCode() != 0) {
+        SHUFFLE_STATEMENT_3(pEIStream->getEncryptCode(), pEIStream->readEncrypt(m_X), pEIStream->readEncrypt(m_Y),
+                            pEIStream->readEncrypt(m_Dir));
+    } else
 #endif
-	{
-		iStream.read(m_Dir);
+    {
+        iStream.read(m_Dir);
         iStream.read(m_X);
-		iStream.read(m_Y);
-	}
+        iStream.read(m_Y);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGMove::write (SocketOutputStream & oStream) const 
-     
+void CGMove::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 #ifdef __USE_ENCRYPTER__
-	SocketEncryptOutputStream* pEOStream = dynamic_cast<SocketEncryptOutputStream*>(&oStream);
-    Assert(pEOStream!=NULL);
+    SocketEncryptOutputStream* pEOStream = dynamic_cast<SocketEncryptOutputStream*>(&oStream);
+    Assert(pEOStream != NULL);
 
-	if (pEOStream->getEncryptCode()!=0)
-	{
-		SHUFFLE_STATEMENT_3(pEOStream->getEncryptCode(),
-							pEOStream->writeEncrypt(m_X),
-							pEOStream->writeEncrypt(m_Y),
-							pEOStream->writeEncrypt(m_Dir));
-	}
-	else
+    if (pEOStream->getEncryptCode() != 0) {
+        SHUFFLE_STATEMENT_3(pEOStream->getEncryptCode(), pEOStream->writeEncrypt(m_X), pEOStream->writeEncrypt(m_Y),
+                            pEOStream->writeEncrypt(m_Dir));
+    } else
 #endif
-	{
-   		oStream.write(m_Dir);
-		oStream.write(m_X);
-		oStream.write(m_Y);
-	}
+    {
+        oStream.write(m_Dir);
+        oStream.write(m_X);
+        oStream.write(m_Y);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGMove::execute (Player* pPlayer) 
-	 
+void CGMove::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	CGMoveHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CGMoveHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGMove::toString () const
-    
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGMove("
-		<< "X:" << (int)m_X 
-		<< ",Y:" << (int)m_Y 
-		<< ",Dir:" << Dir2String[m_Dir] << ")";
-	return msg.toString();
+string CGMove::toString() const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGMove("
+        << "X:" << (int)m_X << ",Y:" << (int)m_Y << ",Dir:" << Dir2String[m_Dir] << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

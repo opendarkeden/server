@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCGuildResponse.cpp
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCGuildResponse.h"
@@ -9,72 +9,70 @@
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCGuildResponse::read (SocketInputStream & iStream ) 
-	 
+void GCGuildResponse::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_Code);
-	iStream.read(m_Parameter);
+    iStream.read(m_Code);
+    iStream.read(m_Parameter);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCGuildResponse::write (SocketOutputStream & oStream ) const 
-     
+void GCGuildResponse::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_Code);
-	oStream.write(m_Parameter);
+    oStream.write(m_Code);
+    oStream.write(m_Parameter);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCGuildResponse::execute (Player * pPlayer ) 
-	 
+void GCGuildResponse::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCGuildResponseHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCGuildResponseHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 패킷 사이즈
 //////////////////////////////////////////////////////////////////////////////
 
-PacketSize_t GCGuildResponse::getPacketSize () const 
-	 
+PacketSize_t GCGuildResponse::getPacketSize() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	return szWORD + szuint;
+    return szWORD + szuint;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCGuildResponse::toString () const
-       
+string GCGuildResponse::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCGuildResponse(" 
-	    << "Code : " << (int)m_Code 
-		<< "Parameter : " << (int)m_Parameter
-	    << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCGuildResponse("
+        << "Code : " << (int)m_Code << "Parameter : " << (int)m_Parameter << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -5,6 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "VampEXPInfo.h"
+
 #include "Assert.h"
 #include "DB.h"
 // #include <algo.h>
@@ -20,33 +21,24 @@ VampEXPInfoManager* g_pVampEXPInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 VampEXPInfo::VampEXPInfo()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+
+    {__BEGIN_TRY __END_CATCH}
 
 VampEXPInfo::~VampEXPInfo()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
+
+    {__BEGIN_TRY __END_CATCH_NO_RETHROW}
 
 string VampEXPInfo::toString() const
-	
-{
-	__BEGIN_TRY
-	
-	StringStream msg;
-	msg << "VampEXPInfo ("
-			<< " Level : "   << (int)m_Level
-			<< " GoalExp : "   << (int)m_GoalExp
-			<< " AccumExp : " << (int)m_AccumExp
-			<< ")";
-	return msg.toString();
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "VampEXPInfo ("
+        << " Level : " << (int)m_Level << " GoalExp : " << (int)m_GoalExp << " AccumExp : " << (int)m_AccumExp << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,148 +46,138 @@ string VampEXPInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 VampEXPInfoManager::VampEXPInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_VampEXPCount    = 0;
-	m_VampEXPInfoList = NULL;
+    m_VampEXPCount = 0;
+    m_VampEXPInfoList = NULL;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 VampEXPInfoManager::~VampEXPInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	if (m_VampEXPInfoList != NULL)
-	{
-		for (uint i=0; i<m_VampEXPCount; i++)
-			SAFE_DELETE(m_VampEXPInfoList[i]);
+    if (m_VampEXPInfoList != NULL) {
+        for (uint i = 0; i < m_VampEXPCount; i++)
+            SAFE_DELETE(m_VampEXPInfoList[i]);
 
-		SAFE_DELETE_ARRAY(m_VampEXPInfoList);
-	}
-	
-	__END_CATCH_NO_RETHROW
+        SAFE_DELETE_ARRAY(m_VampEXPInfoList);
+    }
+
+    __END_CATCH_NO_RETHROW
 }
 
 void VampEXPInfoManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void VampEXPInfoManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Statement* pStmt   = NULL; // by sigi
-	Result*    pResult = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(Level) FROM VampEXPBalanceInfo");
+    Statement* pStmt = NULL; // by sigi
+    Result* pResult = NULL;
 
-		if (pResult -> getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in VampEXPInfo Table");
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(Level) FROM VampEXPBalanceInfo");
 
-		// 전체 갯수를 세팅한다.
-		pResult->next();
-		m_VampEXPCount = pResult->getInt(1) +1;
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in VampEXPInfo Table");
+        }
 
-		Assert (m_VampEXPCount > 0);
+        // 전체 갯수를 세팅한다.
+        pResult->next();
+        m_VampEXPCount = pResult->getInt(1) + 1;
 
-		m_VampEXPInfoList = new VampEXPInfo* [m_VampEXPCount]; 
+        Assert(m_VampEXPCount > 0);
 
-		Assert(m_VampEXPInfoList != NULL);
+        m_VampEXPInfoList = new VampEXPInfo*[m_VampEXPCount];
 
-		// 배열을 초기화
-		for (uint i = 0 ; i < m_VampEXPCount ; i ++)
-			m_VampEXPInfoList[i] = NULL;
-		
-		pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp from VampEXPBalanceInfo");
+        Assert(m_VampEXPInfoList != NULL);
 
-		while (pResult->next()) 
-		{
-			VampEXPInfo* pVampEXPInfo = new VampEXPInfo ();
-			int          i            = 0;
+        // 배열을 초기화
+        for (uint i = 0; i < m_VampEXPCount; i++)
+            m_VampEXPInfoList[i] = NULL;
 
-			pVampEXPInfo->setLevel (pResult->getInt(++i));
-			pVampEXPInfo->setGoalExp (pResult->getInt(++i));
-			pVampEXPInfo->setAccumExp (pResult->getInt(++i));
+        pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp from VampEXPBalanceInfo");
 
-			addVampEXPInfo(pVampEXPInfo);
-		}
+        while (pResult->next()) {
+            VampEXPInfo* pVampEXPInfo = new VampEXPInfo();
+            int i = 0;
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            pVampEXPInfo->setLevel(pResult->getInt(++i));
+            pVampEXPInfo->setGoalExp(pResult->getInt(++i));
+            pVampEXPInfo->setAccumExp(pResult->getInt(++i));
 
-	__END_DEBUG
-	__END_CATCH
+            addVampEXPInfo(pVampEXPInfo);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void VampEXPInfoManager::addVampEXPInfo(VampEXPInfo* pVampEXPInfo)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert(pVampEXPInfo != NULL);
-	Assert(m_VampEXPInfoList[pVampEXPInfo->getLevel()] == NULL);
+    Assert(pVampEXPInfo != NULL);
+    Assert(m_VampEXPInfoList[pVampEXPInfo->getLevel()] == NULL);
 
-	m_VampEXPInfoList[pVampEXPInfo->getLevel()] = pVampEXPInfo;
-	
-	__END_CATCH
+    m_VampEXPInfoList[pVampEXPInfo->getLevel()] = pVampEXPInfo;
+
+    __END_CATCH
 }
 
-VampEXPInfo* VampEXPInfoManager::getVampEXPInfo(uint  VampEXPType) const
-{
-	__BEGIN_TRY
+VampEXPInfo* VampEXPInfoManager::getVampEXPInfo(uint VampEXPType) const {
+    __BEGIN_TRY
 
-	Assert(VampEXPType < m_VampEXPCount);
-	Assert(m_VampEXPInfoList[VampEXPType] != NULL);
+    Assert(VampEXPType < m_VampEXPCount);
+    Assert(m_VampEXPInfoList[VampEXPType] != NULL);
 
-	return m_VampEXPInfoList[VampEXPType];
-	
-	__END_CATCH
+    return m_VampEXPInfoList[VampEXPType];
+
+    __END_CATCH
 }
 
 string VampEXPInfoManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "VampEXPInfoManager(";
+    msg << "VampEXPInfoManager(";
 
-	for (uint i = 0 ; i < m_VampEXPCount ; i ++) 
-	{
-		if (m_VampEXPInfoList[i] != NULL)
-		{
-			msg << m_VampEXPInfoList[i]->toString();
-		}
-		else 
-		{
-			msg << "NULL" ;
-		}
-	}
-	
-	msg << ")";
+    for (uint i = 0; i < m_VampEXPCount; i++) {
+        if (m_VampEXPInfoList[i] != NULL) {
+            msg << m_VampEXPInfoList[i]->toString();
+        } else {
+            msg << "NULL";
+        }
+    }
 
-	return msg.toString();
+    msg << ")";
 
-	__END_CATCH
+    return msg.toString();
+
+    __END_CATCH
 }
-

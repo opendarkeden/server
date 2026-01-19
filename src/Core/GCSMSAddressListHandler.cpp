@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCSMSAddressListHandler::execute (GCSMSAddressList * pGCSMSAddressList , Player * pPlayer )
-	 
+void GCSMSAddressListHandler::execute(GCSMSAddressList* pGCSMSAddressList, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_CLIENT__
 
-	//cout << pGCSMSAddressList->toString() << endl;
-	
+    // cout << pGCSMSAddressList->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

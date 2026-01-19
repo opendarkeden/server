@@ -1,49 +1,47 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSilverCoating.cpp 
+// Filename    : CGSilverCoating.cpp
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGSilverCoating.h"
 
-void CGSilverCoating::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
+void CGSilverCoating::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+
+    __END_CATCH
 }
 
-void CGSilverCoating::write (SocketOutputStream & oStream) const 
-     
+void CGSilverCoating::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
+    oStream.write(m_ObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGSilverCoating::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGSilverCoating::execute(Player* pPlayer)
 
-	CGSilverCoatingHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGSilverCoatingHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGSilverCoating::toString () 
-	const 
-{
-	__BEGIN_TRY
+string CGSilverCoating::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CGSilverCoating()";
-	return msg.toString();
+    StringStream msg;
+    msg << "CGSilverCoating()";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -1,8 +1,6 @@
 
 // 몇개의 Zone 에만 메세지를 뿌리기 위해서 성에 속한 ZoneIDList가 필요함
-void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList )
-{
-
+void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList) {
     __BEGIN_TRY
 
     size_t a = 0, b = 0;
@@ -12,25 +10,23 @@ void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList )
     // a    ba    b
     //////////////////////////////////////////////
     zoneIDList.clear();
-    if (zoneIDs.size()<=1) return;
+    if (zoneIDs.size() <= 1)
+        return;
 
-    do
-    {
+    do {
         b = zoneIDs.find_first_of(',', a);
 
-        if (b==string::npos)
+        if (b == string::npos)
             break;
 
-        string zoneID = trim( zoneIDs.substr(a, b-a) );
+        string zoneID = trim(zoneIDs.substr(a, b - a));
 
         // 음 -_- 그냥 atoi 써도 될려나 ;;
-        zoneIDList.push_back( atoi( zoneID.c_str() ) );
+        zoneIDList.push_back(atoi(zoneID.c_str()));
 
-        a = b+1;
+        a = b + 1;
 
-    } while (b!=string::npos && b < zoneIDs.size() -1);
+    } while (b != string::npos && b < zoneIDs.size() - 1);
 
     __END_CATCH
-
 }
-

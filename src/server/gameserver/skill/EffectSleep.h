@@ -14,23 +14,22 @@
 // class EffectSleep
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSleep : public Effect
-{
+class EffectSleep : public Effect {
 public:
-    EffectSleep(Creature* pCreature) ;
+    EffectSleep(Creature* pCreature);
 
 public:
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SLEEP; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_SLEEP;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	string toString() const throw();
-
+    string toString() const throw();
 };
 
 #endif // __EFFECT_SLEEP__
-

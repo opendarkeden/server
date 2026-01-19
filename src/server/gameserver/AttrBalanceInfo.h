@@ -14,28 +14,39 @@
 // Class STRBalanceInfo
 ////////////////////////////////////////////////////////////////////////////////
 
-class STRBalanceInfo 
-{
+class STRBalanceInfo {
 public:
-	STRBalanceInfo() ;
-	~STRBalanceInfo() ;
+    STRBalanceInfo();
+    ~STRBalanceInfo();
 
 public:
-	void setLevel(uint lev)  { m_Level = lev; }
-	uint getLevel() const  { return m_Level; }
+    void setLevel(uint lev) {
+        m_Level = lev;
+    }
+    uint getLevel() const {
+        return m_Level;
+    }
 
-	void setGoalExp(uint sum)  { m_GoalExp = sum; }
-	uint getGoalExp() const  { return m_GoalExp; }
+    void setGoalExp(uint sum) {
+        m_GoalExp = sum;
+    }
+    uint getGoalExp() const {
+        return m_GoalExp;
+    }
 
-	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
-	uint getAccumExp() const  { return m_AccumExp; }
+    void setAccumExp(uint accum) {
+        m_AccumExp = accum;
+    }
+    uint getAccumExp() const {
+        return m_AccumExp;
+    }
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint m_Level;
-	uint m_GoalExp;
-	uint m_AccumExp;
+    uint m_Level;
+    uint m_GoalExp;
+    uint m_AccumExp;
 };
 
 
@@ -43,24 +54,23 @@ private:
 // Class STRBalanceInfoManager
 ////////////////////////////////////////////////////////////////////////////////
 
-class STRBalanceInfoManager 
-{
+class STRBalanceInfoManager {
 public:
-	STRBalanceInfoManager() ;
-	~STRBalanceInfoManager() ;
+    STRBalanceInfoManager();
+    ~STRBalanceInfoManager();
 
 public:
-	void init() ;
-	void load() ;
+    void init();
+    void load();
 
-	STRBalanceInfo* getSTRBalanceInfo(uint value) const ;
-	void addSTRBalanceInfo(STRBalanceInfo* pSTRBalanceInfo) ;
+    STRBalanceInfo* getSTRBalanceInfo(uint value) const;
+    void addSTRBalanceInfo(STRBalanceInfo* pSTRBalanceInfo);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint             m_STRBalanceCount;
-	STRBalanceInfo** m_STRBalanceInfoList;
+    uint m_STRBalanceCount;
+    STRBalanceInfo** m_STRBalanceInfoList;
 };
 
 
@@ -68,28 +78,39 @@ private:
 // Class DEXBalanceInfo
 ////////////////////////////////////////////////////////////////////////////////
 
-class DEXBalanceInfo 
-{
+class DEXBalanceInfo {
 public:
-	DEXBalanceInfo() ;
-	~DEXBalanceInfo() ;
+    DEXBalanceInfo();
+    ~DEXBalanceInfo();
 
 public:
-	void setLevel(uint lev)  { m_Level = lev; }
-	uint getLevel() const  { return m_Level; }
+    void setLevel(uint lev) {
+        m_Level = lev;
+    }
+    uint getLevel() const {
+        return m_Level;
+    }
 
-	void setGoalExp(uint sum)  { m_GoalExp = sum; }
-	uint getGoalExp() const  { return m_GoalExp; }
+    void setGoalExp(uint sum) {
+        m_GoalExp = sum;
+    }
+    uint getGoalExp() const {
+        return m_GoalExp;
+    }
 
-	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
-	uint getAccumExp() const  { return m_AccumExp; }
+    void setAccumExp(uint accum) {
+        m_AccumExp = accum;
+    }
+    uint getAccumExp() const {
+        return m_AccumExp;
+    }
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint m_Level;
-	uint m_GoalExp;
-	uint m_AccumExp;
+    uint m_Level;
+    uint m_GoalExp;
+    uint m_AccumExp;
 };
 
 
@@ -97,25 +118,23 @@ private:
 // Class DEXBalanceInfoManager
 ////////////////////////////////////////////////////////////////////////////////
 
-class DEXBalanceInfoManager 
-{
+class DEXBalanceInfoManager {
 public:
-	DEXBalanceInfoManager() ;
-	~DEXBalanceInfoManager() ;
+    DEXBalanceInfoManager();
+    ~DEXBalanceInfoManager();
 
 public:
-	void init() ;
-	void load() ;
+    void init();
+    void load();
 
-	DEXBalanceInfo* getDEXBalanceInfo(uint value) const ;
-	void addDEXBalanceInfo(DEXBalanceInfo* pDEXBalanceInfo) ;
+    DEXBalanceInfo* getDEXBalanceInfo(uint value) const;
+    void addDEXBalanceInfo(DEXBalanceInfo* pDEXBalanceInfo);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint             m_DEXBalanceCount;
-	DEXBalanceInfo** m_DEXBalanceInfoList;
-		
+    uint m_DEXBalanceCount;
+    DEXBalanceInfo** m_DEXBalanceInfoList;
 };
 
 
@@ -123,28 +142,39 @@ private:
 // Class INTBalanceInfo
 ////////////////////////////////////////////////////////////////////////////////
 
-class INTBalanceInfo 
-{
+class INTBalanceInfo {
 public:
-	INTBalanceInfo() ;
-	~INTBalanceInfo() ;
+    INTBalanceInfo();
+    ~INTBalanceInfo();
 
 public:
-	void setLevel(uint lev)  { m_Level = lev; }
-	uint getLevel() const  { return m_Level; }
+    void setLevel(uint lev) {
+        m_Level = lev;
+    }
+    uint getLevel() const {
+        return m_Level;
+    }
 
-	void setGoalExp(uint sum)  { m_GoalExp = sum; }
-	uint getGoalExp() const  { return m_GoalExp; }
+    void setGoalExp(uint sum) {
+        m_GoalExp = sum;
+    }
+    uint getGoalExp() const {
+        return m_GoalExp;
+    }
 
-	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
-	uint getAccumExp() const  { return m_AccumExp; }
+    void setAccumExp(uint accum) {
+        m_AccumExp = accum;
+    }
+    uint getAccumExp() const {
+        return m_AccumExp;
+    }
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint m_Level;
-	uint m_GoalExp;
-	uint m_AccumExp;
+    uint m_Level;
+    uint m_GoalExp;
+    uint m_AccumExp;
 };
 
 
@@ -152,25 +182,23 @@ private:
 // Class INTBalanceInfoManager
 ////////////////////////////////////////////////////////////////////////////////
 
-class INTBalanceInfoManager 
-{
+class INTBalanceInfoManager {
 public:
-	INTBalanceInfoManager() ;
-	~INTBalanceInfoManager() ;
+    INTBalanceInfoManager();
+    ~INTBalanceInfoManager();
 
 public:
-	void init() ;
-	void load() ;
+    void init();
+    void load();
 
-	INTBalanceInfo* getINTBalanceInfo(uint value) const ;
-	void addINTBalanceInfo(INTBalanceInfo* pINTBalanceInfo) ;
+    INTBalanceInfo* getINTBalanceInfo(uint value) const;
+    void addINTBalanceInfo(INTBalanceInfo* pINTBalanceInfo);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint             m_INTBalanceCount;
-	INTBalanceInfo** m_INTBalanceInfoList;
-		
+    uint m_INTBalanceCount;
+    INTBalanceInfo** m_INTBalanceInfoList;
 };
 
 // global variable definition
@@ -178,4 +206,4 @@ extern STRBalanceInfoManager* g_pSTRBalanceInfoManager;
 extern DEXBalanceInfoManager* g_pDEXBalanceInfoManager;
 extern INTBalanceInfoManager* g_pINTBalanceInfoManager;
 
-#endif	
+#endif

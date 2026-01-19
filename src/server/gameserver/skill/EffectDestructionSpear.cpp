@@ -1,122 +1,112 @@
 #include "EffectDestructionSpear.h"
+
 #include "Creature.h"
-#include "PlayerCreature.h"
-#include "Ousters.h"
-#include "Player.h"
-#include "SkillUtil.h"
-#include "Zone.h"
 #include "GCModifyInformation.h"
 #include "GCRemoveEffect.h"
+#include "Ousters.h"
+#include "Player.h"
+#include "PlayerCreature.h"
+#include "SkillUtil.h"
+#include "Zone.h"
 
-EffectDestructionSpear::EffectDestructionSpear(Creature* pCreature) 
-{
-	__BEGIN_TRY
+EffectDestructionSpear::EffectDestructionSpear(Creature* pCreature) {
+    __BEGIN_TRY
 
-	m_pTarget = pCreature;
-	m_CanSteal = false;
+    m_pTarget = pCreature;
+    m_CanSteal = false;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectDestructionSpear::affect() 
-{
-	__BEGIN_TRY
+void EffectDestructionSpear::affect() {
+    __BEGIN_TRY
 
-	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-	{
-		affect( dynamic_cast<Creature*>(m_pTarget) );
-	}
+    if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+        affect(dynamic_cast<Creature*>(m_pTarget));
+    }
 
-	setNextTime(10);
+    setNextTime(10);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectDestructionSpear::affect(Creature* pCreature) 
-{
-	__BEGIN_TRY
+void EffectDestructionSpear::affect(Creature* pCreature) {
+    __BEGIN_TRY
 
-	if ( pCreature == NULL ) return;
-	
-	Zone* pZone = pCreature->getZone();
-	if ( pZone == NULL ) return;
+    if (pCreature == NULL)
+        return;
 
-	Creature* pCastCreature = pZone->getCreature( getCasterID() );
+    Zone* pZone = pCreature->getZone();
+    if (pZone == NULL)
+        return;
 
-	GCModifyInformation gcMI, gcAttackerMI;
+    Creature* pCastCreature = pZone->getCreature(getCasterID());
 
-	if ( canAttack( pCastCreature, pCreature )
-	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
-	{
-		if ( pCreature->isPC() )
-		{
-			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
+    GCModifyInformation gcMI, gcAttackerMI;
 
-			::setDamage( pPC, getDamage(), pCastCreature, SKILL_DESTRUCTION_SPEAR, &gcMI, &gcAttackerMI, true, m_CanSteal );
-			pPC->getPlayer()->sendPacket( &gcMI );
-		}
-		else if ( pCreature->isMonster() )
-		{
-			::setDamage( pCreature, getDamage(), pCastCreature, SKILL_DESTRUCTION_SPEAR, NULL, &gcAttackerMI, true, m_CanSteal );
-		}
+    if (canAttack(pCastCreature, pCreature) && !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)) {
+        if (pCreature->isPC()) {
+            PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-		if ( pCastCreature != NULL && pCastCreature->isOusters() )
-		{
-			Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
+            ::setDamage(pPC, getDamage(), pCastCreature, SKILL_DESTRUCTION_SPEAR, &gcMI, &gcAttackerMI, true,
+                        m_CanSteal);
+            pPC->getPlayer()->sendPacket(&gcMI);
+        } else if (pCreature->isMonster()) {
+            ::setDamage(pCreature, getDamage(), pCastCreature, SKILL_DESTRUCTION_SPEAR, NULL, &gcAttackerMI, true,
+                        m_CanSteal);
+        }
 
-			computeAlignmentChange(pCreature, getDamage(), pOusters, &gcMI, &gcAttackerMI);
-			increaseAlignment(pOusters, pCreature, gcAttackerMI);
+        if (pCastCreature != NULL && pCastCreature->isOusters()) {
+            Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
 
-			if (pCreature->isDead())
-			{
-				int exp = computeCreatureExp(pCreature, 100, pOusters);
-				shareOustersExp(pOusters, exp, gcAttackerMI);
-			}
+            computeAlignmentChange(pCreature, getDamage(), pOusters, &gcMI, &gcAttackerMI);
+            increaseAlignment(pOusters, pCreature, gcAttackerMI);
 
-			pOusters->getPlayer()->sendPacket( &gcAttackerMI );
-		}
-	}
+            if (pCreature->isDead()) {
+                int exp = computeCreatureExp(pCreature, 100, pOusters);
+                shareOustersExp(pOusters, exp, gcAttackerMI);
+            }
 
-	setNextTime(20);
+            pOusters->getPlayer()->sendPacket(&gcAttackerMI);
+        }
+    }
 
-	__END_CATCH
+    setNextTime(20);
+
+    __END_CATCH
 }
 
-void EffectDestructionSpear::unaffect() 
-{
-	__BEGIN_TRY
+void EffectDestructionSpear::unaffect() {
+    __BEGIN_TRY
 
-	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-	{
-		unaffect( dynamic_cast<Creature*>(m_pTarget) );
-	}
+    if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+        unaffect(dynamic_cast<Creature*>(m_pTarget));
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectDestructionSpear::unaffect( Creature* pCreature ) 
-{
-	__BEGIN_TRY
+void EffectDestructionSpear::unaffect(Creature* pCreature) {
+    __BEGIN_TRY
 
-	pCreature->removeFlag( getEffectClass() );
+    pCreature->removeFlag(getEffectClass());
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList( getSendEffectClass() );
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pCreature->getObjectID());
+    gcRemoveEffect.addEffectList(getSendEffectClass());
+    pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string EffectDestructionSpear::toString() const throw()
-{
-	__BEGIN_TRY
+string EffectDestructionSpear::toString() const throw() {
+    __BEGIN_TRY
 
-	return "EffectDestructionSpear";
+    return "EffectDestructionSpear";
 
-	__END_CATCH
+    __END_CATCH
 }

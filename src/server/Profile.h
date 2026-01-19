@@ -1,17 +1,18 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Profile.h
 // Written by  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PROFILE_H__
 #define __PROFILE_H__
 
-#include "Types.h"
-#include "Exception.h"
-#include "Timeval.h"
-#include "Mutex.h"
 #include <unordered_map>
+
+#include "Exception.h"
+#include "Mutex.h"
+#include "Timeval.h"
+#include "Types.h"
 
 const int MAX_PROFILE_SAMPLES = 400;
 class GMServerInfo;
@@ -19,61 +20,108 @@ class GMServerInfo;
 //////////////////////////////////////////////////////////////////////////////
 // class ProfileSample
 //////////////////////////////////////////////////////////////////////////////
-class ProfileSample
-{
+class ProfileSample {
 public:
-	ProfileSample();
-	~ProfileSample();
+    ProfileSample();
+    ~ProfileSample();
 
 public:
-	bool isUsed(void) const { return m_bUsed; }
-	void setUsed(bool bUsed) { m_bUsed = bUsed; }
-	
-	string getName(void) const { return m_Name; }
-	void setName(const string& name) { m_Name = name; }
+    bool isUsed(void) const {
+        return m_bUsed;
+    }
+    void setUsed(bool bUsed) {
+        m_bUsed = bUsed;
+    }
 
-	int getOpenCount(void) const { return m_OpenCount; }
-	void setOpenCount(int count) { m_OpenCount = count; }
-	
-	int getCallCount(void) const { return m_CallCount; }
-	void setCallCount(int count) { m_CallCount = count; }
+    string getName(void) const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+    }
 
-	int getParentCount(void) const { return m_ParentCount; }
-	void setParentCount(int count) { m_ParentCount = count; }
+    int getOpenCount(void) const {
+        return m_OpenCount;
+    }
+    void setOpenCount(int count) {
+        m_OpenCount = count;
+    }
 
-	Timeval getStartTime(void) const { return m_StartTime; }
-	void setStartTime(const Timeval& ptime) { m_StartTime = ptime; }
-	void setStartTime(void) { getCurrentTime(m_StartTime); }
+    int getCallCount(void) const {
+        return m_CallCount;
+    }
+    void setCallCount(int count) {
+        m_CallCount = count;
+    }
 
-	Timeval getEndTime(void) const { return m_EndTime; }
-	void setEndTime(const Timeval& ptime) { m_EndTime = ptime; }
+    int getParentCount(void) const {
+        return m_ParentCount;
+    }
+    void setParentCount(int count) {
+        m_ParentCount = count;
+    }
 
-	Timeval getChildTime(void) const { return m_ChildTime; }
-	void setChildTime(const Timeval& ptime) { m_ChildTime = ptime; }
-	void initChildTime(void) { m_ChildTime.tv_sec = 0; m_ChildTime.tv_usec = 0; }
-	void addChildTime(const Timeval& ptime) { m_ChildTime = m_ChildTime + ptime; }
+    Timeval getStartTime(void) const {
+        return m_StartTime;
+    }
+    void setStartTime(const Timeval& ptime) {
+        m_StartTime = ptime;
+    }
+    void setStartTime(void) {
+        getCurrentTime(m_StartTime);
+    }
 
-	Timeval getAccuTime(void) const { return m_AccuTime; }
-	void setAccuTime(const Timeval& ptime) { m_AccuTime = ptime; }
-	void initAccuTime(void) { m_AccuTime.tv_sec = 0; m_AccuTime.tv_usec = 0; }
-	void addAccuTime(const Timeval& ptime) { m_AccuTime = m_AccuTime + ptime; }
+    Timeval getEndTime(void) const {
+        return m_EndTime;
+    }
+    void setEndTime(const Timeval& ptime) {
+        m_EndTime = ptime;
+    }
 
-	string getAverageTime(void) const;
-	string getAccumulatedTime(void) const;
-	string getChildrenTime(void) const;
+    Timeval getChildTime(void) const {
+        return m_ChildTime;
+    }
+    void setChildTime(const Timeval& ptime) {
+        m_ChildTime = ptime;
+    }
+    void initChildTime(void) {
+        m_ChildTime.tv_sec = 0;
+        m_ChildTime.tv_usec = 0;
+    }
+    void addChildTime(const Timeval& ptime) {
+        m_ChildTime = m_ChildTime + ptime;
+    }
 
-	string toString(void) const;
+    Timeval getAccuTime(void) const {
+        return m_AccuTime;
+    }
+    void setAccuTime(const Timeval& ptime) {
+        m_AccuTime = ptime;
+    }
+    void initAccuTime(void) {
+        m_AccuTime.tv_sec = 0;
+        m_AccuTime.tv_usec = 0;
+    }
+    void addAccuTime(const Timeval& ptime) {
+        m_AccuTime = m_AccuTime + ptime;
+    }
+
+    string getAverageTime(void) const;
+    string getAccumulatedTime(void) const;
+    string getChildrenTime(void) const;
+
+    string toString(void) const;
 
 protected:
-	bool    m_bUsed;
-	string  m_Name;
-	int     m_OpenCount;
-	int     m_CallCount;
-	int     m_ParentCount;
-	Timeval m_StartTime;
-	Timeval m_EndTime;
-	Timeval m_ChildTime;
-	Timeval m_AccuTime;
+    bool m_bUsed;
+    string m_Name;
+    int m_OpenCount;
+    int m_CallCount;
+    int m_ParentCount;
+    Timeval m_StartTime;
+    Timeval m_EndTime;
+    Timeval m_ChildTime;
+    Timeval m_AccuTime;
 };
 
 
@@ -81,34 +129,53 @@ protected:
 // class ProfileHistory
 //////////////////////////////////////////////////////////////////////////////
 
-class ProfileHistory
-{
+class ProfileHistory {
 public:
-	ProfileHistory();
-	~ProfileHistory();
+    ProfileHistory();
+    ~ProfileHistory();
 
 public:
-	bool isUsed(void) const { return m_bUsed; }
-	void setUsed(bool bUsed) { m_bUsed = bUsed; }
-	
-	string getName(void) const { return m_Name; }
-	void setName(const string& name) { m_Name = name; }
+    bool isUsed(void) const {
+        return m_bUsed;
+    }
+    void setUsed(bool bUsed) {
+        m_bUsed = bUsed;
+    }
 
-	float getAverage(void) const { return m_Average; }
-	void setAverage(const float& average) { m_Average = average; }
+    string getName(void) const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+    }
 
-	float getMin(void) const { return m_Min; }
-	void setMin(const float& average) { m_Min = average; }
+    float getAverage(void) const {
+        return m_Average;
+    }
+    void setAverage(const float& average) {
+        m_Average = average;
+    }
 
-	float getMax(void) const { return m_Max; }
-	void setMax(const float& average) { m_Max = average; }
+    float getMin(void) const {
+        return m_Min;
+    }
+    void setMin(const float& average) {
+        m_Min = average;
+    }
+
+    float getMax(void) const {
+        return m_Max;
+    }
+    void setMax(const float& average) {
+        m_Max = average;
+    }
 
 protected:
-	bool   m_bUsed;
-	string m_Name;
-	float  m_Average;
-	float  m_Min;
-	float  m_Max;
+    bool m_bUsed;
+    string m_Name;
+    float m_Average;
+    float m_Min;
+    float m_Max;
 };
 
 
@@ -116,24 +183,24 @@ protected:
 // class ProfileSampleSet
 //////////////////////////////////////////////////////////////////////////////
 
-class ProfileSampleSet
-{
+class ProfileSampleSet {
 public:
-	ProfileSampleSet();
-	~ProfileSampleSet();
+    ProfileSampleSet();
+    ~ProfileSampleSet();
 
 public:
-	void initProfile(void);
-	void beginProfile(const string& name);
-	void endProfile(const string& name);
-	void outputProfile(bool bOutputOnlyRootNode=false, bool bOutputThreadID=true);
-	void outputProfileToFile(const char* filename, bool bOutputOnlyRootNode=false, bool bOutputThreadID=true, GMServerInfo* pServerInfo=NULL);
-	void storeProfileInHistory(const string& name, float percent);
-	void getProfileFromHistory(const string& name, float& ave, float& min, float& max);
+    void initProfile(void);
+    void beginProfile(const string& name);
+    void endProfile(const string& name);
+    void outputProfile(bool bOutputOnlyRootNode = false, bool bOutputThreadID = true);
+    void outputProfileToFile(const char* filename, bool bOutputOnlyRootNode = false, bool bOutputThreadID = true,
+                             GMServerInfo* pServerInfo = NULL);
+    void storeProfileInHistory(const string& name, float percent);
+    void getProfileFromHistory(const string& name, float& ave, float& min, float& max);
 
 protected:
-	ProfileSample m_ProfileSamples[MAX_PROFILE_SAMPLES];
-	unordered_map<string, int> m_NameMap;
+    ProfileSample m_ProfileSamples[MAX_PROFILE_SAMPLES];
+    unordered_map<string, int> m_NameMap;
 };
 
 
@@ -141,20 +208,19 @@ protected:
 // ProfileSampleManager
 //////////////////////////////////////////////////////////////////////////////
 
-class ProfileSampleManager
-{
+class ProfileSampleManager {
 public:
-	ProfileSampleManager();
-	~ProfileSampleManager();
+    ProfileSampleManager();
+    ~ProfileSampleManager();
 
 public:
-	void init(void);
-	void addProfileSampleSet(int TID, ProfileSampleSet* pSet);
-	ProfileSampleSet* getProfileSampleSet(void);
+    void init(void);
+    void addProfileSampleSet(int TID, ProfileSampleSet* pSet);
+    ProfileSampleSet* getProfileSampleSet(void);
 
 protected:
-	unordered_map<int, ProfileSampleSet*> m_ProfileSampleMap;
-	Mutex m_Mutex;
+    unordered_map<int, ProfileSampleSet*> m_ProfileSampleMap;
+    Mutex m_Mutex;
 };
 
 
@@ -169,14 +235,17 @@ extern ProfileSampleManager g_ProfileSampleManager;
 #define beginProfileExNoTry(MSG) (g_ProfileSampleManager.getProfileSampleSet())->beginProfile(MSG)
 #define endProfileExNoCatch(MSG) (g_ProfileSampleManager.getProfileSampleSet())->endProfile(MSG)
 
-#define beginProfileEx(MSG) 	try {								\
-										beginProfileExNoTry(MSG);
+#define beginProfileEx(MSG) \
+    try {                   \
+        beginProfileExNoTry(MSG);
 
-#define endProfileEx(MSG) 				endProfileExNoCatch(MSG);	\
-								} catch (Throwable&) { 				\
-										endProfileExNoCatch(MSG); 	\
-										throw; 						\
-								}
+#define endProfileEx(MSG)         \
+    endProfileExNoCatch(MSG);     \
+    }                             \
+    catch (Throwable&) {          \
+        endProfileExNoCatch(MSG); \
+        throw;                    \
+    }
 
 #define outputProfileEx(PARAM1, PARAM2) (g_ProfileSampleManager.getProfileSampleSet())->outputProfile(PARAM1, PARAM2)
 

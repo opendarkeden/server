@@ -1,111 +1,109 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCBloodBibleList.cpp 
+// Filename    : GCBloodBibleList.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCBloodBibleList.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCBloodBibleList::~GCBloodBibleList() 
-	
-{
-	__BEGIN_TRY 
+GCBloodBibleList::~GCBloodBibleList()
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCBloodBibleList::read (SocketInputStream & iStream ) 
-	 
+void GCBloodBibleList::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE num;
+    BYTE num;
 
-	iStream.read(num);
+    iStream.read(num);
 
-	for (int i=0; i<num; ++i )
-	{
-		ItemType_t iType;
-		iStream.read(iType);
+    for (int i = 0; i < num; ++i) {
+        ItemType_t iType;
+        iStream.read(iType);
 
-		m_BloodBibleList.push_back(iType);
-	}
+        m_BloodBibleList.push_back(iType);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCBloodBibleList::write (SocketOutputStream & oStream ) const 
-     
+void GCBloodBibleList::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(m_BloodBibleList.size() <= 12);
+    Assert(m_BloodBibleList.size() <= 12);
 
-	BYTE num = m_BloodBibleList.size();
+    BYTE num = m_BloodBibleList.size();
 
-	oStream.write(num);
+    oStream.write(num);
 
-	vector<ItemType_t>::const_iterator itr = m_BloodBibleList.begin();
+    vector<ItemType_t>::const_iterator itr = m_BloodBibleList.begin();
 
-	for (int i=0; i<num; i++ )
-	{
-		oStream.write(*itr++);
-	}
+    for (int i = 0; i < num; i++) {
+        oStream.write(*itr++);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCBloodBibleList::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCBloodBibleListHandler::execute(this , pPlayer);
+void GCBloodBibleList::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCBloodBibleListHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 PacketSize_t GCBloodBibleList::getPacketSize() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PacketSize_t result = 0;
+    PacketSize_t result = 0;
 
-	result += szBYTE + szItemType * m_BloodBibleList.size();
+    result += szBYTE + szItemType * m_BloodBibleList.size();
 
-	return result;
+    return result;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCBloodBibleList::toString () const
-       
+string GCBloodBibleList::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCBloodBibleList(";
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
-		
-	__END_CATCH
+    StringStream msg;
+    msg << "GCBloodBibleList(";
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

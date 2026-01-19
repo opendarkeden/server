@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGStoreSign.h 
+//
+// Filename    : CGStoreSign.h
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_STORE_SIGN_H__
 #define __CG_STORE_SIGN_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,37 +21,46 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class CGStoreSign : public Packet
-{
+class CGStoreSign : public Packet {
 public:
-	CGStoreSign() {};
-	virtual ~CGStoreSign() {};
-	// Initialize packet by reading data from the incoming stream.
-	void read(SocketInputStream & iStream) ;
-	    
-	// Serialize packet data to the outgoing stream.
-	void write(SocketOutputStream & oStream) const ;
+    CGStoreSign() {};
+    virtual ~CGStoreSign() {};
+    // Initialize packet by reading data from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize packet data to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_STORE_SIGN; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szBYTE + m_Sign.size(); }
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "CGStoreSign"; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_STORE_SIGN;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_Sign.size();
+    }
 
-	string	getSign() const { return m_Sign; }
-	void	setSign(const string& sign) { m_Sign = sign; }
+    // get packet name
+    string getPacketName() const {
+        return "CGStoreSign";
+    }
 
-private :
-	string	m_Sign;
+    // get packet's debug string
+    string toString() const;
+
+    string getSign() const {
+        return m_Sign;
+    }
+    void setSign(const string& sign) {
+        m_Sign = sign;
+    }
+
+private:
+    string m_Sign;
 };
 
 
@@ -64,29 +73,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGStoreSignFactory : public PacketFactory {
+public:
+    // constructor
+    CGStoreSignFactory() {}
+
+    // destructor
+    virtual ~CGStoreSignFactory() {}
+
 
 public:
-	
-	// constructor
-	CGStoreSignFactory()  {}
-	
-	// destructor
-	virtual ~CGStoreSignFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGStoreSign();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGStoreSign(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGStoreSign";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGStoreSign"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_STORE_SIGN; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_STORE_SIGN;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + 80; }
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 80;
+    }
 };
 
 
@@ -97,12 +111,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGStoreSignHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGStoreSign* pCGStoreSign, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGStoreSign* pCGStoreSign, Player* pPlayer);
 };
 
 #endif

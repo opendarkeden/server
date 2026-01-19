@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Paralyze.h 
-// Written By  : 
-// Description : 
+// Filename    : Paralyze.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_PARALYZE_HANDLER_H__
@@ -13,22 +13,26 @@
 // class Paralyze;
 //////////////////////////////////////////////////////////////////////////////
 
-class Paralyze: public SkillHandler 
-{
+class Paralyze : public SkillHandler {
 public:
-	Paralyze() throw() {}
-	~Paralyze() throw() {}
-	
+    Paralyze() throw() {}
+    ~Paralyze() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Paralyze"; }
-	SkillType_t getSkillType() const throw() { return SKILL_PARALYZE; }
+    string getSkillHandlerName() const throw() {
+        return "Paralyze";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_PARALYZE;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) ;
+    void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

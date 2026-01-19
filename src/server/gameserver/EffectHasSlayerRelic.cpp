@@ -1,180 +1,163 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHasSlayerRelic.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectHasSlayerRelic.h"
+
+#include <stdio.h>
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
+#include "GCSystemMessage.h"
 #include "Monster.h"
 #include "MonsterCorpse.h"
 #include "Player.h"
-#include "ZoneInfoManager.h"
-#include "ZoneGroupManager.h"
+#include "Slayer.h"
 #include "StringPool.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
-
-#include <stdio.h>
+#include "Vampire.h"
+#include "ZoneGroupManager.h"
+#include "ZoneInfoManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectHasSlayerRelic::EffectHasSlayerRelic(Creature* pCreature)
-	
-: EffectHasRelic(pCreature)
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
 
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-EffectHasSlayerRelic::EffectHasSlayerRelic(Item* pItem)
-	
-: EffectHasRelic(pItem)
-{
-	__BEGIN_TRY
-	__END_CATCH
+    : EffectHasRelic(pCreature){__BEGIN_TRY __END_CATCH}
+
+      //////////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////////////////////
+      EffectHasSlayerRelic::EffectHasSlayerRelic(Item * pItem)
+
+    : EffectHasRelic(pItem) {
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHasSlayerRelic::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//Timeval      nextTime   = getNextTime();
-	//Timeval      deadLine   = getDeadline();
-	//Turn_t       RemainTime = deadLine.tv_sec - nextTime.tv_sec;
-		/*
-	StringStream msg;
+    // Timeval      nextTime   = getNextTime();
+    // Timeval      deadLine   = getDeadline();
+    // Turn_t       RemainTime = deadLine.tv_sec - nextTime.tv_sec;
+    /*
+StringStream msg;
 
-	if (pCreature->isSlayer())
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+if (pCreature->isSlayer())
+{
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-		msg << pSlayer->getName();
-	}
-	else
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
+    msg << pSlayer->getName();
+}
+else
+{
+    Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-		msg << pVampire->getName();
-	}
+    msg << pVampire->getName();
+}
 
-	msg << " 님이 슬레이어 성물을 가졌습니다.";
+msg << " 님이 슬레이어 성물을 가졌습니다.";
 
-	GCSystemMessage gcSystemMessage;
-	gcSystemMessage.setMessage(msg.toString());
+GCSystemMessage gcSystemMessage;
+gcSystemMessage.setMessage(msg.toString());
 
-	g_pZoneGroupManager->broadcast( &gcSystemMessage );
-	*/
+g_pZoneGroupManager->broadcast( &gcSystemMessage );
+*/
 
-	// 존 정보를 얻는다.
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone!=NULL);
+    // 존 정보를 얻는다.
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( pZone->getZoneID() );
-	Assert( pZoneInfo != NULL );
+    ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pZone->getZoneID());
+    Assert(pZoneInfo != NULL);
 
     // 위치를 알린다.
     char msg[100];
 
-	const char* race;
-	if ( pCreature->isSlayer() )
-	{
-		race = g_pStringPool->c_str( STRID_SLAYER );
-	}
-	else if ( pCreature->isVampire() )
-	{
-		race = g_pStringPool->c_str( STRID_VAMPIRE );
-	}
-	else if ( pCreature->isOusters() )
-	{
-		race = g_pStringPool->c_str( STRID_OUSTERS );
-	}
+    const char* race;
+    if (pCreature->isSlayer()) {
+        race = g_pStringPool->c_str(STRID_SLAYER);
+    } else if (pCreature->isVampire()) {
+        race = g_pStringPool->c_str(STRID_VAMPIRE);
+    } else if (pCreature->isOusters()) {
+        race = g_pStringPool->c_str(STRID_OUSTERS);
+    }
 
-    sprintf( msg, g_pStringPool->c_str( STRID_HAVING_SLAYER_RELIC ),
-                pCreature->getName().c_str(),
-				race,
-//                ( pCreature->isSlayer() ? g_pStringPool->c_str( STRID_SLAYER ) : g_pStringPool->c_str( STRID_VAMPIRE ) ),
-                (int)pCreature->getX(),
-                (int)pCreature->getY()
-    );
+    sprintf(msg, g_pStringPool->c_str(STRID_HAVING_SLAYER_RELIC), pCreature->getName().c_str(), race,
+            //                ( pCreature->isSlayer() ? g_pStringPool->c_str( STRID_SLAYER ) : g_pStringPool->c_str(
+            //                STRID_VAMPIRE ) ),
+            (int)pCreature->getX(), (int)pCreature->getY());
 
-/*	// 위치를 알린다.
-	StringStream msg;
-	msg << pCreature->getName() << " 님(" << ( pCreature->isSlayer() ? "슬레이어" : "뱀파이어" ) << ")이 " 
-	    << pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
-		<< ")에서 슬레이어 성물을 가지고 있습니다."; */
+    /*	// 위치를 알린다.
+        StringStream msg;
+        msg << pCreature->getName() << " 님(" << ( pCreature->isSlayer() ? "슬레이어" : "뱀파이어" ) << ")이 "
+            << pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
+            << ")에서 슬레이어 성물을 가지고 있습니다."; */
 
-	GCSystemMessage gcSystemMessage;
-	gcSystemMessage.setMessage(msg);
+    GCSystemMessage gcSystemMessage;
+    gcSystemMessage.setMessage(msg);
 
-	g_pZoneGroupManager->broadcast( &gcSystemMessage );
+    g_pZoneGroupManager->broadcast(&gcSystemMessage);
 
-	setNextTime(m_Tick);
-																															    	
-	__END_CATCH
+    setNextTime(m_Tick);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHasSlayerRelic::affect(Item* pItem)
-	
-{
-	__BEGIN_TRY
 
-	//Timeval      nextTime   = getNextTime();
-	//Timeval      deadLine   = getDeadline();
-	//Turn_t       RemainTime = deadLine.tv_sec - nextTime.tv_sec;
-		/*
-	StringStream msg;
+    {__BEGIN_TRY
 
-	if (pCreature->isSlayer())
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+         // Timeval      nextTime   = getNextTime();
+         // Timeval      deadLine   = getDeadline();
+         // Turn_t       RemainTime = deadLine.tv_sec - nextTime.tv_sec;
+         /*
+      StringStream msg;
 
-		msg << pSlayer->getName() << " 님이 ";
-	}
-	else
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
+      if (pCreature->isSlayer())
+      {
+          Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-		msg << pVampire->getName() << " 님이 ";
-	}
+          msg << pSlayer->getName() << " 님이 ";
+      }
+      else
+      {
+          Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-	msg << " 슬레이어 성물을 가지고 있습니다." << endl;
+          msg << pVampire->getName() << " 님이 ";
+      }
 
-	GCSystemMessage gcSystemMessage;
-	gcSystemMessage.setMessage(msg.toString());
+      msg << " 슬레이어 성물을 가지고 있습니다." << endl;
 
-	g_pZoneGroupManager->broadcast( &gcSystemMessage );
+      GCSystemMessage gcSystemMessage;
+      gcSystemMessage.setMessage(msg.toString());
 
-	setNextTime(m_Tick);
-	*/
+      g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
-	__END_CATCH
-}
+      setNextTime(m_Tick);
+      */
+
+         __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectHasSlayerRelic::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectHasSlayerRelic::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectHasSlayerRelic("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectHasSlayerRelic("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

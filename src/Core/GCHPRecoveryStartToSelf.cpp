@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCHPRecoveryStartToSelf.cpp 
+//
+// Filename    : GCHPRecoveryStartToSelf.cpp
 // Written By  : elca@ewestsoft.com
 // Description : Packet notifying the player that their HP recovery has begun.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -12,60 +12,54 @@
 #include "GCHPRecoveryStartToSelf.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCHPRecoveryStartToSelf::GCHPRecoveryStartToSelf () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCHPRecoveryStartToSelf::GCHPRecoveryStartToSelf()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCHPRecoveryStartToSelf::~GCHPRecoveryStartToSelf () 
-    
+GCHPRecoveryStartToSelf::~GCHPRecoveryStartToSelf()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // Initialize packet by reading data from the incoming stream.
 //////////////////////////////////////////////////////////////////////
-void GCHPRecoveryStartToSelf::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	// Read recovery timing parameters.
-	iStream.read(m_Delay);
-	iStream.read(m_Period);
-	iStream.read(m_Quantity);
+void GCHPRecoveryStartToSelf::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    // Read recovery timing parameters.
+    iStream.read(m_Delay);
+    iStream.read(m_Period);
+    iStream.read(m_Quantity);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Serialize packet data to the outgoing stream.
 //////////////////////////////////////////////////////////////////////
-void GCHPRecoveryStartToSelf::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
-		
-	// Write recovery timing parameters.
-	oStream.write(m_Delay);
-	oStream.write(m_Period);
-	oStream.write(m_Quantity);
+void GCHPRecoveryStartToSelf::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    // Write recovery timing parameters.
+    oStream.write(m_Delay);
+    oStream.write(m_Period);
+    oStream.write(m_Quantity);
+
+    __END_CATCH
 }
 
 
@@ -74,14 +68,14 @@ void GCHPRecoveryStartToSelf::write (SocketOutputStream & oStream )
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCHPRecoveryStartToSelf::execute (Player * pPlayer ) 
-	 
+void GCHPRecoveryStartToSelf::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCHPRecoveryStartToSelfHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCHPRecoveryStartToSelfHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -90,20 +84,13 @@ void GCHPRecoveryStartToSelf::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCHPRecoveryStartToSelf::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCHPRecoveryStartToSelf::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCHPRecoveryStartToSelf("
-		<< "Delay:"    << (int)m_Delay
-		<< "Period:"   << (int)m_Period
-		<< "Quantity:" << (int)m_Quantity
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCHPRecoveryStartToSelf("
+        << "Delay:" << (int)m_Delay << "Period:" << (int)m_Period << "Quantity:" << (int)m_Quantity << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

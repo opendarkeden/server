@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : SGModifyGuildOK.cpp 
+//
+// Filename    : SGModifyGuildOK.cpp
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,59 +13,52 @@
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void SGModifyGuildOK::read (SocketInputStream& iStream ) 
-{
-	__BEGIN_TRY
+void SGModifyGuildOK::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
-	iStream.read(m_GuildState);
+    iStream.read(m_GuildID);
+    iStream.read(m_GuildState);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void SGModifyGuildOK::write (SocketOutputStream& oStream ) const 
-{
-	__BEGIN_TRY
+void SGModifyGuildOK::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write(m_GuildID);
-	oStream.write(m_GuildState);
+    oStream.write(m_GuildID);
+    oStream.write(m_GuildState);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void SGModifyGuildOK::execute (Player * pPlayer ) 
-{
+void SGModifyGuildOK::execute(Player* pPlayer) {
 #ifdef __GAME_SERVER__
-  
-	__BEGIN_TRY
-		
-	SGModifyGuildOKHandler::execute(this);
-		
-	__END_CATCH
 
-#endif	  
+    __BEGIN_TRY
+
+    SGModifyGuildOKHandler::execute(this);
+
+    __END_CATCH
+
+#endif
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string SGModifyGuildOK::toString () const
-{
-	StringStream msg;
+string SGModifyGuildOK::toString() const {
+    StringStream msg;
 
-	msg << "SGModifyGuildOK("
-		<< "GuildID:" << (int)m_GuildID
-		<< "GuildState:" << (int)m_GuildState
-		<< ")";
+    msg << "SGModifyGuildOK("
+        << "GuildID:" << (int)m_GuildID << "GuildState:" << (int)m_GuildState << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

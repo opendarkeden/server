@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : WillOfLife.h 
-// Written By  : 
-// Description : 
+// Filename    : WillOfLife.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_WILL_OF_LIFE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class WillOfLife;
 //////////////////////////////////////////////////////////////////////////////
 
-class WillOfLife : public SkillHandler 
-{
+class WillOfLife : public SkillHandler {
 public:
-	WillOfLife() throw() {}
-	~WillOfLife() throw() {}
-	
+    WillOfLife() throw() {}
+    ~WillOfLife() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "WillOfLife"; }
-	SkillType_t getSkillType() const throw() { return SKILL_WILL_OF_LIFE; }
+    string getSkillHandlerName() const throw() {
+        return "WillOfLife";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_WILL_OF_LIFE;
+    }
 
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

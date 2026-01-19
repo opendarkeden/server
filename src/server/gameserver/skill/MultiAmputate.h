@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MultiAmputate.h 
-// Written By  : 
-// Description : 
+// Filename    : MultiAmputate.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_MULTI_AMPUTATE_HANDLER_H__
@@ -13,20 +13,23 @@
 // class MultiAmputate;
 //////////////////////////////////////////////////////////////////////////////
 
-class MultiAmputate : public SkillHandler 
-{
+class MultiAmputate : public SkillHandler {
 public:
-	MultiAmputate() throw() {}
-	~MultiAmputate() throw() {}
-	
+    MultiAmputate() throw() {}
+    ~MultiAmputate() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MultiAmputate"; }
+    string getSkillHandlerName() const throw() {
+        return "MultiAmputate";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_MULTI_AMPUTATE; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_MULTI_AMPUTATE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,43 +1,35 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : VampireCorpse.cpp
 // Written by  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "VampireCorpse.h"
+
 #include "Creature.h"
 #include "Vampire.h"
 
-VampireCorpse::VampireCorpse (Vampire* pVampire)
-	
+VampireCorpse::VampireCorpse(Vampire* pVampire)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pVampire != NULL);
+    Assert(pVampire != NULL);
 
-	m_VampireInfo = pVampire->getVampireInfo3();
-	setObjectID(m_VampireInfo.getObjectID());
+    m_VampireInfo = pVampire->getVampireInfo3();
+    setObjectID(m_VampireInfo.getObjectID());
 
-	__END_CATCH
+    __END_CATCH
 }
 
 VampireCorpse::~VampireCorpse()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+
+    {__BEGIN_TRY __END_CATCH_NO_RETHROW} string VampireCorpse::toString() const {
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "VampireCorpse(" << m_VampireInfo.toString() << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-string VampireCorpse::toString ()
-	const 
-{
-	__BEGIN_TRY
-
-	StringStream msg;
-	msg << "VampireCorpse("
-		<< m_VampireInfo.toString()
-		<< ")";
-	return msg.toString();
-
-	__END_CATCH
-}
-

@@ -1,65 +1,61 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGCastingSkill.cpp 
+// Filename    : CGCastingSkill.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGCastingSkill.h"
 
-CGCastingSkill::CGCastingSkill () 
-     
+CGCastingSkill::CGCastingSkill()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGCastingSkill::~CGCastingSkill()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
-}
-	
-CGCastingSkill::~CGCastingSkill () 
-    
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-void CGCastingSkill::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_SkillType);
+void CGCastingSkill::read(SocketInputStream& iStream)
 
-	__END_CATCH
-}
-		    
-void CGCastingSkill::write (SocketOutputStream & oStream) const 
-     
 {
-	__BEGIN_TRY
-		
-	oStream.write(m_SkillType);
+    __BEGIN_TRY
 
-	__END_CATCH
+    iStream.read(m_SkillType);
+
+    __END_CATCH
 }
 
-void CGCastingSkill::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGCastingSkillHandler::execute(this , pPlayer);
+void CGCastingSkill::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_SkillType);
+
+    __END_CATCH
 }
 
-string CGCastingSkill::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGCastingSkill("
-		<< "SkillType: " << (int)m_SkillType
-		<< ")" ;
-	return msg.toString();
+void CGCastingSkill::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGCastingSkillHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string CGCastingSkill::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGCastingSkill("
+        << "SkillType: " << (int)m_SkillType << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

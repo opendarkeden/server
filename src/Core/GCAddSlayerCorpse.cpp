@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------
-// 
+//
 // Filename    : GCAddSlayerCorpse.cpp
 // Written By  : Reiot
-// 
+//
 //--------------------------------------------------------------------------------
 
 // include files
@@ -12,71 +12,66 @@
 //--------------------------------------------------------------------------------
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
-void GCAddSlayerCorpse::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	//--------------------------------------------------
-	// read slayer info
-	//--------------------------------------------------
-	m_SlayerInfo.read(iStream);
-	iStream.read(m_TreasureCount);
+void GCAddSlayerCorpse::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    //--------------------------------------------------
+    // read slayer info
+    //--------------------------------------------------
+    m_SlayerInfo.read(iStream);
+    iStream.read(m_TreasureCount);
+
+    __END_CATCH
 }
 
-		    
+
 //--------------------------------------------------------------------------------
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
-void GCAddSlayerCorpse::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-		
-	//--------------------------------------------------
-	// write slayer info
-	//--------------------------------------------------
-	m_SlayerInfo.write(oStream);
-	oStream.write(m_TreasureCount);
+void GCAddSlayerCorpse::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    //--------------------------------------------------
+    // write slayer info
+    //--------------------------------------------------
+    m_SlayerInfo.write(oStream);
+    oStream.write(m_TreasureCount);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void GCAddSlayerCorpse::execute (Player * pPlayer ) 
-	 
+void GCAddSlayerCorpse::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddSlayerCorpseHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddSlayerCorpseHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get packet's debug string
 //--------------------------------------------------------------------------------
-string GCAddSlayerCorpse::toString () const
-       
+string GCAddSlayerCorpse::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GCAddSlayerCorpse("
-		<< m_SlayerInfo.toString()
-		<< ", Count : " << (int)m_TreasureCount
-		<< ")";
+    msg << "GCAddSlayerCorpse(" << m_SlayerInfo.toString() << ", Count : " << (int)m_TreasureCount << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

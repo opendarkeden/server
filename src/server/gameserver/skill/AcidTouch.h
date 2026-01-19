@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : AcidTouch.h 
-// Written By  : 
-// Description : 
+// Filename    : AcidTouch.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_ACID_TOUCH_HANDLER_H__
@@ -13,21 +13,25 @@
 // class AcidTouch;
 //////////////////////////////////////////////////////////////////////////////
 
-class AcidTouch: public SkillHandler 
-{
+class AcidTouch : public SkillHandler {
 public:
-	AcidTouch() throw() {}
-	~AcidTouch() throw() {}
-	
+    AcidTouch() throw() {}
+    ~AcidTouch() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "AcidTouch"; }
+    string getSkillHandlerName() const throw() {
+        return "AcidTouch";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_ACID_TOUCH; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_ACID_TOUCH;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

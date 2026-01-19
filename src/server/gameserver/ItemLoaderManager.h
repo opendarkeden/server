@@ -1,15 +1,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : ItemLoaderManager.h
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ITEM_LOADER_MANAGER_H__
 #define __ITEM_LOADER_MANAGER_H__
 
-#include "Types.h"
 #include "Item.h"
 #include "ItemLoader.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ItemLoaderManager;
@@ -20,25 +20,23 @@ class Vampire;
 class Ousters;
 class Zone;
 
-class ItemLoaderManager 
-{
+class ItemLoaderManager {
 public:
-	ItemLoaderManager() ;
-	~ItemLoaderManager() ;
+    ItemLoaderManager();
+    ~ItemLoaderManager();
 
 public:
-	void init() ;
+    void init();
 
-	void load(Slayer* pSlayer) ;
-	void load(Vampire* pVampire) ;
-	void load(Ousters* pOusters) ;
-	void load(Zone* pZone) ;
+    void load(Slayer* pSlayer);
+    void load(Vampire* pVampire);
+    void load(Ousters* pOusters);
+    void load(Zone* pZone);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	ItemLoader* m_pItemLoaders[Item::ITEM_CLASS_MAX];
-
+    ItemLoader* m_pItemLoaders[Item::ITEM_CLASS_MAX];
 };
 
 extern ItemLoaderManager* g_pItemLoaderManager;

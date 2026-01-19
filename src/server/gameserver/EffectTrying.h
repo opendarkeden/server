@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectTrying.h
-// Written by  : 
+// Written by  :
 // Description : grand master 티 내는거. - -;	 by sigi. 2002.11.8
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,18 +13,21 @@
 // class EffectTrying
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectTrying : public Effect 
-{
+class EffectTrying : public Effect {
 public:
-//	EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-	EffectTrying(Creature* pCreature) ;
+    //	EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
+    EffectTrying(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRYING; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_TRYING;
+    }
 
-	void unaffect() ; 
+    void unaffect();
 
-	string toString() const  { return "EffectTrying"; }
+    string toString() const {
+        return "EffectTrying";
+    }
 
 private:
 };

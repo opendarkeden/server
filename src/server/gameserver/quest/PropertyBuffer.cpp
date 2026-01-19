@@ -1,11 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : PropertyBuffer.cpp
-// Written By  : 
-// Description : 
+// Written By  :
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "PropertyBuffer.h"
-#include "Utility.h"			// trim(), getline()
+
+#include "Utility.h" // trim(), getline()
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14,146 +15,123 @@
 const char PropertyBuffer::Comment = '#';
 const char PropertyBuffer::Separator = ':';
 const char PropertyBuffer::EOL = '\n';
-const char * PropertyBuffer::WhiteSpaces = " \t\n";
-const char * PropertyBuffer::SpaceTab = " \t";
+const char* PropertyBuffer::WhiteSpaces = " \t\n";
+const char* PropertyBuffer::SpaceTab = " \t";
 
-	
+
 ////////////////////////////////////////////////////////////////////////////////
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
-PropertyBuffer::PropertyBuffer (const string & buffer) 
-{
-	m_Index  = 0;
-	m_Buffer = buffer;
+PropertyBuffer::PropertyBuffer(const string& buffer) {
+    m_Index = 0;
+    m_Buffer = buffer;
 }
-	
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
-PropertyBuffer::~PropertyBuffer () 
-{
-}
+PropertyBuffer::~PropertyBuffer() {}
 
-string PropertyBuffer::getProperty (string key)
-{
-	__BEGIN_TRY
+string PropertyBuffer::getProperty(string key) {
+    __BEGIN_TRY
 
-	size_t bufferLen = m_Buffer.size();
+    size_t bufferLen = m_Buffer.size();
 
-	while (m_Index < bufferLen)
-	{
-		string line = trim(getline(m_Buffer , m_Index));
-
-		// 빈 라인 또는 코멘트 라인이 아닌 경우
-		if (line.size() != 0 && line[0] != Comment)
-		{
-			size_t i = line.find(Separator);
-
-			if (i == string::npos)
-			{
-				throw Error("missing separator");
-			}
-
-			string paramName  = trim(line.substr(0 , i - 1));
-
-			if (paramName == key)
-			{
-				return trim(line.substr(i + 1));
-			}
-			else
-			{
-				throw NoSuchElementException(key);
-			}
-		}
-	}
-
-	cout << "PropertyBuffer::getProperty() : thers is no [" << key << "] element." << endl;
-	throw NoSuchElementException(key);
-
-	__END_CATCH
-}
-
-int PropertyBuffer::getPropertyInt (string key)
-{
-	__BEGIN_TRY
-
-	return atoi(getProperty(key).c_str());
-
-	__END_CATCH
-}
-
-bool PropertyBuffer::getProperty (string key, string& value)
-{
-	__BEGIN_TRY
-
-	size_t bufferLen = m_Buffer.size();
-
-    while (m_Index < bufferLen)
-    {
-        string line = trim(getline(m_Buffer , m_Index));
+    while (m_Index < bufferLen) {
+        string line = trim(getline(m_Buffer, m_Index));
 
         // 빈 라인 또는 코멘트 라인이 아닌 경우
-        if (line.size() != 0 && line[0] != Comment)
-        {
+        if (line.size() != 0 && line[0] != Comment) {
             size_t i = line.find(Separator);
 
-            if (i == string::npos)
-            {
-				return false;
+            if (i == string::npos) {
+                throw Error("missing separator");
             }
 
-            string paramName  = trim(line.substr(0 , i - 1));
+            string paramName = trim(line.substr(0, i - 1));
 
-            if (paramName == key)
-            {
-            	value = trim(line.substr(i + 1));
-				return true;
-            }
-            else
-            {
-				return false;
+            if (paramName == key) {
+                return trim(line.substr(i + 1));
+            } else {
+                throw NoSuchElementException(key);
             }
         }
     }
 
-	return false;
+    cout << "PropertyBuffer::getProperty() : thers is no [" << key << "] element." << endl;
+    throw NoSuchElementException(key);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-bool PropertyBuffer::getPropertyInt (string key, int& value)
-{
-	__BEGIN_TRY
+int PropertyBuffer::getPropertyInt(string key) {
+    __BEGIN_TRY
 
-	string rstring;
-	
-	if (getProperty(key, rstring))
-	{
-		value = atoi(rstring.c_str());
-		return true;
-	}
+    return atoi(getProperty(key).c_str());
 
-	return false;
+    __END_CATCH
+}
 
-	__END_CATCH
+bool PropertyBuffer::getProperty(string key, string& value) {
+    __BEGIN_TRY
+
+    size_t bufferLen = m_Buffer.size();
+
+    while (m_Index < bufferLen) {
+        string line = trim(getline(m_Buffer, m_Index));
+
+        // 빈 라인 또는 코멘트 라인이 아닌 경우
+        if (line.size() != 0 && line[0] != Comment) {
+            size_t i = line.find(Separator);
+
+            if (i == string::npos) {
+                return false;
+            }
+
+            string paramName = trim(line.substr(0, i - 1));
+
+            if (paramName == key) {
+                value = trim(line.substr(i + 1));
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return false;
+
+    __END_CATCH
+}
+
+bool PropertyBuffer::getPropertyInt(string key, int& value) {
+    __BEGIN_TRY
+
+    string rstring;
+
+    if (getProperty(key, rstring)) {
+        value = atoi(rstring.c_str());
+        return true;
+    }
+
+    return false;
+
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string PropertyBuffer::toString () const 
-{
-	__BEGIN_TRY
+string PropertyBuffer::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "PropertyBuffer("
-			<< "Index:"   << m_Index
-			<< ",Buffer:" << m_Buffer
-			<< ")";
+    msg << "PropertyBuffer("
+        << "Index:" << m_Index << ",Buffer:" << m_Buffer << ")";
 
-	return msg.toString();	
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

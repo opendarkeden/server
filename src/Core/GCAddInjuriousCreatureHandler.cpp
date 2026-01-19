@@ -8,9 +8,9 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void GCAddInjuriousCreatureHandler::execute (GCAddInjuriousCreature* pPacket , Player* pPlayer)
-	 
+void GCAddInjuriousCreatureHandler::execute(GCAddInjuriousCreature* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }

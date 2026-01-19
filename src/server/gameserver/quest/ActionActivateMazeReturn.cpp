@@ -1,107 +1,99 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionActivateMazeReturn.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionActivateMazeReturn.h"
+
+#include "EffectRefiniumTicket.h"
+#include "GCMoveOK.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCUpdateInfo.h"
+#include "GamePlayer.h"
+#include "IncomingPlayerManager.h"
+#include "LogClient.h"
+#include "PCSlayerInfo2.h"
+#include "PCVampireInfo2.h"
+#include "PacketUtil.h"
+#include "PaySystem.h"
+#include "Properties.h"
+#include "Slayer.h"
+#include "StringPool.h"
+#include "Vampire.h"
+#include "WeatherManager.h"
 #include "Zone.h"
 #include "ZoneGroup.h"
 #include "ZoneGroupManager.h"
 #include "ZoneInfo.h"
 #include "ZoneInfoManager.h"
 #include "ZonePlayerManager.h"
-#include "PCSlayerInfo2.h"
-#include "PCVampireInfo2.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "WeatherManager.h"
-#include "PaySystem.h"
-#include "GamePlayer.h"
-#include "IncomingPlayerManager.h"
-#include "LogClient.h"
-#include "PacketUtil.h"
 #include "ZoneUtil.h"
-#include "Properties.h"
-#include "StringPool.h"
-#include "EffectRefiniumTicket.h"
-
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void ActionActivateMazeReturn::read (PropertyBuffer & pb)
-    
+void ActionActivateMazeReturn::read(PropertyBuffer& pb)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		m_ZoneID = pb.getPropertyInt("ZoneID");
-		m_X      = pb.getPropertyInt("X");
-		m_Y      = pb.getPropertyInt("Y");
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        m_ZoneID = pb.getPropertyInt("ZoneID");
+        m_X = pb.getPropertyInt("X");
+        m_Y = pb.getPropertyInt("Y");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionActivateMazeReturn::execute (Creature * pNPC , Creature * pCreature) 
-	
+void ActionActivateMazeReturn::execute(Creature* pNPC, Creature* pCreature)
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isPC());
+    Assert(pCreature != NULL);
+    Assert(pCreature->isPC());
 
-	if ( pCreature->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET ) )
-	{
-		EffectRefiniumTicket* pEffect = dynamic_cast<EffectRefiniumTicket*>(pCreature->findEffect( Effect::EFFECT_CLASS_REFINIUM_TICKET ));
+    if (pCreature->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET)) {
+        EffectRefiniumTicket* pEffect =
+            dynamic_cast<EffectRefiniumTicket*>(pCreature->findEffect(Effect::EFFECT_CLASS_REFINIUM_TICKET));
 
-		if ( pEffect != NULL )
-		{
-			ZoneID_t ZoneID = pEffect->getPrevExitZoneID();
-			ZoneCoord_t X = pEffect->getPrevExitX();
-			ZoneCoord_t Y = pEffect->getPrevExitY();
+        if (pEffect != NULL) {
+            ZoneID_t ZoneID = pEffect->getPrevExitZoneID();
+            ZoneCoord_t X = pEffect->getPrevExitX();
+            ZoneCoord_t Y = pEffect->getPrevExitY();
 
-			transportCreature(pCreature, ZoneID, X, Y, true);
-			return;
-		}
-	}
+            transportCreature(pCreature, ZoneID, X, Y, true);
+            return;
+        }
+    }
 
-	transportCreature(pCreature, m_ZoneID, m_X, m_Y, true);
+    transportCreature(pCreature, m_ZoneID, m_X, m_Y, true);
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionActivateMazeReturn::toString () const 
-	
+string ActionActivateMazeReturn::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionActivateMazeReturn("
-	    << "ZoneID:" << (int)m_ZoneID
-	    << ",X:"  << (int)m_X
-	    << ",Y:"  << (int)m_Y
-	    << ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionActivateMazeReturn("
+        << "ZoneID:" << (int)m_ZoneID << ",X:" << (int)m_X << ",Y:" << (int)m_Y << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

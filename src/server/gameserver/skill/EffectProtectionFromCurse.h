@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectProtectionFromCurse.h
 // Written by  : excel96
-// Description : 
+// Description :
 // ProtectionFromCurse에 의해서 생성되는 산성 데미지 약화 이펙트이다.
 //////////////////////////////////////////////////////////////////////////////
 
@@ -15,46 +15,53 @@
 // class EffectProtectionFromCurse
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectProtectionFromCurse : public Effect 
-{
+class EffectProtectionFromCurse : public Effect {
 public:
-	EffectProtectionFromCurse(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PROTECTION_FROM_CURSE; }
-
-	void affect() {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	string toString() const throw();
+    EffectProtectionFromCurse(Creature* pCreature);
 
 public:
-	Resist_t getResist(void) const throw() { return m_Resist; }
-	void setResist(Resist_t resist) { m_Resist = resist; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_PROTECTION_FROM_CURSE;
+    }
 
-private :
-	Resist_t m_Resist;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
+
+    string toString() const throw();
+
+public:
+    Resist_t getResist(void) const throw() {
+        return m_Resist;
+    }
+    void setResist(Resist_t resist) {
+        m_Resist = resist;
+    }
+
+private:
+    Resist_t m_Resist;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectProtectionFromCurseLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectProtectionFromCurseLoader : public EffectLoader 
-{
+class EffectProtectionFromCurseLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_PROTECTION_FROM_CURSE; }
-	virtual string getEffectClassName() const throw() { return "EffectProtectionFromCurse"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_PROTECTION_FROM_CURSE;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectProtectionFromCurse";
+    }
 
 public:
-	virtual void load(Creature* pCreature) ;
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectProtectionFromCurseLoader* g_pEffectProtectionFromCurseLoader;

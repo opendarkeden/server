@@ -1,59 +1,58 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterDynamicZone.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionCanEnterDynamicZone.h"
-#include "PlayerCreature.h"
-#include "GQuestManager.h"
+
+#include "DynamicZoneGroup.h"
 #include "DynamicZoneInfo.h"
 #include "DynamicZoneManager.h"
-#include "DynamicZoneGroup.h"
+#include "GQuestManager.h"
+#include "PlayerCreature.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionCanEnterDynamicZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionCanEnterDynamicZone::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID( m_DynamicZoneID );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup( targetDynamicZoneType );
-	Assert( pDynamicZoneGroup != NULL );
+    int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID(m_DynamicZoneID);
 
-	return ( pPC->getGQuestManager()->canEnterDynamicZone( m_DynamicZoneID )
-			&& pDynamicZoneGroup->canEnter() );
+    DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup(targetDynamicZoneType);
+    Assert(pDynamicZoneGroup != NULL);
+
+    return (pPC->getGQuestManager()->canEnterDynamicZone(m_DynamicZoneID) && pDynamicZoneGroup->canEnter());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionCanEnterDynamicZone::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionCanEnterDynamicZone::read(PropertyBuffer& propertyBuffer)
+
 {
-	m_DynamicZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    m_DynamicZoneID = propertyBuffer.getPropertyInt("ZoneID");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionCanEnterDynamicZone::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionCanEnterDynamicZone::toString() const
 
-	StringStream msg;
-	msg << "ConditionCanEnterDynamicZone("
-		<< "ZoneID:" << (int)m_DynamicZoneID
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionCanEnterDynamicZone("
+        << "ZoneID:" << (int)m_DynamicZoneID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

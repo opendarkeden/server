@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : StoneAuger.h 
-// Written By  : 
-// Description : 
+// Filename    : StoneAuger.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_STONE_AUGER_HANDLER_H__
@@ -13,20 +13,24 @@
 // class StoneAuger;
 //////////////////////////////////////////////////////////////////////////////
 
-class StoneAuger : public SkillHandler 
-{
+class StoneAuger : public SkillHandler {
 public:
-	StoneAuger() throw() {}
-	~StoneAuger() throw() {}
-	
+    StoneAuger() throw() {}
+    ~StoneAuger() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "StoneAuger"; }
-	SkillType_t getSkillType() const throw() { return SKILL_STONE_AUGER; }
+    string getSkillHandlerName() const throw() {
+        return "StoneAuger";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_STONE_AUGER;
+    }
 
-	void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

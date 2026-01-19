@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CrossCounter.h 
-// Written By  : 
-// Description : 
+// Filename    : CrossCounter.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CROSS_COUNTER_HANDLER_H__
@@ -13,23 +13,26 @@
 // class CrossCounter;
 //////////////////////////////////////////////////////////////////////////////
 
-class CrossCounter : public SkillHandler 
-{
+class CrossCounter : public SkillHandler {
 public:
-	CrossCounter() throw() {}
-	~CrossCounter() throw() {}
-	
+    CrossCounter() throw() {}
+    ~CrossCounter() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CrossCounter"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CROSS_COUNTER; }
+    string getSkillHandlerName() const throw() {
+        return "CrossCounter";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CROSS_COUNTER;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t damage = 0, Range_t range = 1);
-	
+
 // global variable declaration
 extern CrossCounter g_CrossCounter;
 

@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCSkillToTileOK1Handler::execute (GCSkillToTileOK1 * pGCSkillToTileOK1 , Player * pPlayer )
-	 
+void GCSkillToTileOK1Handler::execute(GCSkillToTileOK1* pGCSkillToTileOK1, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __GAME_CLIENT__
 
-	//cout << pGCSkillToTileOK1->toString() << endl;
-	
+    // cout << pGCSkillToTileOK1->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCSkillToTileOK1->toString().c_str());
+        AfxMessageBox(pGCSkillToTileOK1->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

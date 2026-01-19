@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectBless.h
-// Written by  : 
-// Description : 
+// Written by  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_BLESS__
@@ -13,35 +13,44 @@
 // class EffectBless
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectBless : public Effect 
-{
+class EffectBless : public Effect {
 public:
-	EffectBless(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLESS; }
-
-	void affect()  {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-	void unaffect() ; 
-	void unaffect(Item* pItem)  {}
-
-	string toString() const throw();
+    EffectBless(Creature* pCreature);
 
 public:
-	int getSTRBonus(void) const { return m_STRBonus; }
-	void setSTRBonus(int bonus) { m_STRBonus = bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_BLESS;
+    }
 
-	int getDEXBonus(void) const { return m_DEXBonus; }
-	void setDEXBonus(int bonus) { m_DEXBonus = bonus; }
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-private :
-	int m_STRBonus;
-	int m_DEXBonus;
+    void unaffect(Creature* pCreature);
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
+    void unaffect();
+    void unaffect(Item* pItem) {}
+
+    string toString() const throw();
+
+public:
+    int getSTRBonus(void) const {
+        return m_STRBonus;
+    }
+    void setSTRBonus(int bonus) {
+        m_STRBonus = bonus;
+    }
+
+    int getDEXBonus(void) const {
+        return m_DEXBonus;
+    }
+    void setDEXBonus(int bonus) {
+        m_DEXBonus = bonus;
+    }
+
+private:
+    int m_STRBonus;
+    int m_DEXBonus;
 };
 
 #endif // __EFFECT_BLESS__

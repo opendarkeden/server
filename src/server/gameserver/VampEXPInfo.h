@@ -14,28 +14,39 @@
 // Class VampEXPInfo
 ////////////////////////////////////////////////////////////////////////////////
 
-class VampEXPInfo 
-{
+class VampEXPInfo {
 public:
-	VampEXPInfo() ;
-	~VampEXPInfo() ;
+    VampEXPInfo();
+    ~VampEXPInfo();
 
 public:
-	void setLevel(uint lev)  { m_Level = lev; }
-	uint getLevel() const  { return m_Level; }
+    void setLevel(uint lev) {
+        m_Level = lev;
+    }
+    uint getLevel() const {
+        return m_Level;
+    }
 
-	void setGoalExp(Exp_t sum)  { m_GoalExp = sum; }
-	uint getGoalExp() const  { return m_GoalExp; }
+    void setGoalExp(Exp_t sum) {
+        m_GoalExp = sum;
+    }
+    uint getGoalExp() const {
+        return m_GoalExp;
+    }
 
-	void setAccumExp(Exp_t accum)  { m_AccumExp = accum ; }
-	uint getAccumExp() const  { return m_AccumExp; }
+    void setAccumExp(Exp_t accum) {
+        m_AccumExp = accum;
+    }
+    uint getAccumExp() const {
+        return m_AccumExp;
+    }
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	Level_t m_Level;		// 레벨
-	Exp_t m_GoalExp;   	// 목표 경험치
-	Exp_t m_AccumExp;		// 누적 경험치
+    Level_t m_Level;  // 레벨
+    Exp_t m_GoalExp;  // 목표 경험치
+    Exp_t m_AccumExp; // 누적 경험치
 };
 
 
@@ -43,29 +54,26 @@ private:
 // Class VampEXPInfoManager
 ////////////////////////////////////////////////////////////////////////////////
 
-class VampEXPInfoManager 
-{
+class VampEXPInfoManager {
 public:
-	VampEXPInfoManager() ;
-	~VampEXPInfoManager() ;
+    VampEXPInfoManager();
+    ~VampEXPInfoManager();
 
 public:
-	void init() ;
-	void load() ;
+    void init();
+    void load();
 
-	VampEXPInfo* getVampEXPInfo(uint VampEXPType) const ;
-	void addVampEXPInfo(VampEXPInfo* pVampEXPInfo) ;
+    VampEXPInfo* getVampEXPInfo(uint VampEXPType) const;
+    void addVampEXPInfo(VampEXPInfo* pVampEXPInfo);
 
-	string toString() const ;
+    string toString() const;
 
 private:
-	uint          m_VampEXPCount;
-	VampEXPInfo** m_VampEXPInfoList;
-		
+    uint m_VampEXPCount;
+    VampEXPInfo** m_VampEXPInfoList;
 };
 
 // Global Variable Definition
 extern VampEXPInfoManager* g_pVampEXPInfoManager;
 
-#endif	
-
+#endif

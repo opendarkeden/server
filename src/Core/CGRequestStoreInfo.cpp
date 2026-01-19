@@ -1,50 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRequestStoreInfo.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGRequestStoreInfo.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRequestStoreInfo.h"
 
-void CGRequestStoreInfo::read (SocketInputStream & iStream) 
-	 
+void CGRequestStoreInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_OwnerObjectID);
+    iStream.read(m_OwnerObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGRequestStoreInfo::write (SocketOutputStream & oStream) const 
-     
+void CGRequestStoreInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_OwnerObjectID);
+    oStream.write(m_OwnerObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGRequestStoreInfo::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGRequestStoreInfoHandler::execute(this , pPlayer);
+void CGRequestStoreInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGRequestStoreInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGRequestStoreInfo::toString () const
-       
+string CGRequestStoreInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGRequestStoreInfo("
-		<< ")" ;
-	return msg.toString();
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -2,7 +2,7 @@
 //
 // Filename    : LCPCListHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //----------------------------------------------------------------------
 
@@ -10,250 +10,244 @@
 #include "LCPCList.h"
 
 #ifdef __GAME_CLIENT__
-	#include "ClientPlayer.h"
-	#include "CLCreatePC.h"
-	#include "CLDeletePC.h"
-	#include "CLSelectPC.h"
-	#include "CLSelectBoard.h"
+#include "CLCreatePC.h"
+#include "CLDeletePC.h"
+#include "CLSelectBoard.h"
+#include "CLSelectPC.h"
+#include "ClientPlayer.h"
 
 #endif
 
 //----------------------------------------------------------------------
-// 서버로부터 캐릭터 리스트를 받았다. 
+// 서버로부터 캐릭터 리스트를 받았다.
 // 이제 캐릭터 관리 인터페이스의 적절한 곳에 전송받은 값을 집어 넣어서
 // 출력하자.
 //----------------------------------------------------------------------
-void LCPCListHandler::execute (LCPCList * pPacket , Player * pPlayer )
-	 
+void LCPCListHandler::execute(LCPCList* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_CLIENT__
 
-	#if __LINUX__ || __WIN_CONSOLE__
+#if __LINUX__ || __WIN_CONSOLE__
 
-		ClientPlayer * pClientPlayer = (ClientPlayer*)pPlayer;
+        ClientPlayer* pClientPlayer = (ClientPlayer*)pPlayer;
 
-		cout << endl
-			 << "+----------------------+" << endl
-			 << "| CHARACTER MANAGEMENT |" << endl
-			 << "+----------------------+" << endl
-			 << endl;
-	
-		uint nPCs = 0;
-	
-		for (uint i = 0 ; i < SLOT_MAX ; i ++ ) {
-	
-			try {
-	
-				PCInfo * pPCInfo = pPacket->getPCInfo(Slot(i));
-				nPCs ++;
-	
-				switch (pPCInfo->getPCType() ) {
-	
-					case PC_SLAYER :
-						{
-							PCSlayerInfo * pPCSlayerInfo = dynamic_cast<PCSlayerInfo*>(pPCInfo);							
-							cout << pPCSlayerInfo->toString() << endl;
-						}
-						break;
-	
-					case PC_VAMPIRE :
-						{
-							PCVampireInfo * pPCVampireInfo = dynamic_cast<PCVampireInfo*>(pPCInfo);		
-							cout << pPCVampireInfo->toString() << endl;
-						}
-						break;
+    cout << endl
+         << "+----------------------+" << endl
+         << "| CHARACTER MANAGEMENT |" << endl
+         << "+----------------------+" << endl
+         << endl;
 
-					case PC_OUSTERS :
-						{
-							PCOustersInfo * pPCOustersInfo = dynamic_cast<PCOustersInfo*>(pPCInfo);		
-							cout << pPCOustersInfo->toString() << endl;
-						}
-						break;
-	
-					default :	
-						throw InvalidProtocolException("invalid pc type");
-				}
-	
-			} catch (NoSuchElementException ) {
-			}
+    uint nPCs = 0;
 
-		}
+    for (uint i = 0; i < SLOT_MAX; i++) {
+        try {
+            PCInfo* pPCInfo = pPacket->getPCInfo(Slot(i));
+            nPCs++;
 
-		if (nPCs == 0 ) {
-			//cout << "캐릭터가 하나도 없습니다." << endl;
-		}
+            switch (pPCInfo->getPCType()) {
+            case PC_SLAYER: {
+                PCSlayerInfo* pPCSlayerInfo = dynamic_cast<PCSlayerInfo*>(pPCInfo);
+                cout << pPCSlayerInfo->toString() << endl;
+            } break;
 
-		char cmd[80+1];
+            case PC_VAMPIRE: {
+                PCVampireInfo* pPCVampireInfo = dynamic_cast<PCVampireInfo*>(pPCInfo);
+                cout << pPCVampireInfo->toString() << endl;
+            } break;
 
-		do {
+            case PC_OUSTERS: {
+                PCOustersInfo* pPCOustersInfo = dynamic_cast<PCOustersInfo*>(pPCInfo);
+                cout << pPCOustersInfo->toString() << endl;
+            } break;
 
-			cout << endl
-				 << "+--------------+" << endl
-			  	 << "| 1. Create PC |" << endl
-			  	 << "| 2. Delete PC |" << endl
-			 	 << "| 3. Select PC |" << endl
-			 	 << "| 4. To Board  |" << endl
-			 	 << "+--------------|" << endl
-			 	 << "select > ";
+            default:
+                throw InvalidProtocolException("invalid pc type");
+            }
 
-			cin.getline(cmd,80);
+        } catch (NoSuchElementException) {
+        }
+    }
 
-		} while (strcmp(cmd,"1") != 0 && strcmp(cmd,"2") != 0 && strcmp(cmd,"3") != 0  && strcmp(cmd, "4") !=0);
+    if (nPCs == 0) {
+        // cout << "캐릭터가 하나도 없습니다." << endl;
+    }
 
-		if (strcmp(cmd,"1") == 0 ) {
+    char cmd[80 + 1];
 
-			cout << endl
-				 << "+--------------------+" << endl
-				 << "| CHARACTER CREATION |" << endl
-				 << "+--------------------+" << endl
-				 << endl;
+    do {
+        cout << endl
+             << "+--------------+" << endl
+             << "| 1. Create PC |" << endl
+             << "| 2. Delete PC |" << endl
+             << "| 3. Select PC |" << endl
+             << "| 4. To Board  |" << endl
+             << "+--------------|" << endl
+             << "select > ";
 
-			CLCreatePC clCreatePC;
+        cin.getline(cmd, 80);
 
-			cout << "Name : ";
-			cin.getline(cmd,80);
-			clCreatePC.setName(cmd);
+    } while (strcmp(cmd, "1") != 0 && strcmp(cmd, "2") != 0 && strcmp(cmd, "3") != 0 && strcmp(cmd, "4") != 0);
 
-			cout << "Slot (1-3) : ";
-			cin.getline(cmd,80);
-			Slot slot;
-			if (strcmp(cmd,"1") == 0 ) slot = SLOT1;
-			else if (strcmp(cmd,"2") == 0 ) slot = SLOT2;
-			else if (strcmp(cmd,"3") == 0 ) slot = SLOT3;
-			else slot = SLOT1;
-			clCreatePC.setSlot(slot);
+    if (strcmp(cmd, "1") == 0) {
+        cout << endl
+             << "+--------------------+" << endl
+             << "| CHARACTER CREATION |" << endl
+             << "+--------------------+" << endl
+             << endl;
 
-			cout << "Sex (남/여) : ";
-			cin.getline(cmd,80);
-			Sex sex = (strcmp(cmd,"남") == 0 ) ? sex = MALE : sex = FEMALE;
-			clCreatePC.setSex(sex);
-			cout << "Sex : " << Sex2String[sex] << endl;
+        CLCreatePC clCreatePC;
 
-			cout << "HairStyle (1-3) : ";
-			cin.getline(cmd,80);
-			HairStyle hairStyle;
-			if (strcmp(cmd,"1") == 0 ) hairStyle = HAIR_STYLE1;
-			else if (strcmp(cmd,"2") == 0 ) hairStyle = HAIR_STYLE2;
-			else if (strcmp(cmd,"3") == 0 ) hairStyle = HAIR_STYLE3;
-			else hairStyle = HAIR_STYLE1;
-			clCreatePC.setHairStyle(hairStyle);
-			
-			cout << "HairColor (0-255) : ";
-			cin.getline(cmd,80);
-			clCreatePC.setHairColor(atoi(cmd ));
-			
-			cout << "SkinColor (0-255) : ";
-			cin.getline(cmd,80);			
-			clCreatePC.setSkinColor(atoi(cmd ));
+        cout << "Name : ";
+        cin.getline(cmd, 80);
+        clCreatePC.setName(cmd);
 
-			cout << "ShirtColor (0-255) : ";
-			cin.getline(cmd,80);
-			clCreatePC.setSkinColor(atoi(cmd ));
+        cout << "Slot (1-3) : ";
+        cin.getline(cmd, 80);
+        Slot slot;
+        if (strcmp(cmd, "1") == 0)
+            slot = SLOT1;
+        else if (strcmp(cmd, "2") == 0)
+            slot = SLOT2;
+        else if (strcmp(cmd, "3") == 0)
+            slot = SLOT3;
+        else
+            slot = SLOT1;
+        clCreatePC.setSlot(slot);
 
-			cout << "JeansColor (0-255) : ";
-			cin.getline(cmd,80);
-			clCreatePC.setSkinColor(atoi(cmd ));
+        cout << "Sex (남/여) : ";
+        cin.getline(cmd, 80);
+        Sex sex = (strcmp(cmd, "남") == 0) ? sex = MALE : sex = FEMALE;
+        clCreatePC.setSex(sex);
+        cout << "Sex : " << Sex2String[sex] << endl;
 
-			cout << "Try to creating PC : " << clCreatePC.toString() << endl;
+        cout << "HairStyle (1-3) : ";
+        cin.getline(cmd, 80);
+        HairStyle hairStyle;
+        if (strcmp(cmd, "1") == 0)
+            hairStyle = HAIR_STYLE1;
+        else if (strcmp(cmd, "2") == 0)
+            hairStyle = HAIR_STYLE2;
+        else if (strcmp(cmd, "3") == 0)
+            hairStyle = HAIR_STYLE3;
+        else
+            hairStyle = HAIR_STYLE1;
+        clCreatePC.setHairStyle(hairStyle);
 
-			pClientPlayer->sendPacket(&clCreatePC);
-			pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_CREATE_PC);
+        cout << "HairColor (0-255) : ";
+        cin.getline(cmd, 80);
+        clCreatePC.setHairColor(atoi(cmd));
 
-		} else if (strcmp(cmd,"2") == 0 ) {
+        cout << "SkinColor (0-255) : ";
+        cin.getline(cmd, 80);
+        clCreatePC.setSkinColor(atoi(cmd));
 
-			cout << endl
-				 << "+------------------+" << endl
-				 << "| DELETE CHARACTER |" << endl
-				 << "+------------------+" << endl
-				 << endl;
+        cout << "ShirtColor (0-255) : ";
+        cin.getline(cmd, 80);
+        clCreatePC.setSkinColor(atoi(cmd));
 
-			CLDeletePC clDeletePC;
+        cout << "JeansColor (0-255) : ";
+        cin.getline(cmd, 80);
+        clCreatePC.setSkinColor(atoi(cmd));
 
-			cout << "Name : ";
-			cin.getline(cmd,80);
-			clDeletePC.setName(cmd);
+        cout << "Try to creating PC : " << clCreatePC.toString() << endl;
 
-			cout << "Slot (1-3) : ";
-			cin.getline(cmd,80);
-			Slot slot;
-			if (strcmp(cmd,"1") == 0 ) slot = SLOT1;
-			else if (strcmp(cmd,"2") == 0 ) slot = SLOT2;
-			else if (strcmp(cmd,"3") == 0 ) slot = SLOT3;
-			else slot = SLOT1;
-			clDeletePC.setSlot(slot);
+        pClientPlayer->sendPacket(&clCreatePC);
+        pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_CREATE_PC);
 
-			pClientPlayer->sendPacket(&clDeletePC);
-			pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_DELETE_PC);
+    } else if (strcmp(cmd, "2") == 0) {
+        cout << endl
+             << "+------------------+" << endl
+             << "| DELETE CHARACTER |" << endl
+             << "+------------------+" << endl
+             << endl;
 
-		} else if (strcmp(cmd,"3") == 0 ) {
+        CLDeletePC clDeletePC;
 
-			cout << endl
-				 << "+------------------+" << endl
-				 << "| SELECT CHARACTER |" << endl
-				 << "+------------------+" << endl
-				 << endl;
+        cout << "Name : ";
+        cin.getline(cmd, 80);
+        clDeletePC.setName(cmd);
 
-			CLSelectPC clSelectPC;
+        cout << "Slot (1-3) : ";
+        cin.getline(cmd, 80);
+        Slot slot;
+        if (strcmp(cmd, "1") == 0)
+            slot = SLOT1;
+        else if (strcmp(cmd, "2") == 0)
+            slot = SLOT2;
+        else if (strcmp(cmd, "3") == 0)
+            slot = SLOT3;
+        else
+            slot = SLOT1;
+        clDeletePC.setSlot(slot);
 
-			cout << "Name : ";
-			cin.getline(cmd,80);
-			clSelectPC.setPCName(cmd);
+        pClientPlayer->sendPacket(&clDeletePC);
+        pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_DELETE_PC);
 
-			cout << "PCType (S/V) : ";
-			cin.getline(cmd,80);
-			if (strcmp(cmd,"S") == 0 || strcmp(cmd,"s") == 0 ) 
-				clSelectPC.setPCType(PC_SLAYER);
-			else if (strcmp(cmd,"V") == 0 || strcmp(cmd,"v") == 0 ) 
-				clSelectPC.setPCType(PC_VAMPIRE);
-			else
-				clSelectPC.setPCType(PC_SLAYER);
+    } else if (strcmp(cmd, "3") == 0) {
+        cout << endl
+             << "+------------------+" << endl
+             << "| SELECT CHARACTER |" << endl
+             << "+------------------+" << endl
+             << endl;
 
-			// CGConnect 때 사용하려면 여기서 저장해둬야 한다.
-			pClientPlayer->setPCType(clSelectPC.getPCType());
-			pClientPlayer->setPCName(clSelectPC.getPCName());
+        CLSelectPC clSelectPC;
 
-			cout << endl << clSelectPC.toString() << endl;
-		
-			pClientPlayer->sendPacket(&clSelectPC);
-			pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_SELECT_PC);
-			
-		} else if (strcmp(cmd, "4") == 0 ) {
+        cout << "Name : ";
+        cin.getline(cmd, 80);
+        clSelectPC.setPCName(cmd);
 
-			cout<< endl;
-			cout<<"Choose BBS"				<<endl
-				 << "+------------------+" << endl
-				 << "|  1. Beta BBS     |" << endl
-				 << "|  2. Quit         |" << endl
-				 << "|                  |" << endl
-				 << "+------------------+" << endl
-			 	 << "select > ";
+        cout << "PCType (S/V) : ";
+        cin.getline(cmd, 80);
+        if (strcmp(cmd, "S") == 0 || strcmp(cmd, "s") == 0)
+            clSelectPC.setPCType(PC_SLAYER);
+        else if (strcmp(cmd, "V") == 0 || strcmp(cmd, "v") == 0)
+            clSelectPC.setPCType(PC_VAMPIRE);
+        else
+            clSelectPC.setPCType(PC_SLAYER);
 
-		// 여기에 게시판 관련 처리 부분이 들어가면 된다..
-		// CLSelectBBS 패킷을 만들어서 보내면 되겠군...
+        // CGConnect 때 사용하려면 여기서 저장해둬야 한다.
+        pClientPlayer->setPCType(clSelectPC.getPCType());
+        pClientPlayer->setPCName(clSelectPC.getPCName());
 
-			cin.getline(cmd,80);
-			
-			if (strcmp(cmd, "1") == 0 ) {
-					
-				CLSelectBoard clSelectBoard;
+        cout << endl << clSelectPC.toString() << endl;
 
-				clSelectBoard.setBoardName("BetaBBS");
-				
-				cout << clSelectBoard.toString() << endl;
+        pClientPlayer->sendPacket(&clSelectPC);
+        pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_SELECT_PC);
 
-				pClientPlayer->sendPacket(&clSelectBoard);
+    } else if (strcmp(cmd, "4") == 0) {
+        cout << endl;
+        cout << "Choose BBS" << endl
+             << "+------------------+" << endl
+             << "|  1. Beta BBS     |" << endl
+             << "|  2. Quit         |" << endl
+             << "|                  |" << endl
+             << "+------------------+" << endl
+             << "select > ";
 
-				pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_SELECT_BOARD);
-				
-			}
+        // 여기에 게시판 관련 처리 부분이 들어가면 된다..
+        // CLSelectBBS 패킷을 만들어서 보내면 되겠군...
 
-		}
+        cin.getline(cmd, 80);
 
-	#endif
+        if (strcmp(cmd, "1") == 0) {
+            CLSelectBoard clSelectBoard;
+
+            clSelectBoard.setBoardName("BetaBBS");
+
+            cout << clSelectBoard.toString() << endl;
+
+            pClientPlayer->sendPacket(&clSelectBoard);
+
+            pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_SELECT_BOARD);
+        }
+    }
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+#endif
+
+    __END_DEBUG_EX __END_CATCH
 }

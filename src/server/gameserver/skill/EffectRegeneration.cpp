@@ -4,155 +4,147 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectRegeneration.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Monster.h"
-#include "GamePlayer.h"
-#include "PCFinder.h"
-#include "ZoneUtil.h"
-#include "ZoneInfoManager.h"
-#include "SkillUtil.h"
-#include "GCRemoveEffect.h"
+
 #include "GCAddEffectToTile.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCStatusCurrentHP.h"
 #include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCSkillToObjectOK2.h"
 #include "GCSkillToSelfOK1.h"
 #include "GCSkillToSelfOK2.h"
+#include "GCStatusCurrentHP.h"
+#include "GamePlayer.h"
+#include "Monster.h"
+#include "PCFinder.h"
+#include "SkillUtil.h"
+#include "Slayer.h"
+#include "Vampire.h"
+#include "ZoneInfoManager.h"
+#include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectRegeneration::EffectRegeneration( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
-	
+EffectRegeneration::EffectRegeneration(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = X;
-	m_Y = Y;
+    m_pZone = pZone;
+    m_X = X;
+    m_Y = Y;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRegeneration::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert( m_pZone != NULL );
+    Assert(m_pZone != NULL);
 
-	affect( m_pZone, m_X, m_Y );
-	
-	__END_CATCH
+    affect(m_pZone, m_X, m_Y);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRegeneration::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pZone != NULL);
+    Assert(pZone != NULL);
 
-	VSRect rect( 0, 0, pZone->getWidth() - 1, pZone->getHeight() - 1 );
+    VSRect rect(0, 0, pZone->getWidth() - 1, pZone->getHeight() - 1);
 
-	GCSkillToSelfOK1 _GCSkillToSelfOK1;
-	GCSkillToSelfOK2 _GCSkillToSelfOK2;
+    GCSkillToSelfOK1 _GCSkillToSelfOK1;
+    GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
-	for ( int x=-1; x<=1; x++ )
-	{
-		for ( int y=-1; y<=1; y++ )
-		{
-			int X = Cx + x;
-			int Y = Cy + y;
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+            int X = Cx + x;
+            int Y = Cy + y;
 
-			if ( !rect.ptInRect( X, Y ) ) continue;
+            if (!rect.ptInRect(X, Y))
+                continue;
 
-			// 타일안에 존재하는 오브젝트를 가져온다.
-			Tile& tile = pZone->getTile( X, Y );
+            // 타일안에 존재하는 오브젝트를 가져온다.
+            Tile& tile = pZone->getTile(X, Y);
 
-			const forward_list<Object*>& oList = tile.getObjectList();
-			for ( forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++ )
-			{
-				Object* pTargetObject = (*itr);
-				if ( pTargetObject != NULL
-					&& pTargetObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-				{
-					Creature* pCreature = dynamic_cast<Creature*>(pTargetObject);
-					Assert( pCreature != NULL );
+            const forward_list<Object*>& oList = tile.getObjectList();
+            for (forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) {
+                Object* pTargetObject = (*itr);
+                if (pTargetObject != NULL && pTargetObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+                    Creature* pCreature = dynamic_cast<Creature*>(pTargetObject);
+                    Assert(pCreature != NULL);
 
-					// 코마가 걸려있거나 죽은 애는 치료 안해준다.
-					// 2003. 3. 11. Sequoia
-					if( pCreature->isSlayer() && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA) && !pCreature->isDead() )
-					{
-						Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+                    // 코마가 걸려있거나 죽은 애는 치료 안해준다.
+                    // 2003. 3. 11. Sequoia
+                    if (pCreature->isSlayer() && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA) &&
+                        !pCreature->isDead()) {
+                        Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-						HP_t CurrentHP	= pSlayer->getHP( ATTR_CURRENT );
-						HP_t MaxHP		= pSlayer->getHP( ATTR_MAX	   );
-						
-						if ( CurrentHP < MaxHP )
-						{
-							HP_t RemainHP	= min((int)MaxHP, (int)CurrentHP + m_Damage);
-							pSlayer->setHP(RemainHP, ATTR_CURRENT);
+                        HP_t CurrentHP = pSlayer->getHP(ATTR_CURRENT);
+                        HP_t MaxHP = pSlayer->getHP(ATTR_MAX);
 
-							GCModifyInformation gcMI;
-							gcMI.addShortData( MODIFY_CURRENT_HP, RemainHP );
-							pSlayer->getPlayer()->sendPacket( &gcMI );
+                        if (CurrentHP < MaxHP) {
+                            HP_t RemainHP = min((int)MaxHP, (int)CurrentHP + m_Damage);
+                            pSlayer->setHP(RemainHP, ATTR_CURRENT);
 
-							_GCSkillToSelfOK1.setSkillType( SKILL_CURE_EFFECT );
-							_GCSkillToSelfOK1.setDuration( 0 );
-							pSlayer->getPlayer()->sendPacket( &_GCSkillToSelfOK1 );
+                            GCModifyInformation gcMI;
+                            gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
+                            pSlayer->getPlayer()->sendPacket(&gcMI);
 
-							_GCSkillToSelfOK2.setObjectID( pSlayer->getObjectID() );
-							_GCSkillToSelfOK2.setSkillType( SKILL_CURE_EFFECT );
-							_GCSkillToSelfOK2.setDuration( 0 );
-							pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &_GCSkillToSelfOK2, pCreature );
+                            _GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
+                            _GCSkillToSelfOK1.setDuration(0);
+                            pSlayer->getPlayer()->sendPacket(&_GCSkillToSelfOK1);
 
-							GCStatusCurrentHP gcStatusCurrentHP;
-							gcStatusCurrentHP.setObjectID( pSlayer->getObjectID() );
-							gcStatusCurrentHP.setCurrentHP( RemainHP );
-							pZone->broadcastPacket( X, Y, &gcStatusCurrentHP );
-						}
-					}
-				}
-			}
-		}
-	}
+                            _GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
+                            _GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
+                            _GCSkillToSelfOK2.setDuration(0);
+                            pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &_GCSkillToSelfOK2, pCreature);
 
-	setNextTime( m_Delay );
+                            GCStatusCurrentHP gcStatusCurrentHP;
+                            gcStatusCurrentHP.setObjectID(pSlayer->getObjectID());
+                            gcStatusCurrentHP.setCurrentHP(RemainHP);
+                            pZone->broadcastPacket(X, Y, &gcStatusCurrentHP);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	__END_CATCH
+    setNextTime(m_Delay);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRegeneration::unaffect()
-	
-{
-	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile( m_X, m_Y );
-	tile.deleteEffect( m_ObjectID );
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    Tile& tile = m_pZone->getTile(m_X, m_Y);
+    tile.deleteEffect(m_ObjectID);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectRegeneration::toString() const 
-	throw()
-{
-	__BEGIN_TRY
+string EffectRegeneration::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectRegeneration("
-		<< "Damage:" << (int)m_Damage
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectRegeneration("
+        << "Damage:" << (int)m_Damage << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

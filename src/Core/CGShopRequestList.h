@@ -1,10 +1,10 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : CGShopRequestList.h 
+//
+// Filename    : CGShopRequestList.h
 // Written By  : Rewster
 // Description : Client requests the list of goods sold by a store
 //               (type-specific rack) to browse and purchase items.
-// 
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __CG_SHOP_REQUEST_LIST_H__
@@ -21,48 +21,58 @@
 //--------------------------------------------------------------------------------
 
 class CGShopRequestList : public Packet {
-
 public:
-	CGShopRequestList() {};
+    CGShopRequestList() {};
     virtual ~CGShopRequestList() {};
-	// Initialize from the incoming stream.
-	void read(SocketInputStream & iStream) ;
-		    
-	// Write this packet to the outgoing stream.
-	void write(SocketOutputStream & oStream) const ;
+    // Initialize from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Write this packet to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_SHOP_REQUEST_LIST; }
-	
-	// get packet's body size
-	// *OPTIMIZATION HINT*
-	// Use the const static CGShopRequestListPacketSize for efficiency.
-	PacketSize_t getPacketSize() const  { return szObjectID+szShopRackType; }
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "CGShopRequestList"; }
-	
-	// get packet's debug string
-	string toString() const ;
-	
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_SHOP_REQUEST_LIST;
+    }
+
+    // get packet's body size
+    // *OPTIMIZATION HINT*
+    // Use the const static CGShopRequestListPacketSize for efficiency.
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szShopRackType;
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "CGShopRequestList";
+    }
+
+    // get packet's debug string
+    string toString() const;
+
 public:
+    // get / set ObjectID
+    ObjectID_t getObjectID() {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
 
-	// get / set ObjectID
-	ObjectID_t getObjectID()  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+    ShopRackType_t getRackType(void) {
+        return m_RackType;
+    }
+    void setRackType(ShopRackType_t type) {
+        m_RackType = type;
+    }
 
-	ShopRackType_t getRackType(void)  { return m_RackType; }
-	void setRackType(ShopRackType_t type)  { m_RackType = type; }
-
-private :
-	
-	// ObjectID
-	ObjectID_t     m_ObjectID;
-	ShopRackType_t m_RackType;
-
+private:
+    // ObjectID
+    ObjectID_t m_ObjectID;
+    ShopRackType_t m_RackType;
 };
 
 
@@ -75,21 +85,26 @@ private :
 //--------------------------------------------------------------------------------
 
 class CGShopRequestListFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGShopRequestList(); }
+    // create packet
+    Packet* createPacket() {
+        return new CGShopRequestList();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGShopRequestList"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SHOP_REQUEST_LIST; }
+    // get packet name
+    string getPacketName() const {
+        return "CGShopRequestList";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  { return szObjectID+szShopRackType; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_SHOP_REQUEST_LIST;
+    }
 
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szShopRackType;
+    }
 };
 
 
@@ -100,11 +115,9 @@ public:
 //--------------------------------------------------------------------------------
 
 class CGShopRequestListHandler {
-	
 public:
-
-	// execute packet's handler
-	static void execute(CGShopRequestList* pPacket, Player* player) ;
+    // execute packet's handler
+    static void execute(CGShopRequestList* pPacket, Player* player);
 };
 
 #endif

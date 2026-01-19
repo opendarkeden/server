@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : LCVersionCheckError.cpp 
+//
+// Filename    : LCVersionCheckError.cpp
 // Written By  : Reiot
 // Description : 로그인 실패시 로그인 서버에서 클라이언트에게 전송하는 패킷
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,36 +12,36 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void LCVersionCheckError::read (SocketInputStream & iStream ) 
-	 
+void LCVersionCheckError::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void LCVersionCheckError::write (SocketOutputStream & oStream ) const 
-     
+void LCVersionCheckError::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void LCVersionCheckError::execute (Player * pPlayer ) 
-	 
+void LCVersionCheckError::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	LCVersionCheckErrorHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    LCVersionCheckErrorHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -50,16 +50,14 @@ void LCVersionCheckError::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string LCVersionCheckError::toString () const
-       
+string LCVersionCheckError::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "LCVersionCheckError()";
-	return msg.toString();
+    StringStream msg;
+    msg << "LCVersionCheckError()";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

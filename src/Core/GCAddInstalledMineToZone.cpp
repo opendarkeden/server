@@ -1,45 +1,42 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddInstalledMineToZone.cc 
+//
+// Filename    : GCAddInstalledMineToZone.cc
 // Written By  : elca
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCAddInstalledMineToZone.h"
+
 #include "Assert1.h"
 
 //--------------------------------------------------------------------
 // Constructor
 //--------------------------------------------------------------------
-GCAddInstalledMineToZone::GCAddInstalledMineToZone() 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddInstalledMineToZone::GCAddInstalledMineToZone()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
-GCAddInstalledMineToZone::~GCAddInstalledMineToZone() noexcept
-{
-	// no resources; keep noexcept
+GCAddInstalledMineToZone::~GCAddInstalledMineToZone() noexcept {
+    // no resources; keep noexcept
 }
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCAddInstalledMineToZone::execute (Player * pPlayer ) 
-	 
+void GCAddInstalledMineToZone::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddInstalledMineToZoneHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddInstalledMineToZoneHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -48,23 +45,17 @@ void GCAddInstalledMineToZone::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAddInstalledMineToZone::toString () const
-       
+string GCAddInstalledMineToZone::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddInstalledMineToZone("
-		<< "ObjectID:" << m_ObjectID
-		<< ",X:" << (int)m_X 
-		<< ",Y:" << (int)m_Y 
-		<< ",ItemClass:" << (int)m_ItemClass
-		<< ",ItemType:" << (int)m_ItemType
-		<< ",OptionTypeSize:" << (int)m_OptionType.size()
-		<< ",Durability:" << (int)m_Durability
-		<< ",ItemNum:" << (int)m_ItemNum
-		<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCAddInstalledMineToZone("
+        << "ObjectID:" << m_ObjectID << ",X:" << (int)m_X << ",Y:" << (int)m_Y << ",ItemClass:" << (int)m_ItemClass
+        << ",ItemType:" << (int)m_ItemType << ",OptionTypeSize:" << (int)m_OptionType.size()
+        << ",Durability:" << (int)m_Durability << ",ItemNum:" << (int)m_ItemNum << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

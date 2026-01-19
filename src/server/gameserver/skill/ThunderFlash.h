@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ThunderFlash.h 
+// Filename    : ThunderFlash.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_THUNDER_FLASH_HANDLER_H__
@@ -13,24 +13,26 @@
 // class ThunderFlash;
 //////////////////////////////////////////////////////////////////////////////
 
-class ThunderFlash : public SkillHandler 
-{
+class ThunderFlash : public SkillHandler {
 public:
-	ThunderFlash() throw();
-	~ThunderFlash() throw() {}
-	
+    ThunderFlash() throw();
+    ~ThunderFlash() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ThunderFlash"; }
-	SkillType_t getSkillType() const throw() { return SKILL_THUNDER_FLASH; }
+    string getSkillHandlerName() const throw() {
+        return "ThunderFlash";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_THUNDER_FLASH;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 protected:
-	POINT m_pThunderFlashMask[4];
-
+    POINT m_pThunderFlashMask[4];
 };
 
 // global variable declaration

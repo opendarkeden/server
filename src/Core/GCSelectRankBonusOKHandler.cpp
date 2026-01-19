@@ -11,10 +11,10 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCSelectRankBonusOKHandler::execute (GCSelectRankBonusOK * pGCSelectRankBonusOK , Player * pPlayer )
-	 
+void GCSelectRankBonusOKHandler::execute(GCSelectRankBonusOK* pGCSelectRankBonusOK, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
-	__END_DEBUG_EX __END_CATCH
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
+        __END_DEBUG_EX __END_CATCH
 }

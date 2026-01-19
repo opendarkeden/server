@@ -13,23 +13,23 @@
 // class EffectMercyGround
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectMercyGround : public Effect 
-{
+class EffectMercyGround : public Effect {
 public:
-	EffectMercyGround(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MERCY_GROUND; }
-
-	void affect() ;
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectMercyGround(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_MERCY_GROUND;
+    }
 
+    void affect();
+    void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
+
+    void unaffect();
+
+    string toString() const throw();
+
+public:
 private:
 };
 

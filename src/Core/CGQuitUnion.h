@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGQuitUnion.h 
+//
+// Filename    : CGQuitUnion.h
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_QUIT_UNION_H__
 #define __CG_QUIT_UNION_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -21,53 +21,63 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class CGQuitUnion : public Packet
-{
+class CGQuitUnion : public Packet {
 public:
-	enum{
-		QUIT_NORMAL = 0,		// 절차에 따라 신청
-		QUIT_QUICK,				// 일방적으로 탈퇴
-		QUIT_MAX
-	};	
+    enum {
+        QUIT_NORMAL = 0, // 절차에 따라 신청
+        QUIT_QUICK,      // 일방적으로 탈퇴
+        QUIT_MAX
+    };
     CGQuitUnion() {};
     ~CGQuitUnion() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CG_QUIT_UNION; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szGuildID+szBYTE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CG_QUIT_UNION;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGQuitUnion"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szGuildID + szBYTE;
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet name
+    string getPacketName() const {
+        return "CGQuitUnion";
+    }
+
+    // get packet's debug string
+    string toString() const;
 
     // get/set GuildID
-    GuildID_t getGuildID() const  { return m_GuildID; }
-    void setGuildID(GuildID_t GuildID )  { m_GuildID = GuildID; }
+    GuildID_t getGuildID() const {
+        return m_GuildID;
+    }
+    void setGuildID(GuildID_t GuildID) {
+        m_GuildID = GuildID;
+    }
 
-	// get/set Quit Method
-	BYTE	getQuitMethod()	const  { return m_Method; }
-	void	setQuitMethod(BYTE Method )  { m_Method = Method; }
+    // get/set Quit Method
+    BYTE getQuitMethod() const {
+        return m_Method;
+    }
+    void setQuitMethod(BYTE Method) {
+        m_Method = Method;
+    }
 
 
-private :
-
-	// Guild ID
-	GuildID_t	m_GuildID;
-	BYTE		m_Method;
-
-
+private:
+    // Guild ID
+    GuildID_t m_GuildID;
+    BYTE m_Method;
 };
 
 
@@ -80,29 +90,34 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CGQuitUnionFactory : public PacketFactory {
+public:
+    // constructor
+    CGQuitUnionFactory() {}
+
+    // destructor
+    virtual ~CGQuitUnionFactory() {}
+
 
 public:
-	
-	// constructor
-	CGQuitUnionFactory()  {}
-	
-	// destructor
-	virtual ~CGQuitUnionFactory()  {}
+    // create packet
+    Packet* createPacket() {
+        return new CGQuitUnion();
+    }
 
-	
-public:
-	
-	// create packet
-	Packet* createPacket()  { return new CGQuitUnion(); }
+    // get packet name
+    string getPacketName() const {
+        return "CGQuitUnion";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CGQuitUnion"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_QUIT_UNION; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_QUIT_UNION;
+    }
 
-	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const  { return szGuildID + szBYTE; }
+    // get Packet Max Size
+    PacketSize_t getPacketMaxSize() const {
+        return szGuildID + szBYTE;
+    }
 };
 
 
@@ -113,12 +128,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CGQuitUnionHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CGQuitUnion* pCGQuitUnion, Player* pPlayer) ;
-
+    // execute packet's handler
+    static void execute(CGQuitUnion* pCGQuitUnion, Player* pPlayer);
 };
 
 #endif

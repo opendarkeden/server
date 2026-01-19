@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DetectInvisibility.h 
+// Filename    : DetectInvisibility.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DETECT_INVISIBILITY_HANDLER_H__
@@ -13,20 +13,23 @@
 // class DetectInvisibility
 //////////////////////////////////////////////////////////////////////////////
 
-class DetectInvisibility: public SkillHandler 
-{
+class DetectInvisibility : public SkillHandler {
 public:
-	DetectInvisibility() throw() {}
-	~DetectInvisibility() throw() {}
-	
+    DetectInvisibility() throw() {}
+    ~DetectInvisibility() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DetectInvisibility"; }
+    string getSkillHandlerName() const throw() {
+        return "DetectInvisibility";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_DETECT_INVISIBILITY; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DETECT_INVISIBILITY;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

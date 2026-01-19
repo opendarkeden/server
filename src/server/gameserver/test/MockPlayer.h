@@ -5,13 +5,11 @@
 class Packet;
 
 class MockPlayer : public Player {
-public :
-	MockPlayer() {}
-	~MockPlayer() {}
+public:
+    MockPlayer() {}
+    ~MockPlayer() {}
 
-	void	sendPacket(Packet* pPacket)
-	{
-	}
+    void sendPacket(Packet* pPacket) {}
 };
 
 #endif

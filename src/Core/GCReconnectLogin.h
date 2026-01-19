@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCReconnectLogin.h 
+//
+// Filename    : GCReconnectLogin.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_RECONNECT_LOGIN_H__
@@ -24,61 +24,72 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCReconnectLogin : public Packet {
-
-public :
-	GCReconnectLogin() {};
+public:
+    GCReconnectLogin() {};
     ~GCReconnectLogin() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_RECONNECT_LOGIN; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szBYTE + m_LoginServerIP.size() 	// 게임 서버 아이피
-			+ szuint							// 게임 서버 포트
-			+ szDWORD; 							// 인증 키
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_RECONNECT_LOGIN;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCReconnectLogin"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_LoginServerIP.size() // 게임 서버 아이피
+               + szuint                        // 게임 서버 포트
+               + szDWORD;                      // 인증 키
+    }
 
-public :
+    // get packet name
+    string getPacketName() const {
+        return "GCReconnectLogin";
+    }
 
-	// get/set game server's ip
-	string getLoginServerIP() const  { return m_LoginServerIP; }
-	void setLoginServerIP(const string & ip)  { m_LoginServerIP = ip; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set game server's port
-	uint getLoginServerPort() const  { return m_LoginServerPort; }
-	void setLoginServerPort(uint port)  { m_LoginServerPort = port; }
+public:
+    // get/set game server's ip
+    string getLoginServerIP() const {
+        return m_LoginServerIP;
+    }
+    void setLoginServerIP(const string& ip) {
+        m_LoginServerIP = ip;
+    }
 
-	// get/set key
-	DWORD getKey() const  { return m_Key; }
-	void setKey(DWORD key)  { m_Key = key; }
+    // get/set game server's port
+    uint getLoginServerPort() const {
+        return m_LoginServerPort;
+    }
+    void setLoginServerPort(uint port) {
+        m_LoginServerPort = port;
+    }
 
-private :
-	
-	// New LoginServer's IP
-	string m_LoginServerIP;
+    // get/set key
+    DWORD getKey() const {
+        return m_Key;
+    }
+    void setKey(DWORD key) {
+        m_Key = key;
+    }
 
-	// New LoginServer's TCP Port
-	uint m_LoginServerPort;
+private:
+    // New LoginServer's IP
+    string m_LoginServerIP;
 
-	// authentication key
-	DWORD m_Key;
+    // New LoginServer's TCP Port
+    uint m_LoginServerPort;
 
+    // authentication key
+    DWORD m_Key;
 };
 
 
@@ -91,28 +102,30 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCReconnectLoginFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCReconnectLogin();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCReconnectLogin(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCReconnectLogin";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCReconnectLogin"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_RECONNECT_LOGIN; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_RECONNECT_LOGIN;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCReconnectLoginPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  
-	{ 
-		return szBYTE + 15 	// 게임 서버 아이피
-			+ szuint		// 게임 서버 포트
-			+ szDWORD; 		// 인증 키
-	}
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCReconnectLoginPacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 15 // 게임 서버 아이피
+               + szuint    // 게임 서버 포트
+               + szDWORD;  // 인증 키
+    }
 };
 
 
@@ -123,12 +136,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCReconnectLoginHandler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCReconnectLogin* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCReconnectLogin* pPacket, Player* pPlayer);
 };
 
 #endif

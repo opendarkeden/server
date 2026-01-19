@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCKickMessage.cpp 
+//
+// Filename    : GCKickMessage.cpp
 // Written By  : reiot@ewestsoft.com
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,70 +12,66 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCKickMessage::read (SocketInputStream & iStream ) 
-	 
+void GCKickMessage::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE t;
-	iStream.read(t);
-	m_Type = (KickMessageType)t;
+    BYTE t;
+    iStream.read(t);
+    m_Type = (KickMessageType)t;
 
-	iStream.read(m_Seconds);
+    iStream.read(m_Seconds);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCKickMessage::write (SocketOutputStream & oStream ) const 
-     
+void GCKickMessage::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE t = (BYTE)m_Type;
-	oStream.write(t);
+    __BEGIN_TRY
 
-	oStream.write(m_Seconds);
+    BYTE t = (BYTE)m_Type;
+    oStream.write(t);
 
-	__END_CATCH
+    oStream.write(m_Seconds);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCKickMessage::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCKickMessageHandler::execute(this , pPlayer);
+void GCKickMessage::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCKickMessageHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCKickMessage::toString () const
-       
+string GCKickMessage::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCKickMessage("
-		<< "Type:" << (int)m_Type 
-		<< "Seconds:" << (int)m_Seconds
-		<< ")" ;
-	
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "GCKickMessage("
+        << "Type:" << (int)m_Type << "Seconds:" << (int)m_Seconds << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

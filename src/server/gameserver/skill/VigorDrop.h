@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : VigorDrop.h 
+// Filename    : VigorDrop.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_VIGOR_DROP_HANDLER_H__
@@ -13,22 +13,25 @@
 // class VigorDrop;
 //////////////////////////////////////////////////////////////////////////////
 
-class VigorDrop : public SkillHandler 
-{
+class VigorDrop : public SkillHandler {
 public:
-	VigorDrop() throw() {}
-	~VigorDrop() throw() {}
-	
+    VigorDrop() throw() {}
+    ~VigorDrop() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "VigorDrop"; }
-	SkillType_t getSkillType() const throw() { return SKILL_VIGOR_DROP; }
+    string getSkillHandlerName() const throw() {
+        return "VigorDrop";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_VIGOR_DROP;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

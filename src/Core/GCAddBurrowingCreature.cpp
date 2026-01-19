@@ -1,67 +1,67 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddBurrowingCreature.cc 
+// Filename    : GCAddBurrowingCreature.cc
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddBurrowingCreature.h"
 
-void GCAddBurrowingCreature::read (SocketInputStream & iStream ) 
-	 
+void GCAddBurrowingCreature::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
+    __BEGIN_TRY
 
-	BYTE szName = 0;
+    iStream.read(m_ObjectID);
 
-	iStream.read(szName);
+    BYTE szName = 0;
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
+    iStream.read(szName);
 
-	if (szName > 20 )
-		throw InvalidProtocolException("too large name length");
-		
-	iStream.read(m_Name , szName);
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+
+    if (szName > 20)
+        throw InvalidProtocolException("too large name length");
+
+    iStream.read(m_Name, szName);
 
 
-	iStream.read(m_X);
-	iStream.read(m_Y);
-	__END_CATCH
-}
-		    
-void GCAddBurrowingCreature::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_ObjectID);
-
-	BYTE szName = m_Name.size();
-
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-
-	if (szName > 20 )
-		throw InvalidProtocolException("too large name length");
-
-	oStream.write(szName);
-	oStream.write(m_Name);
-
-	oStream.write(m_X);
-	oStream.write(m_Y);
-	__END_CATCH
+    iStream.read(m_X);
+    iStream.read(m_Y);
+    __END_CATCH
 }
 
-void GCAddBurrowingCreature::execute (Player * pPlayer ) 
-	 
+void GCAddBurrowingCreature::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	GCAddBurrowingCreatureHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+
+    BYTE szName = m_Name.size();
+
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+
+    if (szName > 20)
+        throw InvalidProtocolException("too large name length");
+
+    oStream.write(szName);
+    oStream.write(m_Name);
+
+    oStream.write(m_X);
+    oStream.write(m_Y);
+    __END_CATCH
+}
+
+void GCAddBurrowingCreature::execute(Player* pPlayer)
+
+{
+    __BEGIN_TRY
+
+    GCAddBurrowingCreatureHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -70,21 +70,15 @@ void GCAddBurrowingCreature::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAddBurrowingCreature::toString () const
-       
+string GCAddBurrowingCreature::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddBurrowingCreature("
-		<< "ObjectID:" << m_ObjectID 
-		<< ",Name:"    << m_Name 
-		<< ",X:"       << (int)m_X 
-		<< ",Y:"       << (int)m_Y 
-		<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCAddBurrowingCreature("
+        << "ObjectID:" << m_ObjectID << ",Name:" << m_Name << ",X:" << (int)m_X << ",Y:" << (int)m_Y << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

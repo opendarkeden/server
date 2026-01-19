@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CLSelectWorld.h 
+//
+// Filename    : CLSelectWorld.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CL_SELECT_WORLD_H__
@@ -20,39 +20,48 @@
 //////////////////////////////////////////////////////////////////////
 
 class CLSelectWorld : public Packet {
-
 public:
-	CLSelectWorld() {};
+    CLSelectWorld() {};
     virtual ~CLSelectWorld() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CL_SELECT_WORLD; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szWorldID; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CL_SELECT_WORLD;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CLSelectWorld"; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szWorldID;
+    }
 
-	// get / set WorldID
-	WorldID_t getWorldID() const  { return m_WorldID; }
-	void setWorldID(WorldID_t WorldID)  { m_WorldID = WorldID; }
-	
-	// get packet's debug string
-	string toString() const  { return "CLSelectWorld"; }
+    // get packet name
+    string getPacketName() const {
+        return "CLSelectWorld";
+    }
 
-private :
+    // get / set WorldID
+    WorldID_t getWorldID() const {
+        return m_WorldID;
+    }
+    void setWorldID(WorldID_t WorldID) {
+        m_WorldID = WorldID;
+    }
 
-	WorldID_t m_WorldID;
+    // get packet's debug string
+    string toString() const {
+        return "CLSelectWorld";
+    }
 
+private:
+    WorldID_t m_WorldID;
 };
 
 
@@ -65,21 +74,26 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CLSelectWorldFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CLSelectWorld(); }
+    // create packet
+    Packet* createPacket() {
+        return new CLSelectWorld();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CLSelectWorld"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CL_SELECT_WORLD; }
+    // get packet name
+    string getPacketName() const {
+        return "CLSelectWorld";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const  { return szWorldID; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CL_SELECT_WORLD;
+    }
 
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szWorldID;
+    }
 };
 
 
@@ -90,12 +104,9 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CLSelectWorldHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CLSelectWorld* pPacket, Player* player) ;
-
+    // execute packet's handler
+    static void execute(CLSelectWorld* pPacket, Player* player);
 };
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BrambleHalo.h 
-// Written By  : 
-// Description : 
+// Filename    : BrambleHalo.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_Bramble_Halo_HANDLER_H__
@@ -13,19 +13,22 @@
 // class BrambleHalo;
 //////////////////////////////////////////////////////////////////////////////
 
-class BrambleHalo : public SkillHandler 
-{
+class BrambleHalo : public SkillHandler {
 public:
-	BrambleHalo() throw() {}
-	~BrambleHalo() throw() {}
-	
+    BrambleHalo() throw() {}
+    ~BrambleHalo() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BrambleHalo"; }
-	SkillType_t getSkillType() const throw() { return SKILL_Bramble_Halo; }
+    string getSkillHandlerName() const throw() {
+        return "BrambleHalo";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_Bramble_Halo;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

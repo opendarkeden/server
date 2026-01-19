@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GSModifyGuildIntro.cpp 
+//
+// Filename    : GSModifyGuildIntro.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,77 +13,74 @@
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GSModifyGuildIntro::read (SocketInputStream& iStream ) 
-	 
+void GSModifyGuildIntro::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	
-	BYTE szGuildIntro;
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
-	iStream.read(szGuildIntro);
+    BYTE szGuildIntro;
 
-	if (szGuildIntro > 255 )
-		throw InvalidProtocolException("too long szGuildIntro length");
+    iStream.read(m_GuildID);
+    iStream.read(szGuildIntro);
 
-	if (szGuildIntro > 0 )
-		iStream.read(m_GuildIntro, szGuildIntro);
-	else
-		m_GuildIntro = "";
+    if (szGuildIntro > 255)
+        throw InvalidProtocolException("too long szGuildIntro length");
 
-	__END_CATCH
+    if (szGuildIntro > 0)
+        iStream.read(m_GuildIntro, szGuildIntro);
+    else
+        m_GuildIntro = "";
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GSModifyGuildIntro::write (SocketOutputStream& oStream ) const 
-     
+void GSModifyGuildIntro::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szGuildIntro = m_GuildIntro.size();
+    BYTE szGuildIntro = m_GuildIntro.size();
 
-	if (szGuildIntro > 255 )
-		throw InvalidProtocolException("too long szGuildIntro length");
+    if (szGuildIntro > 255)
+        throw InvalidProtocolException("too long szGuildIntro length");
 
-	oStream.write(m_GuildID);
-	oStream.write(szGuildIntro);
+    oStream.write(m_GuildID);
+    oStream.write(szGuildIntro);
 
-	if (szGuildIntro > 0 )
-		oStream.write(m_GuildIntro);
+    if (szGuildIntro > 0)
+        oStream.write(m_GuildIntro);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GSModifyGuildIntro::execute (Player * pPlayer ) 
-	 
+void GSModifyGuildIntro::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GSModifyGuildIntroHandler::execute(this, pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GSModifyGuildIntroHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string GSModifyGuildIntro::toString () const
-    
+string GSModifyGuildIntro::toString() const
+
 {
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GSModifyGuildIntro ("
-		<< "GuildID:" << (int)m_GuildID
-		<< "GuildIntro:" << m_GuildIntro
-		<< " )";
+    msg << "GSModifyGuildIntro ("
+        << "GuildID:" << (int)m_GuildID << "GuildIntro:" << m_GuildIntro << " )";
 
-	return msg.toString();
+    return msg.toString();
 }
-

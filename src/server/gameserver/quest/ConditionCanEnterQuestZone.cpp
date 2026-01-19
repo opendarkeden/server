@@ -1,70 +1,70 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterQuestZone.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionCanEnterQuestZone.h"
-#include "PlayerCreature.h"
-#include "GQuestManager.h"
+
+#include "DynamicZoneGroup.h"
 #include "DynamicZoneInfo.h"
 #include "DynamicZoneManager.h"
-#include "DynamicZoneGroup.h"
+#include "GQuestManager.h"
+#include "PlayerCreature.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionCanEnterQuestZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionCanEnterQuestZone::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	bool bQuestCondition = pPC->getGQuestManager()->canEnterDynamicZone( m_QuestZoneID );
-	bool bDynamicZoneAvailable = true;
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	// Dynamic 존인지를 확인한다.
-	int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID( m_QuestZoneID );
+    bool bQuestCondition = pPC->getGQuestManager()->canEnterDynamicZone(m_QuestZoneID);
+    bool bDynamicZoneAvailable = true;
 
-	if ( targetDynamicZoneType != DYNAMIC_ZONE_MAX )
-	{
-		DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup( targetDynamicZoneType );
-		Assert( pDynamicZoneGroup != NULL );
+    // Dynamic 존인지를 확인한다.
+    int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID(m_QuestZoneID);
 
-		bDynamicZoneAvailable = pDynamicZoneGroup->canEnter();
-	}
+    if (targetDynamicZoneType != DYNAMIC_ZONE_MAX) {
+        DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup(targetDynamicZoneType);
+        Assert(pDynamicZoneGroup != NULL);
 
-	cout << "QuestZoneID: " << m_QuestZoneID << endl;
-	cout << "Quest: " << ( bQuestCondition ? "true" : "false" ) << " Zone: " << ( bDynamicZoneAvailable ? "true" : "false" ) << endl;
+        bDynamicZoneAvailable = pDynamicZoneGroup->canEnter();
+    }
 
-	return bQuestCondition && bDynamicZoneAvailable;
+    cout << "QuestZoneID: " << m_QuestZoneID << endl;
+    cout << "Quest: " << (bQuestCondition ? "true" : "false") << " Zone: " << (bDynamicZoneAvailable ? "true" : "false")
+         << endl;
+
+    return bQuestCondition && bDynamicZoneAvailable;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionCanEnterQuestZone::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionCanEnterQuestZone::read(PropertyBuffer& propertyBuffer)
+
 {
-	m_QuestZoneID = propertyBuffer.getPropertyInt("ZoneID");
+    m_QuestZoneID = propertyBuffer.getPropertyInt("ZoneID");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionCanEnterQuestZone::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionCanEnterQuestZone::toString() const
 
-	StringStream msg;
-	msg << "ConditionCanEnterQuestZone("
-		<< "ZoneID:" << (int)m_QuestZoneID
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionCanEnterQuestZone("
+        << "ZoneID:" << (int)m_QuestZoneID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

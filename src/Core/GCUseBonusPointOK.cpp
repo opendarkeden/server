@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCUseBonusPointOK.cc 
+//
+// Filename    : GCUseBonusPointOK.cc
 // Written By  : crazydog
 // Description : vamp가 bonus point사용을 허가 받다.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,62 +13,60 @@
 // Constructor
 //////////////////////////////////////////////////////////////////////
 GCUseBonusPointOK::GCUseBonusPointOK()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////
 // Destructor
 //////////////////////////////////////////////////////////////////////
 GCUseBonusPointOK::~GCUseBonusPointOK()
-	
+
 {
-	__BEGIN_TRY
-	
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCUseBonusPointOK::read (SocketInputStream & iStream ) 
-	 
+void GCUseBonusPointOK::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	ModifyInfo::read(iStream);
+    ModifyInfo::read(iStream);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCUseBonusPointOK::write (SocketOutputStream & oStream ) const 
-     
+void GCUseBonusPointOK::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	ModifyInfo::write(oStream);
+    ModifyInfo::write(oStream);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCUseBonusPointOK::execute (Player * pPlayer ) 
-	 
+void GCUseBonusPointOK::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCUseBonusPointOKHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCUseBonusPointOKHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -76,17 +74,14 @@ void GCUseBonusPointOK::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCUseBonusPointOK::toString () const
-       
+string GCUseBonusPointOK::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCUseBonusPointOK("
-		<< ModifyInfo::toString()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCUseBonusPointOK(" << ModifyInfo::toString() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

@@ -10,9 +10,10 @@
 #define __PACKET_VALIDATOR_H__
 
 // include files
+#include <vector>
+
 #include "PacketIDSet.h"
 #include "PlayerStatus.h"
-#include <vector>
 
 //----------------------------------------------------------------------
 //
@@ -26,34 +27,30 @@
 //----------------------------------------------------------------------
 
 class PacketValidator {
+public:
+    // constructor
+    PacketValidator();
 
-public :
+    // destructor
+    ~PacketValidator() noexcept;
 
-	// constructor
-	PacketValidator () ;
+    // init
+    void init();
 
-	// destructor
-	~PacketValidator () noexcept;
+    // add packet id set
+    void addPacketIDSet(PlayerStatus playerStatus, PacketIDSet* pPacketID);
 
-	// init
-	void init () ;
+    // delete packet id
+    void deletePacketIDSet(PlayerStatus playerStatus, PacketIDSet* pPacketID);
 
-	// add packet id set
-	void addPacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID);
+    // is valid packet?
+    bool isValidPacketID(PlayerStatus playerStatus, PacketID_t packetID);
 
-	// delete packet id
-	void deletePacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID);
+    // get debug string
+    string toString() const;
 
-	// is valid packet?
-	bool isValidPacketID (PlayerStatus playerStatus, PacketID_t packetID);
-
-	// get debug string
-	string toString () const ;
-
-private :
-
-	vector< PacketIDSet* > m_PacketIDSets;
-
+private:
+    vector<PacketIDSet*> m_PacketIDSets;
 };
 
 //----------------------------------------------------------------------

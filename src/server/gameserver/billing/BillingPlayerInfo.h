@@ -1,18 +1,18 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : BillingPlayerInfo.h 
+//
+// Filename    : BillingPlayerInfo.h
 // Written by  : sigi
 // Description : 占쏙옙占쏙옙占시쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __BILLING_PLAYER_INFO_H__
 #define __BILLING_PLAYER_INFO_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "Timeval.h"
+#include "Types.h"
 
 class Player;
 
@@ -23,45 +23,60 @@ class Player;
 //////////////////////////////////////////////////////////////////////
 
 class BillingPlayerInfo {
+public:
+    // constructor
+    BillingPlayerInfo();
 
-public :
+    // destructor
+    virtual ~BillingPlayerInfo() noexcept;
 
-	// constructor
-	BillingPlayerInfo () ;
-	
-	// destructor
-	virtual ~BillingPlayerInfo () noexcept;
+    // get debug string
+    virtual string toString() const;
 
-	// get debug string
-	virtual string toString () const;
+public:
+    void setBillingUserKey(int buid) {
+        m_BillingUserKey = buid;
+    }
+    int getBillingUserKey() const {
+        return m_BillingUserKey;
+    }
 
-public :
-	void            setBillingUserKey(int buid) { m_BillingUserKey = buid; }
-	int				getBillingUserKey() const  { return m_BillingUserKey; }
+    void setBillingSession(Player* pPlayer);
+    const string& getBillingSession() const {
+        return m_BillingSession;
+    }
 
-	void            setBillingSession(Player* pPlayer) ;
-	const string&   getBillingSession() const  { return m_BillingSession; }
-	
-	void            setBillingUserStatus(const string& us)	{ m_BillingUserStatus = us; }
-	const string&   getBillingUserStatus() const  { return m_BillingUserStatus; }
+    void setBillingUserStatus(const string& us) {
+        m_BillingUserStatus = us;
+    }
+    const string& getBillingUserStatus() const {
+        return m_BillingUserStatus;
+    }
 
-	bool			isBillingPlayAvaiable() const	{ return !m_BillingUserStatus.empty(); }
+    bool isBillingPlayAvaiable() const {
+        return !m_BillingUserStatus.empty();
+    }
 
-	virtual bool	sendBillingLogin() = 0;
-	int				getBillingLoginRequestCount() const	{ return m_BillingLoginRequestCount; }
+    virtual bool sendBillingLogin() = 0;
+    int getBillingLoginRequestCount() const {
+        return m_BillingLoginRequestCount;
+    }
 
-	void			setBillingLoginVerified(bool bVerified=true)	{ m_BillingLoginVerified = bVerified; }
-	bool			isBillingLoginVerified() const	{ return m_BillingLoginVerified; }
-	
-protected :
+    void setBillingLoginVerified(bool bVerified = true) {
+        m_BillingLoginVerified = bVerified;
+    }
+    bool isBillingLoginVerified() const {
+        return m_BillingLoginVerified;
+    }
 
-	// for BillingServer. by sigi. 2002.11.18
-	int 	m_BillingLoginRequestCount;
-	Timeval	m_BillingNextLoginRequestTime;
-	bool	m_BillingLoginVerified;
-	int		m_BillingUserKey;
-	string	m_BillingSession;
-	string	m_BillingUserStatus;
+protected:
+    // for BillingServer. by sigi. 2002.11.18
+    int m_BillingLoginRequestCount;
+    Timeval m_BillingNextLoginRequestTime;
+    bool m_BillingLoginVerified;
+    int m_BillingUserKey;
+    string m_BillingSession;
+    string m_BillingUserStatus;
 };
 
 #endif

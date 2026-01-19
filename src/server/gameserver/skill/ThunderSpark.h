@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ThunderSpark.h 
+// Filename    : ThunderSpark.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_THUNDER_SPARK_HANDLER_H__
@@ -13,19 +13,22 @@
 // class ThunderSpark;
 //////////////////////////////////////////////////////////////////////////////
 
-class ThunderSpark : public SkillHandler 
-{
+class ThunderSpark : public SkillHandler {
 public:
-	ThunderSpark() throw() {}
-	~ThunderSpark() throw() {}
-	
+    ThunderSpark() throw() {}
+    ~ThunderSpark() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ThunderSpark"; }
-	SkillType_t getSkillType() const throw() { return SKILL_THUNDER_SPARK; }
+    string getSkillHandlerName() const throw() {
+        return "ThunderSpark";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_THUNDER_SPARK;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

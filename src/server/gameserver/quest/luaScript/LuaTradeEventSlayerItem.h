@@ -4,17 +4,20 @@
 #include "LuaSelectItem.h"
 
 class LuaTradeEventSlayerItem : public LuaSelectItem {
-public :
-	LuaTradeEventSlayerItem(LuaState* pState);
+public:
+    LuaTradeEventSlayerItem(LuaState* pState);
 
-	virtual void	prepare() ;
+    virtual void prepare();
 
-	Attr_t	getSum() const		{ return m_SUM; }
-	void	setSum(Attr_t sum) 	{ m_SUM = sum; }
+    Attr_t getSum() const {
+        return m_SUM;
+    }
+    void setSum(Attr_t sum) {
+        m_SUM = sum;
+    }
 
-protected :
-	Attr_t	m_SUM;
+protected:
+    Attr_t m_SUM;
 };
 
 #endif
-

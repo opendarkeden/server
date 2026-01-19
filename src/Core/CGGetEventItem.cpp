@@ -1,50 +1,47 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGGetEventItem.cpp 
+// Filename    : CGGetEventItem.cpp
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGGetEventItem.h"
 
-void CGGetEventItem::read (SocketInputStream & iStream) 
-	 
+void CGGetEventItem::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_EventType);
+    iStream.read(m_EventType);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGGetEventItem::write (SocketOutputStream & oStream) const 
-     
+void CGGetEventItem::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_EventType);
+    oStream.write(m_EventType);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGGetEventItem::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGGetEventItem::execute(Player* pPlayer)
 
-	CGGetEventItemHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGGetEventItemHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGGetEventItem::toString () 
-	const 
-{
-	__BEGIN_TRY
+string CGGetEventItem::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CGGetEventItem(EventType:" << (int)m_EventType
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CGGetEventItem(EventType:" << (int)m_EventType << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

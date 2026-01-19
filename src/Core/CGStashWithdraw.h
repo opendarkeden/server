@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename    : CGStashWithdraw.h 
+// Filename    : CGStashWithdraw.h
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_STASH_WITHDRAW_H__
@@ -16,25 +16,34 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGStashWithdraw : public Packet 
-{
+class CGStashWithdraw : public Packet {
 public:
     CGStashWithdraw() {};
     virtual ~CGStashWithdraw() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_CG_STASH_WITHDRAW; }
-	PacketSize_t getPacketSize() const  { return szGold; }
-	string getPacketName() const  { return "CGStashWithdraw"; }
-	string toString() const ;
-	
-public:
-	Gold_t getAmount(void) const  { return m_Amount;}
-	void setAmount(Gold_t amount)  { m_Amount = amount;}
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_STASH_WITHDRAW;
+    }
+    PacketSize_t getPacketSize() const {
+        return szGold;
+    }
+    string getPacketName() const {
+        return "CGStashWithdraw";
+    }
+    string toString() const;
 
-private :
-	Gold_t m_Amount;
+public:
+    Gold_t getAmount(void) const {
+        return m_Amount;
+    }
+    void setAmount(Gold_t amount) {
+        m_Amount = amount;
+    }
+
+private:
+    Gold_t m_Amount;
 };
 
 
@@ -44,14 +53,20 @@ private :
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-class CGStashWithdrawFactory : public PacketFactory 
-{
+class CGStashWithdrawFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGStashWithdraw(); }
-	string getPacketName() const  { return "CGStashWithdraw"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_STASH_WITHDRAW; }
-	PacketSize_t getPacketMaxSize() const  { return szGold; }
-
+    Packet* createPacket() {
+        return new CGStashWithdraw();
+    }
+    string getPacketName() const {
+        return "CGStashWithdraw";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_STASH_WITHDRAW;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szGold;
+    }
 };
 
 
@@ -62,11 +77,9 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 
 class CGStashWithdrawHandler {
-	
 public:
-
-	// execute packet's handler
-	static void execute(CGStashWithdraw* pPacket, Player* player) ;
+    // execute packet's handler
+    static void execute(CGStashWithdraw* pPacket, Player* player);
 };
 
 #endif

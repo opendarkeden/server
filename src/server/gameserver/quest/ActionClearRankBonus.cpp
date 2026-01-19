@@ -1,39 +1,37 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionClearRankBonus.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionClearRankBonus.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "GamePlayer.h"
-#include "FlagSet.h"
-#include "VariableManager.h"
-#include "StringPool.h"
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
-#include "GCModifyInformation.h"
 
 #include <stdio.h>
+
+#include "FlagSet.h"
+#include "GCModifyInformation.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GamePlayer.h"
+#include "Ousters.h"
+#include "Slayer.h"
+#include "StringPool.h"
+#include "Vampire.h"
+#include "VariableManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
-void ActionClearRankBonus::read (PropertyBuffer & propertyBuffer)
-    
+void ActionClearRankBonus::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
-	
-	try
-	{
-		m_Rank = propertyBuffer.getPropertyInt("Rank");
-	}
-	catch ( NoSuchElementException& nsee )
-	{
-		throw Error( nsee.toString() );
-	}
+
+    try {
+        m_Rank = propertyBuffer.getPropertyInt("Rank");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 
     __END_CATCH
 }
@@ -42,170 +40,160 @@ void ActionClearRankBonus::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionClearRankBonus::execute (Creature * pCreature1, Creature * pCreature2) 
-	
+void ActionClearRankBonus::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+    Player* pPlayer = pCreature2->getPlayer();
+    Assert(pPlayer != NULL);
 
-	if ( !pCreature2->isPC() )
-		return;
+    if (!pCreature2->isPC())
+        return;
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    Assert(pPC != NULL);
 
-	// 일단 창을 닫고 본다.
-	GCNPCResponse response;
+    // 일단 창을 닫고 본다.
+    GCNPCResponse response;
 
-	Gold_t clearFee = 0;
-	FlagSetType flagSet = FLAGSET_MAX;
-	switch ( m_Rank )
-	{
-		case 5 :
-			clearFee = 500000;
-			flagSet = FLAGSET_CLEAR_RANK_BONUS_5;
-			break;
-		case 10 :
-			clearFee = 2000000;
-			flagSet = FLAGSET_CLEAR_RANK_BONUS_10;
-			break;
-		case 15 :
-			clearFee = 10000000;
-			flagSet = FLAGSET_CLEAR_RANK_BONUS_15;
-			break;
-		case 20 :
-			clearFee = 50000000;
-			flagSet = FLAGSET_CLEAR_RANK_BONUS_20;
-			break;
-		default :
-			{
-				response.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
-				pPlayer->sendPacket( &response );
-			}
-	}
+    Gold_t clearFee = 0;
+    FlagSetType flagSet = FLAGSET_MAX;
+    switch (m_Rank) {
+    case 5:
+        clearFee = 500000;
+        flagSet = FLAGSET_CLEAR_RANK_BONUS_5;
+        break;
+    case 10:
+        clearFee = 2000000;
+        flagSet = FLAGSET_CLEAR_RANK_BONUS_10;
+        break;
+    case 15:
+        clearFee = 10000000;
+        flagSet = FLAGSET_CLEAR_RANK_BONUS_15;
+        break;
+    case 20:
+        clearFee = 50000000;
+        flagSet = FLAGSET_CLEAR_RANK_BONUS_20;
+        break;
+    default: {
+        response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+        pPlayer->sendPacket(&response);
+    }
+    }
 
-	FlagSet* pFlagSet = pPC->getFlagSet();
-	Assert( pFlagSet != NULL );
+    FlagSet* pFlagSet = pPC->getFlagSet();
+    Assert(pFlagSet != NULL);
 
-	if ( pFlagSet->isOn( flagSet ) )
-	{
-		response.setCode( NPC_RESPONSE_ALREADY_CLEAR_RANK_BONUS );
-		pPlayer->sendPacket( &response );
+    if (pFlagSet->isOn(flagSet)) {
+        response.setCode(NPC_RESPONSE_ALREADY_CLEAR_RANK_BONUS);
+        pPlayer->sendPacket(&response);
 
-		response.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
-		pPlayer->sendPacket( &response );
+        response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+        pPlayer->sendPacket(&response);
 
-		return;
-	}
+        return;
+    }
 
-	if ( pPC->getRankBonusByRank( m_Rank ) == NULL )
-	{
-		response.setCode( NPC_RESPONSE_NO_RANK_BONUS );
-		pPlayer->sendPacket( &response );
+    if (pPC->getRankBonusByRank(m_Rank) == NULL) {
+        response.setCode(NPC_RESPONSE_NO_RANK_BONUS);
+        pPlayer->sendPacket(&response);
 
-		response.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
-		pPlayer->sendPacket( &response );
+        response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+        pPlayer->sendPacket(&response);
 
-		return;
-	}
+        return;
+    }
 
-	if ( pPC->getGold() < clearFee )
-	{
-		response.setCode( NPC_RESPONSE_NOT_ENOUGH_MONEY );
-		pPlayer->sendPacket( &response );
+    if (pPC->getGold() < clearFee) {
+        response.setCode(NPC_RESPONSE_NOT_ENOUGH_MONEY);
+        pPlayer->sendPacket(&response);
 
-		response.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
-		pPlayer->sendPacket( &response );
+        response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+        pPlayer->sendPacket(&response);
 
-		return;
-	}
+        return;
+    }
 
-	pPC->clearRankBonus( m_Rank );
+    pPC->clearRankBonus(m_Rank);
 
-	GCModifyInformation gcMI;
+    GCModifyInformation gcMI;
 
-	if ( pPC->isSlayer() )
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>( pPC );
-		Assert( pSlayer != NULL );
+    if (pPC->isSlayer()) {
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
+        Assert(pSlayer != NULL);
 
-		SLAYER_RECORD prev;
-		pSlayer->getSlayerRecord( prev );
+        SLAYER_RECORD prev;
+        pSlayer->getSlayerRecord(prev);
 
-		pSlayer->initAllStat();
+        pSlayer->initAllStat();
 
-		pSlayer->sendRealWearingInfo();
-		pSlayer->sendModifyInfo( prev );
+        pSlayer->sendRealWearingInfo();
+        pSlayer->sendModifyInfo(prev);
 
-		pSlayer->setGoldEx( pSlayer->getGold() - clearFee );
-		gcMI.addLongData( MODIFY_GOLD, pSlayer->getGold() );
-	}
-	else if ( pPC->isVampire() )
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>( pPC );
-		Assert( pVampire != NULL );
+        pSlayer->setGoldEx(pSlayer->getGold() - clearFee);
+        gcMI.addLongData(MODIFY_GOLD, pSlayer->getGold());
+    } else if (pPC->isVampire()) {
+        Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
+        Assert(pVampire != NULL);
 
-		VAMPIRE_RECORD prev;
-		pVampire->getVampireRecord( prev );
+        VAMPIRE_RECORD prev;
+        pVampire->getVampireRecord(prev);
 
-		pVampire->initAllStat();
+        pVampire->initAllStat();
 
-		pVampire->sendRealWearingInfo();
-		pVampire->sendModifyInfo( prev );
+        pVampire->sendRealWearingInfo();
+        pVampire->sendModifyInfo(prev);
 
-		pVampire->setGoldEx( pVampire->getGold() - clearFee );
-		gcMI.addLongData( MODIFY_GOLD, pVampire->getGold() );
-	}
-	else if ( pPC->isOusters() )
-	{
-		Ousters* pOusters = dynamic_cast<Ousters*>( pPC );
-		Assert( pOusters != NULL );
+        pVampire->setGoldEx(pVampire->getGold() - clearFee);
+        gcMI.addLongData(MODIFY_GOLD, pVampire->getGold());
+    } else if (pPC->isOusters()) {
+        Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
+        Assert(pOusters != NULL);
 
-		OUSTERS_RECORD prev;
-		pOusters->getOustersRecord( prev );
+        OUSTERS_RECORD prev;
+        pOusters->getOustersRecord(prev);
 
-		pOusters->initAllStat();
+        pOusters->initAllStat();
 
-		pOusters->sendRealWearingInfo();
-		pOusters->sendModifyInfo( prev );
+        pOusters->sendRealWearingInfo();
+        pOusters->sendModifyInfo(prev);
 
-		pOusters->setGoldEx( pOusters->getGold() - clearFee );
-		gcMI.addLongData( MODIFY_GOLD, pOusters->getGold() );
-	}
+        pOusters->setGoldEx(pOusters->getGold() - clearFee);
+        gcMI.addLongData(MODIFY_GOLD, pOusters->getGold());
+    }
 
-	pFlagSet->turnOn( flagSet );
-	pFlagSet->save( pPC->getName() );
+    pFlagSet->turnOn(flagSet);
+    pFlagSet->save(pPC->getName());
 
-	pPlayer->sendPacket( &gcMI );
-	pPC->sendRankBonusInfo();
+    pPlayer->sendPacket(&gcMI);
+    pPC->sendRankBonusInfo();
 
-	response.setCode( NPC_RESPONSE_CLEAR_RANK_BONUS_OK );
-	pPlayer->sendPacket( &response );
+    response.setCode(NPC_RESPONSE_CLEAR_RANK_BONUS_OK);
+    pPlayer->sendPacket(&response);
 
-	response.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
-	pPlayer->sendPacket( &response );
+    response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+    pPlayer->sendPacket(&response);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionClearRankBonus::toString () const
-	
+string ActionClearRankBonus::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionClearRankBonus("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionClearRankBonus("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

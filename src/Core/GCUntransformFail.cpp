@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
+//
 // Filename    : GCUntransformFail.cpp
 // Written By  : crazydog
-// Description :  
+// Description :
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,37 +12,37 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCUntransformFail::read (SocketInputStream & iStream ) 
-	 
+void GCUntransformFail::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCUntransformFail::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
+void GCUntransformFail::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCUntransformFail::execute (Player * pPlayer ) 
-	 
+void GCUntransformFail::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCUntransformFailHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCUntransformFailHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -51,16 +51,14 @@ void GCUntransformFail::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCUntransformFail::toString () const
-       
+string GCUntransformFail::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCUntransformFail()";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCUntransformFail()";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-
-

@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : RankBonusInfo.cpp
 // Written By  : beowulf
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "RankBonusInfo.h"
+
 #include "Assert.h"
 #include "DB.h"
 // #include <algo.h>
@@ -13,32 +14,19 @@
 // class RankBonusInfo member methods
 //////////////////////////////////////////////////////////////////////////////
 
-RankBonusInfo::RankBonusInfo()
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+RankBonusInfo::RankBonusInfo(){__BEGIN_TRY __END_CATCH}
 
-RankBonusInfo::~RankBonusInfo()
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
+RankBonusInfo::~RankBonusInfo(){__BEGIN_TRY __END_CATCH_NO_RETHROW}
 
-string RankBonusInfo::toString() const
-{
-	__BEGIN_TRY
-	
-	StringStream msg;
-	msg << "RankBonusInfo ("
-		<< "Type:"			<< (int)m_Type
-		<< ",Name:"			<< m_Name
-		<< ",Rank:"			<< m_Rank
-		<< ",Point:"		<< m_Point
-		<< ")";
-	return msg.toString();
+string RankBonusInfo::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "RankBonusInfo ("
+        << "Type:" << (int)m_Type << ",Name:" << m_Name << ",Rank:" << m_Rank << ",Point:" << m_Point << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
 
 
@@ -47,179 +35,170 @@ string RankBonusInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 RankBonusInfoManager::RankBonusInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_Count = 0;
-	m_RankBonusInfoList = NULL;
+    m_Count = 0;
+    m_RankBonusInfoList = NULL;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 RankBonusInfoManager::~RankBonusInfoManager()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	SAFE_DELETE_ARRAY(m_RankBonusInfoList);
+    SAFE_DELETE_ARRAY(m_RankBonusInfoList);
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 void RankBonusInfoManager::init()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	load();
+    load();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void RankBonusInfoManager::clear()
-	
-{
-	__BEGIN_TRY
-	
-	if ( m_RankBonusInfoList != NULL )
-	{
-		for ( uint i = 0; i < m_Count; i++ )
-		{
-			if ( m_RankBonusInfoList[i] != NULL )
-				SAFE_DELETE( m_RankBonusInfoList[i] );
-		}
-	}
-	SAFE_DELETE_ARRAY( m_RankBonusInfoList );
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    if (m_RankBonusInfoList != NULL) {
+        for (uint i = 0; i < m_Count; i++) {
+            if (m_RankBonusInfoList[i] != NULL)
+                SAFE_DELETE(m_RankBonusInfoList[i]);
+        }
+    }
+    SAFE_DELETE_ARRAY(m_RankBonusInfoList);
+
+    __END_CATCH
 }
 
 void RankBonusInfoManager::load()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	clear();
+    clear();
 
-	Statement* pStmt    = NULL;
-	Result*    pResult  = NULL;
-	
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(Type) FROM RankBonusInfo");
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-		if (pResult->getRowCount() == 0)
-		{
-			SAFE_DELETE(pStmt);
-			throw Error ("There is no data in RankBonusInfo Table");
-		}
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT MAX(Type) FROM RankBonusInfo");
 
-		pResult->next();
+        if (pResult->getRowCount() == 0) {
+            SAFE_DELETE(pStmt);
+            throw Error("There is no data in RankBonusInfo Table");
+        }
 
-		m_Count = pResult->getInt(1) + 1;
+        pResult->next();
 
-		Assert (m_Count > 0);
+        m_Count = pResult->getInt(1) + 1;
 
-		m_RankBonusInfoList = new RankBonusInfo* [m_Count];
+        Assert(m_Count > 0);
 
-		for (uint i=0 ; i < m_Count; i++)
-			m_RankBonusInfoList[i] = NULL;
+        m_RankBonusInfoList = new RankBonusInfo*[m_Count];
 
-		pResult = pStmt->executeQuery("SELECT Type, Name, `Rank`, Point, Race FROM RankBonusInfo");
+        for (uint i = 0; i < m_Count; i++)
+            m_RankBonusInfoList[i] = NULL;
 
-		while (pResult->next()) 
-		{
-			RankBonusInfo* pRankBonusInfo = new RankBonusInfo();
-			int i = 0;
+        pResult = pStmt->executeQuery("SELECT Type, Name, `Rank`, Point, Race FROM RankBonusInfo");
 
-			pRankBonusInfo->setType( pResult->getInt(++i) );
-			pRankBonusInfo->setName( pResult->getString(++i) );
-			pRankBonusInfo->setRank( pResult->getInt(++i) );
-			pRankBonusInfo->setPoint( pResult->getInt(++i) );
-			pRankBonusInfo->setRace( pResult->getInt(++i) );
+        while (pResult->next()) {
+            RankBonusInfo* pRankBonusInfo = new RankBonusInfo();
+            int i = 0;
 
-			addRankBonusInfo(pRankBonusInfo);
-		}
-		
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+            pRankBonusInfo->setType(pResult->getInt(++i));
+            pRankBonusInfo->setName(pResult->getString(++i));
+            pRankBonusInfo->setRank(pResult->getInt(++i));
+            pRankBonusInfo->setPoint(pResult->getInt(++i));
+            pRankBonusInfo->setRace(pResult->getInt(++i));
 
-	__END_DEBUG
-	__END_CATCH
+            addRankBonusInfo(pRankBonusInfo);
+        }
+
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_DEBUG
+    __END_CATCH
 }
 
 void RankBonusInfoManager::save()
-	
-{
-	__BEGIN_TRY
 
-	throw UnsupportedError (__PRETTY_FUNCTION__);
-	
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    throw UnsupportedError(__PRETTY_FUNCTION__);
+
+    __END_CATCH
 }
 
-RankBonusInfo* RankBonusInfoManager::getRankBonusInfo( DWORD rankBonusType ) const
-{
-	__BEGIN_TRY
+RankBonusInfo* RankBonusInfoManager::getRankBonusInfo(DWORD rankBonusType) const {
+    __BEGIN_TRY
 
-	if ( rankBonusType >= m_Count )
-	{
-		cerr << "RankBonusInfoManager::getRankBonusInfo() : out of bound" << endl;
-		throw OutOfBoundException();
-	}
+    if (rankBonusType >= m_Count) {
+        cerr << "RankBonusInfoManager::getRankBonusInfo() : out of bound" << endl;
+        throw OutOfBoundException();
+    }
 
-	if ( m_RankBonusInfoList[rankBonusType] == NULL )
-	{
-		cerr << "RankBonusInfoManager::getRankBonusInfo() : no such element" << endl;
-		throw NoSuchElementException();
-	}
+    if (m_RankBonusInfoList[rankBonusType] == NULL) {
+        cerr << "RankBonusInfoManager::getRankBonusInfo() : no such element" << endl;
+        throw NoSuchElementException();
+    }
 
-	return m_RankBonusInfoList[rankBonusType];
+    return m_RankBonusInfoList[rankBonusType];
 
-	__END_CATCH
+    __END_CATCH
 }
 
 void RankBonusInfoManager::addRankBonusInfo(RankBonusInfo* pRankBonusInfo)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-  	Assert (pRankBonusInfo != NULL);
+    Assert(pRankBonusInfo != NULL);
 
-	if (m_RankBonusInfoList[pRankBonusInfo->getType()] != NULL)
-		throw DuplicatedException ();
+    if (m_RankBonusInfoList[pRankBonusInfo->getType()] != NULL)
+        throw DuplicatedException();
 
-	m_RankBonusInfoList[pRankBonusInfo->getType()] = pRankBonusInfo;
+    m_RankBonusInfoList[pRankBonusInfo->getType()] = pRankBonusInfo;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 string RankBonusInfoManager::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "RankBonusInfoManager(\n";
+    msg << "RankBonusInfoManager(\n";
 
-	for (int i = 0 ; i < (int)m_Count ; i ++)
-	{
-		msg << "RankBonusInfos[" << i << "] == ";
-		msg	<< (m_RankBonusInfoList[i] == NULL ? "NULL" : m_RankBonusInfoList[i]->getName());
-		msg << "\n";
-		if (m_RankBonusInfoList[i] != NULL) {
-			msg << m_RankBonusInfoList[i]->toString() << "\n";
-		}
-	}
+    for (int i = 0; i < (int)m_Count; i++) {
+        msg << "RankBonusInfos[" << i << "] == ";
+        msg << (m_RankBonusInfoList[i] == NULL ? "NULL" : m_RankBonusInfoList[i]->getName());
+        msg << "\n";
+        if (m_RankBonusInfoList[i] != NULL) {
+            msg << m_RankBonusInfoList[i]->toString() << "\n";
+        }
+    }
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 // Global Variable definition

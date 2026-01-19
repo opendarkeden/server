@@ -11,50 +11,46 @@
 
 #ifdef __GAME_SERVER__
 
-	#include "Player.h"
-	#include "Creature.h"
-	#include "GuildManager.h"
-	#include "Guild.h"
-	#include "PCFinder.h"
-	#include "GCWhisper.h"
-    #include "GCWhisperFailed.h"
+#include "Creature.h"
+#include "GCWhisper.h"
+#include "GCWhisperFailed.h"
+#include "Guild.h"
+#include "GuildManager.h"
+#include "PCFinder.h"
+#include "Player.h"
 
 #endif
 
 //----------------------------------------------------------------------
-// 
+//
 // GGServerChatHander::execute()
-// 
+//
 //----------------------------------------------------------------------
-void GGServerChatHandler::execute (GGServerChat * pPacket )
-	 
+void GGServerChatHandler::execute(GGServerChat* pPacket)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-	__BEGIN_DEBUG
-	
+    __BEGIN_TRY __BEGIN_DEBUG_EX __BEGIN_DEBUG
+
 #ifdef __GAME_SERVER__
 
-	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
-        
-	Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getReceiver());
-	if (pCreature != NULL && pCreature->getPlayer() != NULL )
-	{   		
-		GCWhisper gcWhisper;
+        __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
-		gcWhisper.setName	(pPacket->getSender()	);
-		gcWhisper.setColor	(pPacket->getColor() 	);
-		gcWhisper.setMessage(pPacket->getMessage()	);
-		gcWhisper.setRace	(pPacket->getRace()		);
+            Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getReceiver());
+    if (pCreature != NULL && pCreature->getPlayer() != NULL) {
+        GCWhisper gcWhisper;
 
-		pCreature->getPlayer()->sendPacket(&gcWhisper);
+        gcWhisper.setName(pPacket->getSender());
+        gcWhisper.setColor(pPacket->getColor());
+        gcWhisper.setMessage(pPacket->getMessage());
+        gcWhisper.setRace(pPacket->getRace());
 
-	}
-	__LEAVE_CRITICAL_SECTION((*g_pPCFinder))
-
+        pCreature->getPlayer()->sendPacket(&gcWhisper);
+    }
+    __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
 
 #endif
-		
-	__END_DEBUG
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG
+    __END_DEBUG_EX __END_CATCH
 }

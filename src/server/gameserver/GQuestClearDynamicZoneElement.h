@@ -4,34 +4,44 @@
 #include "GQuestElement.h"
 #include "GQuestStatus.h"
 
-class GQuestClearDynamicZoneMission : public GQuestMission
-{
+class GQuestClearDynamicZoneMission : public GQuestMission {
 public:
-	GQuestClearDynamicZoneMission(ZoneID_t targetZoneID) : m_bClear(false), m_TargetZoneID(targetZoneID) { }
+    GQuestClearDynamicZoneMission(ZoneID_t targetZoneID) : m_bClear(false), m_TargetZoneID(targetZoneID) {}
 
-	bool	isClear() const { return m_bClear; }
-	void	clear(ZoneID_t zoneID) { if ( m_TargetZoneID == zoneID ) m_bClear = true; }
+    bool isClear() const {
+        return m_bClear;
+    }
+    void clear(ZoneID_t zoneID) {
+        if (m_TargetZoneID == zoneID)
+            m_bClear = true;
+    }
 
-	string	getMissionName() const { return "ClearDynamicZoneMission"; }
+    string getMissionName() const {
+        return "ClearDynamicZoneMission";
+    }
+
 private:
-	bool	m_bClear;
-	ZoneID_t	m_TargetZoneID;
+    bool m_bClear;
+    ZoneID_t m_TargetZoneID;
 };
 
-class GQuestClearDynamicZoneElement : public GQuestElement
-{
+class GQuestClearDynamicZoneElement : public GQuestElement {
 public:
-	GQuestClearDynamicZoneElement() { }
-	string 				getElementName() const { return "ClearDynamicZone"; }
-	GQuestManager::EventTypes	getEventType() const { return GQuestManager::CLEAR_DYNAMIC_ZONE; }
+    GQuestClearDynamicZoneElement() {}
+    string getElementName() const {
+        return "ClearDynamicZone";
+    }
+    GQuestManager::EventTypes getEventType() const {
+        return GQuestManager::CLEAR_DYNAMIC_ZONE;
+    }
 
-	ResultType			checkMission(GQuestMission* pStatus) const;
+    ResultType checkMission(GQuestMission* pStatus) const;
 
-	GQuestMission*		makeInitMission(PlayerCreature* pPC) const;
-	GQuestClearDynamicZoneElement*	makeElement(XMLTree* pTree);
+    GQuestMission* makeInitMission(PlayerCreature* pPC) const;
+    GQuestClearDynamicZoneElement* makeElement(XMLTree* pTree);
 
 private:
-	ZoneID_t	m_TargetZoneID;
+    ZoneID_t m_TargetZoneID;
 };
 
 extern GQuestClearDynamicZoneElement g_ClearDynamicZoneElement;

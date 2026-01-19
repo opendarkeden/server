@@ -5,125 +5,120 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectShareHP.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Monster.h"
-#include "DB.h"
-#include "Player.h"
-#include "SkillUtil.h"
 
+#include "DB.h"
 #include "GCModifyInformation.h"
 #include "GCStatusCurrentHP.h"
+#include "Monster.h"
+#include "Player.h"
+#include "SkillUtil.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectShareHP::EffectShareHP(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectShareHP::affect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectShareHP " << "begin begin" << endl;
+    // cout << "EffectShareHP " << "begin begin" << endl;
 
-	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
-	affect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    affect(pCreature);
 
-	//cout << "EffectShareHP " << "begin end" << endl;
+    // cout << "EffectShareHP " << "begin end" << endl;
 
-	__END_CATCH 
-
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectShareHP::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//cout << "EffectShareHP " << "begin" << endl;
-	//cout << "EffectShareHP " << "end" << endl;
+    // cout << "EffectShareHP " << "begin" << endl;
+    // cout << "EffectShareHP " << "end" << endl;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectShareHP::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
+void EffectShareHP::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectShareHP::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	Assert(pCreature != NULL);
+    Assert(pCreature != NULL);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_SHARE_HP);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_SHARE_HP);
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectShareHP::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+    unaffect(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectShareHP::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	
-{
-	__BEGIN_TRY
+void EffectShareHP::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject)
+
+    {__BEGIN_TRY
 
 
-	__END_CATCH
-}
+         __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectShareHP::toString() const 
-	
+string EffectShareHP::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectShareHP("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectShareHP("
+        << "ObjectID:" << getObjectID() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

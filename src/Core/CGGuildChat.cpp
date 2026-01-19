@@ -1,78 +1,76 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGGuildChat.cpp 
+// Filename    : CGGuildChat.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGGuildChat.h"
 
-void CGGuildChat::read (SocketInputStream & iStream) 
-	 
+void CGGuildChat::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	iStream.read(m_Type);
-	iStream.read(m_Color);
+    __BEGIN_TRY
 
-	// Read message text
-	BYTE szMessage;
+    iStream.read(m_Type);
+    iStream.read(m_Color);
 
-	iStream.read(szMessage);
+    // Read message text
+    BYTE szMessage;
 
-	if (szMessage == 0)
-		throw InvalidProtocolException("szMessage == 0");
+    iStream.read(szMessage);
 
-	if (szMessage > 128)
-		throw InvalidProtocolException("too large message length");
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
 
-	iStream.read(m_Message , szMessage);
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
 
-	__END_CATCH
-}
-		    
-void CGGuildChat::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_Type);
-	oStream.write(m_Color);
+    iStream.read(m_Message, szMessage);
 
-	// Write message text
-	BYTE szMessage = m_Message.size();
-
-	if (szMessage == 0)
-		throw InvalidProtocolException("szMessage == 0");
-
-	if (szMessage > 128)
-		throw InvalidProtocolException("too large message length");
-
-	oStream.write(szMessage);
-	oStream.write(m_Message);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGGuildChat::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGGuildChatHandler::execute(this , pPlayer);
+void CGGuildChat::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_Type);
+    oStream.write(m_Color);
+
+    // Write message text
+    BYTE szMessage = m_Message.size();
+
+    if (szMessage == 0)
+        throw InvalidProtocolException("szMessage == 0");
+
+    if (szMessage > 128)
+        throw InvalidProtocolException("too large message length");
+
+    oStream.write(szMessage);
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
-string CGGuildChat::toString () const
-       
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGGuildChat(Color:" << m_Color
-		<< ", Message : " << m_Message
-		<< ")" ;
-	return msg.toString();
+void CGGuildChat::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGGuildChatHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string CGGuildChat::toString() const
+
+{
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGGuildChat(Color:" << m_Color << ", Message : " << m_Message << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

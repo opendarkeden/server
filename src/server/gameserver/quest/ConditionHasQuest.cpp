@@ -1,84 +1,81 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionHasQuest.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionHasQuest.h"
+
 #include "PlayerCreature.h"
 #include "mission/QuestManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ConditionHasQuest::ConditionHasQuest()
-	
-{
-	__BEGIN_TRY
 
-	__END_CATCH
-}
+    {__BEGIN_TRY
+
+         __END_CATCH}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ConditionHasQuest::~ConditionHasQuest()
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionHasQuest::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionHasQuest::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert( pPC != NULL );
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	//cout << "isSatisfied? " << toString() << " ... " << pPC->getName() << endl;
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    Assert(pPC != NULL);
 
-	QuestManager* pQM = pPC->getQuestManager();
-	if ( pQM == NULL || !pQM->hasQuest() ) return false;
-	if ( pQM->getQuestStatus( m_QuestID ) == NULL ) return false;
+    // cout << "isSatisfied? " << toString() << " ... " << pPC->getName() << endl;
 
-	//cout << "Satisfied" << endl;
+    QuestManager* pQM = pPC->getQuestManager();
+    if (pQM == NULL || !pQM->hasQuest())
+        return false;
+    if (pQM->getQuestStatus(m_QuestID) == NULL)
+        return false;
 
-	return true;
+    // cout << "Satisfied" << endl;
+
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionHasQuest::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionHasQuest::read(PropertyBuffer& propertyBuffer)
+
 {
-	try
-	{
-		m_QuestID = propertyBuffer.getPropertyInt("QuestID");
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+    try {
+        m_QuestID = propertyBuffer.getPropertyInt("QuestID");
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionHasQuest::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionHasQuest::toString() const
 
-	StringStream msg;
-	msg << "ConditionHasQuest("
-		<< "QuestID : " << m_QuestID
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionHasQuest("
+        << "QuestID : " << m_QuestID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

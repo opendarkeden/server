@@ -18,28 +18,31 @@
 class Slayer;
 class Item;
 
-class EffectRideMotorcycle : public Effect 
-{
+class EffectRideMotorcycle : public Effect {
 public:
-	EffectRideMotorcycle(Slayer* pOwner, Item* pMotorcycle, ZoneCoord_t motorX, ZoneCoord_t motorY) ;
-	virtual ~EffectRideMotorcycle() ;
+    EffectRideMotorcycle(Slayer* pOwner, Item* pMotorcycle, ZoneCoord_t motorX, ZoneCoord_t motorY);
+    virtual ~EffectRideMotorcycle();
 
 public:
-	EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSPORT_ITEM; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_TRANSPORT_ITEM;
+    }
 
-	// OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
-	ObjectPriority getObjectPriority() const  { return OBJECT_PRIORITY_NONE; }
+    // OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
+    ObjectPriority getObjectPriority() const {
+        return OBJECT_PRIORITY_NONE;
+    }
 
-	void unaffect() ;
+    void unaffect();
 
-	// get debug string
-	string toString() const ;
+    // get debug string
+    string toString() const;
 
 private:
-	ZoneCoord_t m_MotorX; 
-	ZoneCoord_t m_MotorY;
-	ObjectID_t	m_OwnerObjectID;
-	Item*		m_pMotorcycle;
+    ZoneCoord_t m_MotorX;
+    ZoneCoord_t m_MotorY;
+    ObjectID_t m_OwnerObjectID;
+    Item* m_pMotorcycle;
 };
 
 #endif

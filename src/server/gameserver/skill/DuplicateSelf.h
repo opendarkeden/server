@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DuplicateSelf.h 
+// Filename    : DuplicateSelf.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DUPLICATE_SELF_HANDLER_H__
@@ -13,25 +13,28 @@
 // class DuplicateSelf;
 //////////////////////////////////////////////////////////////////////////////
 
-class DuplicateSelf: public SkillHandler 
-{
+class DuplicateSelf : public SkillHandler {
 public:
-	DuplicateSelf() throw();
-	~DuplicateSelf() throw() {}
-	
+    DuplicateSelf() throw();
+    ~DuplicateSelf() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DuplicateSelf"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DUPLICATE_SELF; }
+    string getSkillHandlerName() const throw() {
+        return "DuplicateSelf";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DUPLICATE_SELF;
+    }
 
-	//void execute(Slayer* pSlayer, SlayerSkillSlot* pSlayerSkillSlot, CEffectID_t CEffectID) ;
-	//void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster) ;
+    // void execute(Slayer* pSlayer, SlayerSkillSlot* pSlayerSkillSlot, CEffectID_t CEffectID) ;
+    // void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
-private :
-	// [원래MType] = 분신MType
-	unordered_map<MonsterType_t, MonsterType_t> m_DuplicateMonsterTypes;
+private:
+    // [원래MType] = 분신MType
+    unordered_map<MonsterType_t, MonsterType_t> m_DuplicateMonsterTypes;
 };
 
 // global variable declaration

@@ -1,45 +1,57 @@
 #ifndef __CORPSE_ITEM_POSITION_H__
 #define __CORPSE_ITEM_POSITION_H__
 
-#include "Types.h"
 #include "GlobalItemPosition.h"
+#include "Types.h"
 
 class Item;
 
-class CorpseItemPosition : public GlobalItemPosition
-{
+class CorpseItemPosition : public GlobalItemPosition {
+public:
+    CorpseItemPosition() : GlobalItemPosition(POS_TYPE_CORPSE) {}
+    ~CorpseItemPosition() {}
 
 public:
-	CorpseItemPosition() : GlobalItemPosition( POS_TYPE_CORPSE ){ }
-	~CorpseItemPosition(){ }
+    virtual Item* popItem(bool bLock = true);
+    virtual Item* getItem_LOCKED(bool isDel);
+    virtual Item* getItem_UNLOCKED(bool isDel);
+
+    Zone* getZone() {
+        return m_pZone;
+    }
+
+    ZoneID_t getZoneID() const {
+        return m_ZoneID;
+    }
+    void setZoneID(ZoneID_t zoneID) {
+        m_ZoneID = zoneID;
+    }
+
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t objectID) {
+        m_ObjectID = objectID;
+    }
+
+    ObjectID_t getCorpseObjectID() const {
+        return m_CorpseObjectID;
+    }
+    void setCorpseObjectID(ObjectID_t objectID) {
+        m_CorpseObjectID = objectID;
+    }
 
 public:
-	virtual Item*	popItem( bool bLock = true ) ;
-	virtual Item*	getItem_LOCKED( bool isDel ) ;
-	virtual Item*	getItem_UNLOCKED( bool isDel ) ;
-
-	Zone*   getZone() 	{ return m_pZone; }
-
-	ZoneID_t		getZoneID() const { return m_ZoneID; }
-	void			setZoneID( ZoneID_t zoneID ) { m_ZoneID = zoneID; }
-
-	ObjectID_t		getObjectID() const { return m_ObjectID; }
-	void			setObjectID( ObjectID_t objectID ) { m_ObjectID = objectID; }
-
-	ObjectID_t		getCorpseObjectID() const { return m_CorpseObjectID; }
-	void			setCorpseObjectID( ObjectID_t objectID ) { m_CorpseObjectID = objectID; }
-
-public:
-	virtual string	toString() const ;
+    virtual string toString() const;
 
 protected:
-	Item*			getItem_CORE(Zone* pZone, bool isDel) ;
+    Item* getItem_CORE(Zone* pZone, bool isDel);
 
 private:
-	ZoneID_t	m_ZoneID;
-	Zone*		m_pZone;
-	ObjectID_t	m_CorpseObjectID;
-	ObjectID_t	m_ObjectID;
+    ZoneID_t m_ZoneID;
+    Zone* m_pZone;
+    ObjectID_t m_CorpseObjectID;
+    ObjectID_t m_ObjectID;
 };
 
 #endif // __CORPSE_ITEM_POSITION_H__

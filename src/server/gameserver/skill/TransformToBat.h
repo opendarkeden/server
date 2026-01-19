@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : TransformToBat.h 
+// Filename    : TransformToBat.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_TRANSFORM_TO_BAT_HANDLER_H__
@@ -13,20 +13,24 @@
 // class TransformToBat;
 //////////////////////////////////////////////////////////////////////////////
 
-class TransformToBat: public SkillHandler 
-{
+class TransformToBat : public SkillHandler {
 public:
-	TransformToBat() throw() {}
-	~TransformToBat() throw() {}
-	
+    TransformToBat() throw() {}
+    ~TransformToBat() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "TransformToBat"; }
-	SkillType_t getSkillType() const throw() { return SKILL_TRANSFORM_TO_BAT; }
+    string getSkillHandlerName() const throw() {
+        return "TransformToBat";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_TRANSFORM_TO_BAT;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot) ;
-	void execute(Monster* pMonster) ;
+    void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
+                 CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot);
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

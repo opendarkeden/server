@@ -9,10 +9,11 @@
 #define __WEATHER_MANAGER_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
-#include "Assert.h"
 #include <time.h>
+
+#include "Assert.h"
+#include "Exception.h"
+#include "Types.h"
 
 class Zone;
 
@@ -20,14 +21,14 @@ class Zone;
 //
 // class WeatherManager;
 //
-// 존의 날씨를 관리하는 객체로서, 각 존은 하나의 WeatherManager를 가지고 있어야 한다. 
+// 존의 날씨를 관리하는 객체로서, 각 존은 하나의 WeatherManager를 가지고 있어야 한다.
 //
 // 존의 날씨는 하루에 한번 결정이 된다. 우선, GameTime 에서 오늘이 몇월인지를
-// 알아낸 다음, WeatherInfoManager 에서 해당되는 WeatherInfo 를 가져온다. 
+// 알아낸 다음, WeatherInfoManager 에서 해당되는 WeatherInfo 를 가져온다.
 // 이제 dice 를 굴려서, 오늘의 날씨를 결정짓는다. CLEAR-RAIN-SNOW 중 하나를 결정
 // 지었으면, 이제 하루의 세부적인 날씨를 결정짓는다.
 //
-// 날씨의 기본 단위는 게임 시간 1 시간이다. 
+// 날씨의 기본 단위는 게임 시간 1 시간이다.
 //
 // WEATHER_CLEAR : 이 경우, 비나 눈이 내리지 않는다.
 // WEATHER_RAINY, WEATHER_SNOWY : 하루에 비가 내릴 확률을 바탕으로 매 시간마다
@@ -38,73 +39,80 @@ class Zone;
 //
 //--------------------------------------------------------------------------------
 class WeatherManager {
-
 public:
+    // constructor
+    WeatherManager(Zone* pZone) : m_pZone(pZone) {
+        Assert(m_pZone != NULL);
+    }
 
-	// constructor
-	WeatherManager(Zone* pZone)  : m_pZone(pZone) { Assert(m_pZone != NULL); }
+    // destructor
+    virtual ~WeatherManager();
 
-	// destructor
-	virtual ~WeatherManager() ;
+    // initialize
+    void init();
 
-	// initialize 
-	void init() ;
+    // 지정 시간이 되면 날씨를 알아서 바꿔준다. 존의 heartbeat 에서 호출되어야 한다.
+    void heartbeat();
 
-	// 지정 시간이 되면 날씨를 알아서 바꿔준다. 존의 heartbeat 에서 호출되어야 한다.
-	void heartbeat() ;
+    // 오늘의 날씨를 리턴한다.
+    Weather getTodayWeather() const {
+        return m_TodayWeather;
+    }
 
-	// 오늘의 날씨를 리턴한다.
-	Weather getTodayWeather() const  { return m_TodayWeather; }
+    // 오늘 비나 눈이 올 확률을 리턴한다.
+    uint getProbability() const {
+        return m_Probability;
+    }
 
-	// 오늘 비나 눈이 올 확률을 리턴한다.
-	uint getProbability() const  { return m_Probability; }
+    // 현재의 날씨를 리턴한다.
+    Weather getCurrentWeather() const {
+        return m_CurrentWeather;
+    }
 
-	// 현재의 날씨를 리턴한다.
-	Weather getCurrentWeather() const  { return m_CurrentWeather; }
+    // 현재의 날씨 레벨을 리턴한다.
+    WeatherLevel_t getWeatherLevel() const {
+        return m_WeatherLevel;
+    }
 
-	// 현재의 날씨 레벨을 리턴한다.
-	WeatherLevel_t getWeatherLevel() const  { return m_WeatherLevel; }
+    void resetDarkLightInfo() {
+        m_Next10Min = time(0);
+    }
 
-	void resetDarkLightInfo()  { m_Next10Min = time(0); }
-
-	// get debug string
-	string toString() const ;
+    // get debug string
+    string toString() const;
 
 private:
+    // 현재 연관되어 있는 존
+    Zone* m_pZone;
 
-	// 현재 연관되어 있는 존
-	Zone* m_pZone;
+    // 오늘의 날씨(CLEAR/RAINY/SNOWY)
+    Weather m_TodayWeather;
 
-	// 오늘의 날씨(CLEAR/RAINY/SNOWY)
-	Weather m_TodayWeather;	
+    // 비나 눈이 올 확률(0 - 100)
+    uint m_Probability;
 
-	// 비나 눈이 올 확률(0 - 100)
-	uint m_Probability;
+    // 현재의 날씨
+    Weather m_CurrentWeather;
 
-	// 현재의 날씨
-	Weather m_CurrentWeather;
-
-	// 날씨 레벨(1 - 20)
-	WeatherLevel_t m_WeatherLevel;
+    // 날씨 레벨(1 - 20)
+    WeatherLevel_t m_WeatherLevel;
 
 
-//--------------------------------------------------
-// 다음 XXX 할 시간(초단위도 충분하다)
-//--------------------------------------------------
+    //--------------------------------------------------
+    // 다음 XXX 할 시간(초단위도 충분하다)
+    //--------------------------------------------------
 private:
+    // 내일
+    time_t m_Tomorrow;
 
-	// 내일
-	time_t m_Tomorrow;
+    // 다음 날씨 변경 시간
+    time_t m_NextWeatherChangingTime;
 
-	// 다음 날씨 변경 시간
-	time_t m_NextWeatherChangingTime;
+    // 다음 번개 시간
+    time_t m_NextLightning;
 
-	// 다음 번개 시간
-	time_t m_NextLightning;
-
-	// 다음 10분대
-	time_t m_Next10Min;
-
+    // 다음 10분대
+    time_t m_Next10Min;
 };
 
 #endif

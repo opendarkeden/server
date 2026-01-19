@@ -7,52 +7,50 @@
 #define __MPLAYER_MANAGER_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
-#include "Thread.h"
-#include "Socket.h"
-#include "Mutex.h"
-#include "MJob.h"
-
 #include <deque>
+
+#include "Exception.h"
+#include "MJob.h"
+#include "Mutex.h"
+#include "Socket.h"
+#include "Thread.h"
+#include "Types.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
 // class MPlayerManager
 /////////////////////////////////////////////////////////////////////////////
-class MPlayerManager : public Thread
-{
+class MPlayerManager : public Thread {
 public:
-	// typedefinition for MJob
-	typedef deque<MJob*>				DequeMJob;
-	typedef DequeMJob::iterator			DequeMJobItr;
-	typedef DequeMJob::const_iterator	DequeMJobConstItor;
+    // typedefinition for MJob
+    typedef deque<MJob*> DequeMJob;
+    typedef DequeMJob::iterator DequeMJobItr;
+    typedef DequeMJob::const_iterator DequeMJobConstItor;
 
 public:
-	MPlayerManager() ;
-	~MPlayerManager() ;
+    MPlayerManager();
+    ~MPlayerManager();
 
 public:
-	void init()  {}
-	void stop() ;
-	void run() ;
+    void init() {}
+    void stop();
+    void run();
 
 public:
-	void addJob( const string& userID, const string& name, const string& cellnum );
+    void addJob(const string& userID, const string& name, const string& cellnum);
 
-	void processResult();
+    void processResult();
 
 private:
-	MJob* popJob();
+    MJob* popJob();
 
 private:
-	DequeMJob		m_Jobs;
-	MJob*			m_pCurrentJob;
-	mutable Mutex	m_Mutex;
+    DequeMJob m_Jobs;
+    MJob* m_pCurrentJob;
+    mutable Mutex m_Mutex;
 };
 
 // global variable declaration
 extern MPlayerManager* g_pMPlayerManager;
 
 #endif
-

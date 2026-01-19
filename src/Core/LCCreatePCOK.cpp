@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
-// 
+//
 // Filename    : LCCreatePCOK.cpp
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //----------------------------------------------------------------------
 
 // include files
@@ -12,14 +12,12 @@
 //----------------------------------------------------------------------
 // execute packet handler
 //----------------------------------------------------------------------
-void LCCreatePCOK::execute (Player * pPlayer ) 
-	 
+void LCCreatePCOK::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	LCCreatePCOKHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    LCCreatePCOKHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
-
-

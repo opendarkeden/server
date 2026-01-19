@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : TheOneServer.h 
+//
+// Filename    : TheOneServer.h
 // Written By  : reiot@ewestsoft.com
 // Description : 로그인 서버용 메인 클래스
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __THE_ONE_SERVER_H__
@@ -15,8 +15,8 @@
 #endif
 
 // include files
-#include "Types.h"
 #include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -27,27 +27,24 @@
 //////////////////////////////////////////////////////////////////////
 
 class TheOneServer {
+public:
+    // constructor
+    TheOneServer() throw(Error);
 
-public :
-	
-	// constructor
-	TheOneServer () throw ( Error );
-	
-	// destructor
-	~TheOneServer () throw ( Error );
+    // destructor
+    ~TheOneServer() throw(Error);
 
-	// intialize game server
-	void init () throw ( Error );
+    // intialize game server
+    void init() throw(Error);
 
-	// start game server
-	void start () throw ( Error );
-	
-	// stop game server
-	void stop () throw ( Error );
+    // start game server
+    void start() throw(Error);
 
+    // stop game server
+    void stop() throw(Error);
 };
 
 // global variable declaration
-extern TheOneServer * g_pTheOneServer;
+extern TheOneServer* g_pTheOneServer;
 
 #endif

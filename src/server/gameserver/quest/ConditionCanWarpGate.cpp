@@ -1,44 +1,44 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanWarpGate.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionCanWarpGate.h"
+
 #include "CreatureUtil.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionCanWarpGate::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionCanWarpGate::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	return !pCreature2->isFlag( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE );
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
+
+    return !pCreature2->isFlag(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionCanWarpGate::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionCanWarpGate::read(PropertyBuffer& propertyBuffer)
+
+{}
+
+////////////////////////////////////////////////////////////////////////////////
+// get debug string
+////////////////////////////////////////////////////////////////////////////////
+string ConditionCanWarpGate::toString() const
+
 {
-}
+    __BEGIN_TRY
 
-////////////////////////////////////////////////////////////////////////////////
-	// get debug string
-////////////////////////////////////////////////////////////////////////////////
-string ConditionCanWarpGate::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+    StringStream msg;
+    msg << "ConditionCanWarpGate("
+        << ")";
+    return msg.toString();
 
-	StringStream msg;
-	msg << "ConditionCanWarpGate("
-		<< ")"; 
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

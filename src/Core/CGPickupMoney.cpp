@@ -1,107 +1,92 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGPickupMoney.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGPickupMoney.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGPickupMoney.h"
-#include "SocketInputStream.h"
-#include "SocketOutputStream.h"
+
+#include "Assert1.h"
 #include "SocketEncryptInputStream.h"
 #include "SocketEncryptOutputStream.h"
-#include "Assert1.h"
+#include "SocketInputStream.h"
+#include "SocketOutputStream.h"
 
 
-CGPickupMoney::CGPickupMoney () 
-     
+CGPickupMoney::CGPickupMoney()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGPickupMoney::~CGPickupMoney()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGPickupMoney::~CGPickupMoney () 
-    
+void CGPickupMoney::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
-
-void CGPickupMoney::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-#ifdef __USE_ENCRYPTER__
-	SocketEncryptInputStream* pEIStream = dynamic_cast<SocketEncryptInputStream*>(&iStream);
-    Assert(pEIStream!=NULL);
-
-	if (pEIStream->getEncryptCode()!=0)
-	{
-		SHUFFLE_STATEMENT_3(pEIStream->getEncryptCode(),
-							pEIStream->readEncrypt(m_ObjectID),
-							pEIStream->readEncrypt(m_ZoneX),
-							pEIStream->readEncrypt(m_ZoneY));
-	}
-	else
-#endif
-	{
-		iStream.read(m_ObjectID);
-		iStream.read(m_ZoneX);
-		iStream.read(m_ZoneY);
-	}
-
-	__END_CATCH
-}
-
-void CGPickupMoney::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 #ifdef __USE_ENCRYPTER__
-	SocketEncryptOutputStream* pEOStream = dynamic_cast<SocketEncryptOutputStream*>(&oStream);
-    Assert(pEOStream!=NULL);
+    SocketEncryptInputStream* pEIStream = dynamic_cast<SocketEncryptInputStream*>(&iStream);
+    Assert(pEIStream != NULL);
 
-	if (pEOStream->getEncryptCode()!=0)
-	{
-		SHUFFLE_STATEMENT_3(pEOStream->getEncryptCode(),
-							pEOStream->writeEncrypt(m_ObjectID),
-							pEOStream->writeEncrypt(m_ZoneX),
-							pEOStream->writeEncrypt(m_ZoneY));
-	}
-	else
+    if (pEIStream->getEncryptCode() != 0) {
+        SHUFFLE_STATEMENT_3(pEIStream->getEncryptCode(), pEIStream->readEncrypt(m_ObjectID),
+                            pEIStream->readEncrypt(m_ZoneX), pEIStream->readEncrypt(m_ZoneY));
+    } else
 #endif
-	{
-		oStream.write(m_ObjectID);
-		oStream.write(m_ZoneX);
-		oStream.write(m_ZoneY);
-	}
+    {
+        iStream.read(m_ObjectID);
+        iStream.read(m_ZoneX);
+        iStream.read(m_ZoneY);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGPickupMoney::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGPickupMoney::write(SocketOutputStream& oStream) const
 
-	CGPickupMoneyHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+#ifdef __USE_ENCRYPTER__
+    SocketEncryptOutputStream* pEOStream = dynamic_cast<SocketEncryptOutputStream*>(&oStream);
+    Assert(pEOStream != NULL);
+
+    if (pEOStream->getEncryptCode() != 0) {
+        SHUFFLE_STATEMENT_3(pEOStream->getEncryptCode(), pEOStream->writeEncrypt(m_ObjectID),
+                            pEOStream->writeEncrypt(m_ZoneX), pEOStream->writeEncrypt(m_ZoneY));
+    } else
+#endif
+    {
+        oStream.write(m_ObjectID);
+        oStream.write(m_ZoneX);
+        oStream.write(m_ZoneY);
+    }
+
+    __END_CATCH
 }
 
-string CGPickupMoney::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGPickupMoney("
-	    << "ObjectID : " << (int)m_ObjectID 
-		<< ", ZoneX : "  << (int)m_ZoneX 
-		<< ", ZoneY : "  << (int)m_ZoneY
-		<< ")";
-	return msg.toString();
+void CGPickupMoney::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGPickupMoneyHandler::execute(this, pPlayer);
+
+    __END_CATCH
+}
+
+string CGPickupMoney::toString() const {
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGPickupMoney("
+        << "ObjectID : " << (int)m_ObjectID << ", ZoneX : " << (int)m_ZoneX << ", ZoneY : " << (int)m_ZoneY << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

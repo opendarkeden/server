@@ -7,54 +7,55 @@
 #include "CGSelectGuildMember.h"
 
 #ifdef __GAME_SERVER__
-	#include "SystemAvailabilitiesManager.h"
-	#include "GCShowGuildMemberInfo.h"
-	#include "GuildManager.h"
-	#include "GamePlayer.h"
-	#include "PlayerCreature.h"
-	#include "Guild.h"
-#endif	// __GAME_SERVER__
+#include "GCShowGuildMemberInfo.h"
+#include "GamePlayer.h"
+#include "Guild.h"
+#include "GuildManager.h"
+#include "PlayerCreature.h"
+#include "SystemAvailabilitiesManager.h"
+#endif // __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGSelectGuildMemberHandler::execute (CGSelectGuildMember* pPacket , Player* pPlayer)
-	 
+void CGSelectGuildMemberHandler::execute(CGSelectGuildMember* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	SYSTEM_ASSERT(SYSTEM_GUILD);
+    SYSTEM_ASSERT(SYSTEM_GUILD);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert( pGamePlayer != NULL );
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert( pPlayerCreature != NULL );
+    PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPlayerCreature != NULL);
 
-	// 선택한 길드를 가져온다.
-	Guild* pGuild = g_pGuildManager->getGuild( pPlayerCreature->getGuildID() );
-	//try { Assert( pGuild != NULL ); } catch ( Throwable& ) { return; }
-	if (pGuild==NULL) return;
+    // 선택한 길드를 가져온다.
+    Guild* pGuild = g_pGuildManager->getGuild(pPlayerCreature->getGuildID());
+    // try { Assert( pGuild != NULL ); } catch ( Throwable& ) { return; }
+    if (pGuild == NULL)
+        return;
 
-	// 선택한 길드 멤버를 가져온다.
-	GuildMember* pGuildMember = pGuild->getMember( pPacket->getName() );
-	//try { Assert( pGuildMember != NULL ); } catch ( Throwable& ) { return; }
-	if (pGuildMember==NULL) return;
+    // 선택한 길드 멤버를 가져온다.
+    GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
+    // try { Assert( pGuildMember != NULL ); } catch ( Throwable& ) { return; }
+    if (pGuildMember == NULL)
+        return;
 
-	GCShowGuildMemberInfo gcShowGuildMemberInfo;
-	gcShowGuildMemberInfo.setGuildID( pGuildMember->getGuildID() );
-	gcShowGuildMemberInfo.setName( pGuildMember->getName() );
-	gcShowGuildMemberInfo.setGuildMemberRank( pGuildMember->getRank() );
-	gcShowGuildMemberInfo.setGuildMemberIntro( pGuildMember->getIntro() );
+    GCShowGuildMemberInfo gcShowGuildMemberInfo;
+    gcShowGuildMemberInfo.setGuildID(pGuildMember->getGuildID());
+    gcShowGuildMemberInfo.setName(pGuildMember->getName());
+    gcShowGuildMemberInfo.setGuildMemberRank(pGuildMember->getRank());
+    gcShowGuildMemberInfo.setGuildMemberIntro(pGuildMember->getIntro());
 
-	pPlayer->sendPacket( &gcShowGuildMemberInfo );
+    pPlayer->sendPacket(&gcShowGuildMemberInfo);
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

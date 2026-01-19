@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCPhoneSay.h 
-// Written By  : elca 
-// Description : 
-// 
+//
+// Filename    : GCPhoneSay.h
+// Written By  : elca
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_PHONE_SAY_H__
@@ -24,48 +24,59 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCPhoneSay : public Packet {
-
-public :
-	GCPhoneSay() {};
+public:
+    GCPhoneSay() {};
     ~GCPhoneSay() {};
-	// Initialize packet by reading data from the incoming stream.
-    void read(SocketInputStream & iStream) ;
-		    
-	// Serialize packet data to the outgoing stream.
-    void write(SocketOutputStream & oStream) const ;
+    // Initialize packet by reading data from the incoming stream.
+    void read(SocketInputStream& iStream);
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // Serialize packet data to the outgoing stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_PHONE_SAY; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szSlotID + szBYTE + m_Message.size(); }
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet name
-	string getPacketName() const  { return "GCPhoneSay"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_PHONE_SAY;
+    }
 
-	// get/set SlotID
-	SlotID_t getSlotID() const  { return m_SlotID; }
-	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szSlotID + szBYTE + m_Message.size();
+    }
 
-	// get/set chatting message
-	string getMessage() const  { return m_Message; }
-	void setMessage(const string & msg)  { m_Message = msg; }
-	
+    // get packet name
+    string getPacketName() const {
+        return "GCPhoneSay";
+    }
 
-private :
+    // get packet's debug string
+    string toString() const;
 
-	// SlotID
-	SlotID_t m_SlotID;
-	
-	// chatting message
-	string m_Message;
-	
+    // get/set SlotID
+    SlotID_t getSlotID() const {
+        return m_SlotID;
+    }
+    void setSlotID(SlotID_t SlotID) {
+        m_SlotID = SlotID;
+    }
+
+    // get/set chatting message
+    string getMessage() const {
+        return m_Message;
+    }
+    void setMessage(const string& msg) {
+        m_Message = msg;
+    }
+
+
+private:
+    // SlotID
+    SlotID_t m_SlotID;
+
+    // chatting message
+    string m_Message;
 };
 
 
@@ -78,23 +89,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCPhoneSayFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCPhoneSay();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCPhoneSay(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCPhoneSay";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCPhoneSay"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PHONE_SAY; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_PHONE_SAY;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// Use const static GCPhoneSayPacketMaxSize when possible.
-	PacketSize_t getPacketMaxSize() const  { return szSlotID + szBYTE + 128 ; }
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // Use const static GCPhoneSayPacketMaxSize when possible.
+    PacketSize_t getPacketMaxSize() const {
+        return szSlotID + szBYTE + 128;
+    }
 };
 
 
@@ -105,12 +121,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCPhoneSayHandler {
-	
-public :
-	
-	// execute packet's handler
-	static void execute(GCPhoneSay* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCPhoneSay* pPacket, Player* pPlayer);
 };
 
 #endif

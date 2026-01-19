@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CoupleRingBase.h
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __COUPLE_RING_BASE_H__
@@ -13,28 +13,33 @@ class ItemInfo;
 //////////////////////////////////////////////////////////////////////////////
 // class CoupleRingBase;
 //////////////////////////////////////////////////////////////////////////////
-class CoupleRingBase : public Item 
-{
+class CoupleRingBase : public Item {
 public:
-	CoupleRingBase() ;
-	virtual ~CoupleRingBase() {}
-	
-public:
-	string 	getName() const { return m_Name; }
-	void 	setName( string name ) { m_Name = name; }
-
-	ItemID_t 	getPartnerItemID() const { return m_PartnerItemID; }
-	void 		setPartnerItemID( ItemID_t partnerItemID ) ;
+    CoupleRingBase();
+    virtual ~CoupleRingBase() {}
 
 public:
-	virtual bool	hasPartnerItem()  = 0;
+    string getName() const {
+        return m_Name;
+    }
+    void setName(string name) {
+        m_Name = name;
+    }
+
+    ItemID_t getPartnerItemID() const {
+        return m_PartnerItemID;
+    }
+    void setPartnerItemID(ItemID_t partnerItemID);
 
 public:
-	static ItemInfo*	getItemInfo( ItemType_t itemType, Race_t race ) ;
+    virtual bool hasPartnerItem() = 0;
+
+public:
+    static ItemInfo* getItemInfo(ItemType_t itemType, Race_t race);
 
 private:
-	string		 		m_Name;
-	ItemID_t			m_PartnerItemID;
+    string m_Name;
+    ItemID_t m_PartnerItemID;
 };
 
 #endif

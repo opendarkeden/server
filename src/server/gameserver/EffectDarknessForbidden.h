@@ -14,18 +14,18 @@
 // class EffectDarknessForbidden
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDarknessForbidden : public Effect 
-{
+class EffectDarknessForbidden : public Effect {
 public:
-	EffectDarknessForbidden(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
+    EffectDarknessForbidden(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_DARKNESS_FORBIDDEN; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_DARKNESS_FORBIDDEN;
+    }
 
-	void unaffect() ;
+    void unaffect();
 
-	string toString() const ;
-
+    string toString() const;
 };
 
 #endif // __EFFECT_DARKNESS_FORBIDDEN__

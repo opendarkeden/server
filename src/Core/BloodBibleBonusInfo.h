@@ -1,19 +1,20 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : BloodBibleBonusInfo.h 
-// Written By  : 
+//
+// Filename    : BloodBibleBonusInfo.h
+// Written By  :
 // Description :
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __BLOOD_BIBLE_BONUS_INFO_H__
 #define __BLOOD_BIBLE_BONUS_INFO_H__
 
 // include files
-#include "Types.h"
+#include <list>
+
 #include "Exception.h"
 #include "Packet.h"
-#include <list>
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -25,64 +26,78 @@ typedef list<OptionType_t> OptionTypeList;
 typedef OptionTypeList::const_iterator OptionTypeListConstItor;
 
 class BloodBibleBonusInfo {
+public:
+    // constructor
+    BloodBibleBonusInfo();
 
-public :
-	
-	// constructor
-	BloodBibleBonusInfo () ;
-	
-	// destructor
-	~BloodBibleBonusInfo () noexcept;
+    // destructor
+    ~BloodBibleBonusInfo() noexcept;
 
-public :
-	
-	
-	// Initialize the packet by reading data from the input stream.
-    void read (SocketInputStream & iStream) ;
-		    
-	// Serialize the packet into the output stream.
-    void write (SocketOutputStream & oStream) const ;
+public:
+    // Initialize the packet by reading data from the input stream.
+    void read(SocketInputStream& iStream);
 
-	// get packet's body size
-	PacketSize_t getSize ()  { return szBYTE; }
+    // Serialize the packet into the output stream.
+    void write(SocketOutputStream& oStream) const;
 
-	// get packet's max size
-	static uint getMaxSize()  { return szBYTE; }
+    // get packet's body size
+    PacketSize_t getSize() {
+        return szBYTE;
+    }
 
-	// get packet's debug string
-	string toString () const ;
+    // get packet's max size
+    static uint getMaxSize() {
+        return szBYTE;
+    }
 
-	// get/set BloodBibleBonus Type
-	BYTE getType() const { return m_Type; }
-	void setType( BYTE type ) { m_Type = type; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set Owner Race
-	BYTE getRace() const { return m_Race; }
-	void setRace( BYTE race ) { m_Race = race; }
+    // get/set BloodBibleBonus Type
+    BYTE getType() const {
+        return m_Type;
+    }
+    void setType(BYTE type) {
+        m_Type = type;
+    }
 
-	void clearOptionTypeList() { m_OptionTypeList.clear(); }
-	void addOptionType( OptionType_t optionType ) { m_OptionTypeList.push_back( optionType ); }
-	void setOptionType( const OptionTypeList& optionTypeList ) { m_OptionTypeList = optionTypeList; }
-	int getOptionTypeSize() const { return m_OptionTypeList.size(); }
-	OptionType_t popOptionType()
-	{
-		if ( m_OptionTypeList.empty() ) return 0;
-		OptionType_t optionType = m_OptionTypeList.front();
-		m_OptionTypeList.pop_front();
-		return optionType;
-	}
+    // get/set Owner Race
+    BYTE getRace() const {
+        return m_Race;
+    }
+    void setRace(BYTE race) {
+        m_Race = race;
+    }
 
-private :
+    void clearOptionTypeList() {
+        m_OptionTypeList.clear();
+    }
+    void addOptionType(OptionType_t optionType) {
+        m_OptionTypeList.push_back(optionType);
+    }
+    void setOptionType(const OptionTypeList& optionTypeList) {
+        m_OptionTypeList = optionTypeList;
+    }
+    int getOptionTypeSize() const {
+        return m_OptionTypeList.size();
+    }
+    OptionType_t popOptionType() {
+        if (m_OptionTypeList.empty())
+            return 0;
+        OptionType_t optionType = m_OptionTypeList.front();
+        m_OptionTypeList.pop_front();
+        return optionType;
+    }
 
-	// Blood Bible Bonus type
-	BYTE m_Type;
+private:
+    // Blood Bible Bonus type
+    BYTE m_Type;
 
-	// Owner Race
-	BYTE m_Race;
+    // Owner Race
+    BYTE m_Race;
 
-	// Option Type List;
-	OptionTypeList m_OptionTypeList;
-
+    // Option Type List;
+    OptionTypeList m_OptionTypeList;
 };
 
 #endif

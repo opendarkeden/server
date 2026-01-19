@@ -1,72 +1,70 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGAppointSubmaster.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGAppointSubmaster.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGAppointSubmaster.h"
 
 
-void CGAppointSubmaster::read (SocketInputStream & iStream) 
-	 
+void CGAppointSubmaster::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szName;
+    BYTE szName;
 
-	iStream.read(m_GuildID);
-	iStream.read(szName);
+    iStream.read(m_GuildID);
+    iStream.read(szName);
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long szName length");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName length");
 
-	iStream.read(m_Name, szName);
+    iStream.read(m_Name, szName);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGAppointSubmaster::write (SocketOutputStream & oStream) const 
-     
+void CGAppointSubmaster::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE szName = m_Name.size();
+    BYTE szName = m_Name.size();
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long szName length");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long szName length");
 
-	oStream.write(m_GuildID);
-	oStream.write(szName);
-	oStream.write(m_Name);
+    oStream.write(m_GuildID);
+    oStream.write(szName);
+    oStream.write(m_Name);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGAppointSubmaster::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGAppointSubmasterHandler::execute(this , pPlayer);
+void CGAppointSubmaster::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGAppointSubmasterHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGAppointSubmaster::toString () const
-       
+string CGAppointSubmaster::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGAppointSubmaster("
-		<< "GuildID:" << (int)m_GuildID
-		<< "Name:" << m_Name
-		<< ")";
-	return msg.toString();
+        << "GuildID:" << (int)m_GuildID << "Name:" << m_Name << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

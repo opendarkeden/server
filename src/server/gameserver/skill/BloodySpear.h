@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodySpear.h 
+// Filename    : BloodySpear.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_SPEAR_HANDLER_H__
@@ -13,20 +13,23 @@
 // class BloodySpear;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodySpear : public SkillHandler 
-{
+class BloodySpear : public SkillHandler {
 public:
-	BloodySpear() throw() {}
-	~BloodySpear() throw() {}
-	
+    BloodySpear() throw() {}
+    ~BloodySpear() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodySpear"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_SPEAR; }
+    string getSkillHandlerName() const throw() {
+        return "BloodySpear";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_SPEAR;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

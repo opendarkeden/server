@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Rediance.h 
-// Written By  : 
-// Description : 
+// Filename    : Rediance.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REDIANCE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Rediance;
 //////////////////////////////////////////////////////////////////////////////
 
-class Rediance : public SkillHandler 
-{
+class Rediance : public SkillHandler {
 public:
-	Rediance() throw() {}
-	~Rediance() throw() {}
-	
+    Rediance() throw() {}
+    ~Rediance() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Rediance"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REDIANCE; }
+    string getSkillHandlerName() const throw() {
+        return "Rediance";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REDIANCE;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

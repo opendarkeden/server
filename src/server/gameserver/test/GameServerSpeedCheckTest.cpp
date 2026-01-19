@@ -1,66 +1,64 @@
 #include "GameServerSpeedCheckTest.h"
-#include "GamePlayer.h"
+
 #include "Cpackets/CGVerifyTime.h"
+#include "GamePlayer.h"
 
-void
-GameServerSpeedCheckTest::testSpeedHack()
-{
-	__BEGIN_TEST_CASE
-	
-	Socket* pSocket = new Socket();	 // gameplayer안에서 delete된다.
-	GamePlayer gameplayer(pSocket);
+void GameServerSpeedCheckTest::testSpeedHack() {
+    __BEGIN_TEST_CASE
 
-	bool bCheck = false;
+    Socket* pSocket = new Socket(); // gameplayer안에서 delete된다.
+    GamePlayer gameplayer(pSocket);
 
-	// 1st try
-	bCheck = gameplayer.verifySpeed( NULL );
+    bool bCheck = false;
 
-	CPPUNIT_ASSERT( bCheck == true );
+    // 1st try
+    bCheck = gameplayer.verifySpeed(NULL);
 
-	// 2nd try
-	bCheck = gameplayer.verifySpeed( NULL );
+    CPPUNIT_ASSERT(bCheck == true);
 
-	CPPUNIT_ASSERT( bCheck == true );
+    // 2nd try
+    bCheck = gameplayer.verifySpeed(NULL);
 
-	// 3rd try
-	bCheck = gameplayer.verifySpeed( NULL );
+    CPPUNIT_ASSERT(bCheck == true);
 
-	CPPUNIT_ASSERT( bCheck == true );
+    // 3rd try
+    bCheck = gameplayer.verifySpeed(NULL);
 
-	// 4th try
-	bCheck = gameplayer.verifySpeed( NULL );
+    CPPUNIT_ASSERT(bCheck == true);
 
-	CPPUNIT_ASSERT( bCheck == true );
+    // 4th try
+    bCheck = gameplayer.verifySpeed(NULL);
 
-	// 5th try
-	bCheck = gameplayer.verifySpeed( NULL );
+    CPPUNIT_ASSERT(bCheck == true);
 
-	CPPUNIT_ASSERT( bCheck == true );
+    // 5th try
+    bCheck = gameplayer.verifySpeed(NULL);
 
-	// 6th try
-	bCheck = gameplayer.verifySpeed( NULL );
+    CPPUNIT_ASSERT(bCheck == true);
 
-	CPPUNIT_ASSERT( bCheck == false );
+    // 6th try
+    bCheck = gameplayer.verifySpeed(NULL);
 
-	// verify time packet test
-	CGVerifyTime pkt;
+    CPPUNIT_ASSERT(bCheck == false);
 
-	cout << "before CGVerifyTime excute" << endl;
-	bool bDisconnectException = false;
-	try {
+    // verify time packet test
+    CGVerifyTime pkt;
 
-		pkt.execute( &gameplayer );
+    cout << "before CGVerifyTime excute" << endl;
+    bool bDisconnectException = false;
+    try {
+        pkt.execute(&gameplayer);
 
-	} catch (DisconnectException& de) {
-		bDisconnectException = true;
-		cout << "speedhack disconnect" << endl;
-	} catch (Throwable& t) {
-		cout << t.toString().c_str() << endl;
-	}
-	cout << "after CGVerifyTime excute" << endl;
+    } catch (DisconnectException& de) {
+        bDisconnectException = true;
+        cout << "speedhack disconnect" << endl;
+    } catch (Throwable& t) {
+        cout << t.toString().c_str() << endl;
+    }
+    cout << "after CGVerifyTime excute" << endl;
 
-	CPPUNIT_ASSERT( bDisconnectException );
-	gameplayer.setPlayerStatus( GPS_END_SESSION );
+    CPPUNIT_ASSERT(bDisconnectException);
+    gameplayer.setPlayerStatus(GPS_END_SESSION);
 
-	__END_TEST_CASE
+    __END_TEST_CASE
 }

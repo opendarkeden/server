@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddGearToInventory.cpp 
+//
+// Filename    : GCAddGearToInventory.cpp
 // Written By  : crazydog
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,80 +12,72 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCAddGearToInventory::GCAddGearToInventory () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddGearToInventory::GCAddGearToInventory()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCAddGearToInventory::~GCAddGearToInventory () noexcept = default;
+GCAddGearToInventory::~GCAddGearToInventory() noexcept = default;
 
 
 //////////////////////////////////////////////////////////////////////
 // Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
-void GCAddGearToInventory::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_SlotID);
-	iStream.read(m_InvenX);
-	iStream.read(m_InvenY);
+void GCAddGearToInventory::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_SlotID);
+    iStream.read(m_InvenX);
+    iStream.read(m_InvenY);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
-void GCAddGearToInventory::write (SocketOutputStream & oStream ) const 
-     
+void GCAddGearToInventory::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_SlotID);
-	oStream.write(m_InvenX);
-	oStream.write(m_InvenY);
+    oStream.write(m_SlotID);
+    oStream.write(m_InvenX);
+    oStream.write(m_InvenY);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCAddGearToInventory::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
+void GCAddGearToInventory::execute(Player* pPlayer)
 
-	GCAddGearToInventoryHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCAddGearToInventoryHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string GCAddGearToInventory::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCAddGearToInventory("
-		<< "SlotID:"  << (int)m_SlotID 
-		<< ",InvenX:" << (int)m_InvenX 
-		<< ",InvenY:" << (int)m_InvenY 
-		<< ")";
-	return msg.toString();
+string GCAddGearToInventory::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCAddGearToInventory("
+        << "SlotID:" << (int)m_SlotID << ",InvenX:" << (int)m_InvenX << ",InvenY:" << (int)m_InvenY << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

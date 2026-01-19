@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectIceOfSoulStone.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_ICE_OF_SOUL_STONE__
@@ -14,21 +14,21 @@
 // class EffectIceOfSoulStone
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectIceOfSoulStone : public Effect 
-{
+class EffectIceOfSoulStone : public Effect {
 public:
-	EffectIceOfSoulStone(Creature* pCreature) ;
+    EffectIceOfSoulStone(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ICE_OF_SOUL_STONE; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_ICE_OF_SOUL_STONE;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const throw();
-
+    string toString() const throw();
 };
 
 #endif // __EFFECT_ICE_OF_SOUL_STONE__

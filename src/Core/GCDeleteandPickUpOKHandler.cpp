@@ -11,19 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCDeleteandPickUpOKHandler::execute (GCDeleteandPickUpOK * pGCDeleteandPickUpOK, Player * pPlayer )
-{
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+void GCDeleteandPickUpOKHandler::execute(GCDeleteandPickUpOK* pGCDeleteandPickUpOK, Player* pPlayer) {
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCDeleteandPickUpOK->toString() << endl;
-	
+    // cout << pGCDeleteandPickUpOK->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCDeleteandPickUpOK->toString().c_str());
+        AfxMessageBox(pGCDeleteandPickUpOK->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

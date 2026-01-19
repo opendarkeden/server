@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Untransform.h 
+// Filename    : Untransform.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_UN_TRANSFORM_HANDLER_H__
@@ -13,22 +13,25 @@
 // class Untransform;
 //////////////////////////////////////////////////////////////////////////////
 
-class Untransform: public SkillHandler 
-{
+class Untransform : public SkillHandler {
 public:
-	Untransform() throw() {}
-	~Untransform() throw() {}
+    Untransform() throw() {}
+    ~Untransform() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "Untransform"; }
-	SkillType_t getSkillType() const throw() { return SKILL_UN_TRANSFORM; }
+    string getSkillHandlerName() const throw() {
+        return "Untransform";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_UN_TRANSFORM;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire) ;
-	void execute(Ousters* pOusters) ;
-	void execute(Monster* pMonster) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire);
+    void execute(Ousters* pOusters);
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output) {}
+    void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };
 
 // global variable declaration

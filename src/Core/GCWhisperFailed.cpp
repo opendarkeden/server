@@ -1,87 +1,81 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCWhisperFailed.cpp 
+//
+// Filename    : GCWhisperFailed.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCWhisperFailed.h"
 
 
-
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCWhisperFailed::GCWhisperFailed () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCWhisperFailed::GCWhisperFailed()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCWhisperFailed::~GCWhisperFailed () 
-    
+GCWhisperFailed::~GCWhisperFailed()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCWhisperFailed::read (SocketInputStream & iStream ) 
-	 
+void GCWhisperFailed::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCWhisperFailed::write (SocketOutputStream & oStream ) const 
-     
+void GCWhisperFailed::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCWhisperFailed::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
+void GCWhisperFailed::execute(Player* pPlayer)
 
-	GCWhisperFailedHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCWhisperFailedHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // toString()
 //////////////////////////////////////////////////////////////////////
-string GCWhisperFailed::toString () const
-    
+string GCWhisperFailed::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCWhisperFailed(" << " )";
-	return msg.toString();
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCWhisperFailed(" << " )";
+    return msg.toString();
+
+    __END_CATCH
 }
-

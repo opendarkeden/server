@@ -1,298 +1,283 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectEnemyErase.cpp
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectEnemyErase.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-#include "Monster.h"
-#include "Player.h"
+#include "DB.h"
 #include "GCModifyInformation.h"
 #include "GCRemoveInjuriousCreature.h"
-#include "DB.h"
+#include "Monster.h"
+#include "Ousters.h"
+#include "Player.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 EffectEnemyErase::EffectEnemyErase(Creature* pCreature)
-	
-{
-	__BEGIN_TRY
 
-	setTarget(pCreature);
-
-	// 서버 전용 Effect이다. by sigi. 2002.11.14
-	m_bBroadcastingEffect = false;
-
-	__END_CATCH
-}
-
-EffectEnemyErase::~EffectEnemyErase()
-	
-{
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
-}
-
-void EffectEnemyErase::affect (Creature* pCreature)
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
-
-void EffectEnemyErase::unaffect()
-	    
 {
     __BEGIN_TRY
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
+    setTarget(pCreature);
+
+    // 서버 전용 Effect이다. by sigi. 2002.11.14
+    m_bBroadcastingEffect = false;
+
+    __END_CATCH
+}
+
+EffectEnemyErase::~EffectEnemyErase()
+
+{
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
+}
+
+void EffectEnemyErase::affect(Creature* pCreature)
+
+{
+    __BEGIN_TRY
+    __END_CATCH
+}
+
+void EffectEnemyErase::unaffect()
+
+{
+    __BEGIN_TRY
+
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
     unaffect(pCreature);
 
     __END_CATCH
 }
 
-void EffectEnemyErase::unaffect (Creature* pCreature)
-	
+void EffectEnemyErase::unaffect(Creature* pCreature)
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	if (pCreature->isSlayer())
-	{
-		Slayer*       pTargetSlayer = dynamic_cast<Slayer*>(pCreature);
-		pTargetSlayer->deleteEnemy(m_EnemyName);
+    if (pCreature->isSlayer()) {
+        Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pCreature);
+        pTargetSlayer->deleteEnemy(m_EnemyName);
 
-		GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
-		gcRemoveInjuriousCreature.setName( m_EnemyName );
+        GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
+        gcRemoveInjuriousCreature.setName(m_EnemyName);
 
-		pTargetSlayer->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
+        pTargetSlayer->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
 
-	}
-	else if (pCreature->isVampire())
-	{
-		Vampire*       pTargetVampire = dynamic_cast<Vampire*>(pCreature);
-		pTargetVampire->deleteEnemy(m_EnemyName);
+    } else if (pCreature->isVampire()) {
+        Vampire* pTargetVampire = dynamic_cast<Vampire*>(pCreature);
+        pTargetVampire->deleteEnemy(m_EnemyName);
 
-		GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
-		gcRemoveInjuriousCreature.setName( m_EnemyName );
+        GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
+        gcRemoveInjuriousCreature.setName(m_EnemyName);
 
-		pTargetVampire->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
+        pTargetVampire->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
 
-	}
-	else if (pCreature->isOusters())
-	{
-		Ousters*       pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-		pTargetOusters->deleteEnemy(m_EnemyName);
+    } else if (pCreature->isOusters()) {
+        Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
+        pTargetOusters->deleteEnemy(m_EnemyName);
 
-		GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
-		gcRemoveInjuriousCreature.setName( m_EnemyName );
+        GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
+        gcRemoveInjuriousCreature.setName(m_EnemyName);
 
-		pTargetOusters->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
+        pTargetOusters->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
 
-	}
-	else
-	{
-	}
-	destroy( pCreature->getName() );
+    } else {
+    }
+    destroy(pCreature->getName());
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
-void EffectEnemyErase::create (const string & ownerID) 
-	
+void EffectEnemyErase::create(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt = NULL;
+    Statement* pStmt = NULL;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 
-		Turn_t currentYearTime;
+        Turn_t currentYearTime;
 
-		getCurrentYearTime(currentYearTime);
+        getCurrentYearTime(currentYearTime);
 
-		/*
-		StringStream sql;
-		sql << "INSERT INTO EnemyErase "
-			<< "(OwnerID , YearTime, DayTime, EnemyName)"
-			<< " VALUES ('" << ownerID
-			<< "' , " << currentYearTime
-			<< " , " << m_Deadline.tv_sec
-			<< " , '" << m_EnemyName
-			<< "')";
+        /*
+        StringStream sql;
+        sql << "INSERT INTO EnemyErase "
+            << "(OwnerID , YearTime, DayTime, EnemyName)"
+            << " VALUES ('" << ownerID
+            << "' , " << currentYearTime
+            << " , " << m_Deadline.tv_sec
+            << " , '" << m_EnemyName
+            << "')";
 
-		pStmt->executeQueryString(sql.toString());
-		*/
+        pStmt->executeQueryString(sql.toString());
+        */
 
-		// StringStream제거. by sigi. 2002.5.8
-		pStmt->executeQuery("INSERT INTO EnemyErase (OwnerID , YearTime, DayTime, EnemyName) VALUES ('%s', %ld, %ld, '%s')",
-								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec, m_EnemyName.c_str());
+        // StringStream제거. by sigi. 2002.5.8
+        pStmt->executeQuery(
+            "INSERT INTO EnemyErase (OwnerID , YearTime, DayTime, EnemyName) VALUES ('%s', %ld, %ld, '%s')",
+            ownerID.c_str(), currentYearTime, m_Deadline.tv_sec, m_EnemyName.c_str());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
-void EffectEnemyErase::destroy (const string & ownerID)
-	
+void EffectEnemyErase::destroy(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		/*
-		StringStream sql;
-		sql << "DELETE FROM EnemyErase WHERE OwnerID = '" << ownerID << "' AND EnemyName = '" << m_EnemyName << "'";
-		pStmt->executeQueryString(sql.toString());
-		*/
+        /*
+        StringStream sql;
+        sql << "DELETE FROM EnemyErase WHERE OwnerID = '" << ownerID << "' AND EnemyName = '" << m_EnemyName << "'";
+        pStmt->executeQueryString(sql.toString());
+        */
 
-		// StringStream제거. by sigi. 2002.5.8
-		pStmt->executeQuery("DELETE FROM EnemyErase WHERE OwnerID = '%s' AND EnemyName = '%s'", 
-								ownerID.c_str(), m_EnemyName.c_str());
+        // StringStream제거. by sigi. 2002.5.8
+        pStmt->executeQuery("DELETE FROM EnemyErase WHERE OwnerID = '%s' AND EnemyName = '%s'", ownerID.c_str(),
+                            m_EnemyName.c_str());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
-void EffectEnemyErase::save (const string & ownerID) 
-	
+void EffectEnemyErase::save(const string& ownerID)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 
-		Turn_t currentYearTime;
+        Turn_t currentYearTime;
 
-		getCurrentYearTime(currentYearTime);
+        getCurrentYearTime(currentYearTime);
 
-		/*
-		StringStream sql;
-		sql << "UPDATE EnemyErase SET "
-			<< "YearTime = " << currentYearTime
-			<< ",DayTime = " << m_Deadline.tv_sec
-			<< ", EnemyName = '" << m_EnemyName
-			<< "' WHERE OwnerID = '" << ownerID << "'";
+        /*
+        StringStream sql;
+        sql << "UPDATE EnemyErase SET "
+            << "YearTime = " << currentYearTime
+            << ",DayTime = " << m_Deadline.tv_sec
+            << ", EnemyName = '" << m_EnemyName
+            << "' WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQueryString(sql.toString());
-		*/
+        pStmt->executeQueryString(sql.toString());
+        */
 
-		pStmt->executeQuery("UPDATE EnemyErase SET YearTime = %ld, DayTime = %ld, EnemyName = '%s' WHERE OwnerID = '%s'",
-								currentYearTime, m_Deadline.tv_sec, m_EnemyName.c_str(), ownerID.c_str());
+        pStmt->executeQuery(
+            "UPDATE EnemyErase SET YearTime = %ld, DayTime = %ld, EnemyName = '%s' WHERE OwnerID = '%s'",
+            currentYearTime, m_Deadline.tv_sec, m_EnemyName.c_str(), ownerID.c_str());
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
+
+    __END_CATCH
 }
 
-string EffectEnemyErase::toString()
-	const 
-{
-	__BEGIN_TRY
+string EffectEnemyErase::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectEnemyErase("
-		<< "EnemyName:" << getEnemyName()
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectEnemyErase("
+        << "EnemyName:" << getEnemyName() << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void EffectEnemyEraseLoader::load (Creature* pCreature) 
-	
+void EffectEnemyEraseLoader::load(Creature* pCreature)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//Assert(pCreature != NULL);
-	if (pCreature == NULL)
-	{
-		return;
-	}
+    // Assert(pCreature != NULL);
+    if (pCreature == NULL) {
+        return;
+    }
 
-	Statement* pStmt;
+    Statement* pStmt;
 
-	BEGIN_DB
-	{
-		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		/*
-		StringStream sql;
+        /*
+        StringStream sql;
 
-		sql << "SELECT DayTime, EnemyName FROM EnemyErase"
-			<< " WHERE OwnerID = '" << pCreature->getName() 
-			<< "'";
+        sql << "SELECT DayTime, EnemyName FROM EnemyErase"
+            << " WHERE OwnerID = '" << pCreature->getName()
+            << "'";
 
-		Result* pResult = pStmt->executeQueryString(sql.toString());
-		*/
+        Result* pResult = pStmt->executeQueryString(sql.toString());
+        */
 
-		// StringStream제거. by sigi. 2002.5.8
-		Result* pResult = pStmt->executeQuery( "SELECT DayTime, EnemyName FROM EnemyErase WHERE OwnerID = '%s'",
-												pCreature->getName().c_str() );
+        // StringStream제거. by sigi. 2002.5.8
+        Result* pResult = pStmt->executeQuery("SELECT DayTime, EnemyName FROM EnemyErase WHERE OwnerID = '%s'",
+                                              pCreature->getName().c_str());
 
-		while (pResult->next())
-		{
+        while (pResult->next()) {
+            uint i = 0;
 
-			uint i = 0;
+            int DayTime = pResult->getDWORD(++i);
 
-			int DayTime = pResult->getDWORD(++i);
+            Timeval currentTime;
+            getCurrentTime(currentTime);
 
-			Timeval currentTime;
-			getCurrentTime(currentTime);
+            EffectEnemyErase* pEffectEnemyErase = new EffectEnemyErase(pCreature);
 
-			EffectEnemyErase* pEffectEnemyErase = new EffectEnemyErase(pCreature);
+            EffectManager* pEffectManager = pCreature->getEffectManager();
 
-			EffectManager* pEffectManager = pCreature->getEffectManager();
+            if (currentTime.tv_sec < DayTime) {
+                pEffectEnemyErase->setDeadline((DayTime - currentTime.tv_sec) * 10);
+                pEffectEnemyErase->setEnemyName(pResult->getString(++i));
+            } else {
+                pEffectEnemyErase->setDeadline(100);
+                pEffectEnemyErase->setEnemyName(pResult->getString(++i));
+            }
 
-			if (currentTime.tv_sec < DayTime) {
-				pEffectEnemyErase->setDeadline((DayTime - currentTime.tv_sec)* 10);
-				pEffectEnemyErase->setEnemyName(pResult->getString(++i));
-			} else {
-				pEffectEnemyErase->setDeadline(100);
-				pEffectEnemyErase->setEnemyName(pResult->getString(++i));
-			}
+            pEffectManager->addEffect(pEffectEnemyErase);
 
-			pEffectManager->addEffect(pEffectEnemyErase);
+            if (pCreature->isSlayer()) {
+                Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+                pSlayer->addEnemy(pEffectEnemyErase->getEnemyName());
+            } else if (pCreature->isVampire()) {
+                Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
+                pVampire->addEnemy(pEffectEnemyErase->getEnemyName());
+            } else if (pCreature->isOusters()) {
+                Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
+                pOusters->addEnemy(pEffectEnemyErase->getEnemyName());
+            }
+        }
 
-			if (pCreature->isSlayer()) {
-				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-				pSlayer->addEnemy(pEffectEnemyErase->getEnemyName());
-			} else if (pCreature->isVampire()) {
-				Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-				pVampire->addEnemy(pEffectEnemyErase->getEnemyName());
-			} else if (pCreature->isOusters()) {
-				Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-				pOusters->addEnemy(pEffectEnemyErase->getEnemyName());
-			}
-		}
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
-	
-	__END_CATCH
+    __END_CATCH
 }
 
 EffectEnemyEraseLoader* g_pEffectEnemyEraseLoader = NULL;
-

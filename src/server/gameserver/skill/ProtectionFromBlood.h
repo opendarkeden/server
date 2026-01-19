@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ProtectionFromBlood.h 
+// Filename    : ProtectionFromBlood.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_PROTECTION_FROM_BLOOD_HANDLER_H__
@@ -13,20 +13,23 @@
 // class ProtectionFromBlood;
 //////////////////////////////////////////////////////////////////////////////
 
-class ProtectionFromBlood: public SkillHandler 
-{
+class ProtectionFromBlood : public SkillHandler {
 public:
-	ProtectionFromBlood() throw() {}
-	~ProtectionFromBlood() throw() {}
+    ProtectionFromBlood() throw() {}
+    ~ProtectionFromBlood() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "ProtectionFromBlood"; }
-	SkillType_t getSkillType() const throw() { return SKILL_PROTECTION_FROM_BLOOD; }
+    string getSkillHandlerName() const throw() {
+        return "ProtectionFromBlood";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_PROTECTION_FROM_BLOOD;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

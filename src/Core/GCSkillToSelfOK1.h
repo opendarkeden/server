@@ -1,19 +1,19 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCSkillToSelfOK1.h 
+//
+// Filename    : GCSkillToSelfOK1.h
 // Written By  : elca@ewestsoft.com
 // Description : 기술이 성공했을때 보내는 패킷을 위한 클래스 정의
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SKILL_TO_SELF_OK_1_H__
 #define __GC_SKILL_TO_SELF_OK_1_H__
 
 // include files
-#include "Types.h"
 #include "Exception.h"
 #include "ModifyInfo.h"
 #include "PacketFactory.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -24,68 +24,85 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCSkillToSelfOK1 : public ModifyInfo {
+public:
+    // constructor
+    GCSkillToSelfOK1();
 
-public :
-	
-	// constructor
-	GCSkillToSelfOK1() ;
-	
-	// destructor
-	~GCSkillToSelfOK1() ;
+    // destructor
+    ~GCSkillToSelfOK1();
 
-	
-public :
-	
-	
+
+public:
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_TO_SELF_OK_1; }
-	
-	// get packet's body size
-	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const  { return szSkillType + szCEffectID + szDuration + szBYTE + ModifyInfo::getPacketSize() ; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_SKILL_TO_SELF_OK_1;
+    }
 
-	// get packet's name
-	string getPacketName() const  { return "GCSkillToSelfOK1"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    // 최적화시, 미리 계산된 정수를 사용한다.
+    PacketSize_t getPacketSize() const {
+        return szSkillType + szCEffectID + szDuration + szBYTE + ModifyInfo::getPacketSize();
+    }
 
-	// get / set SkillType
-	SkillType_t getSkillType() const  { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
+    // get packet's name
+    string getPacketName() const {
+        return "GCSkillToSelfOK1";
+    }
 
-	// get / set CEffectID
-	CEffectID_t getCEffectID() const  { return m_CEffectID; }
-	void setCEffectID(CEffectID_t CEffectID)  { m_CEffectID = CEffectID; }
+    // get packet's debug string
+    string toString() const;
 
-	// get / set Duration
-	Duration_t getDuration() const  { return m_Duration; }
-	void setDuration(Duration_t Duration)  { m_Duration = Duration; }
+    // get / set SkillType
+    SkillType_t getSkillType() const {
+        return m_SkillType;
+    }
+    void setSkillType(SkillType_t SkillType) {
+        m_SkillType = SkillType;
+    }
 
-	BYTE getGrade() const  { return m_Grade; }
-	void setGrade(BYTE grade )  { m_Grade = grade; }
+    // get / set CEffectID
+    CEffectID_t getCEffectID() const {
+        return m_CEffectID;
+    }
+    void setCEffectID(CEffectID_t CEffectID) {
+        m_CEffectID = CEffectID;
+    }
 
-private :
-	
-	// SkillType
-	SkillType_t m_SkillType;
+    // get / set Duration
+    Duration_t getDuration() const {
+        return m_Duration;
+    }
+    void setDuration(Duration_t Duration) {
+        m_Duration = Duration;
+    }
 
-	// CEffectID
-	CEffectID_t m_CEffectID;
+    BYTE getGrade() const {
+        return m_Grade;
+    }
+    void setGrade(BYTE grade) {
+        m_Grade = grade;
+    }
 
-	// Duration
-	Duration_t m_Duration;
+private:
+    // SkillType
+    SkillType_t m_SkillType;
 
-	BYTE m_Grade;
+    // CEffectID
+    CEffectID_t m_CEffectID;
+
+    // Duration
+    Duration_t m_Duration;
+
+    BYTE m_Grade;
 };
 
 
@@ -98,31 +115,36 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCSkillToSelfOK1Factory : public PacketFactory {
+public:
+    // constructor
+    GCSkillToSelfOK1Factory() {}
 
-public :
-	
-	// constructor
-	GCSkillToSelfOK1Factory()  {}
-	
-	// destructor
-	virtual ~GCSkillToSelfOK1Factory()  {}
+    // destructor
+    virtual ~GCSkillToSelfOK1Factory() {}
 
-	
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCSkillToSelfOK1(); }
 
-	// get packet name
-	string getPacketName() const  { return "GCSkillToSelfOK1"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_TO_SELF_OK_1; }
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCSkillToSelfOK1();
+    }
 
-	// get Packet Max Size
-	// PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID + szDuration + szBYTE + szBYTE* m_ListNum* 2 ; }
-	PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID + szDuration + szBYTE + ModifyInfo::getPacketMaxSize(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCSkillToSelfOK1";
+    }
 
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_SKILL_TO_SELF_OK_1;
+    }
+
+    // get Packet Max Size
+    // PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID + szDuration + szBYTE + szBYTE*
+    // m_ListNum* 2 ; }
+    PacketSize_t getPacketMaxSize() const {
+        return szSkillType + szCEffectID + szDuration + szBYTE + ModifyInfo::getPacketMaxSize();
+    }
 };
 
 
@@ -133,12 +155,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCSkillToSelfOK1Handler {
-
-public :
-
-	// execute packet's handler
-	static void execute(GCSkillToSelfOK1* pGCSkillToSelfOK1, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCSkillToSelfOK1* pGCSkillToSelfOK1, Player* pPlayer);
 };
 
 #endif

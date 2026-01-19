@@ -7,87 +7,81 @@
 #include "CGPhoneSay.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "TelephoneCenter.h"
-	#include "Slayer.h"
-
-	#include "GCPhoneSay.h"
-	#include "GCPhoneDisconnected.h"
+#include "GCPhoneDisconnected.h"
+#include "GCPhoneSay.h"
+#include "GamePlayer.h"
+#include "Slayer.h"
+#include "TelephoneCenter.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGPhoneSayHandler::execute (CGPhoneSay* pPacket , Player* pPlayer)
-	 
+void CGPhoneSayHandler::execute(CGPhoneSay* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
-	bool Success = false;
-	
-	Creature* pCreature = pGamePlayer->getCreature();
+    bool Success = false;
 
-	Assert (pCreature->isSlayer());
-	
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    Creature* pCreature = pGamePlayer->getCreature();
 
-	SlotID_t PhoneSlot = pPacket->getSlotID();
+    Assert(pCreature->isSlayer());
 
-	Assert (PhoneSlot < MAX_PHONE_SLOT);
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-	PhoneNumber_t PhoneNumber = pSlayer->getPhoneNumber();
+    SlotID_t PhoneSlot = pPacket->getSlotID();
 
-	PhoneNumber_t TargetPhoneNumber = pSlayer->getPhoneSlotNumber(PhoneSlot);
+    Assert(PhoneSlot < MAX_PHONE_SLOT);
 
-	Slayer* pTargetSlayer = g_pTelephoneCenter->getSlayer(TargetPhoneNumber);
+    PhoneNumber_t PhoneNumber = pSlayer->getPhoneNumber();
 
-	//cout << "PhoneSlot : " << (int)PhoneSlot << ", Message : " << pPacket->getMessage() << endl;
+    PhoneNumber_t TargetPhoneNumber = pSlayer->getPhoneSlotNumber(PhoneSlot);
 
-	if (pTargetSlayer != NULL) {
+    Slayer* pTargetSlayer = g_pTelephoneCenter->getSlayer(TargetPhoneNumber);
 
-		if (pTargetSlayer->isSlotByPhoneNumber(PhoneNumber)) {
-	
-			Success = true;
-	
-		}
-	}
+    // cout << "PhoneSlot : " << (int)PhoneSlot << ", Message : " << pPacket->getMessage() << endl;
 
-	// 정상적인 통신 상태일때 Message를 날린다.
-	if (Success) {
+    if (pTargetSlayer != NULL) {
+        if (pTargetSlayer->isSlotByPhoneNumber(PhoneNumber)) {
+            Success = true;
+        }
+    }
 
-		SlotID_t TargetPhoneSlot = pTargetSlayer->getSlotWithPhoneNumber(PhoneNumber);
+    // 정상적인 통신 상태일때 Message를 날린다.
+    if (Success) {
+        SlotID_t TargetPhoneSlot = pTargetSlayer->getSlotWithPhoneNumber(PhoneNumber);
 
-		Player* pTargetPlayer = pTargetSlayer->getPlayer();
+        Player* pTargetPlayer = pTargetSlayer->getPlayer();
 
-		// 서버에서 클라이언트로 전송하므로 GC- 패킷을 사용해야 한다.
-		GCPhoneSay gcPhoneSay;
-	
-		// 크리처 이름과 메시지를 패킷에 대입한다.
-		gcPhoneSay.setSlotID(TargetPhoneSlot);	
-		gcPhoneSay.setMessage(pPacket->getMessage());
+        // 서버에서 클라이언트로 전송하므로 GC- 패킷을 사용해야 한다.
+        GCPhoneSay gcPhoneSay;
 
-		pTargetPlayer->sendPacket(&gcPhoneSay);
+        // 크리처 이름과 메시지를 패킷에 대입한다.
+        gcPhoneSay.setSlotID(TargetPhoneSlot);
+        gcPhoneSay.setMessage(pPacket->getMessage());
 
-		//cout << "Phone Say Successfull " << endl;
+        pTargetPlayer->sendPacket(&gcPhoneSay);
 
-	// 상대의 접속이 끊겼거나 이상한 짓거리가 발생했을때..
-	} else {
+        // cout << "Phone Say Successfull " << endl;
 
-		GCPhoneDisconnected gcPhoneDisconnected;
-		gcPhoneDisconnected.setSlotID(PhoneSlot);
+        // 상대의 접속이 끊겼거나 이상한 짓거리가 발생했을때..
+    } else {
+        GCPhoneDisconnected gcPhoneDisconnected;
+        gcPhoneDisconnected.setSlotID(PhoneSlot);
 
-		pGamePlayer->sendPacket(&gcPhoneDisconnected);
+        pGamePlayer->sendPacket(&gcPhoneDisconnected);
 
-		//cout << "Phone Say Failed" << endl;
-	}
+        // cout << "Phone Say Failed" << endl;
+    }
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

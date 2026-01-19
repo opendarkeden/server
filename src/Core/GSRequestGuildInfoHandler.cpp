@@ -7,46 +7,45 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "GSRequestGuildInfo.h"
 #include "Assert1.h"
+#include "GSRequestGuildInfo.h"
 
 #ifdef __SHARED_SERVER__
-	
-	#include "Guild.h"
-	#include "GuildManager.h"
-	#include "GameServerPlayer.h"
-	#include "GameServerManager.h"
-	#include "Properties.h"
 
-	#include "SGGuildInfo.h"
+#include "GameServerManager.h"
+#include "GameServerPlayer.h"
+#include "Guild.h"
+#include "GuildManager.h"
+#include "Properties.h"
+#include "SGGuildInfo.h"
 
 #endif
 
 //----------------------------------------------------------------------
-// 
+//
 // GSRequestGuildInfoHandler::execute()
-// 
+//
 //----------------------------------------------------------------------
-void GSRequestGuildInfoHandler::execute (GSRequestGuildInfo* pPacket, Player* pPlayer )
-	 
+void GSRequestGuildInfoHandler::execute(GSRequestGuildInfo* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __SHARED_SERVER__
 
-	Assert(pPacket != NULL);
+        Assert(pPacket != NULL);
 
-	GameServerPlayer* pGSPlayer = dynamic_cast<GameServerPlayer*>(pPlayer);
-	Assert(pGSPlayer != NULL);
+    GameServerPlayer* pGSPlayer = dynamic_cast<GameServerPlayer*>(pPlayer);
+    Assert(pGSPlayer != NULL);
 
-	SGGuildInfo sgGuildInfo;
+    SGGuildInfo sgGuildInfo;
 
-	g_pGuildManager->makeSGGuildInfo(sgGuildInfo);
+    g_pGuildManager->makeSGGuildInfo(sgGuildInfo);
 
-	// 게임 서버로 패킷을 보낸다.
-	pGSPlayer->sendPacket(&sgGuildInfo);
+    // 게임 서버로 패킷을 보낸다.
+    pGSPlayer->sendPacket(&sgGuildInfo);
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

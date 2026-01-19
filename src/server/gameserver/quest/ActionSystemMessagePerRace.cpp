@@ -1,20 +1,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionSystemMessagePerRace.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionSystemMessagePerRace.h"
+
 #include "Creature.h"
+#include "GCSystemMessage.h"
 #include "GamePlayer.h"
 #include "StringPool.h"
-#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSystemMessagePerRace::read (PropertyBuffer & propertyBuffer)
-    
+void ActionSystemMessagePerRace::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
@@ -25,42 +26,42 @@ void ActionSystemMessagePerRace::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionSystemMessagePerRace::execute (Creature * pCreature1, Creature * pCreature2) 
-	
+void ActionSystemMessagePerRace::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+    Player* pPlayer = pCreature2->getPlayer();
+    Assert(pPlayer != NULL);
 
-	GCSystemMessage gcSystemMessage;
+    GCSystemMessage gcSystemMessage;
 
-	if ( pCreature2->isSlayer() )
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_SUM_NEWBIE_ZONE));
-	else
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_LEVEL_NEWBIE_ZONE));
+    if (pCreature2->isSlayer())
+        gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_SUM_NEWBIE_ZONE));
+    else
+        gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_LEVEL_NEWBIE_ZONE));
 
-	pPlayer->sendPacket(&gcSystemMessage);
+    pPlayer->sendPacket(&gcSystemMessage);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionSystemMessagePerRace::toString () const
-	
+string ActionSystemMessagePerRace::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionSystemMessagePerRace("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "ActionSystemMessagePerRace("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

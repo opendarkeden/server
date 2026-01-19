@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCOtherModifyInfo.h 
+// Filename    : GCOtherModifyInfo.h
 // Written By  : excel96
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -14,25 +14,34 @@
 // class GCOtherModifyInfo;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCOtherModifyInfo : public ModifyInfo 
-{
+class GCOtherModifyInfo : public ModifyInfo {
 public:
     GCOtherModifyInfo() {};
     ~GCOtherModifyInfo() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_OTHER_MODIFY_INFO; }
-	PacketSize_t getPacketSize() const  { return szObjectID + ModifyInfo::getPacketSize(); }
-	string getPacketName() const  { return "GCOtherModifyInfo"; }
-	string toString() const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_OTHER_MODIFY_INFO;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID + ModifyInfo::getPacketSize();
+    }
+    string getPacketName() const {
+        return "GCOtherModifyInfo";
+    }
+    string toString() const;
 
 public:
-	ObjectID_t getObjectID() const  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
 
 private:
-	ObjectID_t m_ObjectID;
+    ObjectID_t m_ObjectID;
 };
 
 
@@ -40,13 +49,20 @@ private:
 // class GCOtherModifyInfoFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCOtherModifyInfoFactory : public PacketFactory 
-{
+class GCOtherModifyInfoFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new GCOtherModifyInfo(); }
-	string getPacketName() const  { return "GCOtherModifyInfo"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_OTHER_MODIFY_INFO; }
-	PacketSize_t getPacketMaxSize() const  { return szObjectID + ModifyInfo::getPacketMaxSize(); }
+    Packet* createPacket() {
+        return new GCOtherModifyInfo();
+    }
+    string getPacketName() const {
+        return "GCOtherModifyInfo";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_OTHER_MODIFY_INFO;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + ModifyInfo::getPacketMaxSize();
+    }
 };
 
 
@@ -54,10 +70,9 @@ public:
 // class GCOtherModifyInfoHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCOtherModifyInfoHandler 
-{
+class GCOtherModifyInfoHandler {
 public:
-	static void execute(GCOtherModifyInfo* pGCOtherModifyInfo, Player* pPlayer) ;
+    static void execute(GCOtherModifyInfo* pGCOtherModifyInfo, Player* pPlayer);
 };
 
 #endif

@@ -1,34 +1,34 @@
 #include "GQuestGiveDomainExpElement.h"
-#include "PlayerCreature.h"
-#include "Slayer.h"
-#include "skill/SkillUtil.h"
+
 #include "GCModifyInformation.h"
 #include "GCSystemMessage.h"
 #include "Player.h"
+#include "PlayerCreature.h"
+#include "Slayer.h"
+#include "skill/SkillUtil.h"
 
-GQuestElement::ResultType GQuestGiveDomainExpElement::checkCondition( PlayerCreature* pPC ) const
-{
-	if ( !pPC->isSlayer() ) return FAIL;
+GQuestElement::ResultType GQuestGiveDomainExpElement::checkCondition(PlayerCreature* pPC) const {
+    if (!pPC->isSlayer())
+        return FAIL;
 
-	GCModifyInformation gcMI;
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-	increaseDomainExp(pSlayer, pSlayer->getHighestSkillDomain(), m_Amount, gcMI );
-	pSlayer->getPlayer()->sendPacket( &gcMI );
+    GCModifyInformation gcMI;
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
+    increaseDomainExp(pSlayer, pSlayer->getHighestSkillDomain(), m_Amount, gcMI);
+    pSlayer->getPlayer()->sendPacket(&gcMI);
 
-	GCSystemMessage gcSM;
-	gcSM.setMessage("获得该区域的经验值.");
-	pSlayer->getPlayer()->sendPacket( &gcSM );
+    GCSystemMessage gcSM;
+    gcSM.setMessage("获得该区域的经验值.");
+    pSlayer->getPlayer()->sendPacket(&gcSM);
 
-	return OK;
+    return OK;
 }
 
-GQuestGiveDomainExpElement* GQuestGiveDomainExpElement::makeElement(XMLTree* pTree)
-{
-	GQuestGiveDomainExpElement* pRet = new GQuestGiveDomainExpElement;
+GQuestGiveDomainExpElement* GQuestGiveDomainExpElement::makeElement(XMLTree* pTree) {
+    GQuestGiveDomainExpElement* pRet = new GQuestGiveDomainExpElement;
 
-	pTree->GetAttribute("amount", pRet->m_Amount);
+    pTree->GetAttribute("amount", pRet->m_Amount);
 
-	return pRet;
+    return pRet;
 }
 
 GQuestGiveDomainExpElement g_GiveDomainExpElement;

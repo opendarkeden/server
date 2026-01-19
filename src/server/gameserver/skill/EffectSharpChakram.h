@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectSharpChakram.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SHARP_CHAKRAM__
@@ -14,27 +14,32 @@
 // class EffectSharpChakram
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSharpChakram : public Effect 
-{
+class EffectSharpChakram : public Effect {
 public:
-	EffectSharpChakram(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SHARP_CHAKRAM; }
-
-	void affect() {}
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectSharpChakram(Creature* pCreature);
 
 public:
-	void setBonus( uint bonus ) { m_Bonus = bonus; }
-	uint getBonus() const { return m_Bonus; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_SHARP_CHAKRAM;
+    }
+
+    void affect() {}
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    void setBonus(uint bonus) {
+        m_Bonus = bonus;
+    }
+    uint getBonus() const {
+        return m_Bonus;
+    }
 
 private:
-	uint	m_Bonus;
+    uint m_Bonus;
 };
 
 #endif // __EFFECT_SHARP_CHAKRAM__

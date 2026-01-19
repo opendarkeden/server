@@ -11,17 +11,17 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCGetOffMotorCycleHandler::execute (GCGetOffMotorCycle * pGCGetOffMotorCycle , Player * pPlayer )
-	 
+void GCGetOffMotorCycleHandler::execute(GCGetOffMotorCycle* pGCGetOffMotorCycle, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCGetOffMotorCycle->toString() << endl;
-	
+    // cout << pGCGetOffMotorCycle->toString() << endl;
+
 #elif __WINDOWS__
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

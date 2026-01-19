@@ -12,6 +12,7 @@
 // include files
 //////////////////////////////////////////////////
 #include "Thread.h"
+
 #include "ThreadAttr.h"
 #include "pthreadAPI.h"
 
@@ -24,25 +25,22 @@ using namespace pthreadAPI;
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Thread Ŭ������ ��ӹ��� DerivedThread �� �ּ��� ThreadAttr �� �����ϰ� �ȴ�. 
-// ���� DerivedThread �� ���� �� ���� �ʿ䰡 �ִٸ�, �� �޽�� ������ ������ 
-// ThreadAttr �� ������ �Ŀ�, �̸� ���� �������� �����ڿ� �Ѱ��ְ� ��� ���� 
-// �����带 ������ �Ŀ�, Thread-Attribute ��ü�� �����ϸ� �� ���̴�.
+// Thread Ŭ������ ��ӹ��� DerivedThread �� �ּ��� ThreadAttr �� �����ϰ� �ȴ�.
+// ���� DerivedThread �� ���� �� ���� �ʿ䰡 �ִٸ�, �� �޽��
+// ������ ������ ThreadAttr �� ������ �Ŀ�, �̸� ���� �������� �����ڿ� �Ѱ��ְ� ��� ���� �����带 ������ �Ŀ�, Thread-Attribute
+// ��ü�� �����ϸ� �� ���̴�.
 //
 // ������ ����, ��ü ������ ���� �������� ������ ���ÿ� �̷������ �ʴ´ٴ�
 // ���̴�. �� ��� �������� Start() �� ������ �Ŀ� ThreadAttr ��ü�� �����ؾ�
 // �Ѵ�. �׷��� ������ ������ �� ���̴�.
 //
-// ���� ��� ������� new �� �����ؾ� �Ѵ�. ���� pthread_create() �� ������ 
-// �Ķ���ͷ� ������ ��ü�� �ּҸ� �Ѱ��ְ� �Ǵµ�, �̶� �Լ� ���ÿ� ������ 
-// ��ü�� ������ ��� Scope Rule�� ���� ������ ���� �ȴ�. ������ ������ ��ü�� 
+// ���� ��� ������� new �� �����ؾ� �Ѵ�. ���� pthread_create() �� ������
+// �Ķ���ͷ� ������ ��ü�� �ּҸ� �Ѱ��ְ� �Ǵµ�, �̶� �Լ� ���ÿ� ������
+// ��ü�� ������ ��� Scope Rule�� ���� ������ ���� �ȴ�. ������ ������ ��ü��
 // ��(Heap)�� �����ؾ߸� �Ѵ�!!!
 //
 ////////////////////////////////////////////////////////////////////////////////
-Thread::Thread ( ThreadAttr * attr ) 
-: m_TID(0) , m_ThreadAttr(attr), m_Status(Thread::READY)
-{
-}
+Thread::Thread(ThreadAttr* attr) : m_TID(0), m_ThreadAttr(attr), m_Status(Thread::READY) {}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,9 +53,7 @@ Thread::Thread ( ThreadAttr * attr )
 // ���ǵǾ� �ִ�. �����δ� �ƹ��� �ϵ� ���� �ʴ´�.
 //
 ////////////////////////////////////////////////////////////////////////////////
-Thread::~Thread () 
-{
-}
+Thread::~Thread() {}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,37 +64,38 @@ Thread::~Thread ()
 //
 // pthread_create() �� ���ؼ� ���캸���� ����.
 //
-// int pthread_create ( pthread_t * tid , 
-//                      pthread_attr_t * atttr , 
-//                      void * (*start_routine)(void*) , 
-//                      void * arg 
+// int pthread_create ( pthread_t * tid ,
+//                      pthread_attr_t * atttr ,
+//                      void * (*start_routine)(void*) ,
+//                      void * arg
 //                    );
 //
 // ������ �����ϸ� 0 �� �����ϸ�, ������ ��� ���� �ڵ带 �����Ѵ�.
 // ���� �ڵ�� EAGAIN �� �����ϸ�, �ý��� ���ҽ��� �����ϰų� ������ ���ڰ�
 // �ʹ� ������ �ǹ��Ѵ�.
 //
-// tid �� �����͸� ù��° �Ķ���ͷ� �ָ�, �� �ȿ� thread identifier �� ����ȴ�.
+// tid �� �����͸� ù��° �Ķ���ͷ� �ָ�, �� �ȿ� thread identifier ��
+// ����ȴ�.
 //
 // attr �� NULL �� ��� Default Attribute �� ���� �����尡 �����ȴ�. Ư����
-// � �Ӽ��� �����Ϸ��� ������ pthread_attr_t �� �����ϸ� �� ���̴�.
+// � �Ӽ��� �����Ϸ��� ������ pthread_attr_t �� �����ϸ� ��
+// ���̴�.
 //
 // start_routine ���δ� Thread Ŭ������ friend method �� ����ϴµ�, �̶� arg ��
-// this - Thread Object - �� �����ϰ� �ȴ�. �׷���, start_routine �ȿ����� 
-// polymorphism �� ����ؼ� ���� Ŭ������ run() �޽�带 �ڵ����� ȣ���ϰ� 
-// �ǹǷ�.. ��� ���� ����������. -_-;
+// this - Thread Object - �� �����ϰ� �ȴ�. �׷���, start_routine �ȿ�����
+// polymorphism �� ����ؼ� ���� Ŭ������ run() �޽�带 �ڵ�����
+// ȣ���ϰ� �ǹǷ�.. ��� ���� ����������. -_-;
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Thread::start () 
-{ 
-	__BEGIN_TRY
-		
-	if ( m_Status != Thread::READY )
-		throw ThreadException("invalid thread's status");
+void Thread::start() {
+    __BEGIN_TRY
 
-	pthread_create_ex( &m_TID, ( m_ThreadAttr == NULL ? NULL : m_ThreadAttr->getAttr() ) , start_routine , this );
-	
-	__END_CATCH
+    if (m_Status != Thread::READY)
+        throw ThreadException("invalid thread's status");
+
+    pthread_create_ex(&m_TID, (m_ThreadAttr == NULL ? NULL : m_ThreadAttr->getAttr()), start_routine, this);
+
+    __END_CATCH
 }
 
 
@@ -107,13 +104,12 @@ void Thread::start ()
 // ���� Ŭ�������� ���ؽ��� �����ϸ鼭 �������ؾ� �Ѵ�.
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Thread::stop ()
-{
-	__BEGIN_TRY
-		
-	throw UnsupportedError();
-		
-	__END_CATCH
+void Thread::stop() {
+    __BEGIN_TRY
+
+    throw UnsupportedError();
+
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -121,45 +117,41 @@ void Thread::stop ()
 // Ư�� �����尡 ������ ������ ���� �����带 �����.
 //
 // ���⼭ *����* �������µ� �����϶�. ������ A �� ������ B �� ��ٸ��� ����
-// �ƴϹǷ�, �� �޽��� static �̾�� �Ѵ�. 
+// �ƴϹǷ�, �� �޽��� static �̾�� �Ѵ�.
 //
 // �̶� status �� � ����Ÿ������ �����ϴ�. (structure, class...)
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Thread::join ( const Thread & t )
-{ 
-	__BEGIN_TRY
+void Thread::join(const Thread& t) {
+    __BEGIN_TRY
 
-	pthread_join_ex ( t.getTID() , NULL );
-	
-	__END_CATCH
+    pthread_join_ex(t.getTID(), NULL);
+
+    __END_CATCH
 }
 
-void Thread::join ( const Thread & t, void * status )
-{ 
-	__BEGIN_TRY
+void Thread::join(const Thread& t, void* status) {
+    __BEGIN_TRY
 
-	pthread_join_ex ( t.getTID() , &status );
-	
-	__END_CATCH
+    pthread_join_ex(t.getTID(), &status);
+
+    __END_CATCH
 }
 
-void Thread::join ( const Thread * t )
-{ 
-	__BEGIN_TRY
+void Thread::join(const Thread* t) {
+    __BEGIN_TRY
 
-	pthread_join_ex ( t->getTID() , NULL );
-	
-	__END_CATCH
+    pthread_join_ex(t->getTID(), NULL);
+
+    __END_CATCH
 }
 
-void Thread::join ( const Thread * t, void * status )
-{ 
-	__BEGIN_TRY
+void Thread::join(const Thread* t, void* status) {
+    __BEGIN_TRY
 
-	pthread_join_ex ( t->getTID() , &status );
-	
-	__END_CATCH
+    pthread_join_ex(t->getTID(), &status);
+
+    __END_CATCH
 }
 
 
@@ -167,19 +159,19 @@ void Thread::join ( const Thread * t, void * status )
 //
 // �����带 Detached ���� �ٲ۴�.
 //
-// � �����尡 detached ����� ���, ������ �� �ڵ������� ���� ���� ���ҽ���
-// �ݳ��ϰ� �ȴ�. ���� �ƴ϶�� join()�� ���ؼ� ������ ������ ��ٷȴٰ� ���ҽ���
-// �ݳ��ϰ� �ؾ� �Ѵ�. �̷��� �� ��� �ý����� �����ս��� �������� �ǹǷ�, ��κ�
-// �� ������鿡 �־ �� �޽�带 ȣ�����ִ� ���� ���� ���̴�.
+// � �����尡 detached ����� ���, ������ �� �ڵ�������
+// ���� ���� ���ҽ��� �ݳ��ϰ� �ȴ�. ���� �ƴ϶�� join()�� ���ؼ� ������ ������ ��ٷȴٰ� ���ҽ��� �ݳ��ϰ� �ؾ� �Ѵ�. �̷��� �� ���
+// �ý����� �����ս��� �������� �ǹǷ�, ��κ�
+// �� ������鿡 �־ �� �޽�带 ȣ�����ִ� ���� ����
+// ���̴�.
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Thread::detach () 
-{
-	__BEGIN_TRY
+void Thread::detach() {
+    __BEGIN_TRY
 
-	pthread_detach_ex(m_TID);
-	
-	__END_CATCH
+    pthread_detach_ex(m_TID);
+
+    __END_CATCH
 }
 
 
@@ -189,14 +181,13 @@ void Thread::detach ()
 //
 // void pthread_exit ( void * retval );
 //
-// �ʿ��ϴٸ� � ����Ÿ������ �����ؼ� join �ϴ� ������� �ѱ� �� �ִ�.
-// (�׷���, ��κ��� ��������� detached �� ���ư��ٸ� NULL �� �����ϴ� ����
-// ���� ���̴�.)
+// �ʿ��ϴٸ� � ����Ÿ������ �����ؼ� join �ϴ� �������
+// �ѱ� �� �ִ�. (�׷���, ��κ��� ��������� detached ��
+// ���ư��ٸ� NULL �� �����ϴ� ���� ���� ���̴�.)
 //
 ////////////////////////////////////////////////////////////////////////////////
-void Thread::exit ( void * retval )
-{
-	pthread_exit_ex( retval );
+void Thread::exit(void* retval) {
+    pthread_exit_ex(retval);
 }
 
 
@@ -206,30 +197,28 @@ void Thread::exit ( void * retval )
 //
 // Thread Ŭ������ friend method �̴�.
 //
-// REENTRANT function �̸� ���� ���⿣ ������ �� �ѵ�.. �¼��� thread ��ü��
-// thread specific data �� ������� �����̾�. ȣȪ. ������ ���� �ȿ��� ����Ǹ� 
-// �Ϻ��ϰ� �ٸ� �� ���� �ʳ�? 
+// REENTRANT function �̸� ���� ���⿣ ������ �� �ѵ�.. �¼��� thread
+// ��ü�� thread specific data �� ������� �����̾�. ȣȪ. ������ ���� �ȿ��� ����Ǹ� �Ϻ��ϰ� �ٸ� �� ���� �ʳ�?
 //
 // ���� Ŭ������ run()�� virtual�� ȣ���ϱ� ���Ŀ�, �������� ���¸� RUNNING,
 // EXIT�� �ٲٴµ� �����϶�. �ϴ� EXIT�� �ٲ��, ������� ���̻� ����۵� �� ����.
 //
 ////////////////////////////////////////////////////////////////////////////////
-void * start_routine ( void * derivedThread )
-{
-	Thread * thread = (Thread *)derivedThread;
-	
-	// set thread's status to "RUNNING"
-	thread->setStatus(Thread::RUNNING);
+void* start_routine(void* derivedThread) {
+    Thread* thread = (Thread*)derivedThread;
 
-	// here - polymorphism used. (derived::run() called.)
-	thread->run();
-	
-	// set thread's status to "EXIT"
-	thread->setStatus(Thread::EXIT);
+    // set thread's status to "RUNNING"
+    thread->setStatus(Thread::RUNNING);
 
-	Thread::exit(NULL);
+    // here - polymorphism used. (derived::run() called.)
+    thread->run();
 
-	return NULL;	// avoid compiler's warning
+    // set thread's status to "EXIT"
+    thread->setStatus(Thread::EXIT);
+
+    Thread::exit(NULL);
+
+    return NULL; // avoid compiler's warning
 }
 
 
@@ -238,9 +227,8 @@ void * start_routine ( void * derivedThread )
 // ���� �������� TID �� �˾Ƴ���. static ����Լ��̴�.
 //
 ////////////////////////////////////////////////////////////////////////////////
-TID Thread::self ()
-{
-	return pthread_self_ex();
+TID Thread::self() {
+    return pthread_self_ex();
 }
 
 
@@ -249,13 +237,12 @@ TID Thread::self ()
 // return thread information string
 //
 ////////////////////////////////////////////////////////////////////////////////
-string Thread::toString () const
-{
-	__BEGIN_TRY
+string Thread::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "Thread[" << (ulong)(uintptr_t)m_TID<< "]" ;
-	return msg.toString();
-	
-	__END_CATCH
+    StringStream msg;
+    msg << "Thread[" << (ulong)(uintptr_t)m_TID << "]";
+    return msg.toString();
+
+    __END_CATCH
 }

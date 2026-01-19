@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRelicTable.h
-// Written by  : 
+// Written by  :
 // Description : Doom에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -12,48 +12,52 @@
 //////////////////////////////////////////////////////////////////////////////
 // class EffectRelicTable
 //////////////////////////////////////////////////////////////////////////////
-class EffectRelicTable : public Effect 
-{
+class EffectRelicTable : public Effect {
 public:
-	EffectRelicTable(Item* pItem) ;
-
-public:
-	void affect() ;
-	void affect(Item* pItem) ;
-
-	void unaffect(Item* pItem) ;
-	void unaffect() ; 
-
-	string toString() const ;
+    EffectRelicTable(Item* pItem);
 
 public:
-	void   setSafeTime(const Timeval& tv)  { m_SafeTime = tv; }
-	bool   isSafeTime() const;
+    void affect();
+    void affect(Item* pItem);
 
-	void   setLockTime(const Timeval& tv)  { m_LockTime = tv; }
-	bool   isLockTime() const;
+    void unaffect(Item* pItem);
+    void unaffect();
+
+    string toString() const;
+
+public:
+    void setSafeTime(const Timeval& tv) {
+        m_SafeTime = tv;
+    }
+    bool isSafeTime() const;
+
+    void setLockTime(const Timeval& tv) {
+        m_LockTime = tv;
+    }
+    bool isLockTime() const;
 
 private:
-	Timeval		m_SafeTime;
-	Timeval		m_LockTime;
+    Timeval m_SafeTime;
+    Timeval m_LockTime;
 };
 
-class EffectSlayerRelicTable : public EffectRelicTable
-{
+class EffectSlayerRelicTable : public EffectRelicTable {
 public:
-	EffectSlayerRelicTable(Item* pItem)  : EffectRelicTable(pItem) {}
+    EffectSlayerRelicTable(Item* pItem) : EffectRelicTable(pItem) {}
 
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_SLAYER_RELIC_TABLE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_SLAYER_RELIC_TABLE;
+    }
 };
 
-class EffectVampireRelicTable : public EffectRelicTable
-{
+class EffectVampireRelicTable : public EffectRelicTable {
 public:
-	EffectVampireRelicTable(Item* pItem)  : EffectRelicTable(pItem) {}
+    EffectVampireRelicTable(Item* pItem) : EffectRelicTable(pItem) {}
 
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_VAMPIRE_RELIC_TABLE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_VAMPIRE_RELIC_TABLE;
+    }
 };
-
 
 
 #endif // __EFFECT_DOOM__

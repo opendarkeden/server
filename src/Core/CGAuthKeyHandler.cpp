@@ -11,10 +11,10 @@
 #include "CGAuthKey.h"
 
 #ifdef __GAME_SERVER__
-#include "GamePlayer.h"
 #include "EventKick.h"
-#include "gameguard/CSAuth.h"
 #include "GCSystemMessage.h"
+#include "GamePlayer.h"
+#include "gameguard/CSAuth.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -22,36 +22,36 @@
 // Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Þ½ÃÁö¸¦ ¹Þ¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Þ½îµåÀÌ´Ù.
 //
 //////////////////////////////////////////////////////////////////////
-void CGAuthKeyHandler::execute ( CGAuthKey * pPacket , Player * pPlayer )
-	 
+void CGAuthKeyHandler::execute(CGAuthKey* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 #ifdef __GAME_SERVER__
 
-	Assert( pPacket != NULL );
+    Assert(pPacket != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert( pGamePlayer != NULL );
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	DWORD key = pPacket->getKey();
-// 	if ( !pGamePlayer->getCSAuth().CheckAuthDword(key) )
-// 	{
-// 		filelog("CSAuth.log", "[%s] ÀÎÁõ °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.", pGamePlayer->getID().c_str());
+    DWORD key = pPacket->getKey();
+    // 	if ( !pGamePlayer->getCSAuth().CheckAuthDword(key) )
+    // 	{
+    // 		filelog("CSAuth.log", "[%s] ÀÎÁõ °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.", pGamePlayer->getID().c_str());
 
-// 		GCSystemMessage gcSystemMessage;
-// 		gcSystemMessage.setMessage("nProtect GameGuardÈÏÖ¤Ê§°Ü.Ö´ÐÐÎÄ¼þ´íÎó»òGameGuardÎÄ¼þËð»µ.");
-// 		pGamePlayer->sendPacket( &gcSystemMessage );
+    // 		GCSystemMessage gcSystemMessage;
+    // 		gcSystemMessage.setMessage("nProtect GameGuardÈÏÖ¤Ê§°Ü.Ö´ÐÐÎÄ¼þ´íÎó»òGameGuardÎÄ¼þËð»µ.");
+    // 		pGamePlayer->sendPacket( &gcSystemMessage );
 
-// 		EventKick* pKick = new EventKick( pGamePlayer );
-// 		pKick->setDeadline(100);
-// //		pKick->setMessage("GameGuard ÀÎÁõ ÄÚµå°¡ Àß¸øµÇ¾ú½À´Ï´Ù. 10ÃÊ µÚ¿¡ ¿¬°áÀÌ Á¾·áµË´Ï´Ù.");
-// 		pKick->sendMessage();
+    // 		EventKick* pKick = new EventKick( pGamePlayer );
+    // 		pKick->setDeadline(100);
+    // //		pKick->setMessage("GameGuard ÀÎÁõ ÄÚµå°¡ Àß¸øµÇ¾ú½À´Ï´Ù. 10ÃÊ µÚ¿¡ ¿¬°áÀÌ Á¾·áµË´Ï´Ù.");
+    // 		pKick->sendMessage();
 
-// 		pGamePlayer->addEvent(pKick);
-// 	}
+    // 		pGamePlayer->addEvent(pKick);
+    // 	}
 
 #endif
-	
-	__END_CATCH
+
+    __END_CATCH
 }

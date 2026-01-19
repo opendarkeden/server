@@ -1,54 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGWithdrawPet.cpp 
+// Filename    : CGWithdrawPet.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGWithdrawPet.h"
 
-void CGWithdrawPet::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY 
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_Index);
+void CGWithdrawPet::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_Index);
+
+    __END_CATCH
 }
 
-void CGWithdrawPet::write (SocketOutputStream & oStream) const 
-     
+void CGWithdrawPet::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_Index);
+    oStream.write(m_ObjectID);
+    oStream.write(m_Index);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGWithdrawPet::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGWithdrawPet::execute(Player* pPlayer)
 
-	CGWithdrawPetHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGWithdrawPetHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGWithdrawPet::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGWithdrawPet("
-		<< " ObjectID : " << (int)m_ObjectID
-		<< " Index : "    << (int)m_Index
-		<< ")";
-	return msg.toString();
+string CGWithdrawPet::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "CGWithdrawPet("
+        << " ObjectID : " << (int)m_ObjectID << " Index : " << (int)m_Index << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

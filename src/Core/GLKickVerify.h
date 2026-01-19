@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
-// 
-// Filename    : GLKickVerify.h 
+//
+// Filename    : GLKickVerify.h
 // Written By  : Reiot
-// Description : 
-// 
+// Description :
+//
 //----------------------------------------------------------------------
 
 #ifndef __GL_KICK_VERIFY_H__
@@ -24,56 +24,68 @@
 //----------------------------------------------------------------------
 
 class GLKickVerify : public DatagramPacket {
-
-public :
-	GLKickVerify() {};
+public:
+    GLKickVerify() {};
     ~GLKickVerify() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) ;
-		    
+    void read(Datagram& iDatagram);
+
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const ;
+    void write(Datagram& oDatagram) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GL_KICK_VERIFY; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szBYTE + szBYTE + m_PCName.size() + szuint;
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GL_KICK_VERIFY;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GLKickVerify"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + szBYTE + m_PCName.size() + szuint;
+    }
 
-public :
+    // get packet name
+    string getPacketName() const {
+        return "GLKickVerify";
+    }
 
-	// get/set playerID
-	bool isKicked() const  { return m_bKicked; }
-	void setKicked(bool bKicked=true)  { m_bKicked = bKicked; }
+    // get packet's debug string
+    string toString() const;
 
-  	// get/set pcName
-    string getPCName() const  { return m_PCName; }
-    void setPCName(const string& pcName)  { m_PCName = pcName; }
+public:
+    // get/set playerID
+    bool isKicked() const {
+        return m_bKicked;
+    }
+    void setKicked(bool bKicked = true) {
+        m_bKicked = bKicked;
+    }
 
-    uint getID() const  { return m_ID; }
-    void setID(uint id)  { m_ID = id; }
+    // get/set pcName
+    string getPCName() const {
+        return m_PCName;
+    }
+    void setPCName(const string& pcName) {
+        m_PCName = pcName;
+    }
 
-	
-private :
+    uint getID() const {
+        return m_ID;
+    }
+    void setID(uint id) {
+        m_ID = id;
+    }
 
-	// Player ID
-	bool   m_bKicked;
 
-	string m_PCName;
+private:
+    // Player ID
+    bool m_bKicked;
 
-	uint   m_ID;
+    string m_PCName;
+
+    uint m_ID;
 };
 
 
@@ -86,26 +98,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GLKickVerifyFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GLKickVerify();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GLKickVerify(); }
+    // get packet name
+    string getPacketName() const {
+        return "GLKickVerify";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GLKickVerify"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GL_KICK_VERIFY; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GL_KICK_VERIFY;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GLKickVerifyPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  
-	{ 
-		return szBYTE + szBYTE + 20 + szuint;
-	}
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GLKickVerifyPacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + szBYTE + 20 + szuint;
+    }
 };
 
 
@@ -116,12 +130,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GLKickVerifyHandler {
-	
-public :
-
-	// execute packet's handler
-	static void execute(GLKickVerify* pPacket) ;
-
+public:
+    // execute packet's handler
+    static void execute(GLKickVerify* pPacket);
 };
 
 #endif

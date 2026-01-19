@@ -1,9 +1,9 @@
 //--------------------------------------------------------------------------------
-// 
-// Filename    : RaceWarInfo.h 
-// Written By  : 
-// Description : 
-// 
+//
+// Filename    : RaceWarInfo.h
+// Written By  :
+// Description :
+//
 //--------------------------------------------------------------------------------
 
 #ifndef __RACE_WAR_LIST_H__
@@ -23,48 +23,50 @@
 //--------------------------------------------------------------------------------
 
 class RaceWarInfo : public WarInfo {
+public:
+    typedef ValueList<ZoneID_t> ZoneIDList;
 
-public :
-	typedef ValueList<ZoneID_t>	ZoneIDList;
+public:
+    RaceWarInfo() {}
+    ~RaceWarInfo() {}
 
-public :
-	RaceWarInfo() {}
-	~RaceWarInfo() {}
-	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	PacketSize_t getSize() const  
-	{ 
-		return WarInfo::getSize() + m_CastleIDs.getPacketSize();
-	}
+    PacketSize_t getSize() const {
+        return WarInfo::getSize() + m_CastleIDs.getPacketSize();
+    }
 
-	static PacketSize_t getMaxSize()  
-	{
-		return WarInfo::getMaxSize() + ZoneIDList::getPacketMaxSize();
-	}
+    static PacketSize_t getMaxSize() {
+        return WarInfo::getMaxSize() + ZoneIDList::getPacketMaxSize();
+    }
 
-	// get packet's debug string
-	string toString() const ;
+    // get packet's debug string
+    string toString() const;
 
-public :
-	WarType_t 			getWarType() const 			{ return WAR_RACE; }
+public:
+    WarType_t getWarType() const {
+        return WAR_RACE;
+    }
 
-	ZoneIDList& 		getCastleIDs() 				{ return m_CastleIDs; }
-	void 				addCastleID(ZoneID_t zid) 	{ m_CastleIDs.addValue( zid ); }
+    ZoneIDList& getCastleIDs() {
+        return m_CastleIDs;
+    }
+    void addCastleID(ZoneID_t zid) {
+        m_CastleIDs.addValue(zid);
+    }
 
-	void	operator = (const RaceWarInfo& RWI)
-	{
-		m_StartTime = RWI.m_StartTime;
-		m_RemainTime = RWI.m_RemainTime;
-		m_CastleIDs = RWI.m_CastleIDs;
-	}
+    void operator=(const RaceWarInfo& RWI) {
+        m_StartTime = RWI.m_StartTime;
+        m_RemainTime = RWI.m_RemainTime;
+        m_CastleIDs = RWI.m_CastleIDs;
+    }
 
-private :
-	ZoneIDList			m_CastleIDs;		// 전쟁중인 성
+private:
+    ZoneIDList m_CastleIDs; // 전쟁중인 성
 };
 
 #endif

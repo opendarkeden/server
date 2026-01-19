@@ -2,7 +2,7 @@
 //
 // Filename    : LCCreatePCErrorHandler.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //
 //----------------------------------------------------------------------
 
@@ -10,19 +10,20 @@
 #include "LCCreatePCError.h"
 
 //----------------------------------------------------------------------
-// 
+//
 //----------------------------------------------------------------------
-void LCCreatePCErrorHandler::execute (LCCreatePCError * pPacket , Player * pPlayer )
-	 
+void LCCreatePCErrorHandler::execute(LCCreatePCError* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_CLIENT__
 
-	cout << "Fail to create PC... (" << pPacket->toString() << ")" << endl;
-	throw ProtocolException("CreatePC Failed!");
+            cout
+        << "Fail to create PC... (" << pPacket->toString() << ")" << endl;
+    throw ProtocolException("CreatePC Failed!");
 
 #endif
-		
-	__END_DEBUG_EX __END_CATCH
+
+    __END_DEBUG_EX __END_CATCH
 }

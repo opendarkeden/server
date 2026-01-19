@@ -7,65 +7,61 @@
 #include "CGUndisplayItem.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "PlayerCreature.h"
-	#include "Store.h"
-	#include "ItemUtil.h"
-	#include "Zone.h"
-	#include "GCMyStoreInfo.h"
-	#include "GCRemoveStoreItem.h"
-#endif	// __GAME_SERVER__
+#include "GCMyStoreInfo.h"
+#include "GCRemoveStoreItem.h"
+#include "GamePlayer.h"
+#include "ItemUtil.h"
+#include "PlayerCreature.h"
+#include "Store.h"
+#include "Zone.h"
+#endif // __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGUndisplayItemHandler::execute (CGUndisplayItem* pPacket , Player* pPlayer)
-	 
+void CGUndisplayItemHandler::execute(CGUndisplayItem* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	Store* pStore = pPC->getStore();
-	Assert(pStore != NULL);
+    Store* pStore = pPC->getStore();
+    Assert(pStore != NULL);
 
-	if (pPacket->getIndex() > MAX_ITEM_NUM )
-	{
-		filelog("Store.log", "[%s:%s] (%u) 잘못된 인덱스입니다.",
-				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getIndex());
-		return;
-	}
+    if (pPacket->getIndex() > MAX_ITEM_NUM) {
+        filelog("Store.log", "[%s:%s] (%u) 잘못된 인덱스입니다.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
+                pPacket->getIndex());
+        return;
+    }
 
-	BYTE result = pStore->removeStoreItem(pPacket->getIndex());
-	if (result != 0 )
-	{
-		filelog("Store.log", "[%s:%s] (%u) 아이템을 뺄 수 없습니다.",
-				pGamePlayer->getID().c_str(), pPC->getName().c_str(), result);
-		return;
-	}
-	
-	GCMyStoreInfo gcInfo;
-	gcInfo.setStoreInfo(&(pStore->getStoreInfo()));
-	pGamePlayer->sendPacket(&gcInfo);
+    BYTE result = pStore->removeStoreItem(pPacket->getIndex());
+    if (result != 0) {
+        filelog("Store.log", "[%s:%s] (%u) 아이템을 뺄 수 없습니다.", pGamePlayer->getID().c_str(),
+                pPC->getName().c_str(), result);
+        return;
+    }
 
-	if (pStore->isOpen() )
-	{
-		GCRemoveStoreItem gcRemove;
-		gcRemove.setOwnerObjectID(pPC->getObjectID());
-		gcRemove.setIndex(pPacket->getIndex());
-		pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcRemove, pPC);
-	}
+    GCMyStoreInfo gcInfo;
+    gcInfo.setStoreInfo(&(pStore->getStoreInfo()));
+    pGamePlayer->sendPacket(&gcInfo);
 
-#endif	// __GAME_SERVER__
-		
-	__END_DEBUG_EX __END_CATCH
+    if (pStore->isOpen()) {
+        GCRemoveStoreItem gcRemove;
+        gcRemove.setOwnerObjectID(pPC->getObjectID());
+        gcRemove.setIndex(pPacket->getIndex());
+        pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcRemove, pPC);
+    }
+
+#endif // __GAME_SERVER__
+
+    __END_DEBUG_EX __END_CATCH
 }
-

@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCMineExplosionOK2Handler::execute (GCMineExplosionOK2 * pGCMineExplosionOK2 , Player * pPlayer )
-	 
+void GCMineExplosionOK2Handler::execute(GCMineExplosionOK2* pGCMineExplosionOK2, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCMineExplosionOK2->toString() << endl;
-	
+    // cout << pGCMineExplosionOK2->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCMineExplosionOK2->toString().c_str());
+        AfxMessageBox(pGCMineExplosionOK2->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

@@ -13,20 +13,21 @@
 // class EffectAutoTurret
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectAutoTurret : public Effect 
-{
+class EffectAutoTurret : public Effect {
 public:
-	EffectAutoTurret(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
+    EffectAutoTurret(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_AUTO_TURRET; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_AUTO_TURRET;
+    }
 
-	void affect() ;
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void affect();
+    void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void unaffect() ;
+    void unaffect();
 
-	string toString() const ;
+    string toString() const;
 };
 
 #endif

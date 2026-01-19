@@ -5,12 +5,13 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ZoneGroup.h"
-#include "ZonePlayerManager.h"
-#include "Assert.h"
-#include "VSDateTime.h"
-#include "Profile.h"
 
-//#define __FULL_PROFILE__
+#include "Assert.h"
+#include "Profile.h"
+#include "VSDateTime.h"
+#include "ZonePlayerManager.h"
+
+// #define __FULL_PROFILE__
 
 #ifndef __FULL_PROFILE__
 #undef beginProfileEx
@@ -22,165 +23,153 @@
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-ZoneGroup::ZoneGroup (ZoneGroupID_t zoneGroupID) 
-	
-: m_ZoneGroupID(zoneGroupID), m_pZonePlayerManager(NULL)
-{
-	__BEGIN_TRY
+ZoneGroup::ZoneGroup(ZoneGroupID_t zoneGroupID)
 
-	m_Mutex.setName("ZoneGroupMutex");
+    : m_ZoneGroupID(zoneGroupID), m_pZonePlayerManager(NULL) {
+    __BEGIN_TRY
 
-	Assert(m_ZoneGroupID > 0);
+    m_Mutex.setName("ZoneGroupMutex");
 
-	m_TickTime.tv_sec = 0;
-	m_TickTime.tv_usec = 0;
+    Assert(m_ZoneGroupID > 0);
 
-	__END_CATCH
+    m_TickTime.tv_sec = 0;
+    m_TickTime.tv_usec = 0;
+
+    __END_CATCH
 }
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-ZoneGroup::~ZoneGroup () 
-	
+ZoneGroup::~ZoneGroup()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// 해쉬맵안에 있는 모든 pair 들을 삭제한다.
-	m_Zones.clear();
+    // 해쉬맵안에 있는 모든 pair 들을 삭제한다.
+    m_Zones.clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // initialize zone group
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::init () 
-	
-{
-	__BEGIN_TRY
+void ZoneGroup::init()
 
-	// init == load
-	load();
-			
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    // init == load
+    load();
+
+    __END_CATCH
 }
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // load from database
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::load ()
-	
+void ZoneGroup::load()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	throw UnsupportedError(__PRETTY_FUNCTION__);
+    throw UnsupportedError(__PRETTY_FUNCTION__);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // save to database
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::save ()
-	
+void ZoneGroup::save()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	throw UnsupportedError(__PRETTY_FUNCTION__);
+    throw UnsupportedError(__PRETTY_FUNCTION__);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // process all players in zone player manager
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::processPlayers ()
-	
+void ZoneGroup::processPlayers()
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//__ENTER_CRITICAL_SECTION(m_Mutex)
+    //__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	try 
-	{
-		//m_pZonePlayerManager->copyPlayers();
-		//__ENTER_CRITICAL_SECTION(m_pZonePlayerManager)
+    try {
+        // m_pZonePlayerManager->copyPlayers();
+        //__ENTER_CRITICAL_SECTION(m_pZonePlayerManager)
 
-		beginProfileEx("ZPM_SELECT");
-		m_pZonePlayerManager->select();
-		endProfileEx("ZPM_SELECT");
+        beginProfileEx("ZPM_SELECT");
+        m_pZonePlayerManager->select();
+        endProfileEx("ZPM_SELECT");
 
-		beginProfileEx("ZPM_EXCEPTION");
-		m_pZonePlayerManager->processExceptions();
-		endProfileEx("ZPM_EXCEPTION");
+        beginProfileEx("ZPM_EXCEPTION");
+        m_pZonePlayerManager->processExceptions();
+        endProfileEx("ZPM_EXCEPTION");
 
-		beginProfileEx("ZPM_INPUT");
-		m_pZonePlayerManager->processInputs();
-		endProfileEx("ZPM_INPUT");
+        beginProfileEx("ZPM_INPUT");
+        m_pZonePlayerManager->processInputs();
+        endProfileEx("ZPM_INPUT");
 
-		beginProfileEx("ZPM_OUTPUT");
-		m_pZonePlayerManager->processOutputs();
-		endProfileEx("ZPM_OUTPUT");
+        beginProfileEx("ZPM_OUTPUT");
+        m_pZonePlayerManager->processOutputs();
+        endProfileEx("ZPM_OUTPUT");
 
-		//__LEAVE_CRITICAL_SECTION(m_pZonePlayerManager)
-	} 
-	catch (TimeoutException&) 
-	{
-		// timeout 이 발생하면, 입력, 출력, OOB 처리 어느 것이나 할 게 없당..
-		// 잘못된 FD가 있을 경우 짜르기 위하여 시행한다 -_-;
-		//m_pZonePlayerManager->processOutputs();
-	} 
-	catch (InterruptedException & ie) 
-	{
-		//throw Error(ie.toString());
-	}
-	catch (IOException & ioe) 
-	{
-		//throw Error(ioe.toString());
-	}
-	catch (Error& er)
-	{
-		filelog("errorLog.txt", "%s", er.toString().c_str());
+        //__LEAVE_CRITICAL_SECTION(m_pZonePlayerManager)
+    } catch (TimeoutException&) {
+        // timeout 이 발생하면, 입력, 출력, OOB 처리 어느 것이나 할 게 없당..
+        // 잘못된 FD가 있을 경우 짜르기 위하여 시행한다 -_-;
+        // m_pZonePlayerManager->processOutputs();
+    } catch (InterruptedException& ie) {
+        // throw Error(ie.toString());
+    } catch (IOException& ioe) {
+        // throw Error(ioe.toString());
+    } catch (Error& er) {
+        filelog("errorLog.txt", "%s", er.toString().c_str());
 
-		//Assert(false);
-	}
+        // Assert(false);
+    }
 
-	try {
+    try {
+        // 모든 플레이어의 명령을 처리한다.
+        beginProfileEx("ZPM_COMMAND");
+        //	__ENTER_CRITICAL_SECTION(m_pZonePlayerManager)
+        m_pZonePlayerManager->processCommands();
+        //	__LEAVE_CRITICAL_SECTION(m_pZonePlayerManager)
+        endProfileEx("ZPM_COMMAND");
 
-		// 모든 플레이어의 명령을 처리한다.
-		beginProfileEx("ZPM_COMMAND");
-	//	__ENTER_CRITICAL_SECTION(m_pZonePlayerManager)
-		m_pZonePlayerManager->processCommands();
-	//	__LEAVE_CRITICAL_SECTION(m_pZonePlayerManager)
-		endProfileEx("ZPM_COMMAND");
+    } catch (Error& er) {
+        filelog("errorLog.txt", "%s", er.toString().c_str());
 
-	} catch (Error& er) {
-		filelog("errorLog.txt", "%s", er.toString().c_str());
+        // Assert(false);
+    } catch (Throwable&) {
+    }
 
-		//Assert(false);
-	} catch (Throwable&) {
-	}
+    try {
+        beginProfileEx("ZPM_HEARTBEAT");
+        m_pZonePlayerManager->heartbeat(); // 내부에서 lock건다.
+        endProfileEx("ZPM_HEARTBEAT");
+    } catch (Error& er) {
+        filelog("errorLog.txt", "%s", er.toString().c_str());
 
-	try {
-		beginProfileEx("ZPM_HEARTBEAT");
-		m_pZonePlayerManager->heartbeat();	// 내부에서 lock건다.
-		endProfileEx("ZPM_HEARTBEAT");
-	} catch (Error& er) {
+        // Assert(false);
+    } catch (Throwable&) {
+    }
 
-		filelog("errorLog.txt", "%s", er.toString().c_str());
+    //__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-		//Assert(false);
-	} catch (Throwable&) {
-	}
-
-	//__LEAVE_CRITICAL_SECTION(m_Mutex)
-
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 
@@ -188,243 +177,222 @@ void ZoneGroup::processPlayers ()
 // process all npc, monsters, ... in zones
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::heartbeat()
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//VSTime vstime;
-	//vstime.start();
-	//__ENTER_CRITICAL_SECTION(m_Mutex)
+    // VSTime vstime;
+    // vstime.start();
+    //__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// now process each zones' NPCs, MOBs, weather, quest, ...
-	for (unordered_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
-	{
-		Zone* pZone = itr->second;
-		pZone->heartbeat();
-	}
+    // now process each zones' NPCs, MOBs, weather, quest, ...
+    for (unordered_map<ZoneID_t, Zone*>::iterator itr = m_Zones.begin(); itr != m_Zones.end(); itr++) {
+        Zone* pZone = itr->second;
+        pZone->heartbeat();
+    }
 
-	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+    //__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	//filelog("ZoneGroupHeartbeat.txt", "ZoneGroupID[%d]ZoneGroupHeartbeat:%d", m_ZoneGroupID, vstime.elapsed());
+    // filelog("ZoneGroupHeartbeat.txt", "ZoneGroupID[%d]ZoneGroupHeartbeat:%d", m_ZoneGroupID, vstime.elapsed());
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // process all npc, monsters, ... in zones
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
-	
+void ZoneGroup::makeZoneUserInfo(GMServerInfo& gmServerInfo)
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//VSTime vstime;
-	//vstime.start();
+    // VSTime vstime;
+    // vstime.start();
 
-	// now process each zones' NPCs, MOBs, weather, quest, ...
-	for (unordered_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
-	{
-		Zone* pZone = itr->second;
+    // now process each zones' NPCs, MOBs, weather, quest, ...
+    for (unordered_map<ZoneID_t, Zone*>::iterator itr = m_Zones.begin(); itr != m_Zones.end(); itr++) {
+        Zone* pZone = itr->second;
 
-		gmServerInfo.addZoneUserData( pZone->getZoneID(), pZone->getPCCount() );
-	}
+        gmServerInfo.addZoneUserData(pZone->getZoneID(), pZone->getPCCount());
+    }
 
-	//filelog("ZoneGroupHeartbeat.txt", "ZoneGroupID[%d]ZoneGroupHeartbeat:%d", m_ZoneGroupID, vstime.elapsed());
+    // filelog("ZoneGroupHeartbeat.txt", "ZoneGroupID[%d]ZoneGroupHeartbeat:%d", m_ZoneGroupID, vstime.elapsed());
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // add zone to zone group
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::addZone (Zone* pZone) 
-	
+void ZoneGroup::addZone(Zone* pZone)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
-	
-	if (itr != m_Zones.end())
-		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
-		throw Error("duplicated zone id");
+    // 일단 같은 아이디의 존이 있는지 체크해본다.
+    unordered_map<ZoneID_t, Zone*>::iterator itr = m_Zones.find(pZone->getZoneID());
 
-	m_Zones[ pZone->getZoneID() ] = pZone;
+    if (itr != m_Zones.end())
+        // 똑같은 아이디가 이미 존재한다는 소리다. - -;
+        throw Error("duplicated zone id");
 
-	__END_CATCH
+    m_Zones[pZone->getZoneID()] = pZone;
+
+    __END_CATCH
 }
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // Delete zone from zone group
 //////////////////////////////////////////////////////////////////////////////
-void ZoneGroup::deleteZone (ZoneID_t zoneID) 
-{
-	__BEGIN_TRY
-		
-	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
-	
-	if (itr != m_Zones.end()) 
-	{
-		// 존을 삭제한다.
-		SAFE_DELETE(itr->second);
+void ZoneGroup::deleteZone(ZoneID_t zoneID) {
+    __BEGIN_TRY
 
-		// pair를 삭제한다.
-		m_Zones.erase(itr);
-	} 
-	else 
-	{
-		// 그런 존 아이디를 찾을 수 없었을 때
-		StringStream msg;
-		msg << "ZoneID : " << zoneID;
-		throw NoSuchElementException(msg.toString());
-	}
+    unordered_map<ZoneID_t, Zone*>::iterator itr = m_Zones.find(zoneID);
 
-	__END_CATCH
+    if (itr != m_Zones.end()) {
+        // 존을 삭제한다.
+        SAFE_DELETE(itr->second);
+
+        // pair를 삭제한다.
+        m_Zones.erase(itr);
+    } else {
+        // 그런 존 아이디를 찾을 수 없었을 때
+        StringStream msg;
+        msg << "ZoneID : " << zoneID;
+        throw NoSuchElementException(msg.toString());
+    }
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // Remove zone from zone group
 // delete하지 않고 node만 지워준다.
 //////////////////////////////////////////////////////////////////////////////
-Zone* ZoneGroup::removeZone (ZoneID_t zoneID) 
-{
-	__BEGIN_TRY
-		
-	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
-	
-	if (itr != m_Zones.end()) 
-	{
-		// 존을 삭제한다.
-		//SAFE_DELETE(itr->second);
-		Zone* pZone = itr->second;
+Zone* ZoneGroup::removeZone(ZoneID_t zoneID) {
+    __BEGIN_TRY
 
-		// pair를 삭제한다.
-		m_Zones.erase(itr);
+    unordered_map<ZoneID_t, Zone*>::iterator itr = m_Zones.find(zoneID);
 
-		return pZone;
-	} 
-	else 
-	{
-		// 그런 존 아이디를 찾을 수 없었을 때
-		StringStream msg;
-		msg << "ZoneID : " << zoneID;
-		throw NoSuchElementException(msg.toString());
-	}
+    if (itr != m_Zones.end()) {
+        // 존을 삭제한다.
+        // SAFE_DELETE(itr->second);
+        Zone* pZone = itr->second;
 
-	return NULL;
+        // pair를 삭제한다.
+        m_Zones.erase(itr);
 
-	__END_CATCH
+        return pZone;
+    } else {
+        // 그런 존 아이디를 찾을 수 없었을 때
+        StringStream msg;
+        msg << "ZoneID : " << zoneID;
+        throw NoSuchElementException(msg.toString());
+    }
+
+    return NULL;
+
+    __END_CATCH
 }
-	
+
 //////////////////////////////////////////////////////////////////////////////
 // get zone from zone group
 //////////////////////////////////////////////////////////////////////////////
-Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
-{
-	__BEGIN_TRY
-		
-	Zone* pZone = NULL;
+Zone* ZoneGroup::getZone(ZoneID_t zoneID) const {
+    __BEGIN_TRY
 
-	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
-	
-	if (itr != m_Zones.end()) 
-	{
-		pZone = itr->second;
-	} 
-	else 
-	{
-		// 그런 존 아이디를 찾을 수 없었을 때
-		StringStream msg;
-		msg << "ZoneID : " << zoneID;
-		throw NoSuchElementException(msg.toString());
-	}
+    Zone* pZone = NULL;
 
-	return pZone;
+    unordered_map<ZoneID_t, Zone*>::const_iterator itr = m_Zones.find(zoneID);
 
-	__END_CATCH
+    if (itr != m_Zones.end()) {
+        pZone = itr->second;
+    } else {
+        // 그런 존 아이디를 찾을 수 없었을 때
+        StringStream msg;
+        msg << "ZoneID : " << zoneID;
+        throw NoSuchElementException(msg.toString());
+    }
+
+    return pZone;
+
+    __END_CATCH
 }
 
-//#ifdef __NO_COMBAT__
-Zone* ZoneGroup::getCombatZone (ZoneID_t zoneID) const
-	
+// #ifdef __NO_COMBAT__
+Zone* ZoneGroup::getCombatZone(ZoneID_t zoneID) const
+
 {
-	Zone* pZone = NULL;
+    Zone* pZone = NULL;
 
-	__BEGIN_TRY
-		
-	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
-	
-	if(itr != m_Zones.end()){ 
-		pZone = itr->second;
-		return pZone;
-	}
+    __BEGIN_TRY
 
-	__END_CATCH
+    unordered_map<ZoneID_t, Zone*>::const_iterator itr = m_Zones.find(zoneID);
 
-	return NULL;
+    if (itr != m_Zones.end()) {
+        pZone = itr->second;
+        return pZone;
+    }
+
+    __END_CATCH
+
+    return NULL;
 }
-//#endif
+// #endif
 
-void   
-ZoneGroup::initLoadValue()
-{
-	Zone* pZone = NULL;
+void ZoneGroup::initLoadValue() {
+    Zone* pZone = NULL;
 
-	__BEGIN_TRY
-		
-	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
-	
-	while (itr != m_Zones.end())
-	{ 
-		pZone = itr->second;
+    __BEGIN_TRY
 
-		pZone->initLoadValue();
+    unordered_map<ZoneID_t, Zone*>::const_iterator itr = m_Zones.begin();
 
-		itr++;
-	}
+    while (itr != m_Zones.end()) {
+        pZone = itr->second;
 
-	__END_CATCH
+        pZone->initLoadValue();
+
+        itr++;
+    }
+
+    __END_CATCH
 }
 
-DWORD  
-ZoneGroup::getLoadValue() const
-{
-	Zone* pZone = NULL;
-	DWORD loadValue = 0;
+DWORD
+ZoneGroup::getLoadValue() const {
+    Zone* pZone = NULL;
+    DWORD loadValue = 0;
 
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
-	
-	while (itr != m_Zones.end())
-	{ 
-		pZone = itr->second;
+    unordered_map<ZoneID_t, Zone*>::const_iterator itr = m_Zones.begin();
 
-		loadValue += pZone->getLoadValue();
+    while (itr != m_Zones.end()) {
+        pZone = itr->second;
 
-		itr++;
-	}
+        loadValue += pZone->getLoadValue();
 
-	__END_CATCH
+        itr++;
+    }
 
-	return loadValue;
+    __END_CATCH
+
+    return loadValue;
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
-string ZoneGroup::toString () const
-	
+string ZoneGroup::toString() const
+
 {
-	StringStream msg;
-	msg << "ZoneGroup("
-			<< "ZoneGroupID:" << (int)m_ZoneGroupID
-			<< "GameTime:"    << m_GameTime.toString()
-			<< ")";	
-	return msg.toString();
+    StringStream msg;
+    msg << "ZoneGroup("
+        << "ZoneGroupID:" << (int)m_ZoneGroupID << "GameTime:" << m_GameTime.toString() << ")";
+    return msg.toString();
 }

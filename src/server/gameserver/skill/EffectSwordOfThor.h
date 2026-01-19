@@ -13,24 +13,29 @@
 // class EffectSwordOfThor
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectSwordOfThor : public Effect 
-{
+class EffectSwordOfThor : public Effect {
 public:
-	EffectSwordOfThor(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SWORD_OF_THOR; }
-
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectSwordOfThor(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
-	Level_t getLevel() const { return m_Level; }
-	void setLevel( Level_t level ) { m_Level = level; }
-	
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_SWORD_OF_THOR;
+    }
+
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+    Level_t getLevel() const {
+        return m_Level;
+    }
+    void setLevel(Level_t level) {
+        m_Level = level;
+    }
+
 private:
-	Level_t m_Level;
+    Level_t m_Level;
 };
 
 #endif

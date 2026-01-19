@@ -1,30 +1,29 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CLGetServerList.cpp 
+// Filename    : CLGetServerList.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CLGetServerList.h"
 
-void CLGetServerList::read (SocketInputStream & iStream) 
-	 
+void CLGetServerList::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-void CLGetServerList::write (SocketOutputStream & oStream) const 
-     
+void CLGetServerList::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
-void CLGetServerList::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-	CLGetServerListHandler::execute(this, pPlayer);
-	__END_CATCH
-}
+void CLGetServerList::execute(Player* pPlayer)
 
+{
+    __BEGIN_TRY
+    CLGetServerListHandler::execute(this, pPlayer);
+    __END_CATCH
+}

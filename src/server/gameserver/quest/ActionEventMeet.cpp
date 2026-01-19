@@ -1,38 +1,35 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionEventMeet.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionEventMeet.h"
-#include "Creature.h"
-#include "NPC.h"
-#include "GamePlayer.h"
-#include "mission/QuestManager.h"
 
+#include "Creature.h"
 #include "GCNPCAsk.h"
 #include "GCNoticeEvent.h"
+#include "GamePlayer.h"
+#include "NPC.h"
+#include "mission/QuestManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
-void ActionEventMeet::read (PropertyBuffer & propertyBuffer)
-    
+void ActionEventMeet::read(PropertyBuffer& propertyBuffer)
+
 {
     __BEGIN_TRY
 
-	try 
-	{
-		// read script id
-		m_ScriptID = propertyBuffer.getPropertyInt("ScriptID");
-		m_CounterScriptID = propertyBuffer.getPropertyInt("CounterScriptID");
-		m_bGiveInfo = propertyBuffer.getPropertyInt("GiveInfo") != 0;
-	} 
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
-	
+    try {
+        // read script id
+        m_ScriptID = propertyBuffer.getPropertyInt("ScriptID");
+        m_CounterScriptID = propertyBuffer.getPropertyInt("CounterScriptID");
+        m_bGiveInfo = propertyBuffer.getPropertyInt("GiveInfo") != 0;
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
+
     __END_CATCH
 }
 
@@ -40,66 +37,63 @@ void ActionEventMeet::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
-void ActionEventMeet::execute (Creature * pCreature1 , Creature * pCreature2) 
-	
+void ActionEventMeet::execute(Creature* pCreature1, Creature* pCreature2)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature2 != NULL);
-	Assert(pCreature1->isNPC());
-	Assert(pCreature2->isPC());
+    Assert(pCreature1 != NULL);
+    Assert(pCreature2 != NULL);
+    Assert(pCreature1->isNPC());
+    Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+    Assert(pPC != NULL);
 
-	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert( pNPC != NULL );
+    NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
+    Assert(pNPC != NULL);
 
-	if ( pPC->getQuestManager()->isTargetNPC( pNPC ) )
-	{
-		if ( m_bGiveInfo ) pPC->getQuestManager()->metNPC( pNPC );
+    if (pPC->getQuestManager()->isTargetNPC(pNPC)) {
+        if (m_bGiveInfo)
+            pPC->getQuestManager()->metNPC(pNPC);
 
-		Player* pPlayer = pCreature2->getPlayer();
+        Player* pPlayer = pCreature2->getPlayer();
 
-		GCNPCAsk gcNPCAsk;
-		gcNPCAsk.setObjectID(pCreature1->getObjectID());
-		gcNPCAsk.setScriptID(m_ScriptID);
-		gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
+        GCNPCAsk gcNPCAsk;
+        gcNPCAsk.setObjectID(pCreature1->getObjectID());
+        gcNPCAsk.setScriptID(m_ScriptID);
+        gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
 
-		pPlayer->sendPacket(&gcNPCAsk);
+        pPlayer->sendPacket(&gcNPCAsk);
 
-		pPC->sendCurrentQuestInfo();
-	}
-	else
-	{
-		GCNPCAsk gcNPCAsk;
-		gcNPCAsk.setObjectID(pCreature1->getObjectID());
-		gcNPCAsk.setScriptID(m_CounterScriptID);
-		gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
+        pPC->sendCurrentQuestInfo();
+    } else {
+        GCNPCAsk gcNPCAsk;
+        gcNPCAsk.setObjectID(pCreature1->getObjectID());
+        gcNPCAsk.setScriptID(m_CounterScriptID);
+        gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
 
-		Player* pPlayer = pCreature2->getPlayer();
-		pPlayer->sendPacket(&gcNPCAsk);
-	}
+        Player* pPlayer = pCreature2->getPlayer();
+        pPlayer->sendPacket(&gcNPCAsk);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ActionEventMeet::toString () const 
-	
+string ActionEventMeet::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "ActionEventMeet("
-	    << ",ScriptID:"  << (int)m_ScriptID
-	    << ")";
+    StringStream msg;
+    msg << "ActionEventMeet("
+        << ",ScriptID:" << (int)m_ScriptID << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -1,65 +1,62 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventRefreshHolyLandPlayer.cpp
 // Written by  : bezz
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EventRefreshHolyLandPlayer.h"
-#include "HolyLandManager.h"
-//#include "BloodBibleBonusManager.h"
-#include "Zone.h"
-#include "ZoneGroupManager.h"
-#include "ZoneGroup.h"
 
-//#include "GCHolyLandBonusInfo.h"
+#include "HolyLandManager.h"
+// #include "BloodBibleBonusManager.h"
+#include "Zone.h"
+#include "ZoneGroup.h"
+#include "ZoneGroupManager.h"
+
+// #include "GCHolyLandBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EventRefreshHolyLandPlayer member methods
 //////////////////////////////////////////////////////////////////////////////
 
-EventRefreshHolyLandPlayer::EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer )
-	
-	:Event(pGamePlayer)
+EventRefreshHolyLandPlayer::EventRefreshHolyLandPlayer(GamePlayer* pGamePlayer)
+
+    : Event(pGamePlayer) {}
+
+void EventRefreshHolyLandPlayer::activate()
+
 {
+    __BEGIN_TRY
+
+    const unordered_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
+
+    unordered_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
+
+    for (; itr != zoneGroups.end(); ++itr) {
+        const unordered_map<ZoneID_t, Zone*>& zones = itr->second->getZones();
+        unordered_map<ZoneID_t, Zone*>::const_iterator zItr = zones.begin();
+
+        for (; zItr != zones.end(); ++zItr) {
+            //			cout << zItr->second->getZoneID() << " 존 update" << endl;
+            zItr->second->setRefreshHolyLandPlayer(true);
+        }
+    }
+
+    // 아담의 성지에 있는 플레이어들의 정보를 새로 계산한다.(피의 성서 보너스)
+    //	g_pHolyLandManager->refreshHolyLandPlayers();
+
+    /*	// 아담의 성지 전역에 피의 성서 보너스 정보를 뿌린다.
+        GCHolyLandBonusInfo gcHolyLandBonusInfo;
+        g_pBloodBibleBonusManager->makeHolyLandBonusInfo( gcHolyLandBonusInfo );
+        g_pHolyLandManager->broadcast( &gcHolyLandBonusInfo );
+    */
+    __END_CATCH
 }
 
-void EventRefreshHolyLandPlayer::activate () 
-	
+string EventRefreshHolyLandPlayer::toString() const
+
 {
-	__BEGIN_TRY
-
-	const unordered_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
-
-	unordered_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
-
-	for ( ; itr != zoneGroups.end(); ++itr )
-	{
-		const unordered_map< ZoneID_t, Zone* >& zones = itr->second->getZones();
-		unordered_map< ZoneID_t, Zone* >::const_iterator zItr = zones.begin();
-
-		for ( ; zItr != zones.end(); ++zItr )
-		{
-//			cout << zItr->second->getZoneID() << " 존 update" << endl;
-			zItr->second->setRefreshHolyLandPlayer(true);
-		}
-	}
-
-	// 아담의 성지에 있는 플레이어들의 정보를 새로 계산한다.(피의 성서 보너스)
-//	g_pHolyLandManager->refreshHolyLandPlayers();
-
-/*	// 아담의 성지 전역에 피의 성서 보너스 정보를 뿌린다.
-	GCHolyLandBonusInfo gcHolyLandBonusInfo;
-	g_pBloodBibleBonusManager->makeHolyLandBonusInfo( gcHolyLandBonusInfo );
-	g_pHolyLandManager->broadcast( &gcHolyLandBonusInfo );
-*/
-	__END_CATCH
-}
-
-string EventRefreshHolyLandPlayer::toString () const 
-	
-{
-	StringStream msg;
-	msg << "EventRefreshHolyLandPlayer("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EventRefreshHolyLandPlayer("
+        << ")";
+    return msg.toString();
 }

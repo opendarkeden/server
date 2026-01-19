@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : SGQuitGuildOK.cpp 
+//
+// Filename    : SGQuitGuildOK.cpp
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,61 +13,58 @@
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void SGQuitGuildOK::read (SocketInputStream& iStream ) 
-{
-	__BEGIN_TRY
+void SGQuitGuildOK::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
+    iStream.read(m_GuildID);
 
-	BYTE szName;
+    BYTE szName;
 
-	iStream.read(szName);
+    iStream.read(szName);
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long name length");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	iStream.read(m_Name, szName);
-	
-	__END_CATCH
+    iStream.read(m_Name, szName);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void SGQuitGuildOK::write (SocketOutputStream& oStream ) const 
-{
-	__BEGIN_TRY
+void SGQuitGuildOK::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	BYTE szName = m_Name.size();
+    BYTE szName = m_Name.size();
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szName > 20 )
-		throw InvalidProtocolException("too long name length");
+    if (szName == 0)
+        throw InvalidProtocolException("szName == 0");
+    if (szName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	oStream.write(m_GuildID);
-	oStream.write(szName);
-	oStream.write(m_Name);
+    oStream.write(m_GuildID);
+    oStream.write(szName);
+    oStream.write(m_Name);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void SGQuitGuildOK::execute (Player * pPlayer ) 
-{
+void SGQuitGuildOK::execute(Player* pPlayer) {
 #ifdef __GAME_SERVER__
-  
-	__BEGIN_TRY
-		
-	SGQuitGuildOKHandler::execute(this);
-		
-	__END_CATCH
+
+    __BEGIN_TRY
+
+    SGQuitGuildOKHandler::execute(this);
+
+    __END_CATCH
 
 #endif
 }
@@ -75,15 +72,11 @@ void SGQuitGuildOK::execute (Player * pPlayer )
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string SGQuitGuildOK::toString () const
-{
-	StringStream msg;
+string SGQuitGuildOK::toString() const {
+    StringStream msg;
 
-	msg << "SGQuitGuildOK("
-		<< "GuildID:" << (int)m_GuildID
-		<< "Name:" << m_Name
-		<< ")";
+    msg << "SGQuitGuildOK("
+        << "GuildID:" << (int)m_GuildID << "Name:" << m_Name << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

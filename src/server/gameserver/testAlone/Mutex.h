@@ -4,17 +4,23 @@
 #include "Types.h"
 
 class Mutex {
-public :
-	Mutex() { m_bLock = false; }
-	~Mutex();
+public:
+    Mutex() {
+        m_bLock = false;
+    }
+    ~Mutex();
 
-	void setName(const string& name) {}
+    void setName(const string& name) {}
 
-	void lock()		{ m_bLock = true; }
-	void unlock()	{ m_bLock = false; }
+    void lock() {
+        m_bLock = true;
+    }
+    void unlock() {
+        m_bLock = false;
+    }
 
-public :
-	bool m_bLock;
+public:
+    bool m_bLock;
 };
 
 #endif

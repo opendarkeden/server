@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SummonCasket.h 
+// Filename    : SummonCasket.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SUMMON_CASKET_HANDLER_H__
@@ -13,20 +13,23 @@
 // class SummonCasket;
 //////////////////////////////////////////////////////////////////////////////
 
-class SummonCasket: public SkillHandler 
-{
+class SummonCasket : public SkillHandler {
 public:
-	SummonCasket() throw() {}
-	~SummonCasket() throw() {}
-	
+    SummonCasket() throw() {}
+    ~SummonCasket() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SummonCasket"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SUMMON_CASKET; }
+    string getSkillHandlerName() const throw() {
+        return "SummonCasket";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SUMMON_CASKET;
+    }
 
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster) ;
+    void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

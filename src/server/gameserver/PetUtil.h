@@ -8,8 +8,8 @@ class PetInfo;
 class ModifyInfo;
 class GamePlayer;
 
-bool increasePetExp( PetInfo* pPetInfo, PetExp_t exp, ModifyInfo* pMI = NULL );
-PetExp_t computePetExp( Level_t myLevel, Level_t monsterLevel, PetInfo* pPetInfo, GamePlayer* pGamePlayer );
-void refreshHP( PetInfo* pPetInfo, uint ratio = 100 );
+bool increasePetExp(PetInfo* pPetInfo, PetExp_t exp, ModifyInfo* pMI = NULL);
+PetExp_t computePetExp(Level_t myLevel, Level_t monsterLevel, PetInfo* pPetInfo, GamePlayer* pGamePlayer);
+void refreshHP(PetInfo* pPetInfo, uint ratio = 100);
 
 #endif

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BurningSolCharging.h 
+// Filename    : BurningSolCharging.h
 // Written By  : Sequoia
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BURNING_SOL_CHARGING_HANDLER_H__
@@ -13,20 +13,23 @@
 // class BurningSolCharging;
 //////////////////////////////////////////////////////////////////////////////
 
-class BurningSolCharging : public SkillHandler 
-{
+class BurningSolCharging : public SkillHandler {
 public:
-	BurningSolCharging() throw() {}
-	~BurningSolCharging() throw() {}
-	
+    BurningSolCharging() throw() {}
+    ~BurningSolCharging() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BurningSolCharging"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BURNING_SOL_CHARGING; }
+    string getSkillHandlerName() const throw() {
+        return "BurningSolCharging";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BURNING_SOL_CHARGING;
+    }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-//	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    //	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

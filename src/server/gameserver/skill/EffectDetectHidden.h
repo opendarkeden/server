@@ -14,27 +14,27 @@
 // class EffectDetectHidden
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectDetectHidden : public Effect 
-{
+class EffectDetectHidden : public Effect {
 public:
-	EffectDetectHidden(Creature* pCreature) ;
+    EffectDetectHidden(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DETECT_HIDDEN; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_DETECT_HIDDEN;
+    }
 
-	void affect() {}
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	string toString() const throw();
+    string toString() const throw();
 
 private:
-
 };
 
 #endif // __EFFECT_DETECT_HIDDEN__

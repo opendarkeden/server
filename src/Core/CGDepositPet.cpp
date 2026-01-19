@@ -1,54 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGDepositPet.cpp 
+// Filename    : CGDepositPet.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGDepositPet.h"
 
-void CGDepositPet::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY 
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_Index);
+void CGDepositPet::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_Index);
+
+    __END_CATCH
 }
 
-void CGDepositPet::write (SocketOutputStream & oStream) const 
-     
+void CGDepositPet::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_Index);
+    oStream.write(m_ObjectID);
+    oStream.write(m_Index);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGDepositPet::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGDepositPet::execute(Player* pPlayer)
 
-	CGDepositPetHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGDepositPetHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGDepositPet::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGDepositPet("
-		<< " ObjectID : " << (int)m_ObjectID
-		<< " Index : "    << (int)m_Index
-		<< ")";
-	return msg.toString();
+string CGDepositPet::toString() const {
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "CGDepositPet("
+        << " ObjectID : " << (int)m_ObjectID << " Index : " << (int)m_Index << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

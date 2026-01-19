@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Doom.h 
-// Written By  : 
-// Description : 
+// Filename    : Doom.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DOOM_HANDLER_H__
@@ -13,22 +13,25 @@
 // class Doom;
 //////////////////////////////////////////////////////////////////////////////
 
-class Doom : public SkillHandler 
-{
+class Doom : public SkillHandler {
 public:
-	Doom() throw() {}
-	~Doom() throw() {}
-	
+    Doom() throw() {}
+    ~Doom() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Doom"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DOOM; }
+    string getSkillHandlerName() const throw() {
+        return "Doom";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DOOM;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) ;
+    void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

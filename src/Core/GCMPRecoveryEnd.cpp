@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCMPRecoveryEnd.cpp 
+//
+// Filename    : GCMPRecoveryEnd.cpp
 // Written By  : Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,62 +12,62 @@
 // Constructor
 //--------------------------------------------------------------------
 GCMPRecoveryEnd::GCMPRecoveryEnd()
-	
+
 {
-	__BEGIN_TRY
-	m_CurrentMP = 0;
-	__END_CATCH
+    __BEGIN_TRY
+    m_CurrentMP = 0;
+    __END_CATCH
 }
 
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
 GCMPRecoveryEnd::~GCMPRecoveryEnd()
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCMPRecoveryEnd::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_CurrentMP);
+void GCMPRecoveryEnd::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_CurrentMP);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCMPRecoveryEnd::write (SocketOutputStream & oStream ) const 
-     
-{
-	__BEGIN_TRY
-		
-	oStream.write(m_CurrentMP);
+void GCMPRecoveryEnd::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_CurrentMP);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCMPRecoveryEnd::execute (Player * pPlayer ) 
-	 
+void GCMPRecoveryEnd::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCMPRecoveryEndHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCMPRecoveryEndHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -76,16 +76,15 @@ void GCMPRecoveryEnd::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCMPRecoveryEnd::toString () const
-       
+string GCMPRecoveryEnd::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCMPRecoveryEnd("
-		<< "CurrentMP:" << (int)m_CurrentMP
-		<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCMPRecoveryEnd("
+        << "CurrentMP:" << (int)m_CurrentMP << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

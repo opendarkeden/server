@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GreenStalker.h 
+// Filename    : GreenStalker.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GREEN_STALKER_HANDLER_H__
@@ -9,26 +9,30 @@
 
 #include "SkillHandler.h"
 
-#define PER_DAMAGE_GREEN_STALKER	10
+#define PER_DAMAGE_GREEN_STALKER 10
 
 //////////////////////////////////////////////////////////////////////////////
 // class GreenStalker;
 //////////////////////////////////////////////////////////////////////////////
 
-class GreenStalker: public SkillHandler 
-{
+class GreenStalker : public SkillHandler {
 public:
-	GreenStalker() throw() {}
-	~GreenStalker() throw() {}
-	
+    GreenStalker() throw() {}
+    ~GreenStalker() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GreenStalker"; }
-	SkillType_t getSkillType() const throw() { return SKILL_GREEN_STALKER; }
+    string getSkillHandlerName() const throw() {
+        return "GreenStalker";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GREEN_STALKER;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

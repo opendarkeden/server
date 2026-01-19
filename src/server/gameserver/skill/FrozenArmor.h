@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : FrozenArmor.h 
-// Written By  : 
-// Description : 
+// Filename    : FrozenArmor.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_FROZEN_ARMOR_HANDLER_H__
@@ -13,20 +13,23 @@
 // class FrozenArmor;
 //////////////////////////////////////////////////////////////////////////////
 
-class FrozenArmor : public SkillHandler 
-{
+class FrozenArmor : public SkillHandler {
 public:
-	FrozenArmor() throw() {}
-	~FrozenArmor() throw() {}
-	
+    FrozenArmor() throw() {}
+    ~FrozenArmor() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "FrozenArmor"; }
-	SkillType_t getSkillType() const throw() { return SKILL_FROZEN_ARMOR; }
+    string getSkillHandlerName() const throw() {
+        return "FrozenArmor";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_FROZEN_ARMOR;
+    }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

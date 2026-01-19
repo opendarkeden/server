@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyScarify.h 
-// Written By  : Coffee  
-// Description : 
+// Filename    : BloodyScarify.h
+// Written By  : Coffee
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_SCARIFY_HANDLER_H__
@@ -13,23 +13,27 @@
 // class BloodyScarify;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyScarify: public SkillHandler 
-{
+class BloodyScarify : public SkillHandler {
 public:
-	BloodyScarify() throw() {}
-	~BloodyScarify() throw() {}
-	
+    BloodyScarify() throw() {}
+    ~BloodyScarify() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyScarify"; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyScarify";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_BLLODY_SCARIFY; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLLODY_SCARIFY;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVampireSkillSlot);
-	void eatComaCreature(Vampire* pVampire, Creature* pComaCreature);
+    void eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVampireSkillSlot);
+    void eatComaCreature(Vampire* pVampire, Creature* pComaCreature);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

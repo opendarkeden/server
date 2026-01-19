@@ -14,44 +14,61 @@
 // class EffectStormBloody
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectStormBloody : public Effect 
-{
+class EffectStormBloody : public Effect {
 public:
-	EffectStormBloody(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_STORM_BLOODY; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Item* pItem)  {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
-
-	string toString() const throw();
+    EffectStormBloody(Creature* pCreature);
 
 public:
-	Level_t getLevel() const throw() { return m_Level; }
-	void setLevel(Level_t Level) throw() { m_Level = Level; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_STORM_BLOODY;
+    }
 
-	HP_t getPoint() const throw() { return m_Point; }
-	void setPoint(HP_t Point) throw() { m_Point = Point; }
+    void affect();
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void setTick(Turn_t Tick) throw() { m_Tick = Tick; }
-	Turn_t getTick() const throw() { return m_Tick; }
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Item* pItem) {}
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void setUserObjectID(ObjectID_t oid) throw() { m_UserObjectID = oid; }
-	ObjectID_t getUserObjectID() const throw() { return m_UserObjectID; }
+    string toString() const throw();
+
+public:
+    Level_t getLevel() const throw() {
+        return m_Level;
+    }
+    void setLevel(Level_t Level) throw() {
+        m_Level = Level;
+    }
+
+    HP_t getPoint() const throw() {
+        return m_Point;
+    }
+    void setPoint(HP_t Point) throw() {
+        m_Point = Point;
+    }
+
+    void setTick(Turn_t Tick) throw() {
+        m_Tick = Tick;
+    }
+    Turn_t getTick() const throw() {
+        return m_Tick;
+    }
+
+    void setUserObjectID(ObjectID_t oid) throw() {
+        m_UserObjectID = oid;
+    }
+    ObjectID_t getUserObjectID() const throw() {
+        return m_UserObjectID;
+    }
 
 
 private:
-	Level_t m_Level;
-	HP_t    m_Point;
-	Turn_t  m_Tick;
-	ObjectID_t m_UserObjectID;
+    Level_t m_Level;
+    HP_t m_Point;
+    Turn_t m_Tick;
+    ObjectID_t m_UserObjectID;
 };
 
 #endif // __EFFECT_STORM__

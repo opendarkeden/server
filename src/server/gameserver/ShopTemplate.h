@@ -1,15 +1,16 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : ShopTemplate.h
 // Written By  : 김성민
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SHOPTEMPLATE_H__
 #define __SHOPTEMPLATE_H__
 
-#include "Types.h"
-#include "Exception.h"
 #include <unordered_map>
+
+#include "Exception.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ShopTemplate
@@ -19,51 +20,76 @@
 // 없고, 그냥 데이터를 임시적으로 저장하는 역할만을 한다.
 //////////////////////////////////////////////////////////////////////////////
 
-class ShopTemplate
-{
-
-///// Member methods /////
-	
-public:
-	ShopTemplate() ;
-	virtual ~ShopTemplate() ;
+class ShopTemplate {
+    ///// Member methods /////
 
 public:
-	ShopTemplateID_t getID(void) const  { return m_ID; }
-	void setID(ShopTemplateID_t id)  { m_ID = id; }
-	
-	ShopRackType_t getShopType(void) const  { return m_RackType; }
-	void setShopType(const ShopRackType_t type)  { m_RackType = type; }
+    ShopTemplate();
+    virtual ~ShopTemplate();
 
-	int getItemClass(void) const  { return m_ItemClass; }
-	void setItemClass(int iclass)  { m_ItemClass = iclass; }
-	
-	ItemType_t getMinItemType(void) const  { return m_MinItemType; }
-	void setMinItemType(ItemType_t t) { m_MinItemType = t; }
+public:
+    ShopTemplateID_t getID(void) const {
+        return m_ID;
+    }
+    void setID(ShopTemplateID_t id) {
+        m_ID = id;
+    }
 
-	ItemType_t getMaxItemType(void) const  { return m_MaxItemType; }
-	void setMaxItemType(ItemType_t t) { m_MaxItemType = t; }
+    ShopRackType_t getShopType(void) const {
+        return m_RackType;
+    }
+    void setShopType(const ShopRackType_t type) {
+        m_RackType = type;
+    }
 
-	uint getMinOptionLevel(void) const  { return m_MinOptionLevel; }
-	void setMinOptionLevel(uint o) { m_MinOptionLevel = o; }
+    int getItemClass(void) const {
+        return m_ItemClass;
+    }
+    void setItemClass(int iclass) {
+        m_ItemClass = iclass;
+    }
 
-	uint getMaxOptionLevel(void) const  { return m_MaxOptionLevel;}
-	void setMaxOptionLevel(uint o) { m_MaxOptionLevel = o; }
+    ItemType_t getMinItemType(void) const {
+        return m_MinItemType;
+    }
+    void setMinItemType(ItemType_t t) {
+        m_MinItemType = t;
+    }
 
-	string toString() const ;
+    ItemType_t getMaxItemType(void) const {
+        return m_MaxItemType;
+    }
+    void setMaxItemType(ItemType_t t) {
+        m_MaxItemType = t;
+    }
+
+    uint getMinOptionLevel(void) const {
+        return m_MinOptionLevel;
+    }
+    void setMinOptionLevel(uint o) {
+        m_MinOptionLevel = o;
+    }
+
+    uint getMaxOptionLevel(void) const {
+        return m_MaxOptionLevel;
+    }
+    void setMaxOptionLevel(uint o) {
+        m_MaxOptionLevel = o;
+    }
+
+    string toString() const;
 
 
-///// Member data /////
+    ///// Member data /////
 
 private:
-	ShopTemplateID_t m_ID;            // DB entry id
-	ShopRackType_t   m_RackType;      // rack type(normal, special, ...)
-	int              m_ItemClass;     // item class(sword, armor, ...)
-	ItemType_t       m_MinItemType;   // item type(1~5 now)
-	ItemType_t       m_MaxItemType;   
-	uint             m_MinOptionLevel;
-	uint             m_MaxOptionLevel;
-
+    ShopTemplateID_t m_ID;     // DB entry id
+    ShopRackType_t m_RackType; // rack type(normal, special, ...)
+    int m_ItemClass;           // item class(sword, armor, ...)
+    ItemType_t m_MinItemType;  // item type(1~5 now)
+    ItemType_t m_MaxItemType;
+    uint m_MinOptionLevel;
+    uint m_MaxOptionLevel;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -72,31 +98,28 @@ private:
 // id를 주면 그에 해당하는 ShopTemplate을 되돌려주는 역할을 한다.
 //////////////////////////////////////////////////////////////////////////////
 
-class ShopTemplateManager
-{
-
-///// Member methods /////
-	
-public:
-	ShopTemplateManager() ;
-	~ShopTemplateManager() ;
+class ShopTemplateManager {
+    ///// Member methods /////
 
 public:
-	void init() ;
-	void load() ;
+    ShopTemplateManager();
+    ~ShopTemplateManager();
 
 public:
-	ShopTemplate* getTemplate(ShopTemplateID_t id) const ;
-	void setTemplate(ShopTemplateID_t id, ShopTemplate* pEntry) ;
+    void init();
+    void load();
 
-	string toString() const ;
+public:
+    ShopTemplate* getTemplate(ShopTemplateID_t id) const;
+    void setTemplate(ShopTemplateID_t id, ShopTemplate* pEntry);
+
+    string toString() const;
 
 
-///// Member data ///// 
+    ///// Member data /////
 
 private:
-	unordered_map<ShopTemplateID_t, ShopTemplate*> m_Entries; // hash map of script
-
+    unordered_map<ShopTemplateID_t, ShopTemplate*> m_Entries; // hash map of script
 };
 
 // global variable declaration

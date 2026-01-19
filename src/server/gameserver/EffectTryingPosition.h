@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectTryingPosition.h
-// Written by  : 
+// Written by  :
 // Description : TryingPosition에 의한 방어력 하강 effect
 //////////////////////////////////////////////////////////////////////////////
 
@@ -16,25 +16,28 @@ class MonsterCorpse;
 // class EffectTryingPosition
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectTryingPosition : public Effect 
-{
+class EffectTryingPosition : public Effect {
 public:
-	EffectTryingPosition(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower) ;
-
-public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRYING_POSITION; }
-
-	void affect(Creature* pCreature) ;
-	void unaffect( Creature* pCreature ) ;
-
-	void unaffect() ; 
-	MonsterCorpse* getTower() const { return m_pTower; }
-
-	string toString() const ;
+    EffectTryingPosition(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower);
 
 public:
-	MonsterCorpse* m_pTower;
-	Effect::EffectClass m_LastEffect;
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_TRYING_POSITION;
+    }
+
+    void affect(Creature* pCreature);
+    void unaffect(Creature* pCreature);
+
+    void unaffect();
+    MonsterCorpse* getTower() const {
+        return m_pTower;
+    }
+
+    string toString() const;
+
+public:
+    MonsterCorpse* m_pTower;
+    Effect::EffectClass m_LastEffect;
 };
 
 #endif // __EFFECT_TRYING_POSITION__

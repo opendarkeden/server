@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : PotentialExplosion.h 
-// Written By  : 
-// Description : 
+// Filename    : PotentialExplosion.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_POTENTIAL_EXPLOSION_HANDLER_H__
@@ -13,19 +13,22 @@
 // class PotentialExplosion;
 //////////////////////////////////////////////////////////////////////////////
 
-class PotentialExplosion : public SkillHandler 
-{
+class PotentialExplosion : public SkillHandler {
 public:
-	PotentialExplosion() throw() {}
-	~PotentialExplosion() throw() {}
+    PotentialExplosion() throw() {}
+    ~PotentialExplosion() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "PotentialExplosion"; }
-	SkillType_t getSkillType() const throw() { return SKILL_POTENTIAL_EXPLOSION; }
+    string getSkillHandlerName() const throw() {
+        return "PotentialExplosion";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_POTENTIAL_EXPLOSION;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

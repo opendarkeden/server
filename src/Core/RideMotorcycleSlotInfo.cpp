@@ -9,59 +9,47 @@
 //////////////////////////////////////////////////////////////////////////////
 // read data from socket input stream
 //////////////////////////////////////////////////////////////////////////////
-void RideMotorcycleSlotInfo::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
+void RideMotorcycleSlotInfo::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	try 
-	{
-		PCItemInfo::read(iStream);
+    try {
+        PCItemInfo::read(iStream);
 
-		iStream.read( m_InvenX );
-		iStream.read( m_InvenY );
-	} 
-	catch( Throwable & t ) 
-	{
-		cout << t.toString() << endl;
-	}
+        iStream.read(m_InvenX);
+        iStream.read(m_InvenY);
+    } catch (Throwable& t) {
+        cout << t.toString() << endl;
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // write data to socket output stream
 //////////////////////////////////////////////////////////////////////////////
-void RideMotorcycleSlotInfo::write ( SocketOutputStream & oStream ) const 
-{
-	__BEGIN_TRY
+void RideMotorcycleSlotInfo::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	try 
-	{
-		PCItemInfo::write(oStream);
+    try {
+        PCItemInfo::write(oStream);
 
-		oStream.write( m_InvenX );
-		oStream.write( m_InvenY );
-	} 
-	catch (Throwable & t ) 
-	{
-		cout << t.toString() << endl;
-	}
+        oStream.write(m_InvenX);
+        oStream.write(m_InvenY);
+    } catch (Throwable& t) {
+        cout << t.toString() << endl;
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
-string RideMotorcycleSlotInfo::toString () const 
-{
-	StringStream msg;
+string RideMotorcycleSlotInfo::toString() const {
+    StringStream msg;
 
-	msg << "RideMotorcycleSlotInfo("
-		<< PCItemInfo::toString()
-		<< ",InvenX:" << (int)m_InvenX
-		<< ",InvenY:" << (int)m_InvenY
-		<< ")";
-	
-	return msg.toString();
+    msg << "RideMotorcycleSlotInfo(" << PCItemInfo::toString() << ",InvenX:" << (int)m_InvenX
+        << ",InvenY:" << (int)m_InvenY << ")";
+
+    return msg.toString();
 }

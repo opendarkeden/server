@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddEffect.cpp 
+//
+// Filename    : GCAddEffect.cpp
 // Written By  : elca@ewestsoft.com
 // Description : �ڽſ��� ���� ����� ������ �˸��� ���� ��Ŷ Ŭ������
 //               ��� ����.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -13,58 +13,50 @@
 #include "GCAddEffect.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCAddEffect::GCAddEffect () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddEffect::GCAddEffect()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCAddEffect::~GCAddEffect () noexcept
-{
-}
+GCAddEffect::~GCAddEffect() noexcept {}
 
 
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-void GCAddEffect::read (SocketInputStream & iStream ) 
-	 
+void GCAddEffect::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
     BYTE flag;
     iStream.read(flag);
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
-	iStream.read(m_ObjectID);
-	iStream.read(m_EffectID);
-	iStream.read(m_Duration);
+    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    iStream.read(m_ObjectID);
+    iStream.read(m_EffectID);
+    iStream.read(m_Duration);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void GCAddEffect::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
-//	oStream.write((BYTE)48);
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
-	oStream.write(m_ObjectID);
-	oStream.write(m_EffectID);
-	oStream.write(m_Duration);
+void GCAddEffect::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
+    //	oStream.write((BYTE)48);
+    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    oStream.write(m_ObjectID);
+    oStream.write(m_EffectID);
+    oStream.write(m_Duration);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
@@ -73,14 +65,14 @@ void GCAddEffect::write (SocketOutputStream & oStream )
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCAddEffect::execute (Player * pPlayer ) 
-	 
+void GCAddEffect::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddEffectHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddEffectHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -89,19 +81,13 @@ void GCAddEffect::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAddEffect::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCAddEffect::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddEffect("
-		<< "ObjectID:"  << (int)m_ObjectID 
-		<< ",EffectID:" << (int)m_EffectID
-		<< ",Duration:" << (int)m_Duration
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCAddEffect("
+        << "ObjectID:" << (int)m_ObjectID << ",EffectID:" << (int)m_EffectID << ",Duration:" << (int)m_Duration << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

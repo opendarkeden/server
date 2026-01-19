@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : SerialDatagramPacket.h 
+//
+// Filename    : SerialDatagramPacket.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SERIAL_DATAGRAM_PACKET_H__
@@ -27,71 +27,77 @@
 //////////////////////////////////////////////////////////////////////
 
 class SerialDatagramPacket : public Packet {
-	
-public :
-	
-	// destructor
-	virtual ~SerialDatagramPacket ()  {}
+public:
+    // destructor
+    virtual ~SerialDatagramPacket() {}
 
-	// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-	// 데이터그램 패킷이 TCP 소켓으로 전송되어 왔다면 프로토콜 에러로 간주한다.
-	virtual void read (SocketInputStream & iStream)  
-	{ 
-		throw ProtocolException("datagram packet from TCP socket"); 
-	}
+    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+    // 데이터그램 패킷이 TCP 소켓으로 전송되어 왔다면 프로토콜 에러로 간주한다.
+    virtual void read(SocketInputStream& iStream) {
+        throw ProtocolException("datagram packet from TCP socket");
+    }
 
-	// SerialDatagram 객체에서 데이터를 읽어서 패킷을 초기화한다.
-	virtual void read (SerialDatagram & iDatagram)  = 0;
-	
-	// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-	// 데이터그램 패킷을 TCP 소켓으로 출력할 수 없다.
-	virtual void write (SocketOutputStream & oStream) const 
-	{ 
-		throw Error("cannot write datagram-packet to TCP-socket-stream"); 
-	}
+    // SerialDatagram 객체에서 데이터를 읽어서 패킷을 초기화한다.
+    virtual void read(SerialDatagram& iDatagram) = 0;
 
-	// SerialDatagram 객체로 패킷의 바이너리 이미지를 보낸다.
-	virtual void write (SerialDatagram & oDatagram) const  = 0;
-	
-	// execute packet's handler
-	virtual void execute (Player* pPlayer)  = 0;
-	
-	// get packet's SerialDatagramPacketID	
-	virtual PacketID_t getPacketID () const  = 0;
+    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+    // 데이터그램 패킷을 TCP 소켓으로 출력할 수 없다.
+    virtual void write(SocketOutputStream& oStream) const {
+        throw Error("cannot write datagram-packet to TCP-socket-stream");
+    }
 
-	// get packet's body size
-	virtual PacketSize_t getPacketSize () const  = 0;
+    // SerialDatagram 객체로 패킷의 바이너리 이미지를 보낸다.
+    virtual void write(SerialDatagram& oDatagram) const = 0;
 
-	// get packet's name
-	virtual string getPacketName () const  = 0;
-	
-	// get packet's debug string
-	virtual string toString () const  = 0;
+    // execute packet's handler
+    virtual void execute(Player* pPlayer) = 0;
 
-	// get/set host
-	string getHost () const  { return m_Host; }
-	void setHost (string host)  { m_Host = host; }
+    // get packet's SerialDatagramPacketID
+    virtual PacketID_t getPacketID() const = 0;
 
-	// get/set port
-	uint getPort () const  { return m_Port; }
-	void setPort (uint port)  { m_Port = port; }
+    // get packet's body size
+    virtual PacketSize_t getPacketSize() const = 0;
 
-	// get/set serial number
-	uint getSerial() const  { return m_Serial; }
-	void setSerial( uint serial )  { m_Serial = serial; }
-	
+    // get packet's name
+    virtual string getPacketName() const = 0;
 
-protected :
+    // get packet's debug string
+    virtual string toString() const = 0;
 
-	// sender's host
-	string m_Host;
+    // get/set host
+    string getHost() const {
+        return m_Host;
+    }
+    void setHost(string host) {
+        m_Host = host;
+    }
 
-	// sender's port
-	uint m_Port;
+    // get/set port
+    uint getPort() const {
+        return m_Port;
+    }
+    void setPort(uint port) {
+        m_Port = port;
+    }
 
-	// Packet Serial Number
-	uint m_Serial;
-	
+    // get/set serial number
+    uint getSerial() const {
+        return m_Serial;
+    }
+    void setSerial(uint serial) {
+        m_Serial = serial;
+    }
+
+
+protected:
+    // sender's host
+    string m_Host;
+
+    // sender's port
+    uint m_Port;
+
+    // Packet Serial Number
+    uint m_Serial;
 };
 
 #endif

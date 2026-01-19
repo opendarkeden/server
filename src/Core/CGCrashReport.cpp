@@ -1,107 +1,100 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGCrashReport.cpp 
+// Filename    : CGCrashReport.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGCrashReport.h"
+
 #include "Assert1.h"
 
-CGCrashReport::CGCrashReport () 
-     
+CGCrashReport::CGCrashReport()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGCrashReport::~CGCrashReport()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGCrashReport::~CGCrashReport () 
-    
+void CGCrashReport::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ExecutableTime, 19);
+    iStream.read(m_Version);
+    iStream.read(m_Address, 10);
+
+    WORD szSTR;
+
+    iStream.read(szSTR);
+    if (szSTR > 100)
+        throw DisconnectException("too large string size : CGCrashReport::m_OS");
+    iStream.read(m_OS, szSTR);
+
+    iStream.read(szSTR);
+    if (szSTR > 1024)
+        throw DisconnectException("too large string size : CGCrashReport::m_CallStack");
+    iStream.read(m_CallStack, szSTR);
+
+    iStream.read(szSTR);
+    if (szSTR > 1024)
+        throw DisconnectException("too large string size : CGCrashReport::m_Message");
+    iStream.read(m_Message, szSTR);
+
+    __END_CATCH
 }
 
-void CGCrashReport::read (SocketInputStream & iStream) 
-	 
+void CGCrashReport::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_ExecutableTime, 19);
-	iStream.read(m_Version);
-	iStream.read(m_Address, 10);
-	
-	WORD szSTR;
+    Assert(m_ExecutableTime.size() == 19);
+    Assert(m_Address.size() == 10);
 
-	iStream.read(szSTR);
-	if (szSTR > 100 ) throw DisconnectException("too large string size : CGCrashReport::m_OS");
-	iStream.read(m_OS, szSTR);
+    oStream.write(m_ExecutableTime);
+    oStream.write(m_Version);
+    oStream.write(m_Address);
 
-	iStream.read(szSTR);
-	if (szSTR > 1024 ) throw DisconnectException("too large string size : CGCrashReport::m_CallStack");
-	iStream.read(m_CallStack, szSTR);
+    WORD szSTR = m_OS.size();
+    oStream.write(szSTR);
+    Assert(szSTR <= 100);
+    oStream.write(m_OS);
 
-	iStream.read(szSTR);
-	if (szSTR > 1024 ) throw DisconnectException("too large string size : CGCrashReport::m_Message");
-	iStream.read(m_Message, szSTR);
-		
-	__END_CATCH
+    szSTR = m_CallStack.size();
+    oStream.write(szSTR);
+    Assert(szSTR <= 1024);
+    oStream.write(m_CallStack);
+
+    szSTR = m_Message.size();
+    oStream.write(szSTR);
+    Assert(szSTR <= 1024);
+    oStream.write(m_Message);
+
+    __END_CATCH
 }
 
-void CGCrashReport::write (SocketOutputStream & oStream) const 
-     
+void CGCrashReport::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(m_ExecutableTime.size() == 19);
-	Assert(m_Address.size() == 10);
+    CGCrashReportHandler::execute(this, pPlayer);
 
-	oStream.write(m_ExecutableTime);
-	oStream.write(m_Version);
-	oStream.write(m_Address);
-
-	WORD szSTR = m_OS.size();
-	oStream.write(szSTR);
-	Assert(szSTR <= 100);
-	oStream.write(m_OS);
-
-	szSTR = m_CallStack.size();
-	oStream.write(szSTR);
-	Assert(szSTR <= 1024);
-	oStream.write(m_CallStack);
-
-	szSTR = m_Message.size();
-	oStream.write(szSTR);
-	Assert(szSTR <= 1024);
-	oStream.write(m_Message);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGCrashReport::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+string CGCrashReport::toString() const {
+    __BEGIN_TRY
 
-	CGCrashReportHandler::execute (this , pPlayer);
-		
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGCrashReport(" << m_ExecutableTime << ", " << m_Version << ", " << m_Address << ", " << m_OS << ", "
+        << m_CallStack << ", " << m_Message << ")";
+    return msg.toString();
 
-string CGCrashReport::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGCrashReport("
-		<< m_ExecutableTime << ", "
-		<< m_Version << ", "
-		<< m_Address << ", "
-		<< m_OS << ", "
-		<< m_CallStack << ", "
-		<< m_Message
-		<< ")";
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

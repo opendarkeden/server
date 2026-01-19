@@ -1,32 +1,35 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Flare.h 
-// Written By  : 
-// Description : 
+// Filename    : Flare.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_FLARE_HANDLER_H__
 #define __SKILL_FLARE_HANDLER_H__
 
-#include "SkillHandler.h"
 #include "GCChangeDarkLight.h"
+#include "SkillHandler.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class Flare;
 //////////////////////////////////////////////////////////////////////////////
 
-class Flare : public SkillHandler 
-{
+class Flare : public SkillHandler {
 public:
-	Flare() throw() {}
-	~Flare() throw() {}
-	
+    Flare() throw() {}
+    ~Flare() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Flare"; }
-	SkillType_t getSkillType() const throw() { return SKILL_FLARE; }
+    string getSkillHandlerName() const throw() {
+        return "Flare";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_FLARE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

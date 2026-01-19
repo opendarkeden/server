@@ -1,54 +1,54 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGStoreSign.cpp 
-// Written By  : 
-// Description : 
+// Filename    : CGStoreSign.cpp
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGStoreSign.h"
 
-void CGStoreSign::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
+void CGStoreSign::read(SocketInputStream& iStream)
 
-	BYTE size;
-	iStream.read(size);
-	iStream.read(m_Sign, size);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    BYTE size;
+    iStream.read(size);
+    iStream.read(m_Sign, size);
+
+    __END_CATCH
 }
 
-void CGStoreSign::write (SocketOutputStream & oStream) const 
-     
+void CGStoreSign::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE size = m_Sign.size();
-	oStream.write(size);
-	oStream.write(m_Sign);
+    BYTE size = m_Sign.size();
+    oStream.write(size);
+    oStream.write(m_Sign);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGStoreSign::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	CGStoreSignHandler::execute(this , pPlayer);
+void CGStoreSign::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGStoreSignHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGStoreSign::toString () const
-       
+string CGStoreSign::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
+    __BEGIN_TRY
+
+    StringStream msg;
     msg << "CGStoreSign("
-		<< ")" ;
-	return msg.toString();
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

@@ -13,43 +13,45 @@
 // class EffectMute
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectMute : public Effect 
-{
+class EffectMute : public Effect {
 public:
-	EffectMute(Creature* pCreature) ;
+    EffectMute(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const  { return EFFECT_CLASS_MUTE; }
+    EffectClass getEffectClass() const {
+        return EFFECT_CLASS_MUTE;
+    }
 
-	void affect()  { }
-	void affect(Creature* pCreature) ;
-	void affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject) ;
+    void affect() {}
+    void affect(Creature* pCreature);
+    void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
-	void unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
+    void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject);
 
-	virtual void create(const string & ownerID) ;
-	virtual void destroy(const string & ownerID) ;
-	virtual void save(const string & ownerID) ;
+    virtual void create(const string& ownerID);
+    virtual void destroy(const string& ownerID);
+    virtual void save(const string& ownerID);
 
-	string toString() const ;
-
+    string toString() const;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectMuteLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectMuteLoader : public EffectLoader 
-{
+class EffectMuteLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_MUTE; }
-	virtual string getEffectClassName() const  { return "EffectMute"; }
+    virtual Effect::EffectClass getEffectClass() const {
+        return Effect::EFFECT_CLASS_MUTE;
+    }
+    virtual string getEffectClassName() const {
+        return "EffectMute";
+    }
 
 public:
-	virtual void load(Creature* pCreature) ;
-
+    virtual void load(Creature* pCreature);
 };
 
 extern EffectMuteLoader* g_pEffectMuteLoader;

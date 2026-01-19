@@ -1,50 +1,48 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRequestInfo.cpp 
+// Filename    : CGRequestInfo.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRequestInfo.h"
 
-void CGRequestInfo::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_Code);
-	iStream.read(m_Value);
+void CGRequestInfo::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_Code);
+    iStream.read(m_Value);
+
+    __END_CATCH
 }
 
-void CGRequestInfo::write (SocketOutputStream & oStream) const 
-     
+void CGRequestInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_Code);
-	oStream.write(m_Value);
+    oStream.write(m_Code);
+    oStream.write(m_Value);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGRequestInfo::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGRequestInfo::execute(Player* pPlayer)
 
-	CGRequestInfoHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGRequestInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGRequestInfo::toString () const 
-	
+string CGRequestInfo::toString() const
+
 {
-	StringStream msg;
-	msg << "CGRequestInfo(" 
-		<< "Code : " << (int)m_Code
-		<< "Value : " << (int)m_Value
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CGRequestInfo("
+        << "Code : " << (int)m_Code << "Value : " << (int)m_Value << ")";
+    return msg.toString();
 }

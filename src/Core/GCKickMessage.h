@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCKickMessage.h 
+//
+// Filename    : GCKickMessage.h
 // Written By  : Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_KICK_MESSAGE_H__
@@ -13,14 +13,13 @@
 #include "PacketFactory.h"
 
 
-enum KickMessageType
-{
-	KICK_MESSAGE_PAY_TIMEOUT = 0,
-	KICK_MESSAGE_EXPIRE_FREEPLAY,
+enum KickMessageType {
+    KICK_MESSAGE_PAY_TIMEOUT = 0,
+    KICK_MESSAGE_EXPIRE_FREEPLAY,
 #ifdef __THAILAND_SERVER__
-	KICK_MESSAGE_CHILDGUARD,
+    KICK_MESSAGE_CHILDGUARD,
 #endif
-	KICK_MESSAGE_MAX
+    KICK_MESSAGE_MAX
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -34,46 +33,58 @@ enum KickMessageType
 //////////////////////////////////////////////////////////////////////
 
 class GCKickMessage : public Packet {
-
-public :
-	GCKickMessage(): m_Type(KICK_MESSAGE_PAY_TIMEOUT) {}
+public:
+    GCKickMessage() : m_Type(KICK_MESSAGE_PAY_TIMEOUT) {}
     ~GCKickMessage() {};
-	
+
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_KICK_MESSAGE; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szBYTE + szuint; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_KICK_MESSAGE;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCKickMessage"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + szuint;
+    }
 
-	// get/set Kick Message Type
-	BYTE getType() const  { return m_Type; }
-	void setType(BYTE type )  { m_Type = (KickMessageType)type; }
+    // get packet name
+    string getPacketName() const {
+        return "GCKickMessage";
+    }
 
-	// get/set seconds
-	uint getSeconds() const  { return m_Seconds; }
-	void setSeconds(uint seconds )  { m_Seconds = seconds; }
+    // get packet's debug string
+    string toString() const;
 
-private :
-	
-	KickMessageType m_Type;
+    // get/set Kick Message Type
+    BYTE getType() const {
+        return m_Type;
+    }
+    void setType(BYTE type) {
+        m_Type = (KickMessageType)type;
+    }
 
-	// seconds
-	uint m_Seconds;
+    // get/set seconds
+    uint getSeconds() const {
+        return m_Seconds;
+    }
+    void setSeconds(uint seconds) {
+        m_Seconds = seconds;
+    }
+
+private:
+    KickMessageType m_Type;
+
+    // seconds
+    uint m_Seconds;
 };
 
 
@@ -86,23 +97,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCKickMessageFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCKickMessage();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCKickMessage(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCKickMessage";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCKickMessage"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_KICK_MESSAGE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_KICK_MESSAGE;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCKickMessagePacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + szuint; }
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCKickMessagePacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + szuint;
+    }
 };
 
 
@@ -113,12 +129,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCKickMessageHandler {
-	
-public :
-	
-	// execute packet's handler
-	static void execute(GCKickMessage* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCKickMessage* pPacket, Player* pPlayer);
 };
 
 #endif

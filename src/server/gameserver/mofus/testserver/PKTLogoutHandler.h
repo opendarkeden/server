@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTLogoutHandler.h
-// Desc		: 
+// Desc		:
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_LOGOUT_HANDLER_H__
@@ -10,15 +10,13 @@
 #include "MPacketHandler.h"
 
 // class PKTLogoutHandler
-class PKTLogoutHandler : public MPacketHandler
-{
+class PKTLogoutHandler : public MPacketHandler {
 public:
-	// 해당 패킷의 ID
-	MPacketID_t getID() const;
+    // 해당 패킷의 ID
+    MPacketID_t getID() const;
 
-	// 실행 함수
-	void execute( GameServerPlayer* pPlayer, MPacket* pPacket );
+    // 실행 함수
+    void execute(GameServerPlayer* pPlayer, MPacket* pPacket);
 };
 
 #endif
-

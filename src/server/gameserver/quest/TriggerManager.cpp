@@ -1,259 +1,248 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : TriggerManager.cpp
-// Written By  : 
-// Description : 
+// Written By  :
+// Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "TriggerManager.h"
+
+#include <stdio.h>
+
 #include "Assert.h"
 #include "DB.h"
-#include <stdio.h>
-#include "TriggerParser.h"
 #include "Properties.h"
 #include "ScriptManager.h"
+#include "TriggerParser.h"
 
 class isSameTriggerID {
-public :
-	isSameTriggerID(TriggerID_t triggerID)  : m_TriggerID(triggerID) {}
-	bool operator () (Trigger * pTrigger)
-	{
-		return pTrigger->getTriggerID() == m_TriggerID;
-	}
-private :
-	TriggerID_t m_TriggerID;
+public:
+    isSameTriggerID(TriggerID_t triggerID) : m_TriggerID(triggerID) {}
+    bool operator()(Trigger* pTrigger) {
+        return pTrigger->getTriggerID() == m_TriggerID;
+    }
+
+private:
+    TriggerID_t m_TriggerID;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
-TriggerManager::TriggerManager () 
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+TriggerManager::TriggerManager()
+
+    {__BEGIN_TRY __END_CATCH}
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
-TriggerManager::~TriggerManager () 
-	
+TriggerManager::~TriggerManager()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // NPC 이름을 파라미터로 주면, NPC와 관련된 트리거들을 DB에서 로딩한다.
 ////////////////////////////////////////////////////////////////////////////////
-void TriggerManager::load (const string & name)
-	
+void TriggerManager::load(const string& name)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Statement* pStmt   = NULL;
-	Result*    pResult = NULL;
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-//	TriggerParser parser;
+    //	TriggerParser parser;
 
-	BEGIN_DB
-	{
-		StringStream sql;
+    BEGIN_DB {
+        StringStream sql;
 
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(
-		"SELECT TriggerID, TriggerType, Conditions, Actions FROM Triggers WHERE NPC = '%s'", name.c_str());
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery(
+            "SELECT TriggerID, TriggerType, Conditions, Actions FROM Triggers WHERE NPC = '%s'", name.c_str());
 
-		while (pResult->next())
-		{
-			Trigger* pTrigger = new Trigger();
+        while (pResult->next()) {
+            Trigger* pTrigger = new Trigger();
 
-			pTrigger->setTriggerID(pResult->getInt(1));
+            pTrigger->setTriggerID(pResult->getInt(1));
 
-			//cout << "Trigger[" << pTrigger->getTriggerID() << "] loading > ";
-			//cout << "CONDITIONS:\n" << trim(pResult->getString(3)) << endl;
-			//cout << "ACTIONS:\n" << trim(pResult->getString(4)) << endl;
+            // cout << "Trigger[" << pTrigger->getTriggerID() << "] loading > ";
+            // cout << "CONDITIONS:\n" << trim(pResult->getString(3)) << endl;
+            // cout << "ACTIONS:\n" << trim(pResult->getString(4)) << endl;
 
-			pTrigger->setTriggerType(trim(pResult->getString(2)));
-			pTrigger->setConditions(trim(pResult->getString(3)));
-			pTrigger->setActions(trim(pResult->getString(4)));
+            pTrigger->setTriggerType(trim(pResult->getString(2)));
+            pTrigger->setConditions(trim(pResult->getString(3)));
+            pTrigger->setActions(trim(pResult->getString(4)));
 
-			addTrigger(pTrigger);
+            addTrigger(pTrigger);
 
-//			parser.parseTrigger(trim(pResult->getString(2)), trim(pResult->getString(3)), trim(pResult->getString(4)));
+            //			parser.parseTrigger(trim(pResult->getString(2)), trim(pResult->getString(3)),
+            // trim(pResult->getString(4)));
 
-			//cout << "Trigger[" << pTrigger->getTriggerID() << "] loaded" <<  endl;
-		}
+            // cout << "Trigger[" << pTrigger->getTriggerID() << "] loaded" <<  endl;
+        }
 
-		SAFE_DELETE(pStmt);
-	}
-	END_DB(pStmt)
+        SAFE_DELETE(pStmt);
+    }
+    END_DB(pStmt)
 
-//	XMLTree* pXML = parser.getResult();
-//	if ( pXML != NULL )
-//	{
-//		pXML->SaveToFile((g_pConfig->getProperty("HomePath") + "/data/" + name + ".xml").c_str());
-//		SAFE_DELETE( pXML );
-//	}
+    //	XMLTree* pXML = parser.getResult();
+    //	if ( pXML != NULL )
+    //	{
+    //		pXML->SaveToFile((g_pConfig->getProperty("HomePath") + "/data/" + name + ".xml").c_str());
+    //		SAFE_DELETE( pXML );
+    //	}
 
-	__END_CATCH
+    __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 존 좌표를 파라미터로 주면, 그 좌표와 관련된 트리거들을 DB에서 로딩한다.
 ////////////////////////////////////////////////////////////////////////////////
-void TriggerManager::load (ZoneID_t zoneid, int left, int top, int right, int bottom)
-{
-	__BEGIN_TRY
+void TriggerManager::load(ZoneID_t zoneid, int left, int top, int right, int bottom) {
+    __BEGIN_TRY
 
-	Statement* pStmt   = NULL;
-	Result*    pResult = NULL;
+    Statement* pStmt = NULL;
+    Result* pResult = NULL;
 
-	BEGIN_DB
-	{
-		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(
-			"SELECT TriggerID, TriggerType, Conditions, Actions, CounterActions FROM ZoneTriggers WHERE ZoneID=%d AND X1=%d AND Y1=%d AND X2=%d AND Y2=%d", 
-			(int)zoneid, left, top, right, bottom);
+    BEGIN_DB {
+        pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
+        pResult = pStmt->executeQuery("SELECT TriggerID, TriggerType, Conditions, Actions, CounterActions FROM "
+                                      "ZoneTriggers WHERE ZoneID=%d AND X1=%d AND Y1=%d AND X2=%d AND Y2=%d",
+                                      (int)zoneid, left, top, right, bottom);
 
-		while (pResult->next())
-		{
-			uint     i        = 0;
-			Trigger* pTrigger = new Trigger();
+        while (pResult->next()) {
+            uint i = 0;
+            Trigger* pTrigger = new Trigger();
 
-			pTrigger->setTriggerID(pResult->getInt(++i));
+            pTrigger->setTriggerID(pResult->getInt(++i));
 
-			//printf("ZoneTrigger[%d] loading > \n", (int)pTrigger->getTriggerID());
+            // printf("ZoneTrigger[%d] loading > \n", (int)pTrigger->getTriggerID());
 
-			pTrigger->setTriggerType(trim(pResult->getString(++i)));
-			pTrigger->setConditions(trim(pResult->getString(++i)));
-			pTrigger->setActions(trim(pResult->getString(++i)));
-			pTrigger->setCounterActions(trim(pResult->getString(++i)));
+            pTrigger->setTriggerType(trim(pResult->getString(++i)));
+            pTrigger->setConditions(trim(pResult->getString(++i)));
+            pTrigger->setActions(trim(pResult->getString(++i)));
+            pTrigger->setCounterActions(trim(pResult->getString(++i)));
 
-			//printf("ZoneTrigger[%d] loaded > \n", (int)pTrigger->getTriggerID());
+            // printf("ZoneTrigger[%d] loaded > \n", (int)pTrigger->getTriggerID());
 
-			addTrigger(pTrigger);
-		}
+            addTrigger(pTrigger);
+        }
 
-		delete pStmt;
-	}
-	END_DB(pStmt)
+        delete pStmt;
+    }
+    END_DB(pStmt)
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // refresh condition set
 ////////////////////////////////////////////////////////////////////////////////
-void TriggerManager::refresh ()
-{
-	__BEGIN_TRY
+void TriggerManager::refresh() {
+    __BEGIN_TRY
 
-	// 소속된 모든 트리거들의 ConditionSet 을 m_ConditionSet 에 OR 연산한다.
-	for (list<Trigger*>::const_iterator itr = m_Triggers.begin() ; itr != m_Triggers.end() ; itr ++)
-	{
-		m_ConditionSet |= (*itr)->getConditionSet();
-	}
+    // 소속된 모든 트리거들의 ConditionSet 을 m_ConditionSet 에 OR 연산한다.
+    for (list<Trigger*>::const_iterator itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
+        m_ConditionSet |= (*itr)->getConditionSet();
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // add trigger
 ////////////////////////////////////////////////////////////////////////////////
-void TriggerManager::addTrigger (Trigger * pTrigger) 
-{
-	__BEGIN_TRY
+void TriggerManager::addTrigger(Trigger* pTrigger) {
+    __BEGIN_TRY
 
-	Assert(pTrigger != NULL);
+    Assert(pTrigger != NULL);
 
-	// auto itr = find(m_Triggers.begin() , m_Triggers.end(), pTrigger);
-  list<Trigger*>::iterator itr = m_Triggers.begin();
-  for (; itr != m_Triggers.end(); itr++ ) {
-      if ((*itr) == pTrigger) {
-        break;
-      }
-  }
+    // auto itr = find(m_Triggers.begin() , m_Triggers.end(), pTrigger);
+    list<Trigger*>::iterator itr = m_Triggers.begin();
+    for (; itr != m_Triggers.end(); itr++) {
+        if ((*itr) == pTrigger) {
+            break;
+        }
+    }
 
-	if (itr != m_Triggers.end())
-		throw DuplicatedException("duplicated trigger");
+    if (itr != m_Triggers.end())
+        throw DuplicatedException("duplicated trigger");
 
-	m_Triggers.push_back(pTrigger);
+    m_Triggers.push_back(pTrigger);
 
-	m_ConditionSet |= pTrigger->getConditionSet();
+    m_ConditionSet |= pTrigger->getConditionSet();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // delete trigger
 ////////////////////////////////////////////////////////////////////////////////
-void TriggerManager::deleteTrigger (TriggerID_t triggerID) 
-{
-	__BEGIN_TRY
+void TriggerManager::deleteTrigger(TriggerID_t triggerID) {
+    __BEGIN_TRY
 
-	// list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
-  list<Trigger*>::iterator itr;
-  for (itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
-    if ((*itr)->getTriggerID() == triggerID) {
-      break;
+    // list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
+    list<Trigger*>::iterator itr;
+    for (itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
+        if ((*itr)->getTriggerID() == triggerID) {
+            break;
+        }
     }
-  }
 
-	if (itr != m_Triggers.end())
-		throw NoSuchElementException();
+    if (itr != m_Triggers.end())
+        throw NoSuchElementException();
 
-	// delete trigger object
-	delete *itr;
+    // delete trigger object
+    delete *itr;
 
-	// delete node
-	m_Triggers.erase(itr);
+    // delete node
+    m_Triggers.erase(itr);
 
-	// condition set 을 새로 구성한다.
-	refresh();
+    // condition set 을 새로 구성한다.
+    refresh();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get trigger
 ////////////////////////////////////////////////////////////////////////////////
-Trigger * TriggerManager::getTrigger (TriggerID_t triggerID) 
-{
-	__BEGIN_TRY
+Trigger* TriggerManager::getTrigger(TriggerID_t triggerID) {
+    __BEGIN_TRY
 
-	// list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
-  list<Trigger*>::iterator itr;
-  for (itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
-    if ((*itr)->getTriggerID() == triggerID) {
-      break;
+    // list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
+    list<Trigger*>::iterator itr;
+    for (itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
+        if ((*itr)->getTriggerID() == triggerID) {
+            break;
+        }
     }
-  }
 
-	if (itr != m_Triggers.end())
-		throw NoSuchElementException();
+    if (itr != m_Triggers.end())
+        throw NoSuchElementException();
 
-	return *itr;
+    return *itr;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string TriggerManager::toString () const
-{
-	__BEGIN_TRY
+string TriggerManager::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	return msg.toString();
+    StringStream msg;
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

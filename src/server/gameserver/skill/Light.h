@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : Light.h 
+// Filename    : Light.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_LIGHT_HANDLER_H__
@@ -13,19 +13,22 @@
 // class Light;
 //////////////////////////////////////////////////////////////////////////////
 
-class Light: public SkillHandler 
-{
+class Light : public SkillHandler {
 public:
-	Light() throw() {}
-	~Light() throw() {}
-	
+    Light() throw() {}
+    ~Light() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "Light"; }
-	SkillType_t getSkillType() const throw() { return SKILL_LIGHT; }
+    string getSkillHandlerName() const throw() {
+        return "Light";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_LIGHT;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

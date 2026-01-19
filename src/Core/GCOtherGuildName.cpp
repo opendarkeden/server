@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCOtherGuildName.cpp 
+//
+// Filename    : GCOtherGuildName.cpp
 // Written By  : reiot@ewestsoft.com
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -12,88 +12,83 @@
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCOtherGuildName::read (SocketInputStream & iStream ) 
-	 
+void GCOtherGuildName::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	BYTE szGuildName;
-	
-	iStream.read(m_ObjectID);
-	iStream.read(m_GuildID);
+    __BEGIN_TRY
 
-	//if (szGuildName == 0 )
-	//	throw InvalidProtocolException("szGuildName == 0");
+    BYTE szGuildName;
 
-	if (szGuildName > 30 )
-		throw InvalidProtocolException("too long GuildName length");
+    iStream.read(m_ObjectID);
+    iStream.read(m_GuildID);
 
-	if (szGuildName!=0 )
-		iStream.read(szGuildName);
+    // if (szGuildName == 0 )
+    //	throw InvalidProtocolException("szGuildName == 0");
 
-	iStream.read(m_GuildName, szGuildName);
+    if (szGuildName > 30)
+        throw InvalidProtocolException("too long GuildName length");
 
-	__END_CATCH
+    if (szGuildName != 0)
+        iStream.read(szGuildName);
+
+    iStream.read(m_GuildName, szGuildName);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCOtherGuildName::write (SocketOutputStream & oStream ) const 
-     
+void GCOtherGuildName::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	BYTE szGuildName = m_GuildName.size();
+    __BEGIN_TRY
 
-	//if (szGuildName == 0 )
-	//	throw InvalidProtocolException("szGuildName == 0");
+    BYTE szGuildName = m_GuildName.size();
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_GuildID);
-	oStream.write(szGuildName);
+    // if (szGuildName == 0 )
+    //	throw InvalidProtocolException("szGuildName == 0");
 
-	if (szGuildName != 0 )
-		oStream.write(m_GuildName);
+    oStream.write(m_ObjectID);
+    oStream.write(m_GuildID);
+    oStream.write(szGuildName);
 
-	__END_CATCH
+    if (szGuildName != 0)
+        oStream.write(m_GuildName);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCOtherGuildName::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCOtherGuildNameHandler::execute(this , pPlayer);
+void GCOtherGuildName::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCOtherGuildNameHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
-string GCOtherGuildName::toString () const
-       
+string GCOtherGuildName::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCOtherGuildName("
-		<< "ObjectID:" << (int)m_ObjectID
-		<< "GuildID:" << (int)m_GuildID
-		<< "GuildName:" << m_GuildName
-		<< ")" ;
-	
-	return msg.toString();
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    StringStream msg;
+
+    msg << "GCOtherGuildName("
+        << "ObjectID:" << (int)m_ObjectID << "GuildID:" << (int)m_GuildID << "GuildName:" << m_GuildName << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

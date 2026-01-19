@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCWhisper.h 
+//
+// Filename    : GCWhisper.h
 // Written By  : elca
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_WHISPER_H__
@@ -25,61 +25,80 @@
 //////////////////////////////////////////////////////////////////////
 
 class GCWhisper : public Packet {
-
-public :
-	GCWhisper() {};
+public:
+    GCWhisper() {};
     ~GCWhisper() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_GC_WHISPER; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  { return szBYTE + m_Name.size() + szuint + szBYTE + m_Message.size() + szBYTE; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_GC_WHISPER;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCWhisper"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_Name.size() + szuint + szBYTE + m_Message.size() + szBYTE;
+    }
 
-	// get/set sender's creature id
-	string getName() const  { return m_Name ; }
-	void setName(const string & Name)  { m_Name = Name ; }
+    // get packet name
+    string getPacketName() const {
+        return "GCWhisper";
+    }
 
-	//get/set text color
-	uint getColor() const  { return m_Color; }
-	void setColor(uint color )  { m_Color = color; }
+    // get packet's debug string
+    string toString() const;
 
-	// get/set chatting message
-	string getMessage() const  { return m_Message; }
-	void setMessage(const string & msg)  { m_Message = msg; }
-	
-	// get/set chatting message
-	Race_t getRace() const  { return m_Race; }
-	void setRace(Race_t race)  { m_Race = race; }
+    // get/set sender's creature id
+    string getName() const {
+        return m_Name;
+    }
+    void setName(const string& Name) {
+        m_Name = Name;
+    }
 
-private :
-	
-	// character's creature Name
-	string m_Name;
-	
-	// text color
-	uint m_Color;
+    // get/set text color
+    uint getColor() const {
+        return m_Color;
+    }
+    void setColor(uint color) {
+        m_Color = color;
+    }
 
-	// chatting message
-	string m_Message;
+    // get/set chatting message
+    string getMessage() const {
+        return m_Message;
+    }
+    void setMessage(const string& msg) {
+        m_Message = msg;
+    }
 
-	// Race
-	Race_t m_Race;
-	
+    // get/set chatting message
+    Race_t getRace() const {
+        return m_Race;
+    }
+    void setRace(Race_t race) {
+        m_Race = race;
+    }
+
+private:
+    // character's creature Name
+    string m_Name;
+
+    // text color
+    uint m_Color;
+
+    // chatting message
+    string m_Message;
+
+    // Race
+    Race_t m_Race;
 };
 
 
@@ -92,23 +111,28 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class GCWhisperFactory : public PacketFactory {
+public:
+    // create packet
+    Packet* createPacket() {
+        return new GCWhisper();
+    }
 
-public :
-	
-	// create packet
-	Packet* createPacket()  { return new GCWhisper(); }
+    // get packet name
+    string getPacketName() const {
+        return "GCWhisper";
+    }
 
-	// get packet name
-	string getPacketName() const  { return "GCWhisper"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_WHISPER; }
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_WHISPER;
+    }
 
-	// get packet's max body size
-	// *OPTIMIZATION HINT*
-	// const static GCWhisperPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + 10 + szuint + szBYTE + 128 + szBYTE; }
-
+    // get packet's max body size
+    // *OPTIMIZATION HINT*
+    // const static GCWhisperPacketMaxSize 를 정의, 리턴하라.
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 10 + szuint + szBYTE + 128 + szBYTE;
+    }
 };
 
 
@@ -119,12 +143,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCWhisperHandler {
-	
-public :
-	
-	// execute packet's handler
-	static void execute(GCWhisper* pPacket, Player* pPlayer) ;
-
+public:
+    // execute packet's handler
+    static void execute(GCWhisper* pPacket, Player* pPlayer);
 };
 
 #endif

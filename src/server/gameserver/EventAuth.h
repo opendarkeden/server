@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EventAuth.h
 // Written by  : elca
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EVENT_AUTH_H__
@@ -13,21 +13,28 @@
 // class EventAuth;
 //////////////////////////////////////////////////////////////////////////////
 
-class EventAuth : public Event 
-{
+class EventAuth : public Event {
 public:
-	EventAuth(GamePlayer* pGamePlayer) ;
-	virtual ~EventAuth() ;
+    EventAuth(GamePlayer* pGamePlayer);
+    virtual ~EventAuth();
 
 public:
-	virtual EventClass getEventClass() const  { return EVENT_CLASS_AUTH; }
+    virtual EventClass getEventClass() const {
+        return EVENT_CLASS_AUTH;
+    }
 
-	virtual bool isTemporary() const  { return false; }
-	virtual bool isPermanent() const  { return true; }
+    virtual bool isTemporary() const {
+        return false;
+    }
+    virtual bool isPermanent() const {
+        return true;
+    }
 
-	virtual void activate() ;
+    virtual void activate();
 
-	virtual string toString() const  { return "Auth Event"; }
+    virtual string toString() const {
+        return "Auth Event";
+    }
 };
 
 #endif

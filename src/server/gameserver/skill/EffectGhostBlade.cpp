@@ -5,51 +5,51 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectGhostBlade.h"
+
 #include "Creature.h"
-#include "Slayer.h"
-#include "Vampire.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
 #include "Monster.h"
 #include "Player.h"
-
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Slayer.h"
+#include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectGhostBlade::EffectGhostBlade(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
+    setTarget(pCreature);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGhostBlade::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-																															    	
-	__END_CATCH
+    __BEGIN_TRY
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGhostBlade::unaffect()
-	    
+
 {
     __BEGIN_TRY
 
-	//cout << "EffectGhostBlade " << "unaffect BEGIN" << endl;
+    // cout << "EffectGhostBlade " << "unaffect BEGIN" << endl;
 
-    Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
     unaffect(pCreature);
 
-	//cout << "EffectGhostBlade " << "unaffect END" << endl;
+    // cout << "EffectGhostBlade " << "unaffect END" << endl;
 
     __END_CATCH
 }
@@ -57,55 +57,52 @@ void EffectGhostBlade::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGhostBlade::unaffect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	//cout << "EffectGhostBlade " << "unaffect BEGIN" << endl;
+    // cout << "EffectGhostBlade " << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isSlayer() == true);
+    Assert(pCreature != NULL);
+    Assert(pCreature->isSlayer() == true);
 
-	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+    Zone* pZone = pCreature->getZone();
+    Assert(pZone != NULL);
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_GHOST_BLADE);
+    pCreature->removeFlag(Effect::EFFECT_CLASS_GHOST_BLADE);
 
-	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+    Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-	SLAYER_RECORD prev;
-	pSlayer->getSlayerRecord(prev);
-	pSlayer->initAllStat();
-	pSlayer->sendRealWearingInfo();
-	pSlayer->sendModifyInfo(prev);
+    SLAYER_RECORD prev;
+    pSlayer->getSlayerRecord(prev);
+    pSlayer->initAllStat();
+    pSlayer->sendRealWearingInfo();
+    pSlayer->sendModifyInfo(prev);
 
-	// 이펙트가 사라졌다고 알려준다.
-	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pSlayer->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GHOST_BLADE);
-	pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
+    // 이펙트가 사라졌다고 알려준다.
+    GCRemoveEffect gcRemoveEffect;
+    gcRemoveEffect.setObjectID(pSlayer->getObjectID());
+    gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GHOST_BLADE);
+    pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
 
-	//cout << "EffectGhostBlade " << "unaffect END" << endl;
+    // cout << "EffectGhostBlade " << "unaffect END" << endl;
 
-	__END_DEBUG
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectGhostBlade::toString()
-	const throw()
-{
-	__BEGIN_TRY
+string EffectGhostBlade::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "EffectGhostBlade("
-		<< "ObjectID:" << getObjectID()
-		<< ")";
+    msg << "EffectGhostBlade("
+        << "ObjectID:" << getObjectID() << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

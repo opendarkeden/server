@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CGPortCheck.cpp 
+//
+// Filename    : CGPortCheck.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,82 +13,80 @@
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void CGPortCheck::read (Datagram & iDatagram ) 
-	 
+void CGPortCheck::read(Datagram& iDatagram)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//--------------------------------------------------
-	// read creature's name
-	//--------------------------------------------------
-	BYTE szPCName;
+    //--------------------------------------------------
+    // read creature's name
+    //--------------------------------------------------
+    BYTE szPCName;
 
-	iDatagram.read(szPCName);
+    iDatagram.read(szPCName);
 
-	if (szPCName == 0 )
-		throw InvalidProtocolException("szPCName == 0");
+    if (szPCName == 0)
+        throw InvalidProtocolException("szPCName == 0");
 
-	if (szPCName > 20 )
-		throw InvalidProtocolException("too long name length");
+    if (szPCName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	iDatagram.read(m_PCName , szPCName);
+    iDatagram.read(m_PCName, szPCName);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void CGPortCheck::write (Datagram & oDatagram ) const 
-     
+void CGPortCheck::write(Datagram& oDatagram) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	//--------------------------------------------------
-	// write PC name
-	//--------------------------------------------------
-	BYTE szPCName = m_PCName.size();
+    //--------------------------------------------------
+    // write PC name
+    //--------------------------------------------------
+    BYTE szPCName = m_PCName.size();
 
-	if (szPCName == 0 )
-		throw InvalidProtocolException("szPCName == 0");
+    if (szPCName == 0)
+        throw InvalidProtocolException("szPCName == 0");
 
-	if (szPCName > 20 )
-		throw InvalidProtocolException("too long name length");
+    if (szPCName > 20)
+        throw InvalidProtocolException("too long name length");
 
-	oDatagram.write(szPCName);
+    oDatagram.write(szPCName);
 
-	oDatagram.write(m_PCName);
+    oDatagram.write(m_PCName);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void CGPortCheck::execute (Player * pPlayer ) 
-	 
+void CGPortCheck::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	CGPortCheckHandler::execute(this);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    CGPortCheckHandler::execute(this);
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string CGPortCheck::toString () const
-    
+string CGPortCheck::toString() const
+
 {
-	StringStream msg;
+    StringStream msg;
 
-	msg << "CGPortCheck("
-		<< ",PCName:" << m_PCName 
-		<< ")";
+    msg << "CGPortCheck("
+        << ",PCName:" << m_PCName << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

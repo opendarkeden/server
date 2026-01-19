@@ -5,4 +5,4 @@
 
 list<string> getLocalIP();
 
-#endif// __LOCAL_IP_H__
+#endif // __LOCAL_IP_H__

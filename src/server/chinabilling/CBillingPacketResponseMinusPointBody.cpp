@@ -6,79 +6,71 @@
 
 // include files
 #include "CBillingPacketResponseMinusPointBody.h"
+
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
-CBillingPacketResponseMinusPointBody::CBillingPacketResponseMinusPointBody()
-{
-	__BEGIN_TRY
+CBillingPacketResponseMinusPointBody::CBillingPacketResponseMinusPointBody() {
+    __BEGIN_TRY
 
-	memset( this, 0, szCBillingPacketResponseMinusPointBodyInfo );
+    memset(this, 0, szCBillingPacketResponseMinusPointBodyInfo);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CBillingPacketResponseMinusPointBody::read( SocketInputStream& iStream )
-{
-	__BEGIN_TRY
-	
-	CBillingPacketResponseMinusPointBodyInfo* pInfo = this;
+void CBillingPacketResponseMinusPointBody::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read( (char*)pInfo, szCBillingPacketResponseMinusPointBodyInfo );
+    CBillingPacketResponseMinusPointBodyInfo* pInfo = this;
 
-	// change order network to host
-	Player_Type			= ntohl( Player_Type );
-	Pay_Type			= ntohl( Pay_Type );
-	Free_Left_Time		= ntohl( Free_Left_Time );
-	Rating_Left_Time	= ntohl( Rating_Left_Time );
-	Minus_Free_Point	= ntohl( Minus_Free_Point );
-	Minus_Point			= ntohl( Minus_Point );
+    iStream.read((char*)pInfo, szCBillingPacketResponseMinusPointBodyInfo);
 
-	__END_CATCH
+    // change order network to host
+    Player_Type = ntohl(Player_Type);
+    Pay_Type = ntohl(Pay_Type);
+    Free_Left_Time = ntohl(Free_Left_Time);
+    Rating_Left_Time = ntohl(Rating_Left_Time);
+    Minus_Free_Point = ntohl(Minus_Free_Point);
+    Minus_Point = ntohl(Minus_Point);
+
+    __END_CATCH
 }
 
-void CBillingPacketResponseMinusPointBody::write( SocketOutputStream& oStream )
-{
-	__BEGIN_TRY
-	
-	// change order host to network
-	Player_Type			= htonl( Player_Type );
-	Pay_Type			= htonl( Pay_Type );
-	Free_Left_Time		= htonl( Free_Left_Time );
-	Rating_Left_Time	= htonl( Rating_Left_Time );
-	Minus_Free_Point	= htonl( Minus_Free_Point );
-	Minus_Point			= htonl( Minus_Point );
+void CBillingPacketResponseMinusPointBody::write(SocketOutputStream& oStream) {
+    __BEGIN_TRY
 
-	const CBillingPacketResponseMinusPointBodyInfo* pInfo = this;
-	oStream.write( (const char*)pInfo, szCBillingPacketResponseMinusPointBodyInfo );
+    // change order host to network
+    Player_Type = htonl(Player_Type);
+    Pay_Type = htonl(Pay_Type);
+    Free_Left_Time = htonl(Free_Left_Time);
+    Rating_Left_Time = htonl(Rating_Left_Time);
+    Minus_Free_Point = htonl(Minus_Free_Point);
+    Minus_Point = htonl(Minus_Point);
 
-	// restore order
-	Player_Type			= ntohl( Player_Type );
-	Pay_Type			= ntohl( Pay_Type );
-	Free_Left_Time		= ntohl( Free_Left_Time );
-	Rating_Left_Time	= ntohl( Rating_Left_Time );
-	Minus_Free_Point	= ntohl( Minus_Free_Point );
-	Minus_Point			= ntohl( Minus_Point );
+    const CBillingPacketResponseMinusPointBodyInfo* pInfo = this;
+    oStream.write((const char*)pInfo, szCBillingPacketResponseMinusPointBodyInfo);
 
-	__END_CATCH
+    // restore order
+    Player_Type = ntohl(Player_Type);
+    Pay_Type = ntohl(Pay_Type);
+    Free_Left_Time = ntohl(Free_Left_Time);
+    Rating_Left_Time = ntohl(Rating_Left_Time);
+    Minus_Free_Point = ntohl(Minus_Free_Point);
+    Minus_Point = ntohl(Minus_Point);
+
+    __END_CATCH
 }
 
-string CBillingPacketResponseMinusPointBody::toString() const
-{
-	char str[128];
-	StringStream msg;
-	msg << "ResponseMinusPointBody(";
+string CBillingPacketResponseMinusPointBody::toString() const {
+    char str[128];
+    StringStream msg;
+    msg << "ResponseMinusPointBody(";
 
-	memcpy( str, Login_Name, 64 ); str[64] = '\0';
-	msg << "Login_Name:" << str
-		<< ",Player_Type:" << Player_Type
-		<< ",Pay_Type:" << Pay_Type
-		<< ",Free_Left_Time:" << Free_Left_Time
-		<< ",Rating_Left_Time:" << Rating_Left_Time
-		<< ",Minus_Free_Point:" << Minus_Free_Point
-		<< ",Minus_Point:" << Minus_Point
-		<< ")";
+    memcpy(str, Login_Name, 64);
+    str[64] = '\0';
+    msg << "Login_Name:" << str << ",Player_Type:" << Player_Type << ",Pay_Type:" << Pay_Type
+        << ",Free_Left_Time:" << Free_Left_Time << ",Rating_Left_Time:" << Rating_Left_Time
+        << ",Minus_Free_Point:" << Minus_Free_Point << ",Minus_Point:" << Minus_Point << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

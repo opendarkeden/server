@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : BloodyBreaker.h 
+// Filename    : BloodyBreaker.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_BLOODY_BREAKER_HANDLER_H__
@@ -14,23 +14,27 @@ class VampireSkillSlot;
 // class BloodyBreaker;
 //////////////////////////////////////////////////////////////////////////////
 
-class BloodyBreaker : public SkillHandler 
-{
+class BloodyBreaker : public SkillHandler {
 public:
-	BloodyBreaker() throw();
-	~BloodyBreaker() throw() {}
-	
+    BloodyBreaker() throw();
+    ~BloodyBreaker() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "BloodyBreaker"; }
-	SkillType_t getSkillType() const throw() { return SKILL_BLOODY_BREAKER; }
+    string getSkillHandlerName() const throw() {
+        return "BloodyBreaker";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_BLOODY_BREAKER;
+    }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
-	POINT m_pBloodyBreakerMask[8][22];
+    POINT m_pBloodyBreakerMask[8][22];
 };
 
 // global variable declaration

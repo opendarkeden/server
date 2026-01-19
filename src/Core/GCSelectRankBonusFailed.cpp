@@ -1,75 +1,71 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCSelectRankBonusFailed.cc 
+//
+// Filename    : GCSelectRankBonusFailed.cc
 // Written By  : elca@ewestsoft.com
 // Description : Skill이 실패 했을때 날려주는 패킷의 멤버 정의
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCSelectRankBonusFailed.h"
 
 
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+GCSelectRankBonusFailed::GCSelectRankBonusFailed()
+
+    {__BEGIN_TRY __END_CATCH}
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-GCSelectRankBonusFailed::GCSelectRankBonusFailed() 
-	
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCSelectRankBonusFailed::~GCSelectRankBonusFailed()
 
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-GCSelectRankBonusFailed::~GCSelectRankBonusFailed() 
-	
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCSelectRankBonusFailed::read (SocketInputStream & iStream ) 
-	 
+void GCSelectRankBonusFailed::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_RankBonusType);
-	iStream.read(m_Desc);
+    iStream.read(m_RankBonusType);
+    iStream.read(m_Desc);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCSelectRankBonusFailed::write (SocketOutputStream & oStream ) const 
-     
+void GCSelectRankBonusFailed::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_RankBonusType);
-	oStream.write(m_Desc);
+    oStream.write(m_RankBonusType);
+    oStream.write(m_Desc);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCSelectRankBonusFailed::execute (Player * pPlayer ) 
-	 
+void GCSelectRankBonusFailed::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCSelectRankBonusFailedHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCSelectRankBonusFailedHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -78,18 +74,15 @@ void GCSelectRankBonusFailed::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCSelectRankBonusFailed::toString () const
-       
+string GCSelectRankBonusFailed::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCSelectRankBonusFailed(" 
-	 		<< "RankBonusType:" << m_RankBonusType
-			<< ",Desc:"      << (int)m_Desc
-			<< ")" ;
-	return msg.toString();
+    StringStream msg;
+    msg << "GCSelectRankBonusFailed("
+        << "RankBonusType:" << m_RankBonusType << ",Desc:" << (int)m_Desc << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

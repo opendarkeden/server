@@ -1,51 +1,53 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterEventZone.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ConditionCanEnterEventZone.h"
+
 #include "CreatureUtil.h"
 #include "EventZoneInfo.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionCanEnterEventZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionCanEnterEventZone::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	ZoneEventInfo* pZoneEventInfo = EventZoneInfoManager::Instance().getZoneEventInfo( m_EventID );
-	EventZoneInfo* pEventZoneInfo = pZoneEventInfo->getCurrentEventZoneInfo();
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	if ( pEventZoneInfo == NULL || !pEventZoneInfo->canEnter() ) return false;
+    ZoneEventInfo* pZoneEventInfo = EventZoneInfoManager::Instance().getZoneEventInfo(m_EventID);
+    EventZoneInfo* pEventZoneInfo = pZoneEventInfo->getCurrentEventZoneInfo();
 
-	return true;
+    if (pEventZoneInfo == NULL || !pEventZoneInfo->canEnter())
+        return false;
+
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionCanEnterEventZone::read (PropertyBuffer & propertyBuffer) 
-	
+void ConditionCanEnterEventZone::read(PropertyBuffer& propertyBuffer)
+
 {
-	m_EventID = propertyBuffer.getPropertyInt("EventID");
+    m_EventID = propertyBuffer.getPropertyInt("EventID");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionCanEnterEventZone::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionCanEnterEventZone::toString() const
 
-	StringStream msg;
-	msg << "ConditionCanEnterEventZone("
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionCanEnterEventZone("
+        << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

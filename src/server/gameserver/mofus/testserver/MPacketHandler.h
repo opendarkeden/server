@@ -13,13 +13,11 @@
 class GameServerPlayer;
 
 // class MPacketHandler
-class MPacketHandler
-{
+class MPacketHandler {
 public:
-	virtual MPacketID_t getID() const = 0;
+    virtual MPacketID_t getID() const = 0;
 
-	virtual void execute( GameServerPlayer* pPlayer, MPacket* pPacket ) = 0;
+    virtual void execute(GameServerPlayer* pPlayer, MPacket* pPacket) = 0;
 };
 
 #endif
-

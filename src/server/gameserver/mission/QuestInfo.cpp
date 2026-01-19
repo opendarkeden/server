@@ -1,98 +1,85 @@
 
 #include "QuestInfo.h"
-#include "RewardClass.h"
-#include "QuestManager.h"
-#include "EventQuestAdvance.h"
-#include "PlayerCreature.h"
 
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Ousters.h"
-
-#include "StringStream.h"
 #include "Assert.h"
+#include "EventQuestAdvance.h"
+#include "Ousters.h"
+#include "PlayerCreature.h"
+#include "QuestManager.h"
+#include "RewardClass.h"
+#include "Slayer.h"
+#include "StringStream.h"
+#include "Vampire.h"
 
-QuestInfo::QuestInfo( QuestID_t qID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade, DWORD timeLimitSec, RewardClass_t rClass, QuestClass questClass )
-	: m_QuestClass( questClass )
-{
-	m_QuestID = qID;
-	m_Race = race;
-	m_MaxGrade = maxGrade;
-	m_MinGrade = minGrade;
-	m_TimeLimitSec = timeLimitSec;
-	m_RewardClass = rClass;
+QuestInfo::QuestInfo(QuestID_t qID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade, DWORD timeLimitSec,
+                     RewardClass_t rClass, QuestClass questClass)
+    : m_QuestClass(questClass) {
+    m_QuestID = qID;
+    m_Race = race;
+    m_MaxGrade = maxGrade;
+    m_MinGrade = minGrade;
+    m_TimeLimitSec = timeLimitSec;
+    m_RewardClass = rClass;
 
-	m_bEventQuest = false;
-	m_QuestLevel = -1;
+    m_bEventQuest = false;
+    m_QuestLevel = -1;
 }
 
-QuestInfo::~QuestInfo()
-{
+QuestInfo::~QuestInfo() {}
+
+string QuestInfo::toString() const {
+    StringStream msg;
+
+    msg << "QuestInfo("
+        << "QuestID : " << m_QuestID << " ,Race : " << ((m_Race == 0) ? "Slayer" : "Vampire")
+        << " ,MinGrade : " << m_MinGrade << " ,MaxGrade : " << m_MaxGrade << " ,TimeLimit : " << m_TimeLimitSec
+        << " ,RewardClass : " << m_RewardClass << " ,isEventQuest : " << ((m_bEventQuest) ? "yes" : "no")
+        << " ,QuestLevel : " << m_QuestLevel << ")";
+
+    return msg.toString();
 }
 
-string QuestInfo::toString() const 
+bool QuestInfo::canExecute(PlayerCreature* pPC) const
+
 {
-	StringStream msg;
+    __BEGIN_TRY
 
-	msg << "QuestInfo("
-		<< "QuestID : " << m_QuestID
-		<< " ,Race : " << ( (m_Race==0)?"Slayer":"Vampire" )
-		<< " ,MinGrade : " << m_MinGrade
-		<< " ,MaxGrade : " << m_MaxGrade
-		<< " ,TimeLimit : " << m_TimeLimitSec
-		<< " ,RewardClass : " << m_RewardClass
-		<< " ,isEventQuest : " << ( (m_bEventQuest)?"yes":"no" )
-		<< " ,QuestLevel : " << m_QuestLevel
-		<< ")";
+    if (pPC->getRace() != m_Race)
+        return false;
 
-	return msg.toString();
-}
+    if (isEventQuest()) {
+        if (!pPC->getQuestManager()->getEventQuestAdvanceManager()->canExecute(getQuestLevel()))
+            return false;
+    }
 
-bool QuestInfo::canExecute( PlayerCreature* pPC ) const
-	
-{
-	__BEGIN_TRY
+    QuestGrade_t curGrade = 0;
+    if (m_Race == RACE_SLAYER) {
+        Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
+        Assert(pSlayer != NULL);
 
-	if ( pPC->getRace() != m_Race ) return false;
+        curGrade = (QuestGrade_t)pSlayer->getQuestGrade();
+    } else if (m_Race == RACE_VAMPIRE) {
+        Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
+        Assert(pVampire != NULL);
 
-	if ( isEventQuest() )
-	{
-		if ( !pPC->getQuestManager()->getEventQuestAdvanceManager()->canExecute( getQuestLevel() ) ) return false;
-	}
+        curGrade = (QuestGrade_t)pVampire->getLevel();
+    } else if (m_Race == RACE_OUSTERS) {
+        Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
+        Assert(pOusters != NULL);
 
-	QuestGrade_t curGrade = 0;
-	if ( m_Race == RACE_SLAYER )
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert( pSlayer != NULL );
-		
-		curGrade = (QuestGrade_t)pSlayer->getQuestGrade();
-	}
-	else if ( m_Race == RACE_VAMPIRE )
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		Assert( pVampire != NULL );
+        curGrade = (QuestGrade_t)pOusters->getLevel();
+    } else {
+        //	cout << "아우스터즈냐? -_-; QuestInfo::canExecute()" << endl;
+        cout << "넌대체머냐-_-; QuestInfo::canExecute()" << endl;
+        return false;
+    }
 
-		curGrade = (QuestGrade_t)pVampire->getLevel();
-	}
-	else if ( m_Race == RACE_OUSTERS )
-	{
-		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-		Assert( pOusters != NULL );
+    if (m_MinGrade > curGrade)
+        return false;
+    if (m_MaxGrade < curGrade)
+        return false;
 
-		curGrade = (QuestGrade_t)pOusters->getLevel();
-	}
-	else
-	{
-	//	cout << "아우스터즈냐? -_-; QuestInfo::canExecute()" << endl;
-		cout << "넌대체머냐-_-; QuestInfo::canExecute()" << endl;
-		return false;
-	}
+    return true;
 
-	if ( m_MinGrade > curGrade ) return false;
-	if ( m_MaxGrade < curGrade ) return false;
-
-	return true;
-
-	__END_CATCH
+    __END_CATCH
 }

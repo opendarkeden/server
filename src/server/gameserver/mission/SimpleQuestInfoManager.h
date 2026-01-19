@@ -3,17 +3,15 @@
 
 #include "QuestInfoManager.h"
 
-class SimpleQuestInfoManager : public QuestInfoManager
-{
+class SimpleQuestInfoManager : public QuestInfoManager {
 public:
-	SimpleQuestInfoManager(NPC* pNPC) : QuestInfoManager(pNPC) { }
-	virtual ~SimpleQuestInfoManager() { }
+    SimpleQuestInfoManager(NPC* pNPC) : QuestInfoManager(pNPC) {}
+    virtual ~SimpleQuestInfoManager() {}
 
 public:
-	void	load(const string& name) ;
+    void load(const string& name);
 
 private:
 };
 
-#endif// __SIMPLE_QUEST_INFO_MANAGER_H__
-
+#endif // __SIMPLE_QUEST_INFO_MANAGER_H__

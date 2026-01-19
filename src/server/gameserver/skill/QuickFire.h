@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : QuickFire.h 
+// Filename    : QuickFire.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_QUICK_FIRE_HANDLER_H__
@@ -13,20 +13,23 @@
 // class QuickFire;
 //////////////////////////////////////////////////////////////////////////////
 
-class QuickFire : public SkillHandler 
-{
+class QuickFire : public SkillHandler {
 public:
-	QuickFire() throw() {}
-	~QuickFire() throw() {}
+    QuickFire() throw() {}
+    ~QuickFire() throw() {}
 
 public:
-    string getSkillHandlerName() const throw() { return "QuickFire"; }
-	SkillType_t getSkillType() const throw() { return SKILL_QUICK_FIRE; }
+    string getSkillHandlerName() const throw() {
+        return "QuickFire";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_QUICK_FIRE;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster* pMonster, Creature* pEnemy) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster* pMonster, Creature* pEnemy);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

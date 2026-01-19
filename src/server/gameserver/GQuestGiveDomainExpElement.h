@@ -3,16 +3,18 @@
 
 #include "GQuestElement.h"
 
-class GQuestGiveDomainExpElement : public GQuestElement
-{
+class GQuestGiveDomainExpElement : public GQuestElement {
 public:
-	GQuestGiveDomainExpElement() : m_Amount(0) { }
-	string 				getElementName() const { return "GiveDomainExp"; }
-	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
-	GQuestGiveDomainExpElement*	makeElement(XMLTree* pTree);
+    GQuestGiveDomainExpElement() : m_Amount(0) {}
+    string getElementName() const {
+        return "GiveDomainExp";
+    }
+    ResultType checkCondition(PlayerCreature* pPC) const;
+    GQuestGiveDomainExpElement* makeElement(XMLTree* pTree);
 
 private:
-	Exp_t m_Amount;;
+    Exp_t m_Amount;
+    ;
 };
 
 extern GQuestGiveDomainExpElement g_GiveDomainExpElement;

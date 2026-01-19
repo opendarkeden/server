@@ -11,20 +11,20 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCGetDamageHandler::execute (GCGetDamage * pGCGetDamage , Player * pPlayer )
-	 
+void GCGetDamageHandler::execute(GCGetDamage* pGCGetDamage, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCGetDamage->toString() << endl;
-	
+    // cout << pGCGetDamage->toString() << endl;
+
 #elif __WINDOWS__
 
-	AfxMessageBox(pGCGetDamage->toString().c_str());
+        AfxMessageBox(pGCGetDamage->toString().c_str());
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

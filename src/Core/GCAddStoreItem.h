@@ -1,8 +1,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddStoreItem.h 
+// Filename    : GCAddStoreItem.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ADD_STORE_ITEM_H__
@@ -16,59 +16,77 @@
 // class GCAddStoreItem;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddStoreItem : public Packet
-{
+class GCAddStoreItem : public Packet {
 public:
-	GCAddStoreItem()  { }
-	virtual ~GCAddStoreItem() noexcept ;
+    GCAddStoreItem() {}
+    virtual ~GCAddStoreItem() noexcept;
 
 public:
-	void read(SocketInputStream & iStream) ;
-	void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
-	PacketID_t getPacketID() const  { return PACKET_GC_ADD_STORE_ITEM; }
-	PacketSize_t getPacketSize() const  { return szObjectID + szBYTE + m_Item.getSize(); }
-	string getPacketName() const  { return "GCAddStoreItem"; }
-	string toString() const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_GC_ADD_STORE_ITEM;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID + szBYTE + m_Item.getSize();
+    }
+    string getPacketName() const {
+        return "GCAddStoreItem";
+    }
+    string toString() const;
 
-	ObjectID_t	getOwnerObjectID() const { return m_OwnerObjectID; }
-	void		setOwnerObjectID(ObjectID_t oid) { m_OwnerObjectID = oid; }
+    ObjectID_t getOwnerObjectID() const {
+        return m_OwnerObjectID;
+    }
+    void setOwnerObjectID(ObjectID_t oid) {
+        m_OwnerObjectID = oid;
+    }
 
-	BYTE		getIndex() const { return m_Index; }
-	void		setIndex(BYTE index) { m_Index = index; }
+    BYTE getIndex() const {
+        return m_Index;
+    }
+    void setIndex(BYTE index) {
+        m_Index = index;
+    }
 
-	StoreItemInfo&	getItem() { return m_Item; }
+    StoreItemInfo& getItem() {
+        return m_Item;
+    }
 
 private:
-	ObjectID_t	m_OwnerObjectID;
-	BYTE		m_Index;
-	StoreItemInfo	m_Item;
+    ObjectID_t m_OwnerObjectID;
+    BYTE m_Index;
+    StoreItemInfo m_Item;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddStoreItemFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddStoreItemFactory : public PacketFactory 
-{
+class GCAddStoreItemFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new GCAddStoreItem(); }
-	string getPacketName() const  { return "GCAddStoreItem"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_STORE_ITEM; }
-	PacketSize_t getPacketMaxSize() const 
-	{
-		return szObjectID + szBYTE + StoreItemInfo::getMaxSize();
-	}
+    Packet* createPacket() {
+        return new GCAddStoreItem();
+    }
+    string getPacketName() const {
+        return "GCAddStoreItem";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_GC_ADD_STORE_ITEM;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID + szBYTE + StoreItemInfo::getMaxSize();
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddStoreItemHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class GCAddStoreItemHandler 
-{
+class GCAddStoreItemHandler {
 public:
-	static void execute(GCAddStoreItem* pPacket, Player* pPlayer) ;
+    static void execute(GCAddStoreItem* pPacket, Player* pPlayer);
 };
 
 #endif

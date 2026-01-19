@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : SGDeleteGuildOK.cpp 
+//
+// Filename    : SGDeleteGuildOK.cpp
 // Written By  :
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,41 +13,38 @@
 //////////////////////////////////////////////////////////////////////
 // Initialize from the datagram payload.
 //////////////////////////////////////////////////////////////////////
-void SGDeleteGuildOK::read (SocketInputStream& iStream ) 
-{
-	__BEGIN_TRY
+void SGDeleteGuildOK::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read(m_GuildID);
+    iStream.read(m_GuildID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // Write the datagram payload.
 //////////////////////////////////////////////////////////////////////
-void SGDeleteGuildOK::write (SocketOutputStream& oStream ) const 
-{
-	__BEGIN_TRY
+void SGDeleteGuildOK::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write(m_GuildID);
+    oStream.write(m_GuildID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void SGDeleteGuildOK::execute (Player * pPlayer ) 
-{
+void SGDeleteGuildOK::execute(Player* pPlayer) {
 #ifdef __GAME_SERVER__
 
-	__BEGIN_TRY
-		
-	SGDeleteGuildOKHandler::execute(this);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    SGDeleteGuildOKHandler::execute(this);
+
+    __END_CATCH
 
 #endif
 }
@@ -55,14 +52,11 @@ void SGDeleteGuildOK::execute (Player * pPlayer )
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-string SGDeleteGuildOK::toString () const
-{
-	StringStream msg;
+string SGDeleteGuildOK::toString() const {
+    StringStream msg;
 
-	msg << "SGDeleteGuildOK("
-		<< "GuildID:" << (int)m_GuildID
-		<< ")";
+    msg << "SGDeleteGuildOK("
+        << "GuildID:" << (int)m_GuildID << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

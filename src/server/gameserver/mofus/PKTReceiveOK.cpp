@@ -5,43 +5,39 @@
 
 // include files
 #include "PKTReceiveOK.h"
+
 #include "MPacketID.h"
 
 // 생성자
-PKTReceiveOK::PKTReceiveOK()
-{
-	nSize = szPKTReceiveOK - szMPacketSize;
+PKTReceiveOK::PKTReceiveOK() {
+    nSize = szPKTReceiveOK - szMPacketSize;
 }
 
 // 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
-void PKTReceiveOK::read( SocketInputStream& iStream )
-{
-	iStream.read( (char*)this, szPKTReceiveOK );
+void PKTReceiveOK::read(SocketInputStream& iStream) {
+    iStream.read((char*)this, szPKTReceiveOK);
 
-	// change order - network to host
-//	nSize		= ntohl( nSize );
-//	nCode		= ntohl( nCode );
+    // change order - network to host
+    //	nSize		= ntohl( nSize );
+    //	nCode		= ntohl( nCode );
 }
 
 // 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
-void PKTReceiveOK::write( SocketOutputStream& oStream )
-{
-	nCode = getID();
+void PKTReceiveOK::write(SocketOutputStream& oStream) {
+    nCode = getID();
 
-	// change order - host to network
-//	nSize		= htonl( nSize );
-//	nCode		= htonl( nCode );
+    // change order - host to network
+    //	nSize		= htonl( nSize );
+    //	nCode		= htonl( nCode );
 
-	oStream.write( (const char*)this, szPKTReceiveOK );
+    oStream.write((const char*)this, szPKTReceiveOK);
 
-	// restore order
-//	nSize		= ntohl( nSize );
-//	nCode		= ntohl( nCode );
+    // restore order
+    //	nSize		= ntohl( nSize );
+    //	nCode		= ntohl( nCode );
 }
 
 // debug message
-string PKTReceiveOK::toString() const
-{
-	return "ReceiveOK()";
+string PKTReceiveOK::toString() const {
+    return "ReceiveOK()";
 }
-

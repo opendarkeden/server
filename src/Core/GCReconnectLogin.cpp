@@ -1,9 +1,9 @@
 //----------------------------------------------------------------------
-// 
-// Filename    : GCReconnectLogin.cpp 
+//
+// Filename    : GCReconnectLogin.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //----------------------------------------------------------------------
 
 // include files
@@ -13,107 +13,103 @@
 //----------------------------------------------------------------------
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //----------------------------------------------------------------------
-void GCReconnectLogin::read (SocketInputStream & iStream ) 
-	 
+void GCReconnectLogin::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-		
-	//--------------------------------------------------
-	// read game server's ip
-	//--------------------------------------------------
-	BYTE szLoginServerIP;
+    __BEGIN_TRY
 
-	iStream.read(szLoginServerIP);
+    //--------------------------------------------------
+    // read game server's ip
+    //--------------------------------------------------
+    BYTE szLoginServerIP;
 
-	if (szLoginServerIP == 0 )
-		throw InvalidProtocolException("szLoginServerIP == 0");
+    iStream.read(szLoginServerIP);
 
-	if (szLoginServerIP > 15 )
-		throw InvalidProtocolException("too long IP length");
+    if (szLoginServerIP == 0)
+        throw InvalidProtocolException("szLoginServerIP == 0");
 
-	iStream.read(m_LoginServerIP , szLoginServerIP);
+    if (szLoginServerIP > 15)
+        throw InvalidProtocolException("too long IP length");
 
-	//--------------------------------------------------
-	// read game server's port
-	//--------------------------------------------------
-	iStream.read(m_LoginServerPort);
+    iStream.read(m_LoginServerIP, szLoginServerIP);
 
-	//--------------------------------------------------
-	// read auth-key
-	//--------------------------------------------------
-	iStream.read(m_Key);
+    //--------------------------------------------------
+    // read game server's port
+    //--------------------------------------------------
+    iStream.read(m_LoginServerPort);
 
-	__END_CATCH
+    //--------------------------------------------------
+    // read auth-key
+    //--------------------------------------------------
+    iStream.read(m_Key);
+
+    __END_CATCH
 }
 
-		    
+
 //----------------------------------------------------------------------
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //----------------------------------------------------------------------
-void GCReconnectLogin::write (SocketOutputStream & oStream ) const 
-     
+void GCReconnectLogin::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
-		
-	//--------------------------------------------------
-	// write game server's ip
-	//--------------------------------------------------
-	BYTE szLoginServerIP = m_LoginServerIP.size();
+    __BEGIN_TRY
 
-	if (szLoginServerIP == 0 )
-		throw InvalidProtocolException("szLoginServerIP == 0");
+    //--------------------------------------------------
+    // write game server's ip
+    //--------------------------------------------------
+    BYTE szLoginServerIP = m_LoginServerIP.size();
 
-	if (szLoginServerIP > 15 )
-		throw InvalidProtocolException("too long IP length");
+    if (szLoginServerIP == 0)
+        throw InvalidProtocolException("szLoginServerIP == 0");
 
-	oStream.write(szLoginServerIP);
+    if (szLoginServerIP > 15)
+        throw InvalidProtocolException("too long IP length");
 
-	oStream.write(m_LoginServerIP);
+    oStream.write(szLoginServerIP);
 
-	//--------------------------------------------------
-	// write game server's port
-	//--------------------------------------------------
-	oStream.write(m_LoginServerPort);
+    oStream.write(m_LoginServerIP);
 
-	//--------------------------------------------------
-	// write auth-key
-	//--------------------------------------------------
-	oStream.write(m_Key);
+    //--------------------------------------------------
+    // write game server's port
+    //--------------------------------------------------
+    oStream.write(m_LoginServerPort);
 
-	__END_CATCH
+    //--------------------------------------------------
+    // write auth-key
+    //--------------------------------------------------
+    oStream.write(m_Key);
+
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // execute packet's handler
 //----------------------------------------------------------------------
-void GCReconnectLogin::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCReconnectLoginHandler::execute(this , pPlayer);
+void GCReconnectLogin::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCReconnectLoginHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //----------------------------------------------------------------------
 // get packet's debug string
 //----------------------------------------------------------------------
-string GCReconnectLogin::toString () const
-       
+string GCReconnectLogin::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCReconnectLogin("
-		<< "LoginServerIP:" << m_LoginServerIP 
-		<< ",LoginServerPort:" << m_LoginServerPort 
-		<< ",KEY:" << m_Key << ")" ;
-	return msg.toString();
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "GCReconnectLogin("
+        << "LoginServerIP:" << m_LoginServerIP << ",LoginServerPort:" << m_LoginServerPort << ",KEY:" << m_Key << ")";
+    return msg.toString();
+
+    __END_CATCH
 }
-
-

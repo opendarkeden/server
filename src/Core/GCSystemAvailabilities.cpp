@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCSystemAvailabilities.cpp 
+//
+// Filename    : GCSystemAvailabilities.cpp
 // Written By  : elca@ewestsoft.com
 // Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
 //               멤버 정의.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -13,58 +13,52 @@
 #include "GCSystemAvailabilities.h"
 
 
-
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCSystemAvailabilities::GCSystemAvailabilities () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCSystemAvailabilities::GCSystemAvailabilities()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCSystemAvailabilities::~GCSystemAvailabilities () 
-    
+GCSystemAvailabilities::~GCSystemAvailabilities()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GCSystemAvailabilities::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_Flag);
-	iStream.read(m_Degree);
-	iStream.read(m_SkillLimit);
+void GCSystemAvailabilities::read(SocketInputStream& iStream)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    iStream.read(m_Flag);
+    iStream.read(m_Degree);
+    iStream.read(m_SkillLimit);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GCSystemAvailabilities::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
+void GCSystemAvailabilities::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	oStream.write(m_Flag);
-	oStream.write(m_Degree);
-	oStream.write(m_SkillLimit);
-		
-	__END_CATCH
+    oStream.write(m_Flag);
+    oStream.write(m_Degree);
+    oStream.write(m_SkillLimit);
+
+    __END_CATCH
 }
 
 
@@ -73,14 +67,14 @@ void GCSystemAvailabilities::write (SocketOutputStream & oStream )
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCSystemAvailabilities::execute (Player * pPlayer ) 
-	 
+void GCSystemAvailabilities::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCSystemAvailabilitiesHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCSystemAvailabilitiesHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -89,16 +83,13 @@ void GCSystemAvailabilities::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCSystemAvailabilities::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCSystemAvailabilities::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCSystemAvailabilities("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCSystemAvailabilities("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

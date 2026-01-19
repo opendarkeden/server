@@ -2,7 +2,7 @@
 //
 // Filename    : GCUsePowerPointResultHandler.cpp
 // Written By  :
-// Description : 
+// Description :
 //
 //----------------------------------------------------------------------
 
@@ -14,14 +14,13 @@
 
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
-void GCUsePowerPointResultHandler::execute (GCUsePowerPointResult * pPacket , Player * pPlayer )
-	 
+void GCUsePowerPointResultHandler::execute(GCUsePowerPointResult* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
 #ifdef __GAME_CLIENT__
 #endif
 
-	__END_CATCH
+    __END_CATCH
 }
-

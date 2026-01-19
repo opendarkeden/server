@@ -1,19 +1,21 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : OptionInfo.h
 // Written By  : 김성민
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __OPTIONINFO_H__
 #define __OPTIONINFO_H__
 
-#include "Exception.h"
-#include "Types.h"
-#include "Item.h"
 #include <list>
 #include <vector>
+
 #include <unordered_map>
- 
+
+#include "Exception.h"
+#include "Item.h"
+#include "Types.h"
+
 //////////////////////////////////////////////////////////////////////////////
 // 옵션 레벨의 맥스
 //////////////////////////////////////////////////////////////////////////////
@@ -28,295 +30,388 @@ class Ousters;
 //////////////////////////////////////////////////////////////////////////////
 // 옵션의 적용 부위 종류
 //////////////////////////////////////////////////////////////////////////////
-enum OptionClass
-{
-	OPTION_STR = 0,      // increase STR
-	OPTION_DEX,          // increase DEX 
-	OPTION_INT,          // increase INT 
-	OPTION_HP,           // increase HP 
-	OPTION_MP,           // increase MP 
-	OPTION_HP_STEAL,     // steal HP 
-	OPTION_MP_STEAL,     // steal MP 
-	OPTION_HP_REGEN,     // regenerate hp over time
-	OPTION_MP_REGEN,     // regenerate mp over time
-	OPTION_TOHIT,        // increase tohit
-	OPTION_DEFENSE,      // increase defense
-	OPTION_DAMAGE,       // increase damage 
-	OPTION_PROTECTION,   // increase protection
-	OPTION_DURABILITY,   // increase item durability
-	OPTION_POISON,       // increase poison resistence
-	OPTION_ACID,         // increase acid resistence
-	OPTION_CURSE,        // increase curse resistence
-	OPTION_BLOOD,        // increase blood resistence
-	OPTION_VISION,       // increase vision range
-	OPTION_ATTACK_SPEED, // increase attack speed
-	OPTION_CRITICAL_HIT, // increase chance of doing critical hit
-	OPTION_LUCK,		 // increase looting item type
-	OPTION_ALL_RES,		 // increase all registance
-	OPTION_ALL_ATTR,	 // increase all attributes(str, dex, int)
-	OPTION_STR_TO_DEX,	 // STR to DEX
-	OPTION_STR_TO_INT,	 // STR to INT
-	OPTION_DEX_TO_STR,	 // DEX to STR
-	OPTION_DEX_TO_INT,	 // DEX to INT
-	OPTION_INT_TO_STR,	 // INT to STR
-	OPTION_INT_TO_DEX,	 // INT to DEX
-	OPTION_CONSUME_MP,		 // decrease consume mana
-	OPTION_TRANS,		 // translate race language
-	OPTION_MAGIC_DAMAGE,  // increase magic damage
-	OPTION_PHYSIC_DAMAGE, // increase physical damage
-	OPTION_GAMBLE_PRICE, // decrease gamble price
-	OPTION_POTION_PRICE, // decrease gamble price
-	OPTION_MAGIC_PRO,
-	OPTION_PHYSIC_PRO,
+enum OptionClass {
+    OPTION_STR = 0,       // increase STR
+    OPTION_DEX,           // increase DEX
+    OPTION_INT,           // increase INT
+    OPTION_HP,            // increase HP
+    OPTION_MP,            // increase MP
+    OPTION_HP_STEAL,      // steal HP
+    OPTION_MP_STEAL,      // steal MP
+    OPTION_HP_REGEN,      // regenerate hp over time
+    OPTION_MP_REGEN,      // regenerate mp over time
+    OPTION_TOHIT,         // increase tohit
+    OPTION_DEFENSE,       // increase defense
+    OPTION_DAMAGE,        // increase damage
+    OPTION_PROTECTION,    // increase protection
+    OPTION_DURABILITY,    // increase item durability
+    OPTION_POISON,        // increase poison resistence
+    OPTION_ACID,          // increase acid resistence
+    OPTION_CURSE,         // increase curse resistence
+    OPTION_BLOOD,         // increase blood resistence
+    OPTION_VISION,        // increase vision range
+    OPTION_ATTACK_SPEED,  // increase attack speed
+    OPTION_CRITICAL_HIT,  // increase chance of doing critical hit
+    OPTION_LUCK,          // increase looting item type
+    OPTION_ALL_RES,       // increase all registance
+    OPTION_ALL_ATTR,      // increase all attributes(str, dex, int)
+    OPTION_STR_TO_DEX,    // STR to DEX
+    OPTION_STR_TO_INT,    // STR to INT
+    OPTION_DEX_TO_STR,    // DEX to STR
+    OPTION_DEX_TO_INT,    // DEX to INT
+    OPTION_INT_TO_STR,    // INT to STR
+    OPTION_INT_TO_DEX,    // INT to DEX
+    OPTION_CONSUME_MP,    // decrease consume mana
+    OPTION_TRANS,         // translate race language
+    OPTION_MAGIC_DAMAGE,  // increase magic damage
+    OPTION_PHYSIC_DAMAGE, // increase physical damage
+    OPTION_GAMBLE_PRICE,  // decrease gamble price
+    OPTION_POTION_PRICE,  // decrease gamble price
+    OPTION_MAGIC_PRO,
+    OPTION_PHYSIC_PRO,
 
-	OPTION_MAX
+    OPTION_MAX
 };
 
-const string OptionClass2String[] =
-{
-	"OPTION_STR",
-	"OPTION_DEX",
-	"OPTION_INT",
-	"OPTION_HP",
-	"OPTION_MP",
-	"OPTION_HP_STEAL",
-	"OPTION_MP_STEAL",
-	"OPTION_HP_REGEN",
-	"OPTION_MP_REGEN",
-	"OPTION_TOHIT",
-	"OPTION_DEFENSE",
-	"OPTION_DAMAGE",
-	"OPTION_PROTECTION",
-	"OPTION_DURABILITY",
-	"OPTION_POISON",
-	"OPTION_ACID",
-	"OPTION_CURSE",
-	"OPTION_BLOOD",
-	"OPTION_VISION",
-	"OPTION_ATTACK_SPEED",
-	"OPTION_CRITICAL_HIT",
-	"OPITON_LUCK",
-	"OPITON_ALL_RES",
-	"OPITON_ALL_ATTR",
-	"OPTION_STR_TO_DEX",
-	"OPTION_STR_TO_INT",
-	"OPTION_DEX_TO_STR",
-	"OPTION_DEX_TO_INT",
-	"OPTION_INT_TO_STR",
-	"OPTION_INT_TO_DEX",
-	"OPTION_CONSUME_MP",
-	"OPTION_TRANS",
-	"OPTION_MAGIC_DAMAGE",
-	"OPTION_PHYSIC_DAMAGE",
-	"OPTION_GAMBLE_PRICE",
-	"OPTION_POTION_PRICE",
-	"OPTION_MAGIC_PRO",
-	"OPTION_PHYSIC_PRO",
+const string OptionClass2String[] = {
+    "OPTION_STR",          "OPTION_DEX",           "OPTION_INT",          "OPTION_HP",
+    "OPTION_MP",           "OPTION_HP_STEAL",      "OPTION_MP_STEAL",     "OPTION_HP_REGEN",
+    "OPTION_MP_REGEN",     "OPTION_TOHIT",         "OPTION_DEFENSE",      "OPTION_DAMAGE",
+    "OPTION_PROTECTION",   "OPTION_DURABILITY",    "OPTION_POISON",       "OPTION_ACID",
+    "OPTION_CURSE",        "OPTION_BLOOD",         "OPTION_VISION",       "OPTION_ATTACK_SPEED",
+    "OPTION_CRITICAL_HIT", "OPITON_LUCK",          "OPITON_ALL_RES",      "OPITON_ALL_ATTR",
+    "OPTION_STR_TO_DEX",   "OPTION_STR_TO_INT",    "OPTION_DEX_TO_STR",   "OPTION_DEX_TO_INT",
+    "OPTION_INT_TO_STR",   "OPTION_INT_TO_DEX",    "OPTION_CONSUME_MP",   "OPTION_TRANS",
+    "OPTION_MAGIC_DAMAGE", "OPTION_PHYSIC_DAMAGE", "OPTION_GAMBLE_PRICE", "OPTION_POTION_PRICE",
+    "OPTION_MAGIC_PRO",    "OPTION_PHYSIC_PRO",
 
-	"OPTION_MAX"
+    "OPTION_MAX"};
+
+enum OptionGroup {
+    OPTION_GROUP_ATTR = 0, // 능력치 관련 옵션
+    OPTION_GROUP_STAT,     // 보조능력치 관련 옵션
+    OPTION_GROUP_SPECIAL,  // 특수 옵션 (...?)
+    OPTION_GROUP_RESIST,   // 저항 옵션
+    OPTION_GROUP_ETC,      // 기타 옵션
+    OPTION_GROUP_NOT       // 그룹 없음
 };
 
-enum OptionGroup
-{
-	OPTION_GROUP_ATTR = 0,			// 능력치 관련 옵션
-	OPTION_GROUP_STAT,				// 보조능력치 관련 옵션
-	OPTION_GROUP_SPECIAL,			// 특수 옵션 (...?)
-	OPTION_GROUP_RESIST,			// 저항 옵션
-	OPTION_GROUP_ETC,				// 기타 옵션
-	OPTION_GROUP_NOT				// 그룹 없음
-};
-
-class RareOptionUpgradeInfo
-{
+class RareOptionUpgradeInfo {
 public:
-	RareOptionUpgradeInfo( int level, int grade ) : m_Level(level), m_TotalGrade(grade)
-	{
-		m_UpgradeRatio[0].reserve(grade); m_UpgradeRatio[1].reserve(grade);
-	}
+    RareOptionUpgradeInfo(int level, int grade) : m_Level(level), m_TotalGrade(grade) {
+        m_UpgradeRatio[0].reserve(grade);
+        m_UpgradeRatio[1].reserve(grade);
+    }
 
-	int				getKey() const { return m_Level*10 + m_TotalGrade; }
+    int getKey() const {
+        return m_Level * 10 + m_TotalGrade;
+    }
 
-	int				getRatio( int grade, bool success ) const { Assert( grade < m_TotalGrade ); return m_UpgradeRatio[(int)success][grade]; }
-	void			setRatio( int grade, bool success, int ratio ) { Assert( grade < m_TotalGrade ); m_UpgradeRatio[(int)success][grade] = ratio; }
+    int getRatio(int grade, bool success) const {
+        Assert(grade < m_TotalGrade);
+        return m_UpgradeRatio[(int)success][grade];
+    }
+    void setRatio(int grade, bool success, int ratio) {
+        Assert(grade < m_TotalGrade);
+        m_UpgradeRatio[(int)success][grade] = ratio;
+    }
 
 private:
-	int				m_Level;
-	int				m_TotalGrade;
-	vector<int>		m_UpgradeRatio[2];
+    int m_Level;
+    int m_TotalGrade;
+    vector<int> m_UpgradeRatio[2];
 };
 
-class OptionClassInfo
-{
+class OptionClassInfo {
 public:
-	OptionClassInfo( OptionClass optionClass ) : m_OptionClass(optionClass) { m_Level=0; m_TotalGrade=0; }
+    OptionClassInfo(OptionClass optionClass) : m_OptionClass(optionClass) {
+        m_Level = 0;
+        m_TotalGrade = 0;
+    }
 
-	OptionClass		getOptionClass() const { return m_OptionClass; }
+    OptionClass getOptionClass() const {
+        return m_OptionClass;
+    }
 
-	OptionGroup		getOptionGroup() const { return m_OptionGroup; }
-	void			setOptionGroup( OptionGroup optionGroup ) { m_OptionGroup = optionGroup; }
+    OptionGroup getOptionGroup() const {
+        return m_OptionGroup;
+    }
+    void setOptionGroup(OptionGroup optionGroup) {
+        m_OptionGroup = optionGroup;
+    }
 
-	int				getKey() const { return m_Level*10 + m_TotalGrade; }
+    int getKey() const {
+        return m_Level * 10 + m_TotalGrade;
+    }
 
-	const string&	getName() const { return m_Name; }
-	void			setName( const string& name ) { m_Name = name; }
+    const string& getName() const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+    }
 
-	const string&	getHName() const { return m_HName; }
-	void			setHName( const string& hname ) { m_HName = hname; }
+    const string& getHName() const {
+        return m_HName;
+    }
+    void setHName(const string& hname) {
+        m_HName = hname;
+    }
 
-	int				getLevel() const { return m_Level; }
-	void			setLevel( int level ) { m_Level = level; }
+    int getLevel() const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
 
-	int				getTotalGrade() const { return m_TotalGrade; }
-	void			setTotalGrade( int grade ) { m_TotalGrade = grade; }
+    int getTotalGrade() const {
+        return m_TotalGrade;
+    }
+    void setTotalGrade(int grade) {
+        m_TotalGrade = grade;
+    }
 
-	/*
-	bool			ApplyOption( PlayerCreature* pPC, int PlusPoint );
-	bool			ApplyOption( Slayer* pSlayer, int PlusPoint );
-	bool			ApplyOption( Vampire* pVampire, int PlusPoint );
-	bool			ApplyOption( Ousters* pOusters, int PlusPoint );
-	*/
+    /*
+    bool			ApplyOption( PlayerCreature* pPC, int PlusPoint );
+    bool			ApplyOption( Slayer* pSlayer, int PlusPoint );
+    bool			ApplyOption( Vampire* pVampire, int PlusPoint );
+    bool			ApplyOption( Ousters* pOusters, int PlusPoint );
+    */
 
 private:
-	OptionClass		m_OptionClass;
-	string			m_Name;
-	string			m_HName;
-	int				m_Level;			// 중요도
-	int				m_TotalGrade;		// 옵션의 총 단계 수
-	OptionGroup		m_OptionGroup;
+    OptionClass m_OptionClass;
+    string m_Name;
+    string m_HName;
+    int m_Level;      // 중요도
+    int m_TotalGrade; // 옵션의 총 단계 수
+    OptionGroup m_OptionGroup;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // Class OptionInfo
 //////////////////////////////////////////////////////////////////////////////
 
-class OptionInfo 
-{
-
-///// Member methods /////
-	
-public:
-	OptionInfo() ;
-	~OptionInfo() ;
+class OptionInfo {
+    ///// Member methods /////
 
 public:
-	OptionType_t getType(void) const { return m_OptionType; }
-	void setType(OptionType_t type) { m_OptionType = type; }
+    OptionInfo();
+    ~OptionInfo();
 
-	string getName(void) const { return m_Name; }
-	void setName(const string& name) { m_Name = name; }
+public:
+    OptionType_t getType(void) const {
+        return m_OptionType;
+    }
+    void setType(OptionType_t type) {
+        m_OptionType = type;
+    }
 
-	string getHName(void) const { return m_HName; }
-	void setHName(const string& hname) { m_HName = hname; }
+    string getName(void) const {
+        return m_Name;
+    }
+    void setName(const string& name) {
+        m_Name = name;
+    }
 
-	string getNickname(void) const { return m_Nickname; }
-	void setNickname(const string& name) { m_Nickname = name; }
+    string getHName(void) const {
+        return m_HName;
+    }
+    void setHName(const string& hname) {
+        m_HName = hname;
+    }
 
-	OptionClass getClass(void) const { return m_OptionClass; }
-	void setClass(OptionClass OClass) { m_OptionClass = OClass; }
+    string getNickname(void) const {
+        return m_Nickname;
+    }
+    void setNickname(const string& name) {
+        m_Nickname = name;
+    }
 
-	int getPlusPoint(void) const { return m_PlusPoint; }
-	void setPlusPoint(int point) { m_PlusPoint = point; }
+    OptionClass getClass(void) const {
+        return m_OptionClass;
+    }
+    void setClass(OptionClass OClass) {
+        m_OptionClass = OClass;
+    }
 
-	int getPriceMultiplier(void) const { return m_PriceMultiplier; }
-	void setPriceMultiplier(int mul) { m_PriceMultiplier = mul; }
+    int getPlusPoint(void) const {
+        return m_PlusPoint;
+    }
+    void setPlusPoint(int point) {
+        m_PlusPoint = point;
+    }
 
-	int getReqSTR(void) const  { return m_ReqSTR; }
-	void setReqSTR(int req) { m_ReqSTR = req; }
+    int getPriceMultiplier(void) const {
+        return m_PriceMultiplier;
+    }
+    void setPriceMultiplier(int mul) {
+        m_PriceMultiplier = mul;
+    }
 
-	int getReqDEX(void) const  { return m_ReqDEX; }
-	void setReqDEX(int req) { m_ReqDEX = req; }
+    int getReqSTR(void) const {
+        return m_ReqSTR;
+    }
+    void setReqSTR(int req) {
+        m_ReqSTR = req;
+    }
 
-	int getReqINT(void) const  { return m_ReqINT; }
-	void setReqINT(int req) { m_ReqINT = req; }
+    int getReqDEX(void) const {
+        return m_ReqDEX;
+    }
+    void setReqDEX(int req) {
+        m_ReqDEX = req;
+    }
 
-	int getReqSum(void) const  { return m_ReqSum; }
-	void setReqSum(int req) { m_ReqSum = req; }
+    int getReqINT(void) const {
+        return m_ReqINT;
+    }
+    void setReqINT(int req) {
+        m_ReqINT = req;
+    }
 
-	int getReqLevel(void) const  { return m_ReqLevel; }
-	void setReqLevel(int req) { m_ReqLevel = req; }
+    int getReqSum(void) const {
+        return m_ReqSum;
+    }
+    void setReqSum(int req) {
+        m_ReqSum = req;
+    }
 
-	void setReqAbility(const string& text) ;
+    int getReqLevel(void) const {
+        return m_ReqLevel;
+    }
+    void setReqLevel(int req) {
+        m_ReqLevel = req;
+    }
 
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
+    void setReqAbility(const string& text);
 
-	Color_t getColor(void) const { return m_Color; }
-	void setColor(Color_t color) { m_Color = color; }
+    int getLevel(void) const {
+        return m_Level;
+    }
+    void setLevel(int level) {
+        m_Level = level;
+    }
 
-	Ratio_t getRatio(void) const { return m_Ratio; }
-	void setRatio(Ratio_t ratio) { m_Ratio = ratio; }
+    Color_t getColor(void) const {
+        return m_Color;
+    }
+    void setColor(Color_t color) {
+        m_Color = color;
+    }
 
-	int getGambleLevel(void) const { return m_GambleLevel; }
-	void setGambleLevel(int level) { m_GambleLevel = level; }
+    Ratio_t getRatio(void) const {
+        return m_Ratio;
+    }
+    void setRatio(Ratio_t ratio) {
+        m_Ratio = ratio;
+    }
 
-	// 이전 단계의 옵션으로 downgrade할때 필요한 정보
-	OptionType_t getPreviousType(void) const { return m_PreviousOptionType; }
-	void setPreviousType(OptionType_t type) { m_PreviousOptionType = type; }
+    int getGambleLevel(void) const {
+        return m_GambleLevel;
+    }
+    void setGambleLevel(int level) {
+        m_GambleLevel = level;
+    }
 
-	// 다음 단계의 옵션으로 upgrade할때 필요한 정보
-	OptionType_t getUpgradeType(void) const { return m_UpgradeOptionType; }
-	void setUpgradeType(OptionType_t type) { m_UpgradeOptionType = type; }
+    // 이전 단계의 옵션으로 downgrade할때 필요한 정보
+    OptionType_t getPreviousType(void) const {
+        return m_PreviousOptionType;
+    }
+    void setPreviousType(OptionType_t type) {
+        m_PreviousOptionType = type;
+    }
 
-	Ratio_t getUpgradeRatio(void) const { return m_UpgradeRatio; }
-	void setUpgradeRatio(Ratio_t ratio) { m_UpgradeRatio = ratio; }
+    // 다음 단계의 옵션으로 upgrade할때 필요한 정보
+    OptionType_t getUpgradeType(void) const {
+        return m_UpgradeOptionType;
+    }
+    void setUpgradeType(OptionType_t type) {
+        m_UpgradeOptionType = type;
+    }
 
-	Ratio_t getUpgradeSecondRatio(void) const { return m_UpgradeSecondRatio; }
-	void setUpgradeSecondRatio(Ratio_t ratio) { m_UpgradeSecondRatio = ratio; }
+    Ratio_t getUpgradeRatio(void) const {
+        return m_UpgradeRatio;
+    }
+    void setUpgradeRatio(Ratio_t ratio) {
+        m_UpgradeRatio = ratio;
+    }
 
-	int getUpgradeCrashPercent(void) const { return m_UpgradeCrashPercent; }
-	void setUpgradeCrashPercent(int per) { m_UpgradeCrashPercent = per; }
+    Ratio_t getUpgradeSecondRatio(void) const {
+        return m_UpgradeSecondRatio;
+    }
+    void setUpgradeSecondRatio(Ratio_t ratio) {
+        m_UpgradeSecondRatio = ratio;
+    }
 
-	// 다음 단계의 옵션으로 upgrade가 가능한가?
-	bool isUpgradePossible() const	{ return m_UpgradeOptionType!=0 && m_UpgradeRatio!=0; }
+    int getUpgradeCrashPercent(void) const {
+        return m_UpgradeCrashPercent;
+    }
+    void setUpgradeCrashPercent(int per) {
+        m_UpgradeCrashPercent = per;
+    }
 
-	// 다음 단계의 옵션으로 upgrade가 성공했나?
-	bool isUpgradeSucceed() const;
+    // 다음 단계의 옵션으로 upgrade가 가능한가?
+    bool isUpgradePossible() const {
+        return m_UpgradeOptionType != 0 && m_UpgradeRatio != 0;
+    }
 
-	// 다음 단계의 옵션으로 upgrade가 성공했나?
-	bool isUpgradeSecondSucceed() const;
-	
-	// 다음 단계의 옵션으로 upgrade 하다가 실패해서 item이 부서졌나?
-	bool isUpgradeCrash() const;
+    // 다음 단계의 옵션으로 upgrade가 성공했나?
+    bool isUpgradeSucceed() const;
 
-	Ratio_t getNextOptionRatio(void) const { return m_NextOptionRatio; }
-	void setNextOptionRatio(Ratio_t ratio) { m_NextOptionRatio = ratio; }
+    // 다음 단계의 옵션으로 upgrade가 성공했나?
+    bool isUpgradeSecondSucceed() const;
 
-	int	getGrade() const { return m_Grade; }
-	void setGrade( int grade ) { m_Grade = grade; }
+    // 다음 단계의 옵션으로 upgrade 하다가 실패해서 item이 부서졌나?
+    bool isUpgradeCrash() const;
 
-	string toString() const ;
+    Ratio_t getNextOptionRatio(void) const {
+        return m_NextOptionRatio;
+    }
+    void setNextOptionRatio(Ratio_t ratio) {
+        m_NextOptionRatio = ratio;
+    }
+
+    int getGrade() const {
+        return m_Grade;
+    }
+    void setGrade(int grade) {
+        m_Grade = grade;
+    }
+
+    string toString() const;
 
 
-///// Member data /////
+    ///// Member data /////
 
 private:
-	OptionType_t  m_OptionType;      // 옵션 타입
-	string        m_Name;            // 영문 이름
-	string        m_HName;           // 한글 이름
-	string        m_Nickname;        // Nickname
-	OptionClass   m_OptionClass;     // 옵션의 종류
-	int           m_PlusPoint;       // 상승 수치
-	int           m_PriceMultiplier; // 값 상승 폭
-	int           m_ReqSTR;          // 필요한 STR의 상승 폭
-	int           m_ReqDEX;          // 필요한 DEX의 상승 폭
-	int           m_ReqINT;          // 필요한 INT의 상승 폭
-	int           m_ReqSum;          // 필요한 능력치 총합의 상승 폭
-	int           m_ReqLevel;        // 필요한 레벨의 상승 폭
-	int           m_Level;           // 옵션의 레벨
-	Color_t       m_Color;           // 옵션 색깔
-	Ratio_t       m_Ratio;           // 옵션 나오는 확률
+    OptionType_t m_OptionType; // 옵션 타입
+    string m_Name;             // 영문 이름
+    string m_HName;            // 한글 이름
+    string m_Nickname;         // Nickname
+    OptionClass m_OptionClass; // 옵션의 종류
+    int m_PlusPoint;           // 상승 수치
+    int m_PriceMultiplier;     // 값 상승 폭
+    int m_ReqSTR;              // 필요한 STR의 상승 폭
+    int m_ReqDEX;              // 필요한 DEX의 상승 폭
+    int m_ReqINT;              // 필요한 INT의 상승 폭
+    int m_ReqSum;              // 필요한 능력치 총합의 상승 폭
+    int m_ReqLevel;            // 필요한 레벨의 상승 폭
+    int m_Level;               // 옵션의 레벨
+    Color_t m_Color;           // 옵션 색깔
+    Ratio_t m_Ratio;           // 옵션 나오는 확률
 
-	int           m_GambleLevel;     // 옵션의 갬블 레벨
+    int m_GambleLevel; // 옵션의 갬블 레벨
 
-	// 다음 단계의 옵션으로 upgrade할때 필요한 정보
-	OptionType_t  m_PreviousOptionType;     // 이전 단계의 옵션 타입
-	OptionType_t  m_UpgradeOptionType;      // 다음 단계의 옵션 타입
-	Ratio_t       m_UpgradeRatio;           // upgrade가 성공할 확률 = 1/m_UpgradeRatio
-	Ratio_t       m_UpgradeSecondRatio;     // 블루 드롭 2로 업그레이드가 성공할 확률
-	int           m_UpgradeCrashPercent;    // upgrade가 실패해서 부서질 확률 = m_UpgradeCrashPercent%
-	Ratio_t       m_NextOptionRatio;        // 다음 옵션이 붙을 확률
+    // 다음 단계의 옵션으로 upgrade할때 필요한 정보
+    OptionType_t m_PreviousOptionType; // 이전 단계의 옵션 타입
+    OptionType_t m_UpgradeOptionType;  // 다음 단계의 옵션 타입
+    Ratio_t m_UpgradeRatio;            // upgrade가 성공할 확률 = 1/m_UpgradeRatio
+    Ratio_t m_UpgradeSecondRatio;      // 블루 드롭 2로 업그레이드가 성공할 확률
+    int m_UpgradeCrashPercent;         // upgrade가 실패해서 부서질 확률 = m_UpgradeCrashPercent%
+    Ratio_t m_NextOptionRatio;         // 다음 옵션이 붙을 확률
 
-	int			  m_Grade;					// 같은 클래스 내에서 옵션의 단수
+    int m_Grade; // 같은 클래스 내에서 옵션의 단수
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -324,45 +419,54 @@ private:
 // 각각의 옵션 클래스마다 레벨 별로 그 옵션 타입을 저장하고 있는 클래스.
 //////////////////////////////////////////////////////////////////////////////
 
-class OptionInfoSet
-{
+class OptionInfoSet {
+public:
+    OptionInfoSet();
+    ~OptionInfoSet();
 
 public:
-	OptionInfoSet() ;
-	~OptionInfoSet() ;
+    void addOptionType(uint level, OptionType_t type);
 
-public:
-	void addOptionType(uint level, OptionType_t type) ;
+    void getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<OptionType_t>& rOptionVector);
 
-	void getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<OptionType_t>& rOptionVector) ;
+    void clear() {
+        m_OptionTypes.clear();
+    }
 
-	void clear()	{ m_OptionTypes.clear(); }
-
-	string toString(void) const ;
+    string toString(void) const;
 
 private:
-	unordered_map<uint, OptionType_t> m_OptionTypes;
+    unordered_map<uint, OptionType_t> m_OptionTypes;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class PetEnchantOption
 //////////////////////////////////////////////////////////////////////////////
-class PetEnchantOption
-{
+class PetEnchantOption {
 public:
-	PetEnchantOption()  { m_Type = 0; m_Ratio = 0; }
-	~PetEnchantOption()  {}
+    PetEnchantOption() {
+        m_Type = 0;
+        m_Ratio = 0;
+    }
+    ~PetEnchantOption() {}
 
-	void setOptionType( OptionType_t type )  { m_Type = type; }
-	OptionType_t getOptionType() const  { return m_Type; }
+    void setOptionType(OptionType_t type) {
+        m_Type = type;
+    }
+    OptionType_t getOptionType() const {
+        return m_Type;
+    }
 
-	void setRatio( int ratio )  { m_Ratio = ratio; }
-	int getRatio() const  { return m_Ratio; }
+    void setRatio(int ratio) {
+        m_Ratio = ratio;
+    }
+    int getRatio() const {
+        return m_Ratio;
+    }
 
 private:
-	OptionType_t 	m_Type;
-	int				m_Ratio;
-
+    OptionType_t m_Type;
+    int m_Ratio;
 };
 
 
@@ -370,61 +474,73 @@ private:
 // class OptionInfoManager
 //////////////////////////////////////////////////////////////////////////////
 
-class OptionInfoManager 
-{
-
-///// Member methods /////
-	
-public:
-	OptionInfoManager() ;
-	~OptionInfoManager() ;
+class OptionInfoManager {
+    ///// Member methods /////
 
 public:
-	void init() ;
-	void load() ;
+    OptionInfoManager();
+    ~OptionInfoManager();
 
-	void release() ;
-	
-	OptionInfo* getOptionInfo(OptionType_t OptionType) ;
-	OptionInfo* getOptionInfo(const string& nickname) ;
-	OptionType_t getOptionType(const string& nickname) ;
-	string getOptionName(const list<OptionType_t>& optionTypes) ;
+public:
+    void init();
+    void load();
 
-	vector<OptionType_t> getPossibleOptionVector(Item::ItemClass IClass, uint minLevel, uint maxLevel) ;
+    void release();
 
-	void addOptionInfo(OptionInfo* pOptionInfo) ;
+    OptionInfo* getOptionInfo(OptionType_t OptionType);
+    OptionInfo* getOptionInfo(const string& nickname);
+    OptionType_t getOptionType(const string& nickname);
+    string getOptionName(const list<OptionType_t>& optionTypes);
 
-	// gamble 관련
-	void addGambleOption(Item::ItemClass itemClass, uint level, OptionType_t optionType) ;
-	const vector<OptionType_t>& getPossibleGambleOptionVector(Item::ItemClass itemClass, uint level) 	{ return m_GambleOptions[itemClass][level]; }
-	int	getTotalGambleRatio(Item::ItemClass itemClass, uint level) 	{ return m_TotalGambleRatio[itemClass][level]; }
+    vector<OptionType_t> getPossibleOptionVector(Item::ItemClass IClass, uint minLevel, uint maxLevel);
 
-	// rare enchant 관련
-	int getRareUpgradeRatio( OptionType_t optionType, bool success );
-	const OptionClassInfo* getOptionClassInfo( OptionClass oc ) { return m_OptionClassInfos[oc]; }
+    void addOptionInfo(OptionInfo* pOptionInfo);
 
-	void addPetEnchantOption(PetEnchantOption* pPetEnchantOption) ;
-	const list<PetEnchantOption*>& getPetEnchantOptionList() const { return m_PetEnchantOptionList; }
+    // gamble 관련
+    void addGambleOption(Item::ItemClass itemClass, uint level, OptionType_t optionType);
+    const vector<OptionType_t>& getPossibleGambleOptionVector(Item::ItemClass itemClass, uint level) {
+        return m_GambleOptions[itemClass][level];
+    }
+    int getTotalGambleRatio(Item::ItemClass itemClass, uint level) {
+        return m_TotalGambleRatio[itemClass][level];
+    }
 
-	void setTotalPetEnchantOption( int total )  { m_ToTalPetEnchantOption = total; }
-	int getTotalPetEnchantOption()  { return m_ToTalPetEnchantOption; }
+    // rare enchant 관련
+    int getRareUpgradeRatio(OptionType_t optionType, bool success);
+    const OptionClassInfo* getOptionClassInfo(OptionClass oc) {
+        return m_OptionClassInfos[oc];
+    }
 
-	string toString() const ;
+    void addPetEnchantOption(PetEnchantOption* pPetEnchantOption);
+    const list<PetEnchantOption*>& getPetEnchantOptionList() const {
+        return m_PetEnchantOptionList;
+    }
+
+    void setTotalPetEnchantOption(int total) {
+        m_ToTalPetEnchantOption = total;
+    }
+    int getTotalPetEnchantOption() {
+        return m_ToTalPetEnchantOption;
+    }
+
+    string toString() const;
 
 private:
-	void addOptionClassInfo( OptionClassInfo* pInfo ) { m_OptionClassInfos[pInfo->getOptionClass()] = pInfo; }
+    void addOptionClassInfo(OptionClassInfo* pInfo) {
+        m_OptionClassInfos[pInfo->getOptionClass()] = pInfo;
+    }
 
-	uint                                m_nOptionCount;
-	unordered_map<OptionType_t, OptionInfo*> m_OptionInfos;
-	unordered_map<string, OptionInfo*>       m_NicknameOptionInfos;
-	OptionInfoSet                       m_OptionInfoSet[OPTION_MAX];
-	vector<OptionClassInfo*>			m_OptionClassInfos;
-	vector<OptionType_t>                m_GambleOptions[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX+1];
-	int					                m_TotalGambleRatio[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX+1];
-	unordered_map<int,RareOptionUpgradeInfo*>		m_RareEnchantInfo;
+    uint m_nOptionCount;
+    unordered_map<OptionType_t, OptionInfo*> m_OptionInfos;
+    unordered_map<string, OptionInfo*> m_NicknameOptionInfos;
+    OptionInfoSet m_OptionInfoSet[OPTION_MAX];
+    vector<OptionClassInfo*> m_OptionClassInfos;
+    vector<OptionType_t> m_GambleOptions[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX + 1];
+    int m_TotalGambleRatio[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX + 1];
+    unordered_map<int, RareOptionUpgradeInfo*> m_RareEnchantInfo;
 
-	list<PetEnchantOption*> 			m_PetEnchantOptionList;
-	int									m_ToTalPetEnchantOption;
+    list<PetEnchantOption*> m_PetEnchantOptionList;
+    int m_ToTalPetEnchantOption;
 };
 
 
@@ -434,4 +550,4 @@ private:
 extern OptionInfoManager* g_pOptionInfoManager;
 
 
-#endif	
+#endif

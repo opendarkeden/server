@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGRequestIP.h 
+// Filename    : CGRequestIP.h
 // Written By  : excel96
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -17,50 +17,65 @@
 // 아니면.. 캐릭터 이름으로 요청한다.
 //////////////////////////////////////////////////////////////////////////////
 
-class CGRequestIP : public Packet
-{
+class CGRequestIP : public Packet {
 public:
-	CGRequestIP () ;
-	~CGRequestIP () ;
-	
-public:
-    void read (SocketInputStream & iStream ) ;
-    void write (SocketOutputStream & oStream ) const ;
-	void execute (Player * pPlayer ) ;
-    PacketID_t getPacketID () const  { return PACKET_CG_REQUEST_IP; }
-	PacketSize_t getPacketSize () const  { return szBYTE + m_Name.size(); }
-	string getPacketName () const  { return "CGRequestIP"; }
-	string toString () const ;
+    CGRequestIP();
+    ~CGRequestIP();
 
 public:
-	string getName() const  { return m_Name; }
-	void setName(const char* pName)  { m_Name = pName;}
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
+    PacketID_t getPacketID() const {
+        return PACKET_CG_REQUEST_IP;
+    }
+    PacketSize_t getPacketSize() const {
+        return szBYTE + m_Name.size();
+    }
+    string getPacketName() const {
+        return "CGRequestIP";
+    }
+    string toString() const;
+
+public:
+    string getName() const {
+        return m_Name;
+    }
+    void setName(const char* pName) {
+        m_Name = pName;
+    }
 
 protected:
-	string			m_Name;
+    string m_Name;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class CGRequestIPFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGRequestIPFactory : public PacketFactory 
-{
+class CGRequestIPFactory : public PacketFactory {
 public:
-	Packet * createPacket ()  { return new CGRequestIP(); }
-	string getPacketName () const  { return "CGRequestIP"; }
-	PacketID_t getPacketID () const  { return Packet::PACKET_CG_REQUEST_IP; }
-	PacketSize_t getPacketMaxSize () const  { return szBYTE + 10;}
+    Packet* createPacket() {
+        return new CGRequestIP();
+    }
+    string getPacketName() const {
+        return "CGRequestIP";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_REQUEST_IP;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szBYTE + 10;
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class CGRequestIPHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGRequestIPHandler 
-{
+class CGRequestIPHandler {
 public:
-	static void execute (CGRequestIP * pCGRequestIP , Player * pPlayer ) ;
+    static void execute(CGRequestIP* pCGRequestIP, Player* pPlayer);
 };
 
 

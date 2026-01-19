@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GhostBlade.h 
-// Written By  : 
-// Description : 
+// Filename    : GhostBlade.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GHOST_BLADE_HANDLER_H__
@@ -13,19 +13,22 @@
 // class GhostBlade;
 //////////////////////////////////////////////////////////////////////////////
 
-class GhostBlade : public SkillHandler 
-{
+class GhostBlade : public SkillHandler {
 public:
-	GhostBlade() throw() {}
-	~GhostBlade() throw() {}
-	
+    GhostBlade() throw() {}
+    ~GhostBlade() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GhostBlade"; }
-	SkillType_t getSkillType() const throw() { return SKILL_GHOST_BLADE; }
+    string getSkillHandlerName() const throw() {
+        return "GhostBlade";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GHOST_BLADE;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

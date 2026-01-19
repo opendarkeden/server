@@ -1,78 +1,78 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCMyStoreInfo.cpp 
+// Filename    : GCMyStoreInfo.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCMyStoreInfo.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCMyStoreInfo::~GCMyStoreInfo() 
-	
-{
-	__BEGIN_TRY 
+GCMyStoreInfo::~GCMyStoreInfo()
 
-	__END_CATCH_NO_RETHROW
+{
+    __BEGIN_TRY
+
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCMyStoreInfo::read (SocketInputStream & iStream ) 
-	 
+void GCMyStoreInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_OpenUI);
-	m_pInfo->read(iStream, false);
+    iStream.read(m_OpenUI);
+    m_pInfo->read(iStream, false);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCMyStoreInfo::write (SocketOutputStream & oStream ) const 
-     
+void GCMyStoreInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_OpenUI);
-	m_pInfo->write(oStream, false);
+    oStream.write(m_OpenUI);
+    m_pInfo->write(oStream, false);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCMyStoreInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCMyStoreInfoHandler::execute(this , pPlayer);
+void GCMyStoreInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCMyStoreInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCMyStoreInfo::toString () const
-       
+string GCMyStoreInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCMyStoreInfo(";
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
-		
-	__END_CATCH
+    StringStream msg;
+    msg << "GCMyStoreInfo(";
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

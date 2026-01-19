@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionRaceComp.cpp
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -9,55 +9,54 @@
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionRaceComp::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	 
-{ 
-	Assert(pCreature2 != NULL);
-	Assert(pCreature2->isPC());
+bool ConditionRaceComp::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const
 
-	if (pCreature2->getCreatureClass() != m_CClass) return false;
+{
+    Assert(pCreature2 != NULL);
+    Assert(pCreature2->isPC());
 
-	return true;
+    if (pCreature2->getCreatureClass() != m_CClass)
+        return false;
+
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
-void ConditionRaceComp::read (PropertyBuffer & propertyBuffer) 
-	
-{
-	try
-	{
-		string identifier = propertyBuffer.getProperty("Race");
+void ConditionRaceComp::read(PropertyBuffer& propertyBuffer)
 
-		if (identifier == "SLAYER") m_CClass = Creature::CREATURE_CLASS_SLAYER;
-		else if (identifier == "VAMPIRE") m_CClass = Creature::CREATURE_CLASS_VAMPIRE;
-		else if (identifier == "OUSTERS") m_CClass = Creature::CREATURE_CLASS_OUSTERS;
-		else
-		{
-			cout << "ConditionRaceComp::read() : unknown race" << endl;
-			throw ("ConditionRaceComp::read() : unknown race");
-		}
-	}
-	catch (NoSuchElementException & nsee)
-	{
-		throw Error(nsee.toString());
-	}
+{
+    try {
+        string identifier = propertyBuffer.getProperty("Race");
+
+        if (identifier == "SLAYER")
+            m_CClass = Creature::CREATURE_CLASS_SLAYER;
+        else if (identifier == "VAMPIRE")
+            m_CClass = Creature::CREATURE_CLASS_VAMPIRE;
+        else if (identifier == "OUSTERS")
+            m_CClass = Creature::CREATURE_CLASS_OUSTERS;
+        else {
+            cout << "ConditionRaceComp::read() : unknown race" << endl;
+            throw("ConditionRaceComp::read() : unknown race");
+        }
+    } catch (NoSuchElementException& nsee) {
+        throw Error(nsee.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-	// get debug string
+// get debug string
 ////////////////////////////////////////////////////////////////////////////////
-string ConditionRaceComp::toString () const 
-	 
-{ 
-	__BEGIN_TRY
+string ConditionRaceComp::toString() const
 
-	StringStream msg;
-	msg << "ConditionRaceComp("
-		<< "CClass:" << (int)m_CClass
-		<< ")"; 
-	return msg.toString();
+{
+    __BEGIN_TRY
 
-	__END_CATCH
+    StringStream msg;
+    msg << "ConditionRaceComp("
+        << "CClass:" << (int)m_CClass << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

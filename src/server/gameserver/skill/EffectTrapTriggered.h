@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectTrapTriggered.h
-// Written by  : 
+// Written by  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -13,25 +13,28 @@
 // class EffectTrapTriggered
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectTrapTriggered : public Effect 
-{
+class EffectTrapTriggered : public Effect {
 public:
-	EffectTrapTriggered(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRAP_TRIGGERED; }
-	EffectClass getSendEffectClass() const throw() { return EFFECT_CLASS_TRAPPED; }
-
-	void affect()  {}
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ; 
-
-	string toString() const throw();
+    EffectTrapTriggered(Creature* pCreature);
 
 public:
-private :
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_TRAP_TRIGGERED;
+    }
+    EffectClass getSendEffectClass() const throw() {
+        return EFFECT_CLASS_TRAPPED;
+    }
+
+    void affect() {}
+    void affect(Creature* pCreature);
+
+    void unaffect(Creature* pCreature);
+    void unaffect();
+
+    string toString() const throw();
+
+public:
+private:
 };
 
 #endif // __EFFECT_TRAP_TRIGGERED__

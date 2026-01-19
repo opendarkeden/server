@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SpiritGuard.h 
-// Written By  : 
-// Description : 
+// Filename    : SpiritGuard.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SPIRIT_GUARD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class SpiritGuard;
 //////////////////////////////////////////////////////////////////////////////
 
-class SpiritGuard : public SkillHandler 
-{
+class SpiritGuard : public SkillHandler {
 public:
-	SpiritGuard() throw() {}
-	~SpiritGuard() throw() {}
-	
+    SpiritGuard() throw() {}
+    ~SpiritGuard() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SpiritGuard"; }
-	SkillType_t getSkillType() const throw() { return SKILL_SPIRIT_GUARD; }
+    string getSkillHandlerName() const throw() {
+        return "SpiritGuard";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SPIRIT_GUARD;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

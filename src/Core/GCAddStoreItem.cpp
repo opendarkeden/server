@@ -1,10 +1,11 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCAddStoreItem.cpp 
+// Filename    : GCAddStoreItem.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddStoreItem.h"
+
 #include "Assert1.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -14,61 +15,60 @@ GCAddStoreItem::~GCAddStoreItem() noexcept = default;
 //////////////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////////////
-void GCAddStoreItem::read (SocketInputStream & iStream ) 
-	 
+void GCAddStoreItem::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_OwnerObjectID);
-	iStream.read(m_Index);
-	m_Item.read(iStream);
+    iStream.read(m_OwnerObjectID);
+    iStream.read(m_Index);
+    m_Item.read(iStream);
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////////////
-void GCAddStoreItem::write (SocketOutputStream & oStream ) const 
-     
+void GCAddStoreItem::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_OwnerObjectID);
-	oStream.write(m_Index);
-	m_Item.write(oStream);
+    oStream.write(m_OwnerObjectID);
+    oStream.write(m_Index);
+    m_Item.write(oStream);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCAddStoreItem::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCAddStoreItemHandler::execute(this , pPlayer);
+void GCAddStoreItem::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCAddStoreItemHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCAddStoreItem::toString () const
-       
+string GCAddStoreItem::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCAddStoreItem(";
-	msg << ")";
+    __BEGIN_TRY
 
-	return msg.toString();
-		
-	__END_CATCH
+    StringStream msg;
+    msg << "GCAddStoreItem(";
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

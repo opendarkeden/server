@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : CLReconnectLogin.h 
+//
+// Filename    : CLReconnectLogin.h
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __CL_RECONNECT_LOGIN_H__
@@ -24,52 +24,59 @@
 //////////////////////////////////////////////////////////////////////
 
 class CLReconnectLogin : public Packet {
-
 public:
-	CLReconnectLogin() {};
+    CLReconnectLogin() {};
     virtual ~CLReconnectLogin() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
+    void read(SocketInputStream& iStream);
+
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+    void write(SocketOutputStream& oStream) const;
 
-	// execute packet's handler
-	void execute(Player* pPlayer) ;
+    // execute packet's handler
+    void execute(Player* pPlayer);
 
-	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CL_RECONNECT_LOGIN; }
-	
-	// get packet's body size
-	PacketSize_t getPacketSize() const  
-	{ 
-		return szDWORD + szBYTE; 						// authentication key
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return PACKET_CL_RECONNECT_LOGIN;
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CLReconnectLogin"; }
-	
-	// get packet's debug string
-	string toString() const ;
+    // get packet's body size
+    PacketSize_t getPacketSize() const {
+        return szDWORD + szBYTE; // authentication key
+    }
+
+    // get packet name
+    string getPacketName() const {
+        return "CLReconnectLogin";
+    }
+
+    // get packet's debug string
+    string toString() const;
 
 public:
+    // get/set key
+    DWORD getKey() const {
+        return m_Key;
+    }
+    void setKey(DWORD key) {
+        m_Key = key;
+    }
 
-	// get/set key
-	DWORD getKey() const  { return m_Key; }
-	void setKey(DWORD key)  { m_Key = key; }
+    // Web login
+    void setWebLogin() {
+        m_LoginMode = LOGIN_MODE_WEBLOGIN;
+    }
+    bool isWebLogin() const {
+        return m_LoginMode == LOGIN_MODE_WEBLOGIN;
+    }
 
-	// Web login
-	void setWebLogin() { m_LoginMode = LOGIN_MODE_WEBLOGIN; }
-	bool isWebLogin() const { return m_LoginMode == LOGIN_MODE_WEBLOGIN; }
+private:
+    // authentication key
+    DWORD m_Key;
 
-private :
-	
-	// authentication key
-	DWORD m_Key;
-
-	// Login Mode
-	BYTE m_LoginMode;
-
+    // Login Mode
+    BYTE m_LoginMode;
 };
 
 
@@ -82,24 +89,26 @@ private :
 //////////////////////////////////////////////////////////////////////
 
 class CLReconnectLoginFactory : public PacketFactory {
-
 public:
-	
-	// create packet
-	Packet* createPacket()  { return new CLReconnectLogin(); }
+    // create packet
+    Packet* createPacket() {
+        return new CLReconnectLogin();
+    }
 
-	// get packet name
-	string getPacketName() const  { return "CLReconnectLogin"; }
-	
-	// get packet id
-	PacketID_t getPacketID() const  { return Packet::PACKET_CL_RECONNECT_LOGIN; }
+    // get packet name
+    string getPacketName() const {
+        return "CLReconnectLogin";
+    }
 
-	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const 
-	{ 
-		return szDWORD + szBYTE; 			// authentication key
-	}
+    // get packet id
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CL_RECONNECT_LOGIN;
+    }
 
+    // get packet's max body size
+    PacketSize_t getPacketMaxSize() const {
+        return szDWORD + szBYTE; // authentication key
+    }
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -109,12 +118,10 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 class CLReconnectLoginHandler {
-
 public:
-
-	// execute packet's handler
-	static void execute(CLReconnectLogin* pPacket, Player* pPlayer) ;
-	static bool onChildGuardTimeArea(int pm, int am, string enable);
+    // execute packet's handler
+    static void execute(CLReconnectLogin* pPacket, Player* pPlayer);
+    static bool onChildGuardTimeArea(int pm, int am, string enable);
 };
 
 #endif

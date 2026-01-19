@@ -15,268 +15,366 @@
 // 아이템이나 걸려있는 마법 같은 정보는 담겨있지 않다.
 //////////////////////////////////////////////////////////////////////////////
 
-class PCOustersInfo2 : public PCInfo 
-{
+class PCOustersInfo2 : public PCInfo {
 public:
-	PCType getPCType () const  { return PC_OUSTERS; }
+    PCType getPCType() const {
+        return PC_OUSTERS;
+    }
 
-	void read (SocketInputStream & iStream) ;
-	void write (SocketOutputStream & oStream) const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
 
-	uint getSize () const 
-	{
-		return szObjectID					// ObjectID
-			+ szBYTE + m_Name.size() 		// 아우스터스 이름
-			+ szLevel						// 레벨
-			+ szSex							// 성별
-			+ szColor						// 머리 색상
-			+ szBYTE
-			+ szAlignment					// 성향
-			+ szAttr * 3 * 3				// 능력치
-			+ szHP* 2						// HP
-			+ szMP* 2						// MP
-			+ szRank + szRankExp			// 계급 경험치
-			+ szExp							// 경험치
-			+ szGold 						// 돈
-			+ szFame						// Fame
-			+ szSight						// 시야
-			+ szBonus						// 보너스 포인트
-			+ szSkillBonus					// 스킬 보너스 포인트
-			+ szSilver						// 실버 데미지
-			+ szBYTE						// 권한
-			+ szGuildID						// 길드 아이디
-			+ szBYTE + m_GuildName.size()	// 길드 이름
-			+ szGuildMemberRank				// guild member rank
-			+ szuint
-			+ szLevel
-			+ szExp;
-	}
+    uint getSize() const {
+        return szObjectID                    // ObjectID
+               + szBYTE + m_Name.size()      // 아우스터스 이름
+               + szLevel                     // 레벨
+               + szSex                       // 성별
+               + szColor                     // 머리 색상
+               + szBYTE + szAlignment        // 성향
+               + szAttr * 3 * 3              // 능력치
+               + szHP * 2                    // HP
+               + szMP * 2                    // MP
+               + szRank + szRankExp          // 계급 경험치
+               + szExp                       // 경험치
+               + szGold                      // 돈
+               + szFame                      // Fame
+               + szSight                     // 시야
+               + szBonus                     // 보너스 포인트
+               + szSkillBonus                // 스킬 보너스 포인트
+               + szSilver                    // 실버 데미지
+               + szBYTE                      // 권한
+               + szGuildID                   // 길드 아이디
+               + szBYTE + m_GuildName.size() // 길드 이름
+               + szGuildMemberRank           // guild member rank
+               + szuint + szLevel + szExp;
+    }
 
-	static uint getMaxSize () 
-	{
-		return szObjectID				// ObjectID
-			+ szBYTE + 20				// 아우스터스 이름
-			+ szLevel					// 레벨
-			+ szSex						// 성별
-			+ szColor					// 색상
-			+ szBYTE
-			+ szAlignment				// 성향
-			+ szAttr * 3 * 3			// 능력치
-			+ szHP* 2					// HP
-			+ szMP* 2					// MP
-			+ szRank + szRankExp		// 계급 경험치
-			+ szExp						// 경험치
-			+ szGold					// 돈
-			+ szFame					// Fame
-			+ szSight					// 시야
-			+ szBonus					// 보너스 포인트
-			+ szSkillBonus				// 스킬 보너스 포인트
-			+ szSilver					// 실버 데미지
-			+ szBYTE					// 권한
-			+ szGuildID					// 길드 아이디
-			+ szBYTE + 30				// 길드 이름
-			+ szGuildMemberRank	 		// guild member rank
-			+ szuint
-			+ szLevel
-			+ szExp;
-	}
+    static uint getMaxSize() {
+        return szObjectID             // ObjectID
+               + szBYTE + 20          // 아우스터스 이름
+               + szLevel              // 레벨
+               + szSex                // 성별
+               + szColor              // 색상
+               + szBYTE + szAlignment // 성향
+               + szAttr * 3 * 3       // 능력치
+               + szHP * 2             // HP
+               + szMP * 2             // MP
+               + szRank + szRankExp   // 계급 경험치
+               + szExp                // 경험치
+               + szGold               // 돈
+               + szFame               // Fame
+               + szSight              // 시야
+               + szBonus              // 보너스 포인트
+               + szSkillBonus         // 스킬 보너스 포인트
+               + szSilver             // 실버 데미지
+               + szBYTE               // 권한
+               + szGuildID            // 길드 아이디
+               + szBYTE + 30          // 길드 이름
+               + szGuildMemberRank    // guild member rank
+               + szuint + szLevel + szExp;
+    }
 
-	string toString () const ;
+    string toString() const;
 
 public:
-	ObjectID_t getObjectID () const  { return m_ObjectID; }
-	void setObjectID (ObjectID_t objectID)  { m_ObjectID = objectID; }
+    ObjectID_t getObjectID() const {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t objectID) {
+        m_ObjectID = objectID;
+    }
 
-    string getName () const  { return m_Name; }
-    void setName (string name)  { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
+    string getName() const {
+        return m_Name;
+    }
+    void setName(string name) {
+        m_Name = (name.size() > 20) ? name.substr(0, 20) : name;
+    }
 
-    Level_t getLevel () const  { return m_Level; }
-    void setLevel (Level_t Level)  { m_Level = Level; }
+    Level_t getLevel() const {
+        return m_Level;
+    }
+    void setLevel(Level_t Level) {
+        m_Level = Level;
+    }
 
-	Sex getSex () const  { return m_Sex; }
-	void setSex (Sex sex)  { m_Sex = sex; }
-	void setSex (string sex) 
-	{
-		if (sex == Sex2String[MALE]) 
-			m_Sex = MALE;
-		else if (sex == Sex2String[FEMALE]) 
-			m_Sex = FEMALE;
-		else
-			throw InvalidProtocolException("invalid sex value");
-	}
+    Sex getSex() const {
+        return m_Sex;
+    }
+    void setSex(Sex sex) {
+        m_Sex = sex;
+    }
+    void setSex(string sex) {
+        if (sex == Sex2String[MALE])
+            m_Sex = MALE;
+        else if (sex == Sex2String[FEMALE])
+            m_Sex = FEMALE;
+        else
+            throw InvalidProtocolException("invalid sex value");
+    }
 
-	Fame_t getFame () const  { return m_Fame; }
-	void setFame (Fame_t f)  { m_Fame = f; }
-	
-	Color_t getHairColor () const  { return m_HairColor; }
-	void setHairColor (Color_t hairColor)  { m_HairColor = hairColor; }
+    Fame_t getFame() const {
+        return m_Fame;
+    }
+    void setFame(Fame_t f) {
+        m_Fame = f;
+    }
 
-	BYTE getMasterEffectColor () const  { return m_MasterEffectColor; }
-	void setMasterEffectColor (BYTE color)  { m_MasterEffectColor = color; }
+    Color_t getHairColor() const {
+        return m_HairColor;
+    }
+    void setHairColor(Color_t hairColor) {
+        m_HairColor = hairColor;
+    }
 
-	Alignment_t getAlignment() const  { return m_Alignment; }
-	void setAlignment(Alignment_t Alignment)  { m_Alignment = Alignment; }
+    BYTE getMasterEffectColor() const {
+        return m_MasterEffectColor;
+    }
+    void setMasterEffectColor(BYTE color) {
+        m_MasterEffectColor = color;
+    }
 
-	Attr_t getSTR (AttrType attrType = ATTR_CURRENT) const 
-	{
-		if (m_STR[attrType] > maxOustersAttr) throw Error("STR out of range"); 
-		return m_STR[attrType]; 
-	}
-	void setSTR (Attr_t str, AttrType attrType = ATTR_CURRENT) 
-	{ 
-		if (str > maxOustersAttr) throw Error("STR out of range"); 
-		m_STR[attrType] = str; 
-	}
-	
-	Attr_t getDEX (AttrType attrType = ATTR_CURRENT) const 
-	{ 
-		if (m_DEX[attrType] > maxOustersAttr) throw Error("DEX out of range"); 
-		return m_DEX[attrType]; 
-	}
-	void setDEX (Attr_t dex, AttrType attrType = ATTR_CURRENT) 
-	{ 
-		if (dex > maxOustersAttr) throw Error("DEX out of range"); 
-		m_DEX[attrType] = dex; 
-	}
-	
-	Attr_t getINT (AttrType attrType = ATTR_CURRENT) const 
-	{ 
-		if (m_INT[attrType] > maxOustersAttr) throw Error("INT out of range"); 
-		return m_INT[attrType]; 
-	}
-	void setINT (Attr_t inte, AttrType attrType = ATTR_CURRENT) 
-	{
-		if (inte > maxOustersAttr) throw Error("INT out of range"); 
-		m_INT[attrType] = inte; 
-	}
+    Alignment_t getAlignment() const {
+        return m_Alignment;
+    }
+    void setAlignment(Alignment_t Alignment) {
+        m_Alignment = Alignment;
+    }
 
-	HP_t getHP (AttrType attrType = ATTR_CURRENT) const  { return m_HP[attrType]; }
-	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT)  { m_HP[attrType] = hp; }
-	void setHP (HP_t curHP, HP_t maxHP)  { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
+    Attr_t getSTR(AttrType attrType = ATTR_CURRENT) const {
+        if (m_STR[attrType] > maxOustersAttr)
+            throw Error("STR out of range");
+        return m_STR[attrType];
+    }
+    void setSTR(Attr_t str, AttrType attrType = ATTR_CURRENT) {
+        if (str > maxOustersAttr)
+            throw Error("STR out of range");
+        m_STR[attrType] = str;
+    }
 
-	HP_t getMP (AttrType attrType = ATTR_CURRENT) const  { return m_MP[attrType]; }
-	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT)  { m_MP[attrType] = mp; }
-	void setMP (MP_t curMP, MP_t maxMP)  { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
+    Attr_t getDEX(AttrType attrType = ATTR_CURRENT) const {
+        if (m_DEX[attrType] > maxOustersAttr)
+            throw Error("DEX out of range");
+        return m_DEX[attrType];
+    }
+    void setDEX(Attr_t dex, AttrType attrType = ATTR_CURRENT) {
+        if (dex > maxOustersAttr)
+            throw Error("DEX out of range");
+        m_DEX[attrType] = dex;
+    }
 
-	Rank_t getRank () const  { return m_Rank; }
-	void setRank (Rank_t rank)  { m_Rank = rank; }
+    Attr_t getINT(AttrType attrType = ATTR_CURRENT) const {
+        if (m_INT[attrType] > maxOustersAttr)
+            throw Error("INT out of range");
+        return m_INT[attrType];
+    }
+    void setINT(Attr_t inte, AttrType attrType = ATTR_CURRENT) {
+        if (inte > maxOustersAttr)
+            throw Error("INT out of range");
+        m_INT[attrType] = inte;
+    }
 
-	RankExp_t getRankExp () const  { return m_RankExp; }
-	void setRankExp (RankExp_t rankExp)  { m_RankExp = rankExp; }
+    HP_t getHP(AttrType attrType = ATTR_CURRENT) const {
+        return m_HP[attrType];
+    }
+    void setHP(HP_t hp, AttrType attrType = ATTR_CURRENT) {
+        m_HP[attrType] = hp;
+    }
+    void setHP(HP_t curHP, HP_t maxHP) {
+        m_HP[ATTR_CURRENT] = curHP;
+        m_HP[ATTR_MAX] = maxHP;
+    }
 
-	Exp_t getExp () const  { return m_Exp; }
-	void setExp (Exp_t exp)  { m_Exp = exp; }
+    HP_t getMP(AttrType attrType = ATTR_CURRENT) const {
+        return m_MP[attrType];
+    }
+    void setMP(MP_t mp, AttrType attrType = ATTR_CURRENT) {
+        m_MP[attrType] = mp;
+    }
+    void setMP(MP_t curMP, MP_t maxMP) {
+        m_MP[ATTR_CURRENT] = curMP;
+        m_MP[ATTR_MAX] = maxMP;
+    }
 
-	Gold_t getGold () const  { return m_Gold; }
-	void setGold (Gold_t gold)  { m_Gold = gold; }
+    Rank_t getRank() const {
+        return m_Rank;
+    }
+    void setRank(Rank_t rank) {
+        m_Rank = rank;
+    }
 
-	Sight_t getSight () const  { return m_Sight; }
-	void setSight (Sight_t sight)  { m_Sight = sight; }
+    RankExp_t getRankExp() const {
+        return m_RankExp;
+    }
+    void setRankExp(RankExp_t rankExp) {
+        m_RankExp = rankExp;
+    }
 
-	Bonus_t getBonus() const  { return m_Bonus; }
-	void setBonus(Bonus_t Bonus)  { m_Bonus = Bonus; }
+    Exp_t getExp() const {
+        return m_Exp;
+    }
+    void setExp(Exp_t exp) {
+        m_Exp = exp;
+    }
 
-	SkillBonus_t getSkillBonus() const  { return m_SkillBonus; }
-	void setSkillBonus(SkillBonus_t skillBonus)  { m_SkillBonus = skillBonus; }
+    Gold_t getGold() const {
+        return m_Gold;
+    }
+    void setGold(Gold_t gold) {
+        m_Gold = gold;
+    }
 
-	Silver_t getSilverDamage() const  { return m_SilverDamage; }
-	void setSilverDamage(Silver_t SilverDamage )  { m_SilverDamage = SilverDamage; }
+    Sight_t getSight() const {
+        return m_Sight;
+    }
+    void setSight(Sight_t sight) {
+        m_Sight = sight;
+    }
 
-	BYTE getCompetence(void) const { return m_Competence; }
-	void setCompetence(BYTE competence) { m_Competence = competence; }
+    Bonus_t getBonus() const {
+        return m_Bonus;
+    }
+    void setBonus(Bonus_t Bonus) {
+        m_Bonus = Bonus;
+    }
 
-	GuildID_t getGuildID(void) const { return m_GuildID; }
-	void setGuildID(GuildID_t GuildID) { m_GuildID = GuildID; }
+    SkillBonus_t getSkillBonus() const {
+        return m_SkillBonus;
+    }
+    void setSkillBonus(SkillBonus_t skillBonus) {
+        m_SkillBonus = skillBonus;
+    }
 
-	string getGuildName() const { return m_GuildName; }
-	void setGuildName( string guildName ) { m_GuildName = guildName; }
+    Silver_t getSilverDamage() const {
+        return m_SilverDamage;
+    }
+    void setSilverDamage(Silver_t SilverDamage) {
+        m_SilverDamage = SilverDamage;
+    }
 
-	GuildMemberRank_t getGuildMemberRank() const { return m_GuildMemberRank; }
-	void setGuildMemberRank( GuildMemberRank_t guildMemberRank ) { m_GuildMemberRank = guildMemberRank; }
+    BYTE getCompetence(void) const {
+        return m_Competence;
+    }
+    void setCompetence(BYTE competence) {
+        m_Competence = competence;
+    }
 
-	uint getUnionID(void) const { return m_UnionID; }
-	void setUnionID(uint UnionID) { m_UnionID = UnionID; }
+    GuildID_t getGuildID(void) const {
+        return m_GuildID;
+    }
+    void setGuildID(GuildID_t GuildID) {
+        m_GuildID = GuildID;
+    }
 
-	Level_t	getAdvancementLevel() const { return m_AdvancementLevel; }
-	void setAdvancementLevel( Level_t level ) { m_AdvancementLevel = level; }
+    string getGuildName() const {
+        return m_GuildName;
+    }
+    void setGuildName(string guildName) {
+        m_GuildName = guildName;
+    }
 
-	Exp_t	getAdvancementGoalExp() const { return m_AdvancementGoalExp; }
-	void setAdvancementGoalExp( Exp_t exp ) { m_AdvancementGoalExp = exp; }
+    GuildMemberRank_t getGuildMemberRank() const {
+        return m_GuildMemberRank;
+    }
+    void setGuildMemberRank(GuildMemberRank_t guildMemberRank) {
+        m_GuildMemberRank = guildMemberRank;
+    }
+
+    uint getUnionID(void) const {
+        return m_UnionID;
+    }
+    void setUnionID(uint UnionID) {
+        m_UnionID = UnionID;
+    }
+
+    Level_t getAdvancementLevel() const {
+        return m_AdvancementLevel;
+    }
+    void setAdvancementLevel(Level_t level) {
+        m_AdvancementLevel = level;
+    }
+
+    Exp_t getAdvancementGoalExp() const {
+        return m_AdvancementGoalExp;
+    }
+    void setAdvancementGoalExp(Exp_t exp) {
+        m_AdvancementGoalExp = exp;
+    }
+
 private:
+    // PC's object id
+    ObjectID_t m_ObjectID;
 
-	// PC's object id
-	ObjectID_t m_ObjectID;
+    // PC name
+    string m_Name;
 
-	// PC name
-	string m_Name;
+    // PC name
+    Level_t m_Level;
 
-	// PC name
-	Level_t m_Level;
+    // PC sex
+    Sex m_Sex;
 
-	// PC sex
-	Sex m_Sex;
+    // hair color, skin color,
+    Color_t m_HairColor;
+    BYTE m_MasterEffectColor;
 
-	// hair color, skin color,
-	Color_t m_HairColor;
-	BYTE m_MasterEffectColor;
-
-	// Alignment
-	Alignment_t m_Alignment;
+    // Alignment
+    Alignment_t m_Alignment;
 
     // Attributes
-	Attr_t m_STR[3];
-	Attr_t m_DEX[3];
-	Attr_t m_INT[3];
+    Attr_t m_STR[3];
+    Attr_t m_DEX[3];
+    Attr_t m_INT[3];
 
-	// HP
-	// HP[0] = current hp, hp[1] == max hp
-	HP_t m_HP[2];
+    // HP
+    // HP[0] = current hp, hp[1] == max hp
+    HP_t m_HP[2];
 
-	// MP
-	// MP[0] = current mp, mp[1] == max mp
-	MP_t m_MP[2];
+    // MP
+    // MP[0] = current mp, mp[1] == max mp
+    MP_t m_MP[2];
 
-	// 계급
-	Rank_t			m_Rank;
-	RankExp_t		m_RankExp;
+    // 계급
+    Rank_t m_Rank;
+    RankExp_t m_RankExp;
 
-	// Exp
-	Exp_t m_Exp;
+    // Exp
+    Exp_t m_Exp;
 
-	// Fame
-	Fame_t m_Fame;
+    // Fame
+    Fame_t m_Fame;
 
-	// Gold
-	Gold_t m_Gold;
+    // Gold
+    Gold_t m_Gold;
 
-	// 시야
-	Sight_t m_Sight;
+    // 시야
+    Sight_t m_Sight;
 
-	// 보너스 포인트
-	Bonus_t m_Bonus;
+    // 보너스 포인트
+    Bonus_t m_Bonus;
 
-	// 스킬 보너스 포인트
-	SkillBonus_t m_SkillBonus;
+    // 스킬 보너스 포인트
+    SkillBonus_t m_SkillBonus;
 
-	// 실버 데미지
-	Silver_t m_SilverDamage;
+    // 실버 데미지
+    Silver_t m_SilverDamage;
 
-	// Competence
-	BYTE m_Competence;
+    // Competence
+    BYTE m_Competence;
 
-	// 길드 ID
-	GuildID_t m_GuildID;
+    // 길드 ID
+    GuildID_t m_GuildID;
 
-	// guild name
-	string m_GuildName;
+    // guild name
+    string m_GuildName;
 
-	// guild member rank
-	GuildMemberRank_t m_GuildMemberRank;
+    // guild member rank
+    GuildMemberRank_t m_GuildMemberRank;
 
-	uint m_UnionID;
+    uint m_UnionID;
 
-	Level_t m_AdvancementLevel;
-	Exp_t m_AdvancementGoalExp;
+    Level_t m_AdvancementLevel;
+    Exp_t m_AdvancementGoalExp;
 };
 
 #endif

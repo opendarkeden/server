@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectJabbingVein.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_JABBING_VEIN__
@@ -14,21 +14,21 @@
 // class EffectJabbingVein
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectJabbingVein : public Effect 
-{
+class EffectJabbingVein : public Effect {
 public:
-	EffectJabbingVein(Creature* pCreature) ;
+    EffectJabbingVein(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_JABBING_VEIN; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_JABBING_VEIN;
+    }
 
-	void affect() {}
+    void affect() {}
 
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	string toString() const throw();
-
+    string toString() const throw();
 };
 
 #endif // __EFFECT_JABBING_VEIN__

@@ -4,191 +4,176 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectCannonade.h"
-#include "Slayer.h"
-#include "Vampire.h"
-#include "Monster.h"
-#include "GamePlayer.h"
-#include "PCFinder.h"
-#include "ZoneUtil.h"
-#include "ZoneInfoManager.h"
-#include "SkillInfo.h"
-#include "SkillUtil.h"
-#include "HitRoll.h"
+
 #include "GCSkillToObjectOK2.h"
 #include "GCSkillToObjectOK4.h"
 #include "GCStatusCurrentHP.h"
+#include "GamePlayer.h"
+#include "HitRoll.h"
+#include "Monster.h"
+#include "PCFinder.h"
+#include "SkillInfo.h"
+#include "SkillUtil.h"
+#include "Slayer.h"
+#include "Vampire.h"
+#include "ZoneInfoManager.h"
+#include "ZoneUtil.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectCannonade::EffectCannonade(Creature* pCreature, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y)
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	setTarget(pCreature);
-	m_pZone = pZone;
-	m_X = x;
-	m_Y = y;
-	setBroadcastingEffect(false);
+    setTarget(pCreature);
+    m_pZone = pZone;
+    m_X = x;
+    m_Y = y;
+    setBroadcastingEffect(false);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectCannonade::affect(Creature* pCreature)
-	
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectCannonade::unaffect(Creature* pCastCreature)
-	
+
 {
-	__BEGIN_TRY
-	
-	Assert(pCastCreature != NULL);
+    __BEGIN_TRY
 
-	VSRect rect( 0, 0, m_pZone->getWidth()-1, m_pZone->getHeight()-1 );	// -1 추가 by sigi. 2003.1.10
+    Assert(pCastCreature != NULL);
 
-	bool bHit = false;
+    VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1); // -1 추가 by sigi. 2003.1.10
 
-	GCSkillToObjectOK2 gcSkillToObjectOK2;
-	GCSkillToObjectOK4 gcSkillToObjectOK4;
+    bool bHit = false;
 
-	for ( int x=-2; x<=2; x++ )
-	{
-		for ( int y=-2; y<=2; y++ )
-		{
-			int X = m_X + x;
-			int Y = m_Y + y;
+    GCSkillToObjectOK2 gcSkillToObjectOK2;
+    GCSkillToObjectOK4 gcSkillToObjectOK4;
 
-			if ( !rect.ptInRect( X, Y ) ) continue;
+    for (int x = -2; x <= 2; x++) {
+        for (int y = -2; y <= 2; y++) {
+            int X = m_X + x;
+            int Y = m_Y + y;
 
-			// 타일안에 존재하는 오브젝트를 가져온다.
-			Tile& tile = m_pZone->getTile( X, Y );
-			const forward_list<Object*>& oList = tile.getObjectList();
-			forward_list<Object*>::const_iterator itr = oList.begin();
+            if (!rect.ptInRect(X, Y))
+                continue;
 
-			Damage_t Damage = m_Damage;
+            // 타일안에 존재하는 오브젝트를 가져온다.
+            Tile& tile = m_pZone->getTile(X, Y);
+            const forward_list<Object*>& oList = tile.getObjectList();
+            forward_list<Object*>::const_iterator itr = oList.begin();
 
-			for ( ; itr != oList.end(); itr++ )
-			{
-				Object* pObject = *itr;
-				Assert( pObject != NULL );
+            Damage_t Damage = m_Damage;
 
-				if ( pObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
-				{
-					Creature* pCreature = dynamic_cast<Creature*>(pObject);
-					Assert( pCreature != NULL );
+            for (; itr != oList.end(); itr++) {
+                Object* pObject = *itr;
+                Assert(pObject != NULL);
 
-					// 자신은 맞지 않는다. 무적도 안 맞는다. 슬레이어는 맞지 않는다.
-					if ( pCreature == m_pTarget
-					  || !canAttack( pCastCreature, pCreature )
-					  || pCreature->isFlag( Effect::EFFECT_CLASS_COMA ) )
-					{
-						continue;
-					}
+                if (pObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
+                    Creature* pCreature = dynamic_cast<Creature*>(pObject);
+                    Assert(pCreature != NULL);
 
-					bool bPK                = verifyPK( pCastCreature, pCreature );
-					bool bZoneLevelCheck    = checkZoneLevelToHitTarget( pCreature );
-					
-					if ( pCastCreature->isMonster() )
-					{
-						Monster* pMonster = dynamic_cast<Monster*>(pCastCreature);
-						Assert( pMonster != NULL );
-						bPK = pMonster->isEnemyToAttack(pCreature);
-					}
+                    // 자신은 맞지 않는다. 무적도 안 맞는다. 슬레이어는 맞지 않는다.
+                    if (pCreature == m_pTarget || !canAttack(pCastCreature, pCreature) ||
+                        pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
+                        continue;
+                    }
 
-					bool bHitRoll           = HitRoll::isSuccess( pCastCreature, pCreature );
+                    bool bPK = verifyPK(pCastCreature, pCreature);
+                    bool bZoneLevelCheck = checkZoneLevelToHitTarget(pCreature);
 
-					if ( bPK && bZoneLevelCheck && bHitRoll )
-					{
-						// 원래 데미지와 스킬 데미지 보너스를 더한 최종 데미지를 구한다.
-						Damage_t FinalDamage = 0;
-						FinalDamage = computeDamage( pCastCreature, pCreature );
-						FinalDamage += Damage;
+                    if (pCastCreature->isMonster()) {
+                        Monster* pMonster = dynamic_cast<Monster*>(pCastCreature);
+                        Assert(pMonster != NULL);
+                        bPK = pMonster->isEnemyToAttack(pCreature);
+                    }
 
-						if ( pCreature->isPC() && pCreature->getCreatureClass() != pCastCreature->getCreatureClass() )
-						{
-//							Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
+                    bool bHitRoll = HitRoll::isSuccess(pCastCreature, pCreature);
 
-							GCModifyInformation gcMI;
-							::setDamage( pCreature, FinalDamage, pCastCreature, SKILL_CANNONADE, &gcMI ); // ::추가 by Sequoia
+                    if (bPK && bZoneLevelCheck && bHitRoll) {
+                        // 원래 데미지와 스킬 데미지 보너스를 더한 최종 데미지를 구한다.
+                        Damage_t FinalDamage = 0;
+                        FinalDamage = computeDamage(pCastCreature, pCreature);
+                        FinalDamage += Damage;
 
-							pCreature->getPlayer()->sendPacket( &gcMI );
+                        if (pCreature->isPC() && pCreature->getCreatureClass() != pCastCreature->getCreatureClass()) {
+                            //							Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-							// 맞는 동작을 보여준다.
-							gcSkillToObjectOK2.setObjectID( 1 );    // 의미 없다.
-							gcSkillToObjectOK2.setSkillType( SKILL_ATTACK_MELEE );
-							gcSkillToObjectOK2.setDuration(0);
-							pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
+                            GCModifyInformation gcMI;
+                            ::setDamage(pCreature, FinalDamage, pCastCreature, SKILL_CANNONADE,
+                                        &gcMI); // ::추가 by Sequoia
 
-							bHit = true;
-						}
-						else if ( pCreature->isMonster() )
-						{
-							Monster* pMonster = dynamic_cast<Monster*>(pCreature);
+                            pCreature->getPlayer()->sendPacket(&gcMI);
 
-							::setDamage( pMonster, FinalDamage, pCastCreature, SKILL_CANNONADE );	// ::추가 by Sequoia
+                            // 맞는 동작을 보여준다.
+                            gcSkillToObjectOK2.setObjectID(1); // 의미 없다.
+                            gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
+                            gcSkillToObjectOK2.setDuration(0);
+                            pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
 
-							pMonster->addEnemy( pCastCreature );
-							bHit = true;
-						}
-						else continue;
+                            bHit = true;
+                        } else if (pCreature->isMonster()) {
+                            Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-						gcSkillToObjectOK4.setTargetObjectID( pCreature->getObjectID() );
-						gcSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
-						gcSkillToObjectOK4.setDuration( 0 );
-						m_pZone->broadcastPacket( X, Y, &gcSkillToObjectOK4, pCreature );
-					}
-				}
-			}
-		}
-	}
+                            ::setDamage(pMonster, FinalDamage, pCastCreature, SKILL_CANNONADE); // ::추가 by Sequoia
 
-	__END_CATCH
+                            pMonster->addEnemy(pCastCreature);
+                            bHit = true;
+                        } else
+                            continue;
+
+                        gcSkillToObjectOK4.setTargetObjectID(pCreature->getObjectID());
+                        gcSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+                        gcSkillToObjectOK4.setDuration(0);
+                        m_pZone->broadcastPacket(X, Y, &gcSkillToObjectOK4, pCreature);
+                    }
+                }
+            }
+        }
+    }
+
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectCannonade::unaffect()
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);	// by Sequoia
+    Creature* pCreature = dynamic_cast<Creature*>(m_pTarget); // by Sequoia
 
-	Assert( pCreature != NULL );
+    Assert(pCreature != NULL);
 
-	if ( m_pZone != NULL && m_pZone == pCreature->getZone() )
-	{
-		unaffect(pCreature);
-	}
+    if (m_pZone != NULL && m_pZone == pCreature->getZone()) {
+        unaffect(pCreature);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectCannonade::toString() const 
-	throw()
-{
-	__BEGIN_TRY
+string EffectCannonade::toString() const throw() {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "EffectCannonade("
-		<< "Zone:" << g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() )->getFullName()
-		<< ",X:" << (int)m_X
-		<< ",Y:" << (int)m_Y
-		<< ",Damage:" << (int)m_Damage
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "EffectCannonade("
+        << "Zone:" << g_pZoneInfoManager->getZoneInfo(m_pZone->getZoneID())->getFullName() << ",X:" << (int)m_X
+        << ",Y:" << (int)m_Y << ",Damage:" << (int)m_Damage << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

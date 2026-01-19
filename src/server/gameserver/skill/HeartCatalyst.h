@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HeartCatalyst.h 
-// Written By  : 
-// Description : 
+// Filename    : HeartCatalyst.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HEART_CATALYST_HANDLER_H__
@@ -13,19 +13,22 @@
 // class HeartCatalyst;
 //////////////////////////////////////////////////////////////////////////////
 
-class HeartCatalyst : public SkillHandler 
-{
+class HeartCatalyst : public SkillHandler {
 public:
-	HeartCatalyst() throw() {}
-	~HeartCatalyst() throw() {}
-	
+    HeartCatalyst() throw() {}
+    ~HeartCatalyst() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HeartCatalyst"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HEART_CATALYST; }
+    string getSkillHandlerName() const throw() {
+        return "HeartCatalyst";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HEART_CATALYST;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

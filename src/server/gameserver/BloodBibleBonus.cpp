@@ -1,29 +1,27 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : BloodBibleBonus.cpp
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "BloodBibleBonus.h"
 
 string BloodBibleBonus::toString() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "BloodBibleBonus(\n";
+    msg << "BloodBibleBonus(\n";
 
-	OptionTypeListConstItor itr = m_OptionTypeList.begin();
-	for ( ; itr != m_OptionTypeList.end() ; itr++) 
-	{
-		msg << (int)(*itr) << ",";
-	}
+    OptionTypeListConstItor itr = m_OptionTypeList.begin();
+    for (; itr != m_OptionTypeList.end(); itr++) {
+        msg << (int)(*itr) << ",";
+    }
 
-	msg << ")\n";
+    msg << ")\n";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

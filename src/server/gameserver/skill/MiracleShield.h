@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : MiracleShield.h 
-// Written By  : 
-// Description : 
+// Filename    : MiracleShield.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_MIRACLE_SHIELD_HANDLER_H__
@@ -13,19 +13,22 @@
 // class MiracleShield;
 //////////////////////////////////////////////////////////////////////////////
 
-class MiracleShield : public SkillHandler 
-{
+class MiracleShield : public SkillHandler {
 public:
-	MiracleShield() throw() {}
-	~MiracleShield() throw() {}
-	
+    MiracleShield() throw() {}
+    ~MiracleShield() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "MiracleShield"; }
-	SkillType_t getSkillType() const throw() { return SKILL_MIRACLE_SHIELD; }
+    string getSkillHandlerName() const throw() {
+        return "MiracleShield";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_MIRACLE_SHIELD;
+    }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

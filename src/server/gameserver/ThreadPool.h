@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// ThreadPool.h 
-// 
+//
+// ThreadPool.h
+//
 // by Reiot
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __THREAD_POOL_H__
@@ -13,10 +13,11 @@
 // include files
 //////////////////////////////////////////////////
 #include <list>
-#include "Types.h"
+
 #include "Exception.h"
-#include "Thread.h"
 #include "Mutex.h"
+#include "Thread.h"
+#include "Types.h"
 
 
 //////////////////////////////////////////////////
@@ -36,63 +37,61 @@
 //////////////////////////////////////////////////////////////////////
 
 class ThreadPool {
-
-//////////////////////////////////////////////////
-// constructor/destructor
-//////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    // constructor/destructor
+    //////////////////////////////////////////////////
 public:
-	
-	// constructor
-	ThreadPool() ;
-	
-	// destructor
-	// 포함하고 있는 모든 쓰레드 객체를 삭제해야 한다.
-	virtual ~ThreadPool() ;
+    // constructor
+    ThreadPool();
 
-	
-//////////////////////////////////////////////////
-// methods
-//////////////////////////////////////////////////
+    // destructor
+    // 포함하고 있는 모든 쓰레드 객체를 삭제해야 한다.
+    virtual ~ThreadPool();
+
+
+    //////////////////////////////////////////////////
+    // methods
+    //////////////////////////////////////////////////
 public:
-	
-	// 쓰레드풀안에 등록된 쓰레드들을 RUNNING 상태로 만든다. 
-	void start() ;
-	
-	// 쓰레드풀안에 등록된 모든 쓰레드의 실행을 중단시킨다.
-	//(이는 singal 혹은 cancellation 으로 구현해야 하겠다.)
-	void stop() ;
-	
-	// 쓰레드풀에 쓰레드 객체를 등록한다.
-	void addThread(Thread* thread) ;
-	
-	// 쓰레드풀에서 특정 쓰레드 객체를 삭제한다.
-	void deleteThread(TID tid) ;
-	
-	// 쓰레드풀에서 특정 쓰레드 객체를 찾아서 리턴한다.
-	Thread* getThread(TID tid) ;
+    // 쓰레드풀안에 등록된 쓰레드들을 RUNNING 상태로 만든다.
+    void start();
 
-//#ifdef __NO_COMBAT__
-	list<Thread*> getThreads(){ return m_Threads; } // 김경석
-//#endif
+    // 쓰레드풀안에 등록된 모든 쓰레드의 실행을 중단시킨다.
+    //(이는 singal 혹은 cancellation 으로 구현해야 하겠다.)
+    void stop();
 
-//////////////////////////////////////////////////
-// attributes
-//////////////////////////////////////////////////
+    // 쓰레드풀에 쓰레드 객체를 등록한다.
+    void addThread(Thread* thread);
+
+    // 쓰레드풀에서 특정 쓰레드 객체를 삭제한다.
+    void deleteThread(TID tid);
+
+    // 쓰레드풀에서 특정 쓰레드 객체를 찾아서 리턴한다.
+    Thread* getThread(TID tid);
+
+    // #ifdef __NO_COMBAT__
+    list<Thread*> getThreads() {
+        return m_Threads;
+    } // 김경석
+    // #endif
+
+    //////////////////////////////////////////////////
+    // attributes
+    //////////////////////////////////////////////////
 private:
-	
-	//
-	// 쓰레드 객체의 포인터에 대한 리스트
-	// 실제로는 쓰레드 클래스의 하위 클래스가 들어가게 된다.
-	// 일반적으로 같은 종류의 쓰레드들이 등록된다.
-	//
-	// ex> PlayerThreadPool - PlayerThread
-	//     NPCThreadPool    - NPCThread
-	//     MobThreadPool    - MobThread
-	//
-	list<Thread*> m_Threads;
+    //
+    // 쓰레드 객체의 포인터에 대한 리스트
+    // 실제로는 쓰레드 클래스의 하위 클래스가 들어가게 된다.
+    // 일반적으로 같은 종류의 쓰레드들이 등록된다.
+    //
+    // ex> PlayerThreadPool - PlayerThread
+    //     NPCThreadPool    - NPCThread
+    //     MobThreadPool    - MobThread
+    //
+    list<Thread*> m_Threads;
 
-	// mutex for list operation(add, delete, get ...)	
-	mutable Mutex m_Mutex;
+    // mutex for list operation(add, delete, get ...)
+    mutable Mutex m_Mutex;
 };
 
 #endif

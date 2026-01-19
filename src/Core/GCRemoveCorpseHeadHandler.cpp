@@ -14,9 +14,8 @@
 
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-void GCRemoveCorpseHeadHandler::execute (GCRemoveCorpseHead * pPacket , Player * pPlayer )
-	 
+void GCRemoveCorpseHeadHandler::execute(GCRemoveCorpseHead* pPacket, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-	__END_DEBUG_EX __END_CATCH
+    __BEGIN_TRY __BEGIN_DEBUG_EX __END_DEBUG_EX __END_CATCH
 }

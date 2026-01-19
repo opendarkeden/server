@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : HolyArrow.h 
-// Written By  : 
-// Description : 
+// Filename    : HolyArrow.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HOLY_ARROW_HANDLER_H__
@@ -13,19 +13,22 @@
 // class HolyArrow;
 //////////////////////////////////////////////////////////////////////////////
 
-class HolyArrow : public SkillHandler 
-{
+class HolyArrow : public SkillHandler {
 public:
-	HolyArrow() throw() {}
-	~HolyArrow() throw() {}
-	
+    HolyArrow() throw() {}
+    ~HolyArrow() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "HolyArrow"; }
-	SkillType_t getSkillType() const throw() { return SKILL_HOLY_ARROW; }
+    string getSkillHandlerName() const throw() {
+        return "HolyArrow";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_HOLY_ARROW;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

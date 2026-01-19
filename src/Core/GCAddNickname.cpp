@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddNickname.cpp 
+//
+// Filename    : GCAddNickname.cpp
 // Written By  : elca@ewestsoft.com
 // Description : �ڽſ��� ���� ����� ������ �˸��� ���� ��Ŷ Ŭ������
 //               ��� ����.
-// 
+//
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
@@ -15,45 +15,40 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-GCAddNickname::GCAddNickname () 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddNickname::GCAddNickname()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GCAddNickname::~GCAddNickname () noexcept = default;
+GCAddNickname::~GCAddNickname() noexcept = default;
 
 
 //////////////////////////////////////////////////////////////////////
 // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
 //////////////////////////////////////////////////////////////////////
-void GCAddNickname::read (SocketInputStream & iStream ) 
-	 
-{
-	__BEGIN_TRY
+void GCAddNickname::read(SocketInputStream& iStream)
 
-	m_NicknameInfo.read(iStream);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    m_NicknameInfo.read(iStream);
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////
 // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
 //////////////////////////////////////////////////////////////////////
-void GCAddNickname::write (SocketOutputStream & oStream ) 
-     const 
-{
-	__BEGIN_TRY
+void GCAddNickname::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	m_NicknameInfo.write(oStream);
-		
-	__END_CATCH
+    m_NicknameInfo.write(oStream);
+
+    __END_CATCH
 }
 
 
@@ -62,14 +57,14 @@ void GCAddNickname::write (SocketOutputStream & oStream )
 // execute packet's handler
 //
 //////////////////////////////////////////////////////////////////////
-void GCAddNickname::execute (Player * pPlayer ) 
-	 
+void GCAddNickname::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddNicknameHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddNicknameHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -78,16 +73,13 @@ void GCAddNickname::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAddNickname::toString () 
-	const 
-{
-	__BEGIN_TRY
+string GCAddNickname::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCAddNickname("
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "GCAddNickname("
+        << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
-

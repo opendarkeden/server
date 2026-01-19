@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPassingHeal.h
 // Written by  : excel96
-// Description : 
+// Description :
 // PassingHeal에 의해서 생성되는 산성 데미지 약화 이펙트이다.
 //////////////////////////////////////////////////////////////////////////////
 
@@ -14,35 +14,48 @@
 // class EffectPassingHeal
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectPassingHeal : public Effect 
-{
+class EffectPassingHeal : public Effect {
 public:
-	EffectPassingHeal(Creature* pCreature) ;
+    EffectPassingHeal(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PASSING_HEAL; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_PASSING_HEAL;
+    }
 
-	void affect() ;
-	void affect(Creature* pCreature) ;
+    void affect();
+    void affect(Creature* pCreature);
 
-	void unaffect() ;
-	void unaffect(Creature* pCreature) ;
+    void unaffect();
+    void unaffect(Creature* pCreature);
 
-	int getPassingCount() const { return m_PassingCount; }
-	void setPassingCount(int PassingCount) { m_PassingCount = PassingCount; }
+    int getPassingCount() const {
+        return m_PassingCount;
+    }
+    void setPassingCount(int PassingCount) {
+        m_PassingCount = PassingCount;
+    }
 
-	int getCureCount() const { return m_CureCount; }
-	void setCureCount(int CureCount) { m_CureCount = CureCount; }
+    int getCureCount() const {
+        return m_CureCount;
+    }
+    void setCureCount(int CureCount) {
+        m_CureCount = CureCount;
+    }
 
-	int getHealPoint() const { return m_HealPoint; }
-	void setHealPoint(int HealPoint) { m_HealPoint = HealPoint; }
+    int getHealPoint() const {
+        return m_HealPoint;
+    }
+    void setHealPoint(int HealPoint) {
+        m_HealPoint = HealPoint;
+    }
 
-	string toString() const throw();
+    string toString() const throw();
 
 private:
-	int	m_PassingCount;
-	int	m_CureCount;
-	int	m_HealPoint;
+    int m_PassingCount;
+    int m_CureCount;
+    int m_HealPoint;
 };
 
 #endif // __EFFECT_PASSING_HEAL__

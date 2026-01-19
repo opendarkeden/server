@@ -1,68 +1,72 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ValueList.h 
-// Written By  : 
+// Filename    : ValueList.h
+// Written By  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __VALUE_LIST_H__
 #define __VALUE_LIST_H__
 
-#include "Types.h"
 #include "Exception.h"
 #include "Packet.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ValueList
 //////////////////////////////////////////////////////////////////////////////
-template <class T>
-class ValueList 
-{
+template <class T> class ValueList {
 public:
-    void read (SocketInputStream & iStream) ;
-    void write (SocketOutputStream & oStream) const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
 
-	PacketSize_t 	getPacketSize () const 		{ return szBYTE + sizeof(T) * m_Values.size(); }
-	static uint 	getPacketMaxSize()  	{ return szBYTE + sizeof(T) * 255; }
+    PacketSize_t getPacketSize() const {
+        return szBYTE + sizeof(T) * m_Values.size();
+    }
+    static uint getPacketMaxSize() {
+        return szBYTE + sizeof(T) * 255;
+    }
 
-	string toString () const ;
+    string toString() const;
 
 public:
-	int 	getSize() const  			{ return m_Values.size(); }
-	bool 	isEmpty() const  			{ return m_Values.empty(); }
+    int getSize() const {
+        return m_Values.size();
+    }
+    bool isEmpty() const {
+        return m_Values.empty();
+    }
 
-	void addValue(const T& info)  	{ m_Values.push_back(info); }
+    void addValue(const T& info) {
+        m_Values.push_back(info);
+    }
 
-	T popValue()  
-	{ 
-		const T info = m_Values.front(); 
-		m_Values.pop_front(); 
-		return info; 
-	}
+    T popValue() {
+        const T info = m_Values.front();
+        m_Values.pop_front();
+        return info;
+    }
 
-	void operator = (const ValueList<T>& VL)
-	{
-		m_Values.clear();
+    void operator=(const ValueList<T>& VL) {
+        m_Values.clear();
 
-		typename list<T>::const_iterator itr = VL.m_Values.begin();
+        typename list<T>::const_iterator itr = VL.m_Values.begin();
 
-		for (; itr!=VL.m_Values.end(); itr++)
-		{
-			addValue( *itr );
-		}
-	}
+        for (; itr != VL.m_Values.end(); itr++) {
+            addValue(*itr);
+        }
+    }
 
 private:
-	list<T> m_Values;
-
+    list<T> m_Values;
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ValueList.cpp 
-// Written By  : 
+// Filename    : ValueList.cpp
+// Written By  :
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
-//#include "ValueList.h"
+// #include "ValueList.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
@@ -70,72 +74,63 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-template <class T>
-void ValueList<T>::read ( SocketInputStream & iStream ) 
-{
-	__BEGIN_TRY
-		
-	BYTE numValue;
-	iStream.read( numValue );
+template <class T> void ValueList<T>::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	T info;
+    BYTE numValue;
+    iStream.read(numValue);
 
-	for( int i = 0; i < numValue; i++ ) 
-	{
-		iStream.read( info );
-		m_Values.push_back( info );
-	}
+    T info;
 
-	__END_CATCH
+    for (int i = 0; i < numValue; i++) {
+        iStream.read(info);
+        m_Values.push_back(info);
+    }
+
+    __END_CATCH
 }
 
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-template <class T>
-void ValueList<T>::write ( SocketOutputStream & oStream ) const
-{
-	__BEGIN_TRY
-		
-	BYTE numValue = m_Values.size();
-	oStream.write( numValue );
+template <class T> void ValueList<T>::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
 
-	typename list<T>::const_iterator itr = m_Values.begin();
-    for (; itr!= m_Values.end(); itr++) 
-	{
-		oStream.write( *itr );
-	}
+    BYTE numValue = m_Values.size();
+    oStream.write(numValue);
 
-	__END_CATCH
+    typename list<T>::const_iterator itr = m_Values.begin();
+    for (; itr != m_Values.end(); itr++) {
+        oStream.write(*itr);
+    }
+
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-template <class T>
-string ValueList<T>::toString () 
-	const 
-{
-	__BEGIN_TRY
+template <class T> string ValueList<T>::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "Values(";
+    msg << "Values(";
 
-	typename list<T>::const_iterator itr = m_Values.begin();
+    typename list<T>::const_iterator itr = m_Values.begin();
 
-	for ( ; itr!= m_Values.end() ; itr++ ) {
-		const T& info = *itr;
-		msg << (int)info << ",";
-	}
+    for (; itr != m_Values.end(); itr++) {
+        const T& info = *itr;
+        msg << (int)info << ",";
+    }
 
-	msg << ")";
+    msg << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }
 
 #endif

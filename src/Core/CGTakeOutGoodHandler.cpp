@@ -7,83 +7,78 @@
 #include "CGTakeOutGood.h"
 
 #ifdef __GAME_SERVER__
-	#include "GamePlayer.h"
-	#include "Assert.h"
-	#include "PlayerCreature.h"
-	#include "GoodsInventory.h"
-	#include "Inventory.h"
-	#include "PacketUtil.h"
-	#include "ItemUtil.h"
-	#include "GCTakeOutFail.h"
-	#include "GCTakeOutOK.h"
-	#include "GCCreateItem.h"
-
-	#include "SystemAvailabilitiesManager.h"
+#include "Assert.h"
+#include "GCCreateItem.h"
+#include "GCTakeOutFail.h"
+#include "GCTakeOutOK.h"
+#include "GamePlayer.h"
+#include "GoodsInventory.h"
+#include "Inventory.h"
+#include "ItemUtil.h"
+#include "PacketUtil.h"
+#include "PlayerCreature.h"
+#include "SystemAvailabilitiesManager.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGTakeOutGoodHandler::execute (CGTakeOutGood* pPacket , Player* pPlayer)
-{
-	__BEGIN_TRY __BEGIN_DEBUG_EX
+void CGTakeOutGoodHandler::execute(CGTakeOutGood* pPacket, Player* pPlayer) {
+    __BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
-	Assert(pPacket != NULL);
-	Assert(pPlayer != NULL);
+        Assert(pPacket != NULL);
+    Assert(pPlayer != NULL);
 
-	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert( pGamePlayer != NULL );
+    GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+    Assert(pGamePlayer != NULL);
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert( pPC != NULL );
+    PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
+    Assert(pPC != NULL);
 
-	SYSTEM_ASSERT( SYSTEM_MARKET );
+    SYSTEM_ASSERT(SYSTEM_MARKET);
 
-	GoodsInventory* pGoodsInventory = pPC->getGoodsInventory();
-	Assert( pGoodsInventory != NULL );
+    GoodsInventory* pGoodsInventory = pPC->getGoodsInventory();
+    Assert(pGoodsInventory != NULL);
 
-	TPOINT tp;
+    TPOINT tp;
 
-	Item* pItem = pGoodsInventory->getItem( pPacket->getObjectID() );
-	if ( pItem != NULL )
-	{
-		Inventory* pInventory = pPC->getInventory();
-		if ( pInventory->addItem( pItem, tp ) )
-		{
-			pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y );
-			pGoodsInventory->popItem( pPacket->getObjectID() );
-			pItem->whenPCTake( pPC );
+    Item* pItem = pGoodsInventory->getItem(pPacket->getObjectID());
+    if (pItem != NULL) {
+        Inventory* pInventory = pPC->getInventory();
+        if (pInventory->addItem(pItem, tp)) {
+            pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y);
+            pGoodsInventory->popItem(pPacket->getObjectID());
+            pItem->whenPCTake(pPC);
 
-			GCCreateItem gcCreateItem;
-			makeGCCreateItem( &gcCreateItem, pItem, tp.x ,tp.y );
-			pPlayer->sendPacket( &gcCreateItem );
+            GCCreateItem gcCreateItem;
+            makeGCCreateItem(&gcCreateItem, pItem, tp.x, tp.y);
+            pPlayer->sendPacket(&gcCreateItem);
 
-			if ( pItem->isTimeLimitItem() )
-			{
-				unsigned long timeLimit = pItem->getHour();
-				timeLimit *= 3600;
+            if (pItem->isTimeLimitItem()) {
+                unsigned long timeLimit = pItem->getHour();
+                timeLimit *= 3600;
 
-				pPC->addTimeLimitItem( pItem, timeLimit );
-				pPC->sendTimeLimitItemInfo();
-			}
+                pPC->addTimeLimitItem(pItem, timeLimit);
+                pPC->sendTimeLimitItemInfo();
+            }
 
-			remainTraceLog( pItem, "GoodsShop", pPC->getName(), ITEM_LOG_CREATE, DETAIL_MALLBUY );
+            remainTraceLog(pItem, "GoodsShop", pPC->getName(), ITEM_LOG_CREATE, DETAIL_MALLBUY);
 
-			GCTakeOutOK gcTakeOutOK;
-			gcTakeOutOK.setObjectID( pPacket->getObjectID() );
-			pPlayer->sendPacket( &gcTakeOutOK );
+            GCTakeOutOK gcTakeOutOK;
+            gcTakeOutOK.setObjectID(pPacket->getObjectID());
+            pPlayer->sendPacket(&gcTakeOutOK);
 
-			return;
-		}
-	}
+            return;
+        }
+    }
 
-	GCTakeOutFail gcTakeOutFail;
-	gcTakeOutFail.setObjectID( pPacket->getObjectID() );
+    GCTakeOutFail gcTakeOutFail;
+    gcTakeOutFail.setObjectID(pPacket->getObjectID());
 
-	pPlayer->sendPacket(&gcTakeOutFail);
+    pPlayer->sendPacket(&gcTakeOutFail);
 
-#endif	// __GAME_SERVER__
+#endif // __GAME_SERVER__
 
     __END_DEBUG_EX __END_CATCH
 }

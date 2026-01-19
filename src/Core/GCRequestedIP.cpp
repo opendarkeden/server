@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////
-// Filename    : GCRequestedIP.cpp 
+// Filename    : GCRequestedIP.cpp
 // Written By  :
 // Description :
 //////////////////////////////////////////////////////////////////////
@@ -10,84 +10,76 @@
 // class GCRequestedIP member methods
 //////////////////////////////////////////////////////////////////////
 
-GCRequestedIP::GCRequestedIP () 
-     
+GCRequestedIP::GCRequestedIP()
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	m_IP = 0;
+    m_IP = 0;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-GCRequestedIP::~GCRequestedIP () 
-    
+GCRequestedIP::~GCRequestedIP()
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-void GCRequestedIP::read (SocketInputStream & iStream) 
-	 
+void GCRequestedIP::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE num;
-	iStream.read(num);
+    BYTE num;
+    iStream.read(num);
 
-	if (num==0)
-		throw InvalidProtocolException("szName==0");
+    if (num == 0)
+        throw InvalidProtocolException("szName==0");
 
-	iStream.read(m_Name, num);
+    iStream.read(m_Name, num);
 
-	iStream.read(m_IP);
-	iStream.read(m_Port);
+    iStream.read(m_IP);
+    iStream.read(m_Port);
 
-	__END_CATCH
-}
-		    
-void GCRequestedIP::write (SocketOutputStream & oStream) 
-     const 
-{
-	__BEGIN_TRY
-		
-	BYTE num = m_Name.size();
-	oStream.write(num);
-
-	if (num==0)
-		throw InvalidProtocolException("szName==0");
-
-	oStream.write(m_Name);
-
-	oStream.write(m_IP);
-	oStream.write(m_Port);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void GCRequestedIP::execute (Player * pPlayer) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCRequestedIPHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+void GCRequestedIP::write(SocketOutputStream& oStream) const {
+    __BEGIN_TRY
+
+    BYTE num = m_Name.size();
+    oStream.write(num);
+
+    if (num == 0)
+        throw InvalidProtocolException("szName==0");
+
+    oStream.write(m_Name);
+
+    oStream.write(m_IP);
+    oStream.write(m_Port);
+
+    __END_CATCH
 }
 
-string GCRequestedIP::toString () 
-	const 
+void GCRequestedIP::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "GCRequestedIP("
-		<< "Name: "		<< m_Name
-		<< "IP: "		<< m_IP
-		<< "Port: "		<< m_Port
-		<< ")";
-	return msg.toString();
+    GCRequestedIPHandler::execute(this, pPlayer);
 
-	__END_CATCH
+    __END_CATCH
 }
 
+string GCRequestedIP::toString() const {
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "GCRequestedIP("
+        << "Name: " << m_Name << "IP: " << m_IP << "Port: " << m_Port << ")";
+    return msg.toString();
+
+    __END_CATCH
+}

@@ -1,54 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGTradeAddItem.cpp 
+// Filename    : CGTradeAddItem.cpp
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGTradeAddItem.h"
 
-void CGTradeAddItem::read (SocketInputStream & iStream) 
-	 
+void CGTradeAddItem::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	iStream.read(m_TargetObjectID);
-	iStream.read(m_ItemObjectID);
+    iStream.read(m_TargetObjectID);
+    iStream.read(m_ItemObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGTradeAddItem::write (SocketOutputStream & oStream) const 
-     
+void CGTradeAddItem::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_TargetObjectID); 
-	oStream.write(m_ItemObjectID); 
+    oStream.write(m_TargetObjectID);
+    oStream.write(m_ItemObjectID);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGTradeAddItem::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+void CGTradeAddItem::execute(Player* pPlayer)
 
-	CGTradeAddItemHandler::execute (this , pPlayer);
-		
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    CGTradeAddItemHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
-string CGTradeAddItem::toString () 
-	const 
-{
-	__BEGIN_TRY
+string CGTradeAddItem::toString() const {
+    __BEGIN_TRY
 
-	StringStream msg;
-	msg << "CGTradeAddItem(" 
-		<< "TargetObjectID:" << (int)m_TargetObjectID
-		<< ",ItemObjectID:" << (int)m_ItemObjectID
-		<< ")";
-	return msg.toString();
+    StringStream msg;
+    msg << "CGTradeAddItem("
+        << "TargetObjectID:" << (int)m_TargetObjectID << ",ItemObjectID:" << (int)m_ItemObjectID << ")";
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

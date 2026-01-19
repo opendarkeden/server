@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGSilverCoating.h 
+// Filename    : CGSilverCoating.h
 // Written By  : ±è¼º¹Î
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -14,27 +14,35 @@
 // class CGSilverCoating
 //////////////////////////////////////////////////////////////////////////////
 
-class CGSilverCoating : public Packet 
-{
+class CGSilverCoating : public Packet {
 public:
     CGSilverCoating() {};
     virtual ~CGSilverCoating() {};
-	void read(SocketInputStream & iStream) ;
-	void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
+    void execute(Player* pPlayer);
 
-	PacketID_t   getPacketID() const    { return PACKET_CG_SILVER_COATING; }
-	PacketSize_t getPacketSize() const  { return szObjectID; }
-	string       getPacketName() const  { return "CGSilverCoating"; }
-	string       toString() const ;
-	
+    PacketID_t getPacketID() const {
+        return PACKET_CG_SILVER_COATING;
+    }
+    PacketSize_t getPacketSize() const {
+        return szObjectID;
+    }
+    string getPacketName() const {
+        return "CGSilverCoating";
+    }
+    string toString() const;
+
 public:
-	ObjectID_t getObjectID()  { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+    ObjectID_t getObjectID() {
+        return m_ObjectID;
+    }
+    void setObjectID(ObjectID_t ObjectID) {
+        m_ObjectID = ObjectID;
+    }
 
 private:
-	ObjectID_t m_ObjectID; // Item Object ID
-
+    ObjectID_t m_ObjectID; // Item Object ID
 };
 
 
@@ -42,13 +50,20 @@ private:
 // class CGSilverCoatingFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGSilverCoatingFactory : public PacketFactory 
-{
+class CGSilverCoatingFactory : public PacketFactory {
 public:
-	Packet* createPacket()  { return new CGSilverCoating(); }
-	string getPacketName() const  { return "CGSilverCoating"; }
-	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SILVER_COATING; }
-	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
+    Packet* createPacket() {
+        return new CGSilverCoating();
+    }
+    string getPacketName() const {
+        return "CGSilverCoating";
+    }
+    PacketID_t getPacketID() const {
+        return Packet::PACKET_CG_SILVER_COATING;
+    }
+    PacketSize_t getPacketMaxSize() const {
+        return szObjectID;
+    }
 };
 
 
@@ -56,10 +71,9 @@ public:
 // class CGSilverCoatingHandler;
 //////////////////////////////////////////////////////////////////////////////
 
-class CGSilverCoatingHandler 
-{
+class CGSilverCoatingHandler {
 public:
-	static void execute(CGSilverCoating* pPacket, Player* player) ;
+    static void execute(CGSilverCoating* pPacket, Player* player);
 };
 
 #endif

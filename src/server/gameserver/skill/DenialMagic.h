@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : DenialMagic.h 
-// Written By  : 
-// Description : 
+// Filename    : DenialMagic.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_DENIAL_MAGIC_HANDLER_H__
@@ -13,19 +13,22 @@
 // class DenialMagic;
 //////////////////////////////////////////////////////////////////////////////
 
-class DenialMagic : public SkillHandler 
-{
+class DenialMagic : public SkillHandler {
 public:
-	DenialMagic() throw() {}
-	~DenialMagic() throw() {}
-	
+    DenialMagic() throw() {}
+    ~DenialMagic() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "DenialMagic"; }
-	SkillType_t getSkillType() const throw() { return SKILL_DENIAL_MAGIC; }
+    string getSkillHandlerName() const throw() {
+        return "DenialMagic";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_DENIAL_MAGIC;
+    }
 
-	void execute(Slayer* pSlayer,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

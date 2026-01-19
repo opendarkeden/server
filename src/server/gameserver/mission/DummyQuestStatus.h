@@ -1,25 +1,31 @@
 #ifndef __DUMMY_QUEST_STATUS_H__
 #define __DUMMY_QUEST_STATUS_H__
 
-#include "QuestStatus.h"
 #include "GCQuestStatus.h"
+#include "QuestStatus.h"
 
-class DummyQuestStatus : public QuestStatus
-{
+class DummyQuestStatus : public QuestStatus {
 public:
-	DummyQuestStatus( QuestID_t qID, const VSDateTime& deadline, const string& NPC ) : QuestStatus( qID, deadline, QUEST_CLASS_MEET_NPC ), m_Name(NPC) { }
-	virtual ~DummyQuestStatus() { }
+    DummyQuestStatus(QuestID_t qID, const VSDateTime& deadline, const string& NPC)
+        : QuestStatus(qID, deadline, QUEST_CLASS_MEET_NPC), m_Name(NPC) {}
+    virtual ~DummyQuestStatus() {}
 
-	bool			isSuccess() { if ( !isRewarded() ) setSuccess(); return QuestStatus::isSuccess(); }
-	void			completeQuest() { if ( !isSuccess() && !isRewarded() ) setSuccess(); }
+    bool isSuccess() {
+        if (!isRewarded())
+            setSuccess();
+        return QuestStatus::isSuccess();
+    }
+    void completeQuest() {
+        if (!isSuccess() && !isRewarded())
+            setSuccess();
+    }
 
-	GCQuestStatus* makeStatusPacket() const;
+    GCQuestStatus* makeStatusPacket() const;
 
-	string			toString() const ;
+    string toString() const;
 
 private:
-	string			m_Name;
+    string m_Name;
 };
 
-#endif// __DUMMY_QUEST_STATUS_H__
-
+#endif // __DUMMY_QUEST_STATUS_H__

@@ -1,8 +1,8 @@
-//-------------------------------------------------------------------------------- // 
-// Filename    : GCRequestPowerPointResult.cpp 
+//-------------------------------------------------------------------------------- //
+// Filename    : GCRequestPowerPointResult.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : 
-// 
+// Description :
+//
 //--------------------------------------------------------------------------------
 
 // include files
@@ -12,94 +12,88 @@
 //--------------------------------------------------------------------------------
 // constructor
 //--------------------------------------------------------------------------------
-GCRequestPowerPointResult::GCRequestPowerPointResult ()
-	
-	: m_ErrorCode(0), m_SumPowerPoint(0), m_RequestPowerPoint(0)
-{
-}
+GCRequestPowerPointResult::GCRequestPowerPointResult()
+
+    : m_ErrorCode(0), m_SumPowerPoint(0), m_RequestPowerPoint(0) {}
 
 //--------------------------------------------------------------------------------
 // destructor
 //--------------------------------------------------------------------------------
-GCRequestPowerPointResult::~GCRequestPowerPointResult ()
-	
-{
-}
+GCRequestPowerPointResult::~GCRequestPowerPointResult()
+
+{}
 
 //--------------------------------------------------------------------------------
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
-void GCRequestPowerPointResult::read (SocketInputStream & iStream ) 
-	 
+void GCRequestPowerPointResult::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// Error code
-	iStream.read(m_ErrorCode);
+    // Error code
+    iStream.read(m_ErrorCode);
 
-	// 현재 누적된 파워짱 포인트
-	iStream.read(m_SumPowerPoint);
+    // 현재 누적된 파워짱 포인트
+    iStream.read(m_SumPowerPoint);
 
-	// 요청으로 가져온 파워짱 포인트
-	iStream.read(m_RequestPowerPoint);
+    // 요청으로 가져온 파워짱 포인트
+    iStream.read(m_RequestPowerPoint);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-		    
+
 //--------------------------------------------------------------------------------
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
-void GCRequestPowerPointResult::write (SocketOutputStream & oStream ) const 
-     
+void GCRequestPowerPointResult::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	// Error code
-	oStream.write(m_ErrorCode);
+    // Error code
+    oStream.write(m_ErrorCode);
 
-	// 현재 누적된 파워짱 포인트
-	oStream.write(m_SumPowerPoint);
+    // 현재 누적된 파워짱 포인트
+    oStream.write(m_SumPowerPoint);
 
-	// 요청으로 가져온 파워짱 포인트
-	oStream.write(m_RequestPowerPoint);
+    // 요청으로 가져온 파워짱 포인트
+    oStream.write(m_RequestPowerPoint);
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void GCRequestPowerPointResult::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCRequestPowerPointResultHandler::execute(this , pPlayer);
+void GCRequestPowerPointResult::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCRequestPowerPointResultHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
 //--------------------------------------------------------------------------------
 // get packet's debug string
 //--------------------------------------------------------------------------------
-string GCRequestPowerPointResult::toString () const
-       
+string GCRequestPowerPointResult::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	
-	msg << "GCRequestPowerPointResult("
-		<< "ErrorCode:" << (int)m_ErrorCode
-		<< ",SumPowerPoint:" << m_SumPowerPoint
-		<< ",RequestPowerPoint:" << m_RequestPowerPoint
-		<< ")";
+    __BEGIN_TRY
 
-	return msg.toString();
+    StringStream msg;
 
-	__END_CATCH
+    msg << "GCRequestPowerPointResult("
+        << "ErrorCode:" << (int)m_ErrorCode << ",SumPowerPoint:" << m_SumPowerPoint
+        << ",RequestPowerPoint:" << m_RequestPowerPoint << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

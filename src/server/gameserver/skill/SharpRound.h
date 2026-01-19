@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SharpRound.h 
+// Filename    : SharpRound.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SHARP_ROUND_HANDLER_H__
@@ -13,20 +13,24 @@
 // class SharpRound;
 //////////////////////////////////////////////////////////////////////////////
 
-class SharpRound: public SkillHandler 
-{
+class SharpRound : public SkillHandler {
 public:
-	SharpRound() throw() {}
-	~SharpRound() throw() {}
-	
+    SharpRound() throw() {}
+    ~SharpRound() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SharpRound"; }
+    string getSkillHandlerName() const throw() {
+        return "SharpRound";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_SHARP_ROUND; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SHARP_ROUND;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

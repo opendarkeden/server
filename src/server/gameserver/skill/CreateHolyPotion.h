@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CreateHolyPotion.h 
+// Filename    : CreateHolyPotion.h
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_CREATE_HOLY_POTION_HANDLER_H__
@@ -13,22 +13,26 @@
 // class CreateHolyPotion;
 //////////////////////////////////////////////////////////////////////////////
 
-class CreateHolyPotion : public SkillHandler 
-{
+class CreateHolyPotion : public SkillHandler {
 public:
-	CreateHolyPotion() throw() {}
-	~CreateHolyPotion() throw() {}
-	
+    CreateHolyPotion() throw() {}
+    ~CreateHolyPotion() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "CreateHolyPotion"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CREATE_HOLY_POTION; }
+    string getSkillHandlerName() const throw() {
+        return "CreateHolyPotion";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CREATE_HOLY_POTION;
+    }
 
-	void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) ;
+    void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
+                 CoordInven_t TargetY, SkillSlot* pSkillSlot);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 
 protected:
-	bool canMake(ItemType_t waterType, int DomainLevel, int SkillLevel) throw();
+    bool canMake(ItemType_t waterType, int DomainLevel, int SkillLevel) throw();
 };
 
 // global variable declaration

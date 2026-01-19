@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ReputoFactum.h 
-// Written By  : 
-// Description : 
+// Filename    : ReputoFactum.h
+// Written By  :
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_REPUTO_FACTUM_HANDLER_H__
@@ -13,18 +13,21 @@
 // class ReputoFactum;
 //////////////////////////////////////////////////////////////////////////////
 
-class ReputoFactum : public SkillHandler 
-{
+class ReputoFactum : public SkillHandler {
 public:
-	ReputoFactum() throw() {}
-	~ReputoFactum() throw() {}
-	
-public:
-    string getSkillHandlerName() const throw() { return "ReputoFactum"; }
-	SkillType_t getSkillType() const throw() { return SKILL_REPUTO_FACTUM; }
+    ReputoFactum() throw() {}
+    ~ReputoFactum() throw() {}
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+public:
+    string getSkillHandlerName() const throw() {
+        return "ReputoFactum";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_REPUTO_FACTUM;
+    }
+
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

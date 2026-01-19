@@ -1,140 +1,135 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GCMonsterKillQuestInfo.cpp 
+// Filename    : GCMonsterKillQuestInfo.cpp
 // Written By  : Reiot
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCMonsterKillQuestInfo.h"
+
 #include "Assert1.h"
 
 const int GCMonsterKillQuestInfo::szQuestInfo = szQuestID + szSpriteType + szWORD + szDWORD;
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-GCMonsterKillQuestInfo::~GCMonsterKillQuestInfo() 
-	
+GCMonsterKillQuestInfo::~GCMonsterKillQuestInfo()
+
 {
-	__BEGIN_TRY 
+    __BEGIN_TRY
 
-	list<QuestInfo*>::iterator itr = m_QuestInfoList.begin();
-	list<QuestInfo*>::iterator endItr = m_QuestInfoList.end();
+    list<QuestInfo*>::iterator itr = m_QuestInfoList.begin();
+    list<QuestInfo*>::iterator endItr = m_QuestInfoList.end();
 
-	for (; itr != endItr ; ++itr )
-	{
-		if ((*itr) != NULL ) SAFE_DELETE((*itr));
-	}
+    for (; itr != endItr; ++itr) {
+        if ((*itr) != NULL)
+            SAFE_DELETE((*itr));
+    }
 
-	m_QuestInfoList.clear();
+    m_QuestInfoList.clear();
 
-	__END_CATCH_NO_RETHROW
+    __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void GCMonsterKillQuestInfo::read (SocketInputStream & iStream ) 
-	 
+void GCMonsterKillQuestInfo::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	BYTE num;
+    BYTE num;
 
-	iStream.read(num);
+    iStream.read(num);
 
-	for (int i=0; i<num; ++i )
-	{
-		QuestInfo* pQI = new QuestInfo;
-		iStream.read(pQI->questID);
-		iStream.read(pQI->sType);
-		iStream.read(pQI->goal);
-		iStream.read(pQI->timeLimit);
+    for (int i = 0; i < num; ++i) {
+        QuestInfo* pQI = new QuestInfo;
+        iStream.read(pQI->questID);
+        iStream.read(pQI->sType);
+        iStream.read(pQI->goal);
+        iStream.read(pQI->timeLimit);
 
-		addQuestInfo(pQI);
-	}
+        addQuestInfo(pQI);
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
-		    
+
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void GCMonsterKillQuestInfo::write (SocketOutputStream & oStream ) const 
-     
+void GCMonsterKillQuestInfo::write(SocketOutputStream& oStream) const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	Assert(m_QuestInfoList.size() <= maxQuestNum);
+    Assert(m_QuestInfoList.size() <= maxQuestNum);
 
-	BYTE num = m_QuestInfoList.size();
+    BYTE num = m_QuestInfoList.size();
 
-	oStream.write(num);
+    oStream.write(num);
 
-	list<QuestInfo*>::const_iterator itr = m_QuestInfoList.begin();
+    list<QuestInfo*>::const_iterator itr = m_QuestInfoList.begin();
 
-	for (int i=0; i<num; i++ )
-	{
-		oStream.write((*itr)->questID);
-		oStream.write((*itr)->sType);
-		oStream.write((*itr)->goal);
-		oStream.write((*itr)->timeLimit);
+    for (int i = 0; i < num; i++) {
+        oStream.write((*itr)->questID);
+        oStream.write((*itr)->sType);
+        oStream.write((*itr)->goal);
+        oStream.write((*itr)->timeLimit);
 
-		++itr;
-	}
+        ++itr;
+    }
 
-	__END_CATCH
+    __END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
-void GCMonsterKillQuestInfo::execute (Player * pPlayer ) 
-	 
-{
-	__BEGIN_TRY
-		
-	GCMonsterKillQuestInfoHandler::execute(this , pPlayer);
+void GCMonsterKillQuestInfo::execute(Player* pPlayer)
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    GCMonsterKillQuestInfoHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 PacketSize_t GCMonsterKillQuestInfo::getPacketSize() const
-	
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	PacketSize_t result = 0;
+    PacketSize_t result = 0;
 
-	result += szBYTE + szQuestInfo * m_QuestInfoList.size();
+    result += szBYTE + szQuestInfo * m_QuestInfoList.size();
 
-	return result;
+    return result;
 
-	__END_CATCH
+    __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string GCMonsterKillQuestInfo::toString () const
-       
+string GCMonsterKillQuestInfo::toString() const
+
 {
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "GCMonsterKillQuestInfo(";
+    __BEGIN_TRY
 
-	list<QuestInfo*>::const_iterator itr = m_QuestInfoList.begin();
-	for(; itr != m_QuestInfoList.end() ; itr++ )
-	{
-		msg << "< " << (*itr)->questID << ", "
-			<< (*itr)->sType << ", "
-			<< (*itr)->goal << ", "
-			<< (*itr)->timeLimit << " >";
-	}
-	msg << ")";
+    StringStream msg;
+    msg << "GCMonsterKillQuestInfo(";
 
-	return msg.toString();
-		
-	__END_CATCH
+    list<QuestInfo*>::const_iterator itr = m_QuestInfoList.begin();
+    for (; itr != m_QuestInfoList.end(); itr++) {
+        msg << "< " << (*itr)->questID << ", " << (*itr)->sType << ", " << (*itr)->goal << ", " << (*itr)->timeLimit
+            << " >";
+    }
+    msg << ")";
+
+    return msg.toString();
+
+    __END_CATCH
 }
-

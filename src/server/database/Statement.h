@@ -10,9 +10,9 @@
 #define __STATEMENT_H__
 
 // include files
-#include "Types.h"
-#include "Exception.h"
 #include "Connection.h"
+#include "Exception.h"
+#include "Types.h"
 
 // forward declaration
 class Result;
@@ -26,66 +26,68 @@ class Result;
 //////////////////////////////////////////////////////////////////////
 
 class Statement {
+public:
+    // constructor
+    Statement();
+
+    // constructor
+    Statement(const char* fmt, ...);
+
+    // destructor
+    ~Statement();
 
 public:
-	
-	// constructor
-	Statement() ; 
+    // ������ ������ SQL ���� ������ �����Ѵ�.
+    Result* executeQuery();
 
-	// constructor
-	Statement(const char * fmt, ...) ;
+    // SQL ���� �޾Ƽ� �����Ѵ�.
+    Result* executeQuery(const char*, ...);
+    Result* executeQueryString(const string& sqlStatement);
 
-	// destructor
-	~Statement() ;
+    // get SQL statement
+    string getStatement() const {
+        return m_Statement;
+    }
 
-public:
-    
-	// ������ ������ SQL ���� ������ �����Ѵ�.
-    Result * executeQuery() ;
-	
-	// SQL ���� �޾Ƽ� �����Ѵ�.
-	Result * executeQuery(const char *,...) ;
-	Result * executeQueryString(const string& sqlStatement) ;
-	
-	// get SQL statement
-	string getStatement() const  { return m_Statement; }
+    // SQL ���� �����Ѵ�.
+    void setStatement(const char* fmt, ...);
 
-	// SQL ���� �����Ѵ�.
-	void setStatement(const char * fmt, ...) ;
+    // get connection object
+    Connection* getConnection() const {
+        return m_pConnection;
+    }
 
-	// get connection object
-	Connection * getConnection() const  { return m_pConnection; }
+    // set connection object
+    void setConnection(Connection* pConnection) {
+        m_pConnection = pConnection;
+    }
 
-	// set connection object
-	void setConnection(Connection * pConnection)  { m_pConnection = pConnection; }
+    // get warning/error string
+    string getError() const {
+        return (m_pConnection == NULL) ? ("Not Associated with Connection Object") : (m_pConnection->getError());
+    }
 
-	// get warning/error string
-	string getError() const  
-	{ 
-		return(m_pConnection == NULL) ?("Not Associated with Connection Object") :(m_pConnection->getError()); 
-	}
+    // get affected rows
+    uint getAffectedRowCount() const {
+        return m_nAffectedRows;
+    }
 
-	// get affected rows
-	uint getAffectedRowCount() const  { return m_nAffectedRows; }
+    // get insert id
+    uint getInsertID() const;
 
-	// get insert id
-	uint getInsertID() const ;
 
-	
 private:
-	
-	// Connection
-	Connection * m_pConnection;
+    // Connection
+    Connection* m_pConnection;
 
-	// SQL Statement�
-	string m_Statement;
+    // SQL Statement�
+    string m_Statement;
 
-	// Query Result 
-	Result * m_pResult;
+    // Query Result
+    Result* m_pResult;
 
-	// insert, update, delete ���� �� ������ ���� row �� ����
-	uint m_nAffectedRows;
-
+    // insert, update, delete ���� �� ������ ���� row �� ����
+    uint m_nAffectedRows;
 };
 
 #endif // __STATEMENT_H__

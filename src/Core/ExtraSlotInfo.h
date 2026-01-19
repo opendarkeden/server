@@ -9,27 +9,26 @@
 #ifndef __EXTRA_SLOT_INFO_H__
 #define __EXTRA_SLOT_INFO_H__
 
-#include "Types.h"
 #include "Exception.h"
+#include "PCItemInfo.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "PCItemInfo.h"
+#include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class ExtraSlotInfo
 //////////////////////////////////////////////////////////////////////////////
 
-class ExtraSlotInfo : public PCItemInfo 
-{
+class ExtraSlotInfo : public PCItemInfo {
 public:
-	ExtraSlotInfo();
-	virtual ~ExtraSlotInfo();
+    ExtraSlotInfo();
+    virtual ~ExtraSlotInfo();
 
 public:
-	void read (SocketInputStream & iStream) ;
-	void write (SocketOutputStream & oStream) const ;
+    void read(SocketInputStream& iStream);
+    void write(SocketOutputStream& oStream) const;
 
-	string toString () const ;
+    string toString() const;
 };
 
 #endif

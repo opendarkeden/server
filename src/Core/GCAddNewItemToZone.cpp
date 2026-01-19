@@ -1,45 +1,42 @@
 //////////////////////////////////////////////////////////////////////
-// 
-// Filename    : GCAddNewItemToZone.cc 
+//
+// Filename    : GCAddNewItemToZone.cc
 // Written By  : elca
-// Description : 
-// 
+// Description :
+//
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include "GCAddNewItemToZone.h"
+
 #include "Assert1.h"
 
 //--------------------------------------------------------------------
 // Constructor
 //--------------------------------------------------------------------
-GCAddNewItemToZone::GCAddNewItemToZone() 
-     
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GCAddNewItemToZone::GCAddNewItemToZone()
 
-	
+    {__BEGIN_TRY __END_CATCH}
+
+
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
-GCAddNewItemToZone::~GCAddNewItemToZone() noexcept
-{
-	// nothing to do
+GCAddNewItemToZone::~GCAddNewItemToZone() noexcept {
+    // nothing to do
 }
 
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCAddNewItemToZone::execute (Player * pPlayer ) 
-	 
+void GCAddNewItemToZone::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
-		
-	GCAddNewItemToZoneHandler::execute(this , pPlayer);
-		
-	__END_CATCH
+    __BEGIN_TRY
+
+    GCAddNewItemToZoneHandler::execute(this, pPlayer);
+
+    __END_CATCH
 }
 
 
@@ -48,25 +45,19 @@ void GCAddNewItemToZone::execute (Player * pPlayer )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string GCAddNewItemToZone::toString () const
-       
+string GCAddNewItemToZone::toString() const
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	StringStream msg;
+    StringStream msg;
 
-	msg << "GCAddNewItemToZone("
-		<< "ObjectID:" << m_ObjectID
-		<< ",X:" << (int)m_X 
-		<< ",Y:" << (int)m_Y 
-		<< ",ItemClass: " << (int)m_ItemClass
-		<< ",ItemType: " << (int)m_ItemType
-		<< ",OptionTypeSize: " << (int)m_OptionType.size()
-		<< ",Durability: " << (int)m_Durability
-		<< ",ItemNum: " << (int)m_ItemNum
-		<< ")" ;
+    msg << "GCAddNewItemToZone("
+        << "ObjectID:" << m_ObjectID << ",X:" << (int)m_X << ",Y:" << (int)m_Y << ",ItemClass: " << (int)m_ItemClass
+        << ",ItemType: " << (int)m_ItemType << ",OptionTypeSize: " << (int)m_OptionType.size()
+        << ",Durability: " << (int)m_Durability << ",ItemNum: " << (int)m_ItemNum << ")";
 
-	return msg.toString();
+    return msg.toString();
 
-	__END_CATCH
+    __END_CATCH
 }

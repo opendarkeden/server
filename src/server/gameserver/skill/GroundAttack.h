@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GroundAttack.h 
+// Filename    : GroundAttack.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GROUND_ATTACK_HANDLER_H__
@@ -13,21 +13,25 @@
 // class GroundAttack;
 //////////////////////////////////////////////////////////////////////////////
 
-class GroundAttack : public SkillHandler 
-{
+class GroundAttack : public SkillHandler {
 public:
-	GroundAttack() throw() {}
-	~GroundAttack() throw() {}
-	
+    GroundAttack() throw() {}
+    ~GroundAttack() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GroundAttack"; }
-	SkillType_t getSkillType() const throw() { return SKILL_GROUND_ATTACK; }
+    string getSkillHandlerName() const throw() {
+        return "GroundAttack";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GROUND_ATTACK;
+    }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Vampire* pVampire, ObjectID_t,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
+                 CEffectID_t CEffectID);
+    void execute(Vampire* pVampire, ObjectID_t, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID);
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

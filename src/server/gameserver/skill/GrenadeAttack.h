@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GrenadeAttack.h 
+// Filename    : GrenadeAttack.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GRENADE_ATTACK_HANDLER_H__
@@ -13,19 +13,22 @@
 // class GrenadeAttack;
 //////////////////////////////////////////////////////////////////////////////
 
-class GrenadeAttack : public SkillHandler 
-{
+class GrenadeAttack : public SkillHandler {
 public:
-	GrenadeAttack() throw() {}
-	~GrenadeAttack() throw() {}
-	
+    GrenadeAttack() throw() {}
+    ~GrenadeAttack() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GrenadeAttack"; }
-	SkillType_t getSkillType() const throw() { return SKILL_GRENADE_ATTACK; }
+    string getSkillHandlerName() const throw() {
+        return "GrenadeAttack";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GRENADE_ATTACK;
+    }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
+    void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

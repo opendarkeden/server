@@ -11,18 +11,18 @@
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void GCCannotUseHandler::execute (GCCannotUse * pGCCannotUse , Player * pPlayer )
-	 
+void GCCannotUseHandler::execute(GCCannotUse* pGCCannotUse, Player* pPlayer)
+
 {
-	__BEGIN_TRY __BEGIN_DEBUG_EX
-		
+    __BEGIN_TRY __BEGIN_DEBUG_EX
+
 #if __TEST_CLIENT__
 
-	//cout << pGCCannotUse->toString() << endl;
-	
+    // cout << pGCCannotUse->toString() << endl;
+
 #elif __WINDOWS__
 
 #endif
 
-	__END_DEBUG_EX __END_CATCH
+        __END_DEBUG_EX __END_CATCH
 }

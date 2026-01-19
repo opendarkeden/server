@@ -1,53 +1,50 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGStashList.cpp 
+// Filename    : CGStashList.cpp
 // Written By  : ±è¼º¹Î
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGStashList.h"
 
-void CGStashList::read (SocketInputStream & iStream) 
-	 
+void CGStashList::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	
-	iStream.read(m_ObjectID);
+    __BEGIN_TRY
 
-	__END_CATCH
-}
-		    
-void CGStashList::write (SocketOutputStream & oStream) const 
-     
-{
-	__BEGIN_TRY
+    iStream.read(m_ObjectID);
 
-	oStream.write(m_ObjectID);
-
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGStashList::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
-	__BEGIN_DEBUG
+void CGStashList::write(SocketOutputStream& oStream) const
 
-	CGStashListHandler::execute (this , pPlayer);
-		
-	__END_DEBUG
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+
+    __END_CATCH
 }
 
-string CGStashList::toString () 
-	const 
+void CGStashList::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
+    __BEGIN_DEBUG
 
-	StringStream msg;
-	msg << "CGStashList(" 
-		<< "ObjectID : " << m_ObjectID
-		<< ")";
-	return msg.toString();
+    CGStashListHandler::execute(this, pPlayer);
 
-	__END_CATCH
+    __END_DEBUG
+    __END_CATCH
+}
+
+string CGStashList::toString() const {
+    __BEGIN_TRY
+
+    StringStream msg;
+    msg << "CGStashList("
+        << "ObjectID : " << m_ObjectID << ")";
+    return msg.toString();
+
+    __END_CATCH
 }

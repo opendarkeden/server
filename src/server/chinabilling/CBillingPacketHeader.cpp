@@ -6,77 +6,68 @@
 
 // include files
 #include "CBillingPacketHeader.h"
+
+#include "Properties.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "Properties.h"
 
-CBillingPacketHeader::CBillingPacketHeader()
-{
-	__BEGIN_TRY
+CBillingPacketHeader::CBillingPacketHeader() {
+    __BEGIN_TRY
 
-	memset( this, 0, szCBillingPacketHeaderInfo );
+    memset(this, 0, szCBillingPacketHeaderInfo);
 
-	static int versionno = g_pConfig->getPropertyInt( "ChinaBillingVersionNumber" );
+    static int versionno = g_pConfig->getPropertyInt("ChinaBillingVersionNumber");
 
-	Version_No = versionno;
+    Version_No = versionno;
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CBillingPacketHeader::read( SocketInputStream& iStream )
-{
-	__BEGIN_TRY
-	
-	CBillingPacketHeaderInfo* pInfo = this;
+void CBillingPacketHeader::read(SocketInputStream& iStream) {
+    __BEGIN_TRY
 
-	iStream.read( (char*)pInfo, szCBillingPacketHeaderInfo );
+    CBillingPacketHeaderInfo* pInfo = this;
 
-	// change order network to host
-	Version_No	= ntohl( Version_No );
-	Packet_Type	= ntohl( Packet_Type );
-	Method_Code	= ntohl( Method_Code );
-	Return_Code	= ntohl( Return_Code );
-	Body_Length	= ntohl( Body_Length );
+    iStream.read((char*)pInfo, szCBillingPacketHeaderInfo);
 
-	__END_CATCH
+    // change order network to host
+    Version_No = ntohl(Version_No);
+    Packet_Type = ntohl(Packet_Type);
+    Method_Code = ntohl(Method_Code);
+    Return_Code = ntohl(Return_Code);
+    Body_Length = ntohl(Body_Length);
+
+    __END_CATCH
 }
 
-void CBillingPacketHeader::write( SocketOutputStream& oStream )
-{
-	__BEGIN_TRY
+void CBillingPacketHeader::write(SocketOutputStream& oStream) {
+    __BEGIN_TRY
 
-	// change order host to network
-	Version_No	= htonl( Version_No );
-	Packet_Type	= htonl( Packet_Type );
-	Method_Code	= htonl( Method_Code );
-	Return_Code	= htonl( Return_Code );
-	Body_Length	= htonl( Body_Length );
+    // change order host to network
+    Version_No = htonl(Version_No);
+    Packet_Type = htonl(Packet_Type);
+    Method_Code = htonl(Method_Code);
+    Return_Code = htonl(Return_Code);
+    Body_Length = htonl(Body_Length);
 
-	const CBillingPacketHeaderInfo* pInfo = this;
-	oStream.write( (const char*)pInfo, szCBillingPacketHeaderInfo );
+    const CBillingPacketHeaderInfo* pInfo = this;
+    oStream.write((const char*)pInfo, szCBillingPacketHeaderInfo);
 
-	// restore order
-	Version_No	= ntohl( Version_No );
-	Packet_Type	= ntohl( Packet_Type );
-	Method_Code	= ntohl( Method_Code );
-	Return_Code	= ntohl( Return_Code );
-	Body_Length	= ntohl( Body_Length );
+    // restore order
+    Version_No = ntohl(Version_No);
+    Packet_Type = ntohl(Packet_Type);
+    Method_Code = ntohl(Method_Code);
+    Return_Code = ntohl(Return_Code);
+    Body_Length = ntohl(Body_Length);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-string CBillingPacketHeader::toString() const
-{
-	StringStream msg;
-	msg << "Header("
-		<< "Version_No:" << Version_No 
-		<< ",Packet_Type:" << Packet_Type
-		<< ",Method_Code:" << Method_Code
-		<< ",Return_Code:" << Return_Code
-		<< ",Session_ID:" << Session_ID
-		<< ",Body_Length:" << Body_Length
-		<< ")";
+string CBillingPacketHeader::toString() const {
+    StringStream msg;
+    msg << "Header("
+        << "Version_No:" << Version_No << ",Packet_Type:" << Packet_Type << ",Method_Code:" << Method_Code
+        << ",Return_Code:" << Return_Code << ",Session_ID:" << Session_ID << ",Body_Length:" << Body_Length << ")";
 
-	return msg.toString();
+    return msg.toString();
 }
-

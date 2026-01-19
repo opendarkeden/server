@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : SoulRebirth.h 
+// Filename    : SoulRebirth.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_SOUL_REBIRTH_HANDLER_H__
@@ -13,20 +13,23 @@
 // class SoulRebirth;
 //////////////////////////////////////////////////////////////////////////////
 
-class SoulRebirth : public SkillHandler 
-{
+class SoulRebirth : public SkillHandler {
 public:
-	SoulRebirth() throw() {}
-	~SoulRebirth() throw() {}
-	
+    SoulRebirth() throw() {}
+    ~SoulRebirth() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "SoulRebirth"; }
+    string getSkillHandlerName() const throw() {
+        return "SoulRebirth";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_SOUL_REBIRTH; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_SOUL_REBIRTH;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : GammaChop.h 
+// Filename    : GammaChop.h
 // Written By  : excel96
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_GAMMA_CHOP_HANDLER_H__
@@ -13,20 +13,24 @@
 // class GammaChop;
 //////////////////////////////////////////////////////////////////////////////
 
-class GammaChop: public SkillHandler 
-{
+class GammaChop : public SkillHandler {
 public:
-	GammaChop() throw() {}
-	~GammaChop() throw() {}
-	
+    GammaChop() throw() {}
+    ~GammaChop() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "GammaChop"; }
+    string getSkillHandlerName() const throw() {
+        return "GammaChop";
+    }
 
-	SkillType_t getSkillType() const throw() { return SKILL_GAMMA_CHOP; }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_GAMMA_CHOP;
+    }
 
-	void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Ousters* pOusters, ObjectID_t targetObject, OustersSkillSlot* pOustersSkillSlot,
+                 CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration

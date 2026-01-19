@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ConditionCanEnterLevelWarZone.h
-// Written By  : 
+// Written By  :
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -15,29 +15,36 @@
 // class ConditionCanEnterLevelWarZone;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanEnterLevelWarZone : public Condition 
-{
+class ConditionCanEnterLevelWarZone : public Condition {
 public:
-	virtual ConditionType_t getConditionType() const  { return CONDITION_CAN_ENTER_LEVEL_WAR_ZONE; }
-	virtual bool isPassive() const  { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
-	virtual void read(PropertyBuffer & propertyBuffer) ;
-	virtual string toString() const ;
+    virtual ConditionType_t getConditionType() const {
+        return CONDITION_CAN_ENTER_LEVEL_WAR_ZONE;
+    }
+    virtual bool isPassive() const {
+        return true;
+    }
+    virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const;
+    virtual void read(PropertyBuffer& propertyBuffer);
+    virtual string toString() const;
 
 public:
-
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConditionCanEnterLevelWarZoneFactory;
 //////////////////////////////////////////////////////////////////////////////
 
-class ConditionCanEnterLevelWarZoneFactory : public ConditionFactory 
-{
+class ConditionCanEnterLevelWarZoneFactory : public ConditionFactory {
 public:
-    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_CAN_ENTER_LEVEL_WAR_ZONE; }
-    virtual Condition* createCondition() const  { return new ConditionCanEnterLevelWarZone(); }
-    virtual string getConditionName() const  { return "CanEnterLevelWarZone"; }
+    virtual ConditionType_t getConditionType() const {
+        return Condition::CONDITION_CAN_ENTER_LEVEL_WAR_ZONE;
+    }
+    virtual Condition* createCondition() const {
+        return new ConditionCanEnterLevelWarZone();
+    }
+    virtual string getConditionName() const {
+        return "CanEnterLevelWarZone";
+    }
 };
 
 #endif

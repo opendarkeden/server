@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectArmageddon.h
 // Written by  : crazydog
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_ARMAGEDDON__
@@ -14,64 +14,84 @@
 // class EffectArmageddon
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectArmageddon : public Effect 
-{
+class EffectArmageddon : public Effect {
 public:
-	EffectArmageddon(Creature* pCreature) ;
-
-public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ARMAGEDDON; }
-
-	void affect() ;
-	void affect(Creature* pCreature) ;
-
-	void unaffect(Creature* pCreature) ;
-	void unaffect() ;
-
-	string toString() const throw();
+    EffectArmageddon(Creature* pCreature);
 
 public:
-//	string getCasterName(void) const { return m_CasterName; }
-//	void setCasterName(const string & CasterName ) { m_CasterName = CasterName; }
+    EffectClass getEffectClass() const throw() {
+        return EFFECT_CLASS_ARMAGEDDON;
+    }
 
-//	int getPartyID(void) const { return m_PartyID; }
-//	void setPartyID(int PartyID) { m_PartyID = PartyID; }
+    void affect();
+    void affect(Creature* pCreature);
 
-	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+    void unaffect(Creature* pCreature);
+    void unaffect();
 
-	HP_t getHP() const { return m_HP; }
-	void setHP( HP_t hp ) { m_HP = hp; }
-	void decreaseHP( Damage_t damage ) throw();
+    string toString() const throw();
 
-	Damage_t getDamage() const { return m_Damage; }
-	void setDamage( Damage_t damage ) { m_Damage = damage; }
+public:
+    //	string getCasterName(void) const { return m_CasterName; }
+    //	void setCasterName(const string & CasterName ) { m_CasterName = CasterName; }
 
-	Turn_t getDelay() const { return m_Delay; }
-	void setDelay( Turn_t delay ) { m_Delay = delay; }
+    //	int getPartyID(void) const { return m_PartyID; }
+    //	void setPartyID(int PartyID) { m_PartyID = PartyID; }
+
+    ObjectID_t getUserObjectID() const {
+        return m_UserObjectID;
+    }
+    void setUserObjectID(ObjectID_t UserObjectID) {
+        m_UserObjectID = UserObjectID;
+    }
+
+    HP_t getHP() const {
+        return m_HP;
+    }
+    void setHP(HP_t hp) {
+        m_HP = hp;
+    }
+    void decreaseHP(Damage_t damage) throw();
+
+    Damage_t getDamage() const {
+        return m_Damage;
+    }
+    void setDamage(Damage_t damage) {
+        m_Damage = damage;
+    }
+
+    Turn_t getDelay() const {
+        return m_Delay;
+    }
+    void setDelay(Turn_t delay) {
+        m_Delay = delay;
+    }
 
 private:
-	ObjectID_t	m_UserObjectID;	// 시전자 Object ID
-//	string		m_CasterName;	// 시전자
-//	int			m_PartyID;		// 파티ID
+    ObjectID_t m_UserObjectID; // 시전자 Object ID
+                               //	string		m_CasterName;	// 시전자
+                               //	int			m_PartyID;		// 파티ID
 
-	HP_t		m_HP;			// 체력
-	Damage_t	m_Damage;		// 데미지
-	Turn_t		m_Delay;		// Tick
+    HP_t m_HP;         // 체력
+    Damage_t m_Damage; // 데미지
+    Turn_t m_Delay;    // Tick
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectArmageddonLoader
 //////////////////////////////////////////////////////////////////////////////
 
-class EffectArmageddonLoader : public EffectLoader 
-{
+class EffectArmageddonLoader : public EffectLoader {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_ARMAGEDDON; }
-	virtual string getEffectClassName() const throw() { return "EffectArmageddon"; }
+    virtual Effect::EffectClass getEffectClass() const throw() {
+        return Effect::EFFECT_CLASS_ARMAGEDDON;
+    }
+    virtual string getEffectClassName() const throw() {
+        return "EffectArmageddon";
+    }
 
 public:
-	virtual void load(Creature* pCreature)  {}
+    virtual void load(Creature* pCreature) {}
 };
 
 

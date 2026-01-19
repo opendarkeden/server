@@ -1,68 +1,61 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : CGAddGearToMouse.cpp 
+// Filename    : CGAddGearToMouse.cpp
 // Written By  : elca@ewestsoft.com
-// Description : 
+// Description :
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGAddGearToMouse.h"
 
-CGAddGearToMouse::CGAddGearToMouse () 
-     
+CGAddGearToMouse::CGAddGearToMouse()
+
+    {__BEGIN_TRY __END_CATCH}
+
+CGAddGearToMouse::~CGAddGearToMouse()
+
 {
-	__BEGIN_TRY
-	__END_CATCH
+    __BEGIN_TRY
+    __END_CATCH_NO_RETHROW
 }
 
-CGAddGearToMouse::~CGAddGearToMouse () 
-    
+void CGAddGearToMouse::read(SocketInputStream& iStream)
+
 {
-	__BEGIN_TRY
-	__END_CATCH_NO_RETHROW
+    __BEGIN_TRY
+
+    iStream.read(m_ObjectID);
+    iStream.read(m_SlotID);
+
+    __END_CATCH
 }
 
-void CGAddGearToMouse::read (SocketInputStream & iStream) 
-	 
-{
-	__BEGIN_TRY
-		
-	iStream.read(m_ObjectID);
-	iStream.read(m_SlotID);
+void CGAddGearToMouse::write(SocketOutputStream& oStream) const
 
-	__END_CATCH
+{
+    __BEGIN_TRY
+
+    oStream.write(m_ObjectID);
+    oStream.write(m_SlotID);
+
+    __END_CATCH
 }
 
-void CGAddGearToMouse::write (SocketOutputStream & oStream) const 
-     
+void CGAddGearToMouse::execute(Player* pPlayer)
+
 {
-	__BEGIN_TRY
+    __BEGIN_TRY
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_SlotID);
+    CGAddGearToMouseHandler::execute(this, pPlayer);
 
-	__END_CATCH
+    __END_CATCH
 }
 
-void CGAddGearToMouse::execute (Player* pPlayer) 
-	 
-{
-	__BEGIN_TRY
+string CGAddGearToMouse::toString() const {
+    __BEGIN_TRY
 
-	CGAddGearToMouseHandler::execute (this , pPlayer);
-		
-	__END_CATCH
-}
+    StringStream msg;
+    msg << "CGAddGearToMouse("
+        << "ObjectID: " << (int)m_ObjectID << ", SlotID: " << (int)m_SlotID << ")";
+    return msg.toString();
 
-string CGAddGearToMouse::toString () 
-	const 
-{
-	__BEGIN_TRY
-		
-	StringStream msg;
-	msg << "CGAddGearToMouse("
-		<< "ObjectID: " << (int)m_ObjectID 
-		<< ", SlotID: " << (int)m_SlotID
-		<< ")";
-	return msg.toString();
-
-	__END_CATCH
+    __END_CATCH
 }

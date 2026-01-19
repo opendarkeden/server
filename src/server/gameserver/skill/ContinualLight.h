@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////////////
-// Filename    : ContinualLight.h 
+// Filename    : ContinualLight.h
 // Written By  : elca
 // Description :
 //////////////////////////////////////////////////////////////////////////////
@@ -13,19 +13,22 @@
 // class ContinualLight;
 //////////////////////////////////////////////////////////////////////////////
 
-class ContinualLight: public SkillHandler 
-{
+class ContinualLight : public SkillHandler {
 public:
-	ContinualLight() throw() {}
-	~ContinualLight() throw() {}
-	
+    ContinualLight() throw() {}
+    ~ContinualLight() throw() {}
+
 public:
-    string getSkillHandlerName() const throw() { return "ContinualLight"; }
-	SkillType_t getSkillType() const throw() { return SKILL_CONTINUAL_LIGHT; }
+    string getSkillHandlerName() const throw() {
+        return "ContinualLight";
+    }
+    SkillType_t getSkillType() const throw() {
+        return SKILL_CONTINUAL_LIGHT;
+    }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+    void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
-	void computeOutput(const SkillInput& input, SkillOutput& output);
+    void computeOutput(const SkillInput& input, SkillOutput& output);
 };
 
 // global variable declaration
