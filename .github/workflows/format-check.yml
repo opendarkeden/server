@@ -1,0 +1,56 @@
+name: Format Check
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git diff
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format
+
+      - name: Check C++ formatting
+        run: |
+          # Fetch master branch for comparison
+          git fetch origin master
+
+          # Get list of changed C++ files
+          changed_files=$(git diff --name-only --diff-filter=ACM origin/master HEAD | grep -E '\.(cpp|h|hpp)$' || true)
+
+          if [ -z "$changed_files" ]; then
+            echo "No C++ files changed. Skipping format check."
+            exit 0
+          fi
+
+          echo "Checking format for changed files:"
+          echo "$changed_files"
+
+          # Check format for each changed file
+          failed=false
+          for file in $changed_files; do
+            if [ -f "$file" ]; then
+              if ! clang-format "$file" | diff -q "$file" - > /dev/null 2>&1; then
+                echo "[FAIL] $file needs formatting"
+                failed=true
+              fi
+            fi
+          done
+
+          if [ "$failed" = true ]; then
+            echo ""
+            echo "Format check failed! Please run 'make fmt' to fix formatting issues."
+            exit 1
+          fi
+
+          echo "[OK] All changed files are properly formatted!"
