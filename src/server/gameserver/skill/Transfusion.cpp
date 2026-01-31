@@ -21,7 +21,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -43,11 +43,11 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL ||
             pTargetCreature->isNPC()
-            // HIDE ÀÎ ³ğÀº µÇ»ì·Á³»¸é ÀÌ»óÇÏ°Ô µÈ´Ù. ÀÏ´Ü ¸·¾Æ³õÀ½.
+            // HIDE ì¸ ë†ˆì€ ë˜ì‚´ë ¤ë‚´ë©´ ì´ìƒí•˜ê²Œ ëœë‹¤. ì¼ë‹¨ ë§‰ì•„ë†“ìŒ.
             // 2003. 1. 17. DEW
             || pTargetCreature->isFlag(Effect::EFFECT_CLASS_HIDE) ||
             (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore") != 0 &&
@@ -71,7 +71,7 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -80,7 +80,7 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
             HitBonus = pRankBonus->getPoint();
         }
 
-        // 15%¸¦ »ç¿ë
+        // 15%ë¥¼ ì‚¬ìš©
         int CurrentHP = pVampire->getHP(ATTR_CURRENT);
 #ifdef __CHINA_SERVER__
         int RequiredMP = CurrentHP * 15 / 100; // decreaseConsumeMP(pVampire, pSkillInfo);
@@ -97,19 +97,19 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
         Range_t Range = 1;
 
-        // »ó´ë¹æÀÇ HP°¡ FullÀÌ ¾Æ´Ï°í
-        // ÀÚ½ÅÀÇ HP°¡ 30ÀÌ»ó
+        // ìƒëŒ€ë°©ì˜ HPê°€ Fullì´ ì•„ë‹ˆê³ 
+        // ìì‹ ì˜ HPê°€ 30ì´ìƒ
         if (pVampire->getHP(ATTR_CURRENT) >= 30) {
             if (pTargetCreature->isVampire()) {
                 Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
 
-                // ÇöÀçHP+SilverDamage < MaxHP ¿©¾ß ÇÑ´Ù.
+                // í˜„ì¬HP+SilverDamage < MaxHP ì—¬ì•¼ í•œë‹¤.
                 if (pTargetVampire->getHP(ATTR_CURRENT) + pTargetVampire->getSilverDamage() <
                     pTargetVampire->getHP(ATTR_MAX))
                     bHPCheck = true;
             }
             /*
-            // ¾ÆÁ÷ ÀÌ°Ç ÇÊ¿ä¾ø´Ù.
+            // ì•„ì§ ì´ê±´ í•„ìš”ì—†ë‹¤.
             else if (pTargetCreature->isMonster())
             {
                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
@@ -125,12 +125,12 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
 
-            // TargetCreatureÀÇ HP¸¦ Ã¤¿î´Ù
+            // TargetCreatureì˜ HPë¥¼ ì±„ìš´ë‹¤
             if (pTargetCreature->isVampire()) {
                 Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
 
@@ -140,7 +140,7 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
                 pTargetVampire->setHP(newHP);
 
-                // HP°¡ 30%°¡ µÇ¸é(33% -_-;) »ì¾Æ³ª°Ô µÈ´Ù.
+                // HPê°€ 30%ê°€ ë˜ë©´(33% -_-;) ì‚´ì•„ë‚˜ê²Œ ëœë‹¤.
                 if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
                     // cout << "Target has EFFECT_COMA" << endl;
                     if (newHP * 3 >= maxHP) {
@@ -152,21 +152,21 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
                         if (pEffectComa->canResurrect()) {
                             // cout << "Can Resurrect!" << endl;
 
-                            // Å¸°ÙÀÇ ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ ÄÚ¸¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+                            // íƒ€ê²Ÿì˜ ì´í™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì½”ë§ˆ ì´í™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
                             pTargetCreature->deleteEffect(Effect::EFFECT_CLASS_COMA);
                             pTargetCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
 
-                            // ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¬´Ù°í ¾Ë·ÁÁØ´Ù.
+                            // ì½”ë§ˆ ì´í™íŠ¸ê°€ ë‚ ì•„ê°”ë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
                             GCRemoveEffect gcRemoveEffect;
                             gcRemoveEffect.setObjectID(pTargetCreature->getObjectID());
                             gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_COMA);
                             pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcRemoveEffect);
 
-                            // ÀÌÆåÆ® Á¤º¸¸¦ ´Ù½Ã º¸³»ÁØ´Ù. by sigi. 2002.11.14
+                            // ì´í™íŠ¸ ì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ë‚´ì¤€ë‹¤. by sigi. 2002.11.14
                             pTargetCreature->getEffectManager()->sendEffectInfo(
                                 pTargetCreature, pZone, pTargetCreature->getX(), pTargetCreature->getY());
 
-                            // EffectKillAftermath ¸¦ ºÙÀÎ´Ù.
+                            // EffectKillAftermath ë¥¼ ë¶™ì¸ë‹¤.
                             if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH)) {
                                 Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_KILL_AFTERMATH);
                                 EffectKillAftermath* pEffectKillAftermath = dynamic_cast<EffectKillAftermath*>(pEffect);
@@ -182,13 +182,13 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
                     }
                 }
 
-                // ÁÖÀ§¿¡ Ã¼·ÂÀÌ Ã¤¿öÁ³´Ù´Â »ç½ÇÀ» ¾Ë¸°´Ù.
+                // ì£¼ìœ„ì— ì²´ë ¥ì´ ì±„ì›Œì¡Œë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë¦°ë‹¤.
                 GCStatusCurrentHP gcStatusCurrentHP;
                 gcStatusCurrentHP.setObjectID(pTargetVampire->getObjectID());
                 gcStatusCurrentHP.setCurrentHP(pTargetVampire->getHP(ATTR_CURRENT));
                 pZone->broadcastPacket(X, Y, &gcStatusCurrentHP);
 
-                // ÀÚ½ÅÀÇ ¿¡³ÊÁö°¡ ÁÙ¾îµç°Íµµ º¸¿©ÁÖÀÚ
+                // ìì‹ ì˜ ì—ë„ˆì§€ê°€ ì¤„ì–´ë“ ê²ƒë„ ë³´ì—¬ì£¼ì
                 gcStatusCurrentHP.setObjectID(pVampire->getObjectID());
                 gcStatusCurrentHP.setCurrentHP(pVampire->getHP(ATTR_CURRENT));
                 pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcStatusCurrentHP);
@@ -259,7 +259,7 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Transfusion::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)

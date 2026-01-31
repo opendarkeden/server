@@ -19,7 +19,7 @@ GQuestMission* GQuestKillMonsterElement::makeInitMission(PlayerCreature* pPC) co
     int TotalNum = m_TargetList.size();
     int TargetNum = min((int)m_TargetNum, TotalNum);
     int selected = 0;
-    cout << TotalNum << "Áß¿¡ " << TargetNum << "°³°¡ ¼±ÅÃµÇ¾î¾ß ÇÕ´Ï´Ù." << endl;
+    cout << TotalNum << "ì¤‘ì— " << TargetNum << "ê°œê°€ ì„ íƒë˜ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 
     for (int i = 0; i < TotalNum; ++i) {
         int toSelect = TargetNum - selected;
@@ -31,11 +31,11 @@ GQuestMission* GQuestKillMonsterElement::makeInitMission(PlayerCreature* pPC) co
         if ((rand() % last) < toSelect) {
             pMission->getTargetList().push_back(m_TargetList[i]);
             ++selected;
-            cout << (int)m_TargetList[i] << "°¡ ¼±ÅÃµÇ¾ú½À´Ï´Ù." << endl;
+            cout << (int)m_TargetList[i] << "ê°€ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
         }
     }
 
-    cout << "¼±ÅÃ³¡~" << endl;
+    cout << "ì„ íƒë~" << endl;
 
     return pMission;
 }

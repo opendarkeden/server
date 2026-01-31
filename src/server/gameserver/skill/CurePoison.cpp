@@ -20,7 +20,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -41,8 +41,8 @@ void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
-        // ½½·¹ÀÌ¾î ¿Ü¿¡´Â Ä¡·áÇÒ ¼ö ¾ø´Ù.
+        // NoSuchì œê±°. by sigi. 2002.5.2
+        // ìŠ¬ë ˆì´ì–´ ì™¸ì—ëŠ” ì¹˜ë£Œí•  ìˆ˜ ì—†ë‹¤.
         if (pTargetCreature == NULL || pTargetCreature->isSlayer() == false) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -61,11 +61,11 @@ void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         // by sigi. 2002.12.3
         SkillLevel_t SkillLevel = pSlayer->getINT() / 2; // pSkillSlot->getExpLevel();
 
-        bool bGreenPoison = false;    // GreenPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bYellowPoison = false;   // YellowPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bDarkBluePoison = false; // DarkBluePoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bGreenStalker = false;   // GreenStalker¸¦ Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bEffected = false;       // ¾Æ¹« µ¶ÀÌ³ª °É·ÁÀÖÀ¸¸é ÄÒ´Ù.
+        bool bGreenPoison = false;    // GreenPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bYellowPoison = false;   // YellowPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bDarkBluePoison = false; // DarkBluePoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bGreenStalker = false;   // GreenStalkerë¥¼ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bEffected = false;       // ì•„ë¬´ ë…ì´ë‚˜ ê±¸ë ¤ìžˆìœ¼ë©´ ì¼ ë‹¤.
 
         EffectPoison* pEffectPoison = NULL;
         EffectYellowPoisonToCreature* pEffectYellowPoisonToCreature = NULL;
@@ -110,8 +110,8 @@ void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
 
-        // ¸¶³ª°¡ ÀÖ°í, ½Ã°£ÀÌ µÆ°í, °Å¸®°¡ Àû´çÇÏ¸ç,
-        // µ¶ÀÌ ÇÏ³ª¶óµµ °É·ÁÀÖ¾î¾ß ÇÑ´Ù.
+        // ë§ˆë‚˜ê°€ ìžˆê³ , ì‹œê°„ì´ ëê³ , ê±°ë¦¬ê°€ ì ë‹¹í•˜ë©°,
+        // ë…ì´ í•˜ë‚˜ë¼ë„ ê±¸ë ¤ìžˆì–´ì•¼ í•œë‹¤.
         if (bManaCheck && bTimeCheck && bRangeCheck && bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
@@ -119,8 +119,8 @@ void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
             SkillOutput output;
             computeOutput(input, output);
 
-            // °¢°¢ÀÇ µ¶¸¶´Ù Ä¡·á¸¦ ÇÏ°í,
-            // ÆÐÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ë…ë§ˆë‹¤ ì¹˜ë£Œë¥¼ í•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´íŽ™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pTargetCreature->getObjectID());
 
@@ -145,7 +145,7 @@ void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GREEN_STALKER);
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
@@ -211,7 +211,7 @@ void CurePoison::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CurePoison::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -240,11 +240,11 @@ void CurePoison::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
         // SkillLevel_t      SkillLevel = pSkillSlot->getExpLevel();
         SkillLevel_t SkillLevel = pSlayer->getINT() / 2; // pSkillSlot->getExpLevel();
 
-        bool bGreenPoison = false;    // GreenPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bYellowPoison = false;   // YellowPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bDarkBluePoison = false; // DarkBluePoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bGreenStalker = false;   // GreenStalker¸¦ Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bEffected = false;       // ¾Æ¹« µ¶ÀÌ³ª °É·ÁÀÖÀ¸¸é ÄÒ´Ù.
+        bool bGreenPoison = false;    // GreenPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bYellowPoison = false;   // YellowPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bDarkBluePoison = false; // DarkBluePoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bGreenStalker = false;   // GreenStalkerë¥¼ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bEffected = false;       // ì•„ë¬´ ë…ì´ë‚˜ ê±¸ë ¤ìžˆìœ¼ë©´ ì¼ ë‹¤.
 
         EffectPoison* pEffectPoison = NULL;
         EffectYellowPoisonToCreature* pEffectYellowPoisonToCreature = NULL;
@@ -289,8 +289,8 @@ void CurePoison::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
 
-        // ¸¶³ª°¡ ÀÖ°í, ½Ã°£ÀÌ µÆ°í, °Å¸®°¡ Àû´çÇÏ¸ç,
-        // µ¶ÀÌ ÇÏ³ª¶óµµ °É·ÁÀÖ¾î¾ß ÇÑ´Ù.
+        // ë§ˆë‚˜ê°€ ìžˆê³ , ì‹œê°„ì´ ëê³ , ê±°ë¦¬ê°€ ì ë‹¹í•˜ë©°,
+        // ë…ì´ í•˜ë‚˜ë¼ë„ ê±¸ë ¤ìžˆì–´ì•¼ í•œë‹¤.
         if (bManaCheck && bTimeCheck && bRangeCheck && bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
@@ -298,8 +298,8 @@ void CurePoison::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
             SkillOutput output;
             computeOutput(input, output);
 
-            // °¢°¢ÀÇ µ¶¸¶´Ù Ä¡·á¸¦ ÇÏ°í,
-            // ÆÐÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ë…ë§ˆë‹¤ ì¹˜ë£Œë¥¼ í•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´íŽ™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pSlayer->getObjectID());
 
@@ -324,7 +324,7 @@ void CurePoison::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GREEN_STALKER);
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
@@ -346,7 +346,7 @@ void CurePoison::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(myX, myY, &_GCSkillToSelfOK2, pSlayer);
 
-            // ±â¼úÀÌ Ç®·È´Ù´Â °ÍÀ» ¾Ë·ÁÁØ´Ù¾Æ.
+            // ê¸°ìˆ ì´ í’€ë ¸ë‹¤ëŠ” ê²ƒì„ ì•Œë ¤ì¤€ë‹¤ì•„.
             pZone->broadcastPacket(myX, myY, &gcRemoveEffect);
 
             pSkillSlot->setRunTime(output.Delay);

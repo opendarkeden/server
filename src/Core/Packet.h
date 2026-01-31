@@ -46,11 +46,11 @@ const uint szPacketHeader = szPacketID + szPacketSize + szSequenceSize;
 //
 // class Packet;
 //
-// ÆÐÅ¶ µ¥ÀÌÅ¸¸¦ ³ªÅ¸³»´Â ÀÎÅÍÆäÀÌ½º Å¬·¡½ºÀÌ´Ù.
+// íŒ¨í‚· ë°ì´íƒ€ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ì¸í„°íŽ˜ì´ìŠ¤ í´ëž˜ìŠ¤ì´ë‹¤.
 //
-// read()¿Í write()¸¦ ÁÖÀÇ±í°Ô »ìÆìº¸¶ó. ¼ÒÄÏÀÔ·Â½ºÆ®¸²°ú ¼ÒÄÏÃâ·Â½ºÆ®¸²Àº
-// ¸ðµç ÆÐÅ¶À» ¾î¶»°Ô ÀÐ°í ¾µ °ÍÀÎÁö¸¦ ¾Ë ¼ö ¾ø´Ù. µû¶ó¼­, ÆÐÅ¶ ÀÚ½ÅÀÌ °¢
-// ½ºÆ®¸²¿¡ ¾î¶»°Ô ÀÐ°í ¾µ °ÍÀÎÁö¸¦ ¾Ë°í ÀÖ¾î¾ß ÇÑ´Ù.
+// read()ì™€ write()ë¥¼ ì£¼ì˜ê¹Šê²Œ ì‚´íŽ´ë³´ë¼. ì†Œì¼“ìž…ë ¥ìŠ¤íŠ¸ë¦¼ê³¼ ì†Œì¼“ì¶œë ¥ìŠ¤íŠ¸ë¦¼ì€
+// ëª¨ë“  íŒ¨í‚·ì„ ì–´ë–»ê²Œ ì½ê³  ì“¸ ê²ƒì¸ì§€ë¥¼ ì•Œ ìˆ˜ ì—†ë‹¤. ë”°ë¼ì„œ, íŒ¨í‚· ìžì‹ ì´ ê°
+// ìŠ¤íŠ¸ë¦¼ì— ì–´ë–»ê²Œ ì½ê³  ì“¸ ê²ƒì¸ì§€ë¥¼ ì•Œê³  ìžˆì–´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -557,23 +557,23 @@ public:
     // destructor
     virtual ~Packet() {}
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     virtual void read(SocketInputStream& iStream) = 0;
 
-    // ¼ÒÄÏÀ¸·ÎºÎÅÍ Á÷Á¢ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì†Œì¼“ìœ¼ë¡œë¶€í„° ì§ì ‘ ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     virtual void read(Socket* pSocket) {
         throw UnsupportedError();
     }
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     virtual void write(SocketOutputStream& oStream) const = 0;
 
-    // ¼ÒÄÏÀ¸·Î Á÷Á¢ ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì†Œì¼“ìœ¼ë¡œ ì§ì ‘ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     virtual void write(Socket* pSocket) const {
         throw UnsupportedError();
     }
 
-    // Ãâ·Â ½ºÆ®¸²¿¡ ÆÐÅ¶ÀÇ Çì´õ¿Í ¹Ùµð¸¦ ¸ðµÎ ¾´´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ì— íŒ¨í‚·ì˜ í—¤ë”ì™€ ë°”ë””ë¥¼ ëª¨ë‘ ì“´ë‹¤.
     void writeHeaderNBody(SocketOutputStream& oStream) const {
         oStream.write(getPacketID());
         oStream.write(getPacketSize());

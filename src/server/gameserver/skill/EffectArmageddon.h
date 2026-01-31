@@ -68,12 +68,12 @@ public:
     }
 
 private:
-    ObjectID_t m_UserObjectID; // ½ÃÀüÀÚ Object ID
-                               //	string		m_CasterName;	// ½ÃÀüÀÚ
-                               //	int			m_PartyID;		// ÆÄÆ¼ID
+    ObjectID_t m_UserObjectID; // ì‹œì „ì Object ID
+                               //	string		m_CasterName;	// ì‹œì „ì
+                               //	int			m_PartyID;		// íŒŒí‹°ID
 
-    HP_t m_HP;         // Ã¼·Â
-    Damage_t m_Damage; // µ¥¹ÌÁö
+    HP_t m_HP;         // ì²´ë ¥
+    Damage_t m_Damage; // ë°ë¯¸ì§€
     Turn_t m_Delay;    // Tick
 };
 

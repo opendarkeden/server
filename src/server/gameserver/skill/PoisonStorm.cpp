@@ -18,7 +18,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PoisonStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -39,7 +39,7 @@ void PoisonStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
 
@@ -58,7 +58,7 @@ void PoisonStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -88,7 +88,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
         ZoneCoord_t myX = pVampire->getX();
         ZoneCoord_t myY = pVampire->getY();
 
-        // Knowledge of Poison ÀÌ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Poison ì´ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
@@ -121,7 +121,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             SkillOutput output;
             computeOutput(input, output);
 
-            // Disruption Storm ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 20% Áõ°¡
+            // Disruption Storm ì´ ìžˆë‹¤ë©´ ë°ë¯¸ì§€ 20% ì¦ê°€
             if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM)) {
                 RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM);
                 Assert(pRankBonus != NULL);
@@ -131,7 +131,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // ê¸°ì¡´ì— ê°™ì€ ì´íŽ™íŠ¸ê°€ íƒ€ì¼ì— ìžˆë‹¤ë©´ ì§€ìš°ê³  ìƒˆë¡œ ì„¤ì •í•œë‹¤.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_POISON_STORM);
             if (pOldEffect != NULL) {
@@ -139,7 +139,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             EffectPoisonStorm* pEffect = new EffectPoisonStorm(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setNextTime(0);
@@ -159,9 +159,9 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             tile.addEffect(pEffect);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ðµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Vampire°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Vampire¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // ì´íŽ™íŠ¸ ë²”ìœ„ë‚´ì˜ ëª¨ë“  Creatureì—ê²Œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+            // Vampireê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•œ ê²½ìš° ê°™ì€ Vampireì—ê²ŒëŠ”
+            // í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature;
 
@@ -172,7 +172,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             int oX, oY;
             int edge = 1;
 
-            // Wide Storm ÀÌ ÀÖ´Ù¸é ¹üÀ§°¡ 5*5 ·Î ¼öÁ¤. skill type À» ¼öÁ¤ÇÑ´Ù.
+            // Wide Storm ì´ ìžˆë‹¤ë©´ ë²”ìœ„ê°€ 5*5 ë¡œ ìˆ˜ì •. skill type ì„ ìˆ˜ì •í•œë‹¤.
             if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WIDE_STORM)) {
                 RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WIDE_STORM);
                 Assert(pRankBonus != NULL);
@@ -188,13 +188,13 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                     int tileX = X + oX;
                     int tileY = Y + oY;
 
-                    // ¸¸¾à ÀÌÆåÆ®¸¦ Ãß°¡ÇÏ·Á´Â °÷ÀÌ Zone¿¡ ¼ÓÇØ ÀÖÁö ¾Ê´Ù¸é ³Ñ¾î°£´Ù.
+                    // ë§Œì•½ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•˜ë ¤ëŠ” ê³³ì´ Zoneì— ì†í•´ ìžˆì§€ ì•Šë‹¤ë©´ ë„˜ì–´ê°„ë‹¤.
                     if (!rect.ptInRect(tileX, tileY))
                         continue;
 
                     Tile& tile = pZone->getTile(tileX, tileY);
 
-                    // ÇØ´ç Å¸ÀÏ¿¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ¾ø´Ù¸é ³Ñ¾î°£´Ù.
+                    // í•´ë‹¹ íƒ€ì¼ì— ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ì—†ë‹¤ë©´ ë„˜ì–´ê°„ë‹¤.
                     if (!tile.canAddEffect())
                         continue;
 
@@ -221,7 +221,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°ÝÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // ê³µê²©ì„ ë‹¹í•œ ì‚¬ëžŒì—ê²Œ
                                     _GCSkillToTileOK2.setObjectID(pVampire->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -236,14 +236,14 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                                 pMonster->addEnemy(pVampire);
 
-                                // ¸¶Áö¸· ¶§¸° ¾Ö°¡ ¹ìÆÄÀÌ¾î¶ó°í ¼³Á¤ÇÑ´Ù. by sigi. 2002.6.21
+                                // ë§ˆì§€ë§‰ ë•Œë¦° ì• ê°€ ë±€íŒŒì´ì–´ë¼ê³  ì„¤ì •í•œë‹¤. by sigi. 2002.6.21
                                 pMonster->setLastHitCreatureClass(Creature::CREATURE_CLASS_VAMPIRE);
                             }
                         }
                     } // if(pTargetCreature!= NULL)
                 }
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK1.setSkillType(SkillType);
             _GCSkillToTileOK1.setCEffectID(CEffectID);
             _GCSkillToTileOK1.setX(X);
@@ -251,19 +251,19 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             _GCSkillToTileOK1.setDuration(output.Duration);
             _GCSkillToTileOK1.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒë§Œ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(X);
             _GCSkillToTileOK3.setY(Y);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëžŒë§Œ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ðµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒê³¼ ë‹¹í•œ ì‚¬ëžŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pVampire->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -271,19 +271,19 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷¿¡°Ô packet Àü´Þ
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëžŒì—ê²Œ packet ì „ë‹¬
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ðµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëžŒê³¼ ë‹¹í•œ ì‚¬ëžŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasing
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒì„ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëžŒì„ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // ±â¼ú delay setting
+            // ê¸°ìˆ  delay setting
             pVampireSkillSlot->setRunTime(output.Delay);
         } else {
             executeSkillFailNormal(pVampire, getSkillType(), NULL);
@@ -298,7 +298,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -345,7 +345,7 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // ê¸°ì¡´ì— ê°™ì€ ì´íŽ™íŠ¸ê°€ íƒ€ì¼ì— ìžˆë‹¤ë©´ ì§€ìš°ê³  ìƒˆë¡œ ì„¤ì •í•œë‹¤.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_POISON_STORM);
             if (pOldEffect != NULL) {
@@ -353,7 +353,7 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             EffectPoisonStorm* pEffect = new EffectPoisonStorm(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setNextTime(0);
@@ -372,9 +372,9 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             tile.addEffect(pEffect);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ðµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Vampire°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Vampire¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // ì´íŽ™íŠ¸ ë²”ìœ„ë‚´ì˜ ëª¨ë“  Creatureì—ê²Œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+            // Vampireê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•œ ê²½ìš° ê°™ì€ Vampireì—ê²ŒëŠ”
+            // í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature;
 
@@ -420,7 +420,7 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°ÝÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // ê³µê²©ì„ ë‹¹í•œ ì‚¬ëžŒì—ê²Œ
                                     _GCSkillToTileOK2.setObjectID(pMonster->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -439,19 +439,19 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     } // if(pTargetCreature!= NULL)
                 }
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒë§Œ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(myX);
             _GCSkillToTileOK3.setY(myY);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëžŒë§Œ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ðµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒê³¼ ë‹¹í•œ ì‚¬ëžŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pMonster->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -459,13 +459,13 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ðµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëžŒê³¼ ë‹¹í•œ ì‚¬ëžŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasing
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒì„ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëžŒì„ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
         } else {

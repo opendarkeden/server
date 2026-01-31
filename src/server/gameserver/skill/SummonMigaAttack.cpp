@@ -12,8 +12,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ý¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ìž
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 SummonMigaAttack::SummonMigaAttack() throw() {
     __BEGIN_TRY
@@ -22,7 +22,7 @@ SummonMigaAttack::SummonMigaAttack() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonMigaAttack::execute(Monster* pMonster)
 
@@ -46,7 +46,7 @@ void SummonMigaAttack::execute(Monster* pMonster)
 
         if (bRangeCheck) {
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§žëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             SkillInput input(pMonster);
             SkillOutput output;
@@ -79,7 +79,7 @@ void SummonMigaAttack::execute(Monster* pMonster)
                 pEffect->setDeadline(8);
                 pMonster->addEffect(pEffect);
             } else
-                cout << "¹Ì°¡ ÀÚÆø ½ÇÆÐ" << endl;
+                cout << "ë¯¸ê°€ ìží­ ì‹¤íŒ¨" << endl;
         } else {
             executeSkillFailNormal(pMonster, getSkillType(), NULL);
         }

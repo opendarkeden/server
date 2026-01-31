@@ -30,7 +30,7 @@ void ActionShowConfirmGetEventItemDialog::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowConfirmGetEventItemDialog::execute(Creature* pCreature1, Creature* pCreature2)
 

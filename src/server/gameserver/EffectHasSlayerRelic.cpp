@@ -64,7 +64,7 @@ else
     msg << pVampire->getName();
 }
 
-msg << " ´ÔÀÌ ½½·¹ÀÌ¾î ¼º¹°À» °¡Á³½À´Ï´Ù.";
+msg << " ë‹˜ì´ ìŠ¬ë ˆì´ì–´ ì„±ë¬¼ì„ ê°€ì¡ŒìŠµë‹ˆë‹¤.";
 
 GCSystemMessage gcSystemMessage;
 gcSystemMessage.setMessage(msg.toString());
@@ -72,14 +72,14 @@ gcSystemMessage.setMessage(msg.toString());
 g_pZoneGroupManager->broadcast( &gcSystemMessage );
 */
 
-    // Á¸ Á¤º¸¸¦ ¾ò´Â´Ù.
+    // ì¡´ ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤.
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
     ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pZone->getZoneID());
     Assert(pZoneInfo != NULL);
 
-    // À§Ä¡¸¦ ¾Ë¸°´Ù.
+    // ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
     char msg[100];
 
     const char* race;
@@ -96,11 +96,11 @@ g_pZoneGroupManager->broadcast( &gcSystemMessage );
             //                STRID_VAMPIRE ) ),
             (int)pCreature->getX(), (int)pCreature->getY());
 
-    /*	// À§Ä¡¸¦ ¾Ë¸°´Ù.
+    /*	// ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
         StringStream msg;
-        msg << pCreature->getName() << " ´Ô(" << ( pCreature->isSlayer() ? "½½·¹ÀÌ¾î" : "¹ìÆÄÀÌ¾î" ) << ")ÀÌ "
+        msg << pCreature->getName() << " ë‹˜(" << ( pCreature->isSlayer() ? "ìŠ¬ë ˆì´ì–´" : "ë±€íŒŒì´ì–´" ) << ")ì´ "
             << pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
-            << ")¿¡¼­ ½½·¹ÀÌ¾î ¼º¹°À» °¡Áö°í ÀÖ½À´Ï´Ù."; */
+            << ")ì—ì„œ ìŠ¬ë ˆì´ì–´ ì„±ë¬¼ì„ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤."; */
 
     GCSystemMessage gcSystemMessage;
     gcSystemMessage.setMessage(msg);
@@ -128,16 +128,16 @@ void EffectHasSlayerRelic::affect(Item* pItem)
       {
           Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-          msg << pSlayer->getName() << " ´ÔÀÌ ";
+          msg << pSlayer->getName() << " ë‹˜ì´ ";
       }
       else
       {
           Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-          msg << pVampire->getName() << " ´ÔÀÌ ";
+          msg << pVampire->getName() << " ë‹˜ì´ ";
       }
 
-      msg << " ½½·¹ÀÌ¾î ¼º¹°À» °¡Áö°í ÀÖ½À´Ï´Ù." << endl;
+      msg << " ìŠ¬ë ˆì´ì–´ ì„±ë¬¼ì„ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤." << endl;
 
       GCSystemMessage gcSystemMessage;
       gcSystemMessage.setMessage(msg.toString());

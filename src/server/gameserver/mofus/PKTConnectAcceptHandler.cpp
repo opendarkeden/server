@@ -11,7 +11,7 @@
 #include "Mofus.h"
 
 
-// ½ÇÇà ÇÔ¼ö
+// ì‹¤í–‰ í•¨ìˆ˜
 void PKTConnectAcceptHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
     cout << "--------------------------------------------------" << endl;
     cout << "RECV [" << pPlayer->getJob()->getName() << "] ConnectAccept" << endl;
@@ -20,6 +20,6 @@ void PKTConnectAcceptHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
     filelog(MOFUS_LOG_FILE, "RECV [%s] ConnectAccept", pPlayer->getJob()->getName().c_str());
     filelog(MOFUS_PACKET_FILE, "RECV : [%s] %s", pPlayer->getJob()->getName().c_str(), pPacket->toString().c_str());
 
-    // À¯Àú ÀÎÆ÷¸¦ ¿äÃ». ÆÄ¿öÆ÷ÀÎÆ® °¡Á®¿À±â
+    // ìœ ì € ì¸í¬ë¥¼ ìš”ì²­. íŒŒì›Œí¬ì¸íŠ¸ ê°€ì ¸ì˜¤ê¸°
     pPlayer->sendUserInfo();
 }

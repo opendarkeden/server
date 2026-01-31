@@ -37,8 +37,8 @@ public:
     string toString() const;
 
 private:
-    ItemFactory** m_Factories; // ¾ÆÀÌÅÛÆÑÅä¸®ÀÇ ¹è¿­
-    ushort m_Size;             // ¾ÆÀÌÅÛÆÑÅä¸®¹è¿­ÀÇ Å©±â
+    ItemFactory** m_Factories; // ì•„ì´í…œíŒ©í† ë¦¬ì˜ ë°°ì—´
+    ushort m_Size;             // ì•„ì´í…œíŒ©í† ë¦¬ë°°ì—´ì˜ í¬ê¸°
     unordered_map<string, Item::ItemClass> m_ItemClassMap;
 };
 

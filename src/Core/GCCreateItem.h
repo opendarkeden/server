@@ -29,17 +29,17 @@ public:
         return PACKET_GC_CREATE_ITEM;
     }
     PacketSize_t getPacketSize() const {
-        return szObjectID +                   // ¾ÆÀÌÅÛ ¿ÀºêÁ§Æ® ID
-               szBYTE +                       // ¾ÆÀÌÅÛ Å¬·¡½º
-               szItemType +                   // ¾ÆÀÌÅÛ Å¸ÀÔ
-               szBYTE + m_OptionType.size() + // ¾ÆÀÌÅÛ ¿É¼Ç
-               szDurability +                 // ¾ÆÀÌÅÛ ³»±¸µµ
-               szSilver +                     // ¾ÆÀÌÅÛ Àº µµ±İ·®
-               szGrade +                      // ¾ÆÀÌÅÛ µî±Ş
-               szEnchantLevel +               // ¾ÆÀÌÅÛ ÀÎÃ¦Æ® ·¹º§
-               szItemNum +                    // ¾ÆÀÌÅÛ ¼ıÀÚ
-               szCoordInven +                 // ¾ÆÀÌÅÛ X ÁÂÇ¥
-               szCoordInven;                  // ¾ÆÀÌÅÛ Y ÁÂÇ¥
+        return szObjectID +                   // ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ ID
+               szBYTE +                       // ì•„ì´í…œ í´ë˜ìŠ¤
+               szItemType +                   // ì•„ì´í…œ íƒ€ì…
+               szBYTE + m_OptionType.size() + // ì•„ì´í…œ ì˜µì…˜
+               szDurability +                 // ì•„ì´í…œ ë‚´êµ¬ë„
+               szSilver +                     // ì•„ì´í…œ ì€ ë„ê¸ˆëŸ‰
+               szGrade +                      // ì•„ì´í…œ ë“±ê¸‰
+               szEnchantLevel +               // ì•„ì´í…œ ì¸ì±ˆíŠ¸ ë ˆë²¨
+               szItemNum +                    // ì•„ì´í…œ ìˆ«ì
+               szCoordInven +                 // ì•„ì´í…œ X ì¢Œí‘œ
+               szCoordInven;                  // ì•„ì´í…œ Y ì¢Œí‘œ
     }
     string getPacketName() const {
         return "GCCreateItem";
@@ -138,17 +138,17 @@ public:
     }
 
 private:
-    ObjectID_t m_ObjectID;           // ¿ÀºêÁ§Æ® ID
-    BYTE m_ItemClass;                // ¾ÆÀÌÅÛ Å¬·¡½º
-    ItemType_t m_ItemType;           // ¾ÆÀÌÅÛ Å¸ÀÔ
-    list<OptionType_t> m_OptionType; // ¿É¼Ç Å¸ÀÔ
-    Durability_t m_Durability;       // ³»±¸¼º
-    Silver_t m_Silver;               // Àº µµ±İ·®
-    Grade_t m_Grade;                 // ¾ÆÀÌÅÛ µî±Ş
-    EnchantLevel_t m_EnchantLevel;   // ÀÎÃ¦Æ® ·¹º§
-    ItemNum_t m_ItemNum;             // ¾ÆÀÌÅÛÀÇ ¼ıÀÚ
-    CoordInven_t m_InvenX;           // ÀÎº¥Åä¸® X ÁÂÇ¥
-    CoordInven_t m_InvenY;           // ÀÎº¥Åä¸® Y ÁÂÇ¥
+    ObjectID_t m_ObjectID;           // ì˜¤ë¸Œì íŠ¸ ID
+    BYTE m_ItemClass;                // ì•„ì´í…œ í´ë˜ìŠ¤
+    ItemType_t m_ItemType;           // ì•„ì´í…œ íƒ€ì…
+    list<OptionType_t> m_OptionType; // ì˜µì…˜ íƒ€ì…
+    Durability_t m_Durability;       // ë‚´êµ¬ì„±
+    Silver_t m_Silver;               // ì€ ë„ê¸ˆëŸ‰
+    Grade_t m_Grade;                 // ì•„ì´í…œ ë“±ê¸‰
+    EnchantLevel_t m_EnchantLevel;   // ì¸ì±ˆíŠ¸ ë ˆë²¨
+    ItemNum_t m_ItemNum;             // ì•„ì´í…œì˜ ìˆ«ì
+    CoordInven_t m_InvenX;           // ì¸ë²¤í† ë¦¬ X ì¢Œí‘œ
+    CoordInven_t m_InvenY;           // ì¸ë²¤í† ë¦¬ Y ì¢Œí‘œ
 };
 
 
@@ -168,17 +168,17 @@ public:
         return Packet::PACKET_GC_CREATE_ITEM;
     }
     PacketSize_t getPacketMaxSize() const {
-        return szObjectID +     // ¾ÆÀÌÅÛ ¿ÀºêÁ§Æ® ID
-               szBYTE +         // ¾ÆÀÌÅÛ Å¬·¡½º
-               szItemType +     // ¾ÆÀÌÅÛ Å¸ÀÔ
-               szBYTE + 255 +   // ¾ÆÀÌÅÛ ¿É¼Ç
-               szDurability +   // ¾ÆÀÌÅÛ ³»±¸µµ
-               szSilver +       // ¾ÆÀÌÅÛ Àº µµ±İ·®
-               szGrade +        // ¾ÆÀÌÅÛ µî±Ş
-               szEnchantLevel + // ¾ÆÀÌÅÛ ÀÎÃ¦Æ® ·¹º§
-               szItemNum +      // ¾ÆÀÌÅÛ ¼ıÀÚ
-               szCoordInven +   // ¾ÆÀÌÅÛ X ÁÂÇ¥
-               szCoordInven;    // ¾ÆÀÌÅÛ Y ÁÂÇ¥
+        return szObjectID +     // ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ ID
+               szBYTE +         // ì•„ì´í…œ í´ë˜ìŠ¤
+               szItemType +     // ì•„ì´í…œ íƒ€ì…
+               szBYTE + 255 +   // ì•„ì´í…œ ì˜µì…˜
+               szDurability +   // ì•„ì´í…œ ë‚´êµ¬ë„
+               szSilver +       // ì•„ì´í…œ ì€ ë„ê¸ˆëŸ‰
+               szGrade +        // ì•„ì´í…œ ë“±ê¸‰
+               szEnchantLevel + // ì•„ì´í…œ ì¸ì±ˆíŠ¸ ë ˆë²¨
+               szItemNum +      // ì•„ì´í…œ ìˆ«ì
+               szCoordInven +   // ì•„ì´í…œ X ì¢Œí‘œ
+               szCoordInven;    // ì•„ì´í…œ Y ì¢Œí‘œ
     }
 };
 

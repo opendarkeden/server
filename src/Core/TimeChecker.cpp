@@ -83,15 +83,15 @@ void TimeChecker::init() {
     }
 #endif
 
-    // �ϱ��ð�
+    // 하교시간
     TimePeriod* pAfterSchoolTimePeriod = new TimePeriod(VSTime(17, 0), VSTime(18, 0));
     m_pTimePeriods[TIME_PERIOD_AFTER_SCHOOL] = pAfterSchoolTimePeriod;
 
-    // ��ٽð�
+    // 퇴근시간
     TimePeriod* pAfterWorkTimePeriod = new TimePeriod(VSTime(21, 0), VSTime(22, 0));
     m_pTimePeriods[TIME_PERIOD_AFTER_WORK] = pAfterWorkTimePeriod;
 
-    // �ɾ߽ð�
+    // 심야시간
     TimePeriod* pMidnightTimePeriod = new TimePeriod(VSTime(1, 0), VSTime(2, 0));
     m_pTimePeriods[TIME_PERIOD_MIDNIGHT] = pMidnightTimePeriod;
 }

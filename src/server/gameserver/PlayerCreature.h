@@ -2,8 +2,8 @@
 // Filename    : PlayerCreature.h
 // Written by  : excel96
 // Description :
-// Slayer ¹× Vampire Å¬·¡½ºÀÇ ÀÎÅÍÆäÀÌ½º Áß °øÅëµÇ´Â ºÎºĞÀ» ¸ğ¾Æ³õÀº
-// Å¬·¡½º´Ù. abstract Å¬·¡½ºÀÌ¹Ç·Î, ¹Ù·Î ¼±¾ğÇÏ¸é ¾È µÉ °ÍÀÌ´ç.
+// Slayer ë° Vampire í´ë˜ìŠ¤ì˜ ì¸í„°í˜ì´ìŠ¤ ì¤‘ ê³µí†µë˜ëŠ” ë¶€ë¶„ì„ ëª¨ì•„ë†“ì€
+// í´ë˜ìŠ¤ë‹¤. abstract í´ë˜ìŠ¤ì´ë¯€ë¡œ, ë°”ë¡œ ì„ ì–¸í•˜ë©´ ì•ˆ ë  ê²ƒì´ë‹¹.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PLAYER_CREATURE_H__
@@ -63,7 +63,7 @@ typedef HashMapRankBonus::const_iterator HashMapRankBonusConstItor;
 
 class PlayerCreature : public Creature {
     ////////////////////////////////////////////////////////////
-    // »ı¼ºÀÚ ¹× ¼Ò¸êÀÚ
+    // ìƒì„±ì ë° ì†Œë©¸ì
     ////////////////////////////////////////////////////////////
 public:
     PlayerCreature(ObjectID_t objectID = 0, Player* pPlayer = NULL);
@@ -74,7 +74,7 @@ public:
     //	virtual void tinysave(const char* field) const  = 0;
 
     ////////////////////////////////////////////////////////////
-    // OID µî·Ï °ü·Ã ¸Ş½îµå
+    // OID ë“±ë¡ ê´€ë ¨ ë©”ì˜ë“œ
     ////////////////////////////////////////////////////////////
 protected:
     virtual void registerItem(Item* pItem, ObjectRegistry& OR);
@@ -87,7 +87,7 @@ public:
     virtual void registerGoodsInventory(ObjectRegistry& OR);
 
     //////////////////////////////////////////////////////////////
-    // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ °ü·Ã ÇÔ¼ö
+    // ì‹œê°„ì œí•œ ì•„ì´í…œ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     bool wasteIfTimeLimitExpired(Item* pItem);
@@ -101,13 +101,13 @@ public:
     void loadTimeLimitItem();
 
     //////////////////////////////////////////////////////////////
-    // ±¸¸Å »óÇ° ¾ÆÀÌÅÛ °ü·Ã ÇÔ¼ö
+    // êµ¬ë§¤ ìƒí’ˆ ì•„ì´í…œ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     void loadGoods();
 
     //////////////////////////////////////////////////////////////
-    // Äù½ºÆ® ¸Å´ÏÀú °ü·Ã ÇÔ¼ö
+    // í€˜ìŠ¤íŠ¸ ë§¤ë‹ˆì € ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     QuestManager* getQuestManager() const {
@@ -119,7 +119,7 @@ public:
     virtual void whenQuestLevelUpgrade();
 
     ////////////////////////////////////////////////////////////
-    // ÀÎº¥Åä¸® °ü·Ã ¸Ş½îµå
+    // ì¸ë²¤í† ë¦¬ ê´€ë ¨ ë©”ì˜ë“œ
     ////////////////////////////////////////////////////////////
 public:
     virtual Inventory* getInventory() const {
@@ -150,7 +150,7 @@ public:
     }
 
     ////////////////////////////////////////////////////////////
-    // º¸°üÇÔ °ü·Ã ¸Ş½îµå
+    // ë³´ê´€í•¨ ê´€ë ¨ ë©”ì˜ë“œ
     ////////////////////////////////////////////////////////////
 public:
     virtual Stash* getStash(void) const {
@@ -190,7 +190,7 @@ public:
 
 
     ////////////////////////////////////////////////////////////
-    // °¡ºñÁö °ü·Ã ¸Ş½îµå
+    // ê°€ë¹„ì§€ ê´€ë ¨ ë©”ì˜ë“œ
     ////////////////////////////////////////////////////////////
 public:
     void addItemToGarbage(Item* pItem) {
@@ -210,7 +210,7 @@ public:
     }
 
     ////////////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ °Ë»ö ÇÔ¼ö
+    // ì•„ì´í…œ ê²€ìƒ‰ í•¨ìˆ˜
     ////////////////////////////////////////////////////////////
 public:
     virtual Item* findItemOID(ObjectID_t id) = 0;
@@ -227,7 +227,7 @@ public:
 
 
     ////////////////////////////////////////////////////////////
-    // ÇÃ·¡±× ¼Â °ü·Ã ÇÔ¼ö
+    // í”Œë˜ê·¸ ì…‹ ê´€ë ¨ í•¨ìˆ˜
     ////////////////////////////////////////////////////////////
 public:
     FlagSet* getFlagSet(void) const {
@@ -240,7 +240,7 @@ public:
 
 
     ////////////////////////////////////////////////////////////
-    // ±âÅ¸ ÇÔ¼ö
+    // ê¸°íƒ€ í•¨ìˆ˜
     ////////////////////////////////////////////////////////////
 public:
     virtual Fame_t getFame() const = 0;
@@ -267,20 +267,20 @@ public:
     virtual void setResurrectZoneID(ZoneID_t id) = 0;
     virtual void setResurrectZoneIDEx(ZoneID_t id) = 0;
 
-    // virtual Race_t getRace() const = 0; - Creature·Î ¿Ã·È´Ù.
+    // virtual Race_t getRace() const = 0; - Creatureë¡œ ì˜¬ë ¸ë‹¤.
     virtual GuildID_t getCommonGuildID() const = 0;
 
     virtual IP_t getIP(void) const = 0;
 
 
     ////////////////////////////////////////////////////////////
-    // ¼ºÇâ ½Ã½ºÅÛ °ü·Ã
+    // ì„±í–¥ ì‹œìŠ¤í…œ ê´€ë ¨
     ////////////////////////////////////////////////////////////
     // enemy specific methods
     void addEnemy(const string& Name);
     void deleteEnemy(const string& Name);
 
-    // ÀÌ Æ¯Á¤ »ç¿ëÀÚ°¡ ÀÌ¹Ì ¼±°øÀ» ÇÏ¿´´Â°¡?
+    // ì´ íŠ¹ì • ì‚¬ìš©ìê°€ ì´ë¯¸ ì„ ê³µì„ í•˜ì˜€ëŠ”ê°€?
     bool hasEnemy(const string& Name) const;
     uint getMaxEnemies() const;
 
@@ -324,7 +324,7 @@ public:
     virtual void setAlignment(Alignment_t Alignment) = 0;
 
     ////////////////////////////////////////////////////////////
-    // Rank Bonus °ü·Ã
+    // Rank Bonus ê´€ë ¨
     ////////////////////////////////////////////////////////////
     void loadRankBonus();
     bool hasRankBonus(RankBonus::RankBonusType type) {
@@ -381,28 +381,28 @@ public:
     virtual bool canSee(Object* pObject) const;
 
     ////////////////////////////////////////////////////////////
-    // ¸â¹ö µ¥ÀÌÅÍ
+    // ë©¤ë²„ ë°ì´í„°
     ////////////////////////////////////////////////////////////
 protected:
-    Inventory* m_pInventory;              // ÀÎº¥Åä¸® Æ÷ÀÎÅÍ
-    InventorySlot* m_pExtraInventorySlot; // ¸¶¿ì½º Æ÷ÀÎÅÍ
+    Inventory* m_pInventory;              // ì¸ë²¤í† ë¦¬ í¬ì¸í„°
+    InventorySlot* m_pExtraInventorySlot; // ë§ˆìš°ìŠ¤ í¬ì¸í„°
 
-    GoodsInventory* m_pGoodsInventory; // ±¸¸Å ¾ÆÀÌÅÛ ÀÎº¥Åä¸®
+    GoodsInventory* m_pGoodsInventory; // êµ¬ë§¤ ì•„ì´í…œ ì¸ë²¤í† ë¦¬
 
-    Stash* m_pStash;     // º¸°üÇÔ Æ÷ÀÎÅÍ
-    BYTE m_StashNum;     // º¸°üÇÔÀÇ ¼ıÀÚ
-    Gold_t m_StashGold;  // º¸°üÇÔ ¾ÈÀÇ µ· ¾×¼ö
-    bool m_bStashStatus; // º¸°üÇÔ ¾ÆÀÌÅÛ OID µî·Ï ¿©ºÎ
+    Stash* m_pStash;     // ë³´ê´€í•¨ í¬ì¸í„°
+    BYTE m_StashNum;     // ë³´ê´€í•¨ì˜ ìˆ«ì
+    Gold_t m_StashGold;  // ë³´ê´€í•¨ ì•ˆì˜ ëˆ ì•¡ìˆ˜
+    bool m_bStashStatus; // ë³´ê´€í•¨ ì•„ì´í…œ OID ë“±ë¡ ì—¬ë¶€
 
-    Garbage m_Garbage; // °¡ºñÁö...
+    Garbage m_Garbage; // ê°€ë¹„ì§€...
 
-    FlagSet* m_pFlagSet; // ÇÃ·¡±× ÁıÇÕ
+    FlagSet* m_pFlagSet; // í”Œë˜ê·¸ ì§‘í•©
 
-    // ¸ÕÀú ¼±°øÇÑ »ç¶÷µéÀÇ ÀÌ¸§À» ÀúÀåÇÑ´Ù.
-    // ObjectID¸¦ ÀúÀåÇÒ ¼öµµ ÀÖÀ¸³ª, Á×¾î¼­ ´Ù½Ã ¿À¸é Á¤´ç¹æÀ§°¡ ÀÎÁ¤µÇÁö ¾Ê±â ¶§¹®¿¡ ÀÌ¸§À¸·Î ÀúÀåÇØÁØ´Ù.
+    // ë¨¼ì € ì„ ê³µí•œ ì‚¬ëŒë“¤ì˜ ì´ë¦„ì„ ì €ì¥í•œë‹¤.
+    // ObjectIDë¥¼ ì €ì¥í•  ìˆ˜ë„ ìˆìœ¼ë‚˜, ì£½ì–´ì„œ ë‹¤ì‹œ ì˜¤ë©´ ì •ë‹¹ë°©ìœ„ê°€ ì¸ì •ë˜ì§€ ì•Šê¸° ë•Œë¬¸ì— ì´ë¦„ìœ¼ë¡œ ì €ì¥í•´ì¤€ë‹¤.
     list<string> m_Enemies;
 
-    // PK¸¦ ´çÇß´À³Ä ¾Æ´Ï³Ä¸¦ ±¸ºĞÇÑ´Ù.
+    // PKë¥¼ ë‹¹í–ˆëŠëƒ ì•„ë‹ˆëƒë¥¼ êµ¬ë¶„í•œë‹¤.
     bool m_isPK;
 
     // GuildID
@@ -420,17 +420,17 @@ protected:
     TimeLimitItemManager* m_pTimeLimitItemManager;
 
     Item* m_pQuestItem;
-    vector<Item*> m_PetStash; // pet º¸°üÇÔ
+    vector<Item*> m_PetStash; // pet ë³´ê´€í•¨
 
 public:
     /////////////////////////////////////////////////////////
-    // pet º¸°üÇÏ¿¡ °ü·ÃµÈ method
+    // pet ë³´ê´€í•˜ì— ê´€ë ¨ëœ method
     /////////////////////////////////////////////////////////
     Item* getPetStashItem(int idx);
     void addPetStashItem(int idx, Item* pPetItem);
 
     /////////////////////////////////////////////////////////
-    // BloodBible °ü·Ã º¸³Ê½º ¼öÄ¡µé
+    // BloodBible ê´€ë ¨ ë³´ë„ˆìŠ¤ ìˆ˜ì¹˜ë“¤
     /////////////////////////////////////////////////////////
 public:
     int getConsumeMPRatio() const {
@@ -501,7 +501,7 @@ protected:
 
     //	list<ItemNameInfo*> 	m_ItemNameInfoList;
 
-    // »ç¿ëÀÚÀÇ ´çÃ· ¿©ºÎ¸¦ ±â·ÏÇÏ±â À§ÇØ ¾îÂ¿ ¼ö ¾øÀÌ ¿©±â Ãß°¡ÇØ¾ß µÉµí
+    // ì‚¬ìš©ìì˜ ë‹¹ì²¨ ì—¬ë¶€ë¥¼ ê¸°ë¡í•˜ê¸° ìœ„í•´ ì–´ì©” ìˆ˜ ì—†ì´ ì—¬ê¸° ì¶”ê°€í•´ì•¼ ë ë“¯
 
 public:
     DWORD getLottoRewardID() const {
@@ -560,7 +560,7 @@ protected:
     list<PetItem*> m_PetItems;
     Pet* m_pPet;
 
-    // 2Â÷ Æê Äù½ºÆ® °ü·Ã
+    // 2ì°¨ í« í€˜ìŠ¤íŠ¸ ê´€ë ¨
 public:
     SpriteType_t getTargetMonsterSType() const {
         return m_TargetMonster;
@@ -573,7 +573,7 @@ protected:
     DWORD m_TargetNum;
     DWORD m_TimeLimit;
 
-    // SMS °ü·Ã
+    // SMS ê´€ë ¨
 public:
     SMSAddressBook* getAddressBook() const {
         return m_pSMSAddressBook;
@@ -646,7 +646,7 @@ public:
     }
 
 protected:
-    // ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // íŒŒì›Œì§± í¬ì¸íŠ¸
     int m_PowerPoint;
 
 public:

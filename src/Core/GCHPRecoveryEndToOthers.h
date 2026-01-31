@@ -27,10 +27,10 @@ public:
 
     virtual ~GCHPRecoveryEndToOthers();
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -43,7 +43,7 @@ public:
 
     // get packet's body size
     // *OPTIMIZATION HINT*
-    // const static GCHPRecoveryEndToOthersPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCHPRecoveryEndToOthersPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketSize() const {
         return szObjectID + szHP;
     }
@@ -74,10 +74,10 @@ public:
     }
 
 private:
-    // Á¸ ·¹º§¿¡¼­ À¯´ÏÅ©ÇÑ ¾ÆÀÌµğ·Î °´Ã¼ ±¸ºĞÀ» À§ÇØ¼­ »ç¿ëÇÑ´Ù.
+    // ì¡´ ë ˆë²¨ì—ì„œ ìœ ë‹ˆí¬í•œ ì•„ì´ë””ë¡œ ê°ì²´ êµ¬ë¶„ì„ ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
     ObjectID_t m_ObjectID;
 
-    // ÇöÀç Ã¼·Â
+    // í˜„ì¬ ì²´ë ¥
     HP_t m_CurrentHP;
 };
 
@@ -109,7 +109,7 @@ public:
 
     // get packet's body size
     // *OPTIMIZATION HINT*
-    // const static GCHPRecoveryEndToOthersPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCHPRecoveryEndToOthersPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szObjectID + szHP;
     }

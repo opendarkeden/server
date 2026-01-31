@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ÀüÀï¿¡ ´ëÇÑ Àü¹İÀûÀÎ Á¤º¸ ¹× ÀüÀï ½ÃÀÛ ¹× Á¾·á½Ã Ã³¸®·çÆ¾.
+// ì „ìŸì— ëŒ€í•œ ì „ë°˜ì ì¸ ì •ë³´ ë° ì „ìŸ ì‹œì‘ ë° ì¢…ë£Œì‹œ ì²˜ë¦¬ë£¨í‹´.
 ///////////////////////////////////////////////////////////////////
 
 #ifndef __SIEGE_WAR_H__
@@ -95,15 +95,15 @@ public:
     }
 
 private:
-    ZoneID_t m_CastleZoneID;          // ÀüÀï°ú °ü·ÃµÈ ¼ºÀÇ ZoneID
-    uint m_ChallangerGuildCount;      // ÀüÀï ½ÅÃ»ÇÑ ±æµå ¼ö
-    GuildID_t m_ChallangerGuildID[5]; // ÀüÀïÀ» ½ÅÃ»ÇÑ ±æµåÀÇ ID
-    GuildID_t m_ReinforceGuildID;     // ¼öºñÃø ¿ø±º ±æµå ID
-    Gold_t m_RegistrationFee;         // Áö±ŞµÈ ÀüÀï ½ÅÃ»±İ
+    ZoneID_t m_CastleZoneID;          // ì „ìŸê³¼ ê´€ë ¨ëœ ì„±ì˜ ZoneID
+    uint m_ChallangerGuildCount;      // ì „ìŸ ì‹ ì²­í•œ ê¸¸ë“œ ìˆ˜
+    GuildID_t m_ChallangerGuildID[5]; // ì „ìŸì„ ì‹ ì²­í•œ ê¸¸ë“œì˜ ID
+    GuildID_t m_ReinforceGuildID;     // ìˆ˜ë¹„ì¸¡ ì›êµ° ê¸¸ë“œ ID
+    Gold_t m_RegistrationFee;         // ì§€ê¸‰ëœ ì „ìŸ ì‹ ì²­ê¸ˆ
 
     GuildID_t m_RecentReinforceCandidate;
 
-    // ÀüÀï °á°ú
+    // ì „ìŸ ê²°ê³¼
     Race_t m_WinnerRace;
     GuildID_t m_WinnerGuildID;
     bool m_bModifyCastleOwner;

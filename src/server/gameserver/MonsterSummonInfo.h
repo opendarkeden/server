@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterSummonInfo.h
-// Written By  : ½­
+// Written By  : ì‰­
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -15,13 +15,13 @@
 
 struct MonsterCollection;
 
-// ¼ÒÈ¯µÉ¶§ÀÇ Á¤º¸
+// ì†Œí™˜ë ë•Œì˜ ì •ë³´
 struct SUMMON_INFO {
     enum ClanType {
         CLAN_TYPE_DEFAULT,      // default = 1
-        CLAN_TYPE_RANDOM_EACH,  // ÀÌ¹ø¿¡ »ı¼ºµÇ´Â ¾Öµé °¢°¢ ´Ù¸£°Ô
-        CLAN_TYPE_RANDOM_GROUP, // ÀÌ¹ø¿¡ »ı¼ºµÇ´Â ¾Öµé ÀüºÎ °°°Ô
-        CLAN_TYPE_GROUP,        // ÀÌ¹ø¿¡ »ı¼ºµÇ´Â ¾Öµé ÀüºÎ °°°Ô. clanIDÁöÁ¤
+        CLAN_TYPE_RANDOM_EACH,  // ì´ë²ˆì— ìƒì„±ë˜ëŠ” ì• ë“¤ ê°ê° ë‹¤ë¥´ê²Œ
+        CLAN_TYPE_RANDOM_GROUP, // ì´ë²ˆì— ìƒì„±ë˜ëŠ” ì• ë“¤ ì „ë¶€ ê°™ê²Œ
+        CLAN_TYPE_GROUP,        // ì´ë²ˆì— ìƒì„±ë˜ëŠ” ì• ë“¤ ì „ë¶€ ê°™ê²Œ. clanIDì§€ì •
     };
 
     SUMMON_INFO() {
@@ -34,23 +34,23 @@ struct SUMMON_INFO {
         initHPPercent = 0;
     }
 
-    bool canScanEnemy; // Àû(¸ó½ºÅÍ? -_-;)À» ½º½º·Î scanÇÏ´Â°¡?
+    bool canScanEnemy; // ì (ëª¬ìŠ¤í„°? -_-;)ì„ ìŠ¤ìŠ¤ë¡œ scaní•˜ëŠ”ê°€?
     ClanType clanType;
     int clanID;
-    bool hasItem; // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ¾ÆÀÌÅÛÀ» °¡Áö´Â°¡?
+    bool hasItem; // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ì•„ì´í…œì„ ê°€ì§€ëŠ”ê°€?
     RegenType regenType;
-    bool scanEnemy; // »ı¼ºµÉ¶§ Àû(¸ó½ºÅÍ? -_-;)À»  scanÇÏ´Â°¡?
+    bool scanEnemy; // ìƒì„±ë ë•Œ ì (ëª¬ìŠ¤í„°? -_-;)ì„  scaní•˜ëŠ”ê°€?
     int initHPPercent;
 };
 
-// ¼ÒÈ¯µÉ¶§ÀÇ Á¤º¸: ¿©·¯°¡Áö¸¦ ÇÑ²¨¹ø¿¡ ¼ÒÈ¯
+// ì†Œí™˜ë ë•Œì˜ ì •ë³´: ì—¬ëŸ¬ê°€ì§€ë¥¼ í•œêº¼ë²ˆì— ì†Œí™˜
 struct SUMMON_INFO2 : public SUMMON_INFO {
     ZoneCoord_t X;
     ZoneCoord_t Y;
     MonsterCollection* pMonsters;
 };
 
-// ¸ó½ºÅÍ ¸î ¸¶¸®
+// ëª¬ìŠ¤í„° ëª‡ ë§ˆë¦¬
 struct MonsterCollectionInfo {
     SpriteType_t SpriteType;
     MonsterType_t MonsterType;
@@ -61,7 +61,7 @@ struct MonsterCollectionInfo {
     string toString() const;
 };
 
-// ¸ó½ºÅÍ ¿©·¯ Á¾·ù
+// ëª¬ìŠ¤í„° ì—¬ëŸ¬ ì¢…ë¥˜
 struct MonsterCollection {
     list<MonsterCollectionInfo> Infos;
 
@@ -70,7 +70,7 @@ struct MonsterCollection {
     string toString() const;
 };
 
-// ¼ÒÈ¯ ´Ü°è
+// ì†Œí™˜ ë‹¨ê³„
 struct MonsterSummonStep {
     vector<MonsterCollection> Collections;
 
@@ -81,7 +81,7 @@ struct MonsterSummonStep {
     string toString() const;
 };
 
-// ¼ÒÈ¯ Á¤º¸
+// ì†Œí™˜ ì •ë³´
 struct MonsterSummonInfo {
     vector<MonsterSummonStep> Steps;
 

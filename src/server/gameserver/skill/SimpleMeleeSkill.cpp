@@ -35,8 +35,8 @@ void SimpleMeleeSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skill
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, param.SkillType);
             return;
@@ -44,8 +44,8 @@ void SimpleMeleeSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skill
 
         result.pTargetCreature = pTargetCreature;
 
-        // ∏∏¿œ ¿Ã ±‚º˙¿Ã ∆Ø∫∞«— π´±‚∞° ¿÷æÓæﬂ∏∏ Ω√¿¸«“ ºˆ ¿÷¥¬ ±‚º˙¿Ã∂Û∏È...
-        // ±◊ ∞‘ø≠¿« π´±‚∏¶ µÈ∞Ì ¿÷¥¬¡ˆ∏¶ √º≈©«ÿº≠ æ∆¥œ∂Û∏È Ω«∆–¥Ÿ.
+        // ÎßåÏùº Ïù¥ Í∏∞Ïà†Ïù¥ ÌäπÎ≥ÑÌïú Î¨¥Í∏∞Í∞Ä ÏûàÏñ¥ÏïºÎßå ÏãúÏ†ÑÌï† Ïàò ÏûàÎäî Í∏∞Ïà†Ïù¥ÎùºÎ©¥...
+        // Í∑∏ Í≤åÏó¥Ïùò Î¨¥Í∏∞Î•º Îì§Í≥† ÏûàÎäîÏßÄÎ•º Ï≤¥ÌÅ¨Ìï¥ÏÑú ÏïÑÎãàÎùºÎ©¥ Ïã§Ìå®Îã§.
         bool bIncreaseDomainExp = true;
         if (param.ItemClass != Item::ITEM_CLASS_MAX) {
             Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
@@ -68,15 +68,15 @@ void SimpleMeleeSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skill
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¥ı«ÿ¡ˆ¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿œπ› µ•πÃ¡ˆ∏¶ ∞ËªÍ »ƒ, µ•πÃ¡ˆ∏¶ ¥ı«ÿæﬂ «—¥Ÿ.
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¡˜¡¢¿˚¿∏∑Œ æ≤¿Ã¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿Ã ∫Œ∫–±Ó¡ˆ µÈæÓø¿¡ˆ æ ¿∏π«∑Œ, πÿ¿« ∫Œ∫–±Ó¡ˆ 0¿∏∑Œ ¿¸¥ﬁµ»¥Ÿ.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÎçîÌï¥ÏßÄÎäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // ÏùºÎ∞ò Îç∞ÎØ∏ÏßÄÎ•º Í≥ÑÏÇ∞ ÌõÑ, Îç∞ÎØ∏ÏßÄÎ•º ÎçîÌï¥Ïïº ÌïúÎã§.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÏßÅÏ†ëÏ†ÅÏúºÎ°ú Ïì∞Ïù¥Îäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // Ïù¥ Î∂ÄÎ∂ÑÍπåÏßÄ Îì§Ïñ¥Ïò§ÏßÄ ÏïäÏúºÎØÄÎ°ú, Î∞ëÏùò Î∂ÄÎ∂ÑÍπåÏßÄ 0ÏúºÎ°ú Ï†ÑÎã¨ÎêúÎã§.
             Damage += computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ∏∏¿œ Ω∫≈≥ µ•πÃ¡ˆ∞° ∏∂π˝ µ•πÃ¡ˆ∂Û∏È, ∏∂π˝ µ•πÃ¡ˆ ∞ËªÍ «‘ºˆ∏¶ ¿ÃøÎ«ÿ ∞ËªÍ¿ª «ÿ¡ÿ¥Ÿ.
+            // ÎßåÏùº Ïä§ÌÇ¨ Îç∞ÎØ∏ÏßÄÍ∞Ä ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄÎùºÎ©¥, ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄ Í≥ÑÏÇ∞ Ìï®ÏàòÎ•º Ïù¥Ïö©Ìï¥ Í≥ÑÏÇ∞ÏùÑ Ìï¥Ï§ÄÎã§.
             Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType);
         } else {
             Damage += param.SkillDamage;
@@ -96,30 +96,30 @@ void SimpleMeleeSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skill
             bHitRoll = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel / 2);
         }
 
-        // µµ ∞Ëø≠¿« ±‚º˙¿∫ ∏¬¡ˆ æ ¥ı∂Ûµµ 7%¿« µ•πÃ¡ˆ∏¶ ∞°¡¯¥Ÿ - by bezz
+        // ÎèÑ Í≥ÑÏó¥Ïùò Í∏∞Ïà†ÏùÄ ÎßûÏßÄ ÏïäÎçîÎùºÎèÑ 7%Ïùò Îç∞ÎØ∏ÏßÄÎ•º Í∞ÄÏßÑÎã§ - by bezz
         if (param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll) {
             Damage = getPercentValue(Damage, 7);
             bHitRoll = true;
         }
 
-        // ∏∂≥™∞° ¿÷æÓæﬂ «œ∞Ì, Ω√∞£∞˙ ∞≈∏Æ √º≈©ø° º∫∞¯«œ∞Ì,
-        // hitrollø° º∫∞¯«œ∞Ì, ≈©∑ŒΩ∫ ƒ´øÓ≈Õ∞° ∞…∑¡¿÷¡ˆ æ ¥Ÿ∏È, º∫∞¯¿Ã¥Ÿ.
+        // ÎßàÎÇòÍ∞Ä ÏûàÏñ¥Ïïº ÌïòÍ≥†, ÏãúÍ∞ÑÍ≥º Í±∞Î¶¨ Ï≤¥ÌÅ¨Ïóê ÏÑ±Í≥µÌïòÍ≥†,
+        // hitrollÏóê ÏÑ±Í≥µÌïòÍ≥†, ÌÅ¨Î°úÏä§ Ïπ¥Ïö¥ÌÑ∞Í∞Ä Í±∏Î†§ÏûàÏßÄ ÏïäÎã§Î©¥, ÏÑ±Í≥µÏù¥Îã§.
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK) {
             CheckCrossCounter(pSlayer, pTargetCreature, Damage, pSkillInfo->getRange());
 
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ•πÃ¡ˆ∏¶ ¡÷∞Ì, ≥ª±∏µµ∏¶ ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º Ï£ºÍ≥†, ÎÇ¥Íµ¨ÎèÑÎ•º Îñ®Ïñ¥Îú®Î¶∞Îã§.
             setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
             }
 
-            // ΩΩ∑π¿ÃæÓ∞° æ∆¥— ∞ÊøÏø°∏∏ ∞Ê«Ëƒ°∞° ø√∂Û∞£¥Ÿ.
+            // Ïä¨Î†àÏù¥Ïñ¥Í∞Ä ÏïÑÎãå Í≤ΩÏö∞ÏóêÎßå Í≤ΩÌóòÏπòÍ∞Ä Ïò¨ÎùºÍ∞ÑÎã§.
             if (!pTargetCreature->isSlayer()) {
                 if (bIncreaseDomainExp) {
                     shareAttrExp(pSlayer, Damage, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
@@ -132,7 +132,7 @@ void SimpleMeleeSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skill
                 increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
             }
 
-            // ∆–≈∂¿ª ¡ÿ∫Ò«œ∞Ì, ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌïòÍ≥†, Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK1.setSkillType(param.SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -184,12 +184,12 @@ void SimpleMeleeSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skill
                     }
 
                     if ((rand() % 100) < Ratio) {
-                        // Ω∫≈œ ¥Á«ÿª—µ˚!
+                        // Ïä§ÌÑ¥ ÎãπÌï¥ÎøåÎî∞!
                         _GCSkillToObjectOK1.setGrade(1);
                         _GCSkillToObjectOK2.setGrade(1);
                         _GCSkillToObjectOK5.setGrade(1);
                     }
-                } else // ∏ÛΩ∫≈Õ¿œ ∞ÊøÏ
+                } else // Î™¨Ïä§ÌÑ∞Ïùº Í≤ΩÏö∞
                 {
                     _GCSkillToObjectOK1.setGrade(1);
                     _GCSkillToObjectOK2.setGrade(1);
@@ -246,8 +246,8 @@ void SimpleMeleeSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, param.SkillType);
             return;
@@ -264,15 +264,15 @@ void SimpleMeleeSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¥ı«ÿ¡ˆ¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿œπ› µ•πÃ¡ˆ∏¶ ∞ËªÍ »ƒ, µ•πÃ¡ˆ∏¶ ¥ı«ÿæﬂ «—¥Ÿ.
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¡˜¡¢¿˚¿∏∑Œ æ≤¿Ã¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿Ã ∫Œ∫–±Ó¡ˆ µÈæÓø¿¡ˆ æ ¿∏π«∑Œ, πÿ¿« ∫Œ∫–±Ó¡ˆ 0¿∏∑Œ ¿¸¥ﬁµ»¥Ÿ.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÎçîÌï¥ÏßÄÎäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // ÏùºÎ∞ò Îç∞ÎØ∏ÏßÄÎ•º Í≥ÑÏÇ∞ ÌõÑ, Îç∞ÎØ∏ÏßÄÎ•º ÎçîÌï¥Ïïº ÌïúÎã§.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÏßÅÏ†ëÏ†ÅÏúºÎ°ú Ïì∞Ïù¥Îäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // Ïù¥ Î∂ÄÎ∂ÑÍπåÏßÄ Îì§Ïñ¥Ïò§ÏßÄ ÏïäÏúºÎØÄÎ°ú, Î∞ëÏùò Î∂ÄÎ∂ÑÍπåÏßÄ 0ÏúºÎ°ú Ï†ÑÎã¨ÎêúÎã§.
             Damage += computeDamage(pVampire, pTargetCreature, 0, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ∏∏¿œ Ω∫≈≥ µ•πÃ¡ˆ∞° ∏∂π˝ µ•πÃ¡ˆ∂Û∏È, ∏∂π˝ µ•πÃ¡ˆ ∞ËªÍ «‘ºˆ∏¶ ¿ÃøÎ«ÿ ∞ËªÍ¿ª «ÿ¡ÿ¥Ÿ.
+            // ÎßåÏùº Ïä§ÌÇ¨ Îç∞ÎØ∏ÏßÄÍ∞Ä ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄÎùºÎ©¥, ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄ Í≥ÑÏÇ∞ Ìï®ÏàòÎ•º Ïù¥Ïö©Ìï¥ Í≥ÑÏÇ∞ÏùÑ Ìï¥Ï§ÄÎã§.
             Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true, pVampire);
         } else {
             Damage += param.SkillDamage;
@@ -295,20 +295,20 @@ void SimpleMeleeSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK) {
             CheckCrossCounter(pVampire, pTargetCreature, Damage);
 
-            // ∏∂≥™∏¶ ±Ô¥¬¥Ÿ.
+            // ÎßàÎÇòÎ•º ÍπçÎäîÎã§.
             decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ•πÃ¡ˆ∏¶ ∞°«œ∞Ì, æ∆¿Ã≈€ ≥ª±∏µµ∏¶ ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º Í∞ÄÌïòÍ≥†, ÏïÑÏù¥ÌÖú ÎÇ¥Íµ¨ÎèÑÎ•º Îñ®Ïñ¥Îú®Î¶∞Îã§.
             setDamage(pTargetCreature, Damage, pVampire, param.SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pVampire, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pVampire->getX(), pVampire->getY());
             }
 
-            // ¿Ãπ¯ ∞¯∞›¿∏∑Œ ªÛ¥Î∞° ¡◊æ˙¥Ÿ∏È ∞Ê«Ëƒ°∞° ø√∂Û∞£¥Ÿ.
+            // Ïù¥Î≤à Í≥µÍ≤©ÏúºÎ°ú ÏÉÅÎåÄÍ∞Ä Ï£ΩÏóàÎã§Î©¥ Í≤ΩÌóòÏπòÍ∞Ä Ïò¨ÎùºÍ∞ÑÎã§.
             if (pTargetCreature->isDead()) {
                 int exp = computeCreatureExp(pTargetCreature, KILL_EXP);
                 shareVampExp(pVampire, exp, _GCSkillToObjectOK1);
@@ -316,7 +316,7 @@ void SimpleMeleeSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
 
             increaseAlignment(pVampire, pTargetCreature, _GCSkillToObjectOK1);
 
-            // ∆–≈∂¿ª ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK1.setSkillType(param.SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -382,8 +382,8 @@ void SimpleMeleeSkill::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ous
 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, param.SkillType, param.Grade);
             return;
@@ -409,15 +409,15 @@ void SimpleMeleeSkill::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ous
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¥ı«ÿ¡ˆ¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿œπ› µ•πÃ¡ˆ∏¶ ∞ËªÍ »ƒ, µ•πÃ¡ˆ∏¶ ¥ı«ÿæﬂ «—¥Ÿ.
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¡˜¡¢¿˚¿∏∑Œ æ≤¿Ã¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿Ã ∫Œ∫–±Ó¡ˆ µÈæÓø¿¡ˆ æ ¿∏π«∑Œ, πÿ¿« ∫Œ∫–±Ó¡ˆ 0¿∏∑Œ ¿¸¥ﬁµ»¥Ÿ.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÎçîÌï¥ÏßÄÎäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // ÏùºÎ∞ò Îç∞ÎØ∏ÏßÄÎ•º Í≥ÑÏÇ∞ ÌõÑ, Îç∞ÎØ∏ÏßÄÎ•º ÎçîÌï¥Ïïº ÌïúÎã§.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÏßÅÏ†ëÏ†ÅÏúºÎ°ú Ïì∞Ïù¥Îäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // Ïù¥ Î∂ÄÎ∂ÑÍπåÏßÄ Îì§Ïñ¥Ïò§ÏßÄ ÏïäÏúºÎØÄÎ°ú, Î∞ëÏùò Î∂ÄÎ∂ÑÍπåÏßÄ 0ÏúºÎ°ú Ï†ÑÎã¨ÎêúÎã§.
             Damage += computeDamage(pOusters, pTargetCreature, 0, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ∏∏¿œ Ω∫≈≥ µ•πÃ¡ˆ∞° ∏∂π˝ µ•πÃ¡ˆ∂Û∏È, ∏∂π˝ µ•πÃ¡ˆ ∞ËªÍ «‘ºˆ∏¶ ¿ÃøÎ«ÿ ∞ËªÍ¿ª «ÿ¡ÿ¥Ÿ.
+            // ÎßåÏùº Ïä§ÌÇ¨ Îç∞ÎØ∏ÏßÄÍ∞Ä ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄÎùºÎ©¥, ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄ Í≥ÑÏÇ∞ Ìï®ÏàòÎ•º Ïù¥Ïö©Ìï¥ Í≥ÑÏÇ∞ÏùÑ Ìï¥Ï§ÄÎã§.
             // Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true);
             Damage += computeOustersMagicDamage(pOusters, pTargetCreature, param.SkillDamage, param.SkillType);
         } else {
@@ -454,20 +454,20 @@ void SimpleMeleeSkill::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ous
                 Damage += computeElementalCombatSkill(pOusters, pTargetCreature, _GCSkillToObjectOK1);
             CheckCrossCounter(pOusters, pTargetCreature, Damage);
 
-            // ∏∂≥™∏¶ ±Ô¥¬¥Ÿ.
+            // ÎßàÎÇòÎ•º ÍπçÎäîÎã§.
             decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ•πÃ¡ˆ∏¶ ∞°«œ∞Ì, æ∆¿Ã≈€ ≥ª±∏µµ∏¶ ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º Í∞ÄÌïòÍ≥†, ÏïÑÏù¥ÌÖú ÎÇ¥Íµ¨ÎèÑÎ•º Îñ®Ïñ¥Îú®Î¶∞Îã§.
             setDamage(pTargetCreature, Damage, pOusters, param.SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pOusters, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pOusters, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
             }
 
-            // ¿Ãπ¯ ∞¯∞›¿∏∑Œ ªÛ¥Î∞° ¡◊æ˙¥Ÿ∏È ∞Ê«Ëƒ°∞° ø√∂Û∞£¥Ÿ.
+            // Ïù¥Î≤à Í≥µÍ≤©ÏúºÎ°ú ÏÉÅÎåÄÍ∞Ä Ï£ΩÏóàÎã§Î©¥ Í≤ΩÌóòÏπòÍ∞Ä Ïò¨ÎùºÍ∞ÑÎã§.
             if (pTargetCreature->isDead()) {
                 int exp = computeCreatureExp(pTargetCreature, 100, pOusters);
                 shareOustersExp(pOusters, exp, _GCSkillToObjectOK1);
@@ -475,7 +475,7 @@ void SimpleMeleeSkill::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ous
 
             increaseAlignment(pOusters, pTargetCreature, _GCSkillToObjectOK1);
 
-            // ∆–≈∂¿ª ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK1.setSkillType(param.SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -555,15 +555,15 @@ void SimpleMeleeSkill::execute(Monster* pMonster, Creature* pEnemy, const SIMPLE
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¥ı«ÿ¡ˆ¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿œπ› µ•πÃ¡ˆ∏¶ ∞ËªÍ »ƒ, µ•πÃ¡ˆ∏¶ ¥ı«ÿæﬂ «—¥Ÿ.
-            // ∆ƒ∂ÛπÃ≈Õ∑Œ ¿¸¥ﬁµ» µ•πÃ¡ˆ ∞™¿Ã ¡˜¡¢¿˚¿∏∑Œ æ≤¿Ã¥¬ µ•πÃ¡ˆ∂Û∏È,
-            // ¿Ã ∫Œ∫–±Ó¡ˆ µÈæÓø¿¡ˆ æ ¿∏π«∑Œ, πÿ¿« ∫Œ∫–±Ó¡ˆ 0¿∏∑Œ ¿¸¥ﬁµ»¥Ÿ.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÎçîÌï¥ÏßÄÎäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // ÏùºÎ∞ò Îç∞ÎØ∏ÏßÄÎ•º Í≥ÑÏÇ∞ ÌõÑ, Îç∞ÎØ∏ÏßÄÎ•º ÎçîÌï¥Ïïº ÌïúÎã§.
+            // ÌååÎùºÎØ∏ÌÑ∞Î°ú Ï†ÑÎã¨Îêú Îç∞ÎØ∏ÏßÄ Í∞íÏù¥ ÏßÅÏ†ëÏ†ÅÏúºÎ°ú Ïì∞Ïù¥Îäî Îç∞ÎØ∏ÏßÄÎùºÎ©¥,
+            // Ïù¥ Î∂ÄÎ∂ÑÍπåÏßÄ Îì§Ïñ¥Ïò§ÏßÄ ÏïäÏúºÎØÄÎ°ú, Î∞ëÏùò Î∂ÄÎ∂ÑÍπåÏßÄ 0ÏúºÎ°ú Ï†ÑÎã¨ÎêúÎã§.
             Damage += computeDamage(pMonster, pEnemy, 0, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ∏∏¿œ Ω∫≈≥ µ•πÃ¡ˆ∞° ∏∂π˝ µ•πÃ¡ˆ∂Û∏È, ∏∂π˝ µ•πÃ¡ˆ ∞ËªÍ «‘ºˆ∏¶ ¿ÃøÎ«ÿ ∞ËªÍ¿ª «ÿ¡ÿ¥Ÿ.
+            // ÎßåÏùº Ïä§ÌÇ¨ Îç∞ÎØ∏ÏßÄÍ∞Ä ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄÎùºÎ©¥, ÎßàÎ≤ï Îç∞ÎØ∏ÏßÄ Í≥ÑÏÇ∞ Ìï®ÏàòÎ•º Ïù¥Ïö©Ìï¥ Í≥ÑÏÇ∞ÏùÑ Ìï¥Ï§ÄÎã§.
             Damage += computeMagicDamage(pEnemy, param.SkillDamage, param.SkillType);
         } else {
             Damage += param.SkillDamage;
@@ -579,20 +579,20 @@ void SimpleMeleeSkill::execute(Monster* pMonster, Creature* pEnemy, const SIMPLE
             bHitRoll = HitRoll::isSuccess(pMonster, pEnemy);
         }
 
-        // ±‚º˙º∫∞¯∑¸ ∞À¡ı.
+        // Í∏∞Ïà†ÏÑ±Í≥µÎ•† Í≤ÄÏ¶ù.
         if (bRangeCheck && bHitRoll && bCanHit) {
             CheckCrossCounter(pMonster, pEnemy, Damage);
 
-            // µ•πÃ¡ˆ∏¶ ∞°«œ∞Ì, æ∆¿Ã≈€ ≥ª±∏µµ∏¶ ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º Í∞ÄÌïòÍ≥†, ÏïÑÏù¥ÌÖú ÎÇ¥Íµ¨ÎèÑÎ•º Îñ®Ïñ¥Îú®Î¶∞Îã§.
             setDamage(pEnemy, Damage, pMonster, param.SkillType, &_GCSkillToObjectOK2);
             decreaseDurability(pMonster, pEnemy, pSkillInfo, NULL, &_GCSkillToObjectOK2);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pEnemy, pMonster->getX(), pMonster->getY());
             }
 
-            // ∆–≈∂¿ª ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK2.setObjectID(pMonster->getObjectID());
             _GCSkillToObjectOK2.setSkillType(param.SkillType);
             _GCSkillToObjectOK2.setDuration(0);

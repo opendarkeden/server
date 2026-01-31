@@ -62,8 +62,8 @@ void EffectGreenStalker::affect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ±â¼ú »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼ö ÀÖÀ¸¹Ç·Î NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ê¸°ìˆ  ì‚¬ìš©ìžë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ NULL ì´ ë  ìˆ˜ ìžˆë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
 
@@ -75,9 +75,9 @@ void EffectGreenStalker::affect(Creature* pCreature)
 
     int PoisonDamage = computeMagicDamage(pCreature, m_Damage, SKILL_GREEN_STALKER, m_bVampire, pCastCreature);
 
-    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
     if (canAttack(pCastCreature, pCreature) && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
-        // ½½·¹ÀÌ¾îÀÏ °æ¿ì¿¡¸¸ µ¶ µ¥¹ÌÁö°¡ Á¸ÀçÇÑ´Ù.
+        // ìŠ¬ë ˆì´ì–´ì¼ ê²½ìš°ì—ë§Œ ë… ë°ë¯¸ì§€ê°€ ì¡´ìž¬í•œë‹¤.
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
             Assert(pSlayer != NULL);
@@ -115,7 +115,7 @@ void EffectGreenStalker::affect(Creature* pCreature)
             ::setDamage(pMonster, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER);
         }
 
-        // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
         // by sigi. 2002.9.9
         /*		if (pCreature->isDead())
                 {
@@ -156,13 +156,13 @@ void EffectGreenStalker::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // Å©¸®ÃÄ¿¡°Ô¼­ ÇÃ·¡±×¸¦ Á¦°ÅÇÑ´Ù.
+    // í¬ë¦¬ì³ì—ê²Œì„œ í”Œëž˜ê·¸ë¥¼ ì œê±°í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_GREEN_STALKER);
 
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // Á¸¿¡¼­ ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì¡´ì—ì„œ ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GREEN_STALKER);

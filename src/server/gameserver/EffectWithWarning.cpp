@@ -21,7 +21,7 @@ Effect::EffectClass EffectWithWarning::getEffectClass() const {
 }
 
 void EffectWithWarning::start() {
-    //	cout << "½ÃÀÛÇÏÁö·Õ" << m_SignDuration << endl;
+    //	cout << "ì‹œìž‘í•˜ì§€ë¡±" << m_SignDuration << endl;
 
     setNextTime(m_SignDuration);
     setDeadline(m_SignDuration + m_MainDuration);
@@ -41,7 +41,7 @@ void EffectWithWarning::start() {
 void EffectWithWarning::affect() {
     __BEGIN_TRY
 
-    //	cout << "¶§¸®Áö·Õ" << m_X << ", " << m_Y << endl;
+    //	cout << "ë•Œë¦¬ì§€ë¡±" << m_X << ", " << m_Y << endl;
 
     if (!m_State) {
         GCDeleteEffectFromTile gcDET;
@@ -110,7 +110,7 @@ void EffectIcicle::affect() {
         forward_list<Object*>::const_iterator itr = rList.begin();
         forward_list<Object*>::const_iterator endItr = rList.end();
 
-        //	cout << "¾ÆÇÁ³Ä?" << endl;
+        //	cout << "ì•„í”„ëƒ?" << endl;
 
         for (; itr != endItr; ++itr) {
             Object* pObject = *itr;
@@ -155,12 +155,12 @@ void EffectIcicle::affect() {
             gcHP.setCurrentHP(finalHP);
             m_pZone->broadcastPacket(m_X, m_Y, &gcHP);
 
-            //			cout << "¾ÆÇÁ´Ù" << endl;
+            //			cout << "ì•„í”„ë‹¤" << endl;
 
             if (pCreature->isFlag(Effect::EFFECT_CLASS_ICE_FIELD_TO_CREATURE))
                 continue;
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectIceFieldToCreature* pEffect = new EffectIceFieldToCreature(pCreature);
             pEffect->setDeadline(50);
             pCreature->addEffect(pEffect);
@@ -244,7 +244,7 @@ void EffectLargeIcicle::affect() {
                     if (pCreature->isFlag(Effect::EFFECT_CLASS_ICE_FIELD_TO_CREATURE))
                         continue;
 
-                    // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+                    // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
                     EffectIceFieldToCreature* pEffect = new EffectIceFieldToCreature(pCreature);
                     pEffect->setDeadline(50);
                     pCreature->addEffect(pEffect);
@@ -333,7 +333,7 @@ void EffectSideTrap::affect() {
                 if (pCreature->isFlag(Effect::EFFECT_CLASS_ICE_FIELD_TO_CREATURE))
                     continue;
 
-                // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+                // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
                 EffectIceFieldToCreature* pEffect = new EffectIceFieldToCreature(pCreature);
                 pEffect->setDeadline(50);
                 pCreature->addEffect(pEffect);

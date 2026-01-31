@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTLogout.h
-// Desc		: Á¢¼ÓÀ» Á¾·áÇÔÀ» ÅëÁöÇÑ´Ù.
+// Desc		: ì ‘ì†ì„ ì¢…ë£Œí•¨ì„ í†µì§€í•œë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_LOGOUT_H__
@@ -10,10 +10,10 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ÆĞÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_LOGOUT {
-    int nSize; // ÆĞÅ¶ ÀüÃ¼ÀÇ Å©±â
-    int nCode; // ÆĞÅ¶ ÄÚµå
+    int nSize; // íŒ¨í‚· ì „ì²´ì˜ í¬ê¸°
+    int nCode; // íŒ¨í‚· ì½”ë“œ
 };
 
 const int szPKTLogout = sizeof(_PKT_LOGOUT);
@@ -21,29 +21,29 @@ const int szPKTLogout = sizeof(_PKT_LOGOUT);
 // class PKTLogout
 class PKTLogout : public _PKT_LOGOUT, public MPacket {
 public:
-    // »ı¼ºÀÚ
+    // ìƒì„±ì
     PKTLogout();
 
 public:
-    // ÆĞÅ¶ ¾ÆÀÌµğ¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTLogout - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜
     MPacket* create() {
         MPacket* pPacket = new PKTLogout;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message

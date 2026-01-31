@@ -70,7 +70,7 @@ else
     msg << pVampire->getName();
 }
 
-msg << " ´ÔÀÌ ½½·¹ÀÌ¾î ¼º¹°À» °¡Á³½À´Ï´Ù.";
+msg << " ë‹˜ì´ ìŠ¬ë ˆì´ì–´ ì„±ë¬¼ì„ ê°€ì¡ŒìŠµë‹ˆë‹¤.";
 
 GCSystemMessage gcSystemMessage;
 
@@ -80,7 +80,7 @@ gcSystemMessage.setMessage(msg.toString());
 g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 
-// EffectºÙÀÎ´Ù.
+// Effectë¶™ì¸ë‹¤.
 GCAddEffect gcAddEffect;
 gcAddEffect.setObjectID( pCreature->getObjectID() );
 gcAddEffect.setEffectID( getEffectClass() );
@@ -140,8 +140,8 @@ void EffectShrineHoly::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_SHRINE_HOLY);
 
     Zone* pZone = pCreature->getZone();

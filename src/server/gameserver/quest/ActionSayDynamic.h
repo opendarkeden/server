@@ -32,7 +32,7 @@ public:
     }
 
 private:
-    ScriptID_t m_ScriptID; // ¸»ÇÒ ´ë»ç ¾ÆÀÌµğ
+    ScriptID_t m_ScriptID; // ë§í•  ëŒ€ì‚¬ ì•„ì´ë””
 };
 
 

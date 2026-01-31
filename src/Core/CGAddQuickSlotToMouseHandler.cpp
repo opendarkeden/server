@@ -59,7 +59,7 @@ void CGAddQuickSlotToMouseHandler::execute(CGAddQuickSlotToMouse* pPacket, Playe
 
             Item* pSlotItem = pBeltInventory->getItem(SlotID, 0);
 
-            // º§Æ®¿¡ ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª, ¸¶¿ì½º¿¡ ¹º°¡¸¦ µé°í ÀÖ´Ù¸é ´õÇÒ ¼ö ¾ø´Ù.
+            // ë²¨íŠ¸ì— ì•„ì´í…œì´ ì—†ê±°ë‚˜, ë§ˆìš°ìŠ¤ì— ë­”ê°€ë¥¼ ë“¤ê³  ìžˆë‹¤ë©´ ë”í•  ìˆ˜ ì—†ë‹¤.
             if (pSlotItem == NULL || pSlayer->getExtraInventorySlotItem() != NULL) {
                 GCCannotAdd _GCCannotAdd;
                 _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -67,11 +67,11 @@ void CGAddQuickSlotToMouseHandler::execute(CGAddQuickSlotToMouse* pPacket, Playe
                 return;
             }
 
-            // ¾ÆÀÌÅÛÀ» º§Æ® ÀÎº¥Åä¸®¿¡¼­ Áö¿ì°í Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
+            // ì•„ì´í…œì„ ë²¨íŠ¸ ì¸ë²¤í† ë¦¬ì—ì„œ ì§€ìš°ê³  Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
             pBeltInventory->deleteItem(SlotID, 0);
             pSlayer->addItemToExtraInventorySlot(pSlotItem);
             // pSlotItem->save(pSlayer->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-            //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+            //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
             char pField[80];
             sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
             pSlotItem->tinysave(pField);
@@ -104,7 +104,7 @@ void CGAddQuickSlotToMouseHandler::execute(CGAddQuickSlotToMouse* pPacket, Playe
 
             Item* pSlotItem = pOustersArmsbandInventory->getItem(SlotID, 0);
 
-            // º§Æ®¿¡ ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª, ¸¶¿ì½º¿¡ ¹º°¡¸¦ µé°í ÀÖ´Ù¸é ´õÇÒ ¼ö ¾ø´Ù.
+            // ë²¨íŠ¸ì— ì•„ì´í…œì´ ì—†ê±°ë‚˜, ë§ˆìš°ìŠ¤ì— ë­”ê°€ë¥¼ ë“¤ê³  ìžˆë‹¤ë©´ ë”í•  ìˆ˜ ì—†ë‹¤.
             if (pSlotItem == NULL || pOusters->getExtraInventorySlotItem() != NULL) {
                 GCCannotAdd _GCCannotAdd;
                 _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -112,11 +112,11 @@ void CGAddQuickSlotToMouseHandler::execute(CGAddQuickSlotToMouse* pPacket, Playe
                 return;
             }
 
-            // ¾ÆÀÌÅÛÀ» º§Æ® ÀÎº¥Åä¸®¿¡¼­ Áö¿ì°í Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
+            // ì•„ì´í…œì„ ë²¨íŠ¸ ì¸ë²¤í† ë¦¬ì—ì„œ ì§€ìš°ê³  Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
             pOustersArmsbandInventory->deleteItem(SlotID, 0);
             pOusters->addItemToExtraInventorySlot(pSlotItem);
             // pSlotItem->save(pOusters->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-            //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+            //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
             char pField[80];
             sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
             pSlotItem->tinysave(pField);

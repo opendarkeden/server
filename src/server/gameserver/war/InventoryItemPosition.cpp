@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// InventoryItemPosition Å¬·¡½º ±¸Çö
+// InventoryItemPosition í´ë˜ìŠ¤ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "InventoryItemPosition.h"
@@ -118,7 +118,7 @@ Creature* InventoryItemPosition::findCreature()
 
     pTargetCreature = g_pPCFinder->getCreature_LOCKED(m_OwnerName);
     if (pTargetCreature == NULL) {
-        filelog("ItemError.log", "InventoryItemPosition:getItem() : ÇØ´çÇÏ´Â Creature°¡ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "InventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” Creatureê°€ ì—†ìŠµë‹ˆë‹¤.");
 
         g_pPCFinder->unlock();
         return NULL;
@@ -159,7 +159,7 @@ Item* InventoryItemPosition::popItem_CORE(PlayerCreature* pPC)
     Assert(pInventory != NULL);
 
     if (!pInventory->hasItem(m_InvenX, m_InvenY)) {
-        filelog("ItemError.log", "InventoryItemPosition:getItem() : ÇØ´çÇÏ´Â À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "InventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” ìœ„ì¹˜ì— ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
 
         return NULL;
     }

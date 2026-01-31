@@ -98,15 +98,15 @@ void EffectSpiritGuard::affect(Creature* pCastCreature)
             if (!rect.ptInRect(X, Y))
                 continue;
 
-            // Å¸ÀÏ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Â´Ù.
+            // íƒ€ì¼ì•ˆì— ì¡´ìž¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             Tile& tile = pZone->getTile(X, Y);
 
             if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) {
                 Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
                 Assert(pCreature != NULL);
 
-                // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù. ¹«Àûµµ ¾È ¸Â´Â´Ù. ½½·¹ÀÌ¾îµµ ¾È ¸Â´À´Ù.
-                // ¾ÈÀüÁö´ë Ã¼Å©
+                // ìžì‹ ì€ ë§žì§€ ì•ŠëŠ”ë‹¤. ë¬´ì ë„ ì•ˆ ë§žëŠ”ë‹¤. ìŠ¬ë ˆì´ì–´ë„ ì•ˆ ë§žëŠë‹¤.
+                // ì•ˆì „ì§€ëŒ€ ì²´í¬
                 // 2003.1.10 by bezz, Sequoia
                 if (pCreature == m_pTarget || !canAttack(pCastCreature, pCreature) ||
                     pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isSlayer() || pCreature->isNPC() ||
@@ -128,9 +128,9 @@ void EffectSpiritGuard::affect(Creature* pCastCreature)
 
                     pCreature->getPlayer()->sendPacket(&gcMI);
 
-                    // ¸Â´Â µ¿ÀÛÀ» º¸¿©ÁØ´Ù.
+                    // ë§žëŠ” ë™ìž‘ì„ ë³´ì—¬ì¤€ë‹¤.
                     GCSkillToObjectOK2 gcSkillToObjectOK2;
-                    gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                    gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                     gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                     gcSkillToObjectOK2.setDuration(0);
                     pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
@@ -188,7 +188,7 @@ void EffectSpiritGuard::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // Effect¸¦ ¾ø¾Ö°í ¾Ë¸°´Ù.
+    // Effectë¥¼ ì—†ì• ê³  ì•Œë¦°ë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_SPIRIT_GUARD_1);
 
     GCRemoveEffect gcRemoveEffect;

@@ -3,10 +3,10 @@
 // Project   : Query.cpp
 // Module    : Database Cache Server
 // File Name : Query.h
-// Description: Cache Server³»¿¡ Ã³¸®µÇ¾î¾ß ÇÒ QueryÀÇ Difinition
+// Description: Cache Serverë‚´ì— ì²˜ë¦¬ë˜ì–´ì•¼ í•  Queryì˜ Difinition
 //
 // Date      : 2002.2.14
-// Writer    : Àå È« Ã¢ (changaya@metrotech.co.kr)
+// Writer    : ì¥ í™ ì°½ (changaya@metrotech.co.kr)
 //
 ///////////////////////////////////////////////////////////////////////////////
 

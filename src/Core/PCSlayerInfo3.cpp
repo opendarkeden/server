@@ -61,7 +61,7 @@ void PCSlayerInfo3::read(SocketInputStream& iStream) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void PCSlayerInfo3::write(SocketOutputStream& oStream) const {
     __BEGIN_TRY
@@ -110,7 +110,7 @@ void PCSlayerInfo3::write(SocketOutputStream& oStream) const {
         oStream.write(m_Rank);
         oStream.write(m_AdvancementLevel);
 
-        // cout << "½ÂÁ÷ ·¹º§ : " << (int)m_AdvancementLevel << endl;
+        // cout << "ìŠ¹ì§ ë ˆë²¨ : " << (int)m_AdvancementLevel << endl;
     } catch (Throwable& t) {
         cout << t.toString() << endl;
     }

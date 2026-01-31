@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : AttackMelee.cpp
 // Written by  : elca@ewestsoft.com
-// Description : ±âº» °ø°İ
+// Description : ê¸°ë³¸ ê³µê²©
 //////////////////////////////////////////////////////////////////////////////
 
 #include "AttackMelee.h"
@@ -17,7 +17,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ®
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
@@ -38,15 +38,15 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC¸¦ °ø°İÇÒ ¼ö´Â ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCë¥¼ ê³µê²©í•  ìˆ˜ëŠ” ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayer)" << endl;
             return;
         }
 
-        // ½½·¹ÀÌ¾î´Â ¸Ç¼ÕÀÌ¸é °ø°İÇÒ ¼ö ¾ø´Ù. by sigi. 2002.6.29
+        // ìŠ¬ë ˆì´ì–´ëŠ” ë§¨ì†ì´ë©´ ê³µê²©í•  ìˆ˜ ì—†ë‹¤. by sigi. 2002.6.29
         /*
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
 
@@ -58,7 +58,7 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
         */
         bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
 
-        // ±âº» °ø°İ ½ºÅ³ ½½¶ùÀ» ¹Ş¾Æ¿Â´Ù.
+        // ê¸°ë³¸ ê³µê²© ìŠ¤í‚¬ ìŠ¬ëì„ ë°›ì•„ì˜¨ë‹¤.
         SkillSlot* pSkillSlot = pSlayer->hasSkill(SKILL_ATTACK_MELEE);
         Assert(pSkillSlot != NULL);
 
@@ -79,17 +79,17 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
             Exp_t Point = 1;
 
-            // µ¥¹ÌÁö¸¦ ÁÖ°í, ¾ÆÀÌÅÛ ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ì£¼ê³ , ì•„ì´í…œ ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             setDamage(pTargetCreature, Damage, pSlayer, SKILL_ATTACK_MELEE, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
             decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCAttackMeleeOK1, &_GCAttackMeleeOK2);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
             }
 
-            // Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // íƒ€ê²Ÿì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             if (!pTargetCreature->isSlayer()) {
                 Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
 
@@ -104,22 +104,22 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
                             increaseDomainExp(pSlayer, SKILL_DOMAIN_SWORD, Point, _GCAttackMeleeOK1,
                                               pTargetCreature->getLevel());
                         } else if (pWeapon->getItemClass() == Item::ITEM_CLASS_CROSS) {
-                            // ½ÊÀÚ°¡¸¦ µé°í ÀÖÀ» °æ¿ì Heal °è¿­ÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                            // ì‹­ìê°€ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš° Heal ê³„ì—´ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                             shareAttrExp(pSlayer, Damage, 1, 1, 8, _GCAttackMeleeOK1);
                             increaseDomainExp(pSlayer, SKILL_DOMAIN_HEAL, Point, _GCAttackMeleeOK1,
                                               pTargetCreature->getLevel());
                         } else if (pWeapon->getItemClass() == Item::ITEM_CLASS_MACE) {
-                            // ¸ŞÀÌ½º¸¦ µé°í ÀÖÀ» °æ¿ì Enchant °è¿­ÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                            // ë©”ì´ìŠ¤ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš° Enchant ê³„ì—´ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                             shareAttrExp(pSlayer, Damage, 1, 1, 8, _GCAttackMeleeOK1);
                             increaseDomainExp(pSlayer, SKILL_DOMAIN_ENCHANT, Point, _GCAttackMeleeOK1,
                                               pTargetCreature->getLevel());
                         } else {
-                            // ´Ù¸¥ °è¿­ÀÇ ¹«±â¸¦ µé°í, AttackMelee¸¦ ÇÏ´Â °ÍÀº ºÒ¹ı(?)ÀÌ´Ù.
+                            // ë‹¤ë¥¸ ê³„ì—´ì˜ ë¬´ê¸°ë¥¼ ë“¤ê³ , AttackMeleeë¥¼ í•˜ëŠ” ê²ƒì€ ë¶ˆë²•(?)ì´ë‹¤.
                             Assert(false);
                         }
                     }
                 } else {
-                    // ¾Æ¹« ¹«±âµµ µéÁö ¾Ê°í, °ø°İÀ» ÇÒ °æ¿ì, ´É·ÂÄ¡ °æÇèÄ¡¸¸ ¾à°£ ¿Ã·ÁÁØ´Ù.
+                    // ì•„ë¬´ ë¬´ê¸°ë„ ë“¤ì§€ ì•Šê³ , ê³µê²©ì„ í•  ê²½ìš°, ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ë§Œ ì•½ê°„ ì˜¬ë ¤ì¤€ë‹¤.
                     shareAttrExp(pSlayer, Damage, 1, 1, 1, _GCAttackMeleeOK1);
                 }
 
@@ -143,8 +143,8 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                 pMonster->addEnemy(pSlayer);
 
-                // ÀÌ ºÎºĞÀº »õ·Î ¸¸µé¾îÁø ºÎºĞÀ» »ı°¢ÇØ¼­ °íÃÄÁ®¾ß ÇÏ´Âµ¥...
-                // ¸¶½ºÅÍ´Â µô·¹ÀÌ¾ø´Ù.
+                // ì´ ë¶€ë¶„ì€ ìƒˆë¡œ ë§Œë“¤ì–´ì§„ ë¶€ë¶„ì„ ìƒê°í•´ì„œ ê³ ì³ì ¸ì•¼ í•˜ëŠ”ë°...
+                // ë§ˆìŠ¤í„°ëŠ” ë”œë ˆì´ì—†ë‹¤.
                 if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
                     && !pMonster->isUnderworld() && pMonster->getMonsterType() != 599
@@ -179,7 +179,7 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ®
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 
@@ -199,7 +199,7 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å ¶§¹®¿¡. by sigi. 2002.5.2
+        // NoSuchì œê±° ë•Œë¬¸ì—. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature)) {
             executeSkillFailException(pVampire, getSkillType());
             return;
@@ -210,7 +210,7 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
         GCAttackMeleeOK2 _GCAttackMeleeOK2;
         GCAttackMeleeOK3 _GCAttackMeleeOK3;
 
-        // ½ºÅ³ ½½¶ùÀ» ¹Ş¾Æ¿Â´Ù.
+        // ìŠ¤í‚¬ ìŠ¬ëì„ ë°›ì•„ì˜¨ë‹¤.
         VampireSkillSlot* pSkillSlot = pVampire->hasSkill(SKILL_ATTACK_MELEE);
         Assert(pSkillSlot != NULL);
 
@@ -227,19 +227,19 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
         if (bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK) {
             CheckCrossCounter(pVampire, pTargetCreature, Damage);
 
-            // µ¥¹ÌÁö¸¦ ÁÖ°í, ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ì£¼ê³ , ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             setDamage(pTargetCreature, Damage, pVampire, SKILL_ATTACK_MELEE, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
             computeAlignmentChange(pTargetCreature, Damage, pVampire, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
             decreaseDurability(pVampire, pTargetCreature, NULL, &_GCAttackMeleeOK1, &_GCAttackMeleeOK2);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pVampire->getX(), pVampire->getY());
             }
 
             increaseAlignment(pVampire, pTargetCreature, _GCAttackMeleeOK1);
 
-            // »ó´ë°¡ Á×¾ú´Ù¸é °æÇèÄ¡¸¦ Á» ¿Ã·ÁÁØ´Ù.
+            // ìƒëŒ€ê°€ ì£½ì—ˆë‹¤ë©´ ê²½í—˜ì¹˜ë¥¼ ì¢€ ì˜¬ë ¤ì¤€ë‹¤.
             if (pTargetCreature->isDead()) {
                 int exp = computeCreatureExp(pTargetCreature, KILL_EXP);
                 shareVampExp(pVampire, exp, _GCAttackMeleeOK1);
@@ -262,7 +262,7 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                 pMonster->addEnemy(pVampire);
 
-                // ¸¶½ºÅÍ´Â µô·¹ÀÌ¾ø´Ù.
+                // ë§ˆìŠ¤í„°ëŠ” ë”œë ˆì´ì—†ë‹¤.
                 if (!pMonster->isMaster()) {
                     Timeval NextTurn = pMonster->getNextTurn();
                     Timeval DelayTurn;
@@ -293,7 +293,7 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º ¿ÀºêÁ§Æ®
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ì˜¤ë¸Œì íŠ¸
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
 
@@ -310,7 +310,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NoSuchÁ¦°Å ¶§¹®¿¡. by sigi. 2002.5.2
+        // NoSuchì œê±° ë•Œë¬¸ì—. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pOusters, pTargetCreature)) {
             executeSkillFailException(pOusters, getSkillType());
             return;
@@ -320,7 +320,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
         GCAttackMeleeOK2 _GCAttackMeleeOK2;
         GCAttackMeleeOK3 _GCAttackMeleeOK3;
 
-        // ½ºÅ³ ½½¶ùÀ» ¹Ş¾Æ¿Â´Ù.
+        // ìŠ¤í‚¬ ìŠ¬ëì„ ë°›ì•„ì˜¨ë‹¤.
         OustersSkillSlot* pSkillSlot = pOusters->hasSkill(SKILL_ATTACK_MELEE);
         Assert(pSkillSlot != NULL);
 
@@ -338,19 +338,19 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
             Damage += computeElementalCombatSkill(pOusters, pTargetCreature, _GCAttackMeleeOK1);
             CheckCrossCounter(pOusters, pTargetCreature, Damage);
 
-            // µ¥¹ÌÁö¸¦ ÁÖ°í, ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ì£¼ê³ , ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             setDamage(pTargetCreature, Damage, pOusters, SKILL_ATTACK_MELEE, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
             computeAlignmentChange(pTargetCreature, Damage, pOusters, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
             decreaseDurability(pOusters, pTargetCreature, NULL, &_GCAttackMeleeOK1, &_GCAttackMeleeOK2);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
             }
 
             increaseAlignment(pOusters, pTargetCreature, _GCAttackMeleeOK1);
 
-            // »ó´ë°¡ Á×¾ú´Ù¸é °æÇèÄ¡¸¦ Á» ¿Ã·ÁÁØ´Ù.
+            // ìƒëŒ€ê°€ ì£½ì—ˆë‹¤ë©´ ê²½í—˜ì¹˜ë¥¼ ì¢€ ì˜¬ë ¤ì¤€ë‹¤.
             if (pTargetCreature->isDead()) {
                 int exp = computeCreatureExp(pTargetCreature, 100, pOusters);
                 shareOustersExp(pOusters, exp, _GCAttackMeleeOK1);
@@ -373,7 +373,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                 pMonster->addEnemy(pOusters);
 
-                // ¸¶½ºÅÍ´Â µô·¹ÀÌ¾ø´Ù.
+                // ë§ˆìŠ¤í„°ëŠ” ë”œë ˆì´ì—†ë‹¤.
                 if (!pMonster->isMaster()) {
                     Timeval NextTurn = pMonster->getNextTurn();
                     Timeval DelayTurn;
@@ -403,7 +403,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ®
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -442,11 +442,11 @@ void AttackMelee::execute(Monster* pMonster, Creature* pEnemy)
         if (bRangeCheck && bHitRoll && bCanHit) {
             CheckCrossCounter(pMonster, pEnemy, Damage);
 
-            // µ¥¹ÌÁö¸¦ ÁÖ°í, ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ì£¼ê³ , ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             setDamage(pEnemy, Damage, pMonster, SKILL_ATTACK_MELEE, &_GCAttackMeleeOK2);
             decreaseDurability(pMonster, pEnemy, NULL, NULL, &_GCAttackMeleeOK2);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pEnemy, pMonster->getX(), pMonster->getY());
             }

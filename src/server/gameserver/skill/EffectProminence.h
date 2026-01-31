@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectProminence.h
 // Written by  : elca@ewestsoft.com
-// Description : ¼ºÁ÷¸¶¹ı ProminenceÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
+// Description : ì„±ì§ë§ˆë²• Prominenceì˜ Effectë¥¼ ì²˜ë¦¬í•´ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PROMINENCE__

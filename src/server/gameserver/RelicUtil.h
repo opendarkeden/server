@@ -25,7 +25,7 @@ bool deleteRelicEffect(Corpse* pCorpse, Item* pItem);
 bool deleteRelicEffect(Creature* pCreature, Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// relicÀ» zone¿¡ ¶³¾î¶ß¸®´Â °æ¿ì
+// relicì„ zoneì— ë–¨ì–´ëœ¨ë¦¬ëŠ” ê²½ìš°
 //////////////////////////////////////////////////////////////////////////////
 bool dropRelicToZone(PlayerCreature* pPC, Item* pItem);
 bool dropRelicToZone(Creature* pCreature, bool bSendPacket = true);

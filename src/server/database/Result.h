@@ -23,7 +23,7 @@ class Statement;
 
 //////////////////////////////////////////////////////////////////////////////
 // class Result;
-// Result ´Â »èÁ¦ÇÒ ÇÊ¿ä°¡ ¾ø´Ù. »ç¿ëÀÚ´Â Statement ¸¸ »èÁ¦ÇÏ¸é µÈ´Ù.
+// Result ëŠ” ì‚­ì œí•  í•„ìš”ê°€ ì—†ë‹¤. ì‚¬ìš©ìëŠ” Statement ë§Œ ì‚­ì œí•˜ë©´ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class Result {
@@ -32,10 +32,10 @@ public:
     ~Result();
 
 public:
-    // ´ÙÀ½ row·Î ³Ñ¾î°£´Ù.
+    // ë‹¤ìŒ rowë¡œ ë„˜ì–´ê°„ë‹¤.
     bool next();
 
-    // Æ¯Á¤ ÇÊµå(ÄÃ·³) °ªÀ» °¡Áö°í ¿Â´Ù.
+    // íŠ¹ì • í•„ë“œ(ì»¬ëŸ¼) ê°’ì„ ê°€ì§€ê³  ì˜¨ë‹¤.
     char* getField(uint index);
     char getChar(uint index) {
         return (getField(index))[0];
@@ -57,7 +57,7 @@ public:
     }
     const char* getString(uint index);
 
-    // Äõ¸® °á°ú°ªÀÌ Æ÷ÇÔÇÏ´Â row/columnÀÇ ¼ıÀÚ¸¦ ¸®ÅÏÇÑ´Ù.
+    // ì¿¼ë¦¬ ê²°ê³¼ê°’ì´ í¬í•¨í•˜ëŠ” row/columnì˜ ìˆ«ìë¥¼ ë¦¬í„´í•œë‹¤.
     uint getRowCount() const {
         return m_RowCount;
     }
@@ -70,11 +70,11 @@ public:
     }
 
 private:
-    T_RESULT* m_pResult; // °á°ú°ªÀ» ³ªÅ¸³»´Â MYSQL structure
-    MYSQL_ROW m_pRow;    // ÇöÀç Ã³¸®ÇÏ°í ÀÖ´Â row
-    uint m_RowCount;     // Äõ¸® °á°ú·Î ¾ò¾î³½ rowÀÇ ¼ıÀÚ
+    T_RESULT* m_pResult; // ê²°ê³¼ê°’ì„ ë‚˜íƒ€ë‚´ëŠ” MYSQL structure
+    MYSQL_ROW m_pRow;    // í˜„ì¬ ì²˜ë¦¬í•˜ê³  ìˆëŠ” row
+    uint m_RowCount;     // ì¿¼ë¦¬ ê²°ê³¼ë¡œ ì–»ì–´ë‚¸ rowì˜ ìˆ«ì
     uint m_FieldCount;
-    string m_Statement; // ¾î¶² query¹®¿¡ ÀÇÇÑ °á°úÀÎ°¡...?
+    string m_Statement; // ì–´ë–¤ queryë¬¸ì— ì˜í•œ ê²°ê³¼ì¸ê°€...?
 };
 
 #endif // __RESULT_H__

@@ -18,7 +18,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CauseCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot,
                                   CEffectID_t CEffectID)
@@ -39,9 +39,9 @@ void CauseCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NPC ¸¦ °ø°İÇÒ ¼ö ¾ø´Ù
-        // ¸é¿ªÀÌ°Å³ª.. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.5
+        // NPC ë¥¼ ê³µê²©í•  ìˆ˜ ì—†ë‹¤
+        // ë©´ì—­ì´ê±°ë‚˜.. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.5
         if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_PARALYZE) ||
             !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -55,7 +55,7 @@ void CauseCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 
         Tile& rTile = pZone->getTile(pTargetCreature->getX(), pTargetCreature->getY());
 
-        // ½ºÅ³ »ç¿ëÀÌ °¡´ÉÇÑÁö Ã¼Å©ÇÑ´Ù
+        // ìŠ¤í‚¬ ì‚¬ìš©ì´ ê°€ëŠ¥í•œì§€ ì²´í¬í•œë‹¤
         int RequiredMP = (int)pSkillInfo->getConsumeMP();
         bool bManaCheck = hasEnoughMana(pSlayer, RequiredMP);
         bool bTimeCheck = verifyRunTime(pSkillSlot);
@@ -80,12 +80,12 @@ void CauseCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
             ZoneCoord_t targetX = pTargetCreature->getX();
             ZoneCoord_t targetY = pTargetCreature->getY();
 
-            // ½ºÅ³ÀÇ damage, delay, durationÀ» °è»ê
+            // ìŠ¤í‚¬ì˜ damage, delay, durationì„ ê³„ì‚°
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // Soul Smashing ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 10% Áõ°¡
+            // Soul Smashing ì´ ìˆë‹¤ë©´ ë°ë¯¸ì§€ 10% ì¦ê°€
             if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING)) {
                 RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING);
                 Assert(pRankBonus != NULL);
@@ -93,18 +93,18 @@ void CauseCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
                 output.Damage += pRankBonus->getPoint();
             }
 
-            // ¸¶³ª¸¦ ÁÙÀÎ´Ù
+            // ë§ˆë‚˜ë¥¼ ì¤„ì¸ë‹¤
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ¥¹ÌÁö¸¦ °¡ÇÏ°í, ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù. °ø°İ´ë»óÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¹Ç·Î alignment, PK Ã¼Å©ÇÒ ÇÊ¿ä°¡ ¾ø´Ù
+            // ë°ë¯¸ì§€ë¥¼ ê°€í•˜ê³ , ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤. ê³µê²©ëŒ€ìƒì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¯€ë¡œ alignment, PK ì²´í¬í•  í•„ìš”ê°€ ì—†ë‹¤
             setDamage(pTargetCreature, output.Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, output.Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù
-            // Effect¸¦ ºÙÀÎ´Ù
-            // Effect¸¦ ºê·Îµå Ä³½ºÆÃ ÇÑ´Ù
+            // íƒ€ê²Ÿì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤
+            // Effectë¥¼ ë¶™ì¸ë‹¤
+            // Effectë¥¼ ë¸Œë¡œë“œ ìºìŠ¤íŒ… í•œë‹¤
             if (!pTargetCreature->isSlayer()) {
                 SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
                 Exp_t ExpUp = 10 * (Grade + 1);
@@ -114,53 +114,53 @@ void CauseCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);
                 increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
 
-                // Effect¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù
+                // Effectë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤
                 EffectCauseCriticalWounds* pEffectCauseCriticalWounds = new EffectCauseCriticalWounds(pTargetCreature);
                 pEffectCauseCriticalWounds->setDeadline(output.Duration);
                 pTargetCreature->addEffect(pEffectCauseCriticalWounds);
                 pTargetCreature->setFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS);
 
-                // Effect ¸¦ ºê·Îµå Ä³½ºÆÃ ÇÑ´Ù
+                // Effect ë¥¼ ë¸Œë¡œë“œ ìºìŠ¤íŒ… í•œë‹¤
                 GCAddEffect gcAddEffect;
                 gcAddEffect.setObjectID(pTargetCreature->getObjectID());
                 gcAddEffect.setEffectID(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS);
                 gcAddEffect.setDuration(output.Duration);
                 pZone->broadcastPacket(targetX, targetY, &gcAddEffect);
-            } else // ½½·¹ÀÌ¾î ÀÏ °æ¿ì
+            } else // ìŠ¬ë ˆì´ì–´ ì¼ ê²½ìš°
             {
-                // ½½·¹ÀÌ¾î ÀÏ °æ¿ì DurationÀ» 0À¸·Î ¼¼ÆÃÇÑ´Ù. ¸¶ºñ´Â ÇÏÁö ¾Ê°í µ¥¹ÌÁö¸¸ Àû¿ëÇÑ´Ù.
+                // ìŠ¬ë ˆì´ì–´ ì¼ ê²½ìš° Durationì„ 0ìœ¼ë¡œ ì„¸íŒ…í•œë‹¤. ë§ˆë¹„ëŠ” í•˜ì§€ ì•Šê³  ë°ë¯¸ì§€ë§Œ ì ìš©í•œë‹¤.
                 output.Duration = 0;
             }
 
             bool bCanSeePrayer = canSee(pTargetCreature, pSlayer);
 
-            // ½ºÅ³À» »ç¿ëÇÑ »ç¶÷¿¡°Ô
+            // ìŠ¤í‚¬ì„ ì‚¬ìš©í•œ ì‚¬ëŒì—ê²Œ
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
             _GCSkillToObjectOK1.setDuration(output.Duration);
 
-            // ½ºÅ³ÀÇ ´ë»óÀÚ¿¡°Ô
+            // ìŠ¤í‚¬ì˜ ëŒ€ìƒìì—ê²Œ
             _GCSkillToObjectOK2.setObjectID(pSlayer->getObjectID());
             _GCSkillToObjectOK2.setSkillType(SkillType);
             _GCSkillToObjectOK2.setDuration(output.Duration);
 
-            // ½ºÅ³À» »ç¿ëÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷¿¡°Ô
+            // ìŠ¤í‚¬ì„ ì‚¬ìš©í•œ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒì—ê²Œ
             _GCSkillToObjectOK3.setObjectID(pSlayer->getObjectID());
             _GCSkillToObjectOK3.setSkillType(SkillType);
             _GCSkillToObjectOK3.setTargetXY(targetX, targetY);
 
-            // ½ºÅ³ÀÇ ´ë»óÀÚ¸¸ ºÒ ¼ö ÀÖ´Â »ç¶÷¿¡°Ô
+            // ìŠ¤í‚¬ì˜ ëŒ€ìƒìë§Œ ë¶ˆ ìˆ˜ ìˆëŠ” ì‚¬ëŒì—ê²Œ
             _GCSkillToObjectOK4.setSkillType(SkillType);
             _GCSkillToObjectOK4.setTargetObjectID(TargetObjectID);
 
-            // ½ºÅ³ »ç¿ëÀÚ¿Í ´ë»óÀÚ ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷¿¡°Ô
+            // ìŠ¤í‚¬ ì‚¬ìš©ìì™€ ëŒ€ìƒì ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒì—ê²Œ
             _GCSkillToObjectOK5.setObjectID(pSlayer->getObjectID());
             _GCSkillToObjectOK5.setTargetObjectID(TargetObjectID);
             _GCSkillToObjectOK5.setSkillType(SkillType);
             _GCSkillToObjectOK5.setDuration(output.Duration);
 
-            // ½ºÅ³ ´ë»óÀÚ°¡ ½ºÅ³ »ç¿ëÀÚ¸¦ º¼ ¼ö ¾øÀ» ¶§
+            // ìŠ¤í‚¬ ëŒ€ìƒìê°€ ìŠ¤í‚¬ ì‚¬ìš©ìë¥¼ ë³¼ ìˆ˜ ì—†ì„ ë•Œ
             _GCSkillToObjectOK6.setXY(prayerX, prayerY);
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);

@@ -20,20 +20,20 @@
 
 class UCRequestLoginMode : public Packet {
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream) throw(ProtocolException, Error) {
         throw UnsupportedError(__PRETTY_FUNCTION__);
     }
 
-    // ¼ÒÄÏÀ¸·ÎºÎÅÍ Á÷Á¢ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì†Œì¼“ìœ¼ë¡œë¶€í„° ì§ì ‘ ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Socket* pSocket) throw(ProtocolException, Error);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const throw(ProtocolException, Error) {
         throw UnsupportedError(__PRETTY_FUNCTION__);
     }
 
-    // ¼ÒÄÏÀ¸·Î Á÷Á¢ ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì†Œì¼“ìœ¼ë¡œ ì§ì ‘ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(Socket* pSocket) const throw(ProtocolException, Error);
 
     // execute packet's handler
@@ -46,12 +46,12 @@ public:
 
     // get packet body size
     // *OPTIMIZATION HINT*
-    // const static UCRequestLoginModePacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static UCRequestLoginModePacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketSize() const throw() {
         return szBYTE;
     }
 
-    // ¾Æ¹«¸® Ä¿µµ ¹é¸Ş°¡´Â ¹ŞÁö ¸øÇÑ´Ù.
+    // ì•„ë¬´ë¦¬ ì»¤ë„ ë°±ë©”ê°€ëŠ” ë°›ì§€ ëª»í•œë‹¤.
     static PacketSize_t getPacketMaxSize() throw() {
         return szBYTE;
     }

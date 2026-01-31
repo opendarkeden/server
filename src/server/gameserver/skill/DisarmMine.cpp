@@ -55,7 +55,7 @@ void DisarmMine::execute( Slayer  * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
     //Assert( pSkillSlot != NULL );
     if (pSkillSlot == NULL)
     {
-        cout << "DisarmMine : ½ºÅ³ ½½¶ùÀÌ ³ÎÀÔ´Ï´Ù." << endl;
+        cout << "DisarmMine : ìŠ¤í‚¬ ìŠ¬ëì´ ë„ì…ë‹ˆë‹¤." << endl;
         GCSkillFailed1 _GCSkillFailed1;
         pSlayer->getPlayer()->sendPacket( &_GCSkillFailed1);
         return;
@@ -65,7 +65,7 @@ void DisarmMine::execute( Slayer  * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
     SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo( SkillType );
     SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
-    // ¸íÁß·ü.
+    // ëª…ì¤‘ë¥ .
     ToHit_t ToHit = pSlayer->getToHit();
 
     int RemainMP = (int)pSlayer->getMP( ATTR_CURRENT) - (int)pSkillInfo->getConsumeMP();
@@ -78,7 +78,7 @@ void DisarmMine::execute( Slayer  * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 
     }
 
-    // Installed mineÀ» Ã£´Â´Ù.
+    // Installed mineì„ ì°¾ëŠ”ë‹¤.
     Mine* pMine = NULL;
     bool bInstallAction = false;	// install or disarm
     Item* pItem = pZone->getTile( X, Y).getItem();
@@ -86,9 +86,9 @@ void DisarmMine::execute( Slayer  * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
     {
         if( pItem->isFlag( Effect::EFFECT_CLASS_INSTALL))
         {
-            if( pSlayer->isFlag( Effect::EFFECT_CLASS_DETECT_MINE)) 	// ÇöÀç º¼ ¼ö ÀÖ´Â»óÅÂÀÎÁö È®ÀÎ.
+            if( pSlayer->isFlag( Effect::EFFECT_CLASS_DETECT_MINE)) 	// í˜„ì¬ ë³¼ ìˆ˜ ìˆëŠ”ìƒíƒœì¸ì§€ í™•ì¸.
             {
-                bInstallAction = false;// disarmÀÌ´å
+                bInstallAction = false;// disarmì´ë‹·
                 pMine = dynamic_cast<Mine*>(pItem);
             }
         }
@@ -101,7 +101,7 @@ void DisarmMine::execute( Slayer  * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 
     ZoneCoord_t slayerX = pSlayer->getX(), slayerY = pSlayer->getY();
 
-    // ±â¼úÀÇ ¼ºÆĞ¸¦ µûÁø´Ù.
+    // ê¸°ìˆ ì˜ ì„±íŒ¨ë¥¼ ë”°ì§„ë‹¤.
     if ( pMine && bModifyMP && (ToHit + SkillLevel) > Random(0, 100) )
     {
         Range_t Range = 1;
@@ -113,13 +113,13 @@ void DisarmMine::execute( Slayer  * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
         {
             pMine->setDir( calcDirection( slayerX, slayerY, X, Y));
             pMine->setFlag( Effect::EFFECT_CLASS_INSTALL);
-            // mineÀ» º¼ ¼ö ¾ø°Ô µÈ ÀÚµé¿¡°Ô´Â »èÁ¦
+            // mineì„ ë³¼ ìˆ˜ ì—†ê²Œ ëœ ìë“¤ì—ê²ŒëŠ” ì‚­ì œ
             addInstalledMine( pZone, pMine, X, Y);
 
         }
         else
         {
-            // »èÁ¦ÇÑ´Ù.
+            // ì‚­ì œí•œë‹¤.
             pZone->deleteItem( pMine, X, Y );
             GCDeleteObject gcDeleteObject;
             gcDeleteObject.setObjectID( pMine->getObjectID() );

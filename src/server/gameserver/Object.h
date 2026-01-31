@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Object.h
 // Written By  : Elca
-// Description : ¸ðµç Å¬·¡½ºÀÇ ÃÖ»óÀ§ Å¬·¡½ºÀÌ´Ù.
+// Description : ëª¨ë“  í´ëž˜ìŠ¤ì˜ ìµœìƒìœ„ í´ëž˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __OBJECT_H__
@@ -14,13 +14,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // Object Priority
 //
-// Å¸ÀÏÀÇ Object List ¿¡¼­ °¢ Object ÇÏÀ§ Å¬·¡½º °´Ã¼µé°£ÀÇ ¿ì¼±¼øÀ§¸¦
-// ³ªÅ¸³½´Ù. °ªÀÌ ÀÛÀ» ¼ö·Ï ¿ì¼±¼øÀ§°¡ ³ôÀ¸¸ç, Å¸ÀÏÀÇ Object List ¿¡¼­
-// º¸´Ù ¾ÕÂÊ¿¡ ¹èÄ¡µÇ¾î¾ß ÇÑ´Ù.
+// íƒ€ì¼ì˜ Object List ì—ì„œ ê° Object í•˜ìœ„ í´ëž˜ìŠ¤ ê°ì²´ë“¤ê°„ì˜ ìš°ì„ ìˆœìœ„ë¥¼
+// ë‚˜íƒ€ë‚¸ë‹¤. ê°’ì´ ìž‘ì„ ìˆ˜ë¡ ìš°ì„ ìˆœìœ„ê°€ ë†’ìœ¼ë©°, íƒ€ì¼ì˜ Object List ì—ì„œ
+// ë³´ë‹¤ ì•žìª½ì— ë°°ì¹˜ë˜ì–´ì•¼ í•œë‹¤.
 //
-// ¿ì¼±¼øÀ§´Â °¡Àå È°µ¿ÀûÀÎ, Áï °¡Àå ÀÌµ¿¼ºÀÌ ³ôÀº °´Ã¼µéÀÌ ¿ì¼± ¼øÀ§°¡
-// ³ô°Ô ÁöÁ¤µÇ¾î¾ß ÇÑ´Ù. ÀÌ´Â Å¸ÀÏÀÇ Object List °¡ slist ·Î ±¸ÇöµÇ¸ç,
-// slist ´Â ¾ÕÂÊ¿¡¼­ insert/delete ÀÇ ½Ã°£ÀÌ Âª±â ¶§¹®ÀÌ´Ù.
+// ìš°ì„ ìˆœìœ„ëŠ” ê°€ìž¥ í™œë™ì ì¸, ì¦‰ ê°€ìž¥ ì´ë™ì„±ì´ ë†’ì€ ê°ì²´ë“¤ì´ ìš°ì„  ìˆœìœ„ê°€
+// ë†’ê²Œ ì§€ì •ë˜ì–´ì•¼ í•œë‹¤. ì´ëŠ” íƒ€ì¼ì˜ Object List ê°€ slist ë¡œ êµ¬í˜„ë˜ë©°,
+// slist ëŠ” ì•žìª½ì—ì„œ insert/delete ì˜ ì‹œê°„ì´ ì§§ê¸° ë•Œë¬¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 enum ObjectPriority {
     OBJECT_PRIORITY_WALKING_CREATURE,
@@ -30,21 +30,21 @@ enum ObjectPriority {
     OBJECT_PRIORITY_ITEM,
     OBJECT_PRIORITY_PORTAL,
     OBJECT_PRIORITY_OBSTACLE,
-    OBJECT_PRIORITY_NONE // Å¸ÀÏ¿ë ¿ÀºêÁ§Æ®°¡ ¾Æ´Ò °æ¿ì
+    OBJECT_PRIORITY_NONE // íƒ€ì¼ìš© ì˜¤ë¸Œì íŠ¸ê°€ ì•„ë‹ ê²½ìš°
 };
 
 class Packet;
 
 //////////////////////////////////////////////////////////////////////////////
 // class Object
-// ¸ðµç °ÔÀÓ Å¬·¡½ºÀÇ ÃÖ»óÀ§ Å¬·¡½ºÀÌ´Ù.
+// ëª¨ë“  ê²Œìž„ í´ëž˜ìŠ¤ì˜ ìµœìƒìœ„ í´ëž˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class Object {
 public:
     // Object Class
-    // Object ÇÏÀ§ Å¬·¡½ºµéÀÇ ºÐ·ù¸¦ ³ªÅ¸³½´Ù. Object ¸¦ Á÷Á¢ »ó¼Ó¹ÞÀº
-    // Å¬·¡½ºµé¿¡ ÇÑÇØ¼­ ObjectClass ¿¡ Ãß°¡ÇÏ¸é µÇ°Ú´Ù.
+    // Object í•˜ìœ„ í´ëž˜ìŠ¤ë“¤ì˜ ë¶„ë¥˜ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤. Object ë¥¼ ì§ì ‘ ìƒì†ë°›ì€
+    // í´ëž˜ìŠ¤ë“¤ì— í•œí•´ì„œ ObjectClass ì— ì¶”ê°€í•˜ë©´ ë˜ê² ë‹¤.
     enum ObjectClass {
         OBJECT_CLASS_CREATURE,
         OBJECT_CLASS_ITEM,
@@ -60,12 +60,12 @@ public:
 public:
     // get/set object id
     //
-    // Á¸ ·¹º§¿¡¼­ unique ÇÑ °´Ã¼ÀÇ ±¸ºÐÀÚ(identifier)·Î »ç¿ëµÈ´Ù.
-    // ¹°·Ð °ÔÀÓ ¼­¹ö ·¹º§¿¡¼­ unique ÇØµµ µÇ±ä ÇÏÁö¸¸, ¿À·£ ½Ã°£µ¿¾È
-    // °ÔÀÓ ¼­¹ö°¡ reboot ¾øÀÌ ¿î¿µµÉ °æ¿ì ¾Æ¹«¸® 4G ¶ó ÇÒÁö¶óµµ °´Ã¼ÀÇ
-    // id °¡ Áßº¹µÉ ¿ì·Á°¡ ÀÖ¾î¼­ ¹üÀ§¸¦ Á¸ ·¹º§·Î Ãà¼ÒÇß´Ù.
-    // ÀÌ·¸°Ô ÇÏ¸é ÃÊ´ç 1000 °³ÀÇ °´Ã¼°¡ »õ·Î »ý±ä´Ù°í ÇÒÁö¶óµµ 4M ÃÊ,
-    // Áï 40-50ÀÏµ¿¾È ¾ÈÀüÇÏ´Ù´Â ¶æÀÌ´Ù.
+    // ì¡´ ë ˆë²¨ì—ì„œ unique í•œ ê°ì²´ì˜ êµ¬ë¶„ìž(identifier)ë¡œ ì‚¬ìš©ëœë‹¤.
+    // ë¬¼ë¡  ê²Œìž„ ì„œë²„ ë ˆë²¨ì—ì„œ unique í•´ë„ ë˜ê¸´ í•˜ì§€ë§Œ, ì˜¤ëžœ ì‹œê°„ë™ì•ˆ
+    // ê²Œìž„ ì„œë²„ê°€ reboot ì—†ì´ ìš´ì˜ë  ê²½ìš° ì•„ë¬´ë¦¬ 4G ë¼ í• ì§€ë¼ë„ ê°ì²´ì˜
+    // id ê°€ ì¤‘ë³µë  ìš°ë ¤ê°€ ìžˆì–´ì„œ ë²”ìœ„ë¥¼ ì¡´ ë ˆë²¨ë¡œ ì¶•ì†Œí–ˆë‹¤.
+    // ì´ë ‡ê²Œ í•˜ë©´ ì´ˆë‹¹ 1000 ê°œì˜ ê°ì²´ê°€ ìƒˆë¡œ ìƒê¸´ë‹¤ê³  í• ì§€ë¼ë„ 4M ì´ˆ,
+    // ì¦‰ 40-50ì¼ë™ì•ˆ ì•ˆì „í•˜ë‹¤ëŠ” ëœ»ì´ë‹¤.
     ObjectID_t getObjectID() const {
         Assert(m_ObjectID != 0);
         return m_ObjectID;
@@ -76,13 +76,13 @@ public:
     }
 
     // get object class(virtual)
-    // Object* pObject ¿¡ ´ëÇØ¼­ ÀÌ °´Ã¼°¡ Å©¸®Ã³ÀÎÁö, ¾ÆÀÌÅÛÀÎÁö, ¾Æ´Ï¸é
-    // Àå¾Ö¹°ÀÎÁö¸¦ »ìÆìº¼ ¶§ »ç¿ëÇÑ´Ù. ÇÏÀ§ Å¬·¡½º´Â ÀÌ ¸Þ½îµå¸¦ ÀçÁ¤ÀÇÇØ¾ßÇÑ´Ù.
+    // Object* pObject ì— ëŒ€í•´ì„œ ì´ ê°ì²´ê°€ í¬ë¦¬ì²˜ì¸ì§€, ì•„ì´í…œì¸ì§€, ì•„ë‹ˆë©´
+    // ìž¥ì• ë¬¼ì¸ì§€ë¥¼ ì‚´íŽ´ë³¼ ë•Œ ì‚¬ìš©í•œë‹¤. í•˜ìœ„ í´ëž˜ìŠ¤ëŠ” ì´ ë©”ì˜ë“œë¥¼ ìž¬ì •ì˜í•´ì•¼í•œë‹¤.
     //
     // *CAUTION*
-    // ¹°·Ð Object¿¡ m_ObjectClass µ¥ÀÌÅ¸ ¸â¹ö¸¦ µÖµµ µÇÁö¸¸, ÀÌ·¸°Ô ÇÏ¸é
-    // ÄÄÆÄÀÏ·¯ÀÇ Á¤·Ä ¹®Á¦·Î ÀÎÇØ ¸ðµç Object ÇÏÀ§ Å¬·¡½ºÀÇ °´Ã¼µéÀÌ Ãß°¡ÀûÀÎ
-    // ¹ÙÀÌÆ®¸¦ ¼Ò¸ðÇÏ°Ô µÇ¹Ç·Î, virtual method ·Î ÇØ°áÇß´Ù.
+    // ë¬¼ë¡  Objectì— m_ObjectClass ë°ì´íƒ€ ë©¤ë²„ë¥¼ ë‘¬ë„ ë˜ì§€ë§Œ, ì´ë ‡ê²Œ í•˜ë©´
+    // ì»´íŒŒì¼ëŸ¬ì˜ ì •ë ¬ ë¬¸ì œë¡œ ì¸í•´ ëª¨ë“  Object í•˜ìœ„ í´ëž˜ìŠ¤ì˜ ê°ì²´ë“¤ì´ ì¶”ê°€ì ì¸
+    // ë°”ì´íŠ¸ë¥¼ ì†Œëª¨í•˜ê²Œ ë˜ë¯€ë¡œ, virtual method ë¡œ í•´ê²°í–ˆë‹¤.
     virtual ObjectClass getObjectClass() const = 0;
 
     // get object priority(virtual)

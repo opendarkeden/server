@@ -24,7 +24,7 @@ void ActionTakeDonation::read(PropertyBuffer& propertyBuffer)
     __BEGIN_TRY
 
     try {
-        // ¹ŞÀ» µ·ÀÇ ¾çÀ» ÀĞ¾îµéÀÎ´Ù.
+        // ë°›ì„ ëˆì˜ ì–‘ì„ ì½ì–´ë“¤ì¸ë‹¤.
         m_Amount = (Gold_t)propertyBuffer.getPropertyInt("Amount");
     } catch (NoSuchElementException& nsee) {
         throw Error(nsee.toString());
@@ -35,7 +35,7 @@ void ActionTakeDonation::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -59,18 +59,18 @@ void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
     if (pCreature2->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
 
-        // ±âºÎ·®º¸´Ù °¡Áø µ·ÀÌ Àû´Ù¸é ±âºÎÇÒ ¼ö°¡ ¾ø´Ù.
+        // ê¸°ë¶€ëŸ‰ë³´ë‹¤ ê°€ì§„ ëˆì´ ì ë‹¤ë©´ ê¸°ë¶€í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pSlayer->getGold() < m_Amount) {
             gcNPCResponse.setCode(NPC_RESPONSE_DONATION_FAIL_MONEY);
             pPlayer->sendPacket(&gcNPCResponse);
             return;
         }
 
-        // ±âºÎ ±İ¾×¿¡ µû¶ó ¼ºÇâÀ» È¸º¹½ÃÄÑÁØ´Ù.
+        // ê¸°ë¶€ ê¸ˆì•¡ì— ë”°ë¼ ì„±í–¥ì„ íšŒë³µì‹œì¼œì¤€ë‹¤.
         oldAlignment = pSlayer->getAlignment();
         newAlignment = pSlayer->getAlignment();
 
-        // ¼ºÇâÀÌ -2500 ÀÌÇÏÀÏ °æ¿ì¿¡¸¸ º¯È­ÇÑ´Ù.
+        // ì„±í–¥ì´ -2500 ì´í•˜ì¼ ê²½ìš°ì—ë§Œ ë³€í™”í•œë‹¤.
         if (oldAlignment < -2500) {
             if (-4999 <= oldAlignment && oldAlignment <= -2500) {
                 newAlignment = min(-2500, (int)(oldAlignment + m_Amount / 100));
@@ -83,12 +83,12 @@ void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
             pSlayer->saveAlignment(newAlignment);
         }
 
-        // ±âºÎ±İ¾×¸¸Å­ µ·À» ÁÙÀÎ´Ù.
+        // ê¸°ë¶€ê¸ˆì•¡ë§Œí¼ ëˆì„ ì¤„ì¸ë‹¤.
         // pSlayer->setGoldEx(pSlayer->getGold() - m_Amount);
         // by sigi. 2002.9.17
         pSlayer->decreaseGoldEx(m_Amount);
 
-        // ÆĞÅ¶À» º¸³½´Ù.
+        // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
         gcNPCResponse.setCode(NPC_RESPONSE_DONATION_OK);
         gcNPCResponse.setParameter(pSlayer->getGold());
         pPlayer->sendPacket(&gcNPCResponse);
@@ -98,18 +98,18 @@ void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
     } else if (pCreature2->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pCreature2);
 
-        // ±âºÎ·®º¸´Ù °¡Áø µ·ÀÌ Àû´Ù¸é ±âºÎÇÒ ¼ö°¡ ¾ø´Ù.
+        // ê¸°ë¶€ëŸ‰ë³´ë‹¤ ê°€ì§„ ëˆì´ ì ë‹¤ë©´ ê¸°ë¶€í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pVampire->getGold() < m_Amount) {
             gcNPCResponse.setCode(NPC_RESPONSE_DONATION_FAIL_MONEY);
             pPlayer->sendPacket(&gcNPCResponse);
             return;
         }
 
-        // ±âºÎ ±İ¾×¿¡ µû¶ó ¼ºÇâÀ» È¸º¹½ÃÄÑÁØ´Ù.
+        // ê¸°ë¶€ ê¸ˆì•¡ì— ë”°ë¼ ì„±í–¥ì„ íšŒë³µì‹œì¼œì¤€ë‹¤.
         oldAlignment = pVampire->getAlignment();
         newAlignment = pVampire->getAlignment();
 
-        // ¼ºÇâÀÌ -2500 ÀÌÇÏÀÏ °æ¿ì¿¡¸¸ º¯È­ÇÑ´Ù.
+        // ì„±í–¥ì´ -2500 ì´í•˜ì¼ ê²½ìš°ì—ë§Œ ë³€í™”í•œë‹¤.
         if (oldAlignment < -2500) {
             if (-4999 <= oldAlignment && oldAlignment <= -2500) {
                 newAlignment = min(-2500, (int)(oldAlignment + m_Amount / 100));
@@ -122,12 +122,12 @@ void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
             pVampire->saveAlignment(newAlignment);
         }
 
-        // ±âºÎ±İ¾×¸¸Å­ µ·À» ÁÙÀÎ´Ù.
+        // ê¸°ë¶€ê¸ˆì•¡ë§Œí¼ ëˆì„ ì¤„ì¸ë‹¤.
         // pVampire->setGoldEx(pVampire->getGold() - m_Amount);
         // by sigi. 2002.9.18
         pVampire->decreaseGoldEx(m_Amount);
 
-        // ÆĞÅ¶À» º¸³½´Ù.
+        // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
         gcNPCResponse.setCode(NPC_RESPONSE_DONATION_OK);
         gcNPCResponse.setParameter(pVampire->getGold());
         pPlayer->sendPacket(&gcNPCResponse);
@@ -137,18 +137,18 @@ void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
     } else if (pCreature2->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pCreature2);
 
-        // ±âºÎ·®º¸´Ù °¡Áø µ·ÀÌ Àû´Ù¸é ±âºÎÇÒ ¼ö°¡ ¾ø´Ù.
+        // ê¸°ë¶€ëŸ‰ë³´ë‹¤ ê°€ì§„ ëˆì´ ì ë‹¤ë©´ ê¸°ë¶€í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pOusters->getGold() < m_Amount) {
             gcNPCResponse.setCode(NPC_RESPONSE_DONATION_FAIL_MONEY);
             pPlayer->sendPacket(&gcNPCResponse);
             return;
         }
 
-        // ±âºÎ ±İ¾×¿¡ µû¶ó ¼ºÇâÀ» È¸º¹½ÃÄÑÁØ´Ù.
+        // ê¸°ë¶€ ê¸ˆì•¡ì— ë”°ë¼ ì„±í–¥ì„ íšŒë³µì‹œì¼œì¤€ë‹¤.
         oldAlignment = pOusters->getAlignment();
         newAlignment = pOusters->getAlignment();
 
-        // ¼ºÇâÀÌ -2500 ÀÌÇÏÀÏ °æ¿ì¿¡¸¸ º¯È­ÇÑ´Ù.
+        // ì„±í–¥ì´ -2500 ì´í•˜ì¼ ê²½ìš°ì—ë§Œ ë³€í™”í•œë‹¤.
         if (oldAlignment < -2500) {
             if (-4999 <= oldAlignment && oldAlignment <= -2500) {
                 newAlignment = min(-2500, (int)(oldAlignment + m_Amount / 100));
@@ -161,12 +161,12 @@ void ActionTakeDonation::execute(Creature* pCreature1, Creature* pCreature2)
             pOusters->saveAlignment(newAlignment);
         }
 
-        // ±âºÎ±İ¾×¸¸Å­ µ·À» ÁÙÀÎ´Ù.
+        // ê¸°ë¶€ê¸ˆì•¡ë§Œí¼ ëˆì„ ì¤„ì¸ë‹¤.
         // pOusters->setGoldEx(pOusters->getGold() - m_Amount);
         // by sigi. 2002.9.18
         pOusters->decreaseGoldEx(m_Amount);
 
-        // ÆĞÅ¶À» º¸³½´Ù.
+        // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
         gcNPCResponse.setCode(NPC_RESPONSE_DONATION_OK);
         gcNPCResponse.setParameter(pOusters->getGold());
         pPlayer->sendPacket(&gcNPCResponse);

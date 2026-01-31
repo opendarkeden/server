@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////
 // Filename			: GoodsInventory.h
 // Written By		: bezz
-// Description		: È¨ÆäÀÌÁö¿¡¼­ ±¸¸ÅÇÑ ¾ÆÀÌÅÛÀÌ ´ã°Ü ÀÖ´Â Inventory
+// Description		: í™ˆí˜ì´ì§€ì—ì„œ êµ¬ë§¤í•œ ì•„ì´í…œì´ ë‹´ê²¨ ìˆëŠ” Inventory
 //////////////////////////////////////////////////////////////////////////
 
 #ifndef __GOODS_INVENTORY_H__
@@ -36,23 +36,23 @@ public:
         return m_Goods;
     }
 
-    // ¾ÆÀÌÅÛ Ãß°¡
+    // ì•„ì´í…œ ì¶”ê°€
     void addItem(string ID, Item* pItem);
 
-    // ¾ÆÀÌÅÛ °¡Á®¿À±â
+    // ì•„ì´í…œ ê°€ì ¸ì˜¤ê¸°
     Item* popItem(ObjectID_t oid);
 
-    // ¾ÆÀÌÅÛ °Á°¡Á®¿À±â
+    // ì•„ì´í…œ ê±ê°€ì ¸ì˜¤ê¸°
     Item* getItem(ObjectID_t oid);
 
-    // ÀÎº¥Åä¸®°¡ ºñ¾ú³ª?
+    // ì¸ë²¤í† ë¦¬ê°€ ë¹„ì—ˆë‚˜?
     bool empty() {
         return m_Goods.empty();
     }
 
     void clear();
 
-    // ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛ °³¼ö
+    // ì¸ë²¤í† ë¦¬ì— ìˆëŠ” ì•„ì´í…œ ê°œìˆ˜
     int getNum() const {
         return m_Goods.size();
     }

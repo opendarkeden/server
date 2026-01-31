@@ -21,7 +21,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -42,8 +42,8 @@ void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // ½½·¹ÀÌ¾î ¿Ü¿¡´Â Ä¡·áÇÒ ¼ö ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // ìŠ¬ë ˆì´ì–´ ì™¸ì—ëŠ” ì¹˜ë£Œí•  ìˆ˜ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isSlayer() == false) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -68,7 +68,7 @@ void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         // by sigi. 2002.12.3
         // bool bHallucination = false;
         bool bDeath = false;
-        bool bEffected = false; // ¾Æ¹« ÀúÁÖ³ª °É·Á ÀÖÀ¸¸é ÄÒ´Ù.
+        bool bEffected = false; // ì•„ë¬´ ì €ì£¼ë‚˜ ê±¸ë ¤ ìžˆìœ¼ë©´ ì¼ ë‹¤.
 
         EffectDoom* pEffectDoom = NULL;
         EffectParalyze* pEffectParalyze = NULL;
@@ -121,8 +121,8 @@ void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
 
-        // ¸¶³ª°¡ ÀÖ°í, ½Ã°£ÀÌ µÆ°í, °Å¸®°¡ Àû´çÇÏ¸ç,
-        // ÀúÁÖ°¡ ÇÏ³ª¶óµµ °É·ÁÀÖ¾î¾ß ÇÑ´Ù.
+        // ë§ˆë‚˜ê°€ ìžˆê³ , ì‹œê°„ì´ ëê³ , ê±°ë¦¬ê°€ ì ë‹¹í•˜ë©°,
+        // ì €ì£¼ê°€ í•˜ë‚˜ë¼ë„ ê±¸ë ¤ìžˆì–´ì•¼ í•œë‹¤.
         if (bManaCheck && bTimeCheck && bRangeCheck && bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
@@ -130,8 +130,8 @@ void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
             SkillOutput output;
             computeOutput(input, output);
 
-            // °¢°¢ÀÇ ÀúÁÖ¸¦ »èÁ¦ÇÏ°í,
-            // ÆÐÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ì €ì£¼ë¥¼ ì‚­ì œí•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´íŽ™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pTargetCreature->getObjectID());
 
@@ -163,14 +163,14 @@ void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_DEATH);
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
             ZoneCoord_t targetX = pTargetCreature->getX();
@@ -229,7 +229,7 @@ void RemoveCurse::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RemoveCurse::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -263,7 +263,7 @@ void RemoveCurse::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
         // by sigi. 2002.12.3
         // bool bHallucination = false;
         bool bDeath = false;
-        bool bEffected = false; // ¾Æ¹« µ¶ÀÌ³ª °É·ÁÀÖÀ¸¸é ÄÒ´Ù.
+        bool bEffected = false; // ì•„ë¬´ ë…ì´ë‚˜ ê±¸ë ¤ìžˆìœ¼ë©´ ì¼ ë‹¤.
 
         EffectDoom* pEffectDoom = NULL;
         EffectParalyze* pEffectParalyze = NULL;
@@ -316,8 +316,8 @@ void RemoveCurse::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
 
-        // ¸¶³ª°¡ ÀÖ°í, ½Ã°£ÀÌ µÆ°í, °Å¸®°¡ Àû´çÇÏ¸ç,
-        // ÀúÁÖ°¡ ÇÏ³ª¶óµµ °É·ÁÀÖ¾î¾ß ÇÑ´Ù.
+        // ë§ˆë‚˜ê°€ ìžˆê³ , ì‹œê°„ì´ ëê³ , ê±°ë¦¬ê°€ ì ë‹¹í•˜ë©°,
+        // ì €ì£¼ê°€ í•˜ë‚˜ë¼ë„ ê±¸ë ¤ìžˆì–´ì•¼ í•œë‹¤.
         if (bManaCheck && bTimeCheck && bRangeCheck && bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
@@ -325,8 +325,8 @@ void RemoveCurse::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             SkillOutput output;
             computeOutput(input, output);
 
-            // °¢°¢ÀÇ ÀúÁÖ¸¦ Á¦°ÅÇÏ°í,
-            // ÆÐÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ì €ì£¼ë¥¼ ì œê±°í•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´íŽ™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pSlayer->getObjectID());
 
@@ -358,7 +358,7 @@ void RemoveCurse::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_DEATH);
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
@@ -379,7 +379,7 @@ void RemoveCurse::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(myX, myY, &_GCSkillToSelfOK2, pSlayer);
 
-            // ±â¼úÀÌ Ç®·È´Ù´Â °ÍÀ» ¾Ë·ÁÁØ´Ù¾Æ.
+            // ê¸°ìˆ ì´ í’€ë ¸ë‹¤ëŠ” ê²ƒì„ ì•Œë ¤ì¤€ë‹¤ì•„.
             pZone->broadcastPacket(myX, myY, &gcRemoveEffect);
 
             pSkillSlot->setRunTime(output.Delay);

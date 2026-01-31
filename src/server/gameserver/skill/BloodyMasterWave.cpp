@@ -9,8 +9,8 @@
 #include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 BloodyMasterWave::BloodyMasterWave() throw() {
     __BEGIN_TRY
@@ -48,7 +48,7 @@ BloodyMasterWave::BloodyMasterWave() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ
+// ë±€íŒŒì´ì–´ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
 
@@ -73,7 +73,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkil
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                                CEffectID_t CEffectID)
@@ -93,7 +93,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
         // Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         /*
         if (pTargetCreature==NULL)
         {
@@ -115,7 +115,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                                CEffectID_t CEffectID)
@@ -147,7 +147,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, 
         param.addMask(m_pBloodyMasterWaveMask[i].x, m_pBloodyMasterWaveMask[i].y, 100);
     }
 
-    // °­Á¦·Î knockback½ÃÅ³ È®·ü
+    // ê°•ì œë¡œ knockbackì‹œí‚¬ í™•ë¥ 
     bool bForceKnockback = rand() % 100 < output.ToHit;
 
     g_SimpleTileMissileSkill.execute(pVampire, pVampire->getX(), pVampire->getY(), pVampireSkillSlot, param, result, 0,
@@ -159,7 +159,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -192,7 +192,7 @@ void BloodyMasterWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
     bool bForceKnockback = false;
 
-    // ¸¶½ºÅÍ´Â °­Á¦·Î knockback½ÃÅ²´Ù.
+    // ë§ˆìŠ¤í„°ëŠ” ê°•ì œë¡œ knockbackì‹œí‚¨ë‹¤.
     if (pMonster->isMaster()) {
         bForceKnockback = true;
     }

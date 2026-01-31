@@ -37,7 +37,7 @@ public:
 
     string toString() const throw();
 
-    // º¼ ¼ö ÀÖ´Â ·¹º§ °è»ê
+    // ë³¼ ìˆ˜ ìžˆëŠ” ë ˆë²¨ ê³„ì‚°
 public:
     void setSkillLevel(ExpLevel_t level) throw() {
         m_SkillLevel = level;

@@ -55,7 +55,7 @@ void ActionActivateMazeExit::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeExit::execute(Creature* pNPC, Creature* pCreature)
 
@@ -66,14 +66,14 @@ void ActionActivateMazeExit::execute(Creature* pNPC, Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isPC());
 
-    // ¹Ì·Î Ãâ±¸´Â À¯·áÁ¸ Ã¼Å© ¾ÈÇÏ°í º¸³»ÁØ´Ù. Á¨Àå -_-
+    // ë¯¸ë¡œ ì¶œêµ¬ëŠ” ìœ ë£Œì¡´ ì²´í¬ ì•ˆí•˜ê³  ë³´ë‚´ì¤€ë‹¤. ì  ì¥ -_-
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPC != NULL);
 
     bool isCorrect = false;
 
     if (!pPC->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET)) {
-        filelog("EventBug.log", "¹Ì·Î ¾È¿¡ ÀÖ´Âµ¥ ¸®ÇÇ´½ Æ¼ÄÏÀÌ ¾ø¾î. ·Î±×¾Æ¿ôÇÏ´Â¼ö¹Û¿¡.. : %s",
+        filelog("EventBug.log", "ë¯¸ë¡œ ì•ˆì— ìˆëŠ”ë° ë¦¬í”¼ëŠ„ í‹°ì¼“ì´ ì—†ì–´. ë¡œê·¸ì•„ì›ƒí•˜ëŠ”ìˆ˜ë°–ì—.. : %s",
                 pPC->getName().c_str());
     } else {
         EffectRefiniumTicket* pEffect =

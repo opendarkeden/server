@@ -18,14 +18,14 @@ void ActionQuitDialogue::read(PropertyBuffer& propertyBuffer)
 {
     __BEGIN_TRY
 
-    // ÀÌ ¾×¼ÇÀº NPC¿Í ÇÃ·¹ÀÌ¾î °£ÀÇ ´ëÈ­¸¦ Á¾·á½ÃÅ°´Â ¿ªÇÒÀ» ÇÏ¹Ç·Î
-    // Æ¯º°È÷ ÀÐ¾îµé¿©¾ß ÇÒ ÆÄ¶ó¹ÌÅÍ°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+    // ì´ ì•¡ì…˜ì€ NPCì™€ í”Œë ˆì´ì–´ ê°„ì˜ ëŒ€í™”ë¥¼ ì¢…ë£Œì‹œí‚¤ëŠ” ì—­í• ì„ í•˜ë¯€ë¡œ
+    // íŠ¹ë³„ížˆ ì½ì–´ë“¤ì—¬ì•¼ í•  íŒŒë¼ë¯¸í„°ê°€ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
     __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionQuitDialogue::execute(Creature* pCreature1, Creature* pCreature2)
 

@@ -24,16 +24,16 @@
 class CGQuitUnion : public Packet {
 public:
     enum {
-        QUIT_NORMAL = 0, // ÀýÂ÷¿¡ µû¶ó ½ÅÃ»
-        QUIT_QUICK,      // ÀÏ¹æÀûÀ¸·Î Å»Åð
+        QUIT_NORMAL = 0, // ì ˆì°¨ì— ë”°ë¼ ì‹ ì²­
+        QUIT_QUICK,      // ì¼ë°©ì ìœ¼ë¡œ íƒˆí‡´
         QUIT_MAX
     };
     CGQuitUnion() {};
     ~CGQuitUnion() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler

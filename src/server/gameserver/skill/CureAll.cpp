@@ -31,7 +31,7 @@
 const uint CureAllBloodDrainLevel = 75;
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -65,8 +65,8 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
-        // ½½·¹ÀÌ¾î ¿Ü¿¡´Â Ä¡·áÇÒ ¼ö°¡ ¾ø´Ù.
+        // NoSuchì œê±°. by sigi. 2002.5.2
+        // ìŠ¬ë ˆì´ì–´ ì™¸ì—ëŠ” ì¹˜ë£Œí•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pTargetCreature == NULL || pTargetCreature->isSlayer() == false) {
             executeSkillFailException(pSlayer, param.SkillType);
             return;
@@ -84,13 +84,13 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
         bool bHPCheck = false;
 
-        // Ã¼·ÂÀÌ ´â°Å³ª, ÈíÇ÷À» ´çÇÑ »óÅÂ¿©¾ß ÇÑ´Ù.
+        // ì²´ë ¥ì´ ë‹³ê±°ë‚˜, í¡í˜ˆì„ ë‹¹í•œ ìƒíƒœì—¬ì•¼ í•œë‹¤.
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
         Assert(pTargetSlayer != NULL);
 
         EffectBloodDrain* pEffectBloodDrain = NULL;
 
-        bool bEffected = false; // ¾Æ¹« ÀúÁÖ³ª °É·Á ÀÖÀ¸¸é ÄÒ´Ù.
+        bool bEffected = false; // ì•„ë¬´ ì €ì£¼ë‚˜ ê±¸ë ¤ ìˆìœ¼ë©´ ì¼ ë‹¤.
 
         if (pTargetSlayer->getHP(ATTR_CURRENT) < pTargetSlayer->getHP(ATTR_MAX)) {
             bHPCheck = true;
@@ -121,7 +121,7 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
         EffectParalyze* pEffectParalyze = NULL;
         EffectSeduction* pEffectSeduction = NULL;
 
-        // ÀúÁÖ °è¿­ ÇØ¼Ò
+        // ì €ì£¼ ê³„ì—´ í•´ì†Œ
         if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_DOOM)) {
             pEffectDoom = (EffectDoom*)pTargetCreature->findEffect(Effect::EFFECT_CLASS_DOOM);
             Assert(pEffectDoom != NULL);
@@ -155,11 +155,11 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             bHPCheck = true;
         }
 
-        // µ¶ °è¿­ ÇØ¼Ò
-        bool bGreenPoison = false;    // GreenPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bYellowPoison = false;   // YellowPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bDarkBluePoison = false; // DarkBluePoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bGreenStalker = false;   // GreenStalker¸¦ Ä¡·áÇÒ±îÀÇ ¿©ºÎ
+        // ë… ê³„ì—´ í•´ì†Œ
+        bool bGreenPoison = false;    // GreenPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bYellowPoison = false;   // YellowPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bDarkBluePoison = false; // DarkBluePoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bGreenStalker = false;   // GreenStalkerë¥¼ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
 
         EffectPoison* pEffectPoison = NULL;
         EffectYellowPoisonToCreature* pEffectYellowPoisonToCreature = NULL;
@@ -209,21 +209,21 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
             uint HealPoint = param.SkillDamage;
 
-            // °¢°¢ÀÇ ÀúÁÖ¸¦ »èÁ¦ÇÏ°í,
-            // ÆĞÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ì €ì£¼ë¥¼ ì‚­ì œí•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´í™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pTargetCreature->getObjectID());
 
-            // ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+            // í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
             if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < CureAllBloodDrainLevel) {
-                // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+                // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
                 if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                     Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                     EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                 } else {
                     EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetCreature);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                     pTargetCreature->addEffect(pEffectAftermath);
                     pTargetCreature->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                     pEffectAftermath->create(pTargetCreature->getName());
@@ -262,8 +262,8 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SEDUCTION);
             }
 
-            // °¢°¢ÀÇ µ¶¸¶´Ù Ä¡·á¸¦ ÇÏ°í,
-            // ÆĞÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ë…ë§ˆë‹¤ ì¹˜ë£Œë¥¼ í•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´í™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             if (bGreenPoison) {
                 pEffectPoison->setDeadline(0);
                 pTargetCreature->removeFlag(Effect::EFFECT_CLASS_POISON);
@@ -289,11 +289,11 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
                 pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcRemoveEffect);
             }
 
-            // ´Ù¸¥ »ç¶÷À» Ä¡·áÇÑ´Ù.
+            // ë‹¤ë¥¸ ì‚¬ëŒì„ ì¹˜ë£Œí•œë‹¤.
             HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
             HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-            // ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+            // ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
             int RealHealPoint = 0;
             if (CurrentHP + HealPoint <= MaxHP) {
                 RealHealPoint = max((unsigned int)0, HealPoint);
@@ -301,17 +301,17 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
                 RealHealPoint = max(0, MaxHP - CurrentHP);
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
                          _GCSkillToObjectOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);
 
-            // HP¸¦ ¼ÂÆÃÇÑ´Ù.
+            // HPë¥¼ ì…‹íŒ…í•œë‹¤.
             CurrentHP = min((int)(MaxHP), (int)(CurrentHP + HealPoint));
             pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
 
-            // Ä¡·á°¡ µÇ¾úÀ¸´Ï HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+            // ì¹˜ë£Œê°€ ë˜ì—ˆìœ¼ë‹ˆ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
             GCStatusCurrentHP gcStatusCurrentHP;
             gcStatusCurrentHP.setObjectID(TargetObjectID);
             gcStatusCurrentHP.setCurrentHP(CurrentHP);
@@ -375,7 +375,7 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -419,7 +419,7 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
 
         EffectBloodDrain* pEffectBloodDrain = NULL;
 
-        bool bEffected = false; // ¾Æ¹« ÀúÁÖ³ª °É·Á ÀÖÀ¸¸é ÄÒ´Ù.
+        bool bEffected = false; // ì•„ë¬´ ì €ì£¼ë‚˜ ê±¸ë ¤ ìˆìœ¼ë©´ ì¼ ë‹¤.
         if (pSlayer->getHP(ATTR_CURRENT) < pSlayer->getHP(ATTR_MAX)) {
             bHPCheck = true;
         }
@@ -443,7 +443,7 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
         EffectParalyze* pEffectParalyze = NULL;
         EffectSeduction* pEffectSeduction = NULL;
 
-        // ÀúÁÖ °è¿­ ÇØ¼Ò
+        // ì €ì£¼ ê³„ì—´ í•´ì†Œ
         if (pSlayer->isEffect(Effect::EFFECT_CLASS_DOOM)) {
             pEffectDoom = (EffectDoom*)pSlayer->findEffect(Effect::EFFECT_CLASS_DOOM);
             Assert(pEffectDoom != NULL);
@@ -477,11 +477,11 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
             bHPCheck = true;
         }
 
-        // µ¶ °è¿­ ÇØ¼Ò
-        bool bGreenPoison = false;    // GreenPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bYellowPoison = false;   // YellowPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bDarkBluePoison = false; // DarkBluePoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-        bool bGreenStalker = false;   // GreenStalker¸¦ Ä¡·áÇÒ±îÀÇ ¿©ºÎ
+        // ë… ê³„ì—´ í•´ì†Œ
+        bool bGreenPoison = false;    // GreenPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bYellowPoison = false;   // YellowPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bDarkBluePoison = false; // DarkBluePoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+        bool bGreenStalker = false;   // GreenStalkerë¥¼ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
 
         EffectPoison* pEffectPoison = NULL;
         EffectYellowPoisonToCreature* pEffectYellowPoisonToCreature = NULL;
@@ -532,16 +532,16 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
 
             uint HealPoint = param.SkillDamage;
 
-            // ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+            // í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
             if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
-                // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+                // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
                 if (pSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                     Effect* pEffect = pSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                     EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                 } else {
                     EffectAftermath* pEffectAftermath = new EffectAftermath(pSlayer);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                     pSlayer->addEffect(pEffectAftermath);
                     pSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                     pEffectAftermath->create(pSlayer->getName());
@@ -563,8 +563,8 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
                 pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
             }
 
-            // °¢°¢ÀÇ ÀúÁÖ¸¦ »èÁ¦ÇÏ°í,
-            // ÆĞÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ì €ì£¼ë¥¼ ì‚­ì œí•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´í™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pSlayer->getObjectID());
 
@@ -589,8 +589,8 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SEDUCTION);
             }
 
-            // °¢°¢ÀÇ µ¶¸¶´Ù Ä¡·á¸¦ ÇÏ°í,
-            // ÆĞÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+            // ê°ê°ì˜ ë…ë§ˆë‹¤ ì¹˜ë£Œë¥¼ í•˜ê³ ,
+            // íŒ¨í‚·ì—ë‹¤ ì´í™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
             if (bGreenPoison) {
                 pEffectPoison->setDeadline(0);
                 pSlayer->removeFlag(Effect::EFFECT_CLASS_POISON);
@@ -617,18 +617,18 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
             }
 
 
-            // HP¸¦ ¼¼ÆÃÇÑ´Ù.
+            // HPë¥¼ ì„¸íŒ…í•œë‹¤.
             HP_t CurrentHP = pSlayer->getHP(ATTR_CURRENT);
             HP_t MaxHP = pSlayer->getHP(ATTR_MAX);
 
-            // ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+            // ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
             int RealHealPoint = 0;
             if (CurrentHP + HealPoint <= MaxHP) {
                 RealHealPoint = max((unsigned int)0, HealPoint);
             } else {
                 RealHealPoint = max(0, MaxHP - CurrentHP);
             }
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
                          _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
@@ -637,7 +637,7 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
             CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
             pSlayer->setHP(CurrentHP, ATTR_CURRENT);
 
-            // HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+            // HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
             GCStatusCurrentHP gcStatusCurrentHP;
             gcStatusCurrentHP.setObjectID(pSlayer->getObjectID());
             gcStatusCurrentHP.setCurrentHP(CurrentHP);

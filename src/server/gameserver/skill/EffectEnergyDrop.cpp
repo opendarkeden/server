@@ -2,16 +2,16 @@
 // Project     : DARKEDEN
 // Module      : Skill - Effect
 // File Name   : EffectEnergyDrop.cpp
-// Writer      : ÀåÈ«Ã¢
+// Writer      : ì¥í™ì°½
 // Date        : 2002.3.28
 // Description :
-//               ÇØ´ç Effect´Â Energy DropÀÌ ¶¥À¸·Î ¶³¾îÁú¶§ÀÇ Effect¸¦ ±¸ÇöÇÏ±â
-//               À§ÇÑ EffectÀÌ´Ù.
+//               í•´ë‹¹ EffectëŠ” Energy Dropì´ ë•…ìœ¼ë¡œ ë–¨ì–´ì§ˆë•Œì˜ Effectë¥¼ êµ¬í˜„í•˜ê¸°
+//               ìœ„í•œ Effectì´ë‹¤.
 //
 // History
 //     DATE      WRITER         DESCRIPTION
 // =========== =========== =====================================================
-// 2002.3.28    ÀåÈ«Ã¢      source file ÀÛ¼º
+// 2002.3.28    ì¥í™ì°½      source file ì‘ì„±
 //
 
 #include "EffectEnergyDrop.h"
@@ -52,13 +52,13 @@ bool EffectEnergyDrop::affectCreature(Creature* pTargetCreature, bool bAffectByM
 
     Assert(pTargetCreature != NULL);
 
-    // »ó´ë¿¡°Ô ÀÌ¹Ì poison ÀÌÆåÆ®°¡ °É·ÁÁ® ÀÖ´Â °æ¿ì¿¡´Â °É¸®Áö ¾Ê´Â´Ù.
+    // ìƒëŒ€ì—ê²Œ ì´ë¯¸ poison ì´í™íŠ¸ê°€ ê±¸ë ¤ì ¸ ìˆëŠ” ê²½ìš°ì—ëŠ” ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
     if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_ENERGY_DROP_TO_CREATURE)) {
         // cout << "EffectEnergyDrop " << "affectCreature End(Already Effected) " << endl;
         return false;
     }
 
-    // ¾ÈÀüÁö´ë Ã¼Å©
+    // ì•ˆì „ì§€ëŒ€ ì²´í¬
     // 2003.1.10 by bezz, Sequoia
     if (!checkZoneLevelToHitTarget(pTargetCreature)) {
         return false;
@@ -66,42 +66,42 @@ bool EffectEnergyDrop::affectCreature(Creature* pTargetCreature, bool bAffectByM
 
     Zone* pZone = pTargetCreature->getZone();
 
-    // »ó´ë¹æ¿¡°Ô ¹ÌÄ¥ µ¶ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œ ë¯¸ì¹  ë… ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
     int DropDamage = computeMagicDamage(pTargetCreature, m_Damage, SKILL_ENERGY_DROP);
 
     // cout << "EffectEnergyDrop(Damage:" << DropDamage << ") Affected" << endl;
     if (DropDamage > 0) {
-        // Æ÷ÀÌÁğ ÀÌÆåÆ®¸¦ »ı¼ºÇØ¼­, Å¸°Ù Å©¸®ÃÄ¿¡ ºÙÀÌ°í, ÇÃ·¡±×¸¦ ÄÑÁØ´Ù.
+        // í¬ì´ì¦Œ ì´í™íŠ¸ë¥¼ ìƒì„±í•´ì„œ, íƒ€ê²Ÿ í¬ë¦¬ì³ì— ë¶™ì´ê³ , í”Œë˜ê·¸ë¥¼ ì¼œì¤€ë‹¤.
 
-        // ÇöÁ¦´Â EnergyDrop Effect¸¦ Áö¼ÓÀûÀ¸·Î ¿î¿µÇÏÁö ¾Ê´Â´Ù. ´Ù¸¥ Effeect±â¼úÀÇ
-        // °æ¿ì ½ÃÀüÀÚÀÇ ·¹º§ÀÌ ¿Ã¶ó°¥¼ö·Ï DurationÀÌ Áõ°¡ÇÏ°Ô µÇ°í ÀÌ¿¡ ´ëÇÑ Effect¸¦ ºÙÀÌ°Ô
-        // µÇÁö¸¸, --Drop, --Storm·ùÀÇ ±â¼úÀº ÀÏ´Ü ¼º°øÀÌ µÇ¸é ÇØ´ç ±¸¿ªÀÇ ¸ğµç »ç¶÷ÀÌ
-        // ±â¼úÀ» ´çÇÏ°Ô µÇ°í, °¢°¢ ½Ã°£À¸·Î µ¥¹ÌÁö¸¦ ÁÖ´Â °ÍÀÌ ¾Æ´Ï¶ó ÀÏÁ¤·®ÀÇ µ¥¹ÌÁö¸¦
-        // 3µîºĞÇØ¼­ ÁÖ°Ô µÈ´Ù. ¸î¹øÀÇ µ¥¹ÌÁö¸¦ ÁÖ´Â ÇÔ¼ö´Â ¾ÆÁ÷ °³¹ßµÇÁö ¾ÊÀº ´Ü°è¶ó¼­
-        // Deadline°ú tickÀ» »ç¿ëÇØ¼­ ÀÓÀÇ·Î ±¸ÇöÀ» ÇÏ¿´´Ù.
-        // 1.6ÃÊ µ¿¾È¿¡ 0.5ÃÊ °£°İÀ¸·Î µ¥¹ÌÁö¸¦ ÁÖ°Ô µÇ¸é, 3¹øÀÇ µ¥¹ÌÁö¸¦ ÁÙ ¼ö ÀÖ°Ô µÈ´Ù.
-        // ¿©±â¼­´Â ÇÏµåÄÚµùÀÌ µÇ¾î ÀÖ´Âµ¥, ÀÌ´Â ´Ù¸¥ ¹æ¹ıÀ¸·Î ±³Ã¼µÇ¾î¾ß ÇÒ °Å °°´Ù.
-        // EffectEnergyDrop Class¿¡ member variable·Î
+        // í˜„ì œëŠ” EnergyDrop Effectë¥¼ ì§€ì†ì ìœ¼ë¡œ ìš´ì˜í•˜ì§€ ì•ŠëŠ”ë‹¤. ë‹¤ë¥¸ Effeectê¸°ìˆ ì˜
+        // ê²½ìš° ì‹œì „ìì˜ ë ˆë²¨ì´ ì˜¬ë¼ê°ˆìˆ˜ë¡ Durationì´ ì¦ê°€í•˜ê²Œ ë˜ê³  ì´ì— ëŒ€í•œ Effectë¥¼ ë¶™ì´ê²Œ
+        // ë˜ì§€ë§Œ, --Drop, --Stormë¥˜ì˜ ê¸°ìˆ ì€ ì¼ë‹¨ ì„±ê³µì´ ë˜ë©´ í•´ë‹¹ êµ¬ì—­ì˜ ëª¨ë“  ì‚¬ëŒì´
+        // ê¸°ìˆ ì„ ë‹¹í•˜ê²Œ ë˜ê³ , ê°ê° ì‹œê°„ìœ¼ë¡œ ë°ë¯¸ì§€ë¥¼ ì£¼ëŠ” ê²ƒì´ ì•„ë‹ˆë¼ ì¼ì •ëŸ‰ì˜ ë°ë¯¸ì§€ë¥¼
+        // 3ë“±ë¶„í•´ì„œ ì£¼ê²Œ ëœë‹¤. ëª‡ë²ˆì˜ ë°ë¯¸ì§€ë¥¼ ì£¼ëŠ” í•¨ìˆ˜ëŠ” ì•„ì§ ê°œë°œë˜ì§€ ì•Šì€ ë‹¨ê³„ë¼ì„œ
+        // Deadlineê³¼ tickì„ ì‚¬ìš©í•´ì„œ ì„ì˜ë¡œ êµ¬í˜„ì„ í•˜ì˜€ë‹¤.
+        // 1.6ì´ˆ ë™ì•ˆì— 0.5ì´ˆ ê°„ê²©ìœ¼ë¡œ ë°ë¯¸ì§€ë¥¼ ì£¼ê²Œ ë˜ë©´, 3ë²ˆì˜ ë°ë¯¸ì§€ë¥¼ ì¤„ ìˆ˜ ìˆê²Œ ëœë‹¤.
+        // ì—¬ê¸°ì„œëŠ” í•˜ë“œì½”ë”©ì´ ë˜ì–´ ìˆëŠ”ë°, ì´ëŠ” ë‹¤ë¥¸ ë°©ë²•ìœ¼ë¡œ êµì²´ë˜ì–´ì•¼ í•  ê±° ê°™ë‹¤.
+        // EffectEnergyDrop Classì— member variableë¡œ
         //   m_Tick
         //   m_Count
-        // ¸¦ µÎ¾î¼­ ÀÌ¸¦ ¹ÙÅÁÀ¸·Î deadlineÀ» °è»êÇØ¼­ Àû¿ëÇÑ´Ù¸é ´õ¿í ´õ ÆíÇÒ °ÍÀÌ´Ù.
+        // ë¥¼ ë‘ì–´ì„œ ì´ë¥¼ ë°”íƒ•ìœ¼ë¡œ deadlineì„ ê³„ì‚°í•´ì„œ ì ìš©í•œë‹¤ë©´ ë”ìš± ë” í¸í•  ê²ƒì´ë‹¤.
 
         EffectEnergyDropToCreature* pEffectEnergyDropToCreature = new EffectEnergyDropToCreature(pTargetCreature);
 
-        // ¿ì¼±±Ç ½Ã½ºÅÛÀ» À§ÇÏ¿© ÀÌ¸§°ú ÆÄÆ¼ ¾ÆÀÌµğ¸¦ ³Ö´Â´Ù.
+        // ìš°ì„ ê¶Œ ì‹œìŠ¤í…œì„ ìœ„í•˜ì—¬ ì´ë¦„ê³¼ íŒŒí‹° ì•„ì´ë””ë¥¼ ë„£ëŠ”ë‹¤.
         //		pEffectEnergyDropToCreature->setCasterName(m_CasterName);
         //		pEffectEnergyDropToCreature->setPartyID(m_PartyID);
         pEffectEnergyDropToCreature->setUserObjectID(m_UserObjectID);
 
         pEffectEnergyDropToCreature->setLevel(m_Level);
         pEffectEnergyDropToCreature->setPoint(DropDamage / 3);
-        pEffectEnergyDropToCreature->setDeadline(16); // ÀÌºÎºĞ ¹Ù²ã¾ß ÇÑ´Ù.
-        pEffectEnergyDropToCreature->setTick(5);      // ÀÌºÎºĞµµ ¹Ù²ã¾ß ÇÑ´Ù.
+        pEffectEnergyDropToCreature->setDeadline(16); // ì´ë¶€ë¶„ ë°”ê¿”ì•¼ í•œë‹¤.
+        pEffectEnergyDropToCreature->setTick(5);      // ì´ë¶€ë¶„ë„ ë°”ê¿”ì•¼ í•œë‹¤.
         pEffectEnergyDropToCreature->affect(pTargetCreature);
         pTargetCreature->addEffect(pEffectEnergyDropToCreature);
         pTargetCreature->setFlag(Effect::EFFECT_CLASS_ENERGY_DROP_TO_CREATURE);
 
-        // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ÁÖº¯¿¡ ¾Ë·ÁÁØ´Ù.
+        // ì´í™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì£¼ë³€ì— ì•Œë ¤ì¤€ë‹¤.
         GCAddEffect gcAddEffect;
         gcAddEffect.setObjectID(pTargetCreature->getObjectID());
         gcAddEffect.setEffectID(Effect::EFFECT_CLASS_ENERGY_DROP_TO_CREATURE);

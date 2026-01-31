@@ -28,7 +28,7 @@ GCNPCAskDynamic::~GCNPCAskDynamic()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCAskDynamic::read(SocketInputStream& iStream)
 
@@ -49,10 +49,10 @@ void GCNPCAskDynamic::read(SocketInputStream& iStream)
     iStream.read(m_ContentsCount);
 
     for (int i = 0; i < m_ContentsCount; i++) {
-        // ¹®ÀÚ¿­ ±æÀÌ¸¦ ÀĞ¾îµéÀÎ´Ù.
+        // ë¬¸ìì—´ ê¸¸ì´ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
         iStream.read(size);
 
-        // ³»¿ëÀÌ ÀÖ´Â ¹®ÀÚ¿­ÀÌ¶ó¸é ³»¿ë ÀÚÃ¼¸¦ ÀĞ¾îµéÀÎ´Ù.
+        // ë‚´ìš©ì´ ìˆëŠ” ë¬¸ìì—´ì´ë¼ë©´ ë‚´ìš© ìì²´ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
         if (size > 0) {
             string msg = "";
             iStream.read(msg, size);
@@ -64,7 +64,7 @@ void GCNPCAskDynamic::read(SocketInputStream& iStream)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCAskDynamic::write(SocketOutputStream& oStream) const
 
@@ -87,11 +87,11 @@ void GCNPCAskDynamic::write(SocketOutputStream& oStream) const
     list<string>::const_iterator itr = m_Contents.begin();
 
     for (; itr != m_Contents.end(); itr++) {
-        // ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦ Àü¼ÛÇÑ´Ù.
+        // ë¬¸ìì—´ì˜ ê¸¸ì´ë¥¼ ì „ì†¡í•œë‹¤.
         size = (*itr).size();
         oStream.write(size);
 
-        // ³»¿ëÀÌ ÀÖ´Â ¹®ÀÚ¿­ÀÌ¶ó¸é ¹®ÀÚ¿­ ÀÚÃ¼¸¦ Àü¼ÛÇÑ´Ù.
+        // ë‚´ìš©ì´ ìˆëŠ” ë¬¸ìì—´ì´ë¼ë©´ ë¬¸ìì—´ ìì²´ë¥¼ ì „ì†¡í•œë‹¤.
         if (size > 0)
             oStream.write(*itr);
     }

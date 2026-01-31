@@ -27,11 +27,11 @@ PlayerManager::PlayerManager()
     : m_nPlayers(0) {
     __BEGIN_TRY
 
-    // ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ ¹è¿­À» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ í¬ì¸í„° ë°°ì—´ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
     for (uint i = 0; i < nMaxPlayers; i++)
         m_pPlayers[i] = NULL;
 
-    // ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ ¹è¿­À» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ í¬ì¸í„° ë°°ì—´ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
     for (uint i = 0; i < nMaxPlayers; i++)
         m_pCopyPlayers[i] = NULL;
 
@@ -49,7 +49,7 @@ PlayerManager::~PlayerManager()
 
     for (uint i = 0; i < nMaxPlayers; i++) {
         if (m_pPlayers[i] != NULL) {
-            // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÏ¸é, destructor¿¡¼­ ¿¬°áÀ» Á¾·áÇÑ´Ù.
+            // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•˜ë©´, destructorì—ì„œ ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
             delete m_pPlayers[i];
             m_pPlayers[i] = NULL;
         }
@@ -81,7 +81,7 @@ void PlayerManager::broadcastPacket(Packet* pPacket)
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì— ì¶”ê°€í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::addPlayer(Player* pPlayer) {
     __BEGIN_TRY
@@ -101,10 +101,10 @@ void PlayerManager::addPlayer(Player* pPlayer) {
         throw DuplicatedException("socket descriptor duplicated");
     }
 
-    // ±¦ÂúÀ¸¸é Æ÷ÀÎÅÍ¸¦ ´ëÀÔÇÑ´Ù.
+    // ê´œì°®ìœ¼ë©´ í¬ì¸í„°ë¥¼ ëŒ€ì…í•œë‹¤.
     m_pPlayers[fd] = pPlayer;
 
-    // ÇÃ·¹ÀÌ¾î ¼ıÀÚ¸¦ Áõ°¡½ÃÅ²´Ù.
+    // í”Œë ˆì´ì–´ ìˆ«ìë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
     m_nPlayers++;
 
     __END_CATCH
@@ -112,8 +112,8 @@ void PlayerManager::addPlayer(Player* pPlayer) {
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
-// °´Ã¼´Â »èÁ¦ÇÏÁö ¾ÊÀ¸¸ç, ½½¶ù¸¸À» NULL·Î ¸¸µç´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
+// ê°ì²´ëŠ” ì‚­ì œí•˜ì§€ ì•Šìœ¼ë©°, ìŠ¬ëë§Œì„ NULLë¡œ ë§Œë“ ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::deletePlayer(SOCKET fd) {
     __BEGIN_TRY
@@ -126,10 +126,10 @@ void PlayerManager::deletePlayer(SOCKET fd) {
     if (m_pPlayers[fd] == NULL)
         throw NoSuchElementException();
 
-    // ¹è¿­ÀÇ fd¹øÂ°¸¦ Å¬¸®¾îÇÑ´Ù.
+    // ë°°ì—´ì˜ fdë²ˆì§¸ë¥¼ í´ë¦¬ì–´í•œë‹¤.
     m_pPlayers[fd] = NULL;
 
-    // ÇÃ·¹ÀÌ¾î ¼ıÀÚ¸¦ °¨¼Ò½ÃÅ²´Ù.
+    // í”Œë ˆì´ì–´ ìˆ«ìë¥¼ ê°ì†Œì‹œí‚¨ë‹¤.
     m_nPlayers--;
 
     __END_CATCH
@@ -137,7 +137,7 @@ void PlayerManager::deletePlayer(SOCKET fd) {
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ °¡Á®¿Â´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 //////////////////////////////////////////////////////////////////////
 Player* PlayerManager::getPlayer(SOCKET fd) {
     __BEGIN_TRY
@@ -156,7 +156,7 @@ Player* PlayerManager::getPlayer(SOCKET fd) {
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î¸¦ º¹»çÇÑ´Ù.
+// í”Œë ˆì´ì–´ë¥¼ ë³µì‚¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::copyPlayers()
 

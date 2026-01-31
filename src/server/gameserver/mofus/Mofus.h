@@ -1,16 +1,16 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : Mofus.h
-// Desc		: ¸ğÆÛ½º Çì´õ
+// Desc		: ëª¨í¼ìŠ¤ í—¤ë”
 /////////////////////////////////////////////////////////////////////////////
 
 #include "Types.h"
 
-// ¸ğÆÛ½º Á¤ÀÇ. ÄÑÁ®ÀÖÀ¸¸é ¸ğÆÛ½º ¸ğµâÀÌ ½ÇÇàµÈ´Ù.
+// ëª¨í¼ìŠ¤ ì •ì˜. ì¼œì ¸ìˆìœ¼ë©´ ëª¨í¼ìŠ¤ ëª¨ë“ˆì´ ì‹¤í–‰ëœë‹¤.
 #if defined(__METRO_SERVER__)
 #define __MOFUS__
 #endif
 
-// ·Î±×¿ë ÆÄÀÏ
+// ë¡œê·¸ìš© íŒŒì¼
 #define MOFUS_ERROR_FILE "mofus_error.txt"
 #define MOFUS_LOG_FILE "mofus_log.txt"
 #define MOFUS_PACKET_FILE "mofus_packet.txt"

@@ -22,8 +22,8 @@
 //
 // GLKickVerifyHander::execute()
 //
-// °ÔÀÓ ¼­¹ö°¡ ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ GLKickVerify ÆÐÅ¶À» ¹Þ°Ô µÇ¸é,
-// ReconnectLoginInfo¸¦ »õ·Î Ãß°¡ÇÏ°Ô µÈ´Ù.
+// ê²Œìž„ ì„œë²„ê°€ ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° GLKickVerify íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// ReconnectLoginInfoë¥¼ ìƒˆë¡œ ì¶”ê°€í•˜ê²Œ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void GLKickVerifyHandler::execute(GLKickVerify* pPacket)
@@ -42,9 +42,9 @@ void GLKickVerifyHandler::execute(GLKickVerify* pPacket)
         Player* pPlayer = ((PlayerManager*)g_pLoginPlayerManager)->getPlayer(pPacket->getID());
         LoginPlayer* pLoginPlayer = dynamic_cast<LoginPlayer*>(pPlayer);
 
-        if (pLoginPlayer != NULL) // NoSuch »ç¿ëÇÏ±â ¶§¹®¿¡ ÀÏ´ÜÀº ¾ÈÇØµµ µÇÁö¸¸..
+        if (pLoginPlayer != NULL) // NoSuch ì‚¬ìš©í•˜ê¸° ë•Œë¬¸ì— ì¼ë‹¨ì€ ì•ˆí•´ë„ ë˜ì§€ë§Œ..
         {
-            // Ä³¸¯ÅÍ ÀÌ¸§ÀÌ °°¾Æ¾ß ÇÑ´Ù.
+            // ìºë¦­í„° ì´ë¦„ì´ ê°™ì•„ì•¼ í•œë‹¤.
             const string& name1 = pLoginPlayer->getLastCharacterName();
             const string& name2 = pPacket->getPCName();
 
@@ -56,13 +56,13 @@ void GLKickVerifyHandler::execute(GLKickVerify* pPacket)
                 //				}
                 //				cout << "-_-" << endl;
             } else {
-                // µý »ç¶÷ÀÌ´Ù. ½Å°æ ¾µ°Å ¾ø´Ù.
+                // ë”´ ì‚¬ëžŒì´ë‹¤. ì‹ ê²½ ì“¸ê±° ì—†ë‹¤.
             }
         }
 
         g_pLoginPlayerManager->unlock();
 
-    } catch (Throwable&) { // (NoSuchException&) { // ÀÇ¹Ì¾ø°ÚÁö.
+    } catch (Throwable&) { // (NoSuchException&) { // ì˜ë¯¸ì—†ê² ì§€.
         g_pLoginPlayerManager->unlock();
     }
 

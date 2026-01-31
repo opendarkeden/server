@@ -87,7 +87,7 @@ void CGTameMonsterHandler::execute(CGTameMonster* pPacket, Player* pPlayer)
     SAFE_DELETE(pItem);
 
     /*
-     * ¿©±â¼­ ¹º°¡ È®ÀÎÀ» ÇØ¾ß ÇÑ´Ù.
+     * ì—¬ê¸°ì„œ ë­”ê°€ í™•ì¸ì„ í•´ì•¼ í•œë‹¤.
      */
 
     int ratio = rand() % 100;
@@ -96,11 +96,11 @@ void CGTameMonsterHandler::execute(CGTameMonster* pPacket, Player* pPlayer)
         ratio = 100;
     }
 
-    // °ø¿ë Æê¸¸ ²¿½Ç ¼ö ÀÖ´Ù.
+    // ê³µìš© íŽ«ë§Œ ê¼¬ì‹¤ ìˆ˜ ìžˆë‹¤.
     PetTypeInfo* pPetTypeInfo = PetTypeInfoManager::getInstance()->getPetTypeInfo(petType);
     if (pPetTypeInfo == NULL || pPetTypeInfo->getOriginalMonsterType() != pMonster->getMonsterType() ||
         ratio >= pPetFoodInfo->getTameRatio()) {
-        // cout << "²¿½Ã±â ½ÇÆÐ : " << ratio << endl;
+        // cout << "ê¼¬ì‹œê¸° ì‹¤íŒ¨ : " << ratio << endl;
         SAFE_DELETE(pPetItem);
         pMonster->addEnemy(pPC);
         return;
@@ -110,7 +110,7 @@ void CGTameMonsterHandler::execute(CGTameMonster* pPacket, Player* pPlayer)
     SAFE_DELETE(pMonster);
 
     /*
-     * ¿©±â¼­ ÇØ´ç ÆêÀÇ Á¤º¸¸¦ °¡Á®¿Í¾ß µÈ´Ù.
+     * ì—¬ê¸°ì„œ í•´ë‹¹ íŽ«ì˜ ì •ë³´ë¥¼ ê°€ì ¸ì™€ì•¼ ëœë‹¤.
      */
 
     PetInfo* pPetInfo = new PetInfo;
@@ -127,7 +127,7 @@ void CGTameMonsterHandler::execute(CGTameMonster* pPacket, Player* pPlayer)
     pPetInfo->setPetHP(pPetFoodInfo->getPetHP());
     pPetInfo->setFeedTime(VSDateTime::currentDateTime());
 
-    // ¾ç¹æÇâ ¸µÅ©
+    // ì–‘ë°©í–¥ ë§í¬
     pPetItem->setPetInfo(pPetInfo);
     pPetInfo->setPetItem(pPetItem);
 
@@ -137,7 +137,7 @@ void CGTameMonsterHandler::execute(CGTameMonster* pPacket, Player* pPlayer)
 
     pPetItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
 
-    // TraceLog ¸¦ ³²±ä´Ù.
+    // TraceLog ë¥¼ ë‚¨ê¸´ë‹¤.
     remainTraceLog(pPetItem, "GOD", pPC->getName(), ITEM_LOG_CREATE, DETAIL_PICKUP);
 
     GCCreateItem gcCreateItem;

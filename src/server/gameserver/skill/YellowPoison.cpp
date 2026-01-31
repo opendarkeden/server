@@ -86,7 +86,7 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Poison ÀÌ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Poison ì´ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
@@ -107,7 +107,7 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
             Tile& tile = pZone->getTile(X, Y);
             if (tile.canAddEffect())
                 bTileCheck = true;
-            // add by Coffee 2007-5-8 Ôö¼Ó¶ÔSummonClayÄ§Áé¼¼ÄÜµÄ¼ì²â
+            // add by Coffee 2007-5-8 è—¤ì†ëš¤SummonClayì¹¨ì¥£ì„¸ì½˜ë¨ì‡±ê¿Ž
             if (tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY))
                 bTileCheck = false;
             // end by Coffee
@@ -120,7 +120,7 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
             Tile& tile = pZone->getTile(X, Y);
             Range_t Range = 1;
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+            // ê°™ì€ ì´íŽ™íŠ¸ê°€ ìžˆìœ¼ë©´ ì§€ìš´ë‹¤.
             Effect* pOldEffect = NULL;
             if ((pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_YELLOW_POISON))) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
@@ -131,22 +131,22 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectYellowPoison* pEffect = new EffectYellowPoison(pZone, X, Y);
             pEffect->setVampire();
             pEffect->setDeadline(output.Duration);
             pEffect->setDuration(output.Duration);
             pEffect->setLevel(pSkillInfo->getLevel());
 
-            // Å¸ÀÏ¿¡ ºÙÀÌ´Â Effect´Â OID¸¦ µî·Ï¹Þ¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì´ëŠ” EffectëŠ” OIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // tileÀ§¿¡ creature°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // tileìœ„ì— creatureê°€ ìžˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 
@@ -160,12 +160,12 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
                 if (pEffect->affectCreature(pTargetCreature, false) == true) {
                     bEffected = true;
 
-                    // À­ºÎºÐ¿¡¼­ ½½·¹ÀÌ¾îÀÎ°¡¸¦ °Ë»çÇÏ±â ¶§¹®¿¡,
-                    // ÀÌ ºÎºÐÀÇ if°¡ Ç×»ó ÂüÀÌ µÉ °ÍÀº ºÐ¸íÇÏ´Ù.
-                    // ÇÏÁö¸¸ ³ªÁß¿¡ YellowPoisonÀÌ ¹ìÆÄÀÌ¾î³ª ¸ó½ºÅÍ¿¡°Ôµµ
-                    // °É¸®°Ô º¯°æµÈ´Ù¸é, À­ºÎºÐÀÇ isSlayer °Ë»ç Ç×¸ñÀÌ ºüÁö°Ô
-                    // µÉ °ÍÀÌ¹Ç·Î, ¹Ì¸® ÀÌ ºÎºÐ¿¡¼­ MonsterÀÏ °æ¿ì ¿¡·¯°¡ ³ªÁö ¾Ê°Ô
-                    // isPC() °Ë»çÇÏ´Â ºÎºÐÀ» Áý¾î³Ö¾î µÐ´Ù.
+                    // ìœ—ë¶€ë¶„ì—ì„œ ìŠ¬ë ˆì´ì–´ì¸ê°€ë¥¼ ê²€ì‚¬í•˜ê¸° ë•Œë¬¸ì—,
+                    // ì´ ë¶€ë¶„ì˜ ifê°€ í•­ìƒ ì°¸ì´ ë  ê²ƒì€ ë¶„ëª…í•˜ë‹¤.
+                    // í•˜ì§€ë§Œ ë‚˜ì¤‘ì— YellowPoisonì´ ë±€íŒŒì´ì–´ë‚˜ ëª¬ìŠ¤í„°ì—ê²Œë„
+                    // ê±¸ë¦¬ê²Œ ë³€ê²½ëœë‹¤ë©´, ìœ—ë¶€ë¶„ì˜ isSlayer ê²€ì‚¬ í•­ëª©ì´ ë¹ ì§€ê²Œ
+                    // ë  ê²ƒì´ë¯€ë¡œ, ë¯¸ë¦¬ ì´ ë¶€ë¶„ì—ì„œ Monsterì¼ ê²½ìš° ì—ëŸ¬ê°€ ë‚˜ì§€ ì•Šê²Œ
+                    // isPC() ê²€ì‚¬í•˜ëŠ” ë¶€ë¶„ì„ ì§‘ì–´ë„£ì–´ ë‘”ë‹¤.
                     if (pTargetCreature->isPC()) {
                         Player* pTargetPlayer = pTargetCreature->getPlayer();
                         bool bCanSee = canSee(pTargetCreature, pVampire);
@@ -248,7 +248,7 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void YellowPoison::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -264,7 +264,7 @@ void YellowPoison::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void YellowPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -312,7 +312,7 @@ void YellowPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             Tile& tile = pZone->getTile(X, Y);
             Range_t Range = 1;
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´íŽ™íŠ¸ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = NULL;
             if ((pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_YELLOW_POISON))) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
@@ -323,21 +323,21 @@ void YellowPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectYellowPoison* pEffect = new EffectYellowPoison(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setDuration(output.Duration);
             pEffect->setLevel(pSkillInfo->getLevel() / 2);
 
-            // Å¸ÀÏ¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Þ¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // tileÀ§¿¡ creature°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // tileìœ„ì— creatureê°€ ìžˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 
@@ -351,12 +351,12 @@ void YellowPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                 if (pEffect->affectCreature(pTargetCreature, false) == true) {
                     bEffected = true;
 
-                    // À­ºÎºÐ¿¡¼­ ½½·¹ÀÌ¾îÀÎ°¡¸¦ °Ë»çÇÏ±â ¶§¹®¿¡,
-                    // ÀÌ ºÎºÐÀÇ if°¡ Ç×»ó ÂüÀÌ µÉ °ÍÀº ºÐ¸íÇÏ´Ù.
-                    // ÇÏÁö¸¸ ³ªÁß¿¡ YellowPoisonÀÌ ¹ìÆÄÀÌ¾î³ª ¸ó½ºÅÍ¿¡°Ôµµ
-                    // °É¸®°Ô º¯°æµÈ´Ù¸é, À­ºÎºÐÀÇ isSlayer °Ë»ç Ç×¸ñÀÌ ºüÁö°Ô
-                    // µÉ °ÍÀÌ¹Ç·Î, ¹Ì¸® ÀÌ ºÎºÐ¿¡¼­ MonsterÀÏ °æ¿ì ¿¡·¯°¡ ³ªÁö ¾Ê°Ô
-                    // isPC() °Ë»çÇÏ´Â ºÎºÐÀ» Áý¾î³Ö¾î µÐ´Ù.
+                    // ìœ—ë¶€ë¶„ì—ì„œ ìŠ¬ë ˆì´ì–´ì¸ê°€ë¥¼ ê²€ì‚¬í•˜ê¸° ë•Œë¬¸ì—,
+                    // ì´ ë¶€ë¶„ì˜ ifê°€ í•­ìƒ ì°¸ì´ ë  ê²ƒì€ ë¶„ëª…í•˜ë‹¤.
+                    // í•˜ì§€ë§Œ ë‚˜ì¤‘ì— YellowPoisonì´ ë±€íŒŒì´ì–´ë‚˜ ëª¬ìŠ¤í„°ì—ê²Œë„
+                    // ê±¸ë¦¬ê²Œ ë³€ê²½ëœë‹¤ë©´, ìœ—ë¶€ë¶„ì˜ isSlayer ê²€ì‚¬ í•­ëª©ì´ ë¹ ì§€ê²Œ
+                    // ë  ê²ƒì´ë¯€ë¡œ, ë¯¸ë¦¬ ì´ ë¶€ë¶„ì—ì„œ Monsterì¼ ê²½ìš° ì—ëŸ¬ê°€ ë‚˜ì§€ ì•Šê²Œ
+                    // isPC() ê²€ì‚¬í•˜ëŠ” ë¶€ë¶„ì„ ì§‘ì–´ë„£ì–´ ë‘”ë‹¤.
                     if (pTargetCreature->isPC()) {
                         Player* pTargetPlayer = pTargetCreature->getPlayer();
                         bool bCanSee = canSee(pTargetCreature, pMonster);

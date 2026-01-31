@@ -17,7 +17,7 @@ GQuestElement::ResultType GQuestGiveDomainExpElement::checkCondition(PlayerCreat
     pSlayer->getPlayer()->sendPacket(&gcMI);
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("»ñµÃ¸ÃÇøÓòµÄ¾­ÑéÖµ.");
+    gcSM.setMessage("ì‚¿ë¤ë§¡í˜å µë¨ì’”ï¤šä»¤.");
     pSlayer->getPlayer()->sendPacket(&gcSM);
 
     return OK;

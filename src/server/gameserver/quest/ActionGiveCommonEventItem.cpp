@@ -34,74 +34,74 @@ struct EVENT_ITEM_TEMPLATE {
 
 const int EVENT_ITEM_200505_SLAYER_MAX = 24;
 const EVENT_ITEM_TEMPLATE Event200505SlayerTemplate[EVENT_ITEM_200505_SLAYER_MAX] = {
-    {Item::ITEM_CLASS_COAT, 10, 4, "DUR+5", 80, "ÄÄ¹î ¸ŞÀÏ(M)"},
-    {Item::ITEM_CLASS_TROUSER, 10, 4, "DUR+5", 80, "ÄÄ¹î °ÔÀÌÅÍ(M)"},
-    {Item::ITEM_CLASS_COAT, 11, 4, "VIS+3", 80, "ÄÄ¹î ¸ŞÀÏ(W)"},
-    {Item::ITEM_CLASS_TROUSER, 11, 4, "VIS+3", 80, "ÄÄ¹î °ÔÀÌÅÍ(W)"},
-    {Item::ITEM_CLASS_GLOVE, 5, 4, "DEF+5", 80, "Æ¾ ÇÃ·¹ÀÌÆ® °ÇÆ²·¿"},
-    {Item::ITEM_CLASS_SHOES, 5, 4, "ASPD+5", 80, "»ç¶õ ºÎÃ÷"},
-    {Item::ITEM_CLASS_BELT, 2, 4, "RES+5", 80, "¹Ìµğ¾ö º§Æ®"},
-    {Item::ITEM_CLASS_SHIELD, 5, 4, "DAM+4", 80, "µå·¡°ï ½¯µå"},
-    {Item::ITEM_CLASS_BLADE, 3, 4, "BLRES+3", 80, "¼¼¹öµå ºí·¹ÀÌµå"},
-    {Item::ITEM_CLASS_SG, 3, 4, "TOHIT+3", 80, "AM-99 ¸¾¸ğ½º"},
+    {Item::ITEM_CLASS_COAT, 10, 4, "DUR+5", 80, "ì»´ë±ƒ ë©”ì¼(M)"},
+    {Item::ITEM_CLASS_TROUSER, 10, 4, "DUR+5", 80, "ì»´ë±ƒ ê²Œì´í„°(M)"},
+    {Item::ITEM_CLASS_COAT, 11, 4, "VIS+3", 80, "ì»´ë±ƒ ë©”ì¼(W)"},
+    {Item::ITEM_CLASS_TROUSER, 11, 4, "VIS+3", 80, "ì»´ë±ƒ ê²Œì´í„°(W)"},
+    {Item::ITEM_CLASS_GLOVE, 5, 4, "DEF+5", 80, "í‹´ í”Œë ˆì´íŠ¸ ê±´í‹€ë ›"},
+    {Item::ITEM_CLASS_SHOES, 5, 4, "ASPD+5", 80, "ì‚¬ë€ ë¶€ì¸ "},
+    {Item::ITEM_CLASS_BELT, 2, 4, "RES+5", 80, "ë¯¸ë””ì—„ ë²¨íŠ¸"},
+    {Item::ITEM_CLASS_SHIELD, 5, 4, "DAM+4", 80, "ë“œë˜ê³¤ ì‰´ë“œ"},
+    {Item::ITEM_CLASS_BLADE, 3, 4, "BLRES+3", 80, "ì„¸ë²„ë“œ ë¸”ë ˆì´ë“œ"},
+    {Item::ITEM_CLASS_SG, 3, 4, "TOHIT+3", 80, "AM-99 ë§˜ëª¨ìŠ¤"},
     {Item::ITEM_CLASS_SMG, 3, 4, "INT+5", 80, "B-INTER"},
     {Item::ITEM_CLASS_AR, 3, 4, "ACRES+3", 80, "MK-2 G2"},
-    {Item::ITEM_CLASS_SR, 3, 4, "ATTR+3", 80, "X-45T Åä¸¶È£Å©"},
-    {Item::ITEM_CLASS_NECKLACE, 4, 4, "TOHIT+4", 80, "Å©·¹¼¾Æ® ³×Å©¸®½º"},
-    {Item::ITEM_CLASS_BRACELET, 4, 4, "DEF+4", 80, "¿À·¯½º ºê·¹ÀÌ½½¸´"},
-    {Item::ITEM_CLASS_NECKLACE, 5, 4, "CURES+2", 80, "ºí·ç ¼¾½º"},
-    {Item::ITEM_CLASS_BRACELET, 5, 4, "HP+5", 80, "¿À·¯½º ºê·¹ÀÌ½½¸´"},
-    {Item::ITEM_CLASS_RING, 5, 4, "VIS+3", 80, "Çà¿îÀÇ ¹İÁö"},
-    {Item::ITEM_CLASS_CARRYING_RECEIVER, 0, 4, "", 20, "Ä³¸µ ¸®½Ã¹ö 1´Ü"},
-    {Item::ITEM_CLASS_RESURRECT_ITEM, 0, 0, "", 200, "ºÎÈ° ½ºÅ©·Ñ"},
-    {Item::ITEM_CLASS_RESURRECT_ITEM, 1, 0, "", 100, "¿¤¸¯¼­ ½ºÅ©·Ñ"},
-    {Item::ITEM_CLASS_EVENT_ETC, 13, 0, "", 3000, "½ºÅè ÆøÁ×"},
-    {Item::ITEM_CLASS_EVENT_ETC, 3, 0, "", 4740, "µå·¡°ï ÆøÁ×"},
-    {Item::ITEM_CLASS_EVENT_TREE, 27, 0, "", 500, "12½Ã°£ ¾Ë¸²ÆÇ"}};
+    {Item::ITEM_CLASS_SR, 3, 4, "ATTR+3", 80, "X-45T í† ë§ˆí˜¸í¬"},
+    {Item::ITEM_CLASS_NECKLACE, 4, 4, "TOHIT+4", 80, "í¬ë ˆì„¼íŠ¸ ë„¤í¬ë¦¬ìŠ¤"},
+    {Item::ITEM_CLASS_BRACELET, 4, 4, "DEF+4", 80, "ì˜¤ëŸ¬ìŠ¤ ë¸Œë ˆì´ìŠ¬ë¦¿"},
+    {Item::ITEM_CLASS_NECKLACE, 5, 4, "CURES+2", 80, "ë¸”ë£¨ ì„¼ìŠ¤"},
+    {Item::ITEM_CLASS_BRACELET, 5, 4, "HP+5", 80, "ì˜¤ëŸ¬ìŠ¤ ë¸Œë ˆì´ìŠ¬ë¦¿"},
+    {Item::ITEM_CLASS_RING, 5, 4, "VIS+3", 80, "í–‰ìš´ì˜ ë°˜ì§€"},
+    {Item::ITEM_CLASS_CARRYING_RECEIVER, 0, 4, "", 20, "ìºë§ ë¦¬ì‹œë²„ 1ë‹¨"},
+    {Item::ITEM_CLASS_RESURRECT_ITEM, 0, 0, "", 200, "ë¶€í™œ ìŠ¤í¬ë¡¤"},
+    {Item::ITEM_CLASS_RESURRECT_ITEM, 1, 0, "", 100, "ì—˜ë¦­ì„œ ìŠ¤í¬ë¡¤"},
+    {Item::ITEM_CLASS_EVENT_ETC, 13, 0, "", 3000, "ìŠ¤í†° í­ì£½"},
+    {Item::ITEM_CLASS_EVENT_ETC, 3, 0, "", 4740, "ë“œë˜ê³¤ í­ì£½"},
+    {Item::ITEM_CLASS_EVENT_TREE, 27, 0, "", 500, "12ì‹œê°„ ì•Œë¦¼íŒ"}};
 
 const int EVENT_ITEM_200505_VAMPIRE_MAX = 19;
 const EVENT_ITEM_TEMPLATE Event200505VampireTemplate[EVENT_ITEM_200505_VAMPIRE_MAX] = {
-    {Item::ITEM_CLASS_VAMPIRE_COAT, 6, 4, "CRI+9", 110, "ÇÏÀÌµù ·Îºê"},
-    {Item::ITEM_CLASS_VAMPIRE_COAT, 8, 4, "VIS+3", 110, "¾ÈÆ¼-½ã Æú"},
-    {Item::ITEM_CLASS_VAMPIRE_COAT, 7, 4, "DUR+5", 110, "·¹¹öÅ×ÀÌÆ® Å¬·Ï"},
-    {Item::ITEM_CLASS_VAMPIRE_COAT, 9, 4, "VIS+3", 110, "¾ÈÆ¼-½ã ÄÚÇÁ"},
-    {Item::ITEM_CLASS_VAMPIRE_NECKLACE, 3, 4, "TOHIT+5", 110, "Á¬ ³×Å©¸®½º"},
-    {Item::ITEM_CLASS_VAMPIRE_BRACELET, 2, 4, "DEF+5", 110, "Áê¾ó ºê·¹ÀÌ½½¸´"},
-    {Item::ITEM_CLASS_VAMPIRE_RING, 3, 4, "CURES+3", 110, "±æÆ® ¸µ"},
-    {Item::ITEM_CLASS_VAMPIRE_EARRING, 3, 4, "HP+5", 110, "°ñµå ÀÌ¾î¸µ"},
-    {Item::ITEM_CLASS_VAMPIRE_AMULET, 2, 4, "PORES+3", 110, "Á¦¶ó"},
-    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 3, 4, "RES+5", 110, "Á¦¹Ì³Î¸µ ³ÊÅ¬"},
-    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 4, 4, "ATTR+3", 110, "¿¹Æ¼ Å©·Î¿ì"},
-    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 5, 4, "INT+5", 110, "Ä¹Ã÷ Å©·Î¿ì"},
-    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 6, 4, "DAM+4", 110, "ÇÇ½ºÆ® ³ÊÅ¬"},
-    {Item::ITEM_CLASS_PERSONA, 0, 4, "", 20, "Æä¸£¼Ò³ª 1´Ü"},
-    {Item::ITEM_CLASS_RESURRECT_ITEM, 0, 0, "", 200, "ºÎÈ° ½ºÅ©·Ñ"},
-    {Item::ITEM_CLASS_RESURRECT_ITEM, 1, 0, "", 100, "¿¤¸¯¼­ ½ºÅ©·Ñ"},
-    {Item::ITEM_CLASS_EVENT_ETC, 13, 0, "", 3000, "½ºÅè ÆøÁ×"},
-    {Item::ITEM_CLASS_EVENT_ETC, 3, 0, "", 4750, "µå·¡°ï ÆøÁ×"},
-    {Item::ITEM_CLASS_EVENT_TREE, 27, 0, "", 500, "12½Ã°£ ¾Ë¸²ÆÇ"}};
+    {Item::ITEM_CLASS_VAMPIRE_COAT, 6, 4, "CRI+9", 110, "í•˜ì´ë”© ë¡œë¸Œ"},
+    {Item::ITEM_CLASS_VAMPIRE_COAT, 8, 4, "VIS+3", 110, "ì•ˆí‹°-ì¬ í´"},
+    {Item::ITEM_CLASS_VAMPIRE_COAT, 7, 4, "DUR+5", 110, "ë ˆë²„í…Œì´íŠ¸ í´ë¡"},
+    {Item::ITEM_CLASS_VAMPIRE_COAT, 9, 4, "VIS+3", 110, "ì•ˆí‹°-ì¬ ì½”í”„"},
+    {Item::ITEM_CLASS_VAMPIRE_NECKLACE, 3, 4, "TOHIT+5", 110, "ì ¯ ë„¤í¬ë¦¬ìŠ¤"},
+    {Item::ITEM_CLASS_VAMPIRE_BRACELET, 2, 4, "DEF+5", 110, "ì¥¬ì–¼ ë¸Œë ˆì´ìŠ¬ë¦¿"},
+    {Item::ITEM_CLASS_VAMPIRE_RING, 3, 4, "CURES+3", 110, "ê¸¸íŠ¸ ë§"},
+    {Item::ITEM_CLASS_VAMPIRE_EARRING, 3, 4, "HP+5", 110, "ê³¨ë“œ ì´ì–´ë§"},
+    {Item::ITEM_CLASS_VAMPIRE_AMULET, 2, 4, "PORES+3", 110, "ì œë¼"},
+    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 3, 4, "RES+5", 110, "ì œë¯¸ë„ë§ ë„ˆí´"},
+    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 4, 4, "ATTR+3", 110, "ì˜ˆí‹° í¬ë¡œìš°"},
+    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 5, 4, "INT+5", 110, "ìº£ì¸  í¬ë¡œìš°"},
+    {Item::ITEM_CLASS_VAMPIRE_WEAPON, 6, 4, "DAM+4", 110, "í”¼ìŠ¤íŠ¸ ë„ˆí´"},
+    {Item::ITEM_CLASS_PERSONA, 0, 4, "", 20, "í˜ë¥´ì†Œë‚˜ 1ë‹¨"},
+    {Item::ITEM_CLASS_RESURRECT_ITEM, 0, 0, "", 200, "ë¶€í™œ ìŠ¤í¬ë¡¤"},
+    {Item::ITEM_CLASS_RESURRECT_ITEM, 1, 0, "", 100, "ì—˜ë¦­ì„œ ìŠ¤í¬ë¡¤"},
+    {Item::ITEM_CLASS_EVENT_ETC, 13, 0, "", 3000, "ìŠ¤í†° í­ì£½"},
+    {Item::ITEM_CLASS_EVENT_ETC, 3, 0, "", 4750, "ë“œë˜ê³¤ í­ì£½"},
+    {Item::ITEM_CLASS_EVENT_TREE, 27, 0, "", 500, "12ì‹œê°„ ì•Œë¦¼íŒ"}};
 
 const int EVENT_ITEM_200505_OUSTERS_MAX = 19;
 const EVENT_ITEM_TEMPLATE Event200505OustersTemplate[EVENT_ITEM_200505_OUSTERS_MAX] = {
-    {Item::ITEM_CLASS_OUSTERS_COAT, 4, 4, "DUR+5", 110, "·¹ÇÁ¸®ÄÁ ÄÚÆ®"},
-    {Item::ITEM_CLASS_OUSTERS_BOOTS, 4, 4, "ASPD+5", 110, "·¹ÇÁ¸®ÄÁ ºÎÃ÷"},
-    {Item::ITEM_CLASS_OUSTERS_BOOTS, 4, 4, "VIS+3", 110, "·¹ÇÁ¸®ÄÁ ºÎÃ÷"},
-    {Item::ITEM_CLASS_OUSTERS_ARMSBAND, 4, 4, "CURES+3", 110, "ºí¶óÁò ¾Ï½º¹êµå"},
-    {Item::ITEM_CLASS_OUSTERS_CIRCLET, 3, 4, "HP+5", 110, "½Ç¹Ù³ª ¼­Å¬¸´"},
-    {Item::ITEM_CLASS_OUSTERS_PENDENT, 3, 4, "TOHIT+4", 110, "ÀÌÁ®½Ç Ææ´øÆ®"},
-    {Item::ITEM_CLASS_OUSTERS_RING, 3, 4, "CURES+2", 110, "À§½ºÆÛ ¿Àºê ¿¤ÇÁ ¸µ"},
-    {Item::ITEM_CLASS_OUSTERS_STONE, 10, 4, "VIS+3", 110, "´ëÁöÀÇ Á¤·É¼®1"},
-    {Item::ITEM_CLASS_OUSTERS_STONE, 6, 4, "MP+5", 110, "¹°ÀÇ Á¤·É¼®2"},
-    {Item::ITEM_CLASS_OUSTERS_WRISTLET, 4, 4, "ASPD+5", 110, "ºÒÀÇ ´Ğ½ºÇÃ·ÎÁî ¸®½ºÆ²¸´"},
-    {Item::ITEM_CLASS_OUSTERS_WRISTLET, 15, 4, "HP+5", 110, "¹°ÀÇ ¶óÅ©¸®¸¶ ¸®½ºÆ²¸´"},
-    {Item::ITEM_CLASS_OUSTERS_CHAKRAM, 3, 4, "DAM+5", 110, "´ºº¸ Ã­Å©¶÷"},
-    {Item::ITEM_CLASS_OUSTERS_CHAKRAM, 4, 4, "ACRES+3", 110, "¾Æ´Ï¸¶ Ã­Å©¶÷"},
-    {Item::ITEM_CLASS_FASCIA, 0, 4, "", 20, "ÆäÀÌ»ş 1´Ü"},
-    {Item::ITEM_CLASS_RESURRECT_ITEM, 0, 0, "", 200, "ºÎÈ° ½ºÅ©·Ñ"},
-    {Item::ITEM_CLASS_RESURRECT_ITEM, 1, 0, "", 100, "¿¤¸¯¼­ ½ºÅ©·Ñ"},
-    {Item::ITEM_CLASS_EVENT_ETC, 13, 0, "", 3000, "½ºÅè ÆøÁ×"},
-    {Item::ITEM_CLASS_EVENT_ETC, 3, 0, "", 4750, "µå·¡°ï ÆøÁ×"},
-    {Item::ITEM_CLASS_EVENT_TREE, 27, 0, "", 500, "12½Ã°£ ¾Ë¸²ÆÇ"}};
+    {Item::ITEM_CLASS_OUSTERS_COAT, 4, 4, "DUR+5", 110, "ë ˆí”„ë¦¬ì»¨ ì½”íŠ¸"},
+    {Item::ITEM_CLASS_OUSTERS_BOOTS, 4, 4, "ASPD+5", 110, "ë ˆí”„ë¦¬ì»¨ ë¶€ì¸ "},
+    {Item::ITEM_CLASS_OUSTERS_BOOTS, 4, 4, "VIS+3", 110, "ë ˆí”„ë¦¬ì»¨ ë¶€ì¸ "},
+    {Item::ITEM_CLASS_OUSTERS_ARMSBAND, 4, 4, "CURES+3", 110, "ë¸”ë¼ì¦˜ ì•”ìŠ¤ë°´ë“œ"},
+    {Item::ITEM_CLASS_OUSTERS_CIRCLET, 3, 4, "HP+5", 110, "ì‹¤ë°”ë‚˜ ì„œí´ë¦¿"},
+    {Item::ITEM_CLASS_OUSTERS_PENDENT, 3, 4, "TOHIT+4", 110, "ì´ì ¸ì‹¤ íœë˜íŠ¸"},
+    {Item::ITEM_CLASS_OUSTERS_RING, 3, 4, "CURES+2", 110, "ìœ„ìŠ¤í¼ ì˜¤ë¸Œ ì—˜í”„ ë§"},
+    {Item::ITEM_CLASS_OUSTERS_STONE, 10, 4, "VIS+3", 110, "ëŒ€ì§€ì˜ ì •ë ¹ì„1"},
+    {Item::ITEM_CLASS_OUSTERS_STONE, 6, 4, "MP+5", 110, "ë¬¼ì˜ ì •ë ¹ì„2"},
+    {Item::ITEM_CLASS_OUSTERS_WRISTLET, 4, 4, "ASPD+5", 110, "ë¶ˆì˜ ë‹‰ìŠ¤í”Œë¡œì¦ˆ ë¦¬ìŠ¤í‹€ë¦¿"},
+    {Item::ITEM_CLASS_OUSTERS_WRISTLET, 15, 4, "HP+5", 110, "ë¬¼ì˜ ë¼í¬ë¦¬ë§ˆ ë¦¬ìŠ¤í‹€ë¦¿"},
+    {Item::ITEM_CLASS_OUSTERS_CHAKRAM, 3, 4, "DAM+5", 110, "ë‰´ë³´ ì± í¬ëŒ"},
+    {Item::ITEM_CLASS_OUSTERS_CHAKRAM, 4, 4, "ACRES+3", 110, "ì•„ë‹ˆë§ˆ ì± í¬ëŒ"},
+    {Item::ITEM_CLASS_FASCIA, 0, 4, "", 20, "í˜ì´ìƒ¤ 1ë‹¨"},
+    {Item::ITEM_CLASS_RESURRECT_ITEM, 0, 0, "", 200, "ë¶€í™œ ìŠ¤í¬ë¡¤"},
+    {Item::ITEM_CLASS_RESURRECT_ITEM, 1, 0, "", 100, "ì—˜ë¦­ì„œ ìŠ¤í¬ë¡¤"},
+    {Item::ITEM_CLASS_EVENT_ETC, 13, 0, "", 3000, "ìŠ¤í†° í­ì£½"},
+    {Item::ITEM_CLASS_EVENT_ETC, 3, 0, "", 4750, "ë“œë˜ê³¤ í­ì£½"},
+    {Item::ITEM_CLASS_EVENT_TREE, 27, 0, "", 500, "12ì‹œê°„ ì•Œë¦¼íŒ"}};
 
 ////////////////////////////////////////////////////////////////////////////////
 // ActionGiveCommonEventItem
@@ -132,7 +132,7 @@ void ActionGiveCommonEventItem::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -156,7 +156,7 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
     Zone* pZone = pPC->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌº¥Æ® ±â°£ÀÌ ¾Æ´Ñ °æ¿ì
+    // ì´ë²¤íŠ¸ ê¸°ê°„ì´ ì•„ë‹Œ ê²½ìš°
     if (g_pVariableManager->getVariable(FAMILY_COIN_EVENT) == 0) {
         GCNPCResponse response;
         response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
@@ -165,7 +165,7 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
         return;
     }
 
-    // ÀÎº¥Åä¸® °ø°£ Ã¼Å©
+    // ì¸ë²¤í† ë¦¬ ê³µê°„ ì²´í¬
     _TPOINT pt;
     if (!pInventory->getEmptySlot(2, 3, pt)) {
         GCNPCResponse response;
@@ -176,7 +176,7 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
     }
 
 
-    // ÆĞ¹Ğ¸® ÄÚÀÎ Ã¼Å©
+    // íŒ¨ë°€ë¦¬ ì½”ì¸ ì²´í¬
     if (!pInventory->hasEnoughNumItem(Item::ITEM_CLASS_EVENT_ETC, 18, 9)) {
         GCNPCResponse response;
         response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
@@ -185,7 +185,7 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
         return;
     }
 
-    // ¾ÆÀÌÅÛ ·£´ı »ı¼®
+    // ì•„ì´í…œ ëœë¤ ìƒì„
     int ratio = rand() % 10000 + 1;
 
     Item::ItemClass itemClass;
@@ -254,10 +254,10 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
     }
 
     if (bFind) {
-        // ¾ÆÀÌÅÛ »ı¼º ¹× Ãß°¡
+        // ì•„ì´í…œ ìƒì„± ë° ì¶”ê°€
         list<OptionType_t> options;
 
-        // ¾ÆÀÌÅÛ ¿É¼Ç Ã¼Å©
+        // ì•„ì´í…œ ì˜µì…˜ ì²´í¬
         if (itemOption != "") {
             options.push_back(g_pOptionInfoManager->getOptionType(itemOption));
         }
@@ -265,7 +265,7 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
         Item* pItem = g_pItemFactoryManager->createItem(itemClass, itemType, options);
         Assert(pItem != NULL);
 
-        // ¾ÆÀÌÅÛ ±Ş¼ö Ã¼Å©
+        // ì•„ì´í…œ ê¸‰ìˆ˜ ì²´í¬
         if (itemGrade != 0) {
             pItem->setGrade(itemGrade);
         }
@@ -273,16 +273,16 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
         pZone->registerObject(pItem);
 
         if (pInventory->addItem(pItem, pt)) {
-            // ÆĞ¹Ğ¸® ÄÚÀÎÀ» ¾ø¾Ø´Ù.
+            // íŒ¨ë°€ë¦¬ ì½”ì¸ì„ ì—†ì•¤ë‹¤.
             pInventory->decreaseNumItem(Item::ITEM_CLASS_EVENT_ETC, 18, 9, pPlayer);
 
-            // DB ¿¡ ¾ÆÀÌÅÛ »ı¼º
+            // DB ì— ì•„ì´í…œ ìƒì„±
             pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
 
-            // itemTraceLog ¸¦ ³²±ä´Ù.
+            // itemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤.
             remainTraceLog(pItem, "Event200505", pPC->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 
-            // °á°ú¸¦ Å¬¶óÀÌ¾ğÆ®¿¡ ¾Ë¸®±â
+            // ê²°ê³¼ë¥¼ í´ë¼ì´ì–¸íŠ¸ì— ì•Œë¦¬ê¸°
             GCCreateItem gcCreateItem;
             gcCreateItem.setObjectID(pItem->getObjectID());
             gcCreateItem.setItemClass(pItem->getItemClass());
@@ -307,7 +307,7 @@ void ActionGiveCommonEventItem::execute(Creature* pCreature1, Creature* pCreatur
         END_DB(pStmt)
     }
 
-    // ´ëÈ­Ã¢ ´İ±â
+    // ëŒ€í™”ì°½ ë‹«ê¸°
     GCNPCResponse response;
     response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
     pPlayer->sendPacket(&response);

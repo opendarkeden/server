@@ -2,10 +2,10 @@
 // Filename    : PrecedenceTable.cpp
 // Written by  : excel96
 // Description :
-// "¸ÔÀÚ" ¹æÁö¸¦ À§ÇÑ ¿ì¼±±Ç °è»êÀ» À§ÇÑ Å¬·¡½ºÀÌ´Ù.
-// °³º°ÀûÀÎ ¸ó½ºÅÍ °´Ã¼ ¾È¿¡ Á¸ÀçÇÏ´Ù°¡, ¸ó½ºÅÍ°¡ Á×°Å³ª ÈíÇ÷ ´çÇÒ ¶§°¡
-// µÇ¸é ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» ¸Ô°Å³ª, ÈíÇ÷À» ÇÒ ¼ö ÀÖ´Â Á¤´çÇÑ ±Ç¸®¸¦ °¡Áö°í
-// ÀÖ´ÂÁö¸¦ °Ë»çÇÑ´Ù.
+// "ë¨¹ì" ë°©ì§€ë¥¼ ìœ„í•œ ìš°ì„ ê¶Œ ê³„ì‚°ì„ ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
+// ê°œë³„ì ì¸ ëª¬ìŠ¤í„° ê°ì²´ ì•ˆì— ì¡´ì¬í•˜ë‹¤ê°€, ëª¬ìŠ¤í„°ê°€ ì£½ê±°ë‚˜ í¡í˜ˆ ë‹¹í•  ë•Œê°€
+// ë˜ë©´ í”Œë ˆì´ì–´ê°€ ì•„ì´í…œì„ ë¨¹ê±°ë‚˜, í¡í˜ˆì„ í•  ìˆ˜ ìˆëŠ” ì •ë‹¹í•œ ê¶Œë¦¬ë¥¼ ê°€ì§€ê³ 
+// ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PrecedenceTable.h"
@@ -51,14 +51,14 @@ PrecedenceTable::PrecedenceTable() {
 }
 
 PrecedenceTable::~PrecedenceTable() {
-    // Å©¸®ÃÄ ¸ÊÀ» ºñ¿î´Ù.
+    // í¬ë¦¬ì³ ë§µì„ ë¹„ìš´ë‹¤.
     unordered_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.begin();
     for (; itr != m_CreatureMap.end(); itr++) {
         SAFE_DELETE(itr->second);
     }
     m_CreatureMap.clear();
 
-    // ÆÄÆ¼ ¸ÊÀ» ºñ¿î´Ù.
+    // íŒŒí‹° ë§µì„ ë¹„ìš´ë‹¤.
     unordered_map<int, PrecedenceElement*>::iterator itr2 = m_PartyMap.begin();
     for (; itr2 != m_PartyMap.end(); itr2++) {
         SAFE_DELETE(itr2->second);
@@ -70,13 +70,13 @@ void PrecedenceTable::addPrecedence(Creature* pCreature, int damage)
 {
     Assert(pCreature != NULL);
 
-    // Å©¸®ÃÄ ¸ÊÀÌ ºñ¾îÀÖ´Ù´Â ¸»Àº, ÃÖÃÊÀÇ °ø°İÀÚ¶ó´Â ¸»ÀÌ´Ù.
+    // í¬ë¦¬ì³ ë§µì´ ë¹„ì–´ìˆë‹¤ëŠ” ë§ì€, ìµœì´ˆì˜ ê³µê²©ìë¼ëŠ” ë§ì´ë‹¤.
     if (m_CreatureMap.empty())
     {
-        // ¼±°øÀÚÀÇ ÀÌ¸§À» ¼¼ÆÃÇØ ÁÖ°í...
+        // ì„ ê³µìì˜ ì´ë¦„ì„ ì„¸íŒ…í•´ ì£¼ê³ ...
         m_FirstAttackerName = pCreature->getName();
 
-        // Å©¸®ÃÄ ¸Ê¿¡´Ù µ¥ÀÌÅÍ¸¦ Ãß°¡ÇÑ´Ù.
+        // í¬ë¦¬ì³ ë§µì—ë‹¤ ë°ì´í„°ë¥¼ ì¶”ê°€í•œë‹¤.
         PrecedenceElement* pElement = new PrecedenceElement;
         pElement->setName(pCreature->getName());
         pElement->setPartyID(-1);
@@ -89,7 +89,7 @@ void PrecedenceTable::addPrecedence(Creature* pCreature, int damage)
         unordered_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(pCreature->getName());
         if (itr == m_CreatureMap.end())
         {
-            // ÀÌÀü¿¡ °ø°İÀ» ÇÏÁö ¾Ê¾Ò´Ù¸é µ¥ÀÌÅÍ¸¦ »õ·Î »ı¼ºÇØ ÁØ´Ù.
+            // ì´ì „ì— ê³µê²©ì„ í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ë°ì´í„°ë¥¼ ìƒˆë¡œ ìƒì„±í•´ ì¤€ë‹¤.
             PrecedenceElement* pElement = new PrecedenceElement;
             pElement->setName(pCreature->getName());
             pElement->setPartyID(-1);
@@ -99,16 +99,16 @@ void PrecedenceTable::addPrecedence(Creature* pCreature, int damage)
         }
         else
         {
-            // ÀÌÀü¿¡ °ø°İÀ» Çß´Ù¸é µ¥ÀÌÅÍ¸¦ °»½ÅÇØ ÁØ´Ù.
+            // ì´ì „ì— ê³µê²©ì„ í–ˆë‹¤ë©´ ë°ì´í„°ë¥¼ ê°±ì‹ í•´ ì¤€ë‹¤.
             PrecedenceElement* pElement = itr->second;
             pElement->setDamage(pElement->getDamage() + damage);
             pElement->setNextTime();
         }
     }
 
-    // ÆÄÆ¼¿¡ °üÇÑ °è»êµµ ÇØÁØ´Ù.
-    // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾Ê´Ù¸é ÆÄÆ¼ ID°¡ 0ÀÌ´Ù.
-    // °á±¹ 0ÀÇ °ªÀº ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾ÊÀº ÀÚµéÀÌ °¡ÇÑ µ¥¹ÌÁöÀÇ °ªÀÌ´Ù.
+    // íŒŒí‹°ì— ê´€í•œ ê³„ì‚°ë„ í•´ì¤€ë‹¤.
+    // íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ íŒŒí‹° IDê°€ 0ì´ë‹¤.
+    // ê²°êµ­ 0ì˜ ê°’ì€ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šì€ ìë“¤ì´ ê°€í•œ ë°ë¯¸ì§€ì˜ ê°’ì´ë‹¤.
     int PartyID = pCreature->getPartyID();
     if (m_PartyMap.empty())
     {
@@ -140,12 +140,12 @@ void PrecedenceTable::addPrecedence(Creature* pCreature, int damage)
 */
 
 void PrecedenceTable::addPrecedence(const string& Name, int PartyID, int damage) {
-    // Å©¸®ÃÄ ¸ÊÀÌ ºñ¾îÀÖ´Ù´Â ¸»Àº, ÃÖÃÊÀÇ °ø°İÀÚ¶ó´Â ¸»ÀÌ´Ù.
+    // í¬ë¦¬ì³ ë§µì´ ë¹„ì–´ìˆë‹¤ëŠ” ë§ì€, ìµœì´ˆì˜ ê³µê²©ìë¼ëŠ” ë§ì´ë‹¤.
     if (m_CreatureMap.empty()) {
-        // ¼±°øÀÚÀÇ ÀÌ¸§À» ¼¼ÆÃÇØ ÁÖ°í...
+        // ì„ ê³µìì˜ ì´ë¦„ì„ ì„¸íŒ…í•´ ì£¼ê³ ...
         m_FirstAttackerName = Name;
 
-        // Å©¸®ÃÄ ¸Ê¿¡´Ù µ¥ÀÌÅÍ¸¦ Ãß°¡ÇÑ´Ù.
+        // í¬ë¦¬ì³ ë§µì—ë‹¤ ë°ì´í„°ë¥¼ ì¶”ê°€í•œë‹¤.
         PrecedenceElement* pElement = new PrecedenceElement;
         pElement->setName(Name);
         pElement->setPartyID(-1);
@@ -155,7 +155,7 @@ void PrecedenceTable::addPrecedence(const string& Name, int PartyID, int damage)
     } else {
         unordered_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(Name);
         if (itr == m_CreatureMap.end()) {
-            // ÀÌÀü¿¡ °ø°İÀ» ÇÏÁö ¾Ê¾Ò´Ù¸é µ¥ÀÌÅÍ¸¦ »õ·Î »ı¼ºÇØ ÁØ´Ù.
+            // ì´ì „ì— ê³µê²©ì„ í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ë°ì´í„°ë¥¼ ìƒˆë¡œ ìƒì„±í•´ ì¤€ë‹¤.
             PrecedenceElement* pElement = new PrecedenceElement;
             pElement->setName(Name);
             pElement->setPartyID(-1);
@@ -163,16 +163,16 @@ void PrecedenceTable::addPrecedence(const string& Name, int PartyID, int damage)
             pElement->setNextTime();
             m_CreatureMap[Name] = pElement;
         } else {
-            // ÀÌÀü¿¡ °ø°İÀ» Çß´Ù¸é µ¥ÀÌÅÍ¸¦ °»½ÅÇØ ÁØ´Ù.
+            // ì´ì „ì— ê³µê²©ì„ í–ˆë‹¤ë©´ ë°ì´í„°ë¥¼ ê°±ì‹ í•´ ì¤€ë‹¤.
             PrecedenceElement* pElement = itr->second;
             pElement->setDamage(pElement->getDamage() + damage);
             pElement->setNextTime();
         }
     }
 
-    // ÆÄÆ¼¿¡ °üÇÑ °è»êµµ ÇØÁØ´Ù.
-    // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾Ê´Ù¸é ÆÄÆ¼ ID°¡ 0ÀÌ´Ù.
-    // °á±¹ 0ÀÇ °ªÀº ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾ÊÀº ÀÚµéÀÌ °¡ÇÑ µ¥¹ÌÁöÀÇ °ªÀÌ´Ù.
+    // íŒŒí‹°ì— ê´€í•œ ê³„ì‚°ë„ í•´ì¤€ë‹¤.
+    // íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ íŒŒí‹° IDê°€ 0ì´ë‹¤.
+    // ê²°êµ­ 0ì˜ ê°’ì€ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šì€ ìë“¤ì´ ê°€í•œ ë°ë¯¸ì§€ì˜ ê°’ì´ë‹¤.
     //	int PartyID = PartyID;
     if (m_PartyMap.empty()) {
         PrecedenceElement* pElement = new PrecedenceElement;
@@ -195,7 +195,7 @@ void PrecedenceTable::addPrecedence(const string& Name, int PartyID, int damage)
         }
     }
 
-    // ´Ù½Ã °è»êÇÏµµ·Ï ÇÏ±â À§ÇØ¼­.. by sigi. 2002.10.14
+    // ë‹¤ì‹œ ê³„ì‚°í•˜ë„ë¡ í•˜ê¸° ìœ„í•´ì„œ.. by sigi. 2002.10.14
     m_bComputeFlag = false;
 }
 
@@ -244,7 +244,7 @@ void PrecedenceTable::heartbeat(const Timeval& currentTime) {
 }
 
 void PrecedenceTable::compute(void) {
-    // ÀÌ¹Ì °è»êÇßÀ¸¸é ¾ÈÇÑ´Ù. by sigi. 2002.10.14
+    // ì´ë¯¸ ê³„ì‚°í–ˆìœ¼ë©´ ì•ˆí•œë‹¤. by sigi. 2002.10.14
     if (m_bComputeFlag)
         return;
 
@@ -256,7 +256,7 @@ void PrecedenceTable::compute(void) {
 
     Damage_t TotalDamage = 0;
 
-    // ¸ÕÀú Å©¸®ÃÄ ¸ÊÀ» °Ë»öÇÑ´Ù.
+    // ë¨¼ì € í¬ë¦¬ì³ ë§µì„ ê²€ìƒ‰í•œë‹¤.
     unordered_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.begin();
     for (; itr != m_CreatureMap.end(); itr++) {
         PrecedenceElement* pElement = itr->second;
@@ -279,15 +279,15 @@ void PrecedenceTable::compute(void) {
     m_TotalDamage = TotalDamage;
 
     if (MaxDamageName != "") {
-        // ÃÖ°íÀÇ µ¥¹ÌÁö¸¦ ÁØ ÀÚ°¡ ¼±°øÀÚ¶ó¸é,
-        // 40+20 = 60 ÀÌ µÇ¾î ÁÖÀÎÀÌ µÈ´Ù.
+        // ìµœê³ ì˜ ë°ë¯¸ì§€ë¥¼ ì¤€ ìê°€ ì„ ê³µìë¼ë©´,
+        // 40+20 = 60 ì´ ë˜ì–´ ì£¼ì¸ì´ ëœë‹¤.
         if (MaxDamageName == m_FirstAttackerName) {
             m_HostName = MaxDamageName;
         }
-        // ÃÖ´ë µ¥¹ÌÁö¸¦ ÁØ ÀÚ°¡ ¼±°øÀÚ°¡ ¾Æ´Ï¶ó¸é,
-        // µÎ¹øÂ°·Î µ¥¹ÌÁö¸¦ ¸¹ÀÌ ÁØ ÀÚ°¡, ¼±°øÀÚÀÏ °æ¿ì 30+20ÀÌ µÇ¾î ÁÖÀÎÀÌ µÈ´Ù.
-        // µÎ¹øÂ°·Î µ¥¹ÌÁö¸¦ ¸¹ÀÌ ÁØ ÀÚ°¡ ¼±°øÀÚ°¡ ¾Æ´Ï¶ó¸é,
-        // ÃÖ´ë µ¥¹ÌÁö¸¦ ÁØ ÀÚ°¡ ÁÖÀÎÀÌ µÈ´Ù.
+        // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì¤€ ìê°€ ì„ ê³µìê°€ ì•„ë‹ˆë¼ë©´,
+        // ë‘ë²ˆì§¸ë¡œ ë°ë¯¸ì§€ë¥¼ ë§ì´ ì¤€ ìê°€, ì„ ê³µìì¼ ê²½ìš° 30+20ì´ ë˜ì–´ ì£¼ì¸ì´ ëœë‹¤.
+        // ë‘ë²ˆì§¸ë¡œ ë°ë¯¸ì§€ë¥¼ ë§ì´ ì¤€ ìê°€ ì„ ê³µìê°€ ì•„ë‹ˆë¼ë©´,
+        // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì¤€ ìê°€ ì£¼ì¸ì´ ëœë‹¤.
         else {
             if (SecondDamageName != "" && SecondDamageName == m_FirstAttackerName) {
                 m_HostName = SecondDamageName;
@@ -296,18 +296,18 @@ void PrecedenceTable::compute(void) {
             }
         }
     } else {
-        // ÃÖ´ë µ¥¹ÌÁö¸¦ ÁØ ÀÚ°¡ ¾øÀ» ¸®´Â ¾ø°ÚÁö¸¸,
-        // È¤½Ã¶óµµ ±×·± °æ¿ì°¡ ÀÖ´Ù¸é ¼±°øÀÚ¸¦ ÁÖÀÎÀ¸·Î ÇÑ´Ù.
+        // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì¤€ ìê°€ ì—†ì„ ë¦¬ëŠ” ì—†ê² ì§€ë§Œ,
+        // í˜¹ì‹œë¼ë„ ê·¸ëŸ° ê²½ìš°ê°€ ìˆë‹¤ë©´ ì„ ê³µìë¥¼ ì£¼ì¸ìœ¼ë¡œ í•œë‹¤.
         m_HostName = m_FirstAttackerName;
     }
 
-    // ÆÄÆ¼¿¡ °üÇÑ Á¤º¸µµ °è»êÇØ ÁÖ¾î¾ß ÇÑ´Ù.
-    // ÆÄÆ¼ Á¤º¸ °è»ê¿¡ ÀÖ¾î¼­ À¯ÀÇÇÒ Á¡Àº ÆÄÆ¼ ID°¡ 0ÀÎ »óÅÂ,
-    // Áï ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾ÊÀº ÀÚµéÀÇ µ¥¹ÌÁöµµ °°ÀÌ °è»êÇÑ´Ù´Â Á¡ÀÌ´Ù.
-    // ¸¸ÀÏ ÃÖ´ë µ¥¹ÌÁö¸¦ ÀÔÈù ÆÄÆ¼ID°¡ 0ÀÌ¶ó¸é, Áï ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾ÊÀº
-    // »ç¶÷µéÀÌ ÃÖ´ë µ¥¹ÌÁö¸¦ ÀÔÇû´Ù¸é, HostPartyID°¡ 0ÀÌ µÈ´Ù.
-    // ÀÌ °æ¿ì¿¡´Â ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖÁö ¾ÊÀº »ç¶÷µéÀÌ ¸ğµÎ ±Ç¸®¸¦ °¡Á®¼­´Â °ï¶õÇÏ´Ù.
-    // ±×·¯¹Ç·Î canLoot³ª canDrainBlood¿¡¼­ ÆÄÆ¼ ID°¡ 0ÀÌ ¾Æ´ÑÁö¸¦ °Ë»çÇØ¾ß ÇÒ °ÍÀÌ´Ù.
+    // íŒŒí‹°ì— ê´€í•œ ì •ë³´ë„ ê³„ì‚°í•´ ì£¼ì–´ì•¼ í•œë‹¤.
+    // íŒŒí‹° ì •ë³´ ê³„ì‚°ì— ìˆì–´ì„œ ìœ ì˜í•  ì ì€ íŒŒí‹° IDê°€ 0ì¸ ìƒíƒœ,
+    // ì¦‰ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šì€ ìë“¤ì˜ ë°ë¯¸ì§€ë„ ê°™ì´ ê³„ì‚°í•œë‹¤ëŠ” ì ì´ë‹¤.
+    // ë§Œì¼ ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì…íŒ íŒŒí‹°IDê°€ 0ì´ë¼ë©´, ì¦‰ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šì€
+    // ì‚¬ëŒë“¤ì´ ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì…í˜”ë‹¤ë©´, HostPartyIDê°€ 0ì´ ëœë‹¤.
+    // ì´ ê²½ìš°ì—ëŠ” íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆì§€ ì•Šì€ ì‚¬ëŒë“¤ì´ ëª¨ë‘ ê¶Œë¦¬ë¥¼ ê°€ì ¸ì„œëŠ” ê³¤ë€í•˜ë‹¤.
+    // ê·¸ëŸ¬ë¯€ë¡œ canLootë‚˜ canDrainBloodì—ì„œ íŒŒí‹° IDê°€ 0ì´ ì•„ë‹Œì§€ë¥¼ ê²€ì‚¬í•´ì•¼ í•  ê²ƒì´ë‹¤.
     MaxDamage = 0;
     MaxDamagePartyID = -1;
     SecondDamagePartyID = -1;
@@ -330,15 +330,15 @@ void PrecedenceTable::compute(void) {
     }
 
     if (MaxDamagePartyID != -1) {
-        // ÃÖ°íÀÇ µ¥¹ÌÁö¸¦ ÁØ ÆÄÆ¼°¡ ¼±°ø ÆÄÆ¼¶ó¸é,
-        // 40+20 = 60 ÀÌ µÇ¾î ÁÖÀÎÀÌ µÈ´Ù.
+        // ìµœê³ ì˜ ë°ë¯¸ì§€ë¥¼ ì¤€ íŒŒí‹°ê°€ ì„ ê³µ íŒŒí‹°ë¼ë©´,
+        // 40+20 = 60 ì´ ë˜ì–´ ì£¼ì¸ì´ ëœë‹¤.
         if (MaxDamagePartyID == m_FirstAttackerPartyID) {
             m_HostPartyID = MaxDamagePartyID;
         }
-        // ÃÖ´ë µ¥¹ÌÁö¸¦ ÁØ ÆÄÆ¼°¡ ¼±°øÀÚ°¡ ¾Æ´Ï¶ó¸é,
-        // µÎ¹øÂ°·Î µ¥¹ÌÁö¸¦ ¸¹ÀÌ ÁØ ÆÄÆ¼°¡, ¼±°øÆÄÆ¼ÀÏ °æ¿ì 30+20ÀÌ µÇ¾î ÁÖÀÎÀÌ µÈ´Ù.
-        // µÎ¹øÂ°·Î µ¥¹ÌÁö¸¦ ¸¹ÀÌ ÁØ ÆÄÆ¼°¡ ¼±°øÆÄÆ¼°¡ ¾Æ´Ï¶ó¸é,
-        // ÃÖ´ë µ¥¹ÌÁö¸¦ ÁØ ÆÄÆ¼°¡ ÁÖÀÎÀÌ µÈ´Ù.
+        // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì¤€ íŒŒí‹°ê°€ ì„ ê³µìê°€ ì•„ë‹ˆë¼ë©´,
+        // ë‘ë²ˆì§¸ë¡œ ë°ë¯¸ì§€ë¥¼ ë§ì´ ì¤€ íŒŒí‹°ê°€, ì„ ê³µíŒŒí‹°ì¼ ê²½ìš° 30+20ì´ ë˜ì–´ ì£¼ì¸ì´ ëœë‹¤.
+        // ë‘ë²ˆì§¸ë¡œ ë°ë¯¸ì§€ë¥¼ ë§ì´ ì¤€ íŒŒí‹°ê°€ ì„ ê³µíŒŒí‹°ê°€ ì•„ë‹ˆë¼ë©´,
+        // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì¤€ íŒŒí‹°ê°€ ì£¼ì¸ì´ ëœë‹¤.
         else {
             if (SecondDamagePartyID != -1 && SecondDamagePartyID == m_FirstAttackerPartyID) {
                 m_HostPartyID = SecondDamagePartyID;
@@ -347,8 +347,8 @@ void PrecedenceTable::compute(void) {
             }
         }
     } else {
-        // ÃÖ´ë µ¥¹ÌÁö¸¦ ÁØ ÀÚ°¡ ¾øÀ» ¸®´Â ¾ø°ÚÁö¸¸,
-        // È¤½Ã¶óµµ ±×·± °æ¿ì°¡ ÀÖ´Ù¸é ¼±°øÀÚ¸¦ ÁÖÀÎÀ¸·Î ÇÑ´Ù.
+        // ìµœëŒ€ ë°ë¯¸ì§€ë¥¼ ì¤€ ìê°€ ì—†ì„ ë¦¬ëŠ” ì—†ê² ì§€ë§Œ,
+        // í˜¹ì‹œë¼ë„ ê·¸ëŸ° ê²½ìš°ê°€ ìˆë‹¤ë©´ ì„ ê³µìë¥¼ ì£¼ì¸ìœ¼ë¡œ í•œë‹¤.
         m_HostPartyID = m_FirstAttackerPartyID;
     }
 
@@ -356,11 +356,11 @@ void PrecedenceTable::compute(void) {
 }
 
 bool PrecedenceTable::canLoot(Creature* pCreature) const {
-    // ¿ì¼±±ÇÀ» °¡Áø ÀÚ¶ó¸é ·çÆ®ÇÒ ¼ö ÀÖ´Ù.
+    // ìš°ì„ ê¶Œì„ ê°€ì§„ ìë¼ë©´ ë£¨íŠ¸í•  ìˆ˜ ìˆë‹¤.
     if (m_HostName == pCreature->getName())
         return true;
 
-    // ¿ì¼±±ÇÀ» °¡Áø ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·çÆ®ÇÒ ¼ö ÀÖ´Ù.
+    // ìš°ì„ ê¶Œì„ ê°€ì§„ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆë‹¤ë©´ ë£¨íŠ¸í•  ìˆ˜ ìˆë‹¤.
     int PartyID = pCreature->getPartyID();
     if (PartyID != 0 && m_HostPartyID == PartyID)
         return true;
@@ -369,11 +369,11 @@ bool PrecedenceTable::canLoot(Creature* pCreature) const {
 }
 
 bool PrecedenceTable::canDrainBlood(Creature* pCreature) const {
-    // ¿ì¼±±ÇÀ» °¡Áø ÀÚ¶ó¸é ·çÆ®ÇÒ ¼ö ÀÖ´Ù.
+    // ìš°ì„ ê¶Œì„ ê°€ì§„ ìë¼ë©´ ë£¨íŠ¸í•  ìˆ˜ ìˆë‹¤.
     if (m_HostName == pCreature->getName())
         return true;
 
-    // ¿ì¼±±ÇÀ» °¡Áø ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·çÆ®ÇÒ ¼ö ÀÖ´Ù.
+    // ìš°ì„ ê¶Œì„ ê°€ì§„ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆë‹¤ë©´ ë£¨íŠ¸í•  ìˆ˜ ìˆë‹¤.
     int PartyID = pCreature->getPartyID();
     if (PartyID != 0 && m_HostPartyID == PartyID)
         return true;
@@ -382,7 +382,7 @@ bool PrecedenceTable::canDrainBlood(Creature* pCreature) const {
 }
 
 bool PrecedenceTable::canGainRankExp(Creature* pCreature) const {
-    // ¸ó½ºÅÍ°¡ ¹ŞÀº µ¥¹ÌÁöÀÇ ÃÑÇÕ¿¡¼­ 1/4À» ÃÊ°úÇÑ ¸¸Å­ µ¥¹ÌÁö¸¦ Áá´Ù¸é °è±Ş °æÇèÄ¡¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+    // ëª¬ìŠ¤í„°ê°€ ë°›ì€ ë°ë¯¸ì§€ì˜ ì´í•©ì—ì„œ 1/4ì„ ì´ˆê³¼í•œ ë§Œí¼ ë°ë¯¸ì§€ë¥¼ ì¤¬ë‹¤ë©´ ê³„ê¸‰ ê²½í—˜ì¹˜ë¥¼ ì–»ì„ ìˆ˜ ìˆë‹¤.
     unordered_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.find(pCreature->getName());
     if (itr == m_CreatureMap.end())
         return false;

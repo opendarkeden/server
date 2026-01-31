@@ -2,7 +2,7 @@
 //
 // Filename    : SharedServer.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : ½¦¾îµå ¼­¹ö¿ë ¸ŞÀÎ Å¬·¡½º
+// Description : ì‰ì–´ë“œ ì„œë²„ìš© ë©”ì¸ í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@
 //
 // constructor
 //
-// ½Ã½ºÅÛ ¸Å´ÏÀúÀÇ constructor¿¡¼­´Â ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+// ì‹œìŠ¤í…œ ë§¤ë‹ˆì €ì˜ constructorì—ì„œëŠ” í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 SharedServer::SharedServer() throw(Error) {
@@ -48,7 +48,7 @@ SharedServer::SharedServer() throw(Error) {
     g_pGameServerGroupInfoManager = new GameServerGroupInfoManager();
 
     // create packet factory manager, packet validator
-    // (Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀú¿Í ¼­¹ö°£Åë½Å¸Å´ÏÀúº¸´Ù ¸ÕÀú »ı¼º, ÃÊ±âÈ­µÇ¾î¾ß ÇÑ´Ù.)
+    // (í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ì™€ ì„œë²„ê°„í†µì‹ ë§¤ë‹ˆì €ë³´ë‹¤ ë¨¼ì € ìƒì„±, ì´ˆê¸°í™”ë˜ì–´ì•¼ í•œë‹¤.)
     g_pPacketFactoryManager = new PacketFactoryManager();
     g_pPacketValidator = new PacketValidator();
 
@@ -78,7 +78,7 @@ SharedServer::SharedServer() throw(Error) {
 //
 // destructor
 //
-// ½Ã½ºÅÛ ¸Å´ÏÀúÀÇ destructor¿¡¼­´Â ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+// ì‹œìŠ¤í…œ ë§¤ë‹ˆì €ì˜ destructorì—ì„œëŠ” í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 SharedServer::~SharedServer() throw(Error) {
@@ -114,12 +114,12 @@ void SharedServer::init() throw(Error) {
 
     cout << "SharedServer::init() start" << endl;
 
-    // µ¥ÀÌÅ¸º£ÀÌ½º¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ë°ì´íƒ€ë² ì´ìŠ¤ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pDatabaseManager->init();
 
     g_pStringPool->load();
 
-    // guild manager ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // guild manager ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pGuildManager->init();
 
     // initialize some info managers
@@ -128,22 +128,22 @@ void SharedServer::init() throw(Error) {
 
     g_pGameWorldInfoManager->init();
 
-    // Å¬¶óÀÌ¾ğÆ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÏ±â Àü¿¡, ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú/ÆĞÅ¶¹ß¸®µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•˜ê¸° ì „ì—, íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €/íŒ¨í‚·ë°œë¦¬ë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pPacketFactoryManager->init();
     g_pPacketValidator->init();
 
-    // ¼­¹ö°£ Åë½Å ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ì„œë²„ê°„ í†µì‹  ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pGameServerManager->init();
 
-    // ResurrectLocationManager ÃÊ±âÈ­
+    // ResurrectLocationManager ì´ˆê¸°í™”
     g_pResurrectLocationManager->init();
 
     /*#ifdef __NETMARBLE_SERVER__
         g_pNetmarbleGuildRegisterThread->init();
     #endif*/
 
-    // ¸¸¹İÀÇ ÁØºñ°¡ ³¡ÀÌ ³ª¸é ÀÌÁ¦ Å¬¶óÀÌ¾ğÆ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÔÀ¸·Î½á,
-    // ³×Æ®¿öÅ·¿¡ ´ëºñÇÑ´Ù.
+    // ë§Œë°˜ì˜ ì¤€ë¹„ê°€ ëì´ ë‚˜ë©´ ì´ì œ í´ë¼ì´ì–¸íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•¨ìœ¼ë¡œì¨,
+    // ë„¤íŠ¸ì›Œí‚¹ì— ëŒ€ë¹„í•œë‹¤.
     g_pHeartbeatManager->init();
 
     __END_CATCH
@@ -159,23 +159,23 @@ void SharedServer::start() throw(Error) {
     __BEGIN_TRY
 
     cout << "---------- Start SharedServer ---------" << endl;
-    // ¼­¹ö°£ Åë½Å ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+    // ì„œë²„ê°„ í†µì‹  ë§¤ë‹ˆì €ë¥¼ ì‹œì‘í•œë‹¤.
     g_pGameServerManager->start();
 
-    // ³İ¸¶ºí ±æµå µî·Ï ½º·¹µå ½ÃÀÛ
+    // ë„·ë§ˆë¸” ê¸¸ë“œ ë“±ë¡ ìŠ¤ë ˆë“œ ì‹œì‘
     /*#ifdef __NETMARBLE_SERVER__
         g_pNetmarbleGuildRegisterThread->start();
     #endif*/
 
     //
-    // Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì‹œì‘í•œë‹¤.
     //
     // *Reiot's Notes*
     //
-    // °¡Àå ³ªÁß¿¡ ½ÇÇàµÇ¾î¾ß ÇÑ´Ù. ¿Ö³ÄÇÏ¸é ¸ÖÆ¼¾²·¹µå±â¹İÀÌ ¾Æ´Ñ
-    // ¹«ÇÑ·çÇÁ¸¦ °¡Áø ÇÔ¼öÀÌ±â ¶§¹®ÀÌ´Ù. ¸¸ÀÏ ÀÌ ´ÙÀ½¿¡ ´Ù¸¥ ÇÔ¼ö¸¦
-    // È£ÃâÇÒ °æ¿ì, ·çÇÁ°¡ ³¡³ªÁö ¾Ê´ÂÇÑ(Áï ¿¡·¯°¡ ¹ß»ıÇÏÁö ¾Ê´ÂÇÑ)
-    // ´Ù¸¥ ¸Å´ÏÀúÀÇ Ã³¸® ·çÇÁ´Â ½ÇÇàµÇÁö ¾Ê´Â´Ù.
+    // ê°€ì¥ ë‚˜ì¤‘ì— ì‹¤í–‰ë˜ì–´ì•¼ í•œë‹¤. ì™œëƒí•˜ë©´ ë©€í‹°ì“°ë ˆë“œê¸°ë°˜ì´ ì•„ë‹Œ
+    // ë¬´í•œë£¨í”„ë¥¼ ê°€ì§„ í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì´ë‹¤. ë§Œì¼ ì´ ë‹¤ìŒì— ë‹¤ë¥¸ í•¨ìˆ˜ë¥¼
+    // í˜¸ì¶œí•  ê²½ìš°, ë£¨í”„ê°€ ëë‚˜ì§€ ì•ŠëŠ”í•œ(ì¦‰ ì—ëŸ¬ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”í•œ)
+    // ë‹¤ë¥¸ ë§¤ë‹ˆì €ì˜ ì²˜ë¦¬ ë£¨í”„ëŠ” ì‹¤í–‰ë˜ì§€ ì•ŠëŠ”ë‹¤.
     //
     g_pHeartbeatManager->start();
 
@@ -187,15 +187,15 @@ void SharedServer::start() throw(Error) {
 //
 // stop shared server
 //
-// stop ¼ø¼­¿¡ À¯ÀÇÇÏµµ·Ï ÇÏÀÚ. °¡Àå ¿µÇâÀ» ¸¹ÀÌ ÁÖ´Â ¸Å´ÏÀúºÎÅÍ
-// stop ½ÃÄÑ¾ß ÇÑ´Ù. ¸¸ÀÏ ¹İ´ëÀÇ ¼ø¼­·Î stop ½ÃÅ³ °æ¿ì null pointer
-// °°Àº Çö»óÀÌ ¹ß»ıÇÒ ¼ö ÀÖ´Ù.
+// stop ìˆœì„œì— ìœ ì˜í•˜ë„ë¡ í•˜ì. ê°€ì¥ ì˜í–¥ì„ ë§ì´ ì£¼ëŠ” ë§¤ë‹ˆì €ë¶€í„°
+// stop ì‹œì¼œì•¼ í•œë‹¤. ë§Œì¼ ë°˜ëŒ€ì˜ ìˆœì„œë¡œ stop ì‹œí‚¬ ê²½ìš° null pointer
+// ê°™ì€ í˜„ìƒì´ ë°œìƒí•  ìˆ˜ ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServer::stop() throw(Error) {
     __BEGIN_TRY
 
-    // ³ªÁß¿¡ ÀÌ ºÎºĞÀ» ÄÚ¸àÆ®È­ÇØ¾ß ÇÑ´Ù.
+    // ë‚˜ì¤‘ì— ì´ ë¶€ë¶„ì„ ì½”ë©˜íŠ¸í™”í•´ì•¼ í•œë‹¤.
     throw UnsupportedError();
 
     //

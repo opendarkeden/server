@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCStashList.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -59,7 +59,7 @@ GCStashList::~GCStashList()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCStashList::read(SocketInputStream& iStream)
 
@@ -71,13 +71,13 @@ void GCStashList::read(SocketInputStream& iStream)
     BYTE rack = 0;
     BYTE index = 0;
 
-    // º¸°üÇÔÀÇ °¹¼ö¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ë³´ê´€í•¨ì˜ ê°¯ìˆ˜ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     iStream.read(m_StashNum);
 
-    // ÃÑ ¾ÆÀÌÅÛÀÇ ¼ıÀÚ¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ì´ ì•„ì´í…œì˜ ìˆ«ìë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     iStream.read(nTotal);
 
-    // °¢ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ê° ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     for (i = 0; i < nTotal; i++) {
         iStream.read(rack);
         iStream.read(index);
@@ -100,7 +100,7 @@ void GCStashList::read(SocketInputStream& iStream)
         iStream.read(item.grade);
         iStream.read(item.enchantLevel);
 
-        // sub ¾ÆÀÌÅÛ Á¤º¸¸¦ ÀĞ¾îµéÀÎ´Ù.
+        // sub ì•„ì´í…œ ì •ë³´ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
         iStream.read(m_SubItemsCount[rack][index]);
         for (int s = 0; s < m_SubItemsCount[rack][index]; s++) {
             SubItemInfo* pSubItemInfo = new SubItemInfo();
@@ -111,7 +111,7 @@ void GCStashList::read(SocketInputStream& iStream)
         m_bExist[rack][index] = true;
     }
 
-    // µ·ÀÇ ¾çÀ» ÀĞ¾îµéÀÎ´Ù.
+    // ëˆì˜ ì–‘ì„ ì½ì–´ë“¤ì¸ë‹¤.
     iStream.read(m_StashGold);
 
     __END_CATCH
@@ -119,7 +119,7 @@ void GCStashList::read(SocketInputStream& iStream)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCStashList::write(SocketOutputStream& oStream) const
 
@@ -131,16 +131,16 @@ void GCStashList::write(SocketOutputStream& oStream) const
     BYTE i = 0;
     BYTE nTotal = 0;
 
-    // ÃÑ ¾ÆÀÌÅÛÀÇ ¼ıÀÚ¸¦ °è»êÇÑ´Ù.
+    // ì´ ì•„ì´í…œì˜ ìˆ«ìë¥¼ ê³„ì‚°í•œë‹¤.
     for (r = 0; r < STASH_RACK_MAX; r++)
         for (i = 0; i < STASH_INDEX_MAX; i++)
             if (m_bExist[r][i])
                 nTotal++;
 
-    // º¸°üÇÔÀÇ °¹¼ö¸¦ ³¯·ÁÁØ´Ù.
+    // ë³´ê´€í•¨ì˜ ê°¯ìˆ˜ë¥¼ ë‚ ë ¤ì¤€ë‹¤.
     oStream.write(m_StashNum);
 
-    // ÃÑ ¾ÆÀÌÅÛÀÇ ¼ıÀÚ¸¦ ³¯·ÁÁØ´Ù
+    // ì´ ì•„ì´í…œì˜ ìˆ«ìë¥¼ ë‚ ë ¤ì¤€ë‹¤
     oStream.write(nTotal);
 
     // write each item info
@@ -168,7 +168,7 @@ void GCStashList::write(SocketOutputStream& oStream) const
                 oStream.write(item.grade);
                 oStream.write(item.enchantLevel);
 
-                // sub ¾ÆÀÌÅÛ Á¤º¸¸¦ ¾´´Ù.
+                // sub ì•„ì´í…œ ì •ë³´ë¥¼ ì“´ë‹¤.
                 oStream.write(m_SubItemsCount[r][i]);
 
                 list<SubItemInfo*>::const_iterator itr = m_pSubItems[r][i].begin();
@@ -180,7 +180,7 @@ void GCStashList::write(SocketOutputStream& oStream) const
         }
     }
 
-    // µ·ÀÇ ¾çÀ» ½áÁØ´Ù.
+    // ëˆì˜ ì–‘ì„ ì¨ì¤€ë‹¤.
     oStream.write(m_StashGold);
 
     __END_DEBUG
@@ -210,17 +210,17 @@ PacketSize_t GCStashList::getPacketSize() const
     __BEGIN_TRY
     __BEGIN_DEBUG
 
-    PacketSize_t size = szBYTE; // º¸°üÇÔÀÇ °¹¼ö
+    PacketSize_t size = szBYTE; // ë³´ê´€í•¨ì˜ ê°¯ìˆ˜
 
-    size += szBYTE; // ÃÑ ¾ÆÀÌÅÛ ¼ıÀÚ
+    size += szBYTE; // ì´ ì•„ì´í…œ ìˆ«ì
 
     for (int r = 0; r < STASH_RACK_MAX; r++) {
         for (int i = 0; i < STASH_INDEX_MAX; i++) {
             if (m_bExist[r][i]) {
-                // rack°ú ÀÎµ¦½º
+                // rackê³¼ ì¸ë±ìŠ¤
                 size += szBYTE * 2;
 
-                // ½ÇÁ¦ Á¤º¸
+                // ì‹¤ì œ ì •ë³´
                 /*
                 size += szObjectID;
                 size += szBYTE;
@@ -233,16 +233,16 @@ PacketSize_t GCStashList::getPacketSize() const
                 */
                 size += m_pItems[r][i].getPacketSize();
 
-                // º§Æ®¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ıÀÚ
+                // ë²¨íŠ¸ì— ë“¤ì–´ìˆëŠ” ì•„ì´í…œì˜ ìˆ«ì
                 size += szBYTE;
 
-                // º§Æ®¿¡ µé¾î ÀÖ´Â ¾ÆÀÌÅÛÀÇ Å©±â
+                // ë²¨íŠ¸ì— ë“¤ì–´ ìˆëŠ” ì•„ì´í…œì˜ í¬ê¸°
                 size += SubItemInfo::getSize() * m_SubItemsCount[r][i];
             }
         }
     }
 
-    size += szGold; // º¸°üÇÔ¿¡ µé¾îÀÖ´Â µ·
+    size += szGold; // ë³´ê´€í•¨ì— ë“¤ì–´ìˆëŠ” ëˆ
 
     return size;
 
@@ -390,8 +390,8 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
         m_pItems[rack][index].grade = pItem->getGrade();
         m_pItems[rack][index].enchantLevel = pItem->getEnchantLevel();
 
-        // º§Æ®ÀÏ °æ¿ì¿¡´Â ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛ±îÁö ÇÔ²² ¼¼ÆÃÇØÁà¾ßÇÑ´Ù.
-        // ¾Æ, ¾¾¹Ù Á¹¶ó ±ÍÂú³×.
+        // ë²¨íŠ¸ì¼ ê²½ìš°ì—ëŠ” ì•ˆì— ìˆëŠ” ì•„ì´í…œê¹Œì§€ í•¨ê»˜ ì„¸íŒ…í•´ì¤˜ì•¼í•œë‹¤.
+        // ì•„, ì”¨ë°” ì¡¸ë¼ ê·€ì°®ë„¤.
         pBelt = dynamic_cast<Belt*>(pItem);
         pItemInfo = g_pItemInfoManager->getItemInfo(pBelt->getItemClass(), pBelt->getItemType());
         pocketCount = dynamic_cast<BeltInfo*>(pItemInfo)->getPocketCount();
@@ -399,7 +399,7 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
 
         for (i = 0; i < pocketCount; i++) {
             Item* pBeltItem = pBeltInventory->getItem((int)i, 0);
-            // ½½¶ù¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+            // ìŠ¬ëì— ì•„ì´í…œì´ ìˆë‹¤ë©´...
             if (pBeltItem != NULL) {
                 SubItemInfo* pSubItemInfo = new SubItemInfo;
                 Assert(pSubItemInfo != NULL);
@@ -410,14 +410,14 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
                 pSubItemInfo->setItemNum(pBeltItem->getNum());
                 pSubItemInfo->setSlotID(i);
 
-                // ¸¸µç Á¤º¸¸¦ ÇØ´çÇÏ´Â ¸®½ºÆ®¿¡´Ù°¡ ´õÇÑ´Ù.
+                // ë§Œë“  ì •ë³´ë¥¼ í•´ë‹¹í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ë”í•œë‹¤.
                 m_pSubItems[rack][index].push_back(pSubItemInfo);
 
-                // Ä«¿îÆ®¸¦ ¿Ã·ÁÁÖ°í
+                // ì¹´ìš´íŠ¸ë¥¼ ì˜¬ë ¤ì£¼ê³ 
                 subItemCount++;
             }
         }
-        // ¸®½ºÆ®¿¡ ¸î°³³ª µé¾îÀÖ´ÂÁö ¼¼ÆÃÇØ ÁØ´Ù.
+        // ë¦¬ìŠ¤íŠ¸ì— ëª‡ê°œë‚˜ ë“¤ì–´ìˆëŠ”ì§€ ì„¸íŒ…í•´ ì¤€ë‹¤.
         m_SubItemsCount[rack][index] = subItemCount;
 
         break;
@@ -432,8 +432,8 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
         m_pItems[rack][index].grade = pItem->getGrade();
         m_pItems[rack][index].enchantLevel = pItem->getEnchantLevel();
 
-        // º§Æ®ÀÏ °æ¿ì¿¡´Â ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛ±îÁö ÇÔ²² ¼¼ÆÃÇØÁà¾ßÇÑ´Ù.
-        // ¾Æ, ¾¾¹Ù Á¹¶ó ±ÍÂú³×.
+        // ë²¨íŠ¸ì¼ ê²½ìš°ì—ëŠ” ì•ˆì— ìˆëŠ” ì•„ì´í…œê¹Œì§€ í•¨ê»˜ ì„¸íŒ…í•´ì¤˜ì•¼í•œë‹¤.
+        // ì•„, ì”¨ë°” ì¡¸ë¼ ê·€ì°®ë„¤.
         pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
         pItemInfo = g_pItemInfoManager->getItemInfo(pOustersArmsband->getItemClass(), pOustersArmsband->getItemType());
         pocketCount = dynamic_cast<OustersArmsbandInfo*>(pItemInfo)->getPocketCount();
@@ -441,7 +441,7 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
 
         for (i = 0; i < pocketCount; i++) {
             Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem((int)i, 0);
-            // ½½¶ù¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+            // ìŠ¬ëì— ì•„ì´í…œì´ ìˆë‹¤ë©´...
             if (pOustersArmsbandItem != NULL) {
                 SubItemInfo* pSubItemInfo = new SubItemInfo;
                 Assert(pSubItemInfo != NULL);
@@ -452,14 +452,14 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
                 pSubItemInfo->setItemNum(pOustersArmsbandItem->getNum());
                 pSubItemInfo->setSlotID(i);
 
-                // ¸¸µç Á¤º¸¸¦ ÇØ´çÇÏ´Â ¸®½ºÆ®¿¡´Ù°¡ ´õÇÑ´Ù.
+                // ë§Œë“  ì •ë³´ë¥¼ í•´ë‹¹í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ë”í•œë‹¤.
                 m_pSubItems[rack][index].push_back(pSubItemInfo);
 
-                // Ä«¿îÆ®¸¦ ¿Ã·ÁÁÖ°í
+                // ì¹´ìš´íŠ¸ë¥¼ ì˜¬ë ¤ì£¼ê³ 
                 subItemCount++;
             }
         }
-        // ¸®½ºÆ®¿¡ ¸î°³³ª µé¾îÀÖ´ÂÁö ¼¼ÆÃÇØ ÁØ´Ù.
+        // ë¦¬ìŠ¤íŠ¸ì— ëª‡ê°œë‚˜ ë“¤ì–´ìˆëŠ”ì§€ ì„¸íŒ…í•´ ì¤€ë‹¤.
         m_SubItemsCount[rack][index] = subItemCount;
 
         break;

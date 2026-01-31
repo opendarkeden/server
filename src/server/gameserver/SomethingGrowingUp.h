@@ -22,7 +22,7 @@ public:
     ExpTable() : m_Records(MaxLevel) {}
     virtual ~ExpTable() {}
 
-    // DB °ü·Ã ÇÔ¼öµé
+    // DB ê´€ë ¨ í•¨ìˆ˜ë“¤
     virtual void load();
     virtual const string getDBTableName() const = 0;
     virtual const string getDBGoalExpFieldName() const {
@@ -38,7 +38,7 @@ public:
         return "";
     }
 
-    // Äõ¸®ÇÏ±â
+    // ì¿¼ë¦¬í•˜ê¸°
     GoalExpType getGoalExp(LevelType level) const {
         Assert(level <= MaxLevel && level >= MinLevel);
         return m_Records[level].m_GoalExp;
@@ -65,7 +65,7 @@ void ExpTable<GoalExpType, LevelType, MinLevel, MaxLevel, TotalExpType>::load() 
 
     const string QueryTemplate = "SELECT %s, %s, %s FROM %s %s";
 
-    // 10¹ÙÀÌÆ® Á¤µµ ¿À¹Ù´Â ºÁÁÖÀÚ
+    // 10ë°”ì´íŠ¸ ì •ë„ ì˜¤ë°”ëŠ” ë´ì£¼ì
     int size = QueryTemplate.size() + getDBTableName().size() + getDBGoalExpFieldName().size() +
                getDBAccumExpFieldName().size() + getDBLevelFieldName().size() + getDBQueryCondition().size();
     char* query = new char[size];
@@ -122,7 +122,7 @@ public:
     bool levelUp();
     bool levelDown();
 
-    // ²À ÇÊ¿äÇÒ¶§¸¸ ¾¹½Ã´Ù.
+    // ê¼­ í•„ìš”í• ë•Œë§Œ ì”ì‹œë‹¤.
     bool SET_LEVEL(LevelType level);
 
 private:

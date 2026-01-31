@@ -1,11 +1,11 @@
 //--------------------------------------------------------------------------------
 //
 // Filename    : GCShopSold.h
-// Written By  : ±è¼º¹Î
-// Description : ÇÑ ÇÃ·¹ÀÌ¾î°¡ »óÁ¡ NPC¿¡°Ô ¹°°ÇÀ» ±¸ÀÔÇß´Âµ¥,
-//               ´Ù¸¥ ÇÃ·¹ÀÌ¾îµµ °°Àº »óÁ¡ NPC¿Í ´ëÈ­ ÁßÀÌ¾ú´Ù¸é,
-//               ±× ÇÃ·¹ÀÌ¾î¿Í ¾ÆÀÌÅÛ ¸ñ·ÏÀ» µ¿±âÈ­½ÃÄÑÁÖ¾î¾ß ÇÑ´Ù.
-//               ÀÌ ÆÐÅ¶Àº ±×¸¦ À§ÇÑ ÆÐÅ¶ÀÌ´Ù.
+// Written By  : ê¹€ì„±ë¯¼
+// Description : í•œ í”Œë ˆì´ì–´ê°€ ìƒì  NPCì—ê²Œ ë¬¼ê±´ì„ êµ¬ìž…í–ˆëŠ”ë°,
+//               ë‹¤ë¥¸ í”Œë ˆì´ì–´ë„ ê°™ì€ ìƒì  NPCì™€ ëŒ€í™” ì¤‘ì´ì—ˆë‹¤ë©´,
+//               ê·¸ í”Œë ˆì´ì–´ì™€ ì•„ì´í…œ ëª©ë¡ì„ ë™ê¸°í™”ì‹œì¼œì£¼ì–´ì•¼ í•œë‹¤.
+//               ì´ íŒ¨í‚·ì€ ê·¸ë¥¼ ìœ„í•œ íŒ¨í‚·ì´ë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -28,10 +28,10 @@ public:
     GCShopSold();
     virtual ~GCShopSold();
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -93,13 +93,13 @@ private:
     // NPC's object id
     ObjectID_t m_ObjectID;
 
-    // »óÁ¡ ¹öÁ¯
+    // ìƒì  ë²„ì ¼
     ShopVersion_t m_Version;
 
-    // Áø¿­Àå Á¾·ù
+    // ì§„ì—´ìž¥ ì¢…ë¥˜
     ShopRackType_t m_RackType;
 
-    // Áø¿­Àå ÀÎµ¦½º
+    // ì§„ì—´ìž¥ ì¸ë±ìŠ¤
     BYTE m_RackIndex;
 };
 
@@ -131,7 +131,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCShopSoldPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCShopSoldPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szObjectID + szShopVersion + szShopRackType + szBYTE;
     }

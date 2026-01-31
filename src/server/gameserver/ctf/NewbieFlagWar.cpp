@@ -52,7 +52,7 @@ VSDateTime NewbieFlagWar::getNextFlagWarTime() {
         nextWarDateTime = nextWarDateTime.addDays(NextFlagWarDay[nextWarDateTime.date().dayOfWeek()]);
     }
 
-    filelog("FlagWar.log", "%s¿¡ ÃÊº¸Á¸ ±ê¹ß »¯±â ÀÌº¥Æ® ½ÃÀÛ", nextWarDateTime.toString().c_str());
+    filelog("FlagWar.log", "%sì— ì´ˆë³´ì¡´ ê¹ƒë°œ ëºê¸° ì´ë²¤íŠ¸ ì‹œì‘", nextWarDateTime.toString().c_str());
     return nextWarDateTime;
 }
 

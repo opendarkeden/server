@@ -47,7 +47,7 @@ bool GatherItemQuestStatus::isSuccess() const {
     PlayerCreature* pOwnerPC = getOwnerPC();
     Inventory* pInventory = pOwnerPC->getInventory();
 
-    // ÀÎº¥Åä¸® µÚÁö±â ¤¾¤¾¤¾
+    // ì¸ë²¤í† ë¦¬ ë’¤ì§€ê¸° ã…ã…ã…
     map<ObjectID_t, Item*> ItemList;
     int height = pInventory->getHeight();
     int width = pInventory->getWidth();
@@ -58,7 +58,7 @@ bool GatherItemQuestStatus::isSuccess() const {
         for (int i = 0; i < width; i++) {
             Item* pItem = pInventory->getItem(i, j);
             if (pItem != NULL) {
-                // Ã¼Å©µÈ ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¿¡¼­ ÇöÀç ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+                // ì²´í¬ëœ ì•„ì´í…œì˜ ë¦¬ìŠ¤íŠ¸ì—ì„œ í˜„ì¬ ì•„ì´í…œì„ ì°¾ëŠ”ë‹¤.
                 map<ObjectID_t, Item*>::iterator itr = ItemList.find(pItem->getObjectID());
 
                 if (itr == ItemList.end()) {

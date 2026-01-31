@@ -13,13 +13,13 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾îÀÇ Á¤º¸´Â ´ÙÀ½°ú °°´Ù.
+// ìŠ¬ë ˆì´ì–´ì˜ ì •ë³´ëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
 //
 //(1) OID
 //(2) Name
 //(3) X,Y,Dir
 //
-// bit_set À¸·Î Ç¥ÇöµÇ´Â Á¤º¸µé
+// bit_set ìœ¼ë¡œ í‘œí˜„ë˜ëŠ” ì •ë³´ë“¤
 //
 //(4) Sex - MALE | FEMALE
 //(5) HairStyle - HAIR_STYLE1 | HAIR_STYLE2 | HAIR_STYLE3
@@ -29,7 +29,7 @@
 //(11) Weapon Type - NONE | SWORD | BLADE | SHIELD | SWORD + SHIELD | AR | TR | SG | SMG | CROSS
 //(12) Motorcycle Type - NONE | MOTORCYCLE1
 //
-// »óÀÇ/ÇÏÀÇ¸¦ Á¦¿ÜÇÏ¸é ¸ğµÎ ÇÑ ºÎºĞÀÇ »ö»ó¸¸ÀÌ ¹Ù²ï´Ù.
+// ìƒì˜/í•˜ì˜ë¥¼ ì œì™¸í•˜ë©´ ëª¨ë‘ í•œ ë¶€ë¶„ì˜ ìƒ‰ìƒë§Œì´ ë°”ë€ë‹¤.
 //
 //(13) HairColor
 //(14) SkinColor
@@ -99,7 +99,7 @@ public:
           m_Alignment(slayerInfo.m_Alignment), m_GuildID(slayerInfo.m_GuildID), m_Rank(slayerInfo.m_Rank),
           m_AdvancementLevel(slayerInfo.m_AdvancementLevel) {
         for (uint i = 0; i < SLAYER_COLOR_MAX; i++)
-            m_Colors[i] = slayerInfo.m_Colors[i]; // ½½·¹ÀÌ¾î »ö±ò Á¤º¸
+            m_Colors[i] = slayerInfo.m_Colors[i]; // ìŠ¬ë ˆì´ì–´ ìƒ‰ê¹” ì •ë³´
 
         m_Competence = slayerInfo.m_Competence;
     }
@@ -114,32 +114,32 @@ public:
     void write(SocketOutputStream& oStream) const;
 
     uint getSize() const {
-        return szObjectID                   // Å©¸®Ã³ ¾ÆÀÌµğ
-               + szBYTE + m_Name.size()     // ÀÌ¸§
-               + szCoord + szCoord + szDir  // ÁÂÇ¥¿Í ¹æÇâ
-               + szDWORD                    // ½½·¹ÀÌ¾î ÇÃ·¡±×
-               + szColor * SLAYER_COLOR_MAX // »ö±ò Á¤º¸
-               + szBYTE + szHP * 2          // ÃÖ´ë Ã¼·Â
-               + szAlignment                // ¼ºÇâ
-               + szRank                     // °è±Ş
-               + szSpeed                    // °ø°İ ½ºÇÇµå
-               + szGuildID                  // °ø°İ ½ºÇÇµå
-               + szBYTE                     // ±ÇÇÑ
+        return szObjectID                   // í¬ë¦¬ì²˜ ì•„ì´ë””
+               + szBYTE + m_Name.size()     // ì´ë¦„
+               + szCoord + szCoord + szDir  // ì¢Œí‘œì™€ ë°©í–¥
+               + szDWORD                    // ìŠ¬ë ˆì´ì–´ í”Œë˜ê·¸
+               + szColor * SLAYER_COLOR_MAX // ìƒ‰ê¹” ì •ë³´
+               + szBYTE + szHP * 2          // ìµœëŒ€ ì²´ë ¥
+               + szAlignment                // ì„±í–¥
+               + szRank                     // ê³„ê¸‰
+               + szSpeed                    // ê³µê²© ìŠ¤í”¼ë“œ
+               + szGuildID                  // ê³µê²© ìŠ¤í”¼ë“œ
+               + szBYTE                     // ê¶Œí•œ
                + szuint + szLevel;
     }
 
     static uint getMaxSize() {
-        return szObjectID                   // Å©¸®Ã³ ¾ÆÀÌµğ
-               + szBYTE + 20                // ÀÌ¸§
-               + szCoord + szCoord + szDir  // ÁÂÇ¥¿Í ¹æÇâ
-               + szDWORD                    // ½½·¹ÀÌ¾î ÇÃ·¡±×
-               + szColor * SLAYER_COLOR_MAX // »ö±ò Á¤º¸
-               + szBYTE + szHP * 2          // ÃÖ´ë Ã¼·Â
-               + szAlignment                // ¼ºÇâ
-               + szRank                     // °è±Ş
-               + szSpeed                    // °ø°İ ½ºÇÇµå
-               + szGuildID                  // °ø°İ ½ºÇÇµå
-               + szBYTE                     // ±ÇÇÑ
+        return szObjectID                   // í¬ë¦¬ì²˜ ì•„ì´ë””
+               + szBYTE + 20                // ì´ë¦„
+               + szCoord + szCoord + szDir  // ì¢Œí‘œì™€ ë°©í–¥
+               + szDWORD                    // ìŠ¬ë ˆì´ì–´ í”Œë˜ê·¸
+               + szColor * SLAYER_COLOR_MAX // ìƒ‰ê¹” ì •ë³´
+               + szBYTE + szHP * 2          // ìµœëŒ€ ì²´ë ¥
+               + szAlignment                // ì„±í–¥
+               + szRank                     // ê³„ê¸‰
+               + szSpeed                    // ê³µê²© ìŠ¤í”¼ë“œ
+               + szGuildID                  // ê³µê²© ìŠ¤í”¼ë“œ
+               + szBYTE                     // ê¶Œí•œ
                + szuint + szLevel;
     }
 
@@ -158,7 +158,7 @@ public:
         m_Alignment = slayerInfo.m_Alignment;
 
         for (uint i = 0; i < SLAYER_COLOR_MAX; i++)
-            m_Colors[i] = slayerInfo.m_Colors[i]; // ½½·¹ÀÌ¾î »ö±ò Á¤º¸
+            m_Colors[i] = slayerInfo.m_Colors[i]; // ìŠ¬ë ˆì´ì–´ ìƒ‰ê¹” ì •ë³´
 
         m_MasterEffectColor = slayerInfo.m_MasterEffectColor;
 
@@ -420,21 +420,21 @@ public:
 
 private:
     ObjectID_t m_ObjectID;              // OID
-    string m_Name;                      // PCÀÇ ÀÌ¸§
-    Coord_t m_X;                        // X ÁÂÇ¥
-    Coord_t m_Y;                        // Y ÁÂÇ¥
-    Dir_t m_Dir;                        // ¹æÇâ
-    bitset<SLAYER_BIT_MAX> m_Outlook;   // ½½·¹ÀÌ¾î¿Ü¸ğÁ¤º¸
-    Color_t m_Colors[SLAYER_COLOR_MAX]; // ½½·¹ÀÌ¾î»ö±òÁ¤º¸
-    BYTE m_MasterEffectColor;           // ¸¶½ºÅÍ ÀÌÆåÆ® »ö±ò
-    HP_t m_CurrentHP;                   // ½½·¹ÀÌ¾îÇöÀçÃ¼·Â
-    HP_t m_MaxHP;                       // ½½·¹ÀÌ¾îÃÖ´ëÃ¼·Â
-    Speed_t m_AttackSpeed;              // °ø°İ¼Óµµ
-    Alignment_t m_Alignment;            // ¼ºÇâ
-    BYTE m_Competence;                  // ±ÇÇÑ
-    GuildID_t m_GuildID;                // ±æµå ¾ÆÀÌµğ
+    string m_Name;                      // PCì˜ ì´ë¦„
+    Coord_t m_X;                        // X ì¢Œí‘œ
+    Coord_t m_Y;                        // Y ì¢Œí‘œ
+    Dir_t m_Dir;                        // ë°©í–¥
+    bitset<SLAYER_BIT_MAX> m_Outlook;   // ìŠ¬ë ˆì´ì–´ì™¸ëª¨ì •ë³´
+    Color_t m_Colors[SLAYER_COLOR_MAX]; // ìŠ¬ë ˆì´ì–´ìƒ‰ê¹”ì •ë³´
+    BYTE m_MasterEffectColor;           // ë§ˆìŠ¤í„° ì´í™íŠ¸ ìƒ‰ê¹”
+    HP_t m_CurrentHP;                   // ìŠ¬ë ˆì´ì–´í˜„ì¬ì²´ë ¥
+    HP_t m_MaxHP;                       // ìŠ¬ë ˆì´ì–´ìµœëŒ€ì²´ë ¥
+    Speed_t m_AttackSpeed;              // ê³µê²©ì†ë„
+    Alignment_t m_Alignment;            // ì„±í–¥
+    BYTE m_Competence;                  // ê¶Œí•œ
+    GuildID_t m_GuildID;                // ê¸¸ë“œ ì•„ì´ë””
     uint m_UnionID;
-    Rank_t m_Rank; // °è±Ş
+    Rank_t m_Rank; // ê³„ê¸‰
     Level_t m_AdvancementLevel;
 };
 

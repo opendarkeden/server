@@ -17,7 +17,7 @@
 #include "GCSkillToTileOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -36,7 +36,7 @@ void Sanctuary::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -53,7 +53,7 @@ void Sanctuary::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -97,7 +97,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
             bTileCheck = true;
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bTileCheck) {
-            // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
@@ -110,7 +110,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
 
-            // ÀÏ´Ü ÀÌ¹Ì sanctuary°¡ ÀÖ´ÂÁö °Ë»öÇÑ´Ù.
+            // ì¼ë‹¨ ì´ë¯¸ sanctuaryê°€ ìˆëŠ”ì§€ ê²€ìƒ‰í•œë‹¤.
             for (oY = -1; oY <= 1; oY++)
                 for (oX = -1; oX <= 1; oX++) {
                     int tileX = X + oX;
@@ -121,8 +121,8 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                         if (tile.canAddEffect()) {
                             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_SANCTUARY);
 
-                            // ÀÌ¹Ì ÀÖ´Ù¸é
-                            // ±â¼ú ½ÇÆĞ´Ù.
+                            // ì´ë¯¸ ìˆë‹¤ë©´
+                            // ê¸°ìˆ  ì‹¤íŒ¨ë‹¤.
                             if (pOldEffect != NULL) {
                                 executeSkillFailNormal(pSlayer, getSkillType(), NULL);
 
@@ -135,7 +135,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                     }
                 }
 
-            // ½ÇÆĞÇÏ¸é ¸¶³ª°¡ ÁÙ¸é ¾È µÇ¹Ç·Î ¿©±â¼­ ÁÙ¿©ÁØ´Ù.
+            // ì‹¤íŒ¨í•˜ë©´ ë§ˆë‚˜ê°€ ì¤„ë©´ ì•ˆ ë˜ë¯€ë¡œ ì—¬ê¸°ì„œ ì¤„ì—¬ì¤€ë‹¤.
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
             for (oY = -1; oY <= 1; oY++)
@@ -145,11 +145,11 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                     if (rect.ptInRect(tileX, tileY)) {
                         Tile& tile = pZone->getTile(tileX, tileY);
 
-                        // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
-                        // if (tile.canAddEffect())	// À§¿¡¼­ Ã¼Å©Çß´Ù.
+                        // í˜„ì¬ íƒ€ì¼ì—ë‹¤ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë‹¤ë©´...
+                        // if (tile.canAddEffect())	// ìœ„ì—ì„œ ì²´í¬í–ˆë‹¤.
                         {
-                            // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
-                            // À§¿¡¼­ Ã¼Å©Çß´Ù.
+                            // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
+                            // ìœ„ì—ì„œ ì²´í¬í–ˆë‹¤.
                             /*
                             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_SANCTUARY);
                             if (pOldEffect != NULL)
@@ -159,14 +159,14 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                             }
                             */
 
-                            // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                            // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                             EffectSanctuary* pEffect = new EffectSanctuary(pZone, tileX, tileY, X, Y);
                             pEffect->setDeadline(output.Duration);
                             pEffect->setLevel(pSlayer->getINT());
                             pEffect->setDuration(output.Duration);
                             pEffect->setStartTime();
 
-                            // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                            // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                             objectregister.registerObject(pEffect);
                             pZone->addEffect(pEffect);
                             tile.addEffect(pEffect);
@@ -189,7 +189,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                                 {
                                     //	pTargetCreature = dynamic_cast<Creature*>(pTarget);
 
-                                    // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                                    // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                                     /*
                                     EffectSanctuary* pEffect = new EffectSanctuary(pZone , tileX, tileY, X, Y);
                                     pEffect->setDeadline(output.Duration);
@@ -197,7 +197,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                                     pEffect->setDuration(output.Duration);
                                     pEffect->setStartTime();
 
-                                    // Ä³¸¯ÅÍ¿¡ ºÙ´Â´Ù. ¸ø ¿òÁ÷ÀÌ°Ô ÇÒ·Á°í..
+                                    // ìºë¦­í„°ì— ë¶™ëŠ”ë‹¤. ëª» ì›€ì§ì´ê²Œ í• ë ¤ê³ ..
                                     objectregister.registerObject(pEffect);
                                     pTargetCreature->getEffectManager()->addEffect(pEffect);
                                     pZone->addEffect(pEffect);
@@ -219,9 +219,9 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                     }
                 }
 
-            // client¿¡¼­´Â effect»ı¼ºµÇ´Â ½Ã°£ÀÌ ÀÖ¾î¼­
-            // Å¸ÀÌ¹Ö ¸ÂÃâ·Á¸é.. ½Ã°£À» Á» »©Áà¾ß ÇÑ´Ù. -_-;
-            output.Duration -= 20; // 2ÃÊ »«´Ù.
+            // clientì—ì„œëŠ” effectìƒì„±ë˜ëŠ” ì‹œê°„ì´ ìˆì–´ì„œ
+            // íƒ€ì´ë° ë§ì¶œë ¤ë©´.. ì‹œê°„ì„ ì¢€ ë¹¼ì¤˜ì•¼ í•œë‹¤. -_-;
+            output.Duration -= 20; // 2ì´ˆ ëº€ë‹¤.
 
             _GCSkillToTileOK1.setSkillType(SkillType);
             _GCSkillToTileOK1.setCEffectID(CEffectID);
@@ -288,8 +288,8 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pSlayer);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pSlayer)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pSlayer)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -298,9 +298,9 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pSlayer) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (!pWatcher->isPC()) {
-                        // cout << "Sanctuary : ¿ÓÃ³ ¸®½ºÆ®°¡ PC°¡ ¾Æ´Õ´Ï´Ù." << endl;
+                        // cout << "Sanctuary : ì™“ì²˜ ë¦¬ìŠ¤íŠ¸ê°€ PCê°€ ì•„ë‹™ë‹ˆë‹¤." << endl;
                         GCSkillFailed1 _GCSkillFailed1;
                         _GCSkillFailed1.setSkillType(getSkillType());
                         pSlayer->getPlayer()->sendPacket(&_GCSkillFailed1);
@@ -334,7 +334,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 

@@ -33,7 +33,7 @@ void ActionRandomSay::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRandomSay::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -45,11 +45,11 @@ void ActionRandomSay::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pCreature2 == NULL);
     Assert(pCreature1->isNPC());
 
-    // RandomSay´Â ¾Æ·¡¿¡¼­ º¸´Ù½ÃÇÇ, ÀÓÀÇÀÇ ¹üÀ§(Start¿Í End) ¾ÈÀÇ
-    // ½ºÅ©¸³Æ® Áß ·£´ýÀ» µ¹·Á ÇÏ³ª¸¦ Å¬¶óÀÌ¾ðÆ®¿¡°Ô º¸³»´Â ½ÄÀÌ´Ù.
-    // ±×·¯¹Ç·Î Start¿Í End »çÀÌ¿¡ Á¸ÀçÇÏÁö ¾Ê´Â ½ºÅ©¸³Æ®°¡ ÀÖÀ¸¸é °ï¶õÇÏ´Ù.
-    // ½ºÅ©¸³Æ® Å×ÀÌºíÀ» ¸¸µé ¶§, RandomSay¿¡ »ç¿ëÇÏ´Â °ÍÀº
-    // µ¥ÀÌÅÍ°¡ ¹Ýµå½Ã ¿¬¼ÓÀûÀ¸·Î Á¸ÀçÇÏ°Ô ¸¸µé¾î¾ß ÇÑ´Ù.
+    // RandomSayëŠ” ì•„ëž˜ì—ì„œ ë³´ë‹¤ì‹œí”¼, ìž„ì˜ì˜ ë²”ìœ„(Startì™€ End) ì•ˆì˜
+    // ìŠ¤í¬ë¦½íŠ¸ ì¤‘ ëžœë¤ì„ ëŒë ¤ í•˜ë‚˜ë¥¼ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚´ëŠ” ì‹ì´ë‹¤.
+    // ê·¸ëŸ¬ë¯€ë¡œ Startì™€ End ì‚¬ì´ì— ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ìŠ¤í¬ë¦½íŠ¸ê°€ ìžˆìœ¼ë©´ ê³¤ëž€í•˜ë‹¤.
+    // ìŠ¤í¬ë¦½íŠ¸ í…Œì´ë¸”ì„ ë§Œë“¤ ë•Œ, RandomSayì— ì‚¬ìš©í•˜ëŠ” ê²ƒì€
+    // ë°ì´í„°ê°€ ë°˜ë“œì‹œ ì—°ì†ì ìœ¼ë¡œ ì¡´ìž¬í•˜ê²Œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
     NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
     ScriptID_t scriptID = m_StartScriptID + random() % (m_EndScriptID - m_StartScriptID + 1);
     const Script* pScript = g_pPublicScriptManager->getScript(scriptID);

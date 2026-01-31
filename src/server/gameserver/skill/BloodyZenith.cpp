@@ -17,7 +17,7 @@
 #include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// πÏ∆ƒ¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Î±ÄÌååÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -37,8 +37,8 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             return;
@@ -88,21 +88,21 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
             CheckCrossCounter(pVampire, pTargetCreature, Damage);
 
-            // ∏∂≥™∏¶ ±Ô¥¬¥Ÿ.
+            // ÎßàÎÇòÎ•º ÍπçÎäîÎã§.
             decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ•πÃ¡ˆ∏¶ ∞°«œ∞Ì, æ∆¿Ã≈€ ≥ª±∏µµ∏¶ ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º Í∞ÄÌïòÍ≥†, ÏïÑÏù¥ÌÖú ÎÇ¥Íµ¨ÎèÑÎ•º Îñ®Ïñ¥Îú®Î¶∞Îã§.
             setDamage(pTargetCreature, Damage, pVampire, getSkillType(), &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pVampire, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             //			if (bCriticalHit)
             //			{
             //				knockbackCreature(pZone, pTargetCreature, pVampire->getX(), pVampire->getY());
             //			}
 
-            // ¿Ãπ¯ ∞¯∞›¿∏∑Œ ªÛ¥Î∞° ¡◊æ˙¥Ÿ∏È ∞Ê«Ëƒ°∞° ø√∂Û∞£¥Ÿ.
+            // Ïù¥Î≤à Í≥µÍ≤©ÏúºÎ°ú ÏÉÅÎåÄÍ∞Ä Ï£ΩÏóàÎã§Î©¥ Í≤ΩÌóòÏπòÍ∞Ä Ïò¨ÎùºÍ∞ÑÎã§.
             if (pTargetCreature->isDead()) {
                 int exp = computeCreatureExp(pTargetCreature, KILL_EXP);
                 shareVampExp(pVampire, exp, _GCSkillToObjectOK1);
@@ -110,7 +110,7 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
             increaseAlignment(pVampire, pTargetCreature, _GCSkillToObjectOK1);
 
-            // ∆–≈∂¿ª ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK1.setSkillType(getSkillType());
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -156,7 +156,7 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ∏ÛΩ∫≈Õ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Î™¨Ïä§ÌÑ∞ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void BloodyZenith::execute(Monster* pMonster, Creature* pEnemy)
 

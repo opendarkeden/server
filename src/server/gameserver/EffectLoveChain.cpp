@@ -2,8 +2,8 @@
 // Filename    : EffectLoveChain.cpp
 // Written by  : elca
 // Description :
-// ±ºÀÎ±â¼ú Sniping ¶Ç´Â ¹ìÆÄÀÌ¾î ±â¼ú Invisibility·Î ÀÎÇØ¼­
-// ÇöÀç Á¡Á¡ Èñ¹ÌÇØÁ®°¡°í ÀÖ´Â(»ç¶óÁö°í ÀÖ´Â) Å©¸®ÃÄ¿¡ ºÙ´Â ÀÌÆåÆ®ÀÌ´Ù.
+// êµ°ì¸ê¸°ìˆ  Sniping ë˜ëŠ” ë±€íŒŒì´ì–´ ê¸°ìˆ  Invisibilityë¡œ ì¸í•´ì„œ
+// í˜„ìž¬ ì ì  í¬ë¯¸í•´ì ¸ê°€ê³  ìžˆëŠ”(ì‚¬ë¼ì§€ê³  ìžˆëŠ”) í¬ë¦¬ì³ì— ë¶™ëŠ” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectLoveChain.h"
@@ -56,7 +56,7 @@ void EffectLoveChain::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ÀÌÆåÆ® ÇÃ·¹±×°¡ ¾ø´Ù¸é Á×¾ú´Ù°Å³ª ÇÏ´Â ¹®Á¦·Î transport ÇÏÁö ¾Ê°Ú´Ù´Â°É ÀÇ¹ÌÇÑ´Ù.
+    // ì´íŽ™íŠ¸ í”Œë ˆê·¸ê°€ ì—†ë‹¤ë©´ ì£½ì—ˆë‹¤ê±°ë‚˜ í•˜ëŠ” ë¬¸ì œë¡œ transport í•˜ì§€ ì•Šê² ë‹¤ëŠ”ê±¸ ì˜ë¯¸í•œë‹¤.
     if (!pCreature->isFlag(Effect::EFFECT_CLASS_LOVE_CHAIN))
         return;
 
@@ -76,13 +76,13 @@ void EffectLoveChain::unaffect(Creature* pCreature)
     ZoneCoord_t y = pCreature->getY();
     pCreature->removeFlag(Effect::EFFECT_CLASS_LOVE_CHAIN);
 
-    // Effect °¡ ¾ø¾îÁ³À½À» ¾Ë¸°´Ù.
+    // Effect ê°€ ì—†ì–´ì¡ŒìŒì„ ì•Œë¦°ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_LOVE_CHAIN);
     pZone->broadcastPacket(x, y, &gcRemoveEffect);
 
-    // Target À» Ã¼Å©ÇØ¼­ Àü¼ÛÀÌ °¡´ÉÇÏ¸é Àü¼ÛÇÑ´Ù.
+    // Target ì„ ì²´í¬í•´ì„œ ì „ì†¡ì´ ê°€ëŠ¥í•˜ë©´ ì „ì†¡í•œë‹¤.
     bool bValid = false;
 
     __ENTER_CRITICAL_SECTION((*g_pPCFinder))
@@ -91,14 +91,14 @@ void EffectLoveChain::unaffect(Creature* pCreature)
     if (pTargetCreature != NULL) {
         Zone* pTargetZone = pTargetCreature->getZone();
         if (pTargetZone != NULL) {
-            // ¸¶½ºÅÍ ·¹¾î·Î´Â ÀÌµ¿ÇÒ ¼ö ¾ø´Ù.
+            // ë§ˆìŠ¤í„° ë ˆì–´ë¡œëŠ” ì´ë™í•  ìˆ˜ ì—†ë‹¤.
             if (!pTargetZone->isMasterLair() && !GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID())) {
-                // À¯·á ¼­ºñ½º ÀÌ¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì´ìš©ì´ ê°€ëŠ¥í•œê°€?
                 if (pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID()) ||
                     !(g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID())->isPayPlay())) {
                     if (!pTargetCreature->isPC() ||
                         !(dynamic_cast<PlayerCreature*>(pTargetCreature)->getStore()->isOpen())) {
-                        // ¾ßÀü»ç·ÉºÎ, ½Ã¿Ü°ûÁö¿ª, ÀÌº¥Æ®°æ±âÀå, ÀÌº¥Æ®OX Á¸À¸·Î´Â °¥ ¼ö ¾ø´Ù.
+                        // ì•¼ì „ì‚¬ë ¹ë¶€, ì‹œì™¸ê³½ì§€ì—­, ì´ë²¤íŠ¸ê²½ê¸°ìž¥, ì´ë²¤íŠ¸OX ì¡´ìœ¼ë¡œëŠ” ê°ˆ ìˆ˜ ì—†ë‹¤.
                         if (pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
                             pTargetZone->getZoneID() != 1005 && pTargetZone->getZoneID() != 1006 &&
                             pTargetZone->getZoneID() != 1131 && pTargetZone->getZoneID() != 1132 &&

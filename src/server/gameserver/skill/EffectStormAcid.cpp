@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectStormAcid.cpp
-// Written by  : ÀåÈ«Ã¢
+// Written by  : ìž¥í™ì°½
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -61,22 +61,22 @@ void EffectStormAcid::affect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼ö ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì‚¬ìš©ìžë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ NULLì´ ë  ìˆ˜ ìžˆë‹¤.
     // by bezz. 2003.3.13
     Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
-    // Ä³½ºÅÍ°¡ ¾øÀ¸¸é ¹«½ÃÇÑ´Ù.
+    // ìºìŠ¤í„°ê°€ ì—†ìœ¼ë©´ ë¬´ì‹œí•œë‹¤.
     if (pCastCreature == NULL)
         return;
 
-    // EffectStormAcidÀº AcidStorm, PoisonStorm, BloodyStormÀ§¸¦ Áö³ª°¥¶§ ºÙ´Â´Ù.
-    // ÀÌ´Â 3¹øÀÇ ¿¬¼Ó µ¥¹ÌÁö¸¦ ÁÖ°í »ç¶óÁø´Ù.
+    // EffectStormAcidì€ AcidStorm, PoisonStorm, BloodyStormìœ„ë¥¼ ì§€ë‚˜ê°ˆë•Œ ë¶™ëŠ”ë‹¤.
+    // ì´ëŠ” 3ë²ˆì˜ ì—°ì† ë°ë¯¸ì§€ë¥¼ ì£¼ê³  ì‚¬ë¼ì§„ë‹¤.
 
     Damage_t StormDamage = m_Point;
     GCModifyInformation GCAttackerMI;
 
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
         && canAttack(pCastCreature, pCreature) && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -112,9 +112,9 @@ void EffectStormAcid::affect(Creature* pCreature)
             pVampire->getPlayer()->sendPacket(&GCAttackerMI);
         }
 
-        // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
         // by sigi. 2002.9.9
-        // setDamage ¸¦ ºÒ·¯¼­ Ã³¸®ÇÑ´Ù. ÁÖ¼®Ã³¸®
+        // setDamage ë¥¼ ë¶ˆëŸ¬ì„œ ì²˜ë¦¬í•œë‹¤. ì£¼ì„ì²˜ë¦¬
         // by bezz. 2002.12.31
         /*		if (pCreature->isDead())
                 {
@@ -157,7 +157,7 @@ void EffectStormAcid::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_STORM_ACID);

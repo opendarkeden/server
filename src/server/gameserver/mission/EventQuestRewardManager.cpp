@@ -14,7 +14,7 @@ void EventQuestRewardManager::load(const string& name) {
     Statement* pStmt = NULL;
 
     BEGIN_DB {
-        // ÀÌ°Å ¾È¾²´Â°Å´Ù.
+        // ì´ê±° ì•ˆì“°ëŠ”ê±°ë‹¤.
 
         /*		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
                 Result* pResult;
@@ -32,7 +32,7 @@ void EventQuestRewardManager::load(const string& name) {
 
                     if ( m_RewardClasses[rClass] != NULL )
                     {
-                        cout << "EventQuestRewardManager : ¿Ö ¶È°°Àº°Ô µÎ°³³ª µé¾îÀÖ¾î" << (uint)rClass << endl;
+                        cout << "EventQuestRewardManager : ì™œ ë˜‘ê°™ì€ê²Œ ë‘ê°œë‚˜ ë“¤ì–´ìžˆì–´" << (uint)rClass << endl;
                         Assert( false );
                     }
 
@@ -56,7 +56,7 @@ void EventQuestRewardManager::load(const string& name) {
             DWORD			time	= (DWORD)				pResult->getInt( ++index );
 
             if ( m_RewardClasses[ rClass ] == NULL ){
-                cout << "EventQuestRewardManager : ÀÌ³ðÀÌ ÁÙ ¼ö ¾ø´Â ÀÌº¥Æ®Äù½ºÆ®ÀÚ³ª" << (uint)rClass << endl;
+                cout << "EventQuestRewardManager : ì´ë†ˆì´ ì¤„ ìˆ˜ ì—†ëŠ” ì´ë²¤íŠ¸í€˜ìŠ¤íŠ¸ìžë‚˜" << (uint)rClass << endl;
                 Assert( false );
             //	m_RewardClasses[rClass] = new RandomRewardClass( rClass );
             //	cout << "NPC : " << name << ", RewardClass : " << (uint)rClass << endl;
@@ -81,7 +81,7 @@ void EventQuestRewardManager::load(const string& name) {
             DWORD			time	= (DWORD)				pResult->getInt( ++index );
 
             if ( m_RewardClasses[ rClass ] == NULL ){
-                cout << "EventQuestRewardManager : ÀÌ³ðÀÌ ÁÙ ¼ö ¾ø´Â ÀÌº¥Æ®Äù½ºÆ®ÀÚ³ª" << endl;
+                cout << "EventQuestRewardManager : ì´ë†ˆì´ ì¤„ ìˆ˜ ì—†ëŠ” ì´ë²¤íŠ¸í€˜ìŠ¤íŠ¸ìžë‚˜" << endl;
                 Assert( false );
             }
 

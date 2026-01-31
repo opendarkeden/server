@@ -110,19 +110,19 @@ public:
     string toString() const;
 
 private:
-    ZoneID_t m_ZoneID;     // Á¸ID
-    ShrineID_t m_ShrineID; // ¼º »óÂ¡ÀÇ ShrineID
-    GuildID_t m_GuildID;   // ÁÖÀÎ ±æµå ID
-    string m_Name;         // ¼º ÀÌ¸§
-    int m_ItemTaxRatio;    // ¾ÆÀÌÅÛ »ì ¶§ ¼¼À² (%)
-    Gold_t m_EntranceFee;  // ÀÔÀå·á
-    Gold_t m_TaxBalance;   // ¼¼±İ ½×¿©ÀÖ´Â°Å
-    Race_t m_Race;         // ¾î´À Á¾Á·ÀÇ ¼ºÀÎ°¡
+    ZoneID_t m_ZoneID;     // ì¡´ID
+    ShrineID_t m_ShrineID; // ì„± ìƒì§•ì˜ ShrineID
+    GuildID_t m_GuildID;   // ì£¼ì¸ ê¸¸ë“œ ID
+    string m_Name;         // ì„± ì´ë¦„
+    int m_ItemTaxRatio;    // ì•„ì´í…œ ì‚´ ë•Œ ì„¸ìœ¨ (%)
+    Gold_t m_EntranceFee;  // ì…ì¥ë£Œ
+    Gold_t m_TaxBalance;   // ì„¸ê¸ˆ ìŒ“ì—¬ìˆëŠ”ê±°
+    Race_t m_Race;         // ì–´ëŠ ì¢…ì¡±ì˜ ì„±ì¸ê°€
 
-    list<OptionType_t> m_BonusOptionList; // Á¾Á· º¸³Ê½º
+    list<OptionType_t> m_BonusOptionList; // ì¢…ì¡± ë³´ë„ˆìŠ¤
     list<ZoneID_t> m_CastleZoneIDList;
 
-    ZONE_COORD m_ResurrectPosition[CASTLE_RESURRECT_PRIORITY_MAX]; // ¼ºÀÇ ºÎÈ° À§Ä¡
+    ZONE_COORD m_ResurrectPosition[CASTLE_RESURRECT_PRIORITY_MAX]; // ì„±ì˜ ë¶€í™œ ìœ„ì¹˜
 };
 
 class CastleInfoManager {
@@ -168,7 +168,7 @@ public:
     bool getResurrectPosition(PlayerCreature* pPC, ZONE_COORD& zoneCoord);
 
     //----------------------------------------------------------------------
-    // CastleZoneID °ü·Ã
+    // CastleZoneID ê´€ë ¨
     //----------------------------------------------------------------------
     bool isCastleZone(ZoneID_t castleZoneID, ZoneID_t targetZoneID) const;
     bool isCastleZone(ZoneID_t zoneID) const;
@@ -178,7 +178,7 @@ public:
     bool isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const;
 
     //----------------------------------------------------------------------
-    // ¸ğµç ¼º¿¡ Àû¿ë µÇ´Â °Íµé
+    // ëª¨ë“  ì„±ì— ì ìš© ë˜ëŠ” ê²ƒë“¤
     //----------------------------------------------------------------------
     void releaseAllSafeZone();
     void resetAllSafeZone();

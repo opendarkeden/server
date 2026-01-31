@@ -37,47 +37,47 @@ void CGResurrectHandler::execute(CGResurrect* pPacket, Player* pPlayer)
     if (pCreature->findEffect(Effect::EFFECT_CLASS_ETERNITY))
         return;
 
-    // ÇöÀç Å©¸®ÃÄ¿¡°Ô COMA ÀÌÆåÆ®°¡ ºÙ¾îÀÖÁö ¾Ê´Ù¸é ¿¡·¯´Ù.
+    // í˜„ìž¬ í¬ë¦¬ì³ì—ê²Œ COMA ì´íŽ™íŠ¸ê°€ ë¶™ì–´ìžˆì§€ ì•Šë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
-        // cout << "ÇÃ·¡±× ºÙ¾îÀÖÀ½." << endl;
+        // cout << "í”Œëž˜ê·¸ ë¶™ì–´ìžˆìŒ." << endl;
 
-        // COMA ÀÌÆåÆ®¿¡ Á¢±ÙÇÑ´Ù.
+        // COMA ì´íŽ™íŠ¸ì— ì ‘ê·¼í•œë‹¤.
         EffectManager* pEffectManager = pCreature->getEffectManager();
         Assert(pEffectManager != NULL);
 
         EffectComa* pEffectComa = (EffectComa*)(pEffectManager->findEffect(Effect::EFFECT_CLASS_COMA));
         Assert(pEffectComa != NULL);
 
-        // Á×Àº Áö 5ÃÊ°¡ ¾ÆÁ÷ Áö³ªÁö ¾Ê¾Ò´Ù¸é, µÇ»ì¾Æ³¯ ¼ö ¾ø´Ù.
+        // ì£½ì€ ì§€ 5ì´ˆê°€ ì•„ì§ ì§€ë‚˜ì§€ ì•Šì•˜ë‹¤ë©´, ë˜ì‚´ì•„ë‚  ìˆ˜ ì—†ë‹¤.
         if (pEffectComa->canResurrect()) {
-            // cout << "5ÃÊ°¡ Áö³µÀ¸´Ï ºÎÈ°½ÃÅ³ ¼ö ÀÖÀ½." << endl;
+            // cout << "5ì´ˆê°€ ì§€ë‚¬ìœ¼ë‹ˆ ë¶€í™œì‹œí‚¬ ìˆ˜ ìžˆìŒ." << endl;
 
             /*
             if (pCreature->isSlayer())
             {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-                //cout << "ÇöÀç HP:" << pSlayer->getHP(ATTR_CURRENT);
+                //cout << "í˜„ìž¬ HP:" << pSlayer->getHP(ATTR_CURRENT);
             }
             else if (pCreature->isVampire())
             {
                 Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-                //cout << "ÇöÀç HP:" << pVampire->getHP(ATTR_CURRENT);
+                //cout << "í˜„ìž¬ HP:" << pVampire->getHP(ATTR_CURRENT);
             }
             */
 
-            // µ¥µå¶óÀÎÀ» 0À¸·Î ¸¸µé¾îÁØ´Ù. ÀÌ·¸°Ô ÇÏ¸é ÇÏÆ®ºñÆ®¿¡¼­
-            // unaffectµÇ¸é¼­ ÇÃ·¹ÀÌ¾î¸¦ ÀÚµ¿À¸·Î ºÎÈ°½ÃÅ°°Ô µÈ´Ù.
+            // ë°ë“œë¼ì¸ì„ 0ìœ¼ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤. ì´ë ‡ê²Œ í•˜ë©´ í•˜íŠ¸ë¹„íŠ¸ì—ì„œ
+            // unaffectë˜ë©´ì„œ í”Œë ˆì´ì–´ë¥¼ ìžë™ìœ¼ë¡œ ë¶€í™œì‹œí‚¤ê²Œ ëœë‹¤.
             pEffectComa->setDeadline(0);
         } else {
-            // cout << "5ÃÊ°¡ Áö³ªÁö ¾Ê¾Ò´Ù." << endl;
+            // cout << "5ì´ˆê°€ ì§€ë‚˜ì§€ ì•Šì•˜ë‹¤." << endl;
         }
     } else {
-        // cout << "ÇÃ·¡±×°¡ ¾ø´Ù." << endl;
+        // cout << "í”Œëž˜ê·¸ê°€ ì—†ë‹¤." << endl;
 
-        // ¾îµð¼­ÀÎÁö´Â È®½ÇÈ÷ ¾Ë ¼ö ¾øÀ¸³ª, ¾îµò°¡¿¡¼­ Á×Àº µÚ¿¡
-        // ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¡ ¹ö¸®°Å³ª, Á×Àº »óÅÂ¿¡¼­ HP°¡ ¿Ã¶ó°¡´Â Çö»óÀÌ
-        // ¹ß»ýÇÏ´Â µí ÇÏ´Ù. ±×·¡¼­ ÀÌÆåÆ® °É·ÁÀÖÁö ¾ÊÀº »óÈ²¿¡¼­ ÆÐÅ¶
-        // ³¯¾Æ¿À¸é °­Á¦·Î Á×ÀÌ´Â ÄÚµå¸¦ Áý¾î³Ö´Â´Ù.
+        // ì–´ë””ì„œì¸ì§€ëŠ” í™•ì‹¤ížˆ ì•Œ ìˆ˜ ì—†ìœ¼ë‚˜, ì–´ë”˜ê°€ì—ì„œ ì£½ì€ ë’¤ì—
+        // ì½”ë§ˆ ì´íŽ™íŠ¸ê°€ ë‚ ì•„ê°€ ë²„ë¦¬ê±°ë‚˜, ì£½ì€ ìƒíƒœì—ì„œ HPê°€ ì˜¬ë¼ê°€ëŠ” í˜„ìƒì´
+        // ë°œìƒí•˜ëŠ” ë“¯ í•˜ë‹¤. ê·¸ëž˜ì„œ ì´íŽ™íŠ¸ ê±¸ë ¤ìžˆì§€ ì•Šì€ ìƒí™©ì—ì„œ íŒ¨í‚·
+        // ë‚ ì•„ì˜¤ë©´ ê°•ì œë¡œ ì£½ì´ëŠ” ì½”ë“œë¥¼ ì§‘ì–´ë„£ëŠ”ë‹¤.
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
             pSlayer->setHP(0, ATTR_CURRENT);

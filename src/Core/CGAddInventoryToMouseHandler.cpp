@@ -57,7 +57,7 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
     Inventory* pInventory = pPC->getInventory();
     Assert(pInventory != NULL);
 
-    // ÀÎº¥Åä¸® ÁÂÇ¥¸¦ ³Ñ¾î°¡¸é °ï¶õÇÏ´Ù...
+    // ì¸ë²¤í† ë¦¬ ì¢Œí‘œë¥¼ ë„˜ì–´ê°€ë©´ ê³¤ëž€í•˜ë‹¤...
     if (InvenX >= pInventory->getWidth() || InvenY >= pInventory->getHeight()) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -75,8 +75,8 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
         return;
     }
 
-    // ´õÇÏ°íÀÚ ÇÏ´Â ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª, ÀÌ¹Ì ¸¶¿ì½º¿¡ ¹º°¡°¡ ºÙ¾îÀÖ´Ù¸é
-    // µé ¼ö ¾ø´Ù.
+    // ë”í•˜ê³ ìž í•˜ëŠ” ì•„ì´í…œì´ ì—†ê±°ë‚˜, ì´ë¯¸ ë§ˆìš°ìŠ¤ì— ë­”ê°€ê°€ ë¶™ì–´ìžˆë‹¤ë©´
+    // ë“¤ ìˆ˜ ì—†ë‹¤.
     if (pItem == NULL || pExtraSlotItem != NULL) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -84,9 +84,9 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
         return;
     }
 
-    // ÀÏ¹ÝÀûÀÎ ¾ÆÀÌÅÛ ¸¶¿ì½º ´õÇÏ±â ·çÆ¾
+    // ì¼ë°˜ì ì¸ ì•„ì´í…œ ë§ˆìš°ìŠ¤ ë”í•˜ê¸° ë£¨í‹´
     if (ItemOID != 0) {
-        // OID°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é °ï¶õÇÏ´Ù...
+        // OIDê°€ ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ ê³¤ëž€í•˜ë‹¤...
         if (pItem->getObjectID() != ItemOID) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -97,7 +97,7 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
         pInventory->deleteItem(pItem->getObjectID());
         pPC->addItemToExtraInventorySlot(pItem);
         // pItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
         char pField[80];
         sprintf(pField, "Storage=%d, StorageID=0", STORAGE_EXTRASLOT);
         pItem->tinysave(pField);
@@ -110,9 +110,9 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
             pPlayer->sendPacket(&gcTradeVerify);
         }
     }
-    // °ãÄ¡´Â ¾ÆÀÌÅÛ ºÐ¸®ÇÏ±â ·çÆ¾
+    // ê²¹ì¹˜ëŠ” ì•„ì´í…œ ë¶„ë¦¬í•˜ê¸° ë£¨í‹´
     else {
-        // °ãÄ¡´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª, ÇöÀç ¼ýÀÚ°¡ 2 ¹Ì¸¸ÀÌ¶ó¸é ºÐ¸®ÇÒ ¼ö ¾ø´Ù.
+        // ê²¹ì¹˜ëŠ” ì•„ì´í…œì´ ì•„ë‹ˆê±°ë‚˜, í˜„ìž¬ ìˆ«ìžê°€ 2 ë¯¸ë§Œì´ë¼ë©´ ë¶„ë¦¬í•  ìˆ˜ ì—†ë‹¤.
         if (!isStackable(pItem) || pItem->getNum() < 2 ||
             (pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 2 &&
              pItem->getNum() == 99) ||
@@ -123,7 +123,7 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
             return;
         }
 
-        // ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀ» ¹ÙÅÁÀ¸·Î °°Àº ¾ÆÀÌÅÛÀ» »ý¼ºÇÑ´Ù.
+        // ê¸°ì¡´ì˜ ì•„ì´í…œì„ ë°”íƒ•ìœ¼ë¡œ ê°™ì€ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
         Item::ItemClass IClass = pItem->getItemClass();
         ItemType_t IType = pItem->getItemType();
         const list<OptionType_t>& OType = pItem->getOptionTypeList();
@@ -131,18 +131,18 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
         Item* pNewItem = g_pItemFactoryManager->createItem(IClass, IType, OType);
         Assert(pNewItem != NULL);
 
-        // ¸¶¿ì½º¿¡´Ù ´õÇÒ ¾ÆÀÌÅÛÀº ±âÁ¸ÀÇ OID¸¦ °¡Á®°¡°í,
-        // ÀÎº¥Åä¸®¿¡ ³²À» ¾ÆÀÌÅÛÀº »õ·Î¿î OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+        // ë§ˆìš°ìŠ¤ì—ë‹¤ ë”í•  ì•„ì´í…œì€ ê¸°ì¡´ì˜ OIDë¥¼ ê°€ì ¸ê°€ê³ ,
+        // ì¸ë²¤í† ë¦¬ì— ë‚¨ì„ ì•„ì´í…œì€ ìƒˆë¡œìš´ OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
         Zone* pZone = pPC->getZone();
         Assert(pZone != NULL);
 
         ObjectRegistry& OR = pZone->getObjectRegistry();
         OR.registerObject(pNewItem);
 
-        // ÀÎº¥Åä¸®¿¡ ³²¾ÆÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ýÀÚ´Â ¿ø·¡ ¼ýÀÚ¿¡¼­ 1À» »« ¼ýÀÚ°¡ µÈ´Ù.
-        // ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀº ¸¶¿ì½º·Î ¿Å°ÜÁ³À¸¹Ç·Î, ¼ýÀÚ°¡ 1ÀÌ µÈ´Ù.
-        // ÀÎº¥Åä¸®¿¡¼­ ¸¶¿ì½º·Î ¿Å°ÜÁø ¾ÆÀÌÅÛÀ» »èÁ¦ÇÏ°í,
-        // »õ·Î »ý¼ºµÈ ¾ÆÀÌÅÛÀ» ´õÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ì— ë‚¨ì•„ìžˆëŠ” ì•„ì´í…œì˜ ìˆ«ìžëŠ” ì›ëž˜ ìˆ«ìžì—ì„œ 1ì„ ëº€ ìˆ«ìžê°€ ëœë‹¤.
+        // ê¸°ì¡´ì˜ ì•„ì´í…œì€ ë§ˆìš°ìŠ¤ë¡œ ì˜®ê²¨ì¡Œìœ¼ë¯€ë¡œ, ìˆ«ìžê°€ 1ì´ ëœë‹¤.
+        // ì¸ë²¤í† ë¦¬ì—ì„œ ë§ˆìš°ìŠ¤ë¡œ ì˜®ê²¨ì§„ ì•„ì´í…œì„ ì‚­ì œí•˜ê³ ,
+        // ìƒˆë¡œ ìƒì„±ëœ ì•„ì´í…œì„ ë”í•œë‹¤.
         pInventory->deleteItem(pItem->getObjectID());
         pPC->addItemToExtraInventorySlot(pItem);
 
@@ -152,23 +152,23 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket, Playe
 
         pInventory->addItem(InvenX, InvenY, pNewItem);
 
-        // ´Þ¶óÁø À§Ä¡ Á¤º¸¸¦ ¼¼ÀÌºêÇÑ´Ù...
+        // ë‹¬ë¼ì§„ ìœ„ì¹˜ ì •ë³´ë¥¼ ì„¸ì´ë¸Œí•œë‹¤...
         // pItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-        // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+        // itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
         char pField[80];
         sprintf(pField, "Num=%d, Storage=%d, StorageID=0", 1, STORAGE_EXTRASLOT);
         pItem->tinysave(pField);
 
         pNewItem->create(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
-        // pNewItem->setNum(NewNum); // À§¿¡¼­ Çß´Âµ¥ ¶Ç ÇÏ³×. -_-;
+        // pNewItem->setNum(NewNum); // ìœ„ì—ì„œ í–ˆëŠ”ë° ë˜ í•˜ë„¤. -_-;
         // pNewItem->save(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
-        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
         sprintf(pField, "Num=%d, Storage=%d, StorageID=0", NewNum, STORAGE_INVENTORY);
         pNewItem->tinysave(pField);
 
 
-        // Å¬¶óÀÌ¾ðÆ®¿¡°Ô´Â GCCreateItem ÆÐÅ¶À» ÀÌ¿ëÇØ
-        // ÀÎº¥Åä¸®¿¡ »õ·ÎÀÌ(?) »ý¼ºµÈ ¾ÆÀÌÅÛ¿¡ ´ëÇÑ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²ŒëŠ” GCCreateItem íŒ¨í‚·ì„ ì´ìš©í•´
+        // ì¸ë²¤í† ë¦¬ì— ìƒˆë¡œì´(?) ìƒì„±ëœ ì•„ì´í…œì— ëŒ€í•œ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         GCCreateItem gcCreateItem;
         gcCreateItem.setObjectID(pNewItem->getObjectID());
         gcCreateItem.setItemClass((BYTE)pNewItem->getItemClass());

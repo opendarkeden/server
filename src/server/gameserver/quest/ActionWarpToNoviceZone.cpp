@@ -53,7 +53,7 @@ void ActionWarpToNoviceZone::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToNoviceZone::execute(Creature* pNPC, Creature* pCreature)
 
@@ -101,15 +101,15 @@ void ActionWarpToNoviceZone::execute(Creature* pNPC, Creature* pCreature)
     try {
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(ZoneID);
 
-        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìžê°€ ì•„ë‹ˆë©´...
         if (pZoneInfo == NULL || pZoneInfo->isPayPlay() && !pGamePlayer->isPayPlaying()) {
             string connectIP = pGamePlayer->getSocket()->getHost();
 
-            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                 sendPayInfo(pGamePlayer);
             } else {
-                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                 GCSystemMessage gcSystemMessage;
 
                 if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {

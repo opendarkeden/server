@@ -22,32 +22,32 @@ public:
     virtual ~PCManager();
 
 public:
-    // Å©¸®Ã³ ¸Å´ÏÀú¿¡ »õ Å©¸®Ã³ °´Ã¼¸¦ µî·ÏÇÑ´Ù.
+    // í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ìƒˆ í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ë“±ë¡í•œë‹¤.
     // virtual void addCreature(Creature* pCreature) ;
 
-    // Å©¸®Ã³ ¸Å´ÏÀú¿¡ µé¾îÀÖ´Â Æ¯Á¤ Å©¸®Ã³ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+    // í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ë“¤ì–´ìˆëŠ” íŠ¹ì • í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
     // virtual void deleteCreature(ObjectID_t objectID) ;
 
-    // Å©¸®Ã³ ¸Å´ÏÀú¿¡ µé¾îÀÖ´Â Æ¯Á¤ Å©¸®Ã³ °´Ã¼¸¦ ¸®ÅÏÇÑ´Ù.
+    // í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ë“¤ì–´ìˆëŠ” íŠ¹ì • í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ë¦¬í„´í•œë‹¤.
     // Creature* getCreature(ObjectID_t objectID) const ;
 
-    // ¸Å´ÏÀú¿¡ ¼Ò¼ÓµÈ Å©¸®Ã³µé(NPC,Monster)À» Ã³¸®ÇÑ´Ù.
+    // ë§¤ë‹ˆì €ì— ì†Œì†ëœ í¬ë¦¬ì²˜ë“¤(NPC,Monster)ì„ ì²˜ë¦¬í•œë‹¤.
     virtual void processCreatures();
 
-    // Á×Àº Å©¸®Ã³¸¦ Ã³¸®ÇÑ´Ù.
+    // ì£½ì€ í¬ë¦¬ì²˜ë¥¼ ì²˜ë¦¬í•œë‹¤.
     virtual void killCreature(Creature* pDeadCreature);
 
-    // PC ¸Å´ÏÀúÀÏ °æ¿ì, ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+    // PC ë§¤ë‹ˆì €ì¼ ê²½ìš°, ë¸Œë¡œë“œìºìŠ¤íŠ¸í•œë‹¤.
     // void broadcastPacket(Packet* pPacket, Creature* owner) ;
 
-    // ¸ğµç »ç¿ëÀÚµé ´Ù¸¥ °÷À¸·Î ÀÌµ¿½ÃÅ²´Ù.
+    // ëª¨ë“  ì‚¬ìš©ìë“¤ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
     void transportAllCreatures(ZoneID_t ZoneID, ZoneCoord_t ZoneX = 0xffff, ZoneCoord_t ZoneY = 0xffff,
                                Race_t race = defaultRaceValue, Turn_t delay = 10) const;
 
     // get debug string
     string toString() const;
 
-    // Holy Land Race Bonus º¯È­¿¡ µû¸¥ ÇÃ·¹ÀÌ¾î refresh
+    // Holy Land Race Bonus ë³€í™”ì— ë”°ë¥¸ í”Œë ˆì´ì–´ refresh
     void setRefreshHolyLandPlayer(bool bRefresh) {
         m_bRefreshHolyLandPlayer = bRefresh;
     }

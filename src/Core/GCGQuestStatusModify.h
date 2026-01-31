@@ -2,7 +2,7 @@
 // Filename    : GCGQuestStatusModify.h
 // Written By  : elca@ewestsoft.com
 // Description :
-// ±â¼úÀÌ ¼º°øÇßÀ»¶§ º¸³»´Â ÆÐÅ¶À» À§ÇÑ Å¬·¡½º Á¤ÀÇ
+// ê¸°ìˆ ì´ ì„±ê³µí–ˆì„ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ ìœ„í•œ í´ëž˜ìŠ¤ ì •ì˜
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_GQUEST_STATUS_MODIFY_H__
@@ -16,16 +16,16 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCGQuestStatusModify;
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œìž„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìžì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ëž˜ìŠ¤
 //////////////////////////////////////////////////////////////////////////////
 
 class GCGQuestStatusModify : public Packet {
 public:
     enum ModifyType {
-        NO_MODIFY, // »óÅÂ°¡ ¹Ù²îÁö ¾Ê¾ÒÀ½
-        CURRENT,   // Äù½ºÆ®°¡ ½ÃÀÛµÇ¾úÀ½
-        SUCCESS,   // Äù½ºÆ®°¡ ¼º°øÇßÀ½
-        FAIL,      // Äù½ºÆ®°¡ ½ÇÆÐÇßÀ½
+        NO_MODIFY, // ìƒíƒœê°€ ë°”ë€Œì§€ ì•Šì•˜ìŒ
+        CURRENT,   // í€˜ìŠ¤íŠ¸ê°€ ì‹œìž‘ë˜ì—ˆìŒ
+        SUCCESS,   // í€˜ìŠ¤íŠ¸ê°€ ì„±ê³µí–ˆìŒ
+        FAIL,      // í€˜ìŠ¤íŠ¸ê°€ ì‹¤íŒ¨í–ˆìŒ
     };
 
     GCGQuestStatusModify();

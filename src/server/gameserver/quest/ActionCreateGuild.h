@@ -2,7 +2,7 @@
 // Filename    : ActionCreateGuild.h
 // Written By  : excel96
 // Description :
-// NPC¸¦ ÅëÇØ Å¬¶óÀÌ¾ðÆ®·Î ÇÏ¿©±Ý ±æµå »ý¼ºÃ¢À» ¶ç¿ì°Ô ÇÑ´Ù.
+// NPCë¥¼ í†µí•´ í´ë¼ì´ì–¸íŠ¸ë¡œ í•˜ì—¬ê¸ˆ ê¸¸ë“œ ìƒì„±ì°½ì„ ë„ìš°ê²Œ í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_CREATE_GUILD_H__

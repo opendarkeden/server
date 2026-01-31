@@ -31,8 +31,8 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¸¸ÀÏ ÀÌ ±â¼úÀÌ Æ¯º°ÇÑ ¹«±â°¡ ÀÖ¾î¾ß ½ÃÀüÇÒ ¼ö ÀÖ´Â ±â¼úÀÌ¶ó¸é...
-        // ±× °è¿­ÀÇ ¹«±â¸¦ µé°í ÀÖ´ÂÁö¸¦ Ã¼Å©ÇØ¼­ ¾Æ´Ï¶ó¸é ½ÇÆĞ´Ù.
+        // ë§Œì¼ ì´ ê¸°ìˆ ì´ íŠ¹ë³„í•œ ë¬´ê¸°ê°€ ìˆì–´ì•¼ ì‹œì „í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì´ë¼ë©´...
+        // ê·¸ ê³„ì—´ì˜ ë¬´ê¸°ë¥¼ ë“¤ê³  ìˆëŠ”ì§€ë¥¼ ì²´í¬í•´ì„œ ì•„ë‹ˆë¼ë©´ ì‹¤íŒ¨ë‹¤.
         bool bIncreaseExp = true;
 
         if (param.ItemClass != Item::ITEM_CLASS_MAX) {
@@ -62,10 +62,10 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
         bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // ¸¶³ª¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë§ˆë‚˜ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
             Dir_t dir = calcDirection(myX, myY, X, Y);
@@ -90,9 +90,9 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
                 int tileY = Y + mask.y;
                 int penalty = mask.penalty;
 
-                // ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é ¸ÂÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
+                // í˜„ì¬ íƒ€ì¼ì´ ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´ ë§ì„ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
                 if (rect.ptInRect(tileX, tileY)) {
-                    // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                    // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                     Tile& tile = pZone->getTile(tileX, tileY);
 
                     list<Creature*> targetList;
@@ -156,7 +156,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
                                 MaxDamage = max(Damage, MaxDamage);
                                 TotalDamage += Damage;
 
-                                // Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+                                // í˜ë„í‹°ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 100ì´ë‹¤.
                                 Damage = getPercentValue(Damage, penalty);
 
                                 ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -166,18 +166,18 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
                                 _GCSkillToTileOK2.addCListElement(targetObjectID);
                                 _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                                // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                 setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, NULL, &_GCSkillToTileOK1);
                                 computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
 
                                 increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
 
-                                // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                                // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                                 if (bCriticalHit || bForceKnockback) {
                                     knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                                 }
 
-                                // Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¸ÂÃá °É·Î °£ÁÖÇÑ´Ù.
+                                // íƒ€ê²Ÿì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ë§ì¶˜ ê±¸ë¡œ ê°„ì£¼í•œë‹¤.
                                 if (!pTargetCreature->isSlayer()) {
                                     bHit = true;
                                     if (maxEnemyLevel < pTargetCreature->getLevel())
@@ -207,7 +207,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
                 }
             }
 
-            // °ø°İÀÚÀÇ ¾ÆÀÌÅÛ ³»±¸¼ºÀ» ¶³¾î¶ß¸°´Ù.
+            // ê³µê²©ìì˜ ì•„ì´í…œ ë‚´êµ¬ì„±ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             if (pSkillInfo->getDomainType() != SKILL_DOMAIN_GUN) {
                 decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
             } else {
@@ -240,7 +240,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -248,7 +248,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
                 if (pTargetCreature->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pTargetCreature->isSlayer()) {
                         targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -260,7 +260,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
                     //					if ( param.SkillType == SKILL_WILD_TYPHOON )
@@ -272,11 +272,11 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
                     //						}
                     //					}
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                     //					_GCSkillToTileOK2.setSkillType(param.SkillType);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pSlayer);
                 }
@@ -336,10 +336,10 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
         }
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // ¸¶³ª¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë§ˆë‚˜ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             ZoneCoord_t myX = pVampire->getX();
             ZoneCoord_t myY = pVampire->getY();
             Dir_t dir = calcDirection(myX, myY, X, Y);
@@ -358,9 +358,9 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
                 int tileY = Y + mask.y;
                 int penalty = mask.penalty;
 
-                // ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é ¸ÂÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
+                // í˜„ì¬ íƒ€ì¼ì´ ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´ ë§ì„ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
                 if (rect.ptInRect(tileX, tileY)) {
-                    // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                    // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                     Tile& tile = pZone->getTile(tileX, tileY);
 
                     list<Creature*> targetList;
@@ -422,7 +422,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
                                     Damage += param.SkillDamage;
                                 }
 
-                                // Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+                                // í˜ë„í‹°ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 100ì´ë‹¤.
                                 Damage = getPercentValue(Damage, penalty);
 
                                 ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -432,13 +432,13 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
                                 _GCSkillToTileOK2.addCListElement(targetObjectID);
                                 _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                                // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                 setDamage(pTargetCreature, Damage, pVampire, param.SkillType, NULL, &_GCSkillToTileOK1);
                                 computeAlignmentChange(pTargetCreature, Damage, pVampire, NULL, &_GCSkillToTileOK1);
 
                                 increaseAlignment(pVampire, pTargetCreature, _GCSkillToTileOK1);
 
-                                // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                                // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                                 if (bCriticalHit || bForceKnockback) {
                                     knockbackCreature(pZone, pTargetCreature, pVampire->getX(), pVampire->getY());
                                 }
@@ -453,7 +453,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
                 }
             }
 
-            // °ø°İÀÚÀÇ ¾ÆÀÌÅÛ ³»±¸¼ºÀ» ¶³¾î¶ß¸°´Ù.
+            // ê³µê²©ìì˜ ì•„ì´í…œ ë‚´êµ¬ì„±ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseDurability(pVampire, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
             _GCSkillToTileOK1.setSkillType(param.SkillType);
@@ -479,7 +479,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -487,7 +487,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
                 if (pTargetCreature->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pTargetCreature->isSlayer()) {
                         targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -499,13 +499,13 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pVampire);
                 }
@@ -558,10 +558,10 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
         bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // ¸¶³ª¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë§ˆë‚˜ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             ZoneCoord_t myX = pOusters->getX();
             ZoneCoord_t myY = pOusters->getY();
             Dir_t dir = calcDirection(myX, myY, X, Y);
@@ -587,9 +587,9 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
                     canSteal = false;
                 }
 
-                // ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é ¸ÂÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
+                // í˜„ì¬ íƒ€ì¼ì´ ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´ ë§ì„ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
                 if (rect.ptInRect(tileX, tileY)) {
-                    // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                    // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                     Tile& tile = pZone->getTile(tileX, tileY);
 
                     list<Creature*> targetList;
@@ -652,7 +652,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
                                 computeCriticalBonus(pOusters, param.SkillType, Damage, bCriticalHit);
 
-                                // Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+                                // í˜ë„í‹°ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 100ì´ë‹¤.
                                 Damage = getPercentValue(Damage, penalty);
 
                                 ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -662,14 +662,14 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
                                 _GCSkillToTileOK2.addCListElement(targetObjectID);
                                 _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                                // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                 setDamage(pTargetCreature, Damage, pOusters, param.SkillType, NULL, &_GCSkillToTileOK1,
                                           true, canSteal);
                                 computeAlignmentChange(pTargetCreature, Damage, pOusters, NULL, &_GCSkillToTileOK1);
 
                                 increaseAlignment(pOusters, pTargetCreature, _GCSkillToTileOK1);
 
-                                // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                                // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                                 if (bCriticalHit || bForceKnockback) {
                                     knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
                                 }
@@ -686,7 +686,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
                 }
             }
 
-            // °ø°İÀÚÀÇ ¾ÆÀÌÅÛ ³»±¸¼ºÀ» ¶³¾î¶ß¸°´Ù.
+            // ê³µê²©ìì˜ ì•„ì´í…œ ë‚´êµ¬ì„±ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseDurability(pOusters, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
             _GCSkillToTileOK1.setSkillType(param.SkillType);
@@ -715,7 +715,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -723,7 +723,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
                 if (pTargetCreature->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pTargetCreature->isSlayer()) {
                         targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -735,13 +735,13 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pOusters);
                 }
@@ -791,7 +791,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
             bRangeCheck = true;
 
         if (bRangeCheck && bHitRoll) {
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             ZoneCoord_t myX = pMonster->getX();
             ZoneCoord_t myY = pMonster->getY();
             Dir_t dir = calcDirection(myX, myY, X, Y);
@@ -810,9 +810,9 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
                 int tileY = Y + mask.y;
                 int penalty = mask.penalty;
 
-                // ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é ¸ÂÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
+                // í˜„ì¬ íƒ€ì¼ì´ ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´ ë§ì„ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
                 if (rect.ptInRect(tileX, tileY)) {
-                    // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                    // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                     Tile& tile = pZone->getTile(tileX, tileY);
 
                     list<Creature*> targetList;
@@ -836,7 +836,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
 
                         cout << pMonster->getName() << " checks enemy " << pEnemy->getName() << endl;
 
-                        // °ø°İ ´ë»óÀÌ ¸Â´Â °æ¿ì¿¡..
+                        // ê³µê²© ëŒ€ìƒì´ ë§ëŠ” ê²½ìš°ì—..
                         if (pMonster->isEnemyToAttack(pEnemy)) {
                             bool bPK = verifyPK(pMonster, pEnemy);
                             bool bRaceCheck = !pEnemy->isNPC(); // pEnemy->isSlayer() || pEnemy->isVampire();
@@ -860,7 +860,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
                                     // cout << "!bMagicDamage = " << Damage << endl;
                                 }
 
-                                // Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+                                // í˜ë„í‹°ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 100ì´ë‹¤.
                                 Damage = getPercentValue(Damage, penalty);
 
                                 // cout << "bPenaltyDamage = " << Damage << endl;
@@ -873,14 +873,14 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
 
                                 if (param.SkillType == SKILL_GORE_GLAND_FIRE ||
                                     param.SkillType == SKILL_SUMMON_MIGA_ATTACK) {
-                                    // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                    // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                     setDamage(pEnemy, Damage, pMonster, param.SkillType, NULL, NULL, false);
                                 } else {
                                     setDamage(pEnemy, Damage, pMonster, param.SkillType, NULL, NULL);
                                 }
 
 
-                                // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                                // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                                 if (bCriticalHit || bForceKnockback) {
                                     knockbackCreature(pZone, pEnemy, pMonster->getX(), pMonster->getY());
                                 }
@@ -904,7 +904,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
             _GCSkillToTileOK5.setRange(dir);
             _GCSkillToTileOK5.setDuration(0);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pEnemy = *itr;
                 Assert(pEnemy != NULL);
@@ -912,7 +912,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
                 if (pEnemy->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pEnemy->isSlayer()) {
                         targetHP = (dynamic_cast<Slayer*>(pEnemy))->getHP(ATTR_CURRENT);
@@ -924,15 +924,15 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y, const SIMP
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pEnemy, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pEnemy->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 
                     // cout << "SimpleTileMissibleSkill: " << _GCSkillToTileOK2.toString().c_str() << endl;
                 } else if (pEnemy->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pTargetMonster = dynamic_cast<Monster*>(pEnemy);
                     pTargetMonster->addEnemy(pMonster);
                 }

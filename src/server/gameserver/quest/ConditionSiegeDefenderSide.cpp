@@ -23,7 +23,7 @@ bool ConditionSiegeDefenderSide::isSatisfied(Creature* pCreature1, Creature* pCr
     if (!pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_DEFENDER) &&
         !pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_REINFORCE)) {
         /*		GCSystemMessage gcSystemMessage;
-                gcSystemMessage.setMessage( "¼öºñÃø¸¸ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù." );
+                gcSystemMessage.setMessage( "ìˆ˜ë¹„ì¸¡ë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤." );
                 pCreature2->getPlayer()->sendPacket (&gcSystemMessage);*/
         return false;
     }

@@ -35,18 +35,18 @@ SimpleQuest::~SimpleQuest() throw(Error) {
 void SimpleQuest::setDeadline(Turn_t delay) throw() {
     __BEGIN_TRY
 
-    // ÇöÀç ½Ã°£À» ÃøÁ¤ÇÑ´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ì¸¡ì •í•œë‹¤.
     getCurrentTime(m_Deadline);
 
-    // µ¥µå¶óÀÎÀ» °áÁ¤ÇÑ´Ù.
-    // ÀÌ¶§, delay ´Â 0.1 ÃÊ°¡ 1 ÀÌ´Ù.
+    // ë°ë“œë¼ì¸ì„ ê²°ì •í•œë‹¤.
+    // ì´ë•Œ, delay ëŠ” 0.1 ì´ˆê°€ 1 ì´ë‹¤.
     m_Deadline.tv_sec += delay / 10;
     m_Deadline.tv_usec += (delay % 10) * 100000;
 
     __END_CATCH
 }
 
-// ³²Àº duration(1/10ÃÊ ´ÜÀ§)
+// ë‚¨ì€ duration(1/10ì´ˆ ë‹¨ìœ„)
 Duration_t SimpleQuest::getRemainDuration() const throw() {
     __BEGIN_TRY
 
@@ -152,7 +152,7 @@ void SimpleQuest::take(Creature* pCreature, bool bNewQuest) throw(Error) {
 
     setOwner(pCreature);
 
-    // Ã³À½ ¹ŞÀº Äù½ºÆ®ÀÎ °æ¿ì¸¸.. ½Ã°£ ¼³Á¤°ú DB»ı¼ºÀ» ÇÑ´Ù
+    // ì²˜ìŒ ë°›ì€ í€˜ìŠ¤íŠ¸ì¸ ê²½ìš°ë§Œ.. ì‹œê°„ ì„¤ì •ê³¼ DBìƒì„±ì„ í•œë‹¤
     if (bNewQuest) {
         getCurrentTime(m_Deadline);
         m_Deadline.tv_sec += m_AvailableSecond;

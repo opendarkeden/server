@@ -59,8 +59,8 @@ private:
     //	ItemType_t m_ItemType;
     //	ItemNum_t  m_Num;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµð ¹ß±Þ±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ëž˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -70,12 +70,12 @@ private:
 class DyePotionInfo : public ItemInfo {
 public:
     enum ITEM_FUNCTION {
-        FUNCTION_HAIR = 0,          // ¸Ó¸®»öÀ» ¹Ù²Û´Ù.
-        FUNCTION_SKIN = 1,          // ÇÇºÎ»öÀ» ¹Ù²Û´Ù.
-        FUNCTION_SEX = 2,           // ¼ºº°À» ¹Ù²Û´Ù.
-        FUNCTION_BAT = 3,           // ¹ÚÁã »öÀ» ¹Ù²Û´Ù.
-        FUNCTION_REGEN = 4,         // È¸º¹~
-        FUNCTION_MASTER_EFFECT = 5, // ¸¶½ºÅÍ ÀÌÆåÆ® »öÀ» ¹Ù²Û´Ù.
+        FUNCTION_HAIR = 0,          // ë¨¸ë¦¬ìƒ‰ì„ ë°”ê¾¼ë‹¤.
+        FUNCTION_SKIN = 1,          // í”¼ë¶€ìƒ‰ì„ ë°”ê¾¼ë‹¤.
+        FUNCTION_SEX = 2,           // ì„±ë³„ì„ ë°”ê¾¼ë‹¤.
+        FUNCTION_BAT = 3,           // ë°•ì¥ ìƒ‰ì„ ë°”ê¾¼ë‹¤.
+        FUNCTION_REGEN = 4,         // íšŒë³µ~
+        FUNCTION_MASTER_EFFECT = 5, // ë§ˆìŠ¤í„° ì´íŽ™íŠ¸ ìƒ‰ì„ ë°”ê¾¼ë‹¤.
     };
 
 public:
@@ -100,8 +100,8 @@ public:
     }
 
 
-    BYTE m_fFunction;    // ±â´É
-    int m_FunctionValue; // ±â´É°ú °ü·ÃµÈ °ª
+    BYTE m_fFunction;    // ê¸°ëŠ¥
+    int m_FunctionValue; // ê¸°ëŠ¥ê³¼ ê´€ë ¨ëœ ê°’
 };
 
 //////////////////////////////////////////////////////////////////////////////

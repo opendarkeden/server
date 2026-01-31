@@ -45,7 +45,7 @@ void CGAttackHandler::execute(CGAttack* pPacket, Player* pPlayer)
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
         Assert(pGamePlayer != NULL); // by sigi
 
-        // ÇÃ·¹ÀÌ¾î°¡ Á¤»óÀûÀÎ »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¸®ÅÏÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ì •ìƒì ì¸ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ë¦¬í„´í•œë‹¤.
         if (pGamePlayer->getPlayerStatus() != GPS_NORMAL) {
             GCSkillFailed1 _GCSkillFailed1;
             _GCSkillFailed1.setSkillType(SKILL_ATTACK_MELEE);
@@ -59,7 +59,7 @@ void CGAttackHandler::execute(CGAttack* pPacket, Player* pPlayer)
         Zone* pZone = pCreature->getZone();
         Assert(pZone != NULL);
 
-        // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+        // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
         ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
         if (ZoneLevel & COMPLETE_SAFE_ZONE) {
             GCSkillFailed1 _GCSkillFailed1;
@@ -78,7 +78,7 @@ void CGAttackHandler::execute(CGAttack* pPacket, Player* pPlayer)
 
         pCreature->setLastTarget(pTarget->getObjectID());
 
-        // ¸¸¾à °°Àº Á¾Á·ÀÇ ¼º¹° º¸°ü´ë¶ó¸é °ø°ÝÇÏÁö ¾Êµµ·Ï ÇÑ´Ù. bezz 6.8 ¼öÁ¤ È®ÀÎ¹Ù¶÷.
+        // ë§Œì•½ ê°™ì€ ì¢…ì¡±ì˜ ì„±ë¬¼ ë³´ê´€ëŒ€ë¼ë©´ ê³µê²©í•˜ì§€ ì•Šë„ë¡ í•œë‹¤. bezz 6.8 ìˆ˜ì • í™•ì¸ë°”ëžŒ.
 
         /*
         if ( pTarget->isMonster() )
@@ -111,29 +111,29 @@ void CGAttackHandler::execute(CGAttack* pPacket, Player* pPlayer)
                 switch(type)
                 {
                     case 371:
-                        RelicName = "·Ò¸áÀÇÈÆÀå";
+                        RelicName = "ë¡¬ë©œì˜í›ˆìž¥";
                         break;
                     case 372:
-                        RelicName = "¼ºÀÇ";
+                        RelicName = "ì„±ì˜";
                         break;
                     case 374:
-                        RelicName = "Ã³³àÀÇÇÇ";
+                        RelicName = "ì²˜ë…€ì˜í”¼";
                         break;
                     case 375:
-                        RelicName = "¿ª½ÊÀÚ°¡";
+                        RelicName = "ì—­ì‹­ìžê°€";
                         break;
                     default:
                         RelicName = pMonster->getName();
                 }
 
-                // ÀÌÆåÆ® ¸¸µé±â
+                // ì´íŽ™íŠ¸ ë§Œë“¤ê¸°
                 EffectCombatMessage1* pEffect = new EffectCombatMessage1();
                 pEffect->setNextTime(30);
                 pEffect->setDelay(30);
                 pEffect->setDeadline(60);
                 pEffect->setRelicName(RelicName);
 
-                // Zone¿¡ ÀÌÆåÆ® ºÙÀÌ±â
+                // Zoneì— ì´íŽ™íŠ¸ ë¶™ì´ê¸°
                 (pZone->getObjectRegistry()).registerObject(pEffect);
                 pZone->addEffect(pEffect);
             }

@@ -18,7 +18,7 @@
 #include "UpdateServer.h"
 #include "UpdateServerPlayer.h"
 
-// ¾÷µ¥ÀÌÆ® µğ·ºÅä¸® ½ºÄµ °ü·Ã
+// ì—…ë°ì´íŠ¸ ë””ë ‰í† ë¦¬ ìŠ¤ìº” ê´€ë ¨
 #include <dirent.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -30,9 +30,9 @@
 /*
 //--------------------------------------------------------------------------------
 //
-// Å¬¶óÀÌ¾ğÆ®ÀÇ ¹öÀü ¹Ù·Î À­¹öÀüºÎÅÍ ÃÖ½Å ¹öÀü±îÁöÀÇ ¸®½ºÆ®¸¦ »ı¼ºÇÑ ÈÄ,
-// °¢ ¹öÀüÀÇ ¾÷µ¥ÀÌÆ® ¸í·ÉÀ» merge ÇØ¼­ ÃÖÀûÈ­µÈ ¾÷µ¥ÀÌÆ® ¸í·ÉÀÇ ¸®½ºÆ®¸¦
-// »ı¼ºÇØ¼­ UCUpdateList ÆĞÅ¶¿¡ ´ã¾Æ Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì˜ ë²„ì „ ë°”ë¡œ ìœ—ë²„ì „ë¶€í„° ìµœì‹  ë²„ì „ê¹Œì§€ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•œ í›„,
+// ê° ë²„ì „ì˜ ì—…ë°ì´íŠ¸ ëª…ë ¹ì„ merge í•´ì„œ ìµœì í™”ëœ ì—…ë°ì´íŠ¸ ëª…ë ¹ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼
+// ìƒì„±í•´ì„œ UCUpdateList íŒ¨í‚·ì— ë‹´ì•„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 void CUBeginUpdateHandler::execute ( CUBeginUpdate * pPacket , Player * pPlayer )
@@ -49,42 +49,42 @@ void CUBeginUpdateHandler::execute ( CUBeginUpdate * pPacket , Player * pPlayer 
         //cout << "Client Version : " << pPacket->getVersion() << endl;
 
         //--------------------------------------------------------------------------------
-        // ÆĞÄ¡ µğ·ºÅä¸®ÀÇ ÇÏÀ§ µğ·ºÅä¸®µéÀÇ ¸®½ºÆ®¸¦ »ı¼ºÇÑ´Ù.
-        // ÀÌ¶§ Å¬¶óÀÌ¾ğÆ® ¹öÀüº¸´Ù °°°Å³ª ³·Àº ¹öÀüÀº ¹«½ÃÇØµµ µÈ´Ù.
+        // íŒ¨ì¹˜ ë””ë ‰í† ë¦¬ì˜ í•˜ìœ„ ë””ë ‰í† ë¦¬ë“¤ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
+        // ì´ë•Œ í´ë¼ì´ì–¸íŠ¸ ë²„ì „ë³´ë‹¤ ê°™ê±°ë‚˜ ë‚®ì€ ë²„ì „ì€ ë¬´ì‹œí•´ë„ ëœë‹¤.
         //--------------------------------------------------------------------------------
 
-        // µğ·ºÅä¸® ÀÌ¸§ÀÇ ¸®½ºÆ®
+        // ë””ë ‰í† ë¦¬ ì´ë¦„ì˜ ë¦¬ìŠ¤íŠ¸
         list<string> directories;
 
         string patchDir = g_pConfig->getProperty("HomeDir") + separator + g_pConfig->getProperty("PatchDir");
 
         //cout << "patchDir = " << patchDir << endl;
 
-        // ÆĞÄ¡ µğ·ºÅä¸®¸¦ ¿ÀÇÂÇÑ´Ù.
+        // íŒ¨ì¹˜ ë””ë ‰í† ë¦¬ë¥¼ ì˜¤í”ˆí•œë‹¤.
         DIR * pDIR = opendir( patchDir.c_str() );
 
-        // ÆĞÄ¡ µğ·ºÅä¸®°¡ ¾øÀ¸¸é ¸»Â¯ È²!
+        // íŒ¨ì¹˜ ë””ë ‰í† ë¦¬ê°€ ì—†ìœ¼ë©´ ë§ì§± í™©!
         Assert( pDIR != NULL );
 
-        // ÆĞÄ¡ µğ·ºÅä¸®ÀÇ ÇÏÀ§ µğ·ºÅä¸®(¹öÀü µğ·ºÅä¸®)µéÀ» ÀĞ¾îµéÀÎ´Ù.
+        // íŒ¨ì¹˜ ë””ë ‰í† ë¦¬ì˜ í•˜ìœ„ ë””ë ‰í† ë¦¬(ë²„ì „ ë””ë ‰í† ë¦¬)ë“¤ì„ ì½ì–´ë“¤ì¸ë‹¤.
         bool sameVersionFound = false;
         struct dirent * versionDir;
         while ( ( versionDir = readdir( pDIR ) ) != NULL ) {
 
-            // ºó ½½¶ù(inode==0)Àº ¹«½ÃÇÑ´Ù...
+            // ë¹ˆ ìŠ¬ë(inode==0)ì€ ë¬´ì‹œí•œë‹¤...
             if ( versionDir->d_ino != 0 ) {
 
                 //
-                // ¹öÀü µğ·ºÅä¸®´Â v + 0À¸·Î Ã¤¿öÁø 5ÀÚ¸® Á¤¼ö ¹®ÀÚ¿­·Î µÇ¾î ÀÖ´Ù.
+                // ë²„ì „ ë””ë ‰í† ë¦¬ëŠ” v + 0ìœ¼ë¡œ ì±„ì›Œì§„ 5ìë¦¬ ì •ìˆ˜ ë¬¸ìì—´ë¡œ ë˜ì–´ ìˆë‹¤.
                 //  ex> v00001/ v00002/ v00003/ ...
                 //
                 string dir = versionDir->d_name;
 
-                // v ·Î ½ÃÀÛÇÏÁö ¾Ê´Â ÇÏÀ§ µğ·ºÅä¸®·Î´Â "." °ú ".." ÀÌ ÀÖ´Ù. -_-;
+                // v ë¡œ ì‹œì‘í•˜ì§€ ì•ŠëŠ” í•˜ìœ„ ë””ë ‰í† ë¦¬ë¡œëŠ” "." ê³¼ ".." ì´ ìˆë‹¤. -_-;
                 if ( dir[0] == 'v' ) {
 
-                    // ¹öÀüÀ» ºñ±³ÇÏ±â À§ÇØ¼­´Â
-                    // ¼ıÀÚ ºÎºĞÀ» ½ºÆ®¸µÀ¸·Î º¯È¯ÇØ¼­ ´Ù½Ã Á¤¼ö·Î º¯È¯ÇÑ´Ù.
+                    // ë²„ì „ì„ ë¹„êµí•˜ê¸° ìœ„í•´ì„œëŠ”
+                    // ìˆ«ì ë¶€ë¶„ì„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë³€í™˜í•´ì„œ ë‹¤ì‹œ ì •ìˆ˜ë¡œ ë³€í™˜í•œë‹¤.
                     Version_t version = atoi( dir.substr( 1 , 5 ).c_str() );
 
                     if ( version == pPacket->getVersion() )
@@ -105,14 +105,14 @@ void CUBeginUpdateHandler::execute ( CUBeginUpdate * pPacket , Player * pPlayer 
             throw InvalidProtocolException("invalid client version");
         }
 
-        // Å×½ºÆ®·Î Ãâ·ÂÇØº»´Ù.
+        // í…ŒìŠ¤íŠ¸ë¡œ ì¶œë ¥í•´ë³¸ë‹¤.
         for ( list<string>::iterator itr = directories.begin() ; itr != directories.end() ; itr ++ )
             //cout << "Newer Version : " << *itr << endl;
 
 
         //--------------------------------------------------------------------------------
-        // ÃÖ½Å ¹öÀü µğ·ºÅä¸®µéÀ» °Ë»öÇÏ¸é¼­, °¢ µğ·ºÅä¸®ÀÇ index.dat ÆÄÀÏµéÀ» ·ÎµùÇØ¼­
-        // UpdateManager °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+        // ìµœì‹  ë²„ì „ ë””ë ‰í† ë¦¬ë“¤ì„ ê²€ìƒ‰í•˜ë©´ì„œ, ê° ë””ë ‰í† ë¦¬ì˜ index.dat íŒŒì¼ë“¤ì„ ë¡œë”©í•´ì„œ
+        // UpdateManager ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
         //--------------------------------------------------------------------------------
 
         UCUpdateList ucUpdateList;
@@ -173,8 +173,8 @@ void CUBeginUpdateHandler::scan_Dir(const string Directory, CUBeginUpdate* pPack
             // cout << "Path : " << SubDirectory << " Path Size : " << List.st_size << endl;
 
             if (S_ISDIR(List.st_mode)) {
-                // ¹öÀüÀ» ºñ±³ÇÏ±â À§ÇØ¼­´Â
-                // ¼ıÀÚ ºÎºĞÀ» ½ºÆ®¸µÀ¸·Î º¯È¯ÇØ¼­ ´Ù½Ã Á¤¼ö·Î º¯È¯ÇÑ´Ù.
+                // ë²„ì „ì„ ë¹„êµí•˜ê¸° ìœ„í•´ì„œëŠ”
+                // ìˆ«ì ë¶€ë¶„ì„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë³€í™˜í•´ì„œ ë‹¤ì‹œ ì •ìˆ˜ë¡œ ë³€í™˜í•œë‹¤.
                 Version_t version = atoi(vName.substr(1, 5).c_str());
 
                 Version_t ClientVersion = pPacket->getVersion() - 3000;
@@ -217,7 +217,7 @@ void CUBeginUpdateHandler::scan_Dir(const string Directory, CUBeginUpdate* pPack
 
                 Update* pUpdate = new Update();
 
-                // ClientVersionÀ¸·Î ¹Ù²Ş. by sigi. 2002.10.16
+                // ClientVersionìœ¼ë¡œ ë°”ê¿ˆ. by sigi. 2002.10.16
                 Version_t ClientVersion = pPacket->getVersion();
                 if (ClientVersion > 3000)
                     ClientVersion -= 3000;
@@ -232,7 +232,7 @@ void CUBeginUpdateHandler::scan_Dir(const string Directory, CUBeginUpdate* pPack
                 if (bHttpPatch) {
                     srand(time(NULL));
                     int randomv = rand();
-                    // URL ¼±Á¤ ÀÛ¾÷....... ¹× ¾îÂ¼±¸ ÀúÂ¼±¸
+                    // URL ì„ ì • ì‘ì—…....... ë° ì–´ì©Œêµ¬ ì €ì©Œêµ¬
                     int Random = randomv % g_pConfig->getPropertyInt("MAXURL");
                     StringStream ConfigParam;
                     ConfigParam << "URL" << Random;
@@ -252,9 +252,9 @@ void CUBeginUpdateHandler::scan_Dir(const string Directory, CUBeginUpdate* pPack
 
 //--------------------------------------------------------------------------------
 //
-// Å¬¶óÀÌ¾ğÆ®ÀÇ ¹öÀü ¹Ù·Î À­¹öÀüºÎÅÍ ÃÖ½Å ¹öÀü±îÁöÀÇ ¸®½ºÆ®¸¦ »ı¼ºÇÑ ÈÄ,
-// °¢ ¹öÀüÀÇ ¾÷µ¥ÀÌÆ® ¸í·ÉÀ» merge ÇØ¼­ ÃÖÀûÈ­µÈ ¾÷µ¥ÀÌÆ® ¸í·ÉÀÇ ¸®½ºÆ®¸¦
-// »ı¼ºÇØ¼­ UCUpdateList ÆĞÅ¶¿¡ ´ã¾Æ Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì˜ ë²„ì „ ë°”ë¡œ ìœ—ë²„ì „ë¶€í„° ìµœì‹  ë²„ì „ê¹Œì§€ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•œ í›„,
+// ê° ë²„ì „ì˜ ì—…ë°ì´íŠ¸ ëª…ë ¹ì„ merge í•´ì„œ ìµœì í™”ëœ ì—…ë°ì´íŠ¸ ëª…ë ¹ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼
+// ìƒì„±í•´ì„œ UCUpdateList íŒ¨í‚·ì— ë‹´ì•„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 void CUBeginUpdateHandler::execute(CUBeginUpdate* pPacket, Player* pPlayer) throw(ProtocolException, Error) {
@@ -266,9 +266,9 @@ void CUBeginUpdateHandler::execute(CUBeginUpdate* pPacket, Player* pPlayer) thro
     bool bUpdaterPatch = false;
 
 
-    // 3000¹ø ÀÌ»ó ¹öÀüÀº 2002.7.12 »õ¹öÀüºÎÅÍÀÌ´Ù.
-    // ÀÌÀü ¹öÀüÀº ´õ ÀÌ»ó À¯ÁöÇÏÁö ¾ÊÀ» ¿¹Á¤ÀÌ¹Ç·Î
-    // 3000¹ø ÀÌÇÏ´Â Â¥¸¥´Ù.
+    // 3000ë²ˆ ì´ìƒ ë²„ì „ì€ 2002.7.12 ìƒˆë²„ì „ë¶€í„°ì´ë‹¤.
+    // ì´ì „ ë²„ì „ì€ ë” ì´ìƒ ìœ ì§€í•˜ì§€ ì•Šì„ ì˜ˆì •ì´ë¯€ë¡œ
+    // 3000ë²ˆ ì´í•˜ëŠ” ì§œë¥¸ë‹¤.
     if (pPacket->getVersion() < 3000) {
         throw DisconnectException("under3000");
     }
@@ -292,14 +292,14 @@ void CUBeginUpdateHandler::execute(CUBeginUpdate* pPacket, Player* pPlayer) thro
     }
     */
 
-    // 3000¹ø ÀÌ»óÀº ¹«Á¶°Ç HTTP patchÀÌ´Ù.
+    // 3000ë²ˆ ì´ìƒì€ ë¬´ì¡°ê±´ HTTP patchì´ë‹¤.
     if (bHttpPatch) {
         ((UpdateServerPlayer*)pPlayer)->setExpiredTime(5);
     }
 
-    // ÀÌÁ¦ ¿©±â¼­ ¸ğµç Ã³¸®¸¦ ÇÏ°Ô µÈ´Ù.
-    // ±æ°Ô °¥ °Íµµ ¾ø´Ù. ÇöÀç ¹öÁ¯ÀÇ µğ·ºÅä¸®¸¦ ÀĞ¾î¼­ ±× ¾È¿¡ ÆÄÀÏÀÌ ÀÖÀ¸¸é ¸®½ºÆ®¸¦ ¸¸µé¾î º¸³»°í
-    // ¾øÀ¸¸é ¹«½Ã ÇÏ¸é µÈ´Ù.
+    // ì´ì œ ì—¬ê¸°ì„œ ëª¨ë“  ì²˜ë¦¬ë¥¼ í•˜ê²Œ ëœë‹¤.
+    // ê¸¸ê²Œ ê°ˆ ê²ƒë„ ì—†ë‹¤. í˜„ì¬ ë²„ì ¼ì˜ ë””ë ‰í† ë¦¬ë¥¼ ì½ì–´ì„œ ê·¸ ì•ˆì— íŒŒì¼ì´ ìˆìœ¼ë©´ ë¦¬ìŠ¤íŠ¸ë¥¼ ë§Œë“¤ì–´ ë³´ë‚´ê³ 
+    // ì—†ìœ¼ë©´ ë¬´ì‹œ í•˜ë©´ ëœë‹¤.
     UpdateServerPlayer* pUpdateServerPlayer = dynamic_cast<UpdateServerPlayer*>(pPlayer);
 
     string Directory = g_pConfig->getProperty("HomeDir") + separator + g_pConfig->getProperty("PatchDir");
@@ -307,7 +307,7 @@ void CUBeginUpdateHandler::execute(CUBeginUpdate* pPacket, Player* pPlayer) thro
     UCUpdateList ucUpdateList;
     UpdateManager* pUpdateManager = ucUpdateList.getUpdateManager();
 
-    // Info °ü·ÃµÇ¼­ ¾÷µ¥ÀÌÆ®¸¦ ÇÏ³ª Ãß°¡ÇÑ´Ù.
+    // Info ê´€ë ¨ë˜ì„œ ì—…ë°ì´íŠ¸ë¥¼ í•˜ë‚˜ ì¶”ê°€í•œë‹¤.
     if (pPacket->getVersion() >= g_pConfig->getPropertyInt("InfoVersion")) {
         if (pPacket->getInfoVersion() < g_pConfig->getPropertyInt("InfoMarkVersion")) {
             Update* pUpdate = new Update();
@@ -346,8 +346,8 @@ void CUBeginUpdateHandler::execute(CUBeginUpdate* pPacket, Player* pPlayer) thro
         string KeyFileName = Directory + "/../" + g_pConfig->getProperty("KeyFile");
         FILE* pKeyFile = fopen(KeyFileName.c_str(), "r");
         if (pKeyFile == NULL) {
-            filelog("UpdateServerError.log", "Å° ÆÄÀÏÀÌ ¾ø¾î¿ä.");
-            throw Error("Å° ÆÄÀÏÀÌ ¾ø½¿´ç ¤Ì.¤Ğ");
+            filelog("UpdateServerError.log", "í‚¤ íŒŒì¼ì´ ì—†ì–´ìš”.");
+            throw Error("í‚¤ íŒŒì¼ì´ ì—†ìŠ´ë‹¹ ã…œ.ã… ");
         }
 
         fread((void*)ucUpdateList.getKeyArray(), szBYTE, 10, pKeyFile);

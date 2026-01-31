@@ -42,17 +42,17 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
 
 #ifdef __GAME_SERVER__
 
-        // ±æµå ¸â¹ö object ¸¦ ¸¸µç´Ù.
+        // ê¸¸ë“œ ë©¤ë²„ object ë¥¼ ë§Œë“ ë‹¤.
         GuildMember* pGuildMember = new GuildMember();
     pGuildMember->setGuildID(pPacket->getGuildID());
     pGuildMember->setName(pPacket->getName());
     pGuildMember->setRank(pPacket->getGuildMemberRank());
 
-    // ±æµå¿¡ Ãß°¡ÇÑ´Ù.
+    // ê¸¸ë“œì— ì¶”ê°€í•œë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pGuildMember->getGuildID());
     pGuild->addMember(pGuildMember);
 
-    // ¸â¹ö¿¡°Ô ¸Ş¼¼Áö¸¦ º¸³½´Ù.
+    // ë©¤ë²„ì—ê²Œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
     Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
@@ -61,7 +61,7 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
         Assert(pPlayer != NULL);
 
         if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_MASTER ||
-            pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) // ±æµå¸¶½ºÅÍ³ª ¼­ºê¸¶½ºÅÍÀÏ °æ¿ì
+            pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) // ê¸¸ë“œë§ˆìŠ¤í„°ë‚˜ ì„œë¸Œë§ˆìŠ¤í„°ì¼ ê²½ìš°
         {
             PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
             Assert(pPlayerCreature != NULL);
@@ -76,7 +76,7 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
 
             Gold_t CurMoney = pPlayerCreature->getGold();
             if (CurMoney < Fee) {
-                // Å«ÀÏ³µ±º
+                // í°ì¼ë‚¬êµ°
                 CurMoney = 0;
             } else
                 CurMoney -= Fee;
@@ -87,11 +87,11 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
                 GCModifyInformation gcModifyInformation;
                 gcModifyInformation.addLongData(MODIFY_GOLD, CurMoney);
 
-                // ¹Ù²ïÁ¤º¸¸¦ Å¬¶óÀÌ¾ğÆ®¿¡ º¸³»ÁØ´Ù.
+                // ë°”ë€ì •ë³´ë¥¼ í´ë¼ì´ì–¸íŠ¸ì— ë³´ë‚´ì¤€ë‹¤.
                 pPlayer->sendPacket(&gcModifyInformation);
             }
 
-            // ±æµå °¡ÀÔ ¸Ş½ÃÁö¸¦ º¸¿©ÁØ´Ù.
+            // ê¸¸ë“œ ê°€ì… ë©”ì‹œì§€ë¥¼ ë³´ì—¬ì¤€ë‹¤.
             GCSystemMessage gcSystemMessage;
             if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER)
                 gcSystemMessage.setMessage(g_pStringPool->getString(STRID_TEAM_JOIN_ACCEPTED));
@@ -102,7 +102,7 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
             pPlayer->sendPacket(&gcSystemMessage);
 
         } else if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT) {
-            // ±æµå °¡ÀÔ ½ÅÃ» ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+            // ê¸¸ë“œ ê°€ì… ì‹ ì²­ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
             GCSystemMessage gcSystemMessage;
             if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER)
                 gcSystemMessage.setMessage(g_pStringPool->getString(STRID_TEAM_JOIN_TRY));
@@ -114,14 +114,14 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
             pPlayer->sendPacket(&gcSystemMessage);
         }
     } else {
-        // Á¢¼ÓÀÌ ¾ÈµÇ¾î ÀÖ´Ù.
+        // ì ‘ì†ì´ ì•ˆë˜ì–´ ìˆë‹¤.
 
-        // ¸¶½ºÅÍ³ª ¼­ºê¸¶½ºÅÍÀÏ °æ¿ì
-        // DB ¿¡¼­ µ·À» ±îµµ·Ï ÇÑ´Ù.
+        // ë§ˆìŠ¤í„°ë‚˜ ì„œë¸Œë§ˆìŠ¤í„°ì¼ ê²½ìš°
+        // DB ì—ì„œ ëˆì„ ê¹Œë„ë¡ í•œë‹¤.
         if ((pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_MASTER ||
-             pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) // ±æµå¸¶½ºÅÍ³ª ¼­ºê¸¶½ºÅÍÀÏ °æ¿ì
+             pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) // ê¸¸ë“œë§ˆìŠ¤í„°ë‚˜ ì„œë¸Œë§ˆìŠ¤í„°ì¼ ê²½ìš°
             &&
-            pPacket->getServerGroupID() == g_pConfig->getPropertyInt("ServerID")) // ÀÌ °ÔÀÓ ¼­¹ö¿¡¼­ Ãß°¡ÇÑ ±æµå¿øÀÎ°¡?
+            pPacket->getServerGroupID() == g_pConfig->getPropertyInt("ServerID")) // ì´ ê²Œì„ ì„œë²„ì—ì„œ ì¶”ê°€í•œ ê¸¸ë“œì›ì¸ê°€?
         {
             Gold_t Fee;
             if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_MASTER)
@@ -153,7 +153,7 @@ void SGAddGuildMemberOKHandler::execute(SGAddGuildMemberOK* pPacket)
         }
     }
 
-    // ±æµå ¸¶½ºÅÍ¿¡°Ô ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+    // ê¸¸ë“œ ë§ˆìŠ¤í„°ì—ê²Œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
     pCreature = g_pPCFinder->getCreature_LOCKED(pGuild->getMaster());
     if (pCreature != NULL && pCreature->isPC() && pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_MASTER) {
         Player* pPlayer = pCreature->getPlayer();

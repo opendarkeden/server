@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Reflection::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,19 +49,19 @@ void Reflection::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectReflection* pEffect = new EffectReflection(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setLevel(SkillLevel);
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_REFLECTION);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
@@ -99,19 +99,19 @@ void Reflection::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
 }
 
 
-// ReflectionÀÌ µÇ´Â°¡?
+// Reflectionì´ ë˜ëŠ”ê°€?
 bool CheckReflection(Creature* pAttacker, Creature* pTargetCreature, SkillType_t SkillType) {
     __BEGIN_TRY
 
     // Assert(pAttacker != NULL);
     // Assert(pTargetCreature != NULL);
 
-    // ½½·¹ÀÌ¾î¸¸ÀÌ ÀÌ ±â¼úÀ» ¾µ ¼ö ÀÖ´Ù.
+    // ìŠ¬ë ˆì´ì–´ë§Œì´ ì´ ê¸°ìˆ ì„ ì“¸ ìˆ˜ ìžˆë‹¤.
     if (pAttacker == NULL || pTargetCreature == NULL || pTargetCreature->isSlayer() == false) {
         return false;
     }
 
-    // ±â¼úÀÌ °É·ÁÀÖ°í, ÇöÀç ¸¶ºñ »óÅÂ°¡ ¾Æ´Ï¶ó¸é...
+    // ê¸°ìˆ ì´ ê±¸ë ¤ìžˆê³ , í˜„ìž¬ ë§ˆë¹„ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´...
     if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_REFLECTION) &&
         !pTargetCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) {
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -125,24 +125,24 @@ bool CheckReflection(Creature* pAttacker, Creature* pTargetCreature, SkillType_t
         Assert(pSkillInfo != NULL);
         Assert(pZone != NULL);
 
-        // hitrollÀÌ ¼º°øÇß´Ù¸é...
+        // hitrollì´ ì„±ê³µí–ˆë‹¤ë©´...
         // if (HitRoll::isSuccess(pTargetSlayer, pAttacker) && canHit(pTargetSlayer, pAttacker, SKILL_REFLECTION))
 
         int SuccessRate = 30 + pSkillSlot->getExpLevel() / 5;
-        SuccessRate = min(SuccessRate, 50); // ÃÖ´ë 50%
+        SuccessRate = min(SuccessRate, 50); // ìµœëŒ€ 50%
 
         if (rand() % 100 < SuccessRate) {
             GCSkillToSelfOK1 _GCSkillToSelfOK1;
             GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
-            // º»ÀÎ¿¡°Ô reflection effect¸¦ ºÙ¿©ÁØ´Ù.
+            // ë³¸ì¸ì—ê²Œ reflection effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
             if (pTargetCreature->isPC()) {
                 _GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
                 _GCSkillToSelfOK1.setDuration(0);
                 pTargetCreature->getPlayer()->sendPacket(&_GCSkillToSelfOK1);
             }
 
-            // ´Ù¸¥ »ç¶÷µé¿¡°Ô reflection effect¸¦ º¸¿©ÁØ´Ù.
+            // ë‹¤ë¥¸ ì‚¬ëžŒë“¤ì—ê²Œ reflection effectë¥¼ ë³´ì—¬ì¤€ë‹¤.
             _GCSkillToSelfOK2.setObjectID(pTargetCreature->getObjectID());
             _GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
             _GCSkillToSelfOK2.setDuration(0);

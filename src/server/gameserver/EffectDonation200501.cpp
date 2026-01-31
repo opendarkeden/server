@@ -47,7 +47,7 @@ void EffectDonation200501::affect(Creature* pCreature)
 
     pCreature->setFlag(Effect::EFFECT_CLASS_DONATION_200501);
 
-    // ÁÖÀ§¿¡ »Ñ·ÁÁØ´Ù.
+    // ì£¼ìœ„ì— ë¿Œë ¤ì¤€ë‹¤.
     GCAddEffect gcAddEffect;
     gcAddEffect.setObjectID(pCreature->getObjectID());
     gcAddEffect.setEffectID(getSendEffectClass());
@@ -78,7 +78,7 @@ void EffectDonation200501::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ÇÃ·¡±×¸¦ ²ô°í,
+    // í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
     pCreature->removeFlag(Effect::EFFECT_CLASS_DONATION_200501);
 
     Zone* pZone = pCreature->getZone();

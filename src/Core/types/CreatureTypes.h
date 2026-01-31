@@ -22,29 +22,29 @@ const uint szPCType = szBYTE;
 enum RaceType { RACE_SLAYER, RACE_VAMPIRE, RACE_OUSTERS };
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¾Á·
+// ì¢…ì¡±
 //////////////////////////////////////////////////////////////////////////////
 typedef BYTE Race_t;
 const int szRace = sizeof(Race_t);
 
 //////////////////////////////////////////////////////////////////////////////
-// ±ÇÇÑ
+// ê¶Œí•œ
 //////////////////////////////////////////////////////////////////////////////
 enum Competence { GOD = 0, DM, HELPER, PLAYER };
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ðÆ®¿Í º¹Àå °øÀ¯¸¦ À§ÇÑ...
+// í´ë¼ì´ì–¸íŠ¸ì™€ ë³µìž¥ ê³µìœ ë¥¼ ìœ„í•œ...
 //////////////////////////////////////////////////////////////////////////////
 #ifndef __GAME_CLIENT__
 enum ADDON {
-    ADDON_HAIR,      // ¸Ó¸®
-    ADDON_HELM,      // ¸ðÀÚ
-    ADDON_COAT,      // »óÀÇ
-    ADDON_TROUSER,   // ÇÏÀÇ
-    ADDON_LEFTHAND,  // ¿Þ¼Õ
-    ADDON_RIGHTHAND, // ¿À¸¥¼Õ
-    ADDON_MOTOR,     // ¿ÀÅä¹ÙÀÌ
-    ADDON_SHOULDER,  // ¾î±ú
+    ADDON_HAIR,      // ë¨¸ë¦¬
+    ADDON_HELM,      // ëª¨ìž
+    ADDON_COAT,      // ìƒì˜
+    ADDON_TROUSER,   // í•˜ì˜
+    ADDON_LEFTHAND,  // ì™¼ì†
+    ADDON_RIGHTHAND, // ì˜¤ë¥¸ì†
+    ADDON_MOTOR,     // ì˜¤í† ë°”ì´
+    ADDON_SHOULDER,  // ì–´ê¹¨
     ADDON_MAX
 };
 #endif
@@ -132,7 +132,7 @@ const string OustersSylphType2String[] = {"OUSTERS_SYLPH_NONE", "OUSTERS_SYLPH1"
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¼ºº°
+// ì„±ë³„
 //////////////////////////////////////////////////////////////////////////////
 enum Sex {
     FEMALE, // female == 0   -_-; why? don't know?
@@ -143,7 +143,7 @@ const uint szSex = szBYTE;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Çì¾î½ºÅ¸ÀÏ
+// í—¤ì–´ìŠ¤íƒ€ì¼
 //////////////////////////////////////////////////////////////////////////////
 enum HairStyle { HAIR_STYLE1, HAIR_STYLE2, HAIR_STYLE3 };
 const string HairStyle2String[] = {"HAIR_STYLE1", "HAIR_STYLE2", "HAIR_STYLE3"};
@@ -159,7 +159,7 @@ const uint szSlot = szBYTE;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ö»ó Á¤º¸
+// ìƒ‰ìƒ ì •ë³´
 //////////////////////////////////////////////////////////////////////////////
 typedef WORD Color_t;
 const uint szColor = sizeof(Color_t);
@@ -183,9 +183,9 @@ enum AttrType { ATTR_CURRENT = 0, ATTR_MAX, ATTR_BASIC };
 typedef WORD Attr_t;
 const uint szAttr = sizeof(Attr_t);
 
-// ´É·ÂÄ¡ ¿À¹ö·Î ¼­¹ö ´Ù¿îÀÌ °¡²û ÀÖ¾î¼­..
-// µÑ´Ù 350À¸·Î µÅÀÖ´ø°É 2000À¸·Î ¼öÁ¤ÇÑ´ç.
-// (!) ÀÌ°Ç Àû´çÇÑ ¼öÁØ¿¡ Àâ¾ÆµÎ°í Error¸¦ catchÇØ¼­ log¸¸ ³²±â´Â°Ô ´õ ÁÁ°ÚÁö¸¸...
+// ëŠ¥ë ¥ì¹˜ ì˜¤ë²„ë¡œ ì„œë²„ ë‹¤ìš´ì´ ê°€ë” ìžˆì–´ì„œ..
+// ë‘˜ë‹¤ 350ìœ¼ë¡œ ë¼ìžˆë˜ê±¸ 2000ìœ¼ë¡œ ìˆ˜ì •í•œë‹¹.
+// (!) ì´ê±´ ì ë‹¹í•œ ìˆ˜ì¤€ì— ìž¡ì•„ë‘ê³  Errorë¥¼ catchí•´ì„œ logë§Œ ë‚¨ê¸°ëŠ”ê²Œ ë” ì¢‹ê² ì§€ë§Œ...
 // by sigi. 2002.9.16
 const uint maxSlayerAttr = 2000;
 const uint maxVampireAttr = 2000;
@@ -197,15 +197,15 @@ const uint szHP = sizeof(HP_t);
 typedef WORD MP_t;
 const uint szMP = sizeof(MP_t);
 
-// ¹æ¾î·Â
+// ë°©ì–´ë ¥
 typedef WORD Defense_t;
 const uint szDefense = sizeof(Defense_t);
 
-// ÇÁ·ÎÅØ¼Ç
+// í”„ë¡œí…ì…˜
 typedef WORD Protection_t;
 const uint szProtection = sizeof(Protection_t);
 
-// ¸íÁß·ü
+// ëª…ì¤‘ë¥ 
 typedef WORD ToHit_t;
 const uint szToHit = sizeof(ToHit_t);
 
@@ -218,8 +218,8 @@ const uint szSkillPoint = sizeof(SkillPoint_t);
 
 //////////////////////////////////////////////////////////////////////////////
 // defines for MODIFY bit flag //abcd
-// ±âº»Ä¡¼ö str, int, dexµîÀÇ º¯È­¿¡ µû¶ó¼­ º¯È­µÈ °ªµéÀÌ ¾î¶² °ªÀÎ°¡¸¦
-// ³ªÅ¸³¿
+// ê¸°ë³¸ì¹˜ìˆ˜ str, int, dexë“±ì˜ ë³€í™”ì— ë”°ë¼ì„œ ë³€í™”ëœ ê°’ë“¤ì´ ì–´ë–¤ ê°’ì¸ê°€ë¥¼
+// ë‚˜íƒ€ëƒ„
 //////////////////////////////////////////////////////////////////////////////
 #define MF_STR 0x01
 #define MF_DEX 0x02
@@ -233,13 +233,13 @@ const uint szSkillPoint = sizeof(SkillPoint_t);
 enum Attribute { STR = 0, DEX, INTE, MP, HP, DEFENSE, TOHIT, PROTECT, DAM, SD, DUR, LEV, MAX_ATTR };
 
 //////////////////////////////////////////////////////////////////////////////
-// Skill °ü·Ã
+// Skill ê´€ë ¨
 //////////////////////////////////////////////////////////////////////////////
-// SkillÀÇ Type °¹¼ö.
+// Skillì˜ Type ê°¯ìˆ˜.
 typedef WORD SkillType_t;
 const uint szSkillType = sizeof(SkillType_t);
 
-// Client ¿¡¼­ ³¯·ÁÁÖ´Â EffectID.
+// Client ì—ì„œ ë‚ ë ¤ì£¼ëŠ” EffectID.
 typedef WORD CEffectID_t;
 const uint szCEffectID = sizeof(CEffectID_t);
 
@@ -247,7 +247,7 @@ const uint szCEffectID = sizeof(CEffectID_t);
 typedef WORD EffectID_t;
 const uint szEffectID = sizeof(EffectID_t);
 
-// SlotÀÇ °¹¼ö
+// Slotì˜ ê°¯ìˆ˜
 typedef BYTE SlotID_t;
 const uint szSlotID = sizeof(SlotID_t);
 
@@ -274,7 +274,7 @@ enum SkillDomain {
     SKILL_DOMAIN_VAMPIRE,   // 6
     SKILL_DOMAIN_OUSTERS,   // 6
     SKILL_DOMAIN_MAX        // 7
-    //	SKILL_DOMAIN_RIFLE ,    // 2...3¹øÀº ¾²ÀÌÁö ¾ÊÁã...
+    //	SKILL_DOMAIN_RIFLE ,    // 2...3ë²ˆì€ ì“°ì´ì§€ ì•Šì¥...
 };
 
 enum SkillGrade {
@@ -298,14 +298,14 @@ const string SkillDomain2String[] = {"SKILL_DOMAIN_BLADE", "SKILL_DOMAIN_SWORD",
                                      "SKILL_DOMAIN_VAMPIRE"};
 
 //////////////////////////////////////////////////////////////////////////////
-// NPC·ÎºÎÅÍ ±â¼úÀ» ¹è¿ï ¶§ ¾²ÀÌ´Â »ó¼öÀÌ´Ù.
-// ¸ðµç ·¹º§ÀÇ ±â¼úÀ» ´Ù ¹è¿ö¼­ ´õ ÀÌ»ó ¹è¿ï ¼ö ¾øÀ½À» ³ªÅ¸³¯ ¶§
-// ÆÐÅ¶¿¡´Ù ³Ö¾î¼­ º¸³»´Â »ó¼öÀÌ´Ù.
+// NPCë¡œë¶€í„° ê¸°ìˆ ì„ ë°°ìš¸ ë•Œ ì“°ì´ëŠ” ìƒìˆ˜ì´ë‹¤.
+// ëª¨ë“  ë ˆë²¨ì˜ ê¸°ìˆ ì„ ë‹¤ ë°°ì›Œì„œ ë” ì´ìƒ ë°°ìš¸ ìˆ˜ ì—†ìŒì„ ë‚˜íƒ€ë‚  ë•Œ
+// íŒ¨í‚·ì—ë‹¤ ë„£ì–´ì„œ ë³´ë‚´ëŠ” ìƒìˆ˜ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 const SkillLevel_t ALL_SKILL_LEARNED = 100;
 
 //////////////////////////////////////////////////////////////////////////////
-// PC ±âÅ¸ Á¤º¸ Å¸ÀÔ
+// PC ê¸°íƒ€ ì •ë³´ íƒ€ìž…
 //////////////////////////////////////////////////////////////////////////////
 typedef DWORD Fame_t;
 const uint szFame = sizeof(Fame_t);
@@ -328,7 +328,7 @@ const uint szGold = sizeof(Gold_t);
 const Gold_t MAX_MONEY = 2000000000;
 
 //////////////////////////////////////////////////////////////////////////////
-// ÁÂÇ¥¿Í ¹æÇâ
+// ì¢Œí‘œì™€ ë°©í–¥
 //////////////////////////////////////////////////////////////////////////////
 typedef BYTE Coord_t;
 const uint szCoord = sizeof(Coord_t);
@@ -341,13 +341,13 @@ const string Dir2String[] = {"LEFT", "LEFTDOWN", "DOWN", "RIGHTDOWN", "RIGHT", "
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½Ã¾ß °ü·Ã
+// ì‹œì•¼ ê´€ë ¨
 //////////////////////////////////////////////////////////////////////////////
 
 typedef BYTE Vision_t;
 const uint szVision = sizeof(Vision_t);
 
-// Ä³¸¯ÅÍÀÇ °¡·Î/¼¼·Î ½Ã¾ß ¹üÀ§ÀÇ ÃÖ´ë°ª. ½Ã¾ß ¹üÀ§´Â »óÇÏ°¡ ºñ´ëÄªÀÌ´Ù.
+// ìºë¦­í„°ì˜ ê°€ë¡œ/ì„¸ë¡œ ì‹œì•¼ ë²”ìœ„ì˜ ìµœëŒ€ê°’. ì‹œì•¼ ë²”ìœ„ëŠ” ìƒí•˜ê°€ ë¹„ëŒ€ì¹­ì´ë‹¤.
 // const Coord_t maxViewportWidth  = 9;
 // const Coord_t maxViewportUpperHeight = 10;
 // const Coord_t maxViewportLowerHeight = 10;
@@ -359,11 +359,11 @@ const uint szVision = sizeof(Vision_t);
 // const Coord_t maxViewportUpperHeight = 14;
 // const Coord_t maxViewportLowerHeight = 14;
 
-// ½Ã¾ß»ç°¢Çü(vision)ÀÇ °¡·Î/¼¼·Î Å©±â
+// ì‹œì•¼ì‚¬ê°í˜•(vision)ì˜ ê°€ë¡œ/ì„¸ë¡œ í¬ê¸°
 // const Coord_t maxVisionWidth = maxViewportWidth * 2 + 1;
 // const Coord_t maxVisionHeight = maxViewportUpperHeight + maxViewportLowerHeight + 1;
 
-// ½Ã¾ß ·¹º§
+// ì‹œì•¼ ë ˆë²¨
 typedef BYTE Sight_t;
 const uint szSight = sizeof(Sight_t);
 const Sight_t minSight = 0;
@@ -371,14 +371,14 @@ const Sight_t maxSight = 13;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// °ÔÀÓ ³»¿¡¼­ÀÇ ÅÏ(0.1ÃÊ)À» °è»êÇÒ ¶§ »ç¿ëÇÑ´Ù.
+// ê²Œìž„ ë‚´ì—ì„œì˜ í„´(0.1ì´ˆ)ì„ ê³„ì‚°í•  ë•Œ ì‚¬ìš©í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 typedef DWORD Turn_t;
 const uint szTurn = sizeof(Turn_t);
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ
+// ëª¬ìŠ¤í„°
 //////////////////////////////////////////////////////////////////////////////
 typedef WORD MonsterType_t;
 const uint szMonsterType = sizeof(MonsterType_t);
@@ -400,7 +400,7 @@ typedef WORD NPCID_t;
 const uint szNPCID = sizeof(NPCID_t);
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÚµåÆù&½½¶ù °ü·Ã
+// í•¸ë“œí°&ìŠ¬ëž ê´€ë ¨
 //////////////////////////////////////////////////////////////////////////////
 #define MAX_PHONE_SLOT 3
 typedef DWORD PhoneNumber_t;
@@ -427,26 +427,26 @@ typedef short Luck_t;
 const uint szLuck = sizeof(Luck_t);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ý ÀúÇ×·Â
+// ë§ˆë²• ì €í•­ë ¥
 //////////////////////////////////////////////////////////////////////////////
 typedef short Resist_t;
 const uint szResist = sizeof(Resist_t);
 
 enum MagicDomain {
-    MAGIC_DOMAIN_NO_DOMAIN = 0, // ¹«¼Ó¼º ¸¶¹ý
-    MAGIC_DOMAIN_POISON = 1,    // µ¶ °è¿­ ¸¶¹ý
-    MAGIC_DOMAIN_ACID = 2,      // »ê °è¿­ ¸¶¹ý
-    MAGIC_DOMAIN_CURSE = 3,     // ÀúÁÖ °è¿­ ¸¶¹ý
-    MAGIC_DOMAIN_BLOOD = 4,     // ÇÇ °è¿­ ¸¶¹ý
+    MAGIC_DOMAIN_NO_DOMAIN = 0, // ë¬´ì†ì„± ë§ˆë²•
+    MAGIC_DOMAIN_POISON = 1,    // ë… ê³„ì—´ ë§ˆë²•
+    MAGIC_DOMAIN_ACID = 2,      // ì‚° ê³„ì—´ ë§ˆë²•
+    MAGIC_DOMAIN_CURSE = 3,     // ì €ì£¼ ê³„ì—´ ë§ˆë²•
+    MAGIC_DOMAIN_BLOOD = 4,     // í”¼ ê³„ì—´ ë§ˆë²•
 
     MAGIC_DOMAIN_MAX
 };
 
-const string MagicDomain2String[] = {"NO_DOMAIN", // ¹«¼Ó¼º ¸¶¹ý
-                                     "POISON",    // µ¶ °è¿­ ¸¶¹ý
-                                     "ACID",      // »ê °è¿­ ¸¶¹ý
-                                     "CURSE",     // ÀúÁÖ °è¿­ ¸¶¹ý
-                                     "BLOOD",     // ÇÇ °è¿­ ¸¶¹ý
+const string MagicDomain2String[] = {"NO_DOMAIN", // ë¬´ì†ì„± ë§ˆë²•
+                                     "POISON",    // ë… ê³„ì—´ ë§ˆë²•
+                                     "ACID",      // ì‚° ê³„ì—´ ë§ˆë²•
+                                     "CURSE",     // ì €ì£¼ ê³„ì—´ ë§ˆë²•
+                                     "BLOOD",     // í”¼ ê³„ì—´ ë§ˆë²•
                                      "MAGIC_DOMAIN_MAX"};
 
 const int MAX_RESIST = 90;
@@ -458,21 +458,21 @@ const uint szShape = sizeof(Shape_t);
 enum Shape { SHAPE_NORMAL = 0, SHAPE_WOLF, SHAPE_BAT, SHAPE_WERWOLF, SHAPE_MAX };
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼úÀÇ Å¸°Ù Å¸ÀÔ
-// ºñÆ® ÇÃ·¡±×·Î½á, ¸ÂÃâ ¼ö ÀÖ´Â Å¸ÀÔÀ» °áÁ¤ÇÑ´Ù.
+// ê¸°ìˆ ì˜ íƒ€ê²Ÿ íƒ€ìž…
+// ë¹„íŠ¸ í”Œëž˜ê·¸ë¡œì¨, ë§žì¶œ ìˆ˜ ìžˆëŠ” íƒ€ìž…ì„ ê²°ì •í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 const uint TARGET_UNDERGROUND = 0x01;
 const uint TARGET_GROUND = 0x02;
 const uint TARGET_AIR = 0x04;
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬·£ Å¸ÀÔ
+// í´ëžœ íƒ€ìž…
 //////////////////////////////////////////////////////////////////////////////
-typedef WORD ClanType_t; // BYTE¿¡¼­ WORD·Î ¹Ù²Þ. by sigi. 2002.12.27
+typedef WORD ClanType_t; // BYTEì—ì„œ WORDë¡œ ë°”ê¿ˆ. by sigi. 2002.12.27
 const uint szClanType = sizeof(ClanType_t);
 
 //////////////////////////////////////////////////////////////////////////////
-// °æÇèÄ¡ °ü·Ã ¼¼ÀÌºê ÁÖ±â
+// ê²½í—˜ì¹˜ ê´€ë ¨ ì„¸ì´ë¸Œ ì£¼ê¸°
 //////////////////////////////////////////////////////////////////////////////
 const WORD ATTR_EXP_SAVE_PERIOD = 100;
 const WORD DOMAIN_EXP_SAVE_PERIOD = 100;
@@ -485,23 +485,23 @@ const WORD OUSTERS_EXP_SAVE_PERIOD = 100;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ½Ã¾ß ¿µ¿ª »ó¼öµé
+// ì‹œì•¼ ì˜ì—­ ìƒìˆ˜ë“¤
 //
-// VisionState >= IN_SIGHT     : ÀÌ¹Ì º¸°í ÀÖ´Ù.
-// VisionState == OUT_OF_SIGHT : º¸ÀÌÁö ¾Ê´Â´Ù.
+// VisionState >= IN_SIGHT     : ì´ë¯¸ ë³´ê³  ìžˆë‹¤.
+// VisionState == OUT_OF_SIGHT : ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
 //
 ////////////////////////////////////////////////////////////////////////////////
 enum VisionState {
-    OUT_OF_SIGHT, // ½Ã¾ß 8°¢ÇüÀÇ ¿ÜºÎ ¿µ¿ª. º¸ÀÌÁö ¾Ê´Â´Ù.
-    IN_SIGHT,     // ½Ã¾ß 8°¢ÇüÀÇ ³»ºÎ ¿µ¿ª. º¸ÀÎ´Ù. ÀÌ¹Ì º¸°í ÀÖ´Ù.
-    ON_SIGHT,     // ½Ã¾ß 8°¢ÇüÀÇ °æ°è ¿µ¿ª. º¸ÀÎ´Ù. ÀÌ¹Ì º¸°í ÀÖ´Ù.
-    NEW_SIGHT     // ½Ã¾ß 8°¢ÇüÀÇ °æ°è ¿µ¿ª. ½ºÄ³´×¿µ¿ª. º¸ÀÎ´Ù. Ã³À½ º»´Ù.
+    OUT_OF_SIGHT, // ì‹œì•¼ 8ê°í˜•ì˜ ì™¸ë¶€ ì˜ì—­. ë³´ì´ì§€ ì•ŠëŠ”ë‹¤.
+    IN_SIGHT,     // ì‹œì•¼ 8ê°í˜•ì˜ ë‚´ë¶€ ì˜ì—­. ë³´ì¸ë‹¤. ì´ë¯¸ ë³´ê³  ìžˆë‹¤.
+    ON_SIGHT,     // ì‹œì•¼ 8ê°í˜•ì˜ ê²½ê³„ ì˜ì—­. ë³´ì¸ë‹¤. ì´ë¯¸ ë³´ê³  ìžˆë‹¤.
+    NEW_SIGHT     // ì‹œì•¼ 8ê°í˜•ì˜ ê²½ê³„ ì˜ì—­. ìŠ¤ìºë‹ì˜ì—­. ë³´ì¸ë‹¤. ì²˜ìŒ ë³¸ë‹¤.
 };
 
 const string VisionState2String[] = {"OUT_OF_SIGHT", "IN_SIGHT", "ON_SIGHT", "NEW_SIGHT"};
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º ¿¤¸®¸àÅ» ¼Ó¼º
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ì—˜ë¦¬ë©˜íƒˆ ì†ì„±
 ////////////////////////////////////////////////////////////////////////////////
 enum ElementalType {
     ELEMENTAL_ANY = -1,
@@ -525,14 +525,14 @@ typedef WORD Elemental_t;
 const uint szElemental = sizeof(Elemental_t);
 
 enum ElementalDomain {
-    ELEMENTAL_DOMAIN_NO_DOMAIN = -1,   // ¹«¼Ó¼º
-    ELEMENTAL_DOMAIN_FIRE = 0,         // ºÒ°è¿­
-    ELEMENTAL_DOMAIN_WATER,            // ¹°°è¿­
-    ELEMENTAL_DOMAIN_EARTH,            // ´ëÁö°è¿­
-    ELEMENTAL_DOMAIN_WIND,             // ¹Ù¶÷°è¿­
-    ELEMENTAL_DOMAIN_COMBAT,           // ÀüÅõ ÀÏ¹Ý °è¿­
-    ELEMENTAL_DOMAIN_ELEMENTAL_COMBAT, // ÀüÅõ Á¤·É °è¿­
-    ELEMENTAL_DOMAIN_ETC,              // ±âÅ¸(°è¿­±¸ºÐ¾øÀ½)
+    ELEMENTAL_DOMAIN_NO_DOMAIN = -1,   // ë¬´ì†ì„±
+    ELEMENTAL_DOMAIN_FIRE = 0,         // ë¶ˆê³„ì—´
+    ELEMENTAL_DOMAIN_WATER,            // ë¬¼ê³„ì—´
+    ELEMENTAL_DOMAIN_EARTH,            // ëŒ€ì§€ê³„ì—´
+    ELEMENTAL_DOMAIN_WIND,             // ë°”ëžŒê³„ì—´
+    ELEMENTAL_DOMAIN_COMBAT,           // ì „íˆ¬ ì¼ë°˜ ê³„ì—´
+    ELEMENTAL_DOMAIN_ELEMENTAL_COMBAT, // ì „íˆ¬ ì •ë ¹ ê³„ì—´
+    ELEMENTAL_DOMAIN_ETC,              // ê¸°íƒ€(ê³„ì—´êµ¬ë¶„ì—†ìŒ)
 
     ELEMENTAL_DOMAIN_MAX
 };

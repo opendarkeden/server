@@ -10,14 +10,14 @@
 #include "GCAddWolf.h"
 
 //////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCAddWolf::read(SocketInputStream& iStream)
 
 {
     __BEGIN_TRY
 
-    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    // 최적화 작업시 실제 크기를 명시하도록 한다.
     iStream.read(m_ObjectID);
 
     BYTE szName;
@@ -50,14 +50,14 @@ void GCAddWolf::read(SocketInputStream& iStream)
 
 
 //////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCAddWolf::write(SocketOutputStream& oStream) const
 
 {
     __BEGIN_TRY
 
-    // ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+    // 최적화 작업시 실제 크기를 명시하도록 한다.
     oStream.write(m_ObjectID);
 
     BYTE szName = m_Name.size();

@@ -25,7 +25,7 @@ GQuestMission* GQuestPartyDissectElement::makeInitMission(PlayerCreature* pPC) c
     int TotalNum = pTargetList->size();
     int TargetNum = min((int)m_TargetNum, TotalNum);
     int selected = 0;
-    cout << TotalNum << "Áß¿¡ " << TargetNum << "°³°¡ ¼±ÅÃµÇ¾î¾ß ÇÕ´Ï´Ù." << endl;
+    cout << TotalNum << "ì¤‘ì— " << TargetNum << "ê°œê°€ ì„ íƒë˜ì–´ì•¼ í•©ë‹ˆë‹¤." << endl;
 
     for (int i = 0; i < TotalNum; ++i) {
         int toSelect = TargetNum - selected;
@@ -39,13 +39,13 @@ GQuestMission* GQuestPartyDissectElement::makeInitMission(PlayerCreature* pPC) c
                 pMission->m_StrArg += ", ";
             pMission->getTargetList().push_back((*pTargetList)[i]);
             ++selected;
-            cout << (int)(*pTargetList)[i] << "°¡ ¼±ÅÃµÇ¾ú½À´Ï´Ù." << endl;
+            cout << (int)(*pTargetList)[i] << "ê°€ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 
             pMission->m_StrArg += g_pMonsterInfoManager->getNameBySpriteType((*pTargetList)[i]);
         }
     }
 
-    cout << "¼±ÅÃ³¡~" << endl;
+    cout << "ì„ íƒë~" << endl;
 
     return pMission;
 }

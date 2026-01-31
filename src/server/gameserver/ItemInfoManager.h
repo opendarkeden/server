@@ -53,8 +53,8 @@ public:
 private:
     InfoClassManager* m_InfoClassManagers[Item::ITEM_CLASS_MAX];
 
-    uint m_ItemIDSuccessor; // ItemID¸¦ ¹ß±Ş¹ŞÀ» ¶§ÀÇ Áõ°¡Ä¡(¼­¹öÀÇ ¼ıÀÚ)
-    uint m_ItemIDBase;      // °¢ ¼­¹ö¸¶´Ù ´Ù¸¥ º£ÀÌ½º
+    uint m_ItemIDSuccessor; // ItemIDë¥¼ ë°œê¸‰ë°›ì„ ë•Œì˜ ì¦ê°€ì¹˜(ì„œë²„ì˜ ìˆ«ì)
+    uint m_ItemIDBase;      // ê° ì„œë²„ë§ˆë‹¤ ë‹¤ë¥¸ ë² ì´ìŠ¤
 };
 
 extern ItemInfoManager* g_pItemInfoManager;

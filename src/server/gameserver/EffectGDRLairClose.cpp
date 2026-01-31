@@ -10,7 +10,7 @@ void EffectGDRLairClose::affect() {
     setNextTime(600);
 
     char msg[200];
-    sprintf(msg, "%d·Öºó,½«¹Ø±ÕÈÈ´ïÈðÐÐ¹¬Èë¿Ú.", m_MinutesCount);
+    sprintf(msg, "%dë¡¸ë¹ˆ,ì‰¥ë°‘ê· í›‘ëŒí©ï¤‰ë¬µí™ì™¯.", m_MinutesCount);
     GCSystemMessage gcSM;
     gcSM.setMessage(msg);
     g_pZoneGroupManager->broadcast(&gcSM);
@@ -20,11 +20,11 @@ void EffectGDRLairClose::affect() {
 void EffectGDRLairClose::unaffect() {
     __BEGIN_TRY
 
-    cout << "Áúµå·¹ ·¹¾î ´Ý½À´Ï´Ù." << endl;
+    cout << "ì§ˆë“œë ˆ ë ˆì–´ ë‹«ìŠµë‹ˆë‹¤." << endl;
     GDRLairManager::Instance().close();
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("ÈÈ´ïÈðÐÐ¹¬ÒÑ¹Ø±Õ.");
+    gcSM.setMessage("í›‘ëŒí©ï¤‰ë¬µï¤½ë°‘ê· .");
     g_pZoneGroupManager->broadcast(&gcSM);
 
     __END_CATCH

@@ -2,8 +2,8 @@
 // Filename    : ActionSimpleQuestRegen.h
 // Written By  :
 // Description :
-// »óÁ¡ NPC¸¦ Á¦ÀÏ Ã³À½ ·ÎµùÇÒ ¶§, »óÁ¡ NPC°¡ ÆÈ°Ô µÉ ¾ÆÀÌÅÛÀ»
-// ÁØºñÇÏ´Â ¾×¼ÇÀÌ´Ù. ShopTemplate Å¬·¡½º¿Í ¸Å´ÏÀú¸¦ Âü°íÇÒ °Í.
+// ìƒì  NPCë¥¼ ì œì¼ ì²˜ìŒ ë¡œë”©í•  ë•Œ, ìƒì  NPCê°€ íŒ”ê²Œ ë  ì•„ì´í…œì„
+// ì¤€ë¹„í•˜ëŠ” ì•¡ì…˜ì´ë‹¤. ShopTemplate í´ë˜ìŠ¤ì™€ ë§¤ë‹ˆì €ë¥¼ ì°¸ê³ í•  ê²ƒ.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_SIMPLE_QUEST_REGEN_H__
@@ -33,8 +33,8 @@ public:
     virtual string toString() const;
 
 private:
-    Timeval m_Period;    // »óÁ¡À» ¸®Á¨ÇÒ ÁÖ±â
-    Timeval m_NextRegen; // ´ÙÀ½ »óÁ¡ ¸®Á¨ ½Ã°£
+    Timeval m_Period;    // ìƒì ì„ ë¦¬ì  í•  ì£¼ê¸°
+    Timeval m_NextRegen; // ë‹¤ìŒ ìƒì  ë¦¬ì   ì‹œê°„
 };
 
 

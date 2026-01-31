@@ -29,11 +29,11 @@ public:
     string toString() const;
 
 public:
-    ShrineID_t m_ShrineID;    // Shrine ID. ItemType°ú °°¾Æ¾ß ÇÑ´Ù.
-    ShrineInfo m_GuardShrine; // ¼º ¾È¿¡ ÀÖ´Â Shrine
-    ShrineInfo m_HolyShrine;  // ¾Æ´ãÀÇ ¼ºÁö¿¡ ÀÖ´Â Shrine
-    ItemType_t m_ItemType;    // ¼º¼­ Á¶°¢ ItemType
-    ItemID_t m_ItemID;        // ¼º¼­ Á¶°¢ ItemID
+    ShrineID_t m_ShrineID;    // Shrine ID. ItemTypeê³¼ ê°™ì•„ì•¼ í•œë‹¤.
+    ShrineInfo m_GuardShrine; // ì„± ì•ˆì— ìˆëŠ” Shrine
+    ShrineInfo m_HolyShrine;  // ì•„ë‹´ì˜ ì„±ì§€ì— ìˆëŠ” Shrine
+    ItemType_t m_ItemType;    // ì„±ì„œ ì¡°ê° ItemType
+    ItemID_t m_ItemID;        // ì„±ì„œ ì¡°ê° ItemID
 };
 
 

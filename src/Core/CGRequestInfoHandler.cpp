@@ -17,7 +17,7 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹º°¡¿¡ ´ëÇÑ Á¤º¸¸¦ ¿äÃ»ÇÏ´Â °æ¿ìÀÌ´Ù.
+// ë­”ê°€ì— ëŒ€í•œ ì •ë³´ë¥¼ ìš”ì²­í•˜ëŠ” ê²½ìš°ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestInfoHandler::execute(CGRequestInfo* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -32,7 +32,7 @@ void CGRequestInfoHandler::execute(CGRequestInfo* pPacket, Player* pPlayer) {
 
     switch (pPacket->getCode()) {
     //------------------------------------------------------------
-    // ´Ù¸¥ Ä³¸¯ÅÍÀÇ Á¤º¸¸¦ ¿äÃ»ÇÏ´Â °æ¿ì
+    // ë‹¤ë¥¸ ìºë¦­í„°ì˜ ì •ë³´ë¥¼ ìš”ì²­í•˜ëŠ” ê²½ìš°
     //------------------------------------------------------------
     case CGRequestInfo::REQUEST_CHARACTER_INFO: {
         Creature* pCreature = pGamePlayer->getCreature();
@@ -44,7 +44,7 @@ void CGRequestInfoHandler::execute(CGRequestInfo* pPacket, Player* pPlayer) {
         Creature* pTargetCreature = pZone->getCreature(pPacket->getValue());
 
         if (pTargetCreature != NULL && pTargetCreature->isPC()) {
-            // º¼·Á´Â ´ë»óÀÌ ¿î¿µÀÚ ¸ð¾çÀÌ ¾Æ´Ñ °æ¿ì¸¸ µÈ´Ù.
+            // ë³¼ë ¤ëŠ” ëŒ€ìƒì´ ìš´ì˜ìž ëª¨ì–‘ì´ ì•„ë‹Œ ê²½ìš°ë§Œ ëœë‹¤.
             if (pTargetCreature->isSlayer()) {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
                 if (pSlayer->getCompetenceShape() != 1)
@@ -67,8 +67,8 @@ void CGRequestInfoHandler::execute(CGRequestInfo* pPacket, Player* pPlayer) {
             GCOtherModifyInfo gcOtherModifyInfo;
             GCOtherGuildName gcOtherGuildName;
 
-            // °ª ¼³Á¤ ºÎºÐ
-            // °°Àº Á¾Á·¸¸ º¸¿©ÁØ´Ù.
+            // ê°’ ì„¤ì • ë¶€ë¶„
+            // ê°™ì€ ì¢…ì¡±ë§Œ ë³´ì—¬ì¤€ë‹¤.
             if ((pCreature->isSlayer() || pCreature->getCompetenceShape() != 1) && pTargetCreature->isSlayer()) {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 

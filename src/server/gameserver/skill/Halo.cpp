@@ -18,15 +18,15 @@
 static BYTE getDirection_Halo(int originX, int originY, int destX, int destY) {
     int stepX = destX - originX, stepY = destY - originY;
 
-    // 0¿œ ∂ß check
-    float k = (stepX == 0) ? 0 : (float)(stepY) / stepX; // ±‚øÔ±‚
+    // 0Ïùº Îïå check
+    float k = (stepX == 0) ? 0 : (float)(stepY) / stepX; // Í∏∞Ïö∏Í∏∞
 
 
     //--------------------------------------------------
-    // πÊ«‚¿ª ¡§«ÿæﬂ «—¥Ÿ.
+    // Î∞©Ìñ•ÏùÑ Ï†ïÌï¥Ïïº ÌïúÎã§.
     //--------------------------------------------------
     if (stepY == 0) {
-        // X√‡
+        // XÏ∂ï
         // - -;;
         if (stepX == 0)
             return DOWN;
@@ -34,13 +34,13 @@ static BYTE getDirection_Halo(int originX, int originY, int destX, int destY) {
             return RIGHT;
         else
             return LEFT;
-    } else if (stepY < 0) // UP¬ ¿∏∑Œ
+    } else if (stepY < 0) // UPÏ™ΩÏúºÎ°ú
     {
-        // y√‡ ¿ß
+        // yÏ∂ï ÏúÑ
         if (stepX == 0) {
             return UP;
         }
-        // 1ªÁ∫–∏È
+        // 1ÏÇ¨Î∂ÑÎ©¥
         else if (stepX > 0) {
             if (k < -HALO_BASIS_DIRECTION_HIGH)
                 return UP;
@@ -49,7 +49,7 @@ static BYTE getDirection_Halo(int originX, int originY, int destX, int destY) {
             else
                 return RIGHT;
         }
-        // 2ªÁ∫–∏È
+        // 2ÏÇ¨Î∂ÑÎ©¥
         else {
             if (k > HALO_BASIS_DIRECTION_HIGH)
                 return UP;
@@ -59,13 +59,13 @@ static BYTE getDirection_Halo(int originX, int originY, int destX, int destY) {
                 return LEFT;
         }
     }
-    // æ∆∑°¬ 
+    // ÏïÑÎûòÏ™Ω
     else {
-        // y√‡ æ∆∑°
+        // yÏ∂ï ÏïÑÎûò
         if (stepX == 0) {
             return DOWN;
         }
-        // 4ªÁ∫–∏È
+        // 4ÏÇ¨Î∂ÑÎ©¥
         else if (stepX > 0) {
             if (k > HALO_BASIS_DIRECTION_HIGH)
                 return DOWN;
@@ -74,7 +74,7 @@ static BYTE getDirection_Halo(int originX, int originY, int destX, int destY) {
             else
                 return RIGHT;
         }
-        // 3ªÁ∫–∏È
+        // 3ÏÇ¨Î∂ÑÎ©¥
         else {
             if (k < -HALO_BASIS_DIRECTION_HIGH)
                 return DOWN;
@@ -88,7 +88,7 @@ static BYTE getDirection_Halo(int originX, int originY, int destX, int destY) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// πÏ∆ƒ¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Î±ÄÌååÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void Halo::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                    CEffectID_t CEffectID)
@@ -119,7 +119,7 @@ void Halo::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlo
     g_SimpleMissileSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
 
     if (result.bSuccess) {
-        cout << "Halo º∫∞¯" << endl;
+        cout << "Halo ÏÑ±Í≥µ" << endl;
         Dir_t dir = getDirection_Halo(pOusters->getX(), pOusters->getY(), result.pTargetCreature->getX(),
                                       result.pTargetCreature->getY());
 

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : OptionInfo.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -17,7 +17,7 @@
 #include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¿É¼Ç ·¹º§ÀÇ ¸Æ½º
+// ì˜µì…˜ ë ˆë²¨ì˜ ë§¥ìŠ¤
 //////////////////////////////////////////////////////////////////////////////
 const uint OPTION_LEVEL_MAX = 100;
 const uint GAMBLE_OPTION_LEVEL_MAX = 100;
@@ -28,7 +28,7 @@ class Vampire;
 class Ousters;
 
 //////////////////////////////////////////////////////////////////////////////
-// ¿É¼ÇÀÇ Àû¿ë ºÎÀ§ Á¾·ù
+// ì˜µì…˜ì˜ ì ìš© ë¶€ìœ„ ì¢…ë¥˜
 //////////////////////////////////////////////////////////////////////////////
 enum OptionClass {
     OPTION_STR = 0,       // increase STR
@@ -88,12 +88,12 @@ const string OptionClass2String[] = {
     "OPTION_MAX"};
 
 enum OptionGroup {
-    OPTION_GROUP_ATTR = 0, // ´É·ÂÄ¡ °ü·Ã ¿É¼Ç
-    OPTION_GROUP_STAT,     // º¸Á¶´É·ÂÄ¡ °ü·Ã ¿É¼Ç
-    OPTION_GROUP_SPECIAL,  // Æ¯¼ö ¿É¼Ç (...?)
-    OPTION_GROUP_RESIST,   // ÀúÇ× ¿É¼Ç
-    OPTION_GROUP_ETC,      // ±âÅ¸ ¿É¼Ç
-    OPTION_GROUP_NOT       // ±×·ì ¾øÀ½
+    OPTION_GROUP_ATTR = 0, // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ ì˜µì…˜
+    OPTION_GROUP_STAT,     // ë³´ì¡°ëŠ¥ë ¥ì¹˜ ê´€ë ¨ ì˜µì…˜
+    OPTION_GROUP_SPECIAL,  // íŠ¹ìˆ˜ ì˜µì…˜ (...?)
+    OPTION_GROUP_RESIST,   // ì €í•­ ì˜µì…˜
+    OPTION_GROUP_ETC,      // ê¸°íƒ€ ì˜µì…˜
+    OPTION_GROUP_NOT       // ê·¸ë£¹ ì—†ìŒ
 };
 
 class RareOptionUpgradeInfo {
@@ -183,8 +183,8 @@ private:
     OptionClass m_OptionClass;
     string m_Name;
     string m_HName;
-    int m_Level;      // Áß¿äµµ
-    int m_TotalGrade; // ¿É¼ÇÀÇ ÃÑ ´Ü°è ¼ö
+    int m_Level;      // ì¤‘ìš”ë„
+    int m_TotalGrade; // ì˜µì…˜ì˜ ì´ ë‹¨ê³„ ìˆ˜
     OptionGroup m_OptionGroup;
 };
 
@@ -314,7 +314,7 @@ public:
         m_GambleLevel = level;
     }
 
-    // ÀÌÀü ´Ü°èÀÇ ¿É¼ÇÀ¸·Î downgradeÇÒ¶§ ÇÊ¿äÇÑ Á¤º¸
+    // ì´ì „ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ downgradeí• ë•Œ í•„ìš”í•œ ì •ë³´
     OptionType_t getPreviousType(void) const {
         return m_PreviousOptionType;
     }
@@ -322,7 +322,7 @@ public:
         m_PreviousOptionType = type;
     }
 
-    // ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgradeÇÒ¶§ ÇÊ¿äÇÑ Á¤º¸
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeí• ë•Œ í•„ìš”í•œ ì •ë³´
     OptionType_t getUpgradeType(void) const {
         return m_UpgradeOptionType;
     }
@@ -351,18 +351,18 @@ public:
         m_UpgradeCrashPercent = per;
     }
 
-    // ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade°¡ °¡´ÉÇÑ°¡?
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeê°€ ê°€ëŠ¥í•œê°€?
     bool isUpgradePossible() const {
         return m_UpgradeOptionType != 0 && m_UpgradeRatio != 0;
     }
 
-    // ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade°¡ ¼º°øÇß³ª?
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeê°€ ì„±ê³µí–ˆë‚˜?
     bool isUpgradeSucceed() const;
 
-    // ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade°¡ ¼º°øÇß³ª?
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeê°€ ì„±ê³µí–ˆë‚˜?
     bool isUpgradeSecondSucceed() const;
 
-    // ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade ÇÏ´Ù°¡ ½ÇÆĞÇØ¼­ itemÀÌ ºÎ¼­Á³³ª?
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgrade í•˜ë‹¤ê°€ ì‹¤íŒ¨í•´ì„œ itemì´ ë¶€ì„œì¡Œë‚˜?
     bool isUpgradeCrash() const;
 
     Ratio_t getNextOptionRatio(void) const {
@@ -385,38 +385,38 @@ public:
     ///// Member data /////
 
 private:
-    OptionType_t m_OptionType; // ¿É¼Ç Å¸ÀÔ
-    string m_Name;             // ¿µ¹® ÀÌ¸§
-    string m_HName;            // ÇÑ±Û ÀÌ¸§
+    OptionType_t m_OptionType; // ì˜µì…˜ íƒ€ì…
+    string m_Name;             // ì˜ë¬¸ ì´ë¦„
+    string m_HName;            // í•œê¸€ ì´ë¦„
     string m_Nickname;         // Nickname
-    OptionClass m_OptionClass; // ¿É¼ÇÀÇ Á¾·ù
-    int m_PlusPoint;           // »ó½Â ¼öÄ¡
-    int m_PriceMultiplier;     // °ª »ó½Â Æø
-    int m_ReqSTR;              // ÇÊ¿äÇÑ STRÀÇ »ó½Â Æø
-    int m_ReqDEX;              // ÇÊ¿äÇÑ DEXÀÇ »ó½Â Æø
-    int m_ReqINT;              // ÇÊ¿äÇÑ INTÀÇ »ó½Â Æø
-    int m_ReqSum;              // ÇÊ¿äÇÑ ´É·ÂÄ¡ ÃÑÇÕÀÇ »ó½Â Æø
-    int m_ReqLevel;            // ÇÊ¿äÇÑ ·¹º§ÀÇ »ó½Â Æø
-    int m_Level;               // ¿É¼ÇÀÇ ·¹º§
-    Color_t m_Color;           // ¿É¼Ç »ö±ò
-    Ratio_t m_Ratio;           // ¿É¼Ç ³ª¿À´Â È®·ü
+    OptionClass m_OptionClass; // ì˜µì…˜ì˜ ì¢…ë¥˜
+    int m_PlusPoint;           // ìƒìŠ¹ ìˆ˜ì¹˜
+    int m_PriceMultiplier;     // ê°’ ìƒìŠ¹ í­
+    int m_ReqSTR;              // í•„ìš”í•œ STRì˜ ìƒìŠ¹ í­
+    int m_ReqDEX;              // í•„ìš”í•œ DEXì˜ ìƒìŠ¹ í­
+    int m_ReqINT;              // í•„ìš”í•œ INTì˜ ìƒìŠ¹ í­
+    int m_ReqSum;              // í•„ìš”í•œ ëŠ¥ë ¥ì¹˜ ì´í•©ì˜ ìƒìŠ¹ í­
+    int m_ReqLevel;            // í•„ìš”í•œ ë ˆë²¨ì˜ ìƒìŠ¹ í­
+    int m_Level;               // ì˜µì…˜ì˜ ë ˆë²¨
+    Color_t m_Color;           // ì˜µì…˜ ìƒ‰ê¹”
+    Ratio_t m_Ratio;           // ì˜µì…˜ ë‚˜ì˜¤ëŠ” í™•ë¥ 
 
-    int m_GambleLevel; // ¿É¼ÇÀÇ °·ºí ·¹º§
+    int m_GambleLevel; // ì˜µì…˜ì˜ ê°¬ë¸” ë ˆë²¨
 
-    // ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgradeÇÒ¶§ ÇÊ¿äÇÑ Á¤º¸
-    OptionType_t m_PreviousOptionType; // ÀÌÀü ´Ü°èÀÇ ¿É¼Ç Å¸ÀÔ
-    OptionType_t m_UpgradeOptionType;  // ´ÙÀ½ ´Ü°èÀÇ ¿É¼Ç Å¸ÀÔ
-    Ratio_t m_UpgradeRatio;            // upgrade°¡ ¼º°øÇÒ È®·ü = 1/m_UpgradeRatio
-    Ratio_t m_UpgradeSecondRatio;      // ºí·ç µå·Ó 2·Î ¾÷±×·¹ÀÌµå°¡ ¼º°øÇÒ È®·ü
-    int m_UpgradeCrashPercent;         // upgrade°¡ ½ÇÆĞÇØ¼­ ºÎ¼­Áú È®·ü = m_UpgradeCrashPercent%
-    Ratio_t m_NextOptionRatio;         // ´ÙÀ½ ¿É¼ÇÀÌ ºÙÀ» È®·ü
+    // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeí• ë•Œ í•„ìš”í•œ ì •ë³´
+    OptionType_t m_PreviousOptionType; // ì´ì „ ë‹¨ê³„ì˜ ì˜µì…˜ íƒ€ì…
+    OptionType_t m_UpgradeOptionType;  // ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ íƒ€ì…
+    Ratio_t m_UpgradeRatio;            // upgradeê°€ ì„±ê³µí•  í™•ë¥  = 1/m_UpgradeRatio
+    Ratio_t m_UpgradeSecondRatio;      // ë¸”ë£¨ ë“œë¡­ 2ë¡œ ì—…ê·¸ë ˆì´ë“œê°€ ì„±ê³µí•  í™•ë¥ 
+    int m_UpgradeCrashPercent;         // upgradeê°€ ì‹¤íŒ¨í•´ì„œ ë¶€ì„œì§ˆ í™•ë¥  = m_UpgradeCrashPercent%
+    Ratio_t m_NextOptionRatio;         // ë‹¤ìŒ ì˜µì…˜ì´ ë¶™ì„ í™•ë¥ 
 
-    int m_Grade; // °°Àº Å¬·¡½º ³»¿¡¼­ ¿É¼ÇÀÇ ´Ü¼ö
+    int m_Grade; // ê°™ì€ í´ë˜ìŠ¤ ë‚´ì—ì„œ ì˜µì…˜ì˜ ë‹¨ìˆ˜
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class OptionInfoSet
-// °¢°¢ÀÇ ¿É¼Ç Å¬·¡½º¸¶´Ù ·¹º§ º°·Î ±× ¿É¼Ç Å¸ÀÔÀ» ÀúÀåÇÏ°í ÀÖ´Â Å¬·¡½º.
+// ê°ê°ì˜ ì˜µì…˜ í´ë˜ìŠ¤ë§ˆë‹¤ ë ˆë²¨ ë³„ë¡œ ê·¸ ì˜µì…˜ íƒ€ì…ì„ ì €ì¥í•˜ê³  ìˆëŠ” í´ë˜ìŠ¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class OptionInfoSet {
@@ -496,7 +496,7 @@ public:
 
     void addOptionInfo(OptionInfo* pOptionInfo);
 
-    // gamble °ü·Ã
+    // gamble ê´€ë ¨
     void addGambleOption(Item::ItemClass itemClass, uint level, OptionType_t optionType);
     const vector<OptionType_t>& getPossibleGambleOptionVector(Item::ItemClass itemClass, uint level) {
         return m_GambleOptions[itemClass][level];
@@ -505,7 +505,7 @@ public:
         return m_TotalGambleRatio[itemClass][level];
     }
 
-    // rare enchant °ü·Ã
+    // rare enchant ê´€ë ¨
     int getRareUpgradeRatio(OptionType_t optionType, bool success);
     const OptionClassInfo* getOptionClassInfo(OptionClass oc) {
         return m_OptionClassInfos[oc];

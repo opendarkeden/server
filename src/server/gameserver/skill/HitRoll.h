@@ -24,71 +24,71 @@ class OustersSkillSlot;
 
 //////////////////////////////////////////////////////////////////////////////
 // class HitRoll
-// °¢Á¾ ¸íÁß±¼¸² ÇÔ¼ö¸¦ ÇÏ³ªÀÇ ³×ÀÓ½ºÆäÀÌ½º·Î ¹­±â À§ÇØ ¸¸µé¾îÁø Å¬·¡½ºÀÌ´Ù.
+// ê°ì¢… ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜ë¥¼ í•˜ë‚˜ì˜ ë„¤ì„ìŠ¤í˜ì´ìŠ¤ë¡œ ë¬¶ê¸° ìœ„í•´ ë§Œë“¤ì–´ì§„ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class HitRoll {
 public:
-    // ÀÏ¹İ °ø°İ ¸íÁß±¼¸² ÇÔ¼ö
+    // ì¼ë°˜ ê³µê²© ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus = 0);
     //	static bool isSuccess(ToHit_t ToHit, Creature* pDefender, int ToHitBonus = 0);
 
-    // ½½·¹ÀÌ¾î¿ë ¸¶¹ı ¸íÁß±¼¸² ÇÔ¼ö
+    // ìŠ¬ë ˆì´ì–´ìš© ë§ˆë²• ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessMagic(Slayer* pSlayer, SkillInfo* pSkillInfo, SkillSlot* pSkillSlot);
 
-    // ¹ìÆÄÀÌ¾î¿ë ¸¶¹ı ¸íÁß±¼¸² ÇÔ¼ö
+    // ë±€íŒŒì´ì–´ìš© ë§ˆë²• ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessMagic(Vampire* pVampire, SkillInfo* pSkillInfo, VampireSkillSlot* pVampireSkillSlot,
                                int BonusPoint = 0);
 
-    // ¾Æ¿ì½ºÅÍ½º¿ë ¸¶¹ı ¸íÁß±¼¸² ÇÔ¼ö
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ìš© ë§ˆë²• ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessMagic(Ousters* pOusters, SkillInfo* pSkillInfo, OustersSkillSlot* pOustersSkillSlot,
                                int BonusPoint = 0);
 
-    // ¸ó½ºÅÍ¿ë ¸¶¹ı ¸íÁß±¼¸² ÇÔ¼ö
+    // ëª¬ìŠ¤í„°ìš© ë§ˆë²• ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessMagic(Monster* pMonster, SkillInfo* pSkillInfo);
 
-    // ¹ìÆÄÀÌ¾î ¹× ¸ó½ºÅÍ¿ë ÈíÇ÷ ¸íÁß±¼¸² ÇÔ¼ö
+    // ë±€íŒŒì´ì–´ ë° ëª¬ìŠ¤í„°ìš© í¡í˜ˆ ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int multiplier = 3);
 
-    // ÀúÁÖ °è¿­ ¸¶¹ı ¸íÁß±¼¸² ÇÔ¼ö
+    // ì €ì£¼ ê³„ì—´ ë§ˆë²• ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessCurse(int MagicLevel, Resist_t resist);
     static bool isSuccessVampireCurse(int MagicLevel, Resist_t resist);
 
-    // CurePoison ¸íÁß±¼¸² ÇÔ¼ö
+    // CurePoison ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessCurePoison(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio = 0);
 
-    // Flare ¸íÁß±¼¸² ÇÔ¼ö
+    // Flare ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessFlare(Creature* pTargetCreature, int SkillLevel);
 
-    // RemoveCurse ¸íÁß±¼¸² ÇÔ¼ö
+    // RemoveCurse ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio = 0);
 
-    // Rebuke ¸íÁß±¼¸² ÇÔ¼ö
+    // Rebuke ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* pDefender);
 
-    // Magic Elusion ¸íÁß±¼¸² ÇÔ¼ö
+    // Magic Elusion ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessMagicElusion(Slayer* pSlayer);
 
-    // Poison Mesh ¸íÁß±¼¸² ÇÔ¼ö
+    // Poison Mesh ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessPoisonMesh(Vampire* pVampire);
 
-    // Illusion Of Avenge ¸íÁß±¼¸² ÇÔ¼ö
+    // Illusion Of Avenge ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessIllusionOfAvenge(Slayer* pSlayer);
 
-    // Will Of Life ¸íÁß±¼¸² ÇÔ¼ö
+    // Will Of Life ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
     static bool isSuccessWillOfLife(Vampire* pVampire);
 
-    // Å©¸®Æ¼ÄÃ È÷Æ® ·ÑÀ» ¼öÇàÇÑ´Ù.
+    // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ ë¡¤ì„ ìˆ˜í–‰í•œë‹¤.
     static bool isCriticalHit(Creature* pCreature, int CriticalBonus = 0);
 
-    // ½½·¹ÀÌ¾î ¼¿ÇÁ ½ºÅ³ÀÎ°¡¸¦ Ã¼Å©ÇÏ´Â ÇÔ¼ö
+    // ìŠ¬ë ˆì´ì–´ ì…€í”„ ìŠ¤í‚¬ì¸ê°€ë¥¼ ì²´í¬í•˜ëŠ” í•¨ìˆ˜
     static bool isSlayerSelfSkill(SkillType_t skillType);
     static bool isOustersSelfSkill(SkillType_t skillType);
 
-    // ÇÒ·ç ¼º°ø·ü
+    // í• ë£¨ ì„±ê³µë¥ 
     static bool isSuccessHallucination(Vampire* pAttacker, Creature* pTarget);
 
-    // ¹é½ºÅÇ ¼º°ø·ü
+    // ë°±ìŠ¤íƒ­ ì„±ê³µë¥ 
     static bool isSuccessBackStab(Ousters* pAttacker);
 };
 

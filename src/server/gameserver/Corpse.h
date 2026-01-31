@@ -13,7 +13,7 @@
 #include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½ÃÃ¼ Å¸ÀÔ
+// ì‹œì²´ íƒ€ìž…
 //////////////////////////////////////////////////////////////////////////////
 enum CorpseType { SLAYER_CORPSE = 0, VAMPIRE_CORPSE, NPC_CORPSE, MONSTER_CORPSE, OUSTERS_CORPSE };
 
@@ -99,21 +99,21 @@ public:
     }
 
 protected:
-    list<Item*> m_Treasures; // º¸¹°ÀÇ ¸®½ºÆ®
-    BYTE m_TreasureCount;    // º¸¹°ÀÇ ¼ýÀÚ
+    list<Item*> m_Treasures; // ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
+    BYTE m_TreasureCount;    // ë³´ë¬¼ì˜ ìˆ«ìž
 
-    // ¼º¹° º¸°ü´ë¸¦ À§ÇÑ ÇÊ»ì ÁÂÇ¥ ³Ö±â
-    // ±× ¿Ü¿¡´Â ÁÂÇ¥°¡ Á¦´ë·Î ¼³Á¤ ¾ÈµÉ ¼ö ÀÖÀ¸¹Ç·Î »ç¿ë±ÝÁö
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ë¥¼ ìœ„í•œ í•„ì‚´ ì¢Œí‘œ ë„£ê¸°
+    // ê·¸ ì™¸ì—ëŠ” ì¢Œí‘œê°€ ì œëŒ€ë¡œ ì„¤ì • ì•ˆë  ìˆ˜ ìžˆìœ¼ë¯€ë¡œ ì‚¬ìš©ê¸ˆì§€
     ZoneCoord_t m_X, m_Y;
 
     Zone* m_pZone;
 
-    // ½ÃÃ¼¿¡ º° ³»¿ëÀÌ ´Ù µé¾î°¡´Â±º ;;;
-    int m_Level; // ·¹º§ -_-;
-    Exp_t m_Exp; // ÀÌ³Ñ Á×ÀÌ°í ¾òÀº °æÇèÄ¡;
+    // ì‹œì²´ì— ë³„ ë‚´ìš©ì´ ë‹¤ ë“¤ì–´ê°€ëŠ”êµ° ;;;
+    int m_Level; // ë ˆë²¨ -_-;
+    Exp_t m_Exp; // ì´ë„˜ ì£½ì´ê³  ì–»ì€ ê²½í—˜ì¹˜;
 
-    // ¸ó½ºÅÍ°¡ RelicÀÎÁö ¾Æ´ÑÁö¸¦ ÀúÀåÇÏ´Â º¯¼ö
-    // ¸¸¾à RelicÀÌ¶ó¸é, ¸ó½ºÅÍÀÇ ½ÃÃ¼°¡ »ç¶óÁöÁö ¾Êµµ·Ï ÇØ¾ß ÇÑ´Ù.
+    // ëª¬ìŠ¤í„°ê°€ Relicì¸ì§€ ì•„ë‹Œì§€ë¥¼ ì €ìž¥í•˜ëŠ” ë³€ìˆ˜
+    // ë§Œì•½ Relicì´ë¼ë©´, ëª¬ìŠ¤í„°ì˜ ì‹œì²´ê°€ ì‚¬ë¼ì§€ì§€ ì•Šë„ë¡ í•´ì•¼ í•œë‹¤.
 };
 
 //////////////////////////////////////////////////////////////////////////////

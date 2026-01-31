@@ -94,7 +94,7 @@ bool EventQuestAdvanceManager::advanced(int questLevel) {
 EventQuestAdvance::Status EventQuestAdvanceManager::getStatus(int questLevel) {
     Assert(questLevel < EVENT_QUEST_LEVEL_MAX);
 
-    // Äù½ºÆ® ·¹º§ÀÌ À½¼ö°ªÀÌ¸é ¸ðµç »ç¶÷ÀÌ ÀÌ¹Ì ³¡³½ Äù½ºÆ®´Ù. -_-;
+    // í€˜ìŠ¤íŠ¸ ë ˆë²¨ì´ ìŒìˆ˜ê°’ì´ë©´ ëª¨ë“  ì‚¬ëžŒì´ ì´ë¯¸ ëë‚¸ í€˜ìŠ¤íŠ¸ë‹¤. -_-;
     if (questLevel < 0)
         return EventQuestAdvance::EVENT_QUEST_ADVANCED;
     if (m_Advances[questLevel] == NULL)

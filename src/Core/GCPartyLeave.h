@@ -48,13 +48,13 @@ public:
     }
 
 private:
-    // ´©±º°¡°¡ È¥ÀÚ ÆÄÆ¼¿¡¼­ ½º½º·Î ºüÁ®³ª°¬À» °æ¿ì¿¡´Â
-    // Ãß¹æÀÚÀÇ ÀÌ¸§ÀÌ NULLÀÌ´Ù.
-    // ´©±º°¡°¡ ´Ù¸¥ »ç¶÷¿¡ ÀÇÇØ¼­ ºüÁ®³ª°¬À» °æ¿ì¿¡´Â
-    // Ãß¹æÀÚÀÇ ÀÌ¸§ÀÌ NULLÀÌ ¾Æ´Ï´Ù.
-    // ¾î´À °æ¿ì¿¡µµ Ãß¹æ´çÇÑ ÀÌÀÇ ÀÌ¸§ÀÌ NULLÀÎ °æ¿ì´Â ¾ø´Ù.
-    string m_Expeller; // Ãß¹æÀÚ
-    string m_Expellee; // Ãß¹æ´çÇÑ ÀÌ
+    // ëˆ„êµ°ê°€ê°€ í˜¼ìž íŒŒí‹°ì—ì„œ ìŠ¤ìŠ¤ë¡œ ë¹ ì ¸ë‚˜ê°”ì„ ê²½ìš°ì—ëŠ”
+    // ì¶”ë°©ìžì˜ ì´ë¦„ì´ NULLì´ë‹¤.
+    // ëˆ„êµ°ê°€ê°€ ë‹¤ë¥¸ ì‚¬ëžŒì— ì˜í•´ì„œ ë¹ ì ¸ë‚˜ê°”ì„ ê²½ìš°ì—ëŠ”
+    // ì¶”ë°©ìžì˜ ì´ë¦„ì´ NULLì´ ì•„ë‹ˆë‹¤.
+    // ì–´ëŠ ê²½ìš°ì—ë„ ì¶”ë°©ë‹¹í•œ ì´ì˜ ì´ë¦„ì´ NULLì¸ ê²½ìš°ëŠ” ì—†ë‹¤.
+    string m_Expeller; // ì¶”ë°©ìž
+    string m_Expellee; // ì¶”ë°©ë‹¹í•œ ì´
 };
 
 

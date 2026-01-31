@@ -11,7 +11,7 @@
 #include "PacketFactory.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆÄÆ¼ °¡ÀÔ °ü·Ã ÄÚµå
+// íŒŒí‹° ê°€ì… ê´€ë ¨ ì½”ë“œ
 //////////////////////////////////////////////////////////////////////////////
 enum {
     CG_PARTY_INVITE_REQUEST = 0,
@@ -61,8 +61,8 @@ public:
     }
 
 private:
-    ObjectID_t m_TargetObjectID; // »ó´ë¹æÀÇ OID
-    BYTE m_Code;                 // ÄÚµå
+    ObjectID_t m_TargetObjectID; // ìƒëŒ€ë°©ì˜ OID
+    BYTE m_Code;                 // ì½”ë“œ
 };
 
 

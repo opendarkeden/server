@@ -2,7 +2,7 @@
 //
 // Filename    : CBillingServer.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : Áß±¹ ºô¸µ ¼­¹ö(Å×½ºÆ®)¿ë ¸ŞÀÎ Å¬·¡½º
+// Description : ì¤‘êµ­ ë¹Œë§ ì„œë²„(í…ŒìŠ¤íŠ¸)ìš© ë©”ì¸ í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
 //
 // constructor
 //
-// ½Ã½ºÅÛ ¸Å´ÏÀúÀÇ constructor¿¡¼­´Â ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+// ì‹œìŠ¤í…œ ë§¤ë‹ˆì €ì˜ constructorì—ì„œëŠ” í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 CBillingServer::CBillingServer() throw(Error) {
@@ -35,7 +35,7 @@ CBillingServer::CBillingServer() throw(Error) {
 //
 // destructor
 //
-// ½Ã½ºÅÛ ¸Å´ÏÀúÀÇ destructor¿¡¼­´Â ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+// ì‹œìŠ¤í…œ ë§¤ë‹ˆì €ì˜ destructorì—ì„œëŠ” í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 CBillingServer::~CBillingServer() throw(Error) {
@@ -57,7 +57,7 @@ void CBillingServer::init() throw(Error) {
 
     cout << "CBillingServer::init() start" << endl;
 
-    // ¼­¹ö°£ Åë½Å ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ì„œë²„ê°„ í†µì‹  ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pGameServerManager->init();
 
     __END_CATCH
@@ -73,7 +73,7 @@ void CBillingServer::start() throw(Error) {
     __BEGIN_TRY
 
     cout << "---------- Start CBillingServer ---------" << endl;
-    // ¼­¹ö°£ Åë½Å ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+    // ì„œë²„ê°„ í†µì‹  ë§¤ë‹ˆì €ë¥¼ ì‹œì‘í•œë‹¤.
     g_pGameServerManager->start();
 
     while (true) {
@@ -88,15 +88,15 @@ void CBillingServer::start() throw(Error) {
 //
 // stop shared server
 //
-// stop ¼ø¼­¿¡ À¯ÀÇÇÏµµ·Ï ÇÏÀÚ. °¡Àå ¿µÇâÀ» ¸¹ÀÌ ÁÖ´Â ¸Å´ÏÀúºÎÅÍ
-// stop ½ÃÄÑ¾ß ÇÑ´Ù. ¸¸ÀÏ ¹İ´ëÀÇ ¼ø¼­·Î stop ½ÃÅ³ °æ¿ì null pointer
-// °°Àº Çö»óÀÌ ¹ß»ıÇÒ ¼ö ÀÖ´Ù.
+// stop ìˆœì„œì— ìœ ì˜í•˜ë„ë¡ í•˜ì. ê°€ì¥ ì˜í–¥ì„ ë§ì´ ì£¼ëŠ” ë§¤ë‹ˆì €ë¶€í„°
+// stop ì‹œì¼œì•¼ í•œë‹¤. ë§Œì¼ ë°˜ëŒ€ì˜ ìˆœì„œë¡œ stop ì‹œí‚¬ ê²½ìš° null pointer
+// ê°™ì€ í˜„ìƒì´ ë°œìƒí•  ìˆ˜ ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void CBillingServer::stop() throw(Error) {
     __BEGIN_TRY
 
-    // ³ªÁß¿¡ ÀÌ ºÎºĞÀ» ÄÚ¸àÆ®È­ÇØ¾ß ÇÑ´Ù.
+    // ë‚˜ì¤‘ì— ì´ ë¶€ë¶„ì„ ì½”ë©˜íŠ¸í™”í•´ì•¼ í•œë‹¤.
     throw UnsupportedError();
 
     //

@@ -89,19 +89,19 @@ void EffectReloadTimer::unaffect(Creature* pCreature)
     Inventory* pInventory = NULL;
     bool bSuccess = false;
 
-    // ÀÏ´Ü ¼º°øÇÏµç ½ÇÆĞÇÏµç ÇÃ·¡±×´Â Á¦°Å½ÃÅ²´Ù.
+    // ì¼ë‹¨ ì„±ê³µí•˜ë“  ì‹¤íŒ¨í•˜ë“  í”Œë˜ê·¸ëŠ” ì œê±°ì‹œí‚¨ë‹¤.
     pSlayer->removeFlag(Effect::EFFECT_CLASS_RELOAD_TIMER);
 
     if (pArmsItem != NULL) {
         if (isArmsWeapon(pArmsItem)) {
             if (m_bFromInventory) {
-                // ÀÎº¥Åä¸®¿¡¼­ Á÷Á¢ ¸®·ÎµåÇÏ´Â °æ¿ì¶ó¸é,
-                // ÀÎº¥Åä¸® ³»ºÎ¿¡¼­ ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+                // ì¸ë²¤í† ë¦¬ì—ì„œ ì§ì ‘ ë¦¬ë¡œë“œí•˜ëŠ” ê²½ìš°ë¼ë©´,
+                // ì¸ë²¤í† ë¦¬ ë‚´ë¶€ì—ì„œ ì•„ì´í…œì„ ì°¾ëŠ”ë‹¤.
                 pInventory = pSlayer->getInventory();
                 pItem = pInventory->getItem(m_invenX, m_invenY);
             } else {
-                // º§Æ®¿¡¼­ ¸®·ÎµåÇÏ´Â °æ¿ì¶ó¸é
-                // º§Æ® ³»ºÎ¿¡¼­ ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+                // ë²¨íŠ¸ì—ì„œ ë¦¬ë¡œë“œí•˜ëŠ” ê²½ìš°ë¼ë©´
+                // ë²¨íŠ¸ ë‚´ë¶€ì—ì„œ ì•„ì´í…œì„ ì°¾ëŠ”ë‹¤.
                 if (pSlayer->isWear(Slayer::WEAR_BELT)) {
                     pBelt = pSlayer->getWearItem(Slayer::WEAR_BELT);
                     pInventory = ((Belt*)pBelt)->getInventory();
@@ -110,37 +110,37 @@ void EffectReloadTimer::unaffect(Creature* pCreature)
             }
 
             if (pItem == NULL || pInventory == NULL) {
-                // cout << "EffectReloadTimer : ¾ÆÀÌÅÛÀÌ ³ÎÀÌ°Å³ª, ÀÎº¥Åä¸®°¡ ³ÎÀÔ´Ï´Ù." << endl;
+                // cout << "EffectReloadTimer : ì•„ì´í…œì´ ë„ì´ê±°ë‚˜, ì¸ë²¤í† ë¦¬ê°€ ë„ì…ë‹ˆë‹¤." << endl;
                 // cout << "EffectReloadTimer " << "unaffect END" << endl;
                 return;
             }
 
             ObjectID_t ItemObjectID = pItem->getObjectID();
 
-            // ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö ±× ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+            // ì•„ì´í…œì´ ìˆëŠ”ì§€ ê·¸ ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
             if (ItemObjectID == m_ObjectID && pItem->getItemClass() == Item::ITEM_CLASS_MAGAZINE) {
                 BulletNum = reloadArmsItem(pArmsItem, pItem);
 
-                // ¸®·Îµå°¡ Á¤»óÀûÀ¸·Î µÇ¾ú´Ù¸é ÀúÀåÇØ ÁØ´Ù.
+                // ë¦¬ë¡œë“œê°€ ì •ìƒì ìœ¼ë¡œ ë˜ì—ˆë‹¤ë©´ ì €ì¥í•´ ì¤€ë‹¤.
                 if (BulletNum != 0) {
                     // pArmsItem->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
 
-                    // ¾ÆÀÌÅÛ ÀúÀå ÃÖÀûÈ­
+                    // ì•„ì´í…œ ì €ì¥ ìµœì í™”
                     // by sigi. 2002.5.16
                     //					Gun* pGun = dynamic_cast<Gun*>(pArmsItem);
                     char pField[80];
                     sprintf(pField, "BulletCount=%d, Silver=%d", pArmsItem->getBulletCount(), pArmsItem->getSilver());
                     pArmsItem->tinysave(pField);
 
-                    // ÅºÃ¢ÀÇ °¹¼ö°¡ 2°³ ÀÌ»óÀÌ¶ó¸é...
+                    // íƒ„ì°½ì˜ ê°¯ìˆ˜ê°€ 2ê°œ ì´ìƒì´ë¼ë©´...
                     if (pItem->getNum() > 1) {
-                        // ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ÁÙÀÌ°í,
-                        // ÀÎº¥Åä¸® ³»ºÎÀÇ ÃÑ °¹¼ö ¹× ¹«°Ô¸¦ ÁÙÀÎ´Ù.
+                        // ì•„ì´í…œì˜ ê°¯ìˆ˜ë¥¼ ì¤„ì´ê³ ,
+                        // ì¸ë²¤í† ë¦¬ ë‚´ë¶€ì˜ ì´ ê°¯ìˆ˜ ë° ë¬´ê²Œë¥¼ ì¤„ì¸ë‹¤.
                         pItem->setNum(pItem->getNum() - 1);
                         pInventory->decreaseItemNum();
                         pInventory->decreaseWeight(pItem->getWeight());
 
-                        // ÁÙ¾îµç ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ÀúÀåÇÑ´Ù.
+                        // ì¤„ì–´ë“  ì•„ì´í…œì˜ ê°¯ìˆ˜ë¥¼ ì €ì¥í•œë‹¤.
                         if (m_bFromInventory) {
                             // pItem->save(pSlayer->getName(), STORAGE_INVENTORY, 0, m_invenX, m_invenY);
                             //  by sigi. 2002.5.16
@@ -153,7 +153,7 @@ void EffectReloadTimer::unaffect(Creature* pCreature)
                             pItem->tinysave(pField);
                         }
                     }
-                    // ÅºÃ¢ÀÇ °¹¼ö°¡ 1°³¶ó¸é »èÁ¦ÇØÁà¾ß ÇÑ´Ù.
+                    // íƒ„ì°½ì˜ ê°¯ìˆ˜ê°€ 1ê°œë¼ë©´ ì‚­ì œí•´ì¤˜ì•¼ í•œë‹¤.
                     else {
                         if (m_bFromInventory)
                             pInventory->deleteItem(m_invenX, m_invenY);

@@ -57,7 +57,7 @@ void CGRideMotorCycleHandler::execute(CGRideMotorCycle* pPacket, Player* pPlayer
                 ZoneCoord_t X = pPacket->getX();
                 ZoneCoord_t Y = pPacket->getY();
 
-                // ÁÂÇ¥°¡ ¹Ù¿îµå¸¦ ³Ñ¾î°¡¸é ¾È µÈ´Ù.
+                // ì¢Œí‘œê°€ ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ë©´ ì•ˆ ëœë‹¤.
                 if (!isValidZoneCoord(pZone, X, Y) || SiegeManager::Instance().isSiegeZone(pZone->getZoneID())) {
                     GCRideMotorCycleFailed _GCRideMotorCycleFailed;
                     pGamePlayer->sendPacket(&_GCRideMotorCycleFailed);
@@ -70,7 +70,7 @@ void CGRideMotorCycleHandler::execute(CGRideMotorCycle* pPacket, Player* pPlayer
                 if (pSlayer->hasRelicItem() || pSlayer->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET) ||
                     pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) ||
                     pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER)) {
-                    // cout << "¼º¹°À» °¡Áø »óÅÂ¿¡¼­´Â ¿ÀÅä¹ÙÀÌ¸¦ Å» ¼ö ¾ø½À´Ï´Ù" << endl;
+                    // cout << "ì„±ë¬¼ì„ ê°€ì§„ ìƒíƒœì—ì„œëŠ” ì˜¤í† ë°”ì´ë¥¼ íƒˆ ìˆ˜ ì—†ìŠµë‹ˆë‹¤" << endl;
                     GCRideMotorCycleFailed _GCRideMotorCycleFailed;
                     pGamePlayer->sendPacket(&_GCRideMotorCycleFailed);
                     return;
@@ -120,11 +120,11 @@ void CGRideMotorCycleHandler::execute(CGRideMotorCycle* pPacket, Player* pPlayer
                         _GCRideMotorCycle.setTargetObjectID(pMotorcycle->getObjectID());
                         _GCRideMotorCycleOK.setObjectID(pMotorcycle->getObjectID());
 
-                        // Á¸¿¡¼­ ¾ÆÀÌÅÛÀ» Áö¿ì°í...
+                        // ì¡´ì—ì„œ ì•„ì´í…œì„ ì§€ìš°ê³ ...
                         pZone->deleteItem(pItem, X, Y);
-                        // OK ÆÐÅ¶À» ÇÃ·¹ÀÌ¾î¿¡°Ô º¸³»ÁÖ°í...
+                        // OK íŒ¨í‚·ì„ í”Œë ˆì´ì–´ì—ê²Œ ë³´ë‚´ì£¼ê³ ...
                         pGamePlayer->sendPacket(&_GCRideMotorCycleOK);
-                        // ¸ðÅÍ»çÀÌÅ¬À» ÅÀ´Ù´Â Á¤º¸¸¦ ºê·ÎµåÄ³½ºÆÃ
+                        // ëª¨í„°ì‚¬ì´í´ì„ íƒ”ë‹¤ëŠ” ì •ë³´ë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…
                         pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCRideMotorCycle);
                         Success = true;
 

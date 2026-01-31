@@ -47,9 +47,9 @@
 
 #define SLAYER_MAX_RANK 50
 #else
-// ½½·¹ÀÌ¾î´Â µµ¸ŞÀÎ ·¹º§ÀÌ BOUND_LEVEL¿¡ µµ´ŞÇÏ±â Àü±îÁö´Â
-// ´É·ÂÄ¡°¡ BOUND_ATTR ÀÌÇÏ·Î, ´É·ÂÄ¡ ÃÑÇÕÀÌ BOUND_ATTR_SUM ÀÌÇÏ·Î Á¦ÇÑµÈ´Ù.
-// BOUND_LEVELÀÌ ³ÑÀº µÚ¿¡´Â MAX_ATTR°ú MAX_ATTR_SUMÀ¸·Î Á¦ÇÑµÈ´Ù.
+// ìŠ¬ë ˆì´ì–´ëŠ” ë„ë©”ì¸ ë ˆë²¨ì´ BOUND_LEVELì— ë„ë‹¬í•˜ê¸° ì „ê¹Œì§€ëŠ”
+// ëŠ¥ë ¥ì¹˜ê°€ BOUND_ATTR ì´í•˜ë¡œ, ëŠ¥ë ¥ì¹˜ ì´í•©ì´ BOUND_ATTR_SUM ì´í•˜ë¡œ ì œí•œëœë‹¤.
+// BOUND_LEVELì´ ë„˜ì€ ë’¤ì—ëŠ” MAX_ATTRê³¼ MAX_ATTR_SUMìœ¼ë¡œ ì œí•œëœë‹¤.
 #define SLAYER_BOUND_LEVEL 100
 #define SLAYER_BOUND_ATTR 210
 #define SLAYER_BOUND_ATTR_SUM 330
@@ -68,8 +68,8 @@
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
-// Àåºñ¸¦ ÀÔ°í ¹şÀ» ¶§ Àåºñ ÀÔ°í ¹ş±â ÀüÀÇ ´É·ÂÄ¡¸¦
-// ÀúÀåÇØ µÎ±â À§ÇÑ ¹öÆÛ(?) Å¬·¡½º.
+// ì¥ë¹„ë¥¼ ì…ê³  ë²—ì„ ë•Œ ì¥ë¹„ ì…ê³  ë²—ê¸° ì „ì˜ ëŠ¥ë ¥ì¹˜ë¥¼
+// ì €ì¥í•´ ë‘ê¸° ìœ„í•œ ë²„í¼(?) í´ë˜ìŠ¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 class SLAYER_RECORD {
@@ -92,7 +92,7 @@ public:
 //
 // Class Slayer;
 //
-// Creature ÀÇ ÇÏÀ§ Å¬·¡½º·Î ÇÃ·¹ÀÌ¾î°¡ Á¶Á¾ÇÏ´Â PC ÀÌ´ç.
+// Creature ì˜ í•˜ìœ„ í´ë˜ìŠ¤ë¡œ í”Œë ˆì´ì–´ê°€ ì¡°ì¢…í•˜ëŠ” PC ì´ë‹¹.
 //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -100,7 +100,7 @@ class Motorcycle;
 
 class Slayer : public PlayerCreature {
     //////////////////////////////////////////////////////////////
-    // Å¬·¡½º ³»ºÎ »ó¼ö ¼±¾ğ
+    // í´ë˜ìŠ¤ ë‚´ë¶€ ìƒìˆ˜ ì„ ì–¸
     //////////////////////////////////////////////////////////////
 public:
     enum WearPart {
@@ -129,14 +129,14 @@ public:
     };
 
     //////////////////////////////////////////////////////////////
-    // »ı¼ºÀÚ/¼Ò¸êÀÚ
+    // ìƒì„±ì/ì†Œë©¸ì
     //////////////////////////////////////////////////////////////
 public:
     Slayer();
     virtual ~Slayer();
 
     //////////////////////////////////////////////////////////////
-    // ÇÏÀ§ Å¬·¡½º »ó¼Ó ÇÔ¼ö
+    // í•˜ìœ„ í´ë˜ìŠ¤ ìƒì† í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     virtual CreatureClass getCreatureClass() const {
@@ -171,14 +171,14 @@ public:
     }
 
     //////////////////////////////////////////////////////////////
-    // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ °ü·Ã ÇÔ¼ö
+    // ì‹œê°„ì œí•œ ì•„ì´í…œ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     void checkItemTimeLimit();
     void updateEventItemTime(DWORD time);
 
     //////////////////////////////////////////////////////////////
-    // »óÅÂ °ü·Ã ÇÔ¼ö(dead or alive)
+    // ìƒíƒœ ê´€ë ¨ í•¨ìˆ˜(dead or alive)
     //////////////////////////////////////////////////////////////
 public:
     virtual bool isDead() const {
@@ -189,7 +189,7 @@ public:
     }
 
     //////////////////////////////////////////////////////////////
-    // °Ñ¸ğ½À °ü·Ã ÇÔ¼ö(ÀÌ¸§, ±ÇÇÑ, ¼ºº°, ¸Ó¸®, ÇÇºÎ, ÀüÈ­¹øÈ£)
+    // ê²‰ëª¨ìŠµ ê´€ë ¨ í•¨ìˆ˜(ì´ë¦„, ê¶Œí•œ, ì„±ë³„, ë¨¸ë¦¬, í”¼ë¶€, ì „í™”ë²ˆí˜¸)
     //////////////////////////////////////////////////////////////
 public:
     const string& getName() const {
@@ -262,7 +262,7 @@ public:
     }
 
     //////////////////////////////////////////////////////////////
-    // ÀüÈ­ °ü·Ã ÇÔ¼ö
+    // ì „í™” ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     PhoneNumber_t getPhoneNumber() const {
@@ -280,7 +280,7 @@ public:
     bool isSlotByPhoneNumber(PhoneNumber_t PhoneNumber);
 
     //////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °ü·Ã ÇÔ¼ö(STR, DEX, INT)
+    // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ í•¨ìˆ˜(STR, DEX, INT)
     //////////////////////////////////////////////////////////////
 public:
     Bonus_t getBonus() const {
@@ -290,7 +290,7 @@ public:
         m_AdvancedAttrBonus = bonus;
     }
 
-    // ¼ºÇâ
+    // ì„±í–¥
     Alignment_t getAlignment() const {
         return m_Alignment;
     }
@@ -336,14 +336,14 @@ public:
 
     void divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& ModifyInfo);
 
-    // °è±Ş Ãß°¡. by sigi. 2002.8.30
-    // PlayerCreature·Î ¿Å±è. 2004.1 by Sequoia
+    // ê³„ê¸‰ ì¶”ê°€. by sigi. 2002.8.30
+    // PlayerCreatureë¡œ ì˜®ê¹€. 2004.1 by Sequoia
 
-    // ÃÊº¸ÀÚÀÎ°¡? ¼ø¼ö ´É·ÂÄ¡ ÇÕÀÌ 40 ÀÌÇÏ
+    // ì´ˆë³´ìì¸ê°€? ìˆœìˆ˜ ëŠ¥ë ¥ì¹˜ í•©ì´ 40 ì´í•˜
     bool isNovice() const;
 
     //////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °ü·Ã ÇÔ¼ö(HP, MP)
+    // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ í•¨ìˆ˜(HP, MP)
     //////////////////////////////////////////////////////////////
 public:
     HP_t getHP(AttrType attrType = ATTR_CURRENT) const {
@@ -370,7 +370,7 @@ public:
 
 
     //////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °ü·Ã ÇÔ¼ö(Damage, CC, Defense, ToHit)
+    // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ í•¨ìˆ˜(Damage, CC, Defense, ToHit)
     //////////////////////////////////////////////////////////////
 public:
     Damage_t getDamage(AttrType attrType = ATTR_CURRENT) const {
@@ -391,7 +391,7 @@ public:
 
 
     //////////////////////////////////////////////////////////////
-    // ½ºÅ³ °ü·Ã ÇÔ¼ö
+    // ìŠ¤í‚¬ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     Exp_t getGoalExp(SkillDomainType_t Domain) const {
@@ -449,14 +449,14 @@ public:
         m_RifleBonusExp = RifleBonusExp;
     }
 
-    // ÁöÁ¤µÈ domain¿¡¼­ °¡Àå ³ôÀº levelÀÇ ±â¼úÀÇ Å¸ÀÔÀ» µÇµ¹¸°´Ù.
+    // ì§€ì •ëœ domainì—ì„œ ê°€ì¥ ë†’ì€ levelì˜ ê¸°ìˆ ì˜ íƒ€ì…ì„ ë˜ëŒë¦°ë‹¤.
     // SkillType_t getMaxLevelSkillType(SkillDomainType_t domain) ;
     //	void setHotKey(BYTE pos, SkillType_t SkillType)  { m_HotKey[pos] = SkillType; }
     //	SkillType_t getHotKey(BYTE pos) const  { return m_HotKey[pos]; }
 
 
     //////////////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ Âø/Å» °ü·Ã ÇÔ¼ö
+    // ì•„ì´í…œ ì°©/íƒˆ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     bool isWear(WearPart Part) {
@@ -492,7 +492,7 @@ public:
     void getShapeInfo(DWORD& flag, Color_t color[PCSlayerInfo::SLAYER_COLOR_MAX]) const;
 
     //////////////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ Âø/Å» ½Ã ´É·ÂÄ¡ ¼öÁ¤ °ü·Ã ÇÔ¼ö
+    // ì•„ì´í…œ ì°©/íƒˆ ì‹œ ëŠ¥ë ¥ì¹˜ ìˆ˜ì • ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     void initAllStat(int numPartyMember = -1);
@@ -509,7 +509,7 @@ private:
     void computeOptionClassStat(OptionClass OClass, int PlusPoint);
 
     //////////////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ °Ë»ö ÇÔ¼ö
+    // ì•„ì´í…œ ê²€ìƒ‰ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     virtual Item* findItemOID(ObjectID_t id) {
@@ -541,7 +541,7 @@ public:
     }
 
     //////////////////////////////////////////////////////////////
-    // ¸ğÅÍ »çÀÌÅ¬ °ü·Ã ÇÔ¼ö
+    // ëª¨í„° ì‚¬ì´í´ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     Motorcycle* getMotorcycle() const {
@@ -557,7 +557,7 @@ public:
 
 
     //////////////////////////////////////////////////////////////
-    // ÀÎÆ÷ °ü·Ã ÇÔ¼ö
+    // ì¸í¬ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     PCSlayerInfo2* getSlayerInfo2() const;
@@ -571,7 +571,7 @@ public:
     EffectInfo* getEffectInfo() const;
 
     //////////////////////////////////////////////////////////////
-    // ±âÅ¸ ÇÔ¼ö
+    // ê¸°íƒ€ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     virtual Fame_t getFame() const {
@@ -727,12 +727,12 @@ private:
     // PC name
     string m_Name;
 
-    // ±ÇÇÑ
+    // ê¶Œí•œ
     BYTE m_Competence;
     BYTE m_CompetenceShape;
 
     // Sex(1bit), HairStyle(2bit)
-    // ³ªÁß¿¡´Â bit ¿¬»êÀ» ÇØ¼­ ¸Ş¸ğ¸®¸¦ ÁÙÀÌµµ·Ï ÇÏÀÚ.
+    // ë‚˜ì¤‘ì—ëŠ” bit ì—°ì‚°ì„ í•´ì„œ ë©”ëª¨ë¦¬ë¥¼ ì¤„ì´ë„ë¡ í•˜ì.
     Sex m_Sex;
     HairStyle m_HairStyle;
 
@@ -820,29 +820,29 @@ private:
 
     mutable Mutex m_Mutex;
 
-    // ½½·¹ÀÌ¾îÀÇ ÀÌÀü ´É·ÂÄ¡¸¦ ÀúÀåÇØ µÎ´Â ¹öÆÛ ±¸Á¶Ã¼
+    // ìŠ¬ë ˆì´ì–´ì˜ ì´ì „ ëŠ¥ë ¥ì¹˜ë¥¼ ì €ì¥í•´ ë‘ëŠ” ë²„í¼ êµ¬ì¡°ì²´
     SLAYER_RECORD m_Record;
 
-    // ºÎÈ°Á¸ °ü·Ã
+    // ë¶€í™œì¡´ ê´€ë ¨
     ZoneID_t m_ResurrectZoneID;
 
-    // HP, MP ½ºÆ¿
+    // HP, MP ìŠ¤í‹¸
     Steal_t m_HPStealAmount;
     Steal_t m_MPStealAmount;
     Steal_t m_HPStealRatio;
     Steal_t m_MPStealRatio;
 
-    // HP, MP Àç»ı
+    // HP, MP ì¬ìƒ
     Regen_t m_HPRegen;
     Regen_t m_MPRegen;
 
     // luck
     Luck_t m_Luck;
 
-    // Prayer¿Í Meditation°ú °ü·ÃµÈ timer
+    // Prayerì™€ Meditationê³¼ ê´€ë ¨ëœ timer
     Timeval m_MPRegenTime;
 
-    // °¢Á¾ °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ®
+    // ê°ì¢… ê²½í—˜ì¹˜ ì„¸ì´ë¸Œ ì¹´ìš´íŠ¸
     WORD m_DomainExpSaveCount;
     WORD m_AttrExpSaveCount;
     WORD m_SkillExpSaveCount;

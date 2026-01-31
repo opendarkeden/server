@@ -17,9 +17,9 @@
 //
 // class GCReconnect;
 //
-// ¼­¹ö°£ ÀÌµ¿½Ã, ÀÌÀü ¼­¹ö°¡ Å¬¶óÀÌ¾ðÆ®¿¡°Ô ´ÙÀ½ ¼­¹ö·Î ¿¬°áÇÏ¶ó°í
-// ÇÏ¸é¼­ Á¢¼ÓÀ» ²÷µµ·Ï ÇÏ´Â ÆÐÅ¶ÀÌ´Ù. Å¬¶óÀÌ¾ðÆ®´Â ÀÌ ÆÐÅ¶À» ¹ÞÀ¸¸é,
-// ¼­¹ö¿ÍÀÇ ¿¬°áÀ» ²÷°í ÆÐÅ¶¿¡ ´ã±ä ¼­¹öÀÇ IP/Port ·Î Á¢¼ÓÇÏ¸é µÈ´Ù.
+// ì„œë²„ê°„ ì´ë™ì‹œ, ì´ì „ ì„œë²„ê°€ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë‹¤ìŒ ì„œë²„ë¡œ ì—°ê²°í•˜ë¼ê³ 
+// í•˜ë©´ì„œ ì ‘ì†ì„ ëŠë„ë¡ í•˜ëŠ” íŒ¨í‚·ì´ë‹¤. í´ë¼ì´ì–¸íŠ¸ëŠ” ì´ íŒ¨í‚·ì„ ë°›ìœ¼ë©´,
+// ì„œë²„ì™€ì˜ ì—°ê²°ì„ ëŠê³  íŒ¨í‚·ì— ë‹´ê¸´ ì„œë²„ì˜ IP/Port ë¡œ ì ‘ì†í•˜ë©´ ëœë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,10 +27,10 @@ class GCReconnect : public Packet {
 public:
     GCReconnect() {};
     ~GCReconnect() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -43,10 +43,10 @@ public:
 
     // get packet's body size
     PacketSize_t getPacketSize() const {
-        return szBYTE + m_Name.size()       // Ä³¸¯ÅÍ ÀÌ¸§
-               + szPCType                   // ½½·¹ÀÌ¾î or ¹ìÆÄÀÌ¾î?
-               + szBYTE + m_ServerIP.size() // »õ·Î Á¢¼ÓÇÒ °ÔÀÓ ¼­¹ö IP
-               + szDWORD;                   // ÀÎÁõ Å°
+        return szBYTE + m_Name.size()       // ìºë¦­í„° ì´ë¦„
+               + szPCType                   // ìŠ¬ë ˆì´ì–´ or ë±€íŒŒì´ì–´?
+               + szBYTE + m_ServerIP.size() // ìƒˆë¡œ ì ‘ì†í•  ê²Œìž„ ì„œë²„ IP
+               + szDWORD;                   // ì¸ì¦ í‚¤
     }
 
     // get packet name
@@ -132,12 +132,12 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCReconnectPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCReconnectPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
-        return szBYTE + 20   // Ä³¸¯ÅÍ ÀÌ¸§
-               + szPCType    // ½½·¹ÀÌ¾î or ¹ìÆÄÀÌ¾î?
-               + szBYTE + 15 // »õ·Î Á¢¼ÓÇÒ °ÔÀÓ ¼­¹ö IP
-               + szDWORD;    // ÀÎÁõ Å°
+        return szBYTE + 20   // ìºë¦­í„° ì´ë¦„
+               + szPCType    // ìŠ¬ë ˆì´ì–´ or ë±€íŒŒì´ì–´?
+               + szBYTE + 15 // ìƒˆë¡œ ì ‘ì†í•  ê²Œìž„ ì„œë²„ IP
+               + szDWORD;    // ì¸ì¦ í‚¤
     }
 };
 

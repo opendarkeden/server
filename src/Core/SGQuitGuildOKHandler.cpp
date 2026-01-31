@@ -42,13 +42,13 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     // try { Assert(pGuild != NULL); } catch (Throwable& ) { return; }
     if (pGuild == NULL)
         return;
 
-    // ±æµå ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // ê¸¸ë“œ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     // try { Assert(pGuildMember != NULL); } catch (Throwable& ) { return; }
     if (pGuildMember == NULL)
@@ -56,7 +56,7 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
 
     string memberName = pGuildMember->getName();
 
-    // Á¢¼ÓÇØ ÀÖ´Ù¸é ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+    // ì ‘ì†í•´ ìˆë‹¤ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
     __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
     Creature* pCreature = g_pPCFinder->getCreature_LOCKED(memberName);
@@ -69,30 +69,30 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
 
         if (pGuild->getState() == Guild::GUILD_STATE_ACTIVE) {
             ////////////////////////////////////////////////////////////////////////////////
-            // È°µ¿ ÁßÀÎ ±æµå ¿´´Ù¸é Slayer, Vampire ±æµå ¾ÆÀÌµğ¸¦ °¡ÀÔ ¾ÈÇÑ »óÅÂ·Î ¹Ù²Û´Ù.
+            // í™œë™ ì¤‘ì¸ ê¸¸ë“œ ì˜€ë‹¤ë©´ Slayer, Vampire ê¸¸ë“œ ì•„ì´ë””ë¥¼ ê°€ì… ì•ˆí•œ ìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
             ////////////////////////////////////////////////////////////////////////////////
             if (pPlayerCreature->isSlayer()) {
-                pPlayerCreature->setGuildID(99); // ½½·¹ÀÌ¾îÀÇ °¡ÀÔ¾ÈÇÑ »óÅÂÀÇ ±æµå ID
+                pPlayerCreature->setGuildID(99); // ìŠ¬ë ˆì´ì–´ì˜ ê°€ì…ì•ˆí•œ ìƒíƒœì˜ ê¸¸ë“œ ID
 
-                // Å¬¶óÀÌ¾ğÆ®·Î ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+                // í´ë¼ì´ì–¸íŠ¸ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
                 GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                 gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
                 gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
                 gcModifyGuildMemberInfo.setGuildMemberRank(pGuildMember->getRank());
                 pPlayer->sendPacket(&gcModifyGuildMemberInfo);
             } else if (pPlayerCreature->isVampire()) {
-                pPlayerCreature->setGuildID(0); // ¹ìÆÄÀÌ¾îÀÇ °¡ÀÔ¾ÈÇÑ »óÅÂÀÇ ±æµå ID
+                pPlayerCreature->setGuildID(0); // ë±€íŒŒì´ì–´ì˜ ê°€ì…ì•ˆí•œ ìƒíƒœì˜ ê¸¸ë“œ ID
 
-                // Å¬¶óÀÌ¾ğÆ®·Î ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+                // í´ë¼ì´ì–¸íŠ¸ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
                 GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                 gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
                 gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
                 gcModifyGuildMemberInfo.setGuildMemberRank(pGuildMember->getRank());
                 pPlayer->sendPacket(&gcModifyGuildMemberInfo);
             } else if (pPlayerCreature->isOusters()) {
-                pPlayerCreature->setGuildID(66); // ¾Æ¿ì½ºÅÍÁîÀÇ °¡ÀÔ¾ÈÇÑ »óÅÂÀÇ ±æµå ID
+                pPlayerCreature->setGuildID(66); // ì•„ìš°ìŠ¤í„°ì¦ˆì˜ ê°€ì…ì•ˆí•œ ìƒíƒœì˜ ê¸¸ë“œ ID
 
-                // Å¬¶óÀÌ¾ğÆ®·Î ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+                // í´ë¼ì´ì–¸íŠ¸ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
                 GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                 gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
                 gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
@@ -104,7 +104,7 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
         if (pGuild->getState() == Guild::GUILD_STATE_WAIT &&
             pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
             ///////////////////////////////////////////////////////////
-            // ´ë±â ÁßÀÎ ±æµåÀÇ ¼­ºê ¸¶½ºÅÍ¶ó¸é µî·Ïºñ¸¦ È¯ºÒÇÑ´Ù.
+            // ëŒ€ê¸° ì¤‘ì¸ ê¸¸ë“œì˜ ì„œë¸Œ ë§ˆìŠ¤í„°ë¼ë©´ ë“±ë¡ë¹„ë¥¼ í™˜ë¶ˆí•œë‹¤.
             ///////////////////////////////////////////////////////////
             Gold_t Gold = pPlayerCreature->getGold();
             Gold = min((uint64_t)(Gold + RETURN_SLAYER_SUBMASTER_GOLD), (uint64_t)2000000000);
@@ -115,7 +115,7 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
             pPlayer->sendPacket(&gcModifyInformation);
         }
 
-        // ±æµå Å»Åğ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+        // ê¸¸ë“œ íƒˆí‡´ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         GCSystemMessage gcSystemMessage;
         if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER)
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_QUIT_TEAM));
@@ -126,7 +126,7 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
         pPlayer->sendPacket(&gcSystemMessage);
 
         if (pGuild->getState() == Guild::GUILD_STATE_ACTIVE) {
-            // ÁÖÀ§¿¡ ¾Ë¸°´Ù.
+            // ì£¼ìœ„ì— ì•Œë¦°ë‹¤.
             Zone* pZone = pCreature->getZone();
             Assert(pZone != NULL);
 
@@ -138,17 +138,17 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
         }
     }
 
-    // ±æµå¿¡¼­ »èÁ¦ÇÑ´Ù.
+    // ê¸¸ë“œì—ì„œ ì‚­ì œí•œë‹¤.
     pGuild->deleteMember(memberName);
 
-    // ±æµå ¸¶½ºÅÍ¿¡°Ô ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+    // ê¸¸ë“œ ë§ˆìŠ¤í„°ì—ê²Œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
     pCreature = g_pPCFinder->getCreature_LOCKED(pGuild->getMaster());
     if (pCreature != NULL && pCreature->isPC()) {
         Player* pPlayer = pCreature->getPlayer();
         Assert(pPlayer != NULL);
 
         //		StringStream msg;
-        //		msg << memberName << "´ÔÀÌ ±æµå¸¦ Å»ÅğÇÏ¿´½À´Ï´Ù.";
+        //		msg << memberName << "ë‹˜ì´ ê¸¸ë“œë¥¼ íƒˆí‡´í•˜ì˜€ìŠµë‹ˆë‹¤.";
 
         char msg[100];
         if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER)
@@ -162,7 +162,7 @@ void SGQuitGuildOKHandler::execute(SGQuitGuildOK* pPacket)
         gcSystemMessage.setMessage(msg);
         pPlayer->sendPacket(&gcSystemMessage);
     } else {
-        // °°Àº ¼­¹ö¿¡ ±æµå ¸¶½ºÅÍ°¡ ¾ø´Â °æ¿ì. how?
+        // ê°™ì€ ì„œë²„ì— ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì—†ëŠ” ê²½ìš°. how?
     }
 
     __LEAVE_CRITICAL_SECTION((*g_pPCFinder))

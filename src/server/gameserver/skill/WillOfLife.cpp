@@ -19,7 +19,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
 
@@ -44,7 +44,7 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         // SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // ½ºÅ³ ·¹º§¿¡ µû¶ó µ¥¹ÌÁö º¸³Ê½º°¡ ´Þ¶óÁø´Ù.
+        // ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ê°€ ë‹¬ë¼ì§„ë‹¤.
         SkillInput input(pVampire);
         SkillOutput output;
         computeOutput(input, output);
@@ -59,7 +59,7 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectWillOfLife* pEffect = new EffectWillOfLife(pVampire);
             pEffect->setDeadline(output.Duration);
             pEffect->setBonus(output.Damage);
@@ -67,7 +67,7 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
             pVampire->addEffect(pEffect);
             pVampire->setFlag(Effect::EFFECT_CLASS_WILL_OF_LIFE);
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -86,7 +86,7 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
             pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &_GCSkillToSelfOK2, pVampire);
             pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcStatusCurrentHP);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pVampire->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_WILL_OF_LIFE);

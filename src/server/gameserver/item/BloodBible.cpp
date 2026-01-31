@@ -346,9 +346,9 @@ void BloodBibleLoader::load(Creature* pCreature)
         Result* pResult = pStmt->executeQueryString(sql.toString());
         */
 
-        // BloodBible loadÇÒ°Ô ÀÖ´Ù´Â°ÍÀº..
-        // ÇöÀç·Î¼­´Â ÀÌÀü¿¡ ¼­¹ö´Ù¿îÀÌ µÇ¾ú´Ù´Â ÀÇ¹ÌÀÌ´Ù.
-        // ±×·¡¼­, Áö¿î´Ù. by sigi
+        // BloodBible loadí• ê²Œ ìˆë‹¤ëŠ”ê²ƒì€..
+        // í˜„ì¬ë¡œì„œëŠ” ì´ì „ì— ì„œë²„ë‹¤ìš´ì´ ë˜ì—ˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
+        // ê·¸ë˜ì„œ, ì§€ìš´ë‹¤. by sigi
         pStmt->executeQuery("DELETE FROM BloodBibleObject WHERE OwnerID = '%s'", pCreature->getName().c_str());
 
         /*
@@ -401,7 +401,7 @@ void BloodBibleLoader::load(Creature* pCreature)
                 pInventory = pVampire->getInventory();
                 pStash     = pVampire->getStash();
             }
-            else throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+            else throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             switch(storage)
             {
@@ -523,7 +523,7 @@ void BloodBibleLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

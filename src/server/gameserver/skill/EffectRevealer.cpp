@@ -18,7 +18,7 @@ EffectRevealer::EffectRevealer(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // µðÅØÆ® È÷µçÀº ½½·¹ÀÌ¾î¸¸ÀÌ ¾µ ¼ö ÀÖ´Ù.
+    // ë””í…íŠ¸ ížˆë“ ì€ ìŠ¬ë ˆì´ì–´ë§Œì´ ì“¸ ìˆ˜ ìžˆë‹¤.
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
@@ -57,17 +57,17 @@ void EffectRevealer::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
-    // ÇÃ·¡±×¸¦ Á¦°ÅÇÑ´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ì œê±°í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_REVEALER);
 
-    // ¸¶¹ýÀÇ ÈûÀ¸·Î º¸°í ÀÖ´ø Å©¸®ÃÄµéÀ» »èÁ¦ÇÑ´Ù.
+    // ë§ˆë²•ì˜ íž˜ìœ¼ë¡œ ë³´ê³  ìžˆë˜ í¬ë¦¬ì³ë“¤ì„ ì‚­ì œí•œë‹¤.
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
     pZone->updateMineScan(pCreature);
-    // ÀÌÁ¦ hiddenµµ º»´Ù.
+    // ì´ì œ hiddenë„ ë³¸ë‹¤.
     pZone->updateHiddenScan(pCreature);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_REVEALER);
@@ -130,7 +130,7 @@ bool EffectRevealer::canSeeHide(Creature* pTarget) const
 
         level = pMonster->getLevel();
     } else {
-        throw Error("¹ìÆÄÀÌ¾î³ª ¸ó½ºÅÍ°¡ ¾Æ´Ñµ¥ ÇÏÀÌµåÇÏ°í ÀÖ´Ù");
+        throw Error("ë±€íŒŒì´ì–´ë‚˜ ëª¬ìŠ¤í„°ê°€ ì•„ë‹Œë° í•˜ì´ë“œí•˜ê³  ìžˆë‹¤");
     }
 
     if (m_SkillLevel >= 25 && m_SkillLevel > level)
@@ -180,7 +180,7 @@ bool EffectRevealer::canSeeInvisibility(Creature* pTarget) const
 
         level = pMonster->getLevel();
     } else {
-        throw Error("¹ìÆÄÀÌ¾î³ª ¸ó½ºÅÍ°¡ ¾Æ´Ñµ¥ ÀÎºñÁöºô¸®Æ¼¸¦ ¾²°í ÀÖ´Ù.");
+        throw Error("ë±€íŒŒì´ì–´ë‚˜ ëª¬ìŠ¤í„°ê°€ ì•„ë‹Œë° ì¸ë¹„ì§€ë¹Œë¦¬í‹°ë¥¼ ì“°ê³  ìžˆë‹¤.");
     }
 
     if (m_SkillLevel >= 65 && (m_SkillLevel - 20) >= level)

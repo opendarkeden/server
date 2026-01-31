@@ -19,7 +19,7 @@
 
 //////////////////////////////////////////////////////////////////////
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¼­¹ö·ÎºÎÅÍ ¸Ş½ÃÁö¸¦ ¹Ş¾ÒÀ»¶§ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì„œë²„ë¡œë¶€í„° ë©”ì‹œì§€ë¥¼ ë°›ì•˜ì„ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void CGAuthKeyHandler::execute(CGAuthKey* pPacket, Player* pPlayer)
@@ -37,15 +37,15 @@ void CGAuthKeyHandler::execute(CGAuthKey* pPacket, Player* pPlayer)
     DWORD key = pPacket->getKey();
     // 	if ( !pGamePlayer->getCSAuth().CheckAuthDword(key) )
     // 	{
-    // 		filelog("CSAuth.log", "[%s] ÀÎÁõ °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.", pGamePlayer->getID().c_str());
+    // 		filelog("CSAuth.log", "[%s] ì¸ì¦ ê°’ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.", pGamePlayer->getID().c_str());
 
     // 		GCSystemMessage gcSystemMessage;
-    // 		gcSystemMessage.setMessage("nProtect GameGuardÈÏÖ¤Ê§°Ü.Ö´ĞĞÎÄ¼ş´íÎó»òGameGuardÎÄ¼şËğ»µ.");
+    // 		gcSystemMessage.setMessage("nProtect GameGuardí›°è¯å‘µê²¨.çµï¤‰åŒ¡ìˆ­ëŒ„è½ìƒ€GameGuardåŒ¡ìˆ­æ„†ë».");
     // 		pGamePlayer->sendPacket( &gcSystemMessage );
 
     // 		EventKick* pKick = new EventKick( pGamePlayer );
     // 		pKick->setDeadline(100);
-    // //		pKick->setMessage("GameGuard ÀÎÁõ ÄÚµå°¡ Àß¸øµÇ¾ú½À´Ï´Ù. 10ÃÊ µÚ¿¡ ¿¬°áÀÌ Á¾·áµË´Ï´Ù.");
+    // //		pKick->setMessage("GameGuard ì¸ì¦ ì½”ë“œê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤. 10ì´ˆ ë’¤ì— ì—°ê²°ì´ ì¢…ë£Œë©ë‹ˆë‹¤.");
     // 		pKick->sendMessage();
 
     // 		pGamePlayer->addEvent(pKick);

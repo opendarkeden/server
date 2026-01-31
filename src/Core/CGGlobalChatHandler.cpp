@@ -16,10 +16,10 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸Ó¸®À§¿¡ GlobalChat ½ºÆ®¸µÀ» ¶ç¿ï¶§ »ç¿ëÇÏ´Â ÆĞÅ¶ÀÌ´Ù.
-// ÀÌ Å©¸®Ã³¸¦ º¼ ¼ö ÀÖ´Â ¸ğµç ÇÃ·¹ÀÌ¾î¿¡°Ô ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
-// ÀÏ´ÜÀº ÇöÀç Á¸ÀÇ ¸ğµç ÇÃ·¹ÀÌ¾î(¶Ç´Â ÀüÃ¼ ÇÃ·¹ÀÌ¾î)¿¡°Ô
-// GCGlobalChat ÆĞÅ¶À» ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+// ë¨¸ë¦¬ìœ„ì— GlobalChat ìŠ¤íŠ¸ë§ì„ ë„ìš¸ë•Œ ì‚¬ìš©í•˜ëŠ” íŒ¨í‚·ì´ë‹¤.
+// ì´ í¬ë¦¬ì²˜ë¥¼ ë³¼ ìˆ˜ ìˆëŠ” ëª¨ë“  í”Œë ˆì´ì–´ì—ê²Œ ë¸Œë¡œë“œìºìŠ¤íŠ¸í•œë‹¤.
+// ì¼ë‹¨ì€ í˜„ì¬ ì¡´ì˜ ëª¨ë“  í”Œë ˆì´ì–´(ë˜ëŠ” ì „ì²´ í”Œë ˆì´ì–´)ì—ê²Œ
+// GCGlobalChat íŒ¨í‚·ì„ ë¸Œë¡œë“œìºìŠ¤íŠ¸í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGGlobalChatHandler::execute(CGGlobalChat* pPacket, Player* pPlayer)
 
@@ -41,7 +41,7 @@ void CGGlobalChatHandler::execute(CGGlobalChat* pPacket, Player* pPlayer)
 
         Assert(pCreature != NULL);
 
-        // ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÏ¹Ç·Î GC- ÆĞÅ¶À» »ç¿ëÇØ¾ß ÇÑ´Ù.
+        // ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•˜ë¯€ë¡œ GC- íŒ¨í‚·ì„ ì‚¬ìš©í•´ì•¼ í•œë‹¤.
         GCGlobalChat gcGlobalChat;
 
         size_t i = pPacket->getMessage().find_first_of('*', 0);
@@ -52,18 +52,18 @@ void CGGlobalChatHandler::execute(CGGlobalChat* pPacket, Player* pPlayer)
         // text color setting
         gcGlobalChat.setColor(pPacket->getColor());
 
-        // Å©¸®Ã³ ÀÌ¸§°ú ¸Ş½ÃÁö¸¦ ÆĞÅ¶¿¡ ´ëÀÔÇÑ´Ù.
+        // í¬ë¦¬ì²˜ ì´ë¦„ê³¼ ë©”ì‹œì§€ë¥¼ íŒ¨í‚·ì— ëŒ€ì…í•œë‹¤.
         StringStream msg;
         msg << pCreature->getName() << " " << pPacket->getMessage();
 
         gcGlobalChat.setMessage(msg.toString());
         gcGlobalChat.setRace(pCreature->getRace());
 
-        // ÁÖº¯ PCµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+        // ì£¼ë³€ PCë“¤ì—ê²Œ ë¸Œë¡œë“œìºìŠ¤íŠ¸í•œë‹¤.
         pCreature->getZone()->broadcastPacket(&gcGlobalChat, pCreature);
 
 
-        // Ã¤ÆÃ ·Î±×¸¦ ³²±ä´Ù. by sigi. 2002.10.30
+        // ì±„íŒ… ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤. by sigi. 2002.10.30
         if (LogNameManager::getInstance().isExist(pCreature->getName())) {
             filelog("chatLog.txt", "[Global] %s> %s", pCreature->getName().c_str(), pPacket->getMessage().c_str());
         }

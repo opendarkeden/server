@@ -47,17 +47,17 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
 
     Assert(pPlayer != NULL);
 
-    // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ¼­ OK ÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+    // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ì„œ OK íŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
     GCNPCResponse okpkt;
     okpkt.setCode(NPC_RESPONSE_HEAL);
     pPlayer->sendPacket(&okpkt);
 
-    // Á×¾ú°Å³ª ÄÚ¸¶ °É·ÁÀÖÀ¸¸é ¾È Ä¡·áÇØÁØ´Ù.
+    // ì£½ì—ˆê±°ë‚˜ ì½”ë§ˆ ê±¸ë ¤ìžˆìœ¼ë©´ ì•ˆ ì¹˜ë£Œí•´ì¤€ë‹¤.
     if (pCreature2->isDead() || pCreature2->isFlag(Effect::EFFECT_CLASS_COMA)) {
         return;
     }
 
-    // ½½·¹ÀÌ¾î¶ó¸é...
+    // ìŠ¬ë ˆì´ì–´ë¼ë©´...
     if (pCreature2->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
         EffectManager* pEffectManager = pSlayer->getEffectManager();
@@ -65,7 +65,7 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
         GCRemoveEffect removePkt;
         GCStatusCurrentHP hpPkt;
 
-        // ¸ÕÀú HP¶û MP¸¦ Ç®·Î Ã¤¿öÁØ´Ù.
+        // ë¨¼ì € HPëž‘ MPë¥¼ í’€ë¡œ ì±„ì›Œì¤€ë‹¤.
         if (pSlayer->getHP(ATTR_CURRENT) < pSlayer->getHP(ATTR_MAX)) {
             pSlayer->setHP(pSlayer->getHP(ATTR_MAX), ATTR_CURRENT);
             modifyPkt.addShortData(MODIFY_CURRENT_HP, pSlayer->getHP(ATTR_CURRENT));
@@ -78,30 +78,30 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
             modifyPkt.addShortData(MODIFY_CURRENT_MP, pSlayer->getMP(ATTR_CURRENT));
         }
 
-        // ÈíÇ÷ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // í¡í˜ˆ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
         Effect* pBloodDrainEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
         if (pBloodDrainEffect != NULL) {
-            // DB¿¡¼­ »èÁ¦ÇÏ°í, ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // DBì—ì„œ ì‚­ì œí•˜ê³ , ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
             pBloodDrainEffect->destroy(pSlayer->getName());
             pEffectManager->deleteEffect(pSlayer, Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-            // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+            // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´íŽ™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
             if (pSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                 Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                 EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                pEffectAftermath->setDeadline(5 * 600); // 5ºÐ µ¿¾È Áö¼ÓµÈ´Ù.
+                pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
             } else {
                 EffectAftermath* pEffectAftermath = new EffectAftermath(pSlayer);
-                pEffectAftermath->setDeadline(5 * 600); // 5ºÐ µ¿¾È Áö¼ÓµÈ´Ù.
+                pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                 pEffectManager->addEffect(pEffectAftermath);
                 pSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                 pEffectAftermath->create(pSlayer->getName());
             }
 
-            // ÆÐÅ¶¿¡´Ù Á¤º¸¸¦ ´õÇÑ´Ù.
+            // íŒ¨í‚·ì—ë‹¤ ì •ë³´ë¥¼ ë”í•œë‹¤.
             removePkt.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-            // ÈíÇ÷À» Ä¡·áÇÏ¸é ´É·ÂÄ¡°¡ º¯È­ÇÏ°Ô µÈ´Ù.
+            // í¡í˜ˆì„ ì¹˜ë£Œí•˜ë©´ ëŠ¥ë ¥ì¹˜ê°€ ë³€í™”í•˜ê²Œ ëœë‹¤.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
@@ -109,27 +109,27 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
             pSlayer->sendRealWearingInfo();
         }
 
-        // µ¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // ë… ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
         Effect* pEffectPoison = pEffectManager->findEffect(Effect::EFFECT_CLASS_POISON);
         if (pEffectPoison != NULL) {
-            // ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
             pEffectManager->deleteEffect(pSlayer, Effect::EFFECT_CLASS_POISON);
 
-            // ÆÐÅ¶¿¡´Ù Á¤º¸¸¦ ´õÇÑ´Ù.
+            // íŒ¨í‚·ì—ë‹¤ ì •ë³´ë¥¼ ë”í•œë‹¤.
             removePkt.addEffectList((EffectID_t)Effect::EFFECT_CLASS_POISON);
         }
 
-        // ´ÙÅ©ºí·ç Æ÷ÀÌÁð ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // ë‹¤í¬ë¸”ë£¨ í¬ì´ì¦Œ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
         Effect* pEffectDarkBluePoison = pEffectManager->findEffect(Effect::EFFECT_CLASS_DARKBLUE_POISON);
         if (pEffectDarkBluePoison != NULL) {
-            // ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
             pEffectManager->deleteEffect(pSlayer, Effect::EFFECT_CLASS_DARKBLUE_POISON);
 
-            // ÆÐÅ¶¿¡´Ù Á¤º¸¸¦ ´õÇÑ´Ù.
+            // íŒ¨í‚·ì—ë‹¤ ì •ë³´ë¥¼ ë”í•œë‹¤.
             removePkt.addEffectList((EffectID_t)Effect::EFFECT_CLASS_DARKBLUE_POISON);
         }
 
-        // ÆÐÅ¶ ³¯·ÁÁØ´Ù.
+        // íŒ¨í‚· ë‚ ë ¤ì¤€ë‹¤.
         removePkt.setObjectID(pSlayer->getObjectID());
         pPlayer->sendPacket(&modifyPkt);
         pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &removePkt);
@@ -143,7 +143,7 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
         GCRemoveEffect removePkt;
         GCStatusCurrentHP hpPkt;
 
-        // HP Ã¤¿öÁÖ°í...
+        // HP ì±„ì›Œì£¼ê³ ...
         if (pVampire->getHP(ATTR_CURRENT) < pVampire->getHP(ATTR_MAX)) {
             pVampire->setHP(pVampire->getHP(ATTR_MAX), ATTR_CURRENT);
             modifyPkt.addShortData(MODIFY_CURRENT_HP, pVampire->getHP(ATTR_CURRENT));
@@ -152,7 +152,7 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
             hpPkt.setCurrentHP(pVampire->getHP(ATTR_CURRENT));
         }
 
-        // ÆÐÅ¶ ³¯·ÁÁØ´Ù.
+        // íŒ¨í‚· ë‚ ë ¤ì¤€ë‹¤.
         removePkt.setObjectID(pVampire->getObjectID());
         pPlayer->sendPacket(&modifyPkt);
         pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &removePkt);
@@ -166,7 +166,7 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
         GCRemoveEffect removePkt;
         GCStatusCurrentHP hpPkt;
 
-        // ¸ÕÀú HP¶û MP¸¦ Ç®·Î Ã¤¿öÁØ´Ù.
+        // ë¨¼ì € HPëž‘ MPë¥¼ í’€ë¡œ ì±„ì›Œì¤€ë‹¤.
         if (pOusters->getHP(ATTR_CURRENT) < pOusters->getHP(ATTR_MAX) || pOusters->getSilverDamage() != 0) {
             Silver_t prev = pOusters->getSilverDamage();
 
@@ -186,50 +186,50 @@ void ActionHeal::execute(Creature* pCreature1, Creature* pCreature2)
             modifyPkt.addShortData(MODIFY_CURRENT_MP, pOusters->getMP(ATTR_CURRENT));
         }
 
-        // µ¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // ë… ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
         Effect* pEffectPoison = pEffectManager->findEffect(Effect::EFFECT_CLASS_POISON);
         if (pEffectPoison != NULL) {
-            // ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
             pEffectManager->deleteEffect(pOusters, Effect::EFFECT_CLASS_POISON);
 
-            // ÆÐÅ¶¿¡´Ù Á¤º¸¸¦ ´õÇÑ´Ù.
+            // íŒ¨í‚·ì—ë‹¤ ì •ë³´ë¥¼ ë”í•œë‹¤.
             removePkt.addEffectList((EffectID_t)Effect::EFFECT_CLASS_POISON);
         }
 
-        // ´ÙÅ©ºí·ç Æ÷ÀÌÁð ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // ë‹¤í¬ë¸”ë£¨ í¬ì´ì¦Œ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
         Effect* pEffectDarkBluePoison = pEffectManager->findEffect(Effect::EFFECT_CLASS_DARKBLUE_POISON);
         if (pEffectDarkBluePoison != NULL) {
-            // ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
             pEffectManager->deleteEffect(pOusters, Effect::EFFECT_CLASS_DARKBLUE_POISON);
 
-            // ÆÐÅ¶¿¡´Ù Á¤º¸¸¦ ´õÇÑ´Ù.
+            // íŒ¨í‚·ì—ë‹¤ ì •ë³´ë¥¼ ë”í•œë‹¤.
             removePkt.addEffectList((EffectID_t)Effect::EFFECT_CLASS_DARKBLUE_POISON);
         }
 
-        // ÈíÇ÷ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // í¡í˜ˆ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
         Effect* pBloodDrainEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
         if (pBloodDrainEffect != NULL) {
             pBloodDrainEffect->setDeadline(0);
 
-            // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+            // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´íŽ™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
             if (pOusters->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                 Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                 EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                pEffectAftermath->setDeadline(5 * 600); // 5ºÐ µ¿¾È Áö¼ÓµÈ´Ù.
+                pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
             } else {
                 EffectAftermath* pEffectAftermath = new EffectAftermath(pOusters);
-                pEffectAftermath->setDeadline(5 * 600); // 5ºÐ µ¿¾È Áö¼ÓµÈ´Ù.
+                pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                 pEffectManager->addEffect(pEffectAftermath);
                 pOusters->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                 pEffectAftermath->create(pOusters->getName());
             }
 
-            // ÆÐÅ¶¿¡´Ù Á¤º¸¸¦ ´õÇÑ´Ù.
+            // íŒ¨í‚·ì—ë‹¤ ì •ë³´ë¥¼ ë”í•œë‹¤.
             removePkt.addEffectList((EffectID_t)Effect::EFFECT_CLASS_BLOOD_DRAIN);
         }
 
 
-        // ÆÐÅ¶ ³¯·ÁÁØ´Ù.
+        // íŒ¨í‚· ë‚ ë ¤ì¤€ë‹¤.
         removePkt.setObjectID(pOusters->getObjectID());
         pPlayer->sendPacket(&modifyPkt);
         pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &removePkt);

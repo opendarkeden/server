@@ -30,7 +30,7 @@ void GameServerItemTest::testLuckPercent() {
         CPPUNIT_ASSERT( variableLuckRatio==200 );
         CPPUNIT_ASSERT( luckInfo.getMaxRatio()==50000 );
 
-        // 0% : min¿Ã 10%¿Ã±‚ ∂ßπÆø°.. 10% --> 10000
+        // 0% : minÏù¥ 10%Ïù¥Í∏∞ ÎïåÎ¨∏Ïóê.. 10% --> 10000
         g_pVariableManager->setVariable(ITEM_LUCK_PERCENT, 0);
         variableLuckRatio = g_pVariableManager->getVariable(ITEM_LUCK_PERCENT);
 
@@ -49,8 +49,8 @@ void GameServerItemTest::testLuckPercent() {
 }
 
 
-// æ∆¿Ã≈€ ¬¯øÎ ø‰±∏¥…∑¬ƒ°∞° √÷¥Î∞™(ex> πÏ∆ƒ¿ÃæÓ ∑π∫ß100)¿ª ≥—æÓ∞°¥¬ ∞≈∂ß∏ﬁ
-// ø‰±∏¥…∑¬ƒ°¿« √÷¥Î∞™¿ª ¡¶«—«ÿπˆ∏∞ ∞Õø° ¥Î«— ≈◊Ω∫∆Æ -_-; 2003.1.6
+// ÏïÑÏù¥ÌÖú Ï∞©Ïö© ÏöîÍµ¨Îä•Î†•ÏπòÍ∞Ä ÏµúÎåÄÍ∞í(ex> Î±ÄÌååÏù¥Ïñ¥ Î†àÎ≤®100)ÏùÑ ÎÑòÏñ¥Í∞ÄÎäî Í±∞ÎïåÎ©î
+// ÏöîÍµ¨Îä•Î†•ÏπòÏùò ÏµúÎåÄÍ∞íÏùÑ Ï†úÌïúÌï¥Î≤ÑÎ¶∞ Í≤ÉÏóê ÎåÄÌïú ÌÖåÏä§Ìä∏ -_-; 2003.1.6
 void GameServerItemTest::testRequireMaxVampire() {
     __BEGIN_TEST_CASE
 
@@ -133,8 +133,8 @@ void GameServerItemTest::testGiveNewbieItem() {
 
     Item* pItem;
 
-    // ¥…∑¬ƒ°ø° µ˚∂Ûº≠ «œ≥™∏¶ ¿‘±‚ ∂ßπÆø° NULL√º≈©«œ¥¬ ∫Œ∫–ø°º≠
-    // Fail¿Ã «œ≥™¥¬ ∂ﬂ∞‘ µ»¥Ÿ -_-;
+    // Îä•Î†•ÏπòÏóê Îî∞ÎùºÏÑú ÌïòÎÇòÎ•º ÏûÖÍ∏∞ ÎïåÎ¨∏Ïóê NULLÏ≤¥ÌÅ¨ÌïòÎäî Î∂ÄÎ∂ÑÏóêÏÑú
+    // FailÏù¥ ÌïòÎÇòÎäî Îú®Í≤å ÎêúÎã§ -_-;
 
     pItem = pInventory->getItem(2, 3);
     CPPUNIT_ASSERT(pItem != NULL);
@@ -209,7 +209,7 @@ void GameServerItemTest::testUpgradeItemType() {
 
     Item::ItemClass IClass;
 
-    // Sword: 0~11. 10¿Ã unique
+    // Sword: 0~11. 10Ïù¥ unique
     IClass = Item::ITEM_CLASS_SWORD;
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 0, 1) == 1);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 1, 1) == 2);
@@ -224,7 +224,7 @@ void GameServerItemTest::testUpgradeItemType() {
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 10, 1) == 10);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 11, 1) == 11);
 
-    // 2¥‹ æ˜±€
+    // 2Îã® ÏóÖÍ∏Ä
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 0, 2) == 2);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 1, 2) == 3);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 2, 2) == 4);
@@ -238,7 +238,7 @@ void GameServerItemTest::testUpgradeItemType() {
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 10, 2) == 10);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 11, 2) == 11);
 
-    // 3¥‹ æ˜±€
+    // 3Îã® ÏóÖÍ∏Ä
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 0, 3) == 3);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 1, 3) == 4);
     CPPUNIT_ASSERT(getUpgradeItemType(IClass, 2, 3) == 5);

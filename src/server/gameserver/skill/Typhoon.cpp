@@ -10,7 +10,7 @@
 #include "SimpleMeleeSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Typhoon::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,12 +49,12 @@ void Typhoon::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
         Creature* pCreature = pZone->getCreature(TargetObjectID);
 
         if (pCreature != NULL) {
-            // ¸ó½ºÅÍÀÎ °æ¿ì¸¸ delay¸¦ Ãß°¡ÇÑ´Ù.
-            // playerµéÀº client¿¡¼­ Ã³¸®ÇÏ°Ô µÇ¾îÀÖ´Ù.
+            // ëª¬ìŠ¤í„°ì¸ ê²½ìš°ë§Œ delayë¥¼ ì¶”ê°€í•œë‹¤.
+            // playerë“¤ì€ clientì—ì„œ ì²˜ë¦¬í•˜ê²Œ ë˜ì–´ìˆë‹¤.
             if (pCreature->isMonster()) {
                 Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-                // delay¼³Á¤ ( + 1ÃÊ )
+                // delayì„¤ì • ( + 1ì´ˆ )
                 if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
                     && !pMonster->isUnderworld() && pMonster->getMonsterType() != 599
@@ -69,7 +69,7 @@ void Typhoon::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
         }
     }
 
-    // »ó´ë¿¡°Ô µ¥¹ÌÁö¸¦ ÁØ ´ÙÀ½ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+    // ìƒëŒ€ì—ê²Œ ë°ë¯¸ì§€ë¥¼ ì¤€ ë‹¤ìŒ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
 
     // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
 

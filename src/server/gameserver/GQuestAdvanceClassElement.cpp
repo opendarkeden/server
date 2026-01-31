@@ -22,7 +22,7 @@ GQuestElement::ResultType GQuestAdvanceClassElement::checkCondition(PlayerCreatu
             return FAIL;
         Exp_t goalExp = pDomainInfo->getGoalExp();
         Exp_t currentExp = goalExp - pSlayer->getGoalExp(domain);
-        cout << pPC->getName() << "ÀÇ ÇöÀç °æÇèÄ¡ : " << currentExp << endl;
+        cout << pPC->getName() << "ì˜ í˜„ìž¬ ê²½í—˜ì¹˜ : " << currentExp << endl;
         advExp = (Exp_t)(currentExp * 0.0688933574);
     } else if (pPC->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
@@ -31,7 +31,7 @@ GQuestElement::ResultType GQuestAdvanceClassElement::checkCondition(PlayerCreatu
             return FAIL;
         Exp_t goalExp = pExpInfo->getGoalExp();
         Exp_t currentExp = goalExp - pVampire->getGoalExp();
-        cout << pPC->getName() << "ÀÇ ÇöÀç °æÇèÄ¡ : " << currentExp << endl;
+        cout << pPC->getName() << "ì˜ í˜„ìž¬ ê²½í—˜ì¹˜ : " << currentExp << endl;
         advExp = currentExp / 100;
     } else if (pPC->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
@@ -40,12 +40,12 @@ GQuestElement::ResultType GQuestAdvanceClassElement::checkCondition(PlayerCreatu
             return FAIL;
         Exp_t goalExp = pExpInfo->getGoalExp();
         Exp_t currentExp = goalExp - pOusters->getGoalExp();
-        cout << pPC->getName() << "ÀÇ ÇöÀç °æÇèÄ¡ : " << currentExp << endl;
+        cout << pPC->getName() << "ì˜ í˜„ìž¬ ê²½í—˜ì¹˜ : " << currentExp << endl;
         advExp = currentExp / 100;
     }
 
     advExp = min((int)advExp, 18496191);
-    // ÇÏµåÄÚµù -_-
+    // í•˜ë“œì½”ë”© -_-
     pPC->increaseAdvancementClassExp(advExp, false);
 
     return OK;

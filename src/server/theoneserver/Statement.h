@@ -2,7 +2,7 @@
 //
 // File Name 	: Statement.h
 // Written by	: Gday29@ewestsoft.com
-// Description	: SQL ¹®À» ¸¸µç´Ù..
+// Description	: SQL Â¹Â®Ã€Â» Â¸Â¸ÂµÃ§Â´Ã™..
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@ class Result;
 //
 // class Statement;
 //
-// SQL¹®À» ¸¸µé¾î µğºñ¿¡ Äõ¸®ÇÑ´Ù.
+// SQLÂ¹Â®Ã€Â» Â¸Â¸ÂµÃ©Â¾Ã® ÂµÃ°ÂºÃ±Â¿Â¡ Ã„ÃµÂ¸Â®Ã‡Ã‘Â´Ã™.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -37,10 +37,10 @@ public:
     ~Statement() throw();
 
 public:
-    // »çÀü¿¡ ÁöÁ¤µÈ SQL ¹®À» °¡Áö°í Äõ¸®ÇÑ´Ù.
+    // Â»Ã§Ã€Ã¼Â¿Â¡ ÃÃ¶ÃÂ¤ÂµÃˆ SQL Â¹Â®Ã€Â» Â°Â¡ÃÃ¶Â°Ã­ Ã„ÃµÂ¸Â®Ã‡Ã‘Â´Ã™.
     Result* executeQuery() throw(SQLQueryException, Error);
 
-    // SQL ¹®À» ¹Ş¾Æ¼­ Äõ¸®ÇÑ´Ù.
+    // SQL Â¹Â®Ã€Â» Â¹ÃÂ¾Ã†Â¼Â­ Ã„ÃµÂ¸Â®Ã‡Ã‘Â´Ã™.
     Result* executeQuery(char*, ...) throw(SQLQueryException, Error);
     Result* executeQuery(const string& sqlStatement) throw(SQLQueryException, Error);
 
@@ -49,7 +49,7 @@ public:
         return m_Statement;
     }
 
-    // SQL ¹®À» ÁöÁ¤ÇÑ´Ù.
+    // SQL Â¹Â®Ã€Â» ÃÃ¶ÃÂ¤Ã‡Ã‘Â´Ã™.
     void setStatement(char* fmt, ...) throw(Error);
 
     // get connection object
@@ -77,13 +77,13 @@ private:
     // Connection
     Connection* m_pConnection;
 
-    // SQL Statement¹
+    // SQL StatementÂ¹
     string m_Statement;
 
     // Query Result
     Result* m_pResult;
 
-    // insert, update, delete ÇßÀ» ¶§ ¿µÇâÀ» ¹ŞÀº row ÀÇ °³¼ö
+    // insert, update, delete Ã‡ÃŸÃ€Â» Â¶Â§ Â¿ÂµÃ‡Ã¢Ã€Â» Â¹ÃÃ€Âº row Ã€Ã‡ Â°Â³Â¼Ã¶
     uint m_nAffectedRows;
 };
 

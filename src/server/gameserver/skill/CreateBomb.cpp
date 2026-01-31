@@ -47,8 +47,8 @@ void CreateBomb::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordInven_t
         Assert(pZone != NULL);
         Assert(pInventory != NULL);
 
-        // ÆøÅºÀ» ¸¸µé ´ë»óÀÌ ³ÎÀÌ°Å³ª, º¸Åë ÆøÅº Àç·á°¡ ¾Æ´Ï°Å³ª,
-        // OID°¡ Æ²¸®´Ù¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // í­íƒ„ì„ ë§Œë“¤ ëŒ€ìƒì´ ë„ì´ê±°ë‚˜, ë³´í†µ í­íƒ„ ìž¬ë£Œê°€ ì•„ë‹ˆê±°ë‚˜,
+        // OIDê°€ í‹€ë¦¬ë‹¤ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pBombMaterial = pInventory->getItem(X, Y);
         if (pBombMaterial == NULL || pBombMaterial->getItemClass() != Item::ITEM_CLASS_BOMB_MATERIAL ||
             pBombMaterial->getObjectID() != InvenObjectID) {
@@ -61,21 +61,21 @@ void CreateBomb::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordInven_t
         if (X == TargetX && Y == TargetY)
             bSamePosition = true;
 
-        // ´ë»ó À§Ä¡¿Í Å¸°Ù À§Ä¡°¡ °°°Ô ³¯¾Æ¿À´Â °æ¿ì´Â
-        // ÆøÅº·Î º¯È¯ÇÏ°íÀÚ ÇÏ´Â C4ÀÇ ¼ýÀÚ°¡ 1ÀÎ °æ¿ìÀÌ´Ù.
-        // (ÀÌÀüÀÇ C4À» »èÁ¦ÇÏ°í, °°Àº À§Ä¡¿¡ ÆøÅº¸¦ »ý¼ºÇÑ´Ù´Â ÀÇ¹ÌÀÌ´Ù.)
-        // 1ÀÌ ¾Æ´Ï¶ó¸é ¸®ÅÏÇØ¾ßÇÑ´Ù.
+        // ëŒ€ìƒ ìœ„ì¹˜ì™€ íƒ€ê²Ÿ ìœ„ì¹˜ê°€ ê°™ê²Œ ë‚ ì•„ì˜¤ëŠ” ê²½ìš°ëŠ”
+        // í­íƒ„ë¡œ ë³€í™˜í•˜ê³ ìž í•˜ëŠ” C4ì˜ ìˆ«ìžê°€ 1ì¸ ê²½ìš°ì´ë‹¤.
+        // (ì´ì „ì˜ C4ì„ ì‚­ì œí•˜ê³ , ê°™ì€ ìœ„ì¹˜ì— í­íƒ„ë¥¼ ìƒì„±í•œë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.)
+        // 1ì´ ì•„ë‹ˆë¼ë©´ ë¦¬í„´í•´ì•¼í•œë‹¤.
         if (bSamePosition && pBombMaterial->getNum() != 1) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerinventory)" << endl;
             return;
         }
 
-        // ¾ÆÀÌÅÛ Å¸ÀÔ°ú ÀÌ¿¡ ´ëÀÀÇÏ´Â ÆøÅºÀÇ Å¸ÀÔÀ» ±¸ÇÑ´Ù.
+        // ì•„ì´í…œ íƒ€ìž…ê³¼ ì´ì— ëŒ€ì‘í•˜ëŠ” í­íƒ„ì˜ íƒ€ìž…ì„ êµ¬í•œë‹¤.
         ItemType_t MaterialType = pBombMaterial->getItemType();
         int BombType = MaterialType2BombTypeMap[MaterialType];
         if (BombType == -1) {
-            // ÆøÅº Àç·á°¡ ¾Æ´Ï¶ó, Áö·Ú Àç·á¶ó¸é, ½ºÅ³ ½ÇÆÐ´Ù.
+            // í­íƒ„ ìž¬ë£Œê°€ ì•„ë‹ˆë¼, ì§€ë¢° ìž¬ë£Œë¼ë©´, ìŠ¤í‚¬ ì‹¤íŒ¨ë‹¤.
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerinventory)" << endl;
             return;
@@ -106,17 +106,17 @@ void CreateBomb::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordInven_t
             list<OptionType_t> optionNULL;
             Item* pBomb = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_BOMB, BombType, optionNULL);
 
-            // ÆøÅºÀç·áÀÇ °¹¼ö¸¦ ÁÙ¿©ÁØ´Ù.
-            // ÀÌ ÇÔ¼ö ¾È¿¡¼­ ÆøÅºÀç·áÀÇ °¹¼ö°¡ ÀÚµ¿ÀûÀ¸·Î ÇÏ³ª ÁÙ¾îµé°í,
-            // ¸¸ÀÏ 1°³ÀÎ ÆøÅºÀç·áÀÌ¾ú´Ù¸é ÀÎº¥Åä¸® ¹× DB¿¡¼­ »èÁ¦µÇ°Ô µÈ´Ù.
+            // í­íƒ„ìž¬ë£Œì˜ ê°¯ìˆ˜ë¥¼ ì¤„ì—¬ì¤€ë‹¤.
+            // ì´ í•¨ìˆ˜ ì•ˆì—ì„œ í­íƒ„ìž¬ë£Œì˜ ê°¯ìˆ˜ê°€ ìžë™ì ìœ¼ë¡œ í•˜ë‚˜ ì¤„ì–´ë“¤ê³ ,
+            // ë§Œì¼ 1ê°œì¸ í­íƒ„ìž¬ë£Œì´ì—ˆë‹¤ë©´ ì¸ë²¤í† ë¦¬ ë° DBì—ì„œ ì‚­ì œë˜ê²Œ ëœë‹¤.
             decreaseItemNum(pBombMaterial, pInventory, pSlayer->getName(), STORAGE_INVENTORY, 0, X, Y);
 
             Item* pPrevBomb = pInventory->getItem(TargetX, TargetY);
 
-            // ±âÁ¸ÀÇ ÆøÅº °´Ã¼°¡ ÀÖ´Ù´Â ¸»Àº ½×¾Æ¾ß ÇÑ´Ù´Â ¸»ÀÌ´Ù.
+            // ê¸°ì¡´ì˜ í­íƒ„ ê°ì²´ê°€ ìžˆë‹¤ëŠ” ë§ì€ ìŒ“ì•„ì•¼ í•œë‹¤ëŠ” ë§ì´ë‹¤.
             if (pPrevBomb != NULL) {
                 if (canStack(pPrevBomb, pBomb) == false) {
-                    // °°Àº Å¸ÀÔÀÇ ÆøÅº°¡ ¾Æ´Ò ¶§ÀÎµ¥... ÀÌ·± °æ¿ì°¡ ¾î¶»°Ô ÇÏ¸é »ý±æ±î...
+                    // ê°™ì€ íƒ€ìž…ì˜ í­íƒ„ê°€ ì•„ë‹ ë•Œì¸ë°... ì´ëŸ° ê²½ìš°ê°€ ì–´ë–»ê²Œ í•˜ë©´ ìƒê¸¸ê¹Œ...
                     SAFE_DELETE(pBomb);
 
                     executeSkillFailException(pSlayer, getSkillType());
@@ -126,25 +126,25 @@ void CreateBomb::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordInven_t
                     return;
                 }
 
-                // °¹¼ö¸¦ ÇÏ³ª Áõ°¡½ÃÅ°°í ÀúÀåÇÑ´Ù.
+                // ê°¯ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚¤ê³  ì €ìž¥í•œë‹¤.
                 pPrevBomb->setNum(pPrevBomb->getNum() + 1);
                 pPrevBomb->save(pSlayer->getName(), STORAGE_INVENTORY, 0, TargetX, TargetY);
 
-                // À§ºÎºÐÀÇ decreaseItemNum() ÇÔ¼ö ºÎºÐ¿¡¼­ ¾ÆÀÌÅÛ ¼ýÀÚ¸¦ °¨¼Ò½ÃÅ°¹Ç·Î,
-                // ¿©±â¼­ ´Ù½Ã ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛ ¼ýÀÚ¸¦ Áõ°¡½ÃÅ²´Ù.
+                // ìœ„ë¶€ë¶„ì˜ decreaseItemNum() í•¨ìˆ˜ ë¶€ë¶„ì—ì„œ ì•„ì´í…œ ìˆ«ìžë¥¼ ê°ì†Œì‹œí‚¤ë¯€ë¡œ,
+                // ì—¬ê¸°ì„œ ë‹¤ì‹œ ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œ ìˆ«ìžë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
                 pInventory->increaseNum();
 
-                // ¹æ±Ý ¸¸µé¾îÁø ÆøÅº´Â ±âÁ¸ÀÇ ÆøÅº¿¡ ´õÇØÁ³À¸¹Ç·Î »èÁ¦ÇÑ´Ù.
+                // ë°©ê¸ˆ ë§Œë“¤ì–´ì§„ í­íƒ„ëŠ” ê¸°ì¡´ì˜ í­íƒ„ì— ë”í•´ì¡Œìœ¼ë¯€ë¡œ ì‚­ì œí•œë‹¤.
                 SAFE_DELETE(pBomb);
 
                 _GCSkillToInventoryOK1.setObjectID(pPrevBomb->getObjectID());
             }
-            // ±âÁ¸ÀÇ ÆøÅº °´Ã¼°¡ ¾ø´Ù´Â ¸»Àº ÆøÅº °´Ã¼¸¦ DB¿¡ »ý¼ºÇØ¾ß ÇÑ´Ù´Â ¸»ÀÌ´Ù.
+            // ê¸°ì¡´ì˜ í­íƒ„ ê°ì²´ê°€ ì—†ë‹¤ëŠ” ë§ì€ í­íƒ„ ê°ì²´ë¥¼ DBì— ìƒì„±í•´ì•¼ í•œë‹¤ëŠ” ë§ì´ë‹¤.
             else {
                 ObjectRegistry& OR = pZone->getObjectRegistry();
                 OR.registerObject(pBomb);
 
-                // ÆøÅº¸¦ Inventory·Î Áý¾î ³Ö°í DB¿¡´Ù°¡ »ý¼ºÇÑ´Ù.
+                // í­íƒ„ë¥¼ Inventoryë¡œ ì§‘ì–´ ë„£ê³  DBì—ë‹¤ê°€ ìƒì„±í•œë‹¤.
                 pBomb->setNum(1);
                 pInventory->addItem(TargetX, TargetY, pBomb);
                 pBomb->create(pSlayer->getName(), STORAGE_INVENTORY, 0, TargetX, TargetY);
@@ -152,7 +152,7 @@ void CreateBomb::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordInven_t
                 _GCSkillToInventoryOK1.setObjectID(pBomb->getObjectID());
             }
 
-            // ÆÐÅ¶À» º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             _GCSkillToInventoryOK1.setSkillType(SkillType);
             _GCSkillToInventoryOK1.setItemType(BombType);
             _GCSkillToInventoryOK1.setCEffectID(0);
@@ -175,12 +175,12 @@ void CreateBomb::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordInven_t
             pSkillSlot->setRunTime(output.Delay);
         } else {
             // executeSkillFailNormal(pSlayer, getSkillType(), NULL);
-            //  ÆøÅº ¸¸µé±â °°Àº °æ¿ì¿¡´Â, ½ÇÆÐÇßÀ» ¶§ µô·¹ÀÌ°¡ ¾ø±â ¶§¹®¿¡,
-            //  Å¬¶óÀÌ¾ðÆ®¿¡°Ô¼­ ÆÐÅ¶ÀÌ »ó´çÈ÷ ºü¸£°Ô ¿¬¼ÓÀûÀ¸·Î ³¯¾Æ¿Â´Ù.
-            //  ÀÌ ¶§, ½ÇÆÐ ÆÐÅ¶À» ºê·Îµå Ä³½ºÆÃÇÏ°Ô µÇ¸é, ¿·¿¡ ÀÖ´Â »ç¶÷ÀÌ º¸±â¿¡´Â
-            //  Ä³½ºÆÃ µ¿ÀÛÀÌ ¸Å¿ì ºü¸£°Ô ¿¬¼ÓÀûÀ¸·Î Ç¥½ÃµÈ´Ù. (½ºÇÇµåÇÙ ¾²´Â °ÍÃ³·³...)
-            //  ±×·¡¼­ ÀÌ ºÎºÐ¿¡¼­ ºê·ÎµåÄ³½ºÆÃÀ» ÇÏÁö ¾Ê°í, º»ÀÎ¿¡°Ô¸¸ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
-            //  2002-02-06 ±è¼º¹Î
+            //  í­íƒ„ ë§Œë“¤ê¸° ê°™ì€ ê²½ìš°ì—ëŠ”, ì‹¤íŒ¨í–ˆì„ ë•Œ ë”œë ˆì´ê°€ ì—†ê¸° ë•Œë¬¸ì—,
+            //  í´ë¼ì´ì–¸íŠ¸ì—ê²Œì„œ íŒ¨í‚·ì´ ìƒë‹¹ížˆ ë¹ ë¥´ê²Œ ì—°ì†ì ìœ¼ë¡œ ë‚ ì•„ì˜¨ë‹¤.
+            //  ì´ ë•Œ, ì‹¤íŒ¨ íŒ¨í‚·ì„ ë¸Œë¡œë“œ ìºìŠ¤íŒ…í•˜ê²Œ ë˜ë©´, ì˜†ì— ìžˆëŠ” ì‚¬ëžŒì´ ë³´ê¸°ì—ëŠ”
+            //  ìºìŠ¤íŒ… ë™ìž‘ì´ ë§¤ìš° ë¹ ë¥´ê²Œ ì—°ì†ì ìœ¼ë¡œ í‘œì‹œëœë‹¤. (ìŠ¤í”¼ë“œí•µ ì“°ëŠ” ê²ƒì²˜ëŸ¼...)
+            //  ê·¸ëž˜ì„œ ì´ ë¶€ë¶„ì—ì„œ ë¸Œë¡œë“œìºìŠ¤íŒ…ì„ í•˜ì§€ ì•Šê³ , ë³¸ì¸ì—ê²Œë§Œ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
+            //  2002-02-06 ê¹€ì„±ë¯¼
             executeSkillFailException(pSlayer, getSkillType());
         }
     } catch (Throwable& t) {

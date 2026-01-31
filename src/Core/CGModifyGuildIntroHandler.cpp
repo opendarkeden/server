@@ -39,23 +39,23 @@ void CGModifyGuildIntroHandler::execute(CGModifyGuildIntro* pPacket, Player* pPl
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPlayerCreature != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     if (pGuild == NULL)
         return;
 
-    // ±æµå ¸â¹ö Á¤º¸¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œ ë©¤ë²„ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPlayerCreature->getName());
     if (pGuildMember == NULL)
         return;
 
-    // ±æµå ¸¶½ºÅÍ ÀÌ¾î¾ß ÇÑ´Ù.
+    // ê¸¸ë“œ ë§ˆìŠ¤í„° ì´ì–´ì•¼ í•œë‹¤.
     if (pGuild->getMaster() != pPlayerCreature->getName())
         return;
     if (pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_MASTER)
         return;
 
-    // ±æµå Intro ¼öÁ¤ ÆÐÅ¶À» ½¦¾îµå ¼­¹ö·Î º¸³½´Ù.
+    // ê¸¸ë“œ Intro ìˆ˜ì • íŒ¨í‚·ì„ ì‰ì–´ë“œ ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
     GSModifyGuildIntro gsModifyGuildIntro;
     gsModifyGuildIntro.setGuildID(pGuild->getID());
     gsModifyGuildIntro.setGuildIntro(pPacket->getGuildIntro());

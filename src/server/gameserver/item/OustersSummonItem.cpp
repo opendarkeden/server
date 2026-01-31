@@ -345,7 +345,7 @@ void OustersSummonItemLoader::load(Creature* pCreature)
                     pInventory = pOusters->getInventory();
                     pStash = pOusters->getStash();
                 } else
-                    throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                    throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ìž¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
                 if (storage == STORAGE_INVENTORY) {
                     if (pInventory->canAddingEx(x, y, pOustersSummonItem)) {

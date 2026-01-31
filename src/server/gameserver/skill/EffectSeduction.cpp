@@ -59,8 +59,8 @@ void EffectSeduction::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_SEDUCTION);
 
     if (pCreature->isSlayer()) {

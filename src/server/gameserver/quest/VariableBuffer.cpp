@@ -67,7 +67,7 @@ void VariableBuffer::parse()
     do {
         size_t j = subStr.find_first_of(Separator, i);
 
-        // separator °¡ ¾ø´Ù¸é ¸¶Áö¸· Variable ÀÌ´Ù.
+        // separator ê°€ ì—†ë‹¤ë©´ ë§ˆì§€ë§‰ Variable ì´ë‹¤.
         if (j == string::npos) {
             j = subStr.size();
             bEnd = true;

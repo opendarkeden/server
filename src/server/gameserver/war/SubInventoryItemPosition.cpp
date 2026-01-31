@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// SubInventoryItemPosition Å¬·¡½º ±¸Çö
+// SubInventoryItemPosition í´ë˜ìŠ¤ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "SubInventoryItemPosition.h"
@@ -119,7 +119,7 @@ Creature* SubInventoryItemPosition::findCreature()
 
     pTargetCreature = g_pPCFinder->getCreature_LOCKED(m_OwnerName);
     if (pTargetCreature == NULL) {
-        filelog("ItemError.log", "SubInventoryItemPosition:getItem() : ÇØ´çÇÏ´Â Creature°¡ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "SubInventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” Creatureê°€ ì—†ìŠµë‹ˆë‹¤.");
 
         g_pPCFinder->unlock();
         return NULL;
@@ -159,14 +159,14 @@ Item* SubInventoryItemPosition::popItem_CORE(PlayerCreature* pPC)
     Item* pSubInventoryItem = pPC->findItemIID(m_SubInventoryID);
     if (pSubInventoryItem == NULL) {
         filelog("ItemError.log",
-                "SubInventoryItemPosition:getItem() : ÇØ´çÇÏ´Â À§Ä¡¿¡ SubInventory ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+                "SubInventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” ìœ„ì¹˜ì— SubInventory ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
         return NULL;
     }
 
     SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pSubInventoryItem);
     if (pSubInventoryItem == NULL) {
         filelog("ItemError.log",
-                "SubInventoryItemPosition:getItem() : ÇØ´çÇÏ´Â À§Ä¡ÀÇ ¾ÆÀÌÅÛÀÌ SubInventory °¡ ¾Æ´Õ´Ï´Ù..");
+                "SubInventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” ìœ„ì¹˜ì˜ ì•„ì´í…œì´ SubInventory ê°€ ì•„ë‹™ë‹ˆë‹¤..");
         return NULL;
     }
 
@@ -174,7 +174,7 @@ Item* SubInventoryItemPosition::popItem_CORE(PlayerCreature* pPC)
     Assert(pInventory != NULL);
 
     if (!pInventory->hasItem(m_InvenX, m_InvenY)) {
-        filelog("ItemError.log", "SubInventoryItemPosition:getItem() : ÇØ´çÇÏ´Â À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "SubInventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” ìœ„ì¹˜ì— ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
         return NULL;
     }
 

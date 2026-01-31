@@ -38,7 +38,7 @@ void ActionSelectQuest::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSelectQuest::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -61,7 +61,7 @@ void ActionSelectQuest::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pPlayer != NULL);
 
 #ifdef __CHINA_SERVER__
-    // Áß±¹¿¡´Â ¸·¾Æ³õ±â´Ù.
+    // ì¤‘êµ­ì—ëŠ” ë§‰ì•„ë†“ê¸°ë‹¤.
     GCNPCResponse gcNPCResponse;
     gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
     pPlayer->sendPacket(&gcNPCResponse);

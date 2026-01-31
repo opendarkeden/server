@@ -7,12 +7,12 @@
 #include "Zone.h"
 
 void EffectKickOut::affect() {
-    // 1ºÐ¿¡ ÇÑ¹ø
+    // 1ë¶„ì— í•œë²ˆ
     setNextTime(600);
     m_MinutesCount--;
 
     char msg[200];
-    sprintf(msg, "Àë¹æ¶¨Ê±¼ä»¹Ê£ÏÂ%d·Ö.", m_MinutesCount);
+    sprintf(msg, "ìž¼ë°©ë•ç‚ì‡Œë»˜å‡è‹Ÿ%dë¡¸.", m_MinutesCount);
     GCSystemMessage gcSM;
     gcSM.setMessage(msg);
     m_pZone->broadcastPacket(&gcSM);
@@ -22,7 +22,7 @@ void EffectKickOut::unaffect() {
     __BEGIN_TRY
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("ÒÑ¹ý¹æ¶¨Ê±¼ä. 10ÃëºóÒÆ¶¯µ½¸´»îµØµã.");
+    gcSM.setMessage("ï¤½ë²•ë°©ë•ç‚ì‡Œ. 10ì·¨ë¹ˆï¤³ë•¡ë•ë¦¿ì‚¶ë’ˆë“.");
     m_pZone->broadcastPacket(&gcSM);
 
     if (m_pZone != NULL)

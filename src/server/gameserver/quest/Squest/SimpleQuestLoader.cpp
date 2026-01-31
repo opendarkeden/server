@@ -19,7 +19,7 @@ void SimpleQuestLoader::load(Creature* pCreature) throw(Error) {
     Assert(pCreature->isPC());
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-    // ±‚¡∏¿« quest∏¶ ¥Ÿ ¡ˆøÏ∞Ì ¥ŸΩ√ load«—¥Ÿ.
+    // Í∏∞Ï°¥Ïùò questÎ•º Îã§ ÏßÄÏö∞Í≥† Îã§Ïãú loadÌïúÎã§.
     pPC->removeAllQuest();
 
     Statement* pStmt = NULL;
@@ -53,14 +53,14 @@ void SimpleQuestLoader::load(Creature* pCreature) throw(Error) {
 
             int DayTime = pResult->getDWORD(++i);
 
-            // deadline √º≈©
+            // deadline Ï≤¥ÌÅ¨
             if (currentTime.tv_sec < DayTime) {
                 pSimpleQuest->setDeadline((DayTime - currentTime.tv_sec) * 10);
             } else {
                 pSimpleQuest->setDeadline(0);
             }
 
-            // Creature¿« QuestManagerø° √ﬂ∞°«—¥Ÿ.
+            // CreatureÏùò QuestManagerÏóê Ï∂îÍ∞ÄÌïúÎã§.
             pSimpleQuest->take(pCreature, false);
             pPC->addQuest(pSimpleQuest);
 

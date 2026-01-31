@@ -106,10 +106,10 @@ void FlagManager::addPoleField(Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, u
 
 void FlagManager::manualStart() {
     if (!isEmpty()) {
-        cout << "½ºÄÉÁÙ ¶¯±â±â.." << endl;
+        cout << "ìŠ¤ì¼€ì¤„ ë•¡ê¸°ê¸°.." << endl;
         addSchedule(new Schedule(popRecentWork(), VSDateTime::currentDateTime()));
     } else {
-        cout << "½ºÄÉÁÙ ¸¸µé±â.." << endl;
+        cout << "ìŠ¤ì¼€ì¤„ ë§Œë“¤ê¸°.." << endl;
         addSchedule(new Schedule(new FlagWar(), VSDateTime::currentDateTime()));
     }
 }
@@ -144,7 +144,7 @@ bool FlagManager::endFlagWar() {
     if (m_bHasFlagWar) {
         recordFlagWarHistory();
 
-        // script µ¹¸®±â ¤Ñ.,¤Ñ system ÇÔ¼ö¸¦ ¾²°Ô µÉ ÁÙÀÌ¾ß !_!
+        // script ëŒë¦¬ê¸° ã…¡.,ã…¡ system í•¨ìˆ˜ë¥¼ ì“°ê²Œ ë  ì¤„ì´ì•¼ !_!
         char cmd[100];
         sprintf(cmd, "/home/darkeden/vs/bin/script/recordFlagWarHistory.py %s %d %d %d %d %d %d %d ",
                 m_EndTime.toStringforWeb().c_str(), (int)getWinnerRace(), g_pConfig->getPropertyInt("Dimension"),
@@ -173,7 +173,7 @@ bool FlagManager::putFlag(PlayerCreature* pPC, MonsterCorpse* pFlagPole) {
     m_FlagCount[(RACEINDEX)(pPC->getRace())]++;
     m_StatusPacket.setFlagCount(pPC->getRace(), m_FlagCount[(RACEINDEX)(pPC->getRace())]);
     m_PutTime[pPC->getRace()] = VSDateTime::currentDateTime();
-    filelog("FlagWar.log", "%s ´ÔÀÌ ±ê¹ßÀ» ±ê´ë¿¡ ²ÈÀ¸¼Ì½À´Ï´ç. S : %d, V : %d, O : %d", pPC->getName().c_str(),
+    filelog("FlagWar.log", "%s ë‹˜ì´ ê¹ƒë°œì„ ê¹ƒëŒ€ì— ê½‚ìœ¼ì…¨ìŠµë‹ˆë‹¹. S : %d, V : %d, O : %d", pPC->getName().c_str(),
             m_FlagCount[SLAYER], m_FlagCount[VAMPIRE], m_FlagCount[OUSTERS]);
     unlock();
 
@@ -195,7 +195,7 @@ bool FlagManager::getFlag(PlayerCreature* pPC, MonsterCorpse* pFlagPole) {
     lock();
     m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])]--;
     m_StatusPacket.setFlagCount(m_FlagPoles[pFlagPole], m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])]);
-    filelog("FlagWar.log", "%s ´ÔÀÌ ±ê¹ßÀ» »ÌÀ¸¼Ì½À´Ï´ç. S : %d, V : %d, O : %d", pPC->getName().c_str(),
+    filelog("FlagWar.log", "%s ë‹˜ì´ ê¹ƒë°œì„ ë½‘ìœ¼ì…¨ìŠµë‹ˆë‹¹. S : %d, V : %d, O : %d", pPC->getName().c_str(),
             m_FlagCount[SLAYER], m_FlagCount[VAMPIRE], m_FlagCount[OUSTERS]);
     unlock();
 
@@ -222,7 +222,7 @@ bool FlagManager::putFlag(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pFlag
 
     Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
     if (pEffect != NULL) {
-        // cout << "ÀÌÆåÆ®µµ ¾ø¾ÖÁÖ°í.." << endl;
+        // cout << "ì´í™íŠ¸ë„ ì—†ì• ì£¼ê³ .." << endl;
         pEffect->setDeadline(0);
     }
 
@@ -276,8 +276,8 @@ void FlagManager::resetFlagCounts() {
     m_FlagCount[VAMPIRE] = 0;
     m_FlagCount[OUSTERS] = 0;
 
-    // ÃßÀû ½ÇÆĞÇÑ ±ê¹ßµéÀ» Áö¿öÁÖ´Â ÀÏÀÌ ÇÊ¿äÇÑ °Å °°´Ù
-    // ÇÊµåÀÇ ±ê¹ßµéÀº ¹®Á¦°¡ ¾øÁö¸¸ ±ê´ë¿¡ ²ÈÈù ±ê¹ßÀº ¹İµå½Ã Áö¿öÁà¾ß ÇÑ´Ù
+    // ì¶”ì  ì‹¤íŒ¨í•œ ê¹ƒë°œë“¤ì„ ì§€ì›Œì£¼ëŠ” ì¼ì´ í•„ìš”í•œ ê±° ê°™ë‹¤
+    // í•„ë“œì˜ ê¹ƒë°œë“¤ì€ ë¬¸ì œê°€ ì—†ì§€ë§Œ ê¹ƒëŒ€ì— ê½‚íŒ ê¹ƒë°œì€ ë°˜ë“œì‹œ ì§€ì›Œì¤˜ì•¼ í•œë‹¤
     list<PoleFieldInfo>::iterator itr = m_PoleFields.begin();
     list<PoleFieldInfo>::iterator endItr = m_PoleFields.end();
     for (; itr != endItr; ++itr) {
@@ -307,7 +307,7 @@ void FlagManager::resetFlagCounts() {
             }
     }
 
-    // Reset ÇÒ ¶§ FlagWarStat Å×ÀÌºíÀ» Á¤¸®ÇÑ´Ù
+    // Reset í•  ë•Œ FlagWarStat í…Œì´ë¸”ì„ ì •ë¦¬í•œë‹¤
     Statement* pStmt = NULL;
     Result* pResult = NULL;
 
@@ -341,7 +341,7 @@ void FlagManager::recordPutFlag(PlayerCreature* pPC, Item* pItem)
         pResult = pStmt->executeQuery("SELECT Name FROM FlagWarStat WHERE Name = '%s' AND ItemID = %d",
                                       pPC->getName().c_str(), pItem->getItemID());
 
-        // ÀÖÀ¸¸é ¹«½Ã ¾øÀ¸¸é INSERT
+        // ìˆìœ¼ë©´ ë¬´ì‹œ ì—†ìœ¼ë©´ INSERT
         if (!pResult->next()) {
             pResult = pStmt->executeQuery(
                 "INSERT INTO FlagWarStat (PlayerID, Name, Race, ServerID, ItemID) VALUES ('%s','%s',%d,%d,%d)",

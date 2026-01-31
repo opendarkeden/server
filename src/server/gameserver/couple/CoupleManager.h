@@ -7,7 +7,7 @@
 
 class PlayerCreature;
 
-// const ¾ÈÇÏ¸é ¿ì¿¹ µÇ´Â°ÅÁö?
+// const ì•ˆí•˜ë©´ ìš°ì˜ˆ ë˜ëŠ”ê±°ì§€?
 const string Sex2FieldName[] = {
     "FemalePartnerName",
     "MalePartnerName",

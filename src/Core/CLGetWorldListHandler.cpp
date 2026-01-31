@@ -16,8 +16,8 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ðÆ®°¡ ¼­¹öÀÇ ¸®½ºÆ®¸¦ ´Þ¶ó°í ¿äÃ»ÇØ¿À¸é, ·Î±×ÀÎ ¼­¹ö´Â DB·ÎºÎÅÍ
-// ¼­¹öµéÀÇ Á¤º¸¸¦ ·ÎµùÇØ¼­ LCWorldList ÆÐÅ¶¿¡ ´ã¾Æ¼­ Àü¼ÛÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ì„œë²„ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹¬ë¼ê³  ìš”ì²­í•´ì˜¤ë©´, ë¡œê·¸ì¸ ì„œë²„ëŠ” DBë¡œë¶€í„°
+// ì„œë²„ë“¤ì˜ ì •ë³´ë¥¼ ë¡œë”©í•´ì„œ LCWorldList íŒ¨í‚·ì— ë‹´ì•„ì„œ ì „ì†¡í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CLGetWorldListHandler::execute(CLGetWorldList* pPacket, Player* pPlayer)
 
@@ -50,7 +50,7 @@ void CLGetWorldListHandler::execute(CLGetWorldList* pPacket, Player* pPlayer)
 
             aWorldInfo[i] = pWorldInfo;
 
-            // Æ®·£½Ç(2) »©±â
+            // íŠ¸ëžœì‹¤(2) ë¹¼ê¸°
             // if (i==2) pWorldInfo->setStat(WORLD_CLOSE);
 
             // cout << "AddWorld : " << pWorldInfo->getName() << endl;

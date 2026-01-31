@@ -12,9 +12,9 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// Slayer Á¤º¸¸¦ ´ã°í ÀÖ´Â °´Ã¼.
-// GCPCList ÆÐÅ¶¿¡ ´ã°Ü¼­ Å¬¶óÀÌ¾ðÆ®¿¡°Ô Àü¼ÛµÈ´Ù.
-// ¾ÆÀÌÅÛÀÌ³ª °É·ÁÀÖ´Â ¸¶¹ý °°Àº Á¤º¸´Â ´ã°ÜÀÖÁö ¾Ê´Ù.
+// Slayer ì •ë³´ë¥¼ ë‹´ê³  ìžˆëŠ” ê°ì²´.
+// GCPCList íŒ¨í‚·ì— ë‹´ê²¨ì„œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì „ì†¡ëœë‹¤.
+// ì•„ì´í…œì´ë‚˜ ê±¸ë ¤ìžˆëŠ” ë§ˆë²• ê°™ì€ ì •ë³´ëŠ” ë‹´ê²¨ìžˆì§€ ì•Šë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCSlayerInfo : public PCInfo {
@@ -73,8 +73,8 @@ public:
                //+ szGold
                + szSkillLevel * 6
                //+ szZoneID
-               + szDWORD                    // ½½·¹ÀÌ¾î ÇÃ·¡±×
-               + szColor * SLAYER_COLOR_MAX // »ö±ò Á¤º¸
+               + szDWORD                    // ìŠ¬ë ˆì´ì–´ í”Œëž˜ê·¸
+               + szColor * SLAYER_COLOR_MAX // ìƒ‰ê¹” ì •ë³´
                + szLevel;
     }
 
@@ -85,8 +85,8 @@ public:
                //+ szGold
                + szSkillLevel * 6
                //+ szZoneID
-               + szDWORD                    // ½½·¹ÀÌ¾î ÇÃ·¡±×
-               + szColor * SLAYER_COLOR_MAX // »ö±ò Á¤º¸
+               + szDWORD                    // ìŠ¬ë ˆì´ì–´ í”Œëž˜ê·¸
+               + szColor * SLAYER_COLOR_MAX // ìƒ‰ê¹” ì •ë³´
                + szLevel;
     }
 
@@ -131,7 +131,7 @@ public:
 
     // get/set STR
     // *CAUTION*
-    // Assert()·Î ÇÒ °æ¿ì, NDEBUG ¸ðµå¿¡¼­´Â disable µÇ¹Ç·Î if ·Î Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+    // Assert()ë¡œ í•  ê²½ìš°, NDEBUG ëª¨ë“œì—ì„œëŠ” disable ë˜ë¯€ë¡œ if ë¡œ ì²´í¬í•´ì•¼ í•œë‹¤.
     Attr_t getSTR() const {
         if (m_STR > maxSlayerAttr)
             throw Error("STR out of range");
@@ -413,20 +413,20 @@ private:
     Alignment_t m_Alignment;
 
     // *NOTE
-    // ATTR_BASIC   : ¼ø¼ö ´É·ÂÄ¡.
+    // ATTR_BASIC   : ìˆœìˆ˜ ëŠ¥ë ¥ì¹˜.
     Attr_t m_STR;
     Attr_t m_DEX;
     Attr_t m_INT;
 
-    // ´É·ÂÄ¡ ¿Ã¸®´Â ÇöÀç °æÇèÄ¡
-    // ´ÙÀ½ ·¹º§·Î °¡±â À§ÇÑ ¸ñÇ¥ °æÇèÄ¡¿Í
-    // ÅäÅ» °æÇèÄ¡´Â Client¿¡µµ Exp TableÀ» °¡Áö¹Ç·Î
-    // Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¿¬»ê ÇÏµµ·Ï ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ ì˜¬ë¦¬ëŠ” í˜„ìž¬ ê²½í—˜ì¹˜
+    // ë‹¤ìŒ ë ˆë²¨ë¡œ ê°€ê¸° ìœ„í•œ ëª©í‘œ ê²½í—˜ì¹˜ì™€
+    // í† íƒˆ ê²½í—˜ì¹˜ëŠ” Clientì—ë„ Exp Tableì„ ê°€ì§€ë¯€ë¡œ
+    // í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì—°ì‚° í•˜ë„ë¡ í•œë‹¤.
     Exp_t m_STRExp;
     Exp_t m_DEXExp;
     Exp_t m_INTExp;
 
-    // °è±Þ
+    // ê³„ê¸‰
     Rank_t m_Rank;
 
     // HP/MP
@@ -445,12 +445,12 @@ private:
     Gold_t m_Gold;
 
 
-    // ÃÖÁ¾ÀûÀ¸·Î ³î´ø Á¸
+    // ìµœì¢…ì ìœ¼ë¡œ ë†€ë˜ ì¡´
     ZoneID_t m_ZoneID;
     */
 
-    bitset<SLAYER_BIT_MAX> m_Outlook;   // ½½·¹ÀÌ¾î ¿Ü¸ð Á¤º¸
-    Color_t m_Colors[SLAYER_COLOR_MAX]; // ½½·¹ÀÌ¾î »ö±ò Á¤º¸
+    bitset<SLAYER_BIT_MAX> m_Outlook;   // ìŠ¬ë ˆì´ì–´ ì™¸ëª¨ ì •ë³´
+    Color_t m_Colors[SLAYER_COLOR_MAX]; // ìŠ¬ë ˆì´ì–´ ìƒ‰ê¹” ì •ë³´
 
     Level_t m_AdvancementLevel;
 };

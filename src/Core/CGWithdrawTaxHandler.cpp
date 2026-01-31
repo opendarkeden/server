@@ -56,10 +56,10 @@ void CGWithdrawTaxHandler::execute(CGWithdrawTax* pPacket, Player* pPlayer)
         }
     }
 
-    if (!g_pGuildManager->isGuildMaster(guildID, pPC) // ±æµå ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.
-        || !bOwner                                    // ÀÌ ÇÃ·¹ÀÌ¾îÀÇ ±æµå°¡ Á¡·ÉÇÑ ¼ºÀÌ ¾Æ´Ï´Ù.
-        || gold == 0                                  // Àå³­Ä¡³ª~
-        || pCastleInfo->getTaxBalance() < gold        // µ·ÀÌ ¸ğÀÚ¶õ´Ù.
+    if (!g_pGuildManager->isGuildMaster(guildID, pPC) // ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.
+        || !bOwner                                    // ì´ í”Œë ˆì´ì–´ì˜ ê¸¸ë“œê°€ ì ë ¹í•œ ì„±ì´ ì•„ë‹ˆë‹¤.
+        || gold == 0                                  // ì¥ë‚œì¹˜ë‚˜~
+        || pCastleInfo->getTaxBalance() < gold        // ëˆì´ ëª¨ìë€ë‹¤.
     ) {
         GCNPCResponse fail;
         fail.setCode(NPC_RESPONSE_WITHDRAW_TAX_FAIL);
@@ -68,17 +68,17 @@ void CGWithdrawTaxHandler::execute(CGWithdrawTax* pPacket, Player* pPlayer)
         return;
     }
 
-    // ¸ğµç Á¶°ÇÀÌ ÃæÁ·µÇ¾ú´Ù. ÀÌÁ¦ µ·À» Ã£¾Æ¼­ ÇÃ·¹ÀÌ¾î¿¡°Ô ³Ö¾îÁØ´Ù.
+    // ëª¨ë“  ì¡°ê±´ì´ ì¶©ì¡±ë˜ì—ˆë‹¤. ì´ì œ ëˆì„ ì°¾ì•„ì„œ í”Œë ˆì´ì–´ì—ê²Œ ë„£ì–´ì¤€ë‹¤.
     Gold_t remainBalance = pCastleInfo->decreaseTaxBalanceEx(gold);
     pPC->increaseGoldEx(gold);
 
-    // »ç¿ëÀÚÀÇ µ·ÀÌ ´Ã¾î³µ´Ù´Â Á¤º¸¸¦ º¸³»ÁØ´Ù.
+    // ì‚¬ìš©ìì˜ ëˆì´ ëŠ˜ì–´ë‚¬ë‹¤ëŠ” ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     GCModifyInformation gcMI;
     gcMI.addLongData(MODIFY_GOLD, pPC->getGold());
 
     pGamePlayer->sendPacket(&gcMI);
 
-    // µ·À» Ã£´Â µ¥ ¼º°øÇß´Ù°í ¾Ë¸°´Ù.
+    // ëˆì„ ì°¾ëŠ” ë° ì„±ê³µí–ˆë‹¤ê³  ì•Œë¦°ë‹¤.
     GCNPCResponse success;
     success.setCode(NPC_RESPONSE_WITHDRAW_TAX_OK);
     success.setParameter(remainBalance);

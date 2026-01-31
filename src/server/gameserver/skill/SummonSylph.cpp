@@ -16,7 +16,7 @@
 #include "GamePlayer.h"
 
 //////////////////////////////////////////////////////////////////////////////
-//  ¾Æ¿ì½ºÅÍÁî ¼¿ÇÁ ÇÚµé·¯
+//  ì•„ìš°ìŠ¤í„°ì¦ˆ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonSylph::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
 
@@ -57,12 +57,12 @@ void SummonSylph::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire) {
             decreaseMana(pOusters, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             //			SkillInput input(pOusters, pOustersSkillSlot);
             //			SkillOutput output;
             //			computeOutput(input, output);
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectSummonSylph* pEffect = new EffectSummonSylph(pOusters);
             //			pEffect->setDeadline(output.Duration);
             //			pEffect->setBonus(output.Damage);

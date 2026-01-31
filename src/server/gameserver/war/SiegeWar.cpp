@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ÀüÀï¿¡ ´ëÇÑ Àü¹İÀûÀÎ Á¤º¸ ¹× ÀüÀï ½ÃÀÛ ¹× Á¾·á½Ã Ã³¸®·çÆ¾ ±¸Çö
+// ì „ìŸì— ëŒ€í•œ ì „ë°˜ì ì¸ ì •ë³´ ë° ì „ìŸ ì‹œì‘ ë° ì¢…ë£Œì‹œ ì²˜ë¦¬ë£¨í‹´ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "SiegeWar.h"
@@ -85,10 +85,10 @@ bool SiegeWar::addChallengerGuild(GuildID_t gID) {
 // executeStart
 //
 //--------------------------------------------------------------------------------
-// ÀüÀïÀÌ ½ÃÀÛÇÏ´Â ½ÃÁ¡¿¡¼­ Ã³¸®ÇØ¾ß µÉ °Íµé
+// ì „ìŸì´ ì‹œì‘í•˜ëŠ” ì‹œì ì—ì„œ ì²˜ë¦¬í•´ì•¼ ë  ê²ƒë“¤
 //
-// (!) Zone¿¡ ºÙ¾îÀÖ´Â WarScheduler¿¡¼­ ½ÇÇàµÇ´Â ºÎºĞÀÌ¹Ç·Î
-//     ÀÚ½ÅÀÇ Zone(¼º)¿¡ ´ëÇÑ Ã³¸®´Â lockÀÌ ÇÊ¿ä¾ø´Ù.
+// (!) Zoneì— ë¶™ì–´ìˆëŠ” WarSchedulerì—ì„œ ì‹¤í–‰ë˜ëŠ” ë¶€ë¶„ì´ë¯€ë¡œ
+//     ìì‹ ì˜ Zone(ì„±)ì— ëŒ€í•œ ì²˜ë¦¬ëŠ” lockì´ í•„ìš”ì—†ë‹¤.
 //--------------------------------------------------------------------------------
 void SiegeWar::executeStart()
 
@@ -98,7 +98,7 @@ void SiegeWar::executeStart()
     sendWarStartMessage();
     clearReinforceRegisters();
 
-    // ÀÌ ºÎºĞÀº ³ªÁß¿¡~~ CastleInfo·Î ³Ö´Â°Ô ³´°Ú´Ù.
+    // ì´ ë¶€ë¶„ì€ ë‚˜ì¤‘ì—~~ CastleInfoë¡œ ë„£ëŠ”ê²Œ ë‚«ê² ë‹¤.
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
     Assert(pCastleInfo != NULL);
 
@@ -109,25 +109,25 @@ void SiegeWar::executeStart()
         if ( !pCastleInfo->isCommon() )
         {
             SiegeManager::Instance().recallGuild( m_CastleZoneID, siegeZoneID, OwnerGuildID, 1, 200 );
-            filelog("WarLog.txt", "%d ±æµå°¡ ¼º ÁÖÀÎÀÔ´Ï´Ù.", OwnerGuildID);
+            filelog("WarLog.txt", "%d ê¸¸ë“œê°€ ì„± ì£¼ì¸ì…ë‹ˆë‹¤.", OwnerGuildID);
         }
 
         if ( m_ReinforceGuildID != 0 )
         {
             SiegeManager::Instance().recallGuild( m_CastleZoneID, siegeZoneID, m_ReinforceGuildID, 2, 200 );
-            filelog("WarLog.txt", "%d ±æµå°¡ ¼ö¼º Áö¿øÃøÀÔ´Ï´Ù.", m_ReinforceGuildID);
+            filelog("WarLog.txt", "%d ê¸¸ë“œê°€ ìˆ˜ì„± ì§€ì›ì¸¡ì…ë‹ˆë‹¤.", m_ReinforceGuildID);
         }
 
         for ( int i=0; i<m_ChallangerGuildCount; ++i )
         {
             if ( m_ChallangerGuildID[i] != 0 ) SiegeManager::Instance().recallGuild( m_CastleZoneID, siegeZoneID,
-       m_ChallangerGuildID[i], 3+i, 200 ); filelog("WarLog.txt", "%d ±æµå°¡ °ø°İ %d¹øÃøÀÔ´Ï´Ù.", m_ChallangerGuildID[i],
+       m_ChallangerGuildID[i], 3+i, 200 ); filelog("WarLog.txt", "%d ê¸¸ë“œê°€ ê³µê²© %dë²ˆì¸¡ì…ë‹ˆë‹¤.", m_ChallangerGuildID[i],
        i);
         }*/
 
     SiegeManager::Instance().start(siegeZoneID);
 
-    // SiegeWarHistory Table ¿¡ ±â·Ï
+    // SiegeWarHistory Table ì— ê¸°ë¡
     recordSiegeWarStart();
 
     __END_CATCH
@@ -142,7 +142,7 @@ void SiegeWar::recordSiegeWarStart()
 
         CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_CastleZoneID );
 
-        // NULL ÀÏ¸®µµ ¾øÁö¸¸ È¤½Ã³ª ÇÏ´Â ¸¾¿¡ -_-;
+        // NULL ì¼ë¦¬ë„ ì—†ì§€ë§Œ í˜¹ì‹œë‚˜ í•˜ëŠ” ë§˜ì— -_-;
         if ( pCastleInfo == NULL )	return;
 
         BEGIN_DB
@@ -168,7 +168,7 @@ void SiegeWar::recordSiegeWarStart()
 // executeEnd
 //
 //--------------------------------------------------------------------------------
-// ÀüÀïÀÌ ³¡³ª´Â ½ÃÁ¡¿¡¼­ Ã³¸®ÇØ¾ß µÉ °Íµé
+// ì „ìŸì´ ëë‚˜ëŠ” ì‹œì ì—ì„œ ì²˜ë¦¬í•´ì•¼ ë  ê²ƒë“¤
 //--------------------------------------------------------------------------------
 void SiegeWar::executeEnd()
 
@@ -176,7 +176,7 @@ void SiegeWar::executeEnd()
     __BEGIN_TRY
 
     //----------------------------------------------------------------------------
-    // ÀüÀï ³¡³µ´Ù´Â °É ¾Ë¸°´Ù.
+    // ì „ìŸ ëë‚¬ë‹¤ëŠ” ê±¸ ì•Œë¦°ë‹¤.
     //----------------------------------------------------------------------------
     sendWarEndMessage();
 
@@ -210,7 +210,7 @@ void SiegeWar::executeEnd()
                     GameServerInfo* pGameServerInfo = itr->second;
 
                     if (pGameServerInfo->getWorldID() == myWorldID) {
-                        // ÇöÀç ¼­¹ö°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸..(À§¿¡¼­ Ã³¸®ÇßÀ¸¹Ç·Î)
+                        // í˜„ì¬ ì„œë²„ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ..(ìœ„ì—ì„œ ì²˜ë¦¬í–ˆìœ¼ë¯€ë¡œ)
                         if (pGameServerInfo->getGroupID() == myServerID) {
                         } else if (pGameServerInfo->getCastleFollowingServerID() == myServerID) {
                             g_pLoginServerManager->sendPacket(pGameServerInfo->getIP(), pGameServerInfo->getUDPPort(),
@@ -223,18 +223,18 @@ void SiegeWar::executeEnd()
             }
         }
     } else {
-        // WinnerGuildID ¸¦ Áö±İ ÁÖÀÎÀ¸·Î ¼ÂÆÃÇØÁØ´Ù
+        // WinnerGuildID ë¥¼ ì§€ê¸ˆ ì£¼ì¸ìœ¼ë¡œ ì…‹íŒ…í•´ì¤€ë‹¤
         CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
         m_WinnerGuildID = pCastleInfo->getGuildID();
     }
 
     //----------------------------------------------------------------------------
-    // ÀüÀï ½ÅÃ»±İÀ» ¼º¿¡ ½×´Â´Ù.
-    // (¿ì¼± ÀüÀï °á°ú¿¡ µû¶ó¼­ ¼ºÀÇ ÁÖÀÎÀÌ ¹Ù²î¾ú´Ù°í °¡Á¤ÇÑ´Ù.)
+    // ì „ìŸ ì‹ ì²­ê¸ˆì„ ì„±ì— ìŒ“ëŠ”ë‹¤.
+    // (ìš°ì„  ì „ìŸ ê²°ê³¼ì— ë”°ë¼ì„œ ì„±ì˜ ì£¼ì¸ì´ ë°”ë€Œì—ˆë‹¤ê³  ê°€ì •í•œë‹¤.)
     //----------------------------------------------------------------------------
     g_pCastleInfoManager->increaseTaxBalance(m_CastleZoneID, m_RegistrationFee);
     m_RegistrationFee = 0;
-    // tinysave("ÀüÀï½ÅÃ»±İ=0") <-- ÇÒ ÇÊ¿ä ÀÖÀ»±î?
+    // tinysave("ì „ìŸì‹ ì²­ê¸ˆ=0") <-- í•  í•„ìš” ìˆì„ê¹Œ?
 
     ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID(m_CastleZoneID);
     Assert(siegeZoneID != 0);
@@ -242,7 +242,7 @@ void SiegeWar::executeEnd()
     filelog("SiegeWar.log", "[%u] executeEnd : reset zone %u", getWarID(), siegeZoneID);
     SiegeManager::Instance().reset(siegeZoneID);
 
-    // SiegeWarHistory Table ¿¡ ±â·Ï
+    // SiegeWarHistory Table ì— ê¸°ë¡
     recordSiegeWarEnd();
 
     __END_CATCH
@@ -265,7 +265,7 @@ void SiegeWar::recordSiegeWarEnd()
               }
               END_DB(pStmt)
 
-              // script µ¹¸®±â ¤Ñ.,¤Ñ system ÇÔ¼ö¸¦ ¾²°Ô µÉ ÁÙÀÌ¾ß !_!
+              // script ëŒë¦¬ê¸° ã…¡.,ã…¡ system í•¨ìˆ˜ë¥¼ ì“°ê²Œ ë  ì¤„ì´ì•¼ !_!
               char cmd[100];
               sprintf(cmd, "/home/darkeden/vs/bin/script/recordSiegeWarHistory.py %d %d %d ",
                               (int)getWarID(),
@@ -282,7 +282,7 @@ string SiegeWar::getWarName() const
 {
     __BEGIN_TRY
 
-    return "°ø¼ºÀü";
+    return "ê³µì„±ì „";
 
     __END_CATCH
 }
@@ -292,7 +292,7 @@ string SiegeWar::getWarName() const
 //	isModifyCastleOwner( PlayerCreature* pPC )
 //
 //--------------------------------------------------------------------------------
-// ¼ºÀÇ ÁÖÀÎÀÌ ¹Ù²î´Â °æ¿ì
+// ì„±ì˜ ì£¼ì¸ì´ ë°”ë€ŒëŠ” ê²½ìš°
 //--------------------------------------------------------------------------------
 bool SiegeWar::isModifyCastleOwner(PlayerCreature* pPC)
 
@@ -325,7 +325,7 @@ bool SiegeWar::isModifyCastleOwner(PlayerCreature* pPC)
 // getWinnerGuildID( PlayerCreature* pPC )
 //
 //--------------------------------------------------------------------------------
-// ÀüÀï¿¡ ½Â¸®ÇÑ ±æµåÀÇ GuildID¸¦ ³Ñ°ÜÁØ´Ù.
+// ì „ìŸì— ìŠ¹ë¦¬í•œ ê¸¸ë“œì˜ GuildIDë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //--------------------------------------------------------------------------------
 GuildID_t SiegeWar::getWinnerGuildID(PlayerCreature* pPC)
 
@@ -334,9 +334,9 @@ GuildID_t SiegeWar::getWinnerGuildID(PlayerCreature* pPC)
 
     Assert(pPC != NULL);
 
-    // ±æµåÀüÀïÀÎ °æ¿ì : ÀüÀï½ÅÃ» ±æµå¿Í pPCÀÇ ±æµå°¡ °°À¸¸é pPCÀÇ GuildID
-    // 					 ¾Æ´Ï¸é ¿ø·¡ ¼ºÁÖÀÎÀÇ ±æµåID¿Í °°À¸¸é ¿ø·¡ ¼ºÁÖÀÎ GuildID
-    //					 ¾Æ´Ï¸é COMMON_GUILD_ID
+    // ê¸¸ë“œì „ìŸì¸ ê²½ìš° : ì „ìŸì‹ ì²­ ê¸¸ë“œì™€ pPCì˜ ê¸¸ë“œê°€ ê°™ìœ¼ë©´ pPCì˜ GuildID
+    // 					 ì•„ë‹ˆë©´ ì›ë˜ ì„±ì£¼ì¸ì˜ ê¸¸ë“œIDì™€ ê°™ìœ¼ë©´ ì›ë˜ ì„±ì£¼ì¸ GuildID
+    //					 ì•„ë‹ˆë©´ COMMON_GUILD_ID
     //	CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_CastleZoneID );
     //	Assert( pCastleInfo!=NULL );
 
@@ -352,7 +352,7 @@ bool SiegeWar::endWar(PlayerCreature* pPC)
 
     Assert(pPC != NULL);
 
-    // < ¼º ÁÖÀÎ º¯°æ >
+    // < ì„± ì£¼ì¸ ë³€ê²½ >
     if (isModifyCastleOwner(pPC)) {
         m_WinnerRace = pPC->getRace();
         m_WinnerGuildID = getWinnerGuildID(pPC);
@@ -367,7 +367,7 @@ bool SiegeWar::endWar(PlayerCreature* pPC)
 }
 
 //--------------------------------------------------------------------------------
-// ÀüÀï ³¡³¯ ¶§
+// ì „ìŸ ëë‚  ë•Œ
 //--------------------------------------------------------------------------------
 void SiegeWar::sendWarEndMessage() const
 
@@ -376,7 +376,7 @@ void SiegeWar::sendWarEndMessage() const
 
     War::sendWarEndMessage();
 
-    // ¾ÈÀüÁö´ë ÇØÁ¦ È®ÀÎ? ÆĞÅ¶
+    // ì•ˆì „ì§€ëŒ€ í•´ì œ í™•ì¸? íŒ¨í‚·
     GCNoticeEvent gcNoticeEvent;
     gcNoticeEvent.setCode(NOTICE_EVENT_WAR_OVER);
     gcNoticeEvent.setParameter(m_CastleZoneID);
@@ -417,25 +417,25 @@ void SiegeWar::makeWarInfo(WarInfo* pWarInfo) const
     Assert(pGuildWarInfo != NULL);
 
     //---------------------------------------------------
-    // ÇöÀç ¼º ÁÖÀÎ ±¸ÇÏ±â
+    // í˜„ì¬ ì„± ì£¼ì¸ êµ¬í•˜ê¸°
     //---------------------------------------------------
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(getCastleZoneID());
     if (pCastleInfo == NULL) {
-        filelog("WarError.log", "CastleInfo°¡ ¾ø´Ù(%d)", getCastleZoneID());
+        filelog("WarError.log", "CastleInfoê°€ ì—†ë‹¤(%d)", getCastleZoneID());
         return;
     }
 
     GuildID_t ownGuildID = pCastleInfo->getGuildID();
 
-    pGuildWarInfo->addJoinGuild(ownGuildID); // ÇöÀç ¼º ÁÖÀÎ
+    pGuildWarInfo->addJoinGuild(ownGuildID); // í˜„ì¬ ì„± ì£¼ì¸
 
     for (uint i = 0; i < m_ChallangerGuildCount; ++i)
         pGuildWarInfo->addJoinGuild(m_ChallangerGuildID[i]);
 
     pGuildWarInfo->setCastleID(getCastleZoneID());
 
-    // °ø°İ ±æµå ÀÌ¸§
-    static const string commonGuild("¾øÀ½");
+    // ê³µê²© ê¸¸ë“œ ì´ë¦„
+    static const string commonGuild("ì—†ìŒ");
 
     string attackGuildName;
     string defenseGuildName;
@@ -443,7 +443,7 @@ void SiegeWar::makeWarInfo(WarInfo* pWarInfo) const
     attackGuildName = g_pGuildManager->getGuildName(m_ChallangerGuildID[0]);
     if (m_ChallangerGuildCount > 1) {
         char buffer[40];
-        snprintf(buffer, 40, "%s¿Ü %u°³", attackGuildName.c_str(), m_ChallangerGuildCount - 1);
+        snprintf(buffer, 40, "%sì™¸ %uê°œ", attackGuildName.c_str(), m_ChallangerGuildCount - 1);
         attackGuildName = buffer;
     }
 

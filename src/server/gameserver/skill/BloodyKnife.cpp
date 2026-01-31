@@ -10,7 +10,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyKnife::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void BloodyKnife::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Blood ê°€ ìˆë‹¤ë©´ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -55,7 +55,7 @@ void BloodyKnife::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyKnife::execute(Monster* pMonster, Creature* pEnemy)
 

@@ -26,7 +26,7 @@ void ActionStashSell::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionStashSell::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -43,7 +43,7 @@ void ActionStashSell::execute(Creature* pCreature1, Creature* pCreature2)
     GCStashSell pkt;
 
     if (pCreature2->isSlayer()) {
-        // ÇöÀç °¡Áö°í ÀÖ´Â º¸°üÇÔÀÇ °¹¼ö·Î ´ÙÀ½ º¸°üÇÔÀÇ °ªÀ» Á¤ÇÑ´Ù.
+        // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” ë³´ê´€í•¨ì˜ ê°¯ìˆ˜ë¡œ ë‹¤ìŒ ë³´ê´€í•¨ì˜ ê°’ì„ ì •í•œë‹¤.
         curStashNum = dynamic_cast<Slayer*>(pCreature2)->getStashNum();
 
         if (curStashNum < STASH_RACK_MAX) {
@@ -51,7 +51,7 @@ void ActionStashSell::execute(Creature* pCreature1, Creature* pCreature2)
         } else
             price = 0;
     } else if (pCreature2->isVampire()) {
-        // ÇöÀç °¡Áö°í ÀÖ´Â º¸°üÇÔÀÇ °¹¼ö·Î ´ÙÀ½ º¸°üÇÔÀÇ °ªÀ» Á¤ÇÑ´Ù.
+        // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” ë³´ê´€í•¨ì˜ ê°¯ìˆ˜ë¡œ ë‹¤ìŒ ë³´ê´€í•¨ì˜ ê°’ì„ ì •í•œë‹¤.
         curStashNum = dynamic_cast<Vampire*>(pCreature2)->getStashNum();
 
         if (curStashNum < STASH_RACK_MAX) {
@@ -59,7 +59,7 @@ void ActionStashSell::execute(Creature* pCreature1, Creature* pCreature2)
         } else
             price = 0;
     } else if (pCreature2->isOusters()) {
-        // ÇöÀç °¡Áö°í ÀÖ´Â º¸°üÇÔÀÇ °¹¼ö·Î ´ÙÀ½ º¸°üÇÔÀÇ °ªÀ» Á¤ÇÑ´Ù.
+        // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” ë³´ê´€í•¨ì˜ ê°¯ìˆ˜ë¡œ ë‹¤ìŒ ë³´ê´€í•¨ì˜ ê°’ì„ ì •í•œë‹¤.
         curStashNum = dynamic_cast<Ousters*>(pCreature2)->getStashNum();
 
         if (curStashNum < STASH_RACK_MAX) {
@@ -68,7 +68,7 @@ void ActionStashSell::execute(Creature* pCreature1, Creature* pCreature2)
             price = 0;
     }
 
-    // ÆĞÅ¶¿¡´Ù °ªÀ» ¼¼ÆÃÇØ ÁØ´Ù.
+    // íŒ¨í‚·ì—ë‹¤ ê°’ì„ ì„¸íŒ…í•´ ì¤€ë‹¤.
     pkt.setPrice(price);
 
     Player* pPlayer = pCreature2->getPlayer();

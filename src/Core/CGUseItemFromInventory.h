@@ -2,8 +2,8 @@
 // Filename    : CGUseItemFromInventory.h
 // Written By  : excel96
 // Description :
-// ÀÎº¥Åä¸® ¾ÈÀÇ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¶§, Å¬¶óÀÌ¾ðÆ®°¡ X, Y ¹× ObjectID¸¦
-// º¸³»¸é ¾ÆÀÌÅÛ Å¬·¡½º¿¡ µû¶ó¼­, ¼­¹ö°¡ ÀÌ¿¡ ¸Â´Â ÄÚµå¸¦ Ã³¸®ÇÑ´Ù.
+// ì¸ë²¤í† ë¦¬ ì•ˆì˜ ì•„ì´í…œì„ ì‚¬ìš©í•  ë•Œ, í´ë¼ì´ì–¸íŠ¸ê°€ X, Y ë° ObjectIDë¥¼
+// ë³´ë‚´ë©´ ì•„ì´í…œ í´ëž˜ìŠ¤ì— ë”°ë¼ì„œ, ì„œë²„ê°€ ì´ì— ë§žëŠ” ì½”ë“œë¥¼ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_USE_ITEM_FROM_INVENTORY_H__
@@ -64,11 +64,11 @@ public:
     }
 
 private:
-    ObjectID_t m_ObjectID; // ¾ÆÀÌÅÛÀÇ object id
-    // º¸Á¶ ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ¾ÆÀÌµð. 0ÀÌ¸é ¸ÞÀÎ ÀÎº¥Åä¸®¿¡¼­ »ç¿ë
+    ObjectID_t m_ObjectID; // ì•„ì´í…œì˜ object id
+    // ë³´ì¡° ì¸ë²¤í† ë¦¬ ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””. 0ì´ë©´ ë©”ì¸ ì¸ë²¤í† ë¦¬ì—ì„œ ì‚¬ìš©
     ObjectID_t m_InventoryItemObjectID;
-    CoordInven_t m_InvenX; // ¾ÆÀÌÅÛÀÇ ÀÎº¥Åä¸® ÁÂÇ¥ X
-    CoordInven_t m_InvenY; // ¾ÆÀÌÅÛÀÇ ÀÎº¥Åä¸® ÁÂÇ¥ Y
+    CoordInven_t m_InvenX; // ì•„ì´í…œì˜ ì¸ë²¤í† ë¦¬ ì¢Œí‘œ X
+    CoordInven_t m_InvenY; // ì•„ì´í…œì˜ ì¸ë²¤í† ë¦¬ ì¢Œí‘œ Y
 };
 
 

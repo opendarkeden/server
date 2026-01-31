@@ -18,18 +18,18 @@
 //
 // class LGIncomingConnection;
 //
-// ·Î±×ÀÎ ¼­¹ö¿¡¼­ »ç¿ëÀÚ°¡ °ÔÀÓ ¼­¹ö·Î Á¢¼ÓÇÏ·Á°í ÇÒ ¶§, ·Î±×ÀÎ ¼­¹ö´Â
-// ±× °ÔÀÓ ¼­¹ö¿¡°Ô ¾î¶² ÁÖ¼Ò¿¡¼­ ¾î¶² »ç¿ëÀÚ°¡ ¾î¶² Å©¸®Ã³·Î ·Î±×ÀÎÇÒ
-// °ÍÀÌ´Ù.. ¶ó°í ¾Ë·ÁÁÖ´Â ÆÐÅ¶ÀÌ´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ì‚¬ìš©ìžê°€ ê²Œìž„ ì„œë²„ë¡œ ì ‘ì†í•˜ë ¤ê³  í•  ë•Œ, ë¡œê·¸ì¸ ì„œë²„ëŠ”
+// ê·¸ ê²Œìž„ ì„œë²„ì—ê²Œ ì–´ë–¤ ì£¼ì†Œì—ì„œ ì–´ë–¤ ì‚¬ìš©ìžê°€ ì–´ë–¤ í¬ë¦¬ì²˜ë¡œ ë¡œê·¸ì¸í• 
+// ê²ƒì´ë‹¤.. ë¼ê³  ì•Œë ¤ì£¼ëŠ” íŒ¨í‚·ì´ë‹¤.
 //
 // *CAUTION*
 //
-// ±»ÀÌ Å©¸®Ã³ ÀÌ¸§ÀÌ ÇÊ¿äÇÑ°¡? ÇÏ´Â ÀÇ¹®ÀÌ ÀÖÀ» ¼ö ÀÖ°Ú´Âµ¥, ´ÙÀ½°ú °°Àº
-// °æ¿ì¸¦ °í·ÁÇßÀ»¶§ ÇÊ¿äÇÏ°Ô µÈ´Ù. ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ Slot3 Ä³¸¯ÅÍ¸¦ ¼±ÅÃ
-// ÇØ³õ°í, ½ÇÁ¦·Î °ÔÀÓ ¼­¹ö¿¡ Á¢¼ÓÇØ¼­´Â SLOT2 Ä³¸¯ÅÍ¸¦ ·ÎµùÇØ´Þ¶ó°í ÇÒ
-// ¼ö°¡ ÀÖ´Â °ÍÀÌ´Ù. ÀÌ¸¦ ¸·±â À§ÇØ¼­, CLSelectPC·Î ¼±ÅÃÇÑ Ä³¸¯ÅÍ¸¦
-// °ÔÀÓ ¼­¹ö¿¡°Ô ¾Ë·ÁÁà¾ß ÇÏ¸ç, CGConnect ¿¡¼­µµ Ä³¸¯ÅÍ ¾ÆÀÌµð¸¦ Æ÷ÇÔÇØ¼­
-// ¹Ù·Î ·ÎµùÇÏµµ·Ï ÇØ¾ß ÇÑ´Ù.
+// êµ³ì´ í¬ë¦¬ì²˜ ì´ë¦„ì´ í•„ìš”í•œê°€? í•˜ëŠ” ì˜ë¬¸ì´ ìžˆì„ ìˆ˜ ìžˆê² ëŠ”ë°, ë‹¤ìŒê³¼ ê°™ì€
+// ê²½ìš°ë¥¼ ê³ ë ¤í–ˆì„ë•Œ í•„ìš”í•˜ê²Œ ëœë‹¤. ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° Slot3 ìºë¦­í„°ë¥¼ ì„ íƒ
+// í•´ë†“ê³ , ì‹¤ì œë¡œ ê²Œìž„ ì„œë²„ì— ì ‘ì†í•´ì„œëŠ” SLOT2 ìºë¦­í„°ë¥¼ ë¡œë”©í•´ë‹¬ë¼ê³  í• 
+// ìˆ˜ê°€ ìžˆëŠ” ê²ƒì´ë‹¤. ì´ë¥¼ ë§‰ê¸° ìœ„í•´ì„œ, CLSelectPCë¡œ ì„ íƒí•œ ìºë¦­í„°ë¥¼
+// ê²Œìž„ ì„œë²„ì—ê²Œ ì•Œë ¤ì¤˜ì•¼ í•˜ë©°, CGConnect ì—ì„œë„ ìºë¦­í„° ì•„ì´ë””ë¥¼ í¬í•¨í•´ì„œ
+// ë°”ë¡œ ë¡œë”©í•˜ë„ë¡ í•´ì•¼ í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -37,10 +37,10 @@ class LGIncomingConnection : public DatagramPacket {
 public:
     LGIncomingConnection() {};
     ~LGIncomingConnection() {};
-    // Datagram °´Ã¼¿¡¼­ºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // Datagram ê°ì²´ì—ì„œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Datagram& iDatagram);
 
-    // Datagram °´Ã¼·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // Datagram ê°ì²´ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(Datagram& oDatagram) const;
 
     // execute packet's handler
@@ -98,7 +98,7 @@ private:
     // PC name
     string m_PCName;
 
-    // Å¬¶óÀÌ¾ðÆ®ÀÇ IP
+    // í´ë¼ì´ì–¸íŠ¸ì˜ IP
     string m_ClientIP;
 };
 
@@ -130,7 +130,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static LGIncomingConnectionPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static LGIncomingConnectionPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return +szBYTE + 20   // creature name
                + szBYTE + 20  // PC name

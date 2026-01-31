@@ -2,7 +2,7 @@
 // Filename    : WayPoint.cpp
 // Written by  : excel96
 // Description :
-// ½½·¹ÀÌ¾î¿ë °³ÀÎ Æ÷Å»À» À§ÇÑ ¿þÀÌÆ÷ÀÎÆ®ÀÇ ÁýÇÕÀ» °ü¸®ÇÏ´Â Å¬·¡½º ¸ðµâ
+// ìŠ¬ë ˆì´ì–´ìš© ê°œì¸ í¬íƒˆì„ ìœ„í•œ ì›¨ì´í¬ì¸íŠ¸ì˜ ì§‘í•©ì„ ê´€ë¦¬í•˜ëŠ” í´ëž˜ìŠ¤ ëª¨ë“ˆ
 //////////////////////////////////////////////////////////////////////////////
 
 #include "WayPoint.h"
@@ -88,7 +88,7 @@ void WayPointManager::load(void)
 
             addWayPoint(pWayPoint);
 
-            // ¾Æ¿ì½ºÅÍÁî ¿þÀÌÆ÷ÀÎÆ®´Â ºí·°ÇØÁà¾ß µÈ´Ù.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆ ì›¨ì´í¬ì¸íŠ¸ëŠ” ë¸”ëŸ­í•´ì¤˜ì•¼ ëœë‹¤.
             if (Race == RACE_OUSTERS) {
                 Zone* pZone = getZoneByZoneID(ZID);
                 Tile& rTile = pZone->getTile(ZX, ZY);
@@ -136,7 +136,7 @@ void WayPointManager::addWayPoint(WayPoint* pWayPoint)
 
     if (itr != end()) {
         cerr << "WayPointManager::addWayPoint() : Duplicated WayPoint" << endl;
-        cerr << "¾Æ¸¶ Çï±â¶û ´ëÁöÁ¤·É»ÔÀÌ¶û ÁÂÇ¥°¡ °ãÃÆÀ»Áöµµ...¤»¤»¤».Áñ~" << endl;
+        cerr << "ì•„ë§ˆ í—¬ê¸°ëž‘ ëŒ€ì§€ì •ë ¹ë¿”ì´ëž‘ ì¢Œí‘œê°€ ê²¹ì³¤ì„ì§€ë„...ã…‹ã…‹ã…‹.ì¦~" << endl;
         throw("WayPointManager::addWayPoint() : Duplicated WayPoint");
     }
 

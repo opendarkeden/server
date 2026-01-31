@@ -16,7 +16,7 @@ bool ConditionAnsweredBy::isSatisfied(Creature* pCreature1, Creature* pCreature2
 
     COND_ANSWERED_BY* pCond = (COND_ANSWERED_BY*)pParam;
 
-    // ½ºÅ©¸³Æ® ID¿Í ´ë´äID°¡ °°´Ù¸é ÀÌ ÄÁµð¼ÇÀº true
+    // ìŠ¤í¬ë¦½íŠ¸ IDì™€ ëŒ€ë‹µIDê°€ ê°™ë‹¤ë©´ ì´ ì»¨ë””ì…˜ì€ true
     if (pCond->ScriptID == m_ScriptID && pCond->AnswerID == m_AnswerID)
         return true;
     return false;

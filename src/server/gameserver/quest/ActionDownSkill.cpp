@@ -2,7 +2,7 @@
 // Filename    : ActionDownSkill.cpp
 // Written By  :
 // Description :
-// NPC¸¦ ÅëÇØ Å¬¶óÀÌ¾ðÆ®·Î ÇÏ¿©±Ý ±æµå »ý¼ºÃ¢À» ¶ç¿ì°Ô ÇÑ´Ù.
+// NPCë¥¼ í†µí•´ í´ë¼ì´ì–¸íŠ¸ë¡œ í•˜ì—¬ê¸ˆ ê¸¸ë“œ ìƒì„±ì°½ì„ ë„ìš°ê²Œ í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionDownSkill.h"
@@ -19,14 +19,14 @@ void ActionDownSkill::read(PropertyBuffer& propertyBuffer)
 {
     __BEGIN_TRY
 
-    // ±æµå »ý¼ºÃ¢À» ¶ç¿ì´Â °Í»ÓÀÌ¹Ç·Î Æ¯º°È÷ ÀÐ¾îµéÀÏ ÀÎ¼ö´Â ¾ø´Ù.
+    // ê¸¸ë“œ ìƒì„±ì°½ì„ ë„ìš°ëŠ” ê²ƒë¿ì´ë¯€ë¡œ íŠ¹ë³„ížˆ ì½ì–´ë“¤ì¼ ì¸ìˆ˜ëŠ” ì—†ë‹¤.
 
     __END_CATCH
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionDownSkill::execute(Creature* pCreature1, Creature* pCreature2)
 

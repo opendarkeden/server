@@ -42,7 +42,7 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         pStmt = g_pDatabaseManager->getConnection(WorldID)->createStatement();
 
         ////////////////////////////////////////////////////////////
-        // ÀÏ´Ü ±×·± ½½·¹ÀÌ¾î°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì¼ë‹¨ ê·¸ëŸ° ìŠ¬ë ˆì´ì–´ê°€ ì¡´ìž¬í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
         ////////////////////////////////////////////////////////////
         //		printf("SELECT Active FROM Slayer WHERE Name = '%s' AND Active='ACTIVE' AND PlayerID='%s'",
         // pPacket->getName().c_str(), pPlayer->getID().c_str());
@@ -63,12 +63,12 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         }
 
         ////////////////////////////////////////////////////////////
-        // ÁÖ¹Îµî·Ï¹øÈ£¸¦ È®ÀÎÇÑ´Ù.
+        // ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ë¥¼ í™•ì¸í•œë‹¤.
         ////////////////////////////////////////////////////////////
 
         // add by zdj 2005.5.11
 
-        // ÆÁ±ÎÏÂÃæÕâ¶Î
+        // íŒê·è‹Ÿì¶©ä¾¶ë™ˆ
 
         /*
 
@@ -76,7 +76,7 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
                 if ( (pLoginPlayer->isFreePass() && !pLoginPlayer->isWebLogin() )
                     || g_pConfig->getPropertyInt("IsNetMarble")==1)
                 {
-                    // ¹«Á¶°Ç Áö¿ï ¼ö ÀÖ´Ù.
+                    // ë¬´ì¡°ê±´ ì§€ìš¸ ìˆ˜ ìžˆë‹¤.
                     pResult = pLoginStmt->executeQuery("SELECT length(Password) FROM Player Where PlayerID = '%s'",
         pPlayer->getID().c_str());
 
@@ -117,10 +117,10 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
                 }
         #endif
 
-        */ //ÆÁ±Î
+        */ //íŒê·
 
         ////////////////////////////////////////////////////////////
-        // ÀÏ´Ü ½½·¹ÀÌ¾î Å×ÀÌºí¿¡´Â È®½ÇÈ÷ Á¸ÀçÇÑ´Ù.
+        // ì¼ë‹¨ ìŠ¬ë ˆì´ì–´ í…Œì´ë¸”ì—ëŠ” í™•ì‹¤ížˆ ì¡´ìž¬í•œë‹¤.
         ////////////////////////////////////////////////////////////
 #if defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__) || defined(__NETMARBLE_SERVER__)
         pResult = pStmt->executeQuery("DELETE FROM Slayer WHERE Name = '%s' AND Slot = '%s'",
@@ -142,7 +142,7 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
 #endif
 
         ////////////////////////////////////////////////////////////
-        // ¹ìÆÄÀÌ¾î Å×ÀÌºíÀ» Áö¿î´Ù.
+        // ë±€íŒŒì´ì–´ í…Œì´ë¸”ì„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
 #if defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__) || defined(__NETMARBLE_SERVER__)
         pResult = pStmt->executeQuery("DELETE FROM Vampire WHERE Name = '%s' AND Slot = '%s'",
@@ -155,7 +155,7 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         // successfully...." << endl;
 
         ////////////////////////////////////////////////////////////
-        // ¾Æ¿ì½ºÅÍ½º Å×ÀÌºíÀ» Áö¿î´Ù.
+        // ì•„ìš°ìŠ¤í„°ìŠ¤ í…Œì´ë¸”ì„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
 #if defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__) || defined(__NETMARBLE_SERVER__)
         pResult = pStmt->executeQuery("DELETE FROM Ousters WHERE Name = '%s' AND Slot = '%s'",
@@ -167,29 +167,29 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
 
 #if defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__) || defined(__NETMARBLE_SERVER__)
         ////////////////////////////////////////////////////////////
-        // ½½·¹ÀÌ¾î ½ºÅ³À» Áö¿î´Ù.
+        // ìŠ¬ë ˆì´ì–´ ìŠ¤í‚¬ì„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM SkillSave WHERE OwnerID = '%s'", pPacket->getName().c_str());
         // cout << "Slayer(" << pPacket->getName() << ") deleted successfully...." << endl;
 
         ////////////////////////////////////////////////////////////
-        // ¹ìÆÄÀÌ¾î ½ºÅ³À» Áö¿öÁØ´Ù.
+        // ë±€íŒŒì´ì–´ ìŠ¤í‚¬ì„ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM VampireSkillSave WHERE OwnerID = '%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¾Æ¿ì½ºÅÍÁî ½ºÅ³À» Áö¿öÁØ´Ù.
+        // ì•„ìš°ìŠ¤í„°ì¦ˆ ìŠ¤í‚¬ì„ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM OustersSkillSave WHERE OwnerID = '%s'", pPacket->getName().c_str());
 #endif
 
         ////////////////////////////////////////////////////////////
-        // °è±Þ º¸³Ê½º¸¦ Áö¿öÁØ´Ù.
+        // ê³„ê¸‰ ë³´ë„ˆìŠ¤ë¥¼ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¾ÆÀÌÅÛÀ» ±ø±×¸® Áö¿î´Ù.
+        // ì•„ì´í…œì„ ê¹¡ê·¸ë¦¬ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         //		g_pItemDestroyer->destroyAll(pPacket->getName());
         string ownerID = pPacket->getName();
@@ -285,13 +285,13 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         pStmt->executeQueryString("DELETE FROM MittenObject WHERE OwnerID = '" + ownerID + "'");
 
         ////////////////////////////////////////////////////////////
-        // Ä¿ÇÃÀÏ °æ¿ì Ä¿ÇÃ ¸ñ·Ï¿¡¼­ Áö¿öÁØ´Ù.
+        // ì»¤í”Œì¼ ê²½ìš° ì»¤í”Œ ëª©ë¡ì—ì„œ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM CoupleInfo WHERE FemalePartnerName='%s'", ownerID.c_str());
         pStmt->executeQuery("DELETE FROM CoupleInfo WHERE MalePartnerName='%s'", ownerID.c_str());
 
         ////////////////////////////////////////////////////////////
-        // ³²¾Æ ÀÖ´Â ÀÌÆåÆ®µéµµ Áö¿î´Ù.
+        // ë‚¨ì•„ ìžˆëŠ” ì´íŽ™íŠ¸ë“¤ë„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM EffectAcidTouch where OwnerID='%s'", pPacket->getName().c_str());
         pStmt->executeQuery("DELETE FROM EffectAftermath where OwnerID='%s'", pPacket->getName().c_str());
@@ -310,27 +310,27 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         pStmt->executeQuery("DELETE FROM EnemyErase where OwnerID='%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ÇÃ·¡±× ¼Âµµ »èÁ¦ÇØ ÁØ´Ù.
+        // í”Œëž˜ê·¸ ì…‹ë„ ì‚­ì œí•´ ì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM FlagSet WHERE OwnerID='%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛµµ »èÁ¦ÇØ ÁØ´Ù.
+        // ì‹œê°„ì œí•œ ì•„ì´í…œë„ ì‚­ì œí•´ ì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM TimeLimitItems WHERE OwnerID='%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ÀÌº¥Æ® Á¤º¸µµ »èÁ¦ÇØ ÁØ´Ù.
+        // ì´ë²¤íŠ¸ ì •ë³´ë„ ì‚­ì œí•´ ì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM EventQuestAdvance WHERE OwnerID='%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¸ðÆÛ½º ÆÄ¿ö Æ÷ÀÎÆ®µµ »èÁ¦.. ÀÕÈþ
+        // ëª¨í¼ìŠ¤ íŒŒì›Œ í¬ì¸íŠ¸ë„ ì‚­ì œ.. ìž‡íž
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM MofusPowerPoint WHERE OwnerID='%s'", pPacket->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // Å¬¶óÀÌ¾ðÆ®¿¡°Ô PC »èÁ¦ ¼º°ø ÆÐÅ¶À» ³¯¸°´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ì‚­ì œ ì„±ê³µ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
         ////////////////////////////////////////////////////////////
         LCDeletePCOK lcDeletePCOK;
         pLoginPlayer->sendPacket(&lcDeletePCOK);
@@ -344,7 +344,7 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         SAFE_DELETE(pStmt);
         SAFE_DELETE(pLoginStmt);
 
-        // Å¬¶óÀÌ¾ðÆ®¿¡°Ô PC »èÁ¦ ½ÇÆÐ ÆÐÅ¶À» ³¯¸°´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ì‚­ì œ ì‹¤íŒ¨ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
         pLoginPlayer->sendPacket(&lcDeletePCError);
     } catch (SQLQueryException& sqe) {
         cout << "Fail to deletePC : " << sqe.toString() << endl;
@@ -352,7 +352,7 @@ void CLDeletePCHandler::execute(CLDeletePC* pPacket, Player* pPlayer) {
         SAFE_DELETE(pStmt);
         SAFE_DELETE(pLoginStmt);
 
-        // Å¬¶óÀÌ¾ðÆ®¿¡°Ô PC »èÁ¦ ½ÇÆÐ ÆÐÅ¶À» ³¯¸°´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ì‚­ì œ ì‹¤íŒ¨ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
         pLoginPlayer->sendPacket(&lcDeletePCError);
     }
 

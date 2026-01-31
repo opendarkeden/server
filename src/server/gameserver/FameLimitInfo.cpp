@@ -103,7 +103,7 @@ void FameLimitInfoManager::load()
                 throw Error("There is no data in FameLimitInfo Table");
             }
 
-            // ÀüÃ¼ °¹¼ö¸¦ ¼¼ÆÃÇÑ´Ù.
+            // ì „ì²´ ê°¯ìˆ˜ë¥¼ ì„¸íŒ…í•œë‹¤.
             pResult->next();
 
             int count = pResult->getInt(1) + 1;

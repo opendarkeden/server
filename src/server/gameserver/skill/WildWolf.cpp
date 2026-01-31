@@ -24,7 +24,7 @@
 #include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                        CEffectID_t CEffectID)
@@ -54,8 +54,8 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
             return;
         }
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (!canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             return;
@@ -91,7 +91,7 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
             bool bCriticalHit = false;
             Damage += computeDamage(pVampire, pTargetCreature, 0, bCriticalHit);
 
-            // ¸¶³ª¸¦ ±ï´Â´Ù.
+            // ë§ˆë‚˜ë¥¼ ê¹ëŠ”ë‹¤.
             decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
 
             EffectSetAfire* pEffect = new EffectSetAfire(pTargetCreature);
@@ -104,7 +104,7 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
             increaseAlignment(pVampire, pTargetCreature, _GCSkillToObjectOK1);
 
-            // ÆÐÅ¶À» º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             _GCSkillToObjectOK1.setSkillType(getSkillType());
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -203,22 +203,22 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
             Effect* pEffect = pVampire->findEffect(Effect::EFFECT_CLASS_HP_RECOVERY);
             EffectHPRecovery* pEffectHPRecoveryEffect = dynamic_cast<EffectHPRecovery*>(pEffect);
 
-            // ¸î¹ø ´õ ÇØ¾ß ÇÑ´Ù´Â °ÍÀ» °»½ÅÇØ ÁØ´Ù.
+            // ëª‡ë²ˆ ë” í•´ì•¼ í•œë‹¤ëŠ” ê²ƒì„ ê°±ì‹ í•´ ì¤€ë‹¤.
             Turn_t OldCount = pEffectHPRecoveryEffect->getPeriod();
             Turn_t NewPeriod = OldCount + Period;
             pEffectHPRecoveryEffect->setPeriod(NewPeriod);
             pEffectHPRecoveryEffect->setDeadline(NewPeriod * RegenPeriod);
 
-            // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆÐÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+            // íšŒë³µ ì‹œìž‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìžì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
             GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
-            gcHPRecoveryStartToSelf.setPeriod(NewPeriod);     // ¸î¹ø È¸º¹ÇÏ³ª?
-            gcHPRecoveryStartToSelf.setDelay(RegenPeriod);    // ¸î ÃÊ ´ÜÀ§·Î ÇÏ³ª?
-            gcHPRecoveryStartToSelf.setQuantity(RegenHPUnit); // ÇÑ¹ø¿¡ ¾ó¸¶³ª È¸º¹ÇÏ³ª?
+            gcHPRecoveryStartToSelf.setPeriod(NewPeriod);     // ëª‡ë²ˆ íšŒë³µí•˜ë‚˜?
+            gcHPRecoveryStartToSelf.setDelay(RegenPeriod);    // ëª‡ ì´ˆ ë‹¨ìœ„ë¡œ í•˜ë‚˜?
+            gcHPRecoveryStartToSelf.setQuantity(RegenHPUnit); // í•œë²ˆì— ì–¼ë§ˆë‚˜ íšŒë³µí•˜ë‚˜?
 
             pVampire->getPlayer()->sendPacket(&gcHPRecoveryStartToSelf);
 
-            // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆÐÅ¶À» ´Ù¸¥ÀÌµé¿¡°Ô º¸³½´Ù.
-            // È¸º¹ °»½Å ÆÐÅ¶, ½ÃÀÛ°ú ¶È °°Àº ÆÐÅ¶À» º¸³½´Ù.
+            // íšŒë³µ ì‹œìž‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‹¤ë¥¸ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
+            // íšŒë³µ ê°±ì‹  íŒ¨í‚·, ì‹œìž‘ê³¼ ë˜‘ ê°™ì€ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
             gcHPRecoveryStartToOthers.setObjectID(pVampire->getObjectID());
             gcHPRecoveryStartToOthers.setPeriod(NewPeriod);
@@ -238,7 +238,7 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 
             pVampire->addEffect(pEffectHPRecovery);
 
-            // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆÐÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+            // íšŒë³µ ì‹œìž‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìžì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
             GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
             gcHPRecoveryStartToSelf.setPeriod(Period);
             gcHPRecoveryStartToSelf.setDelay(RegenPeriod);
@@ -246,7 +246,7 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 
             pVampire->getPlayer()->sendPacket(&gcHPRecoveryStartToSelf);
 
-            // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆÐÅ¶À» º¸´ÂÀÌµé¿¡°Ô º¸³½´Ù.
+            // íšŒë³µ ì‹œìž‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë³´ëŠ”ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
             GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
             gcHPRecoveryStartToOthers.setObjectID(pVampire->getObjectID());
             gcHPRecoveryStartToOthers.setPeriod(Period);
@@ -256,7 +256,7 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
             pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcHPRecoveryStartToOthers, pVampire);
         }
 
-        // ÆÐÅ¶À» º¸³½´Ù.
+        // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
         _GCSkillToObjectOK1.setSkillType(getSkillType());
         _GCSkillToObjectOK1.setCEffectID(0);
         _GCSkillToObjectOK1.setTargetObjectID(pTargetCorpse->getObjectID());
@@ -278,13 +278,13 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 
         pVampireSkillSlot->setRunTime(output.Delay);
 
-        // »ç¶óÁö´Â ÆÐÅ¶À» ³¯¸°´Ù.
+        // ì‚¬ë¼ì§€ëŠ” íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
         GCDeleteObject gcDO;
         gcDO.setObjectID(pTargetCorpse->getObjectID());
         pZone->broadcastPacket(pTargetCorpse->getX(), pTargetCorpse->getY(), &gcDO);
-        // Á¸¿¡¼­ Áö¿î´Ù.
+        // ì¡´ì—ì„œ ì§€ìš´ë‹¤.
         pZone->deleteItem(pTargetCorpse, pTargetCorpse->getX(), pTargetCorpse->getY());
-        // Á¸¾È¿¡¼­ ½ÇÁ¦ÀûÀ¸·Î Æ÷ÀÎÅÍ¸¦ ¾ø¾ÖÁö´Â ¾ÊÀ¸¹Ç·Î Æ÷ÀÎÅÍ¸¦ »èÁ¦ ½ÃÄÑ Áà¾ß ÇÑ´Ù.
+        // ì¡´ì•ˆì—ì„œ ì‹¤ì œì ìœ¼ë¡œ í¬ì¸í„°ë¥¼ ì—†ì• ì§€ëŠ” ì•Šìœ¼ë¯€ë¡œ í¬ì¸í„°ë¥¼ ì‚­ì œ ì‹œì¼œ ì¤˜ì•¼ í•œë‹¤.
         SAFE_DELETE(pTargetCorpse);
     }
 

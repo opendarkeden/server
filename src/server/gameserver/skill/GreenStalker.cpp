@@ -27,7 +27,7 @@
 GreenStalker g_GreenStalker;
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -49,8 +49,8 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -67,7 +67,7 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Poison ÀÌ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Poison ì´ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
@@ -98,7 +98,7 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectGreenStalker* pEffectGreenStalker = new EffectGreenStalker(pTargetCreature);
             pEffectGreenStalker->setDamage(output.Damage);
             pEffectGreenStalker->setLevel(pSkillInfo->getLevel() / 2);
@@ -111,7 +111,7 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
             pTargetCreature->addEffect(pEffectGreenStalker);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_GREEN_STALKER);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾úÀ¸´Ï, ºÙ¾ú´Ù°í ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆìœ¼ë‹ˆ, ë¶™ì—ˆë‹¤ê³  ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_GREEN_STALKER);
@@ -186,7 +186,7 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenStalker::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -228,7 +228,7 @@ void GreenStalker::execute(Monster* pMonster, Creature* pEnemy)
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectGreenStalker* pEffectGreenStalker = new EffectGreenStalker(pEnemy);
             pEffectGreenStalker->setDamage(output.Damage);
             pEffectGreenStalker->setLevel(pSkillInfo->getLevel() / 2);
@@ -239,7 +239,7 @@ void GreenStalker::execute(Monster* pMonster, Creature* pEnemy)
             pEnemy->addEffect(pEffectGreenStalker);
             pEnemy->setFlag(Effect::EFFECT_CLASS_GREEN_STALKER);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾úÀ¸´Ï, ºÙ¾ú´Ù°í ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆìœ¼ë‹ˆ, ë¶™ì—ˆë‹¤ê³  ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pEnemy->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_GREEN_STALKER);

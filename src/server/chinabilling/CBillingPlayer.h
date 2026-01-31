@@ -53,9 +53,9 @@ public:
     virtual void sendPacket(Packet* pPacket);
 
     // disconnect
-    // ÇÃ·¹ÀÌ¾îÀÇ ¿¬°áÀ» Á¾·áÇÒ ¶§, »ó´ëÆíÀÌ ÀûÀıÇÏ°Ô ·Î±×¾Æ¿ôÇÏÁö ¾ÊÀ» °æ¿ì ¼ÒÄÏÀÇ ¿¬°áÀÌ
-    // ÀÌ¹Ì ²÷°Ü ÀÖÀ¸¹Ç·Î disconnect(DISCONNECTED) ¸¦ »ç¿ëÇÏ»õ ¿¬°áÀ» Á¾·áÇØ¾ß ÇÑ´Ù.
-    // ¹İ¸é, Á¤ÀåÇÏ°Ô ·Î±×¾Æ¿ôÀ» ÇÑ °æ¿ì¿¡´Â disconnect(UNDISCONNECTED) ¸¦ »ç¿ëÇØ¾ßÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì˜ ì—°ê²°ì„ ì¢…ë£Œí•  ë•Œ, ìƒëŒ€í¸ì´ ì ì ˆí•˜ê²Œ ë¡œê·¸ì•„ì›ƒí•˜ì§€ ì•Šì„ ê²½ìš° ì†Œì¼“ì˜ ì—°ê²°ì´
+    // ì´ë¯¸ ëŠê²¨ ìˆìœ¼ë¯€ë¡œ disconnect(DISCONNECTED) ë¥¼ ì‚¬ìš©í•˜ìƒˆ ì—°ê²°ì„ ì¢…ë£Œí•´ì•¼ í•œë‹¤.
+    // ë°˜ë©´, ì •ì¥í•˜ê²Œ ë¡œê·¸ì•„ì›ƒì„ í•œ ê²½ìš°ì—ëŠ” disconnect(UNDISCONNECTED) ë¥¼ ì‚¬ìš©í•´ì•¼í•œë‹¤.
     virtual void disconnect(bool bDisconnected = DISCONNECTED);
 
     void setSocket(Socket* pSocket);
@@ -75,7 +75,7 @@ public:
 #endif
 
 public:
-    // ÆĞÅ¶ Ã³¸®¿ë ÇÔ¼öµé
+    // íŒ¨í‚· ì²˜ë¦¬ìš© í•¨ìˆ˜ë“¤
     void executeError(CBillingPacketHeader& header, CBillingPacketErrorBody& body);
 #ifdef __LOGIN_SERVER__
     void executeLogin(CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body);
@@ -88,7 +88,7 @@ public:
 #endif
 
 #ifdef __GAME_SERVER__
-    // DB¿¡ packet ·Î±× ³²±â±â
+    // DBì— packet ë¡œê·¸ ë‚¨ê¸°ê¸°
     void logPacket(CBillingPacketHeader* header, CBillingPacketResponseLoginBody* login,
                    CBillingPacketResponseMinusPointBody* point, CBillingPacketResponseLogoutBody* logout,
                    CBillingPacketErrorBody* error);

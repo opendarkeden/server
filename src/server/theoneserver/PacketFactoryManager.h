@@ -28,30 +28,30 @@ public:
     // destructor
     ~PacketFactoryManager() throw();
 
-    // ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-    // °ÔÀÓ¼­¹ö°´Ã¼ÀÇ init()¿¡¼­ È£ÃâµÈ´Ù.
+    // íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+    // ê²Œì„ì„œë²„ê°ì²´ì˜ init()ì—ì„œ í˜¸ì¶œëœë‹¤.
     void init() throw(Error);
 
-    // ÆÑÅä¸® °´Ã¼¸¦ Æ¯Á¤ ÀÎµ¦½º¿¡ Ãß°¡ÇÑ´Ù.
+    // íŒ©í† ë¦¬ ê°ì²´ë¥¼ íŠ¹ì • ì¸ë±ìŠ¤ì— ì¶”ê°€í•œë‹¤.
     void addFactory(PacketFactory* pFactory) throw(Error);
 
-    // ÆĞÅ¶¾ÆÀÌµğ·Î ÆĞÅ¶°´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+    // íŒ¨í‚·ì•„ì´ë””ë¡œ íŒ¨í‚·ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
     Packet* createPacket(PacketID_t packetID) throw(InvalidProtocolException, Error);
 
-    // Æ¯Á¤ ÆĞÅ¶ÀÇ ÃÖ´ë Å©±â¸¦ ¸®ÅÏÇÑ´Ù.
+    // íŠ¹ì • íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ë¥¼ ë¦¬í„´í•œë‹¤.
     string getPacketName(PacketID_t packetID) throw(InvalidProtocolException, Error);
 
-    // Æ¯Á¤ ÆĞÅ¶ÀÇ ÃÖ´ë Å©±â¸¦ ¸®ÅÏÇÑ´Ù.
+    // íŠ¹ì • íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ë¥¼ ë¦¬í„´í•œë‹¤.
     PacketSize_t getPacketMaxSize(PacketID_t packetID) throw(InvalidProtocolException, Error);
 
     // get debug string
     string toString() const throw();
 
 private:
-    // ÆĞÅ¶ÆÑÅä¸®ÀÇ ¹è¿­
+    // íŒ¨í‚·íŒ©í† ë¦¬ì˜ ë°°ì—´
     PacketFactory** m_Factories;
 
-    // ÆĞÅ¶ÆÑÅä¸®¹è¿­ÀÇ Å©±â
+    // íŒ¨í‚·íŒ©í† ë¦¬ë°°ì—´ì˜ í¬ê¸°
     ushort m_Size;
 };
 

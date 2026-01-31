@@ -9,20 +9,20 @@
 #include "SimpleTileMeleeSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ý¼ºÀÚ.. Å¸ÀÏ ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ìž.. íƒ€ì¼ ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 SwordWave::SwordWave() throw() {
     __BEGIN_TRY
 
-    // ¸¶½ºÅ©¸¦ ÃÊ±âÈ­½ÃÅ²´Ù.
-    // ÇÑ ¹æÇâÀÇ 3°³ Å¸ÀÏ ¼ø¼­´Â Å¬¶óÀÌ¾ðÆ® ÀÌÆåÆ® Ãâ·Â ¼ø¼­¿¡ ¸ÂÃá´Ù.
+    // ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”ì‹œí‚¨ë‹¤.
+    // í•œ ë°©í–¥ì˜ 3ê°œ íƒ€ì¼ ìˆœì„œëŠ” í´ë¼ì´ì–¸íŠ¸ ì´íŽ™íŠ¸ ì¶œë ¥ ìˆœì„œì— ë§žì¶˜ë‹¤.
     //
     // (-1,-1)(0,-1)(1,-1)
     // (-1, 0)(0, 0)(1, 0)
     // (-1, 1)(0, 1)(1, 1)
     //
-    // °¢ ¹æÇâ¿¡ µû¶ó ¾î´À Å¸ÀÏÀÌ ¸íÁß ´ë»óÀÌ³Ä¸¦
-    // »ý°¢ÇÏ¸é ¸¶½ºÅ©¸¦ ÀÌÇØÇÏ±â ½±´Ù.
+    // ê° ë°©í–¥ì— ë”°ë¼ ì–´ëŠ íƒ€ì¼ì´ ëª…ì¤‘ ëŒ€ìƒì´ëƒë¥¼
+    // ìƒê°í•˜ë©´ ë§ˆìŠ¤í¬ë¥¼ ì´í•´í•˜ê¸° ì‰½ë‹¤.
 
     m_pSwordWaveMask[LEFT][0].set(-1, 1);
     m_pSwordWaveMask[LEFT][1].set(-1, -1);
@@ -60,7 +60,7 @@ SwordWave::SwordWave() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SwordWave::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -79,7 +79,7 @@ void SwordWave::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;

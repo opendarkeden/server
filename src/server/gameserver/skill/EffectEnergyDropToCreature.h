@@ -1,20 +1,20 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectEnergyDropToCreature.h
-// Written by  : ÀåÈ«Ã¢
+// Written by  : ì¥í™ì°½
 // Date        : 2002. 3. 28
 //
-// Description : EffectEnergyDropToCreature´Â »ó´ë¹æ¿¡°Ô 3¹øÀÇ ¿¬¼Ó Å¸°İÀ»
-//               ÁÖ´Â ÀÌÆåÆ®ÀÌ´Ù.
-//               Effect ½Ã¸®Áî´Â Tick°ú deadlineÀ» »ç¿ëÇØ¼­ ÀÓÀÇÀÇ µ¿ÀÛÀ»
-//               ÇÒ ¼ö ÀÖµµ·Ï ±¸ÇöµÇ¾ú±â ¶§¹®¿¡ ´Ù¸¥ ±â¼úÀÇ Effect
-//               ±Û ±×´ë·Î °¡Á®¿Í¼­ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-//               ½ÇÁ¦ EffectEnergyDropToCreatureµµ EffectPoison°ú °°Àº ÇüÅÂ·Î
-//               µÇ¾î ÀÖ´Ù.
+// Description : EffectEnergyDropToCreatureëŠ” ìƒëŒ€ë°©ì—ê²Œ 3ë²ˆì˜ ì—°ì† íƒ€ê²©ì„
+//               ì£¼ëŠ” ì´í™íŠ¸ì´ë‹¤.
+//               Effect ì‹œë¦¬ì¦ˆëŠ” Tickê³¼ deadlineì„ ì‚¬ìš©í•´ì„œ ì„ì˜ì˜ ë™ì‘ì„
+//               í•  ìˆ˜ ìˆë„ë¡ êµ¬í˜„ë˜ì—ˆê¸° ë•Œë¬¸ì— ë‹¤ë¥¸ ê¸°ìˆ ì˜ Effect
+//               ê¸€ ê·¸ëŒ€ë¡œ ê°€ì ¸ì™€ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
+//               ì‹¤ì œ EffectEnergyDropToCreatureë„ EffectPoisonê³¼ ê°™ì€ í˜•íƒœë¡œ
+//               ë˜ì–´ ìˆë‹¤.
 //
-//               EffectEnergyDropToCreature°¡ »ç¿ëµÇ±â À§ÇØ¼­´Â
-//               Effect.h ÆÄÀÏ¿¡
+//               EffectEnergyDropToCreatureê°€ ì‚¬ìš©ë˜ê¸° ìœ„í•´ì„œëŠ”
+//               Effect.h íŒŒì¼ì—
 //                EFFECT_CLASS_ENERGY_DROP_TO_CREATURE
-//               °¡ Á¤ÀÇµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+//               ê°€ ì •ì˜ë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_ENERGY_DROP_TO_CREATURE__

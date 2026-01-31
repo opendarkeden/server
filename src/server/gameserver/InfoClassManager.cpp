@@ -54,24 +54,24 @@ void InfoClassManager::init()
         Ratio_t itemRatio = m_pItemInfos[i]->getRatio();
 
         if (itemRatio > 0) {
-            // item typeµéÀÇ total ratio¸¦ ±¸ÇÑ´Ù.
+            // item typeë“¤ì˜ total ratioë¥¼ êµ¬í•œë‹¤.
             m_TotalRatio += itemRatio;
 
-            // °¡°İ ÃÑÇÕ
+            // ê°€ê²© ì´í•©
             m_AveragePrice += m_pItemInfos[i]->getPrice();
 
             count++;
         }
     }
 
-    // °¡°İ Æò±Õ
+    // ê°€ê²© í‰ê· 
     if (count > 1) {
         m_AveragePrice /= count;
     }
 
     Assert(m_pItemInfos[0] != NULL);
 
-    // °¡°İ Áõ°¡Ä¡
+    // ê°€ê²© ì¦ê°€ì¹˜
     m_AveragePrice /= 1000;
     m_AveragePrice *= 100;
 
@@ -149,14 +149,14 @@ ItemType_t InfoClassManager::getRandomItemType() const
 {
     __BEGIN_TRY
 
-    // DB¿¡ Àß¸ø µé¾î°¡ÀÖÀ»¼öµµ ÀÖÀ¸¹Ç·Î È®ÀÎÇØºÁ¾ßÇÑ´Ù.
+    // DBì— ì˜ëª» ë“¤ì–´ê°€ìˆì„ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ í™•ì¸í•´ë´ì•¼í•œë‹¤.
     if (m_TotalRatio == 0 || m_InfoCount == 0)
         return 0;
 
     int gambleRatio = g_pVariableManager->getGambleItemTypeRatio(); // 200%
-    int failRatio = m_pItemInfos[0]->getRatio();                    // 0¹ø ¾ÆÀÌÅÛÀÇ È®·üÀÌ ½ÇÆĞÇÒ È®·üÀÌ´Ù.
-    int succeedRatio = m_TotalRatio - failRatio;                    // 0¹ø ¾ÆÀÌÅÛÀ» Á¦¿ÜÇÑ°Ô ¼º°øÇÒ È®·üÀÌ´Ù.
-    int newTotalRatio = failRatio + getPercentValue(succeedRatio, gambleRatio); // ½ÇÆĞ + ¼º°ø*gambleRatio
+    int failRatio = m_pItemInfos[0]->getRatio();                    // 0ë²ˆ ì•„ì´í…œì˜ í™•ë¥ ì´ ì‹¤íŒ¨í•  í™•ë¥ ì´ë‹¤.
+    int succeedRatio = m_TotalRatio - failRatio;                    // 0ë²ˆ ì•„ì´í…œì„ ì œì™¸í•œê²Œ ì„±ê³µí•  í™•ë¥ ì´ë‹¤.
+    int newTotalRatio = failRatio + getPercentValue(succeedRatio, gambleRatio); // ì‹¤íŒ¨ + ì„±ê³µ*gambleRatio
     int itemTypeRatio = rand() % newTotalRatio;
     int ratio;
     int ratioSum = 0;
@@ -168,13 +168,13 @@ ItemType_t InfoClassManager::getRandomItemType() const
         << ", select = " << itemTypeRatio << endl;
     */
 
-    // 0¹øÀº ½ÇÆĞ·Î º¸°í..
+    // 0ë²ˆì€ ì‹¤íŒ¨ë¡œ ë³´ê³ ..
     for (uint i = 0; i <= m_InfoCount; i++) {
         ItemInfo* pInfo = m_pItemInfos[i];
         ratio = pInfo->getRatio();
 
-        // 0ÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸ gambleRatio¸¦ Àû¿ëÇÑ´Ù.
-        // 0Àº ½ÇÆĞ¾ÆÀÌÅÛÀ¸·Î º¸°í.. ³ª¸ÓÁö¸¸ È®·üÀ» Áõ°¡½ÃÅ²´Ù.
+        // 0ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ gambleRatioë¥¼ ì ìš©í•œë‹¤.
+        // 0ì€ ì‹¤íŒ¨ì•„ì´í…œìœ¼ë¡œ ë³´ê³ .. ë‚˜ë¨¸ì§€ë§Œ í™•ë¥ ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
         if (i != 0) {
             // cout << "[" << i << "] " << ratio;
             ratio = getPercentValue(ratio, gambleRatio);
@@ -189,13 +189,13 @@ ItemType_t InfoClassManager::getRandomItemType() const
         // cout << " , ratioSum/Select = " << ratioSum << "/" << itemTypeRatio << endl;
 
         if (itemTypeRatio < ratioSum) {
-            // i¹øÂ° typeÀ» ¼±ÅÃÇÑ´Ù. ¾Æ¸¶ pInfo->getItemType()==i ÀÌ°ÚÁö¸¸..
+            // ië²ˆì§¸ typeì„ ì„ íƒí•œë‹¤. ì•„ë§ˆ pInfo->getItemType()==i ì´ê² ì§€ë§Œ..
             return pInfo->getItemType();
         }
     }
 
-    // ÀÌ·² ¼ö ÀÖÀ»±î?  -_-;
-    // getPercentValue¿¡ µû¶ó¼­... ÀüÃ¼¿Í °¢°¢ÇÒ¶§ ¿ÀÂ÷°¡ ÀÖÀ» ¼ö ÀÖÀ¸¹Ç·Î °¡´ÉÇÏ´Ù.
+    // ì´ëŸ´ ìˆ˜ ìˆì„ê¹Œ?  -_-;
+    // getPercentValueì— ë”°ë¼ì„œ... ì „ì²´ì™€ ê°ê°í• ë•Œ ì˜¤ì°¨ê°€ ìˆì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ê°€ëŠ¥í•˜ë‹¤.
     return 0;
 
     __END_CATCH

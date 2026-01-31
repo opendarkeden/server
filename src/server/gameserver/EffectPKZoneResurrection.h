@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPKZoneResurrection.h
 // Written by  :
-// Description : PKZoneResurrection¿¡ ÀÇÇÑ ¹æ¾î·Â ÇÏ°­ effect
+// Description : PKZoneResurrectionì— ì˜í•œ ë°©ì–´ë ¥ í•˜ê°• effect
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PK_ZONE_RESURRECTION__

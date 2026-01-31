@@ -2,7 +2,7 @@
 //
 // Filename    : main.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : °ÔÀÓ ¼­¹ö¿ë ¸ŞÀÎ ÇÔ¼ö
+// Description : Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶Â¿Ã« Â¸ÃÃ€Ã Ã‡Ã”Â¼Ã¶
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 
     filelog("serverStart.log", "GameServer Start");
 
-    // °¢Á¾ ÇÚµé·¯¸¦ ¼³Á¤ÇÑ´Ù.
+    // Â°Â¢ÃÂ¾ Ã‡ÃšÂµÃ©Â·Â¯Â¸Â¦ Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
     std::set_new_handler(handleMemoryError);
     std::set_terminate(handleUnhandledException);
     std::set_unexpected(handleUnexpectedException);
@@ -83,16 +83,16 @@ int main(int argc, char* argv[]) {
     delete [] pPointer;
     */
 
-    // ÀûÀıÇÑ À§Ä¡¸¦ Ã£¾Æº¸ÀÚ.
+    // Ã€Ã»Ã€Ã½Ã‡Ã‘ Ã€Â§Ã„Â¡Â¸Â¦ ÃƒÂ£Â¾Ã†ÂºÂ¸Ã€Ãš.
     srand(time(0));
     cout << ">>> RANDOMIZATION INITIALIZATION SUCCESS..." << endl;
 
     if (argc < 3) {
-        // cout << "Usage : gameserver -f È¯°æÆÄÀÏ" << endl;
+        // cout << "Usage : gameserver -f ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€Ã" << endl;
         exit(1);
     }
 
-    // command-line parameter¸¦ string À¸·Î º¯È¯ÇÑ´Ù. ^^;
+    // command-line parameterÂ¸Â¦ string Ã€Â¸Â·Ã ÂºÂ¯ÃˆÂ¯Ã‡Ã‘Â´Ã™. ^^;
     string* Argv;
 
     Argv = new string[argc];
@@ -101,16 +101,16 @@ int main(int argc, char* argv[]) {
 
     cout << ">>> COMMAND-LINE PARAMETER READING SUCCESS..." << endl;
 
-    // È¯°æ ÆÄÀÏÀ» ÀĞ¾îµéÀÎ´Ù.
-    // ´Ü ½ÇÇà ÆÄÀÏÀº $VSHOME/bin¿¡, È¯°æ ÆÄÀÏÀº $VSHOME/conf ¿¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.½
-    // command line ¿¡¼­ È¯°æ ÆÄÀÏÀ» ÁöÁ¤ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+    // ÃˆÂ¯Â°Ã¦ Ã†Ã„Ã€ÃÃ€Â» Ã€ÃÂ¾Ã®ÂµÃ©Ã€ÃÂ´Ã™.
+    // Â´Ãœ Â½Ã‡Ã‡Ã  Ã†Ã„Ã€ÃÃ€Âº $VSHOME/binÂ¿Â¡, ÃˆÂ¯Â°Ã¦ Ã†Ã„Ã€ÃÃ€Âº $VSHOME/conf Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.Â½
+    // command line Â¿Â¡Â¼Â­ ÃˆÂ¯Â°Ã¦ Ã†Ã„Ã€ÃÃ€Â» ÃÃ¶ÃÂ¤Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 
     try {
         if (Argv[1] != "-f") {
-            throw Error("Usage : gameserver -f È¯°æÆÄÀÏ -t Å×½ºÆ®È¯°æÆÄÀÏ");
+            throw Error("Usage : gameserver -f ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€Ã -t Ã…Ã—Â½ÂºÃ†Â®ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€Ã");
         }
 
-        // Ã¹¹øÂ° ÆÄ¶ó¹ÌÅÍ°¡ -f ÀÏ °æ¿ì, µÎ¹øÂ° ÆÄ¶ó¹ÌÅÍ´Â È¯°æÆÄÀÏÀÇ À§Ä¡°¡ µÈ´Ù.
+        // ÃƒÂ¹Â¹Ã¸Ã‚Â° Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ°Â¡ -f Ã€Ã Â°Ã¦Â¿Ã¬, ÂµÃÂ¹Ã¸Ã‚Â° Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ´Ã‚ ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€ÃÃ€Ã‡ Ã€Â§Ã„Â¡Â°Â¡ ÂµÃˆÂ´Ã™.
         g_pConfig = new Properties();
         g_pConfig->load(Argv[2]);
 
@@ -128,11 +128,11 @@ int main(int argc, char* argv[]) {
         // cout << e.toString() << endl;
     }
 
-    // ·Î±× ¸Å´ÏÀú¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÑÈÄ È°¼ºÈ­½ÃÅ²´Ù.
-    // ·Î±× ¸Å´ÏÀú´Â °ÔÀÓ ¼­¹öÀÇ ÃÊ±âÈ­°úÁ¤¿¡¼­ ¹ß»ıÇÒ °¡´É¼ºÀÌ ÀÖ´Â ¿¡·¯±îÁöµµ
-    // °ËÃâÇØ³»¾ß ÇÏ¹Ç·Î °ÔÀÓ ¼­¹ö ³»ºÎ¿¡¼­ ÃÊ±âÈ­ÇØ¼­´Â ¾ÈµÈ´Ù.
-    // ¶ÇÇÑ ´Ù¸¥ °´Ã¼¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÏ±âÀü¿¡ ·Î±×¸Å´ÏÀú°¡ ¿ì¼±ÀûÀ¸·Î »ı¼º,
-    // ÃÊ±âÈ­µÇ¾î¾ß ÇÑ´Ù.
+    // Â·ÃÂ±Ã— Â¸Ã…Â´ÃÃ€ÃºÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ°Ã­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘ÃˆÃ„ ÃˆÂ°Â¼ÂºÃˆÂ­Â½ÃƒÃ…Â²Â´Ã™.
+    // Â·ÃÂ±Ã— Â¸Ã…Â´ÃÃ€ÃºÂ´Ã‚ Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶Ã€Ã‡ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â°ÃºÃÂ¤Â¿Â¡Â¼Â­ Â¹ÃŸÂ»Ã½Ã‡Ã’ Â°Â¡Â´Ã‰Â¼ÂºÃ€ÃŒ Ã€Ã–Â´Ã‚ Â¿Â¡Â·Â¯Â±Ã®ÃÃ¶ÂµÂµ
+    // Â°Ã‹ÃƒÃ¢Ã‡Ã˜Â³Â»Â¾ÃŸ Ã‡ÃÂ¹Ã‡Â·Ã Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶ Â³Â»ÂºÃÂ¿Â¡Â¼Â­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã˜Â¼Â­Â´Ã‚ Â¾ÃˆÂµÃˆÂ´Ã™.
+    // Â¶Ã‡Ã‡Ã‘ Â´Ã™Â¸Â¥ Â°Â´ÃƒÂ¼Â¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ°Ã­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡ÃÂ±Ã¢Ã€Ã¼Â¿Â¡ Â·ÃÂ±Ã—Â¸Ã…Â´ÃÃ€ÃºÂ°Â¡ Â¿Ã¬Â¼Â±Ã€Ã»Ã€Â¸Â·Ã Â»Ã½Â¼Âº,
+    // ÃƒÃŠÂ±Ã¢ÃˆÂ­ÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     try {
         string LogServerIP = g_pConfig->getProperty("LogServerIP");
         int LogServerPort = g_pConfig->getPropertyInt("LogServerPort");
@@ -152,7 +152,7 @@ int main(int argc, char* argv[]) {
     cout << ">>> LOGCLIENT INITIALZATION SUCCESS..." << endl;
 
     //
-    // °ÔÀÓ ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÑ ÈÄ È°¼ºÈ­½ÃÅ²´Ù.
+    // Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ°Ã­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘ ÃˆÃ„ ÃˆÂ°Â¼ÂºÃˆÂ­Â½ÃƒÃ…Â²Â´Ã™.
     //
     try {
         struct rlimit rl;
@@ -160,29 +160,29 @@ int main(int argc, char* argv[]) {
         rl.rlim_max = RLIM_INFINITY;
         setrlimit(RLIMIT_CORE, &rl);
 
-        // °ÔÀÓ ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+        // Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
         g_pGameServer = new GameServer();
 
         cout << ">>> GAME SERVER INSTANCE CREATED..." << endl;
 
-        // °ÔÀÓ ¼­¹ö °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
         g_pGameServer->init();
 
         cout << ">>> GAME SERVER INITIALIZATION SUCCESS..." << endl;
 
-        // °ÔÀÓ ¼­¹ö °´Ã¼¸¦ È°¼ºÈ­½ÃÅ²´Ù.
+        // Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ ÃˆÂ°Â¼ÂºÃˆÂ­Â½ÃƒÃ…Â²Â´Ã™.
         g_pGameServer->start();
     } catch (Throwable& e) {
-        // ·Î±×°¡ ÀÌ·ïÁö±â Àü¿¡ ¼­¹ö°¡ ³¡³¯ °æ¿ì¸¦ ´ëºñÇØ¼­
+        // Â·ÃÂ±Ã—Â°Â¡ Ã€ÃŒÂ·Ã¯ÃÃ¶Â±Ã¢ Ã€Ã¼Â¿Â¡ Â¼Â­Â¹Ã¶Â°Â¡ Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¸Â¦ Â´Ã«ÂºÃ±Ã‡Ã˜Â¼Â­
         ofstream ofile("../log/instant.log", ios::out);
         ofile << e.toString() << endl;
         ofile.close();
 
-        // Ç¥ÁØ Ãâ·ÂÀ¸·Îµµ Ãâ·ÂÇØÁØ´Ù.
+        // Ã‡Â¥ÃÃ˜ ÃƒÃ¢Â·Ã‚Ã€Â¸Â·ÃÂµÂµ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
         cout << e.toString() << endl;
 
-        // °ÔÀÓ ¼­¹ö¸¦ Áß´Ü½ÃÅ²´Ù.
-        // ÀÌ ³»ºÎ¿¡¼­ ÇÏÀ§ ¸Å´ÏÀú ¿ª½Ã Áß´ÜµÇ¾î¾ß ÇÑ´Ù.
+        // Â°Ã”Ã€Ã“ Â¼Â­Â¹Ã¶Â¸Â¦ ÃÃŸÂ´ÃœÂ½ÃƒÃ…Â²Â´Ã™.
+        // Ã€ÃŒ Â³Â»ÂºÃÂ¿Â¡Â¼Â­ Ã‡ÃÃ€Â§ Â¸Ã…Â´ÃÃ€Ãº Â¿ÂªÂ½Ãƒ ÃÃŸÂ´ÃœÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
         g_pGameServer->stop();
     } catch (...) {
         cout << "unknown exception..." << endl;

@@ -27,9 +27,9 @@ public:
     }
 
 public:
-    int x;       // Áß½ÉÀÌ µÇ´Â ÁÂÇ¥·ÎºÎÅÍÀÇ x offset
-    int y;       // Áß½ÉÀÌ µÇ´Â ÁÂÇ¥·ÎºÎÅÍÀÇ y offset
-    int penalty; // µ¥¹ÌÁö °è»ê½Ã °¡ÇÒ Æä³ÎÆ¼
+    int x;       // ì¤‘ì‹¬ì´ ë˜ëŠ” ì¢Œí‘œë¡œë¶€í„°ì˜ x offset
+    int y;       // ì¤‘ì‹¬ì´ ë˜ëŠ” ì¢Œí‘œë¡œë¶€í„°ì˜ y offset
+    int penalty; // ë°ë¯¸ì§€ ê³„ì‚°ì‹œ ê°€í•  í˜ë„í‹°
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -65,20 +65,20 @@ public:
     }
 
 public:
-    SkillType_t SkillType;     // ½ºÅ³ Å¸ÀÔ
-    Damage_t SkillDamage;      // ½ºÅ³ÀÇ È¿°úÄ¡
-    Turn_t Delay;              // ½ºÅ³ÀÇ µô·¹ÀÌ
-    Item::ItemClass ItemClass; // ±â¼úÀ» »ç¿ëÇÏ±â À§ÇØ ÇÊ¿äÇÑ ¾ÆÀÌÅÛ
-    int STRMultiplier;         // ½½·¹ÀÌ¾î ´É·ÂÄ¡ °æÇèÄ¡ ÁõÆøÄ¡
-    int DEXMultiplier;         // ½½·¹ÀÌ¾î ´É·ÂÄ¡ °æÇèÄ¡ ÁõÆøÄ¡
-    int INTMultiplier;         // ½½·¹ÀÌ¾î ´É·ÂÄ¡ °æÇèÄ¡ ÁõÆøÄ¡
-    int Level;                 // ¿©·¯ °¡Áö ¸ñÀûÀ¸·Î ¾²ÀÌ´Â ·¹º§
-    bool bMagicHitRoll;        // ¸¶¹ı ¸íÁß·ü ±¼¸²ÀÎ°¡, ÀÏ¹İ °ø°İ ±¼¸²ÀÎ°¡...
-    bool bMagicDamage;         // ½ºÅ³ÀÇ µ¥¹ÌÁö°¡ ¸¶¹ı µ¥¹ÌÁöÀÎ°¡...
-    bool bAdd;                 // SkillDamage¸¦ ´õÇØ¾ß ÇÏ³ª, ±×³É ½á¾ß ÇÏ³ª...
-    list<TILE_MASK> MaskList;  // Å¸ÀÏ ½ºÅ³ÀÏ °æ¿ì, ¸¶½ºÅ© ¸®½ºÆ®
-    bool bExpForTotalDamage;   // ÀüÃ¼ damage¿¡ ´ëÇØ¼­ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
-    BYTE Grade;                // ½ºÅ³ µî±Ş
+    SkillType_t SkillType;     // ìŠ¤í‚¬ íƒ€ì…
+    Damage_t SkillDamage;      // ìŠ¤í‚¬ì˜ íš¨ê³¼ì¹˜
+    Turn_t Delay;              // ìŠ¤í‚¬ì˜ ë”œë ˆì´
+    Item::ItemClass ItemClass; // ê¸°ìˆ ì„ ì‚¬ìš©í•˜ê¸° ìœ„í•´ í•„ìš”í•œ ì•„ì´í…œ
+    int STRMultiplier;         // ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ ì¦í­ì¹˜
+    int DEXMultiplier;         // ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ ì¦í­ì¹˜
+    int INTMultiplier;         // ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ ì¦í­ì¹˜
+    int Level;                 // ì—¬ëŸ¬ ê°€ì§€ ëª©ì ìœ¼ë¡œ ì“°ì´ëŠ” ë ˆë²¨
+    bool bMagicHitRoll;        // ë§ˆë²• ëª…ì¤‘ë¥  êµ´ë¦¼ì¸ê°€, ì¼ë°˜ ê³µê²© êµ´ë¦¼ì¸ê°€...
+    bool bMagicDamage;         // ìŠ¤í‚¬ì˜ ë°ë¯¸ì§€ê°€ ë§ˆë²• ë°ë¯¸ì§€ì¸ê°€...
+    bool bAdd;                 // SkillDamageë¥¼ ë”í•´ì•¼ í•˜ë‚˜, ê·¸ëƒ¥ ì¨ì•¼ í•˜ë‚˜...
+    list<TILE_MASK> MaskList;  // íƒ€ì¼ ìŠ¤í‚¬ì¼ ê²½ìš°, ë§ˆìŠ¤í¬ ë¦¬ìŠ¤íŠ¸
+    bool bExpForTotalDamage;   // ì „ì²´ damageì— ëŒ€í•´ì„œ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
+    BYTE Grade;                // ìŠ¤í‚¬ ë“±ê¸‰
 };
 
 //////////////////////////////////////////////////////////////////////////////

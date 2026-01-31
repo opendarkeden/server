@@ -111,7 +111,7 @@ void DynamicZoneVampireMirrorOfAbyss::heartbeat() {
 bool DynamicZoneVampireMirrorOfAbyss::checkPC() {
     Assert(m_pZone != NULL);
 
-    // PC ¼ö Ã¼Å©
+    // PC ìˆ˜ ì²´í¬
     uint size = m_pZone->getPCManager()->getSize();
 
     return size != 0;
@@ -120,11 +120,11 @@ bool DynamicZoneVampireMirrorOfAbyss::checkPC() {
 bool DynamicZoneVampireMirrorOfAbyss::addMono() {
     Assert(m_pZone != NULL);
 
-    // ÀÌ¼ºÀÇ ºÀÀÎÀ» »ı¼ºÇÑ´Ù.
+    // ì´ì„±ì˜ ë´‰ì¸ì„ ìƒì„±í•œë‹¤.
     Monster* pMonster = new Monster(792);
     Assert(pMonster != NULL);
 
-    pMonster->setName("ÀíĞÔÖ®·âÓ¡");
+    pMonster->setName("ì¿æ˜‘è£‚ë£ä¸¹");
     pMonster->setClanType(33);
 
     try {
@@ -161,7 +161,7 @@ bool DynamicZoneVampireMirrorOfAbyss::clearMono() {
 bool DynamicZoneVampireMirrorOfAbyss::openGateToOut() {
     Assert(m_pZone != NULL);
 
-    // Äù½ºÆ®¸¦ ÁøÇà½ÃÅ²´Ù.
+    // í€˜ìŠ¤íŠ¸ë¥¼ ì§„í–‰ì‹œí‚¨ë‹¤.
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
@@ -192,7 +192,7 @@ bool DynamicZoneVampireMirrorOfAbyss::checkComplete() {
 void DynamicZoneVampireMirrorOfAbyss::processEntering() {
     Assert(m_pZone != NULL);
 
-    // Äù½ºÆ® Á¸¿¡ µé¾î¿ÔÀ½À» ¾Ë¸°´Ù.
+    // í€˜ìŠ¤íŠ¸ ì¡´ì— ë“¤ì–´ì™”ìŒì„ ì•Œë¦°ë‹¤.
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
@@ -221,7 +221,7 @@ bool DynamicZoneVampireMirrorOfAbyss::checkMono() {
 void DynamicZoneVampireMirrorOfAbyss::killPC() {
     Assert(m_pZone != NULL);
 
-    // PC ¸¦ Á×ÀÎ´Ù.
+    // PC ë¥¼ ì£½ì¸ë‹¤.
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 

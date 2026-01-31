@@ -28,7 +28,7 @@ void CGRequestIPHandler::execute(CGRequestIP* pPacket, Player* pPlayer)
     Assert(pPlayer != NULL);
 
     try {
-        // UserIPInfo Å×ÀÌºí¿¡¼­ »ç¿ëÀÚ IP¸¦ Äõ¸® ÇÑ´Ù.
+        // UserIPInfo í…Œì´ë¸”ì—ì„œ ì‚¬ìš©ìž IPë¥¼ ì¿¼ë¦¬ í•œë‹¤.
         Statement* pStmt = NULL;
 
         BEGIN_DB {
@@ -38,7 +38,7 @@ void CGRequestIPHandler::execute(CGRequestIP* pPacket, Player* pPlayer)
 
             if (pResult->getRowCount() == 0) {
                 SAFE_DELETE(pStmt);
-                throw NoSuchElementException("¿äÃ»ÇÑ IDÀÇ IPÁ¤º¸°¡ ¾øÀ½´Ù.");
+                throw NoSuchElementException("ìš”ì²­í•œ IDì˜ IPì •ë³´ê°€ ì—†ìŒë‹¤.");
             } else {
                 pResult->next();
                 IP_t IP = pResult->getDWORD(1);
@@ -58,7 +58,7 @@ void CGRequestIPHandler::execute(CGRequestIP* pPacket, Player* pPlayer)
     }
     // catch (NoSuchElementException & nsee)
     catch (Throwable& t) {
-        // no suchÀÎ °æ¿ì..
+        // no suchì¸ ê²½ìš°..
         GCRequestFailed gcRequestFailed;
         gcRequestFailed.setCode(REQUEST_FAILED_IP);
         gcRequestFailed.setName(pPacket->getName());

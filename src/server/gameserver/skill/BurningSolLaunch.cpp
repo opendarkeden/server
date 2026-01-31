@@ -60,7 +60,7 @@ void BurningSolLaunch::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Sk
     int offset = 2;
     //	if ( pEffect->getLevel() >= 2 ) offset = 2;
 
-    // ¸ñÇ¥À§Ä¡+4¹æÇâ
+    // ëª©í‘œìœ„ì¹˜+4ë°©í–¥
     for (int i = -offset; i <= offset; ++i)
         for (int j = -offset; j <= offset; ++j)
             param.addMask(i, j, 100);
@@ -85,7 +85,7 @@ void BurningSolLaunch::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Sk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BurningSolLaunch::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 

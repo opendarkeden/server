@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Inventory.h
 // Written By  : elca@ewestsoft.com
-// Revised By  : ±è¼º¹Î
+// Revised By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -149,9 +149,9 @@ public:
 
     // #ifdef __XMAS_EVENT_CODE__
     /////////////////////////////////////////////////////////////////////////
-    // 2001³â Å©¸®½º¸¶½º ÀÌº¥Æ® °ü·Ã ÇÔ¼öµé.
-    // 2002³â ¾î¸°ÀÌ³¯ ½ºÅ¸ ÀÌº¥Æ®¸¦ À§ÇØ¼­ Àç»ç¿ë(GiftBox´Â »ç¿ëÇÏÁö ¾ÊÀ½)
-    // ÀÌº¥Æ® Àç»ç¿ëÀ» À§ÇØ¼­ XMAS_STAR¸¦ STAR_EVENT·Î ¹Ù²Ù´Â °ÍÀ» °í·ÁÇØ¾ß ÇÔ
+    // 2001ë…„ í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ ê´€ë ¨ í•¨ìˆ˜ë“¤.
+    // 2002ë…„ ì–´ë¦°ì´ë‚  ìŠ¤íƒ€ ì´ë²¤íŠ¸ë¥¼ ìœ„í•´ì„œ ì¬ì‚¬ìš©(GiftBoxëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
+    // ì´ë²¤íŠ¸ ì¬ì‚¬ìš©ì„ ìœ„í•´ì„œ XMAS_STARë¥¼ STAR_EVENTë¡œ ë°”ê¾¸ëŠ” ê²ƒì„ ê³ ë ¤í•´ì•¼ í•¨
 public:
     bool hasEnoughStar(const XMAS_STAR& star);
     void decreaseStar(const XMAS_STAR& star);
@@ -166,13 +166,13 @@ public:
     // member data
     ////////////////////////////////////////
 private:
-    string m_Owner;                   // ÀÎº¥Åä¸® ¼ÒÀ¯ÁÖ
+    string m_Owner;                   // ì¸ë²¤í† ë¦¬ ì†Œìœ ì£¼
     CoordInven_t m_Width;             // Inventory Width
     CoordInven_t m_Height;            // Inventory Height
     ItemNum_t m_TotalNum;             // Total Count
     Weight_t m_TotalWeight;           // Total Weight
-    InventorySlot** m_pInventorySlot; // InventorySlotÀÇ ÀÌÂ÷¿ø ¹è¿­.
-    bool m_bDeleteAll;                // °´Ã¼°¡ »èÁ¦µÉ ¶§ ¾ÆÀÌÅÛ±îÁö »èÁ¦ÇÑ´Ù.
+    InventorySlot** m_pInventorySlot; // InventorySlotì˜ ì´ì°¨ì› ë°°ì—´.
+    bool m_bDeleteAll;                // ê°ì²´ê°€ ì‚­ì œë  ë•Œ ì•„ì´í…œê¹Œì§€ ì‚­ì œí•œë‹¤.
 };
 
 #endif // __INVENTORY_H__

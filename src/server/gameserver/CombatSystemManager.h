@@ -2,7 +2,7 @@
 //
 // Filename    : CombatSystemManager.h
 // Written by  : intblue@metrotech.co.kr
-// Description : ÀüÅõ ½Ã½ºÅÛ ¸Å´ÏÀú
+// Description : ì „íˆ¬ ì‹œìŠ¤í…œ ë§¤ë‹ˆì €
 //
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@
 //
 // class CombatSystemManager;
 //
-// ÀüÅõ ½Ã½ºÅÛÀ» °ü¸®ÇÏ´Â ¸Å´ÏÀú °´Ã¼
+// ì „íˆ¬ ì‹œìŠ¤í…œì„ ê´€ë¦¬í•˜ëŠ” ë§¤ë‹ˆì € ê°ì²´
 //
 //////////////////////////////////////////////////////////////////////
 const int VAMPIRE_HAS_SLAYER_HP_RELIC_POINT = 30;
@@ -38,32 +38,32 @@ const int SAME_RACE_HAVE_RELIC = 1;
 const int ANOTHER_RACE_HAVE_RELIC = 2;
 const int RELIC_STAY_ON_ZONE = 3;
 
-const string RELIC1NAME = "·Ò¸áÈÆÀå";
-const string RELIC2NAME = "¼ºÀÇ";
-const string RELIC3NAME = "Ã³³àÀÇÇÇ";
-const string RELIC4NAME = "¿ª½ÊÀÚ°¡";
+const string RELIC1NAME = "ë¡¬ë©œí›ˆì¥";
+const string RELIC2NAME = "ì„±ì˜";
+const string RELIC3NAME = "ì²˜ë…€ì˜í”¼";
+const string RELIC4NAME = "ì—­ì‹­ìê°€";
 
 class CombatSystemManager {
 public:
     CombatSystemManager();
     ~CombatSystemManager();
 
-    void CheckCombat(); // ÀüÅõ È°¼ºÈ­ ¿©ºÎ Ã¼Å©ÇÏ¿© »ı¼º/ÆÄ±« ½Ç½Ã
+    void CheckCombat(); // ì „íˆ¬ í™œì„±í™” ì—¬ë¶€ ì²´í¬í•˜ì—¬ ìƒì„±/íŒŒê´´ ì‹¤ì‹œ
 
-    void ActiveCombat();   // ÀüÅõ °³½Ã
-    void DeactiveCombat(); // ÀüÅõ Á¾·á
+    void ActiveCombat();   // ì „íˆ¬ ê°œì‹œ
+    void DeactiveCombat(); // ì „íˆ¬ ì¢…ë£Œ
 
-    void BroadcastPacket(Packet*);                            // ¸ğµç Á¸ÀÇ »ç¿ëÀÚ¿¡°Ô ¸Ş½ÃÁö Àü´Ş
-    void BroadcastPacket(Packet*, int condition, int minute); // ¸ğµç Á¸ÀÇ »ç¿ëÀÚ¿¡°Ô ¸Ş½ÃÁö Àü´Ş
+    void BroadcastPacket(Packet*);                            // ëª¨ë“  ì¡´ì˜ ì‚¬ìš©ìì—ê²Œ ë©”ì‹œì§€ ì „ë‹¬
+    void BroadcastPacket(Packet*, int condition, int minute); // ëª¨ë“  ì¡´ì˜ ì‚¬ìš©ìì—ê²Œ ë©”ì‹œì§€ ì „ë‹¬
 
-    void ActiveMonster();   // ÀüÅõ ¸ó½ºÅÍ »ı¼º
-    void DeactiveMonster(); // ÀüÅõ ¸ó½ºÅÍ ÆÄ±«
+    void ActiveMonster();   // ì „íˆ¬ ëª¬ìŠ¤í„° ìƒì„±
+    void DeactiveMonster(); // ì „íˆ¬ ëª¬ìŠ¤í„° íŒŒê´´
 
-    // RelicÀÇ »óÅÂ ÆÄ¾Ç
-    // 0: ¼º¹° º¸°ü´ë¿¡ ¼ÒÀ¯
-    // 1: ÀÚ½ÅÀÇ Á¾Á·ÀÌ °¡Áö°í ÀÖÀ½
-    // 2: Å¸Á¾Á·ÀÌ °¡Áö°í ÀÖÀ½
-    // 3: ¹Ù´Ú¿¡ ¶³¾îÁ® ÀÖÀ½
+    // Relicì˜ ìƒíƒœ íŒŒì•…
+    // 0: ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì†Œìœ 
+    // 1: ìì‹ ì˜ ì¢…ì¡±ì´ ê°€ì§€ê³  ìˆìŒ
+    // 2: íƒ€ì¢…ì¡±ì´ ê°€ì§€ê³  ìˆìŒ
+    // 3: ë°”ë‹¥ì— ë–¨ì–´ì ¸ ìˆìŒ
     int getRelicStatus(int RelicIndex) {
         return m_RelicStatus[RelicIndex];
     }
@@ -71,7 +71,7 @@ public:
         m_RelicStatus[Relic] = Status;
     }
 
-    // RelicÀÇ ¼ÒÀ¯ÁÖ
+    // Relicì˜ ì†Œìœ ì£¼
     string getRelicOwner(int RelicIndex) {
         return m_RelicOwner[RelicIndex];
     }
@@ -79,7 +79,7 @@ public:
         m_RelicOwner[RelicIndex] = Owner;
     }
 
-    // ´Ù¸¥ Á¾Á·ÀÇ ¼º¹°À» °¡Á³À» ½Ã º¸³Ê½º Æ÷ÀÎÆ® °è»ê
+    // ë‹¤ë¥¸ ì¢…ì¡±ì˜ ì„±ë¬¼ì„ ê°€ì¡Œì„ ì‹œ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ ê³„ì‚°
     int getSlayerToHitPoint() const {
         return m_SlayerToHitPoint;
     }
@@ -188,7 +188,7 @@ public:
     void RelicToString(int index);
 
 private:
-    bool m_bCombat; // ÀüÅõ°¡ ÁøÇà Áß ÀÎÁö ¿©ºÎ¸¦ Ç¥ÇöÇÏ´Â º¯¼ö
+    bool m_bCombat; // ì „íˆ¬ê°€ ì§„í–‰ ì¤‘ ì¸ì§€ ì—¬ë¶€ë¥¼ í‘œí˜„í•˜ëŠ” ë³€ìˆ˜
     bool m_bCombatActive;
     bool m_bCombatDeactive;
 
@@ -202,16 +202,16 @@ private:
     int m_VampireToHitPoint;
     int m_VampireHPPoint;
 
-    // °¢ ·¼¸¯ÀÌ ÃâÇöÇß´Â°¡ ÇÏ´Â ºÎºĞ
+    // ê° ë ë¦­ì´ ì¶œí˜„í–ˆëŠ”ê°€ í•˜ëŠ” ë¶€ë¶„
     bool m_Relic[5];
 
-    // °¢ ·¼¸¯ÀÇ À§Ä¡ Á¤º¸
+    // ê° ë ë¦­ì˜ ìœ„ì¹˜ ì •ë³´
     int m_RelicOwnerObjectID[5];
     int m_RelicStorageID[5];
     int m_RelicStorage[5];
     ZoneCoord_t m_RelicX[5], m_RelicY[5];
 
-    // °¢ ·¼¸¯ÀÇ Object ID
+    // ê° ë ë¦­ì˜ Object ID
     ObjectID_t m_RelicObjectID[5];
 
     mutable Mutex m_Mutex;

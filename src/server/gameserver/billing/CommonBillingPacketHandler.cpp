@@ -25,7 +25,7 @@
 
 #include "GCSystemMessage.h"
 
-// packetUtil.h¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù.
+// packetUtil.hì— ì¶”ê°€í•´ì•¼ í•œë‹¤.
 extern void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg);
 
 //////////////////////////////////////////////////////////////////////////////
@@ -35,28 +35,28 @@ void CommonBillingPacketHandler::execute(CommonBillingPacket* pPacket, Player* p
 
         // #ifdef __GAME_SERVER__
 
-        // ´Ù ·Î±×¸¦ ³²±âÀÚ
+        // ë‹¤ ë¡œê·¸ë¥¼ ë‚¨ê¸°ì
         filelog(LOGFILE_BILLING_PACKET, "%s", pPacket->toString().c_str());
 
     int code = pPacket->Packet_Type;
 
     switch (code) {
-    // °ÔÀÓ¿¡ µé¾î¿Ã¶§ º¸³½ packet¿¡ ´ëÇÑ ÀÎÁõ Á¤º¸
+    // ê²Œì„ì— ë“¤ì–´ì˜¬ë•Œ ë³´ë‚¸ packetì— ëŒ€í•œ ì¸ì¦ ì •ë³´
     case BILLING_PACKET_LOGIN:
         executeBillingLoginVerify(pPacket, pPlayer);
         break;
 
-    // ³²Àº ½Ã°£À» º¸¿©ÁØ´Ù.	(B->G only)
+    // ë‚¨ì€ ì‹œê°„ì„ ë³´ì—¬ì¤€ë‹¤.	(B->G only)
     case BILLING_PACKET_REMAIN:
         executeBillingRemain(pPacket, pPlayer);
         break;
 
-    // Á¢¼Ó Áß Ã¼Å©. BillingServer·Î Á¢¼Ó Á¤º¸¸¦ º¸³»ÁØ´Ù.
+    // ì ‘ì† ì¤‘ ì²´í¬. BillingServerë¡œ ì ‘ì† ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     case BILLING_PACKET_CHECK:
         executeBillingCheck(pPacket, pPlayer);
         break;
 
-    // À¯·á »ç¿ë °¡´ÉÇÑÁö¸¸ Ã¼Å©ÇÑ´Ù.
+    // ìœ ë£Œ ì‚¬ìš© ê°€ëŠ¥í•œì§€ë§Œ ì²´í¬í•œë‹¤.
     case BILLING_PACKET_LOGIN_CHECK:
         executeBillingLoginCheckVerify(pPacket, pPlayer);
         break;
@@ -73,7 +73,7 @@ void CommonBillingPacketHandler::execute(CommonBillingPacket* pPacket, Player* p
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// °ÔÀÓ¿¡ µé¾î¿Ã¶§ º¸³½ packet¿¡ ´ëÇÑ ÀÎÁõ Á¤º¸
+// ê²Œì„ì— ë“¤ì–´ì˜¬ë•Œ ë³´ë‚¸ packetì— ëŒ€í•œ ì¸ì¦ ì •ë³´
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -89,7 +89,7 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
     if (pCreature != NULL) {
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 
-        // °ËÁõ µÇ¾ú´Ù°í Ã¼Å©ÇÑ´Ù.
+        // ê²€ì¦ ë˜ì—ˆë‹¤ê³  ì²´í¬í•œë‹¤.
         pGamePlayer->setBillingLoginVerified();
 
         if (result == BILLING_RESULT_LOGIN_OK) {
@@ -111,31 +111,31 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
                      << ", " << pPacket->Remain_Time << " )" << endl;
 #endif
             } else {
-                // PC ¹æ »ç¿ëÀÚ
+                // PC ë°© ì‚¬ìš©ì
                 filelog(LOGFILE_BILLING_PLAYER, "LoginVerify: PayPlay (%s, PCRoom)", pPacket->User_ID);
 #ifdef __COUT_BILLING_SYSTEM__
                 cout << "LoginVerify: PayPlay ( " << pPacket->User_ID << ", PCRoom )" << endl;
 #endif
             }
 
-            // À¯·á Á¢¼Ó °¡´É
+            // ìœ ë£Œ ì ‘ì† ê°€ëŠ¥
             pGamePlayer->setBillingUserStatus(pPacket->User_Status);
             pGamePlayer->setPremiumPlay();
 
-// À¯·á »ç¿ëÀÚÀÌ¸é.. ¹«·áÇÃ·¹ÀÌ°¡ ÇÊ¿ä¾ø´Ù.
+// ìœ ë£Œ ì‚¬ìš©ìì´ë©´.. ë¬´ë£Œí”Œë ˆì´ê°€ í•„ìš”ì—†ë‹¤.
 #ifdef __PAY_SYSTEM_FREE_LIMIT__
             if (pGamePlayer->isPayPlaying()) {
-                bool bClear = true; // PayÁ¤º¸ Á¦°ÅÇÑ´Ù.
+                bool bClear = true; // Payì •ë³´ ì œê±°í•œë‹¤.
                 pGamePlayer->logoutPayPlay(pGamePlayer->getID(), bClear);
             }
 #endif
 
-            // Á¢¼Ó ÈÄ, ³²Àº ½Ã°£À» º¸³»ÁØ´Ù.
+            // ì ‘ì† í›„, ë‚¨ì€ ì‹œê°„ì„ ë³´ë‚´ì¤€ë‹¤.
             sendBillingRemainMessage(pPacket, pGamePlayer);
         } else if (result == BILLING_RESULT_LOGIN_NO_ACCOUNT) {
-            // ¹«·á »ç¿ëÀÚ.
-            // ÀÏ´Ü °Á µĞ´Ù.
-            // ¹«·á »ç¿ëÀÚµµ °ÔÀÓÇÒ ¼ö ÀÖ´Ù.
+            // ë¬´ë£Œ ì‚¬ìš©ì.
+            // ì¼ë‹¨ ê± ë‘”ë‹¤.
+            // ë¬´ë£Œ ì‚¬ìš©ìë„ ê²Œì„í•  ìˆ˜ ìˆë‹¤.
             // by bezz 2003.04.22
 
             filelog(LOGFILE_BILLING_PLAYER, "LoginVerify: No Account(%s)", pPacket->User_ID);
@@ -144,8 +144,8 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
             cout << "LoginVerify: No Account(" << pPacket->User_ID << ")" << endl;
 #endif
 
-            // À¯·á »ç¿ë ºÒ°¡
-            // ÀÏ´ÜÀº ÂóÂóÇÏÁö¸¸.. °Á Â¥¸¥´Ù.
+            // ìœ ë£Œ ì‚¬ìš© ë¶ˆê°€
+            // ì¼ë‹¨ì€ ì°ì°í•˜ì§€ë§Œ.. ê± ì§œë¥¸ë‹¤.
             // pGamePlayer->setPenaltyFlag( PENALTY_TYPE_KICKED );
 
             // #ifdef __PAY_SYSTEM_FREE_LIMIT__
@@ -156,7 +156,7 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
 
                     if (pPC->isPayPlayAvaiable())
                     {
-                        // ¾ÆÁ÷ ¹«·á ±â°£ÀÌ ³²¾ÆÀÖ´Â °æ¿ì.
+                        // ì•„ì§ ë¬´ë£Œ ê¸°ê°„ì´ ë‚¨ì•„ìˆëŠ” ê²½ìš°.
                         filelog(LOGFILE_BILLING_PLAYER, "LoginVerify: FreePlay (%s)", pPacket->User_ID);
                         #ifdef __COUT_BILLING_SYSTEM__
                             cout << "LoginVerify: FreePlay (" <<  pPacket->User_ID << ")" << endl;
@@ -164,14 +164,14 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
                     }
                     else
                     {
-                        // ´É·ÂÄ¡ overµÈ °æ¿ì
+                        // ëŠ¥ë ¥ì¹˜ overëœ ê²½ìš°
                         filelog(LOGFILE_BILLING_PLAYER, "LoginVerify: Disconnect by ATTR (%s)", pPacket->User_ID);
 
                         #ifdef __COUT_BILLING_SYSTEM__
                             cout << "LoginVerify: Disconnect by ATTR (" << pPacket->User_ID << ")" << endl;
                         #endif
 
-                        disconnectGamePlayer( pGamePlayer, 5*10 ); // 5ÃÊ ÈÄ Â¥¸¥´Ù.
+                        disconnectGamePlayer( pGamePlayer, 5*10 ); // 5ì´ˆ í›„ ì§œë¥¸ë‹¤.
                     }
                 }
                 else
@@ -183,7 +183,7 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
                         cout << "LoginVerify: Disconnect (" << pPacket->User_ID << ")" << endl;
                     #endif
 
-                    disconnectGamePlayer( pGamePlayer, 5*10 ); // 5ÃÊ ÈÄ Â¥¸¥´Ù.
+                    disconnectGamePlayer( pGamePlayer, 5*10 ); // 5ì´ˆ í›„ ì§œë¥¸ë‹¤.
                 }
             */
         } else {
@@ -196,7 +196,7 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
             cout << "LoginVerify: Disconnect (" << pPacket->User_ID << ")" << endl;
 #endif
 
-            disconnectGamePlayer(pGamePlayer, 10 * 10); // 10 ÃÊ ÈÄ Â¥¸¥´Ù.
+            disconnectGamePlayer(pGamePlayer, 10 * 10); // 10 ì´ˆ í›„ ì§œë¥¸ë‹¤.
         }
     } else {
         filelog(LOGFILE_BILLING_PLAYER, "LoginVerify: No Such Player(%s)", pPacket->User_ID);
@@ -217,7 +217,7 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ·Î±×ÀÎ ¼­¹ö¿¡¼­ À¯·á »ç¿ëÀÌ °¡´ÉÇÑÁö Ã¼Å©¸¸ ÇÏ´Â °æ¿ì
+// ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ìœ ë£Œ ì‚¬ìš©ì´ ê°€ëŠ¥í•œì§€ ì²´í¬ë§Œ í•˜ëŠ” ê²½ìš°
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPacket* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -231,7 +231,7 @@ void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPac
     LoginPlayer* pLoginPlayer = g_pLoginPlayerManager->getPlayer_NOLOCKED(pPacket->User_ID);
 
     if (pLoginPlayer != NULL) {
-        // °ËÁõ µÇ¾ú´Ù°í Ã¼Å©ÇÑ´Ù.
+        // ê²€ì¦ ë˜ì—ˆë‹¤ê³  ì²´í¬í•œë‹¤.
         pLoginPlayer->setBillingLoginVerified();
 
         if (result == BILLING_RESULT_LOGIN_OK) {
@@ -248,29 +248,29 @@ void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPac
                  << ", " << pPacket->Remain_Time << " )" << endl;
 #endif
 
-            // À¯·á Á¢¼Ó °¡´É
+            // ìœ ë£Œ ì ‘ì† ê°€ëŠ¥
             pLoginPlayer->setBillingUserStatus(pPacket->User_Status);
 
-// ¾Öµåºô¿¡¼­ UserStatus¸¦ ¾È ³Ö¾îÁØ ¹Ù¶÷¿¡ ÀÓ½Ã·Î »ç¿ëÇß´ø ÄÚµå. by sigi. 2002.12.5
+// ì• ë“œë¹Œì—ì„œ UserStatusë¥¼ ì•ˆ ë„£ì–´ì¤€ ë°”ëŒì— ì„ì‹œë¡œ ì‚¬ìš©í–ˆë˜ ì½”ë“œ. by sigi. 2002.12.5
 // if (pLoginPlayer->getBillingUserStatus().empty())
 //{
 //	pLoginPlayer->setBillingUserStatus( "HO" );
 //}
 
-// login¼­¹ö¿¡¼­´Â ÀÌ°Ô ÀÇ¹Ì°¡ ¾ø°ÚÁö.
+// loginì„œë²„ì—ì„œëŠ” ì´ê²Œ ì˜ë¯¸ê°€ ì—†ê² ì§€.
 // pLoginPlayer->setPremiumPlay();
 
-// À¯·á »ç¿ëÀÚÀÌ¸é.. ¹«·áÇÃ·¹ÀÌ°¡ ÇÊ¿ä¾ø´Ù.
+// ìœ ë£Œ ì‚¬ìš©ìì´ë©´.. ë¬´ë£Œí”Œë ˆì´ê°€ í•„ìš”ì—†ë‹¤.
 #ifdef __PAY_SYSTEM_FREE_LIMIT__
             if (pLoginPlayer->isPayPlaying()) {
-                bool bClear = true; // PayÁ¤º¸ Á¦°ÅÇÑ´Ù.
+                bool bClear = true; // Payì •ë³´ ì œê±°í•œë‹¤.
                 pLoginPlayer->logoutPayPlay(pLoginPlayer->getID(), bClear);
             }
 #endif
         } else {
             if (pLoginPlayer->isPayPlaying()) {
-                // ¸Ó ¾îÂ¶µç.. °ÔÀÓ °¡´ÉÇÑ ¾Ö´Ù.
-                // Ä³¸¯ÅÍ ´É·ÂÄ¡º°·Î Â¥¸£´Â°Å´Â CLSelectPCHandler.cpp¿¡¼­ ÇÑ´Ù.
+                // ë¨¸ ì–´ì¨‹ë“ .. ê²Œì„ ê°€ëŠ¥í•œ ì• ë‹¤.
+                // ìºë¦­í„° ëŠ¥ë ¥ì¹˜ë³„ë¡œ ì§œë¥´ëŠ”ê±°ëŠ” CLSelectPCHandler.cppì—ì„œ í•œë‹¤.
                 pLoginPlayer->setBillingUserStatus("XX");
 
                 filelog(LOGFILE_BILLING_PLAYER, "LoginCheckVerify: Can FreePlay (%s)", pPacket->User_ID);
@@ -280,7 +280,7 @@ void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPac
 #endif
 
             } else {
-                // Â©¶ó¾ßµÉ ¾Ö´ç.
+                // ì§¤ë¼ì•¼ë  ì• ë‹¹.
                 cout << pPacket->User_ID << " cannot play by billing" << endl;
 
                 filelog(LOGFILE_BILLING_PLAYER, "LoginCheckVerify: Cannot BillingPlay (%s)", pPacket->User_ID);
@@ -308,7 +308,7 @@ void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPac
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ³²Àº ½Ã°£À» º¸¿©ÁØ´Ù.	(B->G only)
+// ë‚¨ì€ ì‹œê°„ì„ ë³´ì—¬ì¤€ë‹¤.	(B->G only)
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -325,16 +325,16 @@ void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPack
 
         switch (result) {
         //-----------------------------------------------------------------
-        // Á¢¼ÓÀ» Á¾·á ½ÃÅ°´Â °æ¿ì
+        // ì ‘ì†ì„ ì¢…ë£Œ ì‹œí‚¤ëŠ” ê²½ìš°
         //-----------------------------------------------------------------
-        case BILLING_RESULT_REMAIN_DISCONNECT: // °­Á¦ Á¾·á
-        case BILLING_RESULT_REMAIN_DUPLICATE:  // Áßº¹ Á¢¼Ó
-        case BILLING_RESULT_REMAIN_REFUND:     // È¯ºÒ
+        case BILLING_RESULT_REMAIN_DISCONNECT: // ê°•ì œ ì¢…ë£Œ
+        case BILLING_RESULT_REMAIN_DUPLICATE:  // ì¤‘ë³µ ì ‘ì†
+        case BILLING_RESULT_REMAIN_REFUND:     // í™˜ë¶ˆ
 
-            // À¯·á »ç¿ë ºÒ°¡
-            // ÀÏ´ÜÀº ÂóÂóÇÏÁö¸¸.. °Á Â¥¸¥´Ù.
+            // ìœ ë£Œ ì‚¬ìš© ë¶ˆê°€
+            // ì¼ë‹¨ì€ ì°ì°í•˜ì§€ë§Œ.. ê± ì§œë¥¸ë‹¤.
             // pGamePlayer->setPenaltyFlag( PENALTY_TYPE_KICKED );
-            // 5 ÃÊ ÈÄ Â¥¸¥´Ù.
+            // 5 ì´ˆ í›„ ì§œë¥¸ë‹¤.
             char session[40];
             memcpy(session, pPacket->Session, 32);
             session[32] = '\0';
@@ -356,21 +356,21 @@ void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPack
             break;
 
         //-----------------------------------------------------------------
-        // À¯·á »ç¿ë ½Ã°£ÀÌ ´Ù µÇ¾ú´Ù. ¹«·á »ç¿ëÀ¸·Î ÀüÈ¯
+        // ìœ ë£Œ ì‚¬ìš© ì‹œê°„ì´ ë‹¤ ë˜ì—ˆë‹¤. ë¬´ë£Œ ì‚¬ìš©ìœ¼ë¡œ ì „í™˜
         //-----------------------------------------------------------------
         case BILLING_RESULT_REMAIN_NONE: {
             // char message[40];
-            // sprintf( message, "À¯·á »ç¿ë½Ã°£ÀÌ ´Ù µÇ¾ú½À´Ï´Ù." )
+            // sprintf( message, "ìœ ë£Œ ì‚¬ìš©ì‹œê°„ì´ ë‹¤ ë˜ì—ˆìŠµë‹ˆë‹¤." )
             // sendSystemMessage(pGamePlayer, message);
 
-            // ZonePlayerManager ¿¡¼­ À¯·áÁ¸¿¡ ÀÖÀ» °æ¿ì Â©¸®°Ô µÈ´Ù.
+            // ZonePlayerManager ì—ì„œ ìœ ë£Œì¡´ì— ìˆì„ ê²½ìš° ì§¤ë¦¬ê²Œ ëœë‹¤.
             pGamePlayer->setBillingUserStatus("");
         } break;
 
         //-----------------------------------------------------------------
-        // °áÁ¦ Á¤º¸¸¦ º¸¿©ÁÖ´Â °æ¿ì
+        // ê²°ì œ ì •ë³´ë¥¼ ë³´ì—¬ì£¼ëŠ” ê²½ìš°
         //-----------------------------------------------------------------
-        case BILLING_RESULT_REMAIN_RESERVE: // »õ·Î¿î °áÁ¦Á¤º¸ »ç¿ë ½ÃÀÛ
+        case BILLING_RESULT_REMAIN_RESERVE: // ìƒˆë¡œìš´ ê²°ì œì •ë³´ ì‚¬ìš© ì‹œì‘
         {
             char billMethod[10];
             // char expireDate[20];
@@ -380,18 +380,18 @@ void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPack
 
             filelog(LOGFILE_BILLING_PLAYER, "BillingRemain: (%s, %dm)", pPacket->User_ID, (pPacket->Remain_Time / 60));
 
-            // °áÁ¦ Á¤º¸¸¦ ´Ù½Ã º¸¿©ÁÖ´Â °æ¿ì
+            // ê²°ì œ ì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ì—¬ì£¼ëŠ” ê²½ìš°
             GCSystemMessage gcSystemMessage;
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_APPLY_NEW_BILLING_INFO));
             pGamePlayer->sendPacket(&gcSystemMessage);
 
-            // Á¢¼Ó ÈÄ, ³²Àº ½Ã°£À» º¸³»ÁØ´Ù.
+            // ì ‘ì† í›„, ë‚¨ì€ ì‹œê°„ì„ ë³´ë‚´ì¤€ë‹¤.
             sendBillingRemainMessage(pPacket, pGamePlayer);
 
         } break;
 
         //-----------------------------------------------------------------
-        // Á¤»óÀûÀ¸·Î ³²Àº ½Ã°£
+        // ì •ìƒì ìœ¼ë¡œ ë‚¨ì€ ì‹œê°„
         //-----------------------------------------------------------------
         case BILLING_RESULT_REMAIN_TIME: {
             char billMethod[10];
@@ -407,26 +407,26 @@ void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPack
             int min = (sec - (hour * 3600)) / 60;
 
             StringStream msg;
-            msg << "À¯·á ¼­ºñ½º »ç¿ë °¡´É ½Ã°£ÀÌ ";
+            msg << "ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ê°€ëŠ¥ ì‹œê°„ì´ ";
 
             if (hour > 0) {
-                msg << hour << "½Ã°£ ";
+                msg << hour << "ì‹œê°„ ";
             }
 
-            msg << min << "ºĞ ³²¾Ò½À´Ï´Ù.";
+            msg << min << "ë¶„ ë‚¨ì•˜ìŠµë‹ˆë‹¤.";
 
             if (strcmp(billMethod, "FM") == 0)
-                msg << "(¿ùÁ¤¾×)";
+                msg << "(ì›”ì •ì•¡)";
             else if (strcmp(billMethod, "FD") == 0)
-                msg << "(ÀÏÁ¤¾×)";
+                msg << "(ì¼ì •ì•¡)";
             else if (strcmp(billMethod, "TH") == 0)
-                msg << "(Á¤·®)";
+                msg << "(ì •ëŸ‰)";
 
 #ifdef __COUT_BILLING_SYSTEM__
             cout << "[" << pPacket->User_ID << "] " << msg.toString().c_str() << endl;
 
             //<< billMethod << ", "
-            //<< pPacket->getExpire_DateToString().c_str() << "±îÁö, "
+            //<< pPacket->getExpire_DateToString().c_str() << "ê¹Œì§€, "
 #endif
 
             sendSystemMessage(pGamePlayer, msg.toString());
@@ -448,7 +448,7 @@ void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPack
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¢¼Ó Áß Ã¼Å©. BillingServer·Î Á¢¼Ó Á¤º¸¸¦ º¸³»ÁØ´Ù.
+// ì ‘ì† ì¤‘ ì²´í¬. BillingServerë¡œ ì ‘ì† ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingCheck(CommonBillingPacket* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -458,7 +458,7 @@ void CommonBillingPacketHandler::executeBillingCheck(CommonBillingPacket* pPacke
         BillingPlayer* pBillingPlayer = dynamic_cast<BillingPlayer*>(pPlayer);
     Assert(pBillingPlayer != NULL);
 
-    // ´Ù½Ã °á°ú°ªÀ» º¸³½´Ù.
+    // ë‹¤ì‹œ ê²°ê³¼ê°’ì„ ë³´ë‚¸ë‹¤.
     pBillingPlayer->sendPayCheck(pPacket);
 
 #else
@@ -480,7 +480,7 @@ void CommonBillingPacketHandler::disconnectGamePlayer(GamePlayer* pGamePlayer, T
 
     pEventKick->setDeadline(delay);
 
-    // ¸î ÃÊÈÄ¿¡ Â©¸°´Ù..°í º¸³»ÁØ´Ù.
+    // ëª‡ ì´ˆí›„ì— ì§¤ë¦°ë‹¤..ê³  ë³´ë‚´ì¤€ë‹¤.
     pEventKick->sendMessage();
 
     pGamePlayer->addEvent(pEventKick);
@@ -504,14 +504,14 @@ void CommonBillingPacketHandler::sendBillingRemainMessage(CommonBillingPacket* p
     billMethod[2] = '\0';
 
     StringStream msg;
-    msg << "À¯·á ¼­ºñ½º »ç¿ë °¡´É ";
+    msg << "ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ê°€ëŠ¥ ";
 
-    // PC ¹æ »ç¿ëÀÚÀÏ °æ¿ì
+    // PC ë°© ì‚¬ìš©ìì¼ ê²½ìš°
     if (strcmp(userStatus, "PM") == 0) {
-        msg << "[PC¹æ]";
+        msg << "[PCë°©]";
     }
-    // ³²Àº ³¯ ¼ö¸¦ Ãâ·ÂÇÏ´Â °æ¿ì
-    else if (strcmp(billMethod, "FM") == 0 || strcmp(billMethod, "FD") == 0) // ³²Àº ³¯ ¼ö
+    // ë‚¨ì€ ë‚  ìˆ˜ë¥¼ ì¶œë ¥í•˜ëŠ” ê²½ìš°
+    else if (strcmp(billMethod, "FM") == 0 || strcmp(billMethod, "FD") == 0) // ë‚¨ì€ ë‚  ìˆ˜
     {
         char expireDate[20];
         memcpy(expireDate, pPacket->Expire_Date, 12);
@@ -528,13 +528,13 @@ void CommonBillingPacketHandler::sendBillingRemainMessage(CommonBillingPacket* p
 
         // int day = pPacket->Remain_Time;
         if (day == 0 && currentDateTime.date() == vsdtExpireDate.date()) {
-            msg << "±â°£Àº ¿À´Ã±îÁö ÀÔ´Ï´Ù";
+            msg << "ê¸°ê°„ì€ ì˜¤ëŠ˜ê¹Œì§€ ì…ë‹ˆë‹¤";
         } else {
-            msg << "±â°£ÀÌ " << (day == 0 ? 1 : day) << "ÀÏ ³²¾Ò½À´Ï´Ù.";
+            msg << "ê¸°ê°„ì´ " << (day == 0 ? 1 : day) << "ì¼ ë‚¨ì•˜ìŠµë‹ˆë‹¤.";
         }
 
-        // °×¹æ ÀÌ¿ëÀÚÀÌ´Ù.
-        // ¸Ş½ÃÁö Ãâ·Â¾ÈÇÑ´Ù.
+        // ê²œë°© ì´ìš©ìì´ë‹¤.
+        // ë©”ì‹œì§€ ì¶œë ¥ì•ˆí•œë‹¤.
         if (sExpireDate.size() < 7) {
             filelog(LOGFILE_BILLING_PLAYER, "LoginRemain: (%s, Netmarble PCRoom)", pPacket->User_ID);
             return;
@@ -542,21 +542,21 @@ void CommonBillingPacketHandler::sendBillingRemainMessage(CommonBillingPacket* p
 
         filelog(LOGFILE_BILLING_PLAYER, "LoginRemain: (%s, %d day)", pPacket->User_ID, day);
     }
-    // ³²Àº ½Ã°£À» Ãâ·ÂÇÏ´Â °æ¿ì
-    else if (strcmp(billMethod, "TH") == 0) // ³²Àº ½Ã°£
+    // ë‚¨ì€ ì‹œê°„ì„ ì¶œë ¥í•˜ëŠ” ê²½ìš°
+    else if (strcmp(billMethod, "TH") == 0) // ë‚¨ì€ ì‹œê°„
     {
-        // ³²Àº ½Ã°£ ¹«Á¶°Ç ÇÑ¹ø Ãâ·Â
+        // ë‚¨ì€ ì‹œê°„ ë¬´ì¡°ê±´ í•œë²ˆ ì¶œë ¥
         int sec = pPacket->Remain_Time;
         int hour = sec / 3600;
         int min = (sec - (hour * 3600)) / 60;
 
-        msg << "½Ã°£ÀÌ ";
+        msg << "ì‹œê°„ì´ ";
 
         if (hour > 0) {
-            msg << hour << "½Ã°£ ";
+            msg << hour << "ì‹œê°„ ";
         }
 
-        msg << min << "ºĞ ³²¾Ò½À´Ï´Ù.";
+        msg << min << "ë¶„ ë‚¨ì•˜ìŠµë‹ˆë‹¤.";
 
         filelog(LOGFILE_BILLING_PLAYER, "LoginRemain: (%s, %dh %dm)", pPacket->User_ID, hour, min);
     }

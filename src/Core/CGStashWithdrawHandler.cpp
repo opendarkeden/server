@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGStashWithdrawHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -36,9 +36,9 @@ void CGStashWithdrawHandler::execute(CGStashWithdraw* pPacket, Player* pPlayer)
     Gold_t amount = pPacket->getAmount();
 
     if (!pPC->checkGoldIntegrity() || !pPC->checkStashGoldIntegrity()) {
-        filelog("GoldBug.log", "CGStashWithdraw : µ·ÀÌ DB¶û ¾È ¸Â´Â´Ù! [%s:%s]", pGamePlayer->getID().c_str(),
+        filelog("GoldBug.log", "CGStashWithdraw : ëˆì´ DBë‘ ì•ˆ ë§ëŠ”ë‹¤! [%s:%s]", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str());
-        throw DisconnectException("CGStashWithdraw : µ·ÀÌ DB¶û ¾È ¸Â´Â´Ù!");
+        throw DisconnectException("CGStashWithdraw : ëˆì´ DBë‘ ì•ˆ ë§ëŠ”ë‹¤!");
     }
 
     if (amount == 0)

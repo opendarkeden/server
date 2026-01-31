@@ -71,7 +71,7 @@ void EffectRegeneration::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
             if (!rect.ptInRect(X, Y))
                 continue;
 
-            // Å¸ÀÏ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Â´Ù.
+            // íƒ€ì¼ì•ˆì— ì¡´ìž¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             Tile& tile = pZone->getTile(X, Y);
 
             const forward_list<Object*>& oList = tile.getObjectList();
@@ -81,7 +81,7 @@ void EffectRegeneration::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
                     Creature* pCreature = dynamic_cast<Creature*>(pTargetObject);
                     Assert(pCreature != NULL);
 
-                    // ÄÚ¸¶°¡ °É·ÁÀÖ°Å³ª Á×Àº ¾Ö´Â Ä¡·á ¾ÈÇØÁØ´Ù.
+                    // ì½”ë§ˆê°€ ê±¸ë ¤ìžˆê±°ë‚˜ ì£½ì€ ì• ëŠ” ì¹˜ë£Œ ì•ˆí•´ì¤€ë‹¤.
                     // 2003. 3. 11. Sequoia
                     if (pCreature->isSlayer() && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA) &&
                         !pCreature->isDead()) {

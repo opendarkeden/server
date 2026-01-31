@@ -22,13 +22,13 @@
 #include "item/Pupa.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
-// ½ºÅ³ÀÇ °á°ú¸¦ 2¹ø ³¯·ÁÁà¾ß µÈ´Ù.
-// ¶ó¹Ù ¸¸µé±â¿¡ ´ëÇÑ °Í ÇÏ³ª ÇÏ°í
-// Èí¿µ¿¡ °üÇÑ °Í ÇÏ³ª.
-// ±×·¡¼­ Ã³À½¿¡ Á¶°Ç Ã¼Å©ÇÏ´Ù°¡ ½ÇÆĞÇÒ °æ¿ì¿¡
-// SkillFail ÆĞÅ¶À» 2¹ø º¸³»ÁØ´Ù.
+// ìŠ¤í‚¬ì˜ ê²°ê³¼ë¥¼ 2ë²ˆ ë‚ ë ¤ì¤˜ì•¼ ëœë‹¤.
+// ë¼ë°” ë§Œë“¤ê¸°ì— ëŒ€í•œ ê²ƒ í•˜ë‚˜ í•˜ê³ 
+// í¡ì˜ì— ê´€í•œ ê²ƒ í•˜ë‚˜.
+// ê·¸ë˜ì„œ ì²˜ìŒì— ì¡°ê±´ ì²´í¬í•˜ë‹¤ê°€ ì‹¤íŒ¨í•  ê²½ìš°ì—
+// SkillFail íŒ¨í‚·ì„ 2ë²ˆ ë³´ë‚´ì¤€ë‹¤.
 // ///////////////////////////////////////////////////////////////////////////
 void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord_t TargetZoneX, ZoneCoord_t TargetZoneY,
                          ObjectID_t ItemObjectID, CoordInven_t InvenX, CoordInven_t InvenY, CoordInven_t TargetInvenX,
@@ -38,7 +38,7 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
     __BEGIN_TRY
 
     Assert(pOusters != NULL);
-    // Å¬¶óÀÌ¾ğÆ®¿¡ ¶ôÀÌ °É·ÁÀÖÀ¸¸é °ËÁõ ÆĞÅ¶À» 2¹ø º¸³»Áà¾ß µÈ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ì— ë½ì´ ê±¸ë ¤ìˆìœ¼ë©´ ê²€ì¦ íŒ¨í‚·ì„ 2ë²ˆ ë³´ë‚´ì¤˜ì•¼ ëœë‹¤.
     bool bClientLocked = InvenX != 255;
 
     try {
@@ -47,7 +47,7 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // Á×Àº ½ÃÃ¼°¡ Creature ÀÏ ¼öµµ ÀÖ°í Item ÀÏ ¼öµµ ÀÖ´Ù..
+        // ì£½ì€ ì‹œì²´ê°€ Creature ì¼ ìˆ˜ë„ ìˆê³  Item ì¼ ìˆ˜ë„ ìˆë‹¤..
         Item* pTargetItem = pZone->getItem(TargetObjectID);
         Creature* pTargetCreature = NULL;
 
@@ -59,9 +59,9 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
             executeAbsorbSoulSkillFail(pOusters, getSkillType(), TargetObjectID, false, bClientLocked);
             return;
         }
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi.2002.9.5
-        // ¾È Á×Àº ¾Ö´Â ¿µ »¡ ¼ö ¾ø´Ù. by Sequoia.2003. 3. 20
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi.2002.9.5
+        // ì•ˆ ì£½ì€ ì• ëŠ” ì˜ ë¹¨ ìˆ˜ ì—†ë‹¤. by Sequoia.2003. 3. 20
         if (pTargetCreature != NULL) {
             if (pTargetCreature->isNPC() || !canAttack(pOusters, pTargetCreature) ||
                 !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
@@ -93,7 +93,7 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
 
         // bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, 2);
 
-        // Å¸ Á¾Á·ÀÇ ½ÃÃ¼¿¡ Èí¿µÀ» ÇÑ °æ¿ì (¾ÆÁ÷ ½ÃÃ¼°¡ Creature ÀÎ °æ¿ì)
+        // íƒ€ ì¢…ì¡±ì˜ ì‹œì²´ì— í¡ì˜ì„ í•œ ê²½ìš° (ì•„ì§ ì‹œì²´ê°€ Creature ì¸ ê²½ìš°)
         if (pTargetCreature != NULL) //&& bRangeCheck)
         {
             int targetLevel = 0;
@@ -111,18 +111,18 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
                 targetLevel = pMonster->getLevel();
             }
 
-            // ÇªÆÄ ¸¸µé±â¿¡ ´ëÇÑ Ã³¸®°¡ ¸ÕÀú µÇ¾î¾ß ÇÑ´Ù.
-            // ¶ó¹Ù¸¦ ÇªÆÄ·Î ¸¸µé¾îÁà¾ß ÇÑ´Ù
-            // µû·Î ÇÔ¼ö·Î ¶§¼­ ¹Ø¿¡¼­ ±¸Çö ÇÒ °ÍÀÓ
-            // SkillOK¸¦ º¸³»±â Àü¿¡ ¾ÆÀÌÅÛ¿¡ ´ëÇÑ Ã³¸® ÆĞÅ¶À» ¸ÕÀú º¸³»¾ß ÇÑ´Ù. ¹İ!µå!½Ã!
+            // í‘¸íŒŒ ë§Œë“¤ê¸°ì— ëŒ€í•œ ì²˜ë¦¬ê°€ ë¨¼ì € ë˜ì–´ì•¼ í•œë‹¤.
+            // ë¼ë°”ë¥¼ í‘¸íŒŒë¡œ ë§Œë“¤ì–´ì¤˜ì•¼ í•œë‹¤
+            // ë”°ë¡œ í•¨ìˆ˜ë¡œ ë•Œì„œ ë°‘ì—ì„œ êµ¬í˜„ í•  ê²ƒì„
+            // SkillOKë¥¼ ë³´ë‚´ê¸° ì „ì— ì•„ì´í…œì— ëŒ€í•œ ì²˜ë¦¬ íŒ¨í‚·ì„ ë¨¼ì € ë³´ë‚´ì•¼ í•œë‹¤. ë°˜!ë“œ!ì‹œ!
             if (InvenX != 255)
                 makeLarvaToPupa(pOusters, targetLevel, ItemObjectID, InvenX, InvenY, TargetInvenX, TargetInvenY);
 
-            // Èí¿µ¿¡ ´ëÇÑ °æÇèÄ¡´Â?? - ³ªÁß¿¡ ¼öÁ¤ ??
+            // í¡ì˜ì— ëŒ€í•œ ê²½í—˜ì¹˜ëŠ”?? - ë‚˜ì¤‘ì— ìˆ˜ì • ??
             //			Exp_t Exp = computeCreatureExp(pTargetCreature, BLOODDRAIN_EXP);
 
-            // Èí¿µÀ» ÇÏ°Ô µÇ¸é Èí¿µÇÑ »ç¶÷ÀÇ EP°¡ ¿Ã¶ó°£´Ù.
-            // ¿Ã¶ó°¡´Â ¾çÀº Creature Exp¿¡ ºñ·ÊÇÑ´Ù.
+            // í¡ì˜ì„ í•˜ê²Œ ë˜ë©´ í¡ì˜í•œ ì‚¬ëŒì˜ EPê°€ ì˜¬ë¼ê°„ë‹¤.
+            // ì˜¬ë¼ê°€ëŠ” ì–‘ì€ Creature Expì— ë¹„ë¡€í•œë‹¤.
             MP_t CurrentMP = pOusters->getMP();
             MP_t MaxMP = pOusters->getMP(ATTR_MAX);
             MP_t HealPoint = 0;
@@ -141,7 +141,7 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
             MP_t NewMP = min((int)MaxMP * 3, (int)CurrentMP + (int)HealPoint);
 
             //			cout << NewMP << endl;
-            // ¾Æ¿ì½ºÅÍÁîÀÇ MP¸¦ ¼¼ÆÃÇÑ´Ù.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆì˜ MPë¥¼ ì„¸íŒ…í•œë‹¤.
             pOusters->setMP(NewMP);
             //			cout << pOusters->getMP(ATTR_CURRENT) << endl;
 
@@ -190,8 +190,8 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
             cList.push_back(pOusters);
             pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &_GCSkillToTileOK5, cList);
 
-            // ¾ÆÀ½ -_- Èí¿µ ´çÇÑ ÈÄ¿¡ ¶Ç Èí¿µ ¸øÇÏ°Ô ¸·¾Æ¾ß µÇ°í
-            // Èí¿µ ´çÇÑ ÈÄ¿¡ ºÎÈ° ¾È µÇµµ·Ï ¸·¾Æ¾ßÇÔ
+            // ì•„ìŒ -_- í¡ì˜ ë‹¹í•œ í›„ì— ë˜ í¡ì˜ ëª»í•˜ê²Œ ë§‰ì•„ì•¼ ë˜ê³ 
+            // í¡ì˜ ë‹¹í•œ í›„ì— ë¶€í™œ ì•ˆ ë˜ë„ë¡ ë§‰ì•„ì•¼í•¨
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_CANNOT_ABSORB_SOUL);
 
             pOusters->getGQuestManager()->blooddrain();
@@ -221,16 +221,16 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
                 return;
             }
 
-            // ÇªÆÄ ¸¸µé±â¿¡ ´ëÇÑ Ã³¸®°¡ ¸ÕÀú µÇ¾î¾ß ÇÑ´Ù.
-            // ¶ó¹Ù¸¦ ÇªÆÄ·Î ¸¸µé¾îÁà¾ß ÇÑ´Ù
-            // µû·Î ÇÔ¼ö·Î ¶§¼­ ¹Ø¿¡¼­ ±¸Çö ÇÒ °ÍÀÓ
-            // SkillOK¸¦ º¸³»±â Àü¿¡ ¾ÆÀÌÅÛ¿¡ ´ëÇÑ Ã³¸® ÆĞÅ¶À» ¸ÕÀú º¸³»¾ß ÇÑ´Ù. ¹İ!µå!½Ã!
+            // í‘¸íŒŒ ë§Œë“¤ê¸°ì— ëŒ€í•œ ì²˜ë¦¬ê°€ ë¨¼ì € ë˜ì–´ì•¼ í•œë‹¤.
+            // ë¼ë°”ë¥¼ í‘¸íŒŒë¡œ ë§Œë“¤ì–´ì¤˜ì•¼ í•œë‹¤
+            // ë”°ë¡œ í•¨ìˆ˜ë¡œ ë•Œì„œ ë°‘ì—ì„œ êµ¬í˜„ í•  ê²ƒì„
+            // SkillOKë¥¼ ë³´ë‚´ê¸° ì „ì— ì•„ì´í…œì— ëŒ€í•œ ì²˜ë¦¬ íŒ¨í‚·ì„ ë¨¼ì € ë³´ë‚´ì•¼ í•œë‹¤. ë°˜!ë“œ!ì‹œ!
             if (bClientLocked)
                 makeLarvaToPupa(pOusters, targetLevel, ItemObjectID, InvenX, InvenY, TargetInvenX, TargetInvenY);
 
-            // Èí¿µÀ» ÇÏ°Ô µÇ¸é Èí¿µÇÑ »ç¶÷ÀÇ SP°¡ ¿Ã¶ó°£´Ù.
-            // ÀÌ°Å ¾î¶»°Ô µÉÁö ³ªÁß¿¡ ´õ ºÁ¾ßµÉµí
-            // HealPoint == Exp ÀÓ -_-
+            // í¡ì˜ì„ í•˜ê²Œ ë˜ë©´ í¡ì˜í•œ ì‚¬ëŒì˜ SPê°€ ì˜¬ë¼ê°„ë‹¤.
+            // ì´ê±° ì–´ë–»ê²Œ ë ì§€ ë‚˜ì¤‘ì— ë” ë´ì•¼ë ë“¯
+            // HealPoint == Exp ì„ -_-
             //			MP_t HealPoint = Exp;
             MP_t CurrentMP = pOusters->getMP();
             MP_t MaxMP = pOusters->getMP(ATTR_MAX);
@@ -252,7 +252,7 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
             MP_t NewMP = min((int)MaxMP * 3, (int)CurrentMP + (int)HealPoint);
             //			cout << NewMP << endl;
 
-            // ¾Æ¿ì½ºÅÍÁîÀÇ MP¸¦ ¼¼ÆÃÇÑ´Ù.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆì˜ MPë¥¼ ì„¸íŒ…í•œë‹¤.
             pOusters->setMP(NewMP);
             //			cout << pOusters->getMP(ATTR_CURRENT) << endl;
 
@@ -284,7 +284,7 @@ void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord
             cList.push_back(pOusters);
             pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &_GCSkillToTileOK5, cList);
 
-            // ¾ÆÀ½ -_- Èí¿µ ´çÇÑ ÈÄ¿¡ ¶Ç Èí¿µ ¸øÇÏ°Ô ¸·¾Æ¾ß µÊ
+            // ì•„ìŒ -_- í¡ì˜ ë‹¹í•œ í›„ì— ë˜ í¡ì˜ ëª»í•˜ê²Œ ë§‰ì•„ì•¼ ë¨
             pTargetItem->setFlag(Effect::EFFECT_CLASS_CANNOT_ABSORB_SOUL);
 
             pOusters->getGQuestManager()->blooddrain();
@@ -324,46 +324,46 @@ void AbsorbSoul::makeLarvaToPupa(Ousters* pOusters, int TargetLevel, ObjectID_t 
     ItemType_t LarvaType = pLarva->getItemType();
 
     //	int ratio = ( 100 * TargetLevel ) / ( (pOusters->getLevel() * 2) * ( pLarva->getItemType() + 1 ) );
-    //  È®·ü 4¹è·Î Áõ°¡
+    //  í™•ë¥  4ë°°ë¡œ ì¦ê°€
     int ratio = (200 * TargetLevel) / (pOusters->getLevel() * (pLarva->getItemType() + 1));
 
-    // ÇªÆÄ ¸¸µé±â ½ÇÆĞ
+    // í‘¸íŒŒ ë§Œë“¤ê¸° ì‹¤íŒ¨
     if ((rand() % 100) > ratio) {
         executeSkillFailException(pOusters, getSkillType());
         return;
     }
 
-    // È®·üÀº ³Ñ¾úÀ¸´Ï -_- ÇªÆÄ¸¦ ¸¸µé¾îº¼±î
+    // í™•ë¥ ì€ ë„˜ì—ˆìœ¼ë‹ˆ -_- í‘¸íŒŒë¥¼ ë§Œë“¤ì–´ë³¼ê¹Œ
     list<OptionType_t> optionNULL;
     Item* pPupa = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_PUPA, pLarva->getItemType(), optionNULL);
 
-    // ¶ó¹ÙÀÇ °¹¼ö¸¦ ÁÙ¿©ÁØ´Ù.
-    // ÀÌ ÇÔ¼ö ¾È¿¡¼­ ¶ó¹ÙÀÇ °¹¼ö°¡ ÀÚµ¿ÀûÀ¸·Î ÇÏ³ª ÁÙ¾îµé°í,
-    // ¸¸ÀÏ 1°³ÀÎ ¶ó¹Ù¿´´Ù¸é ÀÎº¥Åä¸® ¹× DB¿¡¼­ »èÁ¦µÇ°Ô µÈ´Ù.
+    // ë¼ë°”ì˜ ê°¯ìˆ˜ë¥¼ ì¤„ì—¬ì¤€ë‹¤.
+    // ì´ í•¨ìˆ˜ ì•ˆì—ì„œ ë¼ë°”ì˜ ê°¯ìˆ˜ê°€ ìë™ì ìœ¼ë¡œ í•˜ë‚˜ ì¤„ì–´ë“¤ê³ ,
+    // ë§Œì¼ 1ê°œì¸ ë¼ë°”ì˜€ë‹¤ë©´ ì¸ë²¤í† ë¦¬ ë° DBì—ì„œ ì‚­ì œë˜ê²Œ ëœë‹¤.
     decreaseItemNum(pLarva, pInventory, pOusters->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 
-    // ±âÁ¸ÀÇ ÇªÆÄ¸¦ °¡Á®¿Â´Ù.
+    // ê¸°ì¡´ì˜ í‘¸íŒŒë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Item* pPrevPupa = pInventory->getItem(TargetInvenX, TargetInvenY);
 
     GCSkillToInventoryOK1 gcSkillToInventoryOK1;
 
     if (pPrevPupa != NULL) {
-        // ±âÁ¸¿¡ ´õÇÒ ÇªÆÄ°¡ ÀÖ´Ù¸é
+        // ê¸°ì¡´ì— ë”í•  í‘¸íŒŒê°€ ìˆë‹¤ë©´
 
         if (!canStack(pPrevPupa, pPupa) || pPrevPupa->getNum() >= ItemMaxStack[(int)pPrevPupa->getItemClass()]) {
             executeSkillFailException(pOusters, getSkillType());
             return;
         }
 
-        // °¹¼ö¸¦ ÇÏ³ª Áõ°¡½ÃÅ°°í ÀúÀåÇÑ´Ù.
+        // ê°¯ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚¤ê³  ì €ì¥í•œë‹¤.
         pPrevPupa->setNum(pPrevPupa->getNum() + 1);
         pPrevPupa->save(pOusters->getName(), STORAGE_INVENTORY, 0, TargetInvenX, TargetInvenY);
 
-        // À§ºÎºĞÀÇ decreaseItemNum() ÇÔ¼ö ºÎºĞ¿¡¼­ ¾ÆÀÌÅÛ ¼ıÀÚ¸¦ °¨¼Ò½ÃÅ°¹Ç·Î,
-        // ¿©±â¼­ ´Ù½Ã ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛ ¼ıÀÚ¸¦ Áõ°¡½ÃÅ²´Ù.
+        // ìœ„ë¶€ë¶„ì˜ decreaseItemNum() í•¨ìˆ˜ ë¶€ë¶„ì—ì„œ ì•„ì´í…œ ìˆ«ìë¥¼ ê°ì†Œì‹œí‚¤ë¯€ë¡œ,
+        // ì—¬ê¸°ì„œ ë‹¤ì‹œ ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œ ìˆ«ìë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
         pInventory->increaseNum();
 
-        // ¸¸µé¾îÁø ÇªÆÄ´Â ±âÁ¸ÀÇ ÇªÆÄ¿¡ ´õÇØÁ³À¸¹Ç·Î »èÁ¦ÇÑ´Ù.
+        // ë§Œë“¤ì–´ì§„ í‘¸íŒŒëŠ” ê¸°ì¡´ì˜ í‘¸íŒŒì— ë”í•´ì¡Œìœ¼ë¯€ë¡œ ì‚­ì œí•œë‹¤.
         SAFE_DELETE(pPupa);
 
         gcSkillToInventoryOK1.setObjectID(pPrevPupa->getObjectID());
@@ -371,7 +371,7 @@ void AbsorbSoul::makeLarvaToPupa(Ousters* pOusters, int TargetLevel, ObjectID_t 
         ObjectRegistry& OR = pZone->getObjectRegistry();
         OR.registerObject(pPupa);
 
-        // ÇªÆÄ¸¦ Inventory ¿¡ Áı¾î³Ö°í DB¿¡´Ù°¡ »ı¼ºÇÑ´Ù.
+        // í‘¸íŒŒë¥¼ Inventory ì— ì§‘ì–´ë„£ê³  DBì—ë‹¤ê°€ ìƒì„±í•œë‹¤.
         pInventory->addItem(TargetInvenX, TargetInvenY, pPupa);
         pPupa->create(pOusters->getName(), STORAGE_INVENTORY, 0, TargetInvenX, TargetInvenY);
 

@@ -35,17 +35,17 @@ void Visible::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* 
     Assert(pSkillSlot != NULL);
 
     try {
-        // Player¸¦ ¹Þ¾Æ¿Â´Ù.
+        // Playerë¥¼ ë°›ì•„ì˜¨ë‹¤.
         Player* pPlayer = pSlayer->getPlayer();
 
-        // ZoneÀ» ¹Þ¾Æ¿Â´Ù.
+        // Zoneì„ ë°›ì•„ì˜¨ë‹¤.
         Zone* pZone = pSlayer->getZone();
 
         SkillType_t SkillType = pSkillSlot->getSkillType();
 
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // ±â¼úÀÇ ·¹º§À» ¹Þ¾Æ¿Â´Ù.
+        // ê¸°ìˆ ì˜ ë ˆë²¨ì„ ë°›ì•„ì˜¨ë‹¤.
         // SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
         // SkillDomainType_t DomainType = pSkillInfo->getDomainType();
@@ -58,7 +58,7 @@ void Visible::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* 
         bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
         bool bHit = false;
 
-        // ±â¼ú¼º°ø·ü °ËÁõ.
+        // ê¸°ìˆ ì„±ê³µë¥  ê²€ì¦.
         if (bManaCheck && bTimeCheck && bRangeCheck) {
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
@@ -94,8 +94,8 @@ void Visible::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* 
                             bool bEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY);
 
                             if (bHitRoll && bEffected) {
-                                // ÁÖÀ§¿¡ GCAddXXX¸¦ º¸³»°í, effect manager¿¡¼­ effect¸¦ »èÁ¦ÇÏ°í, GCRemoveEffect¸¦
-                                // º¸³½´Ù.
+                                // ì£¼ìœ„ì— GCAddXXXë¥¼ ë³´ë‚´ê³ , effect managerì—ì„œ effectë¥¼ ì‚­ì œí•˜ê³ , GCRemoveEffectë¥¼
+                                // ë³´ë‚¸ë‹¤.
                                 addVisibleCreature(pZone, pTargetCreature, true);
 
                                 _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
@@ -192,10 +192,10 @@ void Visible::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
     Assert(pSkillSlot != NULL);
 
     try {
-        // Player¸¦ ¹Þ¾Æ¿Â´Ù.
+        // Playerë¥¼ ë°›ì•„ì˜¨ë‹¤.
         Player* pPlayer = pSlayer->getPlayer();
 
-        // ZoneÀ» ¹Þ¾Æ¿Â´Ù.
+        // Zoneì„ ë°›ì•„ì˜¨ë‹¤.
         Zone* pZone = pSlayer->getZone();
 
         Creature* pTargetCreature = NULL;
@@ -215,7 +215,7 @@ void Visible::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // ±â¼úÀÇ ·¹º§À» ¹Þ¾Æ¿Â´Ù.
+        // ê¸°ìˆ ì˜ ë ˆë²¨ì„ ë°›ì•„ì˜¨ë‹¤.
         // SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
         // SkillDomainType_t DomainType = pSkillInfo->getDomainType();
@@ -227,7 +227,7 @@ void Visible::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
         bool bHit = false;
 
 
-        // ±â¼ú¼º°ø·ü °ËÁõ.
+        // ê¸°ìˆ ì„±ê³µë¥  ê²€ì¦.
         if (bManaCheck && bTimeCheck && bRangeCheck) {
             Coord_t myX = pSlayer->getX(), myY = pSlayer->getY();
             Coord_t X = pTargetCreature->getX(), Y = pTargetCreature->getY();
@@ -271,8 +271,8 @@ void Visible::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
                             bool bEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY);
 
                             if (bHitRoll && bEffected) {
-                                // ÁÖÀ§¿¡ GCAddXXX¸¦ º¸³»°í, effect manager¿¡¼­ effect¸¦ »èÁ¦ÇÏ°í, GCRemoveEffect¸¦
-                                // º¸³½´Ù.
+                                // ì£¼ìœ„ì— GCAddXXXë¥¼ ë³´ë‚´ê³ , effect managerì—ì„œ effectë¥¼ ì‚­ì œí•˜ê³ , GCRemoveEffectë¥¼
+                                // ë³´ë‚¸ë‹¤.
                                 addVisibleCreature(pZone, pTargetCreature, true);
 
                                 _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());

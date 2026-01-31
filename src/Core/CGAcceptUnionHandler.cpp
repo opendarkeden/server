@@ -51,7 +51,7 @@ void CGAcceptUnionHandler::execute(CGAcceptUnion* pPacket, Player* pPlayer)
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -66,11 +66,11 @@ void CGAcceptUnionHandler::execute(CGAcceptUnion* pPacket, Player* pPlayer)
         return;
     }
 
-    // ¿äÃ»ÇÑ³ğÀÌ Áö°¡ ¼ÓÇÑ ±æµåÀÇ ¸¶½ºÅÍÀÎ°¡? || ¿¬ÇÕÀÇ ¸¶½ºÅÍ±æµå°¡ ³» ±æµå°¡ ¸Â³ª?
+    // ìš”ì²­í•œë†ˆì´ ì§€ê°€ ì†í•œ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ê°€? || ì—°í•©ì˜ ë§ˆìŠ¤í„°ê¸¸ë“œê°€ ë‚´ ê¸¸ë“œê°€ ë§ë‚˜?
     if (!g_pGuildManager->isGuildMaster(pPlayerCreature->getGuildID(), pPlayerCreature) ||
         pUnion->getMasterGuildID() != pPlayerCreature->getGuildID()) {
-        // GC_GUILD_RESPONSE ³¯·ÁÁØ´Ù.
-        // ³»¿ë : ±æµå ¸¶½ºÅÍ°¡ ¾Æ´ÏÀÚ³à -.-+
+        // GC_GUILD_RESPONSE ë‚ ë ¤ì¤€ë‹¤.
+        // ë‚´ìš© : ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆìë…€ -.-+
 
         gcGuildResponse.setCode(GuildUnionOfferManager::SOURCE_IS_NOT_MASTER);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -94,7 +94,7 @@ void CGAcceptUnionHandler::execute(CGAcceptUnion* pPacket, Player* pPlayer)
         }
         string TargetGuildMaster = pGuild->getMaster();
 
-        // cout << "°¡ÀÔÀÌ ¼ö¶ôµÇ¾ú´Ù. Åëº¸¹ŞÀ» À¯Àú´Â : " << TargetGuildMaster.c_str() << endl;
+        // cout << "ê°€ì…ì´ ìˆ˜ë½ë˜ì—ˆë‹¤. í†µë³´ë°›ì„ ìœ ì €ëŠ” : " << TargetGuildMaster.c_str() << endl;
 
 
         Statement* pStmt = NULL;
@@ -108,7 +108,7 @@ void CGAcceptUnionHandler::execute(CGAcceptUnion* pPacket, Player* pPlayer)
         END_DB(pStmt)
 
 
-        // ¿¬ÇÕ¸¶½ºÅÍ°¡ µÈ ¾ÆÇÑÅ× ¿¬ÇÕ¾ÆÀÌµğ¿Í UNION_MASTER¸¦ º¸³»Áà¾ß ÇÏ°í..
+        // ì—°í•©ë§ˆìŠ¤í„°ê°€ ëœ ì•„í•œí…Œ ì—°í•©ì•„ì´ë””ì™€ UNION_MASTERë¥¼ ë³´ë‚´ì¤˜ì•¼ í•˜ê³ ..
         Creature* pCreature = NULL;
         pCreature = pGamePlayer->getCreature();
 
@@ -121,9 +121,9 @@ void CGAcceptUnionHandler::execute(CGAcceptUnion* pPacket, Player* pPlayer)
         pPlayer->sendPacket(&gcModifyInformation);
 
 
-        // ¿¬ÇÕ¿¡ °¡ÀÔµÈ ±æµå ¸¶½ºÅÍ ÇÑÅ×´Â ¿¬ÇÕ¾ÆÀÌµğ¿Í UNION_GUILD_MASTER¸¦ º¸³»Áà¾ß ÇÑµÂ..
+        // ì—°í•©ì— ê°€ì…ëœ ê¸¸ë“œ ë§ˆìŠ¤í„° í•œí…ŒëŠ” ì—°í•©ì•„ì´ë””ì™€ UNION_GUILD_MASTERë¥¼ ë³´ë‚´ì¤˜ì•¼ í•œë ..
         //
-        // Åëº¸¹ŞÀ» À¯Àú¿¡°Ô ±æµåUnionÁ¤º¸¸¦ ´Ù½Ã º¸³½´Ù
+        // í†µë³´ë°›ì„ ìœ ì €ì—ê²Œ ê¸¸ë“œUnionì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ë‚¸ë‹¤
 
         Creature* pTargetCreature = NULL;
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
@@ -142,20 +142,20 @@ void CGAcceptUnionHandler::execute(CGAcceptUnion* pPacket, Player* pPlayer)
         //////////////////////////////
 
 
-        // ³» ¼­¹ö¿¡ ÀÖ´Â ³ğµé¿¡°Ô º¯°æ»çÇ×À» ¾Ë¸°´Ù.
+        // ë‚´ ì„œë²„ì— ìˆëŠ” ë†ˆë“¤ì—ê²Œ ë³€ê²½ì‚¬í•­ì„ ì•Œë¦°ë‹¤.
         sendGCOtherModifyInfoGuildUnion(pTargetCreature);
         sendGCOtherModifyInfoGuildUnion(pCreature);
 
 
-        // ´Ù¸¥ ¼­¹ö¿¡ ÀÖ´Â ³ğµé¿¡°Ô º¯°æ»çÇ×À» ¾Ë¸°´Ù.
+        // ë‹¤ë¥¸ ì„œë²„ì— ìˆëŠ” ë†ˆë“¤ì—ê²Œ ë³€ê²½ì‚¬í•­ì„ ì•Œë¦°ë‹¤.
         GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pTargetCreature)->getGuildID());
         GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pCreature)->getGuildID());
 
 
-        // GCModifyInformation / GCOtherModifyInfo ¸¦ Á¶¸³ÇØ¼­ ³¯¸°´Ù.
-        // GCModifyInformation Àº pPlayerCreature ¿¡°Ô
-        // GCOtherModifyInfo ´Â broadcast ÇÑ´Ù.
-        // ³Ö¾î º¸³¾ Á¤º¸´Â GuildUnionID ¿Í GuildUnionGrade´Ù?
+        // GCModifyInformation / GCOtherModifyInfo ë¥¼ ì¡°ë¦½í•´ì„œ ë‚ ë¦°ë‹¤.
+        // GCModifyInformation ì€ pPlayerCreature ì—ê²Œ
+        // GCOtherModifyInfo ëŠ” broadcast í•œë‹¤.
+        // ë„£ì–´ ë³´ë‚¼ ì •ë³´ëŠ” GuildUnionID ì™€ GuildUnionGradeë‹¤?
     }
 
 #endif // __GAME_SERVER__

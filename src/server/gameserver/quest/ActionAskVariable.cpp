@@ -60,7 +60,7 @@ void ActionAskVariable::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// æ◊º«¿ª Ω««‡«—¥Ÿ.
+// Ïï°ÏÖòÏùÑ Ïã§ÌñâÌïúÎã§.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -90,7 +90,7 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
         string keyword = pInfo->getKeyword();
 
         if (keyword == "EntranceFee") {
-            // ¿‘¿Â∑·∏¶ ≥÷æÓ¡ÿ¥Ÿ.
+            // ÏûÖÏû•Î£åÎ•º ÎÑ£Ïñ¥Ï§ÄÎã§.
             ZoneID_t zoneID = atoi(pInfo->getParameter(0).c_str());
 
             if (zoneID == 0)
@@ -102,24 +102,24 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
             Race_t race = g_pCastleInfoManager->getCastleInfo(zoneID)->getRace();
 
             char strValue[20];
-            // ¡æ¡∑¿¸¿Ô ¡ﬂ¿œ∂© ∏µŒ π´∑·
-            // ±ÊµÂ¿¸¿Ô ¡ﬂ¿œ∂© º∫ø° µÈæÓ∞• ºˆ ¿÷¥¬ ¡æ¡∑∏∏ π´∑·
+            // Ï¢ÖÏ°±Ï†ÑÏüÅ Ï§ëÏùºÎïê Î™®Îëê Î¨¥Î£å
+            // Í∏∏ÎìúÏ†ÑÏüÅ Ï§ëÏùºÎïê ÏÑ±Ïóê Îì§Ïñ¥Í∞à Ïàò ÏûàÎäî Ï¢ÖÏ°±Îßå Î¨¥Î£å
             if (g_pWarSystem->hasActiveRaceWar() || g_pWarSystem->hasCastleActiveWar(zoneID)) {
-                //				sprintf( strValue, "π´∑·" );
+                //				sprintf( strValue, "Î¨¥Î£å" );
                 sprintf(strValue, "%s", g_pStringPool->getString(STRID_FREE).c_str());
             } else if (race == RACE_SLAYER) {
                 char gold[15];
                 sprintf(gold, "%lu", value);
                 string sGold(gold);
                 convertCommaString(sGold);
-                //				sprintf( strValue, "%s ∑π¿Ã", sGold.c_str() );
+                //				sprintf( strValue, "%s Î†àÏù¥", sGold.c_str() );
                 sprintf(strValue, "%s", (sGold + " " + g_pStringPool->getString(STRID_REI)).c_str());
             } else {
                 char gold[15];
                 sprintf(gold, "%lu", value);
                 string sGold(gold);
                 convertCommaString(sGold);
-                //				sprintf( strValue, "%s ∞÷µÂ", sGold.c_str() );
+                //				sprintf( strValue, "%s Í≤îÎìú", sGold.c_str() );
                 sprintf(strValue, "%s", (sGold + " " + g_pStringPool->getString(STRID_GELD)).c_str());
             }
 
@@ -128,7 +128,7 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
             else
                 pParam->setValue(g_pStringPool->getString(STRID_NO_ENTER));
         } else if (keyword == "CastleOwner") {
-            // º∫ ¡÷¿Œ¿ª √º≈©«ÿº≠ ≥÷æÓ¡ÿ¥Ÿ.
+            // ÏÑ± Ï£ºÏù∏ÏùÑ Ï≤¥ÌÅ¨Ìï¥ÏÑú ÎÑ£Ïñ¥Ï§ÄÎã§.
             ZoneID_t zoneID = atoi(pInfo->getParameter(0).c_str());
 
             if (zoneID == 0)
@@ -138,28 +138,28 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
             string result;
             if (pCastleInfo != NULL) {
                 if (pCastleInfo->isCommon()) {
-                    // ∞¯øÎº∫¿Ã¥Ÿ.
+                    // Í≥µÏö©ÏÑ±Ïù¥Îã§.
                     if (pCastleInfo->getRace() == Guild::GUILD_RACE_SLAYER) {
-                        // ΩΩ∑π¿ÃæÓ ∞¯øÎº∫¿Ã¥Ÿ.
-                        //						result = "ΩΩ∑π¿ÃæÓ ∞¯øÎº∫";
+                        // Ïä¨Î†àÏù¥Ïñ¥ Í≥µÏö©ÏÑ±Ïù¥Îã§.
+                        //						result = "Ïä¨Î†àÏù¥Ïñ¥ Í≥µÏö©ÏÑ±";
                         result = g_pStringPool->getString(STRID_SLAYER_COMMON_CASTLE);
                     } else if (pCastleInfo->getRace() == Guild::GUILD_RACE_VAMPIRE) {
-                        // πÏ∆ƒ¿ÃæÓ ∞¯øÎº∫¿Ã¥Ÿ.
-                        //						result = "πÏ∆ƒ¿ÃæÓ ∞¯øÎº∫";
+                        // Î±ÄÌååÏù¥Ïñ¥ Í≥µÏö©ÏÑ±Ïù¥Îã§.
+                        //						result = "Î±ÄÌååÏù¥Ïñ¥ Í≥µÏö©ÏÑ±";
                         result = g_pStringPool->getString(STRID_VAMPIRE_COMMON_CASTLE);
                     } else {
-                        //						result = "æ∆øÏΩ∫≈Õ¡Ó ∞¯øÎº∫";
+                        //						result = "ÏïÑÏö∞Ïä§ÌÑ∞Ï¶à Í≥µÏö©ÏÑ±";
                         result = g_pStringPool->getString(STRID_OUSTERS_COMMON_CASTLE);
                     }
                 } else {
-                    // ±ÊµÂ∞° º“¿Ø«— º∫¿Ã¥Ÿ.
+                    // Í∏∏ÎìúÍ∞Ä ÏÜåÏú†Ìïú ÏÑ±Ïù¥Îã§.
                     Guild* pGuild = g_pGuildManager->getGuild(pCastleInfo->getGuildID());
                     if (pGuild == NULL)
-                        //						result = "¡÷¿Œæ¯¥¬ º∫";
+                        //						result = "Ï£ºÏù∏ÏóÜÎäî ÏÑ±";
                         result = g_pStringPool->getString(STRID_NO_MASTER_CASTLE);
                     else
                         //						result = pGuild->getName() + ( (pGuild->getRace() ==
-                        // RACE_SLAYER)?"∆¿":"≈¨∑£" ) + "¿« º∫";
+                        // RACE_SLAYER)?"ÌåÄ":"ÌÅ¥Îûú" ) + "Ïùò ÏÑ±";
                         result = pGuild->getName() +
                                  ((pGuild->getRace() == RACE_SLAYER) ? (g_pStringPool->getString(STRID_TEAM))
                                                                      : (g_pStringPool->getString(STRID_CLAN))) +
@@ -201,16 +201,16 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
             SiegeWar* pNextWar = dynamic_cast<SiegeWar*>(pNextWork);
 
             if (pNextWar == NULL) {
-                pParam->setValue("æ¯¥¬");
+                pParam->setValue("ÏóÜÎäî");
             } else {
                 GuildID_t gID = pNextWar->recentReinforceGuild();
                 Guild* pGuild = g_pGuildManager->getGuild(gID);
                 if (pGuild == NULL)
-                    pParam->setValue("æ¯¥¬");
+                    pParam->setValue("ÏóÜÎäî");
                 else
                     pParam->setValue(pGuild->getName());
 
-                cout << pParam->getValue() << " ø¯±∫" << endl;
+                cout << pParam->getValue() << " ÏõêÍµ∞" << endl;
                 ;
             }
         } else if (keyword == "RedistGold") {
@@ -243,13 +243,13 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                 char strValue[20];
 
                 if (pCastleInfo->getRace() == RACE_SLAYER) {
-                    //					sprintf( strValue, "%s ∑π¿Ã", sGold.c_str() );
+                    //					sprintf( strValue, "%s Î†àÏù¥", sGold.c_str() );
                     sprintf(strValue, "%s", (sGold + " " + g_pStringPool->getString(STRID_REI)).c_str());
                 } else if (pCastleInfo->getRace() == RACE_VAMPIRE) {
-                    //					sprintf( strValue, "%s ∞÷µÂ", sGold.c_str() );
+                    //					sprintf( strValue, "%s Í≤îÎìú", sGold.c_str() );
                     sprintf(strValue, "%s", (sGold + " " + g_pStringPool->getString(STRID_GELD)).c_str());
                 } else {
-                    //					sprintf( strValue, "%s ¿⁄µÂ", sGold.c_str() );
+                    //					sprintf( strValue, "%s ÏûêÎìú", sGold.c_str() );
                     sprintf(strValue, "%s", (sGold + " " + g_pStringPool->getString(STRID_ZARD)).c_str());
                 }
 
@@ -266,34 +266,34 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                     Attr_t grade = pSlayer->getQuestGrade();
 
                     if (grade < 61) {
-                        //						pParam->setValue("¡ˆ«œºˆ∑Œ");
+                        //						pParam->setValue("ÏßÄÌïòÏàòÎ°ú");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_1));
                     } else if (grade < 96) {
-                        pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ∫œº≠");
+                        pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_2));
                     } else if (grade < 131) {
-                        pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ∫œµø");
+                        pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_3));
                     } else if (grade < 171) {
-                        pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ≥≤º≠");
+                        pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ ÎÇ®ÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_4));
                     } else if (grade < 211) {
-                        pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ¥¯¿¸");
+                        pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ ÎçòÏ†Ñ");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_5));
                     } else if (grade < 241) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ≥≤º≠");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ ÎÇ®ÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_6));
                     } else if (grade < 271) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ≥≤µø");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_7));
                     } else if (grade < 291) {
-                        pParam->setValue("∆º∏∏£»£ºˆ ≥≤º≠");
+                        pParam->setValue("Ìã∞Î™®Î•¥Ìò∏Ïàò ÎÇ®ÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_8));
                     } else if (grade < 301) {
-                        pParam->setValue("∆º∏∏£»£ºˆ ≥≤µø");
+                        pParam->setValue("Ìã∞Î™®Î•¥Ìò∏Ïàò ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_9));
                     } else {
-                        pParam->setValue("∂Ûø»¥¯¿¸ 2√˛");
+                        pParam->setValue("ÎùºÏò¥ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_2_10));
                     }
                 } else if (pCreature2->isVampire()) {
@@ -301,34 +301,34 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                     Level_t level = pVampire->getLevel();
 
                     if (level < 11) {
-                        pParam->setValue("πŸ≈‰∏Æ ¥¯¿¸ 2√˛");
+                        pParam->setValue("Î∞îÌÜ†Î¶¨ ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_1));
                     } else if (level < 21) {
-                        pParam->setValue("∏≤∫∏ ≥≤µø");
+                        pParam->setValue("Î¶ºÎ≥¥ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_2));
                     } else if (level < 31) {
-                        pParam->setValue("∏≤∫∏ ∫œµø");
+                        pParam->setValue("Î¶ºÎ≥¥ Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_3));
                     } else if (level < 41) {
-                        pParam->setValue("∏≤∫∏ ∫œº≠");
+                        pParam->setValue("Î¶ºÎ≥¥ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_4));
                     } else if (level < 51) {
-                        pParam->setValue("∆º∏∏£ »£ºˆ ∫œµø");
+                        pParam->setValue("Ìã∞Î™®Î•¥ Ìò∏Ïàò Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_5));
                     } else if (level < 61) {
-                        pParam->setValue("∑ŒµÚªÍ ≥≤º≠");
+                        pParam->setValue("Î°úÎîòÏÇ∞ ÎÇ®ÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_6));
                     } else if (level < 71) {
-                        pParam->setValue("∑ŒµÚªÍ ≥≤µø");
+                        pParam->setValue("Î°úÎîòÏÇ∞ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_7));
                     } else if (level < 81) {
-                        pParam->setValue("æ∆¿Ãºæ ¥¯¿¸ 1√˛");
+                        pParam->setValue("ÏïÑÏù¥ÏÑº ÎçòÏ†Ñ 1Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_8));
                     } else if (level < 91) {
-                        pParam->setValue("æ∆¿Ãºæ ¥¯¿¸ 2√˛");
+                        pParam->setValue("ÏïÑÏù¥ÏÑº ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_9));
                     } else {
-                        pParam->setValue("æ∆¥„¿« º∫¡ˆ µø¬ ");
+                        pParam->setValue("ÏïÑÎã¥Ïùò ÏÑ±ÏßÄ ÎèôÏ™Ω");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_2_10));
                     }
                 } else if (pCreature2->isOusters()) {
@@ -336,49 +336,49 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                     Level_t level = pOusters->getLevel();
 
                     if (level < 11) {
-                        pParam->setValue("«œ¥œæÀ ¥¯¿¸ 1√˛");
+                        pParam->setValue("ÌïòÎãàÏïå ÎçòÏ†Ñ 1Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_1));
                     } else if (level < 21) {
-                        pParam->setValue("«œ¥œæÀ ¥¯¿¸ 2√˛");
+                        pParam->setValue("ÌïòÎãàÏïå ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_2));
                     } else if (level < 31) {
-                        pParam->setValue("ƒ´Ω∫≈ª∑Œ ∫œµø");
+                        pParam->setValue("Ïπ¥Ïä§ÌÉàÎ°ú Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_3));
                     } else if (level < 41) {
-                        pParam->setValue("∞Ì∏£∞ÌπŸ ≈Õ≥Œ");
+                        pParam->setValue("Í≥†Î•¥Í≥†Î∞î ÌÑ∞ÎÑê");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_4));
                     } else if (level < 51) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ∫œµø");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_5));
                     } else if (level < 61) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ∫œº≠");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_6));
                     } else if (level < 71) {
-                        pParam->setValue("∑ŒµÚªÍ ∫œµø");
+                        pParam->setValue("Î°úÎîòÏÇ∞ Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_7));
                     } else if (level < 81) {
-                        pParam->setValue("∑ŒµÚªÍ ∫œº≠");
+                        pParam->setValue("Î°úÎîòÏÇ∞ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_8));
                     } else if (level < 91) {
-                        pParam->setValue("∂Ûºæ ≥ªº∫ 2√˛");
+                        pParam->setValue("ÎùºÏÑº ÎÇ¥ÏÑ± 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_9));
                     } else {
-                        pParam->setValue("∂Ûø» ¥¯¿¸ 2√˛");
+                        pParam->setValue("ÎùºÏò¥ ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_2_10));
                     }
                 }
             } else if (questLevel == 3) {
                 if (pCreature2->isSlayer()) {
-                    pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ≥≤º≠");
+                    pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ ÎÇ®ÏÑú");
                     pParam->setValue(g_pStringPool->getString(STRID_SLAYER_MINE_ENTER));
                 } else if (pCreature2->isVampire()) {
-                    pParam->setValue("∏≤∫∏ ∫œµø");
+                    pParam->setValue("Î¶ºÎ≥¥ Î∂ÅÎèô");
                     pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_MINE_ENTER));
                 } else if (pCreature2->isOusters()) {
-                    pParam->setValue("ƒ´Ω∫≈ª∑Œ ∫œµø");
+                    pParam->setValue("Ïπ¥Ïä§ÌÉàÎ°ú Î∂ÅÎèô");
                     pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_MINE_ENTER));
                 } else {
-                    filelog("EventBug.txt", "ActionAskVariable : 3¥‹∞Ë ƒ˘Ω∫∆Æ ¡∏ √£¥¬µ• «√∑π¿ÃæÓ∞° ¿ÃªÛ«œ¥Ÿ.");
+                    filelog("EventBug.txt", "ActionAskVariable : 3Îã®Í≥Ñ ÌÄòÏä§Ìä∏ Ï°¥ Ï∞æÎäîÎç∞ ÌîåÎ†àÏù¥Ïñ¥Í∞Ä Ïù¥ÏÉÅÌïòÎã§.");
                 }
             } else if (questLevel == 4) {
                 if (pCreature2->isSlayer()) {
@@ -386,19 +386,19 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                     Attr_t grade = pSlayer->getQuestGrade();
 
                     if (grade < 131) {
-                        pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ∫œº≠");
+                        pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_4_1));
                     } else if (grade < 211) {
-                        pParam->setValue("ø°ΩΩ∂Û¥œæ∆ ¥¯¿¸");
+                        pParam->setValue("ÏóêÏä¨ÎùºÎãàÏïÑ ÎçòÏ†Ñ");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_4_2));
                     } else if (grade < 271) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ≥≤µø");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_4_3));
                     } else if (grade < 300) {
-                        pParam->setValue("∆º∏∏£ ≥≤µø");
+                        pParam->setValue("Ìã∞Î™®Î•¥ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_4_4));
                     } else {
-                        pParam->setValue("∂Ûø» ¥¯¿¸ 2√˛");
+                        pParam->setValue("ÎùºÏò¥ ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_SLAYER_QUESTZONE_4_5));
                     }
                 } else if (pCreature2->isVampire()) {
@@ -406,19 +406,19 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                     Level_t level = pVampire->getLevel();
 
                     if (level < 31) {
-                        pParam->setValue("∏≤∫∏ ≥≤µø");
+                        pParam->setValue("Î¶ºÎ≥¥ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_4_1));
                     } else if (level < 51) {
-                        pParam->setValue("∏≤∫∏ ∫œº≠");
+                        pParam->setValue("Î¶ºÎ≥¥ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_4_2));
                     } else if (level < 71) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ≥≤º≠");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ ÎÇ®ÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_4_3));
                     } else if (level < 91) {
-                        pParam->setValue("æ∆¿Ãºæ ¥¯¿¸ 1√˛");
+                        pParam->setValue("ÏïÑÏù¥ÏÑº ÎçòÏ†Ñ 1Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_4_4));
                     } else {
-                        pParam->setValue("æ∆¿Ãºæ ¥¯¿¸ 2√˛");
+                        pParam->setValue("ÏïÑÏù¥ÏÑº ÎçòÏ†Ñ 2Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_VAMPIRE_QUESTZONE_4_5));
                     }
                 } else if (pCreature2->isOusters()) {
@@ -426,26 +426,26 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                     Level_t level = pOusters->getLevel();
 
                     if (level < 31) {
-                        pParam->setValue("ƒ´Ω∫≈ª∑Œ ∫œµø");
+                        pParam->setValue("Ïπ¥Ïä§ÌÉàÎ°ú Î∂ÅÎèô");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_4_1));
                     } else if (level < 51) {
-                        pParam->setValue("µÂ∑Œ∫£≈∏ ∫œº≠");
+                        pParam->setValue("ÎìúÎ°úÎ≤†ÌÉÄ Î∂ÅÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_4_2));
                     } else if (level < 71) {
-                        pParam->setValue("∑ŒµÚªÍ ≥≤º≠");
+                        pParam->setValue("Î°úÎîòÏÇ∞ ÎÇ®ÏÑú");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_4_3));
                     } else if (level < 91) {
-                        pParam->setValue("∆º∏∏£ ≥≤µø");
+                        pParam->setValue("Ìã∞Î™®Î•¥ ÎÇ®Îèô");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_4_4));
                     } else {
-                        pParam->setValue("∂Ûø» ¥¯¿¸ 1√˛");
+                        pParam->setValue("ÎùºÏò¥ ÎçòÏ†Ñ 1Ï∏µ");
                         pParam->setValue(g_pStringPool->getString(STRID_OUSTERS_QUESTZONE_4_5));
                     }
                 } else {
-                    filelog("EventBug.txt", "ActionAskVariable : 4¥‹∞Ë ƒ˘Ω∫∆Æ ¡∏ √£¥¬µ• «√∑π¿ÃæÓ∞° ¿ÃªÛ«œ¥Ÿ.");
+                    filelog("EventBug.txt", "ActionAskVariable : 4Îã®Í≥Ñ ÌÄòÏä§Ìä∏ Ï°¥ Ï∞æÎäîÎç∞ ÌîåÎ†àÏù¥Ïñ¥Í∞Ä Ïù¥ÏÉÅÌïòÎã§.");
                 }
             } else {
-                filelog("EventBug.txt", "ActionAskVariable : ƒ˘Ω∫∆Æ ¡∏ √£¥¬µ• ƒ˘Ω∫∆Æ ∑π∫ß¿Ã ¿ÃªÛ«œ¥Ÿ. %d", questLevel);
+                filelog("EventBug.txt", "ActionAskVariable : ÌÄòÏä§Ìä∏ Ï°¥ Ï∞æÎäîÎç∞ ÌÄòÏä§Ìä∏ Î†àÎ≤®Ïù¥ Ïù¥ÏÉÅÌïòÎã§. %d", questLevel);
                 Assert(false);
             }
         } else if (keyword == "EventQuestMonster") {
@@ -575,10 +575,10 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
                         pParam->setValue(g_pStringPool->getString(STRID_QUEST_MONSTER_5));
                     }
                 } else {
-                    filelog("EventBug.txt", "ActionAskVariable : 4¥‹∞Ë ƒ˘Ω∫∆Æ ∏ÛΩ∫≈Õ √£¥¬µ• «√∑π¿ÃæÓ∞° ¿ÃªÛ«œ¥Ÿ.");
+                    filelog("EventBug.txt", "ActionAskVariable : 4Îã®Í≥Ñ ÌÄòÏä§Ìä∏ Î™¨Ïä§ÌÑ∞ Ï∞æÎäîÎç∞ ÌîåÎ†àÏù¥Ïñ¥Í∞Ä Ïù¥ÏÉÅÌïòÎã§.");
                 }
             } else {
-                filelog("EventBug.txt", "ActionAskVariable : ƒ˘Ω∫∆Æ ∏ÛΩ∫≈Õ √£¥¬µ• ƒ˘Ω∫∆Æ ∑π∫ß¿Ã ¿ÃªÛ«œ¥Ÿ. %d",
+                filelog("EventBug.txt", "ActionAskVariable : ÌÄòÏä§Ìä∏ Î™¨Ïä§ÌÑ∞ Ï∞æÎäîÎç∞ ÌÄòÏä§Ìä∏ Î†àÎ≤®Ïù¥ Ïù¥ÏÉÅÌïòÎã§. %d",
                         questLevel);
                 Assert(false);
             }
@@ -602,7 +602,7 @@ void ActionAskVariable::execute(Creature* pCreature1, Creature* pCreature2)
 
             if (level < 40) {
                 GCSystemMessage gcSM;
-                gcSM.setMessage("µ±«∞µ»º∂Œﬁ∑®Ω¯––≥ËŒÔ»ŒŒÒ.");
+                gcSM.setMessage("Îé†ÌíàÎêúÏÑ¨ËΩüÎû¨ÏèµÔ§âÎÖòËÜ†Ìõ®Ëõü.");
                 pCreature2->getPlayer()->sendPacket(&gcSM);
                 GCNPCResponse gcNPCR;
                 gcNPCR.setCode(NPC_RESPONSE_QUIT_DIALOGUE);

@@ -14,7 +14,7 @@ void EffectCastingIcicleTrap::affect() {
 
         //		cout << "EffectCastingIcicleTrap::affect" << endl;
 
-        // 100¹ø Ã£¾Æµµ ¾ÈµÇ¸é °üµÐ´Ù.
+        // 100ë²ˆ ì°¾ì•„ë„ ì•ˆë˜ë©´ ê´€ë‘”ë‹¤.
         for (int j = 0; j < 100; ++j) {
             int offset = rand() % m_Length;
             Dir_t dir90 = (m_Dir + 2) % 8;
@@ -38,7 +38,7 @@ void EffectCastingIcicleTrap::affect() {
             }
         }
 
-        //		cout << x << ", " << y << " ¿¡ ÀÌÆåÆ® ºÙÀÏ²²¿ë" << endl;
+        //		cout << x << ", " << y << " ì— ì´íŽ™íŠ¸ ë¶™ì¼ê»˜ìš©" << endl;
 
         if (m_bLarge) {
             EffectLargeIcicle* pEffectLargeIcicle = new EffectLargeIcicle(m_IcicleEffect, m_pZone, x, y);

@@ -2,23 +2,23 @@
 // Project     : DARKEDEN
 // Module      : Skill - Effect
 // File Name   : EffectVigorDrop.h
-// Writer      : ÀåÈ«Ã¢
+// Writer      : ì¥í™ì°½
 // Date        : 2002.3.28
 // Description :
-//               Vigor DropÀº --storm·ùÀÇ ±â¼ú°ú µ¿ÀÏÇÑ ¹æ½ÄÀ¸·Î ±¸ÇöµÇ´Â
-//               SlayerÀÇ ±â¼úÀÌ´Ù.
-//               ±â¼úÀ» »ç¿ëÇÏ°Ô µÇ¸é, ±â¼ú ½ÃÀü Áö¿ªÀ» Áß½ÉÀ¸·Î 3x3ÀÇ ¿µ¿ª¿¡
-//               EffectVigorDrop Effect°¡ ºÙ°Ô µÈ´Ù. EffectVigorDrop Effect
-//               ´Â µ¶ÀÚÀûÀ¸·Î µ¥¹ÌÁö¸¦ °¡ÇÏ´Â ±â¼úÀÌ ¾Æ´Ï¶ó.
-//               ÇØ´ç Áö¿ªÀÇ Creature¿¡°Ô EffectVigorDropToCreature Effect¸¦
-//               ºÙÀÌ°í »ç¶óÁø´Ù. EffectVigorDropToCreature´Â VigorDropÀÇ
-//               ÀüÃ¼ µ¥¹ÌÁöÀÇ 1/3¿¡ ÇØ´çÇÏ´Â Damage¸¦ 3¹ø ¿¬¼ÓÀ¸·Î ÇØ´ç
-//               Creature¿¡°Ô °¡ÇÏ°í »ç¶óÁø´Ù.
+//               Vigor Dropì€ --stormë¥˜ì˜ ê¸°ìˆ ê³¼ ë™ì¼í•œ ë°©ì‹ìœ¼ë¡œ êµ¬í˜„ë˜ëŠ”
+//               Slayerì˜ ê¸°ìˆ ì´ë‹¤.
+//               ê¸°ìˆ ì„ ì‚¬ìš©í•˜ê²Œ ë˜ë©´, ê¸°ìˆ  ì‹œì „ ì§€ì—­ì„ ì¤‘ì‹¬ìœ¼ë¡œ 3x3ì˜ ì˜ì—­ì—
+//               EffectVigorDrop Effectê°€ ë¶™ê²Œ ëœë‹¤. EffectVigorDrop Effect
+//               ëŠ” ë…ìì ìœ¼ë¡œ ë°ë¯¸ì§€ë¥¼ ê°€í•˜ëŠ” ê¸°ìˆ ì´ ì•„ë‹ˆë¼.
+//               í•´ë‹¹ ì§€ì—­ì˜ Creatureì—ê²Œ EffectVigorDropToCreature Effectë¥¼
+//               ë¶™ì´ê³  ì‚¬ë¼ì§„ë‹¤. EffectVigorDropToCreatureëŠ” VigorDropì˜
+//               ì „ì²´ ë°ë¯¸ì§€ì˜ 1/3ì— í•´ë‹¹í•˜ëŠ” Damageë¥¼ 3ë²ˆ ì—°ì†ìœ¼ë¡œ í•´ë‹¹
+//               Creatureì—ê²Œ ê°€í•˜ê³  ì‚¬ë¼ì§„ë‹¤.
 //
 // History
 //     DATE      WRITER         DESCRIPTION
 // =========== =========== =====================================================
-// 2002.3.28    ÀåÈ«Ã¢      header file ÀÛ¼º
+// 2002.3.28    ì¥í™ì°½      header file ì‘ì„±
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 #include "VigorDrop.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void VigorDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -55,7 +55,7 @@ void VigorDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
 
@@ -74,8 +74,8 @@ void VigorDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
-//  ¹ìÆÄÀÌ¾î°¡ Vigor Drop SkillÀ» Tile¿¡ »ç¿ëÇßÀ»¶§ »ç¿ëÇÏ´Â Handler
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
+//  ë±€íŒŒì´ì–´ê°€ Vigor Drop Skillì„ Tileì— ì‚¬ìš©í–ˆì„ë•Œ ì‚¬ìš©í•˜ëŠ” Handler
 //////////////////////////////////////////////////////////////////////////////
 void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -98,10 +98,10 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
         GCSkillToTileOK5 _GCSkillToTileOK5;
         GCSkillToTileOK6 _GCSkillToTileOK6;
 
-        // SkillypeÀ» °¡Áö°í
+        // Skillypeì„ ê°€ì§€ê³ 
         //    SkillInfo
-        //    SkillDomainInfoÁ¤º¸¸¦ °¡Á®¿Â´Ù.
-        //   SkillDomainÁ¤º¸´Â ±â¼úÀÌ ¼º°øÇßÀ» °æ¿ì ÇØ´ç °è¿­ÀÇ °æÇèÄ¡¸¦ ¿Ã¸®±â À§ÇÑ °ÍÀÌ´Ù.
+        //    SkillDomainInfoì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+        //   SkillDomainì •ë³´ëŠ” ê¸°ìˆ ì´ ì„±ê³µí–ˆì„ ê²½ìš° í•´ë‹¹ ê³„ì—´ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦¬ê¸° ìœ„í•œ ê²ƒì´ë‹¤.
         SkillType_t SkillType = pSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
         SkillDomainType_t DomainType = pSkillInfo->getDomainType();
@@ -136,7 +136,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // ê¸°ì¡´ì— ê°™ì€ ì´í™íŠ¸ê°€ íƒ€ì¼ì— ìˆë‹¤ë©´ ì§€ìš°ê³  ìƒˆë¡œ ì„¤ì •í•œë‹¤.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_VIGOR_DROP);
             if (pOldEffect != NULL) {
@@ -144,11 +144,11 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             // cout << "make EffectObject to Tile" << X << " " << Y << endl;
             EffectVigorDrop* pEffect = new EffectVigorDrop(pZone, X, Y);
 
-            // ¿ì¼±±Ç ½Ã½ºÅÛÀ» À§ÇÏ¿© ÀÌ¸§°ú ÆÄÆ¼ ¾ÆÀÌµğ¸¦ ³Ö´Â´Ù.
+            // ìš°ì„ ê¶Œ ì‹œìŠ¤í…œì„ ìœ„í•˜ì—¬ ì´ë¦„ê³¼ íŒŒí‹° ì•„ì´ë””ë¥¼ ë„£ëŠ”ë‹¤.
             pEffect->setCasterName(pSlayer->getName());
             pEffect->setPartyID(pSlayer->getPartyID());
 
@@ -168,9 +168,9 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
             // tile.addEffect(pEffect);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ğµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Slayer°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Slayer¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // ì´í™íŠ¸ ë²”ìœ„ë‚´ì˜ ëª¨ë“  Creatureì—ê²Œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+            // Slayerê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•œ ê²½ìš° ê°™ì€ Slayerì—ê²ŒëŠ”
+            // í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤.
             bool bEffected = false;
             bool bHit = false;
             Creature* pTargetCreature;
@@ -203,7 +203,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                                 Player* pTargetPlayer = pTargetCreature->getPlayer();
                                 bEffected = true;
 
-                                // °æÇèÄ¡ »ó½ÂÀ» À§ÇØ¼­ Hit/Don'tHie¸¦ ±â·ÏÇÑ´Ù.
+                                // ê²½í—˜ì¹˜ ìƒìŠ¹ì„ ìœ„í•´ì„œ Hit/Don'tHieë¥¼ ê¸°ë¡í•œë‹¤.
                                 bHit = true;
 
                                 bool bCanSee = canSee(pTargetCreature, pSlayer);
@@ -215,7 +215,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°İÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // ê³µê²©ì„ ë‹¹í•œ ì‚¬ëŒì—ê²Œ
                                     _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -234,7 +234,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                                 pMonster->addEnemy(pSlayer);
 
-                                // ¸¶Áö¸· ¶§¸° ¾Ö°¡ ½½·¹ÀÌ¾î¶ó°í ¼³Á¤ÇÑ´Ù. by sigi. 2002.6.21
+                                // ë§ˆì§€ë§‰ ë•Œë¦° ì• ê°€ ìŠ¬ë ˆì´ì–´ë¼ê³  ì„¤ì •í•œë‹¤. by sigi. 2002.6.21
                                 pMonster->setLastHitCreatureClass(Creature::CREATURE_CLASS_SLAYER);
                             }
                         }
@@ -242,16 +242,16 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
                 }
 
             if (bHit) {
-                // ±â¼úÀÌ Å¸ÀÏ³»¿¡¼­ ÇÑ¹øÀÌ¶óµµ ¼º°øÇßÀ»¶§¿¡´Â °æÇèÄ¡¸¦ ¹Ş´Â´Ù.
-                // ±¤¿ª±â¼ú³»¿¡¼­ ¿©·¯ CreatureÇÑÅ× µ¥¹ÌÁö¸¦ ÁØ °æ¿ì¿¡´Â ¾î¶»°Ô ÇÏ´Â°¡?
-                // 1. ÇÑ Creature¿¡°Ô ÁØ µ¥¹ÌÁö¸¦ Point·Î °è»êÇÑ´Ù.
-                // 2. ¿©·¯ Creature¿¡°Ô ÁØ µ¥¹ÌÁöÀÇ ÇÕÀ» Point·Î °è»êÇÑ´Ù.
+                // ê¸°ìˆ ì´ íƒ€ì¼ë‚´ì—ì„œ í•œë²ˆì´ë¼ë„ ì„±ê³µí–ˆì„ë•Œì—ëŠ” ê²½í—˜ì¹˜ë¥¼ ë°›ëŠ”ë‹¤.
+                // ê´‘ì—­ê¸°ìˆ ë‚´ì—ì„œ ì—¬ëŸ¬ Creatureí•œí…Œ ë°ë¯¸ì§€ë¥¼ ì¤€ ê²½ìš°ì—ëŠ” ì–´ë–»ê²Œ í•˜ëŠ”ê°€?
+                // 1. í•œ Creatureì—ê²Œ ì¤€ ë°ë¯¸ì§€ë¥¼ Pointë¡œ ê³„ì‚°í•œë‹¤.
+                // 2. ì—¬ëŸ¬ Creatureì—ê²Œ ì¤€ ë°ë¯¸ì§€ì˜ í•©ì„ Pointë¡œ ê³„ì‚°í•œë‹¤.
                 shareAttrExp(pSlayer, output.Damage, 1, 1, 8, _GCSkillToTileOK1);
                 increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
             }
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK1.setSkillType(SkillType);
             _GCSkillToTileOK1.setCEffectID(CEffectID);
             _GCSkillToTileOK1.setX(X);
@@ -259,21 +259,21 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
             _GCSkillToTileOK1.setDuration(output.Duration);
             _GCSkillToTileOK1.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(X);
             _GCSkillToTileOK3.setY(Y);
             //_GCSkillToTileOK3.setDuration(output.Duration);
             //_GCSkillToTileOK3.setRange(Range);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -281,21 +281,21 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷¿¡°Ô packet Àü´Ş
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëŒì—ê²Œ packet ì „ë‹¬
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
-            // broadcastingÈÄ 5¹øOK¸¦ ¹ŞÀº »ç¶÷À» ±â·ÏÇÑ´Ù.
-            // ¿©±â¿¡ ±â·ÏµÈ »ç¶÷Àº Â÷ÈÄ broadcasting¿¡¼­ Á¦¿ÜµÈ´Ù.
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasing
+            // broadcastingí›„ 5ë²ˆOKë¥¼ ë°›ì€ ì‚¬ëŒì„ ê¸°ë¡í•œë‹¤.
+            // ì—¬ê¸°ì— ê¸°ë¡ëœ ì‚¬ëŒì€ ì°¨í›„ broadcastingì—ì„œ ì œì™¸ëœë‹¤.
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // ±â¼ú delay setting
+            // ê¸°ìˆ  delay setting
             pSkillSlot->setRunTime(output.Delay);
         } else {
             executeSkillFailNormal(pSlayer, getSkillType(), NULL);
@@ -310,7 +310,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -358,7 +358,7 @@ void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // ê¸°ì¡´ì— ê°™ì€ ì´í™íŠ¸ê°€ íƒ€ì¼ì— ìˆë‹¤ë©´ ì§€ìš°ê³  ìƒˆë¡œ ì„¤ì •í•œë‹¤.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_VIGOR_DROP);
             if (pOldEffect != NULL) {
@@ -366,7 +366,7 @@ void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             EffectVigorDrop* pEffect = new EffectVigorDrop(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setNextTime(0);
@@ -384,9 +384,9 @@ void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             tile.addEffect(pEffect);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ğµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Slayer°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Slayer¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // ì´í™íŠ¸ ë²”ìœ„ë‚´ì˜ ëª¨ë“  Creatureì—ê²Œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+            // Slayerê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•œ ê²½ìš° ê°™ì€ Slayerì—ê²ŒëŠ”
+            // í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature;
 
@@ -428,7 +428,7 @@ void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°İÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // ê³µê²©ì„ ë‹¹í•œ ì‚¬ëŒì—ê²Œ
                                     _GCSkillToTileOK2.setObjectID(pMonster->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -442,21 +442,21 @@ void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     } // if(pTargetCreature!= NULL)
                 }
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(myX);
             _GCSkillToTileOK3.setY(myY);
             //_GCSkillToTileOK3.setDuration(output.Duration);
             //_GCSkillToTileOK3.setRange(Range);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pMonster->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -464,13 +464,13 @@ void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasing
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
         } else {

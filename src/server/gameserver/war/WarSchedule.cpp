@@ -55,7 +55,7 @@ void WarSchedule::makeWarInfo(WarInfo* pWarInfo) const
     Assert(pWar != NULL);
 
     //---------------------------------------------------
-    // ³²Àº ÀüÀï ½Ã°£ ±¸ÇÏ±â.. -_-; µû·Î »©¾ßµÅ...
+    // ë‚¨ì€ ì „ìŸ ì‹œê°„ êµ¬í•˜ê¸°.. -_-; ë”°ë¡œ ë¹¼ì•¼ë¼...
     //---------------------------------------------------
     VSDateTime dt(VSDateTime::currentDateTime());
     int endHour = m_ScheduledTime.time().hour();
@@ -80,7 +80,7 @@ void WarSchedule::makeWarInfo(WarInfo* pWarInfo) const
     //	cout << "startTime : " << startTime << endl;
 
     //---------------------------------------------------
-    // WarInfo °ª ¼³Á¤
+    // WarInfo ê°’ ì„¤ì •
     //---------------------------------------------------
     pWar->makeWarInfo(pWarInfo);
     pWarInfo->setRemainTime(remainSec);
@@ -123,7 +123,7 @@ void WarSchedule::create()
             pSiegeWar->getState2DBString().c_str());
 
         if (pStmt->getAffectedRowCount() == 0) {
-            filelog("WarError.log", "WarSchedule::create() : ÀÌ¹Ì Å×ÀÌºí¿¡ War Á¤º¸°¡ ÀÖ°Å³ª Å×ÀÌºíÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+            filelog("WarError.log", "WarSchedule::create() : ì´ë¯¸ í…Œì´ë¸”ì— War ì •ë³´ê°€ ìˆê±°ë‚˜ í…Œì´ë¸”ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
             SAFE_DELETE(pStmt);
             return;
         }
@@ -166,7 +166,7 @@ void WarSchedule::save()
             m_ScheduledTime.toDateTime().c_str(), pSiegeWar->getState2DBString().c_str());
 
         if (pStmt->getAffectedRowCount() == 0) {
-            filelog("WarError.log", "WarSchedule::create() : ÀÌ¹Ì Å×ÀÌºí¿¡ War Á¤º¸°¡ ÀÖ°Å³ª Å×ÀÌºíÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+            filelog("WarError.log", "WarSchedule::create() : ì´ë¯¸ í…Œì´ë¸”ì— War ì •ë³´ê°€ ìˆê±°ë‚˜ í…Œì´ë¸”ì´ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
             SAFE_DELETE(pStmt);
             return;
         }
@@ -197,7 +197,7 @@ void WarSchedule::tinysave(const string& query)
 
         /*		if( pStmt->getAffectedRowCount() == 0 )
                 {
-                    filelog( "WarError.log", "WarSchedule::tinySave() DB¿¡ WarScheduleÀÌ ¾ø°Å³ª Á¤º¸°¡ Àß¸øµÇ¾ú½À´Ï´Ù.
+                    filelog( "WarError.log", "WarSchedule::tinySave() DBì— WarScheduleì´ ì—†ê±°ë‚˜ ì •ë³´ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.
            ZoneID:%d, WarID:%d, Query:%s", pWarScheduler->getZone()->getZoneID(), pWar->getWarID(), query.c_str() );
                     SAFE_DELETE(pStmt);
                     return;
@@ -216,7 +216,7 @@ bool WarSchedule::heartbeat()
     __BEGIN_TRY
 
     if (Schedule::heartbeat()) {
-        // pSchedule°¡ ½ÇÇàµÇ¾ú´Ù.
+        // pScheduleê°€ ì‹¤í–‰ë˜ì—ˆë‹¤.
         if (m_pWork != NULL) {
             War* pWar = dynamic_cast<War*>(m_pWork);
             Assert(pWar != NULL);

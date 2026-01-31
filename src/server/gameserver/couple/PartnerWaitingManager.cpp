@@ -17,7 +17,7 @@ PartnerWaitInfo::PartnerWaitInfo(PlayerCreature* pWaitingPC, string RequestedPCN
     m_RequestedPCName = RequestedPCName;
     m_WaitingPCOID = pWaitingPC->getObjectID();
 
-    // Á¦ÇÑ½Ã°£ 1ºÐ
+    // ì œí•œì‹œê°„ 1ë¶„
     Timeval currentTime;
     getCurrentTime(currentTime);
     m_Deadline = currentTime;
@@ -70,7 +70,7 @@ PartnerWaitingManager::~PartnerWaitingManager() {
     m_WaitInfos.clear();
 }
 
-// »õ·Î¿î PartnerWaitInfo¸¦ ¸¸µé°í µî·ÏÇÑ´Ù.
+// ìƒˆë¡œìš´ PartnerWaitInfoë¥¼ ë§Œë“¤ê³  ë“±ë¡í•œë‹¤.
 uint PartnerWaitingManager::waitForPartner(PlayerCreature* pWaitingPC, string RequestedPCName) {
     __BEGIN_TRY
 
@@ -101,7 +101,7 @@ uint PartnerWaitingManager::waitForPartner(PlayerCreature* pWaitingPC, string Re
     if (pTargetPC == NULL)
         return COUPLE_MESSAGE_LOGOFF;
 
-    // PartnerWaitInfo ÀÇ FactoryMethod ·Î »õ·Î¿î PartnerWaitInfo ÀÇ °´Ã¼¸¦ ¸¸µç´Ù. WaitForMeet or WaitForApart
+    // PartnerWaitInfo ì˜ FactoryMethod ë¡œ ìƒˆë¡œìš´ PartnerWaitInfo ì˜ ê°ì²´ë¥¼ ë§Œë“ ë‹¤. WaitForMeet or WaitForApart
     PartnerWaitInfo* pPartnerWaitInfo = PartnerWaitInfo::getPartnerWaitInfo(pWaitingPC, RequestedPCName, getWaitType());
     Assert(pPartnerWaitInfo != NULL);
 
@@ -118,7 +118,7 @@ uint PartnerWaitingManager::waitForPartner(PlayerCreature* pWaitingPC, string Re
     __END_CATCH
 }
 
-// ÇØ´çÇÏ´Â PC°¡ ±â´Ù¸®°í ÀÖ´Â ÆÄÆ®³Ê ¿äÃ»À» Ã£¾Æ¼­ Áö¿î´Ù.
+// í•´ë‹¹í•˜ëŠ” PCê°€ ê¸°ë‹¤ë¦¬ê³  ìžˆëŠ” íŒŒíŠ¸ë„ˆ ìš”ì²­ì„ ì°¾ì•„ì„œ ì§€ìš´ë‹¤.
 bool PartnerWaitingManager::stopWaitForPartner(PlayerCreature* pWaitingPC) {
     __BEGIN_TRY
 
@@ -148,7 +148,7 @@ uint PartnerWaitingManager::acceptPartner(PlayerCreature* pRequestedPC) {
     Assert(pRequestedPC != NULL);
 
     WaitInfoHashMap::iterator itr = m_WaitInfos.find(pRequestedPC->getName());
-    // ÀÌ »ç¶÷À» ±â´Ù¸®´Â ÀÚ°¡ ¾ø´Ù.
+    // ì´ ì‚¬ëžŒì„ ê¸°ë‹¤ë¦¬ëŠ” ìžê°€ ì—†ë‹¤.
     if (itr == m_WaitInfos.end())
         return COUPLE_MESSAGE_NO_WAITING;
 
@@ -159,13 +159,13 @@ uint PartnerWaitingManager::acceptPartner(PlayerCreature* pRequestedPC) {
     if (pWaitingPC == NULL)
         return COUPLE_MESSAGE_LOGOFF;
 
-    // ¼ºº°ÀÌ °°À¸¸é ¼º»çµÉ ¼ö ¾ø´Ù.
+    // ì„±ë³„ì´ ê°™ìœ¼ë©´ ì„±ì‚¬ë  ìˆ˜ ì—†ë‹¤.
     if (pWaitingPC->getSex() == pRequestedPC->getSex())
         return COUPLE_MESSAGE_SAME_SEX;
 
     uint result = pPartnerWaitInfo->acceptPartner(pRequestedPC);
 
-    // ¼º»çµÈ ÀÌÈÄ¿£ Áö¿öÁØ´Ù.
+    // ì„±ì‚¬ëœ ì´í›„ì—” ì§€ì›Œì¤€ë‹¤.
     SAFE_DELETE(pPartnerWaitInfo);
     m_WaitInfos.erase(itr);
 
@@ -211,7 +211,7 @@ void PartnerWaitingManager::heartbeat() {
             WaitInfoHashMap::iterator delitr = itr;
             itr++;
 
-            // µ¥µå¶óÀÎÀÌ Áö³µ´Ù!
+            // ë°ë“œë¼ì¸ì´ ì§€ë‚¬ë‹¤!
             pPartnerWaitInfo->timeExpired();
             SAFE_DELETE(pPartnerWaitInfo);
             m_WaitInfos.erase(delitr);

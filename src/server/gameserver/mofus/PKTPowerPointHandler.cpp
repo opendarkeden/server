@@ -15,7 +15,7 @@
 #include "PKTSError.h"
 #include "Properties.h"
 
-// ½ÇÇà ÇÔ¼ö
+// ì‹¤í–‰ í•¨ìˆ˜
 void PKTPowerPointHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
     PKTPowerPoint* pPowerPoint = dynamic_cast<PKTPowerPoint*>(pPacket);
     Assert(pPowerPoint != NULL);
@@ -30,14 +30,14 @@ void PKTPowerPointHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
     filelog(MOFUS_PACKET_FILE, "RECV : [%s] %s", pPlayer->getJob()->getName().c_str(), pPacket->toString().c_str());
 
     //////////////////////////////////////////////////////////////////////
-    // ¹ÞÀº ÆÐÅ¶ È®ÀÎ.
+    // ë°›ì€ íŒ¨í‚· í™•ì¸.
     //////////////////////////////////////////////////////////////////////
     static int MofusServerCode = g_pConfig->getPropertyInt("MofusServerCode");
-    // °ÔÀÓ ÄÚµå È®ÀÎ
+    // ê²Œìž„ ì½”ë“œ í™•ì¸
     bool bCheckGameCode = (pPowerPoint->getGameCode() == 1);
-    // ¼­¹ö ÄÚµå È®ÀÎ
+    // ì„œë²„ ì½”ë“œ í™•ì¸
     bool bCheckGameServerCode = (pPowerPoint->getGameServerCode() == MofusServerCode);
-    // Ä³¸¯ÅÍ ÀÌ¸§ È®ÀÎ
+    // ìºë¦­í„° ì´ë¦„ í™•ì¸
     bool bCheckCharacterName = (strcasecmp(pPlayer->getJob()->getName().c_str(), pPowerPoint->getCharacterName()) == 0);
 
     if (!bCheckGameCode || !bCheckGameServerCode || !bCheckCharacterName) {
@@ -51,53 +51,53 @@ void PKTPowerPointHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
                 pPlayer->getJob()->getName().c_str(), pPowerPoint->getCharacterName(), MofusServerCode,
                 pPowerPoint->getGameServerCode());
 
-        // ¸ÅÄª Á¤º¸ È®ÀÎ ½ÇÆÐ
-        // ÆÄ¿öÂ¯ ¼­¹ö·Î È®ÀÎ ½ÇÆÐ¸¦ ¾Ë¸°´Ù.
+        // ë§¤ì¹­ ì •ë³´ í™•ì¸ ì‹¤íŒ¨
+        // íŒŒì›Œì§± ì„œë²„ë¡œ í™•ì¸ ì‹¤íŒ¨ë¥¼ ì•Œë¦°ë‹¤.
         pPlayer->sendSError(MSERR_MATCH);
 
-        // »ç¿ëÀÚ¿¡°Ô´Â ¸ÅÄª Á¤º¸ ¿À·ù·Î ¾Ë¸°´Ù.
+        // ì‚¬ìš©ìžì—ê²ŒëŠ” ë§¤ì¹­ ì •ë³´ ì˜¤ë¥˜ë¡œ ì•Œë¦°ë‹¤.
         pPlayer->setErrorCode(MERR_MATCHING);
 
-        // ÀÛ¾÷ ³¡
+        // ìž‘ì—… ë
         pPlayer->setEnd();
 
         return;
     }
     //////////////////////////////////////////////////////////////////////
 
-    // ÆÄ¿ö Æ÷ÀÎÆ® ÀúÀå
-    // 1È¸ Àü¼Û½Ã Àû¿ëÇÒ ÃÖ´ë ÆÄ¿öÂ¯ Æ÷ÀÎÆ®.
-    // ¸¸ÀÏ ÆÄ¿öÂ¯ ¼­¹ö¿¡ 60 Æ÷ÀÎÆ®°¡ ½×¿© ÀÖ°í 60 Æ÷ÀÎÆ®¸¦ ¸ðµÎ ¹Þ¾Ò°í
-    // 1È¸ Àü¼Û½Ã Àû¿ëÇÒ ÃÖ´ë ÆÄ¿öÂ¯ Æ÷ÀÎÆ®°¡ 20 ÀÏ °æ¿ì
-    // 20 ¸¸ Àû¿ëÇÏ¿© ´©ÀûÇÏ°í ³ª¸ÓÁö 40 Àº ¹ö¸°´Ù.
-    // °á°úÀûÀ¸·Î »ç¿ëÀÚ´Â ÆÄ¿öÂ¯ ¼­¹ö¿¡ ÀÖ´Â 60 Æ÷ÀÎÆ®´Â ¸ðµÎ ¾ø¾îÁö°í
-    // ´ÙÅ©¿¡µ§ DB ¿¡´Â 20 Æ÷ÀÎÆ®¸¸ ´©ÀûµÇ¾î ÀÖ´Ù.
+    // íŒŒì›Œ í¬ì¸íŠ¸ ì €ìž¥
+    // 1íšŒ ì „ì†¡ì‹œ ì ìš©í•  ìµœëŒ€ íŒŒì›Œì§± í¬ì¸íŠ¸.
+    // ë§Œì¼ íŒŒì›Œì§± ì„œë²„ì— 60 í¬ì¸íŠ¸ê°€ ìŒ“ì—¬ ìžˆê³  60 í¬ì¸íŠ¸ë¥¼ ëª¨ë‘ ë°›ì•˜ê³ 
+    // 1íšŒ ì „ì†¡ì‹œ ì ìš©í•  ìµœëŒ€ íŒŒì›Œì§± í¬ì¸íŠ¸ê°€ 20 ì¼ ê²½ìš°
+    // 20 ë§Œ ì ìš©í•˜ì—¬ ëˆ„ì í•˜ê³  ë‚˜ë¨¸ì§€ 40 ì€ ë²„ë¦°ë‹¤.
+    // ê²°ê³¼ì ìœ¼ë¡œ ì‚¬ìš©ìžëŠ” íŒŒì›Œì§± ì„œë²„ì— ìžˆëŠ” 60 í¬ì¸íŠ¸ëŠ” ëª¨ë‘ ì—†ì–´ì§€ê³ 
+    // ë‹¤í¬ì—ë´ DB ì—ëŠ” 20 í¬ì¸íŠ¸ë§Œ ëˆ„ì ë˜ì–´ ìžˆë‹¤.
     static int MaxPowerPoint = 40;
 
-    // 1È¸ Àü¼Û½Ã Àû¿ëÇÒ ÃÖ´ë ÆÄ¿öÂ¯ Æ÷ÀÎÆ® Àû¿ë
+    // 1íšŒ ì „ì†¡ì‹œ ì ìš©í•  ìµœëŒ€ íŒŒì›Œì§± í¬ì¸íŠ¸ ì ìš©
     int savepowerpoint = min(pPowerPoint->getPowerPoint(), MaxPowerPoint);
 
-    // °¡Á®¿Â ÆÄ¿ö Æ÷ÀÎÆ®¸¦ DB¿¡ ´©ÀûÇÏ¿© ÀúÀå
+    // ê°€ì ¸ì˜¨ íŒŒì›Œ í¬ì¸íŠ¸ë¥¼ DBì— ëˆ„ì í•˜ì—¬ ì €ìž¥
     savePowerPoint(pPlayer->getJob()->getName(), savepowerpoint);
 
-    // ÆÄÀÏ ·Î±×
+    // íŒŒì¼ ë¡œê·¸
     filelog(MOFUS_LOG_FILE, "SAVE PowerPoint (name:%s,savepoint:%d,recvpoint:%d)", pPlayer->getJob()->getName().c_str(),
             savepowerpoint, pPowerPoint->getPowerPoint());
 
     logPowerPoint(pPlayer->getJob()->getName(), pPowerPoint->getPowerPoint(), savepowerpoint);
 
-    // ¹ÞÀº ÆÄ¿ö Æ÷ÀÎÆ®¸¦ ´©Àû
+    // ë°›ì€ íŒŒì›Œ í¬ì¸íŠ¸ë¥¼ ëˆ„ì 
     pPlayer->addPowerPoint(savepowerpoint);
 
-    // Ã³¸® Çß´Ù´Â °á°ú¸¦ ÆÄ¿öÂ¯ ¼­¹ö¿¡ ¾Ë¸°´Ù.
+    // ì²˜ë¦¬ í–ˆë‹¤ëŠ” ê²°ê³¼ë¥¼ íŒŒì›Œì§± ì„œë²„ì— ì•Œë¦°ë‹¤.
     if (pPowerPoint->isContinue()) {
-        // ÀÛ¾÷ÀÌ ´õ ÀÖ´Ù.
+        // ìž‘ì—…ì´ ë” ìžˆë‹¤.
         pPlayer->sendReceiveOK();
     } else {
         pPlayer->sendResult();
         pPlayer->sendLogout();
 
-        // ÀÛ¾÷ ³¡ÀÌ´Ù.
+        // ìž‘ì—… ëì´ë‹¤.
         pPlayer->setEnd();
     }
 }

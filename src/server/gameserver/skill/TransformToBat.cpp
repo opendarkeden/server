@@ -24,7 +24,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y,
                              CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
@@ -47,8 +47,8 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
         Assert(pZone != NULL);
 
         Item* pItem = pInventory->getItem(X, Y);
-        // Àû´çÇÑ ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¶ó¸é ´ç¿¬È÷ º¯½ÅÇÒ ¼ö ¾ø´Ù.
-        // PKÁ¸ÀÌ¶ó¸é º¯½ÅÇÒ ¼ö ¾ø´Ù.
+        // ì ë‹¹í•œ ì•„ì´í…œì´ ì•„ë‹ˆë¼ë©´ ë‹¹ì—°ížˆ ë³€ì‹ í•  ìˆ˜ ì—†ë‹¤.
+        // PKì¡´ì´ë¼ë©´ ë³€ì‹ í•  ìˆ˜ ì—†ë‹¤.
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_VAMPIRE_ETC || pItem->getItemType() != 1 ||
             pVampire->hasRelicItem() || g_pPKZoneInfoManager->isPKZone(pZone->getZoneID()) ||
             pVampire->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET) ||
@@ -70,7 +70,7 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
         ZoneCoord_t y = pVampire->getY();
         Tile& tile = pZone->getTile(x, y);
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -94,7 +94,7 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bMoveModeCheck && bTileCheck && !bEffected) {
             TPOINT pt = findSuitablePosition(pZone, x, y, Creature::MOVE_MODE_FLYING);
 
-            if (pt.x != -1) // µé¾î°¥ ÁÂÇ¥ Ã¼Å©. by sigi. 2002.5.2
+            if (pt.x != -1) // ë“¤ì–´ê°ˆ ì¢Œí‘œ ì²´í¬. by sigi. 2002.5.2
             {
                 decreaseMana(pVampire, RequiredMP, _GCSkillToInventoryOK1);
 
@@ -102,13 +102,13 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
                 SkillOutput output;
                 computeOutput(input, output);
 
-                // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+                // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
                 EffectTransformToBat* pEffectTTW = new EffectTransformToBat(pVampire);
                 pEffectTTW->setDeadline(99999999);
                 pVampire->addEffect(pEffectTTW);
                 pVampire->setFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT);
 
-                // ÀÌ·Î ÀÎÇØ¼­ º¯ÇÏ´Â ´É·ÂÄ¡µéÀ» º¸³»ÁØ´Ù.
+                // ì´ë¡œ ì¸í•´ì„œ ë³€í•˜ëŠ” ëŠ¥ë ¥ì¹˜ë“¤ì„ ë³´ë‚´ì¤€ë‹¤.
                 VAMPIRE_RECORD prev;
                 pVampire->getVampireRecord(prev);
                 pVampire->initAllStat();
@@ -120,7 +120,7 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
 
                 pPlayer->sendPacket(&_GCSkillToInventoryOK1);
 
-                // ¹ìÆÄÀÌ¾î ´ë½Å ¹ÚÁã¸¦ ´õÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+                // ë±€íŒŒì´ì–´ ëŒ€ì‹  ë°•ì¥ë¥¼ ë”í•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
                 GCAddBat gcAddBat;
                 gcAddBat.setObjectID(pVampire->getObjectID());
                 gcAddBat.setName(pVampire->getName());
@@ -132,7 +132,7 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
                 gcAddBat.setColor(pVampire->getBatColor());
                 pZone->broadcastPacket(x, y, &gcAddBat, pVampire);
 
-                // Å¸ÀÏ¿¡´Ù Áö¿ü´Ù, ´Ù½Ã ´õÇÔÀ¸·Î¼­ ¹«ºê¸ðµå¸¦ ¹Ù²Ü ¼ö ÀÕ´Ù.
+                // íƒ€ì¼ì—ë‹¤ ì§€ì› ë‹¤, ë‹¤ì‹œ ë”í•¨ìœ¼ë¡œì„œ ë¬´ë¸Œëª¨ë“œë¥¼ ë°”ê¿€ ìˆ˜ ìž‡ë‹¤.
                 tile.deleteCreature(pVampire->getObjectID());
 
                 Tile& newtile = pZone->getTile(pt.x, pt.y);
@@ -165,7 +165,7 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TransformToBat::execute(Monster* pMonster)
 
@@ -199,16 +199,16 @@ void TransformToBat::execute(Monster* pMonster)
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectTransformToBat* pEffectTTW = new EffectTransformToBat(pMonster);
             pEffectTTW->setDeadline(99999999);
             pMonster->addEffect(pEffectTTW);
             pMonster->setFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT);
 
-            // ÀÌ·Î ÀÎÇØ¼­ º¯ÇÏ´Â ´É·ÂÄ¡µéÀ» º¸³»ÁØ´Ù.
+            // ì´ë¡œ ì¸í•´ì„œ ë³€í•˜ëŠ” ëŠ¥ë ¥ì¹˜ë“¤ì„ ë³´ë‚´ì¤€ë‹¤.
             pMonster->initAllStat();
 
-            // ¹ìÆÄÀÌ¾î ´ë½Å ¹ÚÁã¸¦ ´õÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+            // ë±€íŒŒì´ì–´ ëŒ€ì‹  ë°•ì¥ë¥¼ ë”í•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddBat gcAddBat;
             gcAddBat.setObjectID(pMonster->getObjectID());
             gcAddBat.setName(pMonster->getName());
@@ -221,7 +221,7 @@ void TransformToBat::execute(Monster* pMonster)
             pZone->broadcastPacket(x, y, &gcAddBat, pMonster);
 
 
-            // Å¸ÀÏ¿¡´Ù Áö¿ü´Ù, ´Ù½Ã ´õÇÔÀ¸·Î¼­ ¹«ºê¸ðµå¸¦ ¹Ù²Ü ¼ö ÀÕ´Ù.
+            // íƒ€ì¼ì—ë‹¤ ì§€ì› ë‹¤, ë‹¤ì‹œ ë”í•¨ìœ¼ë¡œì„œ ë¬´ë¸Œëª¨ë“œë¥¼ ë°”ê¿€ ìˆ˜ ìž‡ë‹¤.
             Tile& tile = pZone->getTile(x, y);
             tile.deleteCreature(pMonster->getObjectID());
 

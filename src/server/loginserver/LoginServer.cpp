@@ -2,7 +2,7 @@
 //
 // Filename    : LoginServer.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : ·Î±×ÀÎ ¼­¹ö¿ë ¸ÞÀÎ Å¬·¡½º
+// Description : ë¡œê·¸ì¸ ì„œë²„ìš© ë©”ì¸ í´ëž˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -36,7 +36,7 @@
 //
 // constructor
 //
-// ½Ã½ºÅÛ ¸Å´ÏÀúÀÇ constructor¿¡¼­´Â ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+// ì‹œìŠ¤í…œ ë§¤ë‹ˆì €ì˜ constructorì—ì„œëŠ” í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 LoginServer::LoginServer() throw(Error) {
@@ -53,7 +53,7 @@ LoginServer::LoginServer() throw(Error) {
     g_pZoneGroupInfoManager = new ZoneGroupInfoManager();
 
     // create packet factory manager, packet validator
-    // (Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¿Í ¼­¹ö°£Åë½Å¸Å´ÏÀúº¸´Ù ¸ÕÀú »ý¼º, ÃÊ±âÈ­µÇ¾î¾ß ÇÑ´Ù.)
+    // (í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ì™€ ì„œë²„ê°„í†µì‹ ë§¤ë‹ˆì €ë³´ë‹¤ ë¨¼ì € ìƒì„±, ì´ˆê¸°í™”ë˜ì–´ì•¼ í•œë‹¤.)
     g_pPacketFactoryManager = new PacketFactoryManager();
     g_pPacketValidator = new PacketValidator();
 
@@ -72,14 +72,14 @@ LoginServer::LoginServer() throw(Error) {
     // create GameWorldInfoManager
     g_pGameWorldInfoManager = new GameWorldInfoManager();
 
-    // login ¼­¹ö¿¡¼­´Â ºô¸µÀ» »©±â·Î ÇÑ´Ù.
-    // ¾Öµåºô ¿äÃ». by bezz 2003.04.22
+    // login ì„œë²„ì—ì„œëŠ” ë¹Œë§ì„ ë¹¼ê¸°ë¡œ í•œë‹¤.
+    // ì• ë“œë¹Œ ìš”ì²­. by bezz 2003.04.22
     // #ifdef __CONNECT_BILLING_SYSTEM__
     //  create GameWorldInfoManager
     // g_pBillingPlayerManager = new BillingPlayerManager();
     // #endif
 
-    // Áß±¹ ºô¸µ
+    // ì¤‘êµ­ ë¹Œë§
 #ifdef __CONNECT_CBILLING_SYSTEM__
     // create CBillingPlayerManager
     g_pCBillingPlayerManager = new CBillingPlayerManager();
@@ -98,7 +98,7 @@ LoginServer::LoginServer() throw(Error) {
 //
 // destructor
 //
-// ½Ã½ºÅÛ ¸Å´ÏÀúÀÇ destructor¿¡¼­´Â ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+// ì‹œìŠ¤í…œ ë§¤ë‹ˆì €ì˜ destructorì—ì„œëŠ” í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 LoginServer::~LoginServer() throw(Error) {
@@ -156,8 +156,8 @@ LoginServer::~LoginServer() throw(Error) {
         g_pGameWorldInfoManager = NULL;
     }
 
-    // login ¼­¹ö¿¡¼­´Â ºô¸µÀ» »©±â·Î ÇÑ´Ù.
-    // ¾Öµåºô ¿äÃ». by bezz 2003.04.22
+    // login ì„œë²„ì—ì„œëŠ” ë¹Œë§ì„ ë¹¼ê¸°ë¡œ í•œë‹¤.
+    // ì• ë“œë¹Œ ìš”ì²­. by bezz 2003.04.22
     // #ifdef __CONNECT_BILLING_SYSTEM__
     // if ( g_pBillingPlayerManager != NULL ) {
     // delete g_pBillingPlayerManager;
@@ -165,7 +165,7 @@ LoginServer::~LoginServer() throw(Error) {
     //}
     // #endif
 
-    // Áß±¹ ºô¸µ
+    // ì¤‘êµ­ ë¹Œë§
 #ifdef __CONNECT_CBILLING_SYSTEM__
     // destroy CBillingPlayerManager
     if (g_pCBillingPlayerManager != NULL) {
@@ -195,7 +195,7 @@ LoginServer::~LoginServer() throw(Error) {
 void LoginServer::init() throw(Error) {
     __BEGIN_TRY
 
-    // µ¥ÀÌÅ¸º£ÀÌ½º¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ë°ì´íƒ€ë² ì´ìŠ¤ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pDatabaseManager->init();
 
     // initialize some info managers
@@ -206,25 +206,25 @@ void LoginServer::init() throw(Error) {
 
     g_pGameWorldInfoManager->init();
 
-    // Å¬¶óÀÌ¾ðÆ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÏ±â Àü¿¡, ÆÐÅ¶ÆÑÅä¸®¸Å´ÏÀú/ÆÐÅ¶¹ß¸®µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•˜ê¸° ì „ì—, íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €/íŒ¨í‚·ë°œë¦¬ë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pPacketFactoryManager->init();
     g_pPacketValidator->init();
 
     g_pUserInfoManager->init();
 
-    // ¼­¹ö°£ Åë½Å ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ì„œë²„ê°„ í†µì‹  ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     g_pGameServerManager->init();
 
-    // login ¼­¹ö¿¡¼­´Â ºô¸µÀ» »©±â·Î ÇÑ´Ù.
-    // ¾Öµåºô ¿äÃ». by bezz 2003.04.22
+    // login ì„œë²„ì—ì„œëŠ” ë¹Œë§ì„ ë¹¼ê¸°ë¡œ í•œë‹¤.
+    // ì• ë“œë¹Œ ìš”ì²­. by bezz 2003.04.22
     // #ifdef __CONNECT_BILLING_SYSTEM__
-    //  ºô¸µ ¼­¹ö Á¢¼Ó ÁØºñ
+    //  ë¹Œë§ ì„œë²„ ì ‘ì† ì¤€ë¹„
     // g_pBillingPlayerManager->init();
     // #endif
 
-    // Áß±¹ ºô¸µ
+    // ì¤‘êµ­ ë¹Œë§
 #ifdef __CONNECT_CBILLING_SYSTEM__
-    // Áß±¹ ºô¸µ ¼­¹ö Á¢¼Ó ÁØºñ
+    // ì¤‘êµ­ ë¹Œë§ ì„œë²„ ì ‘ì† ì¤€ë¹„
     g_pCBillingPlayerManager->init();
 #endif
 
@@ -234,8 +234,8 @@ void LoginServer::init() throw(Error) {
 #endif
 
 
-    // ¸¸¹ÝÀÇ ÁØºñ°¡ ³¡ÀÌ ³ª¸é ÀÌÁ¦ Å¬¶óÀÌ¾ðÆ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÔÀ¸·Î½á,
-    // ³×Æ®¿öÅ·¿¡ ´ëºñÇÑ´Ù.
+    // ë§Œë°˜ì˜ ì¤€ë¹„ê°€ ëì´ ë‚˜ë©´ ì´ì œ í´ë¼ì´ì–¸íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•¨ìœ¼ë¡œì¨,
+    // ë„¤íŠ¸ì›Œí‚¹ì— ëŒ€ë¹„í•œë‹¤.
     g_pClientManager->init();
 
     __END_CATCH
@@ -250,29 +250,29 @@ void LoginServer::init() throw(Error) {
 void LoginServer::start() throw(Error) {
     __BEGIN_TRY
 
-    // ¼­¹ö°£ Åë½Å ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+    // ì„œë²„ê°„ í†µì‹  ë§¤ë‹ˆì €ë¥¼ ì‹œìž‘í•œë‹¤.
     g_pGameServerManager->start();
 
-    // login ¼­¹ö¿¡¼­´Â ºô¸µÀ» »©±â·Î ÇÑ´Ù.
-    // ¾Öµåºô ¿äÃ». by bezz 2003.04.22
+    // login ì„œë²„ì—ì„œëŠ” ë¹Œë§ì„ ë¹¼ê¸°ë¡œ í•œë‹¤.
+    // ì• ë“œë¹Œ ìš”ì²­. by bezz 2003.04.22
 // #ifdef __CONNECT_BILLING_SYSTEM__
 // g_pBillingPlayerManager->start();
 // #endif
-//  Áß±¹ ºô¸µ
+//  ì¤‘êµ­ ë¹Œë§
 #ifdef __CONNECT_CBILLING_SYSTEM__
-    // Áß±¹ ºô¸µ ¼­¹ö µ¹·Á
+    // ì¤‘êµ­ ë¹Œë§ ì„œë²„ ëŒë ¤
     g_pCBillingPlayerManager->start();
 #endif
 
     //
-    // Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì‹œìž‘í•œë‹¤.
     //
     // *Reiot's Notes*
     //
-    // °¡Àå ³ªÁß¿¡ ½ÇÇàµÇ¾î¾ß ÇÑ´Ù. ¿Ö³ÄÇÏ¸é ¸ÖÆ¼¾²·¹µå±â¹ÝÀÌ ¾Æ´Ñ
-    // ¹«ÇÑ·çÇÁ¸¦ °¡Áø ÇÔ¼öÀÌ±â ¶§¹®ÀÌ´Ù. ¸¸ÀÏ ÀÌ ´ÙÀ½¿¡ ´Ù¸¥ ÇÔ¼ö¸¦
-    // È£ÃâÇÒ °æ¿ì, ·çÇÁ°¡ ³¡³ªÁö ¾Ê´ÂÇÑ(Áï ¿¡·¯°¡ ¹ß»ýÇÏÁö ¾Ê´ÂÇÑ)
-    // ´Ù¸¥ ¸Å´ÏÀúÀÇ Ã³¸® ·çÇÁ´Â ½ÇÇàµÇÁö ¾Ê´Â´Ù.
+    // ê°€ìž¥ ë‚˜ì¤‘ì— ì‹¤í–‰ë˜ì–´ì•¼ í•œë‹¤. ì™œëƒí•˜ë©´ ë©€í‹°ì“°ë ˆë“œê¸°ë°˜ì´ ì•„ë‹Œ
+    // ë¬´í•œë£¨í”„ë¥¼ ê°€ì§„ í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì´ë‹¤. ë§Œì¼ ì´ ë‹¤ìŒì— ë‹¤ë¥¸ í•¨ìˆ˜ë¥¼
+    // í˜¸ì¶œí•  ê²½ìš°, ë£¨í”„ê°€ ëë‚˜ì§€ ì•ŠëŠ”í•œ(ì¦‰ ì—ëŸ¬ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”í•œ)
+    // ë‹¤ë¥¸ ë§¤ë‹ˆì €ì˜ ì²˜ë¦¬ ë£¨í”„ëŠ” ì‹¤í–‰ë˜ì§€ ì•ŠëŠ”ë‹¤.
     //
     g_pClientManager->start();
 
@@ -284,32 +284,32 @@ void LoginServer::start() throw(Error) {
 //
 // stop login server
 //
-// stop ¼ø¼­¿¡ À¯ÀÇÇÏµµ·Ï ÇÏÀÚ. °¡Àå ¿µÇâÀ» ¸¹ÀÌ ÁÖ´Â ¸Å´ÏÀúºÎÅÍ
-// stop ½ÃÄÑ¾ß ÇÑ´Ù. ¸¸ÀÏ ¹Ý´ëÀÇ ¼ø¼­·Î stop ½ÃÅ³ °æ¿ì null pointer
-// °°Àº Çö»óÀÌ ¹ß»ýÇÒ ¼ö ÀÖ´Ù.
+// stop ìˆœì„œì— ìœ ì˜í•˜ë„ë¡ í•˜ìž. ê°€ìž¥ ì˜í–¥ì„ ë§Žì´ ì£¼ëŠ” ë§¤ë‹ˆì €ë¶€í„°
+// stop ì‹œì¼œì•¼ í•œë‹¤. ë§Œì¼ ë°˜ëŒ€ì˜ ìˆœì„œë¡œ stop ì‹œí‚¬ ê²½ìš° null pointer
+// ê°™ì€ í˜„ìƒì´ ë°œìƒí•  ìˆ˜ ìžˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void LoginServer::stop() throw(Error) {
     __BEGIN_TRY
 
-    // ³ªÁß¿¡ ÀÌ ºÎºÐÀ» ÄÚ¸àÆ®È­ÇØ¾ß ÇÑ´Ù.
+    // ë‚˜ì¤‘ì— ì´ ë¶€ë¶„ì„ ì½”ë©˜íŠ¸í™”í•´ì•¼ í•œë‹¤.
     throw UnsupportedError();
 
-    // °¡Àå ¸ÕÀú Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¸¦ »èÁ¦½ÃÅ´À¸·Î½á ´õÀÌ»ó »õ Á¢¼ÓÀ» ¹ÞÁö ¾Êµµ·Ï ÇÑ´Ù.
+    // ê°€ìž¥ ë¨¼ì € í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì‚­ì œì‹œí‚´ìœ¼ë¡œì¨ ë”ì´ìƒ ìƒˆ ì ‘ì†ì„ ë°›ì§€ ì•Šë„ë¡ í•œë‹¤.
     g_pClientManager->stop();
 
     //
     g_pGameServerManager->stop();
 
-    // login ¼­¹ö¿¡¼­´Â ºô¸µÀ» »©±â·Î ÇÑ´Ù.
-    // ¾Öµåºô ¿äÃ». by bezz 2003.04.22
+    // login ì„œë²„ì—ì„œëŠ” ë¹Œë§ì„ ë¹¼ê¸°ë¡œ í•œë‹¤.
+    // ì• ë“œë¹Œ ìš”ì²­. by bezz 2003.04.22
     // #ifdef __CONNECT_BILLING_SYSTEM__
     // g_pBillingPlayerManager->stop();
     // #endif
 
-    // Áß±¹ ºô¸µ
+    // ì¤‘êµ­ ë¹Œë§
 #ifdef __CONNECT_CBILLING_SYSTEM__
-    // Áß±¹ ºô¸µ ¼­¹ö ¼¼¿ö
+    // ì¤‘êµ­ ë¹Œë§ ì„œë²„ ì„¸ì›Œ
     g_pCBillingPlayerManager->stop();
 #endif
 

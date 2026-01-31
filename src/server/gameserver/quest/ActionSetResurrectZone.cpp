@@ -35,7 +35,7 @@ void ActionSetResurrectZone::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSetResurrectZone::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -47,7 +47,7 @@ void ActionSetResurrectZone::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pCreature1->isNPC());
     Assert(pCreature2->isPC());
 
-    // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ¼­ OK ÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+    // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ì„œ OK íŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
     GCNPCResponse okpkt;
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);

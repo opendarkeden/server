@@ -46,9 +46,9 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
         Item* pMouseItem = pPC->getExtraInventorySlotItem();
         bool Success = false;
 
-        // ¸¶¿ì½º¿¡ ¾ÆÀÌÅÛÀÌ ´Þ·ÁÀÖ³ª?
-        // À¯´ÏÅ© ¾ÆÀÌÅÛÀº º¸°üÇÔ¿¡ ¸ø ³Ö´Â´Ù.
-        // canPutInStash·Î extract 2003. 3. 3
+        // ë§ˆìš°ìŠ¤ì— ì•„ì´í…œì´ ë‹¬ë ¤ìžˆë‚˜?
+        // ìœ ë‹ˆí¬ ì•„ì´í…œì€ ë³´ê´€í•¨ì— ëª» ë„£ëŠ”ë‹¤.
+        // canPutInStashë¡œ extract 2003. 3. 3
         if (pMouseItem == NULL || !canPutInStash(pMouseItem)
             //			|| pMouseItem->isUnique())
         ) {
@@ -62,8 +62,8 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
         BYTE rack = pPacket->getRack();
         BYTE index = pPacket->getIndex();
 
-        // Á¤»óÀûÀÎ ÁÂÇ¥°ªÀÎ°¡? ¿ÀºêÁ§Æ® ¾ÆÀÌµð´Â ÀÏÄ¡ÇÏ³ª?
-        // RelicÀº º¸°üÇÔ¿¡ ÀúÀåµÉ ¼ö ¾ø´Ù.
+        // ì •ìƒì ì¸ ì¢Œí‘œê°’ì¸ê°€? ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ëŠ” ì¼ì¹˜í•˜ë‚˜?
+        // Relicì€ ë³´ê´€í•¨ì— ì €ìž¥ë  ìˆ˜ ì—†ë‹¤.
         if (rack >= STASH_RACK_MAX || index >= STASH_INDEX_MAX || rack >= pPC->getStashNum() ||
             MouseItemOID != pPacket->getObjectID()) {
             GCCannotAdd _GCCannotAdd;
@@ -72,12 +72,12 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
             return;
         }
 
-        // ³ÖÀ»·Á´Â Stash SlotÀÇ ItemÀ» ¹Þ¾Æ¿Â´Ù.
+        // ë„£ì„ë ¤ëŠ” Stash Slotì˜ Itemì„ ë°›ì•„ì˜¨ë‹¤.
         Item* pStashItem = pStash->get(rack, index);
 
-        // ±× Àå¼Ò¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é
+        // ê·¸ ìž¥ì†Œì— ì•„ì´í…œì´ ìžˆë‹¤ë©´
         if (pStashItem != NULL) {
-            // ¾ÆÀÌÅÛ Å¬·¡½º°¡ °°À»¶§ ¼ýÀÚ¸¦ ¿Ã·Á ÁÖ°í ¸¶¿ì½º¿¡ ÀÖ´Â °ÍÀº ¾ø¾Ø´Ù.
+            // ì•„ì´í…œ í´ëž˜ìŠ¤ê°€ ê°™ì„ë•Œ ìˆ«ìžë¥¼ ì˜¬ë ¤ ì£¼ê³  ë§ˆìš°ìŠ¤ì— ìžˆëŠ” ê²ƒì€ ì—†ì•¤ë‹¤.
             if (isSameItem(pMouseItem, pStashItem) && isStackable(pMouseItem)) {
                 int MaxStack = ItemMaxStack[pMouseItem->getItemClass()];
 
@@ -88,15 +88,15 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
                     pStashItem->setNum(MaxStack);
                     pMouseItem->setNum(AddNum + CurrentNum - MaxStack);
 
-                    // ¹Ù²ï Á¤º¸¸¦ DB¿¡ ÀúÀåÇÑ´Ù.
+                    // ë°”ë€ ì •ë³´ë¥¼ DBì— ì €ìž¥í•œë‹¤.
                     // pStashItem->save(pPC->getName(), STORAGE_STASH, 0, rack, index);
-                    // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    // itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     char pField[80];
                     sprintf(pField, "Num=%d, Storage=%d, X=%d, Y=%d", MaxStack, STORAGE_STASH, rack, index);
                     pStashItem->tinysave(pField);
 
                     // pMouseItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-                    //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     sprintf(pField, "Num=%d, Storage=%d", pMouseItem->getNum(), STORAGE_EXTRASLOT);
                     pMouseItem->tinysave(pField);
 
@@ -110,7 +110,7 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
 
                     pStashItem->setNum(pStashItem->getNum() + pMouseItem->getNum());
                     // pStashItem->save(pPC->getName(), STORAGE_STASH, 0, rack, index);
-                    //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     char pField[80];
                     sprintf(pField, "Num=%d, Storage=%d, X=%d, Y=%d", pStashItem->getNum(), STORAGE_STASH, rack, index);
                     pStashItem->tinysave(pField);
@@ -118,35 +118,35 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
 
                     // log(LOG_STASH_ADD_ITEM, pPC->getName(), "", pMouseItem->toString());
 
-                    // µÎ°³ÀÇ ¾ÆÀÌÅÛÀÌ ÇÏ³ª·Î µÇ¾úÀ¸´Ï±î,
-                    // ´õÇÏ¶ó°í ¿Â ¾ÆÀÌÅÛÀº »èÁ¦ÇØ ÁØ´Ù.
+                    // ë‘ê°œì˜ ì•„ì´í…œì´ í•˜ë‚˜ë¡œ ë˜ì—ˆìœ¼ë‹ˆê¹Œ,
+                    // ë”í•˜ë¼ê³  ì˜¨ ì•„ì´í…œì€ ì‚­ì œí•´ ì¤€ë‹¤.
                     pMouseItem->destroy();
                     SAFE_DELETE(pMouseItem);
 
                     Success = true;
                 }
-            } else // ¾ÆÀÌÅÛ Å¬·¡½º°¡ ´Ù¸£°Å³ª, ½×ÀÌ´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¶ó¸é.
+            } else // ì•„ì´í…œ í´ëž˜ìŠ¤ê°€ ë‹¤ë¥´ê±°ë‚˜, ìŒ“ì´ëŠ” ì•„ì´í…œì´ ì•„ë‹ˆë¼ë©´.
             {
-                // º¸°üÇÔ¿¡ ÀÖ´ø °ÍÀ» ¸¶¿ì½º¿¡ ´Þ¾ÆÁØ´Ù.
+                // ë³´ê´€í•¨ì— ìžˆë˜ ê²ƒì„ ë§ˆìš°ìŠ¤ì— ë‹¬ì•„ì¤€ë‹¤.
                 pPC->deleteItemFromExtraInventorySlot();
                 pPC->addItemToExtraInventorySlot(pStashItem);
 
                 //				pStashItem->whenPCTake(pPC);
 
-                // Stash¿¡ ¸¶¿ì½º¿¡ ´Þ·ÁÀÖ´ø ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
+                // Stashì— ë§ˆìš°ìŠ¤ì— ë‹¬ë ¤ìžˆë˜ ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
                 pStash->remove(rack, index);
                 pStash->insert(rack, index, pMouseItem);
 
                 //				pMouseItem->whenPCLost(pPC);
 
                 // pStashItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-                //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                 char pField[80];
                 sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
                 pStashItem->tinysave(pField);
 
                 // pMouseItem->save(pPC->getName(), STORAGE_STASH, 0, rack, index);
-                //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                 sprintf(pField, "Storage=%d, X=%d, Y=%d", STORAGE_STASH, rack, index);
                 pMouseItem->tinysave(pField);
 
@@ -155,14 +155,14 @@ void CGMouseToStashHandler::execute(CGMouseToStash* pPacket, Player* pPlayer)
 
                 Success = true;
             }
-        } else // ±× Àå¼Ò¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é.
+        } else // ê·¸ ìž¥ì†Œì— ì•„ì´í…œì´ ì—†ë‹¤ë©´.
         {
-            // Stash¿¡ Æ¯Á¤ ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
+            // Stashì— íŠ¹ì • ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
             pStash->insert(rack, index, pMouseItem);
             pPC->deleteItemFromExtraInventorySlot();
             //			pMouseItem->whenPCLost(pPC);
             // pMouseItem->save(pPC->getName(), STORAGE_STASH, 0, rack, index);
-            // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+            // itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
             char pField[80];
             sprintf(pField, "Storage=%d, X=%d, Y=%d", STORAGE_STASH, rack, index);
             pMouseItem->tinysave(pField);

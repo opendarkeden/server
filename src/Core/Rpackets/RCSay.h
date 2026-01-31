@@ -18,16 +18,16 @@
 //
 // class RCSay;
 //
-// ³»°¡ ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¸»ÇÏ´Â ÆĞÅ¶
+// ë‚´ê°€ ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë§í•˜ëŠ” íŒ¨í‚·
 //
 //----------------------------------------------------------------------
 
 class RCSay : public DatagramPacket {
 public:
-    // Datagram °´Ã¼¿¡¼­ºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // Datagram ê°ì²´ì—ì„œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Datagram& iDatagram) throw(ProtocolException, Error);
 
-    // Datagram °´Ã¼·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // Datagram ê°ì²´ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(Datagram& oDatagram) const throw(ProtocolException, Error);
 
     // execute packet's handler

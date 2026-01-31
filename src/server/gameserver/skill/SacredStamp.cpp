@@ -10,7 +10,7 @@
 #include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SacredStamp::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) {
     __BEGIN_TRY
@@ -21,7 +21,7 @@ void SacredStamp::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
     Creature* pTargetCreature = pZone->getCreature(targetObjectID);
     // Assert(pTargetCreature != NULL);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetCreature == NULL) {
         executeSkillFailException(pSlayer, getSkillType());
         return;
@@ -60,7 +60,7 @@ void SacredStamp::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Holy Smashing ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 10% Áõ°¡
+    // Holy Smashing ì´ ìžˆë‹¤ë©´ ë°ë¯¸ì§€ 10% ì¦ê°€
     if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING)) {
         RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING);
         Assert(pRankBonus != NULL);

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGShopRequestSellHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -35,8 +35,8 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î°¡ ÆÈ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö È®ÀÎÇÑ ´ÙÀ½¿¡,
-// ÀÏ¹İ ¾ÆÀÌÅÛ°ú ¸ğÅÍ »çÀÌÅ¬ Ã³¸® ºÎºĞÀ¸·Î ºĞ±âÇÑ´Ù.
+// í”Œë ˆì´ì–´ê°€ íŒ”ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ í™•ì¸í•œ ë‹¤ìŒì—,
+// ì¼ë°˜ ì•„ì´í…œê³¼ ëª¨í„° ì‚¬ì´í´ ì²˜ë¦¬ ë¶€ë¶„ìœ¼ë¡œ ë¶„ê¸°í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::execute(CGShopRequestSell* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -53,7 +53,7 @@ void CGShopRequestSellHandler::execute(CGShopRequestSell* pPacket, Player* pPlay
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
     if (OPCODE == SHOP_REQUEST_SELL_NORMAL) {
-        // ÇÃ·¹ÀÌ¾î°¡ ÆÈ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö °Ë»ç
+        // í”Œë ˆì´ì–´ê°€ íŒ”ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬
         Inventory* pInventory = pPC->getInventory();
         if (pInventory->hasItem(ITEMOID) == false)
             throw ProtocolException("CGShopRequestSellHandler::execute() : No such item to sell!");
@@ -67,15 +67,15 @@ void CGShopRequestSellHandler::execute(CGShopRequestSell* pPacket, Player* pPlay
         // ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() );
         // Assert(pItemInfo!=NULL);
 
-        // À¯´ÏÅ© ¾ÆÀÌÅÛÀº ¸øÆÇ´Ù.
-        // Æ¯Á¤ ¾ÆÀÌÅÛ Å¬·¡½º´Â ÆÈ ¼ö ¾ø´Ù. by sigi. 2002.8.29
-        // ¼±¹° »óÀÚ´Â ÆÈ ¼ö ÀÖ´Ù. by bezz. 2002.12.13
-        // Ä¿ÇÃ¸µÀº ÆÈ ¼ö ¾ø´Ù. by Sequoia. 2003. 3. 3
-        // ItemUtil ¾È¿¡ canSell ·Î Extract 2003. 3. 3
+        // ìœ ë‹ˆí¬ ì•„ì´í…œì€ ëª»íŒë‹¤.
+        // íŠ¹ì • ì•„ì´í…œ í´ë˜ìŠ¤ëŠ” íŒ” ìˆ˜ ì—†ë‹¤. by sigi. 2002.8.29
+        // ì„ ë¬¼ ìƒìëŠ” íŒ” ìˆ˜ ìˆë‹¤. by bezz. 2002.12.13
+        // ì»¤í”Œë§ì€ íŒ” ìˆ˜ ì—†ë‹¤. by Sequoia. 2003. 3. 3
+        // ItemUtil ì•ˆì— canSell ë¡œ Extract 2003. 3. 3
         if (!canSell(pItem)) {
             return sendFailPacket(pPacket, pPlayer);
         }
-        // ÓĞÊ±¼äÏŞÖÆµÄÎïÆ·²»ÈÃ³öÊÛ
+        // å”ç‚ì‡Œæ˜é½¡ë¨è† í‹”ê¼‡íš»ë†”ç°¡
         // add by Coffee 2007-8-5
         if (pItem->isTimeLimitItem()) {
             return sendFailPacket(pPacket, pPlayer);
@@ -102,7 +102,7 @@ void CGShopRequestSellHandler::execute(CGShopRequestSell* pPacket, Player* pPlay
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ÀÏ¹İ ¾ÆÀÌÅÛÀ» Ã³¸®ÇÑ´Ù.
+// ì¼ë°˜ ì•„ì´í…œì„ ì²˜ë¦¬í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player* pPlayer) {
@@ -134,7 +134,7 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
     }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pNPCBase = pZone->getCreature(NPCID);
 
     if (pNPCBase == NULL || !pNPCBase->isNPC())
@@ -142,25 +142,25 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
 
     NPC* pNPC = dynamic_cast<NPC*>(pNPCBase);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ÆÈ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö °Ë»ç
+    // í”Œë ˆì´ì–´ê°€ íŒ”ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬
     Inventory* pInventory = pPC->getInventory();
     // Gold_t     playerMoney = pPC->getGold();
     Item* pItem = pInventory->getItemWithObjectID(ITEMOID);
     ItemNum_t itemNumber = pItem->getNum();
     Price_t itemPrice = g_pPriceManager->getPrice(pItem, pNPC->getMarketCondBuy(), SHOP_RACK_NORMAL, pPC) * itemNumber;
 
-    // ÇÃ·¹ÀÌ¾îÀÇ ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì˜ ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì„ ì œê±°í•œë‹¤.
     pInventory->deleteItem(ITEMOID);
     pItem->whenPCLost(pPC);
 
     if (!pItem->destroy()) {
         filelog("shopDBBug.txt", "NoSuchItemInDB-destroy: %s", pItem->toString().c_str());
 
-        throw DisconnectException("¾ÆÀÌÅÛ Áö¿ï·Á´Âµ¥ DB¿¡ ¾ø´Ù.");
+        throw DisconnectException("ì•„ì´í…œ ì§€ìš¸ë ¤ëŠ”ë° DBì— ì—†ë‹¤.");
     }
 
-    // ¸¸¾à º§Æ®¶ó¸é ¾È¿¡ ÀÖ´Â Æ÷¼ÇÀ» »èÁ¦ÇØÁØ´Ù.
-    // DB¿¡¼­ Áö¿ì´Â °ÍÀº Belt::destroy()¸¦ ºÎ¸£´Â °Í¸¸À¸·Î Æ÷¼Ç±îÁö »èÁ¦µÈ´Ù.
+    // ë§Œì•½ ë²¨íŠ¸ë¼ë©´ ì•ˆì— ìˆëŠ” í¬ì…˜ì„ ì‚­ì œí•´ì¤€ë‹¤.
+    // DBì—ì„œ ì§€ìš°ëŠ” ê²ƒì€ Belt::destroy()ë¥¼ ë¶€ë¥´ëŠ” ê²ƒë§Œìœ¼ë¡œ í¬ì…˜ê¹Œì§€ ì‚­ì œëœë‹¤.
     if (pItem->getItemClass() == Item::ITEM_CLASS_BELT) {
         Inventory* pBeltInventory = dynamic_cast<Belt*>(pItem)->getInventory();
         for (int y = 0; y < pBeltInventory->getHeight(); y++) {
@@ -174,46 +174,46 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
         }
     }
 
-    // Skull ÀÏ °æ¿ì Variable Manager ¿¡¼­ ¸Ó¸®°ª ¹è¼ö °ªÀ¸·Î °¡°İÀ» »õ·Î °è»êÇÑ´Ù
+    // Skull ì¼ ê²½ìš° Variable Manager ì—ì„œ ë¨¸ë¦¬ê°’ ë°°ìˆ˜ ê°’ìœ¼ë¡œ ê°€ê²©ì„ ìƒˆë¡œ ê³„ì‚°í•œë‹¤
     if (pItem->getItemClass() == Item::ITEM_CLASS_SKULL) {
         itemPrice = itemPrice * (g_pVariableManager->getHeadPriceBonus() / 100);
     }
 
-    // ItemTrace Log ¸¦ ³²°Ü¾ß ÇÑ´Ù¸é ³²±ä´Ù
+    // ItemTrace Log ë¥¼ ë‚¨ê²¨ì•¼ í•œë‹¤ë©´ ë‚¨ê¸´ë‹¤
     if (pItem != NULL && pItem->isTraceItem()) {
         remainTraceLog(pItem, pCreature->getName(), pNPC->getName(), ITEM_LOG_DELETE, DETAIL_SHOPSELL);
     }
 
-    // ÇÃ·¹ÀÌ¾î¿¡°Ô ¹°°Ç°ªÀ» ÁöºÒÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì—ê²Œ ë¬¼ê±´ê°’ì„ ì§€ë¶ˆí•œë‹¤.
     // pPC->setGoldEx(playerMoney+itemPrice);
     // by sigi. 2002.9.4
     pPC->increaseGoldEx(itemPrice);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹°°Ç ÆÈ ¶§ Ã³¸®ÇÒ °ÍµéÀ» Ã³¸®ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ë¬¼ê±´ íŒ” ë•Œ ì²˜ë¦¬í•  ê²ƒë“¤ì„ ì²˜ë¦¬í•œë‹¤.
     pPC->sellItem(pItem);
 
     if (pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 4) {
         addOlympicStat(pPC, 4, (uint)(itemNumber));
     }
 
-    // NPC¿¡°Ô ÀÚ¸®°¡ ÃæºĞÇÏ´Ù¸é ÇÃ·¹ÀÌ¾î°¡ ÆÇ ¾ÆÀÌÅÛÀ» º¸°üÇÑ´Ù.
-    // ¿î¿µÀÚ ¸í·É¾î·Î ¸¸µç ¾ÆÀÌÅÛÀº ¹Ù·Î ¾ø¾Ø´Ù.
-    // ´Ü ½ºÆä¼È ¾ÆÀÌÅÛ¸¸À» º¸°üÇÑ´Ù. ³ë¸» ¾ÆÀÌÅÛÀº ±×³É ¹ö¸².
-    // Äù½ºÆ® ¾ÆÀÌÅÛÀº º¸°üÇÏÁö ¾Ê°í ¹ö¸°´Ù.
+    // NPCì—ê²Œ ìë¦¬ê°€ ì¶©ë¶„í•˜ë‹¤ë©´ í”Œë ˆì´ì–´ê°€ íŒ ì•„ì´í…œì„ ë³´ê´€í•œë‹¤.
+    // ìš´ì˜ì ëª…ë ¹ì–´ë¡œ ë§Œë“  ì•„ì´í…œì€ ë°”ë¡œ ì—†ì•¤ë‹¤.
+    // ë‹¨ ìŠ¤í˜ì…œ ì•„ì´í…œë§Œì„ ë³´ê´€í•œë‹¤. ë…¸ë§ ì•„ì´í…œì€ ê·¸ëƒ¥ ë²„ë¦¼.
+    // í€˜ìŠ¤íŠ¸ ì•„ì´í…œì€ ë³´ê´€í•˜ì§€ ì•Šê³  ë²„ë¦°ë‹¤.
     if (pNPC->getShopType() == SHOPTYPE_NORMAL && pItem->getCreateType() != Item::CREATE_TYPE_CREATE &&
         !pItem->getOptionTypeList().empty() && !pItem->isTimeLimitItem()) {
         bSpecialItem = true;
         index = pNPC->getFirstEmptySlot(SHOP_RACK_SPECIAL);
 
         if (index < SHOP_RACK_INDEX_MAX) {
-            // ¾ÆÀÌÅÛÀ» Ãß°¡ÇÑ´Ù.
+            // ì•„ì´í…œì„ ì¶”ê°€í•œë‹¤.
             pNPC->insertShopItem(SHOP_RACK_SPECIAL, index, pItem);
 
-            // ½ºÆä¼È ¾ÆÀÌÅÛÀ» NPC°¡ Áø¿­Àå¿¡ Ãß°¡ÇßÀ¸¹Ç·Î, »óÁ¡ ¹öÀüÀÌ ¿Ã¶ó°£´Ù.
+            // ìŠ¤í˜ì…œ ì•„ì´í…œì„ NPCê°€ ì§„ì—´ì¥ì— ì¶”ê°€í–ˆìœ¼ë¯€ë¡œ, ìƒì  ë²„ì „ì´ ì˜¬ë¼ê°„ë‹¤.
             pNPC->increaseShopVersion(SHOP_RACK_SPECIAL);
 
             ////////////////////////////////////////////////////////////////////////////
-            // ±ÙÃ³ÀÇ ÇÃ·¹ÀÌ¾îµé¿¡°Ô´Â GCShopBought¸¦...
+            // ê·¼ì²˜ì˜ í”Œë ˆì´ì–´ë“¤ì—ê²ŒëŠ” GCShopBoughtë¥¼...
             ////////////////////////////////////////////////////////////////////////////
 
             int CenterX = pNPC->getX();
@@ -245,23 +245,23 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
             try {
                 for (int zx = CenterX - 5; zx <= CenterX + 5; zx++) {
                     for (int zy = CenterY - 5; zy <= CenterY + 5; zy++) {
-                        // ¹Ù¿îµå¸¦ ³Ñ¾î°¡Áö ¾Ê´Â°¡¸¦ Ã¼Å©
+                        // ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ì§€ ì•ŠëŠ”ê°€ë¥¼ ì²´í¬
                         if (!isValidZoneCoord(pZone, zx, zy))
                             continue;
 
                         Tile& tile = pZone->getTile(zx, zy);
 
-                        // °É¾î´Ù´Ï´Â Å©¸®ÃÄ¸¦ °Ë»ö
+                        // ê±¸ì–´ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ë¥¼ ê²€ìƒ‰
                         if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) {
                             pNearCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
                             if (pNearCreature == NULL)
                                 continue;
 
-                            // ¹æ±İ ¹°°ÇÀ» ÆÇ ÇÃ·¹ÀÌ¾î¶ó¸é »ı·«
+                            // ë°©ê¸ˆ ë¬¼ê±´ì„ íŒ í”Œë ˆì´ì–´ë¼ë©´ ìƒëµ
                             if (pNearCreature->getObjectID() == pPC->getObjectID())
                                 continue;
 
-                            // ¸¸¾à ÇÃ·¹ÀÌ¾î¶ó¸é ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                            // ë§Œì•½ í”Œë ˆì´ì–´ë¼ë©´ íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                             if (pNearCreature->isPC()) {
                                 pNearPlayer = pNearCreature->getPlayer();
                                 if (pNearPlayer == NULL)
@@ -269,17 +269,17 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
                                 pNearPlayer->sendPacket(&boughtpkt);
                             }
                         }
-                        // ³¯¾Æ´Ù´Ï´Â Å©¸®ÃÄ¸¦ °Ë»ö
+                        // ë‚ ì•„ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ë¥¼ ê²€ìƒ‰
                         if (tile.hasCreature(Creature::MOVE_MODE_FLYING)) {
                             pNearCreature = tile.getCreature(Creature::MOVE_MODE_FLYING);
                             if (pNearCreature == NULL)
                                 continue;
 
-                            // ¹æ±İ ¹°°ÇÀ» ÆÇ ÇÃ·¹ÀÌ¾î¶ó¸é »ı·«
+                            // ë°©ê¸ˆ ë¬¼ê±´ì„ íŒ í”Œë ˆì´ì–´ë¼ë©´ ìƒëµ
                             if (pNearCreature->getObjectID() == pPC->getObjectID())
                                 continue;
 
-                            // ¸¸¾à ÇÃ·¹ÀÌ¾î¶ó¸é ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                            // ë§Œì•½ í”Œë ˆì´ì–´ë¼ë©´ íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                             if (pNearCreature->isPC()) {
                                 pNearPlayer = pNearCreature->getPlayer();
                                 if (pNearPlayer == NULL)
@@ -304,7 +304,7 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
         SAFE_DELETE(pItem);
     }
 
-    // ¹°°ÇÀ» »ê ÇÃ·¹ÀÌ¾î¿¡°Ô GCShopSellOK¸¦...º¸³½´Ù.
+    // ë¬¼ê±´ì„ ì‚° í”Œë ˆì´ì–´ì—ê²Œ GCShopSellOKë¥¼...ë³´ë‚¸ë‹¤.
     GCShopSellOK okpkt;
     okpkt.setObjectID(NPCID);
     if (bSpecialItem)
@@ -313,7 +313,7 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
         okpkt.setShopVersion(pNPC->getShopVersion(SHOP_RACK_NORMAL));
     okpkt.setItemObjectID(ITEMOID);
     // okpkt.setPrice(playerMoney+itemPrice);
-    //  playerMoney + itemPrice °¡ MAX_MONEY¸¦ ³Ñ¾î°¥ ¼ö ÀÖ´Ù.
+    //  playerMoney + itemPrice ê°€ MAX_MONEYë¥¼ ë„˜ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
     //  2003.1.8 by bezz
     okpkt.setPrice(pPC->getGold());
     pPlayer->sendPacket(&okpkt);
@@ -326,7 +326,7 @@ void CGShopRequestSellHandler::executeNormal(CGShopRequestSell* pPacket, Player*
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ¸ğÅÍ »çÀÌÅ¬À» Ã³¸®ÇÑ´Ù.
+// ëª¨í„° ì‚¬ì´í´ì„ ì²˜ë¦¬í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Player* pPlayer) {
@@ -334,7 +334,7 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
 
 #ifdef __GAME_SERVER__
 
-        // ÆĞÅ¶ Á¤º¸¸¦ »Ì¾Æ³½´Ù.
+        // íŒ¨í‚· ì •ë³´ë¥¼ ë½‘ì•„ë‚¸ë‹¤.
         ObjectID_t NPCID = pPacket->getObjectID();
     ObjectID_t ITEMOID = pPacket->getItemObjectID();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -357,7 +357,7 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
     }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pNPCBase = pZone->getCreature(NPCID);
 
     if (pNPCBase == NULL || !pNPCBase->isNPC())
@@ -367,18 +367,18 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
     int CenterX = pNPC->getX();
     int CenterY = pNPC->getY();
 
-    // ÇÃ·¹ÀÌ¾î°¡ ÆÈ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö °Ë»ç
+    // í”Œë ˆì´ì–´ê°€ íŒ”ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬
     Inventory* pInventory = pPC->getInventory();
     Gold_t playerMoney = pPC->getGold();
     Item* pItem = pInventory->getItemWithObjectID(ITEMOID);
     if (pItem == NULL)
         return sendFailPacket(pPacket, pPlayer);
 
-    // ÁÖÀ§ ÀÏÁ¤ ¹üÀ§¸¦ °Ë»öÇØ¼­, ¸ğÅÍ »çÀÌÅ¬ÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // ì£¼ìœ„ ì¼ì • ë²”ìœ„ë¥¼ ê²€ìƒ‰í•´ì„œ, ëª¨í„° ì‚¬ì´í´ì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     try {
         for (int zx = CenterX - 5; zx <= CenterX + 5; zx++) {
             for (int zy = CenterY - 5; zy <= CenterY + 5; zy++) {
-                // ¹Ù¿îµå¸¦ ³Ñ¾î°¡Áö ¾Ê´Â°¡¸¦ Ã¼Å©
+                // ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ì§€ ì•ŠëŠ”ê°€ë¥¼ ì²´í¬
                 if (!isValidZoneCoord(pZone, zx, zy))
                     continue;
 
@@ -388,30 +388,30 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
                     if (pItemOnTile == NULL)
                         continue;
 
-                    // ¸¸ÀÏ ¾ÆÀÌÅÛÀÌ Å¸ÀÏ À§¿¡ ÀÖÀ» °æ¿ì, ¸ğÅÍ »çÀÌÅ¬ÀÎÁö È®ÀÎÇÑ´Ù.
+                    // ë§Œì¼ ì•„ì´í…œì´ íƒ€ì¼ ìœ„ì— ìˆì„ ê²½ìš°, ëª¨í„° ì‚¬ì´í´ì¸ì§€ í™•ì¸í•œë‹¤.
                     if (pItemOnTile->getItemClass() == Item::ITEM_CLASS_MOTORCYCLE) {
                         DWORD targetID = dynamic_cast<Key*>(pItem)->getTarget();
                         ItemID_t motorcycleID = pItemOnTile->getItemID();
 
                         if (targetID == motorcycleID) {
-                            // ¸ğÅÍ»çÀÌÅ¬À» DB¿¡¼­ »èÁ¦ÇÑ´Ù.
+                            // ëª¨í„°ì‚¬ì´í´ì„ DBì—ì„œ ì‚­ì œí•œë‹¤.
                             pItemOnTile->destroy();
 
-                            // ÇÃ·¹ÀÌ¾îÀÇ ÀÎº¥Åä¸®¿¡¼­ ¿­¼è¸¦ Á¦°ÅÇÑ´Ù.
+                            // í”Œë ˆì´ì–´ì˜ ì¸ë²¤í† ë¦¬ì—ì„œ ì—´ì‡ ë¥¼ ì œê±°í•œë‹¤.
                             pInventory->deleteItem(ITEMOID);
                             pItem->destroy();
                             SAFE_DELETE(pItem);
 
-                            // ¿­¼è °ªÀÌ ¾Æ´Ï¶ó, ¿ÀÅä¹ÙÀÌ °ªÀ» Áà¾ß ÇÑ´Ù.
+                            // ì—´ì‡  ê°’ì´ ì•„ë‹ˆë¼, ì˜¤í† ë°”ì´ ê°’ì„ ì¤˜ì•¼ í•œë‹¤.
                             Price_t itemPrice =
                                 g_pPriceManager->getPrice(pItemOnTile, pNPC->getMarketCondBuy(), SHOP_RACK_NORMAL, pPC);
 
-                            // ÇÃ·¹ÀÌ¾îÀÇ µ·À» ´Ã¸°´Ù.
+                            // í”Œë ˆì´ì–´ì˜ ëˆì„ ëŠ˜ë¦°ë‹¤.
                             // pPC->setGoldEx(playerMoney+itemPrice);
                             // by sigi. 2002.9.4
                             pPC->increaseGoldEx(itemPrice);
 
-                            // ¹°°ÇÀ» ÆÇ ÇÃ·¹ÀÌ¾î¿¡°Ô GCShopSellOK¸¦...º¸³½´Ù.
+                            // ë¬¼ê±´ì„ íŒ í”Œë ˆì´ì–´ì—ê²Œ GCShopSellOKë¥¼...ë³´ë‚¸ë‹¤.
                             GCShopSellOK okpkt;
                             okpkt.setObjectID(NPCID);
                             if (!pItemOnTile->getOptionTypeList().empty())
@@ -422,19 +422,19 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
                             okpkt.setPrice(playerMoney + itemPrice);
                             pPlayer->sendPacket(&okpkt);
 
-                            // »¶Å· ¼¾ÅÍ¿¡¼­ ¹Ú½º¸¦ »èÁ¦ÇØ ÁØ´Ù.
+                            // ë»‘í‚¹ ì„¼í„°ì—ì„œ ë°•ìŠ¤ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
                             if (g_pParkingCenter->hasMotorcycleBox(motorcycleID))
                                 g_pParkingCenter->deleteMotorcycleBox(motorcycleID);
 
-                            // NPC¿¡°Ô ÀÚ¸®°¡ ÃæºĞÇÏ´Ù¸é ÇÃ·¹ÀÌ¾î°¡ ÆÇ ¾ÆÀÌÅÛÀ» º¸°üÇÑ´Ù.
-                            // ´Ü ½ºÆä¼È ¾ÆÀÌÅÛ¸¸À» º¸°üÇÑ´Ù. ³ë¸» ¾ÆÀÌÅÛÀº ±×³É ¹ö¸².
+                            // NPCì—ê²Œ ìë¦¬ê°€ ì¶©ë¶„í•˜ë‹¤ë©´ í”Œë ˆì´ì–´ê°€ íŒ ì•„ì´í…œì„ ë³´ê´€í•œë‹¤.
+                            // ë‹¨ ìŠ¤í˜ì…œ ì•„ì´í…œë§Œì„ ë³´ê´€í•œë‹¤. ë…¸ë§ ì•„ì´í…œì€ ê·¸ëƒ¥ ë²„ë¦¼.
                             // if (pItemOnTile->getOptionType() != 0)
                             //{
                             //	index = pNPC->getFirstEmptySlot(SHOP_RACK_SPECIAL);
                             //	if (index < SHOP_RACK_INDEX_MAX)
                             //	{
                             //		pNPC->insertShopItem(SHOP_RACK_SPECIAL, index, pItemOnTile);
-                            //		// ½ºÆä¼È ¾ÆÀÌÅÛÀ» NPC°¡ Áø¿­Àå¿¡ Ãß°¡ÇßÀ¸¹Ç·Î, »óÁ¡ ¹öÀüÀÌ ¿Ã¶ó°£´Ù.
+                            //		// ìŠ¤í˜ì…œ ì•„ì´í…œì„ NPCê°€ ì§„ì—´ì¥ì— ì¶”ê°€í–ˆìœ¼ë¯€ë¡œ, ìƒì  ë²„ì „ì´ ì˜¬ë¼ê°„ë‹¤.
                             //		pNPC->increaseShopVersion(SHOP_RACK_SPECIAL);
                             //	}
                             //}
@@ -443,7 +443,7 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
                             //	SAFE_DELETE(pItemOnTile);
                             //}
 
-                            // ¸ğÅÍ »çÀÌÅ¬À» Ã£¾ÒÀ¸¹Ç·Î, ÇÒ ÀÏÀÌ ³¡³µ´Ù.
+                            // ëª¨í„° ì‚¬ì´í´ì„ ì°¾ì•˜ìœ¼ë¯€ë¡œ, í•  ì¼ì´ ëë‚¬ë‹¤.
                             return;
                         }
                     }
@@ -454,8 +454,8 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
         filelog("shopbug_packet.log", "%s", t.toString().c_str());
     }
 
-    // FOR ·çÇÁ¸¦ ´Ù µ¹°í, ÀÌ±îÁö ¿Ô´Ù´Â °ÍÀº ±ÙÃ³¿¡ ¿ÀÅä¹ÙÀÌ°¡ ¾ø´Ù´Â ¸»ÀÌ´ç...
-    // ±×·¯¹Ç·Î ¸ğÅÍ »çÀÌÅ¬ ÆÈ±â°¡ ½ÇÆĞÇß´Ù´Â °ÍÀ» ¾Ë¸°´Ù.
+    // FOR ë£¨í”„ë¥¼ ë‹¤ ëŒê³ , ì´ê¹Œì§€ ì™”ë‹¤ëŠ” ê²ƒì€ ê·¼ì²˜ì— ì˜¤í† ë°”ì´ê°€ ì—†ë‹¤ëŠ” ë§ì´ë‹¹...
+    // ê·¸ëŸ¬ë¯€ë¡œ ëª¨í„° ì‚¬ì´í´ íŒ”ê¸°ê°€ ì‹¤íŒ¨í–ˆë‹¤ëŠ” ê²ƒì„ ì•Œë¦°ë‹¤.
     GCShopSellFail failpkt;
     failpkt.setObjectID(NPCID);
     pPlayer->sendPacket(&failpkt);
@@ -467,7 +467,7 @@ void CGShopRequestSellHandler::executeMotorcycle(CGShopRequestSell* pPacket, Pla
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ÇØ°ñ ÇÑ²¨¹ø¿¡ ÆÈ±â¸¦ ½ÇÇàÇÑ´Ù.
+// í•´ê³¨ í•œêº¼ë²ˆì— íŒ”ê¸°ë¥¼ ì‹¤í–‰í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::executeOpAllSkull(CGShopRequestSell* pPacket, Player* pPlayer) {
@@ -496,7 +496,7 @@ void CGShopRequestSellHandler::executeOpAllSkull(CGShopRequestSell* pPacket, Pla
     }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pNPCBase = pZone->getCreature(NPCID);
 
     if (pNPCBase == NULL || !pNPCBase->isNPC())
@@ -513,9 +513,9 @@ void CGShopRequestSellHandler::executeOpAllSkull(CGShopRequestSell* pPacket, Pla
         for (uint x = 0; x < pInventory->getWidth(); x++) {
             pItem = pInventory->getItem(x, y);
 
-            // ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏ°í, ÇØ°ñÀÌ¶ó¸é...
+            // ì•„ì´í…œì´ ì¡´ì¬í•˜ê³ , í•´ê³¨ì´ë¼ë©´...
             if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SKULL) {
-                // ¾ÆÀÌÅÛ °¡°İÀ» °è»êÇØ¼­ ÇÃ·¹ÀÌ¾îÀÇ µ·¿¡´Ù ´õÇÑ´Ù.
+                // ì•„ì´í…œ ê°€ê²©ì„ ê³„ì‚°í•´ì„œ í”Œë ˆì´ì–´ì˜ ëˆì—ë‹¤ ë”í•œë‹¤.
                 // itemPrice = g_pPriceManager->getPrice(pItem, pNPC->getMarketCondBuy(), SHOP_RACK_NORMAL, pPC) *
                 // pItem->getNum(); playerMoney += itemPrice;
 
@@ -523,7 +523,7 @@ void CGShopRequestSellHandler::executeOpAllSkull(CGShopRequestSell* pPacket, Pla
                 itemPrice +=
                     g_pPriceManager->getPrice(pItem, pNPC->getMarketCondBuy(), SHOP_RACK_NORMAL, pPC) * pItem->getNum();
 
-                // ÀÎº¥Åä¸® ¹× DB¿¡¼­ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÑ´Ù.
+                // ì¸ë²¤í† ë¦¬ ë° DBì—ì„œ ì•„ì´í…œì„ ì‚­ì œí•œë‹¤.
                 pInventory->deleteItem(x, y);
                 pItem->destroy();
                 SAFE_DELETE(pItem);
@@ -533,12 +533,12 @@ void CGShopRequestSellHandler::executeOpAllSkull(CGShopRequestSell* pPacket, Pla
 
     itemPrice = itemPrice * (g_pVariableManager->getHeadPriceBonus() / 100);
 
-    // ÇÃ·¹ÀÌ¾î¿¡°Ô ¹°°Ç°ªÀ» ÁöºÒÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì—ê²Œ ë¬¼ê±´ê°’ì„ ì§€ë¶ˆí•œë‹¤.
     // pPC->setGoldEx(playerMoney);
     // by sigi. 2002.9.4
     pPC->increaseGoldEx(itemPrice);
 
-    // ¹°°ÇÀ» »ê ÇÃ·¹ÀÌ¾î¿¡°Ô GCShopSellOK¸¦...º¸³½´Ù.
+    // ë¬¼ê±´ì„ ì‚° í”Œë ˆì´ì–´ì—ê²Œ GCShopSellOKë¥¼...ë³´ë‚¸ë‹¤.
     GCShopSellOK okpkt;
     okpkt.setObjectID(NPCID);
     okpkt.setShopVersion(pNPC->getShopVersion(SHOP_RACK_NORMAL));
@@ -908,7 +908,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
     if (!pItem->destroy()) {
         filelog("shopDBBug.txt", "NoSuchItemInDB-destroy: %s", pItem->toString().c_str());
 
-        throw DisconnectException("¾ÆÀÌÅÛ Áö¿ï·Á´Âµ¥ DB¿¡ ¾ø´Ù.");
+        throw DisconnectException("ì•„ì´í…œ ì§€ìš¸ë ¤ëŠ”ë° DBì— ì—†ë‹¤.");
     }
 
     pZone->registerObject(pNewItem);
@@ -920,7 +920,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
     okpkt.setPrice(0);
     pGamePlayer->sendPacket(&okpkt);
 
-    // ItemTrace Log ¸¦ ³²°Ü¾ß ÇÑ´Ù¸é ³²±ä´Ù
+    // ItemTrace Log ë¥¼ ë‚¨ê²¨ì•¼ í•œë‹¤ë©´ ë‚¨ê¸´ë‹¤
     if (pItem != NULL && pItem->isTraceItem()) {
         remainTraceLog(pItem, pCreature->getName(), pNPC->getName(), ITEM_LOG_DELETE, DETAIL_SHOPSELL);
     }
@@ -947,7 +947,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 }
 //////////////////////////////////////////////////////////////////////////////
 //
-// ¹°°Ç ÆÈ±â°¡ ½ÇÆĞÇß´Ù´Â Á¤º¸¸¦ ³¯·ÁÁØ´ô.
+// ë¬¼ê±´ íŒ”ê¸°ê°€ ì‹¤íŒ¨í–ˆë‹¤ëŠ” ì •ë³´ë¥¼ ë‚ ë ¤ì¤€ëŒœ.
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::sendFailPacket(CGShopRequestSell* pPacket, Player* pPlayer) {

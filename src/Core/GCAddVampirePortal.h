@@ -2,8 +2,8 @@
 // Filename    : GCAddVampirePortal.h
 // Written By  : excel96
 // Description :
-// ¹ìÆÄÀÌ¾î Æ÷Å»Àº ÇöÀç ÀÌÆåÆ®ÀÇ ÀÏÁ¾À¸·Î¼­ ±¸ÇöµÇ´Âµ¥, ÀÌ ÆÐÅ¶Àº
-// Å¬¶óÀÌ¾ðÆ®¿¡°Ô ¹Ù´Ú¿¡´Ù ¹ìÆÄÀÌ¾î Æ÷Å» ÀÌÆåÆ®¸¦ ºÙÀÌ¶ó´Â ÆÐÅ¶ÀÌ´Ù.
+// ë±€íŒŒì´ì–´ í¬íƒˆì€ í˜„ìž¬ ì´íŽ™íŠ¸ì˜ ì¼ì¢…ìœ¼ë¡œì„œ êµ¬í˜„ë˜ëŠ”ë°, ì´ íŒ¨í‚·ì€
+// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë°”ë‹¥ì—ë‹¤ ë±€íŒŒì´ì–´ í¬íƒˆ ì´íŽ™íŠ¸ë¥¼ ë¶™ì´ë¼ëŠ” íŒ¨í‚·ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ADD_VAMPIRE_PORTAL_H__
@@ -102,15 +102,15 @@ public:
 
 
 private:
-    ObjectID_t m_ObjectID;   // ÀÌÆåÆ®ÀÇ OID
-    string m_OwnerID;        // Æ÷Å» ÁÖÀÎ
-    Duration_t m_Duration;   // Æ÷Å»ÀÇ Áö¼Ó ½Ã°£
-    Coord_t m_X;             // Æ÷Å»ÀÌ ºÙ¾îÀÖ´Â Å¸ÀÏÀÇ ÁÂÇ¥ x
-    Coord_t m_Y;             // Æ÷Å»ÀÌ ºÙ¾îÀÖ´Â Å¸ÀÏÀÇ ÁÂÇ¥ y
-    ZoneID_t m_TargetZoneID; // Æ÷Å»ÀÇ ¸ñÇ¥ Á¸ ID
-    Coord_t m_TargetX;       // Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ x
-    Coord_t m_TargetY;       // Æ÷Å»ÀÇ ¸ñÇ¥ ÁÂÇ¥ y
-    BYTE m_CreateFlag;       // ¹æ±Ý »ý¼ºµÇ¾ú´Â°¡? (0ÀÌ¸é »ý¼ºµÈÁö ½Ã°£ÀÌ Á» Áö³­ °Í...)
+    ObjectID_t m_ObjectID;   // ì´íŽ™íŠ¸ì˜ OID
+    string m_OwnerID;        // í¬íƒˆ ì£¼ì¸
+    Duration_t m_Duration;   // í¬íƒˆì˜ ì§€ì† ì‹œê°„
+    Coord_t m_X;             // í¬íƒˆì´ ë¶™ì–´ìžˆëŠ” íƒ€ì¼ì˜ ì¢Œí‘œ x
+    Coord_t m_Y;             // í¬íƒˆì´ ë¶™ì–´ìžˆëŠ” íƒ€ì¼ì˜ ì¢Œí‘œ y
+    ZoneID_t m_TargetZoneID; // í¬íƒˆì˜ ëª©í‘œ ì¡´ ID
+    Coord_t m_TargetX;       // í¬íƒˆì˜ ëª©í‘œ ì¢Œí‘œ x
+    Coord_t m_TargetY;       // í¬íƒˆì˜ ëª©í‘œ ì¢Œí‘œ y
+    BYTE m_CreateFlag;       // ë°©ê¸ˆ ìƒì„±ë˜ì—ˆëŠ”ê°€? (0ì´ë©´ ìƒì„±ëœì§€ ì‹œê°„ì´ ì¢€ ì§€ë‚œ ê²ƒ...)
 };
 
 //////////////////////////////////////////////////////////////////////////////

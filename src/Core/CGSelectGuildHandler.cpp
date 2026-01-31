@@ -34,7 +34,7 @@ void CGSelectGuildHandler::execute(CGSelectGuild* pPacket, Player* pPlayer)
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     Creature* pCreature = dynamic_cast<Creature*>(pGamePlayer->getCreature());
 
-    // ¼±ÅÃÇÑ ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ì„ íƒí•œ ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
 
     // try { Assert( pGuild != NULL ); } catch ( Throwable& t ) {

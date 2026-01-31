@@ -18,9 +18,9 @@
 //
 // class GCGlobalChat;
 //
-// ���� ������ Ư�� �÷��̾��� GlobalChat �� �ٸ� �÷��̾�鿡�� ��ε�ĳ��Ʈ
-// �� �� �����ϴ� ��Ŷ�̴�. ���ο� ĳ���͸��� GlobalChat ��Ʈ���� ����Ÿ
-// �ʵ�� ������ �ִ�.
+// 게임 서버가 특정 플레이어의 GlobalChat 를 다른 플레이어들에게 브로드캐스트
+// 할 때 전송하는 패킷이다. 내부에 캐릭터명과 GlobalChat 스트링을 데이타
+// 필드로 가지고 있다.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,10 +28,10 @@ class GCGlobalChat : public Packet {
 public:
     GCGlobalChat() {};
     ~GCGlobalChat() {};
-    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
     void read(SocketInputStream& iStream);
 
-    // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -119,7 +119,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCGlobalChatPacketMaxSize �� ����, �����϶�.
+    // const static GCGlobalChatPacketMaxSize 를 정의, 리턴하라.
     PacketSize_t getPacketMaxSize() const {
         return szuint + szBYTE + 128 + szBYTE;
     }

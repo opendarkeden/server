@@ -10,7 +10,7 @@
 #include "SimpleMeleeSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidTouch::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                         CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void AcidTouch::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Tiger Nail ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 10% Áõ°¡
+    // Tiger Nail ì´ ìˆë‹¤ë©´ ë°ë¯¸ì§€ 10% ì¦ê°€
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
         Assert(pRankBonus != NULL);
@@ -46,7 +46,7 @@ void AcidTouch::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
         param.SkillDamage += getPercentValue(param.SkillDamage, pRankBonus->getPoint());
     }
 
-    // Knowledge of Acid °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Acid ê°€ ìˆë‹¤ë©´ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
@@ -63,7 +63,7 @@ void AcidTouch::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidTouch::execute(Monster* pMonster, Creature* pEnemy)
 

@@ -85,7 +85,7 @@ public:
 private:
     SkillType_t m_SkillType; // SkillType
     ObjectID_t m_ObjectID;   // ObjectID
-    // º¸Á¶ ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ. 0ÀÌ¸é ¸ŞÀÎ ÀÎº¥Åä¸®¿¡¼­ »ç¿ë
+    // ë³´ì¡° ì¸ë²¤í† ë¦¬ ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””. 0ì´ë©´ ë©”ì¸ ì¸ë²¤í† ë¦¬ì—ì„œ ì‚¬ìš©
     ObjectID_t m_InventoryItemObjectID;
     CoordInven_t m_X;       // Coord X
     CoordInven_t m_Y;       // Coord Y

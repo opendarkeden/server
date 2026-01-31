@@ -112,25 +112,25 @@ void UpdateServer::run() throw() {
         const int exitFlagSize = 1;
         char exitFlag[exitFlagSize];
 
-        // pipe·Î child¿Í Åë½Å.. ÇãÁ¢ÇÏÁö¸¸. by sigi. 2002.11.9
+        // pipeë¡œ childì™€ í†µì‹ .. í—ˆì ‘í•˜ì§€ë§Œ. by sigi. 2002.11.9
         if (pipe(p) < 0) {
             // cout << "cannot create pipe" << endl;
             exit(0);
         }
 
-        // nonblock ¼³Á¤
+        // nonblock ì„¤ì •
         int flags = fcntl(p[0], F_GETFL, 0);
         flags |= O_NONBLOCK;
         fcntl(p[0], F_SETFL, flags);
 
-        // ÇöÀç Á¢¼ÓÁßÀÎ client ¼ıÀÚ
+        // í˜„ì¬ ì ‘ì†ì¤‘ì¸ client ìˆ«ì
         int nClient = 0;
         int maxClient = g_pConfig->getPropertyInt("MaxClient");
 
         int connectClient = 0;
         int disconnectClient = 0;
 
-        // fork ÇÑ°è·Î exception catchÇÒ¶§ »ç¿ë by sigi. 2002.11.9
+        // fork í•œê³„ë¡œ exception catchí• ë•Œ ì‚¬ìš© by sigi. 2002.11.9
         bool bBeforeFork = false;
 
         int tick = 0;
@@ -168,7 +168,7 @@ void UpdateServer::run() throw() {
 
                 /*
                             pSocket->setNonBlocking(false);
-                            // ¼ÒÄÏÀÇ ¹öÆÛ¸¦ ´Ã¸°´Ù.
+                            // ì†Œì¼“ì˜ ë²„í¼ë¥¼ ëŠ˜ë¦°ë‹¤.
                             pSocket->setSendBufferSize(60000000);
                             pSocket->setReceiveBufferSize(100000000);
                 */
@@ -197,16 +197,16 @@ void UpdateServer::run() throw() {
                 }
 
 
-                // child°¡ Á¾·áµÈ°Å¸¦ Ã¼Å©ÇØÁØ´Ù.	 by sigi. 2002.11.9
+                // childê°€ ì¢…ë£Œëœê±°ë¥¼ ì²´í¬í•´ì¤€ë‹¤.	 by sigi. 2002.11.9
                 int nExitClient = 0;
                 while (1) {
                     int nRead = read(p[0], exitFlag, exitFlagSize);
 
-                    // ÀĞÀ»°Ô ¾ø´Â °æ¿ì´Ù.
+                    // ì½ì„ê²Œ ì—†ëŠ” ê²½ìš°ë‹¤.
                     if (nRead == -1)
                         break;
 
-                    // ÇÏ³ªÀÇ child°¡ Á¾·áµÆ´Ù´Â ¾ê±â´Ù.
+                    // í•˜ë‚˜ì˜ childê°€ ì¢…ë£Œëë‹¤ëŠ” ì–˜ê¸°ë‹¤.
                     nExitClient++;
                     disconnectClient++;
                 }
@@ -221,7 +221,7 @@ void UpdateServer::run() throw() {
                 getCurrentTime(currentTime);
 
                 if (nextTime.tv_sec < currentTime.tv_sec) {
-                    // Á¢¼ÓÁö ±â·Ï
+                    // ì ‘ì†ì§€ ê¸°ë¡
                     unordered_map<string, int>::const_iterator itr = IPs.begin();
                     for (; itr != IPs.end(); itr++) {
                         const string& IP = itr->first;
@@ -247,7 +247,7 @@ void UpdateServer::run() throw() {
                 }
 
 
-                // »ç¿ëÀÚ Á¦ÇÑÀ» µĞ´Ù. by sigi. 2002.11.9
+                // ì‚¬ìš©ì ì œí•œì„ ë‘”ë‹¤. by sigi. 2002.11.9
                 if (nClient > maxClient) {
                     // cout << "Not Accept More: " << nClient << "/" << maxClient << endl;
                     delete pSocket;
@@ -257,7 +257,7 @@ void UpdateServer::run() throw() {
                 }
 
                 //--------------------------------------------------------------------------------
-                // ¿øÈ°ÇÑ ¾÷µ¥ÀÌÆ®¸¦ À§ÇØ¼­, select ´ë½Å fork()¸¦ »ç¿ëÇØ¼­ 1:1 ¼­¹ö¸¦ ±¸ÇöÇÑ´Ù.
+                // ì›í™œí•œ ì—…ë°ì´íŠ¸ë¥¼ ìœ„í•´ì„œ, select ëŒ€ì‹  fork()ë¥¼ ì‚¬ìš©í•´ì„œ 1:1 ì„œë²„ë¥¼ êµ¬í˜„í•œë‹¤.
                 //--------------------------------------------------------------------------------
                 bool bBeforeFork = true;
                 nClient++;
@@ -291,8 +291,8 @@ void UpdateServer::run() throw() {
 
                     // cout << "CHILD PROCESS EXIT" << endl;
 
-                    // ·çÇÁ¸¦ ¹ş¾î³ª¼­ ÇÁ·Î¼¼½º¸¦ Á¾·áÇÑ´Ù.
-                    write(p[1], exitFlag, exitFlagSize); // parent¿¡°Ô ¾Ë¸°´Ù. by sigi. 2002.11.9
+                    // ë£¨í”„ë¥¼ ë²—ì–´ë‚˜ì„œ í”„ë¡œì„¸ìŠ¤ë¥¼ ì¢…ë£Œí•œë‹¤.
+                    write(p[1], exitFlag, exitFlagSize); // parentì—ê²Œ ì•Œë¦°ë‹¤. by sigi. 2002.11.9
                     exit(0);
 
                 } else { // case of parent
@@ -307,9 +307,9 @@ void UpdateServer::run() throw() {
 
 
             } catch (Error& e) {
-                // fork°¡ ¾ÈµÈ °æ¿ì
+                // forkê°€ ì•ˆëœ ê²½ìš°
                 if (bBeforeFork) {
-                    // ¹«½Ã
+                    // ë¬´ì‹œ
                     filelog("parentExceptionLog.txt", "%s", e.toString().c_str());
                 } else {
                     filelog("parentExceptionLog.txt", "%s", e.toString().c_str());
@@ -334,15 +334,15 @@ void UpdateServer::run() throw() {
 
 //--------------------------------------------------------------------------------
 //
-// ½Ã½ºÅÛ ·¹º§ÀÇ ÃÊ±âÈ­
+// ì‹œìŠ¤í…œ ë ˆë²¨ì˜ ì´ˆê¸°í™”
 //
 //--------------------------------------------------------------------------------
 void UpdateServer::sysinit() throw(Error) {
     __BEGIN_TRY
 
-    signal(SIGPIPE, SIG_IGN); // ÀÌ°Å´Â Á¾Á¾ ¹ß»ıÇÒ µí
-    signal(SIGALRM, SIG_IGN); // ¾Ë¶÷ ÇÏ´Â °æ¿ì´Â ¾öµû, ¿¹ÀÇ»ó
-    signal(SIGCHLD, SIG_IGN); // fork ÇÏ´Â °æ¿ì´Â ¾öµû, ¿¹ÀÇ»ó
+    signal(SIGPIPE, SIG_IGN); // ì´ê±°ëŠ” ì¢…ì¢… ë°œìƒí•  ë“¯
+    signal(SIGALRM, SIG_IGN); // ì•ŒëŒ í•˜ëŠ” ê²½ìš°ëŠ” ì—„ë”°, ì˜ˆì˜ìƒ
+    signal(SIGCHLD, SIG_IGN); // fork í•˜ëŠ” ê²½ìš°ëŠ” ì—„ë”°, ì˜ˆì˜ìƒ
 
     __END_CATCH
 }
@@ -350,8 +350,8 @@ void UpdateServer::sysinit() throw(Error) {
 
 //--------------------------------------------------------------------------------
 //
-// ³ªÁß¿¡ ÄÜ¼Ö·Î Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾ø¾îÁú ¸¸Å­ ¾ÈÁ¤ÀûÀÌ µÇ¸é,
-// ÀÌ ÇÔ¼ö¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+// ë‚˜ì¤‘ì— ì½˜ì†”ë¡œ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì–´ì§ˆ ë§Œí¼ ì•ˆì •ì ì´ ë˜ë©´,
+// ì´ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 void UpdateServer::goBackground() throw(Error) {

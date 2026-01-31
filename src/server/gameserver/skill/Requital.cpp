@@ -15,7 +15,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ºø«¡ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ ÏÖÄÌîÑ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void Requital::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,20 +49,20 @@ void Requital::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             //			cout << "Requital Success" << endl;
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // ∞Ê«Ëƒ°∏¶ ø√∑¡¡ÿ¥Ÿ.
+            // Í≤ΩÌóòÏπòÎ•º Ïò¨Î†§Ï§ÄÎã§.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ¿Ã∆Â∆Æ¿« »ø∞˙øÕ ¡ˆº”Ω√∞£¿ª ∞ËªÍ«—¥Ÿ.
+            // Ïù¥ÌéôÌä∏Ïùò Ìö®Í≥ºÏôÄ ÏßÄÏÜçÏãúÍ∞ÑÏùÑ Í≥ÑÏÇ∞ÌïúÎã§.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_SELF;
             computeOutput(input, output);
 
-            // ¿Ã∆Â∆Æ∏¶ ª˝º∫«ÿº≠ ∫Ÿ¿Œ¥Ÿ
+            // Ïù¥ÌéôÌä∏Î•º ÏÉùÏÑ±Ìï¥ÏÑú Î∂ôÏù∏Îã§
             EffectRequital* pRequital = new EffectRequital(pSlayer);
             pRequital->setDeadline(output.Duration);
             pRequital->setReflection(output.Damage);
@@ -74,7 +74,7 @@ void Requital::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             pSlayer->initAllStat();
             pSlayer->addModifyInfo(prev, _GCSkillToSelfOK1);
 
-            // ∆–≈∂¿ª ¡ÿ∫Ò«ÿº≠ ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌï¥ÏÑú Î≥¥ÎÇ∏Îã§.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
 
@@ -89,7 +89,7 @@ void Requital::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(myX, myY, &_GCSkillToSelfOK2, pSlayer);
 
-            // ¿Ã∆Â∆Æ∞° ∫Ÿæ˙¥Ÿ∞Ì æÀ∑¡¡ÿ¥Ÿ.
+            // Ïù¥ÌéôÌä∏Í∞Ä Î∂ôÏóàÎã§Í≥† ÏïåÎ†§Ï§ÄÎã§.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_REQUITAL);

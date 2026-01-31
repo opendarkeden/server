@@ -2,7 +2,7 @@
 // Filename    : ActionSetPosition.h
 // Written By  :
 // Description :
-// NPC �� �ʱ� ��ġ�� �����Ѵ�.  1ȸ�� ����Ǿ�� �Ѵ�.
+// NPC 의 초기 위치를 설정한다.  1회만 실행되어야 한다.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_SET_POSITION_H__

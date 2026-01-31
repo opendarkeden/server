@@ -67,8 +67,8 @@ void EffectBloodDrain::unaffect(Creature* pFromCreature)
 
         Assert(pPlayer != NULL);
 
-        // GamePlayer¿¡ Event¸¦ ºÙ¿©¼­ heartbeat¸¦ ´Ù ¼öÇàÇÑÈÄ Áö¿öÁØ´Ù.
-        // µ¿±âÈ­ ¹®Á¦°¡ ¾øÀ»±î? -_-; ´ÙÀÌ¾î±×·¥ »óÀ¸·Ğ ¹®Á¦°¡ ¾øÁã¸¸ -_-;
+        // GamePlayerì— Eventë¥¼ ë¶™ì—¬ì„œ heartbeatë¥¼ ë‹¤ ìˆ˜í–‰í•œí›„ ì§€ì›Œì¤€ë‹¤.
+        // ë™ê¸°í™” ë¬¸ì œê°€ ì—†ì„ê¹Œ? -_-; ë‹¤ì´ì–´ê·¸ë¨ ìƒìœ¼ë¡  ë¬¸ì œê°€ ì—†ì¥ë§Œ -_-;
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
         pGamePlayer->deleteEvent(Event::EVENT_CLASS_REGENERATION);
@@ -87,7 +87,7 @@ void EffectBloodDrain::unaffect(Creature* pFromCreature)
 
         destroy(pFromCreature->getName());
     } else {
-        // ½Ã¾ß º¹±¸.
+        // ì‹œì•¼ ë³µêµ¬.
         Assert(pFromCreature->isOusters());
 
         Player* pPlayer = pFromCreature->getPlayer();
@@ -111,7 +111,7 @@ void EffectBloodDrain::unaffect(Creature* pFromCreature)
             pFromCreature->getPlayer()->sendPacket(&gcChangeDarkLight);
         }
 
-        // DB¿¡¼­ Áö¿ö»Ó´Ù.
+        // DBì—ì„œ ì§€ì›Œë¿ë‹¤.
         destroy(pFromCreature->getName());
     }
 

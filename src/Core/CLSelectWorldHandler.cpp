@@ -26,7 +26,7 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ¿ùµå ¼±ÅÃ
+// ì›”ë“œ ì„ íƒ
 //////////////////////////////////////////////////////////////////////////////
 void CLSelectWorldHandler::execute(CLSelectWorld* pPacket, Player* pPlayer)
 
@@ -49,14 +49,14 @@ void CLSelectWorldHandler::execute(CLSelectWorld* pPacket, Player* pPlayer)
         throw DisconnectException("WorldID over");
     }
 
-    // closeµÈ »óÅÂ¿¡¼­ ¸ø µé¾î¿À°Ô ¸·±â. by sigi. 2002.1.7
+    // closeëœ ìƒíƒœì—ì„œ ëª» ë“¤ì–´ì˜¤ê²Œ ë§‰ê¸°. by sigi. 2002.1.7
     GameWorldInfo* pGameWorldInfo = g_pGameWorldInfoManager->getGameWorldInfo(WorldID);
     if (pGameWorldInfo->getStatus() == WORLD_CLOSE) {
         filelog("errorLogin.txt", "WorldClosed[%d]", (int)WorldID);
         throw DisconnectException("WorldClosed");
     }
 
-    // Æ®·£½Ç(2) »©±â
+    // íŠ¸ëžœì‹¤(2) ë¹¼ê¸°
     // if (WorldID==2) throw DisconnectException();
 
     pLoginPlayer->setWorldID(WorldID);

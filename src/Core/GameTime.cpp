@@ -48,7 +48,7 @@ void GameTime::write(SocketOutputStream& oStream) const {
 //--------------------------------------------------------------------------------
 string GameTime::toString() const {
     StringStream msg;
-    msg << (int)m_Year << "³â " << (int)m_Month << "¿ù " << (int)m_Day << "ÀÏ " << (int)m_Hour << "½Ã " << (int)m_Minute
-        << "ºÐ " << (int)m_Second << "ÃÊ";
+    msg << (int)m_Year << "ë…„ " << (int)m_Month << "ì›” " << (int)m_Day << "ì¼ " << (int)m_Hour << "ì‹œ " << (int)m_Minute
+        << "ë¶„ " << (int)m_Second << "ì´ˆ";
     return msg.toString();
 }

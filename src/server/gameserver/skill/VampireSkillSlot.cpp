@@ -143,19 +143,19 @@ Turn_t VampireSkillSlot::getRemainTurn(Timeval currentTime) const throw() {
 }
 
 void VampireSkillSlot::setRunTime() throw() {
-    // ÇöÀç ½Ã°£À» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ë°›ì•„ì˜¨ë‹¤.
     getCurrentTime(m_runTime);
 
-    // ´ÙÀ½ ¾µ ¼ö ÀÖ´Â ½Ã°£À» ¼¼ÆÃÇÑ´Ù.
+    // ë‹¤ìŒ ì“¸ ìˆ˜ ìˆëŠ” ì‹œê°„ì„ ì„¸íŒ…í•œë‹¤.
     m_runTime.tv_sec += m_Interval / 10;
     m_runTime.tv_usec += (m_Interval % 10) * 100000;
 }
 
 void VampireSkillSlot::setRunTime(Turn_t delay) throw() {
-    // ÇöÀç ½Ã°£À» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ë°›ì•„ì˜¨ë‹¤.
     getCurrentTime(m_runTime);
 
-    // ´ÙÀ½ ¾µ ¼ö ÀÖ´Â ½Ã°£À» ¼¼ÆÃÇÑ´Ù.
+    // ë‹¤ìŒ ì“¸ ìˆ˜ ìˆëŠ” ì‹œê°„ì„ ì„¸íŒ…í•œë‹¤.
     m_runTime.tv_sec += delay / 10;
     m_runTime.tv_usec += (delay % 10) * 100000;
 
@@ -177,7 +177,7 @@ void VampireSkillSlot::setRunTime(Turn_t delay) throw() {
         case SKILL_HOWL:
             break;
         default:
-            save(m_Name); // ´Ş¸®Áø µô·¹ÀÌ¸¦ ¼¼ÀÌºêÇÑ´Ù.
+            save(m_Name); // ë‹¬ë¦¬ì§„ ë”œë ˆì´ë¥¼ ì„¸ì´ë¸Œí•œë‹¤.
             break;
         }
     }

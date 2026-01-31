@@ -18,7 +18,7 @@ template <Item::ItemClass IClass, typename StackPolicy = NoStack, typename Durab
           typename EnchantLevelPolicy = HasEnchantLevel>
 class ConcreteItem : public Item {
 public:
-    // °¡»ó ÇÔ¼ö ±¸Ã¼È­
+    // ê°€ìƒ í•¨ìˆ˜ êµ¬ì²´í™”
     ItemClass getItemClass() const {
         return IClass;
     }
@@ -47,7 +47,7 @@ public:
     }
 
 public:
-    // ¾ÆÀÌÅÛ ½×±â °ü·Ã
+    // ì•„ì´í…œ ìŒ“ê¸° ê´€ë ¨
     bool isStackable() const {
         return m_Stack.hasValue();
     }
@@ -60,7 +60,7 @@ public:
     }
 
 public:
-    // ³»±¸µµ °ü·Ã
+    // ë‚´êµ¬ë„ ê´€ë ¨
     Durability_t getDurability() const {
         return m_Durability.getValue();
     }
@@ -77,7 +77,7 @@ public:
     }
 
 public:
-    // ¿É¼Ç °ü·Ã
+    // ì˜µì…˜ ê´€ë ¨
     bool hasOptionType() const {
         return m_Option.hasOptionType();
     }
@@ -107,7 +107,7 @@ public:
     }
 
 public:
-    // ¾ÆÀÌÅÛ µî±Ş °ü·Ã
+    // ì•„ì´í…œ ë“±ê¸‰ ê´€ë ¨
     Grade_t getGrade() const {
         return m_Grade.getValue();
     }
@@ -120,7 +120,7 @@ public:
     }
 
 public:
-    // °ø°İ·Â °ü·Ã ¼Ó¼º
+    // ê³µê²©ë ¥ ê´€ë ¨ ì†ì„±
     Damage_t getMinDamage() const {
         return max(1, ((int)getItemInfo()->getMinDamage()) + ((int)getBonusDamage()) + m_Grade.getDamageOffset());
     }
@@ -169,7 +169,7 @@ public:
     }
 
 public:
-    // ¹æ¾î·Â °ü·Ã ¼Ó¼º
+    // ë°©ì–´ë ¥ ê´€ë ¨ ì†ì„±
     Defense_t getDefenseBonus() const {
         return max(0, ((int)getItemInfo()->getDefenseBonus()) + m_Grade.getDefenseOffset());
     }
@@ -178,7 +178,7 @@ public:
     }
 
 public:
-    // ÀÎÃ¦Æ® ·¹º§
+    // ì¸ì±ˆíŠ¸ ë ˆë²¨
     EnchantLevel_t getEnchantLevel() const {
         return m_EnchantLevel.getValue();
     }

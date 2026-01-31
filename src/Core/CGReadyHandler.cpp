@@ -15,9 +15,9 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ðÆ®°¡ µ¥ÀÌÅÍ ·ÎµùÀ» ³¡³»¸é, °ÔÀÓ ¼­¹ö¿¡°Ô CGReady ÆÐÅ¶À» Àü¼ÛÇÑ´Ù.
-// ÀÌ ÆÐÅ¶À» ¹ÞÀº Å¬¶óÀÌ¾ðÆ®´Â ZoneÀÇ Å¥¿¡ PC¸¦ ³Ö¾îÁÖ°í, ¸¶Áö¸·À¸·Î
-// ÇÃ·¹ÀÌ¾î¸¦ IPM¿¡¼­ ZPMÀ¸·Î ¿Å±ä´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ë°ì´í„° ë¡œë”©ì„ ëë‚´ë©´, ê²Œìž„ ì„œë²„ì—ê²Œ CGReady íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
+// ì´ íŒ¨í‚·ì„ ë°›ì€ í´ë¼ì´ì–¸íŠ¸ëŠ” Zoneì˜ íì— PCë¥¼ ë„£ì–´ì£¼ê³ , ë§ˆì§€ë§‰ìœ¼ë¡œ
+// í”Œë ˆì´ì–´ë¥¼ IPMì—ì„œ ZPMìœ¼ë¡œ ì˜®ê¸´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGReadyHandler::execute(CGReady* pPacket, Player* pPlayer)
 
@@ -37,21 +37,21 @@ void CGReadyHandler::execute(CGReady* pPacket, Player* pPlayer)
     Creature* pCreature = pGamePlayer->getCreature();
     Assert(pCreature != NULL);
 
-    // ÁÖ¼®Ã³¸® by sigi. 2002.5.11
+    // ì£¼ì„ì²˜ë¦¬ by sigi. 2002.5.11
     // Zone* pZone = pCreature->getZone();
     // Assert(pZone != NULL);
 
     // filelog("CGReadyTrace.txt", "CGReadyHandler : After pointer");
 
     //--------------------------------------------------------------------------------
-    // ÇÃ·¹ÀÌ¾î¸¦ IPM¿¡¼­ »èÁ¦ÇÏ°í ZPMÀ¸·Î ¿Å±ä´Ù.
+    // í”Œë ˆì´ì–´ë¥¼ IPMì—ì„œ ì‚­ì œí•˜ê³  ZPMìœ¼ë¡œ ì˜®ê¸´ë‹¤.
     //--------------------------------------------------------------------------------
     try {
-        // IncomingPlayerÀÇ Process Commands ¾È¿¡¼­ ½ÇÇàµÇ´Â °ÍÀÌ¹Ç·Î ¹Ýµå½Ã ³ë ºí¶ôÀ¸·Î Áö¿ö¾ß ÇÒ °ÍÀÌ´Ù.
+        // IncomingPlayerì˜ Process Commands ì•ˆì—ì„œ ì‹¤í–‰ë˜ëŠ” ê²ƒì´ë¯€ë¡œ ë°˜ë“œì‹œ ë…¸ ë¸”ë½ìœ¼ë¡œ ì§€ì›Œì•¼ í•  ê²ƒì´ë‹¤.
         // g_pIncomingPlayerManager->deletePlayer_NOBLOCKED(pGamePlayer->getSocket()->getSOCKET());
         g_pIncomingPlayerManager->deletePlayer(pGamePlayer->getSocket()->getSOCKET());
 
-        // CoreÀÇ ±¸Á¶ º¯°æ¿¡ µû¶ó ¾²·¹µå °£ÀÇ °£¼·À» ÃÖ´ëÇÑ ¾ïÁ¦ÇÏ±â À§ÇÏ¿© heartbeat¿¡¼­ ÀÏ°ýÀûÀ¸·Î º¸³½´Ù.
+        // Coreì˜ êµ¬ì¡° ë³€ê²½ì— ë”°ë¼ ì“°ë ˆë“œ ê°„ì˜ ê°„ì„­ì„ ìµœëŒ€í•œ ì–µì œí•˜ê¸° ìœ„í•˜ì—¬ heartbeatì—ì„œ ì¼ê´„ì ìœ¼ë¡œ ë³´ë‚¸ë‹¤.
         g_pIncomingPlayerManager->pushOutPlayer(pGamePlayer);
 
         // filelog("CGReadyTrace.txt", "CGReadyHandler : After deletePlayer[Name:%s]", pCreature->getName().c_str());
@@ -74,7 +74,7 @@ pCreature->getName().c_str());
         //filelog("CGReadyTrace.txt", "CGReadyHandler : After pushPlayer[Name:%s]", pCreature->getName().c_str());
 
 
-        // PC¸¦ Á¸ÀÇ Å¥¿¡ Áý¾î³Ö´Â´Ù.
+        // PCë¥¼ ì¡´ì˜ íì— ì§‘ì–´ë„£ëŠ”ë‹¤.
         //pGamePlayer->getCreature()->getZone()->pushPC(pGamePlayer->getCreature());
 
 //		pZone->pushPC(pCreature);
@@ -85,11 +85,11 @@ pCreature->getName().c_str());
         */
     } catch (NoSuchElementException& nsee) {
         StringStream msg;
-        msg << "Critical Error : IPM¿¡ ÇÃ·¹ÀÌ¾î°¡ ¾ø³×¿ë. ¹«½¼ ÀÏÀÌÁö..  - -;\n" << nsee.toString();
+        msg << "Critical Error : IPMì— í”Œë ˆì´ì–´ê°€ ì—†ë„¤ìš©. ë¬´ìŠ¨ ì¼ì´ì§€..  - -;\n" << nsee.toString();
         throw Error(msg.toString());
     }
 
-    // Àá½Ãµ¿¾È ÀûÀ¸·ÎºÎÅÍ °ø°ÝÀ» ¹ÞÁö ¾Ê´Â »óÅÂÀÌ´Ù.
+    // ìž ì‹œë™ì•ˆ ì ìœ¼ë¡œë¶€í„° ê³µê²©ì„ ë°›ì§€ ì•ŠëŠ” ìƒíƒœì´ë‹¤.
     pGamePlayer->setPlayerStatus(GPS_NORMAL);
 
     // filelog("CGReadyTrace.txt", "CGReadyHandler : END");

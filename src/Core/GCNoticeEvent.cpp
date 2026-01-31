@@ -7,7 +7,7 @@
 #include "GCNoticeEvent.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNoticeEvent::read(SocketInputStream& iStream)
 
@@ -17,7 +17,7 @@ void GCNoticeEvent::read(SocketInputStream& iStream)
     iStream.read(m_Code);
 
     switch (m_Code) {
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ½á¾ß ÇÏ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì¨ì•¼ í•˜ëŠ” ì½”ë“œ
     case NOTICE_EVENT_MASTER_COMBAT_TIME:
     case NOTICE_EVENT_KICK_OUT_FROM_ZONE:
     case NOTICE_EVENT_CONTINUAL_GROUND_ATTACK:
@@ -42,7 +42,7 @@ void GCNoticeEvent::read(SocketInputStream& iStream)
     case NOTICE_EVENT_CROWN_PRICE:
         iStream.read(m_Parameter);
         break;
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ¾²Áö ¾Ê¾Æµµ µÇ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì“°ì§€ ì•Šì•„ë„ ë˜ëŠ” ì½”ë“œ
     default:
         break;
     }
@@ -51,7 +51,7 @@ void GCNoticeEvent::read(SocketInputStream& iStream)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNoticeEvent::write(SocketOutputStream& oStream) const
 
@@ -61,7 +61,7 @@ void GCNoticeEvent::write(SocketOutputStream& oStream) const
     oStream.write(m_Code);
 
     switch (m_Code) {
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ½á¾ß ÇÏ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì¨ì•¼ í•˜ëŠ” ì½”ë“œ
     case NOTICE_EVENT_MASTER_COMBAT_TIME:
     case NOTICE_EVENT_KICK_OUT_FROM_ZONE:
     case NOTICE_EVENT_CONTINUAL_GROUND_ATTACK:
@@ -86,7 +86,7 @@ void GCNoticeEvent::write(SocketOutputStream& oStream) const
     case NOTICE_EVENT_CROWN_PRICE:
         oStream.write(m_Parameter);
         break;
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ¾²Áö ¾Ê¾Æµµ µÇ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì“°ì§€ ì•Šì•„ë„ ë˜ëŠ” ì½”ë“œ
     default:
         break;
     }
@@ -108,7 +108,7 @@ void GCNoticeEvent::execute(Player* pPlayer)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆĞÅ¶ »çÀÌÁî
+// íŒ¨í‚· ì‚¬ì´ì¦ˆ
 //////////////////////////////////////////////////////////////////////////////
 
 PacketSize_t GCNoticeEvent::getPacketSize() const
@@ -119,7 +119,7 @@ PacketSize_t GCNoticeEvent::getPacketSize() const
     PacketSize_t size = szWORD;
 
     switch (m_Code) {
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ½á¾ß ÇÏ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì¨ì•¼ í•˜ëŠ” ì½”ë“œ
     case NOTICE_EVENT_MASTER_COMBAT_TIME:
     case NOTICE_EVENT_KICK_OUT_FROM_ZONE:
     case NOTICE_EVENT_CONTINUAL_GROUND_ATTACK:
@@ -144,7 +144,7 @@ PacketSize_t GCNoticeEvent::getPacketSize() const
     case NOTICE_EVENT_CROWN_PRICE:
         size += szuint;
         break;
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ¾²Áö ¾Ê¾Æµµ µÇ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì“°ì§€ ì•Šì•„ë„ ë˜ëŠ” ì½”ë“œ
     default:
         break;
     }

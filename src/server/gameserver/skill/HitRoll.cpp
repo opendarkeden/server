@@ -21,7 +21,7 @@
 #include "EffectPrecedence.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÏ¹İ °ø°İ hitroll ÇÔ¼ö
+// ì¼ë°˜ ê³µê²© hitroll í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus) {
     Assert(pAttacker != NULL);
@@ -30,7 +30,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
     Zone* pZone = pAttacker->getZone();
     Assert(pZone != NULL);
 
-    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
     if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)) {
         return false;
     }
@@ -42,7 +42,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 
     bool isMonster = false;
 
-    // °ø°İÀÚÀÇ ÅõÈıÀ» °è»êÇÑ´Ù.
+    // ê³µê²©ìì˜ íˆ¬í›ì„ ê³„ì‚°í•œë‹¤.
     if (pAttacker->isSlayer()) {
         Slayer* pSlayerAttacker = dynamic_cast<Slayer*>(pAttacker);
         Assert(pSlayerAttacker != NULL);
@@ -57,8 +57,8 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
         ToHit = pVampireAttacker->getToHit();
         ToHit = (ToHit_t)getPercentValue(ToHit, VampireTimebandFactor[timeband]);
 
-        // ¾ğÁ¨°¡ ÃÖÀûÈ­¸¦ ÇÏ°Ô µÈ´Ù¸é.. -_-;
-        // Creature¿¡´Ù°¡ Penalty°ü·Ã memberµéÀ» ³Ö´Â°Ô ³ªÀ» °ÍÀÌ´Ù.
+        // ì–¸ì  ê°€ ìµœì í™”ë¥¼ í•˜ê²Œ ëœë‹¤ë©´.. -_-;
+        // Creatureì—ë‹¤ê°€ Penaltyê´€ë ¨ memberë“¤ì„ ë„£ëŠ”ê²Œ ë‚˜ì„ ê²ƒì´ë‹¤.
         if (pAttacker->isFlag(Effect::EFFECT_CLASS_HYMN)) {
             EffectHymn* pHymn =
                 dynamic_cast<EffectHymn*>(pAttacker->getEffectManager()->findEffect(Effect::EFFECT_CLASS_HYMN));
@@ -78,8 +78,8 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
         ToHit = (ToHit_t)getPercentValue(ToHit, MonsterTimebandFactor[timeband]);
         isMonster = true;
 
-        // ¾ğÁ¨°¡ ÃÖÀûÈ­¸¦ ÇÏ°Ô µÈ´Ù¸é.. -_-;
-        // Creature¿¡´Ù°¡ Penalty°ü·Ã memberµéÀ» ³Ö´Â°Ô ³ªÀ» °ÍÀÌ´Ù.
+        // ì–¸ì  ê°€ ìµœì í™”ë¥¼ í•˜ê²Œ ëœë‹¤ë©´.. -_-;
+        // Creatureì—ë‹¤ê°€ Penaltyê´€ë ¨ memberë“¤ì„ ë„£ëŠ”ê²Œ ë‚˜ì„ ê²ƒì´ë‹¤.
         if (pAttacker->isFlag(Effect::EFFECT_CLASS_HYMN)) {
             EffectHymn* pHymn =
                 dynamic_cast<EffectHymn*>(pAttacker->getEffectManager()->findEffect(Effect::EFFECT_CLASS_HYMN));
@@ -88,13 +88,13 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
         }
 
     } else {
-        // ÇöÀç Å©¸®ÃÄÀÇ Å¬·¡½º´Â Slayer, Vampire, Monster, NPC »ÓÀÎµ¥...
-        // ÀÌ±îÁö ¿Ô´Ù´Â ¸»Àº °ø°İÀÚ°¡ NPC¶ó´Â ¸»ÀÌÁö.
-        // NPC AI´Â ±¸ÇöµÇÁö ¾ÊÀº »óÅÂÀÌ¹Ç·Î, ¹«Á¶°Ç ¸®ÅÏÀÌ´Ù.
+        // í˜„ì¬ í¬ë¦¬ì³ì˜ í´ë˜ìŠ¤ëŠ” Slayer, Vampire, Monster, NPC ë¿ì¸ë°...
+        // ì´ê¹Œì§€ ì™”ë‹¤ëŠ” ë§ì€ ê³µê²©ìê°€ NPCë¼ëŠ” ë§ì´ì§€.
+        // NPC AIëŠ” êµ¬í˜„ë˜ì§€ ì•Šì€ ìƒíƒœì´ë¯€ë¡œ, ë¬´ì¡°ê±´ ë¦¬í„´ì´ë‹¤.
         return false;
     }
 
-    // ¹æ¾îÀÚÀÇ µğÆæ½º¸¦ °è»êÇØ ÁØ´Ù.
+    // ë°©ì–´ìì˜ ë””íœìŠ¤ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.
     if (pDefender->isSlayer()) {
         Slayer* pSlayerDefender = dynamic_cast<Slayer*>(pDefender);
         Defense = pSlayerDefender->getDefense();
@@ -115,9 +115,9 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
         isMonster = true;
 #endif
     } else {
-        // ÇöÀç Å©¸®ÃÄÀÇ Å¬·¡½º´Â Slayer, Vampire, Monster, NPC »ÓÀÎµ¥...
-        // ÀÌ±îÁö ¿Ô´Ù´Â ¸»Àº ¹æ¾îÀÚ°¡ NPC¶ó´Â ¸»ÀÌÁö.
-        // NPC AI´Â ±¸ÇöµÇÁö ¾ÊÀº »óÅÂÀÌ¹Ç·Î, ¹«Á¶°Ç ¸®ÅÏÀÌ´Ù.
+        // í˜„ì¬ í¬ë¦¬ì³ì˜ í´ë˜ìŠ¤ëŠ” Slayer, Vampire, Monster, NPC ë¿ì¸ë°...
+        // ì´ê¹Œì§€ ì™”ë‹¤ëŠ” ë§ì€ ë°©ì–´ìê°€ NPCë¼ëŠ” ë§ì´ì§€.
+        // NPC AIëŠ” êµ¬í˜„ë˜ì§€ ì•Šì€ ìƒíƒœì´ë¯€ë¡œ, ë¬´ì¡°ê±´ ë¦¬í„´ì´ë‹¤.
         return false;
     }
 
@@ -125,7 +125,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
     int Result = 0;
 
     if (ToHit >= Defense) {
-        // ÅõÈıÀÌ µğÆæ½ºº¸´Ù ³ôÀº °æ¿ì¿¡´Â ¸ÂÃâ È®·üÀÌ ²Ï...³ô´Ù.
+        // íˆ¬í›ì´ ë””íœìŠ¤ë³´ë‹¤ ë†’ì€ ê²½ìš°ì—ëŠ” ë§ì¶œ í™•ë¥ ì´ ê½¤...ë†’ë‹¤.
 #ifdef __CHINA_SERVER__
         Result = min(90, (int)(((ToHit - Defense) / 1.5) + 60) + ToHitBonus);
 #else
@@ -136,7 +136,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
         }
 #endif
     } else {
-        // ÅõÈıÀÌ µğÆæ½ºº¸´Ù ³·Àº °æ¿ì¿¡´Â ¸ÂÃâ È®·üÀÌ ¸¹ÀÌ ¶³¾îÁø´Ù.
+        // íˆ¬í›ì´ ë””íœìŠ¤ë³´ë‹¤ ë‚®ì€ ê²½ìš°ì—ëŠ” ë§ì¶œ í™•ë¥ ì´ ë§ì´ ë–¨ì–´ì§„ë‹¤.
 #ifdef __CHINA_SERVER__
         if (isMonster) {
             Result = max(10, (int)(60 - ((Defense - ToHit) / 1.5) + ToHitBonus));
@@ -161,7 +161,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÏ¹İ °ø°İ hitroll ÇÔ¼ö
+// ì¼ë°˜ ê³µê²© hitroll í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 /*bool HitRoll::isSuccess(ToHit_t ToHit, Creature* pDefender, int ToHitBonus)
 {
@@ -170,7 +170,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
     Zone* pZone = pDefender->getZone();
     Assert( pZone != NULL );
 
-    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
     if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
     {
         return false;
@@ -180,7 +180,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
     Defense_t Defense  = 0;
     uint      timeband = pZone->getTimeband();
 
-    // ¹æ¾îÀÚÀÇ µğÆæ½º¸¦ °è»êÇØ ÁØ´Ù.
+    // ë°©ì–´ìì˜ ë””íœìŠ¤ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.
     if (pDefender->isSlayer())
     {
         Slayer* pSlayerDefender = dynamic_cast<Slayer*>(pDefender);
@@ -205,9 +205,9 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
     }
     else
     {
-        // ÇöÀç Å©¸®ÃÄÀÇ Å¬·¡½º´Â Slayer, Vampire, Monster, NPC »ÓÀÎµ¥...
-        // ÀÌ±îÁö ¿Ô´Ù´Â ¸»Àº ¹æ¾îÀÚ°¡ NPC¶ó´Â ¸»ÀÌÁö.
-        // NPC AI´Â ±¸ÇöµÇÁö ¾ÊÀº »óÅÂÀÌ¹Ç·Î, ¹«Á¶°Ç ¸®ÅÏÀÌ´Ù.
+        // í˜„ì¬ í¬ë¦¬ì³ì˜ í´ë˜ìŠ¤ëŠ” Slayer, Vampire, Monster, NPC ë¿ì¸ë°...
+        // ì´ê¹Œì§€ ì™”ë‹¤ëŠ” ë§ì€ ë°©ì–´ìê°€ NPCë¼ëŠ” ë§ì´ì§€.
+        // NPC AIëŠ” êµ¬í˜„ë˜ì§€ ì•Šì€ ìƒíƒœì´ë¯€ë¡œ, ë¬´ì¡°ê±´ ë¦¬í„´ì´ë‹¤.
         return false;
     }
 
@@ -216,7 +216,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 
     if (ToHit >= Defense)
     {
-        // ÅõÈıÀÌ µğÆæ½ºº¸´Ù ³ôÀº °æ¿ì¿¡´Â ¸ÂÃâ È®·üÀÌ ²Ï...³ô´Ù.
+        // íˆ¬í›ì´ ë””íœìŠ¤ë³´ë‹¤ ë†’ì€ ê²½ìš°ì—ëŠ” ë§ì¶œ í™•ë¥ ì´ ê½¤...ë†’ë‹¤.
 #ifdef __CHINA_SERVER__
         Result = min(90, (int)(((ToHit - Defense) / 1.5) + 60) + ToHitBonus);
 #else
@@ -225,7 +225,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
     }
     else
     {
-        // ÅõÈıÀÌ µğÆæ½ºº¸´Ù ³·Àº °æ¿ì¿¡´Â ¸ÂÃâ È®·üÀÌ ¸¹ÀÌ ¶³¾îÁø´Ù.
+        // íˆ¬í›ì´ ë””íœìŠ¤ë³´ë‹¤ ë‚®ì€ ê²½ìš°ì—ëŠ” ë§ì¶œ í™•ë¥ ì´ ë§ì´ ë–¨ì–´ì§„ë‹¤.
 #ifdef __CHINA_SERVER__
         Result = max(20, (int)(60 - ((Defense - ToHit) / 1.5) + ToHitBonus));
 #else
@@ -240,7 +240,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î¿ë ¸¶¹ı hitroll ÇÔ¼ö
+// ìŠ¬ë ˆì´ì–´ìš© ë§ˆë²• hitroll í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessMagic(Slayer* pSlayer, SkillInfo* pSkillInfo, SkillSlot* pSkillSlot) {
     Assert(pSlayer != NULL);
@@ -256,7 +256,7 @@ bool HitRoll::isSuccessMagic(Slayer* pSlayer, SkillInfo* pSkillInfo, SkillSlot* 
         (int)(60 - pSkillInfo->getLevel() / 3 + (int)((pSlayer->getINT() + pSkillSlot->getExpLevel()) / 2.5));
 #endif
 
-    // ½½·¹ÀÌ¾î ¼¿ÇÁ ½ºÅ³ÀÏ °æ¿ì ÃÖ¼Ò È®·üÀÌ 50%ÀÌ´Ù.
+    // ìŠ¬ë ˆì´ì–´ ì…€í”„ ìŠ¤í‚¬ì¼ ê²½ìš° ìµœì†Œ í™•ë¥ ì´ 50%ì´ë‹¤.
     if (isSlayerSelfSkill(pSkillSlot->getSkillType()))
         SuccessRatio = max(50, SuccessRatio);
 
@@ -268,7 +268,7 @@ bool HitRoll::isSuccessMagic(Slayer* pSlayer, SkillInfo* pSkillInfo, SkillSlot* 
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î¿ë ¸¶¹ı hitroll ÇÔ¼ö
+// ë±€íŒŒì´ì–´ìš© ë§ˆë²• hitroll í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessMagic(Vampire* pVampire, SkillInfo* pSkillInfo, VampireSkillSlot* pVampireSkillSlot,
                              int BonusPoint) {
@@ -294,7 +294,7 @@ bool HitRoll::isSuccessMagic(Vampire* pVampire, SkillInfo* pSkillInfo, VampireSk
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º¿ë ¸¶¹ı hitroll ÇÔ¼ö
+// ì•„ìš°ìŠ¤í„°ìŠ¤ìš© ë§ˆë²• hitroll í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessMagic(Ousters* pOusters, SkillInfo* pSkillInfo, OustersSkillSlot* pOustersSkillSlot,
                              int BonusPoint) {
@@ -322,7 +322,7 @@ bool HitRoll::isSuccessMagic(Ousters* pOusters, SkillInfo* pSkillInfo, OustersSk
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ¿ë ÀÏ¹İ ¸¶¹ı ¸íÁß ±¼¸² ÇÔ¼ö
+// ëª¬ìŠ¤í„°ìš© ì¼ë°˜ ë§ˆë²• ëª…ì¤‘ êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessMagic(Monster* pMonster, SkillInfo* pSkillInfo) {
     Assert(pMonster != NULL);
@@ -336,10 +336,10 @@ bool HitRoll::isSuccessMagic(Monster* pMonster, SkillInfo* pSkillInfo) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¹× ¸ó½ºÅÍ¿ë ÈíÇ÷ ¸íÁß ±¼¸² ÇÔ¼ö
+// ë±€íŒŒì´ì–´ ë° ëª¬ìŠ¤í„°ìš© í¡í˜ˆ ëª…ì¤‘ êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
-// multiplier´Â º¸ÅëÀº 3ÀÌ´Ù. Áï.. 33%ÀÌÇÏ°¡ ÈíÇ÷ °¡´É¼öÄ¡ÀÎµ¥..
-// ¸¶½ºÅÍÀÎ °æ¿ì¿¡´Â multiplier¸¦ 2·Î ÇØ¼­.. 50% ÀÌÇÏ°¡ ÈíÇ÷ °¡´É¼öÄ¡·Î »ç¿ë
+// multiplierëŠ” ë³´í†µì€ 3ì´ë‹¤. ì¦‰.. 33%ì´í•˜ê°€ í¡í˜ˆ ê°€ëŠ¥ìˆ˜ì¹˜ì¸ë°..
+// ë§ˆìŠ¤í„°ì¸ ê²½ìš°ì—ëŠ” multiplierë¥¼ 2ë¡œ í•´ì„œ.. 50% ì´í•˜ê°€ í¡í˜ˆ ê°€ëŠ¥ìˆ˜ì¹˜ë¡œ ì‚¬ìš©
 // by sigi. 2002.9.16
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int multiplier) {
@@ -349,13 +349,13 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
     Zone* pZone = pAttacker->getZone();
     Assert(pZone != NULL);
 
-    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
     if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)) {
         return false;
     }
 
 
-    const int normalMultiplier = 3; // master flag¸¦ parameter·Î ¹Ş°í ÀÌ°Ç »©¾ßÇÑ´Ù. - -;
+    const int normalMultiplier = 3; // master flagë¥¼ parameterë¡œ ë°›ê³  ì´ê±´ ë¹¼ì•¼í•œë‹¤. - -;
     bool bHPCheck = false;
     bool bEffected = false;
     uint timeband = pZone->getTimeband();
@@ -366,8 +366,8 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
     int OtherLevel = 0;
     int ratio = 0;
 
-    // Å¸°ÙÀÌ ÇÇ¸¦ »¡ ¼ö ÀÖ´Â »óÅÂÀÎÁö,
-    // µğÆæ½º°¡ ¾ó¸¶ÀÎÁö, ·¹º§ÀÌ ¾ó¸¶ÀÎÁö¸¦ °è»êÇÑ´Ù.
+    // íƒ€ê²Ÿì´ í”¼ë¥¼ ë¹¨ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€,
+    // ë””íœìŠ¤ê°€ ì–¼ë§ˆì¸ì§€, ë ˆë²¨ì´ ì–¼ë§ˆì¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
     if (pDefender->isSlayer()) {
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pDefender);
         int MaxHP = pTargetSlayer->getHP(ATTR_MAX);
@@ -386,8 +386,8 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 
         OtherLevel = (int)(OtherLevel / 350);
 
-        // Ã¼·ÂÀÌ ¾ÆÁ÷ 1/3ÀÌ ³Ñ°Å³ª,
-        // ÀÌ¹Ì ÈíÇ÷À» ´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷À» ÇÒ ¼ö ¾ø´Ù.
+        // ì²´ë ¥ì´ ì•„ì§ 1/3ì´ ë„˜ê±°ë‚˜,
+        // ì´ë¯¸ í¡í˜ˆì„ ë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆì„ í•  ìˆ˜ ì—†ë‹¤.
         if (!bHPCheck || bEffected)
             return false;
     } else if (pDefender->isVampire()) {
@@ -403,8 +403,8 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 
         Defense = (Defense_t)getPercentValue(Defense, VampireTimebandFactor[timeband]);
 
-        // Ã¼·ÂÀÌ ¾ÆÁ÷ 1/3ÀÌ ³Ñ°Å³ª,
-        // ÀÌ¹Ì ÈíÇ÷À» ´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷À» ÇÒ ¼ö ¾ø´Ù.
+        // ì²´ë ¥ì´ ì•„ì§ 1/3ì´ ë„˜ê±°ë‚˜,
+        // ì´ë¯¸ í¡í˜ˆì„ ë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆì„ í•  ìˆ˜ ì—†ë‹¤.
         if (!bHPCheck || bEffected)
             return false;
     } else if (pDefender->isOusters()) {
@@ -418,8 +418,8 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
         Defense = pTargetOusters->getDefense() + pTargetOusters->getLevel() / 5;
         OtherLevel = pTargetOusters->getLevel();
 
-        // Ã¼·ÂÀÌ ¾ÆÁ÷ 1/3ÀÌ ³Ñ°Å³ª,
-        // ÀÌ¹Ì ÈíÇ÷À» ´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷À» ÇÒ ¼ö ¾ø´Ù.
+        // ì²´ë ¥ì´ ì•„ì§ 1/3ì´ ë„˜ê±°ë‚˜,
+        // ì´ë¯¸ í¡í˜ˆì„ ë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆì„ í•  ìˆ˜ ì—†ë‹¤.
         if (!bHPCheck || bEffected)
             return false;
     } else if (pDefender->isMonster()) {
@@ -435,22 +435,22 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 
         Defense = (Defense_t)getPercentValue(Defense, MonsterTimebandFactor[timeband]);
 
-        // Ã¼·ÂÀÌ ¾ÆÁ÷ 1/3ÀÌ ³Ñ°Å³ª,
-        // ÀÌ¹Ì ÈíÇ÷À» ´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷À» ÇÒ ¼ö ¾ø´Ù.
+        // ì²´ë ¥ì´ ì•„ì§ 1/3ì´ ë„˜ê±°ë‚˜,
+        // ì´ë¯¸ í¡í˜ˆì„ ë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆì„ í•  ìˆ˜ ì—†ë‹¤.
         if (!bHPCheck || bEffected)
             return false;
 
-        // ¸¸ÀÏ ¿ì¼±±ÇÀÌ ÀÌ¹Ì ¼¼ÆÃµÇ¾î ÀÖ´Â ¸ó½ºÅÍ¶ó¸é...
-        // ÈíÇ÷ÇÒ ¼ö ÀÖ´Â Á¶°ÇÀº ¿ì¼±±ÇÀ» °¡Áø ÀÚÀÌ°Å³ª, ¿ì¼±±ÇÀ» °¡Áø ÆÄÆ¼¿¡ ¼ÓÇÑ ÀÚ¿©¾ß ÇÑ´Ù.
+        // ë§Œì¼ ìš°ì„ ê¶Œì´ ì´ë¯¸ ì„¸íŒ…ë˜ì–´ ìˆëŠ” ëª¬ìŠ¤í„°ë¼ë©´...
+        // í¡í˜ˆí•  ìˆ˜ ìˆëŠ” ì¡°ê±´ì€ ìš°ì„ ê¶Œì„ ê°€ì§„ ìì´ê±°ë‚˜, ìš°ì„ ê¶Œì„ ê°€ì§„ íŒŒí‹°ì— ì†í•œ ìì—¬ì•¼ í•œë‹¤.
         if (pTargetMonster->isFlag(Effect::EFFECT_CLASS_PRECEDENCE)) {
             EffectPrecedence* pEffectPrecedence =
                 dynamic_cast<EffectPrecedence*>(pTargetMonster->findEffect(Effect::EFFECT_CLASS_PRECEDENCE));
             Assert(pEffectPrecedence != NULL);
 
-            // ¿ì¼±±ÇÀ» °¡Áø ÀÚ°¡ ¾Æ´Ï¶ó¸é...
+            // ìš°ì„ ê¶Œì„ ê°€ì§„ ìê°€ ì•„ë‹ˆë¼ë©´...
             if (pAttacker->getName() != pEffectPrecedence->getHostName()) {
-                // ¾Æ¹« ÆÄÆ¼¿¡µµ °¡ÀÔµÇ¾î ÀÖÁö ¾Ê°Å³ª,
-                // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Âµ¥, È£½ºÆ® ÆÄÆ¼ ID°¡ ¾Æ´Ï¶ó¸é, ÈíÇ÷ÇÒ ¼ö ¾ø´Ù.
+                // ì•„ë¬´ íŒŒí‹°ì—ë„ ê°€ì…ë˜ì–´ ìˆì§€ ì•Šê±°ë‚˜,
+                // íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆëŠ”ë°, í˜¸ìŠ¤íŠ¸ íŒŒí‹° IDê°€ ì•„ë‹ˆë¼ë©´, í¡í˜ˆí•  ìˆ˜ ì—†ë‹¤.
                 if (pAttacker->getPartyID() == 0 || pAttacker->getPartyID() != pEffectPrecedence->getHostPartyID()) {
                     return false;
                 }
@@ -459,7 +459,7 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
     } else
         Assert(false);
 
-    // °ø°İÀÚÀÇ ÅõÈı ¹× ·¹º§À» °è»êÇÑ´Ù.
+    // ê³µê²©ìì˜ íˆ¬í› ë° ë ˆë²¨ì„ ê³„ì‚°í•œë‹¤.
     if (pAttacker->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pAttacker);
 
@@ -476,37 +476,37 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
         ToHit = (ToHit_t)getPercentValue(ToHit, MonsterTimebandFactor[timeband]);
     }
 
-    //	cout << pAttacker->getName() << "ÀÇ ÅõÈı : " << ToHit << endl;
-    //	cout << pDefender->getName() << "ÀÇ µğÆæ : " << Defense << endl;
+    //	cout << pAttacker->getName() << "ì˜ íˆ¬í› : " << ToHit << endl;
+    //	cout << pDefender->getName() << "ì˜ ë””íœ : " << Defense << endl;
 
     if (ToHit >= Defense) {
-        // ÅõÈıÀÌ µğÆæ½ºº¸´Ù ³ôÀº °æ¿ì¿¡´Â ¸ÂÃâ È®·üÀÌ ²Ï...³ô´Ù.
+        // íˆ¬í›ì´ ë””íœìŠ¤ë³´ë‹¤ ë†’ì€ ê²½ìš°ì—ëŠ” ë§ì¶œ í™•ë¥ ì´ ê½¤...ë†’ë‹¤.
         ratio = min(90, (ToHit - Defense) / 2 + 70);
     } else {
-        // ÅõÈıÀÌ µğÆæ½ºº¸´Ù ³·Àº °æ¿ì¿¡´Â ¸ÂÃâ È®·üÀÌ ¸¹ÀÌ ¶³¾îÁø´Ù.
+        // íˆ¬í›ì´ ë””íœìŠ¤ë³´ë‹¤ ë‚®ì€ ê²½ìš°ì—ëŠ” ë§ì¶œ í™•ë¥ ì´ ë§ì´ ë–¨ì–´ì§„ë‹¤.
         ratio = max(10, 70 - (Defense - ToHit) / 2);
     }
 
     if ((rand() % 100) < ratio) {
-        //		cout << "ÈíÇ÷ ¼º°ø" << endl;
+        //		cout << "í¡í˜ˆ ì„±ê³µ" << endl;
         return true;
     }
 
-    //	cout << "ÈíÇ÷ ½ÇÆĞ" << endl;
+    //	cout << "í¡í˜ˆ ì‹¤íŒ¨" << endl;
     return false;
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀúÁÖ ¸¶¹ı È÷Æ®·Ñ ÇÔ¼ö
+// ì €ì£¼ ë§ˆë²• íˆíŠ¸ë¡¤ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessCurse(int MagicLevel, Resist_t resist) {
-    // MagicLevelÀº ¹ìÆÄÀÌ¾î°¡ ±× ¸¶¹ıÀ» ¹è¿ì´Â µ¥ ÇÊ¿äÇÑ ·¹º§ÀÌ´Ù.
-    // Áï ³ôÀº ·¹º§ÀÇ ÀúÁÖ ¸¶¹ıÀÏ¼ö·Ï MagicLevelÀÌ ³ô¾ÆÁø´Ù.
+    // MagicLevelì€ ë±€íŒŒì´ì–´ê°€ ê·¸ ë§ˆë²•ì„ ë°°ìš°ëŠ” ë° í•„ìš”í•œ ë ˆë²¨ì´ë‹¤.
+    // ì¦‰ ë†’ì€ ë ˆë²¨ì˜ ì €ì£¼ ë§ˆë²•ì¼ìˆ˜ë¡ MagicLevelì´ ë†’ì•„ì§„ë‹¤.
     //
-    // MagicLevelÀÌ 30ÀÌ°í, ÀúÇ×ÀÌ 20ÀÌ¶ó¸é...
-    // curse_prob = 110ÀÌ°í, ÀúÁÖ´Â Ç×»ó ¼º°øÇÏ°Ô µÈ´Ù.
-    // MagicLevelÀÌ 30ÀÌ°í, ÀúÇ×ÀÌ 100ÀÌ¶ó¸é...
-    // curse_prob = 30ÀÌ°í, ¸¶¹ıÀº 70% È®·ü·Î ½ÇÆĞÇÏ°Ô µÈ´Ù.
+    // MagicLevelì´ 30ì´ê³ , ì €í•­ì´ 20ì´ë¼ë©´...
+    // curse_prob = 110ì´ê³ , ì €ì£¼ëŠ” í•­ìƒ ì„±ê³µí•˜ê²Œ ëœë‹¤.
+    // MagicLevelì´ 30ì´ê³ , ì €í•­ì´ 100ì´ë¼ë©´...
+    // curse_prob = 30ì´ê³ , ë§ˆë²•ì€ 70% í™•ë¥ ë¡œ ì‹¤íŒ¨í•˜ê²Œ ëœë‹¤.
 #ifdef __CHINA_SERVER__
     int prob_penalty = (int)(MagicLevel - resist);
     int curse_prob = 65 + prob_penalty;
@@ -517,46 +517,46 @@ bool HitRoll::isSuccessCurse(int MagicLevel, Resist_t resist) {
 #endif
     int randomValue = rand() % 100;
 
-    // ¾Æ, ¾¾¹Ù. ÀúÁÖ °É·È´Ù.
+    // ì•„, ì”¨ë°”. ì €ì£¼ ê±¸ë ¸ë‹¤.
     if (randomValue < curse_prob)
         return true;
 
-    // ÀúÇ×·Â¿¡ ÀÇÇØ¼­ °É¸®Áö ¾Ê¾Ò´Ù. ¾Æ½Î¸®...
+    // ì €í•­ë ¥ì— ì˜í•´ì„œ ê±¸ë¦¬ì§€ ì•Šì•˜ë‹¤. ì•„ì‹¸ë¦¬...
     return false;
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀúÁÖ ¸¶¹ı È÷Æ®·Ñ ÇÔ¼ö - ¹ìÆÄÀÌ¾î°¡ ÀúÁÖ¸¦ °É¶§
+// ì €ì£¼ ë§ˆë²• íˆíŠ¸ë¡¤ í•¨ìˆ˜ - ë±€íŒŒì´ì–´ê°€ ì €ì£¼ë¥¼ ê±¸ë•Œ
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessVampireCurse(int MagicLevel, Resist_t resist) {
-    // MagicLevelÀº ¹ìÆÄÀÌ¾î°¡ ±× ¸¶¹ıÀ» ¹è¿ì´Â µ¥ ÇÊ¿äÇÑ ·¹º§À» 2·Î ³ª´«
-    // °ÍÀÌ´Ù. Áï ³ôÀº ·¹º§ÀÇ ÀúÁÖ ¸¶¹ıÀÏ¼ö·Ï MagicLevelÀÌ ³ô¾ÆÁø´Ù.
+    // MagicLevelì€ ë±€íŒŒì´ì–´ê°€ ê·¸ ë§ˆë²•ì„ ë°°ìš°ëŠ” ë° í•„ìš”í•œ ë ˆë²¨ì„ 2ë¡œ ë‚˜ëˆˆ
+    // ê²ƒì´ë‹¤. ì¦‰ ë†’ì€ ë ˆë²¨ì˜ ì €ì£¼ ë§ˆë²•ì¼ìˆ˜ë¡ MagicLevelì´ ë†’ì•„ì§„ë‹¤.
     //
-    // MagicLevelÀÌ 30ÀÌ°í, ÀúÇ×ÀÌ 20ÀÌ¶ó¸é...
-    // curse_prob = 110ÀÌ°í, ÀúÁÖ´Â Ç×»ó ¼º°øÇÏ°Ô µÈ´Ù.
-    // MagicLevelÀÌ 30ÀÌ°í, ÀúÇ×ÀÌ 100ÀÌ¶ó¸é...
-    // curse_prob = 30ÀÌ°í, ¸¶¹ıÀº 70% È®·ü·Î ½ÇÆĞÇÏ°Ô µÈ´Ù.
+    // MagicLevelì´ 30ì´ê³ , ì €í•­ì´ 20ì´ë¼ë©´...
+    // curse_prob = 110ì´ê³ , ì €ì£¼ëŠ” í•­ìƒ ì„±ê³µí•˜ê²Œ ëœë‹¤.
+    // MagicLevelì´ 30ì´ê³ , ì €í•­ì´ 100ì´ë¼ë©´...
+    // curse_prob = 30ì´ê³ , ë§ˆë²•ì€ 70% í™•ë¥ ë¡œ ì‹¤íŒ¨í•˜ê²Œ ëœë‹¤.
     int prob_penalty = (int)((int)(MagicLevel / 1.5) - resist);
     int curse_prob = 75 + prob_penalty;
     curse_prob = max(5, curse_prob);
 
     int randomValue = rand() % 100;
 
-    // ¾Æ, ¾¾¹Ù. ÀúÁÖ °É·È´Ù.
+    // ì•„, ì”¨ë°”. ì €ì£¼ ê±¸ë ¸ë‹¤.
     if (randomValue < curse_prob)
         return true;
 
-    // ÀúÇ×·Â¿¡ ÀÇÇØ¼­ °É¸®Áö ¾Ê¾Ò´Ù. ¾Æ½Î¸®...
+    // ì €í•­ë ¥ì— ì˜í•´ì„œ ê±¸ë¦¬ì§€ ì•Šì•˜ë‹¤. ì•„ì‹¸ë¦¬...
     return false;
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// CurePoison ¸íÁß±¼¸² ÇÔ¼ö
+// CurePoison ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessCurePoison(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio) {
     int ratio = Base + SkillLevel - Difficulty - MagicLevel;
 
-    // ÃÖ¼ÒÈ®·üÀ» Áı¾î³Ö¾ú´Ù. by Sequoia 2003. 3. 20
+    // ìµœì†Œí™•ë¥ ì„ ì§‘ì–´ë„£ì—ˆë‹¤. by Sequoia 2003. 3. 20
     ratio = max(MinRatio, ratio);
 
     if (rand() % 100 < ratio)
@@ -565,12 +565,12 @@ bool HitRoll::isSuccessCurePoison(int Base, int SkillLevel, int Difficulty, int 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Flare ¸íÁß±¼¸² ÇÔ¼ö
+// Flare ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessFlare(Creature* pTargetCreature, int SkillLevel) {
     Assert(pTargetCreature != NULL);
 
-    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
     if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
         return false;
 
@@ -602,12 +602,12 @@ bool HitRoll::isSuccessFlare(Creature* pTargetCreature, int SkillLevel) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// RemoveCurse ¸íÁß±¼¸² ÇÔ¼ö
+// RemoveCurse ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio /* = 0 */) {
     int ratio = Base + SkillLevel - Difficulty - MagicLevel;
 
-    // ÃÖ¼ÒÈ®·üÀ» Áı¾î³Ö¾ú´Ù. by Sequoia 2003. 3. 20
+    // ìµœì†Œí™•ë¥ ì„ ì§‘ì–´ë„£ì—ˆë‹¤. by Sequoia 2003. 3. 20
     ratio = max(MinRatio, ratio);
 
     if (rand() % 100 < ratio)
@@ -616,13 +616,13 @@ bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Rebuke ¸íÁß±¼¸² ÇÔ¼ö
+// Rebuke ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* pDefender) {
     if (pDefender->isSlayer())
         return false;
 
-    // 80·¹º§ ÀÌ»óÀÇ ¹ìÆÄÀÌ¾î´Â ÀáµéÁö ¾Ê´Â´Ù.
+    // 80ë ˆë²¨ ì´ìƒì˜ ë±€íŒŒì´ì–´ëŠ” ì ë“¤ì§€ ì•ŠëŠ”ë‹¤.
     if (pDefender->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pDefender);
         if (pVampire->getLevel() >= 80)
@@ -633,7 +633,7 @@ bool HitRoll::isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* 
             return false;
     }
 
-    // ¸¶½ºÅÍ (¹ÙÅä¸®, Å×ÆäÁî)´Â ÀáµéÁö ¾Ê´Â´Ù.
+    // ë§ˆìŠ¤í„° (ë°”í† ë¦¬, í…Œí˜ì¦ˆ)ëŠ” ì ë“¤ì§€ ì•ŠëŠ”ë‹¤.
     if (pDefender->isMonster()) {
         Monster* pMonster = dynamic_cast<Monster*>(pDefender);
         if (pMonster->isMaster()
@@ -655,7 +655,7 @@ bool HitRoll::isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Magic Elusion ¸íÁß±¼¸² ÇÔ¼ö
+// Magic Elusion ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessMagicElusion(Slayer* pSlayer) {
     Attr_t SUM = pSlayer->getTotalAttr(ATTR_CURRENT);
@@ -665,7 +665,7 @@ bool HitRoll::isSuccessMagicElusion(Slayer* pSlayer) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Posion Mesh ¸íÁß±¼¸² ÇÔ¼ö
+// Posion Mesh ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessPoisonMesh(Vampire* pVampire) {
     int Ratio = 30 + (pVampire->getLevel() / 5);
@@ -674,7 +674,7 @@ bool HitRoll::isSuccessPoisonMesh(Vampire* pVampire) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Illusion Of Avenge ¸íÁß±¼¸² ÇÔ¼ö
+// Illusion Of Avenge ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessIllusionOfAvenge(Slayer* pSlayer) {
     Attr_t SUM = pSlayer->getTotalAttr(ATTR_CURRENT);
@@ -684,7 +684,7 @@ bool HitRoll::isSuccessIllusionOfAvenge(Slayer* pSlayer) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Will Of Life ¸íÁß±¼¸² ÇÔ¼ö
+// Will Of Life ëª…ì¤‘êµ´ë¦¼ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessWillOfLife(Vampire* pVampire) {
     int Ratio = 50 + pVampire->getLevel() / 5;
@@ -694,7 +694,7 @@ bool HitRoll::isSuccessWillOfLife(Vampire* pVampire) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Æ¼ÄÃ È÷Æ® ·ÑÀ» ¼öÇàÇÑ´Ù.
+// í¬ë¦¬í‹°ì»¬ íˆíŠ¸ ë¡¤ì„ ìˆ˜í–‰í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isCriticalHit(Creature* pCreature, int CriticalBonus) {
     Assert(pCreature != NULL);
@@ -708,7 +708,7 @@ bool HitRoll::isCriticalHit(Creature* pCreature, int CriticalBonus) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ½ºÅ³ÀÎ°¡¸¦ Ã¼Å©ÇÏ´Â ÇÔ¼ö
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ ìŠ¤í‚¬ì¸ê°€ë¥¼ ì²´í¬í•˜ëŠ” í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSlayerSelfSkill(SkillType_t skillType) {
     switch (skillType) {

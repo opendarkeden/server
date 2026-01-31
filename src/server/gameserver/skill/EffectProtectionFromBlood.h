@@ -2,7 +2,7 @@
 // Filename    : EffectProtectionFromBlood.h
 // Written by  : excel96
 // Description :
-// ProtectionFromBlood¿¡ ÀÇÇØ¼­ »ý¼ºµÇ´Â »ê¼º µ¥¹ÌÁö ¾àÈ­ ÀÌÆåÆ®ÀÌ´Ù.
+// ProtectionFromBloodì— ì˜í•´ì„œ ìƒì„±ë˜ëŠ” ì‚°ì„± ë°ë¯¸ì§€ ì•½í™” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PROTECTION_FROM_BLOOD__

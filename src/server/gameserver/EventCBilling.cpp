@@ -38,14 +38,14 @@ void EventCBilling::activate()
     Assert(m_pGamePlayer != NULL);
 
     if (!m_pGamePlayer->isCBillingVerified()) {
-        // ¾ÆÁ÷ Login ÆÐÅ¶À» º¸³»Áö ¸øÇß´Ù¸é ´Ù½Ã º¸³½´Ù. ( ¿¬°áÀÌ ²÷°Ü ÀÖ¾î¼­ º¸³»Áö ¸øÇÑ »ýÅÂÀÌ´Ù. )
+        // ì•„ì§ Login íŒ¨í‚·ì„ ë³´ë‚´ì§€ ëª»í–ˆë‹¤ë©´ ë‹¤ì‹œ ë³´ë‚¸ë‹¤. ( ì—°ê²°ì´ ëŠê²¨ ìžˆì–´ì„œ ë³´ë‚´ì§€ ëª»í•œ ìƒíƒœì´ë‹¤. )
         m_pGamePlayer->setCBillingVerified(g_pCBillingPlayerManager->sendLogin(m_pGamePlayer));
         m_TrySendLoginCount++;
     }
 
-    // Login ÆÐÅ¶À» º¸³Â´Ù¸é minus point packet À» º¸³»°í, ¾Æ´Ï¶ó¸é ½×¾Æ µÐ´Ù.
+    // Login íŒ¨í‚·ì„ ë³´ëƒˆë‹¤ë©´ minus point packet ì„ ë³´ë‚´ê³ , ì•„ë‹ˆë¼ë©´ ìŒ“ì•„ ë‘”ë‹¤.
     if (m_pGamePlayer->isCBillingVerified()) {
-        // ºô¸µ ÆÐÅ¶À» º¸³½´Ù. minus point/minute
+        // ë¹Œë§ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤. minus point/minute
         if (!g_pCBillingPlayerManager->sendMinusPoint(m_pGamePlayer)) {
             m_pGamePlayer->increaseMissedMinusPointPacket();
         }
@@ -59,11 +59,11 @@ void EventCBilling::activate()
             }
         }
     } else {
-        // Login packet À» º¸³»Áö ¸øÇÑ »óÅÂÀÌ´Ù. minus packet µµ ¸øº¸³½°É·Î ÇÏ°í ½×¾ÆµÐ´Ù.
+        // Login packet ì„ ë³´ë‚´ì§€ ëª»í•œ ìƒíƒœì´ë‹¤. minus packet ë„ ëª»ë³´ë‚¸ê±¸ë¡œ í•˜ê³  ìŒ“ì•„ë‘”ë‹¤.
         m_pGamePlayer->increaseMissedMinusPointPacket();
     }
 
-    // ´ÙÀ½¿¡ º¸³¾ ½Ã°£ ¼³Á¤ÇÑ´Ù. ºÐ ´ÜÀ§
+    // ë‹¤ìŒì— ë³´ë‚¼ ì‹œê°„ ì„¤ì •í•œë‹¤. ë¶„ ë‹¨ìœ„
     static int interval = g_pCBillingPlayerManager->getMinusIntervalInt();
 
     Timeval delay;

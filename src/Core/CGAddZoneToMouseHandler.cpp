@@ -66,37 +66,37 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
         ZoneCoord_t ZoneX = pPacket->getZoneX();
         ZoneCoord_t ZoneY = pPacket->getZoneY();
 
-        // ¹Ù¿îµå¸¦ ³Ñ¾î°¡Áö´Â ¾Ê´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ì§€ëŠ” ì•ŠëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (!isValidZoneCoord(pZone, ZoneX, ZoneY))
             goto ERROR;
 
         Tile& _Tile = pZone->getTile(ZoneX, ZoneY);
 
 
-        // Å¸ÀÏ¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ´õÇÒ ¼ö ¾ø´Ù.
+        // íƒ€ì¼ì— ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë‹¹ì—°íˆ ë”í•  ìˆ˜ ì—†ë‹¤.
         if (!_Tile.hasItem())
             goto ERROR;
 
-        // ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ°¡ ³ÎÀÌ°Å³ª, ÁÖÀ» ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ÁÖÀ» ¼ö ¾ø´Ù.
+        // ì•„ì´í…œ í¬ì¸í„°ê°€ ë„ì´ê±°ë‚˜, ì£¼ì„ ìˆ˜ ì—†ëŠ” ì•„ì´í…œì´ë¼ë©´ ì£¼ì„ ìˆ˜ ì—†ë‹¤.
         Item* pItem = _Tile.getItem();
         if (pItem == NULL || !isPortableItem(pItem))
             goto ERROR;
         if (!isAbleToPickupItem(pPC, pItem))
             goto ERROR;
 
-        // ÇÇÀÇ ¼º¼­ÀÏ °æ¿ì ÁÖ¿ï ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù. --> isAbleToPickupItem ³»ºÎ¿¡ ³Ö¾ú´Ù.
+        // í”¼ì˜ ì„±ì„œì¼ ê²½ìš° ì£¼ìš¸ ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤. --> isAbleToPickupItem ë‚´ë¶€ì— ë„£ì—ˆë‹¤.
 
         ObjectID_t ItemObjectID = pItem->getObjectID();
 
-        // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (ItemObjectID == pPacket->getObjectID()) {
             Item* pExtraItem = pPC->getExtraInventorySlotItem();
 
-            // ÀÌ¹Ì ¹«¾ğ°¡¸¦ µé°í ÀÖ´Ù¸é, ¾ÆÀÌÅÛÀ» ´õÇÒ ¼ö ¾ø´Ù.
+            // ì´ë¯¸ ë¬´ì–¸ê°€ë¥¼ ë“¤ê³  ìˆë‹¤ë©´, ì•„ì´í…œì„ ë”í•  ìˆ˜ ì—†ë‹¤.
             if (pExtraItem != NULL)
                 goto ERROR;
 
-            // ¿ì¼±±ÇÀÌ ºÙ¾îÀÖ´Â ¾ÆÀÌÅÛÀÏ °æ¿ì¿¡´Â ÁÖÀÎ ¶Ç´Â ÁÖÀÎÆÄÆ¼°¡ ¾Æ´Ï¶ó¸é ÁÖÀ» ¼ö ¾ø´Ù.
+            // ìš°ì„ ê¶Œì´ ë¶™ì–´ìˆëŠ” ì•„ì´í…œì¼ ê²½ìš°ì—ëŠ” ì£¼ì¸ ë˜ëŠ” ì£¼ì¸íŒŒí‹°ê°€ ì•„ë‹ˆë¼ë©´ ì£¼ì„ ìˆ˜ ì—†ë‹¤.
             if (pItem->isFlag(Effect::EFFECT_CLASS_PRECEDENCE)) {
                 Timeval currentTime;
                 getCurrentTime(currentTime);
@@ -107,20 +107,20 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
                     dynamic_cast<EffectPrecedence*>(rEffectManager.findEffect(Effect::EFFECT_CLASS_PRECEDENCE));
                 Assert(pEffectPrecedence != NULL);
 
-                // RelicÀÌ¸é ¾Æ¹«³ª ÁÖ¿ï ¼ö ÀÖ´Ù.
+                // Relicì´ë©´ ì•„ë¬´ë‚˜ ì£¼ìš¸ ìˆ˜ ìˆë‹¤.
                 if (isRelicItem(pItem) || pEffectPrecedence->getDeadline() < currentTime) {
-                    // ½Ã°£ÀÌ Áö³µ´Ù¸é ¾Æ¹«³ª ÁÖÀ» ¼ö ÀÖ´Ù. ´õºÒ¾î ¿©±â¼­ ÀÌÆåÆ®¸¦ »èÁ¦ÇØÁØ´Ù.
+                    // ì‹œê°„ì´ ì§€ë‚¬ë‹¤ë©´ ì•„ë¬´ë‚˜ ì£¼ì„ ìˆ˜ ìˆë‹¤. ë”ë¶ˆì–´ ì—¬ê¸°ì„œ ì´í™íŠ¸ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
                     rEffectManager.deleteEffect(Effect::EFFECT_CLASS_PRECEDENCE);
                     pItem->removeFlag(Effect::EFFECT_CLASS_PRECEDENCE);
                 } else {
-                    // ½Ã°£ÀÌ ¾ÆÁ÷ Áö³ªÁö ¾Ê¾Ò´Ù¸é, ÁÖÀÎ ¶Ç´Â ÁÖÀÎ ÆÄÆ¼¸¸ÀÌ ÁÖÀ» ¼ö ÀÖ´Ù.
+                    // ì‹œê°„ì´ ì•„ì§ ì§€ë‚˜ì§€ ì•Šì•˜ë‹¤ë©´, ì£¼ì¸ ë˜ëŠ” ì£¼ì¸ íŒŒí‹°ë§Œì´ ì£¼ì„ ìˆ˜ ìˆë‹¤.
                     if ((pEffectPrecedence->getHostName() == pPC->getName()) ||
                         (pPC->getPartyID() != 0 && pPC->getPartyID() == pEffectPrecedence->getHostPartyID())) {
-                        // ÁÖÀ» ¼ö ÀÖ´Ù. ÀÌÆåÆ®¸¦ »èÁ¦ÇØ ÁØ´Ù.
+                        // ì£¼ì„ ìˆ˜ ìˆë‹¤. ì´í™íŠ¸ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
                         rEffectManager.deleteEffect(Effect::EFFECT_CLASS_PRECEDENCE);
                         pItem->removeFlag(Effect::EFFECT_CLASS_PRECEDENCE);
                     } else {
-                        // ÁÖÀ» ¼ö ¾ø´Ù.
+                        // ì£¼ì„ ìˆ˜ ì—†ë‹¤.
                         goto ERROR;
                     }
                 }
@@ -129,8 +129,8 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
             /*
             #ifdef __XMAS_EVENT_CODE__
                         Inventory* pInventory = pPC->getInventory();
-                        // ÁÖÀ¸·Á´Â ¾ÆÀÌÅÛÀÌ ³ì»ö ¼±¹° »óÀÚ¶ó¸é,
-                        // ÀÎº¥Åä¸®¿¡ ³ì»ö ¼±¹° »óÀÚ¸¦ °¡Áö°í ÀÖ´Ù¸é ÁÖÀ» ¼ö ¾ø´Ù.
+                        // ì£¼ìœ¼ë ¤ëŠ” ì•„ì´í…œì´ ë…¹ìƒ‰ ì„ ë¬¼ ìƒìë¼ë©´,
+                        // ì¸ë²¤í† ë¦¬ì— ë…¹ìƒ‰ ì„ ë¬¼ ìƒìë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´ ì£¼ì„ ìˆ˜ ì—†ë‹¤.
                         if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX &&
                             pItem->getItemType() == 0 &&
                             pInventory->hasGreenGiftBox()) goto ERROR;
@@ -141,16 +141,16 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
             Item::ItemClass itemclass = pItem->getItemClass();
             // ItemType_t itemtype = pItem->getItemType();
 
-            // relicÀÎ °æ¿ì´Â ÀÌ¹Ì °®°í ÀÖ´Â relicÁ¾·ù¸¦ ¶Ç °¡Áú ¼ö´Â ¾ø´Ù.
-            // °¡Áú ¼ö ÀÖ´Ù¸é relicÀ» °¡Á³´Ù´Â effect¸¦ °É¾îÁÖ°í
-            // CombatInfoManager¿¡ ¼ÒÀ¯ÀÚ °ªÀ» ¼³Á¤ÇØÁØ´Ù.
+            // relicì¸ ê²½ìš°ëŠ” ì´ë¯¸ ê°–ê³  ìˆëŠ” relicì¢…ë¥˜ë¥¼ ë˜ ê°€ì§ˆ ìˆ˜ëŠ” ì—†ë‹¤.
+            // ê°€ì§ˆ ìˆ˜ ìˆë‹¤ë©´ relicì„ ê°€ì¡Œë‹¤ëŠ” effectë¥¼ ê±¸ì–´ì£¼ê³ 
+            // CombatInfoManagerì— ì†Œìœ ì ê°’ì„ ì„¤ì •í•´ì¤€ë‹¤.
             if (isRelicItem(itemclass)) {
                 addRelicEffect(pPC, pItem);
 
                 deleteEffectRelicPosition(pItem);
             }
 
-            // FlagÀÎ °æ¿ì¿£ Flag ¸¦ ºÙ¿©ÁØ´Ù.
+            // Flagì¸ ê²½ìš°ì—” Flag ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
             if (pItem->isFlagItem()) {
                 addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_HAS_FLAG);
             }
@@ -170,7 +170,7 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
 
                 pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcAddEffect);
 
-                // ÁÖ¿üÀ¸¸é Á¸¿¡ ½Ã½ºÅÛ ¸Ş¼¼Áö »Ñ·ÁÁØ´Ù
+                // ì£¼ì› ìœ¼ë©´ ì¡´ì— ì‹œìŠ¤í…œ ë©”ì„¸ì§€ ë¿Œë ¤ì¤€ë‹¤
                 char race[15];
                 if (pCreature->isSlayer()) {
                     sprintf(race, g_pStringPool->c_str(STRID_SLAYER));
@@ -196,13 +196,13 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
             pZone->deleteItem(pItem, ZoneX, ZoneY);
             pPC->addItemToExtraInventorySlot(pItem);
 
-            // ÁÖÀº ³ğ¿¡°Ô Àß ÁÖ¾ú´Ù°í °á°ú¸¦ ¾Ë·ÁÁØ´Ù.
+            // ì£¼ì€ ë†ˆì—ê²Œ ì˜ ì£¼ì—ˆë‹¤ê³  ê²°ê³¼ë¥¼ ì•Œë ¤ì¤€ë‹¤.
             GCDeleteandPickUpOK _GCDeleteandPickUpOK;
             GCDeleteObject _GCDeleteObject;
             _GCDeleteandPickUpOK.setObjectID(pItem->getObjectID());
             pPlayer->sendPacket(&_GCDeleteandPickUpOK);
 
-            // ±ÙÃ³¿¡ ÀÖ´Â ´Ù¸¥ »ç¶÷µé¿¡°Õ ¾ÆÀÌÅÛ¿¡ »ç¶óÁ³´Ù´Â °ÍÀ» º¸³»ÁØ´Ù.
+            // ê·¼ì²˜ì— ìˆëŠ” ë‹¤ë¥¸ ì‚¬ëŒë“¤ì—ê² ì•„ì´í…œì— ì‚¬ë¼ì¡Œë‹¤ëŠ” ê²ƒì„ ë³´ë‚´ì¤€ë‹¤.
             _GCDeleteObject.setObjectID(pItem->getObjectID());
             //			pZone->broadcastPacket(pPC->getX(), pPC->getY(), &_GCDeleteObject, pPC);
             //			pZone->broadcastPacket(ZoneX, ZoneY, &_GCDeleteObject, pPC);
@@ -210,14 +210,14 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
 
             Success = true;
 
-            // ¾ÆÀÌÅÛÀ» ÀúÀåÇÑ´Ù.
+            // ì•„ì´í…œì„ ì €ì¥í•œë‹¤.
             // pItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-            // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+            // itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
             char pField[80];
             sprintf(pField, "OwnerID='%s', Storage=%d", pPC->getName().c_str(), STORAGE_EXTRASLOT);
             pItem->tinysave(pField);
 
-            // º§Æ®ÀÏ °æ¿ì º§Æ® ¾ÈÀÇ ¾ÆÀÌÅÛµéµµ ¸ğµÎ ¼ÒÀ¯±ÇÀÌ ³Ñ¾î°¡¾ß ÇÑ´Ù. 2003.3.22 by Sequoia
+            // ë²¨íŠ¸ì¼ ê²½ìš° ë²¨íŠ¸ ì•ˆì˜ ì•„ì´í…œë“¤ë„ ëª¨ë‘ ì†Œìœ ê¶Œì´ ë„˜ì–´ê°€ì•¼ í•œë‹¤. 2003.3.22 by Sequoia
             if (pItem->getItemClass() == Item::ITEM_CLASS_BELT) {
                 sprintf(pField, "OwnerID='%s'", pPC->getName().c_str());
 
@@ -234,7 +234,7 @@ void CGAddZoneToMouseHandler::execute(CGAddZoneToMouse* pPacket, Player* pPlayer
                     }
                 }
             }
-            // ¾Ï½º¹êµåÀÏ °æ¿ì ¾ÈÀÇ ¾ÆÀÌÅÛµéµµ ¸ğµÎ ¼ÒÀ¯±ÇÀÌ ³Ñ¾î°¡¾ß ÇÑ´Ù. 2003.3.22 by Sequoia
+            // ì•”ìŠ¤ë°´ë“œì¼ ê²½ìš° ì•ˆì˜ ì•„ì´í…œë“¤ë„ ëª¨ë‘ ì†Œìœ ê¶Œì´ ë„˜ì–´ê°€ì•¼ í•œë‹¤. 2003.3.22 by Sequoia
             if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND) {
                 sprintf(pField, "OwnerID='%s'", pPC->getName().c_str());
 
@@ -287,8 +287,8 @@ ERROR:
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÌº¥Æ® ÄÚµå°¡ µé¾î°¡ÀÖ´Â ¹öÀüÀÌ´Ù.
-// ¶È°°Àº ÀÌº¥Æ®°¡ ¶Ç ½ÇÇàµÉ Áö ¸ğ¸£´Ï, Áö¿ìÁö ¸» °Í! -- by ±è¼º¹Î
+// ì´ë²¤íŠ¸ ì½”ë“œê°€ ë“¤ì–´ê°€ìˆëŠ” ë²„ì „ì´ë‹¤.
+// ë˜‘ê°™ì€ ì´ë²¤íŠ¸ê°€ ë˜ ì‹¤í–‰ë  ì§€ ëª¨ë¥´ë‹ˆ, ì§€ìš°ì§€ ë§ ê²ƒ! -- by ê¹€ì„±ë¯¼
 //////////////////////////////////////////////////////////////////////////////
 /*
 void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlayer)
@@ -314,12 +314,12 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
         ZoneCoord_t ZoneX   = pPacket->getZoneX();
         ZoneCoord_t ZoneY   = pPacket->getZoneY();
 
-        // ¹Ù¿îµå¸¦ ³Ñ¾î°¡Áö´Â ¾Ê´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ì§€ëŠ” ì•ŠëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (!isValidZoneCoord(pZone, ZoneX, ZoneY)) goto ERROR;
 
         Tile& _Tile = pZone->getTile(ZoneX, ZoneY);
 
-        // Å¸ÀÏ¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ´õÇÒ ¼ö ¾ø´Ù.
+        // íƒ€ì¼ì— ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë‹¹ì—°íˆ ë”í•  ìˆ˜ ì—†ë‹¤.
         if (!_Tile.hasItem())
         {
             GCCannotAdd _GCCannotAdd;
@@ -328,7 +328,7 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
             return;
         }
 
-        // ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ°¡ ³ÎÀÌ¶ó¸é ´ç¿¬È÷ ´õÇÒ ¼ö ¾ø´Ù.
+        // ì•„ì´í…œ í¬ì¸í„°ê°€ ë„ì´ë¼ë©´ ë‹¹ì—°íˆ ë”í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = _Tile.getItem();
         if (pItem == NULL)
         {
@@ -340,12 +340,12 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 
         ObjectID_t ItemObjectID = pItem->getObjectID();
 
-        // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (ItemObjectID == pPacket->getObjectID())
         {
             Item* pExtraItem = pPC->getExtraInventorySlotItem();
 
-            // ÀÌ¹Ì ¹«¾ğ°¡¸¦ µé°í ÀÖ´Ù¸é, ¾ÆÀÌÅÛÀ» ´õÇÒ ¼ö ¾ø´Ù.
+            // ì´ë¯¸ ë¬´ì–¸ê°€ë¥¼ ë“¤ê³  ìˆë‹¤ë©´, ì•„ì´í…œì„ ë”í•  ìˆ˜ ì—†ë‹¤.
             if (pExtraItem != NULL)
             {
                 GCCannotAdd _GCCannotAdd;
@@ -354,7 +354,7 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
                 return;
             }
 
-            // ¹Ù´Ú¿¡ ¶³¾îÁ® ÀÖ´Â ¾ÆÀÌÅÛÀÌ ÀÌº¥Æ®¿ë ÇØ°ñÀÌ¶ó¸é...
+            // ë°”ë‹¥ì— ë–¨ì–´ì ¸ ìˆëŠ” ì•„ì´í…œì´ ì´ë²¤íŠ¸ìš© í•´ê³¨ì´ë¼ë©´...
             if (pItem->getItemClass() == Item::ITEM_CLASS_SKULL &&
                 12 <= pItem->getItemType() && pItem->getItemType() <= 16)
             {
@@ -364,68 +364,68 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 
                 switch (pItem->getItemType())
                 {
-                    case 12: scount += 1; break; // È²±İ ÇØ°ñ
-                    case 15: scount += 4; break; // ¼öÁ¤ ÇØ°ñ
-                    case 14: scount += 9; break; // °ËÀº ÇØ°ñ
+                    case 12: scount += 1; break; // í™©ê¸ˆ í•´ê³¨
+                    case 15: scount += 4; break; // ìˆ˜ì • í•´ê³¨
+                    case 14: scount += 9; break; // ê²€ì€ í•´ê³¨
                     default: break;
                 }
 
-                // Ä«¿îÆ®¸¦ ÀúÀåÇÑ´Ù.
+                // ì¹´ìš´íŠ¸ë¥¼ ì €ì¥í•œë‹¤.
                 pGamePlayer->setSpecialEventCount(scount);
                 pGamePlayer->saveSpecialEventCount();
                 cur = scount/10;
 
-                // Á¸¿¡¼­ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÑ´Ù.
+                // ì¡´ì—ì„œ ì•„ì´í…œì„ ì‚­ì œí•œë‹¤.
                 pZone->deleteItem(pItem, ZoneX, ZoneY);
 
-                // ÁÖÀº ³ğ¿¡°Ô Àß ÁÖ¾ú´Ù°í ³¯·ÁÁØ´Ù.
+                // ì£¼ì€ ë†ˆì—ê²Œ ì˜ ì£¼ì—ˆë‹¤ê³  ë‚ ë ¤ì¤€ë‹¤.
                 GCDeleteandPickUpOK _GCDeleteandPickUpOK;
                 GCDeleteObject _GCDeleteObject;
                 _GCDeleteandPickUpOK.setObjectID(pItem->getObjectID());
                 pPlayer->sendPacket(&_GCDeleteandPickUpOK);
-                // ±ÙÃ³¿¡ ÀÖ´Â ´Ù¸¥ »ç¶÷µé¿¡°Õ ¾ÆÀÌÅÛ¿¡ »ç¶óÁ³´Ù´Â °ÍÀ» º¸³»ÁØ´Ù.
+                // ê·¼ì²˜ì— ìˆëŠ” ë‹¤ë¥¸ ì‚¬ëŒë“¤ì—ê² ì•„ì´í…œì— ì‚¬ë¼ì¡Œë‹¤ëŠ” ê²ƒì„ ë³´ë‚´ì¤€ë‹¤.
                 _GCDeleteObject.setObjectID(pItem->getObjectID());
                 pZone->broadcastPacket(pPC->getX(), pPC->getY(), &_GCDeleteObject, pPC);
 
-                // ¸¶Áö¸·À¸·Î ½ÇÁ¦ ¾ÆÀÌÅÛ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                // ë§ˆì§€ë§‰ìœ¼ë¡œ ì‹¤ì œ ì•„ì´í…œ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                 SAFE_DELETE(pItem);
 
-                // Á¡¼ö¸¦ Á¤±âÀûÀ¸·Î °¡¸£ÃÄÁØ´Ù.
+                // ì ìˆ˜ë¥¼ ì •ê¸°ì ìœ¼ë¡œ ê°€ë¥´ì³ì¤€ë‹¤.
                 StringStream msg;
-                msg << "´ç½ÅÀÇ ÇöÀç ÀÌº¥Æ® Æ÷ÀÎÆ®´Â " << pGamePlayer->getSpecialEventCount() << " Æ÷ÀÎÆ® ÀÔ´Ï´Ù.";
+                msg << "ë‹¹ì‹ ì˜ í˜„ì¬ ì´ë²¤íŠ¸ í¬ì¸íŠ¸ëŠ” " << pGamePlayer->getSpecialEventCount() << " í¬ì¸íŠ¸ ì…ë‹ˆë‹¤.";
                 GCSystemMessage gcMsg;
                 gcMsg.setMessage(msg.toString());
                 pPlayer->sendPacket(&gcMsg);
 
-                // Á¡¼ö¸¦ Á¤±âÀûÀ¸·Î ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+                // ì ìˆ˜ë¥¼ ì •ê¸°ì ìœ¼ë¡œ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
                 if (prev != cur)
                 {
                     StringStream msg;
-                    msg << pPC->getName() << "´Ô²²¼­ " << pGamePlayer->getSpecialEventCount() << " Æ÷ÀÎÆ®ÀÇ ÀÌº¥Æ®
-Á¡¼ö¸¦ È¹µæÇÏ¿´½À´Ï´Ù."; GCSystemMessage gcMsg; gcMsg.setMessage(msg.toString()); pPlayer->sendPacket(&gcMsg);
+                    msg << pPC->getName() << "ë‹˜ê»˜ì„œ " << pGamePlayer->getSpecialEventCount() << " í¬ì¸íŠ¸ì˜ ì´ë²¤íŠ¸
+ì ìˆ˜ë¥¼ íšë“í•˜ì˜€ìŠµë‹ˆë‹¤."; GCSystemMessage gcMsg; gcMsg.setMessage(msg.toString()); pPlayer->sendPacket(&gcMsg);
                     pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcMsg , pPC);
                 }
 
                 return;
             }
 
-            // Á¸¿¡¼­ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÏ°í, ¸¶¿ì½º¿¡´Ù ´Ş¾ÆÁØ´Ù.
+            // ì¡´ì—ì„œ ì•„ì´í…œì„ ì‚­ì œí•˜ê³ , ë§ˆìš°ìŠ¤ì—ë‹¤ ë‹¬ì•„ì¤€ë‹¤.
             pZone->deleteItem(pItem, ZoneX, ZoneY);
             pPC->addItemToExtraInventorySlot(pItem);
 
-            // ÁÖÀº ³ğ¿¡°Ô Àß ÁÖ¾ú´Ù°í °á°ú¸¦ ¾Ë·ÁÁØ´Ù.
+            // ì£¼ì€ ë†ˆì—ê²Œ ì˜ ì£¼ì—ˆë‹¤ê³  ê²°ê³¼ë¥¼ ì•Œë ¤ì¤€ë‹¤.
             GCDeleteandPickUpOK _GCDeleteandPickUpOK;
             GCDeleteObject _GCDeleteObject;
             _GCDeleteandPickUpOK.setObjectID(pItem->getObjectID());
             pPlayer->sendPacket(&_GCDeleteandPickUpOK);
 
-            // ±ÙÃ³¿¡ ÀÖ´Â ´Ù¸¥ »ç¶÷µé¿¡°Õ ¾ÆÀÌÅÛ¿¡ »ç¶óÁ³´Ù´Â °ÍÀ» º¸³»ÁØ´Ù.
+            // ê·¼ì²˜ì— ìˆëŠ” ë‹¤ë¥¸ ì‚¬ëŒë“¤ì—ê² ì•„ì´í…œì— ì‚¬ë¼ì¡Œë‹¤ëŠ” ê²ƒì„ ë³´ë‚´ì¤€ë‹¤.
             _GCDeleteObject.setObjectID(pItem->getObjectID());
             pZone->broadcastPacket(pPC->getX(), pPC->getY(), &_GCDeleteObject, pPC);
 
             Success = true;
 
-            // ¾ÆÀÌÅÛÀ» ÀúÀåÇÑ´Ù.
+            // ì•„ì´í…œì„ ì €ì¥í•œë‹¤.
             pItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
         }
 

@@ -57,12 +57,12 @@ void EffectYellowPoisonToCreature::unaffect(Creature* pCreature)
         Zone* pZone = pCreature->getZone();
         Player* pPlayer = pCreature->getPlayer();
 
-        // LightµîÀÇ ¸¶¹ýÀ¸·Î ÀÎÇÏ¿© ½Ã¾ß°¡ ¹à¾ÆÁ® ÀÖÀ» ¼ö ÀÖÀ¸¹Ç·Î..
-        // OldSight°¡ ÇöÀçÀÇ Sightº¸´Ù ¾îµÎ¿ì¸é Setting ÇÏÁö ¾Ê´Â´Ù.
+        // Lightë“±ì˜ ë§ˆë²•ìœ¼ë¡œ ì¸í•˜ì—¬ ì‹œì•¼ê°€ ë°ì•„ì ¸ ìžˆì„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ..
+        // OldSightê°€ í˜„ìž¬ì˜ Sightë³´ë‹¤ ì–´ë‘ìš°ë©´ Setting í•˜ì§€ ì•ŠëŠ”ë‹¤.
         Sight_t NewSight = 13;
         pCreature->setSight(NewSight);
 
-        // Å¬¶óÀÌ¾ðÆ®¿¡ Vision Á¤º¸¸¦ Àü¼ÛÇÑ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì— Vision ì •ë³´ë¥¼ ì „ì†¡í•œë‹¤.
         GCModifyInformation _GCModifyInformation;
         _GCModifyInformation.addShortData(MODIFY_VISION, NewSight);
         pPlayer->sendPacket(&_GCModifyInformation);
@@ -72,7 +72,7 @@ void EffectYellowPoisonToCreature::unaffect(Creature* pCreature)
 
         pZone->updateScan(pCreature, YELLOW_POISON_SIGHT, NewSight);
 
-        // Yellow PoisonÀÇ È¿°ú°¡ Ç®¸±¶§ Update ScanÀº ¹°·Ð ¹à±âÀÇ Á¶Àý±îÁö ÇØÁØ´Ù.
+        // Yellow Poisonì˜ íš¨ê³¼ê°€ í’€ë¦´ë•Œ Update Scanì€ ë¬¼ë¡  ë°ê¸°ì˜ ì¡°ì ˆê¹Œì§€ í•´ì¤€ë‹¤.
         //	DarkLightInfo* pDIInfo    = g_pDarkLightInfoManager->getCurrentDarkLightInfo( pZone );
         // DarkLevel_t    darkLevel  = pDIInfo->getDarkLevel();
         // LightLevel_t   lightLevel = pDIInfo->getLightLevel();
@@ -88,7 +88,7 @@ void EffectYellowPoisonToCreature::unaffect(Creature* pCreature)
         {
             pZone->updateScan(pSlayer, YELLOW_POISON_SIGHT, NewSight);
 
-            // Yellow PoisonÀÇ È¿°ú°¡ Ç®¸±¶§ Update ScanÀº ¹°·Ð ¹à±âÀÇ Á¶Àý±îÁö ÇØÁØ´Ù.
+            // Yellow Poisonì˜ íš¨ê³¼ê°€ í’€ë¦´ë•Œ Update Scanì€ ë¬¼ë¡  ë°ê¸°ì˜ ì¡°ì ˆê¹Œì§€ í•´ì¤€ë‹¤.
             DarkLightInfo* pDIInfo    = g_pDarkLightInfoManager->getCurrentDarkLightInfo();
             DarkLevel_t    darkLevel  = pDIInfo->getDarkLevel();
             LightLevel_t   lightLevel = pDIInfo->getLightLevel();
@@ -101,10 +101,10 @@ void EffectYellowPoisonToCreature::unaffect(Creature* pCreature)
         }
         */
 
-        // Ç®¸±¶§ Sight¸¦ ÀúÀåÇØÁØ´Ù.
+        // í’€ë¦´ë•Œ Sightë¥¼ ì €ìž¥í•´ì¤€ë‹¤.
         // pSlayer->tinysave("Sight = 13");
 
-        // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+        // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
         GCRemoveEffect gcRemoveEffect;
         gcRemoveEffect.setObjectID(pCreature->getObjectID());
         gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE);
@@ -253,7 +253,7 @@ void EffectYellowPoisonToCreatureLoader::load(Creature* pCreature)
 
     // Assert(pCreature != NULL);
     if (pCreature == NULL) {
-        // cout << "EffectYellowPoisonToCreatureLoader : Å©¸®ÃÄ°¡ ³ÎÀÔ´Ï´Ù." << endl;
+        // cout << "EffectYellowPoisonToCreatureLoader : í¬ë¦¬ì³ê°€ ë„ìž…ë‹ˆë‹¤." << endl;
         return;
     }
 

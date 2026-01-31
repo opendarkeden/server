@@ -50,7 +50,7 @@ void ActionRedistributeAttr::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -65,7 +65,7 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);
 
-    // ¸ÕÀú Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ GCNPCResponse¸¦ º¸³»ÁØ´Ù.
+    // ë¨¼ì € í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ GCNPCResponseë¥¼ ë³´ë‚´ì¤€ë‹¤.
     GCNPCResponse okpkt;
     pPlayer->sendPacket(&okpkt);
 
@@ -73,15 +73,15 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
 
     Gold_t ATTR_PRICE = g_pVariableManager->getVariable(VAMPIRE_REDISTRIBUTE_ATTR_PRICE);
 
-    // µ·À» °¡Áö°í ÀÖÁö ¾Ê´Ù¸é ¿¡·¯´Ù.
+    // ëˆì„ ê°€ì§€ê³  ìžˆì§€ ì•Šë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pVampire->getGold() < ATTR_PRICE) {
-        // ¸ÕÀú ´ëÈ­Ã¢À» ´Ý°Ô ÇÑ´Ù.
+        // ë¨¼ì € ëŒ€í™”ì°½ì„ ë‹«ê²Œ í•œë‹¤.
         GCNPCResponse gcNPCResponse;
         gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
         pPlayer->sendPacket(&gcNPCResponse);
 
         /*		StringStream msg;
-                msg << pVampire->getName() << " ´ÔÀº ÃæºÐÇÑ µ·À» °¡Áö°í ÀÖÁö ¾Ê½À´Ï´Ù.(" << ATTR_PRICE << " °Öµå)"; */
+                msg << pVampire->getName() << " ë‹˜ì€ ì¶©ë¶„í•œ ëˆì„ ê°€ì§€ê³  ìžˆì§€ ì•ŠìŠµë‹ˆë‹¤.(" << ATTR_PRICE << " ê²”ë“œ)"; */
 
         char msg[100];
         sprintf(msg, g_pStringPool->c_str(STRID_NOT_ENOUGH_MONEY), pVampire->getName().c_str());
@@ -92,8 +92,8 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
         return;
     }
 
-    // ·¹º§ ³ª´©±â 2¸¸Å­ÀÇ ´É·ÂÄ¡¸¸ º¸³Ê½º Æ÷ÀÎÆ®·Î ÀüÈ¯ÇÒ ¼ö ÀÖ´Ù.
-    // ±×·¯¹Ç·Î ÀÌ¹Ì ±× ÇÑ°è¸¦ ´Ù Ã¤¿ìÁö´Â ¾Ê¾Ò´ÂÁö °Ë»çÇÑ´Ù.
+    // ë ˆë²¨ ë‚˜ëˆ„ê¸° 2ë§Œí¼ì˜ ëŠ¥ë ¥ì¹˜ë§Œ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¡œ ì „í™˜í•  ìˆ˜ ìžˆë‹¤.
+    // ê·¸ëŸ¬ë¯€ë¡œ ì´ë¯¸ ê·¸ í•œê³„ë¥¼ ë‹¤ ì±„ìš°ì§€ëŠ” ì•Šì•˜ëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
     Statement* pStmt = NULL;
     Result* pResult = NULL;
     int RedistributedAttr = 0;
@@ -111,13 +111,13 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
         }
 
         if (RedistributedAttr >= pVampire->getLevel()) {
-            // ¸ÕÀú ´ëÈ­Ã¢À» ´Ý°Ô ÇÑ´Ù.
+            // ë¨¼ì € ëŒ€í™”ì°½ì„ ë‹«ê²Œ í•œë‹¤.
             GCNPCResponse gcNPCResponse;
             gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
             pPlayer->sendPacket(&gcNPCResponse);
 
             //			StringStream msg;
-            //			msg << "·¹º§¸¸Å­¸¸ º¸³Ê½º Æ÷ÀÎÆ®·Î ÀüÈ¯ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+            //			msg << "ë ˆë²¨ë§Œí¼ë§Œ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¡œ ì „í™˜í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤.";
 
             GCSystemMessage gcSM;
             gcSM.setMessage(g_pStringPool->getString(STRID_TRANS_BONUS_POINT));
@@ -130,24 +130,24 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
     }
     END_DB(pStmt)
 
-    // ´É·ÂÄ¡¸¦ º¯°æÇÏ±â¿¡ ¾Õ¼­ ±âÁ¸ÀÇ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ë³€ê²½í•˜ê¸°ì— ì•žì„œ ê¸°ì¡´ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ì €ìž¥í•œë‹¤.
     VAMPIRE_RECORD prev;
     pVampire->getVampireRecord(prev);
 
     StringStream sql;
     StringStream sql2;
 
-    // STR ÀçºÐ¹è
+    // STR ìž¬ë¶„ë°°
     if (m_AttrType == 0) {
-        // ¼ø¼öÈûÀÌ 20ÀÌÇÏ¶ó¸é ´õ ÀÌ»ó ÀçºÐ¹èÇÒ ¼ö°¡ ¾ø´Ù.
+        // ìˆœìˆ˜íž˜ì´ 20ì´í•˜ë¼ë©´ ë” ì´ìƒ ìž¬ë¶„ë°°í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pVampire->getSTR(ATTR_BASIC) <= 20) {
-            // ¸ÕÀú ´ëÈ­Ã¢À» ´Ý°Ô ÇÑ´Ù.
+            // ë¨¼ì € ëŒ€í™”ì°½ì„ ë‹«ê²Œ í•œë‹¤.
             GCNPCResponse gcNPCResponse;
             gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
             pPlayer->sendPacket(&gcNPCResponse);
 
             //			StringStream msg;
-            //			msg << "STRÀ» 20ÀÌÇÏ·Î ³·Ãâ ¼ö´Â ¾ø½À´Ï´Ù.";
+            //			msg << "STRì„ 20ì´í•˜ë¡œ ë‚®ì¶œ ìˆ˜ëŠ” ì—†ìŠµë‹ˆë‹¤.";
 
             GCSystemMessage gcSM;
             gcSM.setMessage(g_pStringPool->getString(STRID_STR_LOW_LIMIT));
@@ -158,16 +158,16 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
         pVampire->setSTR(pVampire->getSTR(ATTR_BASIC) - 1, ATTR_BASIC);
         sql << "STR = " << (int)pVampire->getSTR(ATTR_BASIC);
     }
-    // DEX ÀçºÐ¹è
+    // DEX ìž¬ë¶„ë°°
     else if (m_AttrType == 1) {
         if (pVampire->getDEX(ATTR_BASIC) <= 20) {
-            // ¸ÕÀú ´ëÈ­Ã¢À» ´Ý°Ô ÇÑ´Ù.
+            // ë¨¼ì € ëŒ€í™”ì°½ì„ ë‹«ê²Œ í•œë‹¤.
             GCNPCResponse gcNPCResponse;
             gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
             pPlayer->sendPacket(&gcNPCResponse);
 
             //			StringStream msg;
-            //			msg << "DEX¸¦ 20ÀÌÇÏ·Î ³·Ãâ ¼ö´Â ¾ø½À´Ï´Ù.";
+            //			msg << "DEXë¥¼ 20ì´í•˜ë¡œ ë‚®ì¶œ ìˆ˜ëŠ” ì—†ìŠµë‹ˆë‹¤.";
 
             GCSystemMessage gcSM;
             gcSM.setMessage(g_pStringPool->getString(STRID_DEX_LOW_LIMIT));
@@ -178,16 +178,16 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
         pVampire->setDEX(pVampire->getDEX(ATTR_BASIC) - 1, ATTR_BASIC);
         sql << "DEX = " << (int)pVampire->getDEX(ATTR_BASIC);
     }
-    // INT ÀçºÐ¹è
+    // INT ìž¬ë¶„ë°°
     else if (m_AttrType == 2) {
         if (pVampire->getINT(ATTR_BASIC) <= 20) {
-            // ¸ÕÀú ´ëÈ­Ã¢À» ´Ý°Ô ÇÑ´Ù.
+            // ë¨¼ì € ëŒ€í™”ì°½ì„ ë‹«ê²Œ í•œë‹¤.
             GCNPCResponse gcNPCResponse;
             gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
             pPlayer->sendPacket(&gcNPCResponse);
 
             //			StringStream msg;
-            //			msg << "INT¸¦ 20ÀÌÇÏ·Î ³·Ãâ ¼ö´Â ¾ø½À´Ï´Ù.";
+            //			msg << "INTë¥¼ 20ì´í•˜ë¡œ ë‚®ì¶œ ìˆ˜ëŠ” ì—†ìŠµë‹ˆë‹¤.";
 
             GCSystemMessage gcSM;
             gcSM.setMessage(g_pStringPool->getString(STRID_INT_LOW_LIMIT));
@@ -201,9 +201,9 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
         Assert(false);
     }
 
-    // ÁÙ¾îµç ´É·ÂÄ¡¸¦ ¼¼ÀÌºêÇÏ°í,
-    // ´É·ÂÄ¡°¡ ÁÙ¾îµé¾úÀ¸´Ï, º¸³Ê½º¸¦ ´Ã¸°´Ù.
-    // ±×¸®°í µ·À» ÁÙÀÎ´Ù.
+    // ì¤„ì–´ë“  ëŠ¥ë ¥ì¹˜ë¥¼ ì„¸ì´ë¸Œí•˜ê³ ,
+    // ëŠ¥ë ¥ì¹˜ê°€ ì¤„ì–´ë“¤ì—ˆìœ¼ë‹ˆ, ë³´ë„ˆìŠ¤ë¥¼ ëŠ˜ë¦°ë‹¤.
+    // ê·¸ë¦¬ê³  ëˆì„ ì¤„ì¸ë‹¤.
     pVampire->tinysave(sql.toString());
     pVampire->setBonus(pVampire->getBonus() + 1);
     sql2 << "Bonus = " << (int)pVampire->getBonus();
@@ -221,7 +221,7 @@ void ActionRedistributeAttr::execute(Creature* pCreature1, Creature* pCreature2)
     pVampire->sendRealWearingInfo();
     pPlayer->sendPacket(&gcMI);
 
-    // º¯È¯ÇÑ ´É·ÂÄ¡ÀÇ ¾çÀ» ÀúÀåÇØ¾ß ÇÑ´Ù.
+    // ë³€í™˜í•œ ëŠ¥ë ¥ì¹˜ì˜ ì–‘ì„ ì €ìž¥í•´ì•¼ í•œë‹¤.
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         pStmt->executeQuery("UPDATE Vampire SET RedistributeAttr = %d WHERE Name='%s'", RedistributedAttr + 1,

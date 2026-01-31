@@ -111,7 +111,7 @@ void EffectOnBridgeLoader::load(Zone* pZone)
                         if (tile.canAddEffect()) {
                             EffectOnBridge* pEffect = new EffectOnBridge(pZone, X, Y);
 
-                            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                             pZone->registerObject(pEffect);
                             pZone->addEffect(pEffect);
                             tile.addEffect(pEffect);

@@ -38,7 +38,7 @@ void ActionClearRankBonus::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionClearRankBonus::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -57,7 +57,7 @@ void ActionClearRankBonus::execute(Creature* pCreature1, Creature* pCreature2)
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
     Assert(pPC != NULL);
 
-    // ÀÏ´Ü Ã¢À» ´İ°í º»´Ù.
+    // ì¼ë‹¨ ì°½ì„ ë‹«ê³  ë³¸ë‹¤.
     GCNPCResponse response;
 
     Gold_t clearFee = 0;

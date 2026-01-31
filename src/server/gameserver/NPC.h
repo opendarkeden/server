@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : NPC.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ¿ø·¡´Â »óÁ¡ Ã³¸® ºÎºĞÀÌ ¾ø¾úÀ¸³ª, ÀÌ Å¬·¡½º¸¦ »ó¼Ó¹Ş¾Æ »óÁ¡ NPC¸¦
-// ¸¸µé±âµµ Á» ±×·¡¼­, ±×³É NPC ¾È¿¡´Ù »óÁ¡ ÀÎÅÍÆäÀÌ½º¸¦ Áı¾î³Ö¾ú´Ù.
+// ì›ë˜ëŠ” ìƒì  ì²˜ë¦¬ ë¶€ë¶„ì´ ì—†ì—ˆìœ¼ë‚˜, ì´ í´ë˜ìŠ¤ë¥¼ ìƒì†ë°›ì•„ ìƒì  NPCë¥¼
+// ë§Œë“¤ê¸°ë„ ì¢€ ê·¸ë˜ì„œ, ê·¸ëƒ¥ NPC ì•ˆì—ë‹¤ ìƒì  ì¸í„°í˜ì´ìŠ¤ë¥¼ ì§‘ì–´ë„£ì—ˆë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __NPC_H__
@@ -22,19 +22,19 @@ class RewardClassInfoManager;
 class Script;
 
 //////////////////////////////////////////////////////////////////////////////
-// »óÁ¡ÀÇ Á¾·ù (Å©¸®½º¸¶½º ÀÌº¥Æ®¿ë)
+// ìƒì ì˜ ì¢…ë¥˜ (í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ìš©)
 //////////////////////////////////////////////////////////////////////////////
 enum ShopType {
-    SHOPTYPE_NORMAL = 0, // ÀÏ¹İ »óÁ¡
-    SHOPTYPE_EVENT,      // ÀÌº¥Æ® »óÁ¡
+    SHOPTYPE_NORMAL = 0, // ì¼ë°˜ ìƒì 
+    SHOPTYPE_EVENT,      // ì´ë²¤íŠ¸ ìƒì 
 
     SHOPTYPE_MAX
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// NPCÀÇ Á¾Á· »ó¼ö
-// ÀÌ »ó¼ö¸¦ ÀÌ¿ëÇØ ½½·¹ÀÌ¾î°¡ ¹ìÆÄÀÌ¾î NPC¿¡°Ô ¸»À» °É°Å³ª
-// »óÁ¡À» ÀÌ¿ëÇÏ´Â °ÍµéÀ» ¸·´Â´Ù.
+// NPCì˜ ì¢…ì¡± ìƒìˆ˜
+// ì´ ìƒìˆ˜ë¥¼ ì´ìš©í•´ ìŠ¬ë ˆì´ì–´ê°€ ë±€íŒŒì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ê±°ë‚˜
+// ìƒì ì„ ì´ìš©í•˜ëŠ” ê²ƒë“¤ì„ ë§‰ëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 enum { NPC_RACE_SLAYER = 0, NPC_RACE_VAMPIRE, NPC_RACE_OUSTERS, NPC_RACE_MONSTER, NPC_RACE_UNKNOWN, NPC_RACE_MAX };
 
@@ -158,11 +158,11 @@ public:
     }
 
     ////////////////////////////////////////////////////////////
-    // »óÁ¡ °ü·Ã ÀÎÅÍÆäÀÌ½º
-    // »óÁ¡ ÀÎÅÍÆäÀÌ½º¿¡ °ü·ÃµÈ ÇÔ¼ö´Â NPC°¡ ½ÇÁ¦·Î
-    // »óÁ¡ NPC°¡ ¾Æ´Ñ °æ¿ì¿¡´Â °ÅÀÇ ¸ğµÎ°¡ exceptionÀ»
-    // ´øÁö¹Ç·Î, ÀÌ NPC°¡ È®½ÇÈ÷ »óÁ¡ NPCÀÎÁö Ã¼Å©ÇÏ°í,
-    // ÇÔ¼ö¸¦ È£ÃâÇØ¾ß ÇÑ´Ù.
+    // ìƒì  ê´€ë ¨ ì¸í„°í˜ì´ìŠ¤
+    // ìƒì  ì¸í„°í˜ì´ìŠ¤ì— ê´€ë ¨ëœ í•¨ìˆ˜ëŠ” NPCê°€ ì‹¤ì œë¡œ
+    // ìƒì  NPCê°€ ì•„ë‹Œ ê²½ìš°ì—ëŠ” ê±°ì˜ ëª¨ë‘ê°€ exceptionì„
+    // ë˜ì§€ë¯€ë¡œ, ì´ NPCê°€ í™•ì‹¤íˆ ìƒì  NPCì¸ì§€ ì²´í¬í•˜ê³ ,
+    // í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•´ì•¼ í•œë‹¤.
     ////////////////////////////////////////////////////////////
 public:
     int getShopType(void) const {
@@ -259,24 +259,24 @@ protected:
     SpriteType_t m_SpriteType;
     Color_t m_MainColor;
     Color_t m_SubColor;
-    Timeval m_NextTurn;              // ´ÙÀ½ ¾×¼Ç ½ÇÇà ½Ã°£
-    Inventory* m_pInventory;         // NPCÀÇ ÀÎº¥Åä¸®
-    TriggerManager m_TriggerManager; // Æ®¸®°Å ¸Å´ÏÀú
+    Timeval m_NextTurn;              // ë‹¤ìŒ ì•¡ì…˜ ì‹¤í–‰ ì‹œê°„
+    Inventory* m_pInventory;         // NPCì˜ ì¸ë²¤í† ë¦¬
+    TriggerManager m_TriggerManager; // íŠ¸ë¦¬ê±° ë§¤ë‹ˆì €
     bool m_bShowInMinimap;
     ClanType_t m_ClanType;
 
-    // »óÁ¡ ÀÎÅÍÆäÀÌ½º
+    // ìƒì  ì¸í„°í˜ì´ìŠ¤
     int m_ShopType;
     ShopRack* m_pRack;
     MarketCond_t m_MarketCondBuy;
     MarketCond_t m_MarketCondSell;
     //	QuestBoard*  m_pQuestBoard;
 
-    // Ä¿ÇÃ µî·Ï ¸Å´ÏÀú
+    // ì»¤í”Œ ë“±ë¡ ë§¤ë‹ˆì €
     PartnerWaitingManager* m_pCoupleRegisterManager;
     PartnerWaitingManager* m_pCoupleUnregisterManager;
 
-    // Äù½ºÆ® °ü·Ã Á¤º¸µé
+    // í€˜ìŠ¤íŠ¸ ê´€ë ¨ ì •ë³´ë“¤
     QuestInfoManager* m_pQuestInfoManager;
     RewardClassInfoManager* m_pRewardClassInfoManager;
 

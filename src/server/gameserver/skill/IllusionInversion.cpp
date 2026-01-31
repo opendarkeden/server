@@ -17,7 +17,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¿Ã€ÂºÃªÃÂ§Ã†Â® Ã‡ÃšÂµÃ©Â·Â¯
 //////////////////////////////////////////////////////////////////////////////
 void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot,
                                 CEffectID_t CEffectID)
@@ -45,7 +45,7 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Holy Smashing ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö Áõ°¡
+    // Holy Smashing Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© ÂµÂ¥Â¹ÃŒÃÃ¶ ÃÃµÂ°Â¡
     if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING)) {
         RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING);
         Assert(pRankBonus != NULL);
@@ -85,15 +85,15 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ÞµÈ µ¥¹ÌÁö °ªÀÌ ´õÇØÁö´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÏ¹Ý µ¥¹ÌÁö¸¦ °è»ê ÈÄ, µ¥¹ÌÁö¸¦ ´õÇØ¾ß ÇÑ´Ù.
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ÞµÈ µ¥¹ÌÁö °ªÀÌ Á÷Á¢ÀûÀ¸·Î ¾²ÀÌ´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÌ ºÎºÐ±îÁö µé¾î¿ÀÁö ¾ÊÀ¸¹Ç·Î, ¹ØÀÇ ºÎºÐ±îÁö 0À¸·Î Àü´ÞµÈ´Ù.
+            // Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ·ÃŽ Ã€Ã¼Â´ÃžÂµÃˆ ÂµÂ¥Â¹ÃŒÃÃ¶ Â°ÂªÃ€ÃŒ Â´ÃµÃ‡Ã˜ÃÃ¶Â´Ã‚ ÂµÂ¥Â¹ÃŒÃÃ¶Â¶Ã³Â¸Ã©,
+            // Ã€ÃÂ¹Ã ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»Ãª ÃˆÃ„, ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â´ÃµÃ‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+            // Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ·ÃŽ Ã€Ã¼Â´ÃžÂµÃˆ ÂµÂ¥Â¹ÃŒÃÃ¶ Â°ÂªÃ€ÃŒ ÃÃ·ÃÂ¢Ã€Ã»Ã€Â¸Â·ÃŽ Â¾Â²Ã€ÃŒÂ´Ã‚ ÂµÂ¥Â¹ÃŒÃÃ¶Â¶Ã³Â¸Ã©,
+            // Ã€ÃŒ ÂºÃŽÂºÃÂ±Ã®ÃÃ¶ ÂµÃ©Â¾Ã®Â¿Ã€ÃÃ¶ Â¾ÃŠÃ€Â¸Â¹Ã‡Â·ÃŽ, Â¹Ã˜Ã€Ã‡ ÂºÃŽÂºÃÂ±Ã®ÃÃ¶ 0Ã€Â¸Â·ÃŽ Ã€Ã¼Â´ÃžÂµÃˆÂ´Ã™.
             Damage += computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ¸¸ÀÏ ½ºÅ³ µ¥¹ÌÁö°¡ ¸¶¹ý µ¥¹ÌÁö¶ó¸é, ¸¶¹ý µ¥¹ÌÁö °è»ê ÇÔ¼ö¸¦ ÀÌ¿ëÇØ °è»êÀ» ÇØÁØ´Ù.
+            // Â¸Â¸Ã€Ã Â½ÂºÃ…Â³ ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ Â¸Â¶Â¹Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¶Ã³Â¸Ã©, Â¸Â¶Â¹Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶ Â°Ã¨Â»Ãª Ã‡Ã”Â¼Ã¶Â¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡Ã˜ Â°Ã¨Â»ÃªÃ€Â» Ã‡Ã˜ÃÃ˜Â´Ã™.
             Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType);
         } else {
             Damage += param.SkillDamage;
@@ -113,9 +113,9 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
 
         bool bUseSkill = false;
         /*
-        // È¡³öµ±Ç°Ê¹ÓÃ¼¼ÄÜ½ÇÉ«ËùÊ¹ÓÃµÄÎäÆ÷
+        // ÃˆÂ¡Â³Ã¶ÂµÂ±Ã‡Â°ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÂ½Ã‡Ã‰Â«Ã‹Ã¹ÃŠÂ¹Ã“ÃƒÂµÃ„ÃŽÃ¤Ã†Ã·
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
-        //Ã»ÓÐÎäÆ÷²»ÄÜÊ¹ÓÃ¼¼ÄÜ
+        //ÃƒÂ»Ã“ÃÃŽÃ¤Ã†Ã·Â²Â»Ã„ÃœÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„Ãœ
         if (pWeapon != NULL)
         {
             Silver_t silverDamage= pWeapon->getSilver();
@@ -139,12 +139,12 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bPK && bUseSkill) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ¥¹ÌÁö¸¦ °¡ÇÏ°í, ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Â¡Ã‡ÃÂ°Ã­, Â³Â»Â±Â¸ÂµÂµÂ¸Â¦ Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
             setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // Ã…Â¸Â°Ã™Ã€ÃŒ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
             if (!pTargetCreature->isSlayer()) {
                 shareAttrExp(pSlayer, Damage, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
                              _GCSkillToObjectOK1);
@@ -153,7 +153,7 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);
                 increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
             }
-            // ÎüÈ¡Ä¿±êHP
+            // ÃŽÃ¼ÃˆÂ¡Ã„Â¿Â±ÃªHP
             HP_t HealPoint = Damage;
             HP_t CurrentHP = pSlayer->getHP();
             HP_t MaxHP = pSlayer->getHP(ATTR_MAX);
@@ -218,14 +218,14 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
     }
     /*
         g_SimpleMissileSkill.execute(pSlayer, TargetObjectID, pSkillSlot, param, result);
-        // È¡³öÉËº¦Öµ
+        // ÃˆÂ¡Â³Ã¶Ã‰Ã‹ÂºÂ¦Ã–Âµ
         Zone* pZone = pSlayer->getZone();
         Player* pPlayer = pSlayer->getPlayer();
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        if (pTargetCreature==NULL		// NoSuch Á¦°Å. by sigi. 2002.5.2
+        if (pTargetCreature==NULL		// NoSuch ÃÂ¦Â°Ã…. by sigi. 2002.5.2
             || pTargetCreature->isNPC()
             || !canAttack( pSlayer, pTargetCreature )
             || pTargetCreature->isDead()
@@ -237,7 +237,7 @@ void IllusionInversion::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Skil
         int targetLevel = 0;
         int targetMaxHP = 0;
         Exp_t Exp = output.Damage;
-        cout << "Ê¹ÓÃ¼¼ÄÜ:¿Ö²À»Ã¾õ,Ôì³ÉÉËº¦:"<< (int)output.Damage << endl;
+        cout << "ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„Ãœ:Â¿Ã–Â²Ã€Â»ÃƒÂ¾Ãµ,Ã”Ã¬Â³Ã‰Ã‰Ã‹ÂºÂ¦:"<< (int)output.Damage << endl;
     //	cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayer)" << endl;
     */
     __END_CATCH

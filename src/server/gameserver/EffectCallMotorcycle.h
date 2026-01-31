@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectCallMotorcycle;
-// ���� �ð� �� heartbeat�� ����ڿ��� ������̸� ȣ���� �ִ� �̺�Ʈ�̴�.
+// 일정 시간 후 heartbeat시 사용자에게 오토바이를 호출해 주는 이벤트이다.
 //////////////////////////////////////////////////////////////////////////////
 
 class Item;
@@ -27,7 +27,7 @@ public:
         return EFFECT_CLASS_DECAY_ITEM;
     }
 
-    // OBJECT_PRIORITY_NONE ��� ����, Ÿ�Ͽ� ������ �ȵȴٴ� ���̴�.
+    // OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }

@@ -21,11 +21,11 @@ ItemRack::ItemRack() {
 }
 
 ItemRack::ItemRack(int size) {
-    // Æ÷ÀÎÅÍ ¹è¿­ ÇÒ´ç
+    // í¬ì¸í„° ë°°ì—´ í• ë‹¹
     m_ppItem = new Item*[size];
     Assert(m_ppItem != NULL);
 
-    // Æ÷ÀÎÅÍ ¹è¿­ ÃÊ±âÈ­
+    // í¬ì¸í„° ë°°ì—´ ì´ˆê¸°í™”
     for (int i = 0; i < size; i++)
         m_ppItem[i] = NULL;
 
@@ -39,7 +39,7 @@ ItemRack::~ItemRack() {
 
             if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_KEY) {
                 Key* pKey = dynamic_cast<Key*>(pItem);
-                // °Á °£´ÜÇÏ°Ô ÀÌ¾È¿¡¼­ ¾Ë¾Æ¼­ Á¸¿¡¼­ Áö¿ö ÁÖµµ·Ï ÇÏÀÚ.
+                // ê± ê°„ë‹¨í•˜ê²Œ ì´ì•ˆì—ì„œ ì•Œì•„ì„œ ì¡´ì—ì„œ ì§€ì›Œ ì£¼ë„ë¡ í•˜ì.
                 if (g_pParkingCenter->hasMotorcycleBox(pKey->getTarget())) {
                     g_pParkingCenter->deleteMotorcycleBox(pKey->getTarget());
                 }
@@ -53,7 +53,7 @@ ItemRack::~ItemRack() {
 }
 
 void ItemRack::init(int size) {
-    // ¸ÕÀú ÀÕ´ø ³»¿ëÀ» Áö¿öÁØ´Ù.
+    // ë¨¼ì € ì‡ë˜ ë‚´ìš©ì„ ì§€ì›Œì¤€ë‹¤.
     if (m_ppItem != NULL) {
         for (int i = 0; i < m_nSize; i++)
             SAFE_DELETE(m_ppItem[i]);
@@ -61,11 +61,11 @@ void ItemRack::init(int size) {
         SAFE_DELETE_ARRAY(m_ppItem);
     }
 
-    // Æ÷ÀÎÅÍ ¹è¿­ ÇÒ´ç
+    // í¬ì¸í„° ë°°ì—´ í• ë‹¹
     m_ppItem = new Item*[size];
     Assert(m_ppItem != NULL);
 
-    // Æ÷ÀÎÅÍ ¹è¿­ ÃÊ±âÈ­
+    // í¬ì¸í„° ë°°ì—´ ì´ˆê¸°í™”
     for (int i = 0; i < size; i++)
         m_ppItem[i] = NULL;
 
@@ -73,7 +73,7 @@ void ItemRack::init(int size) {
 }
 
 bool ItemRack::isFull(void) const {
-    // ¾ÆÀÌÅÛÀÌ ÇÏ³ª¶óµµ ¾øÀ¸¸é ²Ë Âù °ÍÀº ¾Æ´ÏÁö.
+    // ì•„ì´í…œì´ í•˜ë‚˜ë¼ë„ ì—†ìœ¼ë©´ ê½‰ ì°¬ ê²ƒì€ ì•„ë‹ˆì§€.
     for (int i = 0; i < m_nSize; i++)
         if (m_ppItem[i] == NULL)
             return false;
@@ -82,7 +82,7 @@ bool ItemRack::isFull(void) const {
 }
 
 bool ItemRack::isEmpty(void) const {
-    // ¾ÆÀÌÅÛÀÌ ÇÏ³ª¶óµµ ÀÖÀ¸¸é ºó °ÍÀº ¾Æ´ÏÁö.
+    // ì•„ì´í…œì´ í•˜ë‚˜ë¼ë„ ìˆìœ¼ë©´ ë¹ˆ ê²ƒì€ ì•„ë‹ˆì§€.
     for (int i = 0; i < m_nSize; i++)
         if (m_ppItem[i] != NULL)
             return false;
@@ -91,34 +91,34 @@ bool ItemRack::isEmpty(void) const {
 }
 
 bool ItemRack::isExist(BYTE index) const {
-    // Àß¸øµÈ ÀÎµ¦½Ì °ËÁõ
+    // ì˜ëª»ëœ ì¸ë±ì‹± ê²€ì¦
     Assert(verifyIndex(index));
 
-    // ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é false, ÀÖ´Ù¸é true
+    // ì•„ì´í…œì´ ì—†ë‹¤ë©´ false, ìˆë‹¤ë©´ true
     return (m_ppItem[index] == NULL ? false : true);
 }
 
 void ItemRack::insert(BYTE index, Item* pItem) {
-    // Àß¸øµÈ ÀÎµ¦½Ì °ËÁõ
+    // ì˜ëª»ëœ ì¸ë±ì‹± ê²€ì¦
     Assert(verifyIndex(index));
 
-    // ¸ÕÀú ¾ÆÀÌÅÛÀÌ µé¾îÀÖ´ÂÁö °Ë»ç
+    // ë¨¼ì € ì•„ì´í…œì´ ë“¤ì–´ìˆëŠ”ì§€ ê²€ì‚¬
     Assert(m_ppItem[index] == NULL);
 
-    // Áı¾î³Ö´Â´Ù.
+    // ì§‘ì–´ë„£ëŠ”ë‹¤.
     m_ppItem[index] = pItem;
 }
 
 void ItemRack::remove(BYTE index) {
-    // Àß¸øµÈ ÀÎµ¦½Ì °ËÁõ
+    // ì˜ëª»ëœ ì¸ë±ì‹± ê²€ì¦
     Assert(verifyIndex(index));
 
-    // Æ÷ÀÎÅÍ Áö¿î´Ù.
+    // í¬ì¸í„° ì§€ìš´ë‹¤.
     m_ppItem[index] = NULL;
 }
 
 Item* ItemRack::get(BYTE index) {
-    // Àß¸øµÈ ÀÎµ¦½Ì °ËÁõ
+    // ì˜ëª»ëœ ì¸ë±ì‹± ê²€ì¦
     Assert(verifyIndex(index));
 
     return m_ppItem[index];
@@ -130,7 +130,7 @@ void ItemRack::clear(void) {
 }
 
 BYTE ItemRack::getFirstEmptySlot(void) const {
-    // Ã³À½ºÎÅÍ °Ë»öÇÑ´Ù.
+    // ì²˜ìŒë¶€í„° ê²€ìƒ‰í•œë‹¤.
     for (int i = 0; i < m_nSize; i++)
         if (m_ppItem[i] == NULL)
             return i;
@@ -139,7 +139,7 @@ BYTE ItemRack::getFirstEmptySlot(void) const {
 }
 
 BYTE ItemRack::getLastEmptySlot(void) const {
-    // µÚºÎÅÍ °Ë»öÇÑ´Ù.
+    // ë’¤ë¶€í„° ê²€ìƒ‰í•œë‹¤.
     for (int i = m_nSize - 1; i >= 0; i--)
         if (m_ppItem[i] == NULL)
             return i;

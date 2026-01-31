@@ -64,7 +64,7 @@ void CGUseMessageItemFromInventoryHandler::execute(CGUseMessageItemFromInventory
     CoordInven_t InvenX = pPacket->getX();
     CoordInven_t InvenY = pPacket->getY();
 
-    // ÀÎº¥Åä¸® ÁÂÇ¥¸¦ ³Ñ¾î°¡´Â ¿µ¿ªÀÌ¶ó¸é ¾È µÈ´Ù.
+    // Ã€ÃŽÂºÂ¥Ã…Ã¤Â¸Â® ÃÃ‚Ã‡Â¥Â¸Â¦ Â³Ã‘Â¾Ã®Â°Â¡Â´Ã‚ Â¿ÂµÂ¿ÂªÃ€ÃŒÂ¶Ã³Â¸Ã© Â¾Ãˆ ÂµÃˆÂ´Ã™.
     if (InvenX >= pInventory->getWidth() || InvenY >= pInventory->getHeight()) {
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -72,7 +72,7 @@ void CGUseMessageItemFromInventoryHandler::execute(CGUseMessageItemFromInventory
         return;
     }
 
-    // ÀÎº¥Åä¸®¿¡ ±× ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ¿¡·¯´Ù.
+    // Ã€ÃŽÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡ Â±Ã— Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã¸Â´Ã™Â¸Ã© Â¿Â¡Â·Â¯Â´Ã™.
     Item* pItem = pInventory->getItem(InvenX, InvenY);
     if (pItem == NULL) {
         GCCannotUse _GCCannotUse;
@@ -81,10 +81,10 @@ void CGUseMessageItemFromInventoryHandler::execute(CGUseMessageItemFromInventory
         return;
     }
 
-    // ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Object¸¦ ¹Þ´Â´Ù.
+    // Ã€ÃŽÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ ObjectÂ¸Â¦ Â¹ÃžÂ´Ã‚Â´Ã™.
     ObjectID_t ItemObjectID = pItem->getObjectID();
 
-    // OID°¡ ÀÏÄ¡ÇÏÁö ¾Ê°Å³ª, »ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ¿¡·¯´Ù.
+    // OIDÂ°Â¡ Ã€ÃÃ„Â¡Ã‡ÃÃÃ¶ Â¾ÃŠÂ°Ã…Â³Âª, Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¶Ã³Â¸Ã© Â¿Â¡Â·Â¯Â´Ã™.
     if (ItemObjectID != pPacket->getObjectID() || !isUsableItem(pItem, pCreature)) {
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -99,7 +99,7 @@ void CGUseMessageItemFromInventoryHandler::execute(CGUseMessageItemFromInventory
         return;
     }
 
-    // ¾ÆÀÌÅÛÀÇ Á¾·ù¿¡ µû¶ó, Ã³¸® ÇÔ¼ö¸¦ ºÐ±â½ÃÄÑ ÁØ´Ù.
+    // Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ ÂµÃ»Â¶Ã³, ÃƒÂ³Â¸Â® Ã‡Ã”Â¼Ã¶Â¸Â¦ ÂºÃÂ±Ã¢Â½ÃƒÃ„Ã‘ ÃÃ˜Â´Ã™.
     switch (pItem->getItemClass()) {
     case Item::ITEM_CLASS_EVENT_TREE:
         executeEventTree(pPacket, pPlayer);
@@ -135,8 +135,8 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
         Assert(pPacket != NULL);
     Assert(pPlayer != NULL);
 
-    // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯ Ã¼Å©¸¦ ¸¹ÀÌ Çß±â ¶§¹®¿¡,
-    // ¿¡·¯ Ã¼Å©¸¦ ´ëÆø Ãà¼ÒÇÑ´Ù.
+    // Â»Ã³Ã€Â§ Ã‡Ã”Â¼Ã¶Â¿Â¡Â¼Â­ Â¿Â¡Â·Â¯ ÃƒÂ¼Ã…Â©Â¸Â¦ Â¸Â¹Ã€ÃŒ Ã‡ÃŸÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡,
+    // Â¿Â¡Â·Â¯ ÃƒÂ¼Ã…Â©Â¸Â¦ Â´Ã«Ã†Ã¸ ÃƒÃ Â¼Ã’Ã‡Ã‘Â´Ã™.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     Creature* pCreature = pGamePlayer->getCreature();
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
@@ -168,7 +168,7 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
         time = 86400;
         break;
     default: {
-        filelog("EventTree.log", "ÀÌ»óÇÑ ¾ÆÅÛÀ» ½è´Ù. : %s °¡ %d", pPC->getName().c_str(), pItem->getItemType());
+        filelog("EventTree.log", "Ã€ÃŒÂ»Ã³Ã‡Ã‘ Â¾Ã†Ã…Ã›Ã€Â» Â½Ã¨Â´Ã™. : %s Â°Â¡ %d", pPC->getName().c_str(), pItem->getItemType());
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
         pGamePlayer->sendPacket(&_GCCannotUse);
@@ -176,10 +176,10 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
         return;
     }
 
-    // Å¸ÀÏ¿¡ ½ºÅ³À» ¾²´Â °ÍÀÌ¶ó°í º¸°í ¾µ ¼ö ÀÖ´ÂÁö¸¦ Ã¼Å©ÇÑ´Ù.
-    // ¾ÈÀüÁö´ë¿¡¼­´Â »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¾µ ¼ö ÀÖ´Â ¾ÆÀÌÅÛ Å¸ÀÔÀÎÁö ¿ÎÀÎÇÑ´Ù. ItemType ÀÌ 12ÀÎ °Í¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
-    // ±ÙÃ³¿¡(ÇÃ·¹ÀÌ¾î ÁÖÀ§ÀÇ 5x5Å¸ÀÏ ÀÌ³») ´Ù¸¥ Æ®¸®°¡ ÀÖ´Ù¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Ã…Â¸Ã€ÃÂ¿Â¡ Â½ÂºÃ…Â³Ã€Â» Â¾Â²Â´Ã‚ Â°ÃÃ€ÃŒÂ¶Ã³Â°Ã­ ÂºÂ¸Â°Ã­ Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶Â¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
+    // Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
+    // Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã› Ã…Â¸Ã€Ã”Ã€ÃŽÃÃ¶ Â¿ÃŽÃ€ÃŽÃ‡Ã‘Â´Ã™. ItemType Ã€ÃŒ 12Ã€ÃŽ Â°ÃÂ¸Â¸ Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
+    // Â±Ã™ÃƒÂ³Â¿Â¡(Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã® ÃÃ–Ã€Â§Ã€Ã‡ 5x5Ã…Â¸Ã€Ã Ã€ÃŒÂ³Â») Â´Ã™Â¸Â¥ Ã†Â®Â¸Â®Â°Â¡ Ã€Ã–Â´Ã™Â¸Ã© Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     if (!isAbleToUseTileSkill(pCreature) || pZone->isMasterLair() || ItemObjectID != pPacket->getObjectID() ||
         checkCorpse(pZone, MType, pPC->getX() - 2, pPC->getY() - 2, pPC->getX() + 2, pPC->getY() + 2)) {
         GCCannotUse _GCCannotUse;
@@ -188,7 +188,7 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
         return;
     }
 
-    // ¼ºÀÌ¸é ¼ºÁÖ ±æµå¿ø¸¸ ¾µ ¼ö ÀÖ´Ù.
+    // Â¼ÂºÃ€ÃŒÂ¸Ã© Â¼ÂºÃÃ– Â±Ã¦ÂµÃ¥Â¿Ã¸Â¸Â¸ Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã™.
     if (!pPC->isGOD()) {
         if (pZone->isCastle()) {
             if (!g_pCastleInfoManager->isCastleMember(pZone->getZoneID(), pPC)) {
@@ -198,7 +198,7 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
                 return;
             }
         }
-        // ¼ºÀÌ ¾Æ´Ñ °÷ÀÇ ¾ÈÀüÁö´ë¿¡¼± Àý´ë ¸ø ¾´´Ù.
+        // Â¼ÂºÃ€ÃŒ Â¾Ã†Â´Ã‘ Â°Ã·Ã€Ã‡ Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â± Ã€Ã½Â´Ã« Â¸Ã¸ Â¾Â´Â´Ã™.
         else if (pZone->getZoneLevel(pCreature->getX(), pCreature->getY()) & SAFE_ZONE) {
             GCCannotUse _GCCannotUse;
             _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -207,16 +207,16 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
         }
     }
 
-    /*	// Æ®¸®¸¦ Á¸¿¡ Ãß°¡ÇÑ´Ù. (Æ®¸®´Â ¸ó½ºÅÍ ½ÃÃ¼¸¦ ÀÌ¿ëÇÑ´Ù)
+    /*	// Ã†Â®Â¸Â®Â¸Â¦ ÃÂ¸Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™. (Ã†Â®Â¸Â®Â´Ã‚ Â¸Ã³Â½ÂºÃ…Ã Â½ÃƒÃƒÂ¼Â¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡Ã‘Â´Ã™)
         MonsterCorpse* pMonsterCorpse = new MonsterCorpse( 482, pPacket->getMessage(), 2 );
         Assert(pMonsterCorpse!=NULL);
 
         pZone->getObjectRegistry().registerObject( pMonsterCorpse );
 
-        // »ý¼ºµÈ ½ÃÃ¼¸¦ Á¸¿¡ Ãß°¡ÇÑ´Ù.
+        // Â»Ã½Â¼ÂºÂµÃˆ Â½ÃƒÃƒÂ¼Â¸Â¦ ÃÂ¸Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
         int delayTime = g_pVariableManager->getVariable( CHRISTMAS_TREE_DECAY_TIME ); // by sigi. 2002.12.17
-        TPOINT pt = pZone->addItem( pMonsterCorpse, pPC->getX(), pPC->getY(), true, delayTime );	// 6½Ã°£ µÚ¿¡
-       Æ®¸®(½ÃÃ¼)°¡ »ç¶óÁø´Ù. if (pt.x == -1)*/
+        TPOINT pt = pZone->addItem( pMonsterCorpse, pPC->getX(), pPC->getY(), true, delayTime );	// 6Â½ÃƒÂ°Â£ ÂµÃšÂ¿Â¡
+       Ã†Â®Â¸Â®(Â½ÃƒÃƒÂ¼)Â°Â¡ Â»Ã§Â¶Ã³ÃÃ¸Â´Ã™. if (pt.x == -1)*/
     if (!createBulletinBoard(pZone, pPC->getX(), pPC->getY(), MType, pPacket->getMessage(),
                              VSDateTime::currentDateTime().addSecs(time))) {
         GCCannotUse _GCCannotUse;
@@ -226,12 +226,12 @@ void CGUseMessageItemFromInventoryHandler::executeEventTree(CGUseMessageItemFrom
         return;
     }
 
-    // »ç¿ëÇÑ ¾ÆÀÌÅÛÀÌ¹Ç·Î Áö¿öÁØ´Ù.
+    // Â»Ã§Â¿Ã«Ã‡Ã‘ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ¹Ã‡Â·ÃŽ ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
     pInventory->deleteItem(InvenX, InvenY);
     pItem->destroy();
     SAFE_DELETE(pItem);
 
-    // ¾ÆÀÌÅÛÀ» »ç¿ëÇß´Ù°í Å¬¶óÀÌ¾ðÆ®¿¡ ¾Ë¸°´Ù.
+    // Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â»Ã§Â¿Ã«Ã‡ÃŸÂ´Ã™Â°Ã­ Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â®Â¿Â¡ Â¾Ã‹Â¸Â°Â´Ã™.
     GCUseOK gcUseOK;
     pGamePlayer->sendPacket(&gcUseOK);
 
@@ -264,8 +264,8 @@ void CGUseMessageItemFromInventoryHandler::executeEventFromMessage(CGUseMessageI
 
     int time = 0;
 
-    // ¼ì²âÎïÆ·
-    // ÉèÖÃÑÕÉ«  green(ÂÌÉ«) =0  blue(À¶É«) = 1 yellow(»ÆÉ«) = 2
+    // Â¼Ã¬Â²Ã¢ÃŽÃ¯Ã†Â·
+    // Ã‰Ã¨Ã–ÃƒÃ‘Ã•Ã‰Â«  green(Ã‚ÃŒÃ‰Â«) =0  blue(Ã€Â¶Ã‰Â«) = 1 yellow(Â»Ã†Ã‰Â«) = 2
     string color = "0";
     switch (pItem->getItemType()) {
     case 10:
@@ -278,7 +278,7 @@ void CGUseMessageItemFromInventoryHandler::executeEventFromMessage(CGUseMessageI
         color = "2";
         break;
     default: {
-        filelog("EventTree.log", "Ê¹ÓÃ¸æÊ¾ÅÆ³ö´í ½ÇÉ«Ãû: %s  ÎïÆ·ÀàÐÍ%d", pPC->getName().c_str(), pItem->getItemType());
+        filelog("EventTree.log", "ÃŠÂ¹Ã“ÃƒÂ¸Ã¦ÃŠÂ¾Ã…Ã†Â³Ã¶Â´Ã­ Â½Ã‡Ã‰Â«ÃƒÃ»: %s  ÃŽÃ¯Ã†Â·Ã€Ã ÃÃ%d", pPC->getName().c_str(), pItem->getItemType());
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
         pGamePlayer->sendPacket(&_GCCannotUse);

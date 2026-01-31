@@ -2,7 +2,7 @@
 //
 // File Name	: Connection.cpp
 // Written by	: Gday29@ewestsoft.com
-// Description	: Ä¿³Ø¼Ç Å¬·¡½º ±¸Çö
+// Description	: ì»¤ë„¥ì…˜ í´ë˜ìŠ¤ êµ¬í˜„
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -15,8 +15,8 @@
 //
 // constructor
 //
-// µ¥ÀÌÅÍ º£ÀÌ½º¿Í ¿¬°áÇÏ°í, µ¥ÀÌÅÍº£ÀÌ½º¸¦ ¼±ÅÃÇÑ´Ù.
-// ¿¹¿Ü¸¦ ´øÁö´Â ºÎºĞÀº ¼öÁ¤ÇØ¾ß ÇÑ´Ù.
+// ë°ì´í„° ë² ì´ìŠ¤ì™€ ì—°ê²°í•˜ê³ , ë°ì´í„°ë² ì´ìŠ¤ë¥¼ ì„ íƒí•œë‹¤.
+// ì˜ˆì™¸ë¥¼ ë˜ì§€ëŠ” ë¶€ë¶„ì€ ìˆ˜ì •í•´ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,7 +25,7 @@ Connection::Connection() throw(Error) : m_bConnected(false), m_bBusy(false) {
 
     m_Mutex.setName("Connection");
 
-    // MYSQL °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // MYSQL ê°ì²´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     if (mysql_init(&m_Mysql) == NULL) {
         throw Error(mysql_error(&m_Mysql));
     }
@@ -37,9 +37,9 @@ Connection::Connection() throw(Error) : m_bConnected(false), m_bBusy(false) {
 //
 // *CAUTION*
 //
-// connect()¸¦ È£ÃâÇÒ ¶§ port ¸¦ ¸í½ÃÇÏÁö ¾ÊÀ» °æ¿ì, µğÆúÆ®°ªÀÎ 0 ÀÌ »ç¿ëµÇ¸ç
-// ÀÌ¶§ MYSQLÀÇ µğÆúÆ® Æ÷Æ®°¡ »ç¿ëµÈ´Ù. ±×·¸Áö¸¸, º¸¾ÈÀ» À§ÇØ¼­ MYSQLÀ» ´Ù¸¥
-// Æ÷Æ®¿¡´Ù°¡ ¶ç¿ö³ö¾ß ÇÒ °ÍÀÌ´Ù. µû¶ó¼­, Æ÷Æ®¸¦ ÁöÁ¤ÇÒ ÇÊ¿ä°¡ ÀÖ´Ù.
+// connect()ë¥¼ í˜¸ì¶œí•  ë•Œ port ë¥¼ ëª…ì‹œí•˜ì§€ ì•Šì„ ê²½ìš°, ë””í´íŠ¸ê°’ì¸ 0 ì´ ì‚¬ìš©ë˜ë©°
+// ì´ë•Œ MYSQLì˜ ë””í´íŠ¸ í¬íŠ¸ê°€ ì‚¬ìš©ëœë‹¤. ê·¸ë ‡ì§€ë§Œ, ë³´ì•ˆì„ ìœ„í•´ì„œ MYSQLì„ ë‹¤ë¥¸
+// í¬íŠ¸ì—ë‹¤ê°€ ë„ì›Œë†”ì•¼ í•  ê²ƒì´ë‹¤. ë”°ë¼ì„œ, í¬íŠ¸ë¥¼ ì§€ì •í•  í•„ìš”ê°€ ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -50,11 +50,11 @@ Connection::Connection(string host, string db, string user, string password, uin
 
     m_Mutex.setName("Connection");
 
-    // MYSQL °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // MYSQL ê°ì²´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     if (mysql_init(&m_Mysql) == NULL)
         throw Error(mysql_error(&m_Mysql));
 
-    // ¹Ù·Î ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+    // ë°”ë¡œ ì—°ê²°ì„ ì‹œë„í•œë‹¤.
     connect(m_Host, m_Database, m_User, m_Password, m_Port);
 
     __END_CATCH
@@ -69,7 +69,7 @@ Connection::Connection(string host, string db, string user, string password, uin
 Connection::~Connection() throw(Error) {
     __BEGIN_TRY
 
-    // ¿¬°áµÇ¾î ÀÖÀ» °æ¿ì, ¿¬°áÀ» ²÷´Â´Ù.
+    // ì—°ê²°ë˜ì–´ ìˆì„ ê²½ìš°, ì—°ê²°ì„ ëŠëŠ”ë‹¤.
     if (m_bConnected) {
         close();
     }
@@ -81,17 +81,17 @@ Connection::~Connection() throw(Error) {
 //
 // connect()
 //
-// Connection °´Ã¼°¡ »ı¼ºµÉ ¶§, ¾îµğ¿¡ ¿¬°áÇÒ Áö ¾ËÁö ¸øÇÒ °æ¿ì
-// ÀÏ´Ü default constructor ¸¦ »ç¿ëÇØ¼­ °´Ã¼¸¦ »ı¼ºÇÑ ´ÙÀ½,
-// ¿¬°áÇÒ ¶§ °ªÀ» ¹Ş¾Æ¼­ ³»ºÎ µ¥ÀÌÅÍ¸â¹öµéÀ» ÃÊ±âÈ­ÇÑ ÈÄ ¿¬°áÇÑ´Ù.
+// Connection ê°ì²´ê°€ ìƒì„±ë  ë•Œ, ì–´ë””ì— ì—°ê²°í•  ì§€ ì•Œì§€ ëª»í•  ê²½ìš°
+// ì¼ë‹¨ default constructor ë¥¼ ì‚¬ìš©í•´ì„œ ê°ì²´ë¥¼ ìƒì„±í•œ ë‹¤ìŒ,
+// ì—°ê²°í•  ë•Œ ê°’ì„ ë°›ì•„ì„œ ë‚´ë¶€ ë°ì´í„°ë©¤ë²„ë“¤ì„ ì´ˆê¸°í™”í•œ í›„ ì—°ê²°í•œë‹¤.
 //
 // *CAUTION*
 //
-// connect()¸¦ È£ÃâÇÒ ¶§ port ¸¦ ¸í½ÃÇÏÁö ¾ÊÀ» °æ¿ì, µğÆúÆ®°ªÀÎ 0 ÀÌ »ç¿ëµÇ¸ç
-// ÀÌ¶§ MYSQL ÀÇ µğÆúÆ® Æ÷Æ®°¡ »ç¿ëµÈ´Ù. ±×·¸Áö¸¸, º¸¾ÈÀ» À§ÇØ¼­ MYSQLÀ» ´Ù¸¥
-// Æ÷Æ®¿¡´Ù°¡ ¶ç¿ö³ö¾ß ÇÒ °ÍÀÌ´Ù.
+// connect()ë¥¼ í˜¸ì¶œí•  ë•Œ port ë¥¼ ëª…ì‹œí•˜ì§€ ì•Šì„ ê²½ìš°, ë””í´íŠ¸ê°’ì¸ 0 ì´ ì‚¬ìš©ë˜ë©°
+// ì´ë•Œ MYSQL ì˜ ë””í´íŠ¸ í¬íŠ¸ê°€ ì‚¬ìš©ëœë‹¤. ê·¸ë ‡ì§€ë§Œ, ë³´ì•ˆì„ ìœ„í•´ì„œ MYSQLì„ ë‹¤ë¥¸
+// í¬íŠ¸ì—ë‹¤ê°€ ë„ì›Œë†”ì•¼ í•  ê²ƒì´ë‹¤.
 //
-// µğÆúÆ® ÆÄ¶ó¹ÌÅÍ¸¦ »ç¿ëÇØ¾ß ÇÏ±â ¶§¹®¿¡, Æ÷Æ® ÆÄ¶ó¹ÌÅÍ°¡ ¸Ç µÚ·Î °¬´Ù.. *_*;
+// ë””í´íŠ¸ íŒŒë¼ë¯¸í„°ë¥¼ ì‚¬ìš©í•´ì•¼ í•˜ê¸° ë•Œë¬¸ì—, í¬íŠ¸ íŒŒë¼ë¯¸í„°ê°€ ë§¨ ë’¤ë¡œ ê°”ë‹¤.. *_*;
 //
 // ex> Connection conn;
 //     conn.connect( "vampire.ewestsoft.com" , "bbs" , "bbsuser" , "bbspassword" );
@@ -116,30 +116,30 @@ void Connection::connect(string host, string db, string user, string password, u
 //
 // connect()
 //
-// »ı¼ºÀÚ¿¡¼­ Á÷Á¢  Á¤º¸¸¦ ÀÔ·Â¹ŞÀ» °æ¿ì, ¹Ù·Î ÀÌ ¸Ş½îµå¸¦ È£ÃâÇØ¼­
-// ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+// ìƒì„±ìì—ì„œ ì§ì ‘  ì •ë³´ë¥¼ ì…ë ¥ë°›ì„ ê²½ìš°, ë°”ë¡œ ì´ ë©”ì˜ë“œë¥¼ í˜¸ì¶œí•´ì„œ
+// ì—°ê²°ì„ ì‹œë„í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
 void Connection::connect() throw(SQLConnectException) {
     __BEGIN_TRY
 
-    // ¿¬°áÀ» ÇÏ·Á±¸ ÇÏ´Âµ¥ ÀÌ¹Ì ¿¬°áÀÌ µÇ¾îÀÖ´Ù¸é ¿¡·¯´Ù.
+    // ì—°ê²°ì„ í•˜ë ¤êµ¬ í•˜ëŠ”ë° ì´ë¯¸ ì—°ê²°ì´ ë˜ì–´ìˆë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (m_bConnected) {
-        // ÀÌ·² °æ¿ì, ¿¬°áÀº ´İ¾Æ ÁÖ°í ¿¹¿Ü¸¦ ´øÁ®¾ß ÇÒ °ÍÀÌ´Ù.
+        // ì´ëŸ´ ê²½ìš°, ì—°ê²°ì€ ë‹«ì•„ ì£¼ê³  ì˜ˆì™¸ë¥¼ ë˜ì ¸ì•¼ í•  ê²ƒì´ë‹¤.
         close();
 
         throw SQLConnectException("Already Connected");
     }
 
     //--------------------------------------------------
-    // ¿¡·¯°¡ »ı±â´ÂÁö Ã¼Å©ÇØ¾ß ÇÔ...
+    // ì—ëŸ¬ê°€ ìƒê¸°ëŠ”ì§€ ì²´í¬í•´ì•¼ í•¨...
     //--------------------------------------------------
     m_bConnected = (mysql_real_connect(&m_Mysql, m_Host.c_str(), m_User.c_str(), m_Password.c_str(), m_Database.c_str(),
                                        m_Port, 0, 0) != NULL);
     // cout << "Connection Calls~~~" << endl;
 
-    // ¿¬°á»óÅÂ°¡ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+    // ì—°ê²°ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
     if (!m_bConnected) {
         throw SQLConnectException(mysql_error(&m_Mysql));
     }
@@ -151,7 +151,7 @@ void Connection::connect() throw(SQLConnectException) {
 //
 //	close()
 //
-//	¿¬°áÀ» ²÷´Â´Ù.
+//	ì—°ê²°ì„ ëŠëŠ”ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -162,7 +162,7 @@ void Connection::close() throw(SQLConnectException, Error) {
         throw SQLConnectException("Not Connected");
     }
 
-    // void ÀÌ¹Ç·Î ¹«½Ã.. - -;
+    // void ì´ë¯€ë¡œ ë¬´ì‹œ.. - -;
     mysql_close(&m_Mysql);
 
     m_bConnected = false;
@@ -174,20 +174,20 @@ void Connection::close() throw(SQLConnectException, Error) {
 //
 //	createStatement
 //
-//	»õ·Î¿î Statement °´Ã¼¸¦ ¸¸µé¾î ±× °´Ã¼ÀÇ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+//	ìƒˆë¡œìš´ Statement ê°ì²´ë¥¼ ë§Œë“¤ì–´ ê·¸ ê°ì²´ì˜ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
 Statement* Connection::createStatement() throw() {
     __BEGIN_TRY
 
-    // »õ·Î¿î Statement °´Ã¼¸¦ ¸¸µç´Ù.
+    // ìƒˆë¡œìš´ Statement ê°ì²´ë¥¼ ë§Œë“ ë‹¤.
     Statement* pStatement = new Statement();
 
-    // ¸¸µç °´Ã¼ÀÇ Ä¿³Ø¼Ç °ªÀ» ÀÌ Ä¿³Ø¼Ç °´Ã¼·Î ÇÏ°í..
+    // ë§Œë“  ê°ì²´ì˜ ì»¤ë„¥ì…˜ ê°’ì„ ì´ ì»¤ë„¥ì…˜ ê°ì²´ë¡œ í•˜ê³ ..
     pStatement->setConnection(this);
 
-    // ¸®ÅÏÇÑ´Ù.
+    // ë¦¬í„´í•œë‹¤.
     return pStatement;
 
     __END_CATCH

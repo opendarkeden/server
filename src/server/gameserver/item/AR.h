@@ -61,8 +61,8 @@ public:
     void makePCItemInfo(PCItemInfo& result) const;
 
 private:
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 
@@ -135,14 +135,14 @@ public:
     virtual string toString() const;
 
 private:
-    Durability_t m_Durability; // ³»±¸¼º
-    Damage_t m_MinDamage;      // ÃÖ¼Ò µ¥¹ÌÁö
-    Damage_t m_MaxDamage;      // ÃÖ´ë µ¥¹ÌÁö
-    Range_t m_Range;           // »çÁ¤°Å¸®
-    ToHit_t m_ToHitBonus;      // ¸íÁß·ü º¸³Ê½º
-    Speed_t m_Speed;           // °ø°İ ¼Óµµ
-    uint m_ItemLevel;          // ¾ÆÀÌÅÛÀÇ ·¹º§
-    int m_CriticalBonus;       // ¾ÆÀÌÅÛ¸¶´Ù ´Ù¸¥ Å©¸®Æ¼ÄÃ È®·ü
+    Durability_t m_Durability; // ë‚´êµ¬ì„±
+    Damage_t m_MinDamage;      // ìµœì†Œ ë°ë¯¸ì§€
+    Damage_t m_MaxDamage;      // ìµœëŒ€ ë°ë¯¸ì§€
+    Range_t m_Range;           // ì‚¬ì •ê±°ë¦¬
+    ToHit_t m_ToHitBonus;      // ëª…ì¤‘ë¥  ë³´ë„ˆìŠ¤
+    Speed_t m_Speed;           // ê³µê²© ì†ë„
+    uint m_ItemLevel;          // ì•„ì´í…œì˜ ë ˆë²¨
+    int m_CriticalBonus;       // ì•„ì´í…œë§ˆë‹¤ ë‹¤ë¥¸ í¬ë¦¬í‹°ì»¬ í™•ë¥ 
 };
 
 

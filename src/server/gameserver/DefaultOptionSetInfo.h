@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : DefaultOptionSetInfo.h
-// Written By  : ¹èÀçÇü
+// Written By  : ë°°ìž¬í˜•
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
 
 
 enum DefaultOptionSetTypes {
-    DEFAULT_OPTION_SET_FAMILY_PAY, // 0. ÆÐ¹Ð¸® ¿ä±ÝÁ¦¿ë. ¸ðµçÀúÇ× +7
+    DEFAULT_OPTION_SET_FAMILY_PAY, // 0. íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œìš©. ëª¨ë“ ì €í•­ +7
 
     DEFAULT_OPTION_SET_MAX
 };

@@ -30,7 +30,7 @@ void pthreadAPI::pthread_create_ex(pthread_t* thread, pthread_attr_t* attr, void
     if (pthread_create(thread, attr, start_routine, arg) < 0) {
         switch (errno) {
         case EAGAIN:
-            throw ThreadException("½Ã½ºÅÛ ¸®¼Ò½º°¡ ºÎÁ·ÇÏ°Å³ª, ³Ê¹« ¸¹Àº ¾²·¹µå°¡ È°¼ºÈ­»óÅÂÀÔ´Ï´Ù.");
+            throw ThreadException("ì‹œìŠ¤í…œ ë¦¬ì†ŒìŠ¤ê°€ ë¶€ì¡±í•˜ê±°ë‚˜, ë„ˆë¬´ ë§ì€ ì“°ë ˆë“œê°€ í™œì„±í™”ìƒíƒœì…ë‹ˆë‹¤.");
         default:
             throw UnknownError(strerror(errno), errno);
         }
@@ -51,11 +51,11 @@ void pthreadAPI::pthread_join_ex(pthread_t th, void** thread_return) {
     if (pthread_join(th, thread_return) < 0) {
         switch (errno) {
         case ESRCH:
-            throw Error("ÁöÁ¤µÈ ¾²·¹µå¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            throw Error("ì§€ì •ëœ ì“°ë ˆë“œë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         case EINVAL:
-            throw ThreadException("ÁöÁ¤µÈ ¾²·¹µå°¡ ÀÌ¹Ì detached µÇ¾ú°Å³ª, ¶Ç´Ù¸¥ ¾²·¹µå°¡ ÀÌ¹Ì ±â´Ù¸®°í ÀÖ½À´Ï´Ù.");
+            throw ThreadException("ì§€ì •ëœ ì“°ë ˆë“œê°€ ì´ë¯¸ detached ë˜ì—ˆê±°ë‚˜, ë˜ë‹¤ë¥¸ ì“°ë ˆë“œê°€ ì´ë¯¸ ê¸°ë‹¤ë¦¬ê³  ìˆìŠµë‹ˆë‹¤.");
         case EDEADLK:
-            throw Error("ÀÚ±â ÀÚ½ÅÀ» ±â´Ù¸± ¼ö´Â ¾ø½À´Ï´Ù.");
+            throw Error("ìê¸° ìì‹ ì„ ê¸°ë‹¤ë¦´ ìˆ˜ëŠ” ì—†ìŠµë‹ˆë‹¤.");
         default:
             throw UnknownError(strerror(errno), errno);
         }
@@ -76,9 +76,9 @@ void pthreadAPI::pthread_detach_ex(pthread_t th) {
     if (pthread_detach(th) < 0) {
         switch (errno) {
         case ESRCH:
-            throw Error("ÁöÁ¤µÈ ¾²·¹µå¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            throw Error("ì§€ì •ëœ ì“°ë ˆë“œë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         case EINVAL:
-            throw ThreadException("ÁöÁ¤µÈ ¾²·¹µå´Â ÀÌ¹Ì detached »óÅÂÀÔ´Ï´Ù.");
+            throw ThreadException("ì§€ì •ëœ ì“°ë ˆë“œëŠ” ì´ë¯¸ detached ìƒíƒœì…ë‹ˆë‹¤.");
         default:
             throw UnknownError(strerror(errno), errno);
         }
@@ -200,7 +200,7 @@ void pthreadAPI::pthread_mutex_destroy_ex(pthread_mutex_t* mutex) {
     if (pthread_mutex_destroy(mutex) < 0) {
         switch (errno) {
         case EBUSY:
-            throw MutexException("¹ÂÅØ½º°¡ ÇöÀç Àá±İ»óÅÂÀÔ´Ï´Ù.");
+            throw MutexException("ë®¤í…ìŠ¤ê°€ í˜„ì¬ ì ê¸ˆìƒíƒœì…ë‹ˆë‹¤.");
         default:
             throw UnknownError(strerror(errno), errno);
         }
@@ -221,9 +221,9 @@ void pthreadAPI::pthread_mutex_lock_ex(pthread_mutex_t* mutex) {
     if (pthread_mutex_lock(mutex) < 0) {
         switch (errno) {
         case EINVAL:
-            throw Error("¹ÂÅØ½º°¡ ¿Ã¹Ù¸£°Ô ÃÊ±âÈ­µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            throw Error("ë®¤í…ìŠ¤ê°€ ì˜¬ë°”ë¥´ê²Œ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         case EDEADLK:
-            throw MutexException("DEADLOCK - ¹ÂÅØ½º°¡ ÇöÀç ¾²·¹µå¿¡ ÀÇÇØ¼­ ÀÌ¹Ì Àá°ÜÀÖ½À´Ï´Ù.");
+            throw MutexException("DEADLOCK - ë®¤í…ìŠ¤ê°€ í˜„ì¬ ì“°ë ˆë“œì— ì˜í•´ì„œ ì´ë¯¸ ì ê²¨ìˆìŠµë‹ˆë‹¤.");
         default:
             throw UnknownError(strerror(errno), errno);
         }
@@ -244,9 +244,9 @@ void pthreadAPI::pthread_mutex_unlock_ex(pthread_mutex_t* mutex) {
     if (pthread_mutex_unlock(mutex) < 0) {
         switch (errno) {
         case EINVAL:
-            throw Error("¹ÂÅØ½º°¡ ¿Ã¹Ù¸£°Ô ÃÊ±âÈ­µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            throw Error("ë®¤í…ìŠ¤ê°€ ì˜¬ë°”ë¥´ê²Œ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         case EPERM:
-            throw MutexException("ÇöÀç ¾²·¹µå°¡ ¹ÂÅØ½º¸¦ Àá±×°í ÀÖÁö ¾Ê½À´Ï´Ù.");
+            throw MutexException("í˜„ì¬ ì“°ë ˆë“œê°€ ë®¤í…ìŠ¤ë¥¼ ì ê·¸ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
         default:
             throw UnknownError(strerror(errno), errno);
         }
@@ -267,7 +267,7 @@ void pthreadAPI::pthread_mutex_trylock_ex(pthread_mutex_t* mutex) {
     if (pthread_mutex_trylock(mutex) < 0) {
         switch (errno) {
         case EINVAL:
-            throw Error("¹ÂÅØ½º°¡ ¿Ã¹Ù¸£°Ô ÃÊ±âÈ­µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            throw Error("ë®¤í…ìŠ¤ê°€ ì˜¬ë°”ë¥´ê²Œ ì´ˆê¸°í™”ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         case EBUSY:
             throw MutexException("mutex already locked...");
         default:

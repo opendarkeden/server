@@ -34,7 +34,7 @@ void CGStashRequestBuyHandler::execute(CGStashRequestBuy* pPacket, Player* pPlay
 
     BYTE curStashNum = pPlayerCreature->getStashNum();
 
-    // °¡Áö°í ÀÖ´Â º¸°üÇÔÀÌ ¸Æ½º¶ó¸é ¸®ÅÏ
+    // ê°€ì§€ê³  ìžˆëŠ” ë³´ê´€í•¨ì´ ë§¥ìŠ¤ë¼ë©´ ë¦¬í„´
     if (curStashNum >= STASH_RACK_MAX) {
         GCNPCResponse failpkt;
         failpkt.setCode(NPC_RESPONSE_STASH_SELL_FAIL_MAX);
@@ -44,7 +44,7 @@ void CGStashRequestBuyHandler::execute(CGStashRequestBuy* pPacket, Player* pPlay
 
     Price_t price = g_pPriceManager->getStashPrice(curStashNum + 1);
 
-    // µ·ÀÌ ¸ðÀÚ¶óµµ ½ÇÆÐÁã.
+    // ëˆì´ ëª¨ìžë¼ë„ ì‹¤íŒ¨ì¥.
     if (pPlayerCreature->getGold() < price) {
         GCNPCResponse failpkt;
         failpkt.setCode(NPC_RESPONSE_STASH_SELL_FAIL_MONEY);
@@ -52,16 +52,16 @@ void CGStashRequestBuyHandler::execute(CGStashRequestBuy* pPacket, Player* pPlay
         return;
     }
 
-    // º¸°üÇÔ °¹¼ö¸¦ ÇÑ Ä­ ´Ã·ÁÁÖ°í...
+    // ë³´ê´€í•¨ ê°¯ìˆ˜ë¥¼ í•œ ì¹¸ ëŠ˜ë ¤ì£¼ê³ ...
     pPlayerCreature->setStashNumEx(curStashNum + 1);
 
-    // µ·À» ÁÙÀÎ´Ù.
+    // ëˆì„ ì¤„ì¸ë‹¤.
     // pPlayerCreature->setGoldEx(pPlayerCreature->getGold() - price);
 
     // by sigi. 2002.9.4
     pPlayerCreature->decreaseGoldEx(price);
 
-    // ¸¶Áö¸·À¸·Î OK ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+    // ë§ˆì§€ë§‰ìœ¼ë¡œ OK íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
     GCNPCResponse okpkt;
     okpkt.setCode(NPC_RESPONSE_STASH_SELL_OK);
     pPlayer->sendPacket(&okpkt);

@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTError.h
-// Desc		: ÆÄ¿öÂ¯ ¼­¹ö¿¡¼­ ¿¡·¯¿¡ ´ëÇÑ °á°ú¸¦ º¸³»±â À§ÇØ¼­ »ç¿ëµÈ´Ù.
-// 			  ¿Â¶óÀÎ ¼­¹ö¿¡¼­´Â ¼­¹ö ¿À·ù·Î ÀÏ°ü Ã³¸®ÇÏ°í ´ëºÎºÐ
-// 			  µð¹ö±×¿ëÀ¸·Î »ç¿ë
+// Desc		: íŒŒì›Œì§± ì„œë²„ì—ì„œ ì—ëŸ¬ì— ëŒ€í•œ ê²°ê³¼ë¥¼ ë³´ë‚´ê¸° ìœ„í•´ì„œ ì‚¬ìš©ëœë‹¤.
+// 			  ì˜¨ë¼ì¸ ì„œë²„ì—ì„œëŠ” ì„œë²„ ì˜¤ë¥˜ë¡œ ì¼ê´€ ì²˜ë¦¬í•˜ê³  ëŒ€ë¶€ë¶„
+// 			  ë””ë²„ê·¸ìš©ìœ¼ë¡œ ì‚¬ìš©
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_ERROR_H__
@@ -12,25 +12,25 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ¿¡·¯ ÄÚµå
+// ì—ëŸ¬ ì½”ë“œ
 enum MERR_CODE {
-    MERR_SERVER = 0x01,    // ¼­¹ö´Â »ì¾Æ ÀÖÀ¸³ª ÇöÀç Á¤»óÀûÀ¸·Î
-                           // µ¿ÀÛÇÏÁö ¸øÇÏ´Â »óÈ²
-    MERR_CONFIRM = 0x02,   // ¿Â¶óÀÎ °ÔÀÓ ÄÚµå·Î È®ÀÎ ÀÌ ½ÇÆÐÇÒ °æ¿ì
-    MERR_PACKET = 0x03,    // Àß¸øµÈ ÆÐÅ¶ÀÌ ¼Û/¼ö½ÅµÈ °æ¿ì
-    MERR_PROCESS = 0x04,   // ¼­¹ö Ã³¸® ¿À·ù ( ex: DB ¿À·ù )
-    MERR_SEARCH = 0x05,    // ÆÄ¿öÂ¯ È¸¿øÀÌ ¾Æ´Ñ °æ¿ì
-    MERR_NULLPOINT = 0x06, // ÆÄ¿öÂ¯ È¸¿øÀÌ³ª ´©ÀûµÈ ÆÄ¿öÂ¯ Æ÷ÀÎÆ®°¡
-                           // ¾ø´Â °æ¿ì
-    MERR_MATCHING = 0x07,  // ¸ÅÄª Á¤º¸ ¿À·ù (ex: È¸¿ø ¸ÅÄª Á¤º¸°¡ ¾øÀ½)
-                           // È¨ÆäÀÌÁö¿¡¼­ ¸ÅÄªÀ» À¯µµÇÏ´Â ¹®ÀåÀ» Àü¼Û.
+    MERR_SERVER = 0x01,    // ì„œë²„ëŠ” ì‚´ì•„ ìžˆìœ¼ë‚˜ í˜„ìž¬ ì •ìƒì ìœ¼ë¡œ
+                           // ë™ìž‘í•˜ì§€ ëª»í•˜ëŠ” ìƒí™©
+    MERR_CONFIRM = 0x02,   // ì˜¨ë¼ì¸ ê²Œìž„ ì½”ë“œë¡œ í™•ì¸ ì´ ì‹¤íŒ¨í•  ê²½ìš°
+    MERR_PACKET = 0x03,    // ìž˜ëª»ëœ íŒ¨í‚·ì´ ì†¡/ìˆ˜ì‹ ëœ ê²½ìš°
+    MERR_PROCESS = 0x04,   // ì„œë²„ ì²˜ë¦¬ ì˜¤ë¥˜ ( ex: DB ì˜¤ë¥˜ )
+    MERR_SEARCH = 0x05,    // íŒŒì›Œì§± íšŒì›ì´ ì•„ë‹Œ ê²½ìš°
+    MERR_NULLPOINT = 0x06, // íŒŒì›Œì§± íšŒì›ì´ë‚˜ ëˆ„ì ëœ íŒŒì›Œì§± í¬ì¸íŠ¸ê°€
+                           // ì—†ëŠ” ê²½ìš°
+    MERR_MATCHING = 0x07,  // ë§¤ì¹­ ì •ë³´ ì˜¤ë¥˜ (ex: íšŒì› ë§¤ì¹­ ì •ë³´ê°€ ì—†ìŒ)
+                           // í™ˆíŽ˜ì´ì§€ì—ì„œ ë§¤ì¹­ì„ ìœ ë„í•˜ëŠ” ë¬¸ìž¥ì„ ì „ì†¡.
 };
 
-// ÆÐÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_ERROR {
-    int nSize;  // ÆÐÅ¶ ÀüÃ¼ÀÇ Å©±â
-    int nCode;  // ÆÐÅ¶ ÄÚµå
-    int nError; // ¿¡·¯ ÄÚµå
+    int nSize;  // íŒ¨í‚· ì „ì²´ì˜ í¬ê¸°
+    int nCode;  // íŒ¨í‚· ì½”ë“œ
+    int nError; // ì—ëŸ¬ ì½”ë“œ
 };
 
 const int szPKTError = sizeof(_PKT_ERROR);
@@ -38,29 +38,29 @@ const int szPKTError = sizeof(_PKT_ERROR);
 // class PKTError
 class PKTError : public _PKT_ERROR, public MPacket {
 public:
-    // »ý¼ºÀÚ
+    // ìƒì„±ìž
     PKTError();
 
 public:
-    // ÆÐÅ¶ ¾ÆÀÌµð¸¦ ¹ÝÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆÐÅ¶ÀÇ Å©±â¸¦ ¹ÝÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTError - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆÐÅ¶À» »ý¼ºÇØ¼­ ¹ÝÈ¯
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜
     MPacket* create() {
         MPacket* pPacket = new PKTError;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ìž…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message

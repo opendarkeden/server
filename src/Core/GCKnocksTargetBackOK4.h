@@ -2,7 +2,7 @@
 //
 // Filename    : GCKnocksTargetBackOK4.h
 // Written By  : elca@ewestsoft.com
-// Description : ±â¼ú ÇÇÇØÀÚ´Â º¼ ¼ö ÀÖ°í, »ç¿ëÀÚ´Â º¼ ¼ö ¾ø´Â »ç¶÷¿¡°Ô º¸³»´Â ÆĞÅ¶
+// Description : ê¸°ìˆ  í”¼í•´ìëŠ” ë³¼ ìˆ˜ ìˆê³ , ì‚¬ìš©ìëŠ” ë³¼ ìˆ˜ ì—†ëŠ” ì‚¬ëŒì—ê²Œ ë³´ë‚´ëŠ” íŒ¨í‚·
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@
 //
 // class GCKnocksTargetBackOK4;
 //
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œì„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -33,10 +33,10 @@ public:
 
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -48,7 +48,7 @@ public:
     }
 
     // get packet's body size
-    // ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+    // ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
     //	PacketSize_t getPacketSize() const  { return szObjectID + szObjectID + szbool; }
     PacketSize_t getPacketSize() const {
         return szObjectID + szSkillType + szCoord * 2 + szDir;
@@ -110,8 +110,8 @@ private:
     // TargetObjectID
     ObjectID_t m_TargetObjectID;
 
-    Coord_t m_X, m_Y; // ÀÌµ¿µÈ ÁÂÇ¥.
-    Dir_t m_dir;      // ¹Ğ·Á³­ ¹æÇâ.
+    Coord_t m_X, m_Y; // ì´ë™ëœ ì¢Œí‘œ.
+    Dir_t m_dir;      // ë°€ë ¤ë‚œ ë°©í–¥.
     SkillType_t m_SkillType;
 
     // bool

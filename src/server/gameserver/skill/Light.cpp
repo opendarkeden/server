@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Light::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -48,7 +48,7 @@ void Light::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectI
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // ±â¼úÀÌ À¯ÁöµÇ´Â ½Ã°£Àº ¼÷·Ãµµ¿¡ µû¶ó¼­ ´Þ¶óÁø´Ù.
+            // ê¸°ìˆ ì´ ìœ ì§€ë˜ëŠ” ì‹œê°„ì€ ìˆ™ë ¨ë„ì— ë”°ë¼ì„œ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
@@ -56,14 +56,14 @@ void Light::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectI
             Sight_t CurrentSight = pSlayer->getSight();
             Sight_t oldSight = CurrentSight;
 
-            // È¤½Ã¶óµµ ¿¾³¯ ÀÌÆåÆ®°¡ ³²¾ÆÀÖ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // í˜¹ì‹œë¼ë„ ì˜›ë‚  ì´íŽ™íŠ¸ê°€ ë‚¨ì•„ìžˆë‹¤ë©´ ì‚­ì œí•œë‹¤.
             if (pSlayer->isEffect(Effect::EFFECT_CLASS_LIGHT)) {
                 EffectLight* pOldEffectLight = (EffectLight*)pSlayer->findEffect(Effect::EFFECT_CLASS_LIGHT);
                 CurrentSight = pOldEffectLight->getOldSight();
                 pSlayer->deleteEffect(Effect::EFFECT_CLASS_LIGHT);
             }
 
-            // ÀÌÆåÆ®¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectLight* pEffectLight = new EffectLight(pSlayer);
             pEffectLight->setDeadline(output.Duration);
             pEffectLight->setOldSight(CurrentSight);
@@ -72,12 +72,12 @@ void Light::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectI
 
             // pEffectLight->create(pSlayer->getName());
 
-            // ½Ã¾ßÃ³¸®..
+            // ì‹œì•¼ì²˜ë¦¬..
             Sight_t MinSight = pSkillInfo->getMinDamage();
             Sight_t MaxSight = pSkillInfo->getMaxDamage();
             Sight_t NewSight = MinSight + (MaxSight - MinSight) * SkillLevel / 100;
 
-            // ½Ã¾ß º¯°æ¿¡ µû¸¥ ¿ÀºêÁ§Æ® °¡°¨ ÆÐÅ¶À» º¸³½´Ù.
+            // ì‹œì•¼ ë³€ê²½ì— ë”°ë¥¸ ì˜¤ë¸Œì íŠ¸ ê°€ê° íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             pZone->updateScan(pSlayer, oldSight, NewSight);
 
             pSlayer->setSight(NewSight);
@@ -107,7 +107,7 @@ void Light::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectI
 
             pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_LIGHT);

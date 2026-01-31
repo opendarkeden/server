@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectShadowOfStorm.h
 // Written by  : elca@ewestsoft.com
-// Description : ¼ºÁ÷¸¶¹ı ShadowOfStormÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
+// Description : ì„±ì§ë§ˆë²• ShadowOfStormì˜ Effectë¥¼ ì²˜ë¦¬í•´ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SHADOW_OF_STORM__

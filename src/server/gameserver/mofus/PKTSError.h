@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTSError.h
-// Desc		: ¿Â¶óÀÎ ¼­¹ö¿¡¼­ Ã³¸® ¿¡·¯¿¡ ´ëÇÑ °á°ú¸¦ º¸³»±â À§ÇØ¼­ »ç¿ëµÈ´Ù.
+// Desc		: ì˜¨ë¼ì¸ ì„œë²„ì—ì„œ ì²˜ë¦¬ ì—ëŸ¬ì— ëŒ€í•œ ê²°ê³¼ë¥¼ ë³´ë‚´ê¸° ìœ„í•´ì„œ ì‚¬ìš©ëœë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_SERROR_H__
@@ -10,18 +10,18 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ¿¡·¯ ÄÚµå
+// ì—ëŸ¬ ì½”ë“œ
 enum MSERR_CODE {
-    MSERR_MATCH = 0x01, // È¸¿øÀ» È®ÀÎÇßÀ¸³ª Á¤º¸°¡ ¼­·Î ¸ÅÄ¡ µÇÁö
-                        // ¾ÊÀ» °æ¿ì ( Áï ¿äÃ»ÀÚ¿Í ÆÄ¿öÂ¯ Á¤º¸°¡
-                        // ÀÏÄ¡ µÇÁö ¾ÊÀ» °æ¿ì )
+    MSERR_MATCH = 0x01, // íšŒì›ì„ í™•ì¸í–ˆìœ¼ë‚˜ ì •ë³´ê°€ ì„œë¡œ ë§¤ì¹˜ ë˜ì§€
+                        // ì•Šì„ ê²½ìš° ( ì¦‰ ìš”ì²­ìì™€ íŒŒì›Œì§± ì •ë³´ê°€
+                        // ì¼ì¹˜ ë˜ì§€ ì•Šì„ ê²½ìš° )
 };
 
-// ÆĞÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_SERROR {
-    int nSize;  // ÆĞÅ¶ ÀüÃ¼ÀÇ Å©±â
-    int nCode;  // ÆĞÅ¶ ÄÚµå
-    int nError; // ¿¡·¯ ÄÚµå
+    int nSize;  // íŒ¨í‚· ì „ì²´ì˜ í¬ê¸°
+    int nCode;  // íŒ¨í‚· ì½”ë“œ
+    int nError; // ì—ëŸ¬ ì½”ë“œ
 };
 
 const int szPKTSError = sizeof(_PKT_SERROR);
@@ -29,36 +29,36 @@ const int szPKTSError = sizeof(_PKT_SERROR);
 // class PKTSError
 class PKTSError : public _PKT_SERROR, public MPacket {
 public:
-    // »ı¼ºÀÚ
+    // ìƒì„±ì
     PKTSError();
 
 public:
-    // ÆĞÅ¶ ¾ÆÀÌµğ¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTSError - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜
     MPacket* create() {
         MPacket* pPacket = new PKTSError;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message
     string toString() const;
 
 public:
-    // ¿¡·¯ ÄÚµå ¼³Á¤
+    // ì—ëŸ¬ ì½”ë“œ ì„¤ì •
     void setErrorCode(int errorCode) {
         nError = errorCode;
     }

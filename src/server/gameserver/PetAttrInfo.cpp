@@ -38,7 +38,7 @@ void PetAttrInfoManager::load() {
             if (m_PetAttrInfoMap[PetAttr] != NULL)
                 m_PetAttrInfoMap[PetAttr]->setEnchantRatio(pResult->getInt(2));
             else
-                cout << "PetAttrInfo¿¡ ÀÖ´Â PetAttrÀÌ Á¸ÀçÇÏÁö ¾Ê´Â ¼Ó¼ºÀÔ´Ï´Ù." << endl;
+                cout << "PetAttrInfoì— ìˆëŠ” PetAttrì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì†ì„±ì…ë‹ˆë‹¤." << endl;
         }
 
         SAFE_DELETE(pStmt);
@@ -62,7 +62,7 @@ bool PetAttrInfoManager::enchantRandomAttr(PetInfo* pPetInfo, int ratio) {
 
     value = rand() % 100;
 
-    cout << "¿É¼Ç¼±ÅÃ : " << value << endl;
+    cout << "ì˜µì…˜ì„ íƒ : " << value << endl;
 
     for (; itr != endItr; ++itr) {
         PetAttrInfo* pPetAttrInfo = itr->second;
@@ -93,7 +93,7 @@ bool PetAttrInfoManager::enchantSpecAttr(PetInfo* pPetInfo, PetAttr_t PetAttr) {
 
     PetAttrInfo* pPetAttrInfo = m_PetAttrInfoMap[PetAttr];
     if (pPetAttrInfo == NULL) {
-        filelog("PetBug.log", "¼Ó¼º ÁöÁ¤ Æê ÀÎÃ¦Æ®¿¡¼­ ÀÌ»óÇÑ °ªÀÌ µé¾îÀÖ´Ù. : %u", PetAttr);
+        filelog("PetBug.log", "ì†ì„± ì§€ì • í« ì¸ì±ˆíŠ¸ì—ì„œ ì´ìƒí•œ ê°’ì´ ë“¤ì–´ìˆë‹¤. : %u", PetAttr);
         return false;
     }
 

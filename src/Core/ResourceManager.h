@@ -57,7 +57,7 @@ public:
         return m_Resources.empty();
     }
 
-    // µ¿ÀÏÇÑ ÆÄÀÏÀÏ °æ¿ì, °¡Àå ÃÖ½Å ¹öÀü¸¸À» À¯ÁöÇÏ°í ±¸¹öÀüÀÇ ÆÄÀÏÀº »èÁ¦ÇÑ´Ù.
+    // ë™ì¼í•œ íŒŒì¼ì¼ ê²½ìš°, ê°€ìž¥ ìµœì‹  ë²„ì „ë§Œì„ ìœ ì§€í•˜ê³  êµ¬ë²„ì „ì˜ íŒŒì¼ì€ ì‚­ì œí•œë‹¤.
     void optimize();
 
     // get debug string

@@ -51,17 +51,17 @@ void EventResurrect::activate()
 
     Assert(pDeadPC != NULL);
 
-    // ÇÏÀÌµåÇÑ »óÅÂ¿¡¼­ Á×¾ú´Ù¸é, ÇÏÀÌµå¸¦ Ç®¾îÁØ´Ù.
+    // í•˜ì´ë“œí•œ ìƒíƒœì—ì„œ ì£½ì—ˆë‹¤ë©´, í•˜ì´ë“œë¥¼ í’€ì–´ì¤€ë‹¤.
     pDeadPC->removeFlag(Effect::EFFECT_CLASS_HIDE);
 
-    // ¹«ºê¸ğµå¸¦ ¹Ù²ãÁØ´Ù.
+    // ë¬´ë¸Œëª¨ë“œë¥¼ ë°”ê¿”ì¤€ë‹¤.
     if (pDeadPC->isVampire() && pDeadPC->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT)) {
         pDeadPC->setMoveMode(Creature::MOVE_MODE_FLYING);
     } else {
         pDeadPC->setMoveMode(Creature::MOVE_MODE_WALKING);
     }
 
-    // HP¸¦ Ã¤¿öÁØ´Ù.
+    // HPë¥¼ ì±„ì›Œì¤€ë‹¤.
     if (pDeadPC->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadPC);
         pSlayer->setHP(pSlayer->getHP(ATTR_MAX), ATTR_CURRENT);
@@ -73,38 +73,38 @@ void EventResurrect::activate()
         pOusters->setHP(pOusters->getHP(ATTR_MAX), ATTR_CURRENT);
     }
 
-    // »õ zoneÀ» ¼³Á¤ÇÏÁö ¾Ê´Â´Ù. by sigi. 2002.5.11
+    // ìƒˆ zoneì„ ì„¤ì •í•˜ì§€ ì•ŠëŠ”ë‹¤. by sigi. 2002.5.11
     Zone* pOldZone = pDeadPC->getZone();
     Assert(pOldZone != NULL);
 
     try {
-        // Á¸±×·ìÀÇ ZPM¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+        // ì¡´ê·¸ë£¹ì˜ ZPMì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
         pOldZone->getZoneGroup()->getZonePlayerManager()->deletePlayer(m_pGamePlayer->getSocket()->getSOCKET());
 
-        // ¿©±â¼­ ¼³Á¤ÇØÁà¾ßÁö¸¸ Save ÀÌº¥Æ®°¡ IPM¿¡¼­ µ¿ÀÛÇÏÁö ¾Ê´Â´Ù.
+        // ì—¬ê¸°ì„œ ì„¤ì •í•´ì¤˜ì•¼ì§€ë§Œ Save ì´ë²¤íŠ¸ê°€ IPMì—ì„œ ë™ì‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
         m_pGamePlayer->setPlayerStatus(GPS_WAITING_FOR_CG_READY);
 
-        // IPMÀ¸·Î ÇÃ·¹ÀÌ¾î¸¦ ¿Å±ä´Ù.
+        // IPMìœ¼ë¡œ í”Œë ˆì´ì–´ë¥¼ ì˜®ê¸´ë‹¤.
         // g_pIncomingPlayerManager->pushPlayer(m_pGamePlayer);
         pOldZone->getZoneGroup()->getZonePlayerManager()->pushOutPlayer(m_pGamePlayer);
 
     } catch (NoSuchElementException& t) {
         filelog("eventRessurect.txt", "%s-%s", t.toString().c_str(), pDeadPC->getName().c_str());
         cerr << "EventResurrect::activate() : NoSuchElementException" << endl;
-        // throw Error("Á¸¿¡ ÇÃ·¹ÀÌ¾î°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
-        //  ¾î¶»°Ô ¾ø¾îÁ³°ÚÁö.. -_-;
-        //  ¹«½ÃÇÏ°í.. ±×³É ÁøÇàÇÑ´Ù.
+        // throw Error("ì¡´ì— í”Œë ˆì´ì–´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+        //  ì–´ë–»ê²Œ ì—†ì–´ì¡Œê² ì§€.. -_-;
+        //  ë¬´ì‹œí•˜ê³ .. ê·¸ëƒ¥ ì§„í–‰í•œë‹¤.
         //  by sigi. 2002.11.25
     }
 
-    // Á×¾úÀ» ´ç½Ã killCreature¿¡¼­ Á¸À» ¼ÂÆÃ ÇÏ±â ¶§¹®¿¡ ±×³É ÇÒ´ç ¹ŞÀ¸¸é µÈ´Ù.
+    // ì£½ì—ˆì„ ë‹¹ì‹œ killCreatureì—ì„œ ì¡´ì„ ì…‹íŒ… í•˜ê¸° ë•Œë¬¸ì— ê·¸ëƒ¥ í• ë‹¹ ë°›ìœ¼ë©´ ëœë‹¤.
 
-    // ÀÌ°Å´Â ZonePlayerManagerÀÇ heartbeat¿¡¼­ Ã³¸®ÇÑ´Ù.
-    // ÁÖ¼®Ã³¸® by sigi. 2002.5.14
+    // ì´ê±°ëŠ” ZonePlayerManagerì˜ heartbeatì—ì„œ ì²˜ë¦¬í•œë‹¤.
+    // ì£¼ì„ì²˜ë¦¬ by sigi. 2002.5.14
     // pDeadPC->registerObject();
 
     /*
-    // GCUpdateInfo ÆĞÅ¶À» ¸¸µé¾îµĞ´Ù.
+    // GCUpdateInfo íŒ¨í‚·ì„ ë§Œë“¤ì–´ë‘”ë‹¤.
     GCUpdateInfo gcUpdateInfo;
 
     makeGCUpdateInfo(&gcUpdateInfo, pDeadPC);

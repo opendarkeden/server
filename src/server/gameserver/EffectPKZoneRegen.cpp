@@ -106,7 +106,7 @@ void EffectPKZoneRegen::affect(Creature* pCreature)
 
             m_pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcHP, pSlayer);
         }
-        // HP´Â ´Ù Ä¡·áµÈ »óÅÂ°í ÈíÇ÷¿¡ °É·ÁÀÖÀ¸¸é
+        // HPëŠ” ë‹¤ ì¹˜ë£Œëœ ìƒíƒœê³  í¡í˜ˆì— ê±¸ë ¤ìžˆìœ¼ë©´
         if (pSlayer->getHP(ATTR_CURRENT) >= pSlayer->getHP(ATTR_MAX) &&
             pSlayer->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN)) {
             EffectBloodDrain* pEffect =
@@ -140,14 +140,14 @@ void EffectPKZoneRegen::affect(Creature* pCreature)
 
             pVampire->setHP(min((int)pVampire->getHP(ATTR_MAX), (int)pVampire->getHP(ATTR_CURRENT) + m_HP));
 
-            // ³ÑÇÑÅ× »Ñ¸±²¨
+            // ë„˜í•œí…Œ ë¿Œë¦´êº¼
             gcHP.setCurrentHP(pVampire->getHP(ATTR_CURRENT));
 
-            // ÀÚ±âÇÑÅ× º¸¿©ÁÙ²¨
+            // ìžê¸°í•œí…Œ ë³´ì—¬ì¤„êº¼
             GCModifyInformation gcMI;
             gcMI.addShortData(MODIFY_CURRENT_HP, pVampire->getHP(ATTR_CURRENT));
 
-            // HP°¡ ½Ç¹ö µ¥¹ÌÁö¸¦ ³Ñ¾î¼­°Ô µÇ¸é ½Ç¹öµ¥¹ÌÁö¸¦ ³¯·Á ÁØ´Ù.
+            // HPê°€ ì‹¤ë²„ ë°ë¯¸ì§€ë¥¼ ë„˜ì–´ì„œê²Œ ë˜ë©´ ì‹¤ë²„ë°ë¯¸ì§€ë¥¼ ë‚ ë ¤ ì¤€ë‹¤.
             if (pVampire->getHP(ATTR_CURRENT) > pVampire->getHP(ATTR_MAX) - pVampire->getSilverDamage()) {
                 pVampire->setSilverDamage(pVampire->getHP(ATTR_MAX) - pVampire->getHP(ATTR_CURRENT));
 
@@ -171,7 +171,7 @@ void EffectPKZoneRegen::affect(Creature* pCreature)
 
             GCModifyInformation gcMI;
 
-            // HP°¡ ½Ç¹ö µ¥¹ÌÁö¸¦ ³Ñ¾î¼­°Ô µÇ¸é ½Ç¹öµ¥¹ÌÁö¸¦ ³¯·Á ÁØ´Ù.
+            // HPê°€ ì‹¤ë²„ ë°ë¯¸ì§€ë¥¼ ë„˜ì–´ì„œê²Œ ë˜ë©´ ì‹¤ë²„ë°ë¯¸ì§€ë¥¼ ë‚ ë ¤ ì¤€ë‹¤.
             if (pOusters->getHP(ATTR_CURRENT) > pOusters->getHP(ATTR_MAX) - pOusters->getSilverDamage()) {
                 pOusters->setSilverDamage(pOusters->getHP(ATTR_MAX) - pOusters->getHP(ATTR_CURRENT));
 
@@ -202,9 +202,9 @@ void EffectPKZoneRegen::unaffect()
 
     msg << "EffectPKZoneRegen[" << m_pZone->getZoneID() << "|(" << m_Rect.left << "," << m_Rect.top << ","
         << m_Rect.right << "," << m_Rect.bottom << ")]"
-        << " ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù..";
+        << " ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤..";
 
-    filelog("PKZone.txt", "EffectPKZoneRegen[%d|(%d,%d,%d,%d)] ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù.", m_pZone->getZoneID(), m_Rect.left,
+    filelog("PKZone.txt", "EffectPKZoneRegen[%d|(%d,%d,%d,%d)] ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤.", m_pZone->getZoneID(), m_Rect.left,
             m_Rect.top, m_Rect.right, m_Rect.bottom);
 
     __END_CATCH

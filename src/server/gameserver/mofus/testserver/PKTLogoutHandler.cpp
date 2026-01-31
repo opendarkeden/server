@@ -9,7 +9,7 @@
 #include "Mofus.h"
 
 
-// ½ÇÇà ÇÔ¼ö
+// ì‹¤í–‰ í•¨ìˆ˜
 void PKTLogoutHandler::execute(GameServerPlayer* pPlayer, MPacket* pPacket) {
     cout << "--------------------------------------------------" << endl;
     cout << "RECV Logout" << endl;

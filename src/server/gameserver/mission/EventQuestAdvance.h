@@ -12,11 +12,11 @@ class PlayerCreature;
 class EventQuestAdvance {
 public:
     enum Status {
-        EVENT_QUEST_INIT,     // ½ÃÀÛµµ ¾ÈÇß´Ù.
-        EVENT_QUEST_STARTED,  // ½ÃÀÛÇß¾ú°í ³¡¸¶Ä¡Áö ¸øÇß´Ù.
-        EVENT_QUEST_SUCCESS,  // ³¡¸¶ÃÆÀ¸³ª º¸»óÀ» ¹ÞÁö ¸øÇß´Ù.
-        EVENT_QUEST_REWARDED, // º¸»óÀ¸·Î º¹±ÇÀ» ¹Þ¾Ò´Ù.
-        EVENT_QUEST_ADVANCED  // º¸»óÀ¸·Î ´ÙÀ½ Äù½ºÆ®·ÎÀÇ ÁøÇàÀ» ¼±ÅÃÇß´Ù.
+        EVENT_QUEST_INIT,     // ì‹œìž‘ë„ ì•ˆí–ˆë‹¤.
+        EVENT_QUEST_STARTED,  // ì‹œìž‘í–ˆì—ˆê³  ëë§ˆì¹˜ì§€ ëª»í–ˆë‹¤.
+        EVENT_QUEST_SUCCESS,  // ëë§ˆì³¤ìœ¼ë‚˜ ë³´ìƒì„ ë°›ì§€ ëª»í–ˆë‹¤.
+        EVENT_QUEST_REWARDED, // ë³´ìƒìœ¼ë¡œ ë³µê¶Œì„ ë°›ì•˜ë‹¤.
+        EVENT_QUEST_ADVANCED  // ë³´ìƒìœ¼ë¡œ ë‹¤ìŒ í€˜ìŠ¤íŠ¸ë¡œì˜ ì§„í–‰ì„ ì„ íƒí–ˆë‹¤.
     };
 
     EventQuestAdvance(const EventQuestAdvance& org) : m_QuestLevel(org.m_QuestLevel), m_Status(org.m_Status) {}

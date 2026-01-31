@@ -14,7 +14,7 @@
 const uint CriticalBloodDrainLevel = 74;
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -45,7 +45,7 @@ void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
 
@@ -53,13 +53,13 @@ void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ÀÌÆåÆ®ÀÇ È¿°ú¿Í Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ì˜ íš¨ê³¼ì™€ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_OTHER;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù
+            // ì´íŽ™íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤
             EffectCureCriticalWounds* pECCW = new EffectCureCriticalWounds(pSlayer);
             pECCW->setDeadline(output.Duration);
             pECCW->setPoint(output.Damage);
@@ -69,7 +69,7 @@ void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
             pSlayer->addEffect(pECCW);
             pSlayer->setFlag(Effect::EFFECT_CLASS_CURE_CRITICAL_WOUNDS);
 
-            // ÆÐÅ¶À» ÁØºñÇØ¼­ º¸³½´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ì„œ ë³´ë‚¸ë‹¤.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
 
@@ -84,7 +84,7 @@ void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(myX, myY, &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_CURE_CRITICAL_WOUNDS);

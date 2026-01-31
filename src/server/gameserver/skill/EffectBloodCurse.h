@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectBloodCurse.h
 // Written by  : elca@ewestsoft.com
-// Description : ¼ºÁ÷¸¶¹ı BloodCurseÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
+// Description : ì„±ì§ë§ˆë²• BloodCurseì˜ Effectë¥¼ ì²˜ë¦¬í•´ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_BLOOD_CURSE__
@@ -65,7 +65,7 @@ private:
     Turn_t m_Delay;
     //	string  m_CasterName;
     ObjectID_t m_UserObjectID;
-    bool m_bPlayer; // À¯Àú°¡ »ç¿ëÇÑ ±â¼úÀÎ°¡?
+    bool m_bPlayer; // ìœ ì €ê°€ ì‚¬ìš©í•œ ê¸°ìˆ ì¸ê°€?
     uint m_SplashRatio[3];
 };
 

@@ -24,7 +24,7 @@ GCRequestPowerPointResult::~GCRequestPowerPointResult()
 {}
 
 //--------------------------------------------------------------------------------
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //--------------------------------------------------------------------------------
 void GCRequestPowerPointResult::read(SocketInputStream& iStream)
 
@@ -34,10 +34,10 @@ void GCRequestPowerPointResult::read(SocketInputStream& iStream)
     // Error code
     iStream.read(m_ErrorCode);
 
-    // ÇöÀç ´©ÀûµÈ ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // í˜„ì¬ ëˆ„ì ëœ íŒŒì›Œì§± í¬ì¸íŠ¸
     iStream.read(m_SumPowerPoint);
 
-    // ¿äÃ»À¸·Î °¡Á®¿Â ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // ìš”ì²­ìœ¼ë¡œ ê°€ì ¸ì˜¨ íŒŒì›Œì§± í¬ì¸íŠ¸
     iStream.read(m_RequestPowerPoint);
 
     __END_CATCH
@@ -45,7 +45,7 @@ void GCRequestPowerPointResult::read(SocketInputStream& iStream)
 
 
 //--------------------------------------------------------------------------------
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //--------------------------------------------------------------------------------
 void GCRequestPowerPointResult::write(SocketOutputStream& oStream) const
 
@@ -55,10 +55,10 @@ void GCRequestPowerPointResult::write(SocketOutputStream& oStream) const
     // Error code
     oStream.write(m_ErrorCode);
 
-    // ÇöÀç ´©ÀûµÈ ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // í˜„ì¬ ëˆ„ì ëœ íŒŒì›Œì§± í¬ì¸íŠ¸
     oStream.write(m_SumPowerPoint);
 
-    // ¿äÃ»À¸·Î °¡Á®¿Â ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // ìš”ì²­ìœ¼ë¡œ ê°€ì ¸ì˜¨ íŒŒì›Œì§± í¬ì¸íŠ¸
     oStream.write(m_RequestPowerPoint);
 
     __END_CATCH

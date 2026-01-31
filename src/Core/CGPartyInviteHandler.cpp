@@ -47,13 +47,13 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
 
     PartyInviteInfoManager* pPIIM = pZone->getPartyInviteInfoManager();
 
-    // ÆÄÆ¼ ±â´É ¹ö±× ¶§¹®¿¡ ¸·¾Æ³õÀº ºÎºĞÀÌ´Ù.
-    // ±è¼º¹Î
+    // íŒŒí‹° ê¸°ëŠ¥ ë²„ê·¸ ë•Œë¬¸ì— ë§‰ì•„ë†“ì€ ë¶€ë¶„ì´ë‹¤.
+    // ê¹€ì„±ë¯¼
     /*
     pPIIM->cancelInvite(pCreature);
 
     GCSystemMessage gcSystemMessage;
-    gcSystemMessage.setMessage("ÆÄÆ¼ ±â´ÉÀº ¹ö±×·Î ÀÎÇÏ¿© ÇöÀç Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+    gcSystemMessage.setMessage("íŒŒí‹° ê¸°ëŠ¥ì€ ë²„ê·¸ë¡œ ì¸í•˜ì—¬ í˜„ì¬ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     pPlayer->sendPacket(&gcSystemMessage);
 
     executeError(pPacket, pPlayer, GC_PARTY_ERROR_UNKNOWN);
@@ -75,7 +75,7 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
     }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pTargetCreature = pZone->getCreature(TargetOID);
 
     if (pTargetCreature == NULL) {
@@ -85,31 +85,31 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
     }
 
 
-    // ÆÄÆ¼¿¡ ÃÊ´ëÇÒ ³ğÀÌ PC°¡ ¾Æ´Ï°Å³ª, Á¾Á·ÀÌ ´Ù¸£¸é °¡ÀÔ½ÃÅ³ ¼ö°¡ ¾ø´Ù.
+    // íŒŒí‹°ì— ì´ˆëŒ€í•  ë†ˆì´ PCê°€ ì•„ë‹ˆê±°ë‚˜, ì¢…ì¡±ì´ ë‹¤ë¥´ë©´ ê°€ì…ì‹œí‚¬ ìˆ˜ê°€ ì—†ë‹¤.
     if (!pTargetCreature->isPC() || !isSameRace(pCreature, pTargetCreature)) {
         pPIIM->cancelInvite(pCreature);
         executeError(pPacket, pPlayer, GC_PARTY_ERROR_RACE_DIFFER);
         return;
     }
 
-    // Å¸°ÙÀÇ ÇÃ·¹ÀÌ¾î¸¦ ¹Ş¾Æ¿Â´Ù.
+    // íƒ€ê²Ÿì˜ í”Œë ˆì´ì–´ë¥¼ ë°›ì•„ì˜¨ë‹¤.
     // PartyInviteInfo* pInfo1 = pPIIM->getInviteInfo(pCreature->getName());
     PartyInviteInfo* pInfo2 = pPIIM->getInviteInfo(pTargetCreature->getName());
     Player* pTargetPlayer = pTargetCreature->getPlayer();
 
     GCPartyInvite gcPartyInvite;
 
-    // ´Ù¸¥ »ç¶÷À» ÆÄÆ¼¿¡ °¡ÀÔ½ÃÅ°°íÀÚ ÇÒ ¶§
+    // ë‹¤ë¥¸ ì‚¬ëŒì„ íŒŒí‹°ì— ê°€ì…ì‹œí‚¤ê³ ì í•  ë•Œ
     if (CODE == CG_PARTY_INVITE_REQUEST) {
         // cout << "CODE:CG_PARTY_INVITE_REQUEST" << endl;
 
-        // ÃÊ´ëÇÑ ³ğÀÌ ÀÌ¹Ì ´Ù¸¥ ³ğÀ» ÃÊ´ë ÁßÀÌ¶ó¸é...
-        // A°¡ B¸¦ ÃÊ´ëÇÑ´Ù. ±× ´ÙÀ½, B°¡ AÀÇ ¿ä±¸¸¦
-        // Àü´Ş¹ŞÁö ¸øÇÑ »óÅÂ¿¡¼­ A¸¦ ÃÊ´ëÇÑ´Ù.
-        // ÀÌ °æ¿ì µÑ ´Ù CODE°¡ CG_PARTY_INVITE_REQUESTÀÎµ¥...
-        // cancalInviteÇØ¹ö¸®¸é, A¿Í BÀÇ Á¤º¸°¡ ³¯¾Æ°¡¹ö¸®°Ô µÈ´Ù.
-        // ±×°ÍÀ» ¹æÁöÇÏ±â À§ÇØ ÁÖ¼®Ã³¸®ÇØ¹ö¸°´Ù.
-        // À½, ¹«½¼ ¸»ÀÎÁö ³»°¡ ºÁµµ Àß ¸ğ¸£°Ú³×... -- excel96
+        // ì´ˆëŒ€í•œ ë†ˆì´ ì´ë¯¸ ë‹¤ë¥¸ ë†ˆì„ ì´ˆëŒ€ ì¤‘ì´ë¼ë©´...
+        // Aê°€ Bë¥¼ ì´ˆëŒ€í•œë‹¤. ê·¸ ë‹¤ìŒ, Bê°€ Aì˜ ìš”êµ¬ë¥¼
+        // ì „ë‹¬ë°›ì§€ ëª»í•œ ìƒíƒœì—ì„œ Aë¥¼ ì´ˆëŒ€í•œë‹¤.
+        // ì´ ê²½ìš° ë‘˜ ë‹¤ CODEê°€ CG_PARTY_INVITE_REQUESTì¸ë°...
+        // cancalInviteí•´ë²„ë¦¬ë©´, Aì™€ Bì˜ ì •ë³´ê°€ ë‚ ì•„ê°€ë²„ë¦¬ê²Œ ëœë‹¤.
+        // ê·¸ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´ ì£¼ì„ì²˜ë¦¬í•´ë²„ë¦°ë‹¤.
+        // ìŒ, ë¬´ìŠ¨ ë§ì¸ì§€ ë‚´ê°€ ë´ë„ ì˜ ëª¨ë¥´ê² ë„¤... -- excel96
         /*
         if (pInfo1 != NULL)
         {
@@ -118,8 +118,8 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
         }
         */
 
-        // ÃÊ´ë¹ŞÀº ³ğÀÌ ÀÌ¹Ì ´Ù¸¥ ³ğ°ú ÃÊ´ë °ü°è ÁßÀÌ¶ó¸é...
-        // ¹Ù»Ú´Ï°¡ ÃÊ´ë¿¡ ÀÀÇÒ ¼ö ¾ø´Ù.
+        // ì´ˆëŒ€ë°›ì€ ë†ˆì´ ì´ë¯¸ ë‹¤ë¥¸ ë†ˆê³¼ ì´ˆëŒ€ ê´€ê³„ ì¤‘ì´ë¼ë©´...
+        // ë°”ì˜ë‹ˆê°€ ì´ˆëŒ€ì— ì‘í•  ìˆ˜ ì—†ë‹¤.
         if (pInfo2 != NULL) {
             // cout << "pInfo2 != NULL" << endl;
 
@@ -135,7 +135,7 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
         // cout << "Creature" << pCreature->getName() << "] PartyID = " << PartyID << endl;
         // cout << "TargetCreature" << pTargetCreature->getName() << "] PartyID = " << PartyID << endl;
 
-        // ÃÊ´ëÇÑ ³ğ°ú ÃÊ´ë¹ŞÀº ³ğ µÑ ´Ù°¡ ÆÄÆ¼¿¡ °¡ÀÔµÇ¾îÀÖ´Ù¸é °¡ÀÔÇÒ ¼ö°¡ ¾ø´Ù.
+        // ì´ˆëŒ€í•œ ë†ˆê³¼ ì´ˆëŒ€ë°›ì€ ë†ˆ ë‘˜ ë‹¤ê°€ íŒŒí‹°ì— ê°€ì…ë˜ì–´ìˆë‹¤ë©´ ê°€ì…í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (PartyID != 0 && TargetPartyID != 0) {
             gcPartyInvite.setTargetObjectID(pPacket->getTargetObjectID());
             gcPartyInvite.setCode(GC_PARTY_INVITE_ANOTHER_PARTY);
@@ -143,7 +143,7 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
             return;
         }
 
-        // ÃÊ´ëÇÑ ³ğÀÇ ÆÄÆ¼ ¼ıÀÚ°¡ ¸Æ½º¶ó¸é ÃÊ´ëÇÒ ¼ö ¾ø´Ù.
+        // ì´ˆëŒ€í•œ ë†ˆì˜ íŒŒí‹° ìˆ«ìê°€ ë§¥ìŠ¤ë¼ë©´ ì´ˆëŒ€í•  ìˆ˜ ì—†ë‹¤.
         if (PartyID != 0) {
             if (!g_pGlobalPartyManager->canAddMember(PartyID)) {
                 gcPartyInvite.setTargetObjectID(pPacket->getTargetObjectID());
@@ -153,7 +153,7 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
             }
         }
 
-        // ÃÊ´ë¹ŞÀº ³ğÀÇ ÆÄÆ¼ ¼ıÀÚ°¡ ¸Æ½º¶ó¸é ÃÊ´ëÇÒ ¼ö ¾ø´Ù.
+        // ì´ˆëŒ€ë°›ì€ ë†ˆì˜ íŒŒí‹° ìˆ«ìê°€ ë§¥ìŠ¤ë¼ë©´ ì´ˆëŒ€í•  ìˆ˜ ì—†ë‹¤.
         if (TargetPartyID != 0) {
             if (!g_pGlobalPartyManager->canAddMember(TargetPartyID)) {
                 gcPartyInvite.setTargetObjectID(pPacket->getTargetObjectID());
@@ -165,73 +165,73 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
 
         // cout << "Sending Packet" << endl;
 
-        // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+        // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
         gcPartyInvite.setTargetObjectID(pCreature->getObjectID());
         gcPartyInvite.setCode(GC_PARTY_INVITE_REQUEST);
         pTargetPlayer->sendPacket(&gcPartyInvite);
 
         // cout << "Sent gcPartyInvite" << endl;
 
-        // µÑ ´Ù ÃÊ´ë¸ğµå·Î µé¾î°¬À¸¹Ç·Î, ÃÊ´ë Á¤º¸¸¦ »ı¼ºÇØ ÁØ´Ù.
+        // ë‘˜ ë‹¤ ì´ˆëŒ€ëª¨ë“œë¡œ ë“¤ì–´ê°”ìœ¼ë¯€ë¡œ, ì´ˆëŒ€ ì •ë³´ë¥¼ ìƒì„±í•´ ì¤€ë‹¤.
         pPIIM->initInviteInfo(pCreature, pTargetCreature);
 
         // cout << "initInviteInfo OK" << endl;
     }
-    // ÆÄÆ¼ °¡ÀÔ ½ÅÃ»À» Ãë¼ÒÇÒ ¶§
+    // íŒŒí‹° ê°€ì… ì‹ ì²­ì„ ì·¨ì†Œí•  ë•Œ
     else if (CODE == CG_PARTY_INVITE_CANCEL) {
-        // ÇöÀç ÃÊ´ë ÁßÀÎÁö¸¦ Ã¼Å©ÇÑ´Ù.
+        // í˜„ì¬ ì´ˆëŒ€ ì¤‘ì¸ì§€ë¥¼ ì²´í¬í•œë‹¤.
         if (pPIIM->isInviting(pCreature, pTargetCreature)) {
-            // ÆĞÅ¶À» ÁØºñÇØ º¸³»ÁØ´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ ë³´ë‚´ì¤€ë‹¤.
             gcPartyInvite.setTargetObjectID(pCreature->getObjectID());
             gcPartyInvite.setCode(GC_PARTY_INVITE_CANCEL);
             pTargetPlayer->sendPacket(&gcPartyInvite);
 
-            // ÃÊ´ë¸¦ Ãë¼Ò½ÃÅ²´Ù.
+            // ì´ˆëŒ€ë¥¼ ì·¨ì†Œì‹œí‚¨ë‹¤.
             pPIIM->cancelInvite(pCreature, pTargetCreature);
         } else {
             executeError(pPacket, pPlayer, GC_PARTY_ERROR_NOT_INVITING);
             return;
         }
     }
-    // ÆÄÆ¼ °¡ÀÔ ¿äÃ»À» ¹Ş¾Æµé¿´À» ¶§
+    // íŒŒí‹° ê°€ì… ìš”ì²­ì„ ë°›ì•„ë“¤ì˜€ì„ ë•Œ
     else if (CODE == CG_PARTY_INVITE_ACCEPT) {
         if (pPIIM->isInviting(pCreature, pTargetCreature)) {
             int PartyID = pCreature->getPartyID();
             int TargetPartyID = pTargetCreature->getPartyID();
 
-            // ÆÄÆ¼¿¡ ¼ÓÇØ ÀÖ´Â ³ğÀÌ ÆÄÆ¼¿¡ ¼ÓÇÏÁö ¾Ê´Â ³ğÀ» ÃÊ´ëÇßÀ» ¶§
-            // (ÆÄÆ¼¿¡ ¼ÓÇØÀÖÁö ¾ÊÀº ³ğÀÌ, ÆÄÆ¼¿¡ ¼ÓÇØ ÀÖ´Â ³ğÀÇ ÃÊ´ë¿¡ ÀÀÇßÀ» ¶§)
+            // íŒŒí‹°ì— ì†í•´ ìˆëŠ” ë†ˆì´ íŒŒí‹°ì— ì†í•˜ì§€ ì•ŠëŠ” ë†ˆì„ ì´ˆëŒ€í–ˆì„ ë•Œ
+            // (íŒŒí‹°ì— ì†í•´ìˆì§€ ì•Šì€ ë†ˆì´, íŒŒí‹°ì— ì†í•´ ìˆëŠ” ë†ˆì˜ ì´ˆëŒ€ì— ì‘í–ˆì„ ë•Œ)
             if (TargetPartyID != 0 && PartyID == 0) {
-                // ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú¿¡ ¸â¹ö¸¦ ´õÇÑ´Ù.
+                // ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì €ì— ë©¤ë²„ë¥¼ ë”í•œë‹¤.
                 if (g_pGlobalPartyManager->addPartyMember(TargetPartyID, pCreature)) {
-                    // ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡ ¸â¹ö¸¦ ´õÇÑ´Ù.
+                    // ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì— ë©¤ë²„ë¥¼ ë”í•œë‹¤.
                     LocalPartyManager* pLocalPartyManager = pZone->getLocalPartyManager();
                     pLocalPartyManager->addPartyMember(TargetPartyID, pCreature);
                 }
             }
-            // ÆÄÆ¼¿¡ ¼ÓÇØÀÖÁö ¾ÊÀº ³ğÀÌ ÆÄÆ¼¿¡ ¼ÓÇØÀÖ´Â ³ğÀ» ÃÊ´ëÇßÀ» ¶§
-            // (ÆÄÆ¼¿¡ ¼ÓÇØÀÖ´Â ³ğÀÌ, ÆÄÆ¼¿¡ ¼ÓÇØÀÖÁö ¾ÊÀº ³ğÀÇ ÃÊ´ë¿¡ ÀÀÇßÀ» ¶§)
-            // (ÆÄÆ¼¿¡ ¼ÓÇØÀÖ´Â ³ğÀÌ, ¿ÜºÎÀÎÀÇ ÁøÀÔÀ» Çã°¡ÇßÀ» ¶§)
+            // íŒŒí‹°ì— ì†í•´ìˆì§€ ì•Šì€ ë†ˆì´ íŒŒí‹°ì— ì†í•´ìˆëŠ” ë†ˆì„ ì´ˆëŒ€í–ˆì„ ë•Œ
+            // (íŒŒí‹°ì— ì†í•´ìˆëŠ” ë†ˆì´, íŒŒí‹°ì— ì†í•´ìˆì§€ ì•Šì€ ë†ˆì˜ ì´ˆëŒ€ì— ì‘í–ˆì„ ë•Œ)
+            // (íŒŒí‹°ì— ì†í•´ìˆëŠ” ë†ˆì´, ì™¸ë¶€ì¸ì˜ ì§„ì…ì„ í—ˆê°€í–ˆì„ ë•Œ)
             else if (PartyID != 0 && TargetPartyID == 0) {
-                // ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú¿¡ ¸â¹ö¸¦ ´õÇÑ´Ù.
+                // ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì €ì— ë©¤ë²„ë¥¼ ë”í•œë‹¤.
                 if (g_pGlobalPartyManager->addPartyMember(PartyID, pTargetCreature)) {
-                    // ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡ ¸â¹ö¸¦ ´õÇÑ´Ù.
+                    // ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì— ë©¤ë²„ë¥¼ ë”í•œë‹¤.
                     LocalPartyManager* pLocalPartyManager = pZone->getLocalPartyManager();
                     pLocalPartyManager->addPartyMember(PartyID, pTargetCreature);
                 }
             }
-            // µÎ ³ğ ´Ù ¾Æ¹«·± ÆÄÆ¼¿¡ ¼ÓÇØÀÖÁö ¾ÊÀ» ¶§
-            // (»õ·Î¿î ÆÄÆ¼¸¦ »ı¼ºÇÒ ¶§)
+            // ë‘ ë†ˆ ë‹¤ ì•„ë¬´ëŸ° íŒŒí‹°ì— ì†í•´ìˆì§€ ì•Šì„ ë•Œ
+            // (ìƒˆë¡œìš´ íŒŒí‹°ë¥¼ ìƒì„±í•  ë•Œ)
             else {
-                // »õ·Î¿î ÆÄÆ¼¸¦ ¸¸µé¾î µî·ÏÇÑ´Ù.
+                // ìƒˆë¡œìš´ íŒŒí‹°ë¥¼ ë§Œë“¤ì–´ ë“±ë¡í•œë‹¤.
                 int NewPartyID = g_pGlobalPartyManager->registerParty();
 
-                // ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú¿¡ ±Û·Î¹ú ÆÄÆ¼¸¦ ´õÇÏ°í, ¸â¹ö¸¦ ´õÇÑ´Ù.
+                // ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì €ì— ê¸€ë¡œë²Œ íŒŒí‹°ë¥¼ ë”í•˜ê³ , ë©¤ë²„ë¥¼ ë”í•œë‹¤.
                 g_pGlobalPartyManager->createParty(NewPartyID, pTargetCreature->getCreatureClass());
                 g_pGlobalPartyManager->addPartyMember(NewPartyID, pCreature);
                 g_pGlobalPartyManager->addPartyMember(NewPartyID, pTargetCreature);
 
-                // ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡ ·ÎÄÃ ÆÄÆ¼¸¦ ´õÇÏ°í, ¸â¹ö¸¦ ´õÇÑ´Ù.
+                // ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì— ë¡œì»¬ íŒŒí‹°ë¥¼ ë”í•˜ê³ , ë©¤ë²„ë¥¼ ë”í•œë‹¤.
                 LocalPartyManager* pLocalPartyManager = pZone->getLocalPartyManager();
                 pLocalPartyManager->createParty(NewPartyID, pTargetCreature->getCreatureClass());
                 pLocalPartyManager->addPartyMember(NewPartyID, pCreature);
@@ -246,22 +246,22 @@ void CGPartyInviteHandler::execute(CGPartyInvite* pPacket, Player* pPlayer)
                 }
             }
 
-            // ÆÄÆ¼ ÃÊ´ë°¡ ³¡³µÀ¸¹Ç·Î, ÆÄÆ¼ ÃÊ´ë Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+            // íŒŒí‹° ì´ˆëŒ€ê°€ ëë‚¬ìœ¼ë¯€ë¡œ, íŒŒí‹° ì´ˆëŒ€ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
             pPIIM->cancelInvite(pCreature, pTargetCreature);
         } else {
             executeError(pPacket, pPlayer, GC_PARTY_ERROR_NOT_INVITING);
             return;
         }
     }
-    // ÆÄÆ¼ °¡ÀÔ ¿äÃ»À» °ÅºÎÇßÀ» ¶§
+    // íŒŒí‹° ê°€ì… ìš”ì²­ì„ ê±°ë¶€í–ˆì„ ë•Œ
     else if (CODE == CG_PARTY_INVITE_REJECT) {
         if (pPIIM->isInviting(pCreature, pTargetCreature)) {
-            // ÆĞÅ¶À» º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             gcPartyInvite.setTargetObjectID(pCreature->getObjectID());
             gcPartyInvite.setCode(GC_PARTY_INVITE_REJECT);
             pTargetPlayer->sendPacket(&gcPartyInvite);
 
-            // ÆÄÆ¼ ÃÊ´ë¸¦ °ÅºÎÇßÀ¸¹Ç·Î ÃÊ´ë Á¤º¸¸¦ »èÁ¦½ÃÄÑÁØ´Ù.
+            // íŒŒí‹° ì´ˆëŒ€ë¥¼ ê±°ë¶€í–ˆìœ¼ë¯€ë¡œ ì´ˆëŒ€ ì •ë³´ë¥¼ ì‚­ì œì‹œì¼œì¤€ë‹¤.
             pPIIM->cancelInvite(pCreature, pTargetCreature);
         } else {
             executeError(pPacket, pPlayer, GC_PARTY_ERROR_NOT_INVITING);

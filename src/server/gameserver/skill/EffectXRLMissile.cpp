@@ -93,7 +93,7 @@ void EffectXRLMissile::affect(Creature* pCreature)
 
                     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) && !pCreature2->isDead() &&
                         !pCreature2->isFlag(Effect::EFFECT_CLASS_COMA)
-                        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+                        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
                         && canAttack(pAttacker, pCreature2)) {
                         GCModifyInformation gcMI, gcAttackerMI;
                         setDamage(pCreature2, m_Point, pAttacker, SKILL_XRL_Missile, &gcMI, &gcAttackerMI);

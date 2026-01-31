@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectEnergyDropToCreature.cpp
-// Written by  : ÀåÈ«Ã¢
+// Written by  : ìž¥í™ì°½
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -61,18 +61,18 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ® »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼ö ÀÖÀ¸¹Ç·Î NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´íŽ™íŠ¸ ì‚¬ìš©ìžë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ NULL ì´ ë  ìˆ˜ ìžˆë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
 
-    // EffectEnergyDropToCreatureÀº AcidStorm, PoisonStorm, BloodyStormÀ§¸¦ Áö³ª°¥¶§ ºÙ´Â´Ù.
-    // ÀÌ´Â 3¹øÀÇ ¿¬¼Ó µ¥¹ÌÁö¸¦ ÁÖ°í »ç¶óÁø´Ù.
+    // EffectEnergyDropToCreatureì€ AcidStorm, PoisonStorm, BloodyStormìœ„ë¥¼ ì§€ë‚˜ê°ˆë•Œ ë¶™ëŠ”ë‹¤.
+    // ì´ëŠ” 3ë²ˆì˜ ì—°ì† ë°ë¯¸ì§€ë¥¼ ì£¼ê³  ì‚¬ë¼ì§„ë‹¤.
 
     Damage_t DropDamage = m_Point;
 
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
         && canAttack(pCastCreature, pCreature) && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -101,10 +101,10 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
             setDamage(pMonster, DropDamage, pCastCreature, SKILL_ENERGY_DROP);
         }
 
-        // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
         // by sigi. 2002.9.9
-        // set damage¸¦ ºÒ·¯¼­ Ã³¸®ÇÑ´Ù.
-        // by bezz. 2002.12.31 ´Ù½Ã ÁÖ¼® Ã³¸®
+        // set damageë¥¼ ë¶ˆëŸ¬ì„œ ì²˜ë¦¬í•œë‹¤.
+        // by bezz. 2002.12.31 ë‹¤ì‹œ ì£¼ì„ ì²˜ë¦¬
         /*		if (pCreature->isDead())
                 {
                     Creature* pAttacker = pZone->getCreature( m_CasterName );
@@ -146,7 +146,7 @@ void EffectEnergyDropToCreature::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_ENERGY_DROP_TO_CREATURE);

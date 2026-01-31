@@ -58,11 +58,11 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
 
     Assert(pCastCreature != NULL);
 
-    // ÀÌÆåÆ® ÇÃ·¹±×°¡ ¾ø´Ù¸é Á×¾ú´Ù°Å³ª ÇÏ´Â ¹®Á¦·Î transport ÇÏÁö ¾Ê°Ú´Ù´Â°É ÀÇ¹ÌÇÑ´Ù.
+    // ì´íŽ™íŠ¸ í”Œë ˆê·¸ê°€ ì—†ë‹¤ë©´ ì£½ì—ˆë‹¤ê±°ë‚˜ í•˜ëŠ” ë¬¸ì œë¡œ transport í•˜ì§€ ì•Šê² ë‹¤ëŠ”ê±¸ ì˜ë¯¸í•œë‹¤.
     if (!pCastCreature->isFlag(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM))
         return;
 
-    // Effect¸¦ ¾ø¾Ö°í ¾Ë¸°´Ù.
+    // Effectë¥¼ ì—†ì• ê³  ì•Œë¦°ë‹¤.
     pCastCreature->removeFlag(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM);
 
     GCRemoveEffect gcRemoveEffect;
@@ -71,7 +71,7 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
 
     m_pZone->broadcastPacket(pCastCreature->getX(), pCastCreature->getY(), &gcRemoveEffect);
 
-    VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1); // -1 Ãß°¡ by sigi. 2003.1.10
+    VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1); // -1 ì¶”ê°€ by sigi. 2003.1.10
 
     bool bHit = false;
     Damage_t maxDamage = 0;
@@ -90,7 +90,7 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
             if (!rect.ptInRect(X, Y))
                 continue;
 
-            // Å¸ÀÏ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Â´Ù.
+            // íƒ€ì¼ì•ˆì— ì¡´ìž¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             Tile& tile = m_pZone->getTile(X, Y);
             const forward_list<Object*>& oList = tile.getObjectList();
             forward_list<Object*>::const_iterator itr = oList.begin();
@@ -106,7 +106,7 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
                     Creature* pCreature = dynamic_cast<Creature*>(pObject);
                     Assert(pCreature != NULL);
 
-                    // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù. ¹«Àûµµ ¾È ¸Â´Â´Ù. ½½·¹ÀÌ¾î´Â ¸ÂÁö ¾Ê´Â´Ù.
+                    // ìžì‹ ì€ ë§žì§€ ì•ŠëŠ”ë‹¤. ë¬´ì ë„ ì•ˆ ë§žëŠ”ë‹¤. ìŠ¬ë ˆì´ì–´ëŠ” ë§žì§€ ì•ŠëŠ”ë‹¤.
                     if (pCreature == m_pTarget || !canAttack(pCastCreature, pCreature) ||
                         pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
                         continue;
@@ -134,7 +134,7 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
                     bool bHitRoll = HitRoll::isSuccess(pCastCreature, pCreature, bonus);
 
                     if (bPK && bZoneLevelCheck && bHitRoll) {
-                        // ¿ø·¡ µ¥¹ÌÁö¿Í ½ºÅ³ µ¥¹ÌÁö º¸³Ê½º¸¦ ´õÇÑ ÃÖÁ¾ µ¥¹ÌÁö¸¦ ±¸ÇÑ´Ù.
+                        // ì›ëž˜ ë°ë¯¸ì§€ì™€ ìŠ¤í‚¬ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ë¥¼ ë”í•œ ìµœì¢… ë°ë¯¸ì§€ë¥¼ êµ¬í•œë‹¤.
                         Damage_t FinalDamage = 0;
                         FinalDamage = computeDamage(pCastCreature, pCreature);
                         FinalDamage += Damage;
@@ -144,12 +144,12 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
 
                             GCModifyInformation gcMI;
                             ::setDamage(pCreature, FinalDamage, pCastCreature, SKILL_SATELLITE_BOMB,
-                                        &gcMI); // ::Ãß°¡ by Sequoia
+                                        &gcMI); // ::ì¶”ê°€ by Sequoia
 
                             pCreature->getPlayer()->sendPacket(&gcMI);
 
-                            // ¸Â´Â µ¿ÀÛÀ» º¸¿©ÁØ´Ù.
-                            gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                            // ë§žëŠ” ë™ìž‘ì„ ë³´ì—¬ì¤€ë‹¤.
+                            gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                             gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                             gcSkillToObjectOK2.setDuration(0);
                             pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
@@ -159,7 +159,7 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
                             Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
                             ::setDamage(pMonster, FinalDamage, pCastCreature,
-                                        SKILL_SATELLITE_BOMB); // ::Ãß°¡ by Sequoia
+                                        SKILL_SATELLITE_BOMB); // ::ì¶”ê°€ by Sequoia
 
                             pMonster->addEnemy(pCastCreature);
                             bHit = true;
@@ -203,12 +203,12 @@ void EffectSatelliteBombAim::unaffect(Creature* pCastCreature)
         }
     }
 
-    // Æ÷°Ý ÀÌÆåÆ®¸¦ º¸¿©ÁÖµµ·Ï ÇÑ´Ù.
+    // í¬ê²© ì´íŽ™íŠ¸ë¥¼ ë³´ì—¬ì£¼ë„ë¡ í•œë‹¤.
     GCAddEffectToTile gcAddEffectToTile;
     gcAddEffectToTile.setObjectID(pCastCreature->getObjectID());
     gcAddEffectToTile.setEffectID(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_FIRE);
     gcAddEffectToTile.setXY(m_X, m_Y);
-    gcAddEffectToTile.setDuration(10); // º° ÀÇ¹Ì¾ø´Ù. °Á 1ÃÊ
+    gcAddEffectToTile.setDuration(10); // ë³„ ì˜ë¯¸ì—†ë‹¤. ê± 1ì´ˆ
 
     m_pZone->broadcastPacket(m_X, m_Y, &gcAddEffectToTile);
 
@@ -229,8 +229,8 @@ void EffectSatelliteBombAim::unaffect()
     if (m_pZone != NULL && m_pZone == pCreature->getZone()) {
         unaffect(pCreature);
     } else {
-        // Á¶ÁØ µµÁß Á×¾ú°Å³ª ÀÌµ¿Çß´Ù´Â ÀÇ¹ÌÀÌ¹Ç·Î ÀÌÆåÆ®¸¦ ¾ø¾Ö°í ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-        // Effect¸¦ ¾ø¾Ö°í ¾Ë¸°´Ù.
+        // ì¡°ì¤€ ë„ì¤‘ ì£½ì—ˆê±°ë‚˜ ì´ë™í–ˆë‹¤ëŠ” ì˜ë¯¸ì´ë¯€ë¡œ ì´íŽ™íŠ¸ë¥¼ ì—†ì• ê³  ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+        // Effectë¥¼ ì—†ì• ê³  ì•Œë¦°ë‹¤.
         Zone* pZone = pCreature->getZone();
         Assert(pZone != NULL);
 

@@ -37,7 +37,7 @@ void CGSelectTileEffectHandler::execute(CGSelectTileEffect* pPacket, Player* pPl
     Assert(pPlayer != NULL);
 
     try {
-        // °ÔÀÓ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+        // ê²Œì„ í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
         Assert(pGamePlayer != NULL);
         if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
@@ -46,7 +46,7 @@ void CGSelectTileEffectHandler::execute(CGSelectTileEffect* pPacket, Player* pPl
         Creature* pCreature = pGamePlayer->getCreature();
         Assert(pCreature != NULL);
 
-        // ¼º¹° µé°í ÀÖÀ¸¸é Æ÷Å»¿¡ µé¾î°¥ ¼ö ¾ø´Ù.
+        // ì„±ë¬¼ ë“¤ê³  ìˆìœ¼ë©´ í¬íƒˆì— ë“¤ì–´ê°ˆ ìˆ˜ ì—†ë‹¤.
         if (pCreature->hasRelicItem() || pCreature->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) ||
             pCreature->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER)) {
             return;
@@ -57,7 +57,7 @@ void CGSelectTileEffectHandler::execute(CGSelectTileEffect* pPacket, Player* pPl
 
         Effect* pEffect = NULL;
 
-        // ¸ÕÀú ¹ìÆÄÀÌ¾î Æ÷Å» ¸Å´ÏÀú¿¡¼­ Ã£´Â´Ù.
+        // ë¨¼ì € ë±€íŒŒì´ì–´ í¬íƒˆ ë§¤ë‹ˆì €ì—ì„œ ì°¾ëŠ”ë‹¤.
         EffectManager* pVampirePortalManager = pZone->getVampirePortalManager();
 
         pEffect = pVampirePortalManager->findEffect(pPacket->getEffectObjectID());
@@ -76,7 +76,7 @@ void CGSelectTileEffectHandler::execute(CGSelectTileEffect* pPacket, Player* pPl
         } else {
             cout << "CGSelectTileEffectHandler::execute() : Effect DOES NOT Exist" << endl;
 
-            // Èì... ±×·± OID¸¦ °¡Áø ÀÌÆåÆ®°¡ ¾øÀ» ¶§¿¡´Â »ìÂ¦ ¹«½ÃÇØÁØ´Ù.
+            // í ... ê·¸ëŸ° OIDë¥¼ ê°€ì§„ ì´í™íŠ¸ê°€ ì—†ì„ ë•Œì—ëŠ” ì‚´ì§ ë¬´ì‹œí•´ì¤€ë‹¤.
         }
     } catch (Throwable& t) {
         cerr << t.toString() << endl;
@@ -102,7 +102,7 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
     Assert(pEffect->getEffectClass() == Effect::EFFECT_CLASS_VAMPIRE_PORTAL);
 
     try {
-        // °ÔÀÓ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+        // ê²Œì„ í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
         Assert(pGamePlayer != NULL);
         if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
@@ -111,7 +111,7 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
         Creature* pCreature = pGamePlayer->getCreature();
         Assert(pCreature != NULL);
 
-        // ¹ìÆÄÀÌ¾î¸¸ÀÌ ÀÌ¿ëÇÒ ¼ö ÀÖ´Ù.
+        // ë±€íŒŒì´ì–´ë§Œì´ ì´ìš©í•  ìˆ˜ ìˆë‹¤.
         if (!pCreature->isVampire())
             return;
 
@@ -124,9 +124,9 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
         EffectVampirePortal* pEffectVampirePortal = dynamic_cast<EffectVampirePortal*>(pEffect);
         ZONE_COORD zonecoord = pEffectVampirePortal->getZoneCoord();
 
-        // Å×¸Ş¸®¿¡·Î´Â °¥ ¼ö ¾ø´Ù.
-        // ¿ø·¡´Â ¾Æ¿¹ ºí·¯µğ ÅÍ³ÎÀ» ¸¸µé ¼ö ¾øµµ·ÏÇØ¾ß ÇÏÁö¸¸
-        // ÀÌ¹Ì ÁÂÇ¥°¡ ¼³Á¤µÇ¾î ÀÖ´Â ¾ÁÀÌ ÀÖ¾î¼­ ¾îÂ¿ ¼ö ¾øÀÌ ¿©±â¼­µµ ¸·´Â´Ù.
+        // í…Œë©”ë¦¬ì—ë¡œëŠ” ê°ˆ ìˆ˜ ì—†ë‹¤.
+        // ì›ë˜ëŠ” ì•„ì˜ˆ ë¸”ëŸ¬ë”” í„°ë„ì„ ë§Œë“¤ ìˆ˜ ì—†ë„ë¡í•´ì•¼ í•˜ì§€ë§Œ
+        // ì´ë¯¸ ì¢Œí‘œê°€ ì„¤ì •ë˜ì–´ ìˆëŠ” ì”°ì´ ìˆì–´ì„œ ì–´ì©” ìˆ˜ ì—†ì´ ì—¬ê¸°ì„œë„ ë§‰ëŠ”ë‹¤.
         if (zonecoord.id == 1122 || zonecoord.id == 8000) {
             return;
         }
@@ -135,18 +135,18 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
             ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(zonecoord.id);
 
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
-            // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÁßÀÌ ¾Æ´Ï¸é...
-            // ±×¸®°í ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÁßÀÎ ¾Æ´Ï¸é
+            // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ì¤‘ì´ ì•„ë‹ˆë©´...
+            // ê·¸ë¦¬ê³  íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì¤‘ì¸ ì•„ë‹ˆë©´
             if (pZoneInfo == NULL || ((pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone()) &&
                                       !pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass())) {
                 // Statement* pStmt = NULL;
                 string connectIP = pGamePlayer->getSocket()->getHost();
 
-                // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                 if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                     sendPayInfo(pGamePlayer);
                 } else if (pZoneInfo->isPayPlay()) {
-                    // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                    // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                     GCSystemMessage gcSystemMessage;
 
                     if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
@@ -166,13 +166,13 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
         }
 
         if (pEffectVampirePortal->getCount() > 0) {
-            // ¹ìÆÄÀÌ¾î ÀÚ½Å¿¡°Ô ÇÃ·¡±×¸¦ °É¾îÁØ´Ù.
-            // ÀÌ´Â Zone::addPC¿¡¼­ ¹ìÆÄÀÌ¾î°¡ Ãß°¡µÉ ¶§, ÁÖÀ§¿¡´Ù »Ñ¸®´Â
-            // GCAddVampire ¿¡´Ù Æ÷Å»·ÎºÎÅÍ ¿ÔÀ½À» ¾Ë¸®±â À§ÇØ¼­ÀÌ´Ù.
-            // Zone::addPC¿¡¼­ ´Ù½Ã Ç®¾îÁÖ¸é µÈ´Ù.
+            // ë±€íŒŒì´ì–´ ìì‹ ì—ê²Œ í”Œë˜ê·¸ë¥¼ ê±¸ì–´ì¤€ë‹¤.
+            // ì´ëŠ” Zone::addPCì—ì„œ ë±€íŒŒì´ì–´ê°€ ì¶”ê°€ë  ë•Œ, ì£¼ìœ„ì—ë‹¤ ë¿Œë¦¬ëŠ”
+            // GCAddVampire ì—ë‹¤ í¬íƒˆë¡œë¶€í„° ì™”ìŒì„ ì•Œë¦¬ê¸° ìœ„í•´ì„œì´ë‹¤.
+            // Zone::addPCì—ì„œ ë‹¤ì‹œ í’€ì–´ì£¼ë©´ ëœë‹¤.
             pVampire->setFlag(Effect::EFFECT_CLASS_VAMPIRE_PORTAL);
 
-            // ¸ÕÀú ÁÖÀ§¿¡´Ù°¡ ¹ìÆÄÀÌ¾î°¡ Æ÷Å»À» ÀÌ¿ëÇØ »ç¶óÁø´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+            // ë¨¼ì € ì£¼ìœ„ì—ë‹¤ê°€ ë±€íŒŒì´ì–´ê°€ í¬íƒˆì„ ì´ìš©í•´ ì‚¬ë¼ì§„ë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
             GCEnterVampirePortal gcEnterVampirePortal;
             gcEnterVampirePortal.setObjectID(pVampire->getObjectID());
             gcEnterVampirePortal.setX(pEffectVampirePortal->getX());
@@ -180,10 +180,10 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
             pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcEnterVampirePortal);
 
             pVampire->getGQuestManager()->illegalWarp();
-            // ½ÇÁ¦·Î ÀÌµ¿À» ½ÃÅ²´Ù.
+            // ì‹¤ì œë¡œ ì´ë™ì„ ì‹œí‚¨ë‹¤.
             transportCreature(pCreature, zonecoord.id, zonecoord.x, zonecoord.y, false);
 
-            // ÀÌµ¿½ÃÄ×´Ù¸é Ä«¿îÆ®¸¦ ÁÙÀÌ°í, Ä«¿îÆ®°¡ 0ÀÌ µÇ¸é ÀÌÆåÆ®´Â »ç¶óÁø´Ù.
+            // ì´ë™ì‹œì¼°ë‹¤ë©´ ì¹´ìš´íŠ¸ë¥¼ ì¤„ì´ê³ , ì¹´ìš´íŠ¸ê°€ 0ì´ ë˜ë©´ ì´í™íŠ¸ëŠ” ì‚¬ë¼ì§„ë‹¤.
             pEffectVampirePortal->setCount(pEffectVampirePortal->getCount() - 1);
             // if (pEffectVampirePortal->getCount() == 0) pEffectVampirePortal->setDeadline(0);
         }

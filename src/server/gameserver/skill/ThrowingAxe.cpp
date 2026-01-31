@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -60,15 +60,15 @@ void ThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             }
 
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             input.SkillLevel = pMonster->getLevel();
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, X, Y);
             pEffect->setNextTime(output.Duration);
             pEffect->setUserObjectID(pMonster->getObjectID());
@@ -80,11 +80,11 @@ void ThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             pEffect->setSplashRatio(2, 50);
             // pEffect->setLevel(pSkillInfo->getLevel()/2);
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´íŽ™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 

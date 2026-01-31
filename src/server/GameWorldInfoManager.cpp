@@ -23,16 +23,16 @@ GameWorldInfoManager::GameWorldInfoManager() {}
 // destructor
 //----------------------------------------------------------------------
 GameWorldInfoManager::~GameWorldInfoManager() throw() {
-    // hashmap ¾ÈÀÇ °¢ pair ÀÇ second, Áï GameWorldInfo °´Ã¼¸¸À» »èÁ¦ÇÏ°í
-    // pair ÀÚÃ¼´Â ±×´ë·Î µĞ´Ù. (GameWorldInfo°¡ Èü¿¡ »ı¼ºµÇ¾î ÀÖ´Ù´Â °Í¿¡
-    // À¯ÀÇÇÏ¶ó. Áï ÇÊ»ì»èÁ¦¸¦ ÇØ¾ß ÇÑ´Ù. ÇÏ±ä, GSIMÀÌ destruct µÈ´Ù´Â °ÍÀº
-    // ·Î±×ÀÎ ¼­¹ö°¡ ¼Ë´Ù¿îµÈ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÏ´Ï±ñ.. - -; )
+    // hashmap ì•ˆì˜ ê° pair ì˜ second, ì¦‰ GameWorldInfo ê°ì²´ë§Œì„ ì‚­ì œí•˜ê³ 
+    // pair ìì²´ëŠ” ê·¸ëŒ€ë¡œ ë‘”ë‹¤. (GameWorldInfoê°€ í™ì— ìƒì„±ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì—
+    // ìœ ì˜í•˜ë¼. ì¦‰ í•„ì‚´ì‚­ì œë¥¼ í•´ì•¼ í•œë‹¤. í•˜ê¸´, GSIMì´ destruct ëœë‹¤ëŠ” ê²ƒì€
+    // ë¡œê·¸ì¸ ì„œë²„ê°€ ì…§ë‹¤ìš´ëœë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•˜ë‹ˆê¹.. - -; )
     for (HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.begin(); itr != m_GameWorldInfos.end(); itr++) {
         delete itr->second;
         itr->second = NULL;
     }
 
-    // ÀÌÁ¦ ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ğµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+    // ì´ì œ í•´ì‰¬ë§µì•ˆì— ìˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
     m_GameWorldInfos.clear();
 }
 
@@ -79,11 +79,11 @@ void GameWorldInfoManager::load() {
         }
         cout << "End GameWorldInfoManager Load" << endl;
 
-        // ÇÊ»ì »èÁ¦!
+        // í•„ì‚´ ì‚­ì œ!
         SAFE_DELETE(pStmt);
 
     } catch (SQLQueryException& sqe) {
-        // ÇÊ»ì »èÁ¦!
+        // í•„ì‚´ ì‚­ì œ!
         SAFE_DELETE(pStmt);
 
         throw Error(sqe.toString());
@@ -140,14 +140,14 @@ void GameWorldInfoManager::deleteGameWorldInfo(const WorldID_t ID) {
     HashMapGameWorldInfo::iterator itr = m_GameWorldInfos.find(ID);
 
     if (itr != m_GameWorldInfos.end()) {
-        // GameWorldInfo ¸¦ »èÁ¦ÇÑ´Ù.
+        // GameWorldInfo ë¥¼ ì‚­ì œí•œë‹¤.
         delete itr->second;
 
-        // pair¸¦ »èÁ¦ÇÑ´Ù.
+        // pairë¥¼ ì‚­ì œí•œë‹¤.
         m_GameWorldInfos.erase(itr);
 
     } else {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾øÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -167,7 +167,7 @@ GameWorldInfo* GameWorldInfoManager::getGameWorldInfo(const WorldID_t ID) const 
     if (itr != m_GameWorldInfos.end()) {
         pGameWorldInfo = itr->second;
     } else {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -193,7 +193,7 @@ string GameWorldInfoManager::toString() const {
         //--------------------------------------------------
         // *OPTIMIZATION*
         //
-        // for_each()¸¦ »ç¿ëÇÒ °Í
+        // for_each()ë¥¼ ì‚¬ìš©í•  ê²ƒ
         //--------------------------------------------------
         for (HashMapGameWorldInfo::const_iterator itr = m_GameWorldInfos.begin(); itr != m_GameWorldInfos.end(); itr++)
             msg << itr->second->toString() << '\n';

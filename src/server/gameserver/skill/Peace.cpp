@@ -17,7 +17,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Peace::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,7 +49,7 @@ void Peace::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkil
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Peace::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -156,33 +156,33 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
                 Creature* pTargetCreature = (*itr);
                 Assert(pTargetCreature != NULL);
 
-                // ¸ó½ºÅÍÀÎ °æ¿ì¸¸ Ã¼Å©ÇÑ´Ù.
-                // ¹ìÆÄÀÌ¾î ¸¶½ºÅÍ´Â ³ªÁß¿¡ Á¦¿Ü½ÃÄÑ¾ßÇÑ´Ù.
+                // ëª¬ìŠ¤í„°ì¸ ê²½ìš°ë§Œ ì²´í¬í•œë‹¤.
+                // ë±€íŒŒì´ì–´ ë§ˆìŠ¤í„°ëŠ” ë‚˜ì¤‘ì— ì œì™¸ì‹œì¼œì•¼í•œë‹¤.
                 if (pTargetCreature->isMonster()) {
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     Assert(pMonster != NULL);
 
-                    // »ì¾ÆÀÖ°í, ÀÌ¹Ì Peace¿¡ °É¸° °æ¿ì°¡ ¾Æ´Ñ °æ¿ì¿¡ ¸¶¹ı °Ç´Ù.
+                    // ì‚´ì•„ìˆê³ , ì´ë¯¸ Peaceì— ê±¸ë¦° ê²½ìš°ê°€ ì•„ë‹Œ ê²½ìš°ì— ë§ˆë²• ê±´ë‹¤.
                     if (pMonster->isAlive() && !pMonster->isFlag(Effect::EFFECT_CLASS_PEACE)) {
                         bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
                         if (bHitRoll) {
-                            // pMonster°¡ pSlayer¸¦ ¸ÕÀú °ø°İÇÏÁö ¾Ê´Â Effect
+                            // pMonsterê°€ pSlayerë¥¼ ë¨¼ì € ê³µê²©í•˜ì§€ ì•ŠëŠ” Effect
                             EffectPeace* pEffectPeace = new EffectPeace(pMonster, pSlayer->getObjectID());
-                            // pEffectAftermath->setDeadline(150+pSlayer->getINT()); // (15+INT/10)ÃÊ*10
-                            pEffectPeace->setDeadline(duration); // 150+pSlayer->getINT()); // (15+INT/10)ÃÊ*10
+                            // pEffectAftermath->setDeadline(150+pSlayer->getINT()); // (15+INT/10)ì´ˆ*10
+                            pEffectPeace->setDeadline(duration); // 150+pSlayer->getINT()); // (15+INT/10)ì´ˆ*10
                             pMonster->addEffect(pEffectPeace);
                             pMonster->setFlag(Effect::EFFECT_CLASS_PEACE);
 
-                            // ÀÌ¹Ì ¶§¸®°í ÀÖ´Â °æ¿ì¶ó¸é Á¦°Å..
+                            // ì´ë¯¸ ë•Œë¦¬ê³  ìˆëŠ” ê²½ìš°ë¼ë©´ ì œê±°..
                             pMonster->deleteEnemy(pSlayer->getObjectID());
 
-                            // cout << pMonster->getName().c_str() << "¿¡°Ô Peace °É¾ú´Ù." << endl;
+                            // cout << pMonster->getName().c_str() << "ì—ê²Œ Peace ê±¸ì—ˆë‹¤." << endl;
                             // cList.push_back(pMonster);
 
                             bSuccess = true;
 
-                            // Å¸°Ù list¸¦ ÆĞÅ¶¿¡ Ãß°¡ÇÑ´Ù.
+                            // íƒ€ê²Ÿ listë¥¼ íŒ¨í‚·ì— ì¶”ê°€í•œë‹¤.
 
                             _GCSkillToTileOK1.addCListElement(pMonster->getObjectID());
                             _GCSkillToTileOK2.addCListElement(pMonster->getObjectID());
@@ -198,10 +198,10 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
             }
 
             if (bSuccess) {
-                // ¼º°øÇØ¾ß ¸¶³ª¸¦ ¶³¾î¶ß¸°´Ù.
+                // ì„±ê³µí•´ì•¼ ë§ˆë‚˜ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-                // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù. (ÀÏ´Ü detect hidden¿¡¼­ ±Ü¾ú´Ù. -_-;)
+                // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤. (ì¼ë‹¨ detect hiddenì—ì„œ ê¸ì—ˆë‹¤. -_-;)
                 SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
                 Exp_t ExpUp = 10 * (Grade + 1) * 2;
 
@@ -252,8 +252,8 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
 
             // cList.push_back(pSlayer);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
-            // ¸ó½ºÅÍ¶ó¼­ ¾ø´Ù - -;
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
+            // ëª¬ìŠ¤í„°ë¼ì„œ ì—†ë‹¤ - -;
             /*
             for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
             {
@@ -276,12 +276,12 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     Player* pPlayer = pTargetCreature->getPlayer();
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-                    // HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+                    // HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
                     GCStatusCurrentHP gcStatusCurrentHP;
                     gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
                     gcStatusCurrentHP.setCurrentHP (targetHP);

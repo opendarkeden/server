@@ -14,7 +14,7 @@
 #include "PacketUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PotentialExplosion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -34,7 +34,7 @@ void PotentialExplosion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, µµ°¡ ¾Æ´Ï¶ó¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ìž¥í•˜ê³  ìžˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, ë„ê°€ ì•„ë‹ˆë¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_BLADE) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -65,7 +65,7 @@ void PotentialExplosion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
             SkillOutput output;
             computeOutput(input, output);
 
-            // HP°¡ ¹Ýº¸´Ù ÀÛÀ» ¶§´Â ¾à°£ ´õ ¿Ã¶ó°£´Ù.
+            // HPê°€ ë°˜ë³´ë‹¤ ìž‘ì„ ë•ŒëŠ” ì•½ê°„ ë” ì˜¬ë¼ê°„ë‹¤.
             // by sigi. 2002.12.3
             if (pSlayer->getHP(ATTR_CURRENT) < (pSlayer->getHP(ATTR_MAX) / 2)) {
                 // output.Damage += 4;
@@ -84,21 +84,21 @@ void PotentialExplosion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_POTENTIAL_EXPLOSION);
 
-            // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+            // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->sendModifyInfo(prev);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 8, 1, 1, _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             // increaseSkillExp(pSlayer, DomainType,  pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ÆÐÅ¶À» º¸³»ÁØ´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -110,7 +110,7 @@ void PotentialExplosion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(X, Y, &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_POTENTIAL_EXPLOSION);

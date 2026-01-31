@@ -77,7 +77,7 @@ void EffectLight::unaffect(Creature* pCreature)
 
         pPlayer->sendPacket(&_GCModifyInformation);
 
-        // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+        // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
         GCRemoveEffect gcRemoveEffect;
         gcRemoveEffect.setObjectID(pSlayer->getObjectID());
         gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_LIGHT);
@@ -207,7 +207,7 @@ void EffectLightLoader::load(Creature* pCreature)
     __BEGIN_TRY
 
     if (pCreature == NULL) {
-        // cout << "EffectLightLoader : Å©¸®ÃÄ°¡ ³ÎÀÔ´Ï´Ù." << endl;
+        // cout << "EffectLightLoader : í¬ë¦¬ì³ê°€ ë„ìž…ë‹ˆë‹¤." << endl;
         return;
     }
 

@@ -16,7 +16,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Piercing::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -32,7 +32,7 @@ void Piercing::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         Zone* pZone = pSlayer->getZone();
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -49,7 +49,7 @@ void Piercing::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -68,8 +68,8 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ NULLÀÌ°Å³ª, ÃÑ °è¿­ÀÌ ¾Æ´Ï¶ó¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
-        // ÃÑ °è¿­ Áß¿¡¼­µµ SG´Â ÀÌ ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ì¥í•˜ê³  ìˆëŠ” ë¬´ê¸°ê°€ NULLì´ê±°ë‚˜, ì´ ê³„ì—´ì´ ì•„ë‹ˆë¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+        // ì´ ê³„ì—´ ì¤‘ì—ì„œë„ SGëŠ” ì´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || !isArmsWeapon(pWeapon) || pWeapon->getItemClass() == Item::ITEM_CLASS_SG) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -90,11 +90,11 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
         SkillDomainType_t DomainType = pSkillInfo->getDomainType();
         Level_t SkillLevel = pSkillSlot->getExpLevel();
 
-        // ÃÑ¿¡ ÃÑ¾ËÀÌ ³²¾ÆÀÖ´Ù¸é...
+        // ì´ì— ì´ì•Œì´ ë‚¨ì•„ìˆë‹¤ë©´...
         if (getRemainBullet(pWeapon) > 0) {
-            // Á¦ÀÏ ¸ÕÀú ÃÑ¾Ë ¼ıÀÚ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ì œì¼ ë¨¼ì € ì´ì•Œ ìˆ«ìë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ì¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             Bullet_t RemainBullet = getRemainBullet(pWeapon);
 
@@ -104,10 +104,10 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
             bool bRangeCheck = verifyDistance(pSlayer, X, Y, pWeapon->getRange());
 
             if (bManaCheck && bTimeCheck && bRangeCheck) {
-                // MP¸¦ ¶³¾î¶ß¸°´Ù.
+                // MPë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-                // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+                // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
                 ZoneCoord_t myX = pSlayer->getX();
                 ZoneCoord_t myY = pSlayer->getY();
                 Dir_t dir = calcDirection(myX, myY, X, Y);
@@ -115,7 +115,7 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                 list<POINT> ptList;
                 getPointsFromLineEx(myX, myY, X, Y, pWeapon->getRange(), ptList);
 
-                // µ¥¹ÌÁö, Áö¼Ó½Ã°£ µîÀ» °è»êÇÑ´Ù.
+                // ë°ë¯¸ì§€, ì§€ì†ì‹œê°„ ë“±ì„ ê³„ì‚°í•œë‹¤.
                 SkillInput input(pSlayer, pSkillSlot);
                 SkillOutput output;
                 computeOutput(input, output);
@@ -138,9 +138,9 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                     int tileX = (*ptitr).x;
                     int tileY = (*ptitr).y;
 
-                    // Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é ¸ÂÀ» È®·üÀÌ ÀÖ´Ù.
+                    // ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´ ë§ì„ í™•ë¥ ì´ ìˆë‹¤.
                     if (rect.ptInRect(tileX, tileY)) {
-                        // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                        // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                         Tile& tile = pZone->getTile(tileX, tileY);
 
                         list<Creature*> targetList;
@@ -162,7 +162,7 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                             Creature* pTargetCreature = (*itr);
                             Assert(pTargetCreature != NULL);
 
-                            // ÃÑ °è¿­ ±â¼úÀº ¶¥ ¼ÓÀ» Á¦¿ÜÇÑ ³ª¸ÓÁö¸¦ °ø°İÇÒ ¼ö°¡ ÀÖ´Ù.
+                            // ì´ ê³„ì—´ ê¸°ìˆ ì€ ë•… ì†ì„ ì œì™¸í•œ ë‚˜ë¨¸ì§€ë¥¼ ê³µê²©í•  ìˆ˜ê°€ ìˆë‹¤.
                             bool bMoveModeCheck =
                                 (pTargetCreature->getMoveMode() == Creature::MOVE_MODE_BURROWING) ? false : true;
                             bool bRaceCheck = pTargetCreature->isNPC() || pTargetCreature->isSlayer();
@@ -174,7 +174,7 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
 
                             if (bMoveModeCheck && !bRaceCheck && bHitRoll && bCanHit && bPK && bZoneLevelCheck &&
                                 !pTargetCreature->isFlag(
-                                    Effect::EFFECT_CLASS_COMA)) // Á×Àº ¾ÖÇÑÅ× °É¸®¸é ¾È ¸Â¾Æ¾ß µÈ´Ù. -_-; 2003.3.14
+                                    Effect::EFFECT_CLASS_COMA)) // ì£½ì€ ì• í•œí…Œ ê±¸ë¦¬ë©´ ì•ˆ ë§ì•„ì•¼ ëœë‹¤. -_-; 2003.3.14
                             {
                                 bool bCriticalHit = false;
 
@@ -189,18 +189,18 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                                 _GCSkillToTileOK4.addCListElement(targetObjectID);
                                 _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                                // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                 setDamage(pTargetCreature, Damage, pSlayer, SkillType, NULL, &_GCSkillToTileOK1);
                                 computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
 
                                 increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
 
-                                // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                                // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                                 if (bCriticalHit) {
                                     knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                                 }
 
-                                // ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¸ÂÃá °É·Î °£ÁÖÇÑ´Ù.
+                                // ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ë§ì¶˜ ê±¸ë¡œ ê°„ì£¼í•œë‹¤.
                                 if (!pTargetCreature->isSlayer()) {
                                     bHit = true;
                                     if (maxEnemyLevel < pTargetCreature->getLevel())
@@ -221,7 +221,7 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                     }
                 }
 
-                // °ø°İÀÚÀÇ ¾ÆÀÌÅÛ ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+                // ê³µê²©ìì˜ ì•„ì´í…œ ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
                 _GCSkillToTileOK1.setSkillType(SkillType);
@@ -259,7 +259,7 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
 
                 pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-                // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+                // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
                 for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                     Creature* pTargetCreature = *itr;
                     Assert(pTargetCreature != NULL);
@@ -267,7 +267,7 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                     if (pTargetCreature->isPC()) {
                         _GCSkillToTileOK2.clearList();
 
-                        // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                        // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                         HP_t targetHP = 0;
                         if (pTargetCreature->isSlayer())
                             targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -277,13 +277,13 @@ void Piercing::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
                             targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
                         _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                        // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                        // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                         decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                        // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                        // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                         pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                     } else if (pTargetCreature->isMonster()) {
-                        // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                        // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                         Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                         pMonster->addEnemy(pSlayer);
                     }

@@ -13,11 +13,11 @@
 enum {
     ADD_ITEM_TO_ITEM_VERIFY_ERROR, // error
 
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE,            // enchant ¿ÏÀü ºÒ°¡
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH,            // enchant ½ÇÆÐ: ¾ÆÀÌÅÛ ºÎ¼­Áü
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE,         // enchant ½ÇÆÐ: ¿É¼Ç ¶³¾îÁü
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK,                    // enchant ¼º°ø
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE_NO_PREMIUM, // enchant ºÒ°¡ : ÇÁ¸®¹Ì¾ö ¾Æ´Ô
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE,            // enchant ì™„ì „ ë¶ˆê°€
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH,            // enchant ì‹¤íŒ¨: ì•„ì´í…œ ë¶€ì„œì§
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE,         // enchant ì‹¤íŒ¨: ì˜µì…˜ ë–¨ì–´ì§
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK,                    // enchant ì„±ê³µ
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE_NO_PREMIUM, // enchant ë¶ˆê°€ : í”„ë¦¬ë¯¸ì—„ ì•„ë‹˜
 
     ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK,
     ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE,
@@ -25,13 +25,13 @@ enum {
     ADD_ITEM_TO_ITEM_VERIFY_MIXING_OK,
     ADD_ITEM_TO_ITEM_VERIFY_DETACHING_OK,
 
-    ADD_ITEM_TO_ITEM_VERIFY_MIXING_FAILED_SAME_OPTION_GROUP, // ¾ÆÀÌÅÛÀÇ ¿É¼Ç ±×·ìÀÌ °°¾Æ¼­ ¼¯À» ¼ö ¾ø½À´Ï´Ù.
-    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL,                    // enchant ½ÇÆÐ
+    ADD_ITEM_TO_ITEM_VERIFY_MIXING_FAILED_SAME_OPTION_GROUP, // ì•„ì´í…œì˜ ì˜µì…˜ ê·¸ë£¹ì´ ê°™ì•„ì„œ ì„žì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
+    ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL,                    // enchant ì‹¤íŒ¨
 
-    ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK, // Æê ºÎÈ° ¼º°ø
+    ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK, // íŽ« ë¶€í™œ ì„±ê³µ
 
-    ADD_ITEM_TO_ITEM_VERIFY_CLEAR_OPTION_OK, // option Á¦°Å ¼º°ø
-    ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK,     // grade¿Ã¸®±â ¼º°ø
+    ADD_ITEM_TO_ITEM_VERIFY_CLEAR_OPTION_OK, // option ì œê±° ì„±ê³µ
+    ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK,     // gradeì˜¬ë¦¬ê¸° ì„±ê³µ
 
     // add by Coffee 2006.11.3
     ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK,
@@ -91,7 +91,7 @@ public:
 private:
     BYTE m_Code;
     uint m_Parameter;
-    // add by Coffee 2006.11.3  ±£´æµÚ¶þ¸öÊôÐÔ
+    // add by Coffee 2006.11.3  ê´ë‹¸ë’¤ëž—ëª¸æ©„æ˜‘
     uint m_Parameter2;
 };
 

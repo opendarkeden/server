@@ -28,8 +28,8 @@ uint getPointsFromLine(int x1, int y1, int x2, int y2, list<POINT>& rList) {
         yStep = (double)(y2 - y1) / (double)(x2 - x1);
         Y = y1;
         for (xCount = x1; xCount <= x2; xCount++) {
-            // ¸¶Áö¸· Á¡ÀÌ¶ó¸é ±â¿ï±â¸¦ ¹«½ÃÇÏ°í,
-            // °­Á¦·Î ¸¶Áö¸· ÁÂÇ¥¸¦ Áı¾î³Ö´Â´Ù.
+            // ë§ˆì§€ë§‰ ì ì´ë¼ë©´ ê¸°ìš¸ê¸°ë¥¼ ë¬´ì‹œí•˜ê³ ,
+            // ê°•ì œë¡œ ë§ˆì§€ë§‰ ì¢Œí‘œë¥¼ ì§‘ì–´ë„£ëŠ”ë‹¤.
             if (xCount == x2) {
                 rList.push_front(POINT(x2, y2));
             } else {
@@ -89,11 +89,11 @@ uint getPointsFromLineEx(int x1, int y1, int x2, int y2, int range, list<POINT>&
     } else if (xLength > yLength) {
         // cout << "xLength:" << xLength << endl;
 
-        // ÇöÀçÀÇ X ±æÀÌ°¡ »çÁ¤°Å¸®º¸´Ù ±æ´Ù¸é ±×³É ¼±À» ±×¾î¼­ ¸®ÅÏÇÑ´Ù.
+        // í˜„ì¬ì˜ X ê¸¸ì´ê°€ ì‚¬ì •ê±°ë¦¬ë³´ë‹¤ ê¸¸ë‹¤ë©´ ê·¸ëƒ¥ ì„ ì„ ê·¸ì–´ì„œ ë¦¬í„´í•œë‹¤.
         if (xLength >= range)
             return getPointsFromLine(x1, y1, x2, y2, rList);
 
-        // ¸ğÀÚ¶õ ±æÀÌ¸¦ ±¸ÇÑ´Ù.
+        // ëª¨ìë€ ê¸¸ì´ë¥¼ êµ¬í•œë‹¤.
         int xoffset = range - xLength;
 
         // cout << "xOffset:" << xoffset << endl;
@@ -122,11 +122,11 @@ uint getPointsFromLineEx(int x1, int y1, int x2, int y2, int range, list<POINT>&
     } else {
         // cout << "yLength:" << yLength << endl;
 
-        // ÇöÀçÀÇ Y ±æÀÌ°¡ »çÁ¤°Å¸®º¸´Ù ±æ´Ù¸é ±×³É ¼±À» ±×¾î¼­ ¸®ÅÏÇÑ´Ù.
+        // í˜„ì¬ì˜ Y ê¸¸ì´ê°€ ì‚¬ì •ê±°ë¦¬ë³´ë‹¤ ê¸¸ë‹¤ë©´ ê·¸ëƒ¥ ì„ ì„ ê·¸ì–´ì„œ ë¦¬í„´í•œë‹¤.
         if (yLength >= range)
             return getPointsFromLine(x1, y1, x2, y2, rList);
 
-        // ¸ğÀÚ¶õ ±æÀÌ¸¦ ±¸ÇÑ´Ù.
+        // ëª¨ìë€ ê¸¸ì´ë¥¼ êµ¬í•œë‹¤.
         int yoffset = range - yLength;
 
         // cout << "yOffset:" << yoffset << endl;
@@ -153,12 +153,12 @@ uint getPointsFromLineEx(int x1, int y1, int x2, int y2, int range, list<POINT>&
         getPointsFromLine(x1, y1, nx2, ny2, rList);
     }
 
-    // getPointsFromLineEx()´Â x^2 + y^2 = r^2°ú y = axÀÇ ±³Á¡À» Ã£¾Æ¼­,
-    // ¿øÁ¡¿¡¼­ ±³Á¡±îÁöÀÇ ÁÂÇ¥µéÀ» ¸®½ºÆ®·Î ¸®ÅÏÇÏ´Â ÇÔ¼öÀÎµ¥,
-    // ¾Ë°í¸®Áò »ó¿¡¼­ÀÇ ¹®Á¦·Î ÀÎÇØ (x2,y2), Áï Ã³À½¿¡ ¸ñÇ¥·Î Çß´ø
-    // ÁÂÇ¥°¡ ºüÁö´Â °æ¿ì°¡ »ı±æ ¼ö ÀÖ´Ù.
-    // ÀÌ·± °æ¿ì¸¦ ¹æÁöÇÏ±â À§ÇØ¼­ ¸®½ºÆ®¿¡ ¿ø·¡ ¸ñÇ¥ ÁÂÇ¥°¡ ¾ø´Ù¸é,
-    // Áı¾î³Ö¾î ÁØ´Ù.
+    // getPointsFromLineEx()ëŠ” x^2 + y^2 = r^2ê³¼ y = axì˜ êµì ì„ ì°¾ì•„ì„œ,
+    // ì›ì ì—ì„œ êµì ê¹Œì§€ì˜ ì¢Œí‘œë“¤ì„ ë¦¬ìŠ¤íŠ¸ë¡œ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜ì¸ë°,
+    // ì•Œê³ ë¦¬ì¦˜ ìƒì—ì„œì˜ ë¬¸ì œë¡œ ì¸í•´ (x2,y2), ì¦‰ ì²˜ìŒì— ëª©í‘œë¡œ í–ˆë˜
+    // ì¢Œí‘œê°€ ë¹ ì§€ëŠ” ê²½ìš°ê°€ ìƒê¸¸ ìˆ˜ ìˆë‹¤.
+    // ì´ëŸ° ê²½ìš°ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ ë¦¬ìŠ¤íŠ¸ì— ì›ë˜ ëª©í‘œ ì¢Œí‘œê°€ ì—†ë‹¤ë©´,
+    // ì§‘ì–´ë„£ì–´ ì¤€ë‹¤.
     bool bAdd = true;
     list<POINT>::iterator itr = rList.begin();
     for (; itr != rList.end(); itr++) {

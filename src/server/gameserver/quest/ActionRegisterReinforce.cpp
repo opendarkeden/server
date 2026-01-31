@@ -45,7 +45,7 @@ void ActionRegisterReinforce::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegisterReinforce::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -85,8 +85,8 @@ void ActionRegisterReinforce::execute(Creature* pCreature1, Creature* pCreature2
     WarScheduler* pWarScheduler = pZone->getWarScheduler();
     Assert(pWarScheduler != NULL);
 
-    /* ¼ºÀ» ¼ÒÀ¯Çß¾îµµ ÀüÀï ½ÅÃ»ÀÌ µÇµµ·Ï ¼öÁ¤ÇÔ (ÀÚ±â ¼º¿¡´Â ½ÅÃ» ¸øÇÏ°ÚÁö -_-;;)
-    // ÀÌ¹Ì ¼ºÀ» ¼ÒÀ¯ÇÑ ±æµåÀÎ°¡?
+    /* ì„±ì„ ì†Œìœ í–ˆì–´ë„ ì „ìŸ ì‹ ì²­ì´ ë˜ë„ë¡ ìˆ˜ì •í•¨ (ìžê¸° ì„±ì—ëŠ” ì‹ ì²­ ëª»í•˜ê² ì§€ -_-;;)
+    // ì´ë¯¸ ì„±ì„ ì†Œìœ í•œ ê¸¸ë“œì¸ê°€?
     if ( g_pGuildManager->hasCastle( guildID ) )
     {
         gcNPCResponse.setCode( NPC_RESPONSE_ALREADY_HAS_CASTLE );
@@ -110,14 +110,14 @@ void ActionRegisterReinforce::execute(Creature* pCreature1, Creature* pCreature2
         return;
     }
 
-    // ÀÌ¹Ì ÀüÀï ½ÅÃ»À» Çß´Â°¡?
+    // ì´ë¯¸ ì „ìŸ ì‹ ì²­ì„ í–ˆëŠ”ê°€?
     if (g_pGuildManager->hasWarSchedule(guildID)) {
         gcNPCResponse.setCode(NPC_RESPONSE_WAR_ALREADY_REGISTERED);
         pPC->getPlayer()->sendPacket(&gcNPCResponse);
         return;
     }
 
-    // ÀüÀï ½ºÄÉÁìÀÌ ´Ù Ã¡´Â°¡?
+    // ì „ìŸ ìŠ¤ì¼€ì¥´ì´ ë‹¤ ì°¼ëŠ”ê°€?
     /*	if ( !pWarScheduler->canAddWar( WAR_GUILD ) )
         {
             gcNPCResponse.setCode( NPC_RESPONSE_WAR_SCHEDULE_FULL );

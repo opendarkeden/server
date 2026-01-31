@@ -31,7 +31,7 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
         Assert(pPacket != NULL);
     Assert(pPlayer != NULL);
 
-    // Á¤»óÀûÀÎ »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¸®ÅÏ
+    // ì •ìƒì ì¸ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ë¦¬í„´
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
         return;
@@ -69,7 +69,7 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
             return;
         }
     } else if (pCreature->isVampire()) {
-        // º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾ø´Ù¸é ¸®ÅÏ
+        // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ê°€ ì—†ë‹¤ë©´ ë¦¬í„´
         Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
         if (pVampire->getBonus() <= 0) {
             GCUseBonusPointFail failPkt;
@@ -78,7 +78,7 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
         }
 
         VAMPIRE_RECORD oldRecord;
-        // ´É·ÂÄ¡¸¦ ¿Ã¸®±â Àü¿¡ ±âÁ¸ÀÇ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+        // ëŠ¥ë ¥ì¹˜ë¥¼ ì˜¬ë¦¬ê¸° ì „ì— ê¸°ì¡´ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ì €ì¥í•œë‹¤.
         pVampire->getVampireRecord(oldRecord);
 
         if (which == INC_INT) {
@@ -90,24 +90,24 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
             pVampire->tinysave(sst.toString());
 
             /*
-            // INT°¡ Áõ°¡ÇÏ¸é »õ·Î¿î ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Â °¡´É¼ºÀÌ ÀÖ´Ù.
+            // INTê°€ ì¦ê°€í•˜ë©´ ìƒˆë¡œìš´ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
             SkillType_t lastSkill = pVampire->findLastSkill();
 
 
-            // lastSkillÀÇ ´ÙÀ½ levelÀÇ ±â¼úÀ» Ã£´Â´Ù.
-            // ¸øÃ£¾Ò´Ù¸é ´õÀÌ»ó ¹è¿ï°ÍÀÌ ¾ø´Ù´Â °Í.
+            // lastSkillì˜ ë‹¤ìŒ levelì˜ ê¸°ìˆ ì„ ì°¾ëŠ”ë‹¤.
+            // ëª»ì°¾ì•˜ë‹¤ë©´ ë”ì´ìƒ ë°°ìš¸ê²ƒì´ ì—†ë‹¤ëŠ” ê²ƒ.
             for(int i = SKILL_BLOOD_DRAIN + 1 ; i < SKILL_MAX; i++)
             {
                 SkillParentInfo* pParentInfo = g_pSkillParentInfoManager->getSkillParentInfo(i);
 
-                if (pParentInfo->hasParent(lastSkill))// Ã£¾Ò´Ù!
+                if (pParentInfo->hasParent(lastSkill))// ì°¾ì•˜ë‹¤!
                 {
                     SkillInfo* pNewSkillInfo = g_pSkillInfoManager->getSkillInfo(i);
                     if (pNewSkillInfo->getEXP() <= cur && pVampire->hasSkill(i) == NULL)
                     {
                         //cout << "(" << pVampire->getName() << ") can learn new skill >> ";
 
-                        // »õ·Î¿î ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù.
+                        // ìƒˆë¡œìš´ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìˆë‹¤.
                         GCLearnSkillReady gcLSR;
                         gcLSR.setSkillDomainType(SKILL_DOMAIN_VAMPIRE);
                         pVampire->getPlayer()->sendPacket(&gcLSR);
@@ -139,30 +139,30 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
             // log(LOG_USE_BONUS_POINT, pVampire->getName(), "", "DEX");
         }
 
-        // ¹Ù²ï º¸³Ê½º Æ÷ÀÎÆ®¸¦ ÀúÀåÇÑ´Ù.
+        // ë°”ë€ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¥¼ ì €ì¥í•œë‹¤.
         Bonus_t OldBonus = pVampire->getBonus();
         pVampire->setBonus(OldBonus - 1);
         StringStream sst;
         sst << "Bonus = " << (int)(OldBonus - 1);
         pVampire->tinysave(sst.toString());
 
-        // ´É·ÂÄ¡°¡ º¯È­µÇ¾úÀ¸´Ï, statÀ» »õ·Î °íÄ£´Ù.
+        // ëŠ¥ë ¥ì¹˜ê°€ ë³€í™”ë˜ì—ˆìœ¼ë‹ˆ, statì„ ìƒˆë¡œ ê³ ì¹œë‹¤.
         pVampire->initAllStat();
 
-        // Å¬¶óÀÌ¾ğÆ®ÀÇ °è»ê ¼ø¼­ ¶§¹®¿¡ »ı±â´Â ¹ö±×·Î ÀÎÇÏ¿©,
-        // ¸ÕÀú ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ ÈÄ¿¡, ¹Ù²ï ´É·ÂÄ¡¿¡ ´ëÇÑ Á¤º¸¸¦ º¸³½´Ù.
-        // ³ªÁß¿¡ CGUseBonusPointOK¿¡´Ù ¹Ù·Î ¹Ù²ï ´É·ÂÄ¡¿¡ ´ëÇÑ Á¤º¸¸¦
-        // ½Ç¾îº¸³»µµ·Ï ÇØ¾ß ÇÑ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì˜ ê³„ì‚° ìˆœì„œ ë•Œë¬¸ì— ìƒê¸°ëŠ” ë²„ê·¸ë¡œ ì¸í•˜ì—¬,
+        // ë¨¼ì € ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ í›„ì—, ë°”ë€ ëŠ¥ë ¥ì¹˜ì— ëŒ€í•œ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
+        // ë‚˜ì¤‘ì— CGUseBonusPointOKì—ë‹¤ ë°”ë¡œ ë°”ë€ ëŠ¥ë ¥ì¹˜ì— ëŒ€í•œ ì •ë³´ë¥¼
+        // ì‹¤ì–´ë³´ë‚´ë„ë¡ í•´ì•¼ í•œë‹¤.
 
-        // OK ÆĞÅ¶À» º¸³»ÁØ´Ù.
+        // OK íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
         GCUseBonusPointOK okpkt;
         pGamePlayer->sendPacket(&okpkt);
 
-        // ¹Ù²ï ´É·ÂÄ¡¿¡ °üÇÑ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+        // ë°”ë€ ëŠ¥ë ¥ì¹˜ì— ê´€í•œ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         pVampire->sendModifyInfo(oldRecord);
         pVampire->sendRealWearingInfo();
     } else if (pCreature->isOusters()) {
-        // º¸³Ê½º Æ÷ÀÎÆ®°¡ ¾ø´Ù¸é ¸®ÅÏ
+        // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ê°€ ì—†ë‹¤ë©´ ë¦¬í„´
         Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
         if (pOusters->getBonus() <= 0) {
             GCUseBonusPointFail failPkt;
@@ -171,7 +171,7 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
         }
 
         OUSTERS_RECORD oldRecord;
-        // ´É·ÂÄ¡¸¦ ¿Ã¸®±â Àü¿¡ ±âÁ¸ÀÇ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+        // ëŠ¥ë ¥ì¹˜ë¥¼ ì˜¬ë¦¬ê¸° ì „ì— ê¸°ì¡´ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ì €ì¥í•œë‹¤.
         pOusters->getOustersRecord(oldRecord);
 
         if (which == INC_INT) {
@@ -197,21 +197,21 @@ void CGUseBonusPointHandler::execute(CGUseBonusPoint* pPacket, Player* pPlayer)
             pOusters->tinysave(sst.toString());
         }
 
-        // ¹Ù²ï º¸³Ê½º Æ÷ÀÎÆ®¸¦ ÀúÀåÇÑ´Ù.
+        // ë°”ë€ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¥¼ ì €ì¥í•œë‹¤.
         Bonus_t OldBonus = pOusters->getBonus();
         pOusters->setBonus(OldBonus - 1);
         StringStream sst;
         sst << "Bonus = " << (int)(OldBonus - 1);
         pOusters->tinysave(sst.toString());
 
-        // ´É·ÂÄ¡°¡ º¯È­µÇ¾úÀ¸´Ï, statÀ» »õ·Î °íÄ£´Ù.
+        // ëŠ¥ë ¥ì¹˜ê°€ ë³€í™”ë˜ì—ˆìœ¼ë‹ˆ, statì„ ìƒˆë¡œ ê³ ì¹œë‹¤.
         pOusters->initAllStat();
 
-        // OK ÆĞÅ¶À» º¸³»ÁØ´Ù.
+        // OK íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
         GCUseBonusPointOK okpkt;
         pGamePlayer->sendPacket(&okpkt);
 
-        // ¹Ù²ï ´É·ÂÄ¡¿¡ °üÇÑ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+        // ë°”ë€ ëŠ¥ë ¥ì¹˜ì— ê´€í•œ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         pOusters->sendModifyInfo(oldRecord);
         pOusters->sendRealWearingInfo();
     } else {

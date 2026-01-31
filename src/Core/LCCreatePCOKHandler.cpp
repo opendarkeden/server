@@ -32,7 +32,7 @@ void LCCreatePCOKHandler::execute(LCCreatePCOK* pPacket, Player* pPlayer)
     cout << "+--------------------------+" << endl;
     cout << "                            " << endl;
 
-    // ´Ù½Ã PC LIST ¸¦ ¹Þ¾Æ¿Í¾ß ÇÑ´Ù.
+    // ë‹¤ì‹œ PC LIST ë¥¼ ë°›ì•„ì™€ì•¼ í•œë‹¤.
     CLGetPCList clGetPCList;
     pClientPlayer->sendPacket(&clGetPCList);
 

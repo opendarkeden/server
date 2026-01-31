@@ -19,7 +19,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
-// ÇÏÀ§ ¸Å´ÏÀú ¹× µ¥ÀÌÅ¸ ¸â¹öµéÀ» »ı¼ºÇÑ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ë° ë°ì´íƒ€ ë©¤ë²„ë“¤ì„ ìƒì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 GameServerManager::GameServerManager() throw(Error)
@@ -33,10 +33,10 @@ GameServerManager::GameServerManager() throw(Error)
         m_pServerSocket = new ServerSocket(g_pConfig->getPropertyInt("TCPPort"));
         m_pServerSocket->setNonBlocking();
 
-        // ¼­¹ö ¼ÒÄÏ µğ½ºÅ©¸³ÅÍ¸¦ ÁöÁ¤ÇÑ´Ù.
+        // ì„œë²„ ì†Œì¼“ ë””ìŠ¤í¬ë¦½í„°ë¥¼ ì§€ì •í•œë‹¤.
         m_SocketID = m_pServerSocket->getSOCKET();
     } catch (NoSuchElementException& nsee) {
-        // È¯°æ ÆÄÀÏ¿¡ ±×·± element°¡ ¾øÀ» °æ¿ì
+        // í™˜ê²½ íŒŒì¼ì— ê·¸ëŸ° elementê°€ ì—†ì„ ê²½ìš°
         throw Error(nsee.toString());
     }
 
@@ -55,26 +55,26 @@ GameServerManager::~GameServerManager() throw(Error) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÏÀ§ ¸Å´ÏÀú ¹× µ¥ÀÌÅÍ ¸â¹ö¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ë° ë°ì´í„° ë©¤ë²„ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServerManager::init() throw(Error) {
     __BEGIN_TRY
 
-    // fd_set µéÀ» 0 À¸·Î ÃÊ±âÈ­ÇÑ´Ù.
+    // fd_set ë“¤ì„ 0 ìœ¼ë¡œ ì´ˆê¸°í™”í•œë‹¤.
     FD_ZERO(&m_ReadFDs[0]);
     FD_ZERO(&m_WriteFDs[0]);
     FD_ZERO(&m_ExceptFDs[0]);
 
-    //  ¼­¹ö ¼ÒÄÏÀÇ ºñÆ®¸¦ ÄÒ´Ù. (write ´Â Ã¼Å©ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.)
+    //  ì„œë²„ ì†Œì¼“ì˜ ë¹„íŠ¸ë¥¼ ì¼ ë‹¤. (write ëŠ” ì²´í¬í•  í•„ìš”ê°€ ì—†ë‹¤.)
     FD_SET(m_SocketID, &m_ReadFDs[0]);
     FD_SET(m_SocketID, &m_ExceptFDs[0]);
 
     // set min/max fd
     m_MinFD = m_MaxFD = m_SocketID;
 
-    // m_Timeout À» ÃÊ±âÈ­ÇÑ´Ù.
-    // ³ªÁß¿¡´Â ÀÌ ÁÖ±â ¿ª½Ã ¿É¼ÇÀ¸·Î Ã³¸®ÇÏµµ·Ï ÇÏÀÚ.
+    // m_Timeout ì„ ì´ˆê¸°í™”í•œë‹¤.
+    // ë‚˜ì¤‘ì—ëŠ” ì´ ì£¼ê¸° ì—­ì‹œ ì˜µì…˜ìœ¼ë¡œ ì²˜ë¦¬í•˜ë„ë¡ í•˜ì.
     m_Timeout[0].tv_sec = 0;
     m_Timeout[0].tv_usec = 0;
 
@@ -155,27 +155,27 @@ void GameServerManager::broadcast(Packet* pPacket, Player* pPlayer) throw(Error)
 
 //////////////////////////////////////////////////////////////////////////////
 // call select() system call
-// »óÀ§¿¡¼­ TimeoutException À» ¹ŞÀ¸¸é ÇÃ·¹ÀÌ¾î´Â Ã³¸®ÇÏÁö ¾Ê¾Æµµ µÈ´Ù.
+// ìƒìœ„ì—ì„œ TimeoutException ì„ ë°›ìœ¼ë©´ í”Œë ˆì´ì–´ëŠ” ì²˜ë¦¬í•˜ì§€ ì•Šì•„ë„ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::select() throw(TimeoutException, InterruptedException, Error) {
     __BEGIN_TRY
 
     //__ENTER_CRITICAL_SECTION(m_Mutex)
 
-    // m_Timeout[0] À» m_Timeout[1] À¸·Î º¹»çÇÑ´Ù.
+    // m_Timeout[0] ì„ m_Timeout[1] ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
     m_Timeout[1].tv_sec = m_Timeout[0].tv_sec;
     m_Timeout[1].tv_usec = m_Timeout[0].tv_usec;
 
-    // m_XXXFDs[0] À» m_XXXFDs[1] À¸·Î º¹»çÇÑ´Ù.
+    // m_XXXFDs[0] ì„ m_XXXFDs[1] ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
     m_ReadFDs[1] = m_ReadFDs[0];
     m_WriteFDs[1] = m_WriteFDs[0];
     m_ExceptFDs[1] = m_ExceptFDs[0];
 
     try {
-        // ÀÌÁ¦ m_XXXFDs[1] À» °¡Áö°í select() ¸¦ È£ÃâÇÑ´Ù.
+        // ì´ì œ m_XXXFDs[1] ì„ ê°€ì§€ê³  select() ë¥¼ í˜¸ì¶œí•œë‹¤.
         SocketAPI::select_ex(m_MaxFD + 1, &m_ReadFDs[1], &m_WriteFDs[1], &m_ExceptFDs[1], &m_Timeout[1]);
     } catch (InterruptedException& ie) {
-        // ½Ã±×³ÎÀÌ ¿Ã ¸®°¡ ¾öÂî~~
+        // ì‹œê·¸ë„ì´ ì˜¬ ë¦¬ê°€ ì—„ì°Œ~~
         // log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
     }
 
@@ -187,9 +187,9 @@ void GameServerManager::select() throw(TimeoutException, InterruptedException, E
 
 //////////////////////////////////////////////////////////////////////////////
 // process all players' inputs
-// ¼­¹ö ¼ÒÄÏÀÇ read flag°¡ ÄÑÁ³À» °æ¿ì, »õ·Î¿î Á¢¼ÓÀÌ µé¾î¿ÔÀ¸¹Ç·Î
-// ÀÌ¸¦ Ã³¸®ÇÏ°í, ´Ù¸¥ ¼ÒÄÏÀÇ read flag°¡ ÄÑÁ³À» °æ¿ì, »õ·Î¿î ÆĞÅ¶ÀÌ
-// µé¾î¿ÔÀ¸¹Ç·Î ±× ÇÃ·¹ÀÌ¾îÀÇ processInput()À» È£ÃâÇÏ¸é µÈ´Ù.
+// ì„œë²„ ì†Œì¼“ì˜ read flagê°€ ì¼œì¡Œì„ ê²½ìš°, ìƒˆë¡œìš´ ì ‘ì†ì´ ë“¤ì–´ì™”ìœ¼ë¯€ë¡œ
+// ì´ë¥¼ ì²˜ë¦¬í•˜ê³ , ë‹¤ë¥¸ ì†Œì¼“ì˜ read flagê°€ ì¼œì¡Œì„ ê²½ìš°, ìƒˆë¡œìš´ íŒ¨í‚·ì´
+// ë“¤ì–´ì™”ìœ¼ë¯€ë¡œ ê·¸ í”Œë ˆì´ì–´ì˜ processInput()ì„ í˜¸ì¶œí•˜ë©´ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::processInputs() throw(IOException, Error) {
     __BEGIN_TRY
@@ -205,7 +205,7 @@ void GameServerManager::processInputs() throw(IOException, Error) {
     for (int i = m_MinFD; i <= m_MaxFD; i++) {
         if (FD_ISSET(i, &m_ReadFDs[1])) {
             if (i == m_SocketID) {
-                //  ¼­¹ö ¼ÒÄÏÀÏ °æ¿ì »õ·Î¿î ¿¬°áÀÌ µµÂøÇß´Ù´Â ¶æÀÌ´Ù.
+                //  ì„œë²„ ì†Œì¼“ì¼ ê²½ìš° ìƒˆë¡œìš´ ì—°ê²°ì´ ë„ì°©í–ˆë‹¤ëŠ” ëœ»ì´ë‹¤.
                 acceptNewConnection();
             } else {
                 if (m_pGameServerPlayers[i] != NULL) {
@@ -215,7 +215,7 @@ void GameServerManager::processInputs() throw(IOException, Error) {
 
                     if (pGameServerPlayer->getSocket()->getSockError()) {
                         try {
-                            // ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+                            // ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
                             pGameServerPlayer->disconnect(DISCONNECTED);
                         } catch (Throwable& t) {
                             cerr << t.toString() << endl;
@@ -228,9 +228,9 @@ void GameServerManager::processInputs() throw(IOException, Error) {
                         try {
                             pGameServerPlayer->processInput();
                         } catch (ConnectException& ce) {
-                            // Blocking ¼ÒÄÏÀÌ¹Ç·Î, ConnectException°ú Error¸¦ Á¦¿ÜÇÑ ¾î¶² ¿¹¿Üµµ ¹ß»ıÇÏÁö ¾Ê´Â´Ù.
-                            // ¿¬°áÀÌ ²÷°åÀ» °æ¿ì, ·Î±×ÇÏ°í ÇÃ·¹ÀÌ¾î Á¤º¸¸¦ ÀúÀåÇÑ ÈÄ¿¡ (·ÎµåµÇ¾ú´Ù¸é)
-                            // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                            // Blocking ì†Œì¼“ì´ë¯€ë¡œ, ConnectExceptionê³¼ Errorë¥¼ ì œì™¸í•œ ì–´ë–¤ ì˜ˆì™¸ë„ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
+                            // ì—°ê²°ì´ ëŠê²¼ì„ ê²½ìš°, ë¡œê·¸í•˜ê³  í”Œë ˆì´ì–´ ì •ë³´ë¥¼ ì €ì¥í•œ í›„ì— (ë¡œë“œë˜ì—ˆë‹¤ë©´)
+                            // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                             try {
                                 pGameServerPlayer->disconnect();
                             } catch (Throwable& t) {
@@ -279,7 +279,7 @@ void GameServerManager::processCommands() throw(IOException, Error) {
 
             if (pGameServerPlayer->getSocket()->getSockError()) {
                 try {
-                    // ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+                    // ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
                     pGameServerPlayer->disconnect();
                 } catch (Throwable& t) {
                     cerr << t.toString() << endl;
@@ -344,7 +344,7 @@ void GameServerManager::processOutputs() throw(IOException, Error) {
 
                 if (pGameServerPlayer->getSocket()->getSockError()) {
                     try {
-                        // ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+                        // ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
                         pGameServerPlayer->disconnect(DISCONNECTED);
                     } catch (Throwable& t) {
                         cerr << t.toString() << endl;
@@ -364,7 +364,7 @@ void GameServerManager::processOutputs() throw(IOException, Error) {
                         // log(LOG_GAMESERVER_ERROR, "", "", msg.toString());
 
                         try {
-                            // ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+                            // ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
                             pGameServerPlayer->disconnect(DISCONNECTED);
                         } catch (Throwable& t) {
                             cerr << t.toString() << endl;
@@ -378,7 +378,7 @@ void GameServerManager::processOutputs() throw(IOException, Error) {
                         msg << "DISCONNECT " << pGameServerPlayer->getID() << "(" << cp.toString() << ")";
                         // log(LOG_GAMESERVER_ERROR, "", "", cp.toString());
 
-                        // ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+                        // ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 
                         try {
                             pGameServerPlayer->disconnect(DISCONNECTED);
@@ -403,8 +403,8 @@ void GameServerManager::processOutputs() throw(IOException, Error) {
 
 //////////////////////////////////////////////////////////////////////////////
 // process all players' exceptions
-// ÇöÀç±îÁö´Â OOB µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÒ °èÈ¹Àº ¾ø´Ù.
-// µû¶ó¼­, ¸¸¾à OOB°¡ ÄÑÁ® ÀÖ´Ù¸é ¿¡·¯·Î °£ÁÖÇÏ°í Á¢¼ÓÀ» È® Â©¶ó ¹ö¸°´Ù.
+// í˜„ì¬ê¹Œì§€ëŠ” OOB ë°ì´íƒ€ë¥¼ ì „ì†¡í•  ê³„íšì€ ì—†ë‹¤.
+// ë”°ë¼ì„œ, ë§Œì•½ OOBê°€ ì¼œì ¸ ìˆë‹¤ë©´ ì—ëŸ¬ë¡œ ê°„ì£¼í•˜ê³  ì ‘ì†ì„ í™• ì§¤ë¼ ë²„ë¦°ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServerManager::processExceptions() throw(IOException, Error) {
@@ -454,14 +454,14 @@ void GameServerManager::processExceptions() throw(IOException, Error) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// select ±â¹İ¿¡¼­´Â nonblocking ¼ÒÄÏÀ» »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+// select ê¸°ë°˜ì—ì„œëŠ” nonblocking ì†Œì¼“ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::acceptNewConnection() throw(Error) {
     __BEGIN_TRY
 
-    // ºí·ÏÅ· ¹æ½ÄÀ¸·Î connectionÀ» ±â´Ù¸± °æ¿ì
-    // ¸®ÅÏµÇ´Â °ªÀº Àı´ë NULLÀÌ µÉ ¼ö ¾ø´Ù.
-    // ¶ÇÇÑ NonBlockingIOExceptionµµ ¹ß»ıÇÒ ¼ö ¾ø´Ù.
+    // ë¸”ë¡í‚¹ ë°©ì‹ìœ¼ë¡œ connectionì„ ê¸°ë‹¤ë¦´ ê²½ìš°
+    // ë¦¬í„´ë˜ëŠ” ê°’ì€ ì ˆëŒ€ NULLì´ ë  ìˆ˜ ì—†ë‹¤.
+    // ë˜í•œ NonBlockingIOExceptionë„ ë°œìƒí•  ìˆ˜ ì—†ë‹¤.
     Socket* client = NULL;
 
     try {
@@ -474,16 +474,16 @@ void GameServerManager::acceptNewConnection() throw(Error) {
     }
 
     try {
-        // ¿¡·¯ Ã³¸®¸¦ À§ÇÏ¿© ³Ö¾î µÎ¾ú´Âµ¥ ¿øÀÎÀ» ²À ¹àÇô¾ß ÇÑ´Ù..
-        // ¾Æ¸¶µµ ThreadÀÇ ¼ÒÄÏ °ü¸® ºÎºĞ¿¡¼­ ¹®Á¦°¡ »ı±âÁö ¾ÊÀ»±î »ı°¢ ÇÑ´Ù
-        // Thread °ü·Ã Ã³¸®¸¦ ³¡³»±â Àü±îÁö ÀÓ½Ã·Î µé¾î°£´Ù.
+        // ì—ëŸ¬ ì²˜ë¦¬ë¥¼ ìœ„í•˜ì—¬ ë„£ì–´ ë‘ì—ˆëŠ”ë° ì›ì¸ì„ ê¼­ ë°í˜€ì•¼ í•œë‹¤..
+        // ì•„ë§ˆë„ Threadì˜ ì†Œì¼“ ê´€ë¦¬ ë¶€ë¶„ì—ì„œ ë¬¸ì œê°€ ìƒê¸°ì§€ ì•Šì„ê¹Œ ìƒê° í•œë‹¤
+        // Thread ê´€ë ¨ ì²˜ë¦¬ë¥¼ ëë‚´ê¸° ì „ê¹Œì§€ ì„ì‹œë¡œ ë“¤ì–´ê°„ë‹¤.
         if (client->getSockError())
             throw Error();
         client->setNonBlocking();
 
-        // ¿¡·¯ Ã³¸®¸¦ À§ÇÏ¿© ³Ö¾î µÎ¾ú´Âµ¥ ¿øÀÎÀ» ²À ¹àÇô¾ß ÇÑ´Ù..
-        // ¾Æ¸¶µµ ThreadÀÇ ¼ÒÄÏ °ü¸® ºÎºĞ¿¡¼­ ¹®Á¦°¡ »ı±âÁö ¾ÊÀ»±î »ı°¢ ÇÑ´Ù
-        // Thread °ü·Ã Ã³¸®¸¦ ³¡³»±â Àü±îÁö ÀÓ½Ã·Î µé¾î°£´Ù.
+        // ì—ëŸ¬ ì²˜ë¦¬ë¥¼ ìœ„í•˜ì—¬ ë„£ì–´ ë‘ì—ˆëŠ”ë° ì›ì¸ì„ ê¼­ ë°í˜€ì•¼ í•œë‹¤..
+        // ì•„ë§ˆë„ Threadì˜ ì†Œì¼“ ê´€ë¦¬ ë¶€ë¶„ì—ì„œ ë¬¸ì œê°€ ìƒê¸°ì§€ ì•Šì„ê¹Œ ìƒê° í•œë‹¤
+        // Thread ê´€ë ¨ ì²˜ë¦¬ë¥¼ ëë‚´ê¸° ì „ê¹Œì§€ ì„ì‹œë¡œ ë“¤ì–´ê°„ë‹¤.
         if (client->getSockError())
             throw Error();
         // set socket option (!NonBlocking, NoLinger)
@@ -492,10 +492,10 @@ void GameServerManager::acceptNewConnection() throw(Error) {
         // StringStream msg;
         // cout << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort();
 
-        // Å¬¶óÀÌ¾ğÆ® ¼ÒÄÏÀ» ÆÄ¶ó¹ÌÅÍ·Î »ç¿ëÇØ¼­ ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì„ íŒŒë¼ë¯¸í„°ë¡œ ì‚¬ìš©í•´ì„œ í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
         GameServerPlayer* pGameServerPlayer = new GameServerPlayer(client);
 
-        // IPM ¿¡ µî·ÏÇÑ´Ù.
+        // IPM ì— ë“±ë¡í•œë‹¤.
         try {
             addGameServerPlayer(pGameServerPlayer);
         } catch (DuplicatedException&) {
@@ -509,7 +509,7 @@ void GameServerManager::acceptNewConnection() throw(Error) {
         msg2 << "ILLEGAL ACCESS FROM " << client->getHost() << ":" << client->getPort();
         // log(LOG_GAMESERVER, "", "", msg2.toString());
 
-        // ÀÎÁõµÇÁö ¸øÇÑ ¿¬°áÀÌ¹Ç·Î Â¥¸¥´Ù. -_-;
+        // ì¸ì¦ë˜ì§€ ëª»í•œ ì—°ê²°ì´ë¯€ë¡œ ì§œë¥¸ë‹¤. -_-;
         client->send("Error : Unauthorized access", 27);
         client->close();
         SAFE_DELETE(client);
@@ -531,7 +531,7 @@ void GameServerManager::acceptNewConnection() throw(Error) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// »õ·Î¿î ¿¬°á¿¡ °ü·ÃµÈ ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ IPM¿¡ Ãß°¡ÇÑ´Ù.
+// ìƒˆë¡œìš´ ì—°ê²°ì— ê´€ë ¨ëœ í”Œë ˆì´ì–´ ê°ì²´ë¥¼ IPMì— ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer) throw(DuplicatedException, Error) {
@@ -541,12 +541,12 @@ void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer)
 
     SOCKET fd = pGameServerPlayer->getSocket()->getSOCKET();
 
-    // m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
+    // m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
     m_MinFD = min(fd, m_MinFD);
     m_MaxFD = max(fd, m_MaxFD);
 
-    // ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ on ½ÃÅ²´Ù.
-    // m_XXXFDs[1] Àº ´ÙÀ½¹ø¿¡ Ã³¸®ÇØÁÖ¸é µÈ´Ù.
+    // ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ on ì‹œí‚¨ë‹¤.
+    // m_XXXFDs[1] ì€ ë‹¤ìŒë²ˆì— ì²˜ë¦¬í•´ì£¼ë©´ ëœë‹¤.
     FD_SET(fd, &m_ReadFDs[0]);
     FD_SET(fd, &m_WriteFDs[0]);
     FD_SET(fd, &m_ExceptFDs[0]);
@@ -560,7 +560,7 @@ void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer)
 
 //////////////////////////////////////////////////////////////////////
 //
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ IPM ¿¡¼­ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ IPM ì—ì„œ ì‚­ì œí•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error) {
@@ -570,11 +570,11 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundExcept
 
     m_pGameServerPlayers[fd] = NULL;
 
-    // m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
-    // fd == m_MinFD && fd == m_MaxFD ÀÎ °æ¿ì´Â Ã¹¹øÂ° if ¿¡¼­ Ã³¸®µÈ´Ù.
+    // m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
+    // fd == m_MinFD && fd == m_MaxFD ì¸ ê²½ìš°ëŠ” ì²«ë²ˆì§¸ if ì—ì„œ ì²˜ë¦¬ëœë‹¤.
     if (fd == m_MinFD) {
-        // ¾Õ¿¡¼­ºÎÅÍ Á¦ÀÏ ÀÛÀº fd ¸¦ Ã£´Â´Ù.
-        // m_MinFD ÀÚ¸®´Â ÇöÀç NULL ÀÌ µÇ¾î ÀÖÀ½À» À¯ÀÇÇÏ¶ó.
+        // ì•ì—ì„œë¶€í„° ì œì¼ ì‘ì€ fd ë¥¼ ì°¾ëŠ”ë‹¤.
+        // m_MinFD ìë¦¬ëŠ” í˜„ì¬ NULL ì´ ë˜ì–´ ìˆìŒì„ ìœ ì˜í•˜ë¼.
         int i = m_MinFD;
         for (i = m_MinFD; i <= m_MaxFD; i++) {
             if (m_pGameServerPlayers[i] != NULL || i == m_SocketID) {
@@ -583,14 +583,14 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundExcept
             }
         }
 
-        // ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
-        // ÀÌ¶§¿¡´Â m_MinFD == m_MaxFD ÀÎ °æ¿ìÀÌ´Ù.
-        // ÀÌ¶§¿¡´Â µÑ ´Ù -1 ·Î ¼³Á¤ÇØÁÖÀÚ.
+        // ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
+        // ì´ë•Œì—ëŠ” m_MinFD == m_MaxFD ì¸ ê²½ìš°ì´ë‹¤.
+        // ì´ë•Œì—ëŠ” ë‘˜ ë‹¤ -1 ë¡œ ì„¤ì •í•´ì£¼ì.
         if (i > m_MaxFD)
             m_MinFD = m_MaxFD = -1;
     } else if (fd == m_MaxFD) {
-        // µÚ¿¡¼­ºÎÅÍ °¡Àå Å« fd ¸¦ Ã£´Â´Ù.
-        // SocketID ¿¡ À¯ÀÇÇÒ °Í! (SocketID ÀÇ °æ¿ì Player Æ÷ÀÎÅÍ´Â NULL ÀÌ´Ù.)
+        // ë’¤ì—ì„œë¶€í„° ê°€ì¥ í° fd ë¥¼ ì°¾ëŠ”ë‹¤.
+        // SocketID ì— ìœ ì˜í•  ê²ƒ! (SocketID ì˜ ê²½ìš° Player í¬ì¸í„°ëŠ” NULL ì´ë‹¤.)
         int i = m_MaxFD;
         for (i = m_MaxFD; i >= m_MinFD; i--) {
             if (m_pGameServerPlayers[i] != NULL || i == m_SocketID) {
@@ -599,15 +599,15 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundExcept
             }
         }
 
-        // ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
+        // ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
         if (i < m_MinFD) {
             throw UnknownError("m_MinFD & m_MaxFD problem.");
         }
     }
 
-    // ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ off ½ÃÅ²´Ù.
-    // m_XXXFDs[1]µµ °íÃÄ¾ß ÇÏ´Â ÀÌÀ¯´Â, ÀÌÈÄ Ã³¸®¿¡¼­ °´Ã¼°¡ ¾ø¾îÁ³´Âµ¥µµ
-    // Ã³¸®¹ŞÀ» È®·üÀÌ ÀÖ±â ¶§¹®ÀÌ´Ù.
+    // ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ off ì‹œí‚¨ë‹¤.
+    // m_XXXFDs[1]ë„ ê³ ì³ì•¼ í•˜ëŠ” ì´ìœ ëŠ”, ì´í›„ ì²˜ë¦¬ì—ì„œ ê°ì²´ê°€ ì—†ì–´ì¡ŒëŠ”ë°ë„
+    // ì²˜ë¦¬ë°›ì„ í™•ë¥ ì´ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
     FD_CLR(fd, &m_ReadFDs[0]);
     FD_CLR(fd, &m_ReadFDs[1]);
     FD_CLR(fd, &m_WriteFDs[0]);

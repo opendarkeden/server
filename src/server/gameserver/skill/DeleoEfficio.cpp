@@ -15,7 +15,7 @@
 #include "GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void DeleoEfficio::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pSkillSlot,
                            CEffectID_t CEffectID)
@@ -45,9 +45,9 @@ void DeleoEfficio::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö ¾ø´Ù.
-        // ÀúÁÖ ¸é¿ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // ì €ì£¼ ë©´ì—­. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;

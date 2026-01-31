@@ -5,6 +5,7 @@
 #include "Types.h"
 
 class Creature;
+class PlayerCreature;
 class Zone;
 
 class MouseItemPosition : public GlobalItemPosition {
@@ -39,7 +40,7 @@ protected:
 private:
     string m_OwnerName;
 
-    // getZone À» À§ÇÑ......
+    // getZone ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½......
     Zone* m_pZone;
     bool m_bSetZone;
 };

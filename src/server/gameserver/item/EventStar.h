@@ -70,8 +70,8 @@ private:
     ItemType_t m_ItemType;
     ItemNum_t m_Num;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµð ¹ß±Þ±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ëž˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -82,11 +82,11 @@ class EventStarInfo : public ItemInfo {
 public:
     enum ITEM_FUNCTION {
         FUNCTION_NULL = 0,
-        FUNCTION_ENCHANT_OPTION = 0x01,      // ¿É¼ÇÀ» ´õ ÁÁ°Ô ¹Ù²Û´Ù.
-        FUNCTION_ADD_OPTION = 0x02,          // ¿É¼ÇÀ» Ãß°¡ÇÑ´Ù.
-        FUNCTION_ENCHANT_RARE_OPTION = 0x04, // ·¹¾î ¾ÆÀÌÅÛÀÇ ¿É¼ÇÀ» ¾÷~ÇÑ´Ù.
-        FUNCTION_TRANS_KIT = 0x08,           // ¾ÆÅÛ ¼ºº°À» ¹Ù²Û´Ù.
-        FUNCTION_UP_GRADE = 0x10,            // ¾ÆÀÌÅÛ ±Þ¼ö¸¦ ¿Ã¸°´Ù.
+        FUNCTION_ENCHANT_OPTION = 0x01,      // ì˜µì…˜ì„ ë” ì¢‹ê²Œ ë°”ê¾¼ë‹¤.
+        FUNCTION_ADD_OPTION = 0x02,          // ì˜µì…˜ì„ ì¶”ê°€í•œë‹¤.
+        FUNCTION_ENCHANT_RARE_OPTION = 0x04, // ë ˆì–´ ì•„ì´í…œì˜ ì˜µì…˜ì„ ì—…~í•œë‹¤.
+        FUNCTION_TRANS_KIT = 0x08,           // ì•„í…œ ì„±ë³„ì„ ë°”ê¾¼ë‹¤.
+        FUNCTION_UP_GRADE = 0x10,            // ì•„ì´í…œ ê¸‰ìˆ˜ë¥¼ ì˜¬ë¦°ë‹¤.
     };
 
 public:
@@ -101,13 +101,13 @@ public:
     }
     virtual BYTE isFunctionEnchantOption() const {
         return m_fFunction & FUNCTION_ENCHANT_OPTION;
-    } // ¿É¼ÇÀ» ´õ ÁÁ°Ô ¹Ù²Û´Ù.
+    } // ì˜µì…˜ì„ ë” ì¢‹ê²Œ ë°”ê¾¼ë‹¤.
     virtual BYTE isFunctionAddOption() const {
         return m_fFunction & FUNCTION_ADD_OPTION;
-    } // ¿É¼ÇÀ» Ãß°¡ÇÑ´Ù.
+    } // ì˜µì…˜ì„ ì¶”ê°€í•œë‹¤.
     virtual BYTE isFunctionEnchantRareOption() const {
         return m_fFunction & FUNCTION_ENCHANT_RARE_OPTION;
-    } // ¿É¼ÇÀ» ´õ ÁÁ°Ô ¹Ù²Û´Ù.
+    } // ì˜µì…˜ì„ ë” ì¢‹ê²Œ ë°”ê¾¼ë‹¤.
     virtual BYTE isFunctionTransKit() const {
         return m_fFunction & FUNCTION_TRANS_KIT;
     }
@@ -123,8 +123,8 @@ public:
     }
 
 
-    BYTE m_fFunction;    // ±â´É
-    int m_FunctionValue; // ±â´É°ú °ü·ÃµÈ °ª
+    BYTE m_fFunction;    // ê¸°ëŠ¥
+    int m_FunctionValue; // ê¸°ëŠ¥ê³¼ ê´€ë ¨ëœ ê°’
 };
 
 //////////////////////////////////////////////////////////////////////////////

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradeMoney.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,20 +11,20 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// ±³È¯ ÄÚµå
+// êµí™˜ ì½”ë“œ
 ////////////////////////////////////////////////////////////////////////////////
 
 enum {
-    // »ó´ë¹æÀÌ ±³È¯ÇÒ µ·ÀÇ ¾×¼ö¸¦ ´Ã·È´Ù.
+    // ìƒëŒ€ë°©ì´ êµí™˜í•  ëˆì˜ ì•¡ìˆ˜ë¥¼ ëŠ˜ë ¸ë‹¤.
     GC_TRADE_MONEY_INCREASE = 0,
 
-    // »ó´ë¹æÀÌ ±³È¯ÇÒ µ·ÀÇ ¾×¼ö¸¦ ÁÙ¿´´Ù.
+    // ìƒëŒ€ë°©ì´ êµí™˜í•  ëˆì˜ ì•¡ìˆ˜ë¥¼ ì¤„ì˜€ë‹¤.
     GC_TRADE_MONEY_DECREASE,
 
-    // ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡¼­ »©³½ ±Ý¾×
+    // ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ì„œ ë¹¼ë‚¸ ê¸ˆì•¡
     GC_TRADE_MONEY_INCREASE_RESULT,
 
-    // ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡´Ù ´õÇÑ ±Ý¾×
+    // ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ë‹¤ ë”í•œ ê¸ˆì•¡
     GC_TRADE_MONEY_DECREASE_RESULT
 };
 
@@ -75,9 +75,9 @@ public:
     }
 
 private:
-    ObjectID_t m_TargetObjectID; // ±³È¯À» ¿øÇÏ´Â »ó´ë¹æÀÇ ObjectID
-    Gold_t m_Gold;               // ¿øÇÏ´Â ¾×¼ö
-    BYTE m_Code;                 // ÄÚµå
+    ObjectID_t m_TargetObjectID; // êµí™˜ì„ ì›í•˜ëŠ” ìƒëŒ€ë°©ì˜ ObjectID
+    Gold_t m_Gold;               // ì›í•˜ëŠ” ì•¡ìˆ˜
+    BYTE m_Code;                 // ì½”ë“œ
 };
 
 

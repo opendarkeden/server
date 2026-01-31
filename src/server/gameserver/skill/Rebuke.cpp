@@ -13,7 +13,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -52,7 +52,7 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
         if (bManaCheck && bTimeCheck && bRangeCheck) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
@@ -93,9 +93,9 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
                         Creature* pTargetCreature = (*itr);
                         Assert(pTargetCreature != NULL);
 
-                        // ¾ÈÀüÁö´ë Ã¼Å©
+                        // ì•ˆì „ì§€ëŒ€ ì²´í¬
                         // 2003.1.10 by bezz, Sequoia
-                        // NPCµµ Ã¼Å©
+                        // NPCë„ ì²´í¬
                         // 2003.3.14 by Sequoia
                         if (pTargetCreature->isNPC() || !checkZoneLevelToHitTarget(pTargetCreature) ||
                             !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA))
@@ -103,7 +103,7 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
 
                         if (HitRoll::isSuccessRebuke(pSlayer, pSkillSlot, pTargetCreature)) {
                             HP_t RemainHP = 0;
-                            // ¸Â´Â ³ÑÇÑÅ× µ¥¹ÌÁö¸¦ ÁÖ°í ³²Àº HP ¸¦ ±¸ÇÑ´Ù.
+                            // ë§žëŠ” ë„˜í•œí…Œ ë°ë¯¸ì§€ë¥¼ ì£¼ê³  ë‚¨ì€ HP ë¥¼ êµ¬í•œë‹¤.
                             if (pTargetCreature->isVampire()) {
                                 GCModifyInformation gcMI;
                                 setDamage(pTargetCreature, output.Damage, pSlayer, SkillType, &gcMI);
@@ -118,14 +118,14 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
                                 RemainHP = pMonster->getHP(ATTR_CURRENT);
                             }
 
-                            // ÀÌ¹Ì SLEEP ÀÌÆåÆ®°¡ °É·ÁÀÖÀ¸¸é ¸ÕÀú °É·ÁÀÖ´ø ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+                            // ì´ë¯¸ SLEEP ì´íŽ™íŠ¸ê°€ ê±¸ë ¤ìžˆìœ¼ë©´ ë¨¼ì € ê±¸ë ¤ìžˆë˜ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
                             if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_SLEEP)) {
                                 pTargetCreature->deleteEffect(Effect::EFFECT_CLASS_SLEEP);
                             }
 
                             EffectSleep* pEffect = new EffectSleep(pTargetCreature);
 
-                            // ¸Â´Â ³ÑÇÑÅ× SLEEP ÀÌÆåÆ®¸¦ °É¾îÁØ´Ù.
+                            // ë§žëŠ” ë„˜í•œí…Œ SLEEP ì´íŽ™íŠ¸ë¥¼ ê±¸ì–´ì¤€ë‹¤.
                             pEffect->setDeadline(output.Duration);
                             pTargetCreature->addEffect(pEffect);
                             pTargetCreature->setFlag(Effect::EFFECT_CLASS_SLEEP);
@@ -138,8 +138,8 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
 
                             bHit = true;
 
-                            // ¼ºÇâÀ» ¿Ã¸°´Ù.
-                            // Å¸°ÙÀÌ ½½·¹ÀÌ¾îÀÌ¸é ¸Õ°¡ ¹®Á¦°¡ ÀÖ´Ù.
+                            // ì„±í–¥ì„ ì˜¬ë¦°ë‹¤.
+                            // íƒ€ê²Ÿì´ ìŠ¬ë ˆì´ì–´ì´ë©´ ë¨¼ê°€ ë¬¸ì œê°€ ìžˆë‹¤.
                             if (!pTargetCreature->isSlayer()) {
                                 //	increaseAlignment( pSlayer, pTargetCreature, &_GCSkillToSelfOK1 );
                                 if (maxEnemyLevel < pTargetCreature->getLevel())
@@ -150,7 +150,7 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
                     }
                 }
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             if (bHit) {
                 SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
                 Exp_t ExpUp = 10 * (Grade + 1);

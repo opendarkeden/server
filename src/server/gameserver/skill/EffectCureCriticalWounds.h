@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectCureCriticalWounds.h
 // Written by  : elca@ewestsoft.com
-// Description : ¼ºÁ÷¸¶¹ı CureCriticalWoundsÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
+// Description : ì„±ì§ë§ˆë²• CureCriticalWoundsì˜ Effectë¥¼ ì²˜ë¦¬í•´ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_CURE_CRITICAL_WOUNDS__

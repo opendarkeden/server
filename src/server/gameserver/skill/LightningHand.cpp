@@ -12,7 +12,7 @@
 #include "GCSkillToObjectOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void LightningHand::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -33,15 +33,15 @@ void LightningHand::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
             return;
         }
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, SWORD∞° æ∆¥œ∂Û∏È æµ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, SWORDÍ∞Ä ÏïÑÎãàÎùºÎ©¥ Ïì∏ Ïàò ÏóÜÎã§.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_SWORD) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -62,7 +62,7 @@ void LightningHand::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
         bool bCriticalHit = false;
 
-        // ±‚∫ª µ•πÃ¡ˆø° Ω∫≈≥ µ•πÃ¡ˆ∏¶ ¥ı«—¥Ÿ.
+        // Í∏∞Î≥∏ Îç∞ÎØ∏ÏßÄÏóê Ïä§ÌÇ¨ Îç∞ÎØ∏ÏßÄÎ•º ÎçîÌïúÎã§.
         SkillInput input(pSlayer, pSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -78,8 +78,8 @@ void LightningHand::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
         bool bCanHit = canHit(pSlayer, pTargetCreature, SkillType) && canAttack(pSlayer, pTargetCreature);
         bool bPK = verifyPK(pSlayer, pTargetCreature);
 
-        // ∏∂≥™∞° ¿÷æÓæﬂ «œ∞Ì, Ω√∞£∞˙ ∞≈∏Æ √º≈©ø° º∫∞¯«œ∞Ì,
-        // hitrollø° º∫∞¯«œ∞Ì, ≈©∑ŒΩ∫ ƒ´øÓ≈Õ∞° ∞…∑¡¿÷¡ˆ æ ¥Ÿ∏È, º∫∞¯¿Ã¥Ÿ.
+        // ÎßàÎÇòÍ∞Ä ÏûàÏñ¥Ïïº ÌïòÍ≥†, ÏãúÍ∞ÑÍ≥º Í±∞Î¶¨ Ï≤¥ÌÅ¨Ïóê ÏÑ±Í≥µÌïòÍ≥†,
+        // hitrollÏóê ÏÑ±Í≥µÌïòÍ≥†, ÌÅ¨Î°úÏä§ Ïπ¥Ïö¥ÌÑ∞Í∞Ä Í±∏Î†§ÏûàÏßÄ ÏïäÎã§Î©¥, ÏÑ±Í≥µÏù¥Îã§.
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK) {
             CheckCrossCounter(pSlayer, pTargetCreature, Damage, pSkillInfo->getRange());
 
@@ -87,17 +87,17 @@ void LightningHand::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
             //			Exp_t Point = pSkillInfo->getPoint();
 
-            // µ•πÃ¡ˆ∏¶ ¡÷∞Ì, ≥ª±∏µµ∏¶ ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º Ï£ºÍ≥†, ÎÇ¥Íµ¨ÎèÑÎ•º Îñ®Ïñ¥Îú®Î¶∞Îã§.
             setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
             }
 
-            // ≈∏∞Ÿ¿Ã ΩΩ∑π¿ÃæÓ∞° æ∆¥— ∞ÊøÏø°∏∏ ∞Ê«Ëƒ°∏¶ ø√∑¡¡ÿ¥Ÿ.
+            // ÌÉÄÍ≤üÏù¥ Ïä¨Î†àÏù¥Ïñ¥Í∞Ä ÏïÑÎãå Í≤ΩÏö∞ÏóêÎßå Í≤ΩÌóòÏπòÎ•º Ïò¨Î†§Ï§ÄÎã§.
             if (!pTargetCreature->isSlayer()) {
                 if (bIncreaseExp) {
                     shareAttrExp(pSlayer, Damage, 8, 1, 1, _GCSkillToObjectOK1);
@@ -108,7 +108,7 @@ void LightningHand::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
                 increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
             }
 
-            // ∆–≈∂¿ª ¡ÿ∫Ò«œ∞Ì, ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌïòÍ≥†, Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);

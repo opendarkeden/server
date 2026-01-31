@@ -2,7 +2,7 @@
 //
 // Filename    : ClientManager.h
 // Written by  : reiot@ewestsoft.com
-// Description : ·Î±×ÀÎ ¼­¹ö¿ë Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú
+// Description : ë¡œê·¸ì¸ ì„œë²„ìš© í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,17 +17,17 @@
 //
 // class ClientManager;
 //
-// ·Î±×ÀÎ ¼­¹ö¿¡ Á¢¼ÓÇÑ ¸ðµç ÇÃ·¹ÀÌ¾îµéÀÇ ÀÔÃâ·ÂÀ» Ã³¸®ÇÏ¸ç,
-// »õ·Î¿î Å¬¶óÀÌ¾ðÆ®ÀÇ ¿¬°á ½Ãµµ¸¦ Ã³¸®ÇÑ´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì— ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì˜ ìž…ì¶œë ¥ì„ ì²˜ë¦¬í•˜ë©°,
+// ìƒˆë¡œìš´ í´ë¼ì´ì–¸íŠ¸ì˜ ì—°ê²° ì‹œë„ë¥¼ ì²˜ë¦¬í•œë‹¤.
 //
-// Å¬¶óÀÌ¾ðÆ®ÀÇ run()Àº ·Î±×ÀÎ ¼­¹ö ÇÁ·Î¼¼½ºÀÇ ¸ÞÀÎ ¾²·¹µå¿¡¼­ µ¹¾Æ°£´Ù.
-// µû¶ó¼­, Thread¸¦ »ó¼Ó¹ÞÀ» ÇÊ¿ä°¡ ¾ø´Ù. ±×·¯³ª, Å¬·¡½ºÀÇ ±¸Á¶³ª ¿ªÇÒÀº
-// Thread ¸¦ »ó¼Ó¹ÞÀº ´Ù¸¥ Å¬·¡½º¿Í À¯»çÇÏ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì˜ run()ì€ ë¡œê·¸ì¸ ì„œë²„ í”„ë¡œì„¸ìŠ¤ì˜ ë©”ì¸ ì“°ë ˆë“œì—ì„œ ëŒì•„ê°„ë‹¤.
+// ë”°ë¼ì„œ, Threadë¥¼ ìƒì†ë°›ì„ í•„ìš”ê°€ ì—†ë‹¤. ê·¸ëŸ¬ë‚˜, í´ëž˜ìŠ¤ì˜ êµ¬ì¡°ë‚˜ ì—­í• ì€
+// Thread ë¥¼ ìƒì†ë°›ì€ ë‹¤ë¥¸ í´ëž˜ìŠ¤ì™€ ìœ ì‚¬í•˜ë‹¤.
 //
 // *NOTES*
 //
-// LoginPlayerManager¸¦ ClientManagerÀÇ µ¥ÀÌÅÍ ¸â¹ö·Î Á¤ÀÇÇÒ ¼öµµ ÀÖÁö¸¸,
-// ÆÐÅ¶ ÇÚµé·¯¿¡¼­ ½±°Ô Á¢±ÙÇÏ±â À§ÇØ¼­´Â ±Û·Î¹ú º¯¼ö·Î Á¤ÀÇµÇ¾î¾ß ÇÑ´Ù.
+// LoginPlayerManagerë¥¼ ClientManagerì˜ ë°ì´í„° ë©¤ë²„ë¡œ ì •ì˜í•  ìˆ˜ë„ ìžˆì§€ë§Œ,
+// íŒ¨í‚· í•¸ë“¤ëŸ¬ì—ì„œ ì‰½ê²Œ ì ‘ê·¼í•˜ê¸° ìœ„í•´ì„œëŠ” ê¸€ë¡œë²Œ ë³€ìˆ˜ë¡œ ì •ì˜ë˜ì–´ì•¼ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -39,16 +39,16 @@ public:
     // destructor
     ~ClientManager() throw(Error);
 
-    // Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     void init() throw(Error);
 
-    // Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì‹œìž‘í•œë‹¤.
     void start() throw(Error);
 
-    // Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¸¦ Áß´ÜÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì¤‘ë‹¨í•œë‹¤.
     void stop() throw(Error);
 
-    // Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀúÀÇ ¸ÞÀÎ ¸Þ½îµå
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ì˜ ë©”ì¸ ë©”ì˜ë“œ
     void run() throw(Error);
 };
 

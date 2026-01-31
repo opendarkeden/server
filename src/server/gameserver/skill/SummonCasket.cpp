@@ -18,7 +18,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -54,7 +54,7 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
         ZoneCoord_t x = pVampire->getX();
         ZoneCoord_t y = pVampire->getY();
 
-        // Knowledge of Summon ÀÌ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Summon ì´ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_SUMMON)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_SUMMON);
@@ -82,7 +82,7 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
             computeOutput(input, output);
 
 
-            // ¹ìÆÄÀÌ¾î¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+            // ë±€íŒŒì´ì–´ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -95,14 +95,14 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
             pZone->broadcastPacket(x, y, &_GCSkillToSelfOK3, pVampire);
 
             //---------------------------------------------------------------
-            // ±âÁ¸ÀÇ Áö¼Ó ¸¶¹ı È¿°ú¸¦ Á¦°ÅÇÑ´Ù.
+            // ê¸°ì¡´ì˜ ì§€ì† ë§ˆë²• íš¨ê³¼ë¥¼ ì œê±°í•œë‹¤.
             //---------------------------------------------------------------
             EffectManager* pEffectManager = pVampire->getEffectManager();
             Assert(pEffectManager != NULL);
 
             Effect* pCheckEffect = NULL;
 
-            // »ç¿ëÀÚÀÇ levelÀ» ±¸ÇÑ´Ù.
+            // ì‚¬ìš©ìì˜ levelì„ êµ¬í•œë‹¤.
             int userLevel = pVampire->getLevel();
 
             Effect::EffectClass effectClass;
@@ -145,7 +145,7 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 
 
             //---------------------------------------------------------------
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             //---------------------------------------------------------------
             EffectSummonCasket* pEffect = new EffectSummonCasket(pVampire);
             pEffect->setDeadline(99999999);
@@ -153,7 +153,7 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
             pVampire->addEffect(pEffect);
             pVampire->setFlag(Effect::EFFECT_CLASS_CASKET);
 
-            // SUMMON CASKET ¿¡ ÀÇÇØ º¯ÇÏ´Â ´É·ÂÄ¡°¡ º¯ÇÑ´Ù.. 2002.12.13  by bezz.
+            // SUMMON CASKET ì— ì˜í•´ ë³€í•˜ëŠ” ëŠ¥ë ¥ì¹˜ê°€ ë³€í•œë‹¤.. 2002.12.13  by bezz.
             VAMPIRE_RECORD prev;
 
             pVampire->getVampireRecord(prev);
@@ -183,7 +183,7 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonCasket::execute(Monster* pMonster)
 
@@ -224,19 +224,19 @@ void SummonCasket::execute(Monster* pMonster)
 
               if (bRangeCheck && bHitRoll && bTileCheck && bMoveModeCheck && !bEffected)
               {
-                  // ¸ó½ºÅÍ¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+                  // ëª¬ìŠ¤í„°ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
                   _GCSkillToSelfOK3.setXY(x, y);
                   _GCSkillToSelfOK3.setDuration(0);
                   _GCSkillToSelfOK3.setSkillType(SkillType);
 
                   pZone->broadcastPacket(x, y, &_GCSkillToSelfOK3);
 
-                  // ¶¥ À§¿¡ ³ª¿ÍÀÖ´Â ¸ó½ºÅÍ »èÁ¦ÇÏ¶ó°í ¾Ë¸°´Ù.
+                  // ë•… ìœ„ì— ë‚˜ì™€ìˆëŠ” ëª¬ìŠ¤í„° ì‚­ì œí•˜ë¼ê³  ì•Œë¦°ë‹¤.
                   GCDeleteObject gcDO;
                   gcDO.setObjectID(pMonster->getObjectID());
                   pZone->broadcastPacket(x, y, &gcDO);
 
-                  // ¶¥ ¼Ó¿¡´Ù°¡ ¸ó½ºÅÍ¸¦ Ãß°¡ÇÑ´Ù.
+                  // ë•… ì†ì—ë‹¤ê°€ ëª¬ìŠ¤í„°ë¥¼ ì¶”ê°€í•œë‹¤.
                   addBurrowingCreature(pZone, pMonster, x, y);
               }
               else

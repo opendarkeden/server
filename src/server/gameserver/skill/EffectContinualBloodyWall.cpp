@@ -31,9 +31,9 @@ EffectContinualBloodyWall::EffectContinualBloodyWall(Zone* pZone)
     m_Duration = 10;
     m_Damage = 1000;
 
-    setNextTime(10); // 1ÃÊ ÈÄ ½ÃÀÛ
+    setNextTime(10); // 1ì´ˆ í›„ ì‹œìž‘
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     __END_CATCH
@@ -143,7 +143,7 @@ void EffectContinualBloodyWallLoader::load(Zone* pZone)
             pEffect->setDuration(value2);
             pEffect->setDamage(value3);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->registerObject(pEffect);
             pZone->addEffect(pEffect);
         }

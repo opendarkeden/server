@@ -50,7 +50,7 @@ void LCQueryResultPlayerIDHandler::execute(LCQueryResultPlayerID* pPacket, Playe
 
     if (cmd == "1") {
         //----------------------------------------------------------------------
-        // Æ¯Á¤ ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÏ´ÂÁö Äõ¸®ÇÑ´Ù.
+        // íŠ¹ì • ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•˜ëŠ”ì§€ ì¿¼ë¦¬í•œë‹¤.
         //----------------------------------------------------------------------
         cout << "+----------+" << endl << "| QUERY ID |" << endl << "+----------+" << endl << endl << "Query> ";
 
@@ -62,12 +62,12 @@ void LCQueryResultPlayerIDHandler::execute(LCQueryResultPlayerID* pPacket, Playe
 
         pClientPlayer->sendPacket(&clQueryPlayerID);
 
-        // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù.
+        // í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
         pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_QUERY_PLAYER_ID);
 
     } else {
         //----------------------------------------------------------------------
-        // »õ »ç¿ëÀÚ µî·Ï ÀÔ·ÂÀ» ¹Ş´Â´Ù.
+        // ìƒˆ ì‚¬ìš©ì ë“±ë¡ ì…ë ¥ì„ ë°›ëŠ”ë‹¤.
         //----------------------------------------------------------------------
         CLRegisterPlayer clRegisterPlayer;
 
@@ -76,28 +76,28 @@ void LCQueryResultPlayerIDHandler::execute(LCQueryResultPlayerID* pPacket, Playe
              << "+---------------------+" << endl
              << endl;
 
-        cout << "¾ÆÀÌµğ : ";
+        cout << "ì•„ì´ë”” : ";
         string id;
         getline(cin, id);
         clRegisterPlayer.setID(id);
 
-        cout << "ÆĞ½º¿öµå : ";
+        cout << "íŒ¨ìŠ¤ì›Œë“œ : ";
         string password;
         getline(cin, password);
         clRegisterPlayer.setPassword(password);
 
-        cout << "ÀÌ¸§ : ";
+        cout << "ì´ë¦„ : ";
         string name;
         getline(cin, name);
         clRegisterPlayer.setName(name);
 
-        cout << "¼ºº° (³²/¿©) : ";
+        cout << "ì„±ë³„ (ë‚¨/ì—¬) : ";
         string _sex;
         getline(cin, _sex);
-        Sex sex = (_sex == "³²") ? MALE : FEMALE;
+        Sex sex = (_sex == "ë‚¨") ? MALE : FEMALE;
         clRegisterPlayer.setSex(sex);
 
-        cout << "ÁÖ¹Îµî·Ï¹øÈ£ : ";
+        cout << "ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ : ";
         string ssn;
         getline(cin, ssn);
         clRegisterPlayer.setSSN(ssn);
@@ -105,19 +105,19 @@ void LCQueryResultPlayerIDHandler::execute(LCQueryResultPlayerID* pPacket, Playe
         clRegisterPlayer.setTelephone("02-222-3333");
         clRegisterPlayer.setCellular("011-222-3333");
         clRegisterPlayer.setZipCode("700-441");
-        clRegisterPlayer.setAddress("¼­¿ïÆ¯º°½Ã ¿µµîÆ÷±¸ ¿©ÀÇµµµ¿ »ç¼­ÇÔ 300¹øÁö");
+        clRegisterPlayer.setAddress("ì„œìš¸íŠ¹ë³„ì‹œ ì˜ë“±í¬êµ¬ ì—¬ì˜ë„ë™ ì‚¬ì„œí•¨ 300ë²ˆì§€");
         clRegisterPlayer.setNation(KOREA);
         clRegisterPlayer.setEmail("jhkim@mbc.com");
         clRegisterPlayer.setHomepage("www.jhkim.com");
-        clRegisterPlayer.setProfile("Å×Å©³ëÀÇ ¿©¿Õ ÀüÁöÇö");
+        clRegisterPlayer.setProfile("í…Œí¬ë…¸ì˜ ì—¬ì™• ì „ì§€í˜„");
         clRegisterPlayer.setPublic(false);
 
         // cout << clRegisterPlayer.toString() << endl;
 
-        // µî·Ï ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+        // ë“±ë¡ íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
         pClientPlayer->sendPacket(&clRegisterPlayer);
 
-        // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù.
+        // í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
         pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_REGISTER_PLAYER);
     }
 

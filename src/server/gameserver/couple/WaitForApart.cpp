@@ -38,7 +38,7 @@ uint WaitForApart::waitPartner(PlayerCreature* pTargetPC) {
 
     GCSystemMessage gcSystemMessage;
     //	StringStream msg;
-    //	msg << pWaitingPC->getName() << "´ÔÀ¸·ÎºÎÅÍ ÀÌº° ½ÅÃ»ÀÌ ¿Ô½À´Ï´Ù.";
+    //	msg << pWaitingPC->getName() << "ë‹˜ìœ¼ë¡œë¶€í„° ì´ë³„ ì‹ ì²­ì´ ì™”ìŠµë‹ˆë‹¤.";
 
     char msg[100];
     sprintf(msg, g_pStringPool->c_str(STRID_REQUEST_APART), pWaitingPC->getName().c_str());
@@ -75,14 +75,14 @@ uint WaitForApart::acceptPartner(PlayerCreature* pRequestedPC) {
     Assert(hasCoupleItem(pRequestedPC));
     Assert(hasCoupleItem(pWaitingPC));
 
-    // Ä¿ÇÃ¸µÀ» ¾ø¾ÖÁà¾ß ÇÔ~_~;
+    // ì»¤í”Œë§ì„ ì—†ì• ì¤˜ì•¼ í•¨~_~;
     Assert(removeCoupleItem(pRequestedPC));
     Assert(removeCoupleItem(pWaitingPC));
 
-    // Ä¿ÇÃ¸Å´ÏÀú¿¡¼­ Çì¾îÁ³´Ù°í µî·ÏÇÔ
+    // ì»¤í”Œë§¤ë‹ˆì €ì—ì„œ í—¤ì–´ì¡Œë‹¤ê³  ë“±ë¡í•¨
     g_pCoupleManager->removeCouple(pRequestedPC, pWaitingPC);
 
-    // Ä¿ÇÃÀÌ ±úÁ³À¸´Ï Flag ¸¦ ´Ù½Ã µ¹·ÁÁØ´Ù.
+    // ì»¤í”Œì´ ê¹¨ì¡Œìœ¼ë‹ˆ Flag ë¥¼ ë‹¤ì‹œ ëŒë ¤ì¤€ë‹¤.
     pRequestedPC->getFlagSet()->turnOff(FLAGSET_IS_COUPLE);
     pWaitingPC->getFlagSet()->turnOff(FLAGSET_IS_COUPLE);
 
@@ -111,18 +111,18 @@ uint WaitForApart::acceptPartner(PlayerCreature* pRequestedPC) {
             pRequestedPC->getPlayer()->sendPacket( &gcDeleteRequestedPCInventoryCoupleItem );
             pWaitingPC->getPlayer()->sendPacket( &gcDeleteWaitingPCInventoryCoupleItem );
 
-            // Ä¿ÇÃÀÌ ±úÁ³À¸´Ï PlayerCreature ¿¡ ItemNameInfo µµ ¾ø¾ÖÁà¾ßÇÏ´Âµ­ ;;
-            // ±×³É NULL ·Î ¼ÂÆÃÇÏÀÚ ~_~
+            // ì»¤í”Œì´ ê¹¨ì¡Œìœ¼ë‹ˆ PlayerCreature ì— ItemNameInfo ë„ ì—†ì• ì¤˜ì•¼í•˜ëŠ”ëŽ… ;;
+            // ê·¸ëƒ¥ NULL ë¡œ ì…‹íŒ…í•˜ìž ~_~
             pRequestedPC->deleteItemNameInfoList( pRequestedPCCoupleItem->getObjectID() );
             pWaitingPC->deleteItemNameInfoList( pWaitingPCCoupleItem->getObjectID() );
 
-            // ¾ÆÀÌÅÛÀ» ¾ø¾ÖÁØ´Ù.
+            // ì•„ì´í…œì„ ì—†ì• ì¤€ë‹¤.
             pRequestedPCCoupleItem->destroy();
             SAFE_DELETE( pRequestedPCCoupleItem );
             pWaitingPCCoupleItem->destroy();
             SAFE_DELETE( pWaitingPCCoupleItem );
 
-            // µý ³²ÀÚ or ¿©ÀÚ Ã£¾Æ ¶°³ª¾ß ÇÏ¹Ç·Î.
+            // ë”´ ë‚¨ìž or ì—¬ìž ì°¾ì•„ ë– ë‚˜ì•¼ í•˜ë¯€ë¡œ.
 
             return true;
         }
@@ -135,7 +135,7 @@ uint WaitForApart::acceptPartner(PlayerCreature* pRequestedPC) {
 void WaitForApart::timeExpired() {
     __BEGIN_TRY
 
-    // Çì¾îÁüÀÌ °ÅÀý´çÇß´Ù°í º¸³»ÁØ´Ù.
+    // í—¤ì–´ì§ì´ ê±°ì ˆë‹¹í–ˆë‹¤ê³  ë³´ë‚´ì¤€ë‹¤.
     GCNPCResponse gcNPCResponse;
     gcNPCResponse.setCode(NPC_RESPONSE_APART_WAIT_TIME_EXPIRED);
 
@@ -149,7 +149,7 @@ void WaitForApart::timeExpired() {
 bool WaitForApart::removeCoupleItem(PlayerCreature* pPC) {
     __BEGIN_TRY
 
-    // ³×¼Õ°¡¶ô-_-ºÎÅÍ µÚÁø´Ù.
+    // ë„¤ì†ê°€ë½-_-ë¶€í„° ë’¤ì§„ë‹¤.
     if (pPC->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
         Assert(pSlayer != NULL);
@@ -199,10 +199,10 @@ bool WaitForApart::removeCoupleItem(PlayerCreature* pPC) {
     } else
         Assert(false);
 
-    // ¸¶¿ì½º¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù.
+    // ë§ˆìš°ìŠ¤ì— ì•„ì´í…œì´ ìžˆë‹¤.
     Item* pCoupleItem = pPC->getExtraInventorySlotItem();
     if (pCoupleItem == NULL || !isMatchCoupleRing(pPC, pCoupleItem)) {
-        // ¸¶¿ì½º¿¡ ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª ¸¶¿ì½º¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÌ Ä¿ÇÃ¸µÀÌ ¾Æ´Ï¸é ÀÎº¥Åä¸®¸¦ µÚÁø´Ù.
+        // ë§ˆìš°ìŠ¤ì— ì•„ì´í…œì´ ì—†ê±°ë‚˜ ë§ˆìš°ìŠ¤ì— ìžˆëŠ” ì•„ì´í…œì´ ì»¤í”Œë§ì´ ì•„ë‹ˆë©´ ì¸ë²¤í† ë¦¬ë¥¼ ë’¤ì§„ë‹¤.
         pCoupleItem = pPC->getInventory()->findItem(getItemClass(pPC), getItemType(pPC));
         if (pCoupleItem != NULL)
             pPC->getInventory()->deleteItem(pCoupleItem->getObjectID());

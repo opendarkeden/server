@@ -62,7 +62,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
     Result* pResult;
 
     BEGIN_DB {
-        // ´Ù¸¥ ±æµå ¼Ò¼ÓÀÎÁö Ã¼Å©
+        // ë‹¤ë¥¸ ê¸¸ë“œ ì†Œì†ì¸ì§€ ì²´í¬
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         pResult = pStmt->executeQuery("SELECT GuildID, ExpireDate,`Rank` FROM GuildMember WHERE Name = '%s'",
                                       pCreature->getName().c_str());
@@ -79,7 +79,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             // int GuildID = pResult->getInt(1);
             // int rank = pResult->getInt(3);
 
-            // Á¦ÇÑ³¯Â¥°¡ ÀÖÀ»¶§ rank : 5 Å»ÅğÇÑ°æ¿ì¿Í ¦i°Ü³ª°Å³ª °ÅºÎ´çÇÑ ±æµå¿¡ ´Ù½Ã µé¾î°¡·ÁÇÏ¸é ¿¡·¯ by ¾¦°«
+            // ì œí•œë‚ ì§œê°€ ìˆì„ë•Œ rank : 5 íƒˆí‡´í•œê²½ìš°ì™€ ì«’ê²¨ë‚˜ê±°ë‚˜ ê±°ë¶€ë‹¹í•œ ê¸¸ë“œì— ë‹¤ì‹œ ë“¤ì–´ê°€ë ¤í•˜ë©´ ì—ëŸ¬ by ì‘¥ê°“
             if (ExpireDate.size() == 7) {
                 time_t daytime = time(0);
 
@@ -92,20 +92,20 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 Time.tm_min = 0;
                 Time.tm_sec = 0;
 
-                //				if (difftime(daytime, mktime(&Time) ) < 604800 )		// ½Ç½Ã°£ 7ÀÏÀÌ Áö³µ´Â°¡?
+                //				if (difftime(daytime, mktime(&Time) ) < 604800 )		// ì‹¤ì‹œê°„ 7ì¼ì´ ì§€ë‚¬ëŠ”ê°€?
                 if (difftime(daytime, mktime(&Time)) <
-                    g_pVariableManager->getVariable(QUIT_GUILD_PENALTY_TERM) * 24 * 3600) // ½Ç½Ã°£ 7ÀÏÀÌ Áö³µ´Â°¡?
+                    g_pVariableManager->getVariable(QUIT_GUILD_PENALTY_TERM) * 24 * 3600) // ì‹¤ì‹œê°„ 7ì¼ì´ ì§€ë‚¬ëŠ”ê°€?
                 {
                     //					if (rank==GuildMember::GUILDMEMBER_RANK_DENY
                     //						&& GuildID != pGuild->getID())
                     //					{
-                    //						// rank4==Ãß¹æ/°ÅºÎ..ÀÎ ¾ÖµéÀº ´Ù¸¥ ±æµå¿¡´Â µé¾î°¥ ¼ö ÀÖ´Ù.
+                    //						// rank4==ì¶”ë°©/ê±°ë¶€..ì¸ ì• ë“¤ì€ ë‹¤ë¥¸ ê¸¸ë“œì—ëŠ” ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
                     //					}
                     //					else
                     //					{
                     SAFE_DELETE(pStmt);
 
-                    // Å»ÅğÇÑÁö ½Ç½Ã°£ 7ÀÏÀÌ Áö³ª¾ß ÇÔ
+                    // íƒˆí‡´í•œì§€ ì‹¤ì‹œê°„ 7ì¼ì´ ì§€ë‚˜ì•¼ í•¨
                     GCNPCResponse response;
 
                     /*						if (GuildID == pGuild->getID())
@@ -135,7 +135,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             } else {
                 SAFE_DELETE(pStmt);
 
-                // ´Ù¸¥ ±æµå¿¡ ¼ÓÇØ ÀÖÁö ¾Ê¾Æ¾ß ÇÔ
+                // ë‹¤ë¥¸ ê¸¸ë“œì— ì†í•´ ìˆì§€ ì•Šì•„ì•¼ í•¨
                 if (pCreature->isSlayer()) {
                     GCNPCResponse response;
                     response.setCode(NPC_RESPONSE_TEAM_STARTING_FAIL_ALREADY_JOIN);
@@ -165,9 +165,9 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
 
             SkillDomainType_t highest = pSlayer->getHighestSkillDomain();
 
-            // µî·Ï °¡´É ¿©ºÎ Ã¼Å©
+            // ë“±ë¡ ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
             if (pSlayer->getSkillDomainLevel(highest) < REQUIRE_SLAYER_SUBMASTER_SKILL_DOMAIN_LEVEL) {
-                // ·¹º§ÀÌ ³·À½
+                // ë ˆë²¨ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_TEAM_STARTING_FAIL_LEVEL);
                 pPlayer->sendPacket(&response);
@@ -175,7 +175,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 return;
             }
             if (pSlayer->getGold() < REQUIRE_SLAYER_SUBMASTER_GOLD) {
-                // µ·ÀÌ ¸ğÀÚ¶÷
+                // ëˆì´ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_TEAM_STARTING_FAIL_MONEY);
                 pPlayer->sendPacket(&response);
@@ -183,7 +183,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 return;
             }
             if (pSlayer->getFame() < REQUIRE_SLAYER_SUBMASTER_FAME[highest]) {
-                // ¸í¼ºÀÌ ³·À½
+                // ëª…ì„±ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_TEAM_STARTING_FAIL_FAME);
                 pPlayer->sendPacket(&response);
@@ -191,7 +191,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 return;
             }
 
-            // ±æµå ½ºÅ¸ÆÃ ¸â¹ö °¡ÀÔ Ã¢À» ¶ç¿î´Ù.
+            // ê¸¸ë“œ ìŠ¤íƒ€íŒ… ë©¤ë²„ ê°€ì… ì°½ì„ ë„ìš´ë‹¤.
             GCShowGuildJoin gcShowGuildJoin;
             gcShowGuildJoin.setGuildID(pGuild->getID());
             gcShowGuildJoin.setGuildName(pGuild->getName());
@@ -199,14 +199,14 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             gcShowGuildJoin.setJoinFee(REQUIRE_SLAYER_SUBMASTER_GOLD);
             pPlayer->sendPacket(&gcShowGuildJoin);
 
-            // cout << "½ºÅ¸ÆÃ °¡ÀÔ" << endl;
+            // cout << "ìŠ¤íƒ€íŒ… ê°€ì…" << endl;
         } else if (pCreature->isVampire()) {
             Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
             Assert(pVampire != NULL);
 
-            // µî·Ï °¡´É ¿©ºÎ Ã¼Å©
+            // ë“±ë¡ ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
             if (pVampire->getLevel() < REQUIRE_VAMPIRE_SUBMASTER_LEVEL) {
-                // ·¹º§ÀÌ ³·À½
+                // ë ˆë²¨ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_CLAN_STARTING_FAIL_LEVEL);
                 pPlayer->sendPacket(&response);
@@ -214,7 +214,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 return;
             }
             if (pVampire->getGold() < REQUIRE_VAMPIRE_SUBMASTER_GOLD) {
-                // µ·ÀÌ ¸ğÀÚ¶÷
+                // ëˆì´ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_CLAN_STARTING_FAIL_MONEY);
                 pPlayer->sendPacket(&response);
@@ -223,7 +223,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             }
             //			if (pVampire->getFame() < 400000 )
             //			{
-            //				// ¸í¼ºÀÌ ³·À½
+            //				// ëª…ì„±ì´ ë‚®ìŒ
             //				GCNPCResponse response;
             //				response.setCode(NPC_RESPONSE_CLAN_STARTING_FAIL_FAME);
             //				pPlayer->sendPacket(&response);
@@ -231,7 +231,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             //				return;
             //			}
 
-            // ±æµå ½ºÅ¸ÆÃ ¸â¹ö °¡ÀÔ Ã¢À» ¶ç¿î´Ù.
+            // ê¸¸ë“œ ìŠ¤íƒ€íŒ… ë©¤ë²„ ê°€ì… ì°½ì„ ë„ìš´ë‹¤.
             GCShowGuildJoin gcShowGuildJoin;
             gcShowGuildJoin.setGuildID(pGuild->getID());
             gcShowGuildJoin.setGuildName(pGuild->getName());
@@ -240,14 +240,14 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             pPlayer->sendPacket(&gcShowGuildJoin);
 
             // cout << gcShowGuildJoin.toString() << endl;
-            // cout << "½ºÅ¸ÆÃ °¡ÀÔ" << endl;
+            // cout << "ìŠ¤íƒ€íŒ… ê°€ì…" << endl;
         } else if (pCreature->isOusters()) {
             Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
             Assert(pOusters != NULL);
 
-            // µî·Ï °¡´É ¿©ºÎ Ã¼Å©
+            // ë“±ë¡ ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
             if (pOusters->getLevel() < REQUIRE_OUSTERS_SUBMASTER_LEVEL) {
-                // ·¹º§ÀÌ ³·À½
+                // ë ˆë²¨ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_GUILD_STARTING_FAIL_LEVEL);
                 pPlayer->sendPacket(&response);
@@ -255,7 +255,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 return;
             }
             if (pOusters->getGold() < REQUIRE_OUSTERS_SUBMASTER_GOLD) {
-                // µ·ÀÌ ¸ğÀÚ¶÷
+                // ëˆì´ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_GUILD_STARTING_FAIL_MONEY);
                 pPlayer->sendPacket(&response);
@@ -263,7 +263,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
                 return;
             }
 
-            // ±æµå ½ºÅ¸ÆÃ ¸â¹ö °¡ÀÔ Ã¢À» ¶ç¿î´Ù.
+            // ê¸¸ë“œ ìŠ¤íƒ€íŒ… ë©¤ë²„ ê°€ì… ì°½ì„ ë„ìš´ë‹¤.
             GCShowGuildJoin gcShowGuildJoin;
             gcShowGuildJoin.setGuildID(pGuild->getID());
             gcShowGuildJoin.setGuildName(pGuild->getName());
@@ -272,7 +272,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             pPlayer->sendPacket(&gcShowGuildJoin);
 
             // cout << gcShowGuildJoin.toString() << endl;
-            // cout << "½ºÅ¸ÆÃ °¡ÀÔ" << endl;
+            // cout << "ìŠ¤íƒ€íŒ… ê°€ì…" << endl;
         }
     } else if (pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_WAIT) {
         if (pGuild->getWaitMemberCount() >= MAX_GUILDMEMBER_WAIT_COUNT) {
@@ -287,8 +287,8 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
             return;
         }
 
-        // ÀÏ¹İ °¡ÀÔÀÎ °æ¿ì
-        // ±æµå ¸â¹ö °¡ÀÔ Ã¢À» ¶ç¿î´Ù.
+        // ì¼ë°˜ ê°€ì…ì¸ ê²½ìš°
+        // ê¸¸ë“œ ë©¤ë²„ ê°€ì… ì°½ì„ ë„ìš´ë‹¤.
         GCShowGuildJoin gcShowGuildJoin;
         gcShowGuildJoin.setGuildID(pGuild->getID());
         gcShowGuildJoin.setGuildName(pGuild->getName());
@@ -297,7 +297,7 @@ void CGTryJoinGuildHandler::execute(CGTryJoinGuild* pPacket, Player* pPlayer)
         pPlayer->sendPacket(&gcShowGuildJoin);
 
         // cout << gcShowGuildJoin.toString() << endl;
-        // cout << "ÀÏ¹İ °¡ÀÔ" << endl;
+        // cout << "ì¼ë°˜ ê°€ì…" << endl;
     }
 
 #endif // __GAME_SERVER__

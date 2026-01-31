@@ -322,7 +322,7 @@ void QuestItemLoader::load(Creature* pCreature)
                     pInventory = pOusters->getInventory();
                     pStash = pOusters->getStash();
                 } else
-                    throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                    throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
                 switch (storage) {
                 case STORAGE_INVENTORY:
@@ -429,7 +429,7 @@ void QuestItemLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

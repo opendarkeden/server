@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCPartyJoined.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -27,16 +27,16 @@ PacketSize_t GCPartyJoined::getPacketSize() const
 
     PacketSize_t value = 0;
 
-    value += szBYTE; // ¸â¹ö Ä«¿îÆ®
+    value += szBYTE; // ë©¤ë²„ ì¹´ìš´íŠ¸
 
     list<PARTY_MEMBER_INFO*>::const_iterator itr = m_MemberInfoList.begin();
     for (; itr != m_MemberInfoList.end(); itr++) {
         PARTY_MEMBER_INFO* pInfo = (*itr);
 
-        value += szBYTE;               // ÀÌ¸§ ±æÀÌ
-        value += (pInfo->name).size(); // ½ÇÁ¦ ÀÌ¸§
-        value += szBYTE;               // ¼ºº°
-        value += szBYTE;               // Çì¾î ½ºÅ¸ÀÏ
+        value += szBYTE;               // ì´ë¦„ ê¸¸ì´
+        value += (pInfo->name).size(); // ì‹¤ì œ ì´ë¦„
+        value += szBYTE;               // ì„±ë³„
+        value += szBYTE;               // í—¤ì–´ ìŠ¤íƒ€ì¼
         value += szIP;                 // IP
     }
 
@@ -107,7 +107,7 @@ void GCPartyJoined::read(SocketInputStream& iStream)
 {
     __BEGIN_TRY
 
-    // ¸ÕÀú ¸®½ºÆ®ÀÇ »çÀÌÁî¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ë¨¼ì € ë¦¬ìŠ¤íŠ¸ì˜ ì‚¬ì´ì¦ˆë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     iStream.read(m_MemberCount);
 
     for (uint i = 0; i < m_MemberCount; i++) {
@@ -135,7 +135,7 @@ void GCPartyJoined::write(SocketOutputStream& oStream) const
 {
     __BEGIN_TRY
 
-    // ¸ÕÀú ¸®½ºÆ®ÀÇ »çÀÌÁî¸¦ ¾´´Ù.
+    // ë¨¼ì € ë¦¬ìŠ¤íŠ¸ì˜ ì‚¬ì´ì¦ˆë¥¼ ì“´ë‹¤.
     oStream.write(m_MemberCount);
 
     list<PARTY_MEMBER_INFO*>::const_iterator itr = m_MemberInfoList.begin();

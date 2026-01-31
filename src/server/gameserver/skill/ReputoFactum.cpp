@@ -20,7 +20,7 @@
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ReputoFactum::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pSkillSlot,
                            CEffectID_t CEffectID)
@@ -50,9 +50,9 @@ void ReputoFactum::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö ¾ø´Ù.
-        // ÀúÁÖ ¸é¿ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // ì €ì£¼ ë©´ì—­. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE) // by sigi. 2002.10.30
             || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType());
@@ -101,7 +101,7 @@ void ReputoFactum::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 
             bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             EffectReputoFactum* pEffect = new EffectReputoFactum(pTargetCreature);
             pEffect->setDeadline(output.Duration);
             pTargetCreature->addEffect(pEffect);

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCStashList.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -109,15 +109,15 @@ public:
     }
     PacketSize_t getPacketMaxSize() const {
         PacketSize_t size = 0;
-        PacketSize_t unit_size = szBYTE * 2 +                             // rack°ú ÀÎµ¦½º
-                                                                          // sizeof(STASHITEM) +         // ½ÇÁ¦ Á¤º¸
-                                 STASHITEM::getPacketMaxSize() + szBYTE + // º§Æ®¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ýÀÚ
-                                 SubItemInfo::getSize() * 8;              // º§Æ® ¾ÆÀÌÅÛ(8°³°¡ ¸Æ½º)
+        PacketSize_t unit_size = szBYTE * 2 +                             // rackê³¼ ì¸ë±ìŠ¤
+                                                                          // sizeof(STASHITEM) +         // ì‹¤ì œ ì •ë³´
+                                 STASHITEM::getPacketMaxSize() + szBYTE + // ë²¨íŠ¸ì— ë“¤ì–´ìžˆëŠ” ì•„ì´í…œì˜ ìˆ«ìž
+                                 SubItemInfo::getSize() * 8;              // ë²¨íŠ¸ ì•„ì´í…œ(8ê°œê°€ ë§¥ìŠ¤)
 
-        size += szBYTE;                                       // º¸°üÇÔÀÇ °¹¼ö
-        size += szBYTE;                                       // ÃÑ ¾ÆÀÌÅÛÀÇ ¼ýÀÚ
-        size += unit_size * STASH_RACK_MAX * STASH_INDEX_MAX; // ¾ÆÀÌÅÛÀÌ ²Ë Â÷ ÀÖ´Ù¸é...
-        size += szGold;                                       // µ·
+        size += szBYTE;                                       // ë³´ê´€í•¨ì˜ ê°¯ìˆ˜
+        size += szBYTE;                                       // ì´ ì•„ì´í…œì˜ ìˆ«ìž
+        size += unit_size * STASH_RACK_MAX * STASH_INDEX_MAX; // ì•„ì´í…œì´ ê½‰ ì°¨ ìžˆë‹¤ë©´...
+        size += szGold;                                       // ëˆ
 
         return size;
     }

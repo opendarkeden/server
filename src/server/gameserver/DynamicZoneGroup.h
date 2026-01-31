@@ -54,7 +54,7 @@ protected:
 
 private:
     int m_DynamicZoneType;
-    ZoneID_t m_TemplateZoneID; // Æ²ÀÌ µÇ´Â Á¸ÀÇ ID
+    ZoneID_t m_TemplateZoneID; // í‹€ì´ ë˜ëŠ” ì¡´ì˜ ID
     HashMapDynamicZone m_DynamicZones;
     uint m_MaxSize;
 };

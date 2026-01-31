@@ -42,7 +42,7 @@ void GSRequestGuildInfoHandler::execute(GSRequestGuildInfo* pPacket, Player* pPl
 
     g_pGuildManager->makeSGGuildInfo(sgGuildInfo);
 
-    // °ÔÀÓ ¼­¹ö·Î ÆÐÅ¶À» º¸³½´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     pGSPlayer->sendPacket(&sgGuildInfo);
 
 #endif

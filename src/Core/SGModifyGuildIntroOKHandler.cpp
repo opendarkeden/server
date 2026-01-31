@@ -36,7 +36,7 @@ void SGModifyGuildIntroOKHandler::execute(SGModifyGuildIntroOK* pPacket)
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     try {
         Assert(pGuild != NULL);

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MasterLairManager.h
-// Written by  : ½­
+// Written by  : ì‰­
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -25,11 +25,11 @@ class Zone;
 class MasterLairManager {
 public:
     enum MasterLairEvent {
-        EVENT_WAITING_PLAYER,   // »ç¶÷µéÀÌ µé¾î¿À±æ ±â´Ù¸°´Ù.
-        EVENT_MINION_COMBAT,    // ¼ÒÈ¯µÈ ¸ó½ºÅÍ¿Í ½Î¿î´Ù.
-        EVENT_MASTER_COMBAT,    // ¸¶½ºÅÍ¿Í ½Î¿î´Ù.
-        EVENT_WAITING_KICK_OUT, // »ç¿ëÀÚ °­Á¦Ãß¹æ ´ë±â(¸¶½ºÅÍ ÀâÀº °æ¿ìÀÇ Á¤¸® ½Ã°£)
-        EVENT_WAITING_REGEN,    // ´Ù½Ã ¸®Á¨µÇ±æ ±â´Ù¸°´Ù.
+        EVENT_WAITING_PLAYER,   // ì‚¬ëŒë“¤ì´ ë“¤ì–´ì˜¤ê¸¸ ê¸°ë‹¤ë¦°ë‹¤.
+        EVENT_MINION_COMBAT,    // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ì™€ ì‹¸ìš´ë‹¤.
+        EVENT_MASTER_COMBAT,    // ë§ˆìŠ¤í„°ì™€ ì‹¸ìš´ë‹¤.
+        EVENT_WAITING_KICK_OUT, // ì‚¬ìš©ì ê°•ì œì¶”ë°© ëŒ€ê¸°(ë§ˆìŠ¤í„° ì¡ì€ ê²½ìš°ì˜ ì •ë¦¬ ì‹œê°„)
+        EVENT_WAITING_REGEN,    // ë‹¤ì‹œ ë¦¬ì  ë˜ê¸¸ ê¸°ë‹¤ë¦°ë‹¤.
 
         EVENT_MAX
     };
@@ -43,8 +43,8 @@ public:
         return m_Event;
     }
 
-    bool enterCreature(Creature* pCreature); // Á¸¿¡ ÃâÀÔÀÌ °¡´ÉÇÑ°¡?
-    bool leaveCreature(Creature* pCreature); // Á¸¿¡¼­ ³ª°£ °æ¿ì
+    bool enterCreature(Creature* pCreature); // ì¡´ì— ì¶œì…ì´ ê°€ëŠ¥í•œê°€?
+    bool leaveCreature(Creature* pCreature); // ì¡´ì—ì„œ ë‚˜ê°„ ê²½ìš°
 
     bool heartbeat();
 
@@ -81,33 +81,33 @@ protected:
     void activeEventWaitingKickOut();
     void activeEventWaitingRegen();
 
-    void deleteAllMonsters(); // ¸ğµç ¸ó½ºÅÍ »èÁ¦
-    void kickOutPlayers();    // »ç¿ëÀÚ °­Á¦ Ãß¹æ
-    void giveKillingReward(); // ¸¶½ºÅÍ Á×¿´À» ¶§ ¹Ş´Â º¸»ó
-    void killAllMonsters();   // ¸ğµç ¸ó½ºÅÍ¸¦ Á×ÀÎ´Ù
+    void deleteAllMonsters(); // ëª¨ë“  ëª¬ìŠ¤í„° ì‚­ì œ
+    void kickOutPlayers();    // ì‚¬ìš©ì ê°•ì œ ì¶”ë°©
+    void giveKillingReward(); // ë§ˆìŠ¤í„° ì£½ì˜€ì„ ë•Œ ë°›ëŠ” ë³´ìƒ
+    void killAllMonsters();   // ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ ì£½ì¸ë‹¤
 
 private:
     Zone* m_pZone;
-    ObjectID_t m_MasterID; // ¸¶½ºÅÍ ÇÑ ¸¶¸®
+    ObjectID_t m_MasterID; // ë§ˆìŠ¤í„° í•œ ë§ˆë¦¬
     ZoneCoord_t m_MasterX;
     ZoneCoord_t m_MasterY;
 
-    bool m_bMasterReady; // ¸¶½ºÅÍ°¡ ½Î¿ï ÁØºñ°¡ µÇ¾ú³ª?
+    bool m_bMasterReady; // ë§ˆìŠ¤í„°ê°€ ì‹¸ìš¸ ì¤€ë¹„ê°€ ë˜ì—ˆë‚˜?
 
-    // int               m_nMaxSummonMonster; // ¸¶½ºÅÍ°¡ ¼ÒÈ¯ÇÒ ÃÖ´ëÀÇ ¸ó½ºÅÍ ¼ö
-    // int               m_nSummonedMonster;  // ¸¶½ºÅÍ°¡ ¼ÒÈ¯ÇÑ ¸ó½ºÅÍ ¼ö
+    // int               m_nMaxSummonMonster; // ë§ˆìŠ¤í„°ê°€ ì†Œí™˜í•  ìµœëŒ€ì˜ ëª¬ìŠ¤í„° ìˆ˜
+    // int               m_nSummonedMonster;  // ë§ˆìŠ¤í„°ê°€ ì†Œí™˜í•œ ëª¬ìŠ¤í„° ìˆ˜
 
-    int m_nMaxPassPlayer; // ÃÖ´ë ÃâÀÔ »ç¿ëÀÚ ¼ö
-    int m_nPassPlayer;    // Pass¸¦ ¹ŞÀº »ç¶÷ ¼ö
+    int m_nMaxPassPlayer; // ìµœëŒ€ ì¶œì… ì‚¬ìš©ì ìˆ˜
+    int m_nPassPlayer;    // Passë¥¼ ë°›ì€ ì‚¬ëŒ ìˆ˜
 
-    MasterLairEvent m_Event; // ÇöÀçÀÇ ÀÌº¥Æ® Á¾·ù
-    Timeval m_EventTime;     // ÇöÀçÀÇ ÀÌº¥Æ®°¡ Áö¼ÓµÉ ½Ã°£
-    int m_EventValue;        // ÀÌº¥Æ®¿Í °ü·ÃµÈ °ª
+    MasterLairEvent m_Event; // í˜„ì¬ì˜ ì´ë²¤íŠ¸ ì¢…ë¥˜
+    Timeval m_EventTime;     // í˜„ì¬ì˜ ì´ë²¤íŠ¸ê°€ ì§€ì†ë  ì‹œê°„
+    int m_EventValue;        // ì´ë²¤íŠ¸ì™€ ê´€ë ¨ëœ ê°’
 
-    Timeval m_RegenTime; // ½Ï Á¤¸®ÇÏ°í ´Ù½Ã ½ÃÀÛÇÏ´Â ½Ã°£
+    Timeval m_RegenTime; // ì‹¹ ì •ë¦¬í•˜ê³  ë‹¤ì‹œ ì‹œì‘í•˜ëŠ” ì‹œê°„
 
 
-    mutable Mutex m_Mutex; // m_nPassPlayer¸¦ È®½ÇÈ÷ Ã¼Å©ÇÒ·Á°í..
+    mutable Mutex m_Mutex; // m_nPassPlayerë¥¼ í™•ì‹¤íˆ ì²´í¬í• ë ¤ê³ ..
 };
 
 #endif

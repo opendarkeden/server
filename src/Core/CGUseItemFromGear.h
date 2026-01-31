@@ -50,8 +50,8 @@ public:
     }
 
 private:
-    ObjectID_t m_ObjectID; // ¾ÆÀÌÅÛÀÇ object id
-    BYTE m_Part;           // ¾ÆÀÌÅÛÀÌ ÀÖ´Â slot
+    ObjectID_t m_ObjectID; // ì•„ì´í…œì˜ object id
+    BYTE m_Part;           // ì•„ì´í…œì´ ìˆëŠ” slot
 };
 
 

@@ -45,7 +45,7 @@ void CGDenyUnionHandler::execute(CGDenyUnion* pPacket, Player* pPlayer)
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -62,11 +62,11 @@ void CGDenyUnionHandler::execute(CGDenyUnion* pPacket, Player* pPlayer)
         return;
     }
 
-    // ¿äÃ»ÇÑ³ğÀÌ Áö°¡ ¼ÓÇÑ ±æµåÀÇ ¸¶½ºÅÍÀÎ°¡? || ¿¬ÇÕÀÇ ¸¶½ºÅÍ±æµå°¡ ³» ±æµå°¡ ¸Â³ª?
+    // ìš”ì²­í•œë†ˆì´ ì§€ê°€ ì†í•œ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ê°€? || ì—°í•©ì˜ ë§ˆìŠ¤í„°ê¸¸ë“œê°€ ë‚´ ê¸¸ë“œê°€ ë§ë‚˜?
     if (!g_pGuildManager->isGuildMaster(pPlayerCreature->getGuildID(), pPlayerCreature) ||
         pUnion->getMasterGuildID() != pPlayerCreature->getGuildID()) {
-        // GC_GUILD_RESPONSE ³¯·ÁÁØ´Ù.
-        // ³»¿ë : ±æµå ¸¶½ºÅÍ°¡ ¾Æ´ÏÀÚ³à -.-+
+        // GC_GUILD_RESPONSE ë‚ ë ¤ì¤€ë‹¤.
+        // ë‚´ìš© : ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆìë…€ -.-+
 
         gcGuildResponse.setCode(GuildUnionOfferManager::SOURCE_IS_NOT_MASTER);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -89,7 +89,7 @@ void CGDenyUnionHandler::execute(CGDenyUnion* pPacket, Player* pPlayer)
         string TargetGuildMaster = pGuild->getMaster();
 
 
-        // cout << "°¡ÀÔÀÌ °ÅºÎµÇ¾ú´Ù. Åëº¸¹ŞÀ» À¯Àú´Â : " << TargetGuildMaster.c_str() << endl;
+        // cout << "ê°€ì…ì´ ê±°ë¶€ë˜ì—ˆë‹¤. í†µë³´ë°›ì„ ìœ ì €ëŠ” : " << TargetGuildMaster.c_str() << endl;
 
 
         Statement* pStmt = NULL;
@@ -99,13 +99,13 @@ void CGDenyUnionHandler::execute(CGDenyUnion* pPacket, Player* pPlayer)
             pStmt->executeQuery("INSERT INTO `Messages` (`Receiver`, `Message`) values ('%s','%s')",
                                 TargetGuildMaster.c_str(), g_pStringPool->c_str(374));
 
-            // °ÅºÎÇÑµÚ¿¡ ³ª È¥ÀÚ ³²¾ÆÀÖ´Ù¸é?
+            // ê±°ë¶€í•œë’¤ì— ë‚˜ í˜¼ì ë‚¨ì•„ìˆë‹¤ë©´?
             Result* pResult = pStmt->executeQuery("SELECT count(*) FROM `GuildUnionMember` WHERE `UnionID`='%u'",
                                                   pUnion->getUnionID());
             pResult->next();
 
             if (pResult->getInt(1) == 0) {
-                // cout << "°¡ÀÔÀ» °ÅºÎÇß´Âµ¥..³»°¡ °è¼Ó ¿¬ÇÕÀåÀÌ¸é ¾ÈµÇ´Ï±î..Áö¿ö¹ö¸°´Ù" << endl;
+                // cout << "ê°€ì…ì„ ê±°ë¶€í–ˆëŠ”ë°..ë‚´ê°€ ê³„ì† ì—°í•©ì¥ì´ë©´ ì•ˆë˜ë‹ˆê¹Œ..ì§€ì›Œë²„ë¦°ë‹¤" << endl;
                 pStmt->executeQuery("DELETE FROM `GuildUnionInfo` WHERE `UnionID`='%u'", pUnion->getUnionID());
 
                 GuildUnionManager::Instance().reload();
@@ -126,7 +126,7 @@ void CGDenyUnionHandler::execute(CGDenyUnion* pPacket, Player* pPlayer)
 
         pPlayer->sendPacket(&gcModifyInformation);
 
-        // Åëº¸¹ŞÀ» À¯Àú¿¡°Ô ±æµåUnionÁ¤º¸¸¦ ´Ù½Ã º¸³½´Ù
+        // í†µë³´ë°›ì„ ìœ ì €ì—ê²Œ ê¸¸ë“œUnionì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ë‚¸ë‹¤
 
         Creature* pTargetCreature = NULL;
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
@@ -145,7 +145,7 @@ void CGDenyUnionHandler::execute(CGDenyUnion* pPacket, Player* pPlayer)
         sendGCOtherModifyInfoGuildUnion(pTargetCreature);
         sendGCOtherModifyInfoGuildUnion(pCreature);
 
-        // ´Ù¸¥ ¼­¹ö¿¡ ÀÖ´Â ³ğµé¿¡°Ô º¯°æ»çÇ×À» ¾Ë¸°´Ù.
+        // ë‹¤ë¥¸ ì„œë²„ì— ìˆëŠ” ë†ˆë“¤ì—ê²Œ ë³€ê²½ì‚¬í•­ì„ ì•Œë¦°ë‹¤.
         GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pTargetCreature)->getGuildID());
         GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pCreature)->getGuildID());
     }

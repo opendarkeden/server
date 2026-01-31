@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionTradeEventItem.cpp
-// Written By  : ¿Â»´√¢
+// Written By  : Ïû•ÌôçÏ∞Ω
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 #include "ActionTradeEventItem.h"
@@ -36,7 +36,7 @@ void ActionTradeEventItem::read(PropertyBuffer& propertyBuffer)
     __BEGIN_TRY
 
     try {
-        // πﬁ¿ª µ∑¿« æÁ¿ª ¿–æÓµÈ¿Œ¥Ÿ.
+        // Î∞õÏùÑ ÎèàÏùò ÏñëÏùÑ ÏùΩÏñ¥Îì§Ïù∏Îã§.
         m_GoalAmount = (Gold_t)propertyBuffer.getPropertyInt("Amount");
     } catch (NoSuchElementException& nsee) {
         throw Error(nsee.toString());
@@ -46,7 +46,7 @@ void ActionTradeEventItem::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// æ◊º«¿ª Ω««‡«—¥Ÿ.
+// Ïï°ÏÖòÏùÑ Ïã§ÌñâÌïúÎã§.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -67,21 +67,21 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
     Inventory* pInventory = pPC->getInventory();
     XMAS_STAR star;
 
-    // ∏’¿˙ ≈¨∂Û¿Ãæ∆Æ∏¶ ¿ß«ÿ GCNPCResponse∏¶ ∫∏≥ª¡ÿ¥Ÿ.
+    // Î®ºÏ†Ä ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Î•º ÏúÑÌï¥ GCNPCResponseÎ•º Î≥¥ÎÇ¥Ï§ÄÎã§.
     GCNPCResponse okpkt;
     pPlayer->sendPacket(&okpkt);
     //	StringStream message;
     char message[100];
 
-    // ¿Ã ªÁ∂˜¿« ¿Œ∫•≈‰∏Æø° √‡±∏∞¯¿Ã √Ê∫–«—¡ˆ ªÏ«…¥Ÿ.
+    // Ïù¥ ÏÇ¨ÎûåÏùò Ïù∏Î≤§ÌÜ†Î¶¨Ïóê Ï∂ïÍµ¨Í≥µÏù¥ Ï∂©Î∂ÑÌïúÏßÄ ÏÇ¥ÌïÄÎã§.
 
-    // cout << "√‡±∏∞¯ " << m_GoalAmount << " ∞≥ æ∆¿Ã≈€: " << endl;
+    // cout << "Ï∂ïÍµ¨Í≥µ " << m_GoalAmount << " Í∞ú ÏïÑÏù¥ÌÖú: " << endl;
 
     g_pPriceManager->getBallPrice(m_GoalAmount, star);
 
     if (!pInventory->hasEnoughStar(star)) {
         //		StringStream buf;
-        //		buf << "√‡±∏∞¯¿« ∞≥ºˆ∞° ∫Œ¡∑«’¥œ¥Ÿ. ¥ı ∏æ∆ ø¿ººø‰";
+        //		buf << "Ï∂ïÍµ¨Í≥µÏùò Í∞úÏàòÍ∞Ä Î∂ÄÏ°±Ìï©ÎãàÎã§. Îçî Î™®ÏïÑ Ïò§ÏÑ∏Ïöî";
 
         GCSystemMessage gcSystemMessage;
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_REQUIRE_MORE_SOCCER_BALL));
@@ -94,8 +94,8 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
         return;
     }
 
-    // ∏∏æ‡ ¿Ã ªÁ∂˜¿« ¿Œ∫•≈‰∏Æø° ¿⁄∏Æ∞° √Ê∫–«œ¥Ÿ∏È æ∆¿Ã≈€¿ª ≥÷¥¬¥Ÿ.
-    // ∏’¿˙ æ∆¿Ã≈€¿ª µŒ∞≥ ∏∏µÁ¥Ÿ.
+    // ÎßåÏïΩ Ïù¥ ÏÇ¨ÎûåÏùò Ïù∏Î≤§ÌÜ†Î¶¨Ïóê ÏûêÎ¶¨Í∞Ä Ï∂©Î∂ÑÌïòÎã§Î©¥ ÏïÑÏù¥ÌÖúÏùÑ ÎÑ£ÎäîÎã§.
+    // Î®ºÏ†Ä ÏïÑÏù¥ÌÖúÏùÑ ÎëêÍ∞ú ÎßåÎì†Îã§.
     Zone* pZone = pPC->getZone();
     ObjectRegistry& OR = pZone->getObjectRegistry();
 
@@ -122,31 +122,31 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
             case 100:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 0, option4);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 0, option4);
-                //					message << "STR+4 «√∑ø ¡¶≈∂∞˙ STR+4 ΩΩ∑¢¿ª ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+4 ÌîåÎ†õ Ï†úÌÇ∑Í≥º STR+4 Ïä¨ÎûôÏùÑ ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_1));
                 break;
             case 125:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 2, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 2, option5);
-                //					message << "STR+5 ∫£Ω∫∆ÆøÕ STR+5 ∆Æ∂ÛøÏ¡Æ∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 Î≤†Ïä§Ìä∏ÏôÄ STR+5 Ìä∏ÎùºÏö∞Ï†∏Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_2));
                 break;
             case 175:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 4, option1);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 4, option1);
-                //					message << "STR+1 πË∆≤Ω¥∆ÆøÕ STR+1 ∑π±Î¡Ó∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+1 Î∞∞ÌãÄÏäàÌä∏ÏôÄ STR+1 Î†àÍπÖÏ¶àÎ•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_3));
                 break;
             case 225:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 4, option2);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 4, option2);
-                //					message << "STR+2 πË∆≤Ω¥∆ÆøÕ STR+2 ∑π±Î¡Ó∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+2 Î∞∞ÌãÄÏäàÌä∏ÏôÄ STR+2 Î†àÍπÖÏ¶àÎ•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_4));
                 break;
             case 275:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 4, option3);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 4, option3);
-                //					message << "STR+3 πË∆≤Ω¥∆ÆøÕ STR+3 ∑π±Î¡Ó∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+3 Î∞∞ÌãÄÏäàÌä∏ÏôÄ STR+3 Î†àÍπÖÏ¶àÎ•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_5));
                 break;
             default:
@@ -157,31 +157,31 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
             case 100:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 1, option4);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 1, option4);
-                //					message << "STR+4 «√∑ø ¡¶≈∂∞˙ STR+4 ΩΩ∑¢¿ª ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+4 ÌîåÎ†õ Ï†úÌÇ∑Í≥º STR+4 Ïä¨ÎûôÏùÑ ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_6));
                 break;
             case 125:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 3, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 3, option5);
-                //					message << "STR+5 ∫£Ω∫∆ÆøÕ STR+5 ∆Æ∂ÛøÏ¡Æ∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 Î≤†Ïä§Ìä∏ÏôÄ STR+5 Ìä∏ÎùºÏö∞Ï†∏Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_7));
                 break;
             case 175:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 5, option1);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 5, option1);
-                //					message << "STR+1 πË∆≤Ω¥∆ÆøÕ STR+1 ∑π±Î¡Ó∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+1 Î∞∞ÌãÄÏäàÌä∏ÏôÄ STR+1 Î†àÍπÖÏ¶àÎ•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_8));
                 break;
             case 225:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 5, option2);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 5, option2);
-                //					message << "STR+2 πË∆≤Ω¥∆ÆøÕ STR+2 ∑π±Î¡Ó∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+2 Î∞∞ÌãÄÏäàÌä∏ÏôÄ STR+2 Î†àÍπÖÏ¶àÎ•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_9));
                 break;
             case 275:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 5, option3);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 5, option3);
-                //					message << "STR+3 πË∆≤Ω¥∆ÆøÕ STR+3 ∑π±Î¡Ó∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+3 Î∞∞ÌãÄÏäàÌä∏ÏôÄ STR+3 Î†àÍπÖÏ¶àÎ•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_10));
                 break;
             default:
@@ -196,36 +196,36 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
             case 100:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 1, option4);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 2, option4);
-                //					message << "STR+4 πŸµΩ¥∆ÆøÕ STR+4 ƒøΩ√««µÂ ≥◊≈©∏ÆΩ∫∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿
-                // ∆ƒ¿Ã∆√!";
+                //					message << "STR+4 Î∞îÎîîÏäàÌä∏ÏôÄ STR+4 Ïª§ÏãúÌîºÎìú ÎÑ§ÌÅ¨Î¶¨Ïä§Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ
+                // ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_11));
                 break;
             case 125:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option4);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 3, option4);
-                //					message << "STR+4 ¡°«¡Ω¥∆ÆøÕ STR+4 ¡¨ ≥◊≈©∏ÆΩ∫∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ.ƒ⁄∏Ææ∆∆¿
-                // ∆ƒ¿Ã∆√!";;
+                //					message << "STR+4 Ï†êÌîÑÏäàÌä∏ÏôÄ STR+4 Ï†Ø ÎÑ§ÌÅ¨Î¶¨Ïä§Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§.ÏΩîÎ¶¨ÏïÑÌåÄ
+                // ÌååÏù¥ÌåÖ!";;
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_12));
                 break;
             case 175:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 4, option3);
-                //					message << "STR+5 ¡°«¡Ω¥∆ÆøÕ STR+4 æ∆¿Ãµπ ∆“¥¯∆Æ∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿
-                // ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 Ï†êÌîÑÏäàÌä∏ÏôÄ STR+4 ÏïÑÏù¥Îèå Ìå¨ÎçòÌä∏Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ
+                // ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_13));
                 break;
             case 225:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 5, option3);
-                //					message << "STR+5 ¡°«¡Ω¥∆ÆøÕ STR+4 ø™Ω ¿⁄∞°(Anti-Cross)∏¶ ∆“¥¯∆Æ∏¶ ¡ˆ±ﬁ«ÿ
-                // µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 Ï†êÌîÑÏäàÌä∏ÏôÄ STR+4 Ïó≠Ïã≠ÏûêÍ∞Ä(Anti-Cross)Î•º Ìå¨ÎçòÌä∏Î•º ÏßÄÍ∏âÌï¥
+                // ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_14));
                 break;
             case 275:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 6, option3);
-                //					message << "STR+5 ¡°«¡Ω¥∆ÆøÕ STR+4 µ•Ω∫Ω∫≈∏(Death-Star) ∆“¥¯∆Æ∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ.
-                // ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 Ï†êÌîÑÏäàÌä∏ÏôÄ STR+4 Îç∞Ïä§Ïä§ÌÉÄ(Death-Star) Ìå¨ÎçòÌä∏Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§.
+                // ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_15));
                 break;
             default:
@@ -236,36 +236,36 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
             case 100:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 0, option4);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 2, option4);
-                //					message << "STR+4 Ω∫¿Æƒ⁄∆ÆøÕ STR+4 ƒøΩ√««µÂ ≥◊≈©∏ÆΩ∫∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿
-                // ∆ƒ¿Ã∆√!";
+                //					message << "STR+4 Ïä§ÏúôÏΩîÌä∏ÏôÄ STR+4 Ïª§ÏãúÌîºÎìú ÎÑ§ÌÅ¨Î¶¨Ïä§Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ
+                // ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_16));
                 break;
             case 125:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option4);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 3, option4);
-                //					message << "STR+4 «¡∑œƒ⁄∆ÆøÕ STR+4 ¡¨ ≥◊≈©∏ÆΩ∫∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ.ƒ⁄∏Ææ∆∆¿
-                // ∆ƒ¿Ã∆√!";;
+                //					message << "STR+4 ÌîÑÎ°ùÏΩîÌä∏ÏôÄ STR+4 Ï†Ø ÎÑ§ÌÅ¨Î¶¨Ïä§Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§.ÏΩîÎ¶¨ÏïÑÌåÄ
+                // ÌååÏù¥ÌåÖ!";;
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_17));
                 break;
             case 175:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 4, option3);
-                //					message << "STR+5 «¡∑œƒ⁄∆ÆøÕ STR+4 æ∆¿Ãµπ ∆“¥¯∆Æ∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿
-                // ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 ÌîÑÎ°ùÏΩîÌä∏ÏôÄ STR+4 ÏïÑÏù¥Îèå Ìå¨ÎçòÌä∏Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ
+                // ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_18));
                 break;
             case 225:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 5, option3);
-                //					message << "STR+5 «¡∑œƒ⁄∆ÆøÕ STR+4 ø™Ω ¿⁄∞°(Anti-Cross)∏¶ ∆“¥¯∆Æ∏¶ ¡ˆ±ﬁ«ÿ
-                // µÂ∑»Ω¿¥œ¥Ÿ. ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 ÌîÑÎ°ùÏΩîÌä∏ÏôÄ STR+4 Ïó≠Ïã≠ÏûêÍ∞Ä(Anti-Cross)Î•º Ìå¨ÎçòÌä∏Î•º ÏßÄÍ∏âÌï¥
+                // ÎìúÎ†∏ÏäµÎãàÎã§. ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_19));
                 break;
             case 275:
                 pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option5);
                 pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 6, option3);
-                //					message << "STR+5 «¡∑œƒ⁄∆ÆøÕ STR+4 µ•Ω∫Ω∫≈∏(Death-Star) ∆“¥¯∆Æ∏¶ ¡ˆ±ﬁ«ÿ µÂ∑»Ω¿¥œ¥Ÿ.
-                // ƒ⁄∏Ææ∆∆¿ ∆ƒ¿Ã∆√!";
+                //					message << "STR+5 ÌîÑÎ°ùÏΩîÌä∏ÏôÄ STR+4 Îç∞Ïä§Ïä§ÌÉÄ(Death-Star) Ìå¨ÎçòÌä∏Î•º ÏßÄÍ∏âÌï¥ ÎìúÎ†∏ÏäµÎãàÎã§.
+                // ÏΩîÎ¶¨ÏïÑÌåÄ ÌååÏù¥ÌåÖ!";
                 sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_20));
                 break;
             default:
@@ -279,21 +279,21 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
     OR.registerObject(pItem1);
     OR.registerObject(pItem2);
 
-    // ∏∏æ‡ inventoryø° ∞¯∞£¿Ã ¿÷¥Ÿ∏È, ≥÷¥¬¥Ÿ.
-    // µŒ∞≥∏¶ ≥÷æÓæﬂ «œ±‚ ∂ßπÆø° «œ≥™∏¶ ≥÷∞Ì ¥ŸΩ√ «œ≥™∏¶ ¿ÃæÓº≠ ≥÷¿∫ ¥Ÿ¿Ωø°
-    // √÷¡æ¿˚¿∏∑Œ µŒ∞≥ ¥Ÿ µÈæÓ∞°∏È √‡±∏∞¯¿« ∞≥ºˆ∏¶ ¡Ÿ¿Œ¥Ÿ.
-    // ∏∏æ‡ µŒπ¯¬∞∞° µÈæÓ∞°¡ˆ æ ¥¿¥Ÿ∏È, √ππ¯¬∞ æ∆¿Ã≈€¿ª ªË¡¶«—¥Ÿ.
+    // ÎßåÏïΩ inventoryÏóê Í≥µÍ∞ÑÏù¥ ÏûàÎã§Î©¥, ÎÑ£ÎäîÎã§.
+    // ÎëêÍ∞úÎ•º ÎÑ£Ïñ¥Ïïº ÌïòÍ∏∞ ÎïåÎ¨∏Ïóê ÌïòÎÇòÎ•º ÎÑ£Í≥† Îã§Ïãú ÌïòÎÇòÎ•º Ïù¥Ïñ¥ÏÑú ÎÑ£ÏùÄ Îã§ÏùåÏóê
+    // ÏµúÏ¢ÖÏ†ÅÏúºÎ°ú ÎëêÍ∞ú Îã§ Îì§Ïñ¥Í∞ÄÎ©¥ Ï∂ïÍµ¨Í≥µÏùò Í∞úÏàòÎ•º Ï§ÑÏù∏Îã§.
+    // ÎßåÏïΩ ÎëêÎ≤àÏß∏Í∞Ä Îì§Ïñ¥Í∞ÄÏßÄ ÏïäÎäêÎã§Î©¥, Ï≤´Î≤àÏß∏ ÏïÑÏù¥ÌÖúÏùÑ ÏÇ≠Ï†úÌïúÎã§.
     if (pInventory->addItem(pItem1, pt)) {
         if (pInventory->addItem(pItem2, pt2)) {
             pItem1->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
             pItem2->create(pPC->getName(), STORAGE_INVENTORY, 0, pt2.x, pt2.y);
 
-            // ItemTraceLog ∏¶ ≥≤±‰¥Ÿ
+            // ItemTraceLog Î•º ÎÇ®Í∏¥Îã§
             if (pItem1 != NULL && pItem1->isTraceItem()) {
                 remainTraceLog(pItem1, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
             }
 
-            // ItemTraceLog ∏¶ ≥≤±‰¥Ÿ
+            // ItemTraceLog Î•º ÎÇ®Í∏¥Îã§
             if (pItem2 != NULL && pItem2->isTraceItem()) {
                 remainTraceLog(pItem2, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
             }
@@ -322,9 +322,9 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
 
             pPlayer->sendPacket(&gcCreateItem);
 
-            // √‡±∏∞¯¿ª ¡Ÿ¿Œ¥Ÿ.
+            // Ï∂ïÍµ¨Í≥µÏùÑ Ï§ÑÏù∏Îã§.
             pInventory->decreaseStar(star);
-            cout << "«√∑π¿ÃæÓ¿« √‡±∏∞¯¿ª " << star.amount << " ∞≥ ¡Ÿø¥Ω¿¥œ¥Ÿ." << endl;
+            cout << "ÌîåÎ†àÏù¥Ïñ¥Ïùò Ï∂ïÍµ¨Í≥µÏùÑ " << star.amount << " Í∞ú Ï§ÑÏòÄÏäµÎãàÎã§." << endl;
 
             GCNPCResponse gcNPCResponse;
             gcNPCResponse.setCode(NPC_RESPONSE_DECREASE_BALL);
@@ -341,7 +341,7 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
             SAFE_DELETE(pItem2);
             //			StringStream buf;
 
-            //			buf << "¿Œ∫•≈‰∏Æø° ∞¯∞£¿Ã ∫Œ¡∑«’¥œ¥Ÿ";
+            //			buf << "Ïù∏Î≤§ÌÜ†Î¶¨Ïóê Í≥µÍ∞ÑÏù¥ Î∂ÄÏ°±Ìï©ÎãàÎã§";
 
             GCSystemMessage gcSystemMessage;
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE));
@@ -349,7 +349,7 @@ void ActionTradeEventItem::execute(Creature* pCreature1, Creature* pCreature2)
         }
     } else {
         //		StringStream buf;
-        //		buf << "¿Œ∫•≈‰∏Æø° ∞¯∞£¿Ã ∫Œ¡∑«’¥œ¥Ÿ";
+        //		buf << "Ïù∏Î≤§ÌÜ†Î¶¨Ïóê Í≥µÍ∞ÑÏù¥ Î∂ÄÏ°±Ìï©ÎãàÎã§";
 
         GCSystemMessage gcSystemMessage;
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE));

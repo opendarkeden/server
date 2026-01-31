@@ -104,14 +104,14 @@ public:
 
 
 private:
-    // Æ®¸®°Å Å¸ÀÔ
+    // íŠ¸ë¦¬ê±° íƒ€ì…
     TriggerType m_TriggerType;
 
-    // Æ®¸®°Å ¾ÆÀÌµğ
+    // íŠ¸ë¦¬ê±° ì•„ì´ë””
     TriggerID_t m_TriggerID;
 
-    // ¿¬°üµÇ´Â Äù½ºÆ® ¾ÆÀÌµğ
-    // m_TriggerType == QUEST_TRIGGER ÀÏ °æ¿ì¿¡¸¸ ÀÇ¹Ì°¡ ÀÖ´Ù.
+    // ì—°ê´€ë˜ëŠ” í€˜ìŠ¤íŠ¸ ì•„ì´ë””
+    // m_TriggerType == QUEST_TRIGGER ì¼ ê²½ìš°ì—ë§Œ ì˜ë¯¸ê°€ ìˆë‹¤.
     QuestID_t m_QuestID;
 
     // bitset of conditions for fastest reference

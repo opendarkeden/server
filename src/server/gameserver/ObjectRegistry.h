@@ -14,7 +14,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class ObjectRegistry;
-// °´Ã¼¿¡°Ô ObjectID¸¦ ÇÒ´çÇÑ´Ù.
+// ê°ì²´ì—ê²Œ ObjectIDë¥¼ í• ë‹¹í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class ObjectRegistry {
@@ -28,7 +28,7 @@ public:
     void unlock();
 
 private:
-    ObjectID_t m_ObjectIDKey; // Object ID »ı¼ºÀ» À§ÇÑ Å°°ª
+    ObjectID_t m_ObjectIDKey; // Object ID ìƒì„±ì„ ìœ„í•œ í‚¤ê°’
     mutable Mutex m_Mutex;    // mutex
 };
 

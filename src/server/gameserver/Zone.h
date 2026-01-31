@@ -53,27 +53,27 @@ class LevelWarManager;
 class DynamicZone;
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸ÀÇ Å¸ÀÔ
+// ÃÂ¸Ã€Ã‡ Ã…Â¸Ã€Ã”
 //////////////////////////////////////////////////////////////////////////////
 enum ZoneType {
-    ZONE_NORMAL_FIELD,          // ÀÏ¹İ ÇÊµå
-    ZONE_NORMAL_DUNGEON,        // ÀÏ¹İ ´øÀü
-    ZONE_SLAYER_GUILD,          // ½½·¹ÀÌ¾î ±æµå
+    ZONE_NORMAL_FIELD,          // Ã€ÃÂ¹Ã Ã‡ÃŠÂµÃ¥
+    ZONE_NORMAL_DUNGEON,        // Ã€ÃÂ¹Ã Â´Ã¸Ã€Ã¼
+    ZONE_SLAYER_GUILD,          // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â±Ã¦ÂµÃ¥
     ZONE_RESERVED_SLAYER_GUILD, // ...
-    ZONE_PC_VAMPIRE_LAIR,       // PC ¹ìÆÄÀÌ¾î ·¹¾î
-    ZONE_NPC_VAMPIRE_LAIR,      // NPC ¹ìÆÄÀÌ¾î ·¹¾î
+    ZONE_PC_VAMPIRE_LAIR,       // PC Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â·Â¹Â¾Ã®
+    ZONE_NPC_VAMPIRE_LAIR,      // NPC Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â·Â¹Â¾Ã®
     ZONE_NPC_HOME,              // ...
     ZONE_NPC_SHOP,              // ...
     ZONE_RANDOM_MAP,            // -_-;
-    ZONE_CASTLE,                // ¼º
+    ZONE_CASTLE,                // Â¼Âº
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸ÀÇ Á¢±Ù¸ğµå
+// ÃÂ¸Ã€Ã‡ ÃÂ¢Â±Ã™Â¸Ã°ÂµÃ¥
 //////////////////////////////////////////////////////////////////////////////
 enum ZoneAccessMode {
-    PUBLIC = 0, // ¾Æ¹«³ª µé¾î¿Ã ¼ö ÀÖ´Â Á¸ÀÌ´Ù.
-    PRIVATE     // ÁöÁ¤µÈ »ç¶÷¸¸ÀÌ µé¾î¿Ã ¼ö ÀÖ´Â Á¸ÀÌ´Ù.(±æµåÁ¸,·¹¾î µî)
+    PUBLIC = 0, // Â¾Ã†Â¹Â«Â³Âª ÂµÃ©Â¾Ã®Â¿Ãƒ Â¼Ã¶ Ã€Ã–Â´Ã‚ ÃÂ¸Ã€ÃŒÂ´Ã™.
+    PRIVATE     // ÃÃ¶ÃÂ¤ÂµÃˆ Â»Ã§Â¶Ã·Â¸Â¸Ã€ÃŒ ÂµÃ©Â¾Ã®Â¿Ãƒ Â¼Ã¶ Ã€Ã–Â´Ã‚ ÃÂ¸Ã€ÃŒÂ´Ã™.(Â±Ã¦ÂµÃ¥ÃÂ¸,Â·Â¹Â¾Ã® ÂµÃ®)
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ public:
     void movePC(Creature* pCreature, ZoneCoord_t nx, ZoneCoord_t ny, Dir_t dir);
     void moveCreature(Creature* pCreature, ZoneCoord_t nx, ZoneCoord_t ny, Dir_t dir);
 
-    // ¸ó½ºÅÍ°¡ ÁÖº¯À» ½ºÄµÇÑ´Ù.
+    // Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ ÃÃ–ÂºÂ¯Ã€Â» Â½ÂºÃ„ÂµÃ‡Ã‘Â´Ã™.
     void monsterScan(Monster* pMonster, ZoneCoord_t x, ZoneCoord_t y, Dir_t dir);
 
     void broadcastPacket(Packet* pPacket, Creature* owner = NULL);
@@ -155,50 +155,50 @@ public:
     list<Creature*> broadcastSkillPacket(ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2,
                                          Packet* pPacket, list<Creature*> creatureList, bool bConcernDarkness = true);
 
-    //(x,y) Å¸ÀÏ À§¿¡ ÀÖ´Â PC ¿¡°Ô ÁÖº¯ Á¤º¸¸¦ ÀĞ¾î¼­ Àü¼ÛÇÑ´Ù. pPacket ÀÌ NULL ÀÌ ¾Æ´Ï¶ó¸é, µ¿½Ã¿¡ ºê·ÎµåÄ³½ºÆ®µµ
-    // ´ã´çÇÑ´Ù.
+    //(x,y) Ã…Â¸Ã€Ã Ã€Â§Â¿Â¡ Ã€Ã–Â´Ã‚ PC Â¿Â¡Â°Ã” ÃÃ–ÂºÂ¯ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€ÃÂ¾Ã®Â¼Â­ Ã€Ã¼Â¼Ã›Ã‡Ã‘Â´Ã™. pPacket Ã€ÃŒ NULL Ã€ÃŒ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã©, ÂµÂ¿Â½ÃƒÂ¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®ÂµÂµ
+    // Â´Ã£Â´Ã§Ã‡Ã‘Â´Ã™.
     void scan(Creature* pPC, ZoneCoord_t x, ZoneCoord_t y, Packet* pPacket);
 
-    // Á¦ÀÚ¸®¿¡¼­ ½Ã¾ß°¡ º¯°æµÈ °æ¿ì ÁÖº¯ Á¤º¸¸¦ ´Ù½Ã º¸³»ÁØ´Ù.
+    // ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ Â½ÃƒÂ¾ÃŸÂ°Â¡ ÂºÂ¯Â°Ã¦ÂµÃˆ Â°Ã¦Â¿Ã¬ ÃÃ–ÂºÂ¯ ÃÂ¤ÂºÂ¸Â¸Â¦ Â´Ã™Â½Ãƒ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
     void updateScan(Creature* pPC, Sight_t oldSight, Sight_t newSight);
 
-    // ±×°÷À» º¼ ¼ö ÀÖ´Â ³Ñµé(Player)ÀÇ list¸¦ µ¹·ÁÁØ´Ù.ª
+    // Â±Ã—Â°Ã·Ã€Â» ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â³Ã‘ÂµÃ©(Player)Ã€Ã‡ listÂ¸Â¦ ÂµÂ¹Â·ÃÃÃ˜Â´Ã™.Âª
     list<Creature*> getWatcherList(ZoneCoord_t, ZoneCoord_t, Creature* pTargetCreature = NULL);
 
-    // ¸®Á¨µÈ ¸ó½ºÅÍ°¡ ÁÖº¯ÀÇ PC µé¿¡°Ô GCAddXXX ÆĞÅ¶À» ºê·ÎµåÄ³½ºÆ®ÇÏ¸é¼­µ¿½Ã¿¡ ±×µéÀ» ÀáÀçÀûÀÎ ÀûÀ¸·Î ÀÎ½ÄÇÏµµ·Ï ÇÑ´Ù.
+    // Â¸Â®ÃÂ¨ÂµÃˆ Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ ÃÃ–ÂºÂ¯Ã€Ã‡ PC ÂµÃ©Â¿Â¡Â°Ã” GCAddXXX Ã†ÃÃ…Â¶Ã€Â» ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡ÃÂ¸Ã©Â¼Â­ÂµÂ¿Â½ÃƒÂ¿Â¡ Â±Ã—ÂµÃ©Ã€Â» Ã€Ã¡Ã€Ã§Ã€Ã»Ã€Ã Ã€Ã»Ã€Â¸Â·Ã Ã€ÃÂ½Ã„Ã‡ÃÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
     void scanPC(Creature* pCreature);
 
-    // Á¦ÀÚ¸®¿¡¼­ hidden creature¿¡ ´ëÇÑ update°¡ ÇÊ¿äÇÑ °æ¿ì.
+    // ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ hidden creatureÂ¿Â¡ Â´Ã«Ã‡Ã‘ updateÂ°Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Â°Ã¦Â¿Ã¬.
     void updateHiddenScan(Creature* pCreature);
 
-    // Á¦ÀÚ¸®¿¡¼­ install mine¿¡ ´ëÇÑ update°¡ ÇÊ¿äÇÑ °æ¿ì.
+    // ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ install mineÂ¿Â¡ Â´Ã«Ã‡Ã‘ updateÂ°Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Â°Ã¦Â¿Ã¬.
     void updateMineScan(Creature* pCreature);
 
-    // Á¦ÀÚ¸®¿¡¼­ invisible creature¿¡ ´ëÇÑ update°¡ ÇÊ¿äÇÑ °æ¿ì.
+    // ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ invisible creatureÂ¿Â¡ Â´Ã«Ã‡Ã‘ updateÂ°Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Â°Ã¦Â¿Ã¬.
     void updateInvisibleScan(Creature* pCreature);
 
-    // Á¦ÀÚ¸®¿¡¼­ hide,invisible creature¿¡ ´ëÇÑ update°¡ ÇÊ¿äÇÑ °æ¿ì.
+    // ÃÂ¦Ã€ÃšÂ¸Â®Â¿Â¡Â¼Â­ hide,invisible creatureÂ¿Â¡ Â´Ã«Ã‡Ã‘ updateÂ°Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Â°Ã¦Â¿Ã¬.
     void updateDetectScan(Creature* pCreature);
 
-    // PC °¡ P(x1,y1)¿¡¼­ Q(x2,y2)·Î ÀÌµ¿ÇßÀ½À» ÁÖº¯¿¡ ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+    // PC Â°Â¡ P(x1,y1)Â¿Â¡Â¼Â­ Q(x2,y2)Â·Ã Ã€ÃŒÂµÂ¿Ã‡ÃŸÃ€Â½Ã€Â» ÃÃ–ÂºÂ¯Â¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡Ã‘Â´Ã™.
     void movePCBroadcast(Creature* pPC, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2,
                          bool bSendMove = true, bool bKnockback = false);
 
-    // !PC °¡ P(x1,y1)¿¡¼­ Q(x2,y2)·Î ÀÌµ¿ÇßÀ½À» ÁÖº¯¿¡ ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+    // !PC Â°Â¡ P(x1,y1)Â¿Â¡Â¼Â­ Q(x2,y2)Â·Ã Ã€ÃŒÂµÂ¿Ã‡ÃŸÃ€Â½Ã€Â» ÃÃ–ÂºÂ¯Â¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡Ã‘Â´Ã™.
     void moveCreatureBroadcast(Creature* pCreature, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2,
                                bool bSendMove = true, bool bKnockback = false);
 
-    // PC °¡ P(x1,y1)¿¡¼­ Q(x2,y2)·Î ÀÌµ¿ÇßÀ½À» ÁÖº¯¿¡ ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+    // PC Â°Â¡ P(x1,y1)Â¿Â¡Â¼Â­ Q(x2,y2)Â·Ã Ã€ÃŒÂµÂ¿Ã‡ÃŸÃ€Â½Ã€Â» ÃÃ–ÂºÂ¯Â¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡Ã‘Â´Ã™.
     bool moveFastPC(Creature* pPC, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2,
                     SkillType_t skillType);
     bool moveFastMonster(Monster* pMonster, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2,
                          SkillType_t skillType);
 
-    // ÀüÀï½Ã ¼º ¾ÈÀº ¾ÈÀüÁö´ë°¡ µÇ¾ú´Ù°¡ ¸»¾Ò´Ù°¡ ÇÑ´Ù. Á¸À» ¼¼ÀÌÇÁÁ¸ÀÌ ¾Æ´Ï°Ô ¸¸µé°Å³ª ¿ø»óº¹±¸½ÃÅ®´Ù.
+    // Ã€Ã¼Ã€Ã¯Â½Ãƒ Â¼Âº Â¾ÃˆÃ€Âº Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â°Â¡ ÂµÃ‡Â¾ÃºÂ´Ã™Â°Â¡ Â¸Â»Â¾Ã’Â´Ã™Â°Â¡ Ã‡Ã‘Â´Ã™. ÃÂ¸Ã€Â» Â¼Â¼Ã€ÃŒÃ‡ÃÃÂ¸Ã€ÃŒ Â¾Ã†Â´ÃÂ°Ã” Â¸Â¸ÂµÃ©Â°Ã…Â³Âª Â¿Ã¸Â»Ã³ÂºÂ¹Â±Â¸Â½ÃƒÃ…Â®Â´Ã™.
     void releaseSafeZone();
     void resetSafeZone();
 
-    // ¿ÀºêÁ§Æ® µî·Ï
+    // Â¿Ã€ÂºÃªÃÂ§Ã†Â® ÂµÃ®Â·Ã
     void registerObject(Object* pObject) {
         getObjectRegistry().registerObject(pObject);
     }
@@ -206,7 +206,7 @@ public:
 public:
     void heartbeat();
 
-    // ÀÌ¸§, Å©¸®Ã³ Å¬·¡½º, OID µîÀ» ÀÌ¿ëÇØ¼­ Á¸¿¡ Á¸ÀçÇÏ´Â Å©¸®ÃÄ °´Ã¼¿¡ Á¢±Ù
+    // Ã€ÃŒÂ¸Â§, Ã…Â©Â¸Â®ÃƒÂ³ Ã…Â¬Â·Â¡Â½Âº, OID ÂµÃ®Ã€Â» Ã€ÃŒÂ¿Ã«Ã‡Ã˜Â¼Â­ ÃÂ¸Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„ Â°Â´ÃƒÂ¼Â¿Â¡ ÃÂ¢Â±Ã™
     Creature* getCreature(const string& Name) const;  // NoSuchElementException, Error);
     Creature* getCreature(ObjectID_t objectID) const; // NoSuchElementException, Error);
     Creature* getCreature(Creature::CreatureClass creatureClass, ObjectID_t objectID) const;
@@ -385,7 +385,7 @@ public:
     void addNPCInfo(NPCInfo* pInfo);
     bool removeNPCInfo(NPC* pNPC);
 
-    // Á¸ ÀüÃ¼ÀÇ NPC¿¡°Ô MarketConditionÀ» ¼³Á¤ÇÑ´Ù. default(100, 25)
+    // ÃÂ¸ Ã€Ã¼ÃƒÂ¼Ã€Ã‡ NPCÂ¿Â¡Â°Ã” MarketConditionÃ€Â» Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™. default(100, 25)
     // void setNPCMarketCondition(MarketCond_t NPCSell, MarketCond_t NPCBuy) ;
 
     void addVampirePortal(ZoneCoord_t cx, ZoneCoord_t cy, Vampire* pVampire, const ZONE_COORD& ZoneCoord);
@@ -409,11 +409,11 @@ public:
     }
 
 
-    // pPC°¡ pMonster¸¦ º¼¶§ Monster´Â ¾î¶® packetÀ¸·Î addµÇ´Â°¡?
-    // pPC°¡ NULLÀÎ °æ¿ì ´Ù º¸ÀÌ´Â »óÅÂ¶ó°í °¡Á¤ÇÑ´Ù.
+    // pPCÂ°Â¡ pMonsterÂ¸Â¦ ÂºÂ¼Â¶Â§ MonsterÂ´Ã‚ Â¾Ã®Â¶Â® packetÃ€Â¸Â·Ã addÂµÃ‡Â´Ã‚Â°Â¡?
+    // pPCÂ°Â¡ NULLÃ€Ã Â°Ã¦Â¿Ã¬ Â´Ã™ ÂºÂ¸Ã€ÃŒÂ´Ã‚ Â»Ã³Ã…Ã‚Â¶Ã³Â°Ã­ Â°Â¡ÃÂ¤Ã‡Ã‘Â´Ã™.
     Packet* createMonsterAddPacket(Monster* pMonster, Creature* pPC) const;
 
-    // ¸÷ »ı¼º ÁÂÇ¥
+    // Â¸Ã· Â»Ã½Â¼Âº ÃÃ‚Ã‡Â¥
     const BPOINT& getRandomMonsterRegenPosition() const;
     const BPOINT& getRandomEmptyTilePosition() const;
 
@@ -450,7 +450,7 @@ public:
 #endif
 
 public:
-    // À¯·áÈ­
+    // Ã€Â¯Â·Ã¡ÃˆÂ­
     bool isPayPlay() const {
         return m_bPayPlay;
     }
@@ -507,7 +507,7 @@ public:
         m_bCastleZone = bCastleZone;
     }
 
-    // Relicº¸°ü´ë¸¦ °®°í ÀÖ³ª?
+    // RelicÂºÂ¸Â°Ã¼Â´Ã«Â¸Â¦ Â°Â®Â°Ã­ Ã€Ã–Â³Âª?
     bool hasRelicTable() const {
         return m_bHasRelicTable;
     }
@@ -518,7 +518,7 @@ public:
     bool addRelicItem(int relicIndex);
     bool deleteRelicItem();
 
-    // Holy Land Race Bonus º¯È­¿¡ µû¸¥ ÇÃ·¹ÀÌ¾î refresh
+    // Holy Land Race Bonus ÂºÂ¯ÃˆÂ­Â¿Â¡ ÂµÃ»Â¸Â¥ Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã® refresh
     void setRefreshHolyLandPlayer(bool bRefresh) {
         m_pPCManager->setRefreshHolyLandPlayer(bRefresh);
     }
@@ -550,24 +550,24 @@ public:
     // member data
     ////////////////////////////////////////////////////////////
 private:
-    // Á¸ÀÇ ±âº» ÀûÀÎ Á¤º¸
+    // ÃÂ¸Ã€Ã‡ Â±Ã¢ÂºÂ» Ã€Ã»Ã€Ã ÃÂ¤ÂºÂ¸
     ZoneID_t m_ZoneID;               // zone id
     ZoneGroup* m_pZoneGroup;         // parent zone group
-    ZoneType m_ZoneType;             // Á¸ Å¸ÀÔ(Á¸ Å¸ÀÔÀÌ ¹Ù®î¸é DB¿¡ ÀúÀåµÇ¾î¾ß ÇÑ´Ù.)
-    ZoneLevel_t m_ZoneLevel;         // Á¸ÀÇ ·¹º§.
-    ZoneAccessMode m_ZoneAccessMode; // Á¸¿¡ ´ëÇÑ Á¢±Ù ¸ğµå { PUBLIC | PRIVATE }
-    string m_OwnerID;                // Á¸ ¼ÒÀ¯ÀÚ ¾ÆÀÌµğ(½½·¹ÀÌ¾î ±æµå ¾ÆÀÌµğ È¤Àº ¹ìÆÄÀÌ¾î ¸¶½ºÅÍ ¾ÆÀÌµğ)
-    DarkLevel_t m_DarkLevel;         // Á¸ÀÇ ¾îµÓ±â
-    LightLevel_t m_LightLevel;       // Á¸ÀÇ ºûÀÇ Å©±â
-    ZoneCoord_t m_Width;             // Á¸ÀÇ °¡·Î Å©±â
-    ZoneCoord_t m_Height;            // Á¸ÀÇ ¼¼·Î Å©±â
-    Tile** m_pTiles;                 // Å¸ÀÏÀÇ ÀÌÂ÷¿ø ¹è¿­
-    ZoneLevel_t** m_ppLevel;         // Á¸ ·¹º§ÀÇ ÀÌÂ÷¿ø ¹è¿­
-    Sector** m_pSectors;             // ¼½ÅÍÀÇ ÀÌÂ÷¿ø ¹è¿­
-    int m_SectorWidth;               // ¼½ÅÍÀÇ Å©±â
-    int m_SectorHeight;              // ¼½ÅÍÀÇ Å©±â
+    ZoneType m_ZoneType;             // ÃÂ¸ Ã…Â¸Ã€Ã”(ÃÂ¸ Ã…Â¸Ã€Ã”Ã€ÃŒ Â¹Ã™Â®Ã®Â¸Ã© DBÂ¿Â¡ Ã€ÃºÃ€Ã¥ÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.)
+    ZoneLevel_t m_ZoneLevel;         // ÃÂ¸Ã€Ã‡ Â·Â¹ÂºÂ§.
+    ZoneAccessMode m_ZoneAccessMode; // ÃÂ¸Â¿Â¡ Â´Ã«Ã‡Ã‘ ÃÂ¢Â±Ã™ Â¸Ã°ÂµÃ¥ { PUBLIC | PRIVATE }
+    string m_OwnerID;                // ÃÂ¸ Â¼Ã’Ã€Â¯Ã€Ãš Â¾Ã†Ã€ÃŒÂµÃ°(Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â±Ã¦ÂµÃ¥ Â¾Ã†Ã€ÃŒÂµÃ° ÃˆÂ¤Ã€Âº Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¸Â¶Â½ÂºÃ…Ã Â¾Ã†Ã€ÃŒÂµÃ°)
+    DarkLevel_t m_DarkLevel;         // ÃÂ¸Ã€Ã‡ Â¾Ã®ÂµÃ“Â±Ã¢
+    LightLevel_t m_LightLevel;       // ÃÂ¸Ã€Ã‡ ÂºÃ»Ã€Ã‡ Ã…Â©Â±Ã¢
+    ZoneCoord_t m_Width;             // ÃÂ¸Ã€Ã‡ Â°Â¡Â·Ã Ã…Â©Â±Ã¢
+    ZoneCoord_t m_Height;            // ÃÂ¸Ã€Ã‡ Â¼Â¼Â·Ã Ã…Â©Â±Ã¢
+    Tile** m_pTiles;                 // Ã…Â¸Ã€ÃÃ€Ã‡ Ã€ÃŒÃ‚Ã·Â¿Ã¸ Â¹Ã¨Â¿Â­
+    ZoneLevel_t** m_ppLevel;         // ÃÂ¸ Â·Â¹ÂºÂ§Ã€Ã‡ Ã€ÃŒÃ‚Ã·Â¿Ã¸ Â¹Ã¨Â¿Â­
+    Sector** m_pSectors;             // Â¼Â½Ã…ÃÃ€Ã‡ Ã€ÃŒÃ‚Ã·Â¿Ã¸ Â¹Ã¨Â¿Â­
+    int m_SectorWidth;               // Â¼Â½Ã…ÃÃ€Ã‡ Ã…Â©Â±Ã¢
+    int m_SectorHeight;              // Â¼Â½Ã…ÃÃ€Ã‡ Ã…Â©Â±Ã¢
 
-    // °¢Á¾ ¸Å´ÏÀúµé
+    // Â°Â¢ÃÂ¾ Â¸Ã…Â´ÃÃ€ÃºÂµÃ©
     PCManager* m_pPCManager;           // PC Manager
     NPCManager* m_pNPCManager;         // NPC Manager
     MonsterManager* m_pMonsterManager; // Monster Manager
@@ -579,27 +579,27 @@ private:
     EffectManager* m_pLockedEffectManager;  // effect manager
     EffectScheduleManager* m_pEffectScheduleManager;
     list<NPCInfo*> m_NPCInfos;         // npc infos
-    WeatherManager* m_pWeatherManager; // Á¸ÀÇ ³¯¾¾
+    WeatherManager* m_pWeatherManager; // ÃÂ¸Ã€Ã‡ Â³Â¯Â¾Â¾
 
-    // Á¸¿¡ ÃâÇöÇÏ´Â NPC ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀÇ ¸®½ºÆ®
+    // ÃÂ¸Â¿Â¡ ÃƒÃ¢Ã‡Ã¶Ã‡ÃÂ´Ã‚ NPC Â½ÂºÃ‡ÃÂ¶Ã³Ã€ÃŒÃ†Â® Ã…Â¸Ã€Ã”Ã€Ã‡ Â¸Â®Â½ÂºÃ†Â®
     BYTE m_NPCCount;
     NPCType_t m_NPCTypes[maxNPCPerZone];
 
-    // Á¸¿¡ ÃâÇöÇÏ´Â ¸ó½ºÅÍ ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀÇ ¸®½ºÆ®
+    // ÃÂ¸Â¿Â¡ ÃƒÃ¢Ã‡Ã¶Ã‡ÃÂ´Ã‚ Â¸Ã³Â½ÂºÃ…Ã Â½ÂºÃ‡ÃÂ¶Ã³Ã€ÃŒÃ†Â® Ã…Â¸Ã€Ã”Ã€Ã‡ Â¸Â®Â½ÂºÃ†Â®
     BYTE m_MonsterCount;
     MonsterType_t m_MonsterTypes[maxMonsterPerZone];
 
     // object registery
     ObjectRegistry m_ObjectRegistry;
 
-    // Á¸¿¡ »õ·Î µé¾î°¥ PCµéÀÇ Å¥
+    // ÃÂ¸Â¿Â¡ Â»ÃµÂ·Ã ÂµÃ©Â¾Ã®Â°Â¥ PCÂµÃ©Ã€Ã‡ Ã…Â¥
     queue<Creature*> m_PCQueue;
     list<Creature*> m_PCListQueue;
 
-    // zone¹Ù´Ú¿¡ ¶³¾îÁø item hashmap
+    // zoneÂ¹Ã™Â´ÃšÂ¿Â¡ Â¶Â³Â¾Ã®ÃÃ¸ item hashmap
     unordered_map<ObjectID_t, Item*> m_Items;
 
-    // Monster AI¸¦ À§ÇØ Á¸ÀÇ ¿µ¿ªÀ» ±¸ºĞÁö¾î ³õÀº »ç°¢Çüµé...
+    // Monster AIÂ¸Â¦ Ã€Â§Ã‡Ã˜ ÃÂ¸Ã€Ã‡ Â¿ÂµÂ¿ÂªÃ€Â» Â±Â¸ÂºÃÃÃ¶Â¾Ã® Â³ÃµÃ€Âº Â»Ã§Â°Â¢Ã‡Ã¼ÂµÃ©...
     VSRect m_OuterRect;
     VSRect m_InnerRect;
     VSRect m_CoreRect;
@@ -608,7 +608,7 @@ private:
     PartyInviteInfoManager* m_pPartyInviteInfoManager;
     TradeManager* m_pTradeManager;
 
-    // ¸÷ »ı¼º ÁÂÇ¥¸¦ À§ÇÑ Á¤º¸.
+    // Â¸Ã· Â»Ã½Â¼Âº ÃÃ‚Ã‡Â¥Â¸Â¦ Ã€Â§Ã‡Ã‘ ÃÂ¤ÂºÂ¸.
     vector<BPOINT> m_MonsterRegenPositions;
     vector<BPOINT> m_EmptyTilePositions;
 
@@ -616,11 +616,11 @@ private:
     mutable Mutex m_Mutex;
     mutable Mutex m_MutexEffect;
 
-    // À¯·áÈ­ °ü·Ã
+    // Ã€Â¯Â·Ã¡ÃˆÂ­ Â°Ã¼Â·Ãƒ
     bool m_bPayPlay;
     bool m_bPremiumZone;
 
-    // ±âÅ¸ Á¤º¸
+    // Â±Ã¢Ã…Â¸ ÃÂ¤ÂºÂ¸
     bool m_bPKZone;
     bool m_bNoPortalZone;
     bool m_bMasterLair;
@@ -628,10 +628,10 @@ private:
     bool m_bHolyLand;
     bool m_bCastleZone;
 
-    // ÀüÀï Áß?
+    // Ã€Ã¼Ã€Ã¯ ÃÃŸ?
     bool m_bHasRelicTable;
 
-    // Relic Table °ü·Ã Á¤º¸
+    // Relic Table Â°Ã¼Â·Ãƒ ÃÂ¤ÂºÂ¸
     ObjectID_t m_RelicTableOID;
     ZoneCoord_t m_RelicTableX;
     ZoneCoord_t m_RelicTableY;
@@ -639,10 +639,10 @@ private:
     Timeval m_LoadValueStartTime;
     DWORD m_LoadValue;
 
-    // ¸¶½ºÅÍ ·¹¾î. by sigi.2002.9.2
+    // Â¸Â¶Â½ÂºÃ…Ã Â·Â¹Â¾Ã®. by sigi.2002.9.2
     MasterLairManager* m_pMasterLairManager;
 
-    // ÀüÀï °ü¸® by sigi. 2003.1.24
+    // Ã€Ã¼Ã€Ã¯ Â°Ã¼Â¸Â® by sigi. 2003.1.24
     WarScheduler* m_pWarScheduler;
 
     LevelWarManager* m_pLevelWarManager;
@@ -662,7 +662,7 @@ private:
     uchar m_EncryptCode;
 #endif
 
-    DynamicZone* m_pDynamicZone; // ÀÎ´ø Á¤º¸
+    DynamicZone* m_pDynamicZone; // Ã€ÃÂ´Ã¸ ÃÂ¤ÂºÂ¸
 };
 
 #endif

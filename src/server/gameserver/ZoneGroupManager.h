@@ -121,7 +121,7 @@ public:
     void removeFlag(Effect::EffectClass EC);
 
 private:
-    // zone ÀÇ ÇØ½¬¸Ê
+    // zone ì˜ í•´ì‰¬ë§µ
     unordered_map<ZoneGroupID_t, ZoneGroup*> m_ZoneGroups;
 
     mutable Mutex m_Mutex;

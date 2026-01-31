@@ -18,7 +18,7 @@
 #include "Properties.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Resurrect::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -39,8 +39,8 @@ void Resurrect::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // ½½·¹ÀÌ¾î¸¸À» µÇ»ì¸± ¼ö ÀÖ´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // ìŠ¬ë ˆì´ì–´ë§Œì„ ë˜ì‚´ë¦´ ìˆ˜ ìžˆë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !pTargetCreature->isSlayer() ||
             (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore") != 0)) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -50,7 +50,7 @@ void Resurrect::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
         Assert(pTargetSlayer != NULL);
 
-        // Å¸°Ù¿¡°Ô ÄÚ¸¶ ÀÌÆåÆ®°¡ °É·ÁÀÖÁö ¾Ê°Å³ª, Á×Àº »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¾µ ¼ö ¾ø´Ù.
+        // íƒ€ê²Ÿì—ê²Œ ì½”ë§ˆ ì´íŽ™íŠ¸ê°€ ê±¸ë ¤ìžˆì§€ ì•Šê±°ë‚˜, ì£½ì€ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì“¸ ìˆ˜ ì—†ë‹¤.
         if (!pTargetSlayer->isFlag(Effect::EFFECT_CLASS_COMA) || !pTargetSlayer->isDead()) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -92,22 +92,22 @@ void Resurrect::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
             SkillOutput output;
             computeOutput(input, output);
 
-            // Å¸°ÙÀÇ ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ ÄÚ¸¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+            // íƒ€ê²Ÿì˜ ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì½”ë§ˆ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
             pTargetCreature->deleteEffect(Effect::EFFECT_CLASS_COMA);
             pTargetCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
 
-            // ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¬´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì½”ë§ˆ ì´íŽ™íŠ¸ê°€ ë‚ ì•„ê°”ë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
             gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_COMA);
             pZone->broadcastPacket(targetX, targetY, &gcRemoveEffect);
 
-            // ÀÌÆåÆ® Á¤º¸¸¦ ´Ù½Ã º¸³»ÁØ´Ù. by sigi. 2002.11.14
+            // ì´íŽ™íŠ¸ ì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ë‚´ì¤€ë‹¤. by sigi. 2002.11.14
             pTargetSlayer->getEffectManager()->sendEffectInfo(pTargetSlayer, pZone, pTargetSlayer->getX(),
                                                               pTargetSlayer->getY());
 
-            // ºÎÈ° ¾Æ¸£¹ÙÀÌµå¸¦ ¹æÁöÇÏ±â À§ÇØ¼­ Aftermath ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
-            // 2002.11.19 ÀåÈ«Ã¢
+            // ë¶€í™œ ì•„ë¥´ë°”ì´ë“œë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ Aftermath ì´íŽ™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
+            // 2002.11.19 ìž¥í™ì°½
             if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH)) {
                 Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_KILL_AFTERMATH);
                 EffectKillAftermath* pEffectKillAftermath = dynamic_cast<EffectKillAftermath*>(pEffect);
@@ -120,18 +120,18 @@ void Resurrect::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
                 pEffectKillAftermath->create(pTargetSlayer->getName());
             }
 
-            // ´ë»óÀÇ Ã¼·ÂÀ» 10%¸¸ Ã¤¿î´Ù.
+            // ëŒ€ìƒì˜ ì²´ë ¥ì„ 10%ë§Œ ì±„ìš´ë‹¤.
             HP_t CurrentHP = getPercentValue(pTargetSlayer->getHP(ATTR_MAX), 10);
             pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
             pTargetSlayer->setMP(0, ATTR_CURRENT);
 
-            // ÁÖÀ§¿¡ Ã¼·ÂÀÌ Ã¤¿öÁ³´Ù´Â »ç½ÇÀ» ¾Ë¸°´Ù.
+            // ì£¼ìœ„ì— ì²´ë ¥ì´ ì±„ì›Œì¡Œë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë¦°ë‹¤.
             GCStatusCurrentHP gcStatusCurrentHP;
             gcStatusCurrentHP.setObjectID(pTargetSlayer->getObjectID());
             gcStatusCurrentHP.setCurrentHP(pTargetSlayer->getHP(ATTR_CURRENT));
             pZone->broadcastPacket(targetX, targetY, &gcStatusCurrentHP);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             shareAttrExp(pSlayer, pSkillInfo->getPoint(), 1, 1, 8, _GCSkillToObjectOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);

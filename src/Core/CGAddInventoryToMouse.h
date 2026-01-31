@@ -63,7 +63,7 @@ public:
 private:
     ObjectID_t m_ObjectID;
 
-    // º¸Á¶ ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ¾ÆÀÌµð. 0ÀÌ¸é ¸ÞÀÎ ÀÎº¥Åä¸®¿¡¼­ ²¨³¿
+    // ë³´ì¡° ì¸ë²¤í† ë¦¬ ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””. 0ì´ë©´ ë©”ì¸ ì¸ë²¤í† ë¦¬ì—ì„œ êº¼ëƒ„
     ObjectID_t m_InventoryItemObjectID;
 
     CoordInven_t m_InvenX;

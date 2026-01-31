@@ -90,13 +90,13 @@ void EffectExpansion::unaffect(Creature* pCreature)
     pSlayer->sendRealWearingInfo();
     pSlayer->sendModifyInfo(prev);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pSlayer->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_EXPANSION);
     pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
 
-    // ÇöÀç ³²¾ÆÀÖ´Â Ã¼·ÂÀÌ ÃÖ´ë Ã¼·Âº¸´Ù Å©´Ù¸é, ÁÙ¿©¾ß ÇÑ´Ù.
+    // í˜„ìž¬ ë‚¨ì•„ìžˆëŠ” ì²´ë ¥ì´ ìµœëŒ€ ì²´ë ¥ë³´ë‹¤ í¬ë‹¤ë©´, ì¤„ì—¬ì•¼ í•œë‹¤.
     if (pSlayer->getHP(ATTR_CURRENT) > pSlayer->getHP(ATTR_MAX)) {
         pSlayer->setHP(pSlayer->getHP(ATTR_MAX), ATTR_CURRENT);
     }

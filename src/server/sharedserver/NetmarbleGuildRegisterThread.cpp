@@ -72,7 +72,7 @@ void NetmarbleGuildRegisterThread::run() throw(Error) {
         getCurrentTime(dummyQueryTime);
 
         while (true) {
-            // ±æµå µî·Ï
+            // ê¸¸ë“œ ë“±ë¡
             registerGuild();
 
             // for context switch
@@ -93,7 +93,7 @@ void NetmarbleGuildRegisterThread::run() throw(Error) {
     __END_DEBUG
 }
 
-// ³İ¸¶ºí¿¡ µî·ÏÇÒ ±æµå ¾ÆÀÌµğ¸¦ ½×´Â´Ù.
+// ë„·ë§ˆë¸”ì— ë“±ë¡í•  ê¸¸ë“œ ì•„ì´ë””ë¥¼ ìŒ“ëŠ”ë‹¤.
 void NetmarbleGuildRegisterThread::pushGuildID(GuildID_t guildID) {
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -102,7 +102,7 @@ void NetmarbleGuildRegisterThread::pushGuildID(GuildID_t guildID) {
     __LEAVE_CRITICAL_SECTION(m_Mutex)
 }
 
-// ±æµå Á¤º¸¸¦ ³İ¸¶ºí ÂÊÀ¸·Î µî·ÏÇÑ´Ù.
+// ê¸¸ë“œ ì •ë³´ë¥¼ ë„·ë§ˆë¸” ìª½ìœ¼ë¡œ ë“±ë¡í•œë‹¤.
 void NetmarbleGuildRegisterThread::registerGuild() {
     GuildID_t guildID;
 

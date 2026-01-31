@@ -22,7 +22,7 @@ int loadPowerPoint(const string& name) {
             powerpoint = pResult->getInt(1);
         }
     } catch (SQLQueryException& sql) {
-        // SQL ¿¡·¯´Â ¹«½ÃÇÑ´Ù.
+        // SQL ì—ëŸ¬ëŠ” ë¬´ì‹œí•œë‹¤.
     } catch (...) {
         SAFE_DELETE(pStmt);
 
@@ -58,7 +58,7 @@ int savePowerPoint(const string& name, int amount) {
             powerpoint = pResult->getInt(1);
         }
     } catch (SQLQueryException& sql) {
-        // SQL ¿¡·¯´Â ¹«½ÃÇÑ´Ù.
+        // SQL ì—ëŸ¬ëŠ” ë¬´ì‹œí•œë‹¤.
     } catch (...) {
         SAFE_DELETE(pStmt);
 
@@ -83,7 +83,7 @@ void logPowerPoint(const string& name, int recvPoint, int savePoint) {
             "INSERT INTO MofusLog (OwnerID, SaveTime, RecvPoint, SavePoint) VALUES ('%s', now(), %u, %u)", name.c_str(),
             recvPoint, savePoint);
     } catch (SQLQueryException& sql) {
-        // SQL ¿¡·¯´Â ¹«½ÃÇÑ´Ù.
+        // SQL ì—ëŸ¬ëŠ” ë¬´ì‹œí•œë‹¤.
     } catch (...) {
         SAFE_DELETE(pStmt);
 

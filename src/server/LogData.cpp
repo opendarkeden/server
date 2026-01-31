@@ -46,21 +46,21 @@ LogData::~LogData() {}
 uint LogData::getSize(void) {
     uint rValue = 0;
 
-    // Å¸ÀÔ »çÀÌÁî
+    // íƒ€ì… ì‚¬ì´ì¦ˆ
     rValue += szshort;
 
-    // Á¸ ¾ÆÀÌµğ
+    // ì¡´ ì•„ì´ë””
     rValue += szshort;
 
-    // ¼Ò½º
+    // ì†ŒìŠ¤
     rValue += szBYTE;
     rValue += m_Source.size();
 
-    // Å¸°Ù
+    // íƒ€ê²Ÿ
     rValue += szBYTE;
     rValue += m_Target.size();
 
-    // ÄÁÅÙÆ®
+    // ì»¨í…íŠ¸
     rValue += szshort;
     rValue += m_Content.size();
 

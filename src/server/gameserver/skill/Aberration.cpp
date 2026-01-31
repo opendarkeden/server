@@ -19,7 +19,7 @@
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Aberration::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot,
                          CEffectID_t CEffectID)
@@ -41,8 +41,8 @@ void Aberration::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) ||
             pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE) ||
             pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_HALLUCINATION) || pTargetCreature->isNPC()) {
@@ -85,13 +85,13 @@ void Aberration::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             SkillOutput output;
             computeOutput(input, output);
 
-            // pTargetCreature°¡ ÀúÁÖ¸¶¹ıÀ» ¹İ»çÇÏ´Â °æ¿ì
+            // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
             if (CheckReflection(pVampire, pTargetCreature, getSkillType())) {
                 pTargetCreature = (Creature*)pVampire;
                 TargetObjectID = pVampire->getObjectID();
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             EffectAberration* pEffect = new EffectAberration(pTargetCreature);
             pEffect->setDeadline(output.Duration);
             pEffect->setRatio(output.Range);
@@ -124,10 +124,10 @@ void Aberration::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }

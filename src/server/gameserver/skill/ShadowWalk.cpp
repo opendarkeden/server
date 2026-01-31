@@ -11,7 +11,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -32,15 +32,15 @@ void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
             return;
         }
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, µµ∞° æ∆¥œ∂Û∏È ªÁøÎ«“ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, ÎèÑÍ∞Ä ÏïÑÎãàÎùºÎ©¥ ÏÇ¨Ïö©Ìï† Ïàò ÏóÜÎã§.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_BLADE) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -68,10 +68,10 @@ void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         bool bEffected = pSlayer->hasRelicItem() || pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) ||
                          pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER);
 
-        // if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK) // HitRoll ø° Ω«∆–«œ¥ı∂Ûµµ 7%¿«
-        // µ•πÃ¡ˆ∏¶ ¡ÿ¥Ÿ
+        // if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK) // HitRoll Ïóê Ïã§Ìå®ÌïòÎçîÎùºÎèÑ 7%Ïùò
+        // Îç∞ÎØ∏ÏßÄÎ•º Ï§ÄÎã§
         if (bManaCheck && bTimeCheck && bRangeCheck && bCanHit && bPK && !bEffected) {
-            // ∫¸∏£∞‘ PC∏¶ øÚ¡˜ø©¡ÿ¥Ÿ.
+            // Îπ†Î•¥Í≤å PCÎ•º ÏõÄÏßÅÏó¨Ï§ÄÎã§.
             if (pZone->moveFastPC(pSlayer, pSlayer->getX(), pSlayer->getY(), pTargetCreature->getX(),
                                   pTargetCreature->getY(), getSkillType())) {
                 decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
@@ -82,9 +82,9 @@ void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 
                 bool bCriticalHit = false;
 
-                // µ•πÃ¡ˆ∏¶ ¡ÿ¥Ÿ. (Ω∫≈≥ µ•πÃ¡ˆ¥¬ æ¯¥Ÿ.)
+                // Îç∞ÎØ∏ÏßÄÎ•º Ï§ÄÎã§. (Ïä§ÌÇ¨ Îç∞ÎØ∏ÏßÄÎäî ÏóÜÎã§.)
                 Damage_t Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
-                // HitRollø° Ω«∆–«ﬂ¥Ÿ∏È 7%¿« µ•πÃ¡ˆ∏¶ ¡ÿ¥Ÿ. - by bezz
+                // HitRollÏóê Ïã§Ìå®ÌñàÎã§Î©¥ 7%Ïùò Îç∞ÎØ∏ÏßÄÎ•º Ï§ÄÎã§. - by bezz
                 if (!bHitRoll)
                     Damage = (Damage_t)getPercentValue(Damage, 7);
                 setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
@@ -92,7 +92,7 @@ void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 
                 //				Exp_t Point = pSkillInfo->getPoint();
                 decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
-                // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+                // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
                 if (bCriticalHit) {
                     knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                 }
@@ -107,7 +107,7 @@ void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
                     increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
                 }
 
-                // ∆–≈∂¿ª ¡ÿ∫Ò«œ∞Ì ∫∏≥Ω¥Ÿ.
+                // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌïòÍ≥† Î≥¥ÎÇ∏Îã§.
                 _GCSkillToObjectOK1.setSkillType(SkillType);
                 _GCSkillToObjectOK1.setCEffectID(CEffectID);
                 _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);

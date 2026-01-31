@@ -38,8 +38,8 @@ void SimpleMissileSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Ski
         // Assert(pTargetCreature != NULL);
 
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, param.SkillType);
             return;
@@ -60,15 +60,15 @@ void SimpleMissileSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Ski
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ ´õÇØÁö´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÏ¹İ µ¥¹ÌÁö¸¦ °è»ê ÈÄ, µ¥¹ÌÁö¸¦ ´õÇØ¾ß ÇÑ´Ù.
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ Á÷Á¢ÀûÀ¸·Î ¾²ÀÌ´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÌ ºÎºĞ±îÁö µé¾î¿ÀÁö ¾ÊÀ¸¹Ç·Î, ¹ØÀÇ ºÎºĞ±îÁö 0À¸·Î Àü´ŞµÈ´Ù.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ë”í•´ì§€ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì¼ë°˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚° í›„, ë°ë¯¸ì§€ë¥¼ ë”í•´ì•¼ í•œë‹¤.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ì§ì ‘ì ìœ¼ë¡œ ì“°ì´ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì´ ë¶€ë¶„ê¹Œì§€ ë“¤ì–´ì˜¤ì§€ ì•Šìœ¼ë¯€ë¡œ, ë°‘ì˜ ë¶€ë¶„ê¹Œì§€ 0ìœ¼ë¡œ ì „ë‹¬ëœë‹¤.
             Damage += computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ¸¸ÀÏ ½ºÅ³ µ¥¹ÌÁö°¡ ¸¶¹ı µ¥¹ÌÁö¶ó¸é, ¸¶¹ı µ¥¹ÌÁö °è»ê ÇÔ¼ö¸¦ ÀÌ¿ëÇØ °è»êÀ» ÇØÁØ´Ù.
+            // ë§Œì¼ ìŠ¤í‚¬ ë°ë¯¸ì§€ê°€ ë§ˆë²• ë°ë¯¸ì§€ë¼ë©´, ë§ˆë²• ë°ë¯¸ì§€ ê³„ì‚° í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ê³„ì‚°ì„ í•´ì¤€ë‹¤.
             Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType);
         } else {
             Damage += param.SkillDamage;
@@ -95,12 +95,12 @@ void SimpleMissileSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Ski
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bPK) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
-            // µ¥¹ÌÁö¸¦ °¡ÇÏ°í, ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ê°€í•˜ê³ , ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
             decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-            // Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // íƒ€ê²Ÿì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             if (!pTargetCreature->isSlayer()) {
                 shareAttrExp(pSlayer, Damage, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
                              _GCSkillToObjectOK1);
@@ -184,8 +184,8 @@ void SimpleMissileSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, V
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, param.SkillType);
             return;
@@ -205,15 +205,15 @@ void SimpleMissileSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, V
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ ´õÇØÁö´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÏ¹İ µ¥¹ÌÁö¸¦ °è»ê ÈÄ, µ¥¹ÌÁö¸¦ ´õÇØ¾ß ÇÑ´Ù.
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ Á÷Á¢ÀûÀ¸·Î ¾²ÀÌ´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÌ ºÎºĞ±îÁö µé¾î¿ÀÁö ¾ÊÀ¸¹Ç·Î, ¹ØÀÇ ºÎºĞ±îÁö 0À¸·Î Àü´ŞµÈ´Ù.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ë”í•´ì§€ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì¼ë°˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚° í›„, ë°ë¯¸ì§€ë¥¼ ë”í•´ì•¼ í•œë‹¤.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ì§ì ‘ì ìœ¼ë¡œ ì“°ì´ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì´ ë¶€ë¶„ê¹Œì§€ ë“¤ì–´ì˜¤ì§€ ì•Šìœ¼ë¯€ë¡œ, ë°‘ì˜ ë¶€ë¶„ê¹Œì§€ 0ìœ¼ë¡œ ì „ë‹¬ëœë‹¤.
             Damage += computeDamage(pVampire, pTargetCreature, 0, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ¸¸ÀÏ ½ºÅ³ µ¥¹ÌÁö°¡ ¸¶¹ı µ¥¹ÌÁö¶ó¸é, ¸¶¹ı µ¥¹ÌÁö °è»ê ÇÔ¼ö¸¦ ÀÌ¿ëÇØ °è»êÀ» ÇØÁØ´Ù.
+            // ë§Œì¼ ìŠ¤í‚¬ ë°ë¯¸ì§€ê°€ ë§ˆë²• ë°ë¯¸ì§€ë¼ë©´, ë§ˆë²• ë°ë¯¸ì§€ ê³„ì‚° í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ê³„ì‚°ì„ í•´ì¤€ë‹¤.
             Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true, pVampire);
         } else {
             Damage += param.SkillDamage;
@@ -243,7 +243,7 @@ void SimpleMissileSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, V
 
             bool bCanSeeCaster = canSee(pTargetCreature, pVampire);
 
-            // µ¥¹ÌÁö¸¦ °¡ÇÏ°í, ¾ÆÀÌÅÛ ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ê°€í•˜ê³ , ì•„ì´í…œ ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             if (bCanSeeCaster) {
                 setDamage(pTargetCreature, Damage, pVampire, param.SkillType, &_GCSkillToObjectOK2,
                           &_GCSkillToObjectOK1);
@@ -256,7 +256,7 @@ void SimpleMissileSkill::execute(Vampire* pVampire, ObjectID_t TargetObjectID, V
                 decreaseDurability(pVampire, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK6);
             }
 
-            // »ó´ë°¡ Á×¾ú´Ù¸é °æÇèÄ¡¸¦ Á» ¿Ã·ÁÁØ´Ù.
+            // ìƒëŒ€ê°€ ì£½ì—ˆë‹¤ë©´ ê²½í—˜ì¹˜ë¥¼ ì¢€ ì˜¬ë ¤ì¤€ë‹¤.
             if (pTargetCreature->isDead()) {
                 int exp = computeCreatureExp(pTargetCreature, KILL_EXP);
                 shareVampExp(pVampire, exp, _GCSkillToObjectOK1);
@@ -343,8 +343,8 @@ void SimpleMissileSkill::execute(Ousters* pOusters, ObjectID_t TargetObjectID, O
 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, param.SkillType, param.Grade);
             return;
@@ -373,15 +373,15 @@ void SimpleMissileSkill::execute(Ousters* pOusters, ObjectID_t TargetObjectID, O
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ ´õÇØÁö´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÏ¹İ µ¥¹ÌÁö¸¦ °è»ê ÈÄ, µ¥¹ÌÁö¸¦ ´õÇØ¾ß ÇÑ´Ù.
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ Á÷Á¢ÀûÀ¸·Î ¾²ÀÌ´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÌ ºÎºĞ±îÁö µé¾î¿ÀÁö ¾ÊÀ¸¹Ç·Î, ¹ØÀÇ ºÎºĞ±îÁö 0À¸·Î Àü´ŞµÈ´Ù.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ë”í•´ì§€ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì¼ë°˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚° í›„, ë°ë¯¸ì§€ë¥¼ ë”í•´ì•¼ í•œë‹¤.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ì§ì ‘ì ìœ¼ë¡œ ì“°ì´ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì´ ë¶€ë¶„ê¹Œì§€ ë“¤ì–´ì˜¤ì§€ ì•Šìœ¼ë¯€ë¡œ, ë°‘ì˜ ë¶€ë¶„ê¹Œì§€ 0ìœ¼ë¡œ ì „ë‹¬ëœë‹¤.
             Damage += computeDamage(pOusters, pTargetCreature, 0, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ¸¸ÀÏ ½ºÅ³ µ¥¹ÌÁö°¡ ¸¶¹ı µ¥¹ÌÁö¶ó¸é, ¸¶¹ı µ¥¹ÌÁö °è»ê ÇÔ¼ö¸¦ ÀÌ¿ëÇØ °è»êÀ» ÇØÁØ´Ù.
+            // ë§Œì¼ ìŠ¤í‚¬ ë°ë¯¸ì§€ê°€ ë§ˆë²• ë°ë¯¸ì§€ë¼ë©´, ë§ˆë²• ë°ë¯¸ì§€ ê³„ì‚° í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ê³„ì‚°ì„ í•´ì¤€ë‹¤.
             //			Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true);
             Damage += computeOustersMagicDamage(pOusters, pTargetCreature, param.SkillDamage, param.SkillType);
         } else {
@@ -534,15 +534,15 @@ void SimpleMissileSkill::execute(Monster* pMonster, Creature* pEnemy, const SIMP
         Damage_t Damage = 0;
 
         if (param.bAdd) {
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ ´õÇØÁö´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÏ¹İ µ¥¹ÌÁö¸¦ °è»ê ÈÄ, µ¥¹ÌÁö¸¦ ´õÇØ¾ß ÇÑ´Ù.
-            // ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ µ¥¹ÌÁö °ªÀÌ Á÷Á¢ÀûÀ¸·Î ¾²ÀÌ´Â µ¥¹ÌÁö¶ó¸é,
-            // ÀÌ ºÎºĞ±îÁö µé¾î¿ÀÁö ¾ÊÀ¸¹Ç·Î, ¹ØÀÇ ºÎºĞ±îÁö 0À¸·Î Àü´ŞµÈ´Ù.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ë”í•´ì§€ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì¼ë°˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚° í›„, ë°ë¯¸ì§€ë¥¼ ë”í•´ì•¼ í•œë‹¤.
+            // íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœ ë°ë¯¸ì§€ ê°’ì´ ì§ì ‘ì ìœ¼ë¡œ ì“°ì´ëŠ” ë°ë¯¸ì§€ë¼ë©´,
+            // ì´ ë¶€ë¶„ê¹Œì§€ ë“¤ì–´ì˜¤ì§€ ì•Šìœ¼ë¯€ë¡œ, ë°‘ì˜ ë¶€ë¶„ê¹Œì§€ 0ìœ¼ë¡œ ì „ë‹¬ëœë‹¤.
             Damage += computeDamage(pMonster, pEnemy, 0, bCriticalHit);
         }
 
         if (param.bMagicDamage) {
-            // ¸¸ÀÏ ½ºÅ³ µ¥¹ÌÁö°¡ ¸¶¹ı µ¥¹ÌÁö¶ó¸é, ¸¶¹ı µ¥¹ÌÁö °è»ê ÇÔ¼ö¸¦ ÀÌ¿ëÇØ °è»êÀ» ÇØÁØ´Ù.
+            // ë§Œì¼ ìŠ¤í‚¬ ë°ë¯¸ì§€ê°€ ë§ˆë²• ë°ë¯¸ì§€ë¼ë©´, ë§ˆë²• ë°ë¯¸ì§€ ê³„ì‚° í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ê³„ì‚°ì„ í•´ì¤€ë‹¤.
             Damage += computeMagicDamage(pEnemy, param.SkillDamage, param.SkillType);
         } else {
             Damage += param.SkillDamage;
@@ -563,11 +563,11 @@ void SimpleMissileSkill::execute(Monster* pMonster, Creature* pEnemy, const SIMP
         Coord_t targetX = pEnemy->getX();
         Coord_t targetY = pEnemy->getY();
 
-        // °ø°İ¼º°ø·ü °ËÁõ.
+        // ê³µê²©ì„±ê³µë¥  ê²€ì¦.
         if (bRangeCheck && bHitRoll && bCanHit) {
             bool bCanSeeCaster = canSee(pEnemy, pMonster);
 
-            // µ¥¹ÌÁö¸¦ °¡ÇÏ°í, ¾ÆÀÌÅÛ ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ê°€í•˜ê³ , ì•„ì´í…œ ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             if (bCanSeeCaster) {
                 setDamage(pEnemy, Damage, pMonster, param.SkillType, &_GCSkillToObjectOK2);
                 decreaseDurability(pMonster, pEnemy, pSkillInfo, NULL, &_GCSkillToObjectOK2);

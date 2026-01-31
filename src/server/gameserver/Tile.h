@@ -38,18 +38,18 @@ class Packet;
 class Tile {
 public:
     enum TileFlags {
-        TILE_GROUND_BLOCKED = 0,  // Å¸ÀÏÀÇ Áö»óÀÌ ¸·ÇûÀ» °æ¿ì
-        TILE_AIR_BLOCKED,         // Å¸ÀÏÀÇ °øÁßÀÌ ¸·ÇûÀ» °æ¿ì
-        TILE_UNDERGROUND_BLOCKED, // Å¸ÀÏÀÇ ÁöÇÏ°¡ ¸·ÇûÀ» °æ¿ì
-        TILE_WALKING_CREATURE,    // Å¸ÀÏÀÇ Áö»ó¿¡ Å©¸®Ã³°¡ ÀÖÀ» °æ¿ì
-        TILE_FLYING_CREATURE,     // Å¸ÀÏÀÇ °øÁß¿¡ Å©¸®Ã³°¡ ÀÖÀ» °æ¿ì
-        TILE_BURROWING_CREATURE,  // Å¸ÀÏÀÇ ÁöÇÏ¿¡ Å©¸®Ã³°¡ ÀÖÀ» °æ¿ì
-        TILE_ITEM,                // Å¸ÀÏ À§¿¡ ¾ÆÀÌÅÛÀÌ ³õ¿© ÀÖÀ» °æ¿ì
-        TILE_OBSTACLE,            // Å¸ÀÏ À§¿¡ »óÅÂ¸¦ °¡Áø Àå¾Ö¹°ÀÌ ³õ¿© ÀÖÀ» °æ¿ì
-        TILE_EFFECT,              // Å¸ÀÏ À§¿¡ ¸¶¹ý °´Ã¼°¡ ÀÖÀ» °æ¿ì
-        TILE_BUILDING,            // Å¸ÀÏ À§¿¡ °Ç¹°ÀÌ ÀÖÀ» °æ¿ì
-        TILE_PORTAL,              // Å¸ÀÏ À§¿¡ Æ÷Å»ÀÌ ³õ¿© ÀÖÀ» °æ¿ì
-        TILE_TERRAIN              // È¿°ú¸¦ ÁÖ´Â ¹è°æ Å¸ÀÏÀÏ °æ¿ì
+        TILE_GROUND_BLOCKED = 0,  // íƒ€ì¼ì˜ ì§€ìƒì´ ë§‰í˜”ì„ ê²½ìš°
+        TILE_AIR_BLOCKED,         // íƒ€ì¼ì˜ ê³µì¤‘ì´ ë§‰í˜”ì„ ê²½ìš°
+        TILE_UNDERGROUND_BLOCKED, // íƒ€ì¼ì˜ ì§€í•˜ê°€ ë§‰í˜”ì„ ê²½ìš°
+        TILE_WALKING_CREATURE,    // íƒ€ì¼ì˜ ì§€ìƒì— í¬ë¦¬ì²˜ê°€ ìžˆì„ ê²½ìš°
+        TILE_FLYING_CREATURE,     // íƒ€ì¼ì˜ ê³µì¤‘ì— í¬ë¦¬ì²˜ê°€ ìžˆì„ ê²½ìš°
+        TILE_BURROWING_CREATURE,  // íƒ€ì¼ì˜ ì§€í•˜ì— í¬ë¦¬ì²˜ê°€ ìžˆì„ ê²½ìš°
+        TILE_ITEM,                // íƒ€ì¼ ìœ„ì— ì•„ì´í…œì´ ë†“ì—¬ ìžˆì„ ê²½ìš°
+        TILE_OBSTACLE,            // íƒ€ì¼ ìœ„ì— ìƒíƒœë¥¼ ê°€ì§„ ìž¥ì• ë¬¼ì´ ë†“ì—¬ ìžˆì„ ê²½ìš°
+        TILE_EFFECT,              // íƒ€ì¼ ìœ„ì— ë§ˆë²• ê°ì²´ê°€ ìžˆì„ ê²½ìš°
+        TILE_BUILDING,            // íƒ€ì¼ ìœ„ì— ê±´ë¬¼ì´ ìžˆì„ ê²½ìš°
+        TILE_PORTAL,              // íƒ€ì¼ ìœ„ì— í¬íƒˆì´ ë†“ì—¬ ìžˆì„ ê²½ìš°
+        TILE_TERRAIN              // íš¨ê³¼ë¥¼ ì£¼ëŠ” ë°°ê²½ íƒ€ì¼ì¼ ê²½ìš°
     };
 
 public:
@@ -188,10 +188,10 @@ public:
     string toString() const;
 
 private:
-    WORD m_wFlags;                   // Å¸ÀÏ ¼Ó¼º ÇÃ·¡±×
-    WORD m_wOption;                  // ¿É¼Ç ÇÃ·¡±×, Å¸ÀÏ ¼Ó¼º ÇÃ·¡±×¿¡ µû¶ó¼­ ´Ù¸£°Ô »ç¿ëµÈ´Ù.
-    forward_list<Object*> m_Objects; // ¿ÀºêÁ§Æ® Æ÷ÀÎÅÍÀÇ ¸®½ºÆ®
-    Sector* m_pSector;               // ÀÌ Å¸ÀÏÀÌ ¼ÓÇÑ ¼½ÅÍ¿¡ ´ëÇÑ Æ÷ÀÎÅÍ
+    WORD m_wFlags;                   // íƒ€ì¼ ì†ì„± í”Œëž˜ê·¸
+    WORD m_wOption;                  // ì˜µì…˜ í”Œëž˜ê·¸, íƒ€ì¼ ì†ì„± í”Œëž˜ê·¸ì— ë”°ë¼ì„œ ë‹¤ë¥´ê²Œ ì‚¬ìš©ëœë‹¤.
+    forward_list<Object*> m_Objects; // ì˜¤ë¸Œì íŠ¸ í¬ì¸í„°ì˜ ë¦¬ìŠ¤íŠ¸
+    Sector* m_pSector;               // ì´ íƒ€ì¼ì´ ì†í•œ ì„¹í„°ì— ëŒ€í•œ í¬ì¸í„°
 };
 
 #endif

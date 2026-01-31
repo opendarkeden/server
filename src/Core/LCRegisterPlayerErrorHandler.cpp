@@ -44,24 +44,24 @@ void LCRegisterPlayerErrorHandler::execute(LCRegisterPlayerError* pPacket, Playe
     CLRegisterPlayer clRegisterPlayer;
     char cmd[80];
 
-    cout << "¾ÆÀÌµð : ";
+    cout << "ì•„ì´ë”” : ";
     cin.getline(cmd, 80);
     clRegisterPlayer.setID(cmd);
 
-    cout << "ÆÐ½º¿öµå : ";
+    cout << "íŒ¨ìŠ¤ì›Œë“œ : ";
     cin.getline(cmd, 80);
     clRegisterPlayer.setPassword(cmd);
 
-    cout << "ÀÌ¸§ : ";
+    cout << "ì´ë¦„ : ";
     cin.getline(cmd, 80);
     clRegisterPlayer.setName(cmd);
 
-    cout << "¼ºº° (³²/¿©) : ";
+    cout << "ì„±ë³„ (ë‚¨/ì—¬) : ";
     cin.getline(cmd, 80);
     Sex sex;
-    if (strcmp(cmd, "³²") == 0)
+    if (strcmp(cmd, "ë‚¨") == 0)
         sex = MALE;
-    if (strcmp(cmd, "¿©") == 0)
+    if (strcmp(cmd, "ì—¬") == 0)
         sex = FEMALE;
     else
         sex = MALE;
@@ -72,19 +72,19 @@ void LCRegisterPlayerErrorHandler::execute(LCRegisterPlayerError* pPacket, Playe
     clRegisterPlayer.setTelephone("02-222-3333");
     clRegisterPlayer.setCellular("011-222-3333");
     clRegisterPlayer.setZipCode("700-441");
-    clRegisterPlayer.setAddress("¼­¿ïÆ¯º°½Ã ¿µµîÆ÷±¸ ¿©ÀÇµµµ¿ »ç¼­ÇÔ 300¹øÁö");
+    clRegisterPlayer.setAddress("ì„œìš¸íŠ¹ë³„ì‹œ ì˜ë“±í¬êµ¬ ì—¬ì˜ë„ë™ ì‚¬ì„œí•¨ 300ë²ˆì§€");
     clRegisterPlayer.setNation(KOREA);
     clRegisterPlayer.setEmail("jhkim@mbc.com");
     clRegisterPlayer.setHomepage("www.jhkim.com");
-    clRegisterPlayer.setProfile("Å×Å©³ëÀÇ ¿©¿Õ ÀüÁöÇö");
+    clRegisterPlayer.setProfile("í…Œí¬ë…¸ì˜ ì—¬ì™• ì „ì§€í˜„");
     clRegisterPlayer.setPublic(false);
 
     cout << clRegisterPlayer.toString() << endl;
 
-    // µî·Ï ÆÐÅ¶À» Àü¼ÛÇÑ´Ù.
+    // ë“±ë¡ íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
     pClientPlayer->sendPacket(&clRegisterPlayer);
 
-    // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù.
+    // í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
     pClientPlayer->setPlayerStatus(CPS_AFTER_SENDING_CL_REGISTER_PLAYER);
 
 #endif

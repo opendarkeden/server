@@ -20,7 +20,7 @@
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pSkillSlot,
                        CEffectID_t CEffectID)
@@ -45,9 +45,9 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 
         Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
 
-        // NPC´Â °ø°İÇÒ ¼ö ¾ø´Ù.
-        // ÀúÁÖ ¸é¿ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // ì €ì£¼ ë©´ì—­. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE) ||
             !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC() || pWeapon == NULL ||
             pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM ||
@@ -93,13 +93,13 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 
             bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
 
-            // pTargetCreature°¡ ÀúÁÖ¸¶¹ıÀ» ¹İ»çÇÏ´Â °æ¿ì
+            // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
             if (CheckReflection(pOusters, pTargetCreature, getSkillType())) {
                 pTargetCreature = (Creature*)pOusters;
                 TargetObjectID = pOusters->getObjectID();
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             EffectBlunting* pEffect = new EffectBlunting(pTargetCreature);
             pEffect->setDeadline(output.Duration);
             pEffect->setLevel(47 + (pSkillSlot->getExpLevel() / 2));
@@ -107,7 +107,7 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
             pTargetCreature->addEffect(pEffect);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLUNTING);
 
-            // ´É·ÂÄ¡¸¦ °è»êÇØ¼­ º¸³»ÁØ´Ù.
+            // ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
             if (pTargetCreature->isSlayer()) {
                 Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
@@ -176,10 +176,10 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pOusters, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pOusters, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPenetrateWheel.h
 // Written by  : rallser
-// Description : ¼ºÁ÷¸¶¹ıPenetrateWheelÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
+// Description : ì„±ì§ë§ˆë²•PenetrateWheelì˜ Effectë¥¼ ì²˜ë¦¬í•´ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_Penetrate_Wheel__

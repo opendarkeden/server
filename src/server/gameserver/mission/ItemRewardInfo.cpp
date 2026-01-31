@@ -109,7 +109,7 @@ QuestMessage ItemRewardInfo::giveReward(PlayerCreature* pPC) const
 
     if (!pInventory->addItem(pItem, tp)) {
         SAFE_DELETE(pItem);
-        filelog("Quest.log", "ItemRewardInfo::giveReward() : canGiveReward() ¸¦ È®ÀÎÇÏÁö ¾Ê¾Ò°Å³ª ¸Õ°¡ ²¿¿´½À´Ï´Ù.");
+        filelog("Quest.log", "ItemRewardInfo::giveReward() : canGiveReward() ë¥¼ í™•ì¸í•˜ì§€ ì•Šì•˜ê±°ë‚˜ ë¨¼ê°€ ê¼¬ì˜€ìŠµë‹ˆë‹¤.");
         return COMPLETE_FAIL_NO_INVENTORY_SPACE;
     }
 

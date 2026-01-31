@@ -14,7 +14,7 @@
 #include "item/VampirePortalItem.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y,
                            CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
@@ -36,17 +36,17 @@ void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
         Assert(pInventory != NULL);
         Assert(pZone != NULL);
 
-        // ÀüÀï Á¸ÀÌ¶ó¸é BloodyMark¸¦ »ç¿ëÇÒ ¼ö ¾ø´Ù.
-        // ÀÏ´ÜÀº ZoneID·Î °¡´Âµ¥.. ZoneInfo¿¡ ³Öµµ·Ï ÇØ¾ßÇÑ´Ù.
+        // ì „ìŸ ì¡´ì´ë¼ë©´ BloodyMarkë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+        // ì¼ë‹¨ì€ ZoneIDë¡œ ê°€ëŠ”ë°.. ZoneInfoì— ë„£ë„ë¡ í•´ì•¼í•œë‹¤.
         ///*
         // int zoneID = pZone->getZoneID();
         // if (pZone->getZoneID()==1122 || pZone->getZoneID()==1123)
 
-        // ÀÌº¥Æ® °æ±âÀå/OX ¸·±â. by sigi. 2002.8.31
+        // ì´ë²¤íŠ¸ ê²½ê¸°ìž¥/OX ë§‰ê¸°. by sigi. 2002.8.31
         // if (zoneID==1005 || zoneID==1006)
         if (pZone->isNoPortalZone() ||
             pZone->isMasterLair()
-            // ¼º ¾ÈÀ¸·Îµµ ¸·±â. by bezz, Sequoia 2003. 1.20.
+            // ì„± ì•ˆìœ¼ë¡œë„ ë§‰ê¸°. by bezz, Sequoia 2003. 1.20.
             || pZone->isCastle() || pZone->isHolyLand()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -55,7 +55,7 @@ void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
         //*/
 
         Item* pItem = pInventory->getItem(X, Y);
-        // ¾ÆÀÌÅÛÀÌ ³ÎÀÌ°Å³ª, Æ÷Å» ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª, ¿ÀºêÁ§Æ®ID°¡ Æ²¸®´Ù¸é...
+        // ì•„ì´í…œì´ ë„ì´ê±°ë‚˜, í¬íƒˆ ì•„ì´í…œì´ ì•„ë‹ˆê±°ë‚˜, ì˜¤ë¸Œì íŠ¸IDê°€ í‹€ë¦¬ë‹¤ë©´...
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_VAMPIRE_PORTAL_ITEM ||
             pItem->getObjectID() != InvenObjectID) {
             executeSkillFailException(pVampire, getSkillType());
@@ -66,7 +66,7 @@ void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
         VampirePortalItem* pVampirePortalItem = dynamic_cast<VampirePortalItem*>(pItem);
         Assert(pVampirePortalItem != NULL);
 
-        // ¹ìÆÄÀÌ¾î Æ÷Å» ¾ÆÀÌÅÛ¿¡ ÀÌ¹Ì ÀÓÀÇÀÇ À§Ä¡°¡ ±â·ÏµÇ¾î ÀÖÀ» °æ¿ì¿¡µµ...
+        // ë±€íŒŒì´ì–´ í¬íƒˆ ì•„ì´í…œì— ì´ë¯¸ ìž„ì˜ì˜ ìœ„ì¹˜ê°€ ê¸°ë¡ë˜ì–´ ìžˆì„ ê²½ìš°ì—ë„...
         if (pVampirePortalItem->getZoneID() != 0 || pVampirePortalItem->getX() != 0 ||
             pVampirePortalItem->getY() != 0) {
             executeSkillFailException(pVampire, getSkillType());
@@ -85,14 +85,14 @@ void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
         bool bRangeCheck = checkZoneLevelToUseSkill(pVampire);
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // ¸¶³ª¸¦ ÁÙÀÌ°í...
+            // ë§ˆë‚˜ë¥¼ ì¤„ì´ê³ ...
             decreaseMana(pVampire, RequiredMP, _GCSkillToInventoryOK1);
 
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇöÀçÀÇ À§Ä¡¸¦ ±â·ÏÇÏ°í, ¼¼ÀÌºêÇÑ´Ù.
+            // ì•„ì´í…œì—ë‹¤ê°€ í˜„ìž¬ì˜ ìœ„ì¹˜ë¥¼ ê¸°ë¡í•˜ê³ , ì„¸ì´ë¸Œí•œë‹¤.
             pVampirePortalItem->setZoneID(pZone->getZoneID());
             pVampirePortalItem->setX(pVampire->getX());
             pVampirePortalItem->setY(pVampire->getY());

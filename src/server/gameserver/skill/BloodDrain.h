@@ -9,7 +9,7 @@
 
 #include "SkillHandler.h"
 
-#define BLOODDRAIN_DURATION (3 * 4 * 3600 * 10) // 3 ¿œ
+#define BLOODDRAIN_DURATION (3 * 4 * 3600 * 10) // 3 Ïùº
 
 //////////////////////////////////////////////////////////////////////
 // class BloodDrain;

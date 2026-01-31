@@ -67,7 +67,7 @@ Item* getBalloonHeadbandItem(BalloonHeadband kind) {
     }
 
     if (putInDB) {
-        filelog("BalloonHeadband.log", "¾ÆÀÌÅÛÀÌ ³ª¿Ô½À´Ï´Ù. : %d", (int)kind);
+        filelog("BalloonHeadband.log", "ì•„ì´í…œì´ ë‚˜ì™”ìŠµë‹ˆë‹¤. : %d", (int)kind);
 
         increaseEventItemCount(ret);
     }

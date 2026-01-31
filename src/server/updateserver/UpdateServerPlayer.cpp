@@ -21,22 +21,22 @@
 //
 // *CAUTION*
 //
-// ¾÷µ¥ÀÌÆ® ¼­¹ö¿ë ÇÃ·¹ÀÌ¾î´Â ÆÄÀÏÀÇ ³»¿ëÀ» Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÏ±â ¶§¹®¿¡, ±âÁ¸ÀÇ
-// ÇÃ·¹ÀÌ¾î Å¬·¡½º¿¡¼­ ¼ÒÄÏÃâ·Â½ºÆ®¸²°ú °ü·ÃµÈ ºÎºĞ¸¸À» ÀçÁ¤ÀÇÇØÁÖ¸é µÈ´Ù. ¿Ö³ÄÇÏ¸é,
-// ÆÄÀÏÀÇ Å©±â¸¦ ¾Ë ¼ö ¾ø´Â »óÅÂ¿¡¼­ Ãâ·ÂÀ» ¹öÆÛ¸µÇÏ°Ô µÇ¸é ¹®Á¦°¡ »ı±æ ¼ÒÁö°¡ ÀÖ±â
-// ¶§¹®ÀÌ´Ù. µû¶ó¼­, ¹öÆÛ¸µÇÏÁö ¾Ê´Â Ãâ·Â ¹æ¹ıÀ» ¸ğ»öÇØ¾ß ÇÏ°Ú´Ù. ´Ü ÀÔ·Â ºÎºĞÀº
-// ÀÌÀü°ú °°ÀÌ ¹öÆÛ¸µÀ» ÇØµµ ¹«¹æÇÏ´Ù.
+// ì—…ë°ì´íŠ¸ ì„œë²„ìš© í”Œë ˆì´ì–´ëŠ” íŒŒì¼ì˜ ë‚´ìš©ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•˜ê¸° ë•Œë¬¸ì—, ê¸°ì¡´ì˜
+// í”Œë ˆì´ì–´ í´ë˜ìŠ¤ì—ì„œ ì†Œì¼“ì¶œë ¥ìŠ¤íŠ¸ë¦¼ê³¼ ê´€ë ¨ëœ ë¶€ë¶„ë§Œì„ ì¬ì •ì˜í•´ì£¼ë©´ ëœë‹¤. ì™œëƒí•˜ë©´,
+// íŒŒì¼ì˜ í¬ê¸°ë¥¼ ì•Œ ìˆ˜ ì—†ëŠ” ìƒíƒœì—ì„œ ì¶œë ¥ì„ ë²„í¼ë§í•˜ê²Œ ë˜ë©´ ë¬¸ì œê°€ ìƒê¸¸ ì†Œì§€ê°€ ìˆê¸°
+// ë•Œë¬¸ì´ë‹¤. ë”°ë¼ì„œ, ë²„í¼ë§í•˜ì§€ ì•ŠëŠ” ì¶œë ¥ ë°©ë²•ì„ ëª¨ìƒ‰í•´ì•¼ í•˜ê² ë‹¤. ë‹¨ ì…ë ¥ ë¶€ë¶„ì€
+// ì´ì „ê³¼ ê°™ì´ ë²„í¼ë§ì„ í•´ë„ ë¬´ë°©í•˜ë‹¤.
 //
-// »ı¼ºÇÒ¶§, ´Ù¸¥ ÇÃ·¹ÀÌ¾î ÇÏÀ§ Å¬·¡½º¿Í´Â ´Ş¸®, Player Å¬·¡½ºÀÇ »ı¼ºÀÚ¸¦ ¸í½ÃÀûÀ¸·Î
-// È£ÃâÇÏÁö ¾Ê´Â´Ù. ÀÌ´Â SocketOutputStream ÀÌ »ı¼ºµÇÁö ¾Ê´Â PlayerÀÇ µğÆúÆ® »ı¼ºÀÚ¸¦
-// È£ÃâÇÏµµ·Ï ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+// ìƒì„±í• ë•Œ, ë‹¤ë¥¸ í”Œë ˆì´ì–´ í•˜ìœ„ í´ë˜ìŠ¤ì™€ëŠ” ë‹¬ë¦¬, Player í´ë˜ìŠ¤ì˜ ìƒì„±ìë¥¼ ëª…ì‹œì ìœ¼ë¡œ
+// í˜¸ì¶œí•˜ì§€ ì•ŠëŠ”ë‹¤. ì´ëŠ” SocketOutputStream ì´ ìƒì„±ë˜ì§€ ì•ŠëŠ” Playerì˜ ë””í´íŠ¸ ìƒì„±ìë¥¼
+// í˜¸ì¶œí•˜ë„ë¡ í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
 //
 //--------------------------------------------------------------------------------
-// static int maxIdleSec         = 60 * 5;      // 5ºĞ.
-static int maxIdleSec = 30; // 20ÃÊ
+// static int maxIdleSec         = 60 * 5;      // 5ë¶„.
+static int maxIdleSec = 30; // 20ì´ˆ
 
-// Http ¹æ½ÄÀ¸·Î ¹Ù²å±â ¶§¹®¿¡ ´õ ÀÌ»ó buffer´Â ¸¹ÀÌ ÇÊ¿äÇÏÁö ¾Ê´Ù.
-// È¤½Ã¶óµµ SocketInputStreamÀÌ resize µÇ´ÂÁö´Â È®ÀÌÇØ ºÁ¾ß°ÚÁö.
+// Http ë°©ì‹ìœ¼ë¡œ ë°”ê¿¨ê¸° ë•Œë¬¸ì— ë” ì´ìƒ bufferëŠ” ë§ì´ í•„ìš”í•˜ì§€ ì•Šë‹¤.
+// í˜¹ì‹œë¼ë„ SocketInputStreamì´ resize ë˜ëŠ”ì§€ëŠ” í™•ì´í•´ ë´ì•¼ê² ì§€.
 // by sigi. 2002.11.11
 const int clientBufferSize = 1024;
 
@@ -54,7 +54,7 @@ UpdateServerPlayer::UpdateServerPlayer(Socket* pSocket) throw(Error)
     Assert(m_pOutputStream == NULL);
 
     try {
-        // ¼ÒÄÏÀÔ·Â½ºÆ®¸²Àº ±×´ë·Î »ı¼ºÇØÁØ´Ù.
+        // ì†Œì¼“ì…ë ¥ìŠ¤íŠ¸ë¦¼ì€ ê·¸ëŒ€ë¡œ ìƒì„±í•´ì¤€ë‹¤.
         m_pInputStream = new SocketInputStream(m_pSocket, clientBufferSize);
     } catch (Error& t) {
         filelog("updateServerPlayerBUG.txt", "%s", t.toString().c_str());
@@ -75,8 +75,8 @@ UpdateServerPlayer::UpdateServerPlayer(Socket* pSocket) throw(Error)
 UpdateServerPlayer::~UpdateServerPlayer() throw(Error) {
     __BEGIN_TRY
 
-    // ±× ¾î¶² ÇÃ·¹ÀÌ¾î °´Ã¼°¡ »èÁ¦µÉ ¶§¿¡µµ, ±× »óÅÂ´Â ·Î±×¾Æ¿ôÀÌ¾î¾ß ÇÑ´Ù.
-    // Áï ¾î¶² ÇÃ·¹ÀÌ¾î¸¦ Á¢¼Ó Á¾·á ½ÃÅ°·Á¸é, ±× »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µé¾î¾ß ÇÑ´Ù.
+    // ê·¸ ì–´ë–¤ í”Œë ˆì´ì–´ ê°ì²´ê°€ ì‚­ì œë  ë•Œì—ë„, ê·¸ ìƒíƒœëŠ” ë¡œê·¸ì•„ì›ƒì´ì–´ì•¼ í•œë‹¤.
+    // ì¦‰ ì–´ë–¤ í”Œë ˆì´ì–´ë¥¼ ì ‘ì† ì¢…ë£Œ ì‹œí‚¤ë ¤ë©´, ê·¸ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
     Assert(m_PlayerStatus == USPS_END_SESSION);
 
     __END_CATCH
@@ -87,7 +87,7 @@ UpdateServerPlayer::~UpdateServerPlayer() throw(Error) {
 //
 // parse packet and execute handler for the packet
 //
-// ÆĞÅ¶ÆÑÅä¸®¸¦ »ç¿ëÇÏÁö ¾Ê´Â ÀÌÀ¯´Â ÇÊ¿ä¾ø±â ¶§¹®ÀÌ´Ù. -_-;
+// íŒ¨í‚·íŒ©í† ë¦¬ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ì´ìœ ëŠ” í•„ìš”ì—†ê¸° ë•Œë¬¸ì´ë‹¤. -_-;
 //
 //--------------------------------------------------------------------------------
 void UpdateServerPlayer::processCommand() throw(IOException, Error) {
@@ -107,7 +107,7 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
 
     // try {
 
-    // Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ı¼º
+    // í—¤ë”ë¥¼ ì„ì‹œì €ì¥í•  ë²„í¼ ìƒì„±
     char header[szPacketHeader];
     PacketID_t packetID;
     PacketSize_t packetSize;
@@ -117,7 +117,7 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
     }
 
     //--------------------------------------------------------------------------------
-    // UpdateServerPlayer ÀÇ ¼ÒÄÏÀº blocking socket ÀÌ¶ó´Â Á¡¿¡ À¯ÀÇÇÒ °Í!
+    // UpdateServerPlayer ì˜ ì†Œì¼“ì€ blocking socket ì´ë¼ëŠ” ì ì— ìœ ì˜í•  ê²ƒ!
     //--------------------------------------------------------------------------------
     bool bInsufficientData = false;
 
@@ -151,20 +151,20 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
             if (m_PlayerStatus != USPS_BEGIN_SESSION)
                 throw InvalidProtocolException("invalid packet order");
 
-            // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-            // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+            // ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+            // ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
             if (m_pInputStream->length() < szPacketHeader + packetSize) {
                 bInsufficientData = true;
                 goto INSUFFICIENT_DATA;
                 // throw InsufficientDataException();
             }
 
-            // ÆĞÅ¶ ÇÏ³ª¸¦ ÀĞ¾úÀ¸´Ï, expire time À» ¿¬±âÇÑ´Ù.
+            // íŒ¨í‚· í•˜ë‚˜ë¥¼ ì½ì—ˆìœ¼ë‹ˆ, expire time ì„ ì—°ê¸°í•œë‹¤.
             getCurrentTime(m_ExpireTime);
             m_ExpireTime.tv_sec += maxIdleSec;
 
-            // ¿ø·¡´Â Packet::read()¸¦ È£ÃâÇÏ¸é ³»ºÎ¿¡¼­ ÆĞÅ¶ Çì´õ¸¦ ³¯·Á ÁÖÁö¸¸.
-            // ¿©±â¼­´Â Á÷Á¢ ³¯·ÁÁà¾ß ÇÑ´ç...
+            // ì›ë˜ëŠ” Packet::read()ë¥¼ í˜¸ì¶œí•˜ë©´ ë‚´ë¶€ì—ì„œ íŒ¨í‚· í—¤ë”ë¥¼ ë‚ ë ¤ ì£¼ì§€ë§Œ.
+            // ì—¬ê¸°ì„œëŠ” ì§ì ‘ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¹...
             m_pInputStream->skip(szPacketHeader);
 
             CUBeginUpdate cuBeginUpdate;
@@ -201,20 +201,20 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
             if (m_PlayerStatus != USPS_AFTER_SENDING_UC_UPDATE_LIST && m_PlayerStatus != USPS_AFTER_SENDING_UC_UPDATE)
                 throw InvalidProtocolException("invalid packet order");
 
-            // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-            // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+            // ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+            // ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
             if (m_pInputStream->length() < szPacketHeader + packetSize) {
                 bInsufficientData = true;
                 goto INSUFFICIENT_DATA;
                 // throw InsufficientDataException();
             }
 
-            // ÆĞÅ¶ ÇÏ³ª¸¦ ÀĞ¾úÀ¸´Ï, expire time À» ¿¬±âÇÑ´Ù.
+            // íŒ¨í‚· í•˜ë‚˜ë¥¼ ì½ì—ˆìœ¼ë‹ˆ, expire time ì„ ì—°ê¸°í•œë‹¤.
             getCurrentTime(m_ExpireTime);
             m_ExpireTime.tv_sec += maxIdleSec;
 
-            // ¿ø·¡´Â Packet::read()¸¦ È£ÃâÇÏ¸é ³»ºÎ¿¡¼­ ÆĞÅ¶ Çì´õ¸¦ ³¯·Á ÁÖÁö¸¸.
-            // ¿©±â¼­´Â Á÷Á¢ ³¯·ÁÁà¾ß ÇÑ´ç...
+            // ì›ë˜ëŠ” Packet::read()ë¥¼ í˜¸ì¶œí•˜ë©´ ë‚´ë¶€ì—ì„œ íŒ¨í‚· í—¤ë”ë¥¼ ë‚ ë ¤ ì£¼ì§€ë§Œ.
+            // ì—¬ê¸°ì„œëŠ” ì§ì ‘ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¹...
             m_pInputStream->skip(szPacketHeader);
 
             CURequest cuRequest;
@@ -239,20 +239,20 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
             if (m_PlayerStatus != USPS_AFTER_SENDING_UC_UPDATE_LIST || m_PlayerStatus != USPS_AFTER_SENDING_UC_UPDATE)
                 throw InvalidProtocolException("invalid packet order");
 
-            // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-            // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+            // ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+            // ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
             if (m_pInputStream->length() < szPacketHeader + packetSize) {
                 bInsufficientData = true;
                 goto INSUFFICIENT_DATA;
                 // throw InsufficientDataException();
             }
 
-            // ÆĞÅ¶ ÇÏ³ª¸¦ ÀĞ¾úÀ¸´Ï, expire time À» ¿¬±âÇÑ´Ù.
+            // íŒ¨í‚· í•˜ë‚˜ë¥¼ ì½ì—ˆìœ¼ë‹ˆ, expire time ì„ ì—°ê¸°í•œë‹¤.
             getCurrentTime(m_ExpireTime);
             m_ExpireTime.tv_sec += maxIdleSec;
 
-            // ¿ø·¡´Â Packet::read()¸¦ È£ÃâÇÏ¸é ³»ºÎ¿¡¼­ ÆĞÅ¶ Çì´õ¸¦ ³¯·Á ÁÖÁö¸¸.
-            // ¿©±â¼­´Â Á÷Á¢ ³¯·ÁÁà¾ß ÇÑ´ç...
+            // ì›ë˜ëŠ” Packet::read()ë¥¼ í˜¸ì¶œí•˜ë©´ ë‚´ë¶€ì—ì„œ íŒ¨í‚· í—¤ë”ë¥¼ ë‚ ë ¤ ì£¼ì§€ë§Œ.
+            // ì—¬ê¸°ì„œëŠ” ì§ì ‘ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¹...
             m_pInputStream->skip(szPacketHeader);
 
             CUEndUpdate cuEndUpdate;
@@ -277,20 +277,20 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
             if (m_PlayerStatus != USPS_BEGIN_SESSION)
                 throw InvalidProtocolException("invalid packet order");
 
-            // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-            // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+            // ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+            // ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
             if (m_pInputStream->length() < szPacketHeader + packetSize) {
                 bInsufficientData = true;
                 goto INSUFFICIENT_DATA;
                 // throw InsufficientDataException();
             }
 
-            // ÆĞÅ¶ ÇÏ³ª¸¦ ÀĞ¾úÀ¸´Ï, expire time À» ¿¬±âÇÑ´Ù.
+            // íŒ¨í‚· í•˜ë‚˜ë¥¼ ì½ì—ˆìœ¼ë‹ˆ, expire time ì„ ì—°ê¸°í•œë‹¤.
             getCurrentTime(m_ExpireTime);
             m_ExpireTime.tv_sec += maxIdleSec;
 
-            // ¿ø·¡´Â Packet::read()¸¦ È£ÃâÇÏ¸é ³»ºÎ¿¡¼­ ÆĞÅ¶ Çì´õ¸¦ ³¯·Á ÁÖÁö¸¸.
-            // ¿©±â¼­´Â Á÷Á¢ ³¯·ÁÁà¾ß ÇÑ´ç...
+            // ì›ë˜ëŠ” Packet::read()ë¥¼ í˜¸ì¶œí•˜ë©´ ë‚´ë¶€ì—ì„œ íŒ¨í‚· í—¤ë”ë¥¼ ë‚ ë ¤ ì£¼ì§€ë§Œ.
+            // ì—¬ê¸°ì„œëŠ” ì§ì ‘ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¹...
             m_pInputStream->skip(szPacketHeader);
 
             CURequestLoginMode cuRequestLoginMode;
@@ -313,12 +313,12 @@ void UpdateServerPlayer::processCommand() throw(IOException, Error) {
 // by sigi. 2002.11.9
 INSUFFICIENT_DATA:
     if (bInsufficientData) {
-        // ´ÜÁö ·çÇÁÀÇ Å»Ãâ Á¶°ÇÀÏ »ÓÀÌ´Ù. »óÀ§·Î Àü´ŞÇÒ ÇÊ¿ä´Â ¾ø´Ù.
-        // expire time À» ÃÊ°úÇßÀ» °æ¿ì ¿¬°áÀ» Á¾·áÇÑ´Ù.
+        // ë‹¨ì§€ ë£¨í”„ì˜ íƒˆì¶œ ì¡°ê±´ì¼ ë¿ì´ë‹¤. ìƒìœ„ë¡œ ì „ë‹¬í•  í•„ìš”ëŠ” ì—†ë‹¤.
+        // expire time ì„ ì´ˆê³¼í–ˆì„ ê²½ìš° ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
         Timeval currentTime;
         getCurrentTime(currentTime);
         if (currentTime >= m_ExpireTime)
-            throw DisconnectException("ÀÏÁ¤ ½Ã°£µ¿¾È ÀÔ·ÂÇÏÁö ¾ÊÀ» °æ¿ì, ¿¬°áÀ» Á¾·áÇÕ´Ï´Ù.");
+            throw DisconnectException("ì¼ì • ì‹œê°„ë™ì•ˆ ì…ë ¥í•˜ì§€ ì•Šì„ ê²½ìš°, ì—°ê²°ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
     }
 
     //	__END_DEBUG
@@ -328,7 +328,7 @@ INSUFFICIENT_DATA:
 
 
 //--------------------------------------------------------------------------------
-// Ãâ·ÂÀ» ¹öÆÛ¸µÇÏÁö ¾Ê±â ¶§¹®¿¡, ¾Æ¹« °Íµµ ÇÏÁö ¾Ê¾Æµµ µÈ´Ù.
+// ì¶œë ¥ì„ ë²„í¼ë§í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì—, ì•„ë¬´ ê²ƒë„ í•˜ì§€ ì•Šì•„ë„ ëœë‹¤.
 //--------------------------------------------------------------------------------
 void UpdateServerPlayer::processOutput() throw(IOException, Error) {
     __BEGIN_TRY
@@ -354,7 +354,7 @@ void UpdateServerPlayer::sendPacket(Packet* pPacket) throw(ProtocolException, Er
     PacketSize_t packetSize = pPacket->getPacketSize();
     m_pSocket->send(&packetID, szPacketID);
     m_pSocket->send(&packetSize, szPacketSize);
-    // ÆĞÅ¶À» ¼ÒÄÏ¿¡ Á÷Á¢ »Ñ¸°´Ù.
+    // íŒ¨í‚·ì„ ì†Œì¼“ì— ì§ì ‘ ë¿Œë¦°ë‹¤.
     pPacket->write(m_pSocket);
 
     // cout << "Send Packet Size : " << pPacket->getPacketSize() << endl;
@@ -373,14 +373,14 @@ void UpdateServerPlayer::disconnect(bool bDisconnected) throw(Error) {
     __BEGIN_TRY
 
     if (bDisconnected == UNDISCONNECTED) {
-        // Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
+        // ì¶œë ¥ ë²„í¼ì— ë‚¨ì•„ìˆëŠ” ë°ì´íƒ€ë¥¼ ì „ì†¡í•œë‹¤.
         m_pOutputStream->flush();
     }
 
-    // ¼ÒÄÏ ¿¬°áÀ» ´İ´Â´Ù.
+    // ì†Œì¼“ ì—°ê²°ì„ ë‹«ëŠ”ë‹¤.
     m_pSocket->close();
 
-    // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µç´Ù.
+    // í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“ ë‹¤.
     Assert(m_PlayerStatus != USPS_END_SESSION);
     m_PlayerStatus = USPS_END_SESSION;
 

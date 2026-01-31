@@ -18,7 +18,7 @@
 #include "Properties.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Whitsuntide::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -38,7 +38,7 @@ void Whitsuntide::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
 
@@ -57,8 +57,8 @@ void Whitsuntide::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
-//  ¹ìÆÄÀÌ¾î°¡ Vigor Drop SkillÀ» Tile¿¡ »ç¿ëÇßÀ»¶§ »ç¿ëÇÏ´Â Handler
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
+//  ë±€íŒŒì´ì–´ê°€ Vigor Drop Skillì„ Tileì— ì‚¬ìš©í–ˆì„ë•Œ ì‚¬ìš©í•˜ëŠ” Handler
 //////////////////////////////////////////////////////////////////////////////
 void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -162,19 +162,19 @@ void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
                             pTargetSlayer->setFlag(Effect::EFFECT_CLASS_WHITSUNTIDE);
                             pTargetSlayer->addEffect(pEffect);
 
-                            // ÀÌÆåÆ®¸¦ ºÙ¿´À¸´Ï, ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+                            // ì´íŽ™íŠ¸ë¥¼ ë¶™ì˜€ìœ¼ë‹ˆ, ëŠ¥ë ¥ì¹˜ë¥¼ ìž¬ê³„ì‚°í•œë‹¤.
                             SLAYER_RECORD prev;
                             pTargetSlayer->getSlayerRecord(prev);
                             pTargetSlayer->initAllStat();
                             pTargetSlayer->sendRealWearingInfo();
                             pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
 
-                            // ÀÌÆåÆ® Á¤º¸¸¦ ´Ù½Ã º¸³»ÁØ´Ù. by sigi. 2002.11.14
+                            // ì´íŽ™íŠ¸ ì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ë‚´ì¤€ë‹¤. by sigi. 2002.11.14
                             pTargetSlayer->getEffectManager()->sendEffectInfo(
                                 pTargetSlayer, pZone, pTargetSlayer->getX(), pTargetSlayer->getY());
 
-                            // ºÎÈ° ¾Æ¸£¹ÙÀÌµå¸¦ ¹æÁöÇÏ±â À§ÇØ¼­ Aftermath ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
-                            // 2002.11.19 ÀåÈ«Ã¢
+                            // ë¶€í™œ ì•„ë¥´ë°”ì´ë“œë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ Aftermath ì´íŽ™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
+                            // 2002.11.19 ìž¥í™ì°½
                             if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH)) {
                                 Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_KILL_AFTERMATH);
                                 EffectKillAftermath* pEffectKillAftermath = dynamic_cast<EffectKillAftermath*>(pEffect);
@@ -193,7 +193,7 @@ void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
                             pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
                             //						pTargetSlayer->setMP(0, ATTR_CURRENT);
 
-                            // ÁÖÀ§¿¡ Ã¼·ÂÀÌ Ã¤¿öÁ³´Ù´Â »ç½ÇÀ» ¾Ë¸°´Ù.
+                            // ì£¼ìœ„ì— ì²´ë ¥ì´ ì±„ì›Œì¡Œë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë¦°ë‹¤.
                             GCStatusCurrentHP gcStatusCurrentHP;
                             gcStatusCurrentHP.setObjectID(pTargetSlayer->getObjectID());
                             gcStatusCurrentHP.setCurrentHP(pTargetSlayer->getHP(ATTR_CURRENT));
@@ -220,47 +220,47 @@ void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
             }
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK1.setSkillType(SkillType);
             _GCSkillToTileOK1.setCEffectID(CEffectID);
             _GCSkillToTileOK1.setX(X);
             _GCSkillToTileOK1.setY(Y);
             _GCSkillToTileOK1.setDuration(output.Duration);
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒë§Œ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setObjectID(pSlayer->getObjectID());
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(X);
             _GCSkillToTileOK3.setY(Y);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëžŒë§Œ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ðµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒê³¼ ë‹¹í•œ ì‚¬ëžŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
             _GCSkillToTileOK5.setY(Y);
             _GCSkillToTileOK5.setDuration(output.Duration);
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷¿¡°Ô packet Àü´Þ
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëžŒì—ê²Œ packet ì „ë‹¬
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ðµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
-            // broadcastingÈÄ 5¹øOK¸¦ ¹ÞÀº »ç¶÷À» ±â·ÏÇÑ´Ù.
-            // ¿©±â¿¡ ±â·ÏµÈ »ç¶÷Àº Â÷ÈÄ broadcasting¿¡¼­ Á¦¿ÜµÈ´Ù.
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëžŒê³¼ ë‹¹í•œ ì‚¬ëžŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasing
+            // broadcastingí›„ 5ë²ˆOKë¥¼ ë°›ì€ ì‚¬ëžŒì„ ê¸°ë¡í•œë‹¤.
+            // ì—¬ê¸°ì— ê¸°ë¡ëœ ì‚¬ëžŒì€ ì°¨í›„ broadcastingì—ì„œ ì œì™¸ëœë‹¤.
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëžŒì„ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëžŒì„ ë³¼ ìˆ˜ ìžˆëŠ” ì‚¬ëžŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // ±â¼ú delay setting
+            // ê¸°ìˆ  delay setting
             pSkillSlot->setRunTime(output.Delay);
 
         } else {

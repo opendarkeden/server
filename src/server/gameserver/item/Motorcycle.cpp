@@ -33,7 +33,7 @@ Motorcycle::Motorcycle(ItemType_t itemType, const list<OptionType_t>& optionType
     : m_ItemType(itemType), m_OptionType(optionType), m_Durability(0), m_pInventory(NULL) {
     __BEGIN_TRY
 
-    // ¸ğÅÍ»çÀÌÅ¬Àº Å¸ÀÔ¿¡ µû¶ó ÀÎº¥Åä¸®ÀÇ Å©±â°¡ ´Ù¸£´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì€ íƒ€ì…ì— ë”°ë¼ ì¸ë²¤í† ë¦¬ì˜ í¬ê¸°ê°€ ë‹¤ë¥´ë‹¤.
     switch (itemType) {
     case 0:
         m_pInventory = new Inventory(10, 6);
@@ -383,7 +383,7 @@ void MotorcycleLoader::load(Creature* pCreature)
                     case STORAGE_EXTRASLOT :
                     case STORAGE_MOTORCYCLE:
                     case STORAGE_STASH:
-                        // ¸ğÅÍ »çÀÌÅ¬ ¾È¿¡ ¸ğÅÍ »çÀÌÅ¬À» º¸°üÇÒ ¼ö°¡ ÀÖ³ª
+                        // ëª¨í„° ì‚¬ì´í´ ì•ˆì— ëª¨í„° ì‚¬ì´í´ì„ ë³´ê´€í•  ìˆ˜ê°€ ìˆë‚˜
                         Assert(false);
                         pMotorcycle->destroy();
                         SAFE_DELETE(pMotorcycle);
@@ -460,7 +460,7 @@ void MotorcycleLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

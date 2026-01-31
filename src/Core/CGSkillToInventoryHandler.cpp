@@ -36,7 +36,7 @@ void CGSkillToInventoryHandler::execute(CGSkillToInventory* pPacket, Player* pPl
 
         SkillType_t SkillType = pPacket->getSkillType();
 
-        // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+        // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
         ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
         if (ZoneLevel & COMPLETE_SAFE_ZONE) {
             GCSkillFailed1 _GCSkillFailed1;

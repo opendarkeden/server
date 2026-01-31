@@ -18,7 +18,7 @@ GQuestElement::ResultType GQuestGiveOustersExpElement::checkCondition(PlayerCrea
     pOusters->getPlayer()->sendPacket(&gcMI);
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("»ñµÃ¾­ÑéÖµ.");
+    gcSM.setMessage("ì‚¿ë¤ì’”ï¤šä»¤.");
     pOusters->getPlayer()->sendPacket(&gcSM);
 
     return OK;

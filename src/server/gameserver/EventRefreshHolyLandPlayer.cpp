@@ -36,15 +36,15 @@ void EventRefreshHolyLandPlayer::activate()
         unordered_map<ZoneID_t, Zone*>::const_iterator zItr = zones.begin();
 
         for (; zItr != zones.end(); ++zItr) {
-            //			cout << zItr->second->getZoneID() << " Á¸ update" << endl;
+            //			cout << zItr->second->getZoneID() << " ì¡´ update" << endl;
             zItr->second->setRefreshHolyLandPlayer(true);
         }
     }
 
-    // ¾Æ´ãÀÇ ¼ºÁö¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾îµéÀÇ Á¤º¸¸¦ »õ·Î °è»êÇÑ´Ù.(ÇÇÀÇ ¼º¼­ º¸³Ê½º)
+    // ì•„ë‹´ì˜ ì„±ì§€ì— ìžˆëŠ” í”Œë ˆì´ì–´ë“¤ì˜ ì •ë³´ë¥¼ ìƒˆë¡œ ê³„ì‚°í•œë‹¤.(í”¼ì˜ ì„±ì„œ ë³´ë„ˆìŠ¤)
     //	g_pHolyLandManager->refreshHolyLandPlayers();
 
-    /*	// ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ ÇÇÀÇ ¼º¼­ º¸³Ê½º Á¤º¸¸¦ »Ñ¸°´Ù.
+    /*	// ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— í”¼ì˜ ì„±ì„œ ë³´ë„ˆìŠ¤ ì •ë³´ë¥¼ ë¿Œë¦°ë‹¤.
         GCHolyLandBonusInfo gcHolyLandBonusInfo;
         g_pBloodBibleBonusManager->makeHolyLandBonusInfo( gcHolyLandBonusInfo );
         g_pHolyLandManager->broadcast( &gcHolyLandBonusInfo );

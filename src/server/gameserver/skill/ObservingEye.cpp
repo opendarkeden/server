@@ -19,7 +19,7 @@
 #include "PacketUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ObservingEye::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -61,10 +61,10 @@ void ObservingEye::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ®¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectObservingEye* pEffect = new EffectObservingEye(pSlayer);
             pEffect->setDeadline(output.Duration);
-            // output.Damage¸¦ visionÀ¸·Î ¼³Á¤ÇÏÀÚ.
+            // output.Damageë¥¼ visionìœ¼ë¡œ ì„¤ì •í•˜ìž.
             pEffect->setDamageBonus(output.Damage * 2 - 1);
             pEffect->setCriticalHitBonus(output.Damage * 10 - 49);
             pEffect->setVisionBonus(output.Damage);
@@ -73,17 +73,17 @@ void ObservingEye::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
             pSlayer->setFlag(Effect::EFFECT_CLASS_OBSERVING_EYE);
             pSlayer->addEffect(pEffect);
 
-            // ÀÌ ÀÌÆåÆ®°¡ ºÙÀ½À¸·Î½á, ¾È º¸ÀÌ´ø °ÍÀÌ º¸ÀÎ´Ù.
+            // ì´ ì´íŽ™íŠ¸ê°€ ë¶™ìŒìœ¼ë¡œì¨, ì•ˆ ë³´ì´ë˜ ê²ƒì´ ë³´ì¸ë‹¤.
             pZone->updateInvisibleScan(pSlayer);
 
-            // ÀÌÆåÆ®¸¦ ºÙ¿´À¸´Ï, ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ë¶™ì˜€ìœ¼ë‹ˆ, ëŠ¥ë ¥ì¹˜ë¥¼ ìž¬ê³„ì‚°í•œë‹¤.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->addModifyInfo(prev, _GCSkillToSelfOK1);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 8, 1, _GCSkillToSelfOK1);

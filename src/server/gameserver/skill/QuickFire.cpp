@@ -14,7 +14,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ®
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸
 //////////////////////////////////////////////////////////////////////////////
 void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -35,7 +35,7 @@ void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -48,9 +48,9 @@ void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         GCAttackArmsOK4 _GCAttackArmsOK4;
         GCAttackArmsOK5 _GCAttackArmsOK5;
 
-        // µé°í ÀÖ´Â ¹«±â°¡ ¾ø°Å³ª, ÃÑ °è¿­ ¹«±â°¡ ¾Æ´Ï¶ó¸é ±â¼úÀ» ¾µ ¼ö ¾ø´Ù.
-        // ÃÑ °è¿­ ¹«±â Áß¿¡¼­µµ SG³ª SRÀº QuickFire¸¦ ¾µ ¼ö°¡ ¾ø´Ù.
-        // SG, SR µµ ÀÌÁ¦ ¾µ ¼ö ÀÖ´Ù.
+        // ë“¤ê³  ìˆëŠ” ë¬´ê¸°ê°€ ì—†ê±°ë‚˜, ì´ ê³„ì—´ ë¬´ê¸°ê°€ ì•„ë‹ˆë¼ë©´ ê¸°ìˆ ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
+        // ì´ ê³„ì—´ ë¬´ê¸° ì¤‘ì—ì„œë„ SGë‚˜ SRì€ QuickFireë¥¼ ì“¸ ìˆ˜ê°€ ì—†ë‹¤.
+        // SG, SR ë„ ì´ì œ ì“¸ ìˆ˜ ìˆë‹¤.
         // 2003. 1. 14  by bezz
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || isArmsWeapon(pWeapon) == false)
@@ -73,7 +73,7 @@ void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         SkillOutput output;
         computeOutput(input, output);
 
-        // Æä³ÎÆ¼ °ªÀ» °è»êÇÑ´Ù.
+        // í˜ë„í‹° ê°’ì„ ê³„ì‚°í•œë‹¤.
         int ToHitPenalty = getPercentValue(pSlayer->getToHit(), output.ToHit);
 
         int RequiredMP = (int)pSkillInfo->getConsumeMP();
@@ -84,12 +84,12 @@ void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
         bool bHitRoll = HitRoll::isSuccess(pSlayer, pTargetCreature, ToHitPenalty);
         bool bPK = verifyPK(pSlayer, pTargetCreature);
 
-        // ÃÑ¾Ë ¼ıÀÚ´Â ¹«Á¶°Ç ¶³¾î¶ß¸°´Ù.
+        // ì´ì•Œ ìˆ«ìëŠ” ë¬´ì¡°ê±´ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         Bullet_t RemainBullet = 0;
         if (bBulletCheck) {
-            // ÃÑ¾Ë ¼ıÀÚ¸¦ ¶³¾î¶ß¸®°í, ÀúÀåÇÏ°í, ³²Àº ÃÑ¾Ë ¼ıÀÚ¸¦ ¹Ş¾Æ¿Â´Ù.
+            // ì´ì•Œ ìˆ«ìë¥¼ ë–¨ì–´ëœ¨ë¦¬ê³ , ì €ì¥í•˜ê³ , ë‚¨ì€ ì´ì•Œ ìˆ«ìë¥¼ ë°›ì•„ì˜¨ë‹¤.
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ì¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
         }
@@ -103,26 +103,26 @@ void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 
             bool bCriticalHit = false;
 
-            // µ¥¹ÌÁö¸¦ °è»êÇÏ°í, quickfire Æä³ÎÆ¼¸¦ °¡ÇÑ´Ù.
-            // output.Damage°¡ À½¼öÀÌ±â ¶§¹®¿¡, %°ªÀ» ±¸ÇØ ´õÇÏ¸é °á±¹ »©´Â °ÍÀÌ µÈ´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•˜ê³ , quickfire í˜ë„í‹°ë¥¼ ê°€í•œë‹¤.
+            // output.Damageê°€ ìŒìˆ˜ì´ê¸° ë•Œë¬¸ì—, %ê°’ì„ êµ¬í•´ ë”í•˜ë©´ ê²°êµ­ ë¹¼ëŠ” ê²ƒì´ ëœë‹¤.
             int Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
             Damage += getPercentValue(Damage, output.Damage);
             Damage = max(0, Damage);
 
             // cout << "QuickFireDamage:" << Damage << endl;
 
-            // µ¥¹ÌÁö¸¦ ¼¼ÆÃÇÑ´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ì„¸íŒ…í•œë‹¤.
             setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
             }
 
             /*
-            // 80% È®·ü·Î¸¸ ´É·ÂÄ¡°¡ »ó½ÂÇÑ´Ù.
-            // »ó´ë¹æÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ °æÇèÄ¡°¡ »ó½ÂÇÑ´Ù.
+            // 80% í™•ë¥ ë¡œë§Œ ëŠ¥ë ¥ì¹˜ê°€ ìƒìŠ¹í•œë‹¤.
+            // ìƒëŒ€ë°©ì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ê²½í—˜ì¹˜ê°€ ìƒìŠ¹í•œë‹¤.
             if (Random(1, 100) < 80 && !pTargetCreature->isSlayer())
             {
             */
@@ -150,7 +150,7 @@ void QuickFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
                 pMonster->addEnemy(pSlayer);
             }
 
-            // °ø°İÀÚ¿Í »ó´ëÀÇ ¾ÆÀÌÅÛ ³»±¸¼º ¶³¾îÆ®¸².
+            // ê³µê²©ìì™€ ìƒëŒ€ì˜ ì•„ì´í…œ ë‚´êµ¬ì„± ë–¨ì–´íŠ¸ë¦¼.
             decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCAttackArmsOK1, &_GCAttackArmsOK2);
 
             ZoneCoord_t targetX = pTargetCreature->getX();
@@ -211,7 +211,7 @@ void QuickFire::execute(Monster* pMonster, Creature* pEnemy)
         Zone* pZone = pMonster->getZone();
         Assert(pZone != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pEnemy == NULL || pEnemy->isNPC()) {
             // cout << "WrongEnemy" << endl;
             executeSkillFailNormalWithGun(pMonster, getSkillType(), pEnemy, RemainBullet);
@@ -230,7 +230,7 @@ void QuickFire::execute(Monster* pMonster, Creature* pEnemy)
         SkillOutput output;
         computeOutput(input, output);
 
-        // Æä³ÎÆ¼ °ªÀ» °è»êÇÑ´Ù.
+        // í˜ë„í‹° ê°’ì„ ê³„ì‚°í•œë‹¤.
         int ToHitPenalty = getPercentValue(pMonster->getToHit(), output.ToHit);
 
         bool bRangeCheck = verifyDistance(pMonster, pEnemy, pSkillInfo->getRange());
@@ -243,19 +243,19 @@ void QuickFire::execute(Monster* pMonster, Creature* pEnemy)
 
             bool bCriticalHit = false;
 
-            // µ¥¹ÌÁö¸¦ °è»êÇÏ°í, quickfire Æä³ÎÆ¼¸¦ °¡ÇÑ´Ù.
-            // output.Damage°¡ À½¼öÀÌ±â ¶§¹®¿¡, %°ªÀ» ±¸ÇØ ´õÇÏ¸é °á±¹ »©´Â °ÍÀÌ µÈ´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•˜ê³ , quickfire í˜ë„í‹°ë¥¼ ê°€í•œë‹¤.
+            // output.Damageê°€ ìŒìˆ˜ì´ê¸° ë•Œë¬¸ì—, %ê°’ì„ êµ¬í•´ ë”í•˜ë©´ ê²°êµ­ ë¹¼ëŠ” ê²ƒì´ ëœë‹¤.
             int Damage = computeDamage(pMonster, pEnemy, 0, bCriticalHit);
             Damage += getPercentValue(Damage, output.Damage);
             Damage = max(0, Damage);
 
             // cout << "QuickFireDamage:" << Damage << endl;
 
-            // µ¥¹ÌÁö¸¦ ¼¼ÆÃÇÑ´Ù.
+            // ë°ë¯¸ì§€ë¥¼ ì„¸íŒ…í•œë‹¤.
             setDamage(pEnemy, Damage, pMonster, SkillType, &_GCAttackArmsOK2);
             // computeAlignmentChange(pEnemy, Damage, pMonster, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pEnemy, pMonster->getX(), pMonster->getY());
             }
@@ -272,7 +272,7 @@ void QuickFire::execute(Monster* pMonster, Creature* pEnemy)
                 pOtherMonster->addEnemy(pMonster);
             }
 
-            // °ø°İÀÚ¿Í »ó´ëÀÇ ¾ÆÀÌÅÛ ³»±¸¼º ¶³¾îÆ®¸².
+            // ê³µê²©ìì™€ ìƒëŒ€ì˜ ì•„ì´í…œ ë‚´êµ¬ì„± ë–¨ì–´íŠ¸ë¦¼.
             decreaseDurability(pMonster, pEnemy, NULL, NULL, &_GCAttackArmsOK2);
 
             ZoneCoord_t targetX = pEnemy->getX();

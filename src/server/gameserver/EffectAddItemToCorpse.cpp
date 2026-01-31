@@ -28,7 +28,7 @@ EffectAddItemToCorpse::EffectAddItemToCorpse(Zone* pZone, Item* pItem, ObjectID_
     : Effect(pZone, 0, 0, pItem, delay) {
     __BEGIN_TRY
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     Assert(getZone() != NULL);
@@ -53,8 +53,8 @@ EffectAddItemToCorpse::~EffectAddItemToCorpse()
 
 //----------------------------------------------------------------------
 // affect to target
-// ÀÌ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ Á¾¼ÓµÇÁö ¾ÊÀ¸¹Ç·Î, affect()´Â È£ÃâµÇÁö ¾Ê´Â´Ù.
-// ¿Ö³ÄÇÏ¸é, targetÀº »ı¼ºÀÚ¿¡¼­ ÁöÁ¤µÇ¸ç, ¾Æ¹«·± ÀÏµµ ÇÏÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// ì´ ì´í™íŠ¸ëŠ” íƒ€ì¼ì— ì¢…ì†ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ, affect()ëŠ” í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.
+// ì™œëƒí•˜ë©´, targetì€ ìƒì„±ìì—ì„œ ì§€ì •ë˜ë©°, ì•„ë¬´ëŸ° ì¼ë„ í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void EffectAddItemToCorpse::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
 
@@ -75,7 +75,7 @@ void EffectAddItemToCorpse::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, 
 {
     __BEGIN_TRY
 
-    // ¿Ã¹Ù¸¥ ÁÂÇ¥ÀÌ¾î¾ß ÇÑ´Ù.
+    // ì˜¬ë°”ë¥¸ ì¢Œí‘œì´ì–´ì•¼ í•œë‹¤.
     Assert(pTarget != NULL);
 
     Item* pItem = dynamic_cast<Item*>(pTarget);
@@ -91,7 +91,7 @@ void EffectAddItemToCorpse::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, 
 
         pCorpse->addTreasure(pItem);
     } else {
-        throw Error("½ÃÃ¼°¡ ¾Æ´Ï³×");
+        throw Error("ì‹œì²´ê°€ ì•„ë‹ˆë„¤");
     }
 
     pTarget = NULL;

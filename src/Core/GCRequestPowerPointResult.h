@@ -24,14 +24,14 @@ class GCRequestPowerPointResult : public Packet {
 public:
     enum RESULT_CODE {
         NO_ERROR = 0,
-        SERVER_ERROR,  // ÆÄ¿öÂ¯ ¼­¹ö´Â »ì¾ÆÀÖÀ¸³ª ÇöÀç Á¤»óÀûÀ¸·Î µ¿ÀÛÇÏÁö ¸øÇÏ´Â »óÈ²
-        PROCESS_ERROR, // ¼­¹ö Ã³¸® ¿À·ù (ex DB ¿À·ù )
-        NO_MEMBER,     // ÆÄ¿öÂ¯ È¸¿øÀÌ ¾Æ´Ñ °æ¿ì
-        NO_POINT,      // ´©ÀûµÈ ÆÄ¿öÂ¯ Æ÷ÀÎÆ®°¡ ¾øÀ½
-        NO_MATCHING,   // ¸ÅÄª Á¤º¸°¡ ¾øÀ½.
-                       // ÆÄ¿öÂ¯ È¨ÆäÀÌÁö¿¡¼­ °ÔÀÓ ¸ÅÄªÀ» ÇÏÁö ¾ÊÀº °æ¿ì
-                       // ÆÄ¿öÂ¯ È¨ÆäÀÌÁö¿¡¼­ ¸ÅÄªÀ» À¯µµÇÏ´Â ¹®ÀåÀ» ºÎ¿©ÁØ´Ù.
-        CONNECT_ERROR, // °ÔÀÓÄÚµå È®ÀÎ ½ÇÆÐ ¹× ÆÐÅ¶ ¿À·ù
+        SERVER_ERROR,  // íŒŒì›Œì§± ì„œë²„ëŠ” ì‚´ì•„ìžˆìœ¼ë‚˜ í˜„ìž¬ ì •ìƒì ìœ¼ë¡œ ë™ìž‘í•˜ì§€ ëª»í•˜ëŠ” ìƒí™©
+        PROCESS_ERROR, // ì„œë²„ ì²˜ë¦¬ ì˜¤ë¥˜ (ex DB ì˜¤ë¥˜ )
+        NO_MEMBER,     // íŒŒì›Œì§± íšŒì›ì´ ì•„ë‹Œ ê²½ìš°
+        NO_POINT,      // ëˆ„ì ëœ íŒŒì›Œì§± í¬ì¸íŠ¸ê°€ ì—†ìŒ
+        NO_MATCHING,   // ë§¤ì¹­ ì •ë³´ê°€ ì—†ìŒ.
+                       // íŒŒì›Œì§± í™ˆíŽ˜ì´ì§€ì—ì„œ ê²Œìž„ ë§¤ì¹­ì„ í•˜ì§€ ì•Šì€ ê²½ìš°
+                       // íŒŒì›Œì§± í™ˆíŽ˜ì´ì§€ì—ì„œ ë§¤ì¹­ì„ ìœ ë„í•˜ëŠ” ë¬¸ìž¥ì„ ë¶€ì—¬ì¤€ë‹¤.
+        CONNECT_ERROR, // ê²Œìž„ì½”ë“œ í™•ì¸ ì‹¤íŒ¨ ë° íŒ¨í‚· ì˜¤ë¥˜
     };
 
 public:
@@ -39,10 +39,10 @@ public:
     ~GCRequestPowerPointResult();
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -94,13 +94,13 @@ public:
     // data members
     //--------------------------------------------------
 private:
-    // ¿¡·¯ ÄÚµå
+    // ì—ëŸ¬ ì½”ë“œ
     BYTE m_ErrorCode;
 
-    // ÇöÀç ´©ÀûµÈ ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // í˜„ìž¬ ëˆ„ì ëœ íŒŒì›Œì§± í¬ì¸íŠ¸
     int m_SumPowerPoint;
 
-    // ¿äÃ»À¸·Î °¡Á®¿Â ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // ìš”ì²­ìœ¼ë¡œ ê°€ì ¸ì˜¨ íŒŒì›Œì§± í¬ì¸íŠ¸
     int m_RequestPowerPoint;
 };
 
@@ -132,7 +132,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCRequestPowerPointResultPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCRequestPowerPointResultPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + szint + szint;
     }

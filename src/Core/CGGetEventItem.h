@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : CGGetEventItem.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,12 +11,12 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// ±âºÎ Á¾·ù
+// ê¸°ë¶€ ì¢…ë¥˜
 ////////////////////////////////////////////////////////////////////////////////
 enum EventType {
-    EVENT_TYPE_200501_COMBACK_ITEM = 0,       // µ¹¾Æ¿Â »ç¿ëÀÚ ¸µ ¾ÆÀÌÅÛ ÁÖ±â ÀÌº¥Æ®
-    EVENT_TYPE_200501_COMBACK_PREMIUM_ITEM,   // µ¹¾Æ¿Â »ç¿ëÀÚ °áÁ¦ ½Ã ¾ÆÀÌÅÛ ÁÖ±â ÀÌº¥Æ®
-    EVENT_TYPE_200501_COMBACK_RECOMMEND_ITEM, // µ¹¾Æ¿Â »ç¿ëÀÚ °áÁ¦ ½Ã ÃßÃµ ¹ÞÀº ÀÚ ¾ÆÀÌÅÛ ÁÖ±â ÀÌº¥Æ®
+    EVENT_TYPE_200501_COMBACK_ITEM = 0,       // ëŒì•„ì˜¨ ì‚¬ìš©ìž ë§ ì•„ì´í…œ ì£¼ê¸° ì´ë²¤íŠ¸
+    EVENT_TYPE_200501_COMBACK_PREMIUM_ITEM,   // ëŒì•„ì˜¨ ì‚¬ìš©ìž ê²°ì œ ì‹œ ì•„ì´í…œ ì£¼ê¸° ì´ë²¤íŠ¸
+    EVENT_TYPE_200501_COMBACK_RECOMMEND_ITEM, // ëŒì•„ì˜¨ ì‚¬ìš©ìž ê²°ì œ ì‹œ ì¶”ì²œ ë°›ì€ ìž ì•„ì´í…œ ì£¼ê¸° ì´ë²¤íŠ¸
 
     EVENT_TYPE_MAX
 };
@@ -54,7 +54,7 @@ public:
     }
 
 private:
-    BYTE m_EventType; // ÀÌº¥Æ® Á¾·ù
+    BYTE m_EventType; // ì´ë²¤íŠ¸ ì¢…ë¥˜
 };
 
 

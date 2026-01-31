@@ -45,7 +45,7 @@ public:
 
 private:
     int m_DynamicZoneType;     // DynamicZoneType
-    ZoneID_t m_TemplateZoneID; // ´ÙÀÌ³ª¹Í Á¸ÀÇ Æ²ÀÌµÇ´Â Á¸ ID
+    ZoneID_t m_TemplateZoneID; // ë‹¤ì´ë‚˜ë¯¹ ì¡´ì˜ í‹€ì´ë˜ëŠ” ì¡´ ID
 };
 
 

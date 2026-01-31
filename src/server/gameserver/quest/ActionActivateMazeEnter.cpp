@@ -50,7 +50,7 @@ void ActionActivateMazeEnter::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeEnter::execute(Creature* pNPC, Creature* pCreature)
 
@@ -70,16 +70,16 @@ void ActionActivateMazeEnter::execute(Creature* pNPC, Creature* pCreature)
     try {
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
 
-        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìžê°€ ì•„ë‹ˆë©´...
         if (pZoneInfo == NULL || pZoneInfo->isPayPlay() && !pGamePlayer->isPayPlaying()) {
             string connectIP = pGamePlayer->getSocket()->getHost();
 
-            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                 sendPayInfo(pGamePlayer);
-            } else if (!pGamePlayer->isFamilyFreePass()) // ÆÐ¹Ð¸® ÇÁ¸® ÆÐ½º´Â À¯·áÁ¸À¸·Î °¥ ¼ö ÀÖ´Ù.
+            } else if (!pGamePlayer->isFamilyFreePass()) // íŒ¨ë°€ë¦¬ í”„ë¦¬ íŒ¨ìŠ¤ëŠ” ìœ ë£Œì¡´ìœ¼ë¡œ ê°ˆ ìˆ˜ ìžˆë‹¤.
             {
-                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                 GCSystemMessage gcSystemMessage;
 
                 if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {

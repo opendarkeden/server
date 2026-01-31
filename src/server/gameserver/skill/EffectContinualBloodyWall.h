@@ -26,7 +26,7 @@ public:
         return EFFECT_CLASS_CONTINUAL_BLOODY_WALL;
     }
 
-    // OBJECT_PRIORITY_NONE ��� ����, Ÿ�Ͽ� ������ �ȵȴٴ� ���̴�.
+    // OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
     //	virtual ObjectPriority getObjectPriority() const throw() { return OBJECT_PRIORITY_NONE; }
 
     virtual void affect();

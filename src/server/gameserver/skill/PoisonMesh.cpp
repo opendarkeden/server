@@ -23,7 +23,7 @@
 #include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -45,9 +45,9 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // ¸é¿ªÀÌ°Å³ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // ë©´ì—­ì´ê±°ë‚˜. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -88,7 +88,7 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 
             bool bCanSeeCaster = canSee(pTargetCreature, pVampire);
 
-            /*			// pTargetCreature°¡ ÀúÁÖ¸¶¹ıÀ» ¹İ»çÇÏ´Â °æ¿ì
+            /*			// pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
                         if (CheckReflection(pVampire, pTargetCreature, getSkillType()))
                         {
                             pTargetCreature = (Creature*)pVampire;
@@ -96,7 +96,7 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
                         }
             */
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectPoisonMesh* pEffectPoisonMesh = new EffectPoisonMesh(pTargetCreature);
             pEffectPoisonMesh->setDeadline(output.Duration);
             pEffectPoisonMesh->setNextTime(0);
@@ -105,7 +105,7 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             pTargetCreature->addEffect(pEffectPoisonMesh);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_POISON_MESH);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù´Â °ÍÀ» ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´í™íŠ¸ê°€ ë¶™ì—ˆë‹¤ëŠ” ê²ƒì„ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_POISON_MESH);
@@ -137,10 +137,10 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }

@@ -64,13 +64,13 @@ Turn_t GDRScene::ActionSay::execute() {
     gcSay.setMessage(g_pStringPool->getString(m_strID));
     gcSay.setColor(0x00ffffff);
 
-    cout << "Áúµå·¹°¡ ¸»ÇÕ´Ï´Ù : " << gcSay.getMessage() << endl;
+    cout << "ì§ˆë“œë ˆê°€ ë§í•©ë‹ˆë‹¤ : " << gcSay.getMessage() << endl;
 
     getTarget()->getZone()->broadcastPacket(getTarget()->getX(), getTarget()->getY(), &gcSay);
 
     GCGlobalChat gcGC;
     gcGC.setColor(0x00ffffff);
-    gcGC.setMessage("Áúµå·¹ " + g_pStringPool->getString(m_strID));
+    gcGC.setMessage("ì§ˆë“œë ˆ " + g_pStringPool->getString(m_strID));
     gcGC.setRace(RACE_VAMPIRE);
 
     getTarget()->getZone()->broadcastPacket(&gcGC);
@@ -216,7 +216,7 @@ void MonsterSummonState::GroupSummonInfo::executeSummon(Zone* pZone) {
 
     for (; itr != endItr; ++itr) {
         for (int i = 0; i < (*itr)->m_MonsterNum; ++i) {
-            cout << "¸ó½ºÅÍ ¼ÒÈ¯ " << (*itr)->m_MonsterType << endl;
+            cout << "ëª¬ìŠ¤í„° ì†Œí™˜ " << (*itr)->m_MonsterType << endl;
             Monster* pMonster = new Monster((*itr)->m_MonsterType);
             pMonster->setTreasure(false);
             try {

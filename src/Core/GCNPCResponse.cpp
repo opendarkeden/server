@@ -7,7 +7,7 @@
 #include "GCNPCResponse.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCResponse::read(SocketInputStream& iStream)
 
@@ -17,14 +17,14 @@ void GCNPCResponse::read(SocketInputStream& iStream)
     iStream.read(m_Code);
 
     switch (m_Code) {
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ½á¾ß ÇÏ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì¨ì•¼ í•˜ëŠ” ì½”ë“œ
     case NPC_RESPONSE_REPAIR_OK:
     case NPC_RESPONSE_SILVER_COATING_OK:
     case NPC_RESPONSE_DONATION_OK:
     case NPC_RESPONSE_DECREASE_BALL:
     case NPC_RESPONSE_GUILD_SHOW_REGIST:
     case NPC_RESPONSE_SHOW_TAX_BALANCE:
-    case NPC_RESPONSE_WITHDRAW_TAX_OK: // ±æµå ¸¶½ºÅÍ°¡ ¼¼±İÀ» Ã£´Â µ¥¿¡ ¼º°øÇß´Ù.
+    case NPC_RESPONSE_WITHDRAW_TAX_OK: // ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì„¸ê¸ˆì„ ì°¾ëŠ” ë°ì— ì„±ê³µí–ˆë‹¤.
     case NPC_RESPONSE_COUPLE_CANNOT_MEET:
     case NPC_RESPONSE_NOT_COUPLE:
     case NPC_RESPONSE_QUEST:
@@ -35,7 +35,7 @@ void GCNPCResponse::read(SocketInputStream& iStream)
     case NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG:
         iStream.read(m_Parameter);
         break;
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ¾²Áö ¾Ê¾Æµµ µÇ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì“°ì§€ ì•Šì•„ë„ ë˜ëŠ” ì½”ë“œ
     default:
         break;
     }
@@ -44,7 +44,7 @@ void GCNPCResponse::read(SocketInputStream& iStream)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCResponse::write(SocketOutputStream& oStream) const
 
@@ -54,14 +54,14 @@ void GCNPCResponse::write(SocketOutputStream& oStream) const
     oStream.write(m_Code);
 
     switch (m_Code) {
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ½á¾ß ÇÏ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì¨ì•¼ í•˜ëŠ” ì½”ë“œ
     case NPC_RESPONSE_REPAIR_OK:
     case NPC_RESPONSE_SILVER_COATING_OK:
     case NPC_RESPONSE_DONATION_OK:
     case NPC_RESPONSE_DECREASE_BALL:
     case NPC_RESPONSE_GUILD_SHOW_REGIST:
     case NPC_RESPONSE_SHOW_TAX_BALANCE:
-    case NPC_RESPONSE_WITHDRAW_TAX_OK: // ±æµå ¸¶½ºÅÍ°¡ ¼¼±İÀ» Ã£´Â µ¥¿¡ ¼º°øÇß´Ù.
+    case NPC_RESPONSE_WITHDRAW_TAX_OK: // ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì„¸ê¸ˆì„ ì°¾ëŠ” ë°ì— ì„±ê³µí–ˆë‹¤.
     case NPC_RESPONSE_COUPLE_CANNOT_MEET:
     case NPC_RESPONSE_NOT_COUPLE:
     case NPC_RESPONSE_QUEST:
@@ -72,7 +72,7 @@ void GCNPCResponse::write(SocketOutputStream& oStream) const
     case NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG:
         oStream.write(m_Parameter);
         break;
-    // ÆÄ¶ó¹ÌÅÍ¸¦ ¾²Áö ¾Ê¾Æµµ µÇ´Â ÄÚµå
+    // íŒŒë¼ë¯¸í„°ë¥¼ ì“°ì§€ ì•Šì•„ë„ ë˜ëŠ” ì½”ë“œ
     default:
         break;
     }
@@ -94,7 +94,7 @@ void GCNPCResponse::execute(Player* pPlayer)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆĞÅ¶ »çÀÌÁî
+// íŒ¨í‚· ì‚¬ì´ì¦ˆ
 //////////////////////////////////////////////////////////////////////////////
 
 PacketSize_t GCNPCResponse::getPacketSize() const

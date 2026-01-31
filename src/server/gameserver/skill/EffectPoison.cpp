@@ -61,21 +61,21 @@ void EffectPoison::affect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ½ºÅ³ »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼ö ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ìŠ¤í‚¬ ì‚¬ìš©ìžë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ NULLì´ ë  ìˆ˜ ìžˆë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
 
-    // EffectPoisonÀÌ Å©¸®ÃÄ¿¡°Ô °É¸®°Ô µÇ´Â °æ¿ì¿¡´Â ÇöÀç·Î¼­´Â
-    // GreenPoison¿¡ ÀÇÇØ Å¸ÀÏ À§¿¡ »ý±ä
-    // EffectGreenPoison À§¸¦ ÇÃ·¹ÀÌ¾î°¡ Áö³ª°¥ ¶§ »ÓÀÌ´Ù.
-    // EffectGreenPoison ³»ºÎ¿¡¼­ ÀúÇ×À» °í·ÁÇØ¼­ µ¥¹ÌÁö¸¦ ¼¼ÆÃÇÑ ´ÙÀ½
-    // EffectPoisonÀ» ºÙÀÌ¹Ç·Î, ³»ºÎ¿¡¼­ ÇÑ¹ø ´õ °è»êÇÏ¸é ¾ÈµÈ´Ù.
+    // EffectPoisonì´ í¬ë¦¬ì³ì—ê²Œ ê±¸ë¦¬ê²Œ ë˜ëŠ” ê²½ìš°ì—ëŠ” í˜„ìž¬ë¡œì„œëŠ”
+    // GreenPoisonì— ì˜í•´ íƒ€ì¼ ìœ„ì— ìƒê¸´
+    // EffectGreenPoison ìœ„ë¥¼ í”Œë ˆì´ì–´ê°€ ì§€ë‚˜ê°ˆ ë•Œ ë¿ì´ë‹¤.
+    // EffectGreenPoison ë‚´ë¶€ì—ì„œ ì €í•­ì„ ê³ ë ¤í•´ì„œ ë°ë¯¸ì§€ë¥¼ ì„¸íŒ…í•œ ë‹¤ìŒ
+    // EffectPoisonì„ ë¶™ì´ë¯€ë¡œ, ë‚´ë¶€ì—ì„œ í•œë²ˆ ë” ê³„ì‚°í•˜ë©´ ì•ˆëœë‹¤.
     // Damage_t PoisonDamage = computeMagicDamage(pCreature, m_Point, MAGIC_DOMAIN_POISON, m_Level);
     Damage_t PoisonDamage = m_Point;
 
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
         && canAttack(pCastCreature, pCreature)) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -101,7 +101,7 @@ void EffectPoison::affect(Creature* pCreature)
             ::setDamage(pMonster, PoisonDamage, pCastCreature, SKILL_GREEN_POISON);
         }
 
-        // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
         // by sigi. 2002.9.9
         /*		if (pCreature->isDead())
                 {
@@ -144,7 +144,7 @@ void EffectPoison::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_POISON);

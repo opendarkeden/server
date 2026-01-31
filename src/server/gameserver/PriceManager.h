@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : PriceManager.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ¾ÆÀÌÅÛÀ» »óÁ¡¿¡¼­ »ç°í ÆÈ ¶§, ±× ¸Å¸Å°¡°İÀ» °áÁ¤ÇÏ´Â Å¬·¡½ºÀÌ´Ù.
-// ³»ºÎÀûÀ¸·Î´Â ItemInfoManagerÀÇ ¿ø·¡ °¡°İÀ» ÀÌ¿ëÇØ °è»êÀ» ÇÑ´Ù.
+// ì•„ì´í…œì„ ìƒì ì—ì„œ ì‚¬ê³  íŒ” ë•Œ, ê·¸ ë§¤ë§¤ê°€ê²©ì„ ê²°ì •í•˜ëŠ” í´ë˜ìŠ¤ì´ë‹¤.
+// ë‚´ë¶€ì ìœ¼ë¡œëŠ” ItemInfoManagerì˜ ì›ë˜ ê°€ê²©ì„ ì´ìš©í•´ ê³„ì‚°ì„ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PRICEMANAGER_H__
@@ -22,22 +22,22 @@ class Creature;
 
 class PriceManager {
 public:
-    // ¾ÆÀÌÅÛ Á¤º¸¸¦ ÂüÁ¶ÇØ ½ÇÁ¦ ¹°°Ç°ªÀ» Á¤ÇÑ´Ù.
+    // ì•„ì´í…œ ì •ë³´ë¥¼ ì°¸ì¡°í•´ ì‹¤ì œ ë¬¼ê±´ê°’ì„ ì •í•œë‹¤.
     Price_t getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType_t shopType, Creature* pCreature) const;
 
-    // Mysterious Item °¡°İ
+    // Mysterious Item ê°€ê²©
     Price_t getMysteriousPrice(Item::ItemClass itemClass, Creature* pCreature) const;
 
-    // ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÒ ¶§ÀÇ ºñ¿ë
+    // ì•„ì´í…œì„ ìˆ˜ë¦¬í•  ë•Œì˜ ë¹„ìš©
     Price_t getRepairPrice(Item* pItem, Creature* pCreature = NULL) const;
 
-    // ¾ÆÀÌÅÛ¿¡ Àº µµ±İÇÒ ¶§ÀÇ ºñ¿ë
+    // ì•„ì´í…œì— ì€ ë„ê¸ˆí•  ë•Œì˜ ë¹„ìš©
     Price_t getSilverCoatingPrice(Item* pItem, Creature* pCreature = NULL) const;
 
-    // º¸°üÇÔÀÇ °¡°İ
+    // ë³´ê´€í•¨ì˜ ê°€ê²©
     Price_t getStashPrice(BYTE index, Creature* pCreature = NULL) const;
 
-    // ÀÌº¥Æ®¿ë °¡°İ ÇÔ¼ö
+    // ì´ë²¤íŠ¸ìš© ê°€ê²© í•¨ìˆ˜
     int getStarPrice(Item* pItem, XMAS_STAR& star) const;
     int getBallPrice(int price, XMAS_STAR& star) const;
 };

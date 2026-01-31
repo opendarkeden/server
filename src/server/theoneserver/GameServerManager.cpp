@@ -57,26 +57,26 @@ void GameServerManager::run() throw(Error) {
             DatagramPacket* pDatagramPacket = NULL;
 
             try {
-                // µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ²ôÁı¾î³½´Ù.
+                // ë°ì´í„°ê·¸ë¨ ê°ì²´ë¥¼ ë„ì§‘ì–´ë‚¸ë‹¤.
                 cout << "wait recv.." << endl;
                 pDatagram = m_pDatagramSocket->receive();
 
                 cout << "recved.." << endl;
-                if (pDatagram != NULL) // ÀÏºÎ exceptionÁ¦°Å. by sigi. 2002.5.17
+                if (pDatagram != NULL) // ì¼ë¶€ exceptionì œê±°. by sigi. 2002.5.17
                 {
-                    // µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ °´Ã¼¸¦ ²ôÁı¾î³½´Ù.
+                    // ë°ì´í„°ê·¸ë¨ íŒ¨í‚· ê°ì²´ë¥¼ ë„ì§‘ì–´ë‚¸ë‹¤.
                     pDatagram->read(pDatagramPacket);
 
                     if (pDatagramPacket != NULL) {
-                        // ²ôÁı¾î³½ µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ °´Ã¼¸¦ ½ÇÇàÇÑ´Ù.
+                        // ë„ì§‘ì–´ë‚¸ ë°ì´í„°ê·¸ë¨ íŒ¨í‚· ê°ì²´ë¥¼ ì‹¤í–‰í•œë‹¤.
                         pDatagramPacket->execute(NULL);
 
-                        // µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                        // ë°ì´í„°ê·¸ë¨ íŒ¨í‚· ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                         SAFE_DELETE(pDatagramPacket);
                         pDatagramPacket = NULL;
                     }
 
-                    // µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                    // ë°ì´í„°ê·¸ë¨ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                     SAFE_DELETE(pDatagram);
                     pDatagram = NULL;
                 }
@@ -84,9 +84,9 @@ void GameServerManager::run() throw(Error) {
                 cout << "GameServerManager::run Exception Check(ProtocolException)" << endl;
                 cout << pe.toString() << endl;
 
-                // ¼­¹ö°£ Åë½Å¿¡¼­ ÇÁ·ÎÅäÄİ ¿¡·¯°¡ ¹ß»ıÇÏ¸é,
-                // ÇÁ·Î±×·¡¹Ö ¿À·ùÀÌ°Å³ª ÇØÅ· ½ÃµµÀÌ´Ù.
-                // ÀÏ´ÜÀº ÀüÀÚ¸¸ÀÌ ÇØ´çµÇ¹Ç·Î.. ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+                // ì„œë²„ê°„ í†µì‹ ì—ì„œ í”„ë¡œí† ì½œ ì—ëŸ¬ê°€ ë°œìƒí•˜ë©´,
+                // í”„ë¡œê·¸ë˜ë° ì˜¤ë¥˜ì´ê±°ë‚˜ í•´í‚¹ ì‹œë„ì´ë‹¤.
+                // ì¼ë‹¨ì€ ì „ìë§Œì´ í•´ë‹¹ë˜ë¯€ë¡œ.. ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
                 // throw Error( pe.toString() );
                 SAFE_DELETE(pDatagramPacket);
                 SAFE_DELETE(pDatagram);
@@ -94,8 +94,8 @@ void GameServerManager::run() throw(Error) {
                 cout << "GameServerManager::run Exception Check(ConnectException)" << endl;
                 cout << ce.toString() << endl;
 
-                // À¸À½.. ¸ÓÁö ÀÌ°Ç..
-                // ÀÏ´Ü ¿¡·¯´ç..
+                // ìœ¼ìŒ.. ë¨¸ì§€ ì´ê±´..
+                // ì¼ë‹¨ ì—ëŸ¬ë‹¹..
                 // throw Error( ce.toString() );
                 SAFE_DELETE(pDatagramPacket);
                 SAFE_DELETE(pDatagram);
@@ -129,7 +129,7 @@ void GameServerManager::sendDatagram(Datagram* pDatagram) throw(ConnectException
     } catch (ConnectException& t) {
         cout << "GameServerManager::sendDatagram Exception Check!!" << endl;
         cout << t.toString() << endl;
-        throw ConnectException("GameServerManager::sendDatagram »óÀ§·Î ´øÁø´Ù");
+        throw ConnectException("GameServerManager::sendDatagram ìƒìœ„ë¡œ ë˜ì§„ë‹¤");
     }
 
     __END_CATCH
@@ -146,23 +146,23 @@ void GameServerManager::sendPacket(string host, uint port, DatagramPacket* pPack
     try {
         //	try
         //	{
-        // µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ÇÏ³ª µÎ°í, Àü¼ÛÇÒ peer ÀÇ È£½ºÆ®¿Í Æ÷Æ®¸¦ ÁöÁ¤ÇÑ´Ù.
+        // ë°ì´í„°ê·¸ë¨ ê°ì²´ë¥¼ í•˜ë‚˜ ë‘ê³ , ì „ì†¡í•  peer ì˜ í˜¸ìŠ¤íŠ¸ì™€ í¬íŠ¸ë¥¼ ì§€ì •í•œë‹¤.
         Datagram datagram;
 
         datagram.setHost(host);
         datagram.setPort(port);
 
-        // µ¥ÀÌÅÍ±×·¥ ÆĞÅ¶À» µ¥ÀÌÅÍ±×·¥¿¡ Áı¾î³Ö´Â´Ù.
+        // ë°ì´í„°ê·¸ë¨ íŒ¨í‚·ì„ ë°ì´í„°ê·¸ë¨ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
         datagram.write(pPacket);
 
-        // µ¥ÀÌÅÍ±×·¥ ¼ÒÄÏÀ» ÅëÇØ¼­ µ¥ÀÌÅÍ±×·¥À» Àü¼ÛÇÑ´Ù.
+        // ë°ì´í„°ê·¸ë¨ ì†Œì¼“ì„ í†µí•´ì„œ ë°ì´í„°ê·¸ë¨ì„ ì „ì†¡í•œë‹¤.
         m_pDatagramSocket->send(&datagram);
         //	}
         //	catch ( ConnectException & t )
         //	{
         //		cout << "GameServerManager::sendDatagram Exception Check!!" << endl;
         //		cout << t.toString() << endl;
-        //		throw ConnectException( "GameServerManager::sendDatagram »óÀ§·Î ´øÁø´Ù");
+        //		throw ConnectException( "GameServerManager::sendDatagram ìƒìœ„ë¡œ ë˜ì§„ë‹¤");
         //	}
 
     } catch (Throwable& t) {

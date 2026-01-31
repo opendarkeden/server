@@ -16,7 +16,7 @@
 #include "GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HeterChakram::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                            CEffectID_t CEffectID)
@@ -36,8 +36,8 @@ void HeterChakram::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType(), Grade);
             return;
@@ -58,7 +58,7 @@ void HeterChakram::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
         GCSkillToObjectOK5 _GCSkillToObjectOK5;
         GCSkillToObjectOK6 _GCSkillToObjectOK6;
 
-        // ¼ì²âÎäÆ÷ºÏ·¨ÐÔ
+        // ì‡±ê¿Žå¶ í¬ë¶ëž¬æ˜‘
         Item* pItem = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM ||
             !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
@@ -69,7 +69,7 @@ void HeterChakram::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(getSkillType());
 
         int RequiredMP = (int)pSkillInfo->getConsumeMP() + pOustersSkillSlot->getExpLevel() / 3;
-        // Çå³ýËùÓÐMP
+        // í—Œë‡œæ°å”MP
         // RequiredMP = pOusters->getMP();
 
         bool bManaCheck = hasEnoughMana(pOusters, RequiredMP);

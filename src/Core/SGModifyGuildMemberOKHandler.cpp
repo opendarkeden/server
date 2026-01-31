@@ -44,7 +44,7 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     try {
         Assert(pGuild != NULL);
@@ -52,7 +52,7 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
         return;
     }
 
-    // ±æµå ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // ê¸¸ë“œ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     try {
         Assert(pGuildMember != NULL);
@@ -63,13 +63,13 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
     if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT &&
         pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_NORMAL) {
         ////////////////////////////////////////////////////////////////////////////
-        // ±æµå °¡ÀÔ ½ÅÃ»À» ½ÂÀÎÇÑ °æ¿ìÀÌ´Ù.
+        // ê¸¸ë“œ ê°€ìž… ì‹ ì²­ì„ ìŠ¹ì¸í•œ ê²½ìš°ì´ë‹¤.
         ////////////////////////////////////////////////////////////////////////////
 
-        // ±æµå¸â¹ö Á¤º¸¸¦ º¯°æÇÑ´Ù.
+        // ê¸¸ë“œë©¤ë²„ ì •ë³´ë¥¼ ë³€ê²½í•œë‹¤.
         pGuild->modifyMemberRank(pGuildMember->getName(), pPacket->getGuildMemberRank());
 
-        // Á¢¼ÓÇØ ÀÖ´Ù¸é ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        // ì ‘ì†í•´ ìžˆë‹¤ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
         Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
@@ -77,7 +77,7 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
             Assert(pPlayerCreature != NULL);
 
-            // ½ÇÁ¦ ±æµå ID¸¦ µî·ÏÇÑ´Ù.
+            // ì‹¤ì œ ê¸¸ë“œ IDë¥¼ ë“±ë¡í•œë‹¤.
             pPlayerCreature->setGuildID(pGuildMember->getGuildID());
 
             Player* pPlayer = pCreature->getPlayer();
@@ -86,14 +86,14 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             Zone* pZone = pCreature->getZone();
             Assert(pZone != NULL);
 
-            // ¹Ù²ï ±æµå ID Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ë°”ë€ ê¸¸ë“œ ID ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
             gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
             gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
             gcModifyGuildMemberInfo.setGuildMemberRank(pGuildMember->getRank());
             pPlayer->sendPacket(&gcModifyGuildMemberInfo);
 
-            // ±æµå °¡ÀÔ ½ÂÀÎ ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+            // ê¸¸ë“œ ê°€ìž… ìŠ¹ì¸ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
             Statement* pStmt = NULL;
             Result* pResult = NULL;
 
@@ -114,21 +114,21 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             }
             END_DB(pStmt)
 
-            // ÁÖÀ§¿¡ ±æµå °¡ÀÔÀ» ¾Ë¸°´Ù.
+            // ì£¼ìœ„ì— ê¸¸ë“œ ê°€ìž…ì„ ì•Œë¦°ë‹¤.
             GCOtherModifyInfo gcOtherModifyInfo;
             gcOtherModifyInfo.setObjectID(pCreature->getObjectID());
             gcOtherModifyInfo.addShortData(MODIFY_GUILDID, pGuildMember->getGuildID());
 
             pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcOtherModifyInfo);
         }
-        // ½ÂÀÎÇÑ »ç¶÷¿¡°Ô ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        // ìŠ¹ì¸í•œ ì‚¬ëžŒì—ê²Œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         pCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getSender());
         if (pCreature != NULL && pCreature->isPC()) {
             Player* pPlayer = pCreature->getPlayer();
             Assert(pPlayer != NULL);
 
             //			StringStream msg;
-            //			msg << pGuildMember->getName() << "´ÔÀÇ ±æµå °¡ÀÔÀ» ½ÂÀÎÇÏ¿´½À´Ï´Ù.";
+            //			msg << pGuildMember->getName() << "ë‹˜ì˜ ê¸¸ë“œ ê°€ìž…ì„ ìŠ¹ì¸í•˜ì˜€ìŠµë‹ˆë‹¤.";
 
             char msg[100];
             if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER)
@@ -147,22 +147,22 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
     } else if (pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_MASTER &&
                pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_MASTER) {
         ///////////////////////////////////////////////////////////
-        // ±æµå ¸¶½ºÅÍ¸¦ º¯°æÇÑ´Ù.
+        // ê¸¸ë“œ ë§ˆìŠ¤í„°ë¥¼ ë³€ê²½í•œë‹¤.
         ///////////////////////////////////////////////////////////
 
         string sMaster = pGuild->getMaster();
 
-        // ±æµå¸¶½ºÅÍÀÇ ·©Å©¸¦ »õ·Î ±æµå¸¶½ºÅÍ°¡ µÇ´Â ¸â¹öÀÇ ¿ø·¡ ·©Å©·Î ¹Ù²ãÁØ´Ù.
+        // ê¸¸ë“œë§ˆìŠ¤í„°ì˜ ëž­í¬ë¥¼ ìƒˆë¡œ ê¸¸ë“œë§ˆìŠ¤í„°ê°€ ë˜ëŠ” ë©¤ë²„ì˜ ì›ëž˜ ëž­í¬ë¡œ ë°”ê¿”ì¤€ë‹¤.
         pGuild->modifyMemberRank(sMaster, pGuildMember->getRank());
-        // »õ ±æµå¸¶½ºÅÍÀÇ ·©Å©¸¦ ¼¼ÆÃÇÑ´Ù.
+        // ìƒˆ ê¸¸ë“œë§ˆìŠ¤í„°ì˜ ëž­í¬ë¥¼ ì„¸íŒ…í•œë‹¤.
         pGuild->modifyMemberRank(pGuildMember->getName(), pPacket->getGuildMemberRank());
-        // ±æµå ¿ÀºêÁ§Æ®¿¡ »õ ±æµå ¸¶½ºÆ®·Î ¼¼ÆÃÇÑ´Ù.
+        // ê¸¸ë“œ ì˜¤ë¸Œì íŠ¸ì— ìƒˆ ê¸¸ë“œ ë§ˆìŠ¤íŠ¸ë¡œ ì„¸íŒ…í•œë‹¤.
         pGuild->setMaster(pGuildMember->getName());
 
-        // Á¢¼ÓÇØ ÀÖ´Ù¸é ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        // ì ‘ì†í•´ ìžˆë‹¤ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
-        // »õ ±æµå¸¶½ºÅÍ°¡ °ÔÀÓ¼­¹ö¿¡ ÀÖ´Ù¸é »õ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+        // ìƒˆ ê¸¸ë“œë§ˆìŠ¤í„°ê°€ ê²Œìž„ì„œë²„ì— ìžˆë‹¤ë©´ ìƒˆ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
         if (pCreature != NULL && pCreature->isPC()) {
             PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
@@ -171,7 +171,7 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             Player* pPlayer = pCreature->getPlayer();
             Assert(pPlayer != NULL);
 
-            // ¹Ù²ï ±æµå ID Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ë°”ë€ ê¸¸ë“œ ID ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
             gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
             gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
@@ -179,7 +179,7 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             pPlayer->sendPacket(&gcModifyGuildMemberInfo);
         }
 
-        // ¿ø·¡ÀÇ ±æµå¸¶½ºÅÍ°¡ °ÔÀÓ¼­¹ö¿¡ ÀÖ´Ù¸é »õ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+        // ì›ëž˜ì˜ ê¸¸ë“œë§ˆìŠ¤í„°ê°€ ê²Œìž„ì„œë²„ì— ìžˆë‹¤ë©´ ìƒˆ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         pCreature = g_pPCFinder->getCreature_LOCKED(sMaster);
         if (pCreature != NULL && pCreature->isPC()) {
             PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
@@ -188,7 +188,7 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             Player* pPlayer = pCreature->getPlayer();
             Assert(pPlayer != NULL);
 
-            // ¹Ù²ï ±æµå ID Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ë°”ë€ ê¸¸ë“œ ID ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
             gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
             gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
@@ -196,15 +196,15 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             pPlayer->sendPacket(&gcModifyGuildMemberInfo);
         }
 
-        // ±æ¸¶¸¦ ¹Ù²Û »ç¶÷¿¡°Ô ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        // ê¸¸ë§ˆë¥¼ ë°”ê¾¼ ì‚¬ëžŒì—ê²Œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         pCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getSender());
         if (pCreature != NULL && pCreature->isPC()) {
             Player* pPlayer = pCreature->getPlayer();
             Assert(pPlayer != NULL);
 
             //			StringStream msg;
-            //			msg << pGuild->getName() << "ÀÇ ¸¶½ºÅÍ¸¦ " << sMaster << " ¿¡¼­ "
-            //				<< pGuildMember->getName() << " À¸·Î º¯°æÇÏ¿´½À´Ï´Ù.";
+            //			msg << pGuild->getName() << "ì˜ ë§ˆìŠ¤í„°ë¥¼ " << sMaster << " ì—ì„œ "
+            //				<< pGuildMember->getName() << " ìœ¼ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.";
 
             char msg[200];
             sprintf(msg, g_pStringPool->c_str(STRID_MODIFY_GUILD_MASTER), pGuild->getName().c_str(), sMaster.c_str(),
@@ -218,11 +218,11 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
         __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
     } else {
         ///////////////////////////////////////////////////////////
-        // ±æµå¸â¹ö Á¤º¸¸¦ º¯°æÇÑ´Ù.
+        // ê¸¸ë“œë©¤ë²„ ì •ë³´ë¥¼ ë³€ê²½í•œë‹¤.
         ///////////////////////////////////////////////////////////
         pGuild->modifyMemberRank(pGuildMember->getName(), pPacket->getGuildMemberRank());
 
-        // Á¢¼ÓÇØ ÀÖ´Ù¸é ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        // ì ‘ì†í•´ ìžˆë‹¤ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
         Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
@@ -241,14 +241,14 @@ void SGModifyGuildMemberOKHandler::execute(SGModifyGuildMemberOK* pPacket)
             pPlayer->sendPacket(&gcSystemMessage);
         }
 
-        // º¯°æ½ÃÅ² »ç¶÷¿¡°Ô ¸Þ½ÃÁö¸¦ º¸³½´Ù.
+        // ë³€ê²½ì‹œí‚¨ ì‚¬ëžŒì—ê²Œ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         pCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getSender());
         if (pCreature != NULL && pCreature->isPC()) {
             Player* pPlayer = pCreature->getPlayer();
             Assert(pPlayer != NULL);
 
             //			StringStream msg;
-            //			msg << pGuildMember->getName() << "´ÔÀÇ ±æµå ±ÇÇÑÀÌ º¯°æµÇ¾ú½À´Ï´Ù.";
+            //			msg << pGuildMember->getName() << "ë‹˜ì˜ ê¸¸ë“œ ê¶Œí•œì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.";
 
             char msg[100];
             if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER)

@@ -13,7 +13,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ºø«¡
+// Ïä¨Î†àÏù¥Ïñ¥ ÏÖÄÌîÑ
 //////////////////////////////////////////////////////////////////////////////
 void Rediance::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -32,7 +32,7 @@ void Rediance::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, ∞À¿Ã æ∆¥œ∂Û∏È ±‚º˙¿ª æµ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, Í≤ÄÏù¥ ÏïÑÎãàÎùºÎ©¥ Í∏∞Ïà†ÏùÑ Ïì∏ Ïàò ÏóÜÎã§.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_SWORD) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -66,21 +66,21 @@ void Rediance::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¿Ã∆Â∆Æ ≈¨∑°Ω∫∏¶ ∏∏µÈæÓ ∫Ÿ¿Œ¥Ÿ.
+            // Ïù¥ÌéôÌä∏ ÌÅ¥ÎûòÏä§Î•º ÎßåÎì§Ïñ¥ Î∂ôÏù∏Îã§.
             EffectRediance* pEffect = new EffectRediance(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setDexBonus(output.Damage);
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_REDIANCE);
 
-            // ¿Ã∑Œ ¿Œ«œø© πŸ≤Ó¥¬ ¥…∑¬ƒ°∏¶ ∫∏≥Ω¥Ÿ.
+            // Ïù¥Î°ú Ïù∏ÌïòÏó¨ Î∞îÎÄåÎäî Îä•Î†•ÏπòÎ•º Î≥¥ÎÇ∏Îã§.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->sendModifyInfo(prev);
 
-            // ∞Ê«Ëƒ°∏¶ ø√∏∞¥Ÿ.
+            // Í≤ΩÌóòÏπòÎ•º Ïò¨Î¶∞Îã§.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             if (bIncreaseDomainExp) {
@@ -89,7 +89,7 @@ void Rediance::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
                 //	increaseSkillExp(pSlayer, DomainType,  pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
             }
 
-            // ∆–≈∂¿ª ∏∏µÈæÓ ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ ÎßåÎì§Ïñ¥ Î≥¥ÎÇ∏Îã§.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);

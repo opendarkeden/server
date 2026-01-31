@@ -26,7 +26,7 @@ public:
 
 public:
     virtual QuestMessage canGiveReward(PlayerCreature* pPC) const;
-    // ¾²Áö ¸» °Í.
+    // ì“°ì§€ ë§ ê²ƒ.
     virtual QuestMessage giveReward(PlayerCreature* pPC) const;
 
     bool isAnotherQuest() const {

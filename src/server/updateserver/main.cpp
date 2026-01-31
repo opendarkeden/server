@@ -11,7 +11,7 @@
 #include "Types.h"
 #include "UpdateServer.h"
 
-// ¾÷µ¥ÀÌÆ® µğ·ºÅä¸® ½ºÄµ °ü·Ã
+// Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â® Â½ÂºÃ„Âµ Â°Ã¼Â·Ãƒ
 #include <dirent.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -33,7 +33,7 @@
 //	seekdir
 //	getcwd
 //
-//	// ¹®ÀÚ¿­ ºñ±³
+//	// Â¹Â®Ã€ÃšÂ¿Â­ ÂºÃ±Â±Â³
 //	strcasecmp( "LISt" , "LIST" ) == 0
 
 class SourceInfo {
@@ -105,7 +105,7 @@ public:
 
 
     bool operator()(VersionInfo* pVersionInfo) throw() {
-        // ÀÌ¸§ÀÌ °°´Ù.
+        // Ã€ÃŒÂ¸Â§Ã€ÃŒ Â°Â°Â´Ã™.
         if (strcasecmp(m_Name.c_str(), pVersionInfo->getName().c_str()) == 0) {
             return true;
         } else {
@@ -125,7 +125,7 @@ public:
 
 
     bool operator()(SourceInfo* pSourceInfo) throw() {
-        // ÀÌ¸§ÀÌ °°´Ù.
+        // Ã€ÃŒÂ¸Â§Ã€ÃŒ Â°Â°Â´Ã™.
         if (strcasecmp(m_Name.c_str(), pSourceInfo->getName().c_str()) == 0) {
             return true;
         } else {
@@ -153,31 +153,31 @@ void main(void) {
 }
 */
 /*
-        // ÆĞÄ¡ µğ·ºÅä¸®¸¦ ¿ÀÇÂÇÑ´Ù.
+        // Ã†ÃÃ„Â¡ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â¸Â¦ Â¿Ã€Ã‡Ã‚Ã‡Ã‘Â´Ã™.
         DIR * pDIR = opendir( patchDir.c_str() );
 
-        // ÆĞÄ¡ µğ·ºÅä¸®°¡ ¾øÀ¸¸é ¸»Â¯ È®!
+        // Ã†ÃÃ„Â¡ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â°Â¡ Â¾Ã¸Ã€Â¸Â¸Ã© Â¸Â»Ã‚Â¯ ÃˆÂ®!
         Assert( pDIR != NULL );
 
-        // ÆĞÄ¡ µğ·ºÅä¸®ÀÇ ÇÏÀ§ µğ·ºÅä¸®(¹öÀü µğ·ºÅä¸®)µéÀ» ÀĞ¾îµéÀÎ´Ù.
+        // Ã†ÃÃ„Â¡ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Ã€Ã‡ Ã‡ÃÃ€Â§ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®(Â¹Ã¶Ã€Ã¼ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®)ÂµÃ©Ã€Â» Ã€ÃÂ¾Ã®ÂµÃ©Ã€ÃÂ´Ã™.
         bool sameVersionFound = false;
         struct dirent * versionDir;
         while ( ( versionDir = readdir( pDIR ) ) != NULL ) {
 
-            // ºó ½½¶ù(inode==0)Àº ¹«½ÃÇÑ´Ù...
+            // ÂºÃ³ Â½Â½Â¶Ã¹(inode==0)Ã€Âº Â¹Â«Â½ÃƒÃ‡Ã‘Â´Ã™...
             if ( versionDir->d_ino != 0 ) {
 
                 //
-                // ¹öÀü µğ·ºÅä¸®´Â v + 0À¸·Î Ã¤¿öÁø 5ÀÚ¸® Á¤¼ö ¹®ÀÚ¿­·Î µÇ¾î ÀÖ´Ù.
+                // Â¹Ã¶Ã€Ã¼ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â´Ã‚ v + 0Ã€Â¸Â·Ã ÃƒÂ¤Â¿Ã¶ÃÃ¸ 5Ã€ÃšÂ¸Â® ÃÂ¤Â¼Ã¶ Â¹Â®Ã€ÃšÂ¿Â­Â·Ã ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™.
                 //  ex> v00001/ v00002/ v00003/ ...
                 //
                 string dir = versionDir->d_name;
 
-                // v ·Î ½ÃÀÛÇÏÁö ¾Ê´Â ÇÏÀ§ µğ·ºÅä¸®·Î´Â "." °ú ".." ÀÌ ÀÖ´Ù. -_-;
+                // v Â·Ã Â½ÃƒÃ€Ã›Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚ Ã‡ÃÃ€Â§ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â·ÃÂ´Ã‚ "." Â°Ãº ".." Ã€ÃŒ Ã€Ã–Â´Ã™. -_-;
                 if ( dir[0] == 'v' ) {
 
-                    // ¹öÀüÀ» ºñ±³ÇÏ±â À§ÇØ¼­´Â
-                    // ¼ıÀÚ ºÎºĞÀ» ½ºÆ®¸µÀ¸·Î º¯È¯ÇØ¼­ ´Ù½Ã Á¤¼ö·Î º¯È¯ÇÑ´Ù.
+                    // Â¹Ã¶Ã€Ã¼Ã€Â» ÂºÃ±Â±Â³Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­Â´Ã‚
+                    // Â¼Ã½Ã€Ãš ÂºÃÂºÃÃ€Â» Â½ÂºÃ†Â®Â¸ÂµÃ€Â¸Â·Ã ÂºÂ¯ÃˆÂ¯Ã‡Ã˜Â¼Â­ Â´Ã™Â½Ãƒ ÃÂ¤Â¼Ã¶Â·Ã ÂºÂ¯ÃˆÂ¯Ã‡Ã‘Â´Ã™.
                     Version_t version = atoi( dir.substr( 1 , 5 ).c_str() );
 
                     if ( version == pPacket->getVersion() )
@@ -247,21 +247,21 @@ void scan_Source(const string& Directory) {
                 SourceInfoList.push_back(pSourceInfo);
 
                 /*
-                // ÀÏ´Ü °°Àº ÀÌ¸§ÀÌ ÀÖ´ÂÁö Ã£´Â´Ù.
+                // Ã€ÃÂ´Ãœ Â°Â°Ã€Âº Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ£Â´Ã‚Â´Ã™.
                 list<SourceInfo*>::iterator itr = find_if( SourceInfoList.begin(), SourceInfoList.end(),
                 isSameName(pSourceInfo->getName()) );
 
-                // ¶È°°Àº ÀÌ¸§ÀÌ ÀÖ´Ù¸é ÃÖ½Å ¹öÁ¯À¸·Î ³Ö¾î Áà¾ßÁã.
+                // Â¶ÃˆÂ°Â°Ã€Âº Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© ÃƒÃ–Â½Ã… Â¹Ã¶ÃÂ¯Ã€Â¸Â·Ã Â³Ã–Â¾Ã® ÃÃ Â¾ÃŸÃÃ£.
                 if ( itr != SourceInfoList.end() ) {
 
-                    //cout << "¿øº» ÆÄÀÏ¿¡¼­ °°Àº ÀÌ¸§ÀÇ ÆÄÀÏÀÌ ¹ß°ß µÇ¾ú´Ù!" << endl;
+                    //cout << "Â¿Ã¸ÂºÂ» Ã†Ã„Ã€ÃÂ¿Â¡Â¼Â­ Â°Â°Ã€Âº Ã€ÃŒÂ¸Â§Ã€Ã‡ Ã†Ã„Ã€ÃÃ€ÃŒ Â¹ÃŸÂ°ÃŸ ÂµÃ‡Â¾ÃºÂ´Ã™!" << endl;
 
-                    //cout << "¿ø·¡ ÀÖ´ø ÆÄÀÏÀÇ µğ·ºÀº : " << (*itr)->getDirectory() << ", ÆÄÀÏ ÀÌ¸§Àº : " <<
+                    //cout << "Â¿Ã¸Â·Â¡ Ã€Ã–Â´Ã¸ Ã†Ã„Ã€ÃÃ€Ã‡ ÂµÃ°Â·ÂºÃ€Âº : " << (*itr)->getDirectory() << ", Ã†Ã„Ã€Ã Ã€ÃŒÂ¸Â§Ã€Âº : " <<
                 (*itr)->getName() << endl;
-                    //cout << "ÃÖ½Å ÆÄÀÏÀÇ ¹öÁ¯Àº : " << pSourceInfo->getDirectory() << ", ÆÄÀÏ ÀÌ¸§Àº : " <<
+                    //cout << "ÃƒÃ–Â½Ã… Ã†Ã„Ã€ÃÃ€Ã‡ Â¹Ã¶ÃÂ¯Ã€Âº : " << pSourceInfo->getDirectory() << ", Ã†Ã„Ã€Ã Ã€ÃŒÂ¸Â§Ã€Âº : " <<
                 pSourceInfo->getName() << endl;
 
-                // °°Àº ÆÄÀÏÀÌ ¾ø´Ù.
+                // Â°Â°Ã€Âº Ã†Ã„Ã€ÃÃ€ÃŒ Â¾Ã¸Â´Ã™.
                 } else {
                     SourceInfoList.push_back( pSourceInfo );
                 }
@@ -328,33 +328,33 @@ void scan_Version(const string& Directory, int version) {
 
                 pVersionInfo->setVersion(version);
 
-                // ÀÏ´Ü °°Àº ÀÌ¸§ÀÌ ÀÖ´ÂÁö Ã£´Â´Ù.
+                // Ã€ÃÂ´Ãœ Â°Â°Ã€Âº Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ£Â´Ã‚Â´Ã™.
                 list<VersionInfo*>::iterator itr =
                     find_if(VersionInfoList.begin(), VersionInfoList.end(), isSameName(pVersionInfo->getName()));
 
-                // ¶È°°Àº ÀÌ¸§ÀÌ ÀÖ´Ù¸é ÃÖ½Å ¹öÁ¯À¸·Î ³Ö¾î Áà¾ßÁã.
+                // Â¶ÃˆÂ°Â°Ã€Âº Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© ÃƒÃ–Â½Ã… Â¹Ã¶ÃÂ¯Ã€Â¸Â·Ã Â³Ã–Â¾Ã® ÃÃ Â¾ÃŸÃÃ£.
                 if (itr != VersionInfoList.end()) {
-                    // cout << "°°Àº ÆÄÀÏÀÌ ¹ß°ß µÇ¾ú´Ù ÃÖ½Å ¹öÁ¯À¸·Î °íÄ¡ÀÚ" << endl;
+                    // cout << "Â°Â°Ã€Âº Ã†Ã„Ã€ÃÃ€ÃŒ Â¹ÃŸÂ°ÃŸ ÂµÃ‡Â¾ÃºÂ´Ã™ ÃƒÃ–Â½Ã… Â¹Ã¶ÃÂ¯Ã€Â¸Â·Ã Â°Ã­Ã„Â¡Ã€Ãš" << endl;
 
-                    // cout << "¿ø·¡ ÀÖ´ø ÆÄÀÏÀÇ ¹öÁ¯Àº : " << (*itr)->getVersion() << ", ÆÄÀÏ ÀÌ¸§Àº : " <<
-                    // (*itr)->getName() << endl; cout << "ÃÖ½Å ÆÄÀÏÀÇ ¹öÁ¯Àº : " << pVersionInfo->getVersion() << ",
-                    // ÆÄÀÏ ÀÌ¸§Àº : " << pVersionInfo->getName() << endl;
+                    // cout << "Â¿Ã¸Â·Â¡ Ã€Ã–Â´Ã¸ Ã†Ã„Ã€ÃÃ€Ã‡ Â¹Ã¶ÃÂ¯Ã€Âº : " << (*itr)->getVersion() << ", Ã†Ã„Ã€Ã Ã€ÃŒÂ¸Â§Ã€Âº : " <<
+                    // (*itr)->getName() << endl; cout << "ÃƒÃ–Â½Ã… Ã†Ã„Ã€ÃÃ€Ã‡ Â¹Ã¶ÃÂ¯Ã€Âº : " << pVersionInfo->getVersion() << ",
+                    // Ã†Ã„Ã€Ã Ã€ÃŒÂ¸Â§Ã€Âº : " << pVersionInfo->getName() << endl;
 
                     if ((*itr)->getVersion() < pVersionInfo->getVersion()) {
                         VersionInfo* pTempVersionInfo = (*itr);
 
                         VersionInfoList.erase(itr);
-                        // cout << "±âÁ¸ÀÇ ÆÄÀÏÀ» »èÁ¦ÇÑ´Ù." << endl;
+                        // cout << "Â±Ã¢ÃÂ¸Ã€Ã‡ Ã†Ã„Ã€ÃÃ€Â» Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™." << endl;
 
                         delete pTempVersionInfo;
 
                         VersionInfoList.push_back(pVersionInfo);
-                        // cout << "»õ ÆÄÀÏÀ» ¸®½ºÆ®¿¡ Ãß°¡ÇÑ´Ù." << endl;
+                        // cout << "Â»Ãµ Ã†Ã„Ã€ÃÃ€Â» Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™." << endl;
 
                     } else {
                     }
 
-                    // °°Àº ÆÄÀÏÀÌ ¾ø´Ù.
+                    // Â°Â°Ã€Âº Ã†Ã„Ã€ÃÃ€ÃŒ Â¾Ã¸Â´Ã™.
                 } else {
                     VersionInfoList.push_back(pVersionInfo);
                 }
@@ -370,7 +370,7 @@ void create_Index() {
     int beforeVersion = 0;
     int version = 0;
 
-    // ¹öÁ¯ÀÎÆ÷¿¡¼­ ÆÄÀÏÀ» ÇÏ³ª¾¿ ®¨³»¸é¼­ ÆÄÀÏÀÌ µé¾î°¥ À§Ä¡¸¦ »Ì¾Æ³½´Ù.
+    // Â¹Ã¶ÃÂ¯Ã€ÃÃ†Ã·Â¿Â¡Â¼Â­ Ã†Ã„Ã€ÃÃ€Â» Ã‡ÃÂ³ÂªÂ¾Â¿ Â®Â¨Â³Â»Â¸Ã©Â¼Â­ Ã†Ã„Ã€ÃÃ€ÃŒ ÂµÃ©Â¾Ã®Â°Â¥ Ã€Â§Ã„Â¡Â¸Â¦ Â»ÃŒÂ¾Ã†Â³Â½Â´Ã™.
     for (; itr != VersionInfoList.end(); itr++) {
         StringStream msg1;
         StringStream msg2;
@@ -391,7 +391,7 @@ void create_Index() {
 
         ofstream ofile(filename, ios::out | ios::app);
 
-        // ¾÷µ¥ÀÌÆ® °¹¼ö¸¦ ¾Ë¾Æ³»¼­ ¾´´Ù.
+        // Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Â°Â¹Â¼Ã¶Â¸Â¦ Â¾Ã‹Â¾Ã†Â³Â»Â¼Â­ Â¾Â´Â´Ã™.
         if (beforeVersion != version) {
             int Count = 0;
             list<VersionInfo*>::const_iterator itr2 = VersionInfoList.begin();
@@ -420,12 +420,12 @@ void create_Index() {
         ofile.close();
     }
 
-    // ºó ÀÎµ¦½º¸¦ »ı¼ºÇÑ´Ù.
+    // ÂºÃ³ Ã€ÃÂµÂ¦Â½ÂºÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
     for (int i = 0; i <= version; i++) {
         char filename[256];
         sprintf(filename, "%s/v%05d/index.dat", g_pConfig->getProperty("PatchDirectory").c_str(), i);
         ifstream ifile(filename, ios::in | ios::binary);
-        // ÆÄÀÏÀÌ ¾øÀ¸¸é ºó ÀÎµ¦½º¸¦ »ı¼ºÇÑ´Ù.
+        // Ã†Ã„Ã€ÃÃ€ÃŒ Â¾Ã¸Ã€Â¸Â¸Ã© ÂºÃ³ Ã€ÃÂµÂ¦Â½ÂºÂ¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
         if (!ifile) {
             int Count = 0;
 
@@ -442,32 +442,32 @@ void create_Index() {
 //
 // main()
 //
-// UpdateServerÀÇ ¸ŞÀÎ ·çÇÁ
+// UpdateServerÃ€Ã‡ Â¸ÃÃ€Ã Â·Ã§Ã‡Ã
 //
 //--------------------------------------------------------------------------------
 int main(int argc, char* argv[]) {
     if (argc < 3) {
-        // cout << "Usage : updateserver -f È¯°æÆÄÀÏ" << endl;
+        // cout << "Usage : updateserver -f ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€Ã" << endl;
         exit(1);
     }
 
-    // command-line parameter¸¦ string À¸·Î º¯È¯ÇÑ´Ù. ^^;
+    // command-line parameterÂ¸Â¦ string Ã€Â¸Â·Ã ÂºÂ¯ÃˆÂ¯Ã‡Ã‘Â´Ã™. ^^;
     string* Argv;
 
     Argv = new string[argc];
     for (int i = 0; i < argc; i++)
         Argv[i] = argv[i];
 
-    // È¯°æ ÆÄÀÏÀ» ÀĞ¾îµéÀÎ´Ù.
-    // ´Ü ½ÇÇà ÆÄÀÏÀº $VSHOME/bin¿¡, È¯°æ ÆÄÀÏÀº $VSHOME/conf ¿¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.½
-    // command line ¿¡¼­ È¯°æ ÆÄÀÏÀ» ÁöÁ¤ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+    // ÃˆÂ¯Â°Ã¦ Ã†Ã„Ã€ÃÃ€Â» Ã€ÃÂ¾Ã®ÂµÃ©Ã€ÃÂ´Ã™.
+    // Â´Ãœ Â½Ã‡Ã‡Ã  Ã†Ã„Ã€ÃÃ€Âº $VSHOME/binÂ¿Â¡, ÃˆÂ¯Â°Ã¦ Ã†Ã„Ã€ÃÃ€Âº $VSHOME/conf Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.Â½
+    // command line Â¿Â¡Â¼Â­ ÃˆÂ¯Â°Ã¦ Ã†Ã„Ã€ÃÃ€Â» ÃÃ¶ÃÂ¤Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 
     try {
         if (Argv[1] != "-f") {
-            throw Error("Usage : updateserver -f È¯°æÆÄÀÏ");
+            throw Error("Usage : updateserver -f ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€Ã");
         }
 
-        // Ã¹¹øÂ° ÆÄ¶ó¹ÌÅÍ°¡ -f ÀÏ °æ¿ì, µÎ¹øÂ° ÆÄ¶ó¹ÌÅÍ´Â È¯°æÆÄÀÏÀÇ À§Ä¡°¡ µÈ´Ù.
+        // ÃƒÂ¹Â¹Ã¸Ã‚Â° Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ°Â¡ -f Ã€Ã Â°Ã¦Â¿Ã¬, ÂµÃÂ¹Ã¸Ã‚Â° Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ´Ã‚ ÃˆÂ¯Â°Ã¦Ã†Ã„Ã€ÃÃ€Ã‡ Ã€Â§Ã„Â¡Â°Â¡ ÂµÃˆÂ´Ã™.
         g_pConfig = new Properties();
         g_pConfig->load(Argv[2]);
 
@@ -477,7 +477,7 @@ int main(int argc, char* argv[]) {
         // cout << e.toString() << endl;
     }
 
-    // ¼Ò½º µğ·ºÅä¸®¸¦ ÀĞ´Â´Ù.
+    // Â¼Ã’Â½Âº ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â¸Â¦ Ã€ÃÂ´Ã‚Â´Ã™.
     //	scan_Source( g_pConfig->getProperty( "SourceDirectory") );
 
     /*
@@ -491,7 +491,7 @@ int main(int argc, char* argv[]) {
     //	scan_Version( g_pConfig->getProperty("PatchDirectory" ), 0 );
 
     /*
-    // ¹öÁ¯ µğ·ºÅä¸®¸¦ ÀĞ´Â´Ù.
+    // Â¹Ã¶ÃÂ¯ ÂµÃ°Â·ÂºÃ…Ã¤Â¸Â®Â¸Â¦ Ã€ÃÂ´Ã‚Â´Ã™.
     //cout << "============================================================================" << endl;
     for( list<VersionInfo*>::const_iterator itr = VersionInfoList.begin(); itr != VersionInfoList.end(); itr++ ) {
         //cout << "Version : " << (*itr)->getVersion() << ",Name : " << (*itr)->getName() << ", Directory : " <<
@@ -500,12 +500,12 @@ int main(int argc, char* argv[]) {
     //cout << "============================================================================" << endl;
     */
 
-    // index.dat »ı¼ºÀ» À§ÇÑ ÀÛ¾÷À» ÇÑ´Ù.
+    // index.dat Â»Ã½Â¼ÂºÃ€Â» Ã€Â§Ã‡Ã‘ Ã€Ã›Â¾Ã·Ã€Â» Ã‡Ã‘Â´Ã™.
     //	create_Index();
 
 
     //
-    // ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÑ ÈÄ È°¼ºÈ­½ÃÅ®´Ù.
+    // Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ°Ã­ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘ ÃˆÃ„ ÃˆÂ°Â¼ÂºÃˆÂ­Â½ÃƒÃ…Â®Â´Ã™.
     //
     try {
         struct rlimit rl;
@@ -513,26 +513,26 @@ int main(int argc, char* argv[]) {
         rl.rlim_max = RLIM_INFINITY;
         setrlimit(RLIMIT_CORE, &rl);
 
-        // ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+        // Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
         g_pUpdateServer = new UpdateServer();
 
-        // ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
         g_pUpdateServer->init();
 
-        // ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ È°¼ºÈ­½ÃÅ®´Ù.
+        // Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Â¼Â­Â¹Ã¶ Â°Â´ÃƒÂ¼Â¸Â¦ ÃˆÂ°Â¼ÂºÃˆÂ­Â½ÃƒÃ…Â®Â´Ã™.
         g_pUpdateServer->start();
 
     } catch (Throwable& e) {
-        // ·Î±×°¡ ÀÌ·ïÁö±â Àü¿¡ ¼­¹ö°¡ ³¡³¯ °æ¿ì¸¦ ´ëºñÇØ¼­
+        // Â·ÃÂ±Ã—Â°Â¡ Ã€ÃŒÂ·Ã¯ÃÃ¶Â±Ã¢ Ã€Ã¼Â¿Â¡ Â¼Â­Â¹Ã¶Â°Â¡ Â³Â¡Â³Â¯ Â°Ã¦Â¿Ã¬Â¸Â¦ Â´Ã«ÂºÃ±Ã‡Ã˜Â¼Â­
         ofstream ofile("../log/instant.log", ios::out);
         ofile << e.toString() << endl;
         ofile.close();
 
-        // Ç¥ÁØ Ãâ·ÂÀ¸·Îµµ Ãâ·ÂÇØÁØ´Ù.
+        // Ã‡Â¥ÃÃ˜ ÃƒÃ¢Â·Ã‚Ã€Â¸Â·ÃÂµÂµ ÃƒÃ¢Â·Ã‚Ã‡Ã˜ÃÃ˜Â´Ã™.
         // cout << e.toString() << endl;
 
-        // ¾÷µ¥ÀÌÆ® ¼­¹ö¸¦ Áß´Ü½ÃÅ®´Ù.
-        // ÀÌ ³»ºÎ¿¡¼­ ÇÏÀ§ ¸Å´ÏÀú ¿ª½Ã Áß´ÜµÇ¾î¾ß ÇÑ´Ù.
+        // Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Â¼Â­Â¹Ã¶Â¸Â¦ ÃÃŸÂ´ÃœÂ½ÃƒÃ…Â®Â´Ã™.
+        // Ã€ÃŒ Â³Â»ÂºÃÂ¿Â¡Â¼Â­ Ã‡ÃÃ€Â§ Â¸Ã…Â´ÃÃ€Ãº Â¿ÂªÂ½Ãƒ ÃÃŸÂ´ÃœÂµÃ‡Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
         g_pUpdateServer->stop();
     }
 }

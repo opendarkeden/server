@@ -2,7 +2,7 @@
 // Filename    : EffectProtectionFromAcid.h
 // Written by  : excel96
 // Description :
-// ProtectionFromAcid¿¡ ÀÇÇØ¼­ »ý¼ºµÇ´Â »ê¼º µ¥¹ÌÁö ¾àÈ­ ÀÌÆåÆ®ÀÌ´Ù.
+// ProtectionFromAcidì— ì˜í•´ì„œ ìƒì„±ë˜ëŠ” ì‚°ì„± ë°ë¯¸ì§€ ì•½í™” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PROTECTION_FROM_ACID__

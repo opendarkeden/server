@@ -11,8 +11,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 LandMineExplosion::LandMineExplosion() throw() {
     __BEGIN_TRY
@@ -26,7 +26,7 @@ LandMineExplosion::LandMineExplosion() throw() {
             m_pLandMineExplosionMask[index++].set(i, j);
         }
 
-    // ÁÖÀ§ 8Å¸ÀÏ
+    // ì£¼ìœ„ 8íƒ€ì¼
     /*	m_pLandMineExplosionMask[0].set(1,  1);
         m_pLandMineExplosionMask[1].set(-1, -1);
         m_pLandMineExplosionMask[2].set(0, -1);
@@ -40,7 +40,7 @@ LandMineExplosion::LandMineExplosion() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void LandMineExplosion::execute(Monster* pMonster)
 
@@ -64,7 +64,7 @@ void LandMineExplosion::execute(Monster* pMonster)
 
         if (bRangeCheck) {
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§ëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             SkillInput input(pMonster);
             SkillOutput output;
@@ -88,7 +88,7 @@ void LandMineExplosion::execute(Monster* pMonster)
                 param.addMask(m_pLandMineExplosionMask[i].x, m_pLandMineExplosionMask[i].y, 100);
             }
 
-            // °­Á¦·Î ¸Â´Â ¾ÖµéÀ» knockback ½ÃÅ²´Ù.
+            // ê°•ì œë¡œ ë§ëŠ” ì• ë“¤ì„ knockback ì‹œí‚¨ë‹¤.
             //	bool bForceKnockback = true;
             g_SimpleTileMeleeSkill.execute(pMonster, x, y, param, result, 0, false);
 

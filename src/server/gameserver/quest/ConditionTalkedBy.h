@@ -2,7 +2,7 @@
 // Filename    : ConditionTalkedBy.h
 // Written By  :
 // Description :
-// NPC°¡ PC·ÎºÎÅÍ ´ëÈ­¸¦ ¹Þ¾ÒÀ» °æ¿ì, Æ¯º°È÷ ÀÌ ÄÁµð¼ÇÀÌ ÂüÀÌ ¾Æ´Ò °¡´É¼ºÀº ¾ø´Ù.
+// NPCê°€ PCë¡œë¶€í„° ëŒ€í™”ë¥¼ ë°›ì•˜ì„ ê²½ìš°, íŠ¹ë³„ížˆ ì´ ì»¨ë””ì…˜ì´ ì°¸ì´ ì•„ë‹ ê°€ëŠ¥ì„±ì€ ì—†ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __TALKED_BY_H__

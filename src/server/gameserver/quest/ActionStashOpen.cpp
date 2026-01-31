@@ -34,8 +34,8 @@ void ActionStashOpen::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pCreature1->isNPC());
     Assert(pCreature2->isPC());
 
-    // ¸¸ÀÏ ÇÃ·¹ÀÌ¾î°¡ ¾ÆÁ÷ ÀÌ Á¸¿¡¼­ º¸°üÇÔ¿¡ °ü·ÃµÈ OID¸¦
-    // ÇÒ´ç¹ÞÁö ¾Ê¾Ò´Ù¸é ¿©±â¼­ ÇÒ´çÇØ ÁØ´Ù.
+    // ë§Œì¼ í”Œë ˆì´ì–´ê°€ ì•„ì§ ì´ ì¡´ì—ì„œ ë³´ê´€í•¨ì— ê´€ë ¨ëœ OIDë¥¼
+    // í• ë‹¹ë°›ì§€ ì•Šì•˜ë‹¤ë©´ ì—¬ê¸°ì„œ í• ë‹¹í•´ ì¤€ë‹¤.
     if (pCreature2->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
         if (!pSlayer->getStashStatus())

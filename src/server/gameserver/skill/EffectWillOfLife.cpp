@@ -95,7 +95,7 @@ void EffectWillOfLife::unaffect(Creature* pCreature)
 
     Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pVampire->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_WILL_OF_LIFE);

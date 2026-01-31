@@ -54,11 +54,11 @@ public:
     string toString() const;
 
 protected:
-    uint m_InfoCount;        // #¾ÆÀÌÅÛÁ¤º¸
+    uint m_InfoCount;        // #ì•„ì´í…œì •ë³´
     ItemInfo** m_pItemInfos; // array of item info
 
-    int m_TotalRatio;       // item typeµéÀÇ total Ratio
-    Price_t m_AveragePrice; // ÀÌ item classÀÇ ¸ğµç item °¡°İÀÇ Æò±Õ
+    int m_TotalRatio;       // item typeë“¤ì˜ total Ratio
+    Price_t m_AveragePrice; // ì´ item classì˜ ëª¨ë“  item ê°€ê²©ì˜ í‰ê· 
 };
 
 #endif

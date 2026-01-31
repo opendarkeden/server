@@ -36,7 +36,7 @@ void ActionGiveItem::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -63,8 +63,8 @@ void ActionGiveItem::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pInventory != NULL);
 
     if (!pInventory->getEmptySlot(pItem, pt)) {
-        // ConditionHasInvenSpace ÄÁµð¼Ç°ú ¹Ýµå½Ã ÇÔ²² ½á¾ß¸¸ ÇÑ´Ù.
-        throw Error("ActionGiveItem: Á¦¹ß ConditionHasInvenSpace¶û °°ÀÌ ¾²ÀÚ. ÀÎº¥Åä¸®¿¡ ÀÚ¸®¾ø´Ù.");
+        // ConditionHasInvenSpace ì»¨ë””ì…˜ê³¼ ë°˜ë“œì‹œ í•¨ê»˜ ì¨ì•¼ë§Œ í•œë‹¤.
+        throw Error("ActionGiveItem: ì œë°œ ConditionHasInvenSpaceëž‘ ê°™ì´ ì“°ìž. ì¸ë²¤í† ë¦¬ì— ìžë¦¬ì—†ë‹¤.");
     }
 
     CoordInven_t X = pt.x;
@@ -79,7 +79,7 @@ void ActionGiveItem::execute(Creature* pCreature1, Creature* pCreature2)
         remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC, pCreature2->getZone()->getZoneID());
     }
 
-    // Å¬¶óÀÌ¾ðÆ®¿¡ ¼±¹°ÀÌ Ãß°¡µÇ¾úÀ½À» ¾Ë¸°´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ì— ì„ ë¬¼ì´ ì¶”ê°€ë˜ì—ˆìŒì„ ì•Œë¦°ë‹¤.
     GCCreateItem gcCreateItem;
     makeGCCreateItem(&gcCreateItem, pItem, X, Y);
     pPlayer->sendPacket(&gcCreateItem);

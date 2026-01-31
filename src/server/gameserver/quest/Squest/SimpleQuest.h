@@ -24,14 +24,14 @@
 //
 //--------------------------------------------------------------------------------
 //
-// ÀÏ´Ü Quest´Â gameserver»ó¿¡¼­¸¸ »ý¼ºµÈ´Ù.
-// ±×·¯´Ù°¡. ´©°¡ Quest¸¦ ¹ÞÀ¸¸é, DB¿¡ »ý¼ºÇÑ´Ù.
-// Quest¹ÞÀ» Á¶°ÇÀº ÀÌ¹Ì Quest¸¦ ¹Þ±â ÀÌÀü¿¡ Ã¼Å©µÇ±â ¶§¹®¿¡
-// DB¿¡ ÀúÀåÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ì¼ë‹¨ QuestëŠ” gameserverìƒì—ì„œë§Œ ìƒì„±ëœë‹¤.
+// ê·¸ëŸ¬ë‹¤ê°€. ëˆ„ê°€ Questë¥¼ ë°›ìœ¼ë©´, DBì— ìƒì„±í•œë‹¤.
+// Questë°›ì„ ì¡°ê±´ì€ ì´ë¯¸ Questë¥¼ ë°›ê¸° ì´ì „ì— ì²´í¬ë˜ê¸° ë•Œë¬¸ì—
+// DBì— ì €ìž¥í•  í•„ìš”ê°€ ì—†ë‹¤.
 //
 // DB table: < SimpleQuest >
 //
-// pOwner		varchar,	// ÀÌ Äù½ºÆ®¸¦ ¹ÞÀº »ç¶÷
+// pOwner		varchar,	// ì´ í€˜ìŠ¤íŠ¸ë¥¼ ë°›ì€ ì‚¬ëžŒ
 // QuestType 	int,
 // Objective 	text,
 // Bonus 		text,

@@ -16,7 +16,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void BlitzSliding::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -37,8 +37,8 @@ void BlitzSliding::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
         if (pTargetCreature == NULL || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -47,7 +47,7 @@ void BlitzSliding::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
 
         bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, ∞À¿Ã æ∆¥œ∂Û∏È ±‚º˙¿ª ªÁøÎ«“ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, Í≤ÄÏù¥ ÏïÑÎãàÎùºÎ©¥ Í∏∞Ïà†ÏùÑ ÏÇ¨Ïö©Ìï† Ïàò ÏóÜÎã§.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -77,7 +77,7 @@ void BlitzSliding::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
         bool bEffected = pSlayer->hasRelicItem();
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK && !bEffected) {
-            // ∫¸∏£∞‘ PC∏¶ øÚ¡˜ø©¡ÿ¥Ÿ.
+            // Îπ†Î•¥Í≤å PCÎ•º ÏõÄÏßÅÏó¨Ï§ÄÎã§.
             if (pZone->moveFastPC(pSlayer, pSlayer->getX(), pSlayer->getY(), pTargetCreature->getX(),
                                   pTargetCreature->getY(), getSkillType())) {
                 decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
@@ -88,14 +88,14 @@ void BlitzSliding::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
 
                 bool bCriticalHit = false;
 
-                // µ•πÃ¡ˆ∏¶ ¡ÿ¥Ÿ.
+                // Îç∞ÎØ∏ÏßÄÎ•º Ï§ÄÎã§.
                 Damage_t BasicDamage = computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
                 Damage_t Damage = BasicDamage + output.Damage;
                 setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
                 computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
                 decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-                // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+                // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
                 if (bCriticalHit) {
                     knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                 }
@@ -130,7 +130,7 @@ void BlitzSliding::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
                 pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLAZE_WALK);
                 pTargetCreature->addEffect(pEffect);
 
-                // ∆–≈∂¿ª ¡ÿ∫Ò«œ∞Ì ∫∏≥Ω¥Ÿ.
+                // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌïòÍ≥† Î≥¥ÎÇ∏Îã§.
                 _GCSkillToObjectOK1.setSkillType(SkillType);
                 _GCSkillToObjectOK1.setCEffectID(CEffectID);
                 _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);

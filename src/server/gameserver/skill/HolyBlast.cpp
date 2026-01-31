@@ -22,7 +22,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HolyBlast::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -55,7 +55,7 @@ void HolyBlast::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HolyBlast::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -129,8 +129,8 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¸¸ÀÏ ÀÌ ±â¼úÀÌ Æ¯º°ÇÑ ¹«±â°¡ ÀÖ¾î¾ß ½ÃÀüÇÒ ¼ö ÀÖ´Â ±â¼úÀÌ¶ó¸é...
-        // ±× °è¿­ÀÇ ¹«±â¸¦ µé°í ÀÖ´ÂÁö¸¦ Ã¼Å©ÇØ¼­ ¾Æ´Ï¶ó¸é ½ÇÆĞ´Ù.
+        // ë§Œì¼ ì´ ê¸°ìˆ ì´ íŠ¹ë³„í•œ ë¬´ê¸°ê°€ ìˆì–´ì•¼ ì‹œì „í•  ìˆ˜ ìˆëŠ” ê¸°ìˆ ì´ë¼ë©´...
+        // ê·¸ ê³„ì—´ì˜ ë¬´ê¸°ë¥¼ ë“¤ê³  ìˆëŠ”ì§€ë¥¼ ì²´í¬í•´ì„œ ì•„ë‹ˆë¼ë©´ ì‹¤íŒ¨ë‹¤.
         if (param.ItemClass != Item::ITEM_CLASS_MAX) {
             Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
             if (pItem == NULL || pItem->getItemClass() != param.ItemClass) {
@@ -161,18 +161,18 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
         bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // ¸¶³ª¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë§ˆë‚˜ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
             Dir_t dir = calcDirection(myX, myY, X, Y);
             Damage_t Damage = 0;
             Damage_t MaxDamage = 0;
             Damage_t TotalDamage = 0;
-            // SkillFomula¿¡¼­ ±¸ÇØÁö´Â°Ç °ø°İdamage´Ù. - -;
-            // ±×·¡¼­ ÀÓ½Ã·Î...
+            // SkillFomulaì—ì„œ êµ¬í•´ì§€ëŠ”ê±´ ê³µê²©damageë‹¤. - -;
+            // ê·¸ë˜ì„œ ì„ì‹œë¡œ...
             uint HealPoint = 30 + param.Level / 8; // param.SkillDamage;
             uint RealHealPoint = 0;
             bool bCriticalHit = false;
@@ -192,20 +192,20 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                 Creature* pTargetCreature = (*itr);
                 Assert(pTargetCreature != NULL);
 
-                if (pTargetCreature != pSlayer) // º»ÀÎÀÌ ¾Æ´Ñ °æ¿ì
+                if (pTargetCreature != pSlayer) // ë³¸ì¸ì´ ì•„ë‹Œ ê²½ìš°
                 {
                     bool bSameRaceCheck = pTargetCreature->isSlayer();
                     bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 
-                    // °°Àº Á¾Á·ÀÌ¸é Ä¡·áÇÑ´Ù.
+                    // ê°™ì€ ì¢…ì¡±ì´ë©´ ì¹˜ë£Œí•œë‹¤.
                     if (bSameRaceCheck && bZoneLevelCheck) {
-                        // Èú¹ŞÀº ¾Ö´Â cList¿¡ Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
-                        // cList¿¡´Â ¸Â´Â ¾Ö´ú¸¸ ³Ö¾îÁÖ°í
-                        // ¾ê³×µéÀº CURE_EFFECT¸¦ º¸¿©ÁØ´Ù.
+                        // íë°›ì€ ì• ëŠ” cListì— ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // cListì—ëŠ” ë§ëŠ” ì• ëœë§Œ ë„£ì–´ì£¼ê³ 
+                        // ì–˜ë„¤ë“¤ì€ CURE_EFFECTë¥¼ ë³´ì—¬ì¤€ë‹¤.
 
                         EffectBloodDrain* pEffectBloodDrain = NULL;
 
-                        bool bHPCheck = false; // Å©¸®ÃÄ¸¦ Ã¼Å©ÇÒ¶§ ¸¶´Ù »õ·Î ¼¼ÆÃÇØ¾ßÇÏÁö ¾ÊÀ»±î? 2002.05.31 by bezz
+                        bool bHPCheck = false; // í¬ë¦¬ì³ë¥¼ ì²´í¬í• ë•Œ ë§ˆë‹¤ ìƒˆë¡œ ì„¸íŒ…í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ? 2002.05.31 by bezz
 
                         if (!pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
                             Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -232,7 +232,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                             bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
                             if (bHitRoll && bHPCheck && pTargetCreature->isAlive()) {
-                                // Èú È¿°ú broadcast
+                                // í íš¨ê³¼ broadcast
                                 _GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
                                 _GCSkillToSelfOK1.setDuration(0);
                                 pTargetSlayer->getPlayer()->sendPacket(&_GCSkillToSelfOK1);
@@ -244,16 +244,16 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                                                        pTargetSlayer);
 
 
-                                // ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+                                // í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
                                 if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
-                                    // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+                                    // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
                                     if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                                         Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                                         EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                                        pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                                        pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                                     } else {
                                         EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-                                        pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                                        pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                                         pTargetSlayer->addEffect(pEffectAftermath);
                                         pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                                         pEffectAftermath->create(pTargetSlayer->getName());
@@ -281,11 +281,11 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                                                            &gcRemoveEffect);
                                 }
 
-                                // HP¸¦ ¼¼ÆÃÇÑ´Ù.
+                                // HPë¥¼ ì„¸íŒ…í•œë‹¤.
                                 HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
                                 HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-                                // ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+                                // ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
                                 if (CurrentHP + HealPoint <= MaxHP) {
                                     RealHealPoint = max(0, (int)HealPoint);
                                 } else {
@@ -299,7 +299,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                         }
 
                     }
-                    // ´Ù¸¥ Á¾Á·ÀÌ¸é °ø°İÇÑ´Ù.
+                    // ë‹¤ë¥¸ ì¢…ì¡±ì´ë©´ ê³µê²©í•œë‹¤.
                     else {
                         bool bPK = verifyPK(pSlayer, pTargetCreature);
                         bool bRaceCheck = pTargetCreature->isVampire() || pTargetCreature->isMonster();
@@ -322,10 +322,10 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                             MaxDamage = max(Damage, MaxDamage);
                             TotalDamage += Damage;
 
-                            // Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+                            // í˜ë„í‹°ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 100ì´ë‹¤.
                             Damage = getPercentValue(Damage, 100); // penalty);
 
-                            // ¸ÂÀº ¾Öµé ÁöÁ¤
+                            // ë§ì€ ì• ë“¤ ì§€ì •
                             ObjectID_t targetObjectID = pTargetCreature->getObjectID();
                             cList.push_back(pTargetCreature);
 
@@ -333,7 +333,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                             _GCSkillToTileOK2.addCListElement(targetObjectID);
                             _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                            // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                            // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                             setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, NULL, &_GCSkillToTileOK1);
                             computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
 
@@ -362,7 +362,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                 }
             }
 
-            // °ø°İÀÚÀÇ ¾ÆÀÌÅÛ ³»±¸¼ºÀ» ¶³¾î¶ß¸°´Ù.
+            // ê³µê²©ìì˜ ì•„ì´í…œ ë‚´êµ¬ì„±ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
             _GCSkillToTileOK1.setSkillType(param.SkillType);
@@ -388,7 +388,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -396,7 +396,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
                 if (pTargetCreature->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pTargetCreature->isSlayer()) {
                         targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -408,13 +408,13 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot, co
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pSlayer);
                 }

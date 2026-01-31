@@ -35,8 +35,8 @@ void CreateHolyWater::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordIn
         Assert(pZone != NULL);
         Assert(pInventory != NULL);
 
-        // ¼º¼ö¸¦ ¸¸µé ´ë»óÀÌ ³ÎÀÌ°Å³ª, º¸Åë ¹°ÀÌ ¾Æ´Ï°Å³ª,
-        // OID°¡ Æ²¸®´Ù¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ì„±ìˆ˜ë¥¼ ë§Œë“¤ ëŒ€ìƒì´ ë„ì´ê±°ë‚˜, ë³´í†µ ë¬¼ì´ ì•„ë‹ˆê±°ë‚˜,
+        // OIDê°€ í‹€ë¦¬ë‹¤ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pWater = pInventory->getItem(X, Y);
         if (pWater == NULL || pWater->getItemClass() != Item::ITEM_CLASS_WATER ||
             pWater->getObjectID() != InvenObjectID) {
@@ -49,11 +49,11 @@ void CreateHolyWater::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordIn
         if (X == TargetX && Y == TargetY)
             bSamePosition = true;
 
-        // ´ë»ó À§Ä¡¿Í Å¸°Ù À§Ä¡°¡ °°°Ô ³¯¾Æ¿À´Â °æ¿ì´Â
-        // ¼º¼ö·Î º¯È¯ÇÏ°íÀÚ ÇÏ´Â ¹°º´ÀÇ ¼ıÀÚ°¡ 1ÀÎ °æ¿ìÀÌ´Ù.
-        // (ÀÌÀüÀÇ ¹°º´À» »èÁ¦ÇÏ°í, °°Àº À§Ä¡¿¡ ¼º¼ö¸¦ »ı¼ºÇÑ´Ù´Â ÀÇ¹ÌÀÌ´Ù.)
-        // 1ÀÌ ¾Æ´Ï¶ó¸é ¸®ÅÏÇØ¾ßÇÑ´Ù.
-        // ÀÌÁ¦ ÇÑ°³¾¿¸¸ ¾Æ´Ï¶ó ¹°º´ÀÌ ¸ù¶¥ ´Ù ¹Ù²î¹Ç·Î Ã¼Å©ÇÒ ÇÊ¿ä ¾ø´Ù.
+        // ëŒ€ìƒ ìœ„ì¹˜ì™€ íƒ€ê²Ÿ ìœ„ì¹˜ê°€ ê°™ê²Œ ë‚ ì•„ì˜¤ëŠ” ê²½ìš°ëŠ”
+        // ì„±ìˆ˜ë¡œ ë³€í™˜í•˜ê³ ì í•˜ëŠ” ë¬¼ë³‘ì˜ ìˆ«ìê°€ 1ì¸ ê²½ìš°ì´ë‹¤.
+        // (ì´ì „ì˜ ë¬¼ë³‘ì„ ì‚­ì œí•˜ê³ , ê°™ì€ ìœ„ì¹˜ì— ì„±ìˆ˜ë¥¼ ìƒì„±í•œë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.)
+        // 1ì´ ì•„ë‹ˆë¼ë©´ ë¦¬í„´í•´ì•¼í•œë‹¤.
+        // ì´ì œ í•œê°œì”©ë§Œ ì•„ë‹ˆë¼ ë¬¼ë³‘ì´ ëª½ë•… ë‹¤ ë°”ë€Œë¯€ë¡œ ì²´í¬í•  í•„ìš” ì—†ë‹¤.
         /*		if (bSamePosition && pWater->getNum() != 1)
                 {
                     executeSkillFailException(pSlayer, getSkillType());
@@ -85,29 +85,29 @@ void CreateHolyWater::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordIn
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¿ø·¡ º¸Åë ¹°ÀÇ ItemTypeÀ» ÀÌ¿ëÇØ È¦¸®¿öÅÍ¸¦ »ı¼ºÇÑ´Ù.
-            // ÀÌ´Â Water¿Í HolyWaterÀÇ ItemTypeÀÌ 1:1 ´ëÀÀÀÌ µÇ±â ¶§¹®¿¡
-            // °¡´ÉÇÑ ÄÚµåÀÌ´Ù.
+            // ì›ë˜ ë³´í†µ ë¬¼ì˜ ItemTypeì„ ì´ìš©í•´ í™€ë¦¬ì›Œí„°ë¥¼ ìƒì„±í•œë‹¤.
+            // ì´ëŠ” Waterì™€ HolyWaterì˜ ItemTypeì´ 1:1 ëŒ€ì‘ì´ ë˜ê¸° ë•Œë¬¸ì—
+            // ê°€ëŠ¥í•œ ì½”ë“œì´ë‹¤.
             list<OptionType_t> optionNULL;
             Item* pHolyWater = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_HOLYWATER, waterType, optionNULL);
-            // ÀÌÁ¦ °³¼öµµ ¼¼ÆÃÇØÁØ´Ù.
+            // ì´ì œ ê°œìˆ˜ë„ ì„¸íŒ…í•´ì¤€ë‹¤.
             pHolyWater->setNum(pWater->getNum());
 
-            // ¹°º´ÀÇ °¹¼ö¸¦ ÁÙ¿©ÁØ´Ù.
-            // ÀÌ ÇÔ¼ö ¾È¿¡¼­ ¹°º´ÀÇ °¹¼ö°¡ ÀÚµ¿ÀûÀ¸·Î ÇÏ³ª ÁÙ¾îµé°í,
-            // ¸¸ÀÏ 1°³ÀÎ ¹°º´ÀÌ¾ú´Ù¸é ÀÎº¥Åä¸® ¹× DB¿¡¼­ »èÁ¦µÇ°Ô µÈ´Ù.
+            // ë¬¼ë³‘ì˜ ê°¯ìˆ˜ë¥¼ ì¤„ì—¬ì¤€ë‹¤.
+            // ì´ í•¨ìˆ˜ ì•ˆì—ì„œ ë¬¼ë³‘ì˜ ê°¯ìˆ˜ê°€ ìë™ì ìœ¼ë¡œ í•˜ë‚˜ ì¤„ì–´ë“¤ê³ ,
+            // ë§Œì¼ 1ê°œì¸ ë¬¼ë³‘ì´ì—ˆë‹¤ë©´ ì¸ë²¤í† ë¦¬ ë° DBì—ì„œ ì‚­ì œë˜ê²Œ ëœë‹¤.
             //			decreaseItemNum(pWater, pInventory, pSlayer->getName(), STORAGE_INVENTORY, 0, X, Y);
-            // ÀÌÁ¦ ¸î°³µç »ó°ü¾øÀÌ ¸ù¶¥ ¹Ù²ã¹ö¸°´Ù.
+            // ì´ì œ ëª‡ê°œë“  ìƒê´€ì—†ì´ ëª½ë•… ë°”ê¿”ë²„ë¦°ë‹¤.
             pInventory->deleteItem(X, Y);
             pWater->destroy();
             SAFE_DELETE(pWater);
 
             Item* pPrevHolyWater = pInventory->getItem(TargetX, TargetY);
 
-            // ±âÁ¸ÀÇ ¼º¼ö °´Ã¼°¡ ÀÖ´Ù´Â ¸»Àº ½×¾Æ¾ß ÇÑ´Ù´Â ¸»ÀÌ´Ù.
+            // ê¸°ì¡´ì˜ ì„±ìˆ˜ ê°ì²´ê°€ ìˆë‹¤ëŠ” ë§ì€ ìŒ“ì•„ì•¼ í•œë‹¤ëŠ” ë§ì´ë‹¤.
             if (pPrevHolyWater != NULL) {
                 if (canStack(pPrevHolyWater, pHolyWater) == false) {
-                    // °°Àº Å¸ÀÔÀÇ ¼º¼ö°¡ ¾Æ´Ò ¶§ÀÎµ¥... ÀÌ·± °æ¿ì°¡ ¾î¶»°Ô ÇÏ¸é »ı±æ±î...
+                    // ê°™ì€ íƒ€ì…ì˜ ì„±ìˆ˜ê°€ ì•„ë‹ ë•Œì¸ë°... ì´ëŸ° ê²½ìš°ê°€ ì–´ë–»ê²Œ í•˜ë©´ ìƒê¸¸ê¹Œ...
                     SAFE_DELETE(pHolyWater);
 
                     executeSkillFailException(pSlayer, getSkillType());
@@ -117,32 +117,32 @@ void CreateHolyWater::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordIn
                     return;
                 }
 
-                // °¹¼ö¸¦ ÇÏ³ª Áõ°¡½ÃÅ°°í ÀúÀåÇÑ´Ù.
+                // ê°¯ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚¤ê³  ì €ì¥í•œë‹¤.
                 pPrevHolyWater->setNum(pPrevHolyWater->getNum() + pHolyWater->getNum());
                 pPrevHolyWater->save(pSlayer->getName(), STORAGE_INVENTORY, 0, TargetX, TargetY);
 
-                // À§ºÎºĞÀÇ decreaseItemNum() ÇÔ¼ö ºÎºĞ¿¡¼­ ¾ÆÀÌÅÛ ¼ıÀÚ¸¦ °¨¼Ò½ÃÅ°¹Ç·Î,
-                // ¿©±â¼­ ´Ù½Ã ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛ ¼ıÀÚ¸¦ Áõ°¡½ÃÅ²´Ù.
+                // ìœ„ë¶€ë¶„ì˜ decreaseItemNum() í•¨ìˆ˜ ë¶€ë¶„ì—ì„œ ì•„ì´í…œ ìˆ«ìë¥¼ ê°ì†Œì‹œí‚¤ë¯€ë¡œ,
+                // ì—¬ê¸°ì„œ ë‹¤ì‹œ ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œ ìˆ«ìë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
                 pInventory->increaseNum(pHolyWater->getNum());
 
-                // ¹æ±İ ¸¸µé¾îÁø ¼º¼ö´Â ±âÁ¸ÀÇ ¼º¼ö¿¡ ´õÇØÁ³À¸¹Ç·Î »èÁ¦ÇÑ´Ù.
+                // ë°©ê¸ˆ ë§Œë“¤ì–´ì§„ ì„±ìˆ˜ëŠ” ê¸°ì¡´ì˜ ì„±ìˆ˜ì— ë”í•´ì¡Œìœ¼ë¯€ë¡œ ì‚­ì œí•œë‹¤.
                 SAFE_DELETE(pHolyWater);
 
                 _GCSkillToInventoryOK1.setObjectID(pPrevHolyWater->getObjectID());
             }
-            // ±âÁ¸ÀÇ ¼º¼ö °´Ã¼°¡ ¾ø´Ù´Â ¸»Àº ¼º¼ö °´Ã¼¸¦ DB¿¡ »ı¼ºÇØ¾ß ÇÑ´Ù´Â ¸»ÀÌ´Ù.
+            // ê¸°ì¡´ì˜ ì„±ìˆ˜ ê°ì²´ê°€ ì—†ë‹¤ëŠ” ë§ì€ ì„±ìˆ˜ ê°ì²´ë¥¼ DBì— ìƒì„±í•´ì•¼ í•œë‹¤ëŠ” ë§ì´ë‹¤.
             else {
                 ObjectRegistry& OR = pZone->getObjectRegistry();
                 OR.registerObject(pHolyWater);
 
-                // ¼º¼ö¸¦ Inventory·Î Áı¾î ³Ö°í DB¿¡´Ù°¡ »ı¼ºÇÑ´Ù.
+                // ì„±ìˆ˜ë¥¼ Inventoryë¡œ ì§‘ì–´ ë„£ê³  DBì—ë‹¤ê°€ ìƒì„±í•œë‹¤.
                 pInventory->addItem(TargetX, TargetY, pHolyWater);
                 pHolyWater->create(pSlayer->getName(), STORAGE_INVENTORY, 0, TargetX, TargetY);
 
                 _GCSkillToInventoryOK1.setObjectID(pHolyWater->getObjectID());
             }
 
-            // ÆĞÅ¶À» º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             _GCSkillToInventoryOK1.setSkillType(SkillType);
             _GCSkillToInventoryOK1.setItemType(waterType);
             _GCSkillToInventoryOK1.setCEffectID(0);
@@ -165,12 +165,12 @@ void CreateHolyWater::execute(Slayer* pSlayer, ObjectID_t InvenObjectID, CoordIn
             pSkillSlot->setRunTime(output.Delay);
         } else {
             // executeSkillFailNormal(pSlayer, getSkillType(), NULL);
-            //  ¼º¼ö ¸¸µé±â °°Àº °æ¿ì¿¡´Â, ½ÇÆĞÇßÀ» ¶§ µô·¹ÀÌ°¡ ¾ø±â ¶§¹®¿¡,
-            //  Å¬¶óÀÌ¾ğÆ®¿¡°Ô¼­ ÆĞÅ¶ÀÌ »ó´çÈ÷ ºü¸£°Ô ¿¬¼ÓÀûÀ¸·Î ³¯¾Æ¿Â´Ù.
-            //  ÀÌ ¶§, ½ÇÆĞ ÆĞÅ¶À» ºê·Îµå Ä³½ºÆÃÇÏ°Ô µÇ¸é, ¿·¿¡ ÀÖ´Â »ç¶÷ÀÌ º¸±â¿¡´Â
-            //  Ä³½ºÆÃ µ¿ÀÛÀÌ ¸Å¿ì ºü¸£°Ô ¿¬¼ÓÀûÀ¸·Î Ç¥½ÃµÈ´Ù. (½ºÇÇµåÇÙ ¾²´Â °ÍÃ³·³...)
-            //  ±×·¡¼­ ÀÌ ºÎºĞ¿¡¼­ ºê·ÎµåÄ³½ºÆÃÀ» ÇÏÁö ¾Ê°í, º»ÀÎ¿¡°Ô¸¸ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
-            //  2002-02-06 ±è¼º¹Î
+            //  ì„±ìˆ˜ ë§Œë“¤ê¸° ê°™ì€ ê²½ìš°ì—ëŠ”, ì‹¤íŒ¨í–ˆì„ ë•Œ ë”œë ˆì´ê°€ ì—†ê¸° ë•Œë¬¸ì—,
+            //  í´ë¼ì´ì–¸íŠ¸ì—ê²Œì„œ íŒ¨í‚·ì´ ìƒë‹¹íˆ ë¹ ë¥´ê²Œ ì—°ì†ì ìœ¼ë¡œ ë‚ ì•„ì˜¨ë‹¤.
+            //  ì´ ë•Œ, ì‹¤íŒ¨ íŒ¨í‚·ì„ ë¸Œë¡œë“œ ìºìŠ¤íŒ…í•˜ê²Œ ë˜ë©´, ì˜†ì— ìˆëŠ” ì‚¬ëŒì´ ë³´ê¸°ì—ëŠ”
+            //  ìºìŠ¤íŒ… ë™ì‘ì´ ë§¤ìš° ë¹ ë¥´ê²Œ ì—°ì†ì ìœ¼ë¡œ í‘œì‹œëœë‹¤. (ìŠ¤í”¼ë“œí•µ ì“°ëŠ” ê²ƒì²˜ëŸ¼...)
+            //  ê·¸ë˜ì„œ ì´ ë¶€ë¶„ì—ì„œ ë¸Œë¡œë“œìºìŠ¤íŒ…ì„ í•˜ì§€ ì•Šê³ , ë³¸ì¸ì—ê²Œë§Œ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
+            //  2002-02-06 ê¹€ì„±ë¯¼
             executeSkillFailException(pSlayer, getSkillType());
         }
     } catch (Throwable& t) {
@@ -189,24 +189,24 @@ bool CreateHolyWater::canMake(ItemType_t WaterType, int DomainLevel, int SkillLe
     SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(DomainLevel);
     int ratio = 0;
 
-    // µµ¸ŞÀÎ ·¹º§¿¡ µû¶ó ¸¸µé ¼ö ÀÖ´Â ¼º¼öÀÇ Å©±â¿¡ Á¦ÇÑÀÌ ÀÖ´Ù.
-    // ±×·±µ¥ µµ¸ŞÀÎ ·¹º§ÀÌ ¸¶½ºÅÍ ÀÌ»óÀÏ °æ¿ì¿¡´Â ÆĞ³ÎÆ¼°¡ ¾ø¾î¾ß ÇÏ´Âµ¥,
-    // ÀÌ´Â ¾î¶»°Ô Ã³¸®ÇÒ ¼ö ÀÖÀ»±î?
+    // ë„ë©”ì¸ ë ˆë²¨ì— ë”°ë¼ ë§Œë“¤ ìˆ˜ ìˆëŠ” ì„±ìˆ˜ì˜ í¬ê¸°ì— ì œí•œì´ ìˆë‹¤.
+    // ê·¸ëŸ°ë° ë„ë©”ì¸ ë ˆë²¨ì´ ë§ˆìŠ¤í„° ì´ìƒì¼ ê²½ìš°ì—ëŠ” íŒ¨ë„í‹°ê°€ ì—†ì–´ì•¼ í•˜ëŠ”ë°,
+    // ì´ëŠ” ì–´ë–»ê²Œ ì²˜ë¦¬í•  ìˆ˜ ìˆì„ê¹Œ?
     if (WaterType == 2 && Grade >= SKILL_GRADE_EXPERT) {
-        // ¿¢½ºÆÛÆ® ÀÌ»óÀº µÇ¾î¾ß ¶óÁö È¦¸® ¿öÅÍ¸¦ ¸¸µé ¼ö ÀÖ´Ù.
+        // ì—‘ìŠ¤í¼íŠ¸ ì´ìƒì€ ë˜ì–´ì•¼ ë¼ì§€ í™€ë¦¬ ì›Œí„°ë¥¼ ë§Œë“¤ ìˆ˜ ìˆë‹¤.
         rvalue = true;
         ratio = 50 + SkillLevel - 50;
     } else if (WaterType == 1 && Grade >= SKILL_GRADE_ADEPT) {
-        // ¾îµªÆ® ÀÌ»óÀº µÇ¾î¾ß ¹Ìµğ¾ö È¦¸® ¿öÅÍ¸¦ ¸¸µé ¼ö ÀÕ´Ù.
+        // ì–´ëíŠ¸ ì´ìƒì€ ë˜ì–´ì•¼ ë¯¸ë””ì—„ í™€ë¦¬ ì›Œí„°ë¥¼ ë§Œë“¤ ìˆ˜ ì‡ë‹¤.
         rvalue = true;
         ratio = 50 + SkillLevel - 30;
     } else if (WaterType == 0 && Grade >= SKILL_GRADE_APPRENTICE) {
-        // ¾îÇÁ·»Æ¼½º ÀÌ»óÀº µÇ¾î¾ß ½º¸ô È¦¸® ¿öÅÍ¸¦ ¸¸µé ¼ö ÀÖ´Ù.
+        // ì–´í”„ë Œí‹°ìŠ¤ ì´ìƒì€ ë˜ì–´ì•¼ ìŠ¤ëª° í™€ë¦¬ ì›Œí„°ë¥¼ ë§Œë“¤ ìˆ˜ ìˆë‹¤.
         rvalue = true;
         ratio = 50 + SkillLevel - 10;
     }
 
-    // ÀÏ´Ü ¸¸µé ¼ö ÀÖ´Â È®·üÀÌ ÀÖ´Ù¸é È®·ü Ã¼Å©¸¦ ÇÑ´Ù.
+    // ì¼ë‹¨ ë§Œë“¤ ìˆ˜ ìˆëŠ” í™•ë¥ ì´ ìˆë‹¤ë©´ í™•ë¥  ì²´í¬ë¥¼ í•œë‹¤.
     if (rvalue) {
         if ((rand() % 100) < ratio)
             return true;

@@ -13,7 +13,7 @@
 #include "PKTError.h"
 
 
-// ½ÇÇà ÇÔ¼ö
+// ì‹¤í–‰ í•¨ìˆ˜
 void PKTErrorHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
     PKTError* pError = dynamic_cast<PKTError*>(pPacket);
     Assert(pError != NULL);
@@ -25,12 +25,12 @@ void PKTErrorHandler::execute(MPlayer* pPlayer, MPacket* pPacket) {
     filelog(MOFUS_LOG_FILE, "RECV [%s] Error : %d", pPlayer->getJob()->getName().c_str(), pError->nError);
     filelog(MOFUS_PACKET_FILE, "RECV : [%s] %s", pPlayer->getJob()->getName().c_str(), pPacket->toString().c_str());
 
-    // ¿¡·¯ ÄÚµå¸¦ ¼¼ÆÃ
+    // ì—ëŸ¬ ì½”ë“œë¥¼ ì„¸íŒ…
     pPlayer->setErrorCode(pError->getErrorCode());
 
-    // ·Î±×¾Æ¿ô º¸³»±â
+    // ë¡œê·¸ì•„ì›ƒ ë³´ë‚´ê¸°
     pPlayer->sendLogout();
 
-    // ÀÛ¾÷ ³¡
+    // ìž‘ì—… ë
     pPlayer->setEnd();
 }

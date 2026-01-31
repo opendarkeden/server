@@ -38,7 +38,7 @@ void CGSMSSendHandler::execute(CGSMSSend* pPacket, Player* pPlayer)
     GCAddressListVerify gcVerify;
 
     if (pPC->getSMSCharge() < pPacket->getNumbersList().size()) {
-        filelog("SMS.log", "[%s:%s] Charge°¡ ¸ðÀÚ¶ø´Ï´Ù.", pGamePlayer->getID().c_str(), pPC->getName().c_str());
+        filelog("SMS.log", "[%s:%s] Chargeê°€ ëª¨ìžëžë‹ˆë‹¤.", pGamePlayer->getID().c_str(), pPC->getName().c_str());
         gcVerify.setCode(GCAddressListVerify::SMS_SEND_FAIL);
         gcVerify.setParameter(GCAddressListVerify::SMS_SEND_FAIL_NOT_ENOUGH_CHARGE);
         pGamePlayer->sendPacket(&gcVerify);

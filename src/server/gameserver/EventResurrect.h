@@ -33,7 +33,7 @@ public:
     Zone* getResurrectZone()  { return m_pResurrectZone; }
     void setResurrectZone(Zone* ResurrectZone)  { m_pResurrectZone = ResurrectZone; }
 
-    // ºÎÈ°ÇÒ À§Ä¡
+    // ë¶€í™œí•  ìœ„ì¹˜
     ZoneCoord_t getX() const  { return m_X; }
     void setX(ZoneCoord_t x)  { m_X = x; }
 

@@ -18,7 +18,7 @@
 #include "Properties.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                           CEffectID_t CEffectID)
@@ -40,7 +40,7 @@ void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // ¾Æ¿ì½ºÅÍÁî¸¸ µÇ»ì¸± ¼ö ÀÖ´Ù.
+        // ì•„ìš°ìŠ¤í„°ì¦ˆë§Œ ë˜ì‚´ë¦´ ìˆ˜ ìžˆë‹¤.
         if (pTargetCreature == NULL || !pTargetCreature->isOusters() ||
             (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore") != 0)) {
             executeSkillFailException(pOusters, getSkillType());
@@ -50,7 +50,7 @@ void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
         Ousters* pTargetOusters = dynamic_cast<Ousters*>(pTargetCreature);
         Assert(pTargetOusters != NULL);
 
-        // Å¸°Ù¿¡°Ô ÄÚ¸¶ ÀÌÆåÆ®°¡ °É·ÁÀÖÁö ¾Ê°Å³ª, Á×Àº »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¾µ ¼ö ¾ø´Ù.
+        // íƒ€ê²Ÿì—ê²Œ ì½”ë§ˆ ì´íŽ™íŠ¸ê°€ ê±¸ë ¤ìžˆì§€ ì•Šê±°ë‚˜, ì£½ì€ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì“¸ ìˆ˜ ì—†ë‹¤.
         if (!pTargetOusters->isFlag(Effect::EFFECT_CLASS_COMA) || !pTargetOusters->isDead()) {
             executeSkillFailException(pOusters, getSkillType());
             return;
@@ -109,11 +109,11 @@ void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanSoulRebirth && bCheckRatio) {
             decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
-            // Å¸°ÙÀÇ ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ ÄÚ¸¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+            // íƒ€ê²Ÿì˜ ì´íŽ™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì½”ë§ˆ ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
             pTargetCreature->deleteEffect(Effect::EFFECT_CLASS_COMA);
             pTargetCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
 
-            // ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¬´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì½”ë§ˆ ì´íŽ™íŠ¸ê°€ ë‚ ì•„ê°”ë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCRemoveEffect gcRemoveEffect;
             gcRemoveEffect.setObjectID(pTargetOusters->getObjectID());
             gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_COMA);
@@ -134,12 +134,12 @@ void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
                 pEffectKillAftermath->create(pTargetOusters->getName());
             }
 
-            // ´ë»óÀÇ Ã¼·ÂÀ» 10%¸¸ Ã¤¿î´Ù.
+            // ëŒ€ìƒì˜ ì²´ë ¥ì„ 10%ë§Œ ì±„ìš´ë‹¤.
             HP_t CurrentHP = getPercentValue(pTargetOusters->getHP(ATTR_MAX), HealRatio);
             pTargetOusters->setHP(CurrentHP, ATTR_CURRENT);
             //			pTargetOusters->setMP(0, ATTR_CURRENT);
 
-            // ÁÖÀ§¿¡ Ã¼·ÂÀÌ Ã¤¿öÁ³´Ù´Â »ç½ÇÀ» ¾Ë¸°´Ù.
+            // ì£¼ìœ„ì— ì²´ë ¥ì´ ì±„ì›Œì¡Œë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë¦°ë‹¤.
             GCStatusCurrentHP gcStatusCurrentHP;
             gcStatusCurrentHP.setObjectID(pTargetOusters->getObjectID());
             gcStatusCurrentHP.setCurrentHP(pTargetOusters->getHP(ATTR_CURRENT));

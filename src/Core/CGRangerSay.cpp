@@ -11,7 +11,7 @@ void CGRangerSay::read(SocketInputStream& iStream)
 {
     __BEGIN_TRY
 
-    // ¸Ş¼¼Áö ÀĞ±â
+    // ë©”ì„¸ì§€ ì½ê¸°
     BYTE szMessage;
     iStream.read(szMessage);
 
@@ -31,7 +31,7 @@ void CGRangerSay::write(SocketOutputStream& oStream) const
 {
     __BEGIN_TRY
 
-    // ¸Ş¼¼Áö ¾²±â
+    // ë©”ì„¸ì§€ ì“°ê¸°
     BYTE szMessage = m_Message.size();
 
     if (szMessage == 0)

@@ -15,8 +15,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 SummonMonsters::SummonMonsters() throw() {
     __BEGIN_TRY
@@ -24,7 +24,7 @@ SummonMonsters::SummonMonsters() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 /*
 void SummonMonsters::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
@@ -67,7 +67,7 @@ void SummonMonsters::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
         {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ¹ìÆÄÀÌ¾î¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+            // ë±€íŒŒì´ì–´ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -79,12 +79,12 @@ void SummonMonsters::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(x, y, &_GCSkillToSelfOK2, pVampire);
 
-            // ¶¥ À§¿¡ ³ª¿ÍÀÖ´Â ¹ìÆÄÀÌ¾î »èÁ¦ÇÏ¶ó°í ¾Ë¸°´Ù.
+            // ë•… ìœ„ì— ë‚˜ì™€ìˆëŠ” ë±€íŒŒì´ì–´ ì‚­ì œí•˜ë¼ê³  ì•Œë¦°ë‹¤.
             GCDeleteObject gcDO;
             gcDO.setObjectID(pVampire->getObjectID());
             pZone->broadcastPacket(x, y, &gcDO, pVampire);
 
-            // ¶¥ ¼Ó¿¡´Ù°¡ ¹ìÆÄÀÌ¾î¸¦ Ãß°¡ÇÑ´Ù.
+            // ë•… ì†ì—ë‹¤ê°€ ë±€íŒŒì´ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
             addBurrowingCreature(pZone, pVampire, x, y);
 
             pSkillSlot->setRunTime();
@@ -107,7 +107,7 @@ void SummonMonsters::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
 */
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonMonsters::execute(Monster* pMonster)
 
@@ -143,7 +143,7 @@ void SummonMonsters::execute(Monster* pMonster)
         if (bRangeCheck) // && bMoveModeCheck)
         {
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§ëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             // SkillInput input(pMonster);
             // SkillOutput output;
@@ -155,16 +155,16 @@ void SummonMonsters::execute(Monster* pMonster)
 
             if (!hasInfo || summonInfo.pMonsters == NULL) {
                 // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
-                //  ¼ÒÈ¯ÇÒ ¸÷ÀÌ ¾ø´Â °æ¿ì´Ù. -_-;
+                //  ì†Œí™˜í•  ëª¹ì´ ì—†ëŠ” ê²½ìš°ë‹¤. -_-;
                 executeSkillFailNormal(pMonster, getSkillType(), NULL);
 
-                // ¸¶½ºÅÍ ·¹¾î¿¡¼­ ¸¶½ºÅÍ°¡ ¸÷À» ¼ÒÈ¯ÇÒ·Á°í ÇÑ °æ¿ì
+                // ë§ˆìŠ¤í„° ë ˆì–´ì—ì„œ ë§ˆìŠ¤í„°ê°€ ëª¹ì„ ì†Œí™˜í• ë ¤ê³  í•œ ê²½ìš°
                 if (pZone->isMasterLair() && pMonster->isMaster()) {
                     MasterLairManager* pMasterLairManager = pZone->getMasterLairManager();
                     Assert(pMasterLairManager != NULL);
 
-                    // ´õ ÀÌ»ó ¼ÒÈ¯ÇÒ°Ô ¾ø´Ù¸é..
-                    // ¸¶½ºÅÍ°¡ Á÷Á¢ ³ª¼­¼­ ½Î¿ö¾ß°ÚÁö..
+                    // ë” ì´ìƒ ì†Œí™˜í• ê²Œ ì—†ë‹¤ë©´..
+                    // ë§ˆìŠ¤í„°ê°€ ì§ì ‘ ë‚˜ì„œì„œ ì‹¸ì›Œì•¼ê² ì§€..
                     pMasterLairManager->setMasterReady();
                     // cout << "no more SummonMonsters: set MasterReady" << endl;
                 }
@@ -173,7 +173,7 @@ void SummonMonsters::execute(Monster* pMonster)
             if (pMonster->isMaster() && pZone->isMasterLair()) {
                 MasterLairManager* pMasterLairManager = pZone->getMasterLairManager();
                 Assert(pMasterLairManager != NULL);
-                // minion combat¿¡¼­´Â ÁöÁ¤µÈ ÁÂÇ¥¿¡ ¼ÒÈ¯ÇÑ´Ù.
+                // minion combatì—ì„œëŠ” ì§€ì •ëœ ì¢Œí‘œì— ì†Œí™˜í•œë‹¤.
 
                 MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(pZone->getZoneID());
                 Assert(pInfo != NULL);
@@ -190,19 +190,19 @@ void SummonMonsters::execute(Monster* pMonster)
                         pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &gcSay);
                 }
 
-                // ¸¶½ºÅÍ ·¹¾î¿¡¼­´Â ¼ÒÈ¯µÈ ¸ó½ºÅÍµéÀÌ ¾ÆÅÛ ¾È ÁØ´Ù.
+                // ë§ˆìŠ¤í„° ë ˆì–´ì—ì„œëŠ” ì†Œí™˜ëœ ëª¬ìŠ¤í„°ë“¤ì´ ì•„í…œ ì•ˆ ì¤€ë‹¤.
                 // by sigi. 2002.11.21
                 summonInfo.hasItem = false;
             }
 
             summonInfo.scanEnemy = true;
             summonInfo.clanType = SUMMON_INFO::CLAN_TYPE_GROUP;
-            summonInfo.clanID = pMonster->getClanType(); // ÁÖÀÎÀÇ clanÀ» µû¸¥´Ù.
+            summonInfo.clanID = pMonster->getClanType(); // ì£¼ì¸ì˜ clanì„ ë”°ë¥¸ë‹¤.
             summonInfo.X = x;
             summonInfo.Y = y;
             summonInfo.regenType = REGENTYPE_PORTAL;
 
-            // ¸ó½ºÅÍ¸¦ Á¸¿¡ Ãß°¡ÇÑ´Ù.
+            // ëª¬ìŠ¤í„°ë¥¼ ì¡´ì— ì¶”ê°€í•œë‹¤.
             addMonstersToZone(pZone, summonInfo);
 
             // cout << "SummonMonsters OK" << endl;

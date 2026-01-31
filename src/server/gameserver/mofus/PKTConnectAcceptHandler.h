@@ -12,10 +12,10 @@
 // class PKTConnectAcceptHandler
 class PKTConnectAcceptHandler : public MPacketHandler {
 public:
-    // ÇØ´ç ÆĞÅ¶ÀÇ ID
+    // í•´ë‹¹ íŒ¨í‚·ì˜ ID
     MPacketID_t getID() const;
 
-    // ½ÇÇà ÇÔ¼ö
+    // ì‹¤í–‰ í•¨ìˆ˜
     void execute(MPlayer* pPlayer, MPacket* pPacket);
 };
 

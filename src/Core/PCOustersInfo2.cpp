@@ -105,13 +105,13 @@ void PCOustersInfo2::read(SocketInputStream& iStream) {
     iStream.read(m_Bonus);
     iStream.read(m_SkillBonus);
 
-    // Àºµµ±İ µ¥¹ÌÁã
+    // ì€ë„ê¸ˆ ë°ë¯¸ì¥
     iStream.read(m_SilverDamage);
 
-    // ±ÇÇÑ
+    // ê¶Œí•œ
     iStream.read(m_Competence);
 
-    // ±æµå ¾ÆÀÌµğ
+    // ê¸¸ë“œ ì•„ì´ë””
     iStream.read(m_GuildID);
 
     BYTE szGuildName;
@@ -229,13 +229,13 @@ void PCOustersInfo2::write(SocketOutputStream& oStream) const {
     oStream.write(m_Bonus);
     oStream.write(m_SkillBonus);
 
-    // Àºµµ±İ µ¥¹ÌÁö
+    // ì€ë„ê¸ˆ ë°ë¯¸ì§€
     oStream.write(m_SilverDamage);
 
-    // ±ÇÇÑ
+    // ê¶Œí•œ
     oStream.write(m_Competence);
 
-    // ±æµå ¾ÆÀÌµğ
+    // ê¸¸ë“œ ì•„ì´ë””
     oStream.write(m_GuildID);
 
     BYTE szGuildName = m_GuildName.size();

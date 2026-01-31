@@ -14,7 +14,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ø¿∫Í¡ß∆Æ
+// Ïä¨Î†àÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏
 //////////////////////////////////////////////////////////////////////////////
 void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -35,7 +35,7 @@ void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -47,7 +47,7 @@ void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
         GCAttackArmsOK4 _GCAttackArmsOK4;
         GCAttackArmsOK5 _GCAttackArmsOK5;
 
-        // µÈ∞Ì ¿÷¥¬ π´±‚∞° æ¯∞≈≥™, √— ∞Ëø≠ π´±‚∞° æ∆¥œ∂Û∏È ±‚º˙¿ª æµ ºˆ æ¯¥Ÿ.
+        // Îì§Í≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÏóÜÍ±∞ÎÇò, Ï¥ù Í≥ÑÏó¥ Î¨¥Í∏∞Í∞Ä ÏïÑÎãàÎùºÎ©¥ Í∏∞Ïà†ÏùÑ Ïì∏ Ïàò ÏóÜÎã§.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || isArmsWeapon(pWeapon) == false) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -65,7 +65,7 @@ void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
         SkillOutput output;
         computeOutput(input, output);
 
-        // ToHit ∆‰≥Œ∆º ∞™¿ª ∞ËªÍ«—¥Ÿ.
+        // ToHit ÌéòÎÑêÌã∞ Í∞íÏùÑ Í≥ÑÏÇ∞ÌïúÎã§.
         //		int ToHitPenalty = getPercentValue( pSlayer->getToHit(), output.ToHit );
 
         int RequiredMP = (int)pSkillInfo->getConsumeMP();
@@ -76,12 +76,12 @@ void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
         bool bHitRoll = HitRoll::isSuccess(pSlayer, pTargetCreature, output.ToHit); // ToHitPenalty);
         bool bPK = verifyPK(pSlayer, pTargetCreature);
 
-        // √—æÀ º˝¿⁄¥¬ π´¡∂∞« ∂≥æÓ∂ﬂ∏∞¥Ÿ.
+        // Ï¥ùÏïå Ïà´ÏûêÎäî Î¨¥Ï°∞Í±¥ Îñ®Ïñ¥Îú®Î¶∞Îã§.
         Bullet_t RemainBullet = 0;
         if (bBulletCheck) {
-            // √—æÀ º˝¿⁄∏¶ ∂≥æÓ∂ﬂ∏Æ∞Ì, ¿˙¿Â«œ∞Ì, ≥≤¿∫ √—æÀ º˝¿⁄∏¶ πﬁæ∆ø¬¥Ÿ.
+            // Ï¥ùÏïå Ïà´ÏûêÎ•º Îñ®Ïñ¥Îú®Î¶¨Í≥†, Ï†ÄÏû•ÌïòÍ≥†, ÎÇ®ÏùÄ Ï¥ùÏïå Ïà´ÏûêÎ•º Î∞õÏïÑÏò®Îã§.
             decreaseBullet(pWeapon);
-            // «—πﬂæµ∂ß∏∂¥Ÿ ¿˙¿Â«“ « ø‰ æ¯¥Ÿ. by sigi. 2002.5.9
+            // ÌïúÎ∞úÏì∏ÎïåÎßàÎã§ Ï†ÄÏû•Ìï† ÌïÑÏöî ÏóÜÎã§. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
         }
@@ -95,18 +95,18 @@ void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
             bool bCriticalHit = false;
 
-            // µ•πÃ¡ˆ ∫∏≥ Ω∫∏¶ ∞ËªÍ«—¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄ Î≥¥ÎÑàÏä§Î•º Í≥ÑÏÇ∞ÌïúÎã§.
             int Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
             Damage += getPercentValue(Damage, output.Damage);
             Damage = max(0, Damage);
 
             // cout << "BulletOfLightDamage:" << Damage << endl;
 
-            // µ•πÃ¡ˆ∏¶ ºº∆√«—¥Ÿ.
+            // Îç∞ÎØ∏ÏßÄÎ•º ÏÑ∏ÌåÖÌïúÎã§.
             setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
             computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
 
-            // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+            // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
             }
@@ -133,7 +133,7 @@ void BulletOfLight::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
                 pMonster->addEnemy(pSlayer);
             }
 
-            // ∞¯∞›¿⁄øÕ ªÛ¥Î¿« æ∆¿Ã≈€ ≥ª±∏º∫ ∂≥æÓ∆Æ∏≤.
+            // Í≥µÍ≤©ÏûêÏôÄ ÏÉÅÎåÄÏùò ÏïÑÏù¥ÌÖú ÎÇ¥Íµ¨ÏÑ± Îñ®Ïñ¥Ìä∏Î¶º.
             decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCAttackArmsOK1, &_GCAttackArmsOK2);
 
             ZoneCoord_t targetX = pTargetCreature->getX();

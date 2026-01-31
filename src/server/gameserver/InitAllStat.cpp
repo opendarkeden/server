@@ -85,7 +85,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// °øÅë
+// ê³µí†µ
 //
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::applyBloodBibleSign() {
@@ -102,7 +102,7 @@ void PlayerCreature::applyBloodBibleSign() {
         if (pBonus != NULL) {
             OptionTypeList optionTypes = pBonus->getOptionTypeList();
             OptionTypeListConstItor optionItr;
-            //			cout << getName() << "¿¡°Ô " << pBonus->getName() << " À» Àû¿ëÇÕ´Ï´Ù." << endl;
+            //			cout << getName() << "ì—ê²Œ " << pBonus->getName() << " ì„ ì ìš©í•©ë‹ˆë‹¤." << endl;
             ++applyCount;
 
             for (optionItr = optionTypes.begin(); optionItr != optionTypes.end(); optionItr++) {
@@ -114,7 +114,7 @@ void PlayerCreature::applyBloodBibleSign() {
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ½½·¹ÀÌ¾î
+// ìŠ¬ë ˆì´ì–´
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -169,7 +169,7 @@ void Slayer::initAllStat(int numPartyMember) {
     m_Resist[MAGIC_DOMAIN_CURSE] = 0;
     m_Resist[MAGIC_DOMAIN_BLOOD] = 0;
 
-    // BloodBible °ü·Ã º¸³Ê½º ¼öÄ¡µé ÃÊ±âÈ­
+    // BloodBible ê´€ë ¨ ë³´ë„ˆìŠ¤ ìˆ˜ì¹˜ë“¤ ì´ˆê¸°í™”
     m_ConsumeMPRatio = 0;
     m_GamblePriceRatio = 0;
     m_PotionPriceRatio = 0;
@@ -179,8 +179,8 @@ void Slayer::initAllStat(int numPartyMember) {
     m_PhysicDamageReduce = 0;
 
     //////////////////////////////////////////////////////////////////////////////
-    // Á¦ÀÏ ¸ÕÀú ±âº» ´É·ÂÄ¡¸¦ ÃÊ±âÈ­½ÃÅ°°í,
-    // ±âº» ´É·ÂÄ¡¿¡ ¿µÇâÀ» ÁÖ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ì œì¼ ë¨¼ì € ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì´ˆê¸°í™”ì‹œí‚¤ê³ ,
+    // ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ì— ì˜í–¥ì„ ì£¼ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     m_STR[ATTR_CURRENT] = m_STR[ATTR_MAX] = m_STR[ATTR_BASIC] = m_pAttrs[ATTR_KIND_STR]->getLevel();
     m_DEX[ATTR_CURRENT] = m_DEX[ATTR_MAX] = m_DEX[ATTR_BASIC] = m_pAttrs[ATTR_KIND_DEX]->getLevel();
@@ -193,7 +193,7 @@ void Slayer::initAllStat(int numPartyMember) {
     if (isFlag(Effect::EFFECT_CLASS_BLESS)) {
         EffectBless* pBless = dynamic_cast<EffectBless*>(findEffect(Effect::EFFECT_CLASS_BLESS));
         if (pBless != NULL) {
-            // STR, DEX¸¦ ¿Ã¸°´Ù.
+            // STR, DEXë¥¼ ì˜¬ë¦°ë‹¤.
             //			m_STR[ATTR_CURRENT] += pBless->getSTRBonus();
             //			m_DEX[ATTR_CURRENT] += pBless->getDEXBonus();
             m_STR[ATTR_CURRENT] += getPercentValue(m_STR[ATTR_CURRENT], pBless->getSTRBonus());
@@ -204,7 +204,7 @@ void Slayer::initAllStat(int numPartyMember) {
         EffectPotentialExplosion* pPotentialExplosion =
             dynamic_cast<EffectPotentialExplosion*>(findEffect(Effect::EFFECT_CLASS_POTENTIAL_EXPLOSION));
         if (pPotentialExplosion != NULL) {
-            // STR, DEX¸¦ ¿Ã¸°´Ù.
+            // STR, DEXë¥¼ ì˜¬ë¦°ë‹¤.
             m_STR[ATTR_CURRENT] += pPotentialExplosion->getDiffSTR();
             m_DEX[ATTR_CURRENT] += pPotentialExplosion->getDiffDEX();
         }
@@ -223,7 +223,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °è»êÀ» À§ÇÑ ÆÄ¶ó¹ÌÅÍµéÀ» ÃÊ±âÈ­ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ ê³„ì‚°ì„ ìœ„í•œ íŒŒë¼ë¯¸í„°ë“¤ì„ ì´ˆê¸°í™”í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     attr.nSTR = m_STR[ATTR_CURRENT];
     attr.nDEX = m_DEX[ATTR_CURRENT];
@@ -237,13 +237,13 @@ void Slayer::initAllStat(int numPartyMember) {
     m_HPRegen = 0;
     m_MPRegen = 0;
     m_Luck = m_BaseLuck;
-    //	cout << getName() << "ÀÇ ±âº» Çà¿î : " << m_Luck << endl;
+    //	cout << getName() << "ì˜ ê¸°ë³¸ í–‰ìš´ : " << m_Luck << endl;
 
     for (int i = 0; i < SKILL_DOMAIN_MAX; i++)
         attr.pDomainLevel[i] = m_SkillDomainLevels[i];
 
     //////////////////////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡µéÀ» °è»êÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë“¤ì„ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     m_HP[ATTR_MAX] = computeHP(CClass, &attr);
     m_HP[ATTR_BASIC] = 0;
@@ -264,7 +264,7 @@ void Slayer::initAllStat(int numPartyMember) {
     m_CriticalRatio[ATTR_MAX] = 0;
 
     //////////////////////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡¿¡ ÀÇÇÑ Damage ¸¦ ÀúÀåÇØ µĞ´Ù. BERSER ±â¼úÀÇ º¸³Ê½º °è»êÀ» À§ÇØ¼­.
+    // ëŠ¥ë ¥ì¹˜ì— ì˜í•œ Damage ë¥¼ ì €ì¥í•´ ë‘”ë‹¤. BERSER ê¸°ìˆ ì˜ ë³´ë„ˆìŠ¤ ê³„ì‚°ì„ ìœ„í•´ì„œ.
     //////////////////////////////////////////////////////////////////////////////
     Damage_t AttrMinDamage = m_Damage[ATTR_CURRENT];
     Damage_t AttrMaxDamage = m_Damage[ATTR_MAX];
@@ -292,11 +292,11 @@ void Slayer::initAllStat(int numPartyMember) {
 
     int DragonEyeHPBonus = 0;
     if (isFlag(Effect::EFFECT_CLASS_DRAGON_EYE)) {
-        // HP º¸³Ê½º´Â µÎ¹è
+        // HP ë³´ë„ˆìŠ¤ëŠ” ë‘ë°°
         DragonEyeHPBonus = m_HP[ATTR_MAX];
     }
 
-    // Passive Skill : Will of Iron (¼ø¼ö HP * 1.15)
+    // Passive Skill : Will of Iron (ìˆœìˆ˜ HP * 1.15)
     SkillSlot* pFabulousSoul = getSkill(SKILL_FABULOUS_SOUL);
     SkillSlot* pWillOfIron = getSkill(SKILL_WILL_OF_IRON);
 
@@ -374,8 +374,8 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
 
-    ////	// ÀüÀï º¸³Ê½º
-    // Áö±İÀº ÀüÀï ½ÂÆĞ¿¡ °ü°è¾øÀÌ ¾î´ÀÂÊÀÌµç º¸³Ê½º°¡ Àû¿ëµÉ ¼ö ÀÖ´Ù. by sigi
+    ////	// ì „ìŸ ë³´ë„ˆìŠ¤
+    // ì§€ê¸ˆì€ ì „ìŸ ìŠ¹íŒ¨ì— ê´€ê³„ì—†ì´ ì–´ëŠìª½ì´ë“  ë³´ë„ˆìŠ¤ê°€ ì ìš©ë  ìˆ˜ ìˆë‹¤. by sigi
     // if ( g_pCombatInfoManager->isSlayerBonus() )
     int HPBonus = 0;
     {
@@ -388,7 +388,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////
-    // ÀÏ´Ü ±â¾î Ã¼Å© º¯¼ö¸¦ ÃÊ±âÈ­ÇØ¼­ ¸ğµç ±â¾î¸¦ ¾È ÀÔÀº °ÍÀ¸·Î °£ÁÖÇÏ°í ½ÃÀÛÇÑ´Ù.
+    // ì¼ë‹¨ ê¸°ì–´ ì²´í¬ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”í•´ì„œ ëª¨ë“  ê¸°ì–´ë¥¼ ì•ˆ ì…ì€ ê²ƒìœ¼ë¡œ ê°„ì£¼í•˜ê³  ì‹œì‘í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     bool pOldRealWearingCheck[WEAR_MAX]; // by sigi. 2002.10.31
     for (int i = 0; i < WEAR_MAX; i++) {
@@ -397,9 +397,9 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ¼ºÀ» ¼ÒÀ¯ÇÑ Á¾Á·Àº º¸³Ê½º ¿É¼ÇÀ» ¹Ş°Ô µÈ´Ù
+    // ì„±ì„ ì†Œìœ í•œ ì¢…ì¡±ì€ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ê²Œ ëœë‹¤
     //////////////////////////////////////////////////////////////////////////////
-    // Blood Bible °¢°¢ÀÇ º¸³Ê½º ¿É¼ÇÀ» ¹Ş´Â °É·Î °íÃÆ´Ù.
+    // Blood Bible ê°ê°ì˜ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ëŠ” ê±¸ë¡œ ê³ ì³¤ë‹¤.
     /*	if (m_pZone->isHolyLand() )
         {
             const list<OptionType_t>& optionType = g_pHolyLandRaceBonus->getSlayerOptionTypeList();
@@ -411,7 +411,7 @@ void Slayer::initAllStat(int numPartyMember) {
         }*/
 
     //////////////////////////////////////////////////////////////////////////////
-    // Blood Bible °¢°¢ÀÇ º¸³Ê½º ¿É¼ÇÀ» ¹Ş´Â´Ù.
+    // Blood Bible ê°ê°ì˜ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ëŠ”ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     /*	if ( m_pZone->isHolyLand() && !g_pWarSystem->hasActiveRaceWar() )
         {
@@ -453,7 +453,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ±âº»ÀûÀ¸·Î °¡Áö°í ÀÖ´Â ¿É¼ÇµéÀ» °è»êÇÑ´Ù.
+    // ê¸°ë³¸ì ìœ¼ë¡œ ê°€ì§€ê³  ìˆëŠ” ì˜µì…˜ë“¤ì„ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
     for (; itr != m_DefaultOptionSet.end(); itr++) {
@@ -468,7 +468,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÆêÀÌ ÁÖ´Â º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // í«ì´ ì£¼ëŠ” ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (m_pPetInfo != NULL) {
         if (m_pPetInfo->getPetAttr() != 0xff)
@@ -506,9 +506,9 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÀÔ°í ÀÖ´Â ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÑ´Ù.
-    // for °¡ µÎ¹øÀÎ ÀÌÀ¯´Â ¾ÆÀÌÅÛÀ¸·Î ¿Ã¶ó°£ ´É·ÂÄ¡¿¡ ÀÇÇØ¼­
-    // ÀÔÀ» ¼ö ÀÖ°Ô µÇ´Â ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+    // ì…ê³  ìˆëŠ” ì•„ì´í…œì„ ì²´í¬í•œë‹¤.
+    // for ê°€ ë‘ë²ˆì¸ ì´ìœ ëŠ” ì•„ì´í…œìœ¼ë¡œ ì˜¬ë¼ê°„ ëŠ¥ë ¥ì¹˜ì— ì˜í•´ì„œ
+    // ì…ì„ ìˆ˜ ìˆê²Œ ë˜ëŠ” ì•„ì´í…œì„ ì²´í¬í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     for (int j = 0; j < WEAR_MAX; j++) {
         int wearCount = 0;
@@ -516,15 +516,15 @@ void Slayer::initAllStat(int numPartyMember) {
         for (int i = 0; i < WEAR_MAX; i++) {
             Item* pItem = m_pWearItem[i];
 
-            // ÇöÀç Æ÷ÀÎÆ®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ°í
-            // ±×°Í¿¡ ´ëÇÑ Ã¼Å©¸¦ ¾ÆÁ÷ ÇÏÁö ¾Ê¾Ò´Ù¸é...
+            // í˜„ì¬ í¬ì¸íŠ¸ì— ì•„ì´í…œì´ ìˆê³ 
+            // ê·¸ê²ƒì— ëŒ€í•œ ì²´í¬ë¥¼ ì•„ì§ í•˜ì§€ ì•Šì•˜ë‹¤ë©´...
             if (pItem != NULL && m_pRealWearingCheck[i] == false) {
-                // ¸¸ÀÏ ÁøÂ¥·ç ÀÔÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // ë§Œì¼ ì§„ì§œë£¨ ì…ì„ ìˆ˜ ìˆëŠ” ì•„ì´í…œì´ë¼ë©´ ëŠ¥ë ¥ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 if (isRealWearing(pItem)) {
                     computeItemStat(pItem);
 
-                    // ¾ç¼Õ ¹«±â¶ó¸é, Ã¼Å©¸¦ µÎ¹ø ÇÏÁö ¾Êµµ·Ï
-                    // ¿ŞÂÊ, ¿À¸¥ÂÊ ¸ğµÎ Ã¼Å© º¯¼ö¸¦ ¼¼ÆÃ
+                    // ì–‘ì† ë¬´ê¸°ë¼ë©´, ì²´í¬ë¥¼ ë‘ë²ˆ í•˜ì§€ ì•Šë„ë¡
+                    // ì™¼ìª½, ì˜¤ë¥¸ìª½ ëª¨ë‘ ì²´í¬ ë³€ìˆ˜ë¥¼ ì„¸íŒ…
                     if (isTwohandWeapon(pItem)) {
                         m_pRealWearingCheck[WEAR_LEFTHAND] = true;
                         m_pRealWearingCheck[WEAR_RIGHTHAND] = true;
@@ -549,8 +549,8 @@ void Slayer::initAllStat(int numPartyMember) {
         }
     }
     if (zaps[0] && zaps[1] && zaps[2] && zaps[3]) {
-        computeOptionStat(182); // ¸ğÀú 9
-        computeOptionStat(185); // ¸ğ´É 3
+        computeOptionStat(182); // ëª¨ì € 9
+        computeOptionStat(185); // ëª¨ëŠ¥ 3
     }
 
     applyBloodBibleSign();
@@ -562,9 +562,9 @@ void Slayer::initAllStat(int numPartyMember) {
         bSendPacket = (dynamic_cast<GamePlayer*>(m_pPlayer)->getPlayerStatus() == GPS_NORMAL);
     }
 
-    // ÀÏ´Ü À§¿¡¼­ ´Ù ÀÔ¾ú´Âµ¥..
-    // ´É·ÂÄ¡¿¡ µû¶ó¼­ º¹ÀåÀÌ Àû¿ëÀÌ ¾ÈµÇ´Â ¾ÆÀÌÅÛÀº º¹Àå Á¤º¸¸¦ ¾ø¾Ø´Ù.
-    // ÀÌÀü¿¡´Â ¸ø ÀÔ¾ú´Âµ¥ ÀÌÁ¦´Â ÀÔÀ» ¼ö ÀÖ´Ù¸é ÀÔÈ÷´Â ÆĞÅ¶À» º¸³½´Ù.
+    // ì¼ë‹¨ ìœ„ì—ì„œ ë‹¤ ì…ì—ˆëŠ”ë°..
+    // ëŠ¥ë ¥ì¹˜ì— ë”°ë¼ì„œ ë³µì¥ì´ ì ìš©ì´ ì•ˆë˜ëŠ” ì•„ì´í…œì€ ë³µì¥ ì •ë³´ë¥¼ ì—†ì•¤ë‹¤.
+    // ì´ì „ì—ëŠ” ëª» ì…ì—ˆëŠ”ë° ì´ì œëŠ” ì…ì„ ìˆ˜ ìˆë‹¤ë©´ ì…íˆëŠ” íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     // by sigi. 2002.10.30
     for (int i = 0; i < WEAR_MAX; i++) {
         if (m_pRealWearingCheck[i]) {
@@ -598,9 +598,9 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     ///////////////////////////////////////////////////////////////////////////////
-    // °è±Ş º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // ê³„ê¸‰ ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     ///////////////////////////////////////////////////////////////////////////////
-    // ½ºÆ¿ È®·üÀ» °è»êÇÏ±â Àü¿¡ ¹Ì¸® °è»êÇÑ´Ù.
+    // ìŠ¤í‹¸ í™•ë¥ ì„ ê³„ì‚°í•˜ê¸° ì „ì— ë¯¸ë¦¬ ê³„ì‚°í•œë‹¤.
     ///////////////////////////////////////////////////////////////////////////////
     if (hasRankBonus(RankBonus::RANK_BONUS_WIGHT_HAND)) {
         RankBonus* pRankBonus = getRankBonus(RankBonus::RANK_BONUS_WIGHT_HAND);
@@ -620,7 +620,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // HP, MP ½ºÆ¿ È®·üÀ» °è»êÇØ µĞ´Ù.
+    // HP, MP ìŠ¤í‹¸ í™•ë¥ ì„ ê³„ì‚°í•´ ë‘”ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     m_HPStealRatio = computeStealRatio(CClass, m_HPStealAmount, &attr);
     m_MPStealRatio = computeStealRatio(CClass, m_MPStealAmount, &attr);
@@ -629,7 +629,7 @@ void Slayer::initAllStat(int numPartyMember) {
     Item* pShield = m_pWearItem[Slayer::WEAR_LEFTHAND];
 
     //////////////////////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡¸¦ Á÷Á¢ ¼öÁ¤ÇÏ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì§ì ‘ ìˆ˜ì •í•˜ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (isFlag(Effect::EFFECT_CLASS_STRIKING)) {
         EffectStriking* pStriking = dynamic_cast<EffectStriking*>(findEffect(Effect::EFFECT_CLASS_STRIKING));
@@ -640,18 +640,18 @@ void Slayer::initAllStat(int numPartyMember) {
                 m_Damage[ATTR_CURRENT] = min(SLAYER_MAX_DAMAGE, m_Damage[ATTR_CURRENT] + DamageBonus);
                 m_Damage[ATTR_MAX] = min(SLAYER_MAX_DAMAGE, m_Damage[ATTR_MAX] + DamageBonus);
 
-                // ItemOID°¡ ÀÏÄ¡ÇÑ´Ù´Â ¸»Àº ¹æ±İ ½ºÆ®¶óÀÌÅ·ÀÌ °É·È°Å³ª,
-                // ´Ù¸¥ ¹«±â¸¦ µé¾ú´Ù°¡, ´Ù½Ã ½ºÆ®¶óÀÌÅ·ÀÌ °É¸° ¹«±â¸¦
-                // µé¾ú´Ù´Â ¸»ÀÌ´Ù. ±×·¯¹Ç·Î ÀÌÆåÆ®¸¦ ºÙÀÌ¶ó°í ³¯·ÁÁà¾ß ÇÑ´Ù.
+                // ItemOIDê°€ ì¼ì¹˜í•œë‹¤ëŠ” ë§ì€ ë°©ê¸ˆ ìŠ¤íŠ¸ë¼ì´í‚¹ì´ ê±¸ë ¸ê±°ë‚˜,
+                // ë‹¤ë¥¸ ë¬´ê¸°ë¥¼ ë“¤ì—ˆë‹¤ê°€, ë‹¤ì‹œ ìŠ¤íŠ¸ë¼ì´í‚¹ì´ ê±¸ë¦° ë¬´ê¸°ë¥¼
+                // ë“¤ì—ˆë‹¤ëŠ” ë§ì´ë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ì´í™íŠ¸ë¥¼ ë¶™ì´ë¼ê³  ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
                 GCAddEffect gcAddEffect;
                 gcAddEffect.setObjectID(m_ObjectID);
                 gcAddEffect.setEffectID(Effect::EFFECT_CLASS_STRIKING);
                 gcAddEffect.setDuration(pStriking->getRemainDuration());
                 m_pZone->broadcastPacket(m_X, m_Y, &gcAddEffect);
             } else {
-                // ItemOID°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â´Ù´Â ¸»Àº ½ºÆ®¶óÀÌÅ·ÀÌ °É¸° »óÅÂ¿¡¼­
-                // ´Ù¸¥ ¹«±â¸¦ µé¾ú´Ù´Â ¸»ÀÌ´Ù. ±×·¯¹Ç·Î ÇöÀçÀÇ ½½·¹ÀÌ¾î¿¡°Ô´Â
-                // ½ºÆ®¶óÀÌÅ·ÀÌ °É·ÁÀÖ´Ù. ÀÌ ÀÌÆåÆ®¸¦ Á¦°ÅÇØÁà¾ß ÇÏ¹Ç·Î...
+                // ItemOIDê°€ ì¼ì¹˜í•˜ì§€ ì•ŠëŠ”ë‹¤ëŠ” ë§ì€ ìŠ¤íŠ¸ë¼ì´í‚¹ì´ ê±¸ë¦° ìƒíƒœì—ì„œ
+                // ë‹¤ë¥¸ ë¬´ê¸°ë¥¼ ë“¤ì—ˆë‹¤ëŠ” ë§ì´ë‹¤. ê·¸ëŸ¬ë¯€ë¡œ í˜„ì¬ì˜ ìŠ¬ë ˆì´ì–´ì—ê²ŒëŠ”
+                // ìŠ¤íŠ¸ë¼ì´í‚¹ì´ ê±¸ë ¤ìˆë‹¤. ì´ ì´í™íŠ¸ë¥¼ ì œê±°í•´ì¤˜ì•¼ í•˜ë¯€ë¡œ...
                 GCRemoveEffect gcRemoveEffect;
                 gcRemoveEffect.setObjectID(m_ObjectID);
                 gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_STRIKING);
@@ -775,7 +775,7 @@ void Slayer::initAllStat(int numPartyMember) {
         EffectExpansion* pExpansion = dynamic_cast<EffectExpansion*>(findEffect(Effect::EFFECT_CLASS_EXPANSION));
         if (pExpansion != NULL) {
             int Bonus = pExpansion->getHPBonus();
-            // Ã¼·ÂÀ» »½Æ¢±â ÇØÁØ´Ù...
+            // ì²´ë ¥ì„ ë»¥íŠ€ê¸° í•´ì¤€ë‹¤...
             m_HP[ATTR_MAX] = m_HP[ATTR_MAX] + Bonus;
         }
     }
@@ -790,9 +790,9 @@ void Slayer::initAllStat(int numPartyMember) {
                 BladeMaxDamage = attr.pWeapon->getMaxDamage();
             }
 
-            // µ¥¹ÌÁö ¹× ÅõÈı º¸³Ê½º, µğÆæ½º ¹× ÇÁ·ÎÅØ¼Ç Æä³ÎÆ¼´Â ÆÛ¼¾Æ® °ªÀÌ´Ù.
-            // µ¥¹ÌÁö´Â ´É·ÂÄ¡¿¡ ÀÇÇÑ µ¥¹ÌÁö¿Í ¹«±â(µµ) µ¥¹ÌÁöÀÇ ÇÕ¿¡ ´ëÇÑ ºñÀ²ÀÌ´Ù.
-            // ´Ù¸¥ ÀÌÆåÆ®¿¡ ÀÇÇÑ Ãß°¡ µ¥¹ÌÁö´Â ÀÌ °è»ê¿¡¼­ Á¦¿ÜÇÑ´Ù.
+            // ë°ë¯¸ì§€ ë° íˆ¬í› ë³´ë„ˆìŠ¤, ë””íœìŠ¤ ë° í”„ë¡œí…ì…˜ í˜ë„í‹°ëŠ” í¼ì„¼íŠ¸ ê°’ì´ë‹¤.
+            // ë°ë¯¸ì§€ëŠ” ëŠ¥ë ¥ì¹˜ì— ì˜í•œ ë°ë¯¸ì§€ì™€ ë¬´ê¸°(ë„) ë°ë¯¸ì§€ì˜ í•©ì— ëŒ€í•œ ë¹„ìœ¨ì´ë‹¤.
+            // ë‹¤ë¥¸ ì´í™íŠ¸ì— ì˜í•œ ì¶”ê°€ ë°ë¯¸ì§€ëŠ” ì´ ê³„ì‚°ì—ì„œ ì œì™¸í•œë‹¤.
             int ToHitBonus = getPercentValue(m_ToHit[ATTR_CURRENT], pBerserker->getToHitBonus());
             int MinDamageBonus = getPercentValue(AttrMinDamage + BladeMinDamage, pBerserker->getDamageBonus());
             int MaxDamageBonus = getPercentValue(AttrMaxDamage + BladeMaxDamage, pBerserker->getDamageBonus());
@@ -856,7 +856,7 @@ void Slayer::initAllStat(int numPartyMember) {
             dynamic_cast<EffectIntimateGrail*>(findEffect(Effect::EFFECT_CLASS_INTIMATE_GRAIL));
 
         if (pIntimateGrail != NULL) {
-            // ½½·¹ÀÌ¾î´Â Ãàº¹
+            // ìŠ¬ë ˆì´ì–´ëŠ” ì¶•ë³µ
             int hpratio = 15 + (int)(pIntimateGrail->getSkillLevel() / 6.6);
             m_HP[ATTR_MAX] += getPercentValue(m_HP[ATTR_MAX], hpratio);
             m_MP[ATTR_MAX] += getPercentValue(m_MP[ATTR_MAX], hpratio);
@@ -867,14 +867,14 @@ void Slayer::initAllStat(int numPartyMember) {
         }
     }
 
-    // ÆĞ½Ãºê ±â¼ú¿¡ ÀÇÇØ ¿Ã¶ó°¡´Â ´É·ÂÄ¡¸¦ °è»êÇÑ´Ù.
+    // íŒ¨ì‹œë¸Œ ê¸°ìˆ ì— ì˜í•´ ì˜¬ë¼ê°€ëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
     if (pWeapon != NULL) {
         Item::ItemClass IClass = pWeapon->getItemClass();
         int DamageBonus = 0;
         int ToHitBonus = 0;
         int CriticalRatioBonus = 0;
 
-        // ÃÑÀÎ °æ¿ì.. ObservingEyeÃ¼Å©. by sigi. 2002.6.19
+        // ì´ì¸ ê²½ìš°.. ObservingEyeì²´í¬. by sigi. 2002.6.19
         if (pWeapon->isGun() && isFlag(Effect::EFFECT_CLASS_OBSERVING_EYE)) {
             EffectObservingEye* pObservingEye =
                 dynamic_cast<EffectObservingEye*>(findEffect(Effect::EFFECT_CLASS_OBSERVING_EYE));
@@ -890,17 +890,17 @@ void Slayer::initAllStat(int numPartyMember) {
                 //				m_CriticalRatio[ATTR_MAX]     = m_CriticalRatio[ATTR_MAX] + CriticalRatioBonus;
 
                 // int VisionBonus = pObservingEye->getVisionBonus();
-                //  ÀÌ°Å´Â client¿¡¼­ Ã³¸®ÇÏµµ·Ï ÇÑ´Ù.
+                //  ì´ê±°ëŠ” clientì—ì„œ ì²˜ë¦¬í•˜ë„ë¡ í•œë‹¤.
             }
         }
 
-        // Liveness º¸³Ê½º ´õÇØÁÖ±â
+        // Liveness ë³´ë„ˆìŠ¤ ë”í•´ì£¼ê¸°
         if (pLiveness != NULL && pWeapon->isGun()) {
             m_HP[ATTR_MAX] = m_HP[ATTR_MAX] + LivenessHPBonus;
             m_Defense[ATTR_CURRENT] = min(SLAYER_MAX_DEFENSE, m_Defense[ATTR_CURRENT] + LivenessDefenseBonus);
         }
 
-        // Passive Skill : Will of Iron ´õÇØÁÖ±â : SWORD or BLADE ÀÏ¶§
+        // Passive Skill : Will of Iron ë”í•´ì£¼ê¸° : SWORD or BLADE ì¼ë•Œ
         if ((pFabulousSoul != NULL && pWeapon->getItemClass() == Item::ITEM_CLASS_SWORD) ||
             (pWillOfIron != NULL && pWeapon->getItemClass() == Item::ITEM_CLASS_BLADE)) {
             m_HP[ATTR_MAX] += HPBonus_WillOfIron;
@@ -1066,7 +1066,7 @@ void Slayer::initAllStat(int numPartyMember) {
                 }
                 */
 
-                // ÀÏ´Ü Evasion¸¸ defense¸¦ ¹Ù²Ù¹Ç·Î ¿©±â¼­¸¸ °è»ê.. by sigi
+                // ì¼ë‹¨ Evasionë§Œ defenseë¥¼ ë°”ê¾¸ë¯€ë¡œ ì—¬ê¸°ì„œë§Œ ê³„ì‚°.. by sigi
                 m_Defense[ATTR_CURRENT] = min(SLAYER_MAX_DEFENSE, m_Defense[ATTR_CURRENT] + DefenseBonus);
                 m_Defense[ATTR_MAX] = min(SLAYER_MAX_DEFENSE, m_Defense[ATTR_MAX] + DefenseBonus);
             }
@@ -1075,7 +1075,7 @@ void Slayer::initAllStat(int numPartyMember) {
         // cout << "ToHitBonus = " << ToHitBonus << endl;
 
         if (pWeapon->isGun()) {
-            // Concealment º¸³Ê½º ´õÇØÁÖ±â
+            // Concealment ë³´ë„ˆìŠ¤ ë”í•´ì£¼ê¸°
             m_Defense[ATTR_CURRENT] += DefBonus;
             m_Protection[ATTR_CURRENT] += ProBonus;
             m_Defense[ATTR_MAX] += DefBonus;
@@ -1090,7 +1090,7 @@ void Slayer::initAllStat(int numPartyMember) {
         m_CriticalRatio[ATTR_MAX] = m_CriticalRatio[ATTR_MAX] + CriticalRatioBonus;
     }
 
-    // ¹æÆĞ Ã¼Å©. by sigi. 2002.6.7
+    // ë°©íŒ¨ ì²´í¬. by sigi. 2002.6.7
     if (pShield != NULL && pShield->getItemClass() == Item::ITEM_CLASS_SHIELD) {
         int ProtectionBonus = 0;
         SkillSlot* pMastery = getSkill(SKILL_SHIELD_MASTERY);
@@ -1117,7 +1117,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
     ///////////////////////////////////////////////////////////////////////////////
-    // °è±Ş º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // ê³„ê¸‰ ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     ///////////////////////////////////////////////////////////////////////////////
     if (hasRankBonus(RankBonus::RANK_BONUS_DEADLY_SPEAR)) {
         RankBonus* pRankBonus = getRankBonus(RankBonus::RANK_BONUS_DEADLY_SPEAR);
@@ -1266,7 +1266,7 @@ void Slayer::initAllStat(int numPartyMember) {
     }
 
 
-    // ÀüÀï º¸³Ê½º Àû¿ë
+    // ì „ìŸ ë³´ë„ˆìŠ¤ ì ìš©
     if (HPBonus > 0) {
         m_HP[ATTR_MAX] = min(SLAYER_MAX_HP, m_HP[ATTR_MAX] + HPBonus);
     }
@@ -1279,11 +1279,11 @@ void Slayer::initAllStat(int numPartyMember) {
         m_HP[ATTR_MAX] = min(SLAYER_MAX_HP, m_HP[ATTR_MAX] + DragonEyeHPBonus);
     }
 
-    // ¼ºÁö½ºÅ³ ÃÊ±âÈ­
+    // ì„±ì§€ìŠ¤í‚¬ ì´ˆê¸°í™”
     initCastleSkill();
-    //	cout << getName() << "ÀÇ Luck : " << m_Luck << endl;
+    //	cout << getName() << "ì˜ Luck : " << m_Luck << endl;
 
-    // ÇöÀç HP°¡ MAX HPº¸´Ù ¸¹À¸¸é
+    // í˜„ì¬ HPê°€ MAX HPë³´ë‹¤ ë§ìœ¼ë©´
     /*
     if ( m_HP[ATTR_CURRENT] > m_HP[ATTR_MAX] )
     {
@@ -1291,10 +1291,10 @@ void Slayer::initAllStat(int numPartyMember) {
     }
     */
 
-    // ÆÄÆ¼ÀÇ Å©±â¿¡ µû¶ó¼­ ´É·ÂÄ¡°¡ º¯ÇÒ ¼ö ÀÖ´Ù.
+    // íŒŒí‹°ì˜ í¬ê¸°ì— ë”°ë¼ì„œ ëŠ¥ë ¥ì¹˜ê°€ ë³€í•  ìˆ˜ ìˆë‹¤.
 
     /*
-    // ÆÄÆ¼ ÀÎ¿ø¼ö°¡ ³Ñ¾î¿ÀÁö ¾ÊÀº °æ¿ì´Â ´Ù½Ã °è»êÇÑ´Ù.
+    // íŒŒí‹° ì¸ì›ìˆ˜ê°€ ë„˜ì–´ì˜¤ì§€ ì•Šì€ ê²½ìš°ëŠ” ë‹¤ì‹œ ê³„ì‚°í•œë‹¤.
     if (numPartyMember == -1)
     {
         if (m_PartyID != 0)
@@ -1345,13 +1345,13 @@ void Slayer::initAllStat(int numPartyMember) {
     /*	cout << getName() << ":" << endl;
         for ( int i=0; i<MAGIC_DOMAIN_MAX; ++i )
         {
-            cout << "ÀúÇ× " << i << " : " << m_Resist[i] << endl;
+            cout << "ì €í•­ " << i << " : " << m_Resist[i] << endl;
         }*/
 
-    /*	cout << "¹°¸®°ø°İ·Â " << m_PhysicBonusDamage << endl;
-        cout << "¹°¸®¹æ¾î·Â " << m_PhysicDamageReduce << endl;
-        cout << "¸¶¹ı°ø°İ·Â " << m_MagicBonusDamage << endl;
-        cout << "¸¶¹ı¹æ¾î·Â " << m_MagicDamageReduce << endl;*/
+    /*	cout << "ë¬¼ë¦¬ê³µê²©ë ¥ " << m_PhysicBonusDamage << endl;
+        cout << "ë¬¼ë¦¬ë°©ì–´ë ¥ " << m_PhysicDamageReduce << endl;
+        cout << "ë§ˆë²•ê³µê²©ë ¥ " << m_MagicBonusDamage << endl;
+        cout << "ë§ˆë²•ë°©ì–´ë ¥ " << m_MagicDamageReduce << endl;*/
 
     __END_CATCH
 }
@@ -1414,24 +1414,24 @@ int Slayer::getBloodBibleSignOpenNum() const {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// STR, DEX, INTÀÇ °æ¿ì
-// CURRENT = ±âº» ¼öÄ¡ + ¾ÆÀÌÅÛ ¼öÄ¡ + ¸¶¹ı ¼öÄ¡
-// MAX     = ±âº» ¼öÄ¡ + ¾ÆÀÌÅÛ ¼öÄ¡
-// BASIC   = ±âº» ¼öÄ¡
+// STR, DEX, INTì˜ ê²½ìš°
+// CURRENT = ê¸°ë³¸ ìˆ˜ì¹˜ + ì•„ì´í…œ ìˆ˜ì¹˜ + ë§ˆë²• ìˆ˜ì¹˜
+// MAX     = ê¸°ë³¸ ìˆ˜ì¹˜ + ì•„ì´í…œ ìˆ˜ì¹˜
+// BASIC   = ê¸°ë³¸ ìˆ˜ì¹˜
 //
-// HP, MPÀÇ °æ¿ì
-// CURRENT = ÇöÀç ¼öÄ¡
-// MAX     = ÇöÀç ¸Æ½º
-// BASIC   = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// HP, MPì˜ ê²½ìš°
+// CURRENT = í˜„ì¬ ìˆ˜ì¹˜
+// MAX     = í˜„ì¬ ë§¥ìŠ¤
+// BASIC   = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //
-// Defense, Protection, ToHitÀÇ °æ¿ì
-// CURRENT = ÇöÀç ¼öÄ¡
-// MAX     = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// Defense, Protection, ToHitì˜ ê²½ìš°
+// CURRENT = í˜„ì¬ ìˆ˜ì¹˜
+// MAX     = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //
-// DamageÀÇ °æ¿ì
-// CURRENT = Min µ¥¹ÌÁö
-// MAX     = Max µ¥¹ÌÁö
-// BASIC   = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// Damageì˜ ê²½ìš°
+// CURRENT = Min ë°ë¯¸ì§€
+// MAX     = Max ë°ë¯¸ì§€
+// BASIC   = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //////////////////////////////////////////////////////////////////////////////
 void Slayer::computeStatOffset(void) {
     __BEGIN_TRY
@@ -1447,8 +1447,8 @@ void Slayer::computeStatOffset(void) {
     for (int i = 0; i < SKILL_DOMAIN_MAX; i++)
         cur_attr.pDomainLevel[i] = m_SkillDomainLevels[i];
 
-    // ¼¼·Î¿öÁø STR, DEX, INT·Î »õ·Î °è»êÀ» ÇÑ ´ÙÀ½
-    // ¾ÆÀÌÅÛ ¶Ç´Â ¸¶¹ı ¼öÄ¡¸¦ ´õÇÑ´Ù.
+    // ì„¸ë¡œì›Œì§„ STR, DEX, INTë¡œ ìƒˆë¡œ ê³„ì‚°ì„ í•œ ë‹¤ìŒ
+    // ì•„ì´í…œ ë˜ëŠ” ë§ˆë²• ìˆ˜ì¹˜ë¥¼ ë”í•œë‹¤.
     m_HP[ATTR_MAX] = computeHP(CClass, &cur_attr);
     m_HP[ATTR_MAX] += m_HP[ATTR_BASIC];
 
@@ -1483,7 +1483,7 @@ void Slayer::computeItemStat(Item* pItem) {
     __BEGIN_TRY
 
     if (isSlayerWeapon(pItem->getItemClass())) {
-        // ¹«±â¶ó¸é ¹«±â°¡ °¡Áö´Â ¼Óµµ ÆÄ¶ó¹ÌÅÍ¸¦ ´õÇÑ´Ù.
+        // ë¬´ê¸°ë¼ë©´ ë¬´ê¸°ê°€ ê°€ì§€ëŠ” ì†ë„ íŒŒë¼ë¯¸í„°ë¥¼ ë”í•œë‹¤.
         ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
         m_AttackSpeed[ATTR_CURRENT] += pItemInfo->getSpeed();
         m_AttackSpeed[ATTR_MAX] += pItemInfo->getSpeed();
@@ -1511,14 +1511,14 @@ void Slayer::computeItemStat(Item* pItem) {
 
     m_Luck += pItem->getLuck();
 
-    // ºÎ°¡ÀûÀÎ ¿É¼Çµé
+    // ë¶€ê°€ì ì¸ ì˜µì…˜ë“¤
     const list<OptionType_t>& optionType = pItem->getOptionTypeList();
     list<OptionType_t>::const_iterator itr;
     for (itr = optionType.begin(); itr != optionType.end(); itr++) {
         computeOptionStat(*itr);
     }
 
-    // Item ÀÚÃ¼ÀÇ defaultOptionÀ» Àû¿ë½ÃÅ²´Ù.
+    // Item ìì²´ì˜ defaultOptionì„ ì ìš©ì‹œí‚¨ë‹¤.
     const list<OptionType_t>& defaultOptions = pItem->getDefaultOptions();
     list<OptionType_t>::const_iterator iOptions;
 
@@ -1533,18 +1533,18 @@ void Slayer::computeItemStat(Item* pItem) {
 void Slayer::computeOptionStat(Item* pItem) {
     __BEGIN_TRY
 
-    // Option TypeÀ» ¹Ş¾Æ¿Â´Ù.
+    // Option Typeì„ ë°›ì•„ì˜¨ë‹¤.
     //	OptionType_t  OptionType    = pItem->getOptionType();
     //	computeOptionStat( OptionType );
 
-    // ºÎ°¡ÀûÀÎ ¿É¼Çµé
+    // ë¶€ê°€ì ì¸ ì˜µì…˜ë“¤
     const list<OptionType_t>& optionType = pItem->getOptionTypeList();
     list<OptionType_t>::const_iterator itr;
     for (itr = optionType.begin(); itr != optionType.end(); itr++) {
         computeOptionStat(*itr);
     }
 
-    // Item ÀÚÃ¼ÀÇ defaultOptionÀ» Àû¿ë½ÃÅ²´Ù.
+    // Item ìì²´ì˜ defaultOptionì„ ì ìš©ì‹œí‚¨ë‹¤.
     const list<OptionType_t>& defaultOptions = pItem->getDefaultOptions();
     list<OptionType_t>::const_iterator iOptions;
 
@@ -2054,7 +2054,7 @@ void Slayer::initAllStatAndSend() {
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ¹ìÆÄÀÌ¾î
+// ë±€íŒŒì´ì–´
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -2115,7 +2115,7 @@ void Vampire::initAllStat(int numPartyMember)
     m_Mastery[MAGIC_DOMAIN_CURSE] = 0;
     m_Mastery[MAGIC_DOMAIN_BLOOD] = 0;
 
-    // BloodBible °ü·Ã º¸³Ê½º ¼öÄ¡µé ÃÊ±âÈ­
+    // BloodBible ê´€ë ¨ ë³´ë„ˆìŠ¤ ìˆ˜ì¹˜ë“¤ ì´ˆê¸°í™”
     m_ConsumeMPRatio = 0;
     m_GamblePriceRatio = 0;
     m_PotionPriceRatio = 0;
@@ -2125,15 +2125,15 @@ void Vampire::initAllStat(int numPartyMember)
     m_PhysicDamageReduce = 0;
 
     //////////////////////////////////////////////////////////////////////////////
-    // Á¦ÀÏ ¸ÕÀú ±âº» ´É·ÂÄ¡¸¦ ÃÊ±âÈ­½ÃÅ°°í,
-    // ±âº» ´É·ÂÄ¡¿¡ ¿µÇâÀ» ÁÖ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ì œì¼ ë¨¼ì € ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì´ˆê¸°í™”ì‹œí‚¤ê³ ,
+    // ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ì— ì˜í–¥ì„ ì£¼ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     m_STR[ATTR_CURRENT] = m_STR[ATTR_MAX] = m_STR[ATTR_BASIC];
     m_DEX[ATTR_CURRENT] = m_DEX[ATTR_MAX] = m_DEX[ATTR_BASIC];
     m_INT[ATTR_CURRENT] = m_INT[ATTR_MAX] = m_INT[ATTR_BASIC];
 
     //////////////////////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °è»êÀ» À§ÇÑ ÆÄ¶ó¹ÌÅÍµéÀ» ÃÊ±âÈ­ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ ê³„ì‚°ì„ ìœ„í•œ íŒŒë¼ë¯¸í„°ë“¤ì„ ì´ˆê¸°í™”í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     attr.nSTR = m_STR[ATTR_CURRENT];
     attr.nDEX = m_DEX[ATTR_CURRENT];
@@ -2145,11 +2145,11 @@ void Vampire::initAllStat(int numPartyMember)
     m_HPStealAmount = 0;
     m_HPRegen = 0;
     m_Luck = m_BaseLuck;
-    //	cout << getName() << "ÀÇ ±âº» Çà¿î : " << m_Luck << endl;
+    //	cout << getName() << "ì˜ ê¸°ë³¸ í–‰ìš´ : " << m_Luck << endl;
     m_HPRegenBonus = 0;
 
     ////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡µéÀ» ´Ù½Ã °è»êÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë“¤ì„ ë‹¤ì‹œ ê³„ì‚°í•œë‹¤.
     ////////////////////////////////////////////////////////////
     m_HP[ATTR_MAX] = computeHP(CClass, &attr);
     m_HP[ATTR_BASIC] = 0;
@@ -2175,12 +2175,12 @@ void Vampire::initAllStat(int numPartyMember)
 
     int DragonEyeHPBonus = 0;
     if (isFlag(Effect::EFFECT_CLASS_DRAGON_EYE)) {
-        // HP º¸³Ê½º´Â µÎ¹è
+        // HP ë³´ë„ˆìŠ¤ëŠ” ë‘ë°°
         DragonEyeHPBonus = m_HP[ATTR_MAX];
     }
 
-    // ÀüÀï º¸³Ê½º
-    // Áö±İÀº ÀüÀï ½ÂÆĞ¿¡ °ü°è¾øÀÌ ¾î´ÀÂÊÀÌµç º¸³Ê½º°¡ Àû¿ëµÉ ¼ö ÀÖ´Ù. by sigi
+    // ì „ìŸ ë³´ë„ˆìŠ¤
+    // ì§€ê¸ˆì€ ì „ìŸ ìŠ¹íŒ¨ì— ê´€ê³„ì—†ì´ ì–´ëŠìª½ì´ë“  ë³´ë„ˆìŠ¤ê°€ ì ìš©ë  ìˆ˜ ìˆë‹¤. by sigi
     // if ( g_pCombatInfoManager->isVampireBonus() )
     int HPBonus = 0;
     {
@@ -2193,7 +2193,7 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÀÏ´Ü ±â¾î Ã¼Å© º¯¼ö¸¦ ÃÊ±âÈ­ÇØ¼­ ¸ğµç ±â¾î¸¦ ¾È ÀÔÀº °ÍÀ¸·Î °£ÁÖÇÏ°í ½ÃÀÛÇÑ´Ù.
+    // ì¼ë‹¨ ê¸°ì–´ ì²´í¬ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”í•´ì„œ ëª¨ë“  ê¸°ì–´ë¥¼ ì•ˆ ì…ì€ ê²ƒìœ¼ë¡œ ê°„ì£¼í•˜ê³  ì‹œì‘í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     bool pOldRealWearingCheck[VAMPIRE_WEAR_MAX]; // by sigi. 2002.10.31
     for (int i = 0; i < VAMPIRE_WEAR_MAX; i++) {
@@ -2202,9 +2202,9 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ¼ºÀ» ¼ÒÀ¯ÇÑ Á¾Á·Àº º¸³Ê½º ¿É¼ÇÀ» ¹Ş°Ô µÈ´Ù
+    // ì„±ì„ ì†Œìœ í•œ ì¢…ì¡±ì€ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ê²Œ ëœë‹¤
     //////////////////////////////////////////////////////////////////////////////
-    // Blood Bible °¢°¢ÀÇ º¸³Ê½º ¿É¼ÇÀ» ¹Ş´Â °É·Î °íÃÆ´Ù.
+    // Blood Bible ê°ê°ì˜ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ëŠ” ê±¸ë¡œ ê³ ì³¤ë‹¤.
     /*	if (m_pZone->isHolyLand() )
         {
             const list<OptionType_t>& optionType = g_pHolyLandRaceBonus->getVampireOptionTypeList();
@@ -2216,7 +2216,7 @@ void Vampire::initAllStat(int numPartyMember)
         }
     */
     //////////////////////////////////////////////////////////////////////////////
-    // Blood Bilbe °¢°¢ÀÇ º¸³Ê½º ¿É¼ÇÀ» ¹Ş´Â´Ù.
+    // Blood Bilbe ê°ê°ì˜ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ëŠ”ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     /*	if ( m_pZone->isHolyLand() && !g_pWarSystem->hasActiveRaceWar() )
         {
@@ -2258,7 +2258,7 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ±âº»ÀûÀ¸·Î °¡Áö°í ÀÖ´Â ¿É¼ÇµéÀ» °è»êÇÑ´Ù.
+    // ê¸°ë³¸ì ìœ¼ë¡œ ê°€ì§€ê³  ìˆëŠ” ì˜µì…˜ë“¤ì„ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
     for (; itr != m_DefaultOptionSet.end(); itr++) {
@@ -2273,7 +2273,7 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÆêÀÌ ÁÖ´Â º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // í«ì´ ì£¼ëŠ” ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (m_pPetInfo != NULL) {
         if (m_pPetInfo->getPetAttr() != 0xff)
@@ -2283,22 +2283,22 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // for °¡ µÎ¹øÀÎ ÀÌÀ¯´Â ¾ÆÀÌÅÛÀ¸·Î ¿Ã¶ó°£ ´É·ÂÄ¡¿¡ ÀÇÇØ¼­
-    // ÀÔÀ» ¼ö ÀÖ°Ô µÇ´Â ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+    // for ê°€ ë‘ë²ˆì¸ ì´ìœ ëŠ” ì•„ì´í…œìœ¼ë¡œ ì˜¬ë¼ê°„ ëŠ¥ë ¥ì¹˜ì— ì˜í•´ì„œ
+    // ì…ì„ ìˆ˜ ìˆê²Œ ë˜ëŠ” ì•„ì´í…œì„ ì²´í¬í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     for (int j = 0; j < VAMPIRE_WEAR_MAX; j++) {
         int wearCount = 0;
         for (int i = 0; i < VAMPIRE_WEAR_MAX; i++) {
             Item* pItem = m_pWearItem[i];
-            // ÇöÀç Æ÷ÀÎÆ®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ°í
-            // ±×°Í¿¡ ´ëÇÑ Ã¼Å©¸¦ ¾ÆÁ÷ ÇÏÁö ¾Ê¾Ò´Ù¸é...
+            // í˜„ì¬ í¬ì¸íŠ¸ì— ì•„ì´í…œì´ ìˆê³ 
+            // ê·¸ê²ƒì— ëŒ€í•œ ì²´í¬ë¥¼ ì•„ì§ í•˜ì§€ ì•Šì•˜ë‹¤ë©´...
             if (pItem != NULL && m_pRealWearingCheck[i] == false) {
-                // ¸¸ÀÏ ÁøÂ¥·ç ÀÔÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // ë§Œì¼ ì§„ì§œë£¨ ì…ì„ ìˆ˜ ìˆëŠ” ì•„ì´í…œì´ë¼ë©´ ëŠ¥ë ¥ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 if (isRealWearing(pItem)) {
                     computeItemStat(pItem);
 
-                    // ¾ç¼Õ ¹«±â¶ó¸é, Ã¼Å©¸¦ µÎ¹ø ÇÏÁö ¾Êµµ·Ï
-                    // ¿ŞÂÊ, ¿À¸¥ÂÊ ¸ğµÎ Ã¼Å© º¯¼ö¸¦ ¼¼ÆÃ
+                    // ì–‘ì† ë¬´ê¸°ë¼ë©´, ì²´í¬ë¥¼ ë‘ë²ˆ í•˜ì§€ ì•Šë„ë¡
+                    // ì™¼ìª½, ì˜¤ë¥¸ìª½ ëª¨ë‘ ì²´í¬ ë³€ìˆ˜ë¥¼ ì„¸íŒ…
                     if (isTwohandWeapon(pItem)) {
                         m_pRealWearingCheck[WEAR_LEFTHAND] = true;
                         m_pRealWearingCheck[WEAR_RIGHTHAND] = true;
@@ -2323,8 +2323,8 @@ void Vampire::initAllStat(int numPartyMember)
         }
     }
     if (zaps[0] && zaps[1] && zaps[2] && zaps[3]) {
-        computeOptionStat(182); // ¸ğÀú 9
-        computeOptionStat(185); // ¸ğ´É 3
+        computeOptionStat(182); // ëª¨ì € 9
+        computeOptionStat(185); // ëª¨ëŠ¥ 3
     }
 
     applyBloodBibleSign();
@@ -2336,8 +2336,8 @@ void Vampire::initAllStat(int numPartyMember)
         bSendPacket = (dynamic_cast<GamePlayer*>(m_pPlayer)->getPlayerStatus() == GPS_NORMAL);
     }
 
-    // ÀÏ´Ü À§¿¡¼­ ´Ù ÀÔ¾ú´Âµ¥..
-    // ´É·ÂÄ¡¿¡ µû¶ó¼­ º¹ÀåÀÌ Àû¿ëÀÌ ¾ÈµÇ´Â ¾ÆÀÌÅÛÀº º¹Àå Á¤º¸¸¦ ¾ø¾Ø´Ù.
+    // ì¼ë‹¨ ìœ„ì—ì„œ ë‹¤ ì…ì—ˆëŠ”ë°..
+    // ëŠ¥ë ¥ì¹˜ì— ë”°ë¼ì„œ ë³µì¥ì´ ì ìš©ì´ ì•ˆë˜ëŠ” ì•„ì´í…œì€ ë³µì¥ ì •ë³´ë¥¼ ì—†ì•¤ë‹¤.
     // by sigi. 2002.10.30
     // for (int i=0; i<VAMPIRE_WEAR_MAX; i++)
     int i = WEAR_BODY;
@@ -2374,12 +2374,12 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // HP, MP ½ºÆ¿ È®·üÀ» °è»êÇØ µĞ´Ù.
+    // HP, MP ìŠ¤í‹¸ í™•ë¥ ì„ ê³„ì‚°í•´ ë‘”ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     m_HPStealRatio = computeStealRatio(CClass, m_HPStealAmount, &attr);
 
     //////////////////////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡¸¦ Á÷Á¢ ¼öÁ¤ÇÏ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì§ì ‘ ìˆ˜ì •í•˜ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (isFlag(Effect::EFFECT_CLASS_DOOM)) {
         EffectDoom* pDoom = dynamic_cast<EffectDoom*>(findEffect(Effect::EFFECT_CLASS_DOOM));
@@ -2504,11 +2504,11 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     // by sigi. 2002.6.19
-    // isEffect¸¦ isFlag·Î ¹Ù²Ş. 2003.3.27 by Sequoia
+    // isEffectë¥¼ isFlagë¡œ ë°”ê¿ˆ. 2003.3.27 by Sequoia
     if (isFlag(Effect::EFFECT_CLASS_CASKET)) {
         EffectSummonCasket* pCasket = dynamic_cast<EffectSummonCasket*>(findEffect(Effect::EFFECT_CLASS_CASKET));
         if (pCasket != NULL) {
-            // pCasket->getType()¿¡ µû¶ó¼­ ´Ù¸¦ ¼öµµ ÀÖÁö..
+            // pCasket->getType()ì— ë”°ë¼ì„œ ë‹¤ë¥¼ ìˆ˜ë„ ìˆì§€..
             // by sigi. 2002.12.3. 20 --> 30
             int DefenseBonus = getPercentValue(m_Defense[ATTR_CURRENT], 30);
             int ProtectionBonus = getPercentValue(m_Protection[ATTR_CURRENT], 30);
@@ -2538,7 +2538,7 @@ void Vampire::initAllStat(int numPartyMember)
 
 
     ///////////////////////////////////////////////////////////////////////////////
-    // °è±Ş º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // ê³„ê¸‰ ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     ///////////////////////////////////////////////////////////////////////////////
     if (hasRankBonus(RankBonus::RANK_BONUS_IMMORTAL_BLOOD)) {
         RankBonus* pRankBonus = getRankBonus(RankBonus::RANK_BONUS_IMMORTAL_BLOOD);
@@ -2653,7 +2653,7 @@ void Vampire::initAllStat(int numPartyMember)
         }
     }
 
-    // DEX ¿¡ µû¸¥ HPRegenBonus Æ÷ÀÎÆ®
+    // DEX ì— ë”°ë¥¸ HPRegenBonus í¬ì¸íŠ¸
     if (m_DEX[ATTR_BASIC] > 450) {
         m_HPRegenBonus += 7;
     } else if (m_DEX[ATTR_BASIC] > 390) {
@@ -2670,9 +2670,9 @@ void Vampire::initAllStat(int numPartyMember)
         m_HPRegenBonus += 1;
     }
 
-    // ÆÄÆ¼ÀÇ Å©±â¿¡ µû¶ó¼­ ´É·ÂÄ¡°¡ º¯ÇÒ ¼ö ÀÖ´Ù.
+    // íŒŒí‹°ì˜ í¬ê¸°ì— ë”°ë¼ì„œ ëŠ¥ë ¥ì¹˜ê°€ ë³€í•  ìˆ˜ ìˆë‹¤.
 
-    // ÀüÀï º¸³Ê½º Àû¿ë
+    // ì „ìŸ ë³´ë„ˆìŠ¤ ì ìš©
     if (HPBonus > 0) {
         m_HP[ATTR_MAX] = min(VAMPIRE_MAX_HP, m_HP[ATTR_MAX] + HPBonus);
     }
@@ -2685,8 +2685,8 @@ void Vampire::initAllStat(int numPartyMember)
         m_HP[ATTR_MAX] = min(VAMPIRE_MAX_HP, m_HP[ATTR_MAX] + DragonEyeHPBonus);
     }
 
-    // HPÀÇ ÇöÀçÄ¡¸¦ HPÀÇ ÃÖ°íÄ¡¸¦ ³Ñ´Â °æ¿ì
-    // ÇöÀçÄ¡¸¦ ÃÖ°íÄ¡°ªÀ¸·Î set
+    // HPì˜ í˜„ì¬ì¹˜ë¥¼ HPì˜ ìµœê³ ì¹˜ë¥¼ ë„˜ëŠ” ê²½ìš°
+    // í˜„ì¬ì¹˜ë¥¼ ìµœê³ ì¹˜ê°’ìœ¼ë¡œ set
     if (m_HP[ATTR_CURRENT] > m_HP[ATTR_MAX]) {
         m_HP[ATTR_CURRENT] = m_HP[ATTR_MAX];
         /*
@@ -2701,7 +2701,7 @@ void Vampire::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÆĞ½Ãºê ±â¼úÀ» °è»êÇÑ´Ù.
+    // íŒ¨ì‹œë¸Œ ê¸°ìˆ ì„ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     VampireSkillSlot* pNailMastery = getSkill(SKILL_NAIL_MASTERY);
     if (pNailMastery != NULL) {
@@ -2722,10 +2722,10 @@ void Vampire::initAllStat(int numPartyMember)
         m_Resist[MAGIC_DOMAIN_BLOOD] = 0;
     }
 
-    //	cout << getName() << "ÀÇ Luck : " << m_Luck << endl;
+    //	cout << getName() << "ì˜ Luck : " << m_Luck << endl;
 
     /*
-    // ÆÄÆ¼ ÀÎ¿ø¼ö°¡ ³Ñ¾î¿ÀÁö ¾ÊÀº °æ¿ì´Â ´Ù½Ã °è»êÇÑ´Ù.
+    // íŒŒí‹° ì¸ì›ìˆ˜ê°€ ë„˜ì–´ì˜¤ì§€ ì•Šì€ ê²½ìš°ëŠ” ë‹¤ì‹œ ê³„ì‚°í•œë‹¤.
     if (numPartyMember == -1)
     {
         if (m_PartyID != 0)
@@ -2765,13 +2765,13 @@ void Vampire::initAllStat(int numPartyMember)
     /*	cout << getName() << ":" << endl;
         for ( int i=0; i<MAGIC_DOMAIN_MAX; ++i )
         {
-            cout << "ÀúÇ× " << i << " : " << m_Resist[i] << endl;
+            cout << "ì €í•­ " << i << " : " << m_Resist[i] << endl;
         }
 
-        cout << "¹°¸®°ø°İ·Â " << m_PhysicBonusDamage << endl;
-        cout << "¹°¸®¹æ¾î·Â " << m_PhysicDamageReduce << endl;
-        cout << "¸¶¹ı°ø°İ·Â " << m_MagicBonusDamage << endl;
-        cout << "¸¶¹ı¹æ¾î·Â " << m_MagicDamageReduce << endl;*/
+        cout << "ë¬¼ë¦¬ê³µê²©ë ¥ " << m_PhysicBonusDamage << endl;
+        cout << "ë¬¼ë¦¬ë°©ì–´ë ¥ " << m_PhysicDamageReduce << endl;
+        cout << "ë§ˆë²•ê³µê²©ë ¥ " << m_MagicBonusDamage << endl;
+        cout << "ë§ˆë²•ë°©ì–´ë ¥ " << m_MagicDamageReduce << endl;*/
 
     __END_CATCH
 }
@@ -2814,24 +2814,24 @@ int Vampire::getBloodBibleSignOpenNum() const {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// STR, DEX, INTÀÇ °æ¿ì
-// CURRENT = ±âº» ¼öÄ¡ + ¾ÆÀÌÅÛ ¼öÄ¡ + ¸¶¹ı ¼öÄ¡
-// MAX     = ±âº» ¼öÄ¡ + ¾ÆÀÌÅÛ ¼öÄ¡
-// BASIC   = ±âº» ¼öÄ¡
+// STR, DEX, INTì˜ ê²½ìš°
+// CURRENT = ê¸°ë³¸ ìˆ˜ì¹˜ + ì•„ì´í…œ ìˆ˜ì¹˜ + ë§ˆë²• ìˆ˜ì¹˜
+// MAX     = ê¸°ë³¸ ìˆ˜ì¹˜ + ì•„ì´í…œ ìˆ˜ì¹˜
+// BASIC   = ê¸°ë³¸ ìˆ˜ì¹˜
 //
-// HP, MPÀÇ °æ¿ì
-// CURRENT = ÇöÀç ¼öÄ¡
-// MAX     = ÇöÀç ¸Æ½º
-// BASIC   = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// HP, MPì˜ ê²½ìš°
+// CURRENT = í˜„ì¬ ìˆ˜ì¹˜
+// MAX     = í˜„ì¬ ë§¥ìŠ¤
+// BASIC   = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //
-// Defense, Protection, ToHitÀÇ °æ¿ì
-// CURRENT = ÇöÀç ¼öÄ¡
-// MAX     = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// Defense, Protection, ToHitì˜ ê²½ìš°
+// CURRENT = í˜„ì¬ ìˆ˜ì¹˜
+// MAX     = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //
-// DamageÀÇ °æ¿ì
-// CURRENT = Min µ¥¹ÌÁö
-// MAX     = Max µ¥¹ÌÁö
-// BASIC   = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// Damageì˜ ê²½ìš°
+// CURRENT = Min ë°ë¯¸ì§€
+// MAX     = Max ë°ë¯¸ì§€
+// BASIC   = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //////////////////////////////////////////////////////////////////////////////
 void Vampire::computeStatOffset()
 
@@ -2846,8 +2846,8 @@ void Vampire::computeStatOffset()
     cur_attr.nINT = m_INT[ATTR_CURRENT];
     cur_attr.nLevel = m_Level;
 
-    // ¼¼·Î¿öÁø STR, DEX, INT·Î »õ·Î °è»êÀ» ÇÑ ´ÙÀ½
-    // ¾ÆÀÌÅÛ ¶Ç´Â ¸¶¹ı ¼öÄ¡¸¦ ´õÇÑ´Ù.
+    // ì„¸ë¡œì›Œì§„ STR, DEX, INTë¡œ ìƒˆë¡œ ê³„ì‚°ì„ í•œ ë‹¤ìŒ
+    // ì•„ì´í…œ ë˜ëŠ” ë§ˆë²• ìˆ˜ì¹˜ë¥¼ ë”í•œë‹¤.
     m_HP[ATTR_MAX] = computeHP(CClass, &cur_attr);
     m_HP[ATTR_MAX] += m_HP[ATTR_BASIC];
 
@@ -2881,7 +2881,7 @@ void Vampire::computeItemStat(Item* pItem)
     __BEGIN_TRY
 
     if (isVampireWeapon(pItem->getItemClass())) {
-        // ¹«±â¶ó¸é ¹«±â°¡ °¡Áö´Â ¼Óµµ ÆÄ¶ó¹ÌÅÍ¸¦ ´õÇÑ´Ù.
+        // ë¬´ê¸°ë¼ë©´ ë¬´ê¸°ê°€ ê°€ì§€ëŠ” ì†ë„ íŒŒë¼ë¯¸í„°ë¥¼ ë”í•œë‹¤.
         ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
         m_AttackSpeed[ATTR_CURRENT] += pItemInfo->getSpeed();
         m_AttackSpeed[ATTR_MAX] += pItemInfo->getSpeed();
@@ -2907,14 +2907,14 @@ void Vampire::computeItemStat(Item* pItem)
     m_Luck += pItem->getLuck();
 
     //	if (pItem->getOptionType()) computeOptionStat(pItem);
-    // ºÎ°¡ÀûÀÎ ¿É¼Çµé
+    // ë¶€ê°€ì ì¸ ì˜µì…˜ë“¤
     const list<OptionType_t>& optionType = pItem->getOptionTypeList();
     list<OptionType_t>::const_iterator itr;
     for (itr = optionType.begin(); itr != optionType.end(); itr++) {
         computeOptionStat(*itr);
     }
 
-    // Item ÀÚÃ¼ÀÇ defaultOptionÀ» Àû¿ë½ÃÅ²´Ù.
+    // Item ìì²´ì˜ defaultOptionì„ ì ìš©ì‹œí‚¨ë‹¤.
     const list<OptionType_t>& defaultOptions = pItem->getDefaultOptions();
     list<OptionType_t>::const_iterator iOptions;
 
@@ -2930,18 +2930,18 @@ void Vampire::computeOptionStat(Item* pItem)
 {
     __BEGIN_TRY
 
-    // Option TypeÀ» ¹Ş¾Æ¿Â´Ù.
+    // Option Typeì„ ë°›ì•„ì˜¨ë‹¤.
     // OptionType_t  OptionType    = pItem->getOptionType();
     // computeOptionStat( OptionType );
 
-    // ºÎ°¡ÀûÀÎ ¿É¼Çµé
+    // ë¶€ê°€ì ì¸ ì˜µì…˜ë“¤
     const list<OptionType_t>& optionType = pItem->getOptionTypeList();
     list<OptionType_t>::const_iterator itr;
     for (itr = optionType.begin(); itr != optionType.end(); itr++) {
         computeOptionStat(*itr);
     }
 
-    // Item ÀÚÃ¼ÀÇ defaultOptionÀ» Àû¿ë½ÃÅ²´Ù.
+    // Item ìì²´ì˜ defaultOptionì„ ì ìš©ì‹œí‚¨ë‹¤.
     const list<OptionType_t>& defaultOptions = pItem->getDefaultOptions();
     list<OptionType_t>::const_iterator iOptions;
 
@@ -2977,7 +2977,7 @@ void Vampire::computeOptionClassStat(OptionClass OClass, int PlusPoint) {
         m_HP[ATTR_MAX] += PlusPoint;
         m_HP[ATTR_BASIC] += PlusPoint;
         break;
-    // ¹ìÆÄÀÌ¾î´Â MPÈí¼ö¿É¼ÇÀÌ ºÙÀº ¾ÆÀÌÅÛµµ HPÈí¼ö·Î Ã³¸®ÇØÁØ´Ù.
+    // ë±€íŒŒì´ì–´ëŠ” MPí¡ìˆ˜ì˜µì…˜ì´ ë¶™ì€ ì•„ì´í…œë„ HPí¡ìˆ˜ë¡œ ì²˜ë¦¬í•´ì¤€ë‹¤.
     // 2003. 1. 17. Sequoia
     case OPTION_HP_STEAL:
     case OPTION_MP_STEAL:
@@ -3117,7 +3117,7 @@ void Vampire::computeOptionStat(OptionType_t OptionType)
                 m_HP[ATTR_MAX]   += pOptionInfo->getPlusPoint();
                 m_HP[ATTR_BASIC] += pOptionInfo->getPlusPoint();
                 break;
-            // ¹ìÆÄÀÌ¾î´Â MPÈí¼ö¿É¼ÇÀÌ ºÙÀº ¾ÆÀÌÅÛµµ HPÈí¼ö·Î Ã³¸®ÇØÁØ´Ù.
+            // ë±€íŒŒì´ì–´ëŠ” MPí¡ìˆ˜ì˜µì…˜ì´ ë¶™ì€ ì•„ì´í…œë„ HPí¡ìˆ˜ë¡œ ì²˜ë¦¬í•´ì¤€ë‹¤.
             // 2003. 1. 17. Sequoia
             case OPTION_HP_STEAL:
             case OPTION_MP_STEAL:
@@ -3299,7 +3299,7 @@ void Vampire::initAllStatAndSend() {
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ¸ó½ºÅÍ
+// ëª¬ìŠ¤í„°
 //
 //////////////////////////////////////////////////////////////////////////////
 void Monster::initAllStat(void)
@@ -3319,14 +3319,14 @@ void Monster::initAllStat(void)
     m_Resist[MAGIC_DOMAIN_BLOOD] = 0;
 
     ////////////////////////////////////////////////////////////
-    // Á¦ÀÏ ¸ÕÀú ±âº» ´É·ÂÄ¡¸¦ ÃÊ±âÈ­½ÃÅ°°í...
+    // ì œì¼ ë¨¼ì € ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì´ˆê¸°í™”ì‹œí‚¤ê³ ...
     ////////////////////////////////////////////////////////////
     m_STR = pMonsterInfo->getSTR();
     m_DEX = pMonsterInfo->getDEX();
     m_INT = pMonsterInfo->getINT();
 
     ////////////////////////////////////////////////////////////
-    // ±âº» ´É·Â¿¡ ¿µÇâÀ» ÁÖ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ê¸°ë³¸ ëŠ¥ë ¥ì— ì˜í–¥ì„ ì£¼ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     ////////////////////////////////////////////////////////////
     attr.nSTR = m_STR;
     attr.nDEX = m_DEX;
@@ -3334,7 +3334,7 @@ void Monster::initAllStat(void)
     attr.nLevel = pMonsterInfo->getLevel();
 
     ////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡µéÀ» ´Ù½Ã °è»êÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë“¤ì„ ë‹¤ì‹œ ê³„ì‚°í•œë‹¤.
     ////////////////////////////////////////////////////////////
     m_HP[ATTR_MAX] = computeHP(CClass, &attr, pMonsterInfo->getEnhanceHP());
     m_ToHit = computeToHit(CClass, &attr, pMonsterInfo->getEnhanceToHit());
@@ -3345,14 +3345,14 @@ void Monster::initAllStat(void)
 
 
     // #ifdef __XMAS_EVENT_CODE__
-    //  ¿ø·¡ Å©¸®½º¸¶½º ÀÌº¥Æ®·Î ±âÈ¹µÈ °ÍÀÌÁö¸¸, ¾ÕÀ¸·Î °è¼Ó »ç¿ëµÉ °ÍÀ¸·Î
-    //  ¿¹Á¤µÈ´Ù.
+    //  ì›ë˜ í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ë¡œ ê¸°íšëœ ê²ƒì´ì§€ë§Œ, ì•ìœ¼ë¡œ ê³„ì† ì‚¬ìš©ë  ê²ƒìœ¼ë¡œ
+    //  ì˜ˆì •ëœë‹¤.
     if (m_MonsterType == 358 || m_MonsterType == 359 || m_MonsterType == 360 || m_MonsterType == 361)
         m_HP[ATTR_MAX] = m_HP[ATTR_MAX] * 10;
     // #endif
 
     ////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡µéÀ» Á÷Á¢ ¼öÁ¤ÇÏ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë“¤ì„ ì§ì ‘ ìˆ˜ì •í•˜ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     ////////////////////////////////////////////////////////////
     if (isFlag(Effect::EFFECT_CLASS_DOOM)) {
         EffectDoom* pDoom = dynamic_cast<EffectDoom*>(findEffect(Effect::EFFECT_CLASS_DOOM));
@@ -3428,7 +3428,7 @@ void Monster::initAllStat(void)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ¾Æ¿ì½ºÅÍ½º
+// ì•„ìš°ìŠ¤í„°ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -3484,7 +3484,7 @@ void Ousters::initAllStat(int numPartyMember)
     m_Resist[MAGIC_DOMAIN_CURSE] = 0;
     m_Resist[MAGIC_DOMAIN_BLOOD] = 0;
 
-    // BloodBible °ü·Ã º¸³Ê½º ¼öÄ¡µé ÃÊ±âÈ­
+    // BloodBible ê´€ë ¨ ë³´ë„ˆìŠ¤ ìˆ˜ì¹˜ë“¤ ì´ˆê¸°í™”
     m_ConsumeMPRatio = 0;
     m_GamblePriceRatio = 0;
     m_PotionPriceRatio = 0;
@@ -3494,15 +3494,15 @@ void Ousters::initAllStat(int numPartyMember)
     m_PhysicDamageReduce = 0;
 
     //////////////////////////////////////////////////////////////////////////////
-    // Á¦ÀÏ ¸ÕÀú ±âº» ´É·ÂÄ¡¸¦ ÃÊ±âÈ­½ÃÅ°°í,
-    // ±âº» ´É·ÂÄ¡¿¡ ¿µÇâÀ» ÁÖ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ì œì¼ ë¨¼ì € ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì´ˆê¸°í™”ì‹œí‚¤ê³ ,
+    // ê¸°ë³¸ ëŠ¥ë ¥ì¹˜ì— ì˜í–¥ì„ ì£¼ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     m_STR[ATTR_CURRENT] = m_STR[ATTR_MAX] = m_STR[ATTR_BASIC];
     m_DEX[ATTR_CURRENT] = m_DEX[ATTR_MAX] = m_DEX[ATTR_BASIC];
     m_INT[ATTR_CURRENT] = m_INT[ATTR_MAX] = m_INT[ATTR_BASIC];
 
     //////////////////////////////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °è»êÀ» À§ÇÑ ÆÄ¶ó¹ÌÅÍµéÀ» ÃÊ±âÈ­ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ ê³„ì‚°ì„ ìœ„í•œ íŒŒë¼ë¯¸í„°ë“¤ì„ ì´ˆê¸°í™”í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     attr.nSTR = m_STR[ATTR_CURRENT];
     attr.nDEX = m_DEX[ATTR_CURRENT];
@@ -3519,7 +3519,7 @@ void Ousters::initAllStat(int numPartyMember)
     m_HPRegen = 0;
     m_MPRegen = 0;
     m_Luck = m_BaseLuck;
-    //	cout << getName() << "ÀÇ ±âº» Çà¿î : " << m_Luck << endl;
+    //	cout << getName() << "ì˜ ê¸°ë³¸ í–‰ìš´ : " << m_Luck << endl;
 
     m_FireDamage = 0;
     m_WaterDamage = 0;
@@ -3535,7 +3535,7 @@ void Ousters::initAllStat(int numPartyMember)
     m_PassiveRatio = 0;
 
     ////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡µéÀ» ´Ù½Ã °è»êÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë“¤ì„ ë‹¤ì‹œ ê³„ì‚°í•œë‹¤.
     ////////////////////////////////////////////////////////////
     m_HP[ATTR_MAX] = computeHP(CClass, &attr);
     m_HP[ATTR_BASIC] = 0;
@@ -3563,12 +3563,12 @@ void Ousters::initAllStat(int numPartyMember)
 
     int DragonEyeHPBonus = 0;
     if (isFlag(Effect::EFFECT_CLASS_DRAGON_EYE)) {
-        // HP º¸³Ê½º´Â µÎ¹è
+        // HP ë³´ë„ˆìŠ¤ëŠ” ë‘ë°°
         DragonEyeHPBonus = m_HP[ATTR_MAX];
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÀÏ´Ü ±â¾î Ã¼Å© º¯¼ö¸¦ ÃÊ±âÈ­ÇØ¼­ ¸ğµç ±â¾î¸¦ ¾È ÀÔÀº °ÍÀ¸·Î °£ÁÖÇÏ°í ½ÃÀÛÇÑ´Ù.
+    // ì¼ë‹¨ ê¸°ì–´ ì²´í¬ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”í•´ì„œ ëª¨ë“  ê¸°ì–´ë¥¼ ì•ˆ ì…ì€ ê²ƒìœ¼ë¡œ ê°„ì£¼í•˜ê³  ì‹œì‘í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     bool pOldRealWearingCheck[OUSTERS_WEAR_MAX]; // by sigi. 2002.10.31
     for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
@@ -3577,7 +3577,7 @@ void Ousters::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // Blood Bible °¢°¢ÀÇ º¸³Ê½º ¿É¼ÇÀ» ¹Ş´Â´Ù.
+    // Blood Bible ê°ê°ì˜ ë³´ë„ˆìŠ¤ ì˜µì…˜ì„ ë°›ëŠ”ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     /*	if ( m_pZone->isHolyLand() && !g_pWarSystem->hasActiveRaceWar() )
         {
@@ -3619,7 +3619,7 @@ void Ousters::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ±âº»ÀûÀ¸·Î °¡Áö°í ÀÖ´Â ¿É¼ÇµéÀ» °è»êÇÑ´Ù.
+    // ê¸°ë³¸ì ìœ¼ë¡œ ê°€ì§€ê³  ìˆëŠ” ì˜µì…˜ë“¤ì„ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
     for (; itr != m_DefaultOptionSet.end(); itr++) {
@@ -3634,7 +3634,7 @@ void Ousters::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÆêÀÌ ÁÖ´Â º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // í«ì´ ì£¼ëŠ” ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (m_pPetInfo != NULL) {
         if (m_pPetInfo->getPetAttr() != 0xff)
@@ -3660,22 +3660,22 @@ void Ousters::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // for °¡ µÎ¹øÀÎ ÀÌÀ¯´Â ¾ÆÀÌÅÛÀ¸·Î ¿Ã¶ó°£ ´É·ÂÄ¡¿¡ ÀÇÇØ¼­
-    // ÀÔÀ» ¼ö ÀÖ°Ô µÇ´Â ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+    // for ê°€ ë‘ë²ˆì¸ ì´ìœ ëŠ” ì•„ì´í…œìœ¼ë¡œ ì˜¬ë¼ê°„ ëŠ¥ë ¥ì¹˜ì— ì˜í•´ì„œ
+    // ì…ì„ ìˆ˜ ìˆê²Œ ë˜ëŠ” ì•„ì´í…œì„ ì²´í¬í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     for (int j = 0; j < OUSTERS_WEAR_MAX; j++) {
         int wearCount = 0;
         for (int i = 0; i < OUSTERS_WEAR_MAX; i++) {
             Item* pItem = m_pWearItem[i];
-            // ÇöÀç Æ÷ÀÎÆ®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ°í
-            // ±×°Í¿¡ ´ëÇÑ Ã¼Å©¸¦ ¾ÆÁ÷ ÇÏÁö ¾Ê¾Ò´Ù¸é...
+            // í˜„ì¬ í¬ì¸íŠ¸ì— ì•„ì´í…œì´ ìˆê³ 
+            // ê·¸ê²ƒì— ëŒ€í•œ ì²´í¬ë¥¼ ì•„ì§ í•˜ì§€ ì•Šì•˜ë‹¤ë©´...
             if (pItem != NULL && m_pRealWearingCheck[i] == false) {
-                // ¸¸ÀÏ ÁøÂ¥·ç ÀÔÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // ë§Œì¼ ì§„ì§œë£¨ ì…ì„ ìˆ˜ ìˆëŠ” ì•„ì´í…œì´ë¼ë©´ ëŠ¥ë ¥ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 if (isRealWearing(pItem)) {
                     computeItemStat(pItem);
 
-                    // ¾ç¼Õ ¹«±â¶ó¸é, Ã¼Å©¸¦ µÎ¹ø ÇÏÁö ¾Êµµ·Ï
-                    // ¿ŞÂÊ, ¿À¸¥ÂÊ ¸ğµÎ Ã¼Å© º¯¼ö¸¦ ¼¼ÆÃ
+                    // ì–‘ì† ë¬´ê¸°ë¼ë©´, ì²´í¬ë¥¼ ë‘ë²ˆ í•˜ì§€ ì•Šë„ë¡
+                    // ì™¼ìª½, ì˜¤ë¥¸ìª½ ëª¨ë‘ ì²´í¬ ë³€ìˆ˜ë¥¼ ì„¸íŒ…
                     if (isTwohandWeapon(pItem)) {
                         m_pRealWearingCheck[WEAR_LEFTHAND] = true;
                         m_pRealWearingCheck[WEAR_RIGHTHAND] = true;
@@ -3700,8 +3700,8 @@ void Ousters::initAllStat(int numPartyMember)
         }
     }
     if (zaps[0] && zaps[1] && zaps[2] && zaps[3]) {
-        computeOptionStat(182); // ¸ğÀú 9
-        computeOptionStat(185); // ¸ğ´É 3
+        computeOptionStat(182); // ëª¨ì € 9
+        computeOptionStat(185); // ëª¨ëŠ¥ 3
     }
 
     applyBloodBibleSign();
@@ -3713,8 +3713,8 @@ void Ousters::initAllStat(int numPartyMember)
         bSendPacket = (dynamic_cast<GamePlayer*>(m_pPlayer)->getPlayerStatus() == GPS_NORMAL);
     }
 
-    // ÀÏ´Ü À§¿¡¼­ ´Ù ÀÔ¾ú´Âµ¥..
-    // ´É·ÂÄ¡¿¡ µû¶ó¼­ º¹ÀåÀÌ Àû¿ëÀÌ ¾ÈµÇ´Â ¾ÆÀÌÅÛÀº º¹Àå Á¤º¸¸¦ ¾ø¾Ø´Ù.
+    // ì¼ë‹¨ ìœ„ì—ì„œ ë‹¤ ì…ì—ˆëŠ”ë°..
+    // ëŠ¥ë ¥ì¹˜ì— ë”°ë¼ì„œ ë³µì¥ì´ ì ìš©ì´ ì•ˆë˜ëŠ” ì•„ì´í…œì€ ë³µì¥ ì •ë³´ë¥¼ ì—†ì•¤ë‹¤.
     // by sigi. 2002.10.30
     for (int i = 0; i < OUSTERS_WEAR_MAX; i++)
     // int i=WEAR_COAT;
@@ -3751,7 +3751,7 @@ void Ousters::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // HP, MP ½ºÆ¿ È®·üÀ» °è»êÇØ µĞ´Ù.
+    // HP, MP ìŠ¤í‹¸ í™•ë¥ ì„ ê³„ì‚°í•´ ë‘”ë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (hasRankBonus(RankBonus::RANK_BONUS_LIFE_ABSORB)) {
         RankBonus* pRankBonus = getRankBonus(RankBonus::RANK_BONUS_LIFE_ABSORB);
@@ -3776,7 +3776,7 @@ void Ousters::initAllStat(int numPartyMember)
     // cout << getName() << " HPSteal : " << (int)m_HPStealAmount << endl;
 
     //////////////////////////////////////////////////////////////////////////////
-    // ºÎ°¡ÀûÀÎ ´É·ÂÄ¡¸¦ Á÷Á¢ ¼öÁ¤ÇÏ´Â ÀÌÆåÆ®¸¦ °Ë»çÇÑ´Ù.
+    // ë¶€ê°€ì ì¸ ëŠ¥ë ¥ì¹˜ë¥¼ ì§ì ‘ ìˆ˜ì •í•˜ëŠ” ì´í™íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     if (isFlag(Effect::EFFECT_CLASS_DOOM)) {
         EffectDoom* pDoom = dynamic_cast<EffectDoom*>(findEffect(Effect::EFFECT_CLASS_DOOM));
@@ -3844,7 +3844,7 @@ void Ousters::initAllStat(int numPartyMember)
 
     /*	if ( isFlag( Effect::EFFECT_CLASS_HANDS_OF_FIRE ) )
         {
-            //cout << getName() << " ÇÚÁî¿ÀºêÆÄÀÌ¾î ºÙ¾ú´ç" << endl;
+            //cout << getName() << " í•¸ì¦ˆì˜¤ë¸ŒíŒŒì´ì–´ ë¶™ì—ˆë‹¹" << endl;
             EffectHandsOfFire* pEffect =
        dynamic_cast<EffectHandsOfFire*>(findEffect(Effect::EFFECT_CLASS_HANDS_OF_FIRE));
 
@@ -3915,7 +3915,7 @@ void Ousters::initAllStat(int numPartyMember)
     }
 
     //////////////////////////////////////////////////////////////////////////////
-    // ÆĞ½Ãºê ±â¼úÀ» °è»êÇÑ´Ù.
+    // íŒ¨ì‹œë¸Œ ê¸°ìˆ ì„ ê³„ì‚°í•œë‹¤.
     //////////////////////////////////////////////////////////////////////////////
     OustersSkillSlot* pHideSight = getSkill(SKILL_HIDE_SIGHT);
     if (pHideSight != NULL && attr.pWeapon != NULL &&
@@ -3937,7 +3937,7 @@ void Ousters::initAllStat(int numPartyMember)
 
 
     ///////////////////////////////////////////////////////////////////////////////
-    // °è±Ş º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+    // ê³„ê¸‰ ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
     ///////////////////////////////////////////////////////////////////////////////
     if (hasRankBonus(RankBonus::RANK_BONUS_WOOD_SKIN)) {
         RankBonus* pRankBonus = getRankBonus(RankBonus::RANK_BONUS_WOOD_SKIN);
@@ -4132,7 +4132,7 @@ void Ousters::initAllStat(int numPartyMember)
         Assert(pRankBonus != NULL);
 
         int MPBonus = getPercentValue(m_MP[ATTR_CURRENT], pRankBonus->getPoint());
-        // edit by Coffee 2007-5-20 ĞŞÕıÄ§ÁéÎŞÏŞMP BUG
+        // edit by Coffee 2007-5-20 éŒ¦æ”£ì¹¨ì¥£è½Ÿæ˜MP BUG
         m_MPStealAmount += MPBonus;
         m_MPStealRatio = computeStealRatio(CClass, m_MPStealAmount, &attr);
         // m_MP[ATTR_CURRENT]  = min(OUSTERS_MAX_MP, m_MP[ATTR_CURRENT] + MPBonus);
@@ -4169,7 +4169,7 @@ void Ousters::initAllStat(int numPartyMember)
         m_ElementalEarth += pRankBonus->getPoint();
     }
 
-    // -_- %·Î Àû¿ëµÇ´Â ½ºÅ³Àº ¸¶Áö¸·¿¡ Àû¿ë½ÃÅ²´Ù.
+    // -_- %ë¡œ ì ìš©ë˜ëŠ” ìŠ¤í‚¬ì€ ë§ˆì§€ë§‰ì— ì ìš©ì‹œí‚¨ë‹¤.
     if (isFlag(Effect::EFFECT_CLASS_SHARP_CHAKRAM)) {
         EffectSharpChakram* pEffect = dynamic_cast<EffectSharpChakram*>(findEffect(Effect::EFFECT_CLASS_SHARP_CHAKRAM));
 
@@ -4201,8 +4201,8 @@ void Ousters::initAllStat(int numPartyMember)
         }
     }
 
-    // HP,MPÀÇ ÇöÀçÄ¡¸¦ HP,MPÀÇ ÃÖ°íÄ¡¸¦ ³Ñ´Â °æ¿ì
-    // ÇöÀçÄ¡¸¦ ÃÖ°íÄ¡°ªÀ¸·Î set
+    // HP,MPì˜ í˜„ì¬ì¹˜ë¥¼ HP,MPì˜ ìµœê³ ì¹˜ë¥¼ ë„˜ëŠ” ê²½ìš°
+    // í˜„ì¬ì¹˜ë¥¼ ìµœê³ ì¹˜ê°’ìœ¼ë¡œ set
     /*    if (m_HP[ATTR_CURRENT] > m_HP[ATTR_MAX])
         {
             m_HP[ATTR_CURRENT] = m_HP[ATTR_MAX];
@@ -4212,7 +4212,7 @@ void Ousters::initAllStat(int numPartyMember)
             m_MP[ATTR_CURRENT] = m_MP[ATTR_MAX];
         }
     */
-    // ÆĞ½Ãºê ½ºÅ³ ÃÊ±âÈ­
+    // íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ ì´ˆê¸°í™”
     bool bCanUsePassive = false;
     if (hasSkill(SKILL_FIRE_OF_SOUL_STONE) != NULL) {
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SKILL_FIRE_OF_SOUL_STONE);
@@ -4362,22 +4362,22 @@ void Ousters::initAllStat(int numPartyMember)
 
     initCastleSkill();
 
-    //	cout << "ºÒ : " << m_ElementalFire << endl;
-    //	cout << "¹° : " << m_ElementalWater << endl;
-    //	cout << "´ëÁö : " << m_ElementalEarth << endl;
+    //	cout << "ë¶ˆ : " << m_ElementalFire << endl;
+    //	cout << "ë¬¼ : " << m_ElementalWater << endl;
+    //	cout << "ëŒ€ì§€ : " << m_ElementalEarth << endl;
 
-    //	cout << getName() << "ÀÇ Luck : " << m_Luck << endl;
+    //	cout << getName() << "ì˜ Luck : " << m_Luck << endl;
 
     /*	cout << getName() << ":" << endl;
         for ( int i=0; i<MAGIC_DOMAIN_MAX; ++i )
         {
-            cout << "ÀúÇ× " << i << " : " << m_Resist[i] << endl;
+            cout << "ì €í•­ " << i << " : " << m_Resist[i] << endl;
         }
 
-        cout << "¹°¸®°ø°İ·Â " << m_PhysicBonusDamage << endl;
-        cout << "¹°¸®¹æ¾î·Â " << m_PhysicDamageReduce << endl;
-        cout << "¸¶¹ı°ø°İ·Â " << m_MagicBonusDamage << endl;
-        cout << "¸¶¹ı¹æ¾î·Â " << m_MagicDamageReduce << endl;*/
+        cout << "ë¬¼ë¦¬ê³µê²©ë ¥ " << m_PhysicBonusDamage << endl;
+        cout << "ë¬¼ë¦¬ë°©ì–´ë ¥ " << m_PhysicDamageReduce << endl;
+        cout << "ë§ˆë²•ê³µê²©ë ¥ " << m_MagicBonusDamage << endl;
+        cout << "ë§ˆë²•ë°©ì–´ë ¥ " << m_MagicDamageReduce << endl;*/
 
     __END_CATCH
 }
@@ -4420,24 +4420,24 @@ int Ousters::getBloodBibleSignOpenNum() const {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// STR, DEX, INTÀÇ °æ¿ì
-// CURRENT = ±âº» ¼öÄ¡ + ¾ÆÀÌÅÛ ¼öÄ¡ + ¸¶¹ı ¼öÄ¡
-// MAX     = ±âº» ¼öÄ¡ + ¾ÆÀÌÅÛ ¼öÄ¡
-// BASIC   = ±âº» ¼öÄ¡
+// STR, DEX, INTì˜ ê²½ìš°
+// CURRENT = ê¸°ë³¸ ìˆ˜ì¹˜ + ì•„ì´í…œ ìˆ˜ì¹˜ + ë§ˆë²• ìˆ˜ì¹˜
+// MAX     = ê¸°ë³¸ ìˆ˜ì¹˜ + ì•„ì´í…œ ìˆ˜ì¹˜
+// BASIC   = ê¸°ë³¸ ìˆ˜ì¹˜
 //
-// HP, MPÀÇ °æ¿ì
-// CURRENT = ÇöÀç ¼öÄ¡
-// MAX     = ÇöÀç ¸Æ½º
-// BASIC   = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// HP, MPì˜ ê²½ìš°
+// CURRENT = í˜„ì¬ ìˆ˜ì¹˜
+// MAX     = í˜„ì¬ ë§¥ìŠ¤
+// BASIC   = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //
-// Defense, Protection, ToHitÀÇ °æ¿ì
-// CURRENT = ÇöÀç ¼öÄ¡
-// MAX     = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// Defense, Protection, ToHitì˜ ê²½ìš°
+// CURRENT = í˜„ì¬ ìˆ˜ì¹˜
+// MAX     = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //
-// DamageÀÇ °æ¿ì
-// CURRENT = Min µ¥¹ÌÁö
-// MAX     = Max µ¥¹ÌÁö
-// BASIC   = ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ º¯È­ ¼öÄ¡
+// Damageì˜ ê²½ìš°
+// CURRENT = Min ë°ë¯¸ì§€
+// MAX     = Max ë°ë¯¸ì§€
+// BASIC   = ì•„ì´í…œì— ì˜í•œ ë³€í™” ìˆ˜ì¹˜
 //////////////////////////////////////////////////////////////////////////////
 void Ousters::computeStatOffset()
 
@@ -4452,8 +4452,8 @@ void Ousters::computeStatOffset()
     cur_attr.nINT = m_INT[ATTR_CURRENT];
     cur_attr.nLevel = m_Level;
 
-    // ¼¼·Î¿öÁø STR, DEX, INT·Î »õ·Î °è»êÀ» ÇÑ ´ÙÀ½
-    // ¾ÆÀÌÅÛ ¶Ç´Â ¸¶¹ı ¼öÄ¡¸¦ ´õÇÑ´Ù.
+    // ì„¸ë¡œì›Œì§„ STR, DEX, INTë¡œ ìƒˆë¡œ ê³„ì‚°ì„ í•œ ë‹¤ìŒ
+    // ì•„ì´í…œ ë˜ëŠ” ë§ˆë²• ìˆ˜ì¹˜ë¥¼ ë”í•œë‹¤.
     m_HP[ATTR_MAX] = computeHP(CClass, &cur_attr);
     m_HP[ATTR_MAX] += m_HP[ATTR_BASIC];
 
@@ -4491,7 +4491,7 @@ void Ousters::computeItemStat(Item* pItem)
 
     //	if (isOustersWeapon(pItem->getItemClass()))
     if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_CHAKRAM) {
-        // ¹«±â¶ó¸é ¹«±â°¡ °¡Áö´Â ¼Óµµ ÆÄ¶ó¹ÌÅÍ¸¦ ´õÇÑ´Ù.
+        // ë¬´ê¸°ë¼ë©´ ë¬´ê¸°ê°€ ê°€ì§€ëŠ” ì†ë„ íŒŒë¼ë¯¸í„°ë¥¼ ë”í•œë‹¤.
         ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
         m_AttackSpeed[ATTR_CURRENT] += pItemInfo->getSpeed();
         m_AttackSpeed[ATTR_MAX] += pItemInfo->getSpeed();
@@ -4553,14 +4553,14 @@ void Ousters::computeItemStat(Item* pItem)
     m_Luck += pItem->getLuck();
 
     //	if (pItem->getOptionType()) computeOptionStat(pItem);
-    // ºÎ°¡ÀûÀÎ ¿É¼Çµé
+    // ë¶€ê°€ì ì¸ ì˜µì…˜ë“¤
     const list<OptionType_t>& optionType = pItem->getOptionTypeList();
     list<OptionType_t>::const_iterator itr;
     for (itr = optionType.begin(); itr != optionType.end(); itr++) {
         computeOptionStat(*itr);
     }
 
-    // Item ÀÚÃ¼ÀÇ defaultOptionÀ» Àû¿ë½ÃÅ²´Ù.
+    // Item ìì²´ì˜ defaultOptionì„ ì ìš©ì‹œí‚¨ë‹¤.
     const list<OptionType_t>& defaultOptions = pItem->getDefaultOptions();
     list<OptionType_t>::const_iterator iOptions;
 
@@ -4576,14 +4576,14 @@ void Ousters::computeOptionStat(Item* pItem)
 {
     __BEGIN_TRY
 
-    // ºÎ°¡ÀûÀÎ ¿É¼Çµé
+    // ë¶€ê°€ì ì¸ ì˜µì…˜ë“¤
     const list<OptionType_t>& optionType = pItem->getOptionTypeList();
     list<OptionType_t>::const_iterator itr;
     for (itr = optionType.begin(); itr != optionType.end(); itr++) {
         computeOptionStat(*itr);
     }
 
-    // Item ÀÚÃ¼ÀÇ defaultOptionÀ» Àû¿ë½ÃÅ²´Ù.
+    // Item ìì²´ì˜ defaultOptionì„ ì ìš©ì‹œí‚¨ë‹¤.
     const list<OptionType_t>& defaultOptions = pItem->getDefaultOptions();
     list<OptionType_t>::const_iterator iOptions;
 
