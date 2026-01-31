@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTPowerPoint.h
-// Desc		: ¿Â¶óÀÎ °ÔÀÓÀ¸·ÎºÎÅÍ Àü¼ÛµÇ¾î¿Â µ¥ÀÌÅÍ¸¦ ÅëÇØ ÆÄ¿ö¸µ DB¿¡¼­
-// 			  ÃßÈÇÇÑ °ªÀ» ¿Â¶óÀÎ»ç·Î ³Ñ°ÜÁØ´Ù.
+// Desc		: ì˜¨ë¼ì¸ ê²Œì„ìœ¼ë¡œë¶€í„° ì „ì†¡ë˜ì–´ì˜¨ ë°ì´í„°ë¥¼ í†µí•´ íŒŒì›Œë§ DBì—ì„œ
+// 			  ì¶”í›Œí•œ ê°’ì„ ì˜¨ë¼ì¸ì‚¬ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_POWERPOINT_H__
@@ -11,28 +11,28 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ÆĞÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_POWERPOINT {
     int nSize;
     int nCode;
-    int nMoDataCode;         // ÀÚ·á Ã³¸®¸¦ À§ÇÑ Index, Unique °ª
-    char sPhoneNo[12];       // ÆÄ¿ö¸µ Æ÷ÀÎÆ®¸¦ µî·ÏÇÑ À¯ÀúÀÇ ÇÚµåÆù ¹øÈ£
-    char sMemID[20];         // ÆÄ¿ö¸µ À¯Àú °èÁ¤ ID
-    int nMatchingCode;       // ÆÄ¿ö¸µ Å×ÀÌºí³» ¸ÅÄª ÄÚµå
-    char sMoGameName[20];    // ¿Â¶óÀÎ °ÔÀÓ°ú ¿¬µ¿µÈ ¸ğ¹ÙÀÏ °ÔÀÓ¸í
-    int nMoGameCode;         // ¿Â¶óÀÎ °ÔÀÓ°ú ¿¬µ¿µÇ ¸ğ¹ÙÀÏ °ÔÀÓÄÚµå
-    int nOnGameCode;         // ¿Â¶óÀÎ °ÔÀÓ ÄÚµå
-    char sOnGameName[20];    // ¿Â¶óÀÎ °ÔÀÓ¸í
-    int nOnGameSerCode;      // ¿Â¶óÀÎ °ÔÀÓ ¼­¹ö ÄÚµå
-    char sOnGameSerName[20]; // ¿Â¶óÀÎ °ÔÀÓ ¼­¹ö ¸í
-    char sOnGameID[20];      // ¿Â¶óÀÎ °ÔÀÓ ¾ÆÀÌµğ
-    char sCharName[40];      // ¿Â¶óÀÎ °ÔÀÓ Ä³¸¯ÅÍ¸í
-    int nOnAbilityCode;      // ¿Â¶óÀÎ °ÔÀÓ Àû¿ë ´É·ÂÄ¡ ÄÚµå
-    char sOnAbilityName[20]; // ¿Â¶óÀÎ °ÔÀÓ Àû¿ë ´É·ÂÄ¡¸í
-    int nPowerPoint;         // À¯Àú°¡ Àü¼ÛÇÑ ÆÄ¿ö¸µ Æ÷ÀÎÆ®
-    char sInputDate[20];     // À¯Àú°¡ ¸ğ¹ÙÀÏ·Î ÀÔ·ÂÇÑ ÆÄ¿ö¸µ Æ÷ÀÎÆ® ÀÔ·Â ½Ã°£
-    int nIndex;              // ¿Â¶óÀÎ»çÀÇ ÆíÀÇ¸¦ À§ÇÑ ÀÎµ¦½º
-    int nContinue;           // ´ÙÀ½ µ¥ÀÌÅÍ À¯¹«. 1:ÀÖÀ½. 0:¾øÀ½
+    int nMoDataCode;         // ìë£Œ ì²˜ë¦¬ë¥¼ ìœ„í•œ Index, Unique ê°’
+    char sPhoneNo[12];       // íŒŒì›Œë§ í¬ì¸íŠ¸ë¥¼ ë“±ë¡í•œ ìœ ì €ì˜ í•¸ë“œí° ë²ˆí˜¸
+    char sMemID[20];         // íŒŒì›Œë§ ìœ ì € ê³„ì • ID
+    int nMatchingCode;       // íŒŒì›Œë§ í…Œì´ë¸”ë‚´ ë§¤ì¹­ ì½”ë“œ
+    char sMoGameName[20];    // ì˜¨ë¼ì¸ ê²Œì„ê³¼ ì—°ë™ëœ ëª¨ë°”ì¼ ê²Œì„ëª…
+    int nMoGameCode;         // ì˜¨ë¼ì¸ ê²Œì„ê³¼ ì—°ë™ë˜ ëª¨ë°”ì¼ ê²Œì„ì½”ë“œ
+    int nOnGameCode;         // ì˜¨ë¼ì¸ ê²Œì„ ì½”ë“œ
+    char sOnGameName[20];    // ì˜¨ë¼ì¸ ê²Œì„ëª…
+    int nOnGameSerCode;      // ì˜¨ë¼ì¸ ê²Œì„ ì„œë²„ ì½”ë“œ
+    char sOnGameSerName[20]; // ì˜¨ë¼ì¸ ê²Œì„ ì„œë²„ ëª…
+    char sOnGameID[20];      // ì˜¨ë¼ì¸ ê²Œì„ ì•„ì´ë””
+    char sCharName[40];      // ì˜¨ë¼ì¸ ê²Œì„ ìºë¦­í„°ëª…
+    int nOnAbilityCode;      // ì˜¨ë¼ì¸ ê²Œì„ ì ìš© ëŠ¥ë ¥ì¹˜ ì½”ë“œ
+    char sOnAbilityName[20]; // ì˜¨ë¼ì¸ ê²Œì„ ì ìš© ëŠ¥ë ¥ì¹˜ëª…
+    int nPowerPoint;         // ìœ ì €ê°€ ì „ì†¡í•œ íŒŒì›Œë§ í¬ì¸íŠ¸
+    char sInputDate[20];     // ìœ ì €ê°€ ëª¨ë°”ì¼ë¡œ ì…ë ¥í•œ íŒŒì›Œë§ í¬ì¸íŠ¸ ì…ë ¥ ì‹œê°„
+    int nIndex;              // ì˜¨ë¼ì¸ì‚¬ì˜ í¸ì˜ë¥¼ ìœ„í•œ ì¸ë±ìŠ¤
+    int nContinue;           // ë‹¤ìŒ ë°ì´í„° ìœ ë¬´. 1:ìˆìŒ. 0:ì—†ìŒ
 };
 
 const int szPKTPowerPoint = sizeof(_PKT_POWERPOINT);
@@ -40,29 +40,29 @@ const int szPKTPowerPoint = sizeof(_PKT_POWERPOINT);
 // class PKTPowerPoint
 class PKTPowerPoint : public _PKT_POWERPOINT, public MPacket {
 public:
-    // »ı¼ºÀÚ
+    // ìƒì„±ì
     PKTPowerPoint();
 
 public:
-    // ÆĞÅ¶ ¾ÆÀÌµğ¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTPowerPoint - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜
     MPacket* create() {
         MPacket* pPacket = new PKTPowerPoint;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message

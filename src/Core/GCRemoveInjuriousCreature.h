@@ -17,8 +17,8 @@
 //
 // class GCRemoveInjuriousCreature;
 //
-// Å¬¶óÀÌ¾ğÆ®°¡ ¼­¹ö¿¡°Ô º¸³»´Â RemoveInjuriousCreature ÆĞÅ¶ÀÌ´Ù.
-// ³»ºÎ¿¡ RemoveInjuriousCreature String ¸¸À» µ¥ÀÌÅ¸ ÇÊµå·Î °¡Áø´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ì„œë²„ì—ê²Œ ë³´ë‚´ëŠ” RemoveInjuriousCreature íŒ¨í‚·ì´ë‹¤.
+// ë‚´ë¶€ì— RemoveInjuriousCreature String ë§Œì„ ë°ì´íƒ€ í•„ë“œë¡œ ê°€ì§„ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -26,10 +26,10 @@ class GCRemoveInjuriousCreature : public Packet {
 public:
     GCRemoveInjuriousCreature() {};
     ~GCRemoveInjuriousCreature() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -92,7 +92,7 @@ public:
     }
 
     // get packet's max body size
-    // message ÀÇ ÃÖ´ë Å©±â¿¡ ´ëÇÑ ¼³Á¤ÀÌ ÇÊ¿äÇÏ´Ù.
+    // message ì˜ ìµœëŒ€ í¬ê¸°ì— ëŒ€í•œ ì„¤ì •ì´ í•„ìš”í•˜ë‹¤.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + 10;
     }

@@ -15,7 +15,7 @@
 #include "ModifyInfo.h"
 #include "Mutex.h"
 
-// ÆÄÆ¼ÀÇ ÃÖ´ë Å©±â
+// íŒŒí‹°ì˜ ìµœëŒ€ í¬ê¸°
 const int PARTY_MAX_SIZE = 6;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -117,28 +117,28 @@ public:
     void deleteMember(const string& name);
     bool hasMember(const string& name) const;
 
-    // ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­¸¸ »ç¿ëÇÑ´Ù.
-    // ÆÄÆ¼¸¦ ÇØÃ¼ÇÏ±â Àü¿¡ ÆÄÆ¼ ¸â¹öµéÀÇ ÆÄÆ¼ ID¸¦ 0À¸·Î ¸¸µé°í,
-    // ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­ ÇØ´ç ID¸¦ °¡Áø ÆÄÆ¼¸¦ »èÁ¦ÇÑ´Ù.
+    // ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œë§Œ ì‚¬ìš©í•œë‹¤.
+    // íŒŒí‹°ë¥¼ í•´ì²´í•˜ê¸° ì „ì— íŒŒí‹° ë©¤ë²„ë“¤ì˜ íŒŒí‹° IDë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ê³ ,
+    // ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œ í•´ë‹¹ IDë¥¼ ê°€ì§„ íŒŒí‹°ë¥¼ ì‚­ì œí•œë‹¤.
     void destroyParty(void);
 
 public:
-    // ÆÄÆ¼ ¸â¹öµé¿¡°Ô ÆĞÅ¶À» ³¯¸°´Ù.
+    // íŒŒí‹° ë©¤ë²„ë“¤ì—ê²Œ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
     void broadcastPacket(Packet* pPacket, Creature* pOwner = NULL);
 
-    // »õ·Î¿î ÆÄÆ¼¿øÀÌ Ãß°¡µÇ¾úÀ» ¶§ ÆÄÆ¼¿øµé¿¡°Ô ³¯¾Æ°¡´Â
-    // GCPartyJoined ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+    // ìƒˆë¡œìš´ íŒŒí‹°ì›ì´ ì¶”ê°€ë˜ì—ˆì„ ë•Œ íŒŒí‹°ì›ë“¤ì—ê²Œ ë‚ ì•„ê°€ëŠ”
+    // GCPartyJoined íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
     void makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const;
 
 public:
     int getSize(void) const;
     unordered_map<string, Creature*> getMemberMap(void);
 
-    // ±ÙÁ¢ÇÑ °Å¸®(8Å¸ÀÏ) ³»¿¡ ÀÖ´Â ¸â¹öµéÀÇ ¼ıÀÚ¸¦ ¸®ÅÏÇÑ´Ù.
+    // ê·¼ì ‘í•œ ê±°ë¦¬(8íƒ€ì¼) ë‚´ì— ìˆëŠ” ë©¤ë²„ë“¤ì˜ ìˆ«ìë¥¼ ë¦¬í„´í•œë‹¤.
     int getAdjacentMemberSize(Creature* pLeader) const;
     int getAdjacentMemberSize_LOCKED(Creature* pLeader) const;
 
-    // °æÇèÄ¡¸¦ ºÎÇ®·Á¼­ ³ª´«´Ù.
+    // ê²½í—˜ì¹˜ë¥¼ ë¶€í’€ë ¤ì„œ ë‚˜ëˆˆë‹¤.
     int shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DEXMultiplier, int INTMultiplier,
                      ModifyInfo& LeaderModifyInfo) const;
     int shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModifyInfo) const;
@@ -171,11 +171,11 @@ public:
     string toString(void) const;
 
 protected:
-    int m_ID;                                     // ÆÄÆ¼ ID
-    Creature::CreatureClass m_CreatureClass;      // ÆÄÆ¼ÀÇ Á¾·ù
-    unordered_map<string, Creature*> m_MemberMap; // ÆÄÆ¼ ¸â¹ö
-    mutable Mutex m_Mutex;                        // ³»ºÎ¿¡¼­ ¾²´Â ¶ô
-    bool m_bFamilyPay;                            // ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë ÆÄÆ¼ÀÎ°¡?
+    int m_ID;                                     // íŒŒí‹° ID
+    Creature::CreatureClass m_CreatureClass;      // íŒŒí‹°ì˜ ì¢…ë¥˜
+    unordered_map<string, Creature*> m_MemberMap; // íŒŒí‹° ë©¤ë²„
+    mutable Mutex m_Mutex;                        // ë‚´ë¶€ì—ì„œ ì“°ëŠ” ë½
+    bool m_bFamilyPay;                            // íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© íŒŒí‹°ì¸ê°€?
 };
 
 
@@ -198,7 +198,7 @@ public:
     virtual string toString(void) const = 0;
 
 protected:
-    unordered_map<int, Party*> m_PartyMap; // ÆÄÆ¼ ÁıÇÕ
+    unordered_map<int, Party*> m_PartyMap; // íŒŒí‹° ì§‘í•©
     mutable Mutex m_Mutex;
 };
 
@@ -260,14 +260,14 @@ public:
     virtual string toString(void) const;
 
 protected:
-    int m_PartyIDRegistry; // ÆÄÆ¼ ID »ı¼ºÀÚ
+    int m_PartyIDRegistry; // íŒŒí‹° ID ìƒì„±ì
 };
 
 extern GlobalPartyManager* g_pGlobalPartyManager;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆíÀÇ¸¦ À§ÇÑ Àü¿ª ÇÔ¼öµé...
+// í¸ì˜ë¥¼ ìœ„í•œ ì „ì—­ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////////
 void deleteAllPartyInfo(Creature* pCreature);
 

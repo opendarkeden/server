@@ -73,16 +73,16 @@ public:
     }
 
 private:
-    // ½ºÅ³ Å¸ÀÔ
+    // ìŠ¤í‚¬ íƒ€ì…
     SkillType_t m_SkillType;
 
-    // ½ºÅ³ ·¹º§
+    // ìŠ¤í‚¬ ë ˆë²¨
     ExpLevel_t m_ExpLevel;
 
-    // ÇÑ¹ø¾²°í ´ÙÀ½¿¡ ¾µ µô·¹ÀÌ
+    // í•œë²ˆì“°ê³  ë‹¤ìŒì— ì“¸ ë”œë ˆì´
     Turn_t m_Interval;
 
-    // Ä³½ºÆÃ Å¸ÀÓ
+    // ìºìŠ¤íŒ… íƒ€ì„
     Turn_t m_CastingTime;
 };
 

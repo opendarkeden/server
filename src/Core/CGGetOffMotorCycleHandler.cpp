@@ -30,7 +30,7 @@ void CGGetOffMotorCycleHandler::execute(CGGetOffMotorCycle* pPacket, Player* pPl
 
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
-    // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀûÀÎ »óÅÂÀÎÁö¸¦ °Ë»çÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì ì¸ ìƒíƒœì¸ì§€ë¥¼ ê²€ì‚¬í•œë‹¤.
     if (pGamePlayer->getPlayerStatus() != GPS_NORMAL) {
         GCGetOffMotorCycleFailed _GCGetOffMotorCycleFailed;
         pPlayer->sendPacket(&_GCGetOffMotorCycleFailed);
@@ -39,7 +39,7 @@ void CGGetOffMotorCycleHandler::execute(CGGetOffMotorCycle* pPacket, Player* pPl
 
     Creature* pCreature = pGamePlayer->getCreature();
 
-    // ½½·¹ÀÌ¾îÀÌÀÎÁö¸¦ °Ë»çÇÑ´Ù.
+    // ìŠ¬ë ˆì´ì–´ì´ì¸ì§€ë¥¼ ê²€ì‚¬í•œë‹¤.
     if (!pCreature->isSlayer()) {
         GCGetOffMotorCycleFailed _GCGetOffMotorCycleFailed;
         pPlayer->sendPacket(&_GCGetOffMotorCycleFailed);
@@ -51,12 +51,12 @@ void CGGetOffMotorCycleHandler::execute(CGGetOffMotorCycle* pPacket, Player* pPl
     bool bSuccess = false;
     Zone* pZone = pSlayer->getZone();
 
-    // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Ù¸é...
+    // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìžˆë‹¤ë©´...
     if (pMotorcycle != NULL) {
         ZoneCoord_t x = pSlayer->getX();
         ZoneCoord_t y = pSlayer->getY();
 
-        // ÀÏ¹Ý Áö¿ªÀÌ ¾Æ´Ï¶ó¸é (0ÀÌ ÀÏ¹Ý Áö¿ªÀÌ´Ù.), ¿î¿µÀÚ¸¸ÀÌ ³»¸± ¼ö ÀÖ´Ù.
+        // ì¼ë°˜ ì§€ì—­ì´ ì•„ë‹ˆë¼ë©´ (0ì´ ì¼ë°˜ ì§€ì—­ì´ë‹¤.), ìš´ì˜ìžë§Œì´ ë‚´ë¦´ ìˆ˜ ìžˆë‹¤.
         if (pZone->getZoneLevel(x, y) & SAFE_ZONE) {
             if (pSlayer->isGOD() || pSlayer->isDM())
                 bSuccess = true;

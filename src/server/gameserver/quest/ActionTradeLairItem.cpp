@@ -1,18 +1,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionTradeLairItem.cpp
-// Written By  : ÀåÈ«Ã¢
+// Written By  : ì¥í™ì°½
 // Description :
-//               ·¹¾î ¸¶½ºÅÍ¸¦ Á×¿´À» °æ¿ì »ı±â´Â ¾ÆÀÌÅÛÀ»
-//               NPC¿Í ±³È¯ÇÏ´Â ·ÎÁ÷ÀÌ´Ù.
-//               »ı¼ºµÇ´Â ¾ÆÀÌÅÛÀº RandomÇÏ°Ô °áÁ¤µÈ´Ù. ( ÀÌ °æ¿ì GamebleÀ»
-//               Àß ÀÌ¿ëÇÏ¸é ½¬¿ï µí ÇÏ´Ù)
+//               ë ˆì–´ ë§ˆìŠ¤í„°ë¥¼ ì£½ì˜€ì„ ê²½ìš° ìƒê¸°ëŠ” ì•„ì´í…œì„
+//               NPCì™€ êµí™˜í•˜ëŠ” ë¡œì§ì´ë‹¤.
+//               ìƒì„±ë˜ëŠ” ì•„ì´í…œì€ Randomí•˜ê²Œ ê²°ì •ëœë‹¤. ( ì´ ê²½ìš° Gamebleì„
+//               ì˜ ì´ìš©í•˜ë©´ ì‰¬ìš¸ ë“¯ í•˜ë‹¤)
 //
 //
 // History.
 //
 //  Date        Writer         Description
 // ---------- ----------- ------------------------------------------------------
-// 2002.09.04   ÀåÈ«Ã¢     ½Å±Ô »ı¼º
+// 2002.09.04   ì¥í™ì°½     ì‹ ê·œ ìƒì„±
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionTradeLairItem.h"
@@ -53,7 +53,7 @@ void ActionTradeLairItem::read(PropertyBuffer& propertyBuffer)
     __BEGIN_TRY
 
     try {
-        // ¹ŞÀ» µ·ÀÇ ¾çÀ» ÀĞ¾îµéÀÎ´Ù.
+        // ë°›ì„ ëˆì˜ ì–‘ì„ ì½ì–´ë“¤ì¸ë‹¤.
         m_Type = (ItemType_t)propertyBuffer.getPropertyInt("Type");
     } catch (NoSuchElementException& nsee) {
         throw Error(nsee.toString());
@@ -63,7 +63,7 @@ void ActionTradeLairItem::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -92,7 +92,7 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
     /*
 
     GCSystemMessage gcSystemMessage;
-    gcSystemMessage.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù");
+    gcSystemMessage.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ì…ë‹ˆë‹¤");
     pPlayer->sendPacket(&gcSystemMessage);
     */
 
@@ -101,19 +101,19 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
 
     Inventory* pInventory = pPC->getInventory();
 
-    // ¸ÕÀú ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´Â°¡¸¦ Ã¼Å©ÇÑ´Ù.
+    // ë¨¼ì € ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ê°€ë¥¼ ì²´í¬í•œë‹¤.
     Item* pMasterItem = NULL;
     MonsterType_t MonsterType = 0;
 
     Item* pItem1 = NULL;
     bool bUpgrade = false;
 
-    // ¿É¼Ç¿¡ µû¶ó¼­ ´Ù¸¥ ¾ÆÀÌÅÛÀ» °Ë»çÇØ¾ß ÇÑ´Ù.
-    // ÄÚ³­ : ÆÒ´øÆ®/ ºñÁê¸¸ Ã¼Å©ÇÑ´Ù.
-    // ºê¸®Äİ¶óÄ«½º: Å×ÆäÁî Ææ´øÆ®/ºñÁê¸¸ Ã¼Å©ÇØ¾ß ÇÑ´Ù
-    // Ä«ÀÓ : ¹ÙÅä¸® ÆÒ´øÆ®/ºñÁê¸¸ Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+    // ì˜µì…˜ì— ë”°ë¼ì„œ ë‹¤ë¥¸ ì•„ì´í…œì„ ê²€ì‚¬í•´ì•¼ í•œë‹¤.
+    // ì½”ë‚œ : íŒ¬ë˜íŠ¸/ ë¹„ì¥¬ë§Œ ì²´í¬í•œë‹¤.
+    // ë¸Œë¦¬ì½œë¼ì¹´ìŠ¤: í…Œí˜ì¦ˆ íœë˜íŠ¸/ë¹„ì¥¬ë§Œ ì²´í¬í•´ì•¼ í•œë‹¤
+    // ì¹´ì„ : ë°”í† ë¦¬ íŒ¬ë˜íŠ¸/ë¹„ì¥¬ë§Œ ì²´í¬í•´ì•¼ í•œë‹¤.
 
-    if (m_Type == 0) // ÄÚ³­, ºñÁê
+    if (m_Type == 0) // ì½”ë‚œ, ë¹„ì¥¬
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 0);
         MonsterType = BATORI_TYPE;
@@ -122,12 +122,12 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
             pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 2);
             MonsterType = TEPEZ_TYPE;
             if (pMasterItem == NULL) {
-                pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); // Áúµå·¹ ºñÁê
+                pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); // ì§ˆë“œë ˆ ë¹„ì¥¬
                 MonsterType = GDR_TYPE;
                 bUpgrade = true;
             }
         }
-    } else if (m_Type == 1) // ÄÚ³­, ÆÒ´øÆ®
+    } else if (m_Type == 1) // ì½”ë‚œ, íŒ¬ë˜íŠ¸
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 1);
         MonsterType = BATORI_TYPE;
@@ -136,50 +136,50 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
             pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 3);
             MonsterType = TEPEZ_TYPE;
             if (pMasterItem == NULL) {
-                pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); // Áúµå·¹ Ææ´øÆ®
+                pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); // ì§ˆë“œë ˆ íœë˜íŠ¸
                 MonsterType = GDR_TYPE;
                 bUpgrade = true;
             }
         }
-    } else if (m_Type == 2) // ºê¸®Äİ¶óÄ«½º, ºñÁê
+    } else if (m_Type == 2) // ë¸Œë¦¬ì½œë¼ì¹´ìŠ¤, ë¹„ì¥¬
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 2);
-        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //Áúµå·¹
-        // ºñÁê
+        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //ì§ˆë“œë ˆ
+        // ë¹„ì¥¬
         MonsterType = TEPEZ_TYPE;
-    } else if (m_Type == 3) // ºê¸®Äİ¶óÄ«½º, ÆÒ´øÆ®
+    } else if (m_Type == 3) // ë¸Œë¦¬ì½œë¼ì¹´ìŠ¤, íŒ¬ë˜íŠ¸
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 3);
-        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //Áúµå·¹
-        // Ææ´øÆ®
+        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //ì§ˆë“œë ˆ
+        // íœë˜íŠ¸
         MonsterType = TEPEZ_TYPE;
-    } else if (m_Type == 4) // Ä«ÀÓ, ºñÁê
+    } else if (m_Type == 4) // ì¹´ì„, ë¹„ì¥¬
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 0);
-        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //Áúµå·¹
-        // ºñÁê
+        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //ì§ˆë“œë ˆ
+        // ë¹„ì¥¬
         MonsterType = BATORI_TYPE;
-    } else if (m_Type == 5) // Ä«ÀÓ, ÆÒ´øÆ®
+    } else if (m_Type == 5) // ì¹´ì„, íŒ¬ë˜íŠ¸
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 1);
-        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //Áúµå·¹
-        // Ææ´øÆ®
+        //		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //ì§ˆë“œë ˆ
+        // íœë˜íŠ¸
         MonsterType = BATORI_TYPE;
-    } else if (m_Type == 10) // Áúµå·¹, ºñÁê
+    } else if (m_Type == 10) // ì§ˆë“œë ˆ, ë¹„ì¥¬
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8);
         bUpgrade = true;
         MonsterType = GDR_TYPE;
-    } else if (m_Type == 11) // Áúµå·¹, ÆÒ´øÆ®
+    } else if (m_Type == 11) // ì§ˆë“œë ˆ, íŒ¬ë˜íŠ¸
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9);
         bUpgrade = true;
         MonsterType = GDR_TYPE;
-    } else if (m_Type == 6) // Áª½ºÅæÀÌÁö·Õ~
+    } else if (m_Type == 6) // ì ¬ìŠ¤í†¤ì´ì§€ë¡±~
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 4);
         MonsterType = BATORI_TYPE;
-    } else if (m_Type == 7) // º¸¸§´Ş~
+    } else if (m_Type == 7) // ë³´ë¦„ë‹¬~
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 5);
         ItemMineInfo* pItemMineInfo;
@@ -190,7 +190,7 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
 
             Attr_t totalAttr = pSlayer->getTotalAttr(ATTR_BASIC);
 
-            if (totalAttr <= 130) // ÇÏµåÄÚµù ¤Ì.¤Ğ
+            if (totalAttr <= 130) // í•˜ë“œì½”ë”© ã…œ.ã… 
                 pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(0);
             else if (totalAttr <= 210)
                 pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(1);
@@ -237,7 +237,7 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
 
         pItem1 = pItemMineInfo->getItem();
         setItemGender(pItem1, (pPC->getSex() == FEMALE) ? GENDER_FEMALE : GENDER_MALE);
-    } else if (m_Type == 8) // ±×¹Ê´Ş~
+    } else if (m_Type == 8) // ê·¸ë¯ë‹¬~
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 6);
 
@@ -250,7 +250,7 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
         }
 
         setItemGender(pItem1, (pPC->getSex() == FEMALE) ? GENDER_FEMALE : GENDER_MALE);
-    } else if (m_Type == 9) // »¡°£»ö º¹ÁÖ¸Ó´Ï
+    } else if (m_Type == 9) // ë¹¨ê°„ìƒ‰ ë³µì£¼ë¨¸ë‹ˆ
     {
         pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 7);
 
@@ -262,8 +262,8 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
             pItem1 = g_pItemMineInfoManager->getRandomItem(97, 112);
         }
     } else {
-        // °Å·¡¸¦ À§ÇÑ NPCÀÇ Property°¡ Àß¸øµÇ¾ú´Ù. ÀÌ·± °æ¿ì¿¡´Â
-        // ¿î¿µÆÀÀ¸·Î ¹®ÀÇ¸¦ ÇÏ¸é ¹Ù·Î Ã³¸®¸¦ ÇÒ ¼ö ÀÖ´Ù.
+        // ê±°ë˜ë¥¼ ìœ„í•œ NPCì˜ Propertyê°€ ì˜ëª»ë˜ì—ˆë‹¤. ì´ëŸ° ê²½ìš°ì—ëŠ”
+        // ìš´ì˜íŒ€ìœ¼ë¡œ ë¬¸ì˜ë¥¼ í•˜ë©´ ë°”ë¡œ ì²˜ë¦¬ë¥¼ í•  ìˆ˜ ìˆë‹¤.
         GCSystemMessage gcSystemMessage;
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NPC_ERROR));
         pPlayer->sendPacket(&gcSystemMessage);
@@ -288,21 +288,21 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
 
     Zone* pZone = pPC->getZone();
 
-    //	if ( MonsterType != 0 ) // ·çÆÃÇ¥¸¦ ÂüÁ¶ÇØ¼­ ¾ÆÀÌÅÛÀ» ¸¸µé¾î¿À´Â °æ¿ì
+    //	if ( MonsterType != 0 ) // ë£¨íŒ…í‘œë¥¼ ì°¸ì¡°í•´ì„œ ì•„ì´í…œì„ ë§Œë“¤ì–´ì˜¤ëŠ” ê²½ìš°
     if (pItem1 == NULL) {
         QuestItemInfo* pItemInfo =
             dynamic_cast<QuestItemInfo*>(g_pQuestItemInfoManager->getItemInfo(pMasterItem->getItemType()));
         Assert(pItemInfo != NULL);
 
         ///////////////////////////////////////////////////////////////////////////////
-        // °¡Àå ³­°¨ÇÑ ºÎºĞ
-        //   ¾ÆÀÌÅÛÀ» ·£´ıÇÏ°Ô ¼±ÅÃÇØ¾ß ÇÑ´Ù.
-        //   ÀÏ´ÜÀº ±âº» ¾ÆÀÌÅÛ ÇÏ³ª·Î ÇÑ´Ù.
+        // ê°€ì¥ ë‚œê°í•œ ë¶€ë¶„
+        //   ì•„ì´í…œì„ ëœë¤í•˜ê²Œ ì„ íƒí•´ì•¼ í•œë‹¤.
+        //   ì¼ë‹¨ì€ ê¸°ë³¸ ì•„ì´í…œ í•˜ë‚˜ë¡œ í•œë‹¤.
         //////////////////////////////////////////////////////////////////////////////
         const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(MonsterType);
         TreasureList* pTreasureList = NULL;
 
-        // Á¾Á·¿¡ µû¶ó¼­ ÁÖ´Â ¾ÆÀÌÅÛµµ ´Ş¶ó¾ß ÇÑ´Ù.
+        // ì¢…ì¡±ì— ë”°ë¼ì„œ ì£¼ëŠ” ì•„ì´í…œë„ ë‹¬ë¼ì•¼ í•œë‹¤.
         if (pCreature2->isSlayer())
             pTreasureList = pMonsterInfo->getSlayerTreasureList();
         else if (pCreature2->isVampire())
@@ -322,7 +322,7 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
             it.ItemClass = Item::ITEM_CLASS_MAX;
             it.ItemType = 0;
 
-            // QuestItem ¸¶´Ù ´Ù¸¥.. ¿É¼ÇÀÌ 2°³ ºÙÀ» È®·ü
+            // QuestItem ë§ˆë‹¤ ë‹¤ë¥¸.. ì˜µì…˜ì´ 2ê°œ ë¶™ì„ í™•ë¥ 
             it.NextOptionRatio = pItemInfo->getBonusRatio();
 
             // cout << "TradeLairItem: BonusRatio = " << it.NextOptionRatio << endl;
@@ -362,7 +362,7 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
     pItem1->setGrade(min(7, ItemGradeManager::Instance().getRandomBeadGrade()));
     pZone->registerObject(pItem1);
 
-    // ¸¸¾à inventory¿¡ °ø°£ÀÌ ÀÖ´Ù¸é, ³Ö´Â´Ù.
+    // ë§Œì•½ inventoryì— ê³µê°„ì´ ìˆë‹¤ë©´, ë„£ëŠ”ë‹¤.
     if (pInventory->addItem(pItem1, pt)) {
         pItem1->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
 
@@ -381,34 +381,34 @@ void ActionTradeLairItem::execute(Creature* pCreature1, Creature* pCreature2)
 
         pPlayer->sendPacket(&gcCreateItem);
 
-        // ItemTraceLog ¸¦ ³²±ä´Ù
+        // ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
         if (pItem1 != NULL && pItem1->isTraceItem()) {
             remainTraceLog(pItem1, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
         }
 
-        // ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀ» ¾ø¾Ø´Ù
+        // ê¸°ì¡´ì˜ ì•„ì´í…œì„ ì—†ì•¤ë‹¤
         GCDeleteInventoryItem gcDeleteInventoryItem;
         gcDeleteInventoryItem.setObjectID(pMasterItem->getObjectID());
         pPlayer->sendPacket(&gcDeleteInventoryItem);
 
-        // ¼­¹ö¿¡¼­ ¾ø¾ÖÁØ´Ù.
-        pInventory->deleteItem(pMasterItem->getObjectID()); // ÁÂÇ¥·Î ¹Ù²ãÁÖ¸é ÁÁÀ»°Çµ¥..
-        // ItemTraceLog ¸¦ ³²±ä´Ù
+        // ì„œë²„ì—ì„œ ì—†ì• ì¤€ë‹¤.
+        pInventory->deleteItem(pMasterItem->getObjectID()); // ì¢Œí‘œë¡œ ë°”ê¿”ì£¼ë©´ ì¢‹ì„ê±´ë°..
+        // ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
         if (pMasterItem != NULL && pMasterItem->isTraceItem()) {
             remainTraceLog(pMasterItem, pCreature2->getName(), pCreature1->getName(), ITEM_LOG_DELETE, DETAIL_EVENTNPC);
         }
         pMasterItem->destroy();
         SAFE_DELETE(pMasterItem);
 
-        // »ç¿ëÀÚ¿¡°Ô ¼º°ø ¸Ş½ÃÁö Ãâ·Â
+        // ì‚¬ìš©ìì—ê²Œ ì„±ê³µ ë©”ì‹œì§€ ì¶œë ¥
         //		StringStream message;
-        //		message << "¼º°øÀûÀ¸·Î ±³È¯µÇ¾ú½À´Ï´Ù";
+        //		message << "ì„±ê³µì ìœ¼ë¡œ êµí™˜ë˜ì—ˆìŠµë‹ˆë‹¤";
         GCSystemMessage gcSystemMessage;
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_TRADE_SUCCESS));
         pPlayer->sendPacket(&gcSystemMessage);
     } else {
         //		StringStream buf;
-        //		buf << "ÀÎº¥Åä¸®¿¡ °ø°£ÀÌ ºÎÁ·ÇÕ´Ï´Ù";
+        //		buf << "ì¸ë²¤í† ë¦¬ì— ê³µê°„ì´ ë¶€ì¡±í•©ë‹ˆë‹¤";
 
         GCSystemMessage gcSystemMessage;
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE));

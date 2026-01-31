@@ -13,7 +13,7 @@
 #include "SkillUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MultiAmputate::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -43,7 +43,7 @@ void MultiAmputate::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
     Creature* pTargetCreature = pSlayer->getZone()->getCreature(TargetObjectID);
     bool bRangeCheck = pTargetCreature != NULL && verifyDistance(pSlayer, pTargetCreature, output.Range);
 
-    // Àú ¾È¿¡¼­´Â Max Range ¸¸ Ã¼Å©ÇÑ´Ù. -_-;
+    // ì € ì•ˆì—ì„œëŠ” Max Range ë§Œ ì²´í¬í•œë‹¤. -_-;
     if (!bRangeCheck) {
         executeSkillFailNormal(pSlayer, param.SkillType, pTargetCreature);
         return;

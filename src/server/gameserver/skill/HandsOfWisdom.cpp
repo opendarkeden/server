@@ -10,7 +10,7 @@
 #include "SimpleMeleeSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HandsOfWisdom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                             CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void HandsOfWisdom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampir
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Tiger Nail ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 10% Áõ°¡
+    // Tiger Nail ì´ ìˆë‹¤ë©´ ë°ë¯¸ì§€ 10% ì¦ê°€
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
         Assert(pRankBonus != NULL);
@@ -46,7 +46,7 @@ void HandsOfWisdom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampir
         param.SkillDamage += getPercentValue(param.SkillDamage, pRankBonus->getPoint());
     }
 
-    // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus °¡ ÀÖ´Ù.
+    // Knowledge of Innate ê°€ ìˆë‹¤ë©´ hit bonus ê°€ ìˆë‹¤.
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -63,7 +63,7 @@ void HandsOfWisdom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampir
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HandsOfWisdom::execute(Monster* pMonster, Creature* pEnemy)
 

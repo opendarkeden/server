@@ -47,9 +47,9 @@ public:
     string toString() const;
 
 private:
-    SpriteType_t m_SpriteType; // ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ
-    WORD m_MaxMonsters;        // ¸ó½ºÅÍÀÇ ÃÖ´ë ¸¶¸´¼ö
-    WORD m_CurrentMonsters;    // ¸ó½ºÅÍÀÇ ÇöÀç ¸¶¸´¼ö
+    SpriteType_t m_SpriteType; // ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…
+    WORD m_MaxMonsters;        // ëª¬ìŠ¤í„°ì˜ ìµœëŒ€ ë§ˆë¦¿ìˆ˜
+    WORD m_CurrentMonsters;    // ëª¬ìŠ¤í„°ì˜ í˜„ì¬ ë§ˆë¦¿ìˆ˜
 
     static DWORD s_MonsterCounter;
 };

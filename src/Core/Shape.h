@@ -2,8 +2,8 @@
 // Filename    : Shape.h
 // Written by  : excel96
 // Description :
-// ·Î±×ÀÎÈ­¸é¿¡¼­ ½½·¹ÀÌ¾îÀÇ ¿Ü¾çÀ» º¸¿©ÁÖ´Â µ¥ ÇÊ¿äÇÑ ÇÔ¼öµé.
-// ¾ÆÀÌÅÛ Å¸ÀÔ¿¡ µû¸¥ °Ñ¸ğ½À »ó¼ö¸¦ ¸®ÅÏÇÏ´Â ÇÔ¼öµéÀÌ´Ù.
+// ë¡œê·¸ì¸í™”ë©´ì—ì„œ ìŠ¬ë ˆì´ì–´ì˜ ì™¸ì–‘ì„ ë³´ì—¬ì£¼ëŠ” ë° í•„ìš”í•œ í•¨ìˆ˜ë“¤.
+// ì•„ì´í…œ íƒ€ì…ì— ë”°ë¥¸ ê²‰ëª¨ìŠµ ìƒìˆ˜ë¥¼ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜ë“¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SHAPE_H__
@@ -19,10 +19,10 @@ HelmetType getHelmetType(ItemType_t IType);
 ShieldType getShieldType(ItemType_t IType);
 MotorcycleType getMotorcycleType(ItemType_t IType);
 
-// ¹ìÆÄÀÌ¾î
+// ë±€íŒŒì´ì–´
 VampireCoatType getVampireCoatType(ItemType_t IType);
 
-// ¾Æ¿ì½ºÅÍ½º
+// ì•„ìš°ìŠ¤í„°ìŠ¤
 OustersCoatType getOustersCoatType(ItemType_t IType);
 OustersArmType getOustersArmType(ItemType_t IType);
 

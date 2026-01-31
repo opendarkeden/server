@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectStorm.cpp
-// Written by  : ÀåÈ«Ã¢
+// Written by  : ìž¥í™ì°½
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -60,13 +60,13 @@ void EffectStorm::affect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // EffectStormÀº AcidStorm, PoisonStorm, BloodyStormÀ§¸¦ Áö³ª°¥¶§ ºÙ´Â´Ù.
-    // ÀÌ´Â 3¹øÀÇ ¿¬¼Ó µ¥¹ÌÁö¸¦ ÁÖ°í »ç¶óÁø´Ù.
+    // EffectStormì€ AcidStorm, PoisonStorm, BloodyStormìœ„ë¥¼ ì§€ë‚˜ê°ˆë•Œ ë¶™ëŠ”ë‹¤.
+    // ì´ëŠ” 3ë²ˆì˜ ì—°ì† ë°ë¯¸ì§€ë¥¼ ì£¼ê³  ì‚¬ë¼ì§„ë‹¤.
 
     Damage_t StormDamage = m_Point;
 
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
         && canAttack(NULL, pCreature) && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA) && !pCreature->isDead()) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -82,7 +82,7 @@ void EffectStorm::affect(Creature* pCreature)
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pSlayer->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pSlayer->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -102,7 +102,7 @@ void EffectStorm::affect(Creature* pCreature)
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pVampire->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pVampire->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -122,7 +122,7 @@ void EffectStorm::affect(Creature* pCreature)
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pOusters->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pOusters->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -138,7 +138,7 @@ void EffectStorm::affect(Creature* pCreature)
 
                 pMonster->setHP(RemainHP, ATTR_CURRENT);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pMonster->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -147,7 +147,7 @@ void EffectStorm::affect(Creature* pCreature)
         }
 
 
-        // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
         // by sigi. 2002.9.9
         if (pCreature->isDead()) {
             Creature* pAttacker = pZone->getCreature(m_CasterName);
@@ -188,7 +188,7 @@ void EffectStorm::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_STORM);

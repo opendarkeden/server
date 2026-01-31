@@ -10,7 +10,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void LightBall::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -37,7 +37,7 @@ void LightBall::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Holy Smashing ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö Áõ°¡
+    // Holy Smashing ì´ ìžˆë‹¤ë©´ ë°ë¯¸ì§€ ì¦ê°€
     if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING)) {
         RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING);
         Assert(pRankBonus != NULL);

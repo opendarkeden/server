@@ -23,27 +23,27 @@ public:
     void init();
 
 public:
-    // ÆĞÅ¶ »ı¼ºÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+    // íŒ¨í‚· ìƒì„±ìë¥¼ ì¶”ê°€í•œë‹¤.
     void addCreator(MPacket* pPacket);
 
-    // ÆĞÅ¶ ÇÚµé·¯¸¦ Ãß°¡ÇÑ´Ù.
+    // íŒ¨í‚· í•¸ë“¤ëŸ¬ë¥¼ ì¶”ê°€í•œë‹¤.
     void addHandler(MPacketHandler* pHandler);
 
 public:
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯ÇÑ´Ù.
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜í•œë‹¤.
     MPacket* createPacket(MPacketID_t ID) const;
 
-    // ÆĞÅ¶ÀÇ ÇÚµé·¯¸¦ ½ÇÇàÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í•¸ë“¤ëŸ¬ë¥¼ ì‹¤í–‰í•œë‹¤.
     void execute(GameServerPlayer* pPlayer, MPacket* pPacket);
 
-    // ÆĞÅ¶ÀÇ ÇÚµé·¯°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í•¸ë“¤ëŸ¬ê°€ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     bool hasHandler(MPacketID_t ID) const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getPacketSize(MPacketID_t ID) const;
 
 private:
-    // ³»ºÎ ±¸Çö µ¥ÀÌÅÍ
+    // ë‚´ë¶€ êµ¬í˜„ ë°ì´í„°
     struct IMPL;
     IMPL* m_pImpl;
 };

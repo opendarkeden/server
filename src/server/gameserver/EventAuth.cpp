@@ -22,7 +22,7 @@
 EventAuth::EventAuth(GamePlayer* pGamePlayer)
 
     : Event(pGamePlayer) {
-    // 1ºĞ
+    // 1ë¶„
     setDeadline(600);
 }
 
@@ -46,15 +46,15 @@ void EventAuth::activate()
 
         // if ( !m_pGamePlayer->getCSAuth().IsAuth() )
         if (true) {
-            filelog("CSAuth.log", "[%s] ÀÎÁõ ½Ã°£ Á¦ÇÑÀ» ÃÊ°úÇß½À´Ï´Ù.", m_pGamePlayer->getID().c_str());
+            filelog("CSAuth.log", "[%s] ì¸ì¦ ì‹œê°„ ì œí•œì„ ì´ˆê³¼í–ˆìŠµë‹ˆë‹¤.", m_pGamePlayer->getID().c_str());
 
             GCSystemMessage gcSystemMessage;
-            gcSystemMessage.setMessage("nProtect GameGuard ÈÏÖ¤Ê§°Ü.Ö´ĞĞÎÄ¼ş´íÎó»òGameGuardÎÄ¼şËğ»µ.");
+            gcSystemMessage.setMessage("nProtect GameGuard í›°è¯å‘µê²¨.çµï¤‰åŒ¡ìˆ­ëŒ„è½ìƒ€GameGuardåŒ¡ìˆ­æ„†ë».");
             m_pGamePlayer->sendPacket(&gcSystemMessage);
 
             EventKick* pKick = new EventKick(m_pGamePlayer);
             pKick->setDeadline(100);
-            //			pKick->setMessage("GameGuard ÀÎÁõ Á¦ÇÑ ½Ã°£ÀÌ ÃÊ°úÇß½À´Ï´Ù.. 10ÃÊ µÚ¿¡ Á¢¼ÓÀÌ Á¾·áµË´Ï´Ù.");
+            //			pKick->setMessage("GameGuard ì¸ì¦ ì œí•œ ì‹œê°„ì´ ì´ˆê³¼í–ˆìŠµë‹ˆë‹¤.. 10ì´ˆ ë’¤ì— ì ‘ì†ì´ ì¢…ë£Œë©ë‹ˆë‹¤.");
             pKick->sendMessage();
 
             m_pGamePlayer->addEvent(pKick);
@@ -66,7 +66,7 @@ void EventAuth::activate()
         }
     }
 
-    // 5ºĞ¿¡ ÇÑ¹ø
+    // 5ë¶„ì— í•œë²ˆ
     Timeval delay;
     delay.tv_sec = 300;
     delay.tv_usec = 0;

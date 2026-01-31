@@ -46,16 +46,16 @@ void DragonEyeManager::initDefaultPositions()
 {
     __BEGIN_TRY
 
-    // ÀüÀï ½ÃÀÛ½Ã DragonEye ÀÇ ½ÃÀÛ À§Ä¡ ¼³Á¤.
-    m_DefaultPositions[0].set(73, 24, 121);  // ½½·¹ÀÌ¾î / ¾Æ´ã¼­ / 24 / 121
-    m_DefaultPositions[1].set(1201, 62, 68); // ½½·¹ÀÌ¾î / ¿ÁÅ¸ºÎ½º / 62 / 68
-    m_DefaultPositions[2].set(1203, 85, 50); // ½½·¹ÀÌ¾î / ¼ÁÆ¼¹«½º / 85 / 50
-    m_DefaultPositions[3].set(71, 111, 124); // ¹ìÆÄÀÌ¾î / ¾Æ´ãµ¿ / 111 / 124
-    m_DefaultPositions[4].set(1204, 62, 69); // ¹ìÆÄÀÌ¾î / Äí¾Æ¸£Åõ½º / 62 / 69
-    m_DefaultPositions[5].set(1202, 81, 52); // ¹ìÆÄÀÌ¾î / Å×¸£Æ¼¿ì½º / 81 / 52
-    m_DefaultPositions[6].set(72, 66, 168);  // ¾Æ¿ì½ºÅÍÁî / ¾Æ´ã / 66 / 168
-    m_DefaultPositions[7].set(1205, 62, 69); // ¾Æ¿ì½ºÅÍÁî / ÆæÅ¸´©½º / 62 / 69
-    m_DefaultPositions[8].set(1206, 82, 52); // ¾Æ¿ì½ºÅÍÁî / Çí½Ã¸®¿ì½º / 82 / 52
+    // ì „ìŸ ì‹œì‘ì‹œ DragonEye ì˜ ì‹œì‘ ìœ„ì¹˜ ì„¤ì •.
+    m_DefaultPositions[0].set(73, 24, 121);  // ìŠ¬ë ˆì´ì–´ / ì•„ë‹´ì„œ / 24 / 121
+    m_DefaultPositions[1].set(1201, 62, 68); // ìŠ¬ë ˆì´ì–´ / ì˜¥íƒ€ë¶€ìŠ¤ / 62 / 68
+    m_DefaultPositions[2].set(1203, 85, 50); // ìŠ¬ë ˆì´ì–´ / ì…‰í‹°ë¬´ìŠ¤ / 85 / 50
+    m_DefaultPositions[3].set(71, 111, 124); // ë±€íŒŒì´ì–´ / ì•„ë‹´ë™ / 111 / 124
+    m_DefaultPositions[4].set(1204, 62, 69); // ë±€íŒŒì´ì–´ / ì¿ ì•„ë¥´íˆ¬ìŠ¤ / 62 / 69
+    m_DefaultPositions[5].set(1202, 81, 52); // ë±€íŒŒì´ì–´ / í…Œë¥´í‹°ìš°ìŠ¤ / 81 / 52
+    m_DefaultPositions[6].set(72, 66, 168);  // ì•„ìš°ìŠ¤í„°ì¦ˆ / ì•„ë‹´ / 66 / 168
+    m_DefaultPositions[7].set(1205, 62, 69); // ì•„ìš°ìŠ¤í„°ì¦ˆ / íœíƒ€ëˆ„ìŠ¤ / 62 / 69
+    m_DefaultPositions[8].set(1206, 82, 52); // ì•„ìš°ìŠ¤í„°ì¦ˆ / í—¥ì‹œë¦¬ìš°ìŠ¤ / 82 / 52
 
     __END_CATCH
 }
@@ -65,7 +65,7 @@ void DragonEyeManager::createAllDragonEyes()
 {
     __BEGIN_TRY
 
-    // ÀÏ´Ü µå·¡°ï ¾ÆÀÌ ÀÌÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+    // ì¼ë‹¨ ë“œë˜ê³¤ ì•„ì´ ì´ì´í…œì„ ìƒì„±í•œë‹¤.
     for (int i = 0; i < nDragonEyes; ++i) {
         list<OptionType_t> optionNull;
         Item* pItem = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_WAR_ITEM, 0, optionNull);
@@ -96,7 +96,7 @@ void DragonEyeManager::addAllDragonEyesToZone()
 {
     __BEGIN_TRY
 
-    // ¾ÆÀÌÅÛÀ» °¢ÀÚÀÇ ÃÊ±â À§Ä¡¿¡ ³õ´Â´Ù.
+    // ì•„ì´í…œì„ ê°ìì˜ ì´ˆê¸° ìœ„ì¹˜ì— ë†“ëŠ”ë‹¤.
     for (int i = 0; i < nDragonEyes; ++i) {
         Zone* pZone = getZoneByZoneID(m_DefaultPositions[i].id);
         Assert(pZone != NULL);
@@ -104,7 +104,7 @@ void DragonEyeManager::addAllDragonEyesToZone()
         Item* pItem = m_DragonEyes[i];
         Assert(pItem != NULL);
 
-        // Á¸¿¡ ¾ÆÀÌÅÛ Ãß°¡ÇÏ±â
+        // ì¡´ì— ì•„ì´í…œ ì¶”ê°€í•˜ê¸°
         pZone->addItemDelayed(pItem, m_DefaultPositions[i].x, m_DefaultPositions[i].y);
     }
 
@@ -116,7 +116,7 @@ void DragonEyeManager::removeAllDragonEyes()
 {
     __BEGIN_TRY
 
-    // Á¸ÀçÇÏ´Â ¸ğµç µå·¡°ï ¾ÆÀÌÀÌ¸¦ º¼ ¼ö ¾øµµ·Ï ¾ø¾Ø´Ù.
+    // ì¡´ì¬í•˜ëŠ” ëª¨ë“  ë“œë˜ê³¤ ì•„ì´ì´ë¥¼ ë³¼ ìˆ˜ ì—†ë„ë¡ ì—†ì•¤ë‹¤.
     for (int i = 0; i < nDragonEyes; ++i) {
         Item::ItemClass ItemClass = Item::ITEM_CLASS_WAR_ITEM;
         ItemID_t ItemID = m_DragonEyes[i]->getItemID();
@@ -126,7 +126,7 @@ void DragonEyeManager::removeAllDragonEyes()
         if (pItemPosition == NULL)
             return;
 
-        // War ¾²·¹µå¿¡¼­ È£Ãâ µÇ¹Ç·Î ¶ô °É¾î¾ß µÈ´Ù.
+        // War ì“°ë ˆë“œì—ì„œ í˜¸ì¶œ ë˜ë¯€ë¡œ ë½ ê±¸ì–´ì•¼ ëœë‹¤.
         pItemPosition->popItem(true);
     }
 
@@ -138,13 +138,13 @@ void DragonEyeManager::warpToDefaultPosition(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // pCreature ´Â µå·¡°ï ¾ÆÀÌ¸¦ °¡Áö°í ÀÖ´Â Å©¸®ÃÄÀÌ´Ù.
-    // µå·¡°ï ¾ÆÀÌ¸¦ °¡Áö°í ÀÖ´ø »ç¿ëÀÚ°¡ Á×°Å³ª ³ª°¡°Å³ª ÇÒ¶§ ºÒ¸°´Ù.
-    // µå·¡°ï ¾ÆÀÌ¸¦ ¿ø·¡ À§Ä¡·Î ÀÌµ¿½ÃÅ°´Â ÄÚµå´Ù.
-    // GlobalItemPositionLoader ¸¦ »ç¿ëÇØ¼­ ¾ÆÀÌÅÛÀ» ¿ø·¡ À§Ä¡¿¡¼­ Á¦°ÅÇÑ´Ù.
-    // ¿ø·¡ Á¸ÀÇ Æ÷ÀÎÅÍ¸¦ °¡Á®¿Í¼­ ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
-    // ÀÌ ÇÔ¼ö´Â »ç¿ëÀÚ°¡ ¾î¶² Çàµ¿À» ÇÒ¶§ ºÒ¸®´Â ÄÚµåÀÌ¹Ç·Î ZoneGroup ¿¡¼­ È£ÃâµÇ´Â ÄÚµåÀÌ´Ù.
-    // ±×·¡¼­ Á¸ÀÇ Æ÷ÀÎÅÍ·Î ÀÛ¾÷À» ÇÒ ¶§ ZoneGroup À» ºñ±³ÇØº¸°í ÀÛ¾÷À» ÇÑ´Ù.
+    // pCreature ëŠ” ë“œë˜ê³¤ ì•„ì´ë¥¼ ê°€ì§€ê³  ìˆëŠ” í¬ë¦¬ì³ì´ë‹¤.
+    // ë“œë˜ê³¤ ì•„ì´ë¥¼ ê°€ì§€ê³  ìˆë˜ ì‚¬ìš©ìê°€ ì£½ê±°ë‚˜ ë‚˜ê°€ê±°ë‚˜ í• ë•Œ ë¶ˆë¦°ë‹¤.
+    // ë“œë˜ê³¤ ì•„ì´ë¥¼ ì›ë˜ ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¤ëŠ” ì½”ë“œë‹¤.
+    // GlobalItemPositionLoader ë¥¼ ì‚¬ìš©í•´ì„œ ì•„ì´í…œì„ ì›ë˜ ìœ„ì¹˜ì—ì„œ ì œê±°í•œë‹¤.
+    // ì›ë˜ ì¡´ì˜ í¬ì¸í„°ë¥¼ ê°€ì ¸ì™€ì„œ ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
+    // ì´ í•¨ìˆ˜ëŠ” ì‚¬ìš©ìê°€ ì–´ë–¤ í–‰ë™ì„ í• ë•Œ ë¶ˆë¦¬ëŠ” ì½”ë“œì´ë¯€ë¡œ ZoneGroup ì—ì„œ í˜¸ì¶œë˜ëŠ” ì½”ë“œì´ë‹¤.
+    // ê·¸ë˜ì„œ ì¡´ì˜ í¬ì¸í„°ë¡œ ì‘ì—…ì„ í•  ë•Œ ZoneGroup ì„ ë¹„êµí•´ë³´ê³  ì‘ì—…ì„ í•œë‹¤.
     EffectDragonEye* pEffect =
         dynamic_cast<EffectDragonEye*>(pCreature->getEffectManager()->findEffect(Effect::EFFECT_CLASS_DRAGON_EYE));
     Assert(pEffect != NULL);

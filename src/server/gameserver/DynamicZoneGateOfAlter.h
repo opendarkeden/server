@@ -17,8 +17,8 @@ public:
     virtual ~DynamicZoneGateOfAlter();
 
 public:
-    void init();      // ´ÙÀÌ³ª¹Í Á¸ ÃÊ±âÈ­
-    void heartbeat(); // ´ÙÀÌ³ª¹Í Á¸ ÇÏÆ®ºñÆ®
+    void init();      // ë‹¤ì´ë‚˜ë¯¹ ì¡´ ì´ˆê¸°í™”
+    void heartbeat(); // ë‹¤ì´ë‚˜ë¯¹ ì¡´ í•˜íŠ¸ë¹„íŠ¸
 
 public:
     bool checkPC();

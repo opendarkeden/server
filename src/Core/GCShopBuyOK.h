@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCShopBuyOK.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ÇÃ·¹ÀÌ¾î°¡ »óÁ¡ NPC¿¡°Ô ¹°°Ç ±¸ÀÔÀ» ¿äÃ»ÇßÀ» ¶§, Á¦´ë·Î
-// ÀÎÁõÀÌ µÇ¸é ÀÌ ÆĞÅ¶ÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ³¯¾Æ°£´Ù.
+// í”Œë ˆì´ì–´ê°€ ìƒì  NPCì—ê²Œ ë¬¼ê±´ êµ¬ì…ì„ ìš”ì²­í–ˆì„ ë•Œ, ì œëŒ€ë¡œ
+// ì¸ì¦ì´ ë˜ë©´ ì´ íŒ¨í‚·ì´ í”Œë ˆì´ì–´ì—ê²Œ ë‚ ì•„ê°„ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SHOP_BUY_OK_H__
@@ -146,17 +146,17 @@ public:
 
 private:
     ObjectID_t m_ObjectID;           // NPC's object id
-    ShopVersion_t m_Version;         // »óÁ¡ ¹öÁ¯
-    ObjectID_t m_ItemObjectID;       // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ OID
-    BYTE m_ItemClass;                // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ class
-    ItemType_t m_ItemType;           // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ type
-    list<OptionType_t> m_OptionType; // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ option type
-    Durability_t m_Durability;       // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ durability
-    ItemNum_t m_ItemNum;             // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ item num
-    Silver_t m_Silver;               // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ silver coating amount
-    Grade_t m_Grade;                 // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ silver coating amount
-    EnchantLevel_t m_EnchantLevel;   // ÇÃ·¹ÀÌ¾î°¡ »ê ¾ÆÀÌÅÛÀÇ enchant level
-    Price_t m_Price;                 // ÇÃ·¹ÀÌ¾î°¡ ÇöÀç µ·
+    ShopVersion_t m_Version;         // ìƒì  ë²„ì ¼
+    ObjectID_t m_ItemObjectID;       // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ OID
+    BYTE m_ItemClass;                // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ class
+    ItemType_t m_ItemType;           // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ type
+    list<OptionType_t> m_OptionType; // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ option type
+    Durability_t m_Durability;       // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ durability
+    ItemNum_t m_ItemNum;             // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ item num
+    Silver_t m_Silver;               // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ silver coating amount
+    Grade_t m_Grade;                 // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ silver coating amount
+    EnchantLevel_t m_EnchantLevel;   // í”Œë ˆì´ì–´ê°€ ì‚° ì•„ì´í…œì˜ enchant level
+    Price_t m_Price;                 // í”Œë ˆì´ì–´ê°€ í˜„ì¬ ëˆ
 };
 
 

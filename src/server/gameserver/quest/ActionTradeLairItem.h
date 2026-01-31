@@ -38,7 +38,7 @@ public:
     }
 
 private:
-    ItemType_t m_Type; // ¹ŞÀ» Ãà±¸°øÀÇ ¼ö
+    ItemType_t m_Type; // ë°›ì„ ì¶•êµ¬ê³µì˜ ìˆ˜
 };
 
 

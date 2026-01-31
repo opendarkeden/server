@@ -12,10 +12,10 @@
 void GearSlotInfo::read(SocketInputStream& iStream) {
     __BEGIN_TRY
 
-    // ¸ÕÀú ÇÏÀ§ Å¬·¡½º¿¡¼­ ÀĞ¾îµéÀÌ°í...
+    // ë¨¼ì € í•˜ìœ„ í´ë˜ìŠ¤ì—ì„œ ì½ì–´ë“¤ì´ê³ ...
     PCItemInfo::read(iStream);
 
-    // ÀÌ Å¬·¡½ºÀÇ µ¥ÀÌÅÍ¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ì´ í´ë˜ìŠ¤ì˜ ë°ì´í„°ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     iStream.read(m_SlotID);
 
     __END_CATCH
@@ -27,10 +27,10 @@ void GearSlotInfo::read(SocketInputStream& iStream) {
 void GearSlotInfo::write(SocketOutputStream& oStream) const {
     __BEGIN_TRY
 
-    // ¸ÕÀú ÇÏÀ§ Å¬·¡½º¿¡¼­ ÀĞ¾îµéÀÌ°í...
+    // ë¨¼ì € í•˜ìœ„ í´ë˜ìŠ¤ì—ì„œ ì½ì–´ë“¤ì´ê³ ...
     PCItemInfo::write(oStream);
 
-    // ÀÌ Å¬·¡½ºÀÇ µ¥ÀÌÅÍ¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ì´ í´ë˜ìŠ¤ì˜ ë°ì´í„°ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     oStream.write(m_SlotID);
 
     __END_CATCH

@@ -2,8 +2,8 @@
 // Filename    : EffectLoveChain.h
 // Written by  : elca@ewestsoft.com
 // Description :
-// ±ºÀÎ±â¼ú Sniping ¶Ç´Â ¹ìÆÄÀÌ¾î ±â¼ú Invisibility·Î ÀÎÇØ¼­
-// ÇöÀç Á¡Á¡ Èñ¹ÌÇØÁ®°¡°í ÀÖ´Â(»ç¶óÁö°í ÀÖ´Â) Å©¸®ÃÄ¿¡ ºÙ´Â ÀÌÆåÆ®ÀÌ´Ù.
+// êµ°ì¸ê¸°ìˆ  Sniping ë˜ëŠ” ë±€íŒŒì´ì–´ ê¸°ìˆ  Invisibilityë¡œ ì¸í•´ì„œ
+// í˜„ì¬ ì ì  í¬ë¯¸í•´ì ¸ê°€ê³  ìˆëŠ”(ì‚¬ë¼ì§€ê³  ìˆëŠ”) í¬ë¦¬ì³ì— ë¶™ëŠ” ì´í™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_LOVE_CHAIN__
@@ -56,10 +56,10 @@ public:
     }
 
 private:
-    ObjectID_t m_OwnerOID;     // ÀÌÆåÆ® °É¸° ³ğÀÇ OwnerID
-    Zone* m_pZone;             // Zone Æ÷ÀÎÅÍ
+    ObjectID_t m_OwnerOID;     // ì´í™íŠ¸ ê±¸ë¦° ë†ˆì˜ OwnerID
+    Zone* m_pZone;             // Zone í¬ì¸í„°
     string m_TargetName;       // Target Name
-    ObjectID_t m_ItemObjectID; // ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ
+    ObjectID_t m_ItemObjectID; // ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””
 };
 
 #endif

@@ -54,16 +54,16 @@ void CGPhoneSayHandler::execute(CGPhoneSay* pPacket, Player* pPlayer)
         }
     }
 
-    // Á¤»óÀûÀÎ Åë½Å »óÅÂÀÏ¶§ Message¸¦ ³¯¸°´Ù.
+    // ì •ìƒì ì¸ í†µì‹  ìƒíƒœì¼ë•Œ Messageë¥¼ ë‚ ë¦°ë‹¤.
     if (Success) {
         SlotID_t TargetPhoneSlot = pTargetSlayer->getSlotWithPhoneNumber(PhoneNumber);
 
         Player* pTargetPlayer = pTargetSlayer->getPlayer();
 
-        // ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÏ¹Ç·Î GC- ÆÐÅ¶À» »ç¿ëÇØ¾ß ÇÑ´Ù.
+        // ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•˜ë¯€ë¡œ GC- íŒ¨í‚·ì„ ì‚¬ìš©í•´ì•¼ í•œë‹¤.
         GCPhoneSay gcPhoneSay;
 
-        // Å©¸®Ã³ ÀÌ¸§°ú ¸Þ½ÃÁö¸¦ ÆÐÅ¶¿¡ ´ëÀÔÇÑ´Ù.
+        // í¬ë¦¬ì²˜ ì´ë¦„ê³¼ ë©”ì‹œì§€ë¥¼ íŒ¨í‚·ì— ëŒ€ìž…í•œë‹¤.
         gcPhoneSay.setSlotID(TargetPhoneSlot);
         gcPhoneSay.setMessage(pPacket->getMessage());
 
@@ -71,7 +71,7 @@ void CGPhoneSayHandler::execute(CGPhoneSay* pPacket, Player* pPlayer)
 
         // cout << "Phone Say Successfull " << endl;
 
-        // »ó´ëÀÇ Á¢¼ÓÀÌ ²÷°å°Å³ª ÀÌ»óÇÑ Áþ°Å¸®°¡ ¹ß»ýÇßÀ»¶§..
+        // ìƒëŒ€ì˜ ì ‘ì†ì´ ëŠê²¼ê±°ë‚˜ ì´ìƒí•œ ì§“ê±°ë¦¬ê°€ ë°œìƒí–ˆì„ë•Œ..
     } else {
         GCPhoneDisconnected gcPhoneDisconnected;
         gcPhoneDisconnected.setSlotID(PhoneSlot);

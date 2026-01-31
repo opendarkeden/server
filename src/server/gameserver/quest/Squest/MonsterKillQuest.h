@@ -59,7 +59,7 @@ public:
     static void initMonsterTypeInfos();
 
 private:
-    typedef vector<MonsterSelector> MonsterTypeInfos; // ·¹º§¿¡ µû¸¥ ¸ó½ºÅÍ Á¾·ù
+    typedef vector<MonsterSelector> MonsterTypeInfos; // ë ˆë²¨ì— ë”°ë¥¸ ëª¬ìŠ¤í„° ì¢…ë¥˜
 
     static MonsterTypeInfos m_MonsterTypeInfos;
 };

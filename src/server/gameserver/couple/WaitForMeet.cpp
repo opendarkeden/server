@@ -33,7 +33,7 @@ uint WaitForMeet::waitPartner(PlayerCreature* pTargetPC) {
     __BEGIN_TRY
 
     if (pTargetPC == NULL)
-        return COUPLE_MESSAGE_LOGOFF; // °Á ÀÌ¸Ş½ÃÁö ¾´´Ù. º°·Î ¿©±â¼­ ¸®ÅÏµÇ´Â ÀÏÀ» ¾øÀ»µí
+        return COUPLE_MESSAGE_LOGOFF; // ê± ì´ë©”ì‹œì§€ ì“´ë‹¤. ë³„ë¡œ ì—¬ê¸°ì„œ ë¦¬í„´ë˜ëŠ” ì¼ì„ ì—†ì„ë“¯
 
     PlayerCreature* pWaitingPC = getWaitingPC();
     if (pWaitingPC == NULL)
@@ -45,7 +45,7 @@ uint WaitForMeet::waitPartner(PlayerCreature* pTargetPC) {
 
     GCSystemMessage gcSystemMessage;
     //	StringStream msg;
-    //	msg << pWaitingPC->getName() << "´ÔÀ¸·ÎºÎÅÍ Ä¿ÇÃ ½ÅÃ»ÀÌ ¿Ô½À´Ï´Ù.";
+    //	msg << pWaitingPC->getName() << "ë‹˜ìœ¼ë¡œë¶€í„° ì»¤í”Œ ì‹ ì²­ì´ ì™”ìŠµë‹ˆë‹¤.";
 
     char msg[100];
     sprintf(msg, g_pStringPool->c_str(STRID_REQUEST_MEET), pWaitingPC->getName().c_str());
@@ -67,31 +67,31 @@ uint WaitForMeet::acceptPartner(PlayerCreature* pRequestedPC) {
     if (pWaitingPC == NULL)
         return COUPLE_MESSAGE_LOGOFF;
 
-    // Á¾Á·ÀÌ ´Ù¸£°Å³ª ¼ºº°ÀÌ °°À¸¸é ¾ÈµÈ´Ù.
-    // ·¹º§ Á¦ÇÑ¿¡ °É¸®°Å³ª µ·ÀÌ ¸ğÀÚ¶óµµ ¾ÈµÈ´Ù.
-    // µÑ Áß ÇÑ¸íÀÌ ÀÌ¹Ì Ä¿ÇÃÀÌ¶óµµ ¾ÈµÈ´Ù.
+    // ì¢…ì¡±ì´ ë‹¤ë¥´ê±°ë‚˜ ì„±ë³„ì´ ê°™ìœ¼ë©´ ì•ˆëœë‹¤.
+    // ë ˆë²¨ ì œí•œì— ê±¸ë¦¬ê±°ë‚˜ ëˆì´ ëª¨ìë¼ë„ ì•ˆëœë‹¤.
+    // ë‘˜ ì¤‘ í•œëª…ì´ ì´ë¯¸ ì»¤í”Œì´ë¼ë„ ì•ˆëœë‹¤.
     uint result = canMakeCouple(pRequestedPC, pWaitingPC);
     if (result != 0)
         return result;
 
-    // Ä¿ÇÃ¸µÀ» ÁØ´Ù.
+    // ì»¤í”Œë§ì„ ì¤€ë‹¤.
     _TPOINT pt1;
     _TPOINT pt2;
 
-    // ÇÑ¸í¸¸ ¹Ş´Â °æ¿ì¸¦ ¹æÁöÇÏ±â À§ÇØ ¹Ì¸® ³ÖÀ» ¼ö ÀÖ´ÂÁö¸¦ È®ÀÎÇÑ´Ù.
-    // ¹Ù´Ú¿¡ ¶³¾îÁö¸é ³­¸®³­´Ù.
+    // í•œëª…ë§Œ ë°›ëŠ” ê²½ìš°ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´ ë¯¸ë¦¬ ë„£ì„ ìˆ˜ ìˆëŠ”ì§€ë¥¼ í™•ì¸í•œë‹¤.
+    // ë°”ë‹¥ì— ë–¨ì–´ì§€ë©´ ë‚œë¦¬ë‚œë‹¤.
     if (!(canGetCoupleRing(pRequestedPC, pt1) && canGetCoupleRing(pWaitingPC, pt2)))
         return COUPLE_MESSAGE_INVENTORY_FULL;
 
-    // Ä¿ÇÃ¸µÀ» ÁØ´Ù.
+    // ì»¤í”Œë§ì„ ì¤€ë‹¤.
     CoupleRingBase* pNewItem1 = giveCoupleRing(pRequestedPC, pWaitingPC->getName(), &pt1);
     CoupleRingBase* pNewItem2 = giveCoupleRing(pWaitingPC, pRequestedPC->getName(), &pt2);
 
-    // À§¿¡¼­ È®ÀÎÇßÀ¸¹Ç·Î ¿©±â¼­ »à»ç¸®³ª¸é ½º·¹µå°¡ ²¿¿´°Å³ª ¸Õ ¹®Á¦°¡ ÀÖ´Ù.
+    // ìœ„ì—ì„œ í™•ì¸í–ˆìœ¼ë¯€ë¡œ ì—¬ê¸°ì„œ ì‚‘ì‚¬ë¦¬ë‚˜ë©´ ìŠ¤ë ˆë“œê°€ ê¼¬ì˜€ê±°ë‚˜ ë¨¼ ë¬¸ì œê°€ ìˆë‹¤.
     Assert(pNewItem1 != NULL);
     Assert(pNewItem2 != NULL);
 
-    // Ä¿ÇÃ¸µ¿¡ ¼­·Î »ó´ëÀÇ ¾ÆÀÌÅÛID¸¦ ±â·ÏÇØµĞ´Ù. ³ªÁß¿¡ Áö¿ï¶§ °°ÀÌ Áö¿ö¾ß µÇ´Ï±î.
+    // ì»¤í”Œë§ì— ì„œë¡œ ìƒëŒ€ì˜ ì•„ì´í…œIDë¥¼ ê¸°ë¡í•´ë‘”ë‹¤. ë‚˜ì¤‘ì— ì§€ìš¸ë•Œ ê°™ì´ ì§€ì›Œì•¼ ë˜ë‹ˆê¹Œ.
     pNewItem1->setPartnerItemID(pNewItem2->getItemID());
     pNewItem2->setPartnerItemID(pNewItem1->getItemID());
 
@@ -101,14 +101,14 @@ uint WaitForMeet::acceptPartner(PlayerCreature* pRequestedPC) {
     //	pRequestedPC->addItemNameInfoList( pRequestedPCItemNameInfo );
     //	pWaitingPC->addItemNameInfoList( pWaitingPCItemNameInfo );
 
-    // Ä¿ÇÃ¸Å´ÏÀú¿¡ µî·ÏÇÑ´Ù.
+    // ì»¤í”Œë§¤ë‹ˆì €ì— ë“±ë¡í•œë‹¤.
     g_pCoupleManager->makeCouple(pWaitingPC, pRequestedPC);
 
-    // Ä¿ÇÃ µî·Ï±İÀ» ¹Ş¾Æ³½´Ù.
+    // ì»¤í”Œ ë“±ë¡ê¸ˆì„ ë°›ì•„ë‚¸ë‹¤.
     receiveCoupleRegisterFee(pWaitingPC);
     receiveCoupleRegisterFee(pRequestedPC);
 
-    // ÀÌÁ¦ Á¤½ÄÀ¸·Î Ä¿ÇÃÀÓÀ» ¼±Æ÷ÇÕ´Ï´Ù.
+    // ì´ì œ ì •ì‹ìœ¼ë¡œ ì»¤í”Œì„ì„ ì„ í¬í•©ë‹ˆë‹¤.
     pRequestedPC->getFlagSet()->turnOn(FLAGSET_IS_COUPLE);
     pWaitingPC->getFlagSet()->turnOn(FLAGSET_IS_COUPLE);
     pRequestedPC->getFlagSet()->turnOn(FLAGSET_WAS_COUPLE);
@@ -117,9 +117,9 @@ uint WaitForMeet::acceptPartner(PlayerCreature* pRequestedPC) {
     pRequestedPC->getFlagSet()->save(pRequestedPC->getName());
     pWaitingPC->getFlagSet()->save(pWaitingPC->getName());
 
-    // ´õ ÇÒ °Å ¾ø³ª.....
-    // ÀÌ¸§ºÙÀº ¾ÆÀÌÅÛ ¸®½ºÆ® ¸ñ·ÏÀ» °»½ÅÇØ¼­ º¸³»ÁØ´Ù.
-    // ¾È º¸³»ÁØ´Ù. -_- - 2003.2.24
+    // ë” í•  ê±° ì—†ë‚˜.....
+    // ì´ë¦„ë¶™ì€ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ëª©ë¡ì„ ê°±ì‹ í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
+    // ì•ˆ ë³´ë‚´ì¤€ë‹¤. -_- - 2003.2.24
     /*	if ( !pRequestedPC->isEmptyItemNameInfoList()
             && !pWaitingPC->isEmptyItemNameInfoList() )
         {
@@ -145,7 +145,7 @@ uint WaitForMeet::acceptPartner(PlayerCreature* pRequestedPC) {
 void WaitForMeet::timeExpired() {
     __BEGIN_TRY
 
-    // ±â´Ù¸®´ø »ç¶÷¿¡°Ô ¾ÈµÇ¼Ì½À´Ï´Ù..¶ó°í ¸Ş½ÃÁö¸¦ º¸³»ÁØ´Ù.
+    // ê¸°ë‹¤ë¦¬ë˜ ì‚¬ëŒì—ê²Œ ì•ˆë˜ì…¨ìŠµë‹ˆë‹¤..ë¼ê³  ë©”ì‹œì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     GCNPCResponse gcNPCResponse;
     gcNPCResponse.setCode(NPC_RESPONSE_MEET_WAIT_TIME_EXPIRED);
 

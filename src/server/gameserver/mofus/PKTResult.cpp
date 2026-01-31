@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTResult.cpp
-// Desc		: ¸¶Áö¸¶±à·Î Àü¼Û ¹ŞÀº ÀÚ·á¿¡ ´ëÇÑ Ã³¸® ¿©ºÎ¸¦ ÆÄ¿ö¸µ ¼­¹ö¿¡
-// 			  ´ä½ÅÇÑ´Ù.
+// Desc		: ë§ˆì§€ë§ˆê¸ë¡œ ì „ì†¡ ë°›ì€ ìë£Œì— ëŒ€í•œ ì²˜ë¦¬ ì—¬ë¶€ë¥¼ íŒŒì›Œë§ ì„œë²„ì—
+// 			  ë‹µì‹ í•œë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -9,12 +9,12 @@
 
 #include "MPacketID.h"
 
-// »ı¼ºÀÚ
+// ìƒì„±ì
 PKTResult::PKTResult() {
     nSize = szPKTResult - szMPacketSize;
 }
 
-// ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+// ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
 void PKTResult::read(SocketInputStream& iStream) {
     iStream.read((char*)this, szPKTResult);
 
@@ -23,7 +23,7 @@ void PKTResult::read(SocketInputStream& iStream) {
     //	nCode		= ntohl( nCode );
 }
 
-// Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 void PKTResult::write(SocketOutputStream& oStream) {
     nCode = getID();
 

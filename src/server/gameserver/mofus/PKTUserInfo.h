@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTUserInfo.h
-// Desc		: ¿Â¶óÀÎ °ÔÀÓ À¯ÀúID, Ä³¸¯ÅÍ¸í, È¸¿øÀÌ¸§, ¼­¹öÀÇ Á¤º¸¸¦
-// 			  ÆÄ¿ö¸µ ¼­¹ö·Î º¸³» È¸¿øÀ» ÀÎÁõÇÑ´Ù.
+// Desc		: ì˜¨ë¼ì¸ ê²Œì„ ìœ ì €ID, ìºë¦­í„°ëª…, íšŒì›ì´ë¦„, ì„œë²„ì˜ ì •ë³´ë¥¼
+// 			  íŒŒì›Œë§ ì„œë²„ë¡œ ë³´ë‚´ íšŒì›ì„ ì¸ì¦í•œë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_USERINFO_H__
@@ -11,13 +11,13 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ÆĞÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_USERINFO {
     int nSize;
     int nCode;
-    char sJuminNo[20];   // ÁÖ¹Î¹øÈ£
-    char sHandPhone[12]; // ÇÚµåÆù ¹øÈ£
-    int nIndex;          // ¿Â¶óÀÎ»çÀÇ ÆíÀÇ¸¦ À§ÇÑ ÀÎµ¦½º
+    char sJuminNo[20];   // ì£¼ë¯¼ë²ˆí˜¸
+    char sHandPhone[12]; // í•¸ë“œí° ë²ˆí˜¸
+    int nIndex;          // ì˜¨ë¼ì¸ì‚¬ì˜ í¸ì˜ë¥¼ ìœ„í•œ ì¸ë±ìŠ¤
 };
 
 const int szPKTUserInfo = sizeof(_PKT_USERINFO);
@@ -25,29 +25,29 @@ const int szPKTUserInfo = sizeof(_PKT_USERINFO);
 // class PKTUserInfo
 class PKTUserInfo : public _PKT_USERINFO, public MPacket {
 public:
-    // »ı¼ºÀÚ
+    // ìƒì„±ì
     PKTUserInfo();
 
 public:
-    // ÆĞÅ¶ ¾ÆÀÌµğ¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTUserInfo - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜
     MPacket* create() {
         MPacket* pPacket = new PKTUserInfo;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message

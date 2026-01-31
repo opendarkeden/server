@@ -42,14 +42,14 @@ void CGWhisperHandler::execute(CGWhisper* pPacket, Player* pPlayer)
 
         bool Success = false;
 
-        // ÀÌ¸§À¸·Î »ç¿ëÀÚ¸¦ Ã£¾Æ¿Â´Ù.
+        // ì´ë¦„ìœ¼ë¡œ ì‚¬ìš©ìžë¥¼ ì°¾ì•„ì˜¨ë‹¤.
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
         Creature* pTargetCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getName());
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature != NULL) {
-            // Ã¤ÆÃ ·Î±×¸¦ ³²±ä´Ù. by sigi. 2002.10.30
+            // ì±„íŒ… ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤. by sigi. 2002.10.30
             if (LogNameManager::getInstance().isExist(pCreature->getName())) {
                 filelog("chatLog.txt", "[Whisper] %s --> %s> %s", pCreature->getName().c_str(),
                         pTargetCreature->getName().c_str(), pPacket->getMessage().c_str());
@@ -63,14 +63,14 @@ void CGWhisperHandler::execute(CGWhisper* pPacket, Player* pPlayer)
                 Success = false;
             }
 
-            // »ç¿ëÀÚ¸¦ ¼º°øÀûÀ¸·Î Ã£¾ÒÀ¸¸é Message Àü¼Û
+            // ì‚¬ìš©ìžë¥¼ ì„±ê³µì ìœ¼ë¡œ ì°¾ì•˜ìœ¼ë©´ Message ì „ì†¡
             if (Success) {
                 if (((GamePlayer*)pTargetPlayer)->getPlayerStatus() == GPS_NORMAL) {
                     if (pCreature != NULL && pTargetCreature != NULL) {
-                        // ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÏ¹Ç·Î GC- ÆÐÅ¶À» »ç¿ëÇØ¾ß ÇÑ´Ù.
+                        // ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•˜ë¯€ë¡œ GC- íŒ¨í‚·ì„ ì‚¬ìš©í•´ì•¼ í•œë‹¤.
                         GCWhisper gcWhisper;
 
-                        // Å©¸®Ã³ ÀÌ¸§°ú ¸Þ½ÃÁö¸¦ ÆÐÅ¶¿¡ ´ëÀÔÇÑ´Ù.
+                        // í¬ë¦¬ì²˜ ì´ë¦„ê³¼ ë©”ì‹œì§€ë¥¼ íŒ¨í‚·ì— ëŒ€ìž…í•œë‹¤.
                         gcWhisper.setName(pCreature->getName());
                         gcWhisper.setColor(pPacket->getColor());
                         gcWhisper.setMessage(pPacket->getMessage());
@@ -84,14 +84,14 @@ void CGWhisperHandler::execute(CGWhisper* pPacket, Player* pPlayer)
                 }
             }
 
-            // ±×·± »ç¿ëÀÚ°¡ ¾ø°Å³ª ÀÌ¸§À» Àß¸ø ³Ö¾úÀ»¶§ Failed
+            // ê·¸ëŸ° ì‚¬ìš©ìžê°€ ì—†ê±°ë‚˜ ì´ë¦„ì„ ìž˜ëª» ë„£ì—ˆì„ë•Œ Failed
         } else {
             /*inthesky*/
-            /*	DB¸¦ µÚÁ®¼­ »ç¿ëÀÚ¸¦ Ã£´Â´Ù. DB¿¡¼­ °¡Á®¿Ã Á¤º¸´Â Player, Logon Á¤º¸¿Í, ServerID Á¤µµ°¡ µÇÙ´Ù?
-             *	Ã£À¸¸é ÇØ´ç°ÔÀÓ¼­¹ö·Î GGServerChat ÆÐÅ¶À» Àü¼ÛÇÑ´Ù (sender, Color, Message, Race(Á¾Á·),
-             *	GGServerChat ÆÐÅ¶À» ¹ÞÀº ¼­¹ö´Â »ç¿ëÀÚ ÀÌ¸§À¸·Î ÇÃ·¹ÀÌ¾î¸¦ Ã£¾Æ¼­ GCWhisperÆÐÅ¶À» ¸¸µé¾î ½ð´Ù.
-             *	¾øÀ¸¸é ¸»ÀÚ(Failedº¸³½´Ù).
-             *	»ç¿ëÀÚ°¡ ÀÖ´Ù ¾ø´Ù´Â DB¿¡¼­¸¸ ÆÇ´ÜÇÏÀÚ. DBÀÇ ½Å·Úµµ´Â..??????
+            /*	DBë¥¼ ë’¤ì ¸ì„œ ì‚¬ìš©ìžë¥¼ ì°¾ëŠ”ë‹¤. DBì—ì„œ ê°€ì ¸ì˜¬ ì •ë³´ëŠ” Player, Logon ì •ë³´ì™€, ServerID ì •ë„ê°€ ë˜ê³˜ë‹¤?
+             *	ì°¾ìœ¼ë©´ í•´ë‹¹ê²Œìž„ì„œë²„ë¡œ GGServerChat íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤ (sender, Color, Message, Race(ì¢…ì¡±),
+             *	GGServerChat íŒ¨í‚·ì„ ë°›ì€ ì„œë²„ëŠ” ì‚¬ìš©ìž ì´ë¦„ìœ¼ë¡œ í”Œë ˆì´ì–´ë¥¼ ì°¾ì•„ì„œ GCWhisperíŒ¨í‚·ì„ ë§Œë“¤ì–´ ìœë‹¤.
+             *	ì—†ìœ¼ë©´ ë§ìž(Failedë³´ë‚¸ë‹¤).
+             *	ì‚¬ìš©ìžê°€ ìžˆë‹¤ ì—†ë‹¤ëŠ” DBì—ì„œë§Œ íŒë‹¨í•˜ìž. DBì˜ ì‹ ë¢°ë„ëŠ”..??????
              */
             Statement* pStmt = NULL;
             Result* pResult = NULL;
@@ -105,7 +105,7 @@ void CGWhisperHandler::execute(CGWhisper* pPacket, Player* pPlayer)
                 BEGIN_DB {
                     pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-                    // Å©¸®ÃÄÀÌ¸§À¸·Î SlayerÅ×ÀÌºí¿¡¼­ PlayerID ¸¦ Ã£´Â´Ù.
+                    // í¬ë¦¬ì³ì´ë¦„ìœ¼ë¡œ Slayerí…Œì´ë¸”ì—ì„œ PlayerID ë¥¼ ì°¾ëŠ”ë‹¤.
                     pResult =
                         pStmt->executeQuery("SELECT PlayerID FROM Slayer WHERE Name='%s'", pPacket->getName().c_str());
 
@@ -113,17 +113,17 @@ void CGWhisperHandler::execute(CGWhisper* pPacket, Player* pPlayer)
                         PlayerID = pResult->getString(1);
                         SAFE_DELETE(pStmt);
 
-                        // Ã£Àº PlayerID·Î PlayerÅ×ÀÌºí¿¡¼­ ServerGroupID¿Í LogOnÁ¤º¸¸¦ Ã£´Â´Ù.
+                        // ì°¾ì€ PlayerIDë¡œ Playerí…Œì´ë¸”ì—ì„œ ServerGroupIDì™€ LogOnì •ë³´ë¥¼ ì°¾ëŠ”ë‹¤.
                         pStmt = g_pDatabaseManager->getDistConnection("USERINFO")->createStatement();
                         pResult = pStmt->executeQuery(
                             "SELECT CurrentServerGroupID, LogOn FROM Player WHERE PlayerID='%s'", PlayerID.c_str());
 
-                        // Player Á¤º¸¸¦ Ã£¾Ò´Ù.
+                        // Player ì •ë³´ë¥¼ ì°¾ì•˜ë‹¤.
                         if (pResult->next()) {
                             CurrentServerGroupID = pResult->getInt(1);
                             LogOn = pResult->getString(2);
 
-                            // °ÔÀÓÁßÀÎ »óÅÂÀÏ¶§ bServerFind¿¡ true flag
+                            // ê²Œìž„ì¤‘ì¸ ìƒíƒœì¼ë•Œ bServerFindì— true flag
                             if (LogOn == "GAME") {
                                 bServerFind = true;
                                 SAFE_DELETE(pStmt);
@@ -135,16 +135,16 @@ void CGWhisperHandler::execute(CGWhisper* pPacket, Player* pPlayer)
                         SAFE_DELETE(pStmt);
                     }
 
-                    if (bServerFind) // Ã£¾ÒÀ»¶§
+                    if (bServerFind) // ì°¾ì•˜ì„ë•Œ
                     {
-                        /*	GGServerChat ÆÐÅ¶À» ¸¸µé¾î¼­
-                         *	½ð´Ù...°ÔÀÓ¼­¹ö·Î..
-                         *  pCreature->getName() = º¸³»´Â Å©¸®ÃÄ ÀÌ¸§
-                         *	pPacket->getName() = ¹Þ´Â Å©¸®ÃÄ ÀÌ¸§
-                         *	PlayerID	= ¹Þ´Â Å©¸®ÃÄ °èÁ¤
-                         *	pPacket->getColor()	= ±ÛÀÚ»ö
-                         *	pPacket->getMessage() = ¸Þ¼¼Áö
-                         *  pCreature->getRace() = º¸³»´Â Å©¸®ÃÄ Á¾Á·
+                        /*	GGServerChat íŒ¨í‚·ì„ ë§Œë“¤ì–´ì„œ
+                         *	ìœë‹¤...ê²Œìž„ì„œë²„ë¡œ..
+                         *  pCreature->getName() = ë³´ë‚´ëŠ” í¬ë¦¬ì³ ì´ë¦„
+                         *	pPacket->getName() = ë°›ëŠ” í¬ë¦¬ì³ ì´ë¦„
+                         *	PlayerID	= ë°›ëŠ” í¬ë¦¬ì³ ê³„ì •
+                         *	pPacket->getColor()	= ê¸€ìžìƒ‰
+                         *	pPacket->getMessage() = ë©”ì„¸ì§€
+                         *  pCreature->getRace() = ë³´ë‚´ëŠ” í¬ë¦¬ì³ ì¢…ì¡±
                          * */
 
 

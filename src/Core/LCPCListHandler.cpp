@@ -19,9 +19,9 @@
 #endif
 
 //----------------------------------------------------------------------
-// ¼­¹ö·ÎºÎÅÍ Ä³¸¯ÅÍ ¸®½ºÆ®¸¦ ¹Þ¾Ò´Ù.
-// ÀÌÁ¦ Ä³¸¯ÅÍ °ü¸® ÀÎÅÍÆäÀÌ½ºÀÇ ÀûÀýÇÑ °÷¿¡ Àü¼Û¹ÞÀº °ªÀ» Áý¾î ³Ö¾î¼­
-// Ãâ·ÂÇÏÀÚ.
+// ì„œë²„ë¡œë¶€í„° ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•˜ë‹¤.
+// ì´ì œ ìºë¦­í„° ê´€ë¦¬ ì¸í„°íŽ˜ì´ìŠ¤ì˜ ì ì ˆí•œ ê³³ì— ì „ì†¡ë°›ì€ ê°’ì„ ì§‘ì–´ ë„£ì–´ì„œ
+// ì¶œë ¥í•˜ìž.
 //----------------------------------------------------------------------
 void LCPCListHandler::execute(LCPCList* pPacket, Player* pPlayer)
 
@@ -72,7 +72,7 @@ void LCPCListHandler::execute(LCPCList* pPacket, Player* pPlayer)
     }
 
     if (nPCs == 0) {
-        // cout << "Ä³¸¯ÅÍ°¡ ÇÏ³ªµµ ¾ø½À´Ï´Ù." << endl;
+        // cout << "ìºë¦­í„°ê°€ í•˜ë‚˜ë„ ì—†ìŠµë‹ˆë‹¤." << endl;
     }
 
     char cmd[80 + 1];
@@ -117,9 +117,9 @@ void LCPCListHandler::execute(LCPCList* pPacket, Player* pPlayer)
             slot = SLOT1;
         clCreatePC.setSlot(slot);
 
-        cout << "Sex (³²/¿©) : ";
+        cout << "Sex (ë‚¨/ì—¬) : ";
         cin.getline(cmd, 80);
-        Sex sex = (strcmp(cmd, "³²") == 0) ? sex = MALE : sex = FEMALE;
+        Sex sex = (strcmp(cmd, "ë‚¨") == 0) ? sex = MALE : sex = FEMALE;
         clCreatePC.setSex(sex);
         cout << "Sex : " << Sex2String[sex] << endl;
 
@@ -208,7 +208,7 @@ void LCPCListHandler::execute(LCPCList* pPacket, Player* pPlayer)
         else
             clSelectPC.setPCType(PC_SLAYER);
 
-        // CGConnect ¶§ »ç¿ëÇÏ·Á¸é ¿©±â¼­ ÀúÀåÇØµÖ¾ß ÇÑ´Ù.
+        // CGConnect ë•Œ ì‚¬ìš©í•˜ë ¤ë©´ ì—¬ê¸°ì„œ ì €ìž¥í•´ë‘¬ì•¼ í•œë‹¤.
         pClientPlayer->setPCType(clSelectPC.getPCType());
         pClientPlayer->setPCName(clSelectPC.getPCName());
 
@@ -227,8 +227,8 @@ void LCPCListHandler::execute(LCPCList* pPacket, Player* pPlayer)
              << "+------------------+" << endl
              << "select > ";
 
-        // ¿©±â¿¡ °Ô½ÃÆÇ °ü·Ã Ã³¸® ºÎºÐÀÌ µé¾î°¡¸é µÈ´Ù..
-        // CLSelectBBS ÆÐÅ¶À» ¸¸µé¾î¼­ º¸³»¸é µÇ°Ú±º...
+        // ì—¬ê¸°ì— ê²Œì‹œíŒ ê´€ë ¨ ì²˜ë¦¬ ë¶€ë¶„ì´ ë“¤ì–´ê°€ë©´ ëœë‹¤..
+        // CLSelectBBS íŒ¨í‚·ì„ ë§Œë“¤ì–´ì„œ ë³´ë‚´ë©´ ë˜ê² êµ°...
 
         cin.getline(cmd, 80);
 

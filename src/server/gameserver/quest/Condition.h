@@ -2,8 +2,8 @@
 // Filename    : Condition.h
 // Written By  :
 // Description :
-// Æ®¸®°ÅÀÇ ¾×¼ÇÀÌ ½ÇÇàµÇ±â À§ÇØ¼­ ¸¸Á·ÇØ¾ß ÇÏ´Â Á¶°ÇÀ» ³ªÅ¸³»´Â Å¬·¡½º.
-// ÀÌ Å¬·¡½º¸¦ »ó¼Ó¹Þ¾Æ¼­ ´Ù¸¥ ±¸Ã¼ÀûÀÎ Á¶°ÇµéÀ» ±¸ÇöÇÑ´Ù.
+// íŠ¸ë¦¬ê±°ì˜ ì•¡ì…˜ì´ ì‹¤í–‰ë˜ê¸° ìœ„í•´ì„œ ë§Œì¡±í•´ì•¼ í•˜ëŠ” ì¡°ê±´ì„ ë‚˜íƒ€ë‚´ëŠ” í´ëž˜ìŠ¤.
+// ì´ í´ëž˜ìŠ¤ë¥¼ ìƒì†ë°›ì•„ì„œ ë‹¤ë¥¸ êµ¬ì²´ì ì¸ ì¡°ê±´ë“¤ì„ êµ¬í˜„í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CONDITION_H__
@@ -16,7 +16,7 @@
 #include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÄÁµð¼ÇÀÇ Ã¼Å©¸¦ À§ÇÑ ºÎ°¡ÀûÀÎ ÆÄ¶ó¹ÌÅÍ¸¦ Àü´ÞÇÏ±â À§ÇÑ ±¸Á¶Ã¼µé.
+// ì»¨ë””ì…˜ì˜ ì²´í¬ë¥¼ ìœ„í•œ ë¶€ê°€ì ì¸ íŒŒë¼ë¯¸í„°ë¥¼ ì „ë‹¬í•˜ê¸° ìœ„í•œ êµ¬ì¡°ì²´ë“¤.
 //////////////////////////////////////////////////////////////////////////////
 
 typedef struct {
@@ -33,16 +33,16 @@ typedef struct {
 //
 //* isActive() | isPassive() | isNeutral()
 //
-// ZoneGroupThread°¡ Æ¯Á¤ Á¸¿¡ ÀÖ´Â ¸ó½ºÅÍ È¤Àº NPC¸¦ Ã³¸®ÇÒ ¶§, ÇöÀç °®°í ÀÖ´Â
-// Æ®¸®°ÅµéÀÇ ¸ðµç ÄÁµð¼ÇÀÌ ¸¸Á·ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù. ±×·±µ¥, ¸ó½ºÅÍ È¤Àº NPCµéÀº
-// ÆÐÅ¶ ÇÚµé·¯¿¡¼­¸¸ ÀÇ¹Ì¸¦ °¡Áö´Â passive ÄÁµð¼ÇÀ» °¡Áø Æ®¸®°Å¸¦ ¿©ÀüÈ÷ Æ÷ÇÔ
-// ÇÏ°í ÀÖ´Ù. passive ÄÁµð¼ÇµéÀº isSatisfied()¿¡¼­ Æ¯º°È÷ Ã¼Å©ÇÒ °Ç´öÁö..°¡ ¾ø±â
-// ¶§¹®¿¡ À¢¸¸ÇÏ¸é true ¸¦ ¸®ÅÏÇÏ°Ô µÈ´Ù.
+// ZoneGroupThreadê°€ íŠ¹ì • ì¡´ì— ìžˆëŠ” ëª¬ìŠ¤í„° í˜¹ì€ NPCë¥¼ ì²˜ë¦¬í•  ë•Œ, í˜„ìž¬ ê°–ê³  ìžˆëŠ”
+// íŠ¸ë¦¬ê±°ë“¤ì˜ ëª¨ë“  ì»¨ë””ì…˜ì´ ë§Œì¡±í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤. ê·¸ëŸ°ë°, ëª¬ìŠ¤í„° í˜¹ì€ NPCë“¤ì€
+// íŒ¨í‚· í•¸ë“¤ëŸ¬ì—ì„œë§Œ ì˜ë¯¸ë¥¼ ê°€ì§€ëŠ” passive ì»¨ë””ì…˜ì„ ê°€ì§„ íŠ¸ë¦¬ê±°ë¥¼ ì—¬ì „ížˆ í¬í•¨
+// í•˜ê³  ìžˆë‹¤. passive ì»¨ë””ì…˜ë“¤ì€ isSatisfied()ì—ì„œ íŠ¹ë³„ížˆ ì²´í¬í•  ê±´ë•ì§€..ê°€ ì—†ê¸°
+// ë•Œë¬¸ì— ì›¬ë§Œí•˜ë©´ true ë¥¼ ë¦¬í„´í•˜ê²Œ ëœë‹¤.
 //
-// µû¶ó¼­, ZGTÀÇ Ã³¸®½Ã passive ÄÁµð¼ÇµéÀº Ã¼Å©µÉ ÇÊ¿ä°¡ ¾øÀ¸¸ç Ã¼Å©µÇ¾î¼­µµ ¾ÈµÈ´Ù.
-// ÀÌ¸¦ À§ÇØ¼­ Ãß°¡µÈ ¸Þ½îµåµéÀÌ isActive(), isPassive() ÀÌ´Ù.
+// ë”°ë¼ì„œ, ZGTì˜ ì²˜ë¦¬ì‹œ passive ì»¨ë””ì…˜ë“¤ì€ ì²´í¬ë  í•„ìš”ê°€ ì—†ìœ¼ë©° ì²´í¬ë˜ì–´ì„œë„ ì•ˆëœë‹¤.
+// ì´ë¥¼ ìœ„í•´ì„œ ì¶”ê°€ëœ ë©”ì˜ë“œë“¤ì´ isActive(), isPassive() ì´ë‹¤.
 //
-// neutral ÄÁµð¼ÇÀº active | passive µÑ ´Ù¿Í ÇÔ²² »ç¿ëµÉ ¼ö ÀÖ´Â Á¶°ÇµéÀÌ´Ù.
+// neutral ì»¨ë””ì…˜ì€ active | passive ë‘˜ ë‹¤ì™€ í•¨ê»˜ ì‚¬ìš©ë  ìˆ˜ ìžˆëŠ” ì¡°ê±´ë“¤ì´ë‹¤.
 //(ex: PC_HAS_SKILL, PC_HAS_ITEM ...)
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ public:
 
         // passive conditions
         CONDITION_TALKED_BY,
-        CONDITION_ANSWERED_BY, // 2000.10.13 ±è¼º¹ÎÀÌ Ãß°¡
+        CONDITION_ANSWERED_BY, // 2000.10.13 ê¹€ì„±ë¯¼ì´ ì¶”ê°€
         CONDITION_BLOOD_DRAINED,
         CONDITION_FLAG_ON,
         CONDITION_FLAG_OFF,
@@ -85,40 +85,40 @@ public:
         CONDITION_PAY_PLAY,
 
         // 2002.9.2 by sigi
-        CONDITION_ENTER_MASTER_LAIR, // conditionÃ¼Å©ÈÄ action¿ä¼Ò¸¦ °°ÀÌ Ã³¸®ÇÑ´Ù. Ã³¸®ÀÇ ÆíÀÇ¸¦ À§ÇØ¼­-_-;
+        CONDITION_ENTER_MASTER_LAIR, // conditionì²´í¬í›„ actionìš”ì†Œë¥¼ ê°™ì´ ì²˜ë¦¬í•œë‹¤. ì²˜ë¦¬ì˜ íŽ¸ì˜ë¥¼ ìœ„í•´ì„œ-_-;
 
         // 2003.1.20 by bezz, Sequoia
-        CONDITION_ENTER_CASTLE,                   // Æ÷Å»À» ÅëÇØ ¼º¿¡ µé¾î°¡·Á°í ÇÒ ¶§
-        CONDITION_HAS_ENOUGH_CASTLE_ENTRANCE_FEE, // ¼º¿¡ µé¾î°¥ ÀÔÀå·á¸¦ ÁöºÒÇÒ ¼ö ÀÖ´ÂÁö
+        CONDITION_ENTER_CASTLE,                   // í¬íƒˆì„ í†µí•´ ì„±ì— ë“¤ì–´ê°€ë ¤ê³  í•  ë•Œ
+        CONDITION_HAS_ENOUGH_CASTLE_ENTRANCE_FEE, // ì„±ì— ë“¤ì–´ê°ˆ ìž…ìž¥ë£Œë¥¼ ì§€ë¶ˆí•  ìˆ˜ ìžˆëŠ”ì§€
 
         // 2003.2.18 by sigi
-        CONDITION_ENTER_HOLY_LAND,      // ¾Æ´ãÀÇ ¼ºÁö¿¡ µé¾î°¥·Á°í ÇÒ ¶§
-        CONDITION_ENTER_CASTLE_DUNGEON, // (¾Æ´ãÀÇ ¼ºÁö) ¼º ÁöÇÏ ¸Ê¿¡ µé¾î°¥·Á°íÇÒ¶§
+        CONDITION_ENTER_HOLY_LAND,      // ì•„ë‹´ì˜ ì„±ì§€ì— ë“¤ì–´ê°ˆë ¤ê³  í•  ë•Œ
+        CONDITION_ENTER_CASTLE_DUNGEON, // (ì•„ë‹´ì˜ ì„±ì§€) ì„± ì§€í•˜ ë§µì— ë“¤ì–´ê°ˆë ¤ê³ í• ë•Œ
 
         CONDITION_HAS_QUEST,
         CONDITION_HAS_INVEN_SPACE,
 
-        CONDITION_CAN_ENTER_PAY_ZONE, // À¯·áÁ¸À¸·Î µé¾î°¥ ¶§
+        CONDITION_CAN_ENTER_PAY_ZONE, // ìœ ë£Œì¡´ìœ¼ë¡œ ë“¤ì–´ê°ˆ ë•Œ
 
-        CONDITION_CAN_ENTER_BEGINNER_ZONE,  // Å×¸Þ¸®¿¡ ¼ºÁö·Î µé¾î°¥ ¶§
-        CONDITION_CAN_WARP_GATE,            // ¿öÇÁ °ÔÀÌÆ® Áö³ª°¥ ¼ö ÀÖ³²?
-        CONDITION_CAN_ENTER_LEVEL_WAR_ZONE, // ¿öÇÁ °ÔÀÌÆ® Áö³ª°¥ ¼ö ÀÖ³²?
+        CONDITION_CAN_ENTER_BEGINNER_ZONE,  // í…Œë©”ë¦¬ì— ì„±ì§€ë¡œ ë“¤ì–´ê°ˆ ë•Œ
+        CONDITION_CAN_WARP_GATE,            // ì›Œí”„ ê²Œì´íŠ¸ ì§€ë‚˜ê°ˆ ìˆ˜ ìžˆë‚¨?
+        CONDITION_CAN_ENTER_LEVEL_WAR_ZONE, // ì›Œí”„ ê²Œì´íŠ¸ ì§€ë‚˜ê°ˆ ìˆ˜ ìžˆë‚¨?
 
         CONDITION_CAN_PET_QUEST,
         CONDITION_CAN_ENTER_EVENT_ZONE,
 
-        CONDITION_EFFECT_FLAG,        // Æ¯Á¤ ÀÌÆåÆ® ÇÃ·¡±×°¡ ÄÑÁ® ÀÖ´Â°¡
-        CONDITION_CAN_ENTER_GDR_LAIR, // Áúµå·¹ ·¹¾î µé¾î°¥ ¼ö ÀÖ³Ä
+        CONDITION_EFFECT_FLAG,        // íŠ¹ì • ì´íŽ™íŠ¸ í”Œëž˜ê·¸ê°€ ì¼œì ¸ ìžˆëŠ”ê°€
+        CONDITION_CAN_ENTER_GDR_LAIR, // ì§ˆë“œë ˆ ë ˆì–´ ë“¤ì–´ê°ˆ ìˆ˜ ìžˆëƒ
 
-        CONDITION_EXIST_REINFORCE, // °ø¼º ¿ø±º ½ÅÃ»ÇÑ ³ÑÀÌ ÀÖ³ª
+        CONDITION_EXIST_REINFORCE, // ê³µì„± ì›êµ° ì‹ ì²­í•œ ë„˜ì´ ìžˆë‚˜
 
-        CONDITION_SIEGE_DEFENDER_SIDE, // ¼ö¼ºÃøÀÎ°¡
-        CONDITION_SIEGE_ATTACKER_SIDE, // °ø¼ºÃøÀÎ°¡
+        CONDITION_SIEGE_DEFENDER_SIDE, // ìˆ˜ì„±ì¸¡ì¸ê°€
+        CONDITION_SIEGE_ATTACKER_SIDE, // ê³µì„±ì¸¡ì¸ê°€
 
-        CONDITION_NOT_GUILD_MEMBER, // ±æµå¿¡ ¼ÓÇØ ÀÖÁö ¾ÊÀº°¡?
-        CONDITION_IS_GUILD_MEMBER,  // ±æµå¿¡ ¼ÓÇØ ÀÖ´Â°¡?
+        CONDITION_NOT_GUILD_MEMBER, // ê¸¸ë“œì— ì†í•´ ìžˆì§€ ì•Šì€ê°€?
+        CONDITION_IS_GUILD_MEMBER,  // ê¸¸ë“œì— ì†í•´ ìžˆëŠ”ê°€?
 
-        CONDITION_CAN_ENTER_QUEST_ZONE, // Äù½ºÆ®Á¸¿¡ µé¾î°¥ ¼ö ÀÖ´Â°¡
+        CONDITION_CAN_ENTER_QUEST_ZONE, // í€˜ìŠ¤íŠ¸ì¡´ì— ë“¤ì–´ê°ˆ ìˆ˜ ìžˆëŠ”ê°€
 
         CONDITION_MAX
     };

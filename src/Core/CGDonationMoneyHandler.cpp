@@ -40,44 +40,44 @@ void CGDonationMoneyHandler::execute(CGDonationMoney* pPacket, Player* pPlayer) 
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPC != NULL);
 
-    // °á°ú ÆÐÅ¶
+    // ê²°ê³¼ íŒ¨í‚·
     GCNPCResponse gcNPCResponse;
 
     // Dimension ID
     static int dimensionID = g_pConfig->getPropertyInt("Dimension");
-    // ¿ùµå ID
+    // ì›”ë“œ ID
     static int worldID = g_pConfig->getPropertyInt("WorldID");
 
     // affectWorldID
     static int affectWorldID = dimensionID * 3 + worldID;
 
-    // ±âºÎ È½¼ö
+    // ê¸°ë¶€ íšŸìˆ˜
     int sumBeforePersonal = 0;
     int sumAfterPersonal = 0;
     int sumBeforeGuild = 0;
     int sumAfterGuild = 0;
 
-    // ±âºÎ ÀÌº¥Æ®°¡ È°¼ºÈ­µÈ »óÅÂÀÎÁö È®ÀÎÇÑ´Ù.
+    // ê¸°ë¶€ ì´ë²¤íŠ¸ê°€ í™œì„±í™”ëœ ìƒíƒœì¸ì§€ í™•ì¸í•œë‹¤.
     if (g_pVariableManager->getVariable(DONATION_EVENT_200501) != 1) {
         return;
     }
 
-    // µ·ÀÌ ÃæºÐÇÑÁö È®ÀÎ
+    // ëˆì´ ì¶©ë¶„í•œì§€ í™•ì¸
     if (pPC->getGold() < pPacket->getGold()) {
         gcNPCResponse.setCode(NPC_RESPONSE_NOT_ENOUGH_MONEY);
         pPlayer->sendPacket(&gcNPCResponse);
         return;
     }
 
-    // ÀÎ´Ü µ·À» ±î°í
+    // ì¸ë‹¨ ëˆì„ ê¹Œê³ 
     pPC->decreaseGoldEx(pPacket->getGold());
 
-    // ¹Ù²ï ±Ý¾×À» º¸³½´Ù.
+    // ë°”ë€ ê¸ˆì•¡ì„ ë³´ë‚¸ë‹¤.
     GCModifyInformation gcModifyInformation;
     gcModifyInformation.addLongData(MODIFY_GOLD, pPC->getGold());
     pPlayer->sendPacket(&gcModifyInformation);
 
-    // Áö±Ý±îÁöÀÇ ±âºÎ È¸¼ö¸¦ ±¸ÇÑ´Ù.
+    // ì§€ê¸ˆê¹Œì§€ì˜ ê¸°ë¶€ íšŒìˆ˜ë¥¼ êµ¬í•œë‹¤.
     {
         Statement* pStmt = NULL;
         Result* pResult = NULL;
@@ -102,7 +102,7 @@ void CGDonationMoneyHandler::execute(CGDonationMoney* pPacket, Player* pPlayer) 
         END_DB(pStmt)
     }
 
-    // ±âºÎ ³»¿ëÀ» µ¥ÀÌÅÍ º£ÀÌ½º¿¡ ±â·ÏÇÑ´Ù.
+    // ê¸°ë¶€ ë‚´ìš©ì„ ë°ì´í„° ë² ì´ìŠ¤ì— ê¸°ë¡í•œë‹¤.
     {
         Statement* pStmt = NULL;
 
@@ -127,7 +127,7 @@ void CGDonationMoneyHandler::execute(CGDonationMoney* pPacket, Player* pPlayer) 
         }
     }
 
-    // Áö±Ý±îÁöÀÇ ±âºÎ È¸¼ö¸¦ ±¸ÇÑ´Ù.
+    // ì§€ê¸ˆê¹Œì§€ì˜ ê¸°ë¶€ íšŒìˆ˜ë¥¼ êµ¬í•œë‹¤.
     {
         Statement* pStmt = NULL;
         Result* pResult = NULL;
@@ -143,24 +143,24 @@ void CGDonationMoneyHandler::execute(CGDonationMoney* pPacket, Player* pPlayer) 
             if (pResult->next()) {
                 sumAfterPersonal = pResult->getInt(1);
 
-                // ´Ð ³×ÀÓÀ» Ãß°¡ÇØ¾ßµÇ´Â °æ¿ì
+                // ë‹‰ ë„¤ìž„ì„ ì¶”ê°€í•´ì•¼ë˜ëŠ” ê²½ìš°
                 if (sumAfterPersonal == 1 && sumBeforePersonal != sumAfterPersonal) {
                     NicknameBook* pNicknameBook = pPC->getNicknameBook();
                     Assert(pNicknameBook != NULL);
 
-                    pNicknameBook->addNewNickname("»õÇØ º¹ ¸¹ÀÌ ¹ÞÀ¸¼¼¿ä");
+                    pNicknameBook->addNewNickname("ìƒˆí•´ ë³µ ë§Žì´ ë°›ìœ¼ì„¸ìš”");
                     pNicknamePacket = pNicknameBook->getNicknameBookListPacket();
                 } else if (sumAfterPersonal == 3 && sumBeforePersonal != sumAfterPersonal) {
                     NicknameBook* pNicknameBook = pPC->getNicknameBook();
                     Assert(pNicknameBook != NULL);
 
-                    pNicknameBook->addNewNickname("¹àÀº¼¼»óÀ» À§ÇØ ³ë·ÂÇÑ");
+                    pNicknameBook->addNewNickname("ë°ì€ì„¸ìƒì„ ìœ„í•´ ë…¸ë ¥í•œ");
                     pNicknamePacket = pNicknameBook->getNicknameBookListPacket();
                 } else if (sumAfterPersonal == 5 && sumBeforePersonal != sumAfterPersonal) {
                     NicknameBook* pNicknameBook = pPC->getNicknameBook();
                     Assert(pNicknameBook != NULL);
 
-                    pNicknameBook->addNewNickname("ÁøÁ¤ÇÑ »ç¶ûÀ» ¾Æ´Â");
+                    pNicknameBook->addNewNickname("ì§„ì •í•œ ì‚¬ëž‘ì„ ì•„ëŠ”");
                     pNicknamePacket = pNicknameBook->getNicknameBookListPacket();
                 }
             }
@@ -171,24 +171,24 @@ void CGDonationMoneyHandler::execute(CGDonationMoney* pPacket, Player* pPlayer) 
             if (pResult->next()) {
                 sumAfterGuild = pResult->getInt(1);
 
-                // ´Ð ³×ÀÓÀ» Ãß°¡ÇØ¾ßµÇ´Â °æ¿ì
+                // ë‹‰ ë„¤ìž„ì„ ì¶”ê°€í•´ì•¼ë˜ëŠ” ê²½ìš°
                 if (sumAfterGuild == 1 && sumBeforeGuild != sumAfterGuild) {
                     NicknameBook* pNicknameBook = pPC->getNicknameBook();
                     Assert(pNicknameBook != NULL);
 
-                    pNicknameBook->addNewNickname("µû¶æÇÑ ¼¼»óÀ» ¸¸µì½Ã´Ù");
+                    pNicknameBook->addNewNickname("ë”°ëœ»í•œ ì„¸ìƒì„ ë§Œë“­ì‹œë‹¤");
                     pNicknamePacket = pNicknameBook->getNicknameBookListPacket();
                 } else if (sumAfterGuild == 3 && sumBeforeGuild != sumAfterGuild) {
                     NicknameBook* pNicknameBook = pPC->getNicknameBook();
                     Assert(pNicknameBook != NULL);
 
-                    pNicknameBook->addNewNickname("¹àÀº ¼¼»óÀ» ¸¸µì½Ã´Ù");
+                    pNicknameBook->addNewNickname("ë°ì€ ì„¸ìƒì„ ë§Œë“­ì‹œë‹¤");
                     pNicknamePacket = pNicknameBook->getNicknameBookListPacket();
                 } else if (sumAfterGuild == 5 && sumBeforeGuild != sumAfterGuild) {
                     NicknameBook* pNicknameBook = pPC->getNicknameBook();
                     Assert(pNicknameBook != NULL);
 
-                    pNicknameBook->addNewNickname("»ç¶ûÀ» ½ÇÃµÇÑ »ç¶÷µé");
+                    pNicknameBook->addNewNickname("ì‚¬ëž‘ì„ ì‹¤ì²œí•œ ì‚¬ëžŒë“¤");
                     pNicknamePacket = pNicknameBook->getNicknameBookListPacket();
                 }
             }
@@ -202,15 +202,15 @@ void CGDonationMoneyHandler::execute(CGDonationMoney* pPacket, Player* pPlayer) 
     }
 
 
-    // ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+    // ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
     if (!pPC->isFlag(Effect::EFFECT_CLASS_DONATION_200501)) {
         EffectDonation200501* pEffect = new EffectDonation200501(pPC);
         pPC->addEffect(pEffect);
-        // °­Á¦·Î affect ÇÑ´Ù. ¾È¿¡¼­ ºê·ÎµåÄ³½ºÆÃ µîÀÇ Ã³¸®¸¦ ÇÑ´Ù.
+        // ê°•ì œë¡œ affect í•œë‹¤. ì•ˆì—ì„œ ë¸Œë¡œë“œìºìŠ¤íŒ… ë“±ì˜ ì²˜ë¦¬ë¥¼ í•œë‹¤.
         pEffect->affect();
     }
 
-    // ±âºÎ °á°ú¸¦ ¾Ë¸°´Ù.
+    // ê¸°ë¶€ ê²°ê³¼ë¥¼ ì•Œë¦°ë‹¤.
     gcNPCResponse.setCode(NPC_RESPONSE_SHOW_DONATION_COMPLETE_DIALOG);
     pPlayer->sendPacket(&gcNPCResponse);
 

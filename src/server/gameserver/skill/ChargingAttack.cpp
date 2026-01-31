@@ -11,7 +11,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// æ∆øÏΩ∫≈Õ¡Ó ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// ÏïÑÏö∞Ïä§ÌÑ∞Ï¶à Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void ChargingAttack::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                              CEffectID_t CEffectID)
@@ -33,15 +33,15 @@ void ChargingAttack::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouste
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
-        // NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
+        // NPCÎäî Í≥µÍ≤©Ìï† ÏàòÍ∞Ä ÏóÜÎã§.
         if (pTargetCreature == NULL || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
             return;
         }
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, ∞À¿Ã æ∆¥œ∂Û∏È ±‚º˙¿ª ªÁøÎ«“ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, Í≤ÄÏù¥ ÏïÑÎãàÎùºÎ©¥ Í∏∞Ïà†ÏùÑ ÏÇ¨Ïö©Ìï† Ïàò ÏóÜÎã§.
         Item* pItem = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
         if (pItem == NULL) {
             executeSkillFailException(pOusters, getSkillType());
@@ -71,20 +71,20 @@ void ChargingAttack::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouste
                          pOusters->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER);
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK && !bEffected) {
-            // ∫¸∏£∞‘ PC∏¶ øÚ¡˜ø©¡ÿ¥Ÿ.
+            // Îπ†Î•¥Í≤å PCÎ•º ÏõÄÏßÅÏó¨Ï§ÄÎã§.
             if (pZone->moveFastPC(pOusters, pOusters->getX(), pOusters->getY(), pTargetCreature->getX(),
                                   pTargetCreature->getY(), getSkillType())) {
                 decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
                 bool bCriticalHit = false;
 
-                // µ•πÃ¡ˆ∏¶ ¡ÿ¥Ÿ.
+                // Îç∞ÎØ∏ÏßÄÎ•º Ï§ÄÎã§.
                 Damage_t Damage = computeDamage(pOusters, pTargetCreature, 0, bCriticalHit) + output.Damage;
                 setDamage(pTargetCreature, Damage, pOusters, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
                 computeAlignmentChange(pTargetCreature, Damage, pOusters, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
                 decreaseDurability(pOusters, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-                // ≈©∏Æ∆ºƒ√ »˜∆Æ∂Û∏È ªÛ¥ÎπÊ¿ª µ⁄∑Œ π∞∑Ø≥™∞‘ «—¥Ÿ.
+                // ÌÅ¨Î¶¨Ìã∞Ïª¨ ÌûàÌä∏ÎùºÎ©¥ ÏÉÅÎåÄÎ∞©ÏùÑ Îí§Î°ú Î¨ºÎü¨ÎÇòÍ≤å ÌïúÎã§.
                 if (bCriticalHit) {
                     knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
                 }
@@ -94,7 +94,7 @@ void ChargingAttack::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouste
                     shareOustersExp(pOusters, exp, _GCSkillToObjectOK1);
                 }
 
-                // ∆–≈∂¿ª ¡ÿ∫Ò«œ∞Ì ∫∏≥Ω¥Ÿ.
+                // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌïòÍ≥† Î≥¥ÎÇ∏Îã§.
                 _GCSkillToObjectOK1.setSkillType(SkillType);
                 _GCSkillToObjectOK1.setCEffectID(CEffectID);
                 _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);

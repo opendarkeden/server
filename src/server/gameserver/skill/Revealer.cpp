@@ -13,7 +13,7 @@
 #include "Party.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Revealer::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,24 +49,24 @@ void Revealer::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // ±â¼úÀÌ À¯ÁöµÇ´Â ½Ã°£Àº ¼÷·Ãµµ¿¡ µû¶ó¼­ ´Þ¶óÁø´Ù.
+            // ê¸°ìˆ ì´ ìœ ì§€ë˜ëŠ” ì‹œê°„ì€ ìˆ™ë ¨ë„ì— ë”°ë¼ì„œ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectRevealer* pEffectRevealer = new EffectRevealer(pSlayer);
             pEffectRevealer->setSkillLevel(pSkillSlot->getExpLevel());
             pEffectRevealer->setDeadline(output.Duration);
             pSlayer->addEffect(pEffectRevealer);
             pSlayer->setFlag(Effect::EFFECT_CLASS_REVEALER);
 
-            // ÀÌ ÀÌÆåÆ®°¡ ºÙÀ½À¸·Î½á, ¾È º¸ÀÌ´ø °ÍÀÌ º¸ÀÎ´Ù.
+            // ì´ ì´íŽ™íŠ¸ê°€ ë¶™ìŒìœ¼ë¡œì¨, ì•ˆ ë³´ì´ë˜ ê²ƒì´ ë³´ì¸ë‹¤.
             pZone->updateMineScan(pSlayer);
             // pZone->updateInvisibleScan( pSlayer );
             pZone->updateHiddenScan(pSlayer);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1) * 2;
             shareAttrExp(pSlayer, ExpUp, 1, 8, 1, _GCSkillToSelfOK1);
@@ -85,7 +85,7 @@ void Revealer::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
 
             pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_REVEALER);

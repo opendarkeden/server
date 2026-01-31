@@ -39,13 +39,13 @@ void CGBloodDrainHandler::execute(CGBloodDrain* pPacket, Player* pPlayer)
             Creature* pCreature = pGamePlayer->getCreature();
             Assert(pCreature != NULL);
 
-            // ¹ìÆÄÀÌ¾î°¡ ¾Æ´Ñ ³ðÀÌ ÈíÇ÷À» ÇÒ ¼ö´Â ¾ø´Ù.
+            // ë±€íŒŒì´ì–´ê°€ ì•„ë‹Œ ë†ˆì´ í¡í˜ˆì„ í•  ìˆ˜ëŠ” ì—†ë‹¤.
             if (!pCreature->isVampire())
                 return;
 
             Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-            // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+            // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
             ZoneLevel_t ZoneLevel = pCreature->getZone()->getZoneLevel(pCreature->getX(), pCreature->getY());
             if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (!isAbleToUseObjectSkill(pVampire, SKILL_BLOOD_DRAIN))) {
                 GCSkillFailed1 gcSkillFailed1;
@@ -54,7 +54,7 @@ void CGBloodDrainHandler::execute(CGBloodDrain* pPacket, Player* pPlayer)
                 return;
             }
 
-            // Dark Revenge »óÅÂ¿¡¼­ ÈíÇ÷À» ½ÃµµÇÏ¸é Ç®¾îÁØ´Ù.
+            // Dark Revenge ìƒíƒœì—ì„œ í¡í˜ˆì„ ì‹œë„í•˜ë©´ í’€ì–´ì¤€ë‹¤.
             if (pVampire->isFlag(Effect::EFFECT_CLASS_EXTREME)) {
                 EffectManager* pEffectManager = pVampire->getEffectManager();
                 Assert(pEffectManager != NULL);
@@ -64,7 +64,7 @@ void CGBloodDrainHandler::execute(CGBloodDrain* pPacket, Player* pPlayer)
                 }
             }
 
-            // ¾È º¸ÀÌ´Â »óÅÂ¿¡¼­ ÈíÇ÷À» ½ÃµµÇÏ¸é, º¸ÀÌ°Ô ÇØÁØ´Ù.
+            // ì•ˆ ë³´ì´ëŠ” ìƒíƒœì—ì„œ í¡í˜ˆì„ ì‹œë„í•˜ë©´, ë³´ì´ê²Œ í•´ì¤€ë‹¤.
             if (pVampire->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)) {
                 Zone* pZone = pVampire->getZone();
                 Assert(pZone != NULL);

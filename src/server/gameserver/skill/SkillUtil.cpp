@@ -118,12 +118,12 @@ void checkFreeLevelLimit(PlayerCreature* pPC)
 {
     __BEGIN_TRY
 
-    //	static const char MsgLevelLimitOver[] = "¹«·á·Î »ç¿ëÇÒ ¼ö ÀÖ´Â ·¹º§ Á¦ÇÑ¿¡ µµ´ŞÇØ¼­";
+    //	static const char MsgLevelLimitOver[] = "Â¹Â«Â·Ã¡Â·Ã Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â·Â¹ÂºÂ§ ÃÂ¦Ã‡Ã‘Â¿Â¡ ÂµÂµÂ´ÃÃ‡Ã˜Â¼Â­";
 
     // by sigi. 2002.11.19
-    // À¯·á »ç¿ëÀÚ°¡ ¾Æ´Ï°Å³ª
-    // ¹«·á »ç¿ë±â°£ÀÌ ³²¾ÆÀÖÁö ¾ÊÀ¸¸é(È¤Àº ´É·ÂÄ¡ over) Â¥¸¥´Ù.
-    // ¾Öµåºô ºô¸µ ½Ã½ºÅÛÀº »ç¿ëÇÏÁö ¾Ê°í »ç¿ëÀÚ Á¦ÇÑÀº ÇÏ´Â °æ¿ì. by sigi. 2003.2.21
+    // Ã€Â¯Â·Ã¡ Â»Ã§Â¿Ã«Ã€ÃšÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã…Â³Âª
+    // Â¹Â«Â·Ã¡ Â»Ã§Â¿Ã«Â±Ã¢Â°Â£Ã€ÃŒ Â³Â²Â¾Ã†Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Â¸Â¸Ã©(ÃˆÂ¤Ã€Âº Â´Ã‰Â·Ã‚Ã„Â¡ over) Ã‚Â¥Â¸Â¥Â´Ã™.
+    // Â¾Ã–ÂµÃ¥ÂºÃ´ ÂºÃ´Â¸Âµ Â½ÃƒÂ½ÂºÃ…Ã›Ã€Âº Â»Ã§Â¿Ã«Ã‡ÃÃÃ¶ Â¾ÃŠÂ°Ã­ Â»Ã§Â¿Ã«Ã€Ãš ÃÂ¦Ã‡Ã‘Ã€Âº Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬. by sigi. 2003.2.21
 #if defined(__PAY_SYSTEM_FREE_LIMIT__)
 
     if (!pPC->isPayPlayAvaiable()) {
@@ -135,11 +135,11 @@ void checkFreeLevelLimit(PlayerCreature* pPC)
         /*		EventKick* pEventKick = new EventKick(pGamePlayer);
                 pEventKick->setDeadline(30*10);
                 pGamePlayer->addEvent(pEventKick);
-                // ¸î ÃÊÈÄ¿¡ Â©¸°´Ù..°í º¸³»ÁØ´Ù.
+                // Â¸Ã® ÃƒÃŠÃˆÃ„Â¿Â¡ Ã‚Â©Â¸Â°Â´Ã™..Â°Ã­ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
                 //pEventKick->setMessage( MsgLevelLimitOver );
                 //pEventKick->sendMessage();
 
-                // ¸î ÃÊÈÄ¿¡ Â©¸°´Ù..°í º¸³»ÁØ´Ù.
+                // Â¸Ã® ÃƒÃŠÃˆÃ„Â¿Â¡ Ã‚Â©Â¸Â°Â´Ã™..Â°Ã­ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
                 GCKickMessage gcKickMessage;
                 gcKickMessage.setType( KICK_MESSAGE_EXPIRE_FREEPLAY );
                 gcKickMessage.setSeconds( 30 );
@@ -152,13 +152,13 @@ void checkFreeLevelLimit(PlayerCreature* pPC)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// À¯·áÈ­Á¸ °æÇèÄ¡ »Ç³ª½º
+// Ã€Â¯Â·Ã¡ÃˆÂ­ÃÂ¸ Â°Ã¦Ã‡Ã¨Ã„Â¡ Â»Ã‡Â³ÂªÂ½Âº
 //////////////////////////////////////////////////////////////////////////////
 // const uint g_pVariableManager->getPremiumExpBonusPercent() = 150;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ ÆÄ¶ó¹ÌÅÍ¸¦ °è»êÇØ ÃÖÁ¾ µ¥¹ÌÁö¸¦ »êÃâÇÑ´Ù.
+// Â°Ã¸Â°ÃÃ€ÃšÂ¿Ã Ã‡Ã‡Â°Ã¸Â°ÃÃ€Ãš Â»Ã§Ã€ÃŒÃ€Ã‡ Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃƒÃ–ÃÂ¾ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â»ÃªÃƒÃ¢Ã‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature) {
     Assert(pCreature != NULL);
@@ -185,7 +185,7 @@ Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature) {
             Assert(pMonster != NULL);
             Damage = computeMonsterDamage(pMonster, pTargetCreature, bCriticalHit);
         } else {
-            // NPC¶ó´Â ¸»ÀÎ°¡...
+            // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡...
             return 0;
         }
     } catch (Throwable& t) {
@@ -196,7 +196,7 @@ Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ Â¼Ã¸Â¼Ã¶ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computePureDamage(Creature* pCreature) {
     Damage_t Damage = 0;
@@ -221,7 +221,7 @@ Damage_t computePureDamage(Creature* pCreature) {
         Assert(pMonster != NULL);
         Damage = computePureMonsterDamage(pMonster);
     } else {
-        // NPC¶ó´Â ¸»ÀÎ°¡...
+        // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡...
         return 0;
     }
 
@@ -229,9 +229,9 @@ Damage_t computePureDamage(Creature* pCreature) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ ÆÄ¶ó¹ÌÅÍ¸¦ °è»êÇØ ÃÖÁ¾ µ¥¹ÌÁö¸¦ »êÃâÇÑ´Ù.
-// À§ÀÇ ÇÔ¼ö¿Í °°À¸³ª, ÀÌ ÇÔ¼ö¸¦ ºÎ¸¦ °æ¿ì¿¡´Â ³»ºÎÀûÀ¸·Î Å©¸®Æ¼ÄÃ
-// È÷Æ®¿Í °ü·ÃµÈ ºÎºĞÀÌ Ã³¸®µÈ´Ù.
+// Â°Ã¸Â°ÃÃ€ÃšÂ¿Ã Ã‡Ã‡Â°Ã¸Â°ÃÃ€Ãš Â»Ã§Ã€ÃŒÃ€Ã‡ Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃƒÃ–ÃÂ¾ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â»ÃªÃƒÃ¢Ã‡Ã‘Â´Ã™.
+// Ã€Â§Ã€Ã‡ Ã‡Ã”Â¼Ã¶Â¿Ã Â°Â°Ã€Â¸Â³Âª, Ã€ÃŒ Ã‡Ã”Â¼Ã¶Â¸Â¦ ÂºÃÂ¸Â¦ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â³Â»ÂºÃÃ€Ã»Ã€Â¸Â·Ã Ã…Â©Â¸Â®Ã†Â¼Ã„Ãƒ
+// ÃˆÃ·Ã†Â®Â¿Ã Â°Ã¼Â·ÃƒÂµÃˆ ÂºÃÂºÃÃ€ÃŒ ÃƒÂ³Â¸Â®ÂµÃˆÂ´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature, int CriticalBonus, bool& bCritical) {
     Assert(pCreature != NULL);
@@ -259,7 +259,7 @@ Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature, int Criti
             Assert(pMonster != NULL);
             Damage = computeMonsterDamage(pMonster, pTargetCreature, bCriticalHit);
         } else {
-            // NPC¶ó´Â ¸»ÀÎ°¡...
+            // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡...
             return 0;
         }
     } catch (Throwable& t) {
@@ -268,7 +268,7 @@ Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature, int Criti
 
     bCritical = bCriticalHit;
 
-    // Å©¸®Æ¼ÄÃ È÷Æ®ÀÌ°í, ¸Â´Â ³ğÀÌ ¸ó½ºÅÍ¶ó¸é 150%ÀÇ µ¥¹ÌÁö¸¦ ÁÖ°Ô µÈ´Ù.
+    // Ã…Â©Â¸Â®Ã†Â¼Ã„Ãƒ ÃˆÃ·Ã†Â®Ã€ÃŒÂ°Ã­, Â¸Ã‚Â´Ã‚ Â³Ã°Ã€ÃŒ Â¸Ã³Â½ÂºÃ…ÃÂ¶Ã³Â¸Ã© 150%Ã€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÃÃ–Â°Ã” ÂµÃˆÂ´Ã™.
     if (bCritical && pTargetCreature->isMonster()) {
         Damage = getPercentValue(Damage, 150);
     }
@@ -278,11 +278,11 @@ Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature, int Criti
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¿ø·¡ µ¥¹ÌÁö¿¡¼­ ÇÁ·ÎÅØ¼ÇÀ» Á¦¿ÜÇÑ ÃÖÁ¾ µ¥¹ÌÁö¸¦ ¸®ÅÏÇÑ´Ù.
+// Â¿Ã¸Â·Â¡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¿Â¡Â¼Â­ Ã‡ÃÂ·ÃÃ…Ã˜Â¼Ã‡Ã€Â» ÃÂ¦Â¿ÃœÃ‡Ã‘ ÃƒÃ–ÃÂ¾ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¸Â®Ã…ÃÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 double computeFinalDamage(Damage_t minDamage, Damage_t maxDamage, Damage_t realDamage, Protection_t Protection,
                           bool bCritical) {
-    // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é ÇÁ·ÎÅØ¼ÇÀ» °í·ÁÇÏÁö ¾Ê°í, µ¥¹ÌÁö ±×´ë·Î µé¾î°£´Ù.
+    // Ã…Â©Â¸Â®Ã†Â¼Ã„Ãƒ ÃˆÃ·Ã†Â®Â¶Ã³Â¸Ã© Ã‡ÃÂ·ÃÃ…Ã˜Â¼Ã‡Ã€Â» Â°Ã­Â·ÃÃ‡ÃÃÃ¶ Â¾ÃŠÂ°Ã­, ÂµÂ¥Â¹ÃŒÃÃ¶ Â±Ã—Â´Ã«Â·Ã ÂµÃ©Â¾Ã®Â°Â£Â´Ã™.
     if (bCritical)
         return realDamage;
 
@@ -329,7 +329,7 @@ double computeFinalDamage(Damage_t minDamage, Damage_t maxDamage, Damage_t realD
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â°Ã¸Â°ÃÃ€ÃšÂ¿Ã Ã‡Ã‡Â°Ã¸Â°ÃÃ€Ãš Â»Ã§Ã€ÃŒÃ€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeSlayerDamage(Slayer* pSlayer, Creature* pTargetCreature, bool bCritical) {
     Assert(pSlayer != NULL);
@@ -339,22 +339,22 @@ Damage_t computeSlayerDamage(Slayer* pSlayer, Creature* pTargetCreature, bool bC
     uint timeband = getZoneTimeband(pSlayer->getZone());
     double FinalDamage = 0;
 
-    // ÀÏ´Ü ¸Ç¼ÕÀÇ µ¥¹ÌÁö¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Ã€ÃÂ´Ãœ Â¸Ã‡Â¼Ã•Ã€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     Damage_t MinDamage = pSlayer->getDamage(ATTR_CURRENT);
     Damage_t MaxDamage = pSlayer->getDamage(ATTR_MAX);
 
-    // ¹«±â¸¦ µé°í ÀÖ´Ù¸é, min, max¿¡ ¹«±âÀÇ min, max¸¦ °è»êÇØ ÁØ´Ù.
+    // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã©, min, maxÂ¿Â¡ Â¹Â«Â±Ã¢Ã€Ã‡ min, maxÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃÃ˜Â´Ã™.
     if (pItem != NULL && pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND)) {
-        // ½ºÆ®¶óÀÌÅ· µ¥¹ÌÁö¸¦ °è»êÇÏ´Â ºÎºĞÀ» Slayer::initAllStat() ºÎºĞÀ¸·Î
-        // ¿Å±â¸é¼­ ±×°÷¿¡¼­ m_Damage[]¸¦ ¼¼ÆÃÇØ ¹ö¸®±â ¶§¹®¿¡, ¿©±â¼­ ´õÇÒ
-        // ÇÊ¿ä°¡ ¾ø¾îÁ³´Ù. -- 2002.01.17 ±è¼º¹Î
+        // Â½ÂºÃ†Â®Â¶Ã³Ã€ÃŒÃ…Â· ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡ÃÂ´Ã‚ ÂºÃÂºÃÃ€Â» Slayer::initAllStat() ÂºÃÂºÃÃ€Â¸Â·Ã
+        // Â¿Ã…Â±Ã¢Â¸Ã©Â¼Â­ Â±Ã—Â°Ã·Â¿Â¡Â¼Â­ m_Damage[]Â¸Â¦ Â¼Â¼Ã†ÃƒÃ‡Ã˜ Â¹Ã¶Â¸Â®Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡, Â¿Â©Â±Ã¢Â¼Â­ Â´ÃµÃ‡Ã’
+        // Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â¾Ã®ÃÂ³Â´Ã™. -- 2002.01.17 Â±Ã¨Â¼ÂºÂ¹Ã
         // MinDamage += (pItem->getMinDamage() + pItem->getBonusDamage());
         // MaxDamage += (pItem->getMaxDamage() + pItem->getBonusDamage());
         MinDamage += pItem->getMinDamage();
         MaxDamage += pItem->getMaxDamage();
     }
 
-    // ½ÇÁ¦ ·£´ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // Â½Ã‡ÃÂ¦ Â·Â£Â´Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Damage_t RealDamage = max(1, Random(MinDamage, MaxDamage));
 
     if (pTargetCreature->isSlayer()) {
@@ -394,11 +394,11 @@ Damage_t computeSlayerDamage(Slayer* pSlayer, Creature* pTargetCreature, bool bC
 
         FinalDamage = computeFinalDamage(MinDamage, MaxDamage, RealDamage, Protection, bCritical);
     } else {
-        // NPC¶ó´Â ¸»ÀÎ°¡...
+        // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡...
         return 0;
     }
 
-    // AbilityBalance.cpp¿¡¼­ ÇÑ´Ù.
+    // AbilityBalance.cppÂ¿Â¡Â¼Â­ Ã‡Ã‘Â´Ã™.
     // FinalDamage += g_pVariableManager->getCombatSlayerDamageBonus();
 
     return (Damage_t)FinalDamage;
@@ -406,7 +406,7 @@ Damage_t computeSlayerDamage(Slayer* pSlayer, Creature* pTargetCreature, bool bC
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â°Ã¸Â°ÃÃ€ÃšÂ¿Ã Ã‡Ã‡Â°Ã¸Â°ÃÃ€Ãš Â»Ã§Ã€ÃŒÃ€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeVampireDamage(Vampire* pVampire, Creature* pTargetCreature, bool bCritical) {
     Assert(pVampire != NULL);
@@ -417,16 +417,16 @@ Damage_t computeVampireDamage(Vampire* pVampire, Creature* pTargetCreature, bool
     Damage_t MaxDamage = pVampire->getDamage(ATTR_MAX);
     uint timeband = getZoneTimeband(pVampire->getZone());
 
-    // vampire ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö
+    // vampire Â¹Â«Â±Ã¢Â¿Â¡ Ã€Ã‡Ã‡Ã‘ ÂµÂ¥Â¹ÃŒÃÃ¶
     Item* pItem = pVampire->getWearItem(Vampire::WEAR_RIGHTHAND);
 
-    // ¹«±â¸¦ µé°í ÀÖ´Ù¸é, min, max¿¡ ¹«±âÀÇ min, max¸¦ °è»êÇØ ÁØ´Ù.
+    // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã©, min, maxÂ¿Â¡ Â¹Â«Â±Ã¢Ã€Ã‡ min, maxÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃÃ˜Â´Ã™.
     if (pItem != NULL && pVampire->isRealWearingEx(Vampire::WEAR_RIGHTHAND)) {
         MinDamage += pItem->getMinDamage();
         MaxDamage += pItem->getMaxDamage();
     }
 
-    // ½ÇÁ¦ ·£´ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // Â½Ã‡ÃÂ¦ Â·Â£Â´Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Damage_t RealDamage = max(1, Random(MinDamage, MaxDamage));
 
     RealDamage = (Damage_t)getPercentValue(RealDamage, VampireTimebandFactor[timeband]);
@@ -468,11 +468,11 @@ Damage_t computeVampireDamage(Vampire* pVampire, Creature* pTargetCreature, bool
 
         FinalDamage = computeFinalDamage(MinDamage, MaxDamage, RealDamage, Protection, bCritical);
     } else {
-        // NPC¶ó´Â ¸»ÀÎ°¡...
+        // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡...
         return 0;
     }
 
-    // AbilityBalance.cpp¿¡¼­ ÇÑ´Ù.
+    // AbilityBalance.cppÂ¿Â¡Â¼Â­ Ã‡Ã‘Â´Ã™.
     // FinalDamage += g_pVariableManager->getCombatVampireDamageBonus();
 
     return (Damage_t)FinalDamage;
@@ -480,7 +480,7 @@ Damage_t computeVampireDamage(Vampire* pVampire, Creature* pTargetCreature, bool
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â°Ã¸Â°ÃÃ€ÃšÂ¿Ã Ã‡Ã‡Â°Ã¸Â°ÃÃ€Ãš Â»Ã§Ã€ÃŒÃ€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeOustersDamage(Ousters* pOusters, Creature* pTargetCreature, bool bCritical) {
     Assert(pOusters != NULL);
@@ -491,16 +491,16 @@ Damage_t computeOustersDamage(Ousters* pOusters, Creature* pTargetCreature, bool
     Damage_t MaxDamage = pOusters->getDamage(ATTR_MAX);
     uint timeband = getZoneTimeband(pOusters->getZone());
 
-    // Ousters ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö
+    // Ousters Â¹Â«Â±Ã¢Â¿Â¡ Ã€Ã‡Ã‡Ã‘ ÂµÂ¥Â¹ÃŒÃÃ¶
     Item* pItem = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
 
-    // ¹«±â¸¦ µé°í ÀÖ´Ù¸é, min, max¿¡ ¹«±âÀÇ min, max¸¦ °è»êÇØ ÁØ´Ù.
+    // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã©, min, maxÂ¿Â¡ Â¹Â«Â±Ã¢Ã€Ã‡ min, maxÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃÃ˜Â´Ã™.
     if (pItem != NULL && pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
         MinDamage += pItem->getMinDamage();
         MaxDamage += pItem->getMaxDamage();
     }
 
-    // ½ÇÁ¦ ·£´ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // Â½Ã‡ÃÂ¦ Â·Â£Â´Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Damage_t RealDamage = max(1, Random(MinDamage, MaxDamage));
 
     if (pTargetCreature->isSlayer()) {
@@ -540,11 +540,11 @@ Damage_t computeOustersDamage(Ousters* pOusters, Creature* pTargetCreature, bool
 
         FinalDamage = computeFinalDamage(MinDamage, MaxDamage, RealDamage, Protection, bCritical);
     } else {
-        // NPC¶ó´Â ¸»ÀÎ°¡...
+        // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡...
         return 0;
     }
 
-    // AbilityBalance.cpp¿¡¼­ ÇÑ´Ù.
+    // AbilityBalance.cppÂ¿Â¡Â¼Â­ Ã‡Ã‘Â´Ã™.
     // FinalDamage += g_pVariableManager->getCombatOustersDamageBonus();
 
     return (Damage_t)FinalDamage;
@@ -552,7 +552,7 @@ Damage_t computeOustersDamage(Ousters* pOusters, Creature* pTargetCreature, bool
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â¸Ã³Â½ÂºÃ…Ã Â°Ã¸Â°ÃÃ€ÃšÂ¿Ã Ã‡Ã‡Â°Ã¸Â°ÃÃ€Ãš Â»Ã§Ã€ÃŒÃ€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeMonsterDamage(Monster* pMonster, Creature* pTargetCreature, bool bCritical) {
     Assert(pMonster != NULL);
@@ -603,7 +603,7 @@ Damage_t computeMonsterDamage(Monster* pMonster, Creature* pTargetCreature, bool
 
         FinalDamage = computeFinalDamage(MinDamage, MaxDamage, RealDamage, Protection, bCritical);
     } else {
-        // NPC¶ó´Â ¸»ÀÎ°¡?
+        // NPCÂ¶Ã³Â´Ã‚ Â¸Â»Ã€ÃÂ°Â¡?
         return 0;
     }
 
@@ -611,7 +611,7 @@ Damage_t computeMonsterDamage(Monster* pMonster, Creature* pTargetCreature, bool
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// resistance¸¦ °í·ÁÇÑ ¸¶¹ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// resistanceÂ¸Â¦ Â°Ã­Â·ÃÃ‡Ã‘ Â¸Â¶Â¹Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeMagicDamage(Creature* pTargetCreature, int Damage, SkillType_t SkillType, bool bVampire,
                             Creature* pAttacker) {
@@ -642,7 +642,7 @@ Damage_t computeMagicDamage(Creature* pTargetCreature, int Damage, SkillType_t S
     if (bVampire)
         Resist = (int)(Resist / 1.2);
 
-    // ÀúÇ×·Â¿¡ µû¶ó µ¥¹ÌÁö¸¦ °¡°¨ÇÑ´Ù.
+    // Ã€ÃºÃ‡Ã—Â·Ã‚Â¿Â¡ ÂµÃ»Â¶Ã³ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Â¡Â°Â¨Ã‡Ã‘Â´Ã™.
     int penalty = (int)(MagicLevel / 5.0 - Resist);
     penalty = min(penalty, 100);
     penalty = max(penalty, -100);
@@ -659,7 +659,7 @@ Damage_t computeMagicDamage(Creature* pTargetCreature, int Damage, SkillType_t S
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸®½ºÆ²¸´À» °í·ÁÇÑ ¾Æ¿ì½ºÅÍÁî ¸¶¹ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â¸Â®Â½ÂºÃ†Â²Â¸Â´Ã€Â» Â°Ã­Â·ÃÃ‡Ã‘ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® Â¸Â¶Â¹Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeOustersMagicDamage(Ousters* pOusters, Creature* pTargetCreature, int Damage, SkillType_t SkillType) {
     Assert(pOusters != NULL);
@@ -676,19 +676,19 @@ Damage_t computeOustersMagicDamage(Ousters* pOusters, Creature* pTargetCreature,
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¸°Ù¿¡°Ô ¹ÌÄ¡´Â Àº µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Ã…Â¸Â°Ã™Â¿Â¡Â°Ã” Â¹ÃŒÃ„Â¡Â´Ã‚ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computeSlayerSilverDamage(Creature* pCreature, int Damage, ModifyInfo* pMI) {
     Assert(pCreature != NULL);
 
-    // ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é Àº µ¥¹ÌÁö°¡ ³ª¿Ã ÀÌÀ¯°¡ ¾ø´Ù.
+    // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´ÃÂ¶Ã³Â¸Ã© Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ Â³ÂªÂ¿Ãƒ Ã€ÃŒÃ€Â¯Â°Â¡ Â¾Ã¸Â´Ã™.
     if (pCreature->isSlayer() == false)
         return 0;
 
     Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
     Assert(pSlayer != NULL);
 
-    // ¹«±â°¡ ÀÖ´ÂÁö °Ë»çÇÏ°í, ¾ø´Ù¸é 0À» ¸®ÅÏÇÑ´Ù.
+    // Â¹Â«Â±Ã¢Â°Â¡ Ã€Ã–Â´Ã‚ÃÃ¶ Â°Ã‹Â»Ã§Ã‡ÃÂ°Ã­, Â¾Ã¸Â´Ã™Â¸Ã© 0Ã€Â» Â¸Â®Ã…ÃÃ‡Ã‘Â´Ã™.
     Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
     if (pWeapon == NULL)
         return 0;
@@ -696,7 +696,7 @@ Damage_t computeSlayerSilverDamage(Creature* pCreature, int Damage, ModifyInfo* 
     Damage_t silverDamage = 0;
 
     if (isMeleeWeapon(pWeapon)) {
-        // ¼ºÁ÷ÀÚ ¹«±âÀÏ °æ¿ì¿¡´Â, ±âº»ÀûÀ¸·Î 10%ÀÇ Àº µ¥¹ÌÁö¸¦ ÁØ´Ù.
+        // Â¼ÂºÃÃ·Ã€Ãš Â¹Â«Â±Ã¢Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚, Â±Ã¢ÂºÂ»Ã€Ã»Ã€Â¸Â·Ã 10%Ã€Ã‡ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÃÃ˜Â´Ã™.
         if (isClericWeapon(pWeapon)) {
             silverDamage = max(1, (int)(Damage * 0.1));
             silverDamage = min((int)silverDamage, (int)pWeapon->getSilver());
@@ -709,10 +709,10 @@ Damage_t computeSlayerSilverDamage(Creature* pCreature, int Damage, ModifyInfo* 
                     pMI->addShortData(MODIFY_SILVER_DURABILITY, pWeapon->getSilver());
             }
 
-            // ±âº»À¸·Î µé¾î°¡´Â 10%ÀÇ Àº µ¥¹ÌÁö
+            // Â±Ã¢ÂºÂ»Ã€Â¸Â·Ã ÂµÃ©Â¾Ã®Â°Â¡Â´Ã‚ 10%Ã€Ã‡ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶
             silverDamage += max(1, (int)(Damage * 0.1));
         }
-        // ¼ºÁ÷ÀÚ ¹«±â°¡ ¾Æ´Ò °æ¿ì¿¡´Â, Àº µµ±İÀ» ÇßÀ» ¶§¸¸ Àº µ¥¹ÌÁö¸¦ ÁØ´Ù.
+        // Â¼ÂºÃÃ·Ã€Ãš Â¹Â«Â±Ã¢Â°Â¡ Â¾Ã†Â´Ã’ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚, Ã€Âº ÂµÂµÂ±ÃÃ€Â» Ã‡ÃŸÃ€Â» Â¶Â§Â¸Â¸ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÃÃ˜Â´Ã™.
         else {
             silverDamage = max(1, (int)(Damage * 0.1));
             silverDamage = min((int)silverDamage, (int)pWeapon->getSilver());
@@ -726,9 +726,9 @@ Damage_t computeSlayerSilverDamage(Creature* pCreature, int Damage, ModifyInfo* 
             }
         }
     } else if (isArmsWeapon(pWeapon) && pWeapon->getSilver() > 0) {
-        // ÃÑ °è¿­ÀÇ ¹«±â¶ó¸é, Àº Åº¾ËÀÌ ³ª°¡´Â °ÍÀÌ¹Ç·Î,
-        // ¹«±â ÀÚÃ¼ÀÇ ÀºÀ» ÁÙÀÌ¸é ¾È µÈ´Ù. ÀÌ°ÍÀº ¿ÜºÎ¿¡¼­,
-        // Áï ÃÑ¾ËÀ» ÁÙÀÌ´Â ºÎºĞ¿¡¼­ Ã³¸®ÇÏ±â·Î ÇÑ´Ù.
+        // ÃƒÃ‘ Â°Ã¨Â¿Â­Ã€Ã‡ Â¹Â«Â±Ã¢Â¶Ã³Â¸Ã©, Ã€Âº Ã…ÂºÂ¾Ã‹Ã€ÃŒ Â³ÂªÂ°Â¡Â´Ã‚ Â°ÃÃ€ÃŒÂ¹Ã‡Â·Ã,
+        // Â¹Â«Â±Ã¢ Ã€ÃšÃƒÂ¼Ã€Ã‡ Ã€ÂºÃ€Â» ÃÃ™Ã€ÃŒÂ¸Ã© Â¾Ãˆ ÂµÃˆÂ´Ã™. Ã€ÃŒÂ°ÃÃ€Âº Â¿ÃœÂºÃÂ¿Â¡Â¼Â­,
+        // ÃÃ¯ ÃƒÃ‘Â¾Ã‹Ã€Â» ÃÃ™Ã€ÃŒÂ´Ã‚ ÂºÃÂºÃÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡ÃÂ±Ã¢Â·Ã Ã‡Ã‘Â´Ã™.
         silverDamage = max(1, (int)(Damage * 0.1));
     }
 
@@ -801,17 +801,17 @@ RankExp_t computeRankExp(int myLevel, int otherLevel) // by sigi. 2002.12.31
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Creature¸¦ Á×¿´À»¶§ÀÇ È¿°ú
+// CreatureÂ¸Â¦ ÃÃ—Â¿Â´Ã€Â»Â¶Â§Ã€Ã‡ ÃˆÂ¿Â°Ãº
 //
-// Á×Àº »ç¶÷¿¡°Ô KillCount¸¦ Áõ°¡½ÃÄÑÁØ´Ù. --> °è±Ş °æÇèÄ¡
+// ÃÃ—Ã€Âº Â»Ã§Â¶Ã·Â¿Â¡Â°Ã” KillCountÂ¸Â¦ ÃÃµÂ°Â¡Â½ÃƒÃ„Ã‘ÃÃ˜Â´Ã™. --> Â°Ã¨Â±Ã Â°Ã¦Ã‡Ã¨Ã„Â¡
 // by sigi. 2002.8.31
 //////////////////////////////////////////////////////////////////////////////
 void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
-    // [Ã³¸®ÇÒ ÇÊ¿ä ¾ø´Â °æ¿ì]
-    // °ø°İÇÑ »ç¶÷ÀÌ ¾ø°Å³ª
-    // Á×Àº¾Ö°¡ ¾ø°Å³ª
-    // °ø°İÇÑ »ç¶÷ÀÌ »ç¶÷ÀÌ ¾Æ´Ï°Å³ª -_-;
-    // Á×Àº¾Ö°¡ Á×Àº°Ô ¾Æ´Ï¸é -_-;
+    // [ÃƒÂ³Â¸Â®Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬]
+    // Â°Ã¸Â°ÃÃ‡Ã‘ Â»Ã§Â¶Ã·Ã€ÃŒ Â¾Ã¸Â°Ã…Â³Âª
+    // ÃÃ—Ã€ÂºÂ¾Ã–Â°Â¡ Â¾Ã¸Â°Ã…Â³Âª
+    // Â°Ã¸Â°ÃÃ‡Ã‘ Â»Ã§Â¶Ã·Ã€ÃŒ Â»Ã§Â¶Ã·Ã€ÃŒ Â¾Ã†Â´ÃÂ°Ã…Â³Âª -_-;
+    // ÃÃ—Ã€ÂºÂ¾Ã–Â°Â¡ ÃÃ—Ã€ÂºÂ°Ã” Â¾Ã†Â´ÃÂ¸Ã© -_-;
     if (pAttacker == NULL || pDeadCreature == NULL || !pAttacker->isPC() || pDeadCreature->isAlive()) {
         return;
     }
@@ -840,36 +840,36 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
     // int bonusPercent = 100;
 
     if (pAttacker->isSlayer()) {
-        // ½½·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isSlayer())
             return;
 
         Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
         myLevel = pSlayer->getHighestSkillDomainLevel();
 
-        // ½½·¹ÀÌ¾îÀÏ °æ¿ì ¹«±â¸¦ µé°í ÀÖÁö ¾Ê´Ù¸é ¹«½ÃÇÑ´Ù.
+        // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬ Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™Â¸Ã© Â¹Â«Â½ÃƒÃ‡Ã‘Â´Ã™.
         if (!pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND))
             return;
 
-        // ½½·¹ÀÌ¾î°¡ ¹ìÆÄÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isVampire()) {
             Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
             otherLevel = pVampire->getLevel();
             // bonusPercent = 150;
         }
-        // ½½·¹ÀÌ¾î°¡ ¾Æ¿ì½ºÅÍ½º¸¦ Á×ÀÎ °æ¿ì
+        // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         else if (pDeadCreature->isOusters()) {
             Ousters* pOusters = dynamic_cast<Ousters*>(pDeadCreature);
             otherLevel = pOusters->getLevel();
             // bonusPercent = 150;
         }
-        // ½½·¹ÀÌ¾î°¡ ¸ó½ºÅÍ¸¦ Á×ÀÎ °æ¿ì
+        // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¸Ã³Â½ÂºÃ…ÃÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         else if (pDeadCreature->isMonster()) {
             Monster* pMonster = dynamic_cast<Monster*>(pDeadCreature);
 
-            // ¸¶½ºÅÍ´Â MasterLairManager¿¡¼­ Ã³¸®ÇÑ´Ù.
+            // Â¸Â¶Â½ÂºÃ…ÃÂ´Ã‚ MasterLairManagerÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
             if (pMonster->isMaster()) {
-                // last killÇÑ »ç¶÷Àº °æÇèÄ¡ ÇÑ¹ø ´õ ¸Ô´Â´Ù.
+                // last killÃ‡Ã‘ Â»Ã§Â¶Ã·Ã€Âº Â°Ã¦Ã‡Ã¨Ã„Â¡ Ã‡Ã‘Â¹Ã¸ Â´Ãµ Â¸Ã”Â´Ã‚Â´Ã™.
                 pSlayer->increaseRankExp(MASTER_KILL_RANK_EXP);
                 return;
             }
@@ -878,32 +878,32 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
         } else
             return;
     } else if (pAttacker->isVampire()) {
-        // ¹ìÆÄÀÌ¾î°¡ ¹ìÆÄÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isVampire())
             return;
 
         Vampire* pVampire = dynamic_cast<Vampire*>(pAttacker);
         myLevel = pVampire->getLevel();
 
-        // ¹ìÆÄÀÌ¾î°¡ ½½·¹ÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
             otherLevel = pSlayer->getHighestSkillDomainLevel();
             // bonusPercent = 150;
         }
-        // ¹ìÆÄÀÌ¾î°¡ ¾Æ¿ì½ºÅÍ½º¸¦ Á×ÀÎ °æ¿ì
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         else if (pDeadCreature->isOusters()) {
             Ousters* pOusters = dynamic_cast<Ousters*>(pDeadCreature);
             otherLevel = pOusters->getLevel();
             // bonusPercent = 150;
         }
-        // ¹ìÆÄÀÌ¾î°¡ ¸ó½ºÅÍ¸¦ Á×ÀÎ °æ¿ì
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¸Ã³Â½ÂºÃ…ÃÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         else if (pDeadCreature->isMonster()) {
             Monster* pMonster = dynamic_cast<Monster*>(pDeadCreature);
 
-            // ¸¶½ºÅÍ´Â MasterLairManager¿¡¼­ Ã³¸®ÇÑ´Ù.
+            // Â¸Â¶Â½ÂºÃ…ÃÂ´Ã‚ MasterLairManagerÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
             if (pMonster->isMaster()) {
-                // last killÇÑ »ç¶÷Àº °æÇèÄ¡ ÇÑ¹ø ´õ ¸Ô´Â´Ù.
+                // last killÃ‡Ã‘ Â»Ã§Â¶Ã·Ã€Âº Â°Ã¦Ã‡Ã¨Ã„Â¡ Ã‡Ã‘Â¹Ã¸ Â´Ãµ Â¸Ã”Â´Ã‚Â´Ã™.
                 pVampire->increaseRankExp(MASTER_KILL_RANK_EXP);
                 return;
             }
@@ -912,32 +912,32 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
         } else
             return;
     } else if (pAttacker->isOusters()) {
-        // ¾Æ¿ì½ºÅÍ½º°¡ ¾Æ¿ì½ºÅÍ½º¸¦ Á×ÀÎ °æ¿ì
+        // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isOusters())
             return;
 
         Ousters* pOusters = dynamic_cast<Ousters*>(pAttacker);
         myLevel = pOusters->getLevel();
 
-        // ¾Æ¿ì½ºÅÍ½º°¡°¡ ½½·¹ÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ°Â¡Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
             otherLevel = pSlayer->getHighestSkillDomainLevel();
             // bonusPercent = 150;
         }
-        // ¾Æ¿ì½ºÅÍÁî°¡ ¹ìÆÄÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         if (pDeadCreature->isVampire()) {
             Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
             otherLevel = pVampire->getLevel();
             // bonusPercent = 150;
         }
-        // ¹ìÆÄÀÌ¾î°¡ ¸ó½ºÅÍ¸¦ Á×ÀÎ °æ¿ì
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¸Ã³Â½ÂºÃ…ÃÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         else if (pDeadCreature->isMonster()) {
             Monster* pMonster = dynamic_cast<Monster*>(pDeadCreature);
 
-            // ¸¶½ºÅÍ´Â MasterLairManager¿¡¼­ Ã³¸®ÇÑ´Ù.
+            // Â¸Â¶Â½ÂºÃ…ÃÂ´Ã‚ MasterLairManagerÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
             if (pMonster->isMaster()) {
-                // last killÇÑ »ç¶÷Àº °æÇèÄ¡ ÇÑ¹ø ´õ ¸Ô´Â´Ù.
+                // last killÃ‡Ã‘ Â»Ã§Â¶Ã·Ã€Âº Â°Ã¦Ã‡Ã¨Ã„Â¡ Ã‡Ã‘Â¹Ã¸ Â´Ãµ Â¸Ã”Â´Ã‚Â´Ã™.
                 pOusters->increaseRankExp(MASTER_KILL_RANK_EXP);
                 return;
             }
@@ -1167,7 +1167,7 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
 
                 if (iClass == Item::ITEM_CLASS_PET_FOOD && isHigher)
                     ++itemType;
-                //				cout << "ÆêÀ½½ÄÀÌº¥Æ®:" << iClass << ", " << itemType << endl;
+                //				cout << "Ã†ÃªÃ€Â½Â½Ã„Ã€ÃŒÂºÂ¥Ã†Â®:" << iClass << ", " << itemType << endl;
 
                 Item* pItem = g_pItemFactoryManager->createItem(iClass, itemType, list<OptionType_t>());
                 pMonster->setQuestItem(pItem);
@@ -1177,8 +1177,8 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
 
     int PartyID = pPC->getPartyID();
     if (PartyID != 0) {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ
-        // ÁÖÀ§ÀÇ ÆÄÆ¼¿øµé°ú °æÇèÄ¡¸¦ °øÀ¯ÇÑ´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™Â¸Ã© Â·ÃÃ„Ãƒ Ã†Ã„Ã†Â¼ Â¸Ã…Â´ÃÃ€ÃºÂ¸Â¦ Ã…Ã«Ã‡Ã˜
+        // ÃÃ–Ã€Â§Ã€Ã‡ Ã†Ã„Ã†Â¼Â¿Ã¸ÂµÃ©Â°Ãº Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¸Ã€Â¯Ã‡Ã‘Â´Ã™.
         LocalPartyManager* pLPM = pPC->getLocalPartyManager();
         Assert(pLPM != NULL);
         pLPM->shareRankExp(PartyID, pAttacker, otherLevel);
@@ -1190,7 +1190,7 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
             pAttackPC->increaseAdvancementClassExp(computeCreatureExp(pDeadCreature, 1), true);
         }
 
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾îÀÖÁö ¾Ê´Ù¸é È¥ÀÚ ¿Ã¶ó°£´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã®Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™Â¸Ã© ÃˆÂ¥Ã€Ãš Â¿ÃƒÂ¶Ã³Â°Â£Â´Ã™.
         RankExp_t rankExp = computeRankExp(myLevel, otherLevel);
 
         if (pDeadCreature->isMonster()) {
@@ -1209,7 +1209,7 @@ void affectKillCount(Creature* pAttacker, Creature* pDeadCreature) {
 HP_t setCounterDamage(Creature* pAttacker, Creature* pTarget, Damage_t counterDamage, bool& bBroadcastAttackerHP,
                       bool& bSendAttackerHP) {
     HP_t Result2 = 0;
-    // ¾ÈÀüÁö´ë Ã¼Å©
+    // Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã« ÃƒÂ¼Ã…Â©
     // 2003.1.10 by bezz, Sequoia
     if (pAttacker != NULL && checkZoneLevelToHitTarget(pAttacker)) {
         if (pAttacker->isSlayer()) {
@@ -1227,11 +1227,11 @@ HP_t setCounterDamage(Creature* pAttacker, Creature* pTarget, Damage_t counterDa
             bBroadcastAttackerHP = true;
             bSendAttackerHP = true;
 
-            // Mephisto ÀÌÆåÆ® °É·ÁÀÖÀ¸¸é HP 30% ÀÌÇÏÀÏ¶§ Ç®¸°´Ù.
+            // Mephisto Ã€ÃŒÃ†Ã¥Ã†Â® Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© HP 30% Ã€ÃŒÃ‡ÃÃ€ÃÂ¶Â§ Ã‡Â®Â¸Â°Â´Ã™.
             if (pVampireAttacker->isFlag(Effect::EFFECT_CLASS_MEPHISTO)) {
                 HP_t maxHP = pVampireAttacker->getHP(ATTR_MAX);
 
-                // 33% ... ÄÉÄÉ..
+                // 33% ... Ã„Ã‰Ã„Ã‰..
                 if (Result2 * 3 < maxHP) {
                     Effect* pEffect = pVampireAttacker->findEffect(Effect::EFFECT_CLASS_MEPHISTO);
                     if (pEffect != NULL) {
@@ -1256,7 +1256,7 @@ HP_t setCounterDamage(Creature* pAttacker, Creature* pTarget, Damage_t counterDa
             pMonsterAttacker->setHP(Result2, ATTR_CURRENT);
             pMonsterAttacker->setDamaged(true);
 
-            // ¸ó½ºÅÍ°¡ ¿ª µ¥¹ÌÁö¸¦ ¹ŞÀ» °æ¿ì¿¡µµ »şÇÁ½Çµå ¾²°í °ø°İ¹ŞÀº ½½·¹ÀÌ¾î¿¡°Ô ¿ì¼±±ÇÀÌ ÁÖ¾îÁø´Ù.
+            // Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ Â¿Âª ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¹ÃÃ€Â» Â°Ã¦Â¿Ã¬Â¿Â¡ÂµÂµ Â»Ã¾Ã‡ÃÂ½Ã‡ÂµÃ¥ Â¾Â²Â°Ã­ Â°Ã¸Â°ÃÂ¹ÃÃ€Âº Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¿Â¡Â°Ã” Â¿Ã¬Â¼Â±Â±Ã‡Ã€ÃŒ ÃÃ–Â¾Ã®ÃÃ¸Â´Ã™.
             pMonsterAttacker->addPrecedence(pTarget->getName(), pTarget->getPartyID(), counterDamage);
             pMonsterAttacker->setLastHitCreatureClass(pTarget->getCreatureClass());
 
@@ -1264,15 +1264,15 @@ HP_t setCounterDamage(Creature* pAttacker, Creature* pTarget, Damage_t counterDa
             if (pMonsterAttacker->getHP(ATTR_CURRENT) * 3 < pMonsterAttacker->getHP(ATTR_MAX)) {
                 PrecedenceTable* pTable = pMonsterAttacker->getPrecedenceTable();
 
-                // HP°¡ 3ºĞÀÇ 1 ÀÌÇÏÀÎ »óÅÂ¶ó°í ¹«Á¶°Ç °è»êÀ» ÇÏ¸é,
-                // ¸ÅÅÏ¸¶´Ù ÀÇ¹Ì°¡ ¾ø´Â °è»êÀ» °è¼Ó ÇÏ°Ô µÇ¹Ç·Î,
-                // ÇÑ¹ø °è»êÀ» ÇÏ°í ³ª¸é, Á×±â Àü±îÁö´Â ´Ù½Ã °è»êÇÏÁö ¾Êµµ·Ï
-                // ÇÃ·¡±×¸¦ ¼¼ÆÃÇØ ÁØ´Ù. ÀÌ ÇÃ·¡±×¸¦ ÀÌ¿ëÇÏ¿© ÇÊ¿ä¾ø´Â °è»êÀ» ÁÙÀÎ´Ù.
+                // HPÂ°Â¡ 3ÂºÃÃ€Ã‡ 1 Ã€ÃŒÃ‡ÃÃ€Ã Â»Ã³Ã…Ã‚Â¶Ã³Â°Ã­ Â¹Â«ÃÂ¶Â°Ã‡ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÂ¸Ã©,
+                // Â¸Ã…Ã…ÃÂ¸Â¶Â´Ã™ Ã€Ã‡Â¹ÃŒÂ°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¨Â»ÃªÃ€Â» Â°Ã¨Â¼Ã“ Ã‡ÃÂ°Ã” ÂµÃ‡Â¹Ã‡Â·Ã,
+                // Ã‡Ã‘Â¹Ã¸ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÂ°Ã­ Â³ÂªÂ¸Ã©, ÃÃ—Â±Ã¢ Ã€Ã¼Â±Ã®ÃÃ¶Â´Ã‚ Â´Ã™Â½Ãƒ Â°Ã¨Â»ÃªÃ‡ÃÃÃ¶ Â¾ÃŠÂµÂµÂ·Ã
+                // Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Â¼Â¼Ã†ÃƒÃ‡Ã˜ ÃÃ˜Â´Ã™. Ã€ÃŒ Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¿Â© Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Â´Ã‚ Â°Ã¨Â»ÃªÃ€Â» ÃÃ™Ã€ÃÂ´Ã™.
                 if (pTable->getComputeFlag() == false) {
-                    // °è»êÀ» ÇØÁØ´Ù.
+                    // Â°Ã¨Â»ÃªÃ€Â» Ã‡Ã˜ÃÃ˜Â´Ã™.
                     pTable->compute();
 
-                    // È£½ºÆ®ÀÇ ÀÌ¸§°ú ÆÄÆ¼ ID¸¦ ÀÌ¿ëÇÏ¿©, ÀÌÆåÆ®¸¦ °É¾îÁØ´Ù.
+                    // ÃˆÂ£Â½ÂºÃ†Â®Ã€Ã‡ Ã€ÃŒÂ¸Â§Â°Ãº Ã†Ã„Ã†Â¼ IDÂ¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¿Â©, Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â°Ã‰Â¾Ã®ÃÃ˜Â´Ã™.
                     EffectPrecedence* pEffectPrecedence = new EffectPrecedence(pMonsterAttacker);
                     pEffectPrecedence->setDeadline(100);
                     pEffectPrecedence->setHostName(pTable->getHostName());
@@ -1423,13 +1423,13 @@ void giveSkillExp(Slayer* pSlayer, SkillType_t SkillType, ModifyInfo& AttackerMI
     SkillSlot* pSkillSlot = pSlayer->getSkill(SkillType);
     SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
     if (pSkillSlot != NULL && pSkillInfo != NULL) {
-        // cout << pSlayer->getName() << "¿¡°Ô " << pSkillInfo->getName() << "½ºÅ³ÀÇ °æÇèÄ¡¸¦ Áİ´Ï´Ù." << endl;
+        // cout << pSlayer->getName() << "Â¿Â¡Â°Ã” " << pSkillInfo->getName() << "Â½ÂºÃ…Â³Ã€Ã‡ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃÂ´ÃÂ´Ã™." << endl;
         increaseSkillExp(pSlayer, pSkillInfo->getDomainType(), pSkillSlot, pSkillInfo, AttackerMI);
     }
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á÷Á¢ÀûÀ¸·Î µ¥¹ÌÁö¸¦ ¼¼ÆÃÇÑ´Ù.
+// ÃÃ·ÃÂ¢Ã€Ã»Ã€Â¸Â·Ã ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¼Â¼Ã†ÃƒÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, SkillType_t SkillType, ModifyInfo* pMI,
                ModifyInfo* pAttackerMI, bool canKillTarget, bool canSteal) {
@@ -1438,8 +1438,8 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
     if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE) ||
         pTargetCreature->isFlag(Effect::EFFECT_CLASS_TENDRIL) || pTargetCreature->isDead()) {
         // if (pTargetCreature->isVampire())
-        //  return°ªÀ¸·Î ÇöÀç HP¸¦ ³Ñ°ÜÁà¾ß Á¤»óÀÌ°ÚÁö¸¸
-        //  return°ªÀ» »ç¿ëÇÏ´Â ºÎºĞÀÌ ¾ø¾î¼­ ÀÏ´Ü ¹«½ÃÇÑ´Ù.
+        //  returnÂ°ÂªÃ€Â¸Â·Ã Ã‡Ã¶Ã€Ã§ HPÂ¸Â¦ Â³Ã‘Â°ÃœÃÃ Â¾ÃŸ ÃÂ¤Â»Ã³Ã€ÃŒÂ°ÃšÃÃ¶Â¸Â¸
+        //  returnÂ°ÂªÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ ÂºÃÂºÃÃ€ÃŒ Â¾Ã¸Â¾Ã®Â¼Â­ Ã€ÃÂ´Ãœ Â¹Â«Â½ÃƒÃ‡Ã‘Â´Ã™.
         //  by sigi. 2002.9.5
         return 0;
     }
@@ -1449,7 +1449,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
     Zone* pZone = pTargetCreature->getZone();
     Assert(pZone != NULL);
 
-    // Áúµå·¹ ·¹¾î¿¡¼­
+    // ÃÃºÂµÃ¥Â·Â¹ Â·Â¹Â¾Ã®Â¿Â¡Â¼Â­
     if (pZone->getZoneID() == 1412 || pZone->getZoneID() == 1413) {
         if (pTargetCreature->isPC() && pAttacker != NULL && pAttacker->isPC())
             return 0;
@@ -1468,12 +1468,12 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
 
     Damage_t OriginalDamage = Damage;
 
-    bool bBroadcastTargetHP = false;   // ÇÇ°ø°İÀÚÀÇ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÏ³ª?
-    bool bSendTargetHP = false;        // ÇÇ°ø°İÀÚÀÇ HP¸¦ º¸³»ÁÖ³ª?
-    bool bSendTargetMP = false;        // ÇÇ°ø°İÀÚÀÇ MP¸¦ º¸³»ÁÖ³ª?
-    bool bBroadcastAttackerHP = false; // °ø°İÀÚÀÇ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÏ³ª?
-    bool bSendAttackerHP = false;      // °ø°İÀÚÀÇ HP¸¦ º¸³»ÁÖ³ª?
-    bool bSendAttackerMP = false;      // °ø°İÀÚÀÇ MP¸¦ º¸³»ÁÖ³ª?
+    bool bBroadcastTargetHP = false;   // Ã‡Ã‡Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ HPÂ¸Â¦ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡ÃÂ³Âª?
+    bool bSendTargetHP = false;        // Ã‡Ã‡Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ HPÂ¸Â¦ ÂºÂ¸Â³Â»ÃÃ–Â³Âª?
+    bool bSendTargetMP = false;        // Ã‡Ã‡Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ MPÂ¸Â¦ ÂºÂ¸Â³Â»ÃÃ–Â³Âª?
+    bool bBroadcastAttackerHP = false; // Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ HPÂ¸Â¦ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡ÃÂ³Âª?
+    bool bSendAttackerHP = false;      // Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ HPÂ¸Â¦ ÂºÂ¸Â³Â»ÃÃ–Â³Âª?
+    bool bSendAttackerMP = false;      // Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ MPÂ¸Â¦ ÂºÂ¸Â³Â»ÃÃ–Â³Âª?
 
     GCStatusCurrentHP gcTargetHP;
     GCStatusCurrentHP gcAttackerHP;
@@ -1506,8 +1506,8 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
     }
 
-    // ¾Æ¸¶°Ôµ· ÀÌÆåÆ®°¡ °É·ÁÀÖÀ» °æ¿ì ¼öÁ¤±¸½½(?)ÀÇ HP¸¦ ±ğ¾ÆÁÖ°í Å¸°ÙÀº °ø°İ¹ŞÁö ¾Ê´Â´Ù.
-    // SKILL_ARMAGEDDONÀÏ °æ¿ì ¾Æ¸¶°Ôµ· ÀÌÆåÆ® ÀÚÃ¼ÀÇ µ¥¹ÌÁöÀÌ¹Ç·Î ±×³É Å¸°ÙÀ» °ø°İÇÏ´Â ÂÊÀ¸·Î ³Ñ¾î°£´Ù.
+    // Â¾Ã†Â¸Â¶Â°Ã”ÂµÂ· Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â°Ã‰Â·ÃÃ€Ã–Ã€Â» Â°Ã¦Â¿Ã¬ Â¼Ã¶ÃÂ¤Â±Â¸Â½Â½(?)Ã€Ã‡ HPÂ¸Â¦ Â±Ã°Â¾Ã†ÃÃ–Â°Ã­ Ã…Â¸Â°Ã™Ã€Âº Â°Ã¸Â°ÃÂ¹ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
+    // SKILL_ARMAGEDDONÃ€Ã Â°Ã¦Â¿Ã¬ Â¾Ã†Â¸Â¶Â°Ã”ÂµÂ· Ã€ÃŒÃ†Ã¥Ã†Â® Ã€ÃšÃƒÂ¼Ã€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Ã€ÃŒÂ¹Ã‡Â·Ã Â±Ã—Â³Ã‰ Ã…Â¸Â°Ã™Ã€Â» Â°Ã¸Â°ÃÃ‡ÃÂ´Ã‚ Ã‚ÃŠÃ€Â¸Â·Ã Â³Ã‘Â¾Ã®Â°Â£Â´Ã™.
     /*
     if( pTargetCreature != NULL && pTargetCreature->isFlag( Effect::EFFECT_CLASS_ARMAGEDDON ) && SkillType !=
     SKILL_ARMAGEDDON )
@@ -1547,7 +1547,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                 return 0;
     }
 
-    // ½ºÆ®¶óÀÌÅ·ÀÌ °É·ÁÀÖÀ¸¸é ¸¶¹ı µ¥¹ÌÁö »½Æ¢±â
+    // Â½ÂºÃ†Â®Â¶Ã³Ã€ÃŒÃ…Â·Ã€ÃŒ Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© Â¸Â¶Â¹Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶ Â»Â½Ã†Â¢Â±Ã¢
     if (pAttacker != NULL && pSkillProperty->isMagic() && pAttacker->isFlag(Effect::EFFECT_CLASS_STRIKING)) {
         EffectStriking* pEffect = dynamic_cast<EffectStriking*>(pAttacker->findEffect(Effect::EFFECT_CLASS_STRIKING));
         if (pEffect != NULL) {
@@ -1563,15 +1563,15 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
     }
 
-    // Denial Magic ÀÌ °É·ÁÀÖÀ» °æ¿ì ¸¶¹ıµ¥¹ÌÁöÀÎÁö Ã¼Å©ÇØ¼­ ¹èÂ²´Ù.
+    // Denial Magic Ã€ÃŒ Â°Ã‰Â·ÃÃ€Ã–Ã€Â» Â°Ã¦Â¿Ã¬ Â¸Â¶Â¹Ã½ÂµÂ¥Â¹ÃŒÃÃ¶Ã€ÃÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ Â¹Ã¨Ã‚Â²Â´Ã™.
     if (pTargetCreature != NULL && pTargetCreature->isFlag(Effect::EFFECT_CLASS_DENIAL_MAGIC) &&
         pSkillProperty->isMagic()) {
-        // ±âº»½ºÅ³Àº SkillInfo °¡ ¾ø´Ù.
+        // Â±Ã¢ÂºÂ»Â½ÂºÃ…Â³Ã€Âº SkillInfo Â°Â¡ Â¾Ã¸Â´Ã™.
         if (SkillType >= SKILL_DOUBLE_IMPACT) {
-            // ¹ìÆÄÀÌ¾îÀÇ ¸¶¹ıµ¥¹ÌÁö¸¸ ¸·¾ÆÁØ´Ù.
+            // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€Ã‡ Â¸Â¶Â¹Ã½ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¸ Â¸Â·Â¾Ã†ÃÃ˜Â´Ã™.
             if (pSkillInfo->getDomainType() == SKILL_DOMAIN_VAMPIRE ||
                 pSkillInfo->getDomainType() == SKILL_DOMAIN_OUSTERS) {
-                // ¼º°øÀûÀ¸·Î ¸·¾ÒÀ» °æ¿ì ÀÌÆåÆ®¸¦ ¸ÚÁö°Ô ³¯·ÁÁØ´Ù.
+                // Â¼ÂºÂ°Ã¸Ã€Ã»Ã€Â¸Â·Ã Â¸Â·Â¾Ã’Ã€Â» Â°Ã¦Â¿Ã¬ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â¸ÃšÃÃ¶Â°Ã” Â³Â¯Â·ÃÃÃ˜Â´Ã™.
                 GCAddEffect gcAddEffect;
                 gcAddEffect.setObjectID(pTargetCreature->getObjectID());
                 gcAddEffect.setEffectID(Effect::EFFECT_CLASS_DENIAL_MAGIC_DAMAGED);
@@ -1581,16 +1581,16 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                                                             &gcAddEffect);
 
                 //				return 0;
-                // ¹èÂ°Áö ¸»°í µ¥¹ÌÁö 60%...... ¤Ì.¤Ğ
+                // Â¹Ã¨Ã‚Â°ÃÃ¶ Â¸Â»Â°Ã­ ÂµÂ¥Â¹ÃŒÃÃ¶ 60%...... Â¤ÃŒ.Â¤Ã
                 Damage = max(1, (int)(Damage * 0.4));
             }
         }
     }
 
-    // Water Barrier °¡ °É·ÁÀÖÀ» °æ¿ì ÃÑ½½ °ø°İ¿¡ ´ëÇØ¼­¸¸ µ¥¹ÌÁö¸¦ ÁÙ¿©ÁØ´Ù.
+    // Water Barrier Â°Â¡ Â°Ã‰Â·ÃÃ€Ã–Ã€Â» Â°Ã¦Â¿Ã¬ ÃƒÃ‘Â½Â½ Â°Ã¸Â°ÃÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­Â¸Â¸ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÃÃ™Â¿Â©ÃÃ˜Â´Ã™.
     if (pTargetCreature != NULL && pTargetCreature->isFlag(Effect::EFFECT_CLASS_WATER_BARRIER) &&
         !pSkillProperty->isMelee()) {
-        // ±âº»½ºÅ³Àº SkillInfo °¡ ¾ø´Ù.
+        // Â±Ã¢ÂºÂ»Â½ÂºÃ…Â³Ã€Âº SkillInfo Â°Â¡ Â¾Ã¸Â´Ã™.
         if (canBlockByWaterBarrier(SkillType)) {
             EffectWaterBarrier* pEWB =
                 dynamic_cast<EffectWaterBarrier*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_WATER_BARRIER));
@@ -1605,7 +1605,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
     }
 
-    // Water Shield °¡ °É¸± ¼ö ÀÖ´Â °æ¿ì ¹°¸® °ø°İ¿¡ ´ëÇØ¼­´Â µ¥¹ÌÁö¸¦ ÁÖÁö ¾Ê´Â´Ù
+    // Water Shield Â°Â¡ Â°Ã‰Â¸Â± Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬ Â¹Â°Â¸Â® Â°Ã¸Â°ÃÂ¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­Â´Ã‚ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™
     if (pTargetCreature != NULL && pSkillProperty->isPhysic()) {
         if (pTargetCreature->isOusters()) {
             Ousters* pOusters = dynamic_cast<Ousters*>(pTargetCreature);
@@ -1618,7 +1618,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                     gcAddEffect.setDuration(0);
 
                     pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &gcAddEffect);
-                    // cout << "¿öÅÍ½Çµå ¹ßµ¿Çß½À´Ï´Ù." << endl;
+                    // cout << "Â¿Ã¶Ã…ÃÂ½Ã‡ÂµÃ¥ Â¹ÃŸÂµÂ¿Ã‡ÃŸÂ½Ã€Â´ÃÂ´Ã™." << endl;
                     return 0;
                 }
             }
@@ -1657,7 +1657,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             switch (pSkillInfo->getElementalDomain()) {
             case ELEMENTAL_DOMAIN_FIRE:
                 Damage += pOusters->getFireDamage();
-                // cout << "FireDamageÀû¿ë : " << pOusters->getFireDamage() <<"," <<Damage << endl;;
+                // cout << "FireDamageÃ€Ã»Â¿Ã« : " << pOusters->getFireDamage() <<"," <<Damage << endl;;
 
                 if (pOusters->isFlag(Effect::EFFECT_CLASS_HANDS_OF_FIRE)) {
                     EffectHandsOfFire* pEffect =
@@ -1688,10 +1688,10 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
     }
 
     ////////////////////////////////////////////////////////////////////
-    // Target Creature ¿¡ ÀÌÆåÆ®¸¦ Ã³¸®ÇÑ´Ù.
+    // Target Creature Â¿Â¡ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
     ////////////////////////////////////////////////////////////////////
     if (pTargetCreature != NULL) {
-        // SLEEP ÀÌÆåÆ®°¡ °É·Á ÀÖ´Ù¸é ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+        // SLEEP Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â°Ã‰Â·Ã Ã€Ã–Â´Ã™Â¸Ã© Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
         if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_SLEEP) && SkillType != SKILL_REBUKE) {
             EffectSleep* pEffect = dynamic_cast<EffectSleep*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_SLEEP));
             Assert(pEffect != NULL);
@@ -1707,9 +1707,9 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
 
         gcAttackerHP.setObjectID(AOID);
 
-        // ¾ğÁ¨°¡ ÃÖÀûÈ­¸¦ ÇÏ°Ô µÈ´Ù¸é.. -_-;
-        // Creature¿¡´Ù°¡ Penalty°ü·Ã memberµéÀ» ³Ö´Â°Ô ³ªÀ» °ÍÀÌ´Ù.
-        // Hymn°É·ÁÀÖ´Ù¸é damage penalty% ¹Ş´Â´Ù.
+        // Â¾Ã°ÃÂ¨Â°Â¡ ÃƒÃ–Ã€Ã»ÃˆÂ­Â¸Â¦ Ã‡ÃÂ°Ã” ÂµÃˆÂ´Ã™Â¸Ã©.. -_-;
+        // CreatureÂ¿Â¡Â´Ã™Â°Â¡ PenaltyÂ°Ã¼Â·Ãƒ memberÂµÃ©Ã€Â» Â³Ã–Â´Ã‚Â°Ã” Â³ÂªÃ€Â» Â°ÃÃ€ÃŒÂ´Ã™.
+        // HymnÂ°Ã‰Â·ÃÃ€Ã–Â´Ã™Â¸Ã© damage penalty% Â¹ÃÂ´Ã‚Â´Ã™.
         if (pAttacker->isFlag(Effect::EFFECT_CLASS_HYMN)) {
             EffectHymn* pHymn =
                 dynamic_cast<EffectHymn*>(pAttacker->getEffectManager()->findEffect(Effect::EFFECT_CLASS_HYMN));
@@ -1721,7 +1721,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             Slayer* pAttackSlayer = dynamic_cast<Slayer*>(pAttacker);
             Assert(pAttackSlayer != NULL);
 
-            // ¼¿ÇÁ½ºÅ³µé °æÇèÄ¡ ÁÖ±â --;;
+            // Â¼Â¿Ã‡ÃÂ½ÂºÃ…Â³ÂµÃ© Â°Ã¦Ã‡Ã¨Ã„Â¡ ÃÃ–Â±Ã¢ --;;
             if (canGiveSkillExp(pAttackSlayer, SKILL_DOMAIN_SWORD, SkillType)) {
                 if (pAttackSlayer->isFlag(Effect::EFFECT_CLASS_DANCING_SWORD) && (rand() % 2) != 0)
                     giveSkillExp(pAttackSlayer, SKILL_DANCING_SWORD, *pAttackerMI);
@@ -1810,7 +1810,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                         }*/
         }
 
-        // Blood Bible º¸³Ê½º¸¦ Àû¿ëÇÑ´Ù.
+        // Blood Bible ÂºÂ¸Â³ÃŠÂ½ÂºÂ¸Â¦ Ã€Ã»Â¿Ã«Ã‡Ã‘Â´Ã™.
         if (pAttacker->isPC()) {
             PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pAttacker);
             Damage_t MagicBonusDamage = pPC->getMagicBonusDamage();
@@ -1818,37 +1818,37 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
 
             //			if ( MagicBonusDamage != 0 && pSkillProperty!= NULL && pSkillProperty->isMagic() )
             if (MagicBonusDamage != 0 && bMagicDamage) {
-                //				cout << "µ¥¹ÌÁö º¸³Ê½º Àû¿ë : " << Damage << " + " << MagicBonusDamage << endl;
+                //				cout << "ÂµÂ¥Â¹ÃŒÃÃ¶ ÂºÂ¸Â³ÃŠÂ½Âº Ã€Ã»Â¿Ã« : " << Damage << " + " << MagicBonusDamage << endl;
                 Damage += MagicBonusDamage;
             }
             //			if ( PhysicBonusDamage != 0 && pSkillProperty!= NULL && pSkillProperty->isPhysic() )
             if (PhysicBonusDamage != 0 && bPhysicDamage) {
-                //				cout << "µ¥¹ÌÁö º¸³Ê½º Àû¿ë : " << Damage << " + " << PhysicBonusDamage << endl;
+                //				cout << "ÂµÂ¥Â¹ÃŒÃÃ¶ ÂºÂ¸Â³ÃŠÂ½Âº Ã€Ã»Â¿Ã« : " << Damage << " + " << PhysicBonusDamage << endl;
                 Damage += PhysicBonusDamage;
             }
         }
     }
 
     ////////////////////////////////////////////////////////////
-    // ¸ÕÀú hp, mp stealÀ» Ã³¸®ÇÑ´Ù.
+    // Â¸Ã•Ã€Ãº hp, mp stealÃ€Â» ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
     ////////////////////////////////////////////////////////////
     if (pAttacker != NULL && canSteal) //(SkillType != SKILL_PROMINENCE && SkillType != SKILL_HELLFIRE)
     {
         Steal_t HPStealAmount = pAttacker->getHPStealAmount();
         Steal_t MPStealAmount = pAttacker->getMPStealAmount();
 
-        // HP ½ºÆ¿À» Ã¼Å©ÇÑ´Ù.
+        // HP Â½ÂºÃ†Â¿Ã€Â» ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
         if (HPStealAmount != 0 && (rand() % 100) < pAttacker->getHPStealRatio()) {
             if (pAttacker->isSlayer()) {
                 if (pAttacker->isAlive()) {
                     Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
 
-                    // ÇöÀçÀÇ HP¿¡´Ù ½ºÆ¿ÇÑ ¾çÀ» ´õÇÏ°í,
-                    // ¸Æ½º¸¦ ³ÑÁö´Â ¾Ê´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+                    // Ã‡Ã¶Ã€Ã§Ã€Ã‡ HPÂ¿Â¡Â´Ã™ Â½ÂºÃ†Â¿Ã‡Ã‘ Â¾Ã§Ã€Â» Â´ÃµÃ‡ÃÂ°Ã­,
+                    // Â¸Ã†Â½ÂºÂ¸Â¦ Â³Ã‘ÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Â¸Â¦ Ã‡Ã‘Â´Ã™.
                     hp = pSlayer->getHP(ATTR_CURRENT) + (int)HPStealAmount;
                     hp = min(hp, pSlayer->getHP(ATTR_MAX));
 
-                    // HP¸¦ ¼¼ÆÃÇÏ°í, ÇÃ·¡±×¸¦ ÄÒ´Ù.
+                    // HPÂ¸Â¦ Â¼Â¼Ã†ÃƒÃ‡ÃÂ°Ã­, Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Ã„Ã’Â´Ã™.
                     pSlayer->setHP(hp, ATTR_CURRENT);
                     bBroadcastAttackerHP = true;
                     bSendAttackerHP = true;
@@ -1856,27 +1856,27 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             } else if (pAttacker->isVampire()) {
                 Vampire* pVampire = dynamic_cast<Vampire*>(pAttacker);
 
-                // ÇöÀçÀÇ HP¿¡´Ù ½ºÆ¿ÇÑ ¾çÀ» ´õÇÏ°í,
-                // ¸Æ½º¸¦ ³ÑÁö´Â ¾Ê´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+                // Ã‡Ã¶Ã€Ã§Ã€Ã‡ HPÂ¿Â¡Â´Ã™ Â½ÂºÃ†Â¿Ã‡Ã‘ Â¾Ã§Ã€Â» Â´ÃµÃ‡ÃÂ°Ã­,
+                // Â¸Ã†Â½ÂºÂ¸Â¦ Â³Ã‘ÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Â¸Â¦ Ã‡Ã‘Â´Ã™.
                 hp = pVampire->getHP(ATTR_CURRENT) + (int)HPStealAmount;
                 hp = min(hp, pVampire->getHP(ATTR_MAX));
 
-                // HP¸¦ ¼¼ÆÃÇÏ°í, ÇÃ·¡±×¸¦ ÄÒ´Ù.
+                // HPÂ¸Â¦ Â¼Â¼Ã†ÃƒÃ‡ÃÂ°Ã­, Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Ã„Ã’Â´Ã™.
                 pVampire->setHP(hp, ATTR_CURRENT);
                 bBroadcastAttackerHP = true;
                 bSendAttackerHP = true;
             } else if (pAttacker->isOusters()) {
-                // Á×Àº³Ñ HP¿Ã·ÁÁÖÁö¸»ÀÚ
+                // ÃÃ—Ã€ÂºÂ³Ã‘ HPÂ¿ÃƒÂ·ÃÃÃ–ÃÃ¶Â¸Â»Ã€Ãš
                 if (pAttacker->isAlive()) {
                     Ousters* pOusters = dynamic_cast<Ousters*>(pAttacker);
 
-                    // ÇöÀçÀÇ HP¿¡´Ù ½ºÆ¿ÇÑ ¾çÀ» ´õÇÏ°í,
-                    // ¸Æ½º¸¦ ³ÑÁö´Â ¾Ê´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+                    // Ã‡Ã¶Ã€Ã§Ã€Ã‡ HPÂ¿Â¡Â´Ã™ Â½ÂºÃ†Â¿Ã‡Ã‘ Â¾Ã§Ã€Â» Â´ÃµÃ‡ÃÂ°Ã­,
+                    // Â¸Ã†Â½ÂºÂ¸Â¦ Â³Ã‘ÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Â¸Â¦ Ã‡Ã‘Â´Ã™.
                     // cout << "HP Steal!" << (int)HPStealAmount << endl;
                     hp = pOusters->getHP(ATTR_CURRENT) + (int)HPStealAmount;
                     hp = min(hp, pOusters->getHP(ATTR_MAX));
 
-                    // HP¸¦ ¼¼ÆÃÇÏ°í, ÇÃ·¡±×¸¦ ÄÒ´Ù.
+                    // HPÂ¸Â¦ Â¼Â¼Ã†ÃƒÃ‡ÃÂ°Ã­, Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Ã„Ã’Â´Ã™.
                     pOusters->setHP(hp, ATTR_CURRENT);
                     bBroadcastAttackerHP = true;
                     bSendAttackerHP = true;
@@ -1885,14 +1885,14 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                 Assert(false);
         }
 
-        // MP ½ºÆ¿À» Ã¼Å©ÇÑ´Ù.
+        // MP Â½ÂºÃ†Â¿Ã€Â» ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
         if (MPStealAmount != 0 && (rand() % 100) < pAttacker->getMPStealRatio()) {
-            // ½½·¹ÀÌ¾î¿Í ¾Æ¿ì½ºÅÍ½ºÀÏ °æ¿ì MP ½ºÆ¿À» Ã³¸®ÇÑ´Ù.
+            // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¿Ã Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÃ€Ã Â°Ã¦Â¿Ã¬ MP Â½ÂºÃ†Â¿Ã€Â» ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
             if (pAttacker->isSlayer()) {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
 
-                // ÇöÀçÀÇ MP¿¡´Ù ½ºÆ¿ÇÑ ¾çÀ» ´õÇÏ°í,
-                // ¸Æ½º¸¦ ³ÑÁö´Â ¾Ê´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+                // Ã‡Ã¶Ã€Ã§Ã€Ã‡ MPÂ¿Â¡Â´Ã™ Â½ÂºÃ†Â¿Ã‡Ã‘ Â¾Ã§Ã€Â» Â´ÃµÃ‡ÃÂ°Ã­,
+                // Â¸Ã†Â½ÂºÂ¸Â¦ Â³Ã‘ÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Â¸Â¦ Ã‡Ã‘Â´Ã™.
                 mp = pSlayer->getMP(ATTR_CURRENT) + (int)MPStealAmount;
                 mp = min(mp, pSlayer->getMP(ATTR_MAX));
 
@@ -1903,8 +1903,8 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                 Ousters* pOusters = dynamic_cast<Ousters*>(pAttacker);
 
                 if (pOusters->getMP(ATTR_CURRENT) < pOusters->getMP(ATTR_MAX)) {
-                    // ÇöÀçÀÇ MP¿¡´Ù ½ºÆ¿ÇÑ ¾çÀ» ´õÇÏ°í,
-                    // ¸Æ½º¸¦ ³ÑÁö´Â ¾Ê´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+                    // Ã‡Ã¶Ã€Ã§Ã€Ã‡ MPÂ¿Â¡Â´Ã™ Â½ÂºÃ†Â¿Ã‡Ã‘ Â¾Ã§Ã€Â» Â´ÃµÃ‡ÃÂ°Ã­,
+                    // Â¸Ã†Â½ÂºÂ¸Â¦ Â³Ã‘ÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Â¸Â¦ Ã‡Ã‘Â´Ã™.
                     mp = pOusters->getMP(ATTR_CURRENT) + (int)MPStealAmount;
                     mp = min(mp, pOusters->getMP(ATTR_MAX));
 
@@ -1956,10 +1956,10 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
     }
 
     ////////////////////////////////////////////////////////////
-    // ¸Â´Â ³ğÀÌ ½½·¹ÀÌ¾îÀÏ °æ¿ì
+    // Â¸Ã‚Â´Ã‚ Â³Ã°Ã€ÃŒ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬
     ////////////////////////////////////////////////////////////
     if (pTargetCreature->isSlayer()) {
-        // ¾Æ¿ì½ºÅÍÁî°¡ ¹ìÆÄÀÌ¾î¸¦ Á×ÀÎ °æ¿ì
+        // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬
         Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
         bool bSetDamage = false;
 
@@ -1972,11 +1972,11 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             Result2 = setCounterDamage(pAttacker, pSlayer, counterDamage, bBroadcastAttackerHP, bSendAttackerHP);
         }
 
-        // AuraShield È¿°ú·Î HP´ë½Å MP°¡ ¼Ò¸ğµÇ´Â °æ¿ì°¡ ÀÖ´Ù.
-        // ¸¶½ºÅÍ ·¹¾î¿¡¼­ ¶ß´Â ±×¶ó¿îµå ¾îÅÃ(¶¥¿¡¼­ Æ¢¾î³ª¿À´Â ºÒ±âµÕ) ¸ÂÀ¸¸é ¿À¶ó½Çµå ¹«½ÃÇÏ°í HP ´â°Ô ÇÑ´Ù.
+        // AuraShield ÃˆÂ¿Â°ÃºÂ·Ã HPÂ´Ã«Â½Ã… MPÂ°Â¡ Â¼Ã’Â¸Ã°ÂµÃ‡Â´Ã‚ Â°Ã¦Â¿Ã¬Â°Â¡ Ã€Ã–Â´Ã™.
+        // Â¸Â¶Â½ÂºÃ…Ã Â·Â¹Â¾Ã®Â¿Â¡Â¼Â­ Â¶ÃŸÂ´Ã‚ Â±Ã—Â¶Ã³Â¿Ã®ÂµÃ¥ Â¾Ã®Ã…Ãƒ(Â¶Â¥Â¿Â¡Â¼Â­ Ã†Â¢Â¾Ã®Â³ÂªÂ¿Ã€Â´Ã‚ ÂºÃ’Â±Ã¢ÂµÃ•) Â¸Ã‚Ã€Â¸Â¸Ã© Â¿Ã€Â¶Ã³Â½Ã‡ÂµÃ¥ Â¹Â«Â½ÃƒÃ‡ÃÂ°Ã­ HP Â´Ã¢Â°Ã” Ã‡Ã‘Â´Ã™.
         // 2003. 1.16. Sequoia
         if (pSlayer->isFlag(Effect::EFFECT_CLASS_AURA_SHIELD) && SkillType != SKILL_GROUND_ATTACK) {
-            // °ø°İÀÚ¿¡°Ô µ¥¹ÌÁö¸¦ µ¹·ÁÁà¾ß ÇÑ´Ù.
+            // Â°Ã¸Â°ÃÃ€ÃšÂ¿Â¡Â°Ã” ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÂµÂ¹Â·ÃÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
             if (pAttacker != NULL) {
                 Damage_t counterDamage = 0;
 
@@ -1984,7 +1984,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                     (EffectAuraShield*)(pSlayer->findEffect(Effect::EFFECT_CLASS_AURA_SHIELD));
                 Assert(pEffectAuraShield != NULL);
 
-                // Ä«¿îÅÍ µ¥¹ÌÁö´Â ¿ø·¡ µ¥¹ÌÁöÀÇ 10ºĞÀÇ 1ÀÌ´Ù.
+                // Ã„Â«Â¿Ã®Ã…Ã ÂµÂ¥Â¹ÃŒÃÃ¶Â´Ã‚ Â¿Ã¸Â·Â¡ ÂµÂ¥Â¹ÃŒÃÃ¶Ã€Ã‡ 10ÂºÃÃ€Ã‡ 1Ã€ÃŒÂ´Ã™.
                 counterDamage = max(1, getPercentValue(Damage, 10));
 
                 if (pAttacker->isVampire()) {
@@ -2020,8 +2020,8 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             pSlayer->setMP(Result, ATTR_CURRENT);
             bSendTargetMP = true;
 
-            // Result°¡ 0ÀÎ °æ¿ì, ¸¶³ª°¡ ´Ù ´â¾Ò´Ü ¸»ÀÌ´Ù.
-            // ±×·¯¹Ç·Î effect¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // ResultÂ°Â¡ 0Ã€Ã Â°Ã¦Â¿Ã¬, Â¸Â¶Â³ÂªÂ°Â¡ Â´Ã™ Â´Ã¢Â¾Ã’Â´Ãœ Â¸Â»Ã€ÃŒÂ´Ã™.
+            // Â±Ã—Â·Â¯Â¹Ã‡Â·Ã effectÂ¸Â¦ Â»Ã¨ÃÂ¦Ã‡Ã˜ ÃÃ˜Â´Ã™.
             if (Result == 0) {
                 Effect* pEffect = pSlayer->findEffect(Effect::EFFECT_CLASS_AURA_SHIELD);
                 if (pEffect != NULL)
@@ -2034,7 +2034,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                                 removeEffect.addEffectList(Effect::EFFECT_CLASS_AURA_SHIELD);
                                 pZone->broadcastPacket(TX, TY, &removeEffect);*/
 
-                // ±â¼úÀ» ´Ù½Ã ¾µ ¼ö ÀÖµµ·Ï ±â¼ú µô·¹ÀÌ¸¦ ³¯·ÁÁØ´Ù.
+                // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã™Â½Ãƒ Â¾Âµ Â¼Ã¶ Ã€Ã–ÂµÂµÂ·Ã Â±Ã¢Â¼Ãº ÂµÃ´Â·Â¹Ã€ÃŒÂ¸Â¦ Â³Â¯Â·ÃÃÃ˜Â´Ã™.
                 SkillSlot* pSkillSlot = pSlayer->hasSkill(SKILL_AURA_SHIELD);
                 if (pSkillSlot != NULL) {
                     pSkillSlot->setRunTime(0, false);
@@ -2044,11 +2044,11 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
 
         // by Sequoia 2002.12.26
-        // Melee ¾îÅÃÀÇ °æ¿ì µ¥¹ÌÁö°¡ ÁÙ¾îµé°í ¶§¸° ³Ñ¿¡°Ô µ¥¹ÌÁö¸¦ ÁØ´Ù.
-        // switch ·Î µÈ °É isMeleeSkill À» »ç¿ëÇÏ´Â ÄÚµå·Î ¹Ù²Û´Ù. 2003. 1. 1.
+        // Melee Â¾Ã®Ã…ÃƒÃ€Ã‡ Â°Ã¦Â¿Ã¬ ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ ÃÃ™Â¾Ã®ÂµÃ©Â°Ã­ Â¶Â§Â¸Â° Â³Ã‘Â¿Â¡Â°Ã” ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ ÃÃ˜Â´Ã™.
+        // switch Â·Ã ÂµÃˆ Â°Ã‰ isMeleeSkill Ã€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ´Ã‚ Ã„ÃšÂµÃ¥Â·Ã Â¹Ã™Â²Ã›Â´Ã™. 2003. 1. 1.
         if (pSlayer->isFlag(Effect::EFFECT_CLASS_SHARP_SHIELD_1) && pSkillProperty != NULL &&
             pSkillProperty->isMelee() && pAttacker != NULL) {
-            // Sharp Shield °¡ ÀÖÀ¸¸é ¹Ğ¸® ¾îÅÃÀÇ µ¥¹ÌÁö´Â ¹İÀÌ´Ù.
+            // Sharp Shield Â°Â¡ Ã€Ã–Ã€Â¸Â¸Ã© Â¹ÃÂ¸Â® Â¾Ã®Ã…ÃƒÃ€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â´Ã‚ Â¹ÃÃ€ÃŒÂ´Ã™.
             Damage = max(0, (int)Damage - ((int)OriginalDamage >> 1));
 
             EffectSharpShield* pEffect =
@@ -2068,7 +2068,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             //			if ( rand()%2 ) increaseSkillExp(pSlayer, SKILL_DOMAIN_SWORD, pSkillSlot, pSkillInfo,
             //*pAttackerMI);
 
-            /*			// ¾ÈÀüÁö´ë Ã¼Å©
+            /*			// Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã« ÃƒÂ¼Ã…Â©
                         // 2003.1.10 by bezz, Sequoia
                         if ( checkZoneLevelToHitTarget(pAttacker) )
                         {
@@ -2090,12 +2090,12 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                                 bBroadcastAttackerHP = true;
                                 bSendAttackerHP      = true;
 
-                                // Mephisto ÀÌÆåÆ® °É·ÁÀÖÀ¸¸é HP 30% ÀÌÇÏÀÏ¶§ Ç®¸°´Ù.
+                                // Mephisto Ã€ÃŒÃ†Ã¥Ã†Â® Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© HP 30% Ã€ÃŒÃ‡ÃÃ€ÃÂ¶Â§ Ã‡Â®Â¸Â°Â´Ã™.
                                 if (pVampireAttacker->isFlag(Effect::EFFECT_CLASS_MEPHISTO))
                                 {
                                     HP_t maxHP = pVampireAttacker->getHP(ATTR_MAX);
 
-                                    // 33% ... ÄÉÄÉ..
+                                    // 33% ... Ã„Ã‰Ã„Ã‰..
                                     if (Result2*3 < maxHP)
                                     {
                                         pVampireAttacker->getEffectManager()->deleteEffect(
@@ -2110,8 +2110,8 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                                 pMonsterAttacker->setHP(Result2, ATTR_CURRENT);
                                 pMonsterAttacker->setDamaged(true);
 
-                                // ¸ó½ºÅÍ°¡ ¿ª µ¥¹ÌÁö¸¦ ¹ŞÀ» °æ¿ì¿¡µµ »şÇÁ½Çµå ¾²°í °ø°İ¹ŞÀº ½½·¹ÀÌ¾î¿¡°Ô ¿ì¼±±ÇÀÌ
-               ÁÖ¾îÁø´Ù. pMonsterAttacker->addPrecedence(pSlayer->getName(), pSlayer->getPartyID(), counterDamage);
+                                // Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ Â¿Âª ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¹ÃÃ€Â» Â°Ã¦Â¿Ã¬Â¿Â¡ÂµÂµ Â»Ã¾Ã‡ÃÂ½Ã‡ÂµÃ¥ Â¾Â²Â°Ã­ Â°Ã¸Â°ÃÂ¹ÃÃ€Âº Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¿Â¡Â°Ã” Â¿Ã¬Â¼Â±Â±Ã‡Ã€ÃŒ
+               ÃÃ–Â¾Ã®ÃÃ¸Â´Ã™. pMonsterAttacker->addPrecedence(pSlayer->getName(), pSlayer->getPartyID(), counterDamage);
                                 pMonsterAttacker->setLastHitCreatureClass(pSlayer->getCreatureClass());
 
                                 bBroadcastAttackerHP = true;
@@ -2119,16 +2119,16 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
                                 {
                                     PrecedenceTable* pTable = pMonsterAttacker->getPrecedenceTable();
 
-                                    // HP°¡ 3ºĞÀÇ 1 ÀÌÇÏÀÎ »óÅÂ¶ó°í ¹«Á¶°Ç °è»êÀ» ÇÏ¸é,
-                                    // ¸ÅÅÏ¸¶´Ù ÀÇ¹Ì°¡ ¾ø´Â °è»êÀ» °è¼Ó ÇÏ°Ô µÇ¹Ç·Î,
-                                    // ÇÑ¹ø °è»êÀ» ÇÏ°í ³ª¸é, Á×±â Àü±îÁö´Â ´Ù½Ã °è»êÇÏÁö ¾Êµµ·Ï
-                                    // ÇÃ·¡±×¸¦ ¼¼ÆÃÇØ ÁØ´Ù. ÀÌ ÇÃ·¡±×¸¦ ÀÌ¿ëÇÏ¿© ÇÊ¿ä¾ø´Â °è»êÀ» ÁÙÀÎ´Ù.
+                                    // HPÂ°Â¡ 3ÂºÃÃ€Ã‡ 1 Ã€ÃŒÃ‡ÃÃ€Ã Â»Ã³Ã…Ã‚Â¶Ã³Â°Ã­ Â¹Â«ÃÂ¶Â°Ã‡ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÂ¸Ã©,
+                                    // Â¸Ã…Ã…ÃÂ¸Â¶Â´Ã™ Ã€Ã‡Â¹ÃŒÂ°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¨Â»ÃªÃ€Â» Â°Ã¨Â¼Ã“ Ã‡ÃÂ°Ã” ÂµÃ‡Â¹Ã‡Â·Ã,
+                                    // Ã‡Ã‘Â¹Ã¸ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÂ°Ã­ Â³ÂªÂ¸Ã©, ÃÃ—Â±Ã¢ Ã€Ã¼Â±Ã®ÃÃ¶Â´Ã‚ Â´Ã™Â½Ãƒ Â°Ã¨Â»ÃªÃ‡ÃÃÃ¶ Â¾ÃŠÂµÂµÂ·Ã
+                                    // Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Â¼Â¼Ã†ÃƒÃ‡Ã˜ ÃÃ˜Â´Ã™. Ã€ÃŒ Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¿Â© Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Â´Ã‚ Â°Ã¨Â»ÃªÃ€Â» ÃÃ™Ã€ÃÂ´Ã™.
                                     if (pTable->getComputeFlag() == false)
                                     {
-                                        // °è»êÀ» ÇØÁØ´Ù.
+                                        // Â°Ã¨Â»ÃªÃ€Â» Ã‡Ã˜ÃÃ˜Â´Ã™.
                                         pTable->compute();
 
-                                        // È£½ºÆ®ÀÇ ÀÌ¸§°ú ÆÄÆ¼ ID¸¦ ÀÌ¿ëÇÏ¿©, ÀÌÆåÆ®¸¦ °É¾îÁØ´Ù.
+                                        // ÃˆÂ£Â½ÂºÃ†Â®Ã€Ã‡ Ã€ÃŒÂ¸Â§Â°Ãº Ã†Ã„Ã†Â¼ IDÂ¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¿Â©, Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â°Ã‰Â¾Ã®ÃÃ˜Â´Ã™.
                                         EffectPrecedence* pEffectPrecedence = new EffectPrecedence(pMonsterAttacker);
                                         pEffectPrecedence->setDeadline(100);
                                         pEffectPrecedence->setHostName(pTable->getHostName());
@@ -2164,7 +2164,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         Tile& rTile = pZone->getTile(TX, TY);
 
         if (rTile.getEffect(Effect::EFFECT_CLASS_MAGIC_ELUSION) != NULL
-            // Magic Elusion ÀÌ °É·ÁÀÖÀ» ¶§, ¹ìÆÄÀÌ¾î°¡ »ç¿ëÇÑ ¸¶¹ı ·¹ÀÎÁö °ø°İ¿¡ ´ëÇØ µ¥¹ÌÁö¸¦ 50% ÁÙ¿©ÁØ´Ù.
+            // Magic Elusion Ã€ÃŒ Â°Ã‰Â·ÃÃ€Ã–Ã€Â» Â¶Â§, Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â»Ã§Â¿Ã«Ã‡Ã‘ Â¸Â¶Â¹Ã½ Â·Â¹Ã€ÃÃÃ¶ Â°Ã¸Â°ÃÂ¿Â¡ Â´Ã«Ã‡Ã˜ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ 50% ÃÃ™Â¿Â©ÃÃ˜Â´Ã™.
             && (!pSkillProperty->isMelee() && pSkillProperty->isMagic()) && pAttacker != NULL &&
             pAttacker->isVampire()) {
             Damage /= 2;
@@ -2185,7 +2185,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             }
             //			cout << "after " << Damage << endl;
 
-            // AuraShield°¡ ¾øÀ¸´Ï, ±×³É ¸öÀ¸·Î ¸Â¾Æ¾ß ÇÑ´Ù.
+            // AuraShieldÂ°Â¡ Â¾Ã¸Ã€Â¸Â´Ã, Â±Ã—Â³Ã‰ Â¸Ã¶Ã€Â¸Â·Ã Â¸Ã‚Â¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
             if (canKillTarget)
                 Result = max(0, (int)pSlayer->getHP(ATTR_CURRENT) - (int)Damage);
             else
@@ -2198,7 +2198,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
     }
     ////////////////////////////////////////////////////////////
-    // ¸Â´Â ³ğÀÌ ¹ìÆÄÀÌ¾îÀÏ °æ¿ì
+    // Â¸Ã‚Â´Ã‚ Â³Ã°Ã€ÃŒ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Ã€Ã Â°Ã¦Â¿Ã¬
     ////////////////////////////////////////////////////////////
     else if (pTargetCreature->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pTargetCreature);
@@ -2207,18 +2207,18 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         Tile& rTile = pZone->getTile(TX, TY);
 
         if (rTile.getEffect(Effect::EFFECT_CLASS_GRAY_DARKNESS) != NULL && canBlockByGrayDarkness(SkillType)) {
-            // ±×·¹ÀÌ ´ÙÅ©´Ï½º ¾È¿¡¼­ µ¥¹ÌÁö 30%°¨¼Ò
+            // Â±Ã—Â·Â¹Ã€ÃŒ Â´Ã™Ã…Â©Â´ÃÂ½Âº Â¾ÃˆÂ¿Â¡Â¼Â­ ÂµÂ¥Â¹ÃŒÃÃ¶ 30%Â°Â¨Â¼Ã’
             Damage = (Damage_t)(Damage * 0.7);
         }
 
         if (pAttacker != NULL && pAttacker->isSlayer()) {
-            // °ø°İÀÚ°¡ ½½·¹ÀÌ¾î¶ó¸é µ¥¹ÌÁö¿¡ Àº µ¥¹ÌÁö°¡ Ãß°¡µÉ ¼ö°¡ ÀÖ´Ù.
+            // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¶Ã³Â¸Ã© ÂµÂ¥Â¹ÃŒÃÃ¶Â¿Â¡ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶Â°Â¡ Ã€Ã–Â´Ã™.
             silverDamage = computeSlayerSilverDamage(pAttacker, Damage, pAttackerMI);
         }
 
-        // Àº µ¥¹ÌÁö´Â Ãß°¡ µ¥¹ÌÁöÀÌ´Ù.
+        // Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â´Ã‚ ÃƒÃŸÂ°Â¡ ÂµÂ¥Â¹ÃŒÃÃ¶Ã€ÃŒÂ´Ã™.
         Damage += silverDamage;
-        // add by Coffee 2007-3-4 ½£¼¼ÄÜ ÉÁÒ«Ö®½£ ¹àÒøÉËº¦
+        // add by Coffee 2007-3-4 Â½Â£Â¼Â¼Ã„Ãœ Ã‰ÃÃ’Â«Ã–Â®Â½Â£ Â¹Ã Ã’Ã¸Ã‰Ã‹ÂºÂ¦
         if (SkillType == SKILL_SHINE_SWORD && silverDamage != 0) {
             silverDamage = Damage;
         }
@@ -2247,11 +2247,11 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
 
         pVampire->setHP(Result, ATTR_CURRENT);
 
-        // Mephisto ÀÌÆåÆ® °É·ÁÀÖÀ¸¸é HP 30% ÀÌÇÏÀÏ¶§ Ç®¸°´Ù.
+        // Mephisto Ã€ÃŒÃ†Ã¥Ã†Â® Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© HP 30% Ã€ÃŒÃ‡ÃÃ€ÃÂ¶Â§ Ã‡Â®Â¸Â°Â´Ã™.
         if (pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO)) {
             HP_t maxHP = pVampire->getHP(ATTR_MAX);
 
-            // 33% ... ÄÉÄÉ..
+            // 33% ... Ã„Ã‰Ã„Ã‰..
             if (currentHP * 3 < maxHP) {
                 Effect* pEffect = pVampire->findEffect(Effect::EFFECT_CLASS_MEPHISTO);
                 if (pEffect != NULL) {
@@ -2275,7 +2275,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
     }
     ////////////////////////////////////////////////////////////
-    // ¸Â´Â ³ğÀÌ ¾Æ¿ì½ºÅÍ½ºÀÏ °æ¿ì
+    // Â¸Ã‚Â´Ã‚ Â³Ã°Ã€ÃŒ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÃ€Ã Â°Ã¦Â¿Ã¬
     ////////////////////////////////////////////////////////////
     else if (pTargetCreature->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pTargetCreature);
@@ -2291,7 +2291,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             }
         }
 
-        // Divine Shield ·Î ÀÎÇØ ¸¶¹ı µ¥¹ÌÁö°¡ ÀÏºÎ MP·Î Èí¼öµÈ´Ù.
+        // Divine Shield Â·Ã Ã€ÃÃ‡Ã˜ Â¸Â¶Â¹Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ Ã€ÃÂºÃ MPÂ·Ã ÃˆÃ­Â¼Ã¶ÂµÃˆÂ´Ã™.
         if (pOusters->isFlag(Effect::EFFECT_CLASS_DIVINE_SPIRITS) && pSkillProperty->isMagic()) {
             EffectDivineSpirits* pEffect =
                 dynamic_cast<EffectDivineSpirits*>(pOusters->findEffect(Effect::EFFECT_CLASS_DIVINE_SPIRITS));
@@ -2315,7 +2315,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             if (pFrozenArmor != NULL) {
                 Damage -= getPercentValue(Damage, pFrozenArmor->getBonus());
                 if (pAttacker != NULL) {
-                    // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+                    // Ã€ÃŒÃ†Ã‘Ã†Â® Ã…Â¬Â·Â¡Â½ÂºÂ¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã® ÂºÃ™Ã€ÃÂ´Ã™.
                     EffectIceFieldToCreature* pEffect = new EffectIceFieldToCreature(pAttacker, true);
                     pEffect->setDeadline(pFrozenArmor->getTargetDuration());
                     pAttacker->addEffect(pEffect);
@@ -2332,15 +2332,15 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
 
         if (pAttacker != NULL && pAttacker->isSlayer()) {
-            // °ø°İÀÚ°¡ ½½·¹ÀÌ¾î¶ó¸é µ¥¹ÌÁö¿¡ Àº µ¥¹ÌÁö°¡ Ãß°¡µÉ ¼ö°¡ ÀÖ´Ù.
-            // ¾Æ¿ì½ºÅÍ½º´Â Àº µ¥¹ÌÁö¸¦ 1.5¹è ¹Ş´Â´Ù.
+            // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¶Ã³Â¸Ã© ÂµÂ¥Â¹ÃŒÃÃ¶Â¿Â¡ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶Â°Â¡ Ã€Ã–Â´Ã™.
+            // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ´Ã‚ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ 1.5Â¹Ã¨ Â¹ÃÂ´Ã‚Â´Ã™.
             silverDamage = (Silver_t)(computeSlayerSilverDamage(pAttacker, Damage, pAttackerMI) * 1.5);
             silverDamage = max(0, getPercentValue(silverDamage, 100 - pOusters->getSilverResist()));
         }
 
-        // Àº µ¥¹ÌÁö´Â Ãß°¡ µ¥¹ÌÁöÀÌ´Ù.
+        // Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â´Ã‚ ÃƒÃŸÂ°Â¡ ÂµÂ¥Â¹ÃŒÃÃ¶Ã€ÃŒÂ´Ã™.
         Damage += silverDamage;
-        // add by Coffee 2007-3-4 ½£¼¼ÄÜ ÉÁÒ«Ö®½£ ¹àÒøÉËº¦
+        // add by Coffee 2007-3-4 Â½Â£Â¼Â¼Ã„Ãœ Ã‰ÃÃ’Â«Ã–Â®Â½Â£ Â¹Ã Ã’Ã¸Ã‰Ã‹ÂºÂ¦
         if (SkillType == SKILL_SHINE_SWORD && silverDamage != 0) {
             silverDamage = Damage;
         }
@@ -2377,18 +2377,18 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         }
     }
     ////////////////////////////////////////////////////////////
-    // ¸Â´Â ³ğÀÌ ¸ó½ºÅÍÀÏ °æ¿ì
+    // Â¸Ã‚Â´Ã‚ Â³Ã°Ã€ÃŒ Â¸Ã³Â½ÂºÃ…ÃÃ€Ã Â°Ã¦Â¿Ã¬
     ////////////////////////////////////////////////////////////
     else if (pTargetCreature->isMonster()) {
         Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
         Silver_t silverDamage = 0;
 
         if (pAttacker != NULL && pAttacker->isSlayer()) {
-            // °ø°İÀÚ°¡ ½½·¹ÀÌ¾î¶ó¸é µ¥¹ÌÁö¿¡ Àº µ¥¹ÌÁö°¡ Ãß°¡µÉ ¼ö°¡ ÀÖ´Ù.
+            // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¶Ã³Â¸Ã© ÂµÂ¥Â¹ÃŒÃÃ¶Â¿Â¡ Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â°Â¡ ÃƒÃŸÂ°Â¡ÂµÃ‰ Â¼Ã¶Â°Â¡ Ã€Ã–Â´Ã™.
             silverDamage = computeSlayerSilverDamage(pAttacker, Damage, pAttackerMI);
         }
 
-        // Àº µ¥¹ÌÁö´Â Ãß°¡ µ¥¹ÌÁöÀÌ´Ù.
+        // Ã€Âº ÂµÂ¥Â¹ÃŒÃÃ¶Â´Ã‚ ÃƒÃŸÂ°Â¡ ÂµÂ¥Â¹ÃŒÃÃ¶Ã€ÃŒÂ´Ã™.
         Damage += silverDamage;
 
         if (canKillTarget)
@@ -2439,14 +2439,14 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         pMonster->setDamaged(true);
 
         if (pAttacker != NULL && pAttacker->isPC()) {
-            // ¸Â´Â ³ğÀÌ ¸ó½ºÅÍÀÌ°í, °ø°İÀÚ°¡ »ç¶÷ÀÌ¶ó¸é,
-            // µ¥¹ÌÁö¿¡ µû¶ó¼­ º¯ÇÏ´Â ¿ì¼±±Ç Å×ÀÌºíÀ» °»½ÅÇØ ÁÖ¾î¾ß ÇÑ´Ù.
+            // Â¸Ã‚Â´Ã‚ Â³Ã°Ã€ÃŒ Â¸Ã³Â½ÂºÃ…ÃÃ€ÃŒÂ°Ã­, Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â»Ã§Â¶Ã·Ã€ÃŒÂ¶Ã³Â¸Ã©,
+            // ÂµÂ¥Â¹ÃŒÃÃ¶Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ ÂºÂ¯Ã‡ÃÂ´Ã‚ Â¿Ã¬Â¼Â±Â±Ã‡ Ã…Ã—Ã€ÃŒÂºÃ­Ã€Â» Â°Â»Â½Ã…Ã‡Ã˜ ÃÃ–Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
             pMonster->addPrecedence(pAttacker->getName(), pAttacker->getPartyID(), Damage);
             pMonster->setLastHitCreatureClass(pAttacker->getCreatureClass());
         }
 
         /*
-        // ¸ó½ºÅÍ°¡ ¸¸¾à Á×¾ú´Ù¸é ¿ì¼±±Ç °è»êÀ» ÇØÁà¾ß ÇÑ´Ù.
+        // Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ Â¸Â¸Â¾Ã  ÃÃ—Â¾ÃºÂ´Ã™Â¸Ã© Â¿Ã¬Â¼Â±Â±Ã‡ Â°Ã¨Â»ÃªÃ€Â» Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
         if (pMonster->isDead())
         {
             PrecedenceTable* pTable = pMonster->getPrecedenceTable();
@@ -2457,20 +2457,20 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             pMonster->setHostPartyID(pTable->getHostPartyID());
         }
         */
-        // ¸ó½ºÅÍ°¡ ¾ÆÁ÷ Á×Áö´Â ¾Ê¾ÒÁö¸¸, ÈíÇ÷ÀÌ °¡´ÉÇÑ »óÅÂ¶ó¸é,
-        // ¸¸¾à ¿ì¼±±Ç °è»êÀ» ÇÏÁö ¾Ê¾Ò´Ù¸é °è»êÀ» ÇØÁØ´Ù.
+        // Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ Â¾Ã†ÃÃ· ÃÃ—ÃÃ¶Â´Ã‚ Â¾ÃŠÂ¾Ã’ÃÃ¶Â¸Â¸, ÃˆÃ­Ã‡Ã·Ã€ÃŒ Â°Â¡Â´Ã‰Ã‡Ã‘ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã©,
+        // Â¸Â¸Â¾Ã  Â¿Ã¬Â¼Â±Â±Ã‡ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÃÃ¶ Â¾ÃŠÂ¾Ã’Â´Ã™Â¸Ã© Â°Ã¨Â»ÃªÃ€Â» Ã‡Ã˜ÃÃ˜Â´Ã™.
         if (pMonster->getHP(ATTR_CURRENT) * 3 < pMonster->getHP(ATTR_MAX)) {
             PrecedenceTable* pTable = pMonster->getPrecedenceTable();
 
-            // HP°¡ 3ºĞÀÇ 1 ÀÌÇÏÀÎ »óÅÂ¶ó°í ¹«Á¶°Ç °è»êÀ» ÇÏ¸é,
-            // ¸ÅÅÏ¸¶´Ù ÀÇ¹Ì°¡ ¾ø´Â °è»êÀ» °è¼Ó ÇÏ°Ô µÇ¹Ç·Î,
-            // ÇÑ¹ø °è»êÀ» ÇÏ°í ³ª¸é, Á×±â Àü±îÁö´Â ´Ù½Ã °è»êÇÏÁö ¾Êµµ·Ï
-            // ÇÃ·¡±×¸¦ ¼¼ÆÃÇØ ÁØ´Ù. ÀÌ ÇÃ·¡±×¸¦ ÀÌ¿ëÇÏ¿© ÇÊ¿ä¾ø´Â °è»êÀ» ÁÙÀÎ´Ù.
+            // HPÂ°Â¡ 3ÂºÃÃ€Ã‡ 1 Ã€ÃŒÃ‡ÃÃ€Ã Â»Ã³Ã…Ã‚Â¶Ã³Â°Ã­ Â¹Â«ÃÂ¶Â°Ã‡ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÂ¸Ã©,
+            // Â¸Ã…Ã…ÃÂ¸Â¶Â´Ã™ Ã€Ã‡Â¹ÃŒÂ°Â¡ Â¾Ã¸Â´Ã‚ Â°Ã¨Â»ÃªÃ€Â» Â°Ã¨Â¼Ã“ Ã‡ÃÂ°Ã” ÂµÃ‡Â¹Ã‡Â·Ã,
+            // Ã‡Ã‘Â¹Ã¸ Â°Ã¨Â»ÃªÃ€Â» Ã‡ÃÂ°Ã­ Â³ÂªÂ¸Ã©, ÃÃ—Â±Ã¢ Ã€Ã¼Â±Ã®ÃÃ¶Â´Ã‚ Â´Ã™Â½Ãƒ Â°Ã¨Â»ÃªÃ‡ÃÃÃ¶ Â¾ÃŠÂµÂµÂ·Ã
+            // Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Â¼Â¼Ã†ÃƒÃ‡Ã˜ ÃÃ˜Â´Ã™. Ã€ÃŒ Ã‡ÃƒÂ·Â¡Â±Ã—Â¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¿Â© Ã‡ÃŠÂ¿Ã¤Â¾Ã¸Â´Ã‚ Â°Ã¨Â»ÃªÃ€Â» ÃÃ™Ã€ÃÂ´Ã™.
             if (pTable->getComputeFlag() == false) {
-                // °è»êÀ» ÇØÁØ´Ù.
+                // Â°Ã¨Â»ÃªÃ€Â» Ã‡Ã˜ÃÃ˜Â´Ã™.
                 pTable->compute();
 
-                // È£½ºÆ®ÀÇ ÀÌ¸§°ú ÆÄÆ¼ ID¸¦ ÀÌ¿ëÇÏ¿©, ÀÌÆåÆ®¸¦ °É¾îÁØ´Ù.
+                // ÃˆÂ£Â½ÂºÃ†Â®Ã€Ã‡ Ã€ÃŒÂ¸Â§Â°Ãº Ã†Ã„Ã†Â¼ IDÂ¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡ÃÂ¿Â©, Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â°Ã‰Â¾Ã®ÃÃ˜Â´Ã™.
                 EffectPrecedence* pEffectPrecedence = new EffectPrecedence(pMonster);
                 pEffectPrecedence->setDeadline(100);
                 pEffectPrecedence->setHostName(pTable->getHostName());
@@ -2483,7 +2483,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         if (pMonster->getMonsterType() == 722 && pAttacker != NULL &&
             !pAttacker->isFlag(Effect::EFFECT_CLASS_BLINDNESS)) {
             if ((rand() % 100) < 30) {
-                // Áúµå·¹ ¼®»óÀÌÁö·Õ
+                // ÃÃºÂµÃ¥Â·Â¹ Â¼Â®Â»Ã³Ã€ÃŒÃÃ¶Â·Ã•
                 EffectBlindness* pEffect = new EffectBlindness(pAttacker);
                 pEffect->setDamage(50);
                 pEffect->setNextTime(0);
@@ -2504,9 +2504,9 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
     //	if ( pAttacker != NULL ) pAttacker->setLastTarget( pTargetCreature->getObjectID() );
 
     ////////////////////////////////////////////////////////////
-    // º¯°æµÈ »çÇ×À» ÇÃ·¡±×¿¡ µû¶ó¼­ º¸³»ÁØ´Ù.
+    // ÂºÂ¯Â°Ã¦ÂµÃˆ Â»Ã§Ã‡Ã—Ã€Â» Ã‡ÃƒÂ·Â¡Â±Ã—Â¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
     ////////////////////////////////////////////////////////////
-    if (bBroadcastTargetHP && pTargetCreature != NULL) // ¸Â´Â ³ğÀÇ hp°¡ ÁÙ¾úÀ¸´Ï, ºê·Îµå Ä³½ºÆÃÇØÁØ´Ù.
+    if (bBroadcastTargetHP && pTargetCreature != NULL) // Â¸Ã‚Â´Ã‚ Â³Ã°Ã€Ã‡ hpÂ°Â¡ ÃÃ™Â¾ÃºÃ€Â¸Â´Ã, ÂºÃªÂ·ÃÂµÃ¥ Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
     {
         if (pTargetCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -2526,7 +2526,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         pZone->broadcastPacket(TX, TY, &gcTargetHP, pTargetCreature);
     }
 
-    if (bSendTargetHP && pTargetCreature != NULL) // ¸Â´Â ´ç»çÀÚ¿¡°Ô HP°¡ ÁÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+    if (bSendTargetHP && pTargetCreature != NULL) // Â¸Ã‚Â´Ã‚ Â´Ã§Â»Ã§Ã€ÃšÂ¿Â¡Â°Ã” HPÂ°Â¡ ÃÃ™Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
     {
         if (pTargetCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -2546,7 +2546,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             Assert(false);
     }
 
-    if (bSendTargetMP && pTargetCreature != NULL) // ¸Â´Â ´ç»çÀÚ¿¡°Ô MP°¡ ÁÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+    if (bSendTargetMP && pTargetCreature != NULL) // Â¸Ã‚Â´Ã‚ Â´Ã§Â»Ã§Ã€ÃšÂ¿Â¡Â°Ã” MPÂ°Â¡ ÃÃ™Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
     {
         if (pTargetCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -2572,7 +2572,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             Assert(false);
     }
 
-    if (bBroadcastAttackerHP && pAttacker != NULL) // ¶§¸®´Â ³ğÀÇ HP°¡ ÁÙ¾úÀ¸´Ï, ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+    if (bBroadcastAttackerHP && pAttacker != NULL) // Â¶Â§Â¸Â®Â´Ã‚ Â³Ã°Ã€Ã‡ HPÂ°Â¡ ÃÃ™Â¾ÃºÃ€Â¸Â´Ã, ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
     {
         if (pAttacker->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
@@ -2592,7 +2592,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
         pZone->broadcastPacket(AX, AY, &gcAttackerHP, pAttacker);
     }
 
-    if (bSendAttackerHP && pAttacker != NULL) // ¶§¸®´Â ³ğ¿¡°Ô HP°¡ ÁÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+    if (bSendAttackerHP && pAttacker != NULL) // Â¶Â§Â¸Â®Â´Ã‚ Â³Ã°Â¿Â¡Â°Ã” HPÂ°Â¡ ÃÃ™Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
     {
         if (pAttacker->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
@@ -2612,7 +2612,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             Assert(false);
     }
 
-    if (bSendAttackerMP && pAttacker != NULL) // ¶§¸®´Â ³ğ¿¡°Ô MP°¡ ÁÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+    if (bSendAttackerMP && pAttacker != NULL) // Â¶Â§Â¸Â®Â´Ã‚ Â³Ã°Â¿Â¡Â°Ã” MPÂ°Â¡ ÃÃ™Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
     {
         if (pAttacker->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
@@ -2626,7 +2626,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
             Assert(false);
     }
 
-    // Á×ÀÎ °æ¿ìÀÇ KillCount Áõ°¡. by sigi. 2002.8.31
+    // ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬Ã€Ã‡ KillCount ÃÃµÂ°Â¡. by sigi. 2002.8.31
     if (pTargetCreature->isDead()) {
         affectKillCount(pAttacker, pTargetCreature);
     }
@@ -2635,7 +2635,7 @@ HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛ ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+// Â¾Ã†Ã€ÃŒÃ…Ã› Â³Â»Â±Â¸ÂµÂµÂ¸Â¦ Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInfo* pSkillInfo, ModifyInfo* pMI1,
                         ModifyInfo* pMI2) {
@@ -2645,7 +2645,7 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
     //	WORD Point = (pSkillInfo)?pSkillInfo->getPoint():1;
     // #endif
 
-    // ¶³¾î¶ß¸± ³»±¸µµ°¡ 0ÀÌ¶ó¸é °Á ¸®ÅÏÇØ¾ßÁã...
+    // Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â± Â³Â»Â±Â¸ÂµÂµÂ°Â¡ 0Ã€ÃŒÂ¶Ã³Â¸Ã© Â°Ã Â¸Â®Ã…ÃÃ‡Ã˜Â¾ÃŸÃÃ£...
     if (Point == 0)
         return;
 
@@ -2658,8 +2658,8 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
     ulong value = 0;
 
     ////////////////////////////////////////////////////////////////
-    // °ø°İÇÏ´Â ÀÚÀÇ ¹«±â ³»±¸µµ ¶³¾îÆ®¸².
-    // ¹«±â µé°í ÀÖ´Â ÀÚ´Â ¹«Á¶°Ç ½½·¹ÀÌ¾î ¾Æ´Ñ°¡...
+    // Â°Ã¸Â°ÃÃ‡ÃÂ´Ã‚ Ã€ÃšÃ€Ã‡ Â¹Â«Â±Ã¢ Â³Â»Â±Â¸ÂµÂµ Â¶Â³Â¾Ã®Ã†Â®Â¸Â².
+    // Â¹Â«Â±Ã¢ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Ã€ÃšÂ´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¾Ã†Â´Ã‘Â°Â¡...
     ////////////////////////////////////////////////////////////////
     if (pCreature != NULL) {
         if (pCreature->isSlayer()) {
@@ -2668,7 +2668,7 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
             slot = Slayer::WEAR_RIGHTHAND;
             pWeapon = pSlayer->getWearItem((Slayer::WearPart)slot);
 
-            // ¹«±â¸¦ µé°í ÀÖ´Ù¸é ¶³¾î¶ß¸°´Ù.
+            // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã© Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
             if (pWeapon != NULL && canDecreaseDurability(pWeapon))
             //				&& !pWeapon->isUnique())
             {
@@ -2676,7 +2676,7 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
                 durDiff = Point;
                 Result = max(0, CurDur - durDiff);
 
-                if (Result == 0) // ¹«±â°¡ ³»±¸µµ°¡ 0ÀÌ¶ó¸é ÆÄ±«ÇÑ´Ù.
+                if (Result == 0) // Â¹Â«Â±Ã¢Â°Â¡ Â³Â»Â±Â¸ÂµÂµÂ°Â¡ 0Ã€ÃŒÂ¶Ã³Â¸Ã© Ã†Ã„Â±Â«Ã‡Ã‘Â´Ã™.
                 {
                     GCRemoveFromGear gcRemoveFromGear;
                     gcRemoveFromGear.setSlotID(slot);
@@ -2685,14 +2685,14 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
                     Player* pPlayer = pSlayer->getPlayer();
                     pPlayer->sendPacket(&gcRemoveFromGear);
 
-                    // ·Î±×
+                    // Â·ÃÂ±Ã—
                     log(LOG_DESTROY_ITEM, pCreature->getName(), "", pWeapon->toString());
 
-                    // ¶³¾îÁø ³»±¸¼ºÀ» ÀúÀåÇÑ´Ù.
+                    // Â¶Â³Â¾Ã®ÃÃ¸ Â³Â»Â±Â¸Â¼ÂºÃ€Â» Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                     pWeapon->setDurability(Result);
                     pWeapon->save(pCreature->getName(), STORAGE_GEAR, 0, slot, 0);
 
-                    // DB¿¡¼­ »èÁ¦ÇÑ´Ù.
+                    // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
                     pWeapon->destroy();
                     SAFE_DELETE(pWeapon);
                 } else {
@@ -2706,7 +2706,7 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
                     value = (DWORD)(slot) << 24 | (DWORD)(Result);
                     pMI1->addLongData(MODIFY_DURABILITY, value);
 
-                    // ¶³¾îÁø ³»±¸¼ºÀ» ÀúÀåÇÑ´Ù.
+                    // Â¶Â³Â¾Ã®ÃÃ¸ Â³Â»Â±Â¸Â¼ÂºÃ€Â» Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                     // pWeapon->save(pCreature->getName(), STORAGE_GEAR, 0, slot, 0);
                 }
             } // if (pWeapon != NULL)
@@ -2717,13 +2717,13 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
             slot = Vampire::WEAR_RIGHTHAND;
             pWeapon = pVampire->getWearItem((Vampire::WearPart)slot);
 
-            // ¹«±â¸¦ µé°í ÀÖ´Ù¸é ¶³¾î¶ß¸°´Ù.
+            // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã© Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
             if (pWeapon != NULL && canDecreaseDurability(pWeapon)) {
                 CurDur = pWeapon->getDurability();
                 durDiff = Point;
                 Result = max(0, CurDur - durDiff);
 
-                if (Result == 0) // ¹«±â°¡ ³»±¸µµ°¡ 0ÀÌ¶ó¸é ÆÄ±«ÇÑ´Ù.
+                if (Result == 0) // Â¹Â«Â±Ã¢Â°Â¡ Â³Â»Â±Â¸ÂµÂµÂ°Â¡ 0Ã€ÃŒÂ¶Ã³Â¸Ã© Ã†Ã„Â±Â«Ã‡Ã‘Â´Ã™.
                 {
                     GCRemoveFromGear gcRemoveFromGear;
                     gcRemoveFromGear.setSlotID(slot);
@@ -2732,14 +2732,14 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
                     Player* pPlayer = pVampire->getPlayer();
                     pPlayer->sendPacket(&gcRemoveFromGear);
 
-                    // ·Î±×
+                    // Â·ÃÂ±Ã—
                     log(LOG_DESTROY_ITEM, pCreature->getName(), "", pWeapon->toString());
 
-                    // ¶³¾îÁø ³»±¸¼ºÀ» ÀúÀåÇÑ´Ù.
+                    // Â¶Â³Â¾Ã®ÃÃ¸ Â³Â»Â±Â¸Â¼ÂºÃ€Â» Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                     pWeapon->setDurability(Result);
                     pWeapon->save(pCreature->getName(), STORAGE_GEAR, 0, slot, 0);
 
-                    // DB¿¡¼­ »èÁ¦ÇÑ´Ù.
+                    // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
                     pWeapon->destroy();
                     SAFE_DELETE(pWeapon);
                 } else {
@@ -2761,13 +2761,13 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
             slot = Ousters::WEAR_RIGHTHAND;
             pWeapon = pOusters->getWearItem((Ousters::WearPart)slot);
 
-            // ¹«±â¸¦ µé°í ÀÖ´Ù¸é ¶³¾î¶ß¸°´Ù.
+            // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã© Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
             if (pWeapon != NULL && canDecreaseDurability(pWeapon)) {
                 CurDur = pWeapon->getDurability();
                 durDiff = Point;
                 Result = max(0, CurDur - durDiff);
 
-                if (Result == 0) // ¹«±â°¡ ³»±¸µµ°¡ 0ÀÌ¶ó¸é ÆÄ±«ÇÑ´Ù.
+                if (Result == 0) // Â¹Â«Â±Ã¢Â°Â¡ Â³Â»Â±Â¸ÂµÂµÂ°Â¡ 0Ã€ÃŒÂ¶Ã³Â¸Ã© Ã†Ã„Â±Â«Ã‡Ã‘Â´Ã™.
                 {
                     GCRemoveFromGear gcRemoveFromGear;
                     gcRemoveFromGear.setSlotID(slot);
@@ -2776,14 +2776,14 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
                     Player* pPlayer = pOusters->getPlayer();
                     pPlayer->sendPacket(&gcRemoveFromGear);
 
-                    // ·Î±×
+                    // Â·ÃÂ±Ã—
                     log(LOG_DESTROY_ITEM, pCreature->getName(), "", pWeapon->toString());
 
-                    // ¶³¾îÁø ³»±¸¼ºÀ» ÀúÀåÇÑ´Ù.
+                    // Â¶Â³Â¾Ã®ÃÃ¸ Â³Â»Â±Â¸Â¼ÂºÃ€Â» Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                     pWeapon->setDurability(Result);
                     pWeapon->save(pCreature->getName(), STORAGE_GEAR, 0, slot, 0);
 
-                    // DB¿¡¼­ »èÁ¦ÇÑ´Ù.
+                    // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
                     pWeapon->destroy();
                     SAFE_DELETE(pWeapon);
                 } else {
@@ -2802,10 +2802,10 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
     } // if (pCreature != NULL)
 
     ////////////////////////////////////////////////////////////////
-    // °ø°İ´çÇÏ´Â ÀÚÀÇ ¹æ¾î±¸ DurabilityÀ» ¶³¾îÆ®¸² ·£´ıÇÏ°Ô
+    // Â°Ã¸Â°ÃÂ´Ã§Ã‡ÃÂ´Ã‚ Ã€ÃšÃ€Ã‡ Â¹Ã¦Â¾Ã®Â±Â¸ DurabilityÃ€Â» Â¶Â³Â¾Ã®Ã†Â®Â¸Â² Â·Â£Â´Ã½Ã‡ÃÂ°Ã”
     ////////////////////////////////////////////////////////////////
     if (pTargetCreature != NULL) {
-        // ¾î´À ½½¶ù¿¡ ÀÖ´Â ±â¾îÀÇ ³»±¸µµ¸¦ ¶³¾î¶ß¸±Áö °áÁ¤ÇÑ´Ù.
+        // Â¾Ã®Â´Ã€ Â½Â½Â¶Ã¹Â¿Â¡ Ã€Ã–Â´Ã‚ Â±Ã¢Â¾Ã®Ã€Ã‡ Â³Â»Â±Â¸ÂµÂµÂ¸Â¦ Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â±ÃÃ¶ Â°Ã¡ÃÂ¤Ã‡Ã‘Â´Ã™.
         if (pTargetCreature->isSlayer()) {
             slot = Random(0, Slayer::WEAR_MAX - 1);
             pGear = dynamic_cast<Slayer*>(pTargetCreature)->getWearItem((Slayer::WearPart)slot);
@@ -2817,14 +2817,14 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
             pGear = dynamic_cast<Ousters*>(pTargetCreature)->getWearItem((Ousters::WearPart)slot);
         }
 
-        // ¼±ÅÃµÈ ½½¶ù¿¡ ¾ÆÀÌÅÛÀ» ÀåÂøÇÏ°í ÀÖ´Ù¸é
-        // vampire amuletÀº ¾È ´â´Â´Ù.
+        // Â¼Â±Ã…ÃƒÂµÃˆ Â½Â½Â¶Ã¹Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Ã€Ã¥Ã‚Ã¸Ã‡ÃÂ°Ã­ Ã€Ã–Â´Ã™Â¸Ã©
+        // vampire amuletÃ€Âº Â¾Ãˆ Â´Ã¢Â´Ã‚Â´Ã™.
         if (pGear != NULL && canDecreaseDurability(pGear))
         //			&& !pGear->isUnique()
         //			&& pGear->getItemClass()!=Item::ITEM_CLASS_VAMPIRE_AMULET)
         {
-            // ¼±ÅÃµÈ ½½¶ù¿¡ Á¸ÀçÇÏ´Â ¾ÆÀÌÅÛÀÌ ¾ç¼Õ ¹«±â¶ó¸é,
-            // ½½¶ùÀ» ¹«Á¶°Ç ¿À¸¥ÂÊÀ¸·Î ¹Ù²Ù¾îÁØ´Ù.
+            // Â¼Â±Ã…ÃƒÂµÃˆ Â½Â½Â¶Ã¹Â¿Â¡ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã§Â¼Ã• Â¹Â«Â±Ã¢Â¶Ã³Â¸Ã©,
+            // Â½Â½Â¶Ã¹Ã€Â» Â¹Â«ÃÂ¶Â°Ã‡ Â¿Ã€Â¸Â¥Ã‚ÃŠÃ€Â¸Â·Ã Â¹Ã™Â²Ã™Â¾Ã®ÃÃ˜Â´Ã™.
             if (isTwohandWeapon(pGear)) {
                 if (pTargetCreature->isSlayer())
                     slot = Slayer::WEAR_RIGHTHAND;
@@ -2870,10 +2870,10 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
                     pPlayer->sendPacket(&gcRemoveFromGear);
                 }
 
-                // ·Î±×
+                // Â·ÃÂ±Ã—
                 log(LOG_DESTROY_ITEM, pTargetCreature->getName(), "", pGear->toString());
 
-                // ÆÄ±«
+                // Ã†Ã„Â±Â«
                 pGear->save(pTargetCreature->getName(), STORAGE_GEAR, 0, slot, 0);
                 pGear->destroy();
                 SAFE_DELETE(pGear);
@@ -2889,7 +2889,7 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
 
                 pMI2->addLongData(MODIFY_DURABILITY, value);
 
-                // ¶³¾îÁø ³»±¸¼ºÀ» ÀúÀåÇÑ´Ù.
+                // Â¶Â³Â¾Ã®ÃÃ¸ Â³Â»Â±Â¸Â¼ÂºÃ€Â» Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                 // pGear->save(pTargetCreature->getName(), STORAGE_GEAR, 0, slot, 0);
             }
         }
@@ -2897,34 +2897,34 @@ void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInf
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¸°ÙÀ» ¸ÂÃâ °¡´É¼ºÀÌ ÀÖ´Â°¡?
+// Ã…Â¸Â°Ã™Ã€Â» Â¸Ã‚ÃƒÃ¢ Â°Â¡Â´Ã‰Â¼ÂºÃ€ÃŒ Ã€Ã–Â´Ã‚Â°Â¡?
 //////////////////////////////////////////////////////////////////////////////
 bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, SkillLevel_t SkillLevel) {
-    // ¹«Àû »óÅÂ
+    // Â¹Â«Ã€Ã» Â»Ã³Ã…Ã‚
     //	if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
     //	{
     //		return false;
     //	}
 
-    // ½ºÅ³ÀÇ Á¾·ù¿¡ ¹«°üÇÏ°Ô, ¸ÂÃâ ¼ö ¾ø´Â »óÅÂ¸¦ Ã¼Å©ÇÑ´Ù.
+    // Â½ÂºÃ…Â³Ã€Ã‡ ÃÂ¾Â·Ã¹Â¿Â¡ Â¹Â«Â°Ã¼Ã‡ÃÂ°Ã”, Â¸Ã‚ÃƒÃ¢ Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â»Ã³Ã…Ã‚Â¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
     if (pAttacker->isSlayer()) {
-        // Á¾Á· °Ë»çµµ ÇÒ ¼ö ÀÖÁö¸¸,
-        // ¼Óµµ ¹®Á¦·Î µÉ ¼ö ÀÖ´Â ÇÑ Ã¼Å©¸¦ Àû°Ô ÇÏ±â À§ÇØ¼­ »ı·«Çß´Ù.
+        // ÃÂ¾ÃÂ· Â°Ã‹Â»Ã§ÂµÂµ Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÃÃ¶Â¸Â¸,
+        // Â¼Ã“ÂµÂµ Â¹Â®ÃÂ¦Â·Ã ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã‡Ã‘ ÃƒÂ¼Ã…Â©Â¸Â¦ Ã€Ã»Â°Ã” Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­ Â»Ã½Â·Â«Ã‡ÃŸÂ´Ã™.
 
-        // Attacker ÀÇ Revealer ÀÌÆåÆ®¸¦ °¡Á®¿Â´Ù.
+        // Attacker Ã€Ã‡ Revealer Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â°Â¡ÃÂ®Â¿Ã‚Â´Ã™.
         EffectRevealer* pEffectRevealer = NULL;
         if (pAttacker->isFlag(Effect::EFFECT_CLASS_REVEALER)) {
             pEffectRevealer = dynamic_cast<EffectRevealer*>(pAttacker->findEffect(Effect::EFFECT_CLASS_REVEALER));
             Assert(pEffectRevealer);
         }
 
-        // ÇÏÀÌµåÇÏ°í ÀÖÀ¸¸é, Detect hidden ¸¶¹ıÀÌ °É·ÁÀÖ¾î¾ß º¼ ¼ö ÀÖ´Ù.
+        // Ã‡ÃÃ€ÃŒÂµÃ¥Ã‡ÃÂ°Ã­ Ã€Ã–Ã€Â¸Â¸Ã©, Detect hidden Â¸Â¶Â¹Ã½Ã€ÃŒ Â°Ã‰Â·ÃÃ€Ã–Â¾Ã®Â¾ÃŸ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã™.
         if (pDefender->isFlag(Effect::EFFECT_CLASS_HIDE)) {
             if (!pAttacker->isFlag(Effect::EFFECT_CLASS_DETECT_HIDDEN) &&
                 !(pEffectRevealer != NULL && pEffectRevealer->canSeeHide(pDefender)))
                 return false;
         }
-        // Åõ¸íÈ­ »óÅÂ¶ó¸é, Detect invisibility ¸¶¹ıÀÌ °É·ÁÀÖ¾î¾ß º¼ ¼ö ÀÖ´Ù.
+        // Ã…ÃµÂ¸Ã­ÃˆÂ­ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã©, Detect invisibility Â¸Â¶Â¹Ã½Ã€ÃŒ Â°Ã‰Â·ÃÃ€Ã–Â¾Ã®Â¾ÃŸ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã™.
         if (pDefender->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)) {
             if (!pAttacker->isFlag(Effect::EFFECT_CLASS_DETECT_INVISIBILITY) &&
                 !(pEffectRevealer != NULL && pEffectRevealer->canSeeInvisibility(pDefender)))
@@ -2932,10 +2932,10 @@ bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, Ski
         }
     }
 
-    // ½ºÅ³ÀÇ Å¸ÀÔ¿¡ µû¶ó ¸ÂÃâ ¼ö ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
-    // ±âº» °ø°İÀº ½ºÅ³ ÀÎÆ÷°¡ ¾ø±â ¶§¹®¿¡ ¿©±â¼­ Ã¼Å©ÇÑ´Ù.
+    // Â½ÂºÃ…Â³Ã€Ã‡ Ã…Â¸Ã€Ã”Â¿Â¡ ÂµÃ»Â¶Ã³ Â¸Ã‚ÃƒÃ¢ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶ Â°Ã‹Â»Ã§Ã‡Ã‘Â´Ã™.
+    // Â±Ã¢ÂºÂ» Â°Ã¸Â°ÃÃ€Âº Â½ÂºÃ…Â³ Ã€ÃÃ†Ã·Â°Â¡ Â¾Ã¸Â±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ Â¿Â©Â±Ã¢Â¼Â­ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
     switch (SkillType) {
-    // ÀÏ¹İ ¹Ğ¸® °ø°İÀÌ³ª, ÈíÇ÷Àº ³¯¾Æ´Ù´Ï´Â »ó´ë¿¡°Ô´Â ºÒ°¡´ÉÇÏ´Ù.
+    // Ã€ÃÂ¹Ã Â¹ÃÂ¸Â® Â°Ã¸Â°ÃÃ€ÃŒÂ³Âª, ÃˆÃ­Ã‡Ã·Ã€Âº Â³Â¯Â¾Ã†Â´Ã™Â´ÃÂ´Ã‚ Â»Ã³Â´Ã«Â¿Â¡Â°Ã”Â´Ã‚ ÂºÃ’Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™.
     case SKILL_ATTACK_MELEE:
     case SKILL_BLOOD_DRAIN:
         if (pDefender != NULL) {
@@ -2944,7 +2944,7 @@ bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, Ski
         }
         return true;
 
-    // ÃÑÀ¸·Î ÇÏ´Â °ø°İÀº ³¯¾Æ´Ù´Ï´Â »ó´ë¿¡°Ôµµ °¡´ÉÇÏ´Ù.
+    // ÃƒÃ‘Ã€Â¸Â·Ã Ã‡ÃÂ´Ã‚ Â°Ã¸Â°ÃÃ€Âº Â³Â¯Â¾Ã†Â´Ã™Â´ÃÂ´Ã‚ Â»Ã³Â´Ã«Â¿Â¡Â°Ã”ÂµÂµ Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™.
     case SKILL_ATTACK_ARMS:
         return true;
 
@@ -2952,7 +2952,7 @@ bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, Ski
         break;
     }
 
-    // ½ºÅ³ Å¸ÀÔ°ú »ó´ëÀÇ ÇöÀç ¹«ºê¸ğµå¿¡ µû¶ó, °ø°İÀÇ °¡´É ¿©ºÎ¸¦ ¸®ÅÏÇÑ´Ù.
+    // Â½ÂºÃ…Â³ Ã…Â¸Ã€Ã”Â°Ãº Â»Ã³Â´Ã«Ã€Ã‡ Ã‡Ã¶Ã€Ã§ Â¹Â«ÂºÃªÂ¸Ã°ÂµÃ¥Â¿Â¡ ÂµÃ»Â¶Ã³, Â°Ã¸Â°ÃÃ€Ã‡ Â°Â¡Â´Ã‰ Â¿Â©ÂºÃÂ¸Â¦ Â¸Â®Ã…ÃÃ‡Ã‘Â´Ã™.
     SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
     Assert(pSkillInfo != NULL);
 
@@ -2970,7 +2970,7 @@ bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, Ski
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÎÆ®¿¡ µû¶ó ¸¶³ª ¼Ò¸ğ·®ÀÌ º¯ÇÏ´Â ¹ìÆÄÀÌ¾î ¸¶¹ıÀÇ ¸¶³ª ¼Ò¸ğ·®À» °è»êÇÑ´Ù.
+// Ã€ÃÃ†Â®Â¿Â¡ ÂµÃ»Â¶Ã³ Â¸Â¶Â³Âª Â¼Ã’Â¸Ã°Â·Â®Ã€ÃŒ ÂºÂ¯Ã‡ÃÂ´Ã‚ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¸Â¶Â¹Ã½Ã€Ã‡ Â¸Â¶Â³Âª Â¼Ã’Â¸Ã°Â·Â®Ã€Â» Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 MP_t decreaseConsumeMP(Vampire* pVampire, SkillInfo* pSkillInfo) {
     Assert(pVampire != NULL);
@@ -3005,7 +3005,7 @@ MP_t decreaseConsumeMP(Vampire* pVampire, SkillInfo* pSkillInfo) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼úÀ» »ç¿ëÇÏ±â À§ÇÑ ÃæºĞÇÑ ¸¶³ª¸¦ °¡Áö°í ÀÖ´Â°¡?
+// Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã‘ ÃƒÃ¦ÂºÃÃ‡Ã‘ Â¸Â¶Â³ÂªÂ¸Â¦ Â°Â¡ÃÃ¶Â°Ã­ Ã€Ã–Â´Ã‚Â°Â¡?
 //////////////////////////////////////////////////////////////////////////////
 bool hasEnoughMana(Creature* pCaster, int RequiredMP) {
     if (pCaster->isSlayer()) {
@@ -3016,14 +3016,14 @@ bool hasEnoughMana(Creature* pCaster, int RequiredMP) {
             RequiredMP += getPercentValue(RequiredMP, decreaseRatio);
         }
 
-        // Sacrifice¸¦ ¾´ »óÅÂ¶ó¸é ¸¶³ª°¡ ¸ğÀÚ¶óµµ HP·Î ´ë½ÅÇÒ ¼ö ÀÖ´Ù.
+        // SacrificeÂ¸Â¦ Â¾Â´ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â¸Â¶Â³ÂªÂ°Â¡ Â¸Ã°Ã€ÃšÂ¶Ã³ÂµÂµ HPÂ·Ã Â´Ã«Â½Ã…Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
         if (pSlayer->isFlag(Effect::EFFECT_CLASS_SACRIFICE)) {
             // cout << "RequiredMP : " << (int)RequiredMP << endl;
             int margin = RequiredMP - pSlayer->getMP(ATTR_CURRENT);
             // cout << "margin: " << (int)margin<< endl;
 
-            // ¿ä±¸Ä¡¿¡¼­ ÇöÀç ¼öÄ¡¸¦ »« °ªÀÌ 0ÀÌ»óÀÌ¶ó¸é ,
-            // ¿ä±¸Ä¡°¡ ´õ Å©´Ù´Â ¸»ÀÌ´Ù. ÀÌ ¼öÄ¡´Â HP¿¡¼­ Á¦°ÅÇÑ´Ù.
+            // Â¿Ã¤Â±Â¸Ã„Â¡Â¿Â¡Â¼Â­ Ã‡Ã¶Ã€Ã§ Â¼Ã¶Ã„Â¡Â¸Â¦ Â»Â« Â°ÂªÃ€ÃŒ 0Ã€ÃŒÂ»Ã³Ã€ÃŒÂ¶Ã³Â¸Ã© ,
+            // Â¿Ã¤Â±Â¸Ã„Â¡Â°Â¡ Â´Ãµ Ã…Â©Â´Ã™Â´Ã‚ Â¸Â»Ã€ÃŒÂ´Ã™. Ã€ÃŒ Â¼Ã¶Ã„Â¡Â´Ã‚ HPÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…Ã‡Ã‘Â´Ã™.
             if (margin > 0) {
                 margin = (int)pSlayer->getHP(ATTR_CURRENT) * 2 - (int)margin;
                 // cout << "margin: " << (int)margin<< endl;
@@ -3039,9 +3039,9 @@ bool hasEnoughMana(Creature* pCaster, int RequiredMP) {
     } else if (pCaster->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pCaster);
 
-        // ¹ìÆÄÀÌ¾î´Â HP°¡ °ğ MPÀÌ±â ¶§¹®¿¡ ¸¶³ª¸¦ »ç¿ëÇÏ°í,
-        // Á×¾î¹ö¸®¸é °ï¶õÇÏ´Ù. ±×·¯¹Ç·Î ±â¼úÀ» »ç¿ëÇÏ°í ³ª¼­
-        // HP´Â 1 ÀÌ»óÀÌ¾î¾ß ÇÑ´Ù. ±×·¡¼­ >= ´ë½Å >¸¦ »ç¿ëÇÑ´Ù.
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â´Ã‚ HPÂ°Â¡ Â°Ã° MPÃ€ÃŒÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡ Â¸Â¶Â³ÂªÂ¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã­,
+        // ÃÃ—Â¾Ã®Â¹Ã¶Â¸Â®Â¸Ã© Â°Ã¯Â¶ÃµÃ‡ÃÂ´Ã™. Â±Ã—Â·Â¯Â¹Ã‡Â·Ã Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã­ Â³ÂªÂ¼Â­
+        // HPÂ´Ã‚ 1 Ã€ÃŒÂ»Ã³Ã€ÃŒÂ¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™. Â±Ã—Â·Â¡Â¼Â­ >= Â´Ã«Â½Ã… >Â¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã‘Â´Ã™.
 
         int decreaseRatio = pVampire->getConsumeMPRatio();
         if (decreaseRatio != 0) {
@@ -3061,9 +3061,9 @@ bool hasEnoughMana(Creature* pCaster, int RequiredMP) {
         if (pOusters->getMP(ATTR_CURRENT) >= (MP_t)RequiredMP)
             return true;
     } else if (pCaster->isMonster()) {
-        // ¸ó½ºÅÍ´Â ¹«ÇÑ ¸¶³ª µÇ°Ú´Ù. À½È±È±
-        // ³ªÁß¿¡¶óµµ ¸ó½ºÅÍ¿¡ ¸¶¹ı Ä«¿îÆ®³ª ¹¹ ±×·² °ÍÀÌ »ı±æÁöµµ ¸ğ¸£Áö.
-        // comment by ±è¼º¹Î
+        // Â¸Ã³Â½ÂºÃ…ÃÂ´Ã‚ Â¹Â«Ã‡Ã‘ Â¸Â¶Â³Âª ÂµÃ‡Â°ÃšÂ´Ã™. Ã€Â½ÃˆÂ±ÃˆÂ±
+        // Â³ÂªÃÃŸÂ¿Â¡Â¶Ã³ÂµÂµ Â¸Ã³Â½ÂºÃ…ÃÂ¿Â¡ Â¸Â¶Â¹Ã½ Ã„Â«Â¿Ã®Ã†Â®Â³Âª Â¹Â¹ Â±Ã—Â·Â² Â°ÃÃ€ÃŒ Â»Ã½Â±Ã¦ÃÃ¶ÂµÂµ Â¸Ã°Â¸Â£ÃÃ¶.
+        // comment by Â±Ã¨Â¼ÂºÂ¹Ã
         return true;
     } else {
         cerr << "hasEnoughMana() : Invalid Creature Class" << endl;
@@ -3075,9 +3075,9 @@ bool hasEnoughMana(Creature* pCaster, int RequiredMP) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÁÖ¾îÁø Æ÷ÀÎÆ®¸¸Å­ÀÇ ¸¶³ª¸¦ ÁÙÀÎ´Ù.
-// ´Ü ½½·¹ÀÌ¾î °°Àº °æ¿ì¿¡´Â Sacrifice °°Àº ÀÌÆåÆ®°¡ ºÙ¾îÀÖÀ¸¸é,
-// ¸¶³ª°¡ ¸ğÀÚ¶ö °æ¿ì, HP°¡ ´âÀ» ¼öµµ ÀÖ´Ù.
+// ÃÃ–Â¾Ã®ÃÃ¸ Ã†Ã·Ã€ÃÃ†Â®Â¸Â¸Ã…Â­Ã€Ã‡ Â¸Â¶Â³ÂªÂ¸Â¦ ÃÃ™Ã€ÃÂ´Ã™.
+// Â´Ãœ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Sacrifice Â°Â°Ã€Âº Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ ÂºÃ™Â¾Ã®Ã€Ã–Ã€Â¸Â¸Ã©,
+// Â¸Â¶Â³ÂªÂ°Â¡ Â¸Ã°Ã€ÃšÂ¶Ã¶ Â°Ã¦Â¿Ã¬, HPÂ°Â¡ Â´Ã¢Ã€Â» Â¼Ã¶ÂµÂµ Ã€Ã–Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
     Assert(pCaster != NULL);
@@ -3091,7 +3091,7 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
     if (pCaster->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCaster);
 
-        // Magic Brain ÀÌ ÀÖ´Ù¸é MP ¼Ò¸ğ·® 25% °¨¼Ò
+        // Magic Brain Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© MP Â¼Ã’Â¸Ã°Â·Â® 25% Â°Â¨Â¼Ã’
         if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_MAGIC_BRAIN)) {
             RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_MAGIC_BRAIN);
             Assert(pRankBonus != NULL);
@@ -3099,22 +3099,22 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
             MP -= getPercentValue(MP, pRankBonus->getPoint());
         }
 
-        // Blood Bible º¸³Ê½º Àû¿ë
+        // Blood Bible ÂºÂ¸Â³ÃŠÂ½Âº Ã€Ã»Â¿Ã«
         int decreaseRatio = pSlayer->getConsumeMPRatio();
         if (decreaseRatio != 0) {
-            // decreaseRatio °ª ÀÚÃ¼°¡ ¸¶ÀÌ³Ê½º °ªÀÌ´Ù.
+            // decreaseRatio Â°Âª Ã€ÃšÃƒÂ¼Â°Â¡ Â¸Â¶Ã€ÃŒÂ³ÃŠÂ½Âº Â°ÂªÃ€ÃŒÂ´Ã™.
             MP += getPercentValue(MP, decreaseRatio);
         }
 
-        // sacrifice¸¦ ¾´ »óÅÂ¶ó¸é ¸ÕÀú MP¿¡¼­ ±ï°í, ¸ğÀÚ¶ó¸é HPµµ ±ï´Â´Ù.
+        // sacrificeÂ¸Â¦ Â¾Â´ Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â¸Ã•Ã€Ãº MPÂ¿Â¡Â¼Â­ Â±Ã¯Â°Ã­, Â¸Ã°Ã€ÃšÂ¶Ã³Â¸Ã© HPÂµÂµ Â±Ã¯Â´Ã‚Â´Ã™.
         if (pSlayer->isFlag(Effect::EFFECT_CLASS_SACRIFICE)) {
             int margin = (int)MP - (int)pSlayer->getMP(ATTR_CURRENT);
 
-            // ¸¶ÁøÀÌ 0º¸´Ù Å©´Ù´Â ¸»Àº ¿ä±¸Ä¡º¸´Ù ÇöÀç MP°¡ Àû´Ù´Â ¸»ÀÌ´Ù.
+            // Â¸Â¶ÃÃ¸Ã€ÃŒ 0ÂºÂ¸Â´Ã™ Ã…Â©Â´Ã™Â´Ã‚ Â¸Â»Ã€Âº Â¿Ã¤Â±Â¸Ã„Â¡ÂºÂ¸Â´Ã™ Ã‡Ã¶Ã€Ã§ MPÂ°Â¡ Ã€Ã»Â´Ã™Â´Ã‚ Â¸Â»Ã€ÃŒÂ´Ã™.
             if (margin > 0) {
-                // MP¸¦ ±ï°í...
+                // MPÂ¸Â¦ Â±Ã¯Â°Ã­...
                 pSlayer->setMP(0, ATTR_CURRENT);
-                // HPµµ ±ï´Â´Ù.
+                // HPÂµÂµ Â±Ã¯Â´Ã‚Â´Ã™.
                 RemainHP = max(0, (int)(pSlayer->getHP(ATTR_CURRENT) - margin / 2));
                 pSlayer->setHP(RemainHP, ATTR_CURRENT);
 
@@ -3123,13 +3123,13 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
                 return CONSUME_BOTH;
             }
 
-            // sacrifice¸¦ ¾²Áö ¾ÊÀº »óÅÂ¶ó¸é °Á MP¿¡¼­ ±ï´Â´Ù.
+            // sacrificeÂ¸Â¦ Â¾Â²ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â°Ã MPÂ¿Â¡Â¼Â­ Â±Ã¯Â´Ã‚Â´Ã™.
             RemainMP = max(0, ((int)pSlayer->getMP(ATTR_CURRENT) - (int)MP));
             pSlayer->setMP(RemainMP, ATTR_CURRENT);
 
             info.addShortData(MODIFY_CURRENT_MP, pSlayer->getMP(ATTR_CURRENT));
             return CONSUME_MP;
-        } else // sacrifice¸¦ ¾²Áö ¾ÊÀº »óÅÂ¶ó¸é °Á MP¿¡¼­ ±ï´Â´Ù.
+        } else // sacrificeÂ¸Â¦ Â¾Â²ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â°Ã MPÂ¿Â¡Â¼Â­ Â±Ã¯Â´Ã‚Â´Ã™.
         {
             RemainMP = max(0, ((int)pSlayer->getMP(ATTR_CURRENT) - (int)MP));
             pSlayer->setMP(RemainMP, ATTR_CURRENT);
@@ -3140,7 +3140,7 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
     } else if (pCaster->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pCaster);
 
-        // Wisdom of Blood °¡ ÀÖ´Ù¸é HP ¼Ò¸ğ·® 10% °¨¼Ò
+        // Wisdom of Blood Â°Â¡ Ã€Ã–Â´Ã™Â¸Ã© HP Â¼Ã’Â¸Ã°Â·Â® 10% Â°Â¨Â¼Ã’
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_BLOOD)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_BLOOD);
             Assert(pRankBonus != NULL);
@@ -3148,10 +3148,10 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
             MP -= getPercentValue(MP, pRankBonus->getPoint());
         }
 
-        // Blood Bible º¸³Ê½º Àû¿ë
+        // Blood Bible ÂºÂ¸Â³ÃŠÂ½Âº Ã€Ã»Â¿Ã«
         int decreaseRatio = pVampire->getConsumeMPRatio();
         if (decreaseRatio != 0) {
-            // decreaseRatio °ª ÀÚÃ¼°¡ ¸¶ÀÌ³Ê½º °ªÀÌ´Ù.
+            // decreaseRatio Â°Âª Ã€ÃšÃƒÂ¼Â°Â¡ Â¸Â¶Ã€ÃŒÂ³ÃŠÂ½Âº Â°ÂªÃ€ÃŒÂ´Ã™.
             MP += getPercentValue(MP, decreaseRatio);
         }
 
@@ -3159,11 +3159,11 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
         RemainHP = max(0, ((int)currentHP - (int)MP));
         pVampire->setHP(RemainHP, ATTR_CURRENT);
 
-        // Mephisto ÀÌÆåÆ® °É·ÁÀÖÀ¸¸é HP 30% ÀÌÇÏÀÏ¶§ Ç®¸°´Ù.
+        // Mephisto Ã€ÃŒÃ†Ã¥Ã†Â® Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© HP 30% Ã€ÃŒÃ‡ÃÃ€ÃÂ¶Â§ Ã‡Â®Â¸Â°Â´Ã™.
         if (pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO)) {
             HP_t maxHP = pVampire->getHP(ATTR_MAX);
 
-            // 33% ... ÄÉÄÉ..
+            // 33% ... Ã„Ã‰Ã„Ã‰..
             if (currentHP * 3 < maxHP) {
                 Effect* pEffect = pVampire->findEffect(Effect::EFFECT_CLASS_MEPHISTO);
                 if (pEffect != NULL) {
@@ -3180,10 +3180,10 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
     } else if (pCaster->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pCaster);
 
-        // Blood Bible º¸³Ê½º Àû¿ë
+        // Blood Bible ÂºÂ¸Â³ÃŠÂ½Âº Ã€Ã»Â¿Ã«
         int decreaseRatio = pOusters->getConsumeMPRatio();
         if (decreaseRatio != 0) {
-            // decreaseRatio °ª ÀÚÃ¼°¡ ¸¶ÀÌ³Ê½º °ªÀÌ´Ù.
+            // decreaseRatio Â°Âª Ã€ÃšÃƒÂ¼Â°Â¡ Â¸Â¶Ã€ÃŒÂ³ÃŠÂ½Âº Â°ÂªÃ€ÃŒÂ´Ã™.
             MP += getPercentValue(MP, decreaseRatio);
         }
 
@@ -3193,9 +3193,9 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
         info.addShortData(MODIFY_CURRENT_MP, pOusters->getMP(ATTR_CURRENT));
         return CONSUME_MP;
     } else if (pCaster->isMonster()) {
-        // ¸ó½ºÅÍ´Â ¹«ÇÑ ¸¶³ª µÇ°Ú´Ù. À½È±È±
-        // ³ªÁß¿¡¶óµµ ¸ó½ºÅÍ¿¡ ¸¶¹ı Ä«¿îÆ®³ª ¹¹ ±×·² °ÍÀÌ »ı±æÁöµµ ¸ğ¸£Áö.
-        // comment by ±è¼º¹Î
+        // Â¸Ã³Â½ÂºÃ…ÃÂ´Ã‚ Â¹Â«Ã‡Ã‘ Â¸Â¶Â³Âª ÂµÃ‡Â°ÃšÂ´Ã™. Ã€Â½ÃˆÂ±ÃˆÂ±
+        // Â³ÂªÃÃŸÂ¿Â¡Â¶Ã³ÂµÂµ Â¸Ã³Â½ÂºÃ…ÃÂ¿Â¡ Â¸Â¶Â¹Ã½ Ã„Â«Â¿Ã®Ã†Â®Â³Âª Â¹Â¹ Â±Ã—Â·Â² Â°ÃÃ€ÃŒ Â»Ã½Â±Ã¦ÃÃ¶ÂµÂµ Â¸Ã°Â¸Â£ÃÃ¶.
+        // comment by Â±Ã¨Â¼ÂºÂ¹Ã
         cerr << "decreaseMana() : Monster don't have Mana" << endl;
         Assert(false);
     } else {
@@ -3207,20 +3207,20 @@ int decreaseMana(Creature* pCaster, int MP, ModifyInfo& info) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î¿ë ½ºÅ³ÀÇ »çÁ¤°Å¸®¸¦ °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¿Ã« Â½ÂºÃ…Â³Ã€Ã‡ Â»Ã§ÃÂ¤Â°Ã…Â¸Â®Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Range_t computeSkillRange(SkillSlot* pSkillSlot, SkillInfo* pSkillInfo) {
     Assert(pSkillSlot != NULL);
     Assert(pSkillInfo != NULL);
 
-    // SkillÀÇ Min/Max Range ¸¦ ¹Ş¾Æ¿Â´Ù.
+    // SkillÃ€Ã‡ Min/Max Range Â¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     Range_t SkillMinPoint = pSkillInfo->getMinRange();
     Range_t SkillMaxPoint = pSkillInfo->getMaxRange();
 
-    // Skill LevelÀ» ¹Ş¾Æ¿Â´Ù.
+    // Skill LevelÃ€Â» Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
-    // SkillÀÇ Range¸¦ °è»êÇÑ´Ù.
+    // SkillÃ€Ã‡ RangeÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Range_t Range = (int)(SkillMinPoint + (SkillMaxPoint - SkillMinPoint) * (double)(SkillLevel * 0.01));
 
     return Range;
@@ -3228,7 +3228,7 @@ Range_t computeSkillRange(SkillSlot* pSkillSlot, SkillInfo* pSkillInfo) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// (OX,OY)¿Í (TX,TY) »çÀÌÀÇ °Å¸®¸¦ ±¸ÇÑ´Ù.
+// (OX,OY)Â¿Ã (TX,TY) Â»Ã§Ã€ÃŒÃ€Ã‡ Â°Ã…Â¸Â®Â¸Â¦ Â±Â¸Ã‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Range_t getDistance(ZoneCoord_t Ox, ZoneCoord_t Oy, ZoneCoord_t Tx, ZoneCoord_t Ty) {
     double OriginX = Ox;
@@ -3244,7 +3244,7 @@ Range_t getDistance(ZoneCoord_t Ox, ZoneCoord_t Oy, ZoneCoord_t Tx, ZoneCoord_t 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½ºÅ³À» ¾µ ¼ö ÀÖ´Â Àû´çÇÑ °Å¸®ÀÎ°¡¸¦ °ËÁõÇÑ´Ù.
+// Â½ÂºÃ…Â³Ã€Â» Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã€Ã»Â´Ã§Ã‡Ã‘ Â°Ã…Â¸Â®Ã€ÃÂ°Â¡Â¸Â¦ Â°Ã‹ÃÃµÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool verifyDistance(Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y, Range_t Dist) {
     Assert(pCreature != NULL);
@@ -3258,27 +3258,27 @@ bool verifyDistance(Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y, Range_t D
     ZoneLevel_t AttackerZoneLevel = pZone->getZoneLevel(cx, cy);
     // ZoneLevel_t DefenderZoneLevel = pZone->getZoneLevel(X, Y);
 
-    // ¾Æ´ãÀÇ ¼ºÁö³ª PKÁ¸ ³»ÀÇ ¾ÈÀüÁö´ë¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¾Ã†Â´Ã£Ã€Ã‡ Â¼ÂºÃÃ¶Â³Âª PKÃÂ¸ Â³Â»Ã€Ã‡ Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     if ((AttackerZoneLevel & SAFE_ZONE) && (g_pPKZoneInfoManager->isPKZone(pZone->getZoneID()) || pZone->isHolyLand()))
         return false;
 
-    // °ø°İÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ½½·¹ÀÌ¾î ¾ÈÀüÁö´ë¶ó¸é,
-    // ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ ÀÚ´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã©,
+    // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´Ã‘ Ã€ÃšÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     if ((AttackerZoneLevel & SLAYER_SAFE_ZONE) && !pCreature->isSlayer())
         return false;
-    // °ø°İÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ¹ìÆÄÀÌ¾î ¾ÈÀüÁö´ë¶ó¸é,
-    // ¹ìÆÄÀÌ¾î°¡ ¾Æ´Ñ ÀÚ´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã©,
+    // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´Ã‘ Ã€ÃšÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if ((AttackerZoneLevel & VAMPIRE_SAFE_ZONE) && !pCreature->isVampire())
         return false;
-    // °ø°İÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ¾Æ¿ì½ºÅÍ½º ¾ÈÀüÁö´ë¶ó¸é,
-    // ¾Æ¿ì½ºÅÍ½º°¡ ¾Æ´Ñ ÀÚ´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã©,
+    // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ°Â¡ Â¾Ã†Â´Ã‘ Ã€ÃšÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if ((AttackerZoneLevel & OUSTERS_SAFE_ZONE) && !pCreature->isOusters())
         return false;
-    // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ½½·¹ÀÌ¾îµç ¹ìÆÄÀÌ¾îµç ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¿ÃÃ€Ã¼ Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã© Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®ÂµÃ§ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®ÂµÃ§ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if (AttackerZoneLevel & COMPLETE_SAFE_ZONE)
         return false;
 
-    // ¹æ¾îÀÚ°¡ ¼­ ÀÖ´Â °÷ÀÌ ¿ÏÀüÁö´ë¶ó¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Â°Ã·Ã€ÃŒ Â¿ÃÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     //	if (DefenderZoneLevel & COMPLETE_SAFE_ZONE)
     //		return false;
 
@@ -3290,7 +3290,7 @@ bool verifyDistance(Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y, Range_t D
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½ºÅ³À» ¾µ ¼ö ÀÖ´Â Àû´çÇÑ °Å¸®ÀÎ°¡¸¦ °ËÁõÇÑ´Ù.
+// Â½ÂºÃ…Â³Ã€Â» Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã‚ Ã€Ã»Â´Ã§Ã‡Ã‘ Â°Ã…Â¸Â®Ã€ÃÂ°Â¡Â¸Â¦ Â°Ã‹ÃÃµÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool verifyDistance(Creature* pCreature, Creature* pTargetCreature, Range_t Dist) {
     Assert(pCreature != NULL);
@@ -3307,39 +3307,39 @@ bool verifyDistance(Creature* pCreature, Creature* pTargetCreature, Range_t Dist
     ZoneLevel_t AttackerZoneLevel = pZone->getZoneLevel(ox, oy);
     ZoneLevel_t DefenderZoneLevel = pZone->getZoneLevel(tx, ty);
 
-    // ¾Æ´ãÀÇ ¼ºÁö³ª PKÁ¸ ³»ÀÇ ¾ÈÀüÁö´ë¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¾Ã†Â´Ã£Ã€Ã‡ Â¼ÂºÃÃ¶Â³Âª PKÃÂ¸ Â³Â»Ã€Ã‡ Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     if ((AttackerZoneLevel & SAFE_ZONE) && (g_pPKZoneInfoManager->isPKZone(pZone->getZoneID()) || pZone->isHolyLand()))
         return false;
 
-    // °ø°İÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ½½·¹ÀÌ¾î ¾ÈÀüÁö´ë¶ó¸é,
-    // ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ ÀÚ´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã©,
+    // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´Ã‘ Ã€ÃšÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     if ((AttackerZoneLevel & SLAYER_SAFE_ZONE) && !pCreature->isSlayer())
         return false;
-    // °ø°İÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ¹ìÆÄÀÌ¾î ¾ÈÀüÁö´ë¶ó¸é,
-    // ¹ìÆÄÀÌ¾î°¡ ¾Æ´Ñ ÀÚ´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã©,
+    // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´Ã‘ Ã€ÃšÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if ((AttackerZoneLevel & VAMPIRE_SAFE_ZONE) && !pCreature->isVampire())
         return false;
-    // °ø°İÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ¾Æ¿ì½ºÅÍ½º ¾ÈÀüÁö´ë¶ó¸é,
-    // ¾Æ¿ì½ºÅÍ½º°¡ ¾Æ´Ñ ÀÚ´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã©,
+    // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ°Â¡ Â¾Ã†Â´Ã‘ Ã€ÃšÂ´Ã‚ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if ((AttackerZoneLevel & OUSTERS_SAFE_ZONE) && !pCreature->isOusters())
         return false;
-    // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ½½·¹ÀÌ¾îµç ¹ìÆÄÀÌ¾îµç ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¿ÃÃ€Ã¼ Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã© Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®ÂµÃ§ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®ÂµÃ§ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if (AttackerZoneLevel & COMPLETE_SAFE_ZONE)
         return false;
 
-    // ¹æ¾îÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ½½·¹ÀÌ¾î ¾ÈÀüÁö´ëÀÌ°í,
-    // ¹æ¾îÀÚ°¡ ½½·¹ÀÌ¾î¶ó¸é ±â¼úÀº ¸ÂÁö ¾Ê´Â´Ù.
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Ã€ÃŒÂ°Ã­,
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Âº Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if ((DefenderZoneLevel & SLAYER_SAFE_ZONE) && pTargetCreature->isSlayer())
         return false;
-    // ¹æ¾îÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ¹ìÆÄÀÌ¾î ¾ÈÀüÁö´ëÀÌ°í,
-    // ¹æ¾îÀÚ°¡ ¹ìÆÄÀÌ¾î¶ó¸é ±â¼úÀº ¸ÂÁö ¾Ê´Â´Ù.
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Ã€ÃŒÂ°Ã­,
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Âº Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     else if ((DefenderZoneLevel & VAMPIRE_SAFE_ZONE) && pTargetCreature->isVampire())
         return false;
-    // ¹æ¾îÀÚ°¡ ¼­ ÀÖ´Â À§Ä¡°¡ ¾Æ¿ì½ºÅÍ½º ¾ÈÀüÁö´ëÀÌ°í,
-    // ¹æ¾îÀÚ°¡ ¾Æ¿ì½ºÅÍ½º¶ó¸é ±â¼úÀº ¸ÂÁö ¾Ê´Â´Ù.
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã€Â§Ã„Â¡Â°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Ã€ÃŒÂ°Ã­,
+    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ°Â¡ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Âº Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     else if ((DefenderZoneLevel & OUSTERS_SAFE_ZONE) && pTargetCreature->isOusters())
         return false;
-    // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¿ÃÃ€Ã¼ Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     else if (DefenderZoneLevel & COMPLETE_SAFE_ZONE)
         return false;
 
@@ -3351,7 +3351,7 @@ bool verifyDistance(Creature* pCreature, Creature* pTargetCreature, Range_t Dist
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î¿ë ½ºÅ³ÀÇ ½ÇÇà½Ã°£À» °ËÁõÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¿Ã« Â½ÂºÃ…Â³Ã€Ã‡ Â½Ã‡Ã‡Ã Â½ÃƒÂ°Â£Ã€Â» Â°Ã‹ÃÃµÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool verifyRunTime(SkillSlot* pSkillSlot) {
     Assert(pSkillSlot != NULL);
@@ -3369,7 +3369,7 @@ bool verifyRunTime(SkillSlot* pSkillSlot) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î¿ë ½ºÅ³ÀÇ ½ÇÇà½Ã°£À» °ËÁõÇÑ´Ù.
+// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¿Ã« Â½ÂºÃ…Â³Ã€Ã‡ Â½Ã‡Ã‡Ã Â½ÃƒÂ°Â£Ã€Â» Â°Ã‹ÃÃµÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool verifyRunTime(VampireSkillSlot* pSkillSlot) {
     Assert(pSkillSlot != NULL);
@@ -3387,7 +3387,7 @@ bool verifyRunTime(VampireSkillSlot* pSkillSlot) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º¿ë ½ºÅ³ÀÇ ½ÇÇà½Ã°£À» °ËÁõÇÑ´Ù.
+// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ¿Ã« Â½ÂºÃ…Â³Ã€Ã‡ Â½Ã‡Ã‡Ã Â½ÃƒÂ°Â£Ã€Â» Â°Ã‹ÃÃµÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool verifyRunTime(OustersSkillSlot* pSkillSlot) {
     Assert(pSkillSlot != NULL);
@@ -3405,7 +3405,7 @@ bool verifyRunTime(OustersSkillSlot* pSkillSlot) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// °¢ Á¸ÀÇ PK Á¤Ã¥¿¡ µû¶ó, PK°¡ µÇ´À³Ä ¾È µÇ´À³Ä¸¦ Á¤ÇÑ´Ù.
+// Â°Â¢ ÃÂ¸Ã€Ã‡ PK ÃÂ¤ÃƒÂ¥Â¿Â¡ ÂµÃ»Â¶Ã³, PKÂ°Â¡ ÂµÃ‡Â´Ã€Â³Ã„ Â¾Ãˆ ÂµÃ‡Â´Ã€Â³Ã„Â¸Â¦ ÃÂ¤Ã‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool verifyPK(Creature* pAttacker, Creature* pDefender) {
     Zone* pZone = pDefender->getZone();
@@ -3418,11 +3418,11 @@ bool verifyPK(Creature* pAttacker, Creature* pDefender) {
         }
 
         if (pDefender->getCreatureClass() == pAttacker->getCreatureClass() && pAttacker->isPC()) {
-            // Á¸ ·¹º§ÀÌ PK°¡ ¾È µÇ´Â °÷ÀÌ¶ó¸é °ø°İÇÒ ¼ö ¾ø´Ù.
+            // ÃÂ¸ Â·Â¹ÂºÂ§Ã€ÃŒ PKÂ°Â¡ Â¾Ãˆ ÂµÃ‡Â´Ã‚ Â°Ã·Ã€ÃŒÂ¶Ã³Â¸Ã© Â°Ã¸Â°ÃÃ‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
             if (pZone->getZoneLevel() == NO_PK_ZONE)
                 return false;
 
-            // °°Àº ÆÄÆ¼¿ø³¢¸®´Â °ø°İÇÒ ¼ö ¾ø´Ù.
+            // Â°Â°Ã€Âº Ã†Ã„Ã†Â¼Â¿Ã¸Â³Â¢Â¸Â®Â´Ã‚ Â°Ã¸Â°ÃÃ‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
             int PartyID1 = pAttacker->getPartyID();
             int PartyID2 = pDefender->getPartyID();
             if (PartyID1 != 0 && PartyID1 == PartyID2)
@@ -3440,8 +3440,8 @@ bool verifyPK(Creature* pAttacker, Creature* pDefender) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â Á¸ÀÎ°¡?
-// (¼¿ÇÁ ±â¼úÀÏ °æ¿ì, Á¸ ·¹º§À» Ã¼Å©ÇÏ´Â ÇÔ¼ö´Ù...)
+// Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ ÃÂ¸Ã€ÃÂ°Â¡?
+// (Â¼Â¿Ã‡Ã Â±Ã¢Â¼ÃºÃ€Ã Â°Ã¦Â¿Ã¬, ÃÂ¸ Â·Â¹ÂºÂ§Ã€Â» ÃƒÂ¼Ã…Â©Ã‡ÃÂ´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™...)
 //////////////////////////////////////////////////////////////////////////////
 bool checkZoneLevelToUseSkill(Creature* pCaster) {
     Assert(pCaster != NULL);
@@ -3456,20 +3456,20 @@ bool checkZoneLevelToUseSkill(Creature* pCaster) {
     ZoneCoord_t cy = pCaster->getY();
     ZoneLevel_t ZoneLevel = pZone->getZoneLevel(cx, cy);
 
-    // ¾ÈÀüÁö´ë¿¡¼­´Â ¼¿ÇÁ ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â¼Â¿Ã‡Ã Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
     if ((ZoneLevel & SAFE_ZONE)) // && pZone->isHolyLand() )
         return false;
 
     if (pCaster->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET))
         return false;
 
-    /*	// ½½·¹ÀÌ¾î ¾ÈÀüÁö´ë¿¡¼­´Â ½½·¹ÀÌ¾î¸¸ÀÌ ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+    /*	// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¸Ã€ÃŒ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
         if ((ZoneLevel & SLAYER_SAFE_ZONE) && !pCaster->isSlayer())
             return false;
-        // ¸¶Âù°¡Áö·Î ¹ìÆÄÀÌ¾î ¾ÈÀüÁö´ë¿¡¼­´Â ¹ìÆÄÀÌ¾î¸¸ÀÌ ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+        // Â¸Â¶Ã‚Ã¹Â°Â¡ÃÃ¶Â·Ã Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¸Â¸Ã€ÃŒ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
         else if ((ZoneLevel & VAMPIRE_SAFE_ZONE) && !pCaster->isVampire())
             return false;
-        // ÅëÇÕ ¾ÈÀüÁö´ë¿¡¼­´Â ´©±¸µµ ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // Ã…Ã«Ã‡Ã• Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â´Â©Â±Â¸ÂµÂµ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™.
         else if (ZoneLevel & COMPLETE_SAFE_ZONE)
             return false;
     */
@@ -3477,7 +3477,7 @@ bool checkZoneLevelToUseSkill(Creature* pCaster) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// X, Y¿¡ ¼­ ÀÖ´Â Å©¸®ÃÄ°¡ ÀÓÀÇÀÇ ±â¼ú¿¡ ¿µÇâÀ» ¹Ş´ÂÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö´Ù.
+// X, YÂ¿Â¡ Â¼Â­ Ã€Ã–Â´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„Â°Â¡ Ã€Ã“Ã€Ã‡Ã€Ã‡ Â±Ã¢Â¼ÃºÂ¿Â¡ Â¿ÂµÃ‡Ã¢Ã€Â» Â¹ÃÂ´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡ÃÂ´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool checkZoneLevelToHitTarget(Creature* pTargetCreature) {
     Assert(pTargetCreature != NULL);
@@ -3489,16 +3489,16 @@ bool checkZoneLevelToHitTarget(Creature* pTargetCreature) {
     ZoneCoord_t ty = pTargetCreature->getY();
     ZoneLevel_t ZoneLevel = pZone->getZoneLevel(tx, ty);
 
-    // ½½·¹ÀÌ¾î ¾ÈÀüÁö´ë¿¡¼­ ½½·¹ÀÌ¾î´Â ±â¼ú¿¡ ¸ÂÁö ¾Ê´Â´Ù.
+    // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â´Ã‚ Â±Ã¢Â¼ÃºÂ¿Â¡ Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if ((ZoneLevel & SLAYER_SAFE_ZONE) && pTargetCreature->isSlayer())
         return false;
-    // ¹ìÆÄÀÌ¾î ¾ÈÀüÁö´ë¿¡¼­ ¹ìÆÄÀÌ¾î´Â ±â¼ú¿¡ ¸ÂÁö ¾Ê´Â´Ù.
+    // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â´Ã‚ Â±Ã¢Â¼ÃºÂ¿Â¡ Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     else if ((ZoneLevel & VAMPIRE_SAFE_ZONE) && pTargetCreature->isVampire())
         return false;
-    // ¾Æ¿ì½ºÅÍÁî ¾ÈÀüÁö´ë¿¡¼­ ¾Æ¿ì½ºÅÍÁî´Â ±â¼ú¿¡ ¸ÂÁö ¾Ê´Â´Ù.
+    // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Â´Ã‚ Â±Ã¢Â¼ÃºÂ¿Â¡ Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     else if ((ZoneLevel & OUSTERS_SAFE_ZONE) && pTargetCreature->isOusters())
         return false;
-    // ÅëÇÕ ¾ÈÀüÁö´ë¿¡¼­´Â ´©±¸µµ ¸ÂÁö ¾Ê´Â´Ù.
+    // Ã…Ã«Ã‡Ã• Â¾ÃˆÃ€Ã¼ÃÃ¶Â´Ã«Â¿Â¡Â¼Â­Â´Ã‚ Â´Â©Â±Â¸ÂµÂµ Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     else if (ZoneLevel & COMPLETE_SAFE_ZONE)
         return false;
 
@@ -3506,14 +3506,14 @@ bool checkZoneLevelToHitTarget(Creature* pTargetCreature) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¼ºÇâÀ» º¯°æÇÑ´Ù.
-// ±â¼úÀ» »ç¿ëÇÏ°Å³ª, PK¸¦ ÇÒ ¶§ »ı±â´Â ¼ºÇâ º¯È­¸¦ °è»êÇÏ´Â ÇÔ¼ö´Ù.
+// Â¼ÂºÃ‡Ã¢Ã€Â» ÂºÂ¯Â°Ã¦Ã‡Ã‘Â´Ã™.
+// Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡ÃÂ°Ã…Â³Âª, PKÂ¸Â¦ Ã‡Ã’ Â¶Â§ Â»Ã½Â±Ã¢Â´Ã‚ Â¼ÂºÃ‡Ã¢ ÂºÂ¯ÃˆÂ­Â¸Â¦ Â°Ã¨Â»ÃªÃ‡ÃÂ´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, ModifyInfo* pMI,
                             ModifyInfo* pAttackerMI) {
     Assert(pTargetCreature != NULL);
 
-    // PKÁ¸¿¡¼­´Â ¼ºÇâÀÌ º¯ÇÏÁö ¾Ê´Â´Ù.
+    // PKÃÂ¸Â¿Â¡Â¼Â­Â´Ã‚ Â¼ÂºÃ‡Ã¢Ã€ÃŒ ÂºÂ¯Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pAttacker->getZoneID()))
         return;
 
@@ -3522,11 +3522,11 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
 
     bool bSameRace = false;
 
-    // °ø°İÀÚ°¡ ÀÖ´Ù¸é, °°Àº Á¾Á·Àº ¾Æ´ÑÁö Ã¼Å©ÇÑ´Ù.
+    // Â°Ã¸Â°ÃÃ€ÃšÂ°Â¡ Ã€Ã–Â´Ã™Â¸Ã©, Â°Â°Ã€Âº ÃÂ¾ÃÂ·Ã€Âº Â¾Ã†Â´Ã‘ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
     if (pAttacker != NULL) {
-        // ÀÌº¥Æ® °æ±âÀå¿¡¼­´Â ¼ºÇâÀÌ ¾È¹Ù²î°Ô µÇ´Â ÄÚµåÀÌ´Ù.
-        // ZoneInfo¿¡ ³Ö°í, Zone¿¡¼­ ÀĞÀ» ¼ö ÀÖ°Ô ÇÏ¸é ÁÁ°ÚÁö¸¸,
-        // °©ÀÚ±â ¶³¾îÁø ÀÏÀÌ¶ó ±ÍÂú´Ù´Â ÀÌÀ¯·Î ÇÏµå ÄÚµùÀÌ´Ù. - -;
+        // Ã€ÃŒÂºÂ¥Ã†Â® Â°Ã¦Â±Ã¢Ã€Ã¥Â¿Â¡Â¼Â­Â´Ã‚ Â¼ÂºÃ‡Ã¢Ã€ÃŒ Â¾ÃˆÂ¹Ã™Â²Ã®Â°Ã” ÂµÃ‡Â´Ã‚ Ã„ÃšÂµÃ¥Ã€ÃŒÂ´Ã™.
+        // ZoneInfoÂ¿Â¡ Â³Ã–Â°Ã­, ZoneÂ¿Â¡Â¼Â­ Ã€ÃÃ€Â» Â¼Ã¶ Ã€Ã–Â°Ã” Ã‡ÃÂ¸Ã© ÃÃÂ°ÃšÃÃ¶Â¸Â¸,
+        // Â°Â©Ã€ÃšÂ±Ã¢ Â¶Â³Â¾Ã®ÃÃ¸ Ã€ÃÃ€ÃŒÂ¶Ã³ Â±ÃÃ‚ÃºÂ´Ã™Â´Ã‚ Ã€ÃŒÃ€Â¯Â·Ã Ã‡ÃÂµÃ¥ Ã„ÃšÂµÃ¹Ã€ÃŒÂ´Ã™. - -;
         // 2002.8.21. by sigi
         // int zoneID = pAttacker->getZone()->getZoneID();
 
@@ -3548,7 +3548,7 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
             break;
         }
 
-        // °°Àº Á¾Á·ÀÌ ¾Æ´Ï¸é ¿Ã¸²ÇÈ ±İ¸Ş´Ş~
+        // Â°Â°Ã€Âº ÃÂ¾ÃÂ·Ã€ÃŒ Â¾Ã†Â´ÃÂ¸Ã© Â¿ÃƒÂ¸Â²Ã‡Ãˆ Â±ÃÂ¸ÃÂ´Ã~
         if (!bSameRace && bPKOlympic && pTargetCreature->isPC() && pTargetCreature->isDead() &&
             !GDRLairManager::Instance().isGDRLairZone(pTargetCreature->getZoneID())) {
             PlayerCreature* pAttackPC = dynamic_cast<PlayerCreature*>(pAttacker);
@@ -3563,7 +3563,7 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
             return;
     }
 
-    // °°Àº Á¾Á·ÀÌ¶ó¸é ¼ºÇâ¿¡ º¯È­°¡ »ı±æ ¼ö ÀÖ´Ù.
+    // Â°Â°Ã€Âº ÃÂ¾ÃÂ·Ã€ÃŒÂ¶Ã³Â¸Ã© Â¼ÂºÃ‡Ã¢Â¿Â¡ ÂºÂ¯ÃˆÂ­Â°Â¡ Â»Ã½Â±Ã¦ Â¼Ã¶ Ã€Ã–Â´Ã™.
     if (bSameRace) {
         PlayerCreature* pAttackPC = dynamic_cast<PlayerCreature*>(pAttacker);
         PlayerCreature* pTargetPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
@@ -3576,7 +3576,7 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
 
         Alignment_t ModifyAlignment = 0;
 
-        // °¨¼ÒÇÏ´Â °ÍÀÎÁö Áõ°¡ÇÏ´Â °ÍÀÎÁö ¾Ë¾ÆµĞ´Ù.
+        // Â°Â¨Â¼Ã’Ã‡ÃÂ´Ã‚ Â°ÃÃ€ÃÃÃ¶ ÃÃµÂ°Â¡Ã‡ÃÂ´Ã‚ Â°ÃÃ€ÃÃÃ¶ Â¾Ã‹Â¾Ã†ÂµÃÂ´Ã™.
         bool bdecrease = false;
         if (pTargetPC->isDead()) {
             ModifyAlignment = g_pAlignmentManager->getMultiplier(AttackAlignment, TargetAlignment); // Damage* 2
@@ -3585,7 +3585,7 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
                 ModifyAlignment = ModifyAlignment * 10;
                 bdecrease = true;
             } else if (ModifyAlignment > 0) {
-                // (ÇÇ»ìÀÚ ·¹º§) / (»ìÇØÀÚ ·¹º§) * (±âÁ¸ ¼ºÇâ È¹µæ·®) :// max = (±âÁ¸ ¼ºÇâ È¹µæ·®)
+                // (Ã‡Ã‡Â»Ã¬Ã€Ãš Â·Â¹ÂºÂ§) / (Â»Ã¬Ã‡Ã˜Ã€Ãš Â·Â¹ÂºÂ§) * (Â±Ã¢ÃÂ¸ Â¼ÂºÃ‡Ã¢ ÃˆÂ¹ÂµÃ¦Â·Â®) :// max = (Â±Ã¢ÃÂ¸ Â¼ÂºÃ‡Ã¢ ÃˆÂ¹ÂµÃ¦Â·Â®)
 
                 if (pAttackPC->getLevel() - 10 <= pTargetPC->getLevel() &&
                     !pTargetPC->isFlag(Effect::EFFECT_CLASS_PUNISH_COUNTED)) {
@@ -3637,14 +3637,14 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
         EffectManager* pAttackEffectManager = pAttackPC->getEffectManager();
         EffectManager* pTargetEffectManager = pTargetPC->getEffectManager();
 
-        // ¼ºÇâ¿¡ °ü°è ¾øÀÌ Á¤´ç¹æÀ§¿¡ ÇØ´çµÇÁö ¾Ê´Â »ç¶÷À» ¶§¸®¸é ¹«Á¶°Ç »ó´ë¹æ¿¡°Ô Á¤´ç¹æÀ§ ±ÇÇÑÀ» ÁØ´Ù.
+        // Â¼ÂºÃ‡Ã¢Â¿Â¡ Â°Ã¼Â°Ã¨ Â¾Ã¸Ã€ÃŒ ÃÂ¤Â´Ã§Â¹Ã¦Ã€Â§Â¿Â¡ Ã‡Ã˜Â´Ã§ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ´Ã‚ Â»Ã§Â¶Ã·Ã€Â» Â¶Â§Â¸Â®Â¸Ã© Â¹Â«ÃÂ¶Â°Ã‡ Â»Ã³Â´Ã«Â¹Ã¦Â¿Â¡Â°Ã” ÃÂ¤Â´Ã§Â¹Ã¦Ã€Â§ Â±Ã‡Ã‡Ã‘Ã€Â» ÃÃ˜Â´Ã™.
         if (!pAttackPC->hasEnemy(TargetName) && g_pAlignmentManager->getAlignmentType(TargetAlignment) >= NEUTRAL) {
             GCAddInjuriousCreature gcAddInjuriousCreature;
             gcAddInjuriousCreature.setName(AttackName);
             pTargetPC->getPlayer()->sendPacket(&gcAddInjuriousCreature);
 
-            // °ø°İ´çÇÏ´Â »ç¶÷¿¡°Ô ¼±°øÀÚ ¸®½ºÆ®¿¡ Ãß°¡ÇÏ°í
-            // 5ºĞ µÚ¿¡ »ç¶óÁø´Ù´Â ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+            // Â°Ã¸Â°ÃÂ´Ã§Ã‡ÃÂ´Ã‚ Â»Ã§Â¶Ã·Â¿Â¡Â°Ã” Â¼Â±Â°Ã¸Ã€Ãš Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡ÃÂ°Ã­
+            // 5ÂºÃ ÂµÃšÂ¿Â¡ Â»Ã§Â¶Ã³ÃÃ¸Â´Ã™Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÂºÃ™Ã€ÃÂ´Ã™.
             pTargetPC->addEnemy(AttackName);
 
             EffectEnemyErase* pEffectEnemyErase = new EffectEnemyErase(pTargetPC);
@@ -3654,27 +3654,27 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
             pTargetEffectManager->addEffect(pEffectEnemyErase);
         }
 
-        // »ó´ë°¡ ³ª¿¡°Ô Á¤´ç¹æÀ§ÀÇ ´ë»óÀÌ°í »ó´ë¸¦ Á×¿´À» °æ¿ì ÀÌÆåÆ®¸¦ Áö¿öÁØ´Ù.
+        // Â»Ã³Â´Ã«Â°Â¡ Â³ÂªÂ¿Â¡Â°Ã” ÃÂ¤Â´Ã§Â¹Ã¦Ã€Â§Ã€Ã‡ Â´Ã«Â»Ã³Ã€ÃŒÂ°Ã­ Â»Ã³Â´Ã«Â¸Â¦ ÃÃ—Â¿Â´Ã€Â» Â°Ã¦Â¿Ã¬ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
         if (pAttackPC->hasEnemy(TargetName) && pTargetPC->isDead()) {
             EffectEnemyErase* pAttackerEffect =
                 (EffectEnemyErase*)pAttackEffectManager->findEffect(Effect::EFFECT_CLASS_ENEMY_ERASE, TargetName);
 
             if (pAttackerEffect != NULL) {
-                // ¼±°øÀÚ ¸®½ºÆ®¿¡ ÀÖ´Ù´Â ¸»Àº ¼±°øÀÚ¸¦ Áö¿öÁÖ´Â ÀÌÆåÆ®°¡ ¹«Á¶°Ç ÀÖ´Ù´Â ¾ê±âÀÌ´Ù. µû¶ó¼­ NULLÀÌ µÉ ¼ö
-                // ¾ø´Ù.
+                // Â¼Â±Â°Ã¸Ã€Ãš Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ Ã€Ã–Â´Ã™Â´Ã‚ Â¸Â»Ã€Âº Â¼Â±Â°Ã¸Ã€ÃšÂ¸Â¦ ÃÃ¶Â¿Ã¶ÃÃ–Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â¹Â«ÃÂ¶Â°Ã‡ Ã€Ã–Â´Ã™Â´Ã‚ Â¾ÃªÂ±Ã¢Ã€ÃŒÂ´Ã™. ÂµÃ»Â¶Ã³Â¼Â­ NULLÃ€ÃŒ ÂµÃ‰ Â¼Ã¶
+                // Â¾Ã¸Â´Ã™.
                 Assert(pAttackerEffect != NULL);
                 Assert(pAttackerEffect->getEffectClass() == Effect::EFFECT_CLASS_ENEMY_ERASE);
-                // Áö¿öÁØ´Ù.
+                // ÃÃ¶Â¿Ã¶ÃÃ˜Â´Ã™.
                 pAttackerEffect->setDeadline(0);
             }
         }
 
-        // ¼±°øÀÚÀÇ ¸®½ºÆ®¿¡ ¹æ¾îÀÚÀÇ ÀÌ¸§ÀÌ ÀÖ°í, ÀÚ½ÅÀÇ ¼ºÇâÀÌ Good ¶Ç´Â Neutral ÀÌ¶ó¸é Á¤´ç¹æÀ§·Î ÀÎÁ¤ÇÏ°í, ¼ºÇâÀÌ
-        // ¶³¾îÁöÁö´Â ¾Ê°Ô ÇÑ´Ù.
+        // Â¼Â±Â°Ã¸Ã€ÃšÃ€Ã‡ Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ Â¹Ã¦Â¾Ã®Ã€ÃšÃ€Ã‡ Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â°Ã­, Ã€ÃšÂ½Ã…Ã€Ã‡ Â¼ÂºÃ‡Ã¢Ã€ÃŒ Good Â¶Ã‡Â´Ã‚ Neutral Ã€ÃŒÂ¶Ã³Â¸Ã© ÃÂ¤Â´Ã§Â¹Ã¦Ã€Â§Â·Ã Ã€ÃÃÂ¤Ã‡ÃÂ°Ã­, Â¼ÂºÃ‡Ã¢Ã€ÃŒ
+        // Â¶Â³Â¾Ã®ÃÃ¶ÃÃ¶Â´Ã‚ Â¾ÃŠÂ°Ã” Ã‡Ã‘Â´Ã™.
         if (!(bdecrease && pAttackPC->hasEnemy(TargetName) &&
               g_pAlignmentManager->getAlignmentType(AttackAlignment) >= NEUTRAL)) {
-            // ¿Ã¶ó°¡µç ³»·Á°¡µç ¸ÕÀú ¼ÂÆÃÀ» ÇØ ³õ¾Æ¾ß ÇÑ´ç.
-            // ¸ÕÀú ¼ÂÆÃÀ» ÇØ ³õ´Â´Ù.
+            // Â¿ÃƒÂ¶Ã³Â°Â¡ÂµÃ§ Â³Â»Â·ÃÂ°Â¡ÂµÃ§ Â¸Ã•Ã€Ãº Â¼Ã‚Ã†ÃƒÃ€Â» Ã‡Ã˜ Â³ÃµÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã§.
+            // Â¸Ã•Ã€Ãº Â¼Ã‚Ã†ÃƒÃ€Â» Ã‡Ã˜ Â³ÃµÂ´Ã‚Â´Ã™.
             if (pAttackerMI && ModifyAlignment != 0) {
                 if (pAttackPC->isSlayer()) {
                     Slayer* pSlayer = dynamic_cast<Slayer*>(pAttackPC);
@@ -3730,32 +3730,32 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
                 }
             }
 
-            // ¼ºÇâÀÌ °¨¼ÒµÉ¶§ ÀÌÆåÆ®¸¦ ÅëÇÏ¿© 10¹è¸¦ ÁÙÀÎ´ÙÀ½ ¼­¼­È÷ È¸º¹½ÃÅ°´Â ¹æ¹ıÀÌ´Ù.
+            // Â¼ÂºÃ‡Ã¢Ã€ÃŒ Â°Â¨Â¼Ã’ÂµÃ‰Â¶Â§ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Ã…Ã«Ã‡ÃÂ¿Â© 10Â¹Ã¨Â¸Â¦ ÃÃ™Ã€ÃÂ´Ã™Ã€Â½ Â¼Â­Â¼Â­ÃˆÃ· ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â°Â´Ã‚ Â¹Ã¦Â¹Ã½Ã€ÃŒÂ´Ã™.
             if (bdecrease) {
-                // ¸¸¾à ¹æ¾îÀÚÀÇ ¼±°øÀÚ ¸®½ºÆ®¿¡ ³» ÀÌ¸§ÀÌ ÀÖ´Ù¸é, °ø°İÀÚ´Â ³ª»Û³ÑÀÌ´Ù.
-                // ¼±°øÀÚÀÇ ¸®½ºÆ®¿¡ ÀÌ¸§ÀÌ ÀÖ´Ù´Â °ÍÀº ¾ÆÁ÷ ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Ù´Â ¾ê±âÀÌ´Ù.
-                // ¼ºÇâÀ» È¸º¹½ÃÅ°´Â ÀÌÆåÆ®´Â ÇÑ¼ø°£¿¡ ÇÏ³ª ÀÌÇÏ·Î Á¸ÀçÇÒ ¼ö ÀÖ´Ù. Áßº¹µÇÁö ¾Ê´Â´Ù.
+                // Â¸Â¸Â¾Ã  Â¹Ã¦Â¾Ã®Ã€ÃšÃ€Ã‡ Â¼Â±Â°Ã¸Ã€Ãš Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ Â³Â» Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã©, Â°Ã¸Â°ÃÃ€ÃšÂ´Ã‚ Â³ÂªÂ»Ã›Â³Ã‘Ã€ÃŒÂ´Ã™.
+                // Â¼Â±Â°Ã¸Ã€ÃšÃ€Ã‡ Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ Ã€ÃŒÂ¸Â§Ã€ÃŒ Ã€Ã–Â´Ã™Â´Ã‚ Â°ÃÃ€Âº Â¾Ã†ÃÃ· Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ ÂºÃ™Â¾Ã®Ã€Ã–Â´Ã™Â´Ã‚ Â¾ÃªÂ±Ã¢Ã€ÃŒÂ´Ã™.
+                // Â¼ÂºÃ‡Ã¢Ã€Â» ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â°Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â´Ã‚ Ã‡Ã‘Â¼Ã¸Â°Â£Â¿Â¡ Ã‡ÃÂ³Âª Ã€ÃŒÃ‡ÃÂ·Ã ÃÂ¸Ã€Ã§Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™. ÃÃŸÂºÂ¹ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
                 EffectAlignmentRecovery* pAttackerEffect =
                     (EffectAlignmentRecovery*)pAttackEffectManager->findEffect(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
-                // ÀÌÆåÆ®¸¦ ¹Ş¾Æ¿Í¼­ °ªÀ» ´Ù½Ã ¼ÂÆÃÇÑ´Ù.
-                // ¾Æ¸¶µµ ¼±°øÀÚÀÇ ÀÌ¸§¿¡ ³»°¡ ÀÖÀ¸¹Ç·Î ÀÌÆåÆ®´Â ÇÊ½Ã ÀÖÀ» °ÍÀÌ´Ù.
-                // ÇÏ³ª µ¿±â°¡ ±úÁú ¼ö ÀÖ´Â »óÈ²ÀÌ ±úÁú ¼ö ÀÖÀ¸¹Ç·Î, µ¥µå¶óÀÎÀ» ¾à°£ ±æ°Ô Àâµµ·Ï ÇÑ´Ù.
+                // Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â¹ÃÂ¾Ã†Â¿ÃÂ¼Â­ Â°ÂªÃ€Â» Â´Ã™Â½Ãƒ Â¼Ã‚Ã†ÃƒÃ‡Ã‘Â´Ã™.
+                // Â¾Ã†Â¸Â¶ÂµÂµ Â¼Â±Â°Ã¸Ã€ÃšÃ€Ã‡ Ã€ÃŒÂ¸Â§Â¿Â¡ Â³Â»Â°Â¡ Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã Ã€ÃŒÃ†Ã¥Ã†Â®Â´Ã‚ Ã‡ÃŠÂ½Ãƒ Ã€Ã–Ã€Â» Â°ÃÃ€ÃŒÂ´Ã™.
+                // Ã‡ÃÂ³Âª ÂµÂ¿Â±Ã¢Â°Â¡ Â±ÃºÃÃº Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã³ÃˆÂ²Ã€ÃŒ Â±ÃºÃÃº Â¼Ã¶ Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã, ÂµÂ¥ÂµÃ¥Â¶Ã³Ã€ÃÃ€Â» Â¾Ã Â°Â£ Â±Ã¦Â°Ã” Ã€Ã¢ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 
                 if (pAttackerEffect != NULL) {
-                    // ¾ó¸¶³ª È¸º¹½ÃÅ³ °Í °ÍÀÎ°¡?
+                    // Â¾Ã³Â¸Â¶Â³Âª ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â³ Â°Ã Â°ÃÃ€ÃÂ°Â¡?
                     Alignment_t Amount = abs(ModifyAlignment / 10 * 9);
 
-                    // ¾ó¸¶¾¿ È¸º¹½ÃÅ³ °ÍÀÎ°¡? 10¾¿
+                    // Â¾Ã³Â¸Â¶Â¾Â¿ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â³ Â°ÃÃ€ÃÂ°Â¡? 10Â¾Â¿
                     Alignment_t Quantity = 10;
 
-                    // È¸º¹ ÁÖ±â´Â ¾ó¸¶ÀÎ°¡? 30ÃÊ
+                    // ÃˆÂ¸ÂºÂ¹ ÃÃ–Â±Ã¢Â´Ã‚ Â¾Ã³Â¸Â¶Ã€ÃÂ°Â¡? 30ÃƒÃŠ
                     int DelayProvider = 300;
 
-                    // ¸î¹ø È¸º¹½ÃÅ³ °ÍÀÎ°¡?
+                    // Â¸Ã®Â¹Ã¸ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â³ Â°ÃÃ€ÃÂ°Â¡?
                     double temp = (double)((double)Amount / (double)Quantity);
                     int Period = (uint)floor(temp);
 
-                    // ´Ù È¸º¹½ÃÅ°´Âµ¥ °É¸®´Â ½Ã°£Àº ¾ó¸¶ÀÎ°¡?
+                    // Â´Ã™ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â°Â´Ã‚ÂµÂ¥ Â°Ã‰Â¸Â®Â´Ã‚ Â½ÃƒÂ°Â£Ã€Âº Â¾Ã³Â¸Â¶Ã€ÃÂ°Â¡?
                     Turn_t Deadline = Period * DelayProvider;
 
                     pAttackerEffect->setQuantity(Quantity);
@@ -3763,28 +3763,28 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
                     pAttackerEffect->setDeadline(Deadline);
                     pAttackerEffect->setDelay(DelayProvider);
                 } else {
-                    // ¾ø´Ù¸é ÃÖÃÊ·Î ¼±°øÇÏ´Â °ÍÀÌ´Ù »õ ÀÌÆåÆ®¸¦ »ı¼ºÇØ¼­ ºÙÀÌ°í 5ºĞ°£ Áö¼Ó µÉ °ÍÀÌ´Ù.
-                    // ¹æ¾îÀÚ¿¡°Ô »ç¶óÁö´Â ÀÌÆåÆ®¸¦ ºÙ¿©¾ß ÇÔÀ» ÀØÁö ¸»¾Æ¾ß ÇÑ´Ù.
-                    // »ç¶óÁö´Â °ÍÀº »ó´ëÀÇ ÀÌÆåÆ® ¸Ş´ÏÁ®¿¡ ¼ÓÇØÀÖ´Ù.
-                    // 30ÃÊ¸¶´Ù 10¾¿ ¼ºÇâÀ» È¸º¹½ÃÅ°´Â ÀÌÆåÆ®¸¦ °ø°İÀÚ¿¡°Ô ºÙÀÎ´Ù.
+                    // Â¾Ã¸Â´Ã™Â¸Ã© ÃƒÃ–ÃƒÃŠÂ·Ã Â¼Â±Â°Ã¸Ã‡ÃÂ´Ã‚ Â°ÃÃ€ÃŒÂ´Ã™ Â»Ãµ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã˜Â¼Â­ ÂºÃ™Ã€ÃŒÂ°Ã­ 5ÂºÃÂ°Â£ ÃÃ¶Â¼Ã“ ÂµÃ‰ Â°ÃÃ€ÃŒÂ´Ã™.
+                    // Â¹Ã¦Â¾Ã®Ã€ÃšÂ¿Â¡Â°Ã” Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÂºÃ™Â¿Â©Â¾ÃŸ Ã‡Ã”Ã€Â» Ã€Ã˜ÃÃ¶ Â¸Â»Â¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+                    // Â»Ã§Â¶Ã³ÃÃ¶Â´Ã‚ Â°ÃÃ€Âº Â»Ã³Â´Ã«Ã€Ã‡ Ã€ÃŒÃ†Ã¥Ã†Â® Â¸ÃÂ´ÃÃÂ®Â¿Â¡ Â¼Ã“Ã‡Ã˜Ã€Ã–Â´Ã™.
+                    // 30ÃƒÃŠÂ¸Â¶Â´Ã™ 10Â¾Â¿ Â¼ÂºÃ‡Ã¢Ã€Â» ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â°Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â°Ã¸Â°ÃÃ€ÃšÂ¿Â¡Â°Ã” ÂºÃ™Ã€ÃÂ´Ã™.
 
-                    // ¾ó¸¶³ª È¸º¹½ÃÅ³ °Í °ÍÀÎ°¡?
+                    // Â¾Ã³Â¸Â¶Â³Âª ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â³ Â°Ã Â°ÃÃ€ÃÂ°Â¡?
                     Alignment_t Amount = abs(ModifyAlignment / 10 * 9);
 
-                    // ¾ó¸¶¾¿ È¸º¹½ÃÅ³ °ÍÀÎ°¡? 10¾¿
+                    // Â¾Ã³Â¸Â¶Â¾Â¿ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â³ Â°ÃÃ€ÃÂ°Â¡? 10Â¾Â¿
                     Alignment_t Quantity = 10;
 
-                    // È¸º¹ ÁÖ±â´Â ¾ó¸¶ÀÎ°¡? 30ÃÊ
+                    // ÃˆÂ¸ÂºÂ¹ ÃÃ–Â±Ã¢Â´Ã‚ Â¾Ã³Â¸Â¶Ã€ÃÂ°Â¡? 30ÃƒÃŠ
                     int DelayProvider = 300;
 
-                    // ¸î¹ø È¸º¹½ÃÅ³ °ÍÀÎ°¡?
+                    // Â¸Ã®Â¹Ã¸ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â³ Â°ÃÃ€ÃÂ°Â¡?
                     double temp = (double)((double)Amount / (double)Quantity);
                     int Period = (uint)floor(temp);
 
-                    // ´Ù È¸º¹½ÃÅ°´Âµ¥ °É¸®´Â ½Ã°£Àº ¾ó¸¶ÀÎ°¡?
+                    // Â´Ã™ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â°Â´Ã‚ÂµÂ¥ Â°Ã‰Â¸Â®Â´Ã‚ Â½ÃƒÂ°Â£Ã€Âº Â¾Ã³Â¸Â¶Ã€ÃÂ°Â¡?
                     Turn_t Deadline = Period * DelayProvider;
 
-                    // ¸ÕÀú È¸º¹ ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+                    // Â¸Ã•Ã€Ãº ÃˆÂ¸ÂºÂ¹ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÂºÃ™Ã€ÃÂ´Ã™.
                     EffectAlignmentRecovery* pEffectAlignmentRecovery = new EffectAlignmentRecovery();
 
                     pEffectAlignmentRecovery->setTarget(pAttackPC);
@@ -3797,16 +3797,16 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
                     pAttackEffectManager->addEffect(pEffectAlignmentRecovery);
                 }
 
-                // ¹æ¾îÀÚ¿¡°Ô ºÙ¾îÀÖ´Â ÀÌÆåÆ®ÀÇ µ¥µå¶óÀÎÀ» ´Ù½Ã ¼ÂÆÃ ÇØ ÁÖ¾î¾ß ÇÑ´Ù.
+                // Â¹Ã¦Â¾Ã®Ã€ÃšÂ¿Â¡Â°Ã” ÂºÃ™Â¾Ã®Ã€Ã–Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Ã€Ã‡ ÂµÂ¥ÂµÃ¥Â¶Ã³Ã€ÃÃ€Â» Â´Ã™Â½Ãƒ Â¼Ã‚Ã†Ãƒ Ã‡Ã˜ ÃÃ–Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
                 EffectEnemyErase* pDefenderEffect =
                     (EffectEnemyErase*)pTargetEffectManager->findEffect(Effect::EFFECT_CLASS_ENEMY_ERASE, AttackName);
 
                 if (pDefenderEffect != NULL) {
-                    // ¼±°øÀÚ ¸®½ºÆ®¿¡ ÀÖ´Ù´Â ¸»Àº ¼±°øÀÚ¸¦ Áö¿öÁÖ´Â ÀÌÆåÆ®°¡ ¹«Á¶°Ç ÀÖ´Ù´Â ¾ê±âÀÌ´Ù. µû¶ó¼­ NULLÀÌ µÉ
-                    // ¼ö ¾ø´Ù.
+                    // Â¼Â±Â°Ã¸Ã€Ãš Â¸Â®Â½ÂºÃ†Â®Â¿Â¡ Ã€Ã–Â´Ã™Â´Ã‚ Â¸Â»Ã€Âº Â¼Â±Â°Ã¸Ã€ÃšÂ¸Â¦ ÃÃ¶Â¿Ã¶ÃÃ–Â´Ã‚ Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Â¹Â«ÃÂ¶Â°Ã‡ Ã€Ã–Â´Ã™Â´Ã‚ Â¾ÃªÂ±Ã¢Ã€ÃŒÂ´Ã™. ÂµÃ»Â¶Ã³Â¼Â­ NULLÃ€ÃŒ ÂµÃ‰
+                    // Â¼Ã¶ Â¾Ã¸Â´Ã™.
                     Assert(pDefenderEffect != NULL);
                     Assert(pDefenderEffect->getEffectClass() == Effect::EFFECT_CLASS_ENEMY_ERASE);
-                    // 5ºĞÀ¸·Î ¼ÂÆÃ
+                    // 5ÂºÃÃ€Â¸Â·Ã Â¼Ã‚Ã†Ãƒ
                     pDefenderEffect->setDeadline(36000);
                     pDefenderEffect->save(TargetName);
                 }
@@ -3817,25 +3817,25 @@ void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¹× ¹ìÆÄÀÌ¾î°¡ ¸÷À» Á×ÀÏ ¶§ ¼ºÇâÀ» ¾à°£¾¿ È¸º¹½ÃÅ²´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¹Ã— Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â°Â¡ Â¸Ã·Ã€Â» ÃÃ—Ã€Ã Â¶Â§ Â¼ÂºÃ‡Ã¢Ã€Â» Â¾Ã Â°Â£Â¾Â¿ ÃˆÂ¸ÂºÂ¹Â½ÃƒÃ…Â²Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
     Assert(pCreature != NULL);
     Assert(pEnemy != NULL);
 
-    // PKÁ¸¿¡¼­´Â ¼ºÇâÀ» ¾È ¿Ã·ÁÁØ´Ù.
+    // PKÃÂ¸Â¿Â¡Â¼Â­Â´Ã‚ Â¼ÂºÃ‡Ã¢Ã€Â» Â¾Ãˆ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pCreature->getZoneID()))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â ¼ºÇâÀ» ¾È ¿Ã·ÁÁØ´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â¼ÂºÃ‡Ã¢Ã€Â» Â¾Ãˆ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     if (pCreature->getZone() != NULL && pCreature->getZone()->isDynamicZone())
         return;
 
-    // ¸ó½ºÅÍ°¡ ¾ÆÁ÷ »ì¾ÆÀÖÀ» °æ¿ì¿¡´Â ¼ºÇâÀÌ º¯È­µÇÁö ¾Ê´Â´Ù.
+    // Â¸Ã³Â½ÂºÃ…ÃÂ°Â¡ Â¾Ã†ÃÃ· Â»Ã¬Â¾Ã†Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¼ÂºÃ‡Ã¢Ã€ÃŒ ÂºÂ¯ÃˆÂ­ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (!pEnemy->isDead())
         return;
 
-    // ÀûÀÌ NPCÀÌ°Å³ª, µ¿Á·³¢¸® °ø°İÇÏ´Â °æ¿ì¿¡´Â ¼ºÇâÀ» Áõ°¡½ÃÅ°Áö ¾Ê´Â´Ù.
+    // Ã€Ã»Ã€ÃŒ NPCÃ€ÃŒÂ°Ã…Â³Âª, ÂµÂ¿ÃÂ·Â³Â¢Â¸Â® Â°Ã¸Â°ÃÃ‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¼ÂºÃ‡Ã¢Ã€Â» ÃÃµÂ°Â¡Â½ÃƒÃ…Â°ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (pEnemy->isNPC())
         return;
     if (pCreature->isSlayer() && pEnemy->isSlayer())
@@ -3851,14 +3851,14 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-        // ÇöÀç ¼ºÇâ °ªÀ» ÀĞ¾î¿Â´Ù.
+        // Ã‡Ã¶Ã€Ã§ Â¼ÂºÃ‡Ã¢ Â°ÂªÃ€Â» Ã€ÃÂ¾Ã®Â¿Ã‚Â´Ã™.
         OldAlignValue = pSlayer->getAlignment();
 
-        // ¼ºÇâÀÌ 0ÀÌ»óÀÎ °æ¿ì¿¡´Â ¸ó½ºÅÍ¸¦ Á×¿©µµ ¼ºÇâÀÇ º¯È­°¡ ¾ø´Ù.
+        // Â¼ÂºÃ‡Ã¢Ã€ÃŒ 0Ã€ÃŒÂ»Ã³Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¸Ã³Â½ÂºÃ…ÃÂ¸Â¦ ÃÃ—Â¿Â©ÂµÂµ Â¼ÂºÃ‡Ã¢Ã€Ã‡ ÂºÂ¯ÃˆÂ­Â°Â¡ Â¾Ã¸Â´Ã™.
         if (OldAlignValue > 0)
             return;
 
-        // ¿Ã¶ó°¥ ¼ºÇâÀÇ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+        // Â¿ÃƒÂ¶Ã³Â°Â¥ Â¼ÂºÃ‡Ã¢Ã€Ã‡ Â¼Ã¶Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
         if (pEnemy->isMonster()) {
             Monster* pMonster = dynamic_cast<Monster*>(pEnemy);
             Assert(pMonster != NULL);
@@ -3876,7 +3876,7 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
         NewAlignValue = OldAlignValue + NewAlignValue;
 
         if (OldAlignValue != NewAlignValue) {
-            // ÆĞÅ¶¿¡´Ù ¼ºÇâÀÌ ¹Ù²î¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // Ã†ÃÃ…Â¶Â¿Â¡Â´Ã™ Â¼ÂºÃ‡Ã¢Ã€ÃŒ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
             mi.addShortData(MODIFY_ALIGNMENT, NewAlignValue);
 
             WORD AlignmentSaveCount = pSlayer->getAlignmentSaveCount();
@@ -3893,14 +3893,14 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
     } else if (pCreature->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-        // ÇöÀç ¼ºÇâ °ªÀ» ÀĞ¾î¿Â´Ù.
+        // Ã‡Ã¶Ã€Ã§ Â¼ÂºÃ‡Ã¢ Â°ÂªÃ€Â» Ã€ÃÂ¾Ã®Â¿Ã‚Â´Ã™.
         OldAlignValue = pVampire->getAlignment();
 
-        // ¼ºÇâÀÌ 0ÀÌ»óÀÎ °æ¿ì¿¡´Â ¸ó½ºÅÍ¸¦ Á×¿©µµ ¼ºÇâÀÇ º¯È­°¡ ¾ø´Ù.
+        // Â¼ÂºÃ‡Ã¢Ã€ÃŒ 0Ã€ÃŒÂ»Ã³Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¸Ã³Â½ÂºÃ…ÃÂ¸Â¦ ÃÃ—Â¿Â©ÂµÂµ Â¼ÂºÃ‡Ã¢Ã€Ã‡ ÂºÂ¯ÃˆÂ­Â°Â¡ Â¾Ã¸Â´Ã™.
         if (OldAlignValue > 0)
             return;
 
-        // ¿Ã¶ó°¥ ¼ºÇâÀÇ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+        // Â¿ÃƒÂ¶Ã³Â°Â¥ Â¼ÂºÃ‡Ã¢Ã€Ã‡ Â¼Ã¶Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
         NewAlignValue = 0;
         if (pEnemy->isMonster()) {
             Monster* pMonster = dynamic_cast<Monster*>(pEnemy);
@@ -3921,7 +3921,7 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
         NewAlignValue = OldAlignValue + NewAlignValue;
 
         if (OldAlignValue != NewAlignValue) {
-            // ÆĞÅ¶¿¡´Ù ¼ºÇâÀÌ ¹Ù²î¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // Ã†ÃÃ…Â¶Â¿Â¡Â´Ã™ Â¼ÂºÃ‡Ã¢Ã€ÃŒ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
             mi.addShortData(MODIFY_ALIGNMENT, NewAlignValue);
 
             WORD AlignmentSaveCount = pVampire->getAlignmentSaveCount();
@@ -3936,14 +3936,14 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
     } else if (pCreature->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-        // ÇöÀç ¼ºÇâ °ªÀ» ÀĞ¾î¿Â´Ù.
+        // Ã‡Ã¶Ã€Ã§ Â¼ÂºÃ‡Ã¢ Â°ÂªÃ€Â» Ã€ÃÂ¾Ã®Â¿Ã‚Â´Ã™.
         OldAlignValue = pOusters->getAlignment();
 
-        // ¼ºÇâÀÌ 0ÀÌ»óÀÎ °æ¿ì¿¡´Â ¸ó½ºÅÍ¸¦ Á×¿©µµ ¼ºÇâÀÇ º¯È­°¡ ¾ø´Ù.
+        // Â¼ÂºÃ‡Ã¢Ã€ÃŒ 0Ã€ÃŒÂ»Ã³Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¸Ã³Â½ÂºÃ…ÃÂ¸Â¦ ÃÃ—Â¿Â©ÂµÂµ Â¼ÂºÃ‡Ã¢Ã€Ã‡ ÂºÂ¯ÃˆÂ­Â°Â¡ Â¾Ã¸Â´Ã™.
         if (OldAlignValue > 0)
             return;
 
-        // ¿Ã¶ó°¥ ¼ºÇâÀÇ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+        // Â¿ÃƒÂ¶Ã³Â°Â¥ Â¼ÂºÃ‡Ã¢Ã€Ã‡ Â¼Ã¶Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
         NewAlignValue = 0;
         if (pEnemy->isMonster()) {
             Monster* pMonster = dynamic_cast<Monster*>(pEnemy);
@@ -3964,7 +3964,7 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
         NewAlignValue = OldAlignValue + NewAlignValue;
 
         if (OldAlignValue != NewAlignValue) {
-            // ÆĞÅ¶¿¡´Ù ¼ºÇâÀÌ ¹Ù²î¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // Ã†ÃÃ…Â¶Â¿Â¡Â´Ã™ Â¼ÂºÃ‡Ã¢Ã€ÃŒ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
             mi.addShortData(MODIFY_ALIGNMENT, NewAlignValue);
 
             WORD AlignmentSaveCount = pOusters->getAlignmentSaveCount();
@@ -3978,7 +3978,7 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
         }
     }
 
-    // ¼ºÇâ ´Ü°è°¡ ¹Ù²î¸é ´Ù¸¥ »ç¶÷µé¿¡°Ôµµ ¾Ë·ÁÁà¾ß ÇÑ´Ù.  by sigi. 2002.1.6
+    // Â¼ÂºÃ‡Ã¢ Â´ÃœÂ°Ã¨Â°Â¡ Â¹Ã™Â²Ã®Â¸Ã© Â´Ã™Â¸Â¥ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”ÂµÂµ Â¾Ã‹Â·ÃÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.  by sigi. 2002.1.6
     Alignment beforeAlignment = g_pAlignmentManager->getAlignmentType(OldAlignValue);
     Alignment afterAlignment = g_pAlignmentManager->getAlignmentType(NewAlignValue);
 
@@ -3995,21 +3995,21 @@ void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆÄÆ¼ °ü·Ã ½½·¹ÀÌ¾î °æÇèÄ¡ °è»ê ÇÔ¼ö
+// Ã†Ã„Ã†Â¼ Â°Ã¼Â·Ãƒ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â°Ã¦Ã‡Ã¨Ã„Â¡ Â°Ã¨Â»Ãª Ã‡Ã”Â¼Ã¶
 //////////////////////////////////////////////////////////////////////////////
 void shareAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier,
                   ModifyInfo& _ModifyInfo) {
     Assert(pSlayer != NULL);
 
-    // PKÁ¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
+    // PKÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pSlayer->getZoneID()))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (pSlayer->getZone() != NULL && pSlayer->getZone()->isDynamicZone())
         return;
 
-    // À¯·áÈ­ Á¸¿¡¼­´Â °æÇèÄ¡¸¦ ´õ ¹Ş´Â´Ù.
+    // Ã€Â¯Â·Ã¡ÃˆÂ­ ÃÂ¸Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â´Ãµ Â¹ÃÂ´Ã‚Â´Ã™.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pSlayer->getPlayer());
     Assert(pGamePlayer != NULL);
 
@@ -4031,34 +4031,34 @@ void shareAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEX
 
     int PartyID = pSlayer->getPartyID();
     if (PartyID != 0) {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ
-        // ÁÖÀ§ÀÇ ÆÄÆ¼¿øµé°ú °æÇèÄ¡¸¦ °øÀ¯ÇÑ´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™Â¸Ã© Â·ÃÃ„Ãƒ Ã†Ã„Ã†Â¼ Â¸Ã…Â´ÃÃ€ÃºÂ¸Â¦ Ã…Ã«Ã‡Ã˜
+        // ÃÃ–Ã€Â§Ã€Ã‡ Ã†Ã„Ã†Â¼Â¿Ã¸ÂµÃ©Â°Ãº Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¸Ã€Â¯Ã‡Ã‘Â´Ã™.
         LocalPartyManager* pLPM = pSlayer->getLocalPartyManager();
         Assert(pLPM != NULL);
         pLPM->shareAttrExp(PartyID, pSlayer, Damage, STRMultiplier, DEXMultiplier, INTMultiplier, _ModifyInfo);
     } else {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾îÀÖÁö ¾Ê´Ù¸é È¥ÀÚ ¿Ã¶ó°£´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã®Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™Â¸Ã© ÃˆÂ¥Ã€Ãš Â¿ÃƒÂ¶Ã³Â°Â£Â´Ã™.
         divideAttrExp(pSlayer, Damage, STRMultiplier, DEXMultiplier, INTMultiplier, _ModifyInfo);
     }
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆÄÆ¼ °ü·Ã ¹ìÆÄÀÌ¾î °æÇèÄ¡ °è»ê ÇÔ¼ö
+// Ã†Ã„Ã†Â¼ Â°Ã¼Â·Ãƒ Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â°Ã¦Ã‡Ã¨Ã„Â¡ Â°Ã¨Â»Ãª Ã‡Ã”Â¼Ã¶
 //////////////////////////////////////////////////////////////////////////////
 void shareVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
     Assert(pVampire != NULL);
     if (Point <= 0)
         return;
 
-    // PKÁ¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+    // PKÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¹ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pVampire->getZoneID()))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ¾È ¿Ã·ÁÁØ´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¾Ãˆ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     if (pVampire->getZone() != NULL && pVampire->getZone()->isDynamicZone())
         return;
 
-    // À¯·áÈ­ Á¸¿¡¼­´Â °æÇèÄ¡¸¦ ´õ ¹Ş´Â´Ù.
+    // Ã€Â¯Â·Ã¡ÃˆÂ­ ÃÂ¸Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â´Ãµ Â¹ÃÂ´Ã‚Â´Ã™.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pVampire->getPlayer());
     Assert(pGamePlayer != NULL);
 
@@ -4075,34 +4075,34 @@ void shareVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
     int PartyID = pVampire->getPartyID();
     if (PartyID != 0) {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ
-        // ÁÖÀ§ÀÇ ÆÄÆ¼¿øµé°ú °æÇèÄ¡¸¦ °øÀ¯ÇÑ´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™Â¸Ã© Â·ÃÃ„Ãƒ Ã†Ã„Ã†Â¼ Â¸Ã…Â´ÃÃ€ÃºÂ¸Â¦ Ã…Ã«Ã‡Ã˜
+        // ÃÃ–Ã€Â§Ã€Ã‡ Ã†Ã„Ã†Â¼Â¿Ã¸ÂµÃ©Â°Ãº Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¸Ã€Â¯Ã‡Ã‘Â´Ã™.
         LocalPartyManager* pLPM = pVampire->getLocalPartyManager();
         Assert(pLPM != NULL);
         pLPM->shareVampireExp(PartyID, pVampire, Point, _ModifyInfo);
     } else {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾îÀÖÁö ¾Ê´Ù¸é È¥ÀÚ ¿Ã¶ó°£´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã®Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™Â¸Ã© ÃˆÂ¥Ã€Ãš Â¿ÃƒÂ¶Ã³Â°Â£Â´Ã™.
         increaseVampExp(pVampire, Point, _ModifyInfo);
     }
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆÄÆ¼ °ü·Ã ¾Æ¿ì½ºÅÍ½º °æÇèÄ¡ °è»ê ÇÔ¼ö
+// Ã†Ã„Ã†Â¼ Â°Ã¼Â·Ãƒ Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â°Ã¦Ã‡Ã¨Ã„Â¡ Â°Ã¨Â»Ãª Ã‡Ã”Â¼Ã¶
 //////////////////////////////////////////////////////////////////////////////
 void shareOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo) {
     Assert(pOusters != NULL);
     if (Point <= 0)
         return;
 
-    // PKÁ¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+    // PKÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¹ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pOusters->getZoneID()))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ¾È ¿Ã·ÁÁØ´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¾Ãˆ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     if (pOusters->getZone() != NULL && pOusters->getZone()->isDynamicZone())
         return;
 
-    // À¯·áÈ­ Á¸¿¡¼­´Â °æÇèÄ¡¸¦ ´õ ¹Ş´Â´Ù.
+    // Ã€Â¯Â·Ã¡ÃˆÂ­ ÃÂ¸Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â´Ãµ Â¹ÃÂ´Ã‚Â´Ã™.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pOusters->getPlayer());
     Assert(pGamePlayer != NULL);
 
@@ -4116,13 +4116,13 @@ void shareOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
     int PartyID = pOusters->getPartyID();
     if (PartyID != 0) {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ
-        // ÁÖÀ§ÀÇ ÆÄÆ¼¿øµé°ú °æÇèÄ¡¸¦ °øÀ¯ÇÑ´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã® Ã€Ã–Â´Ã™Â¸Ã© Â·ÃÃ„Ãƒ Ã†Ã„Ã†Â¼ Â¸Ã…Â´ÃÃ€ÃºÂ¸Â¦ Ã…Ã«Ã‡Ã˜
+        // ÃÃ–Ã€Â§Ã€Ã‡ Ã†Ã„Ã†Â¼Â¿Ã¸ÂµÃ©Â°Ãº Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¸Ã€Â¯Ã‡Ã‘Â´Ã™.
         LocalPartyManager* pLPM = pOusters->getLocalPartyManager();
         Assert(pLPM != NULL);
         pLPM->shareOustersExp(PartyID, pOusters, Point, _ModifyInfo);
     } else {
-        // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾îÀÖÁö ¾Ê´Ù¸é È¥ÀÚ ¿Ã¶ó°£´Ù.
+        // Ã†Ã„Ã†Â¼Â¿Â¡ Â°Â¡Ã€Ã”ÂµÃ‡Â¾Ã®Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™Â¸Ã© ÃˆÂ¥Ã€Ãš Â¿ÃƒÂ¶Ã³Â°Â£Â´Ã™.
         increaseOustersExp(pOusters, Point, _ModifyInfo);
     }
 }
@@ -4133,28 +4133,28 @@ void shareOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
     Attr_t CurSTR = pSlayer->getSTR( ATTR_BASIC );
 
-    // exp level°ú ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+    // exp levelÂ°Ãº Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     CurSTR--;
     pSlayer->setSTR(CurSTR, ATTR_BASIC);
     //_ModifyInfo.addLongData(MODIFY_BASIC_STR, CurSTR);
 
-    // ´ÙÀ½ ·¹º§ÀÇ STRInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Â´Ã™Ã€Â½ Â·Â¹ÂºÂ§Ã€Ã‡ STRInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     STRBalanceInfo* pAfterSTRInfo = g_pSTRBalanceInfoManager->getSTRBalanceInfo(CurSTR);
-    // ÀÌÀü ·¹º§ÀÇ STRInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Ã€ÃŒÃ€Ã¼ Â·Â¹ÂºÂ§Ã€Ã‡ STRInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
 //	STRBalanceInfo* pBeforeSTRInfo = g_pSTRBalanceInfoManager->getSTRBalanceInfo(CurSTR-1);
 
-    // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇØ Áà¾ß ÇÑ´Ù.
+    // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     Exp_t NewGoalExp = pAfterSTRInfo->getGoalExp();
 //	Exp_t NewExp = pBeforeSTRInfo->getAccumExp();
     pSlayer->setSTRGoalExp(NewGoalExp);
 //	pSlayer->setSTRExp(NewExp);
 
-    // DB¿¡ ¿Ã¶ó°£ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+    // DBÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
     msg1 << "STR = " << (int)CurSTR << ", STRGoalExp = " << NewGoalExp;
 
     pSlayer->tinysave(msg1.toString());
 
-//	cout << "ÈûÀ» ³·Ãä´Ï´Ù." << endl;
+//	cout << "ÃˆÃ»Ã€Â» Â³Â·ÃƒÃ¤Â´ÃÂ´Ã™." << endl;
 }
 
 void decreaseINT(Slayer* pSlayer)
@@ -4163,28 +4163,28 @@ void decreaseINT(Slayer* pSlayer)
 
     Attr_t CurINT = pSlayer->getINT( ATTR_BASIC );
 
-    // exp level°ú ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+    // exp levelÂ°Ãº Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     CurINT--;
     pSlayer->setINT(CurINT, ATTR_BASIC);
     //_ModifyInfo.addLongData(MODIFY_BASIC_INT, CurINT);
 
-    // ´ÙÀ½ ·¹º§ÀÇ INTInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Â´Ã™Ã€Â½ Â·Â¹ÂºÂ§Ã€Ã‡ INTInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     INTBalanceInfo* pAfterINTInfo = g_pINTBalanceInfoManager->getINTBalanceInfo(CurINT);
-    // ÀÌÀü ·¹º§ÀÇ INTInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Ã€ÃŒÃ€Ã¼ Â·Â¹ÂºÂ§Ã€Ã‡ INTInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
 //	INTBalanceInfo* pBeforeINTInfo = g_pINTBalanceInfoManager->getINTBalanceInfo(CurINT-1);
 
-    // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇØ Áà¾ß ÇÑ´Ù.
+    // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     Exp_t NewGoalExp = pAfterINTInfo->getGoalExp();
 //	Exp_t NewExp = pBeforeINTInfo->getAccumExp();
     pSlayer->setINTGoalExp(NewGoalExp);
 //	pSlayer->setINTExp(NewExp);
 
-    // DB¿¡ ¿Ã¶ó°£ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+    // DBÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
     msg1 << "INTE = " << (int)CurINT << ", INTGoalExp = " << NewGoalExp;
 
     pSlayer->tinysave(msg1.toString());
 
-//	cout << "ÀÎÆ®¸¦ ³·Ãä´Ï´Ù." << endl;
+//	cout << "Ã€ÃÃ†Â®Â¸Â¦ Â³Â·ÃƒÃ¤Â´ÃÂ´Ã™." << endl;
 }
 
 void decreaseDEX(Slayer* pSlayer)
@@ -4193,44 +4193,44 @@ void decreaseDEX(Slayer* pSlayer)
 
     Attr_t CurDEX = pSlayer->getDEX( ATTR_BASIC );
 
-    // exp level°ú ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+    // exp levelÂ°Ãº Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     CurDEX--;
     pSlayer->setDEX(CurDEX, ATTR_BASIC);
     //_ModifyInfo.addLongData(MODIFY_BASIC_DEX, CurDEX);
 
-    // ´ÙÀ½ ·¹º§ÀÇ DEXInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Â´Ã™Ã€Â½ Â·Â¹ÂºÂ§Ã€Ã‡ DEXInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     DEXBalanceInfo* pAfterDEXInfo = g_pDEXBalanceInfoManager->getDEXBalanceInfo(CurDEX);
-    // ÀÌÀü ·¹º§ÀÇ DEXInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Ã€ÃŒÃ€Ã¼ Â·Â¹ÂºÂ§Ã€Ã‡ DEXInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
 //	DEXBalanceInfo* pBeforeDEXInfo = g_pDEXBalanceInfoManager->getDEXBalanceInfo(CurDEX-1);
 
-    // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇØ Áà¾ß ÇÑ´Ù.
+    // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     Exp_t NewGoalExp = pAfterDEXInfo->getGoalExp();
 //	Exp_t NewExp = pBeforeDEXInfo->getAccumExp();
     pSlayer->setDEXGoalExp(NewGoalExp);
 //	pSlayer->setDEXExp(NewExp);
 
-    // DB¿¡ ¿Ã¶ó°£ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+    // DBÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
     msg1 << "DEX = " << (int)CurDEX << ", DEXGoalExp = " << NewGoalExp;
 
     pSlayer->tinysave(msg1.toString());
 
-//	cout << "µ¦½º¸¦ ³·Ãä´Ï´Ù." << endl;
+//	cout << "ÂµÂ¦Â½ÂºÂ¸Â¦ Â³Â·ÃƒÃ¤Â´ÃÂ´Ã™." << endl;
 }*/
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ´É·ÂÄ¡ (STR, DEX, INT) °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â´Ã‰Â·Ã‚Ã„Â¡ (STR, DEX, INT) Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier,
                    ModifyInfo& _ModifyInfo, int numPartyMember) {
     Assert(pSlayer != NULL);
 
-    // STR Æ÷ÀÎÆ®°¡ Á¦ÀÏ Å©´Ù.
+    // STR Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ ÃÂ¦Ã€Ã Ã…Â©Â´Ã™.
     if (STRMultiplier > DEXMultiplier && STRMultiplier > INTMultiplier) {
         pSlayer->divideAttrExp(ATTR_KIND_STR, Damage, _ModifyInfo);
-        // DEX Æ÷ÀÎÆ®°¡ Á¦ÀÏ Å©´Ù.
+        // DEX Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ ÃÂ¦Ã€Ã Ã…Â©Â´Ã™.
     } else if (DEXMultiplier > STRMultiplier && DEXMultiplier > INTMultiplier) {
         pSlayer->divideAttrExp(ATTR_KIND_DEX, Damage, _ModifyInfo);
-        // INT Æ÷ÀÎÆ®°¡ Á¦ÀÏ Å©´Ù.
+        // INT Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ ÃÂ¦Ã€Ã Ã…Â©Â´Ã™.
     } else if (INTMultiplier > STRMultiplier && INTMultiplier > DEXMultiplier) {
         pSlayer->divideAttrExp(ATTR_KIND_INT, Damage, _ModifyInfo);
     }
@@ -4239,14 +4239,14 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
 
     /*	SkillLevel_t	MaxDomainLevel	= pSlayer->getHighestSkillDomainLevel();
         Attr_t			TotalAttr		= pSlayer->getTotalAttr( ATTR_BASIC );
-        Attr_t			TotalAttrBound		= 0;		// ´É·ÂÄ¡ ÃÑÇÕ Á¦ÇÑ
-        Attr_t			AttrBound			= 0;		// ´ÜÀÏ ´É·ÂÄ¡ Á¦ÇÑ
-        Attr_t			OneAttrExpBound		= 0;		// ÇÑ °³ÀÇ ´É·ÂÄ¡¿¡¸¸ °æÇèÄ¡ ÁÖ´Â ´É·ÂÄ¡ ÃÑÇÕ °æ°è°ª
+        Attr_t			TotalAttrBound		= 0;		// Â´Ã‰Â·Ã‚Ã„Â¡ ÃƒÃ‘Ã‡Ã• ÃÂ¦Ã‡Ã‘
+        Attr_t			AttrBound			= 0;		// Â´ÃœÃ€Ã Â´Ã‰Â·Ã‚Ã„Â¡ ÃÂ¦Ã‡Ã‘
+        Attr_t			OneAttrExpBound		= 0;		// Ã‡Ã‘ Â°Â³Ã€Ã‡ Â´Ã‰Â·Ã‚Ã„Â¡Â¿Â¡Â¸Â¸ Â°Ã¦Ã‡Ã¨Ã„Â¡ ÃÃ–Â´Ã‚ Â´Ã‰Â·Ã‚Ã„Â¡ ÃƒÃ‘Ã‡Ã• Â°Ã¦Â°Ã¨Â°Âª
 
-        // ½½·¹ÀÌ¾î ´É·ÂÄ¡´Â µµ¸ŞÀÎ ·¹º§ 100ÀÌÀü¿¡´Â ÃÑÇÕ 300À¸·Î Á¦ÇÑ µÈ´Ù.(±âÁ¸Ã³·³ 50, 200, 50 À¸·Î..)¶ÇÇÑ ±× ÀÌÈÄÀÇ
-       °æÇèÄ¡´Â ´©ÀûµÇÁö ¾Ê´Â´Ù.
-        // ±×¸®°í µµ¸ŞÀÎ ·¹º§ ÀÌ 100À» ³Ñ¾î¼­¸é ´Ù½Ã ´É·ÂÄ¡ °æÇèÄ¡°¡ ´©ÀûµÇ¾î ´É·ÂÄ¡°¡ ¿Ã¶ó°¡±â ½ÃÀÛÇÑ´Ù.
-        // µµ¸ŞÀÎ ·¹º§ÀÌ 100 ¾Æ·¡·Î µµ·Î ¶³¾îÁ³¾îµµ ´É·ÂÄ¡ ÃÑÇÕÀÌ 300À» ³Ñ¾úÀ» °æ¿ì 300ÀÇ Á¦ÇÑÀ» ¹ŞÁö ¾Ê´Â´Ù.
+        // Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â´Ã‰Â·Ã‚Ã„Â¡Â´Ã‚ ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§ 100Ã€ÃŒÃ€Ã¼Â¿Â¡Â´Ã‚ ÃƒÃ‘Ã‡Ã• 300Ã€Â¸Â·Ã ÃÂ¦Ã‡Ã‘ ÂµÃˆÂ´Ã™.(Â±Ã¢ÃÂ¸ÃƒÂ³Â·Â³ 50, 200, 50 Ã€Â¸Â·Ã..)Â¶Ã‡Ã‡Ã‘ Â±Ã— Ã€ÃŒÃˆÃ„Ã€Ã‡
+       Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ Â´Â©Ã€Ã»ÂµÃ‡ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
+        // Â±Ã—Â¸Â®Â°Ã­ ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§ Ã€ÃŒ 100Ã€Â» Â³Ã‘Â¾Ã®Â¼Â­Â¸Ã© Â´Ã™Â½Ãƒ Â´Ã‰Â·Ã‚Ã„Â¡ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´Â©Ã€Ã»ÂµÃ‡Â¾Ã® Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â¿ÃƒÂ¶Ã³Â°Â¡Â±Ã¢ Â½ÃƒÃ€Ã›Ã‡Ã‘Â´Ã™.
+        // ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§Ã€ÃŒ 100 Â¾Ã†Â·Â¡Â·Ã ÂµÂµÂ·Ã Â¶Â³Â¾Ã®ÃÂ³Â¾Ã®ÂµÂµ Â´Ã‰Â·Ã‚Ã„Â¡ ÃƒÃ‘Ã‡Ã•Ã€ÃŒ 300Ã€Â» Â³Ã‘Â¾ÃºÃ€Â» Â°Ã¦Â¿Ã¬ 300Ã€Ã‡ ÃÂ¦Ã‡Ã‘Ã€Â» Â¹ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
 
         if ( MaxDomainLevel <= SLAYER_BOUND_LEVEL && TotalAttr <= SLAYER_BOUND_ATTR_SUM )
         {
@@ -4261,14 +4261,14 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             OneAttrExpBound	= SLAYER_ONE_EXP_ATTR;			// 400
         }
 
-        // ÇöÀçÀÇ ½½·¹ÀÌ¾î ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+        // Ã‡Ã¶Ã€Ã§Ã€Ã‡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
         SLAYER_RECORD prev;
         pSlayer->getSlayerRecord(prev);
 
-        // ½Ã°£´ë¿¡ µû¶ó ¿Ã¶ó°¡´Â °æÇèÄ¡°¡ ´Ş¶óÁø´Ù.
+        // Â½ÃƒÂ°Â£Â´Ã«Â¿Â¡ ÂµÃ»Â¶Ã³ Â¿ÃƒÂ¶Ã³Â°Â¡Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´ÃÂ¶Ã³ÃÃ¸Â´Ã™.
         Damage = (Damage_t)getPercentValue(Damage, AttrExpTimebandFactor[getZoneTimeband(pSlayer->getZone())]);
 
-        // VariableManager¿¡ ÀÇÇÑ PointÁõ°¡Ä¡¸¦ °è»êÇÑ´Ù.
+        // VariableManagerÂ¿Â¡ Ã€Ã‡Ã‡Ã‘ PointÃÃµÂ°Â¡Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
         if(g_pVariableManager->getExpRatio()>100 && g_pVariableManager->getEventActivate() == 1)
             Damage = getPercentValue(Damage, g_pVariableManager->getExpRatio());
 
@@ -4276,31 +4276,31 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
         Exp_t DEXPoint = max(1, Damage * DEXMultiplier / 10);
         Exp_t INTPoint = max(1, Damage * INTMultiplier / 10);
 
-        // ÇöÀç ¼ø¼ö ´É·ÂÄ¡¸¦ ¹Ş´Â´Ù.
+        // Ã‡Ã¶Ã€Ã§ Â¼Ã¸Â¼Ã¶ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¹ÃÂ´Ã‚Â´Ã™.
         Attr_t CurSTR = pSlayer->getSTR(ATTR_BASIC);
         Attr_t CurDEX = pSlayer->getDEX(ATTR_BASIC);
         Attr_t CurINT = pSlayer->getINT(ATTR_BASIC);
         Attr_t CurSUM = CurSTR + CurDEX + CurINT;
 
-        // ´É·Â ÇÕÀÌ 200 ÀÌ»óÀÎ »ç¶÷µéÀº ¾²´Â °è¿­¿¡ µû¶ó ´É·Â¿¡ ¹Ù·Î Àû¿ë µÈ´Ù.
-        // ³ª¸ÓÁö ¹èºĞÀº ¹«½Ã ÇÏ°Ô µÈ´Ù.
-        // ÀÌ·¸°Ô µÇ¾úÀ»¶§, °è¿­·¾¿¡¸¸ ÇÁ¸® ÇÏ´Ù¸é ´É·ÂÄ¡¸¦ ¾î´ÀÁ¤µµ ÀÚÀ¯·Ó°Ô ¿Ã¸± ¼ö ÀÖ°Ô µÈ´Ù.
+        // Â´Ã‰Â·Ã‚ Ã‡Ã•Ã€ÃŒ 200 Ã€ÃŒÂ»Ã³Ã€Ã Â»Ã§Â¶Ã·ÂµÃ©Ã€Âº Â¾Â²Â´Ã‚ Â°Ã¨Â¿Â­Â¿Â¡ ÂµÃ»Â¶Ã³ Â´Ã‰Â·Ã‚Â¿Â¡ Â¹Ã™Â·Ã Ã€Ã»Â¿Ã« ÂµÃˆÂ´Ã™.
+        // Â³ÂªÂ¸Ã“ÃÃ¶ Â¹Ã¨ÂºÃÃ€Âº Â¹Â«Â½Ãƒ Ã‡ÃÂ°Ã” ÂµÃˆÂ´Ã™.
+        // Ã€ÃŒÂ·Â¸Â°Ã” ÂµÃ‡Â¾ÃºÃ€Â»Â¶Â§, Â°Ã¨Â¿Â­Â·Â¾Â¿Â¡Â¸Â¸ Ã‡ÃÂ¸Â® Ã‡ÃÂ´Ã™Â¸Ã© Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¾Ã®Â´Ã€ÃÂ¤ÂµÂµ Ã€ÃšÃ€Â¯Â·Ã“Â°Ã” Â¿ÃƒÂ¸Â± Â¼Ã¶ Ã€Ã–Â°Ã” ÂµÃˆÂ´Ã™.
         if( CurSUM >= OneAttrExpBound ) {
-            // ¾î´À ¸ÖÆ¼ÇÃ¶óÀÌ¾î°¡ °¡Àå Å«Áö Á¶»ç ÇÑ´Ù.
-            // STR Æ÷ÀÎÆ®°¡ Á¦ÀÏ Å©´Ù.
+            // Â¾Ã®Â´Ã€ Â¸Ã–Ã†Â¼Ã‡ÃƒÂ¶Ã³Ã€ÃŒÂ¾Ã®Â°Â¡ Â°Â¡Ã€Ã¥ Ã…Â«ÃÃ¶ ÃÂ¶Â»Ã§ Ã‡Ã‘Â´Ã™.
+            // STR Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ ÃÂ¦Ã€Ã Ã…Â©Â´Ã™.
             if( STRMultiplier > DEXMultiplier && STRMultiplier > INTMultiplier ) {
                 DEXPoint = 0;
                 DEXMultiplier = 0;
                 INTPoint = 0;
                 INTMultiplier = 0;
-            // DEX Æ÷ÀÎÆ®°¡ Á¦ÀÏ Å©´Ù.
+            // DEX Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ ÃÂ¦Ã€Ã Ã…Â©Â´Ã™.
             } else if ( DEXMultiplier > STRMultiplier && DEXMultiplier > INTMultiplier ) {
                 STRPoint = 0;
                 STRMultiplier = 0;
                 INTPoint = 0;
                 INTMultiplier = 0;
 
-            // INT Æ÷ÀÎÆ®°¡ Á¦ÀÏ Å©´Ù.
+            // INT Ã†Ã·Ã€ÃÃ†Â®Â°Â¡ ÃÂ¦Ã€Ã Ã…Â©Â´Ã™.
             } else if ( INTMultiplier > STRMultiplier && INTMultiplier > DEXMultiplier ) {
                 STRPoint = 0;
                 STRMultiplier = 0;
@@ -4309,31 +4309,31 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             }
         }
 
-        // Èû °æÇèÄ¡
+        // ÃˆÃ» Â°Ã¦Ã‡Ã¨Ã„Â¡
         Exp_t CurSTRGoalExp = max(0, (int)(pSlayer->getSTRGoalExp() - STRPoint     ));
-        // µ¦½º °æÇèÄ¡
+        // ÂµÂ¦Â½Âº Â°Ã¦Ã‡Ã¨Ã„Â¡
         Exp_t CurDEXGoalExp = max(0, (int)(pSlayer->getDEXGoalExp() - DEXPoint     ));
-        // ÀÎÆ® °æÇèÄ¡
+        // Ã€ÃÃ†Â® Â°Ã¦Ã‡Ã¨Ã„Â¡
         Exp_t CurINTGoalExp = max(0, (int)(pSlayer->getINTGoalExp() - INTPoint));
 
-        // STR, DEX, INT °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+        // STR, DEX, INT Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¿ÃƒÂ¸Â°Â´Ã™.
         pSlayer->setSTRGoalExp(CurSTRGoalExp);
         pSlayer->setDEXGoalExp(CurDEXGoalExp);
         pSlayer->setINTGoalExp(CurINTGoalExp);
 
         bool bInitAll = false;
 
-        // °æÇèÄ¡°¡ ´©ÀûµÇ¾î ±âº» ´É·ÂÄ¡°¡ »ó½ÂÇÒ ¶§´Ù...
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´Â©Ã€Ã»ÂµÃ‡Â¾Ã® Â±Ã¢ÂºÂ» Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡Ã’ Â¶Â§Â´Ã™...
         if ( STRMultiplier != 0 && CurSTRGoalExp == 0 && CurSTR < AttrBound )
         {
             bool isUp = true;
 
-            // ´É·ÂÄ¡ ÃÑÇÕÀÌ 200À» ³Ñ¾î°¥·Á°í ÇÏ´Â °æ¿ì.
+            // Â´Ã‰Â·Ã‚Ã„Â¡ ÃƒÃ‘Ã‡Ã•Ã€ÃŒ 200Ã€Â» Â³Ã‘Â¾Ã®Â°Â¥Â·ÃÂ°Ã­ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬.
             if (CurSTR + CurDEX + CurINT >= TotalAttrBound )
             {
                 isUp= true;
 
-                // ÈûÀÌ ¿À¸¦ °æ¿ì DEX³ª INTÁß ³ôÀº°ÍÀ» ¶³¾îÆ®¸®°í, °°À» °æ¿ì DEX¸¦ ¶³¾îÆ®¸°´Ù.
+                // ÃˆÃ»Ã€ÃŒ Â¿Ã€Â¸Â¦ Â°Ã¦Â¿Ã¬ DEXÂ³Âª INTÃÃŸ Â³Ã´Ã€ÂºÂ°ÃÃ€Â» Â¶Â³Â¾Ã®Ã†Â®Â¸Â®Â°Ã­, Â°Â°Ã€Â» Â°Ã¦Â¿Ã¬ DEXÂ¸Â¦ Â¶Â³Â¾Ã®Ã†Â®Â¸Â°Â´Ã™.
                 if (CurDEX >= CurINT)
                 {
                     decreaseDEX(pSlayer);
@@ -4348,18 +4348,18 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             {
                 StringStream  msg1;
 
-                // exp level°ú ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // exp levelÂ°Ãº Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
                 CurSTR         += 1;
                 pSlayer->setSTR(CurSTR, ATTR_BASIC);
 
-                // »õ·Î¿î ·¹º§ÀÇ STRInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+                // Â»ÃµÂ·ÃÂ¿Ã® Â·Â¹ÂºÂ§Ã€Ã‡ STRInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
                 STRBalanceInfo* pNewSTRInfo = g_pSTRBalanceInfoManager->getSTRBalanceInfo(CurSTR);
 
-                // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇØ Áà¾ß ÇÑ´Ù.
+                // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
                 Exp_t NewGoalExp = pNewSTRInfo->getGoalExp();
                 pSlayer->setSTRGoalExp(NewGoalExp);
 
-                // DB¿¡ ¿Ã¶ó°£ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+                // DBÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                 msg1 << "STR = " << (int)CurSTR << ", STRGoalExp = " << NewGoalExp;
 
                 pSlayer->tinysave(msg1.toString());
@@ -4368,17 +4368,17 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             }
         }
 
-        // °æÇèÄ¡°¡ ´©ÀûµÇ¾î ±âº» ´É·ÂÄ¡°¡ »ó½ÂÇÒ ¶§´Ù...
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´Â©Ã€Ã»ÂµÃ‡Â¾Ã® Â±Ã¢ÂºÂ» Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡Ã’ Â¶Â§Â´Ã™...
         if ( DEXMultiplier != 0 && CurDEXGoalExp == 0 && CurDEX < AttrBound )
         {
             bool isUp = true;
 
-            // ´É·ÂÄ¡ ÃÑÇÕÀÌ 200À» ³Ñ¾î°¥·Á°í ÇÏ´Â °æ¿ì.
+            // Â´Ã‰Â·Ã‚Ã„Â¡ ÃƒÃ‘Ã‡Ã•Ã€ÃŒ 200Ã€Â» Â³Ã‘Â¾Ã®Â°Â¥Â·ÃÂ°Ã­ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬.
             if (CurSTR + CurDEX + CurINT >= TotalAttrBound )
             {
                 isUp= true;
 
-                // ¹ÎÃ¸ÀÌ ¿À¸¦ °æ¿ì STR³ª INTÁß ³ôÀº°ÍÀ» ¶³¾îÆ®¸®°í, °°À» °æ¿ì STR¸¦ ¶³¾îÆ®¸°´Ù.
+                // Â¹ÃÃƒÂ¸Ã€ÃŒ Â¿Ã€Â¸Â¦ Â°Ã¦Â¿Ã¬ STRÂ³Âª INTÃÃŸ Â³Ã´Ã€ÂºÂ°ÃÃ€Â» Â¶Â³Â¾Ã®Ã†Â®Â¸Â®Â°Ã­, Â°Â°Ã€Â» Â°Ã¦Â¿Ã¬ STRÂ¸Â¦ Â¶Â³Â¾Ã®Ã†Â®Â¸Â°Â´Ã™.
                 if (CurSTR >= CurINT)
                 {
                     decreaseSTR(pSlayer);
@@ -4393,18 +4393,18 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             {
                 StringStream  msg1;
 
-                // exp level°ú ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // exp levelÂ°Ãº Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
                 CurDEX         += 1;
                 pSlayer->setDEX(CurDEX, ATTR_BASIC);
 
-                // »õ·Î¿î ·¹º§ÀÇ DEXInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+                // Â»ÃµÂ·ÃÂ¿Ã® Â·Â¹ÂºÂ§Ã€Ã‡ DEXInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
                 DEXBalanceInfo* pNewDEXInfo = g_pDEXBalanceInfoManager->getDEXBalanceInfo(CurDEX);
 
-                // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇØ Áà¾ß ÇÑ´Ù.
+                // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
                 Exp_t NewGoalExp = pNewDEXInfo->getGoalExp();
                 pSlayer->setDEXGoalExp(NewGoalExp);
 
-                // DB¿¡ ¿Ã¶ó°£ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+                // DBÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                 msg1 << "DEX = " << (int)CurDEX << ", DEXGoalExp = " << NewGoalExp;
                 pSlayer->tinysave(msg1.toString());
 
@@ -4412,17 +4412,17 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             }
         }
 
-        // °æÇèÄ¡°¡ ´©ÀûµÇ¾î ±âº» ´É·ÂÄ¡°¡ »ó½ÂÇÒ ¶§´Ù...
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´Â©Ã€Ã»ÂµÃ‡Â¾Ã® Â±Ã¢ÂºÂ» Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡Ã’ Â¶Â§Â´Ã™...
         if ( INTMultiplier != 0 && CurINTGoalExp == 0 && CurINT < AttrBound )
         {
             bool isUp = true;
 
-            // ´É·ÂÄ¡ ÃÑÇÕÀÌ 200À» ³Ñ¾î°¥·Á°í ÇÏ´Â °æ¿ì.
+            // Â´Ã‰Â·Ã‚Ã„Â¡ ÃƒÃ‘Ã‡Ã•Ã€ÃŒ 200Ã€Â» Â³Ã‘Â¾Ã®Â°Â¥Â·ÃÂ°Ã­ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬.
             if (CurSTR + CurDEX + CurINT >= TotalAttrBound )
             {
                 isUp= true;
 
-                // Áö½ÄÀÌ ¿À¸¦ °æ¿ì STR³ª DEXÁß ³ôÀº°ÍÀ» ¶³¾îÆ®¸®°í, °°À» °æ¿ì STR¸¦ ¶³¾îÆ®¸°´Ù.
+                // ÃÃ¶Â½Ã„Ã€ÃŒ Â¿Ã€Â¸Â¦ Â°Ã¦Â¿Ã¬ STRÂ³Âª DEXÃÃŸ Â³Ã´Ã€ÂºÂ°ÃÃ€Â» Â¶Â³Â¾Ã®Ã†Â®Â¸Â®Â°Ã­, Â°Â°Ã€Â» Â°Ã¦Â¿Ã¬ STRÂ¸Â¦ Â¶Â³Â¾Ã®Ã†Â®Â¸Â°Â´Ã™.
                 if (CurSTR >= CurDEX)
                 {
                     decreaseSTR(pSlayer);
@@ -4437,17 +4437,17 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             {
                 StringStream  msg1;
 
-                // exp level°ú ´É·ÂÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // exp levelÂ°Ãº Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
                 CurINT         += 1;
                 pSlayer->setINT(CurINT, ATTR_BASIC);
-                // »õ·Î¿î ·¹º§ÀÇ INTInfo¸¦ ¹Ş¾Æ¿Â´Ù.
+                // Â»ÃµÂ·ÃÂ¿Ã® Â·Â¹ÂºÂ§Ã€Ã‡ INTInfoÂ¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
                 INTBalanceInfo* pNewINTInfo = g_pINTBalanceInfoManager->getINTBalanceInfo(CurINT);
 
-                // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇØ Áà¾ß ÇÑ´Ù.
+                // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
                 Exp_t NewGoalExp = pNewINTInfo->getGoalExp();
                 pSlayer->setINTGoalExp(NewGoalExp);
 
-                // DB¿¡ ¿Ã¶ó°£ ´É·ÂÄ¡¸¦ ÀúÀåÇÑ´Ù.
+                // DBÂ¿Â¡ Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                 msg1 << "INTE = " << (int)CurINT << ", INTGoalExp = " << NewGoalExp;
 
                 pSlayer->tinysave(msg1.toString());
@@ -4456,13 +4456,13 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
             }
         }
 
-        // ÆĞÅ¶¿¡´Ù ¹Ù²ï µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÑ´Ù.
-        // ´É·ÂÄ¡°¡ ÇÕ°è Á¦ÇÑ¿¡ ÀÇÇØ ³»·Á°¥ ¼öµµ ÀÖÀ¸¹Ç·Î ¸ğµç Ã³¸®¸¦ ÇÑ µÚ º¯°æÁ¤º¸¸¦ ³Ö´Â´Ù - by Bezz
+        // Ã†ÃÃ…Â¶Â¿Â¡Â´Ã™ Â¹Ã™Â²Ã¯ ÂµÂ¥Ã€ÃŒÃ…ÃÂ¸Â¦ Ã€Ã”Â·Ã‚Ã‡Ã‘Â´Ã™.
+        // Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Ã‡Ã•Â°Ã¨ ÃÂ¦Ã‡Ã‘Â¿Â¡ Ã€Ã‡Ã‡Ã˜ Â³Â»Â·ÃÂ°Â¥ Â¼Ã¶ÂµÂµ Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã Â¸Ã°ÂµÃ§ ÃƒÂ³Â¸Â®Â¸Â¦ Ã‡Ã‘ ÂµÃš ÂºÂ¯Â°Ã¦ÃÂ¤ÂºÂ¸Â¸Â¦ Â³Ã–Â´Ã‚Â´Ã™ - by Bezz
         _ModifyInfo.addLongData(MODIFY_STR_EXP, pSlayer->getSTRGoalExp() );//CurSTRExp);
         _ModifyInfo.addLongData(MODIFY_DEX_EXP, pSlayer->getDEXGoalExp() );//CurDEXExp);
         _ModifyInfo.addLongData(MODIFY_INT_EXP, pSlayer->getINTGoalExp() );//CurINTExp);
 
-        // ¿Ã¶ó°£ °æÇèÄ¡¸¦ DB¿¡ ÀúÀåÇÑ´Ù.
+        // Â¿ÃƒÂ¶Ã³Â°Â£ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ DBÂ¿Â¡ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
         WORD AttrExpSaveCount = pSlayer->getAttrExpSaveCount();
         if (AttrExpSaveCount > ATTR_EXP_SAVE_PERIOD)
         {
@@ -4478,15 +4478,15 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
 
         pSlayer->setAttrExpSaveCount(AttrExpSaveCount);
 
-        // ±âÁ¸ÀÇ ´É·ÂÄ¡¿Í ºñ±³ÇØ¼­ º¯°æµÈ ´É·ÂÄ¡¸¦ º¸³»ÁØ´Ù.
+        // Â±Ã¢ÃÂ¸Ã€Ã‡ Â´Ã‰Â·Ã‚Ã„Â¡Â¿Ã ÂºÃ±Â±Â³Ã‡Ã˜Â¼Â­ ÂºÂ¯Â°Ã¦ÂµÃˆ Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
         if (bInitAll)
         {
             healCreatureForLevelUp(pSlayer, _ModifyInfo, &prev);
 
-            // ·¹º§¾÷ ÀÌÆåÆ®µµ º¸¿©ÁØ´Ù. by sigi. 2002.11.9
+            // Â·Â¹ÂºÂ§Â¾Ã· Ã€ÃŒÃ†Ã¥Ã†Â®ÂµÂµ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™. by sigi. 2002.11.9
             sendEffectLevelUp( pSlayer );
 
-            // ´É·ÂÄ¡ ÇÕÀÌ 40ÀÌ°í, ¾ßÀü»ç·ÉºÎÀÌ¸é µıµ¥·Î º¸³½´Ù.  by sigi. 2002.11.7
+            // Â´Ã‰Â·Ã‚Ã„Â¡ Ã‡Ã•Ã€ÃŒ 40Ã€ÃŒÂ°Ã­, Â¾ÃŸÃ€Ã¼Â»Ã§Â·Ã‰ÂºÃÃ€ÃŒÂ¸Ã© ÂµÃ½ÂµÂ¥Â·Ã ÂºÂ¸Â³Â½Â´Ã™.  by sigi. 2002.11.7
             if (g_pVariableManager->isNewbieTransportToGuild())
             {
                 checkNewbieTransportToGuild(pSlayer);
@@ -4496,39 +4496,39 @@ void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DE
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ±â¼ú °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â±Ã¢Â¼Ãº Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* pSkillSlot, SkillInfo* pSkillInfo,
                       ModifyInfo& _ModifyInfo) {
     Assert(pSlayer != NULL);
     Assert(pSkillSlot != NULL);
     Assert(pSkillInfo != NULL);
-    // Edit By Coffee 2007-4-16È¥µô¶ş×ªºó¼¼ÄÜ²»ÄÜÉı¼¶ÎÊÌâ
+    // Edit By Coffee 2007-4-16ÃˆÂ¥ÂµÃ´Â¶Ã¾Ã—ÂªÂºÃ³Â¼Â¼Ã„ÃœÂ²Â»Ã„ÃœÃ‰Ã½Â¼Â¶ÃÃŠÃŒÃ¢
     // if ( pSkillInfo->getLevel() >= 150 ) return;
     // end
 
-    // PKÁ¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
+    // PKÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pSlayer->getZoneID()))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (pSlayer->getZone() != NULL && pSlayer->getZone()->isDynamicZone())
         return;
 
-    // ¸¸¾à NewLevelÀÌ ÇöÀçÀÇ µµ¸ŞÀÎ ·¹º§¿¡¼­ ³ÑÀ» ¼ö ¾ø´Â °æ¿ì¿¡´Â °æÇèÄ¡¸¦ ¿Ã·ÁÁÖÁö ¾Ê´Â´Ù.
+    // Â¸Â¸Â¾Ã  NewLevelÃ€ÃŒ Ã‡Ã¶Ã€Ã§Ã€Ã‡ ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§Â¿Â¡Â¼Â­ Â³Ã‘Ã€Â» Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     Level_t CurrentLevel = pSkillSlot->getExpLevel();
 
-    // ÇöÀç ½½·¹ÀÌ¾îÀÇ µµ¸ŞÀÎÀ» ¹Ş¾Æ¿Â´Ù.
+    // Ã‡Ã¶Ã€Ã§ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã‡ ÂµÂµÂ¸ÃÃ€ÃÃ€Â» Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     Level_t DomainLevel = pSlayer->getSkillDomainLevel(DomainType);
 
-    // µµ¸ŞÀÎÀÇ ´Ü°è¸¦ ¹Ş¾Æ¿Â´Ù.
+    // ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â´ÃœÂ°Ã¨Â¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(DomainLevel);
 
-    // ÇöÀç ´Ü°è¿¡¼­ + 1 ÇÑ ´Ü°èÀÇ Á¦ÇÑ ·¹º§À» ¹Ş¾Æ¿Â´Ù.
+    // Ã‡Ã¶Ã€Ã§ Â´ÃœÂ°Ã¨Â¿Â¡Â¼Â­ + 1 Ã‡Ã‘ Â´ÃœÂ°Ã¨Ã€Ã‡ ÃÂ¦Ã‡Ã‘ Â·Â¹ÂºÂ§Ã€Â» Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     Level_t LimitLevel = g_pSkillInfoManager->getLimitLevelByDomainGrade(SkillGrade(Grade + 1));
 
     if (CurrentLevel < LimitLevel) {
-        // °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
         Exp_t MaxExp = pSkillInfo->getSubSkill();
         Exp_t OldExp = pSkillSlot->getExp();
         Exp_t NewExp;
@@ -4542,7 +4542,7 @@ void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* 
                 plusExp *= 2;
         }
 
-        // °æÇèÄ¡ µÎ¹è
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡ ÂµÃÂ¹Ã¨
         if (isAffectExp2X())
             plusExp *= 2;
 
@@ -4556,7 +4556,7 @@ void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* 
         ulong longData = (((ulong)pSkillSlot->getSkillType()) << 16) | (ulong)(NewExp / 10);
         _ModifyInfo.addLongData(MODIFY_SKILL_EXP, longData);
 
-        // ÄüÆÄÀÌ¾î´Â ³ªÁß¿¡ DB¸¦ ¼öÁ¤ÇØ¾ß ÇÒ °ÍÀÌ´Ù.
+        // Ã„Ã¼Ã†Ã„Ã€ÃŒÂ¾Ã®Â´Ã‚ Â³ÂªÃÃŸÂ¿Â¡ DBÂ¸Â¦ Â¼Ã¶ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã’ Â°ÃÃ€ÃŒÂ´Ã™.
         if (CurrentLevel != NewLevel) {
             pSkillSlot->setExpLevel(NewLevel);
             pSkillSlot->save();
@@ -4579,7 +4579,7 @@ void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* 
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î °è¿­ °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â°Ã¨Â¿Â­ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, ModifyInfo& _ModifyInfo,
                        Level_t EnemyLevel, int TargetNum) {
@@ -4588,11 +4588,11 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
     if (pSlayer->isAdvanced())
         return false;
 
-    // PK Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
+    // PK ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pSlayer->getZoneID()))
         return false;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (pSlayer->getZone() != NULL && pSlayer->getZone()->isDynamicZone())
         return false;
 
@@ -4624,8 +4624,8 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
 
     //	cout << "after target Point : " << Point << endl;
 
-    // ÀÌ¹Ì ÁöÁ¤µÈ domain¿¡ ¸Â´Â ¹«±â¸¦ µé°í ÀÖ´Ù°í °¡Á¤ÇÏ°í..
-    // ¹«±â type¿¡ µû¶ó¼­ SkillPoint¸¦ ´Ù¸£°Ô ÁØ´Ù.
+    // Ã€ÃŒÂ¹ÃŒ ÃÃ¶ÃÂ¤ÂµÃˆ domainÂ¿Â¡ Â¸Ã‚Â´Ã‚ Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡ÃÂ°Ã­..
+    // Â¹Â«Â±Ã¢ typeÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ SkillPointÂ¸Â¦ Â´Ã™Â¸Â£Â°Ã” ÃÃ˜Â´Ã™.
     // by sigi. 2002.10.30
     Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
     if (pWeapon != NULL) {
@@ -4635,7 +4635,7 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
     }
 
 
-    // À¯·áÈ­ Á¸¿¡¼­´Â °æÇèÄ¡¸¦ ´õ ¹Ş´Â´Ù.
+    // Ã€Â¯Â·Ã¡ÃˆÂ­ ÃÂ¸Â¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â´Ãµ Â¹ÃÂ´Ã‚Â´Ã™.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pSlayer->getPlayer());
     Assert(pGamePlayer != NULL);
 
@@ -4676,14 +4676,14 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
         }
     }
 
-    // VariableManager¿¡ ÀÇÇÑ PointÁõ°¡Ä¡¸¦ °è»êÇÑ´Ù.
+    // VariableManagerÂ¿Â¡ Ã€Ã‡Ã‡Ã‘ PointÃÃµÂ°Â¡Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     if (g_pVariableManager->getExpRatio() > 100 && g_pVariableManager->getEventActivate() == 1)
         Point = getPercentValue(Point, g_pVariableManager->getExpRatio());
 
     if (pSlayer->isFlag(Effect::EFFECT_CLASS_BONUS_EXP))
         Point *= 2;
 
-    // °æÇèÄ¡ µÎ¹è
+    // Â°Ã¦Ã‡Ã¨Ã„Â¡ ÂµÃÂ¹Ã¨
     if (isAffectExp2X())
         Point *= 2;
 
@@ -4693,9 +4693,9 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
     Exp_t NewGoalExp = 0;
     bool availiable = false;
 
-    // ÇöÀç ·¹º§¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ´ÂÁö º»´Ù.
+    // Ã‡Ã¶Ã€Ã§ Â·Â¹ÂºÂ§Â¿Â¡Â¼Â­ Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
     if (LearnSkillType != 0) {
-        // ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ°í ÀÌ¹Ì ¹è¿î »óÅÂ¶ó¸é Domain °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+        // Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â°Ã­ Ã€ÃŒÂ¹ÃŒ Â¹Ã¨Â¿Ã® Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Domain Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
         if (pSlayer->hasSkill(LearnSkillType)) {
             availiable = true;
         }
@@ -4706,64 +4706,64 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
     if (availiable) {
         bool isLevelUp = false;
 
-        // ½Ã°£´ë¿¡ µû¶ó ¿Ã¶ó°¡´Â °æÇèÄ¡°¡ ´Ş¶óÁø´Ù.
+        // Â½ÃƒÂ°Â£Â´Ã«Â¿Â¡ ÂµÃ»Â¶Ã³ Â¿ÃƒÂ¶Ã³Â°Â¡Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´ÃÂ¶Ã³ÃÃ¸Â´Ã™.
         Point = (Exp_t)getPercentValue(Point, DomainExpTimebandFactor[getZoneTimeband(pSlayer->getZone())]);
 
-        // cout << pSlayer->getName() << "¿¡°Ô " << (int)Domain << " µµ¸ŞÀÎÀÇ °æÇèÄ¡¸¦ " << Point << "¸¸Å­ Áİ´Ï´Ù." <<
+        // cout << pSlayer->getName() << "Â¿Â¡Â°Ã” " << (int)Domain << " ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ " << Point << "Â¸Â¸Ã…Â­ ÃÃÂ´ÃÂ´Ã™." <<
         // endl;
 
-        // º¸»ó¿ë ÄÚµå
+        // ÂºÂ¸Â»Ã³Â¿Ã« Ã„ÃšÂµÃ¥
         // Point = max(2, (int)getPercentValue(Point, 150));
 
-        // µµ¸ŞÀÎ ¸ñÇ¥ °æÇèÄ¡
-        // µµ¸ŞÀÎ ´©Àû °æÇèÄ¡
+        // ÂµÂµÂ¸ÃÃ€Ã Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡
+        // ÂµÂµÂ¸ÃÃ€Ã Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡
         Exp_t GoalExp = pSlayer->getGoalExp(Domain);
         //		Exp_t CurrentExp = pSlayer->getSkillDomainExp(Domain);
 
-        // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡
+        // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡
         NewGoalExp = max(0, (int)(GoalExp - Point));
 
-        // ´©Àû °æÇèÄ¡¿¡´Â ¸ñÇ¥°æÇèÄ¡°¡ ÁÙ¾îµç ¸¸Å­ ¿Ã¶ó°¡¾ß Á¤»óÀÌ´Ù.
-        // »õ·Î¿î ´©Àû °æÇèÄ¡
+        // Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡Â¿Â¡Â´Ã‚ Â¸Ã±Ã‡Â¥Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ ÃÃ™Â¾Ã®ÂµÃ§ Â¸Â¸Ã…Â­ Â¿ÃƒÂ¶Ã³Â°Â¡Â¾ÃŸ ÃÂ¤Â»Ã³Ã€ÃŒÂ´Ã™.
+        // Â»ÃµÂ·ÃÂ¿Ã® Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡
         //		Exp_t DiffExp = max(0, (int)(GoalExp - NewGoalExp));
 
         //		Exp_t NewExp = 0;
 
-        // ·¹º§ÀÌ ÃÖ°í¿¡ ´ŞÇÑ »ç¶÷ÀÌ¶óµµ °æÇèÄ¡´Â ½×ÀÎ´Ù.
+        // Â·Â¹ÂºÂ§Ã€ÃŒ ÃƒÃ–Â°Ã­Â¿Â¡ Â´ÃÃ‡Ã‘ Â»Ã§Â¶Ã·Ã€ÃŒÂ¶Ã³ÂµÂµ Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ Â½Ã—Ã€ÃÂ´Ã™.
         //		if( DiffExp == 0 && CurDomainLevel >= SLAYER_MAX_DOMAIN_LEVEL ) {
         //			NewExp  = CurrentExp + Point;
         //		} else {
         //			NewExp  = CurrentExp + DiffExp;
         //		}
 
-        // »õ·Î¿î ¸ñÇ¥ °æÇèÄ¡ ¼ÂÆÃ
-        // »õ·Î¿î ´©Àû °æÇèÄ¡ ¼ÂÆÃ
+        // Â»ÃµÂ·ÃÂ¿Ã® Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡ Â¼Ã‚Ã†Ãƒ
+        // Â»ÃµÂ·ÃÂ¿Ã® Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡ Â¼Ã‚Ã†Ãƒ
         pSlayer->setGoalExp(Domain, NewGoalExp);
         //		pSlayer->setSkillDomainExp(Domain, NewExp);
 
-        // cout << "³²Àº °æÇèÄ¡´Â " << NewGoalExp << endl;
+        // cout << "Â³Â²Ã€Âº Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ " << NewGoalExp << endl;
 
-        // ¸ñÇ¥ °æÇèÄ¡°¡ 0 ÀÌ¶ó¸é, ·¹º§¾÷À» ÇÒ ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÑ´Ù.
+        // Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ 0 Ã€ÃŒÂ¶Ã³Â¸Ã©, Â·Â¹ÂºÂ§Â¾Ã·Ã€Â» Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã³Ã…Ã‚Ã€ÃÂ°Â¡Â¸Â¦ Â°Ã‹Â»Ã§Ã‡Ã‘Â´Ã™.
         if (NewGoalExp == 0 && CurDomainLevel != SLAYER_MAX_DOMAIN_LEVEL) {
-            // µµ¸ŞÀÎ ·¹º§À» ¿Ã·ÁÁÖ°í, ±×¿¡ µû¸¥ ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù¸é ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù´Â °ÍÀ» ¾Ë·ÁÁØ´Ù.
+            // ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§Ã€Â» Â¿ÃƒÂ·ÃÃÃ–Â°Ã­, Â±Ã—Â¿Â¡ ÂµÃ»Â¸Â¥ Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â´Ã‚ Â°ÃÃ€Â» Â¾Ã‹Â·ÃÃÃ˜Â´Ã™.
             NewDomainLevel = CurDomainLevel + 1;
 
-            // µµ¸ŞÀÎ ÀÎÆ÷ ¸Ş´ÏÁ®¸¦ ¸¸µé¾î¼­ ¸ñÇ¥ °æÇèÄ¡¸¦ ¼ÂÆÃÇÏ°í ·¹º§À» Àç ¼³Á¤ ÇÑ´Ù.
+            // ÂµÂµÂ¸ÃÃ€Ã Ã€ÃÃ†Ã· Â¸ÃÂ´ÃÃÂ®Â¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã®Â¼Â­ Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡ÃÂ°Ã­ Â·Â¹ÂºÂ§Ã€Â» Ã€Ã§ Â¼Â³ÃÂ¤ Ã‡Ã‘Â´Ã™.
             NewGoalExp = g_pSkillDomainInfoManager->getDomainInfo((SkillDomain)Domain, NewDomainLevel)->getGoalExp();
 
             pSlayer->setGoalExp(Domain, NewGoalExp);
             pSlayer->setSkillDomainLevel(Domain, NewDomainLevel);
 
-            // cout << "·¹º§¾÷ÇØ¼­ ³²Àº °æÇèÄ¡´Â " << NewGoalExp << endl;
+            // cout << "Â·Â¹ÂºÂ§Â¾Ã·Ã‡Ã˜Â¼Â­ Â³Â²Ã€Âº Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ " << NewGoalExp << endl;
 
             SkillType_t NewLearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(Domain, NewDomainLevel);
 
-            // ÇöÀç ·¹º§¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ´ÂÁö º»´Ù.
+            // Ã‡Ã¶Ã€Ã§ Â·Â¹ÂºÂ§Â¿Â¡Â¼Â­ Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶ ÂºÂ»Â´Ã™.
             if (NewLearnSkillType != 0) {
-                // ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ°í ÀÌ¹Ì ¹è¿ìÁö ¾ÊÀº »óÅÂ¶ó¸é ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù´Â ÆĞÅ¶À» ³¯¸°´Ù.
+                // Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â°Ã­ Ã€ÃŒÂ¹ÃŒ Â¹Ã¨Â¿Ã¬ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â´Ã‚ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
                 if (pSlayer->hasSkill(NewLearnSkillType) == NULL) {
-                    // GCLearnSkillReadyÀÇ m_SkillType¿¡ level upµÈ µµ¸ŞÀÎÀÇ °¡Àå ÃÖ±Ù
-                    // ±â¼úÀ» ´ëÀÔÇÑ´Ù. Áï, Å¬¶óÀÌ¾ğÆ® ±× ´ÙÀ½ ½ºÅ³À» ¹è¿ï¼ö ÀÖ´Ù...
+                    // GCLearnSkillReadyÃ€Ã‡ m_SkillTypeÂ¿Â¡ level upÂµÃˆ ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â°Â¡Ã€Ã¥ ÃƒÃ–Â±Ã™
+                    // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã«Ã€Ã”Ã‡Ã‘Â´Ã™. ÃÃ¯, Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â® Â±Ã— Â´Ã™Ã€Â½ Â½ÂºÃ…Â³Ã€Â» Â¹Ã¨Â¿Ã¯Â¼Ã¶ Ã€Ã–Â´Ã™...
                     GCLearnSkillReady readyPacket;
                     readyPacket.setSkillDomainType((SkillDomainType_t)Domain);
                     // send packet
@@ -4772,7 +4772,7 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
             }
 
             isLevelUp = true;
-            // cout << "·¹º§¾÷ ÇÒ ¼ö ÀÖ½À´Ï´Ù." << endl;
+            // cout << "Â·Â¹ÂºÂ§Â¾Ã· Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â½Ã€Â´ÃÂ´Ã™." << endl;
         }
 
         /*		if (DiffExp != 0)
@@ -4790,8 +4790,8 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
 
         Level_t DomainLevelSum = pSlayer->getSkillDomainLevelSum();
 
-        // ·¹º§¾÷ÀÌ µÇ¾úÀ» °æ¿ì, µµ¸ŞÀÎ ÃÑÇÕÀÌ 100À» ³Ñ´Â´Ù¸é ÇöÀç µµ¸ŞÀÎÀ» Á¦¿ÜÇÑ
-        // µµ¸ŞÀÎ Áß¿¡¼­ °¡Àå ³ôÀº µµ¸ŞÀÎ ·¹º§À» ¶³¾î¶ß·Á¾ß ÇÑ´Ù.
+        // Â·Â¹ÂºÂ§Â¾Ã·Ã€ÃŒ ÂµÃ‡Â¾ÃºÃ€Â» Â°Ã¦Â¿Ã¬, ÂµÂµÂ¸ÃÃ€Ã ÃƒÃ‘Ã‡Ã•Ã€ÃŒ 100Ã€Â» Â³Ã‘Â´Ã‚Â´Ã™Â¸Ã© Ã‡Ã¶Ã€Ã§ ÂµÂµÂ¸ÃÃ€ÃÃ€Â» ÃÂ¦Â¿ÃœÃ‡Ã‘
+        // ÂµÂµÂ¸ÃÃ€Ã ÃÃŸÂ¿Â¡Â¼Â­ Â°Â¡Ã€Ã¥ Â³Ã´Ã€Âº ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§Ã€Â» Â¶Â³Â¾Ã®Â¶ÃŸÂ·ÃÂ¾ÃŸ Ã‡Ã‘Â´Ã™.
         if (isLevelUp && DomainLevelSum > SLAYER_MAX_DOMAIN_LEVEL) {
             SDomain ds[SKILL_DOMAIN_VAMPIRE];
 
@@ -4800,10 +4800,10 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
                 ds[i].DomainLevel = pSlayer->getSkillDomainLevel((SkillDomain)i);
             }
 
-            // ÇöÁ¦ µµ¸ŞÀÎÀ» Á¦¿ÜÇÑ °¡Àå Å« ¼ıÀÚ¸¦ Ã£´Â´Ù.
+            // Ã‡Ã¶ÃÂ¦ ÂµÂµÂ¸ÃÃ€ÃÃ€Â» ÃÂ¦Â¿ÃœÃ‡Ã‘ Â°Â¡Ã€Ã¥ Ã…Â« Â¼Ã½Ã€ÃšÂ¸Â¦ ÃƒÂ£Â´Ã‚Â´Ã™.
             stable_sort(ds, ds + SKILL_DOMAIN_VAMPIRE, isBig());
 
-            // ¼ÒÆÃÀ» ÇÏ°í ³­ ´ÙÀ½ Á¦ÀÏ À§¿¡ ÀÖ´Â ½ºÆ®·°ÃÄ°¡ °¡Àå ³ôÀº ·¹º§À» °¡Áö°í ÀÖ´Â µµ¸ŞÀÎÀÌ´Ù.
+            // Â¼Ã’Ã†ÃƒÃ€Â» Ã‡ÃÂ°Ã­ Â³Â­ Â´Ã™Ã€Â½ ÃÂ¦Ã€Ã Ã€Â§Â¿Â¡ Ã€Ã–Â´Ã‚ Â½ÂºÃ†Â®Â·Â°ÃƒÃ„Â°Â¡ Â°Â¡Ã€Ã¥ Â³Ã´Ã€Âº Â·Â¹ÂºÂ§Ã€Â» Â°Â¡ÃÃ¶Â°Ã­ Ã€Ã–Â´Ã‚ ÂµÂµÂ¸ÃÃ€ÃÃ€ÃŒÂ´Ã™.
             int j = 0;
             while (ds[j].DomainType == Domain) {
                 j++;
@@ -4813,38 +4813,38 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
                 }
             }
 
-            // °á±¹ ds[j]ÀÇ °ªÀº ÇöÀç µµ¸ŞÀÎ°ú °°Áö ¾ÊÀº °¡Àå ³ôÀº ·¹º§ÀÇ µµ¸ŞÀÎÀÌ´Ù.
+            // Â°Ã¡Â±Â¹ ds[j]Ã€Ã‡ Â°ÂªÃ€Âº Ã‡Ã¶Ã€Ã§ ÂµÂµÂ¸ÃÃ€ÃÂ°Ãº Â°Â°ÃÃ¶ Â¾ÃŠÃ€Âº Â°Â¡Ã€Ã¥ Â³Ã´Ã€Âº Â·Â¹ÂºÂ§Ã€Ã‡ ÂµÂµÂ¸ÃÃ€ÃÃ€ÃŒÂ´Ã™.
             SkillDomainType_t DownDomainType = ds[j].DomainType;
             Level_t DownDomainLevel = ds[j].DomainLevel;
 
-            // cout << (int)DownDomainType << "µµ¸ŞÀÎÀÇ µµ¸ŞÀÎ ·¹º§À» ³·Ãä´Ï´Ù." << endl;
+            // cout << (int)DownDomainType << "ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§Ã€Â» Â³Â·ÃƒÃ¤Â´ÃÂ´Ã™." << endl;
 
-            // ÇöÀç µµ¸ŞÀÎ¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ´Ù¸é Disable ½ÃÅ²´Ù.
+            // Ã‡Ã¶Ã€Ã§ ÂµÂµÂ¸ÃÃ€ÃÂ¿Â¡Â¼Â­ Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© Disable Â½ÃƒÃ…Â²Â´Ã™.
             SkillType_t eraseSkillType = g_pSkillInfoManager->getSkillTypeByLevel(DownDomainType, DownDomainLevel);
             SkillSlot* pESkillSlot = pSlayer->hasSkill(eraseSkillType);
             if (pESkillSlot != NULL) {
                 pESkillSlot->setDisable();
             }
 
-            // µµ¸ŞÀÎÀÇ ·¹º§À» ¶³¾îÆ®¸°´Ù.
+            // ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â·Â¹ÂºÂ§Ã€Â» Â¶Â³Â¾Ã®Ã†Â®Â¸Â°Â´Ã™.
             DownDomainLevel--;
 
-            // ´Ù¿î µµ¸ŞÀÎÀÇ ·¹º§À» ¼ÂÆÃÇÑ´Ù.
+            // Â´Ã™Â¿Ã® ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â·Â¹ÂºÂ§Ã€Â» Â¼Ã‚Ã†ÃƒÃ‡Ã‘Â´Ã™.
             pSlayer->setSkillDomainLevel(DownDomainType, DownDomainLevel);
 
-            // ´Ù¿î µµ¸ŞÀÎÀÇ ¸ñÇ¥ °æÇèÄ¡¸¦ Ã£¾Æ¿Â´Ù.
-            // ´Ù¿î µµ¸ŞÀÎÀÇ ´©Àû °æÇèÄ¡¸¦ Ã£¾Æ¿Â´Ù.
+            // Â´Ã™Â¿Ã® ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃƒÂ£Â¾Ã†Â¿Ã‚Â´Ã™.
+            // Â´Ã™Â¿Ã® ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃƒÂ£Â¾Ã†Â¿Ã‚Â´Ã™.
             Exp_t DownDomainGoalExp =
                 g_pSkillDomainInfoManager->getDomainInfo((SkillDomain)DownDomainType, DownDomainLevel)->getGoalExp();
             //			Exp_t DownDomainSumExp  = g_pSkillDomainInfoManager->getDomainInfo((SkillDomain)DownDomainType,
             // DownDomainLevel)->getAccumExp();
 
-            // ´Ù¿î ±×·¹ÀÌµåµÈ ¸ñÇ¥ °æÇèÄ¡·Î Àç ¼ÂÆÃÇÑ´Ù.
-            // ´Ù¿î ±×·¹ÀÌµå µÇ¾úÀ¸¹Ç·Î ±× ·¹º§¿¡ ¸Â´Â µµ¸ŞÀÎ °æÇèÄ¡¸¦ ¼ÂÆÃÇÑ´Ù.
+            // Â´Ã™Â¿Ã® Â±Ã—Â·Â¹Ã€ÃŒÂµÃ¥ÂµÃˆ Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â·Ã Ã€Ã§ Â¼Ã‚Ã†ÃƒÃ‡Ã‘Â´Ã™.
+            // Â´Ã™Â¿Ã® Â±Ã—Â·Â¹Ã€ÃŒÂµÃ¥ ÂµÃ‡Â¾ÃºÃ€Â¸Â¹Ã‡Â·Ã Â±Ã— Â·Â¹ÂºÂ§Â¿Â¡ Â¸Ã‚Â´Ã‚ ÂµÂµÂ¸ÃÃ€Ã Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¼Ã‚Ã†ÃƒÃ‡Ã‘Â´Ã™.
             pSlayer->setGoalExp(DownDomainType, DownDomainGoalExp);
             //			pSlayer->setSkillDomainExp(DownDomainType, DownDomainSumExp);
-            // cout << "·¹º§ : " << (int)DownDomainLevel << endl;
-            // cout << "³²Àº°æÇèÄ¡ : " << (int)DownDomainGoalExp << endl;
+            // cout << "Â·Â¹ÂºÂ§ : " << (int)DownDomainLevel << endl;
+            // cout << "Â³Â²Ã€ÂºÂ°Ã¦Ã‡Ã¨Ã„Â¡ : " << (int)DownDomainGoalExp << endl;
 
             StringStream DownSave;
             if (DownDomainType == SKILL_DOMAIN_BLADE) {
@@ -4873,7 +4873,7 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
             } else {
             }
 
-            // ¶³¾î¶ß¸° µµ¸ŞÀÎ ·¹º§À» ¼¼ÀÌºêÇÑ´Ù.
+            // Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â° ÂµÂµÂ¸ÃÃ€Ã Â·Â¹ÂºÂ§Ã€Â» Â¼Â¼Ã€ÃŒÂºÃªÃ‡Ã‘Â´Ã™.
             pSlayer->tinysave(DownSave.toString());
         }
 
@@ -4984,10 +4984,10 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
         } else {
         }
 
-        // GrandMasterÀÎ °æ¿ì´Â Effect¸¦ ºÙ¿©ÁØ´Ù.
+        // GrandMasterÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ EffectÂ¸Â¦ ÂºÃ™Â¿Â©ÃÃ˜Â´Ã™.
         // by sigi. 2002.11.8
         if (isLevelUp && DomainLevelSum >= GRADE_GRAND_MASTER_LIMIT_LEVEL) {
-            // ÇÏ³ª°¡ 100·¾ ³Ñ°í ¾ÆÁ÷ Effect°¡ ¾È ºÙ¾îÀÖ´Ù¸é..
+            // Ã‡ÃÂ³ÂªÂ°Â¡ 100Â·Â¾ Â³Ã‘Â°Ã­ Â¾Ã†ÃÃ· EffectÂ°Â¡ Â¾Ãˆ ÂºÃ™Â¾Ã®Ã€Ã–Â´Ã™Â¸Ã©..
             if (pSlayer->getHighestSkillDomainLevel() >= GRADE_GRAND_MASTER_LIMIT_LEVEL &&
                 !pSlayer->isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER)) {
                 EffectGrandMasterSlayer* pEffect = new EffectGrandMasterSlayer(pSlayer);
@@ -4995,7 +4995,7 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
 
                 pSlayer->getEffectManager()->addEffect(pEffect);
 
-                // affect()¾È¿¡¼­.. Flag°É¾îÁÖ°í, ÁÖÀ§¿¡ broadcastµµ ÇØÁØ´Ù.
+                // affect()Â¾ÃˆÂ¿Â¡Â¼Â­.. FlagÂ°Ã‰Â¾Ã®ÃÃ–Â°Ã­, ÃÃ–Ã€Â§Â¿Â¡ broadcastÂµÂµ Ã‡Ã˜ÃÃ˜Â´Ã™.
                 pEffect->affect();
             } else if (pSlayer->getHighestSkillDomainLevel() == 130 || pSlayer->getHighestSkillDomainLevel() == 150) {
                 Effect* pEffect = pSlayer->findEffect(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER);
@@ -5006,20 +5006,20 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
 
         pSlayer->setDomainExpSaveCount(DomainExpSaveCount);
 
-        // ¹º°¡ ·¹º§¾÷Çß´Ù¸é Ã¼·ÂÀ» Ã¼¿öÁØ´Ù.
+        // Â¹ÂºÂ°Â¡ Â·Â¹ÂºÂ§Â¾Ã·Ã‡ÃŸÂ´Ã™Â¸Ã© ÃƒÂ¼Â·Ã‚Ã€Â» ÃƒÂ¼Â¿Ã¶ÃÃ˜Â´Ã™.
         if (isLevelUp) {
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             healCreatureForLevelUp(pSlayer, _ModifyInfo, &prev);
 
-            // ·¹º§¾÷ ÀÌÆåÆ®µµ º¸¿©ÁØ´Ù. by sigi. 2002.11.9
+            // Â·Â¹ÂºÂ§Â¾Ã· Ã€ÃŒÃ†Ã¥Ã†Â®ÂµÂµ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™. by sigi. 2002.11.9
             sendEffectLevelUp(pSlayer);
 
             checkFreeLevelLimit(pSlayer);
             pSlayer->whenQuestLevelUpgrade();
 
-            // cout << "·¹º§¾÷ÇØ¼­ ÀÌÆåÆ®µµ Âï¾îÁá½À´Ï´Ù." << endl;
+            // cout << "Â·Â¹ÂºÂ§Â¾Ã·Ã‡Ã˜Â¼Â­ Ã€ÃŒÃ†Ã¥Ã†Â®ÂµÂµ Ã‚Ã¯Â¾Ã®ÃÃ¡Â½Ã€Â´ÃÂ´Ã™." << endl;
         }
     }
 
@@ -5027,7 +5027,7 @@ bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Point, M
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
     Assert(pVampire != NULL);
@@ -5036,32 +5036,32 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
     if (pVampire->isAdvanced())
         return;
 
-    // ¹ÚÁã »óÅÂÀÏ¶§´Â °æÇèÄ¡¸¦ È¹µæÇÏÁö ¸øÇÑ´Ù.
+    // Â¹ÃšÃÃ£ Â»Ã³Ã…Ã‚Ã€ÃÂ¶Â§Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃˆÂ¹ÂµÃ¦Ã‡ÃÃÃ¶ Â¸Ã¸Ã‡Ã‘Â´Ã™.
     if (pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ¾È ¿Ã·ÁÁØ´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¾Ãˆ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     if (pVampire->getZone() != NULL && pVampire->getZone()->isDynamicZone())
         return;
 
     Level_t curLevel = pVampire->getLevel();
 
-    // VariableManager¿¡ ÀÇÇÑ Áõ°¡
+    // VariableManagerÂ¿Â¡ Ã€Ã‡Ã‡Ã‘ ÃÃµÂ°Â¡
     if (g_pVariableManager->getExpRatio() > 100 && g_pVariableManager->getEventActivate() == 1)
         Point = getPercentValue(Point, g_pVariableManager->getExpRatio());
 
     if (pVampire->isFlag(Effect::EFFECT_CLASS_BONUS_EXP))
         Point *= 2;
 
-    // °æÇèÄ¡ µÎ¹è
+    // Â°Ã¦Ã‡Ã¨Ã„Â¡ ÂµÃÂ¹Ã¨
     if (isAffectExp2X())
         Point *= 2;
 
-    // cout << pVampire->getName() << " ¿¡°Ô " << Point << "¸¸Å­ °æÇèÄ¡¸¦ Áİ´Ï´Ù." << endl;
+    // cout << pVampire->getName() << " Â¿Â¡Â°Ã” " << Point << "Â¸Â¸Ã…Â­ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃÂ´ÃÂ´Ã™." << endl;
 
     /*	if (curLevel >= VAMPIRE_MAX_LEVEL)
         {
-            // ·¹º§ ÇÑ°è¿¡ µµ´ŞÇØµµ °æÇèÄ¡´Â ½×°Ô ÇØÁØ´Ù.
+            // Â·Â¹ÂºÂ§ Ã‡Ã‘Â°Ã¨Â¿Â¡ ÂµÂµÂ´ÃÃ‡Ã˜ÂµÂµ Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ Â½Ã—Â°Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
             // by sigi. 2002.8.31
             Exp_t NewExp = pVampire->getExp() + Point;
 
@@ -5087,7 +5087,7 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
     Exp_t OldGoalExp = pVampire->getGoalExp();
     Exp_t NewGoalExp = max(0, (int)(OldGoalExp - Point));
 
-    // ´©Àû °æÇèÄ¡¿¡´Â ¸ñÇ¥ °æÇèÄ¡°¡ ÁÙ¾îµç ¸¸Å­ ÇÃ·¯½º ÇÏ¿©¾ß ÇÑ´Ù.
+    // Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡Â¿Â¡Â´Ã‚ Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ ÃÃ™Â¾Ã®ÂµÃ§ Â¸Â¸Ã…Â­ Ã‡ÃƒÂ·Â¯Â½Âº Ã‡ÃÂ¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     //	Exp_t DiffGoalExp = max(0, (int)(OldGoalExp - NewGoalExp));
     //	Exp_t NewExp      = OldExp + DiffGoalExp;
 
@@ -5096,14 +5096,14 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
     //	_ModifyInfo.addLongData(MODIFY_VAMP_GOAL_EXP, NewGoalExp);
 
-    // ¸ñÇ¥ °æÇèÄ¡°¡ 0ÀÌ ¾Æ´Ï°Å³ª, ÇöÀç ·¹º§ÀÌ 115 ÀÌ»óÀÌ¶ó¸é °æÇèÄ¡¸¸ ÀúÀåÇÏ°í,
-    // ·¹º§Àº ¿Ã¶ó°¡Áö ¾Ê´Â´Ù.
+    // Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ 0Ã€ÃŒ Â¾Ã†Â´ÃÂ°Ã…Â³Âª, Ã‡Ã¶Ã€Ã§ Â·Â¹ÂºÂ§Ã€ÃŒ 115 Ã€ÃŒÂ»Ã³Ã€ÃŒÂ¶Ã³Â¸Ã© Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¸ Ã€ÃºÃ€Ã¥Ã‡ÃÂ°Ã­,
+    // Â·Â¹ÂºÂ§Ã€Âº Â¿ÃƒÂ¶Ã³Â°Â¡ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     /*	if (NewGoalExp > 0 || curLevel >= 115)
         {
             WORD ExpSaveCount = pVampire->getExpSaveCount();
 
-            // °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ®°¡ ÀÏÁ¤ ¼öÄ¡¿¡ ´Ù´Ù¸£¸é ¼¼ÀÌºêÇÏ°í,
-            // Ä«¿îÆ®¸¦ ÃÊ±âÈ­½ÃÄÑ ÁØ´Ù.
+            // Â°Ã¦Ã‡Ã¨Ã„Â¡ Â¼Â¼Ã€ÃŒÂºÃª Ã„Â«Â¿Ã®Ã†Â®Â°Â¡ Ã€ÃÃÂ¤ Â¼Ã¶Ã„Â¡Â¿Â¡ Â´Ã™Â´Ã™Â¸Â£Â¸Ã© Â¼Â¼Ã€ÃŒÂºÃªÃ‡ÃÂ°Ã­,
+            // Ã„Â«Â¿Ã®Ã†Â®Â¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â½ÃƒÃ„Ã‘ ÃÃ˜Â´Ã™.
             if (ExpSaveCount > VAMPIRE_EXP_SAVE_PERIOD)
             {
                 StringStream attrsave;
@@ -5116,16 +5116,16 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
             pVampire->setExpSaveCount(ExpSaveCount);
         }
-        // ¸ñÇ¥ °æÇèÄ¡°¡ 0 ÀÌ¶ó¸é ·¹º§ ¾÷ÀÌ´Ù.
+        // Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ 0 Ã€ÃŒÂ¶Ã³Â¸Ã© Â·Â¹ÂºÂ§ Â¾Ã·Ã€ÃŒÂ´Ã™.
         else*/
     if (NewGoalExp > 0 || curLevel == VAMPIRE_MAX_LEVEL) {
         _ModifyInfo.addLongData(MODIFY_VAMP_GOAL_EXP, NewGoalExp);
         WORD ExpSaveCount = pVampire->getExpSaveCount();
 
-        // °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ®°¡ ÀÏÁ¤ ¼öÄ¡¿¡ ´Ù´Ù¸£¸é ¼¼ÀÌºêÇÏ°í,
-        // Ä«¿îÆ®¸¦ ÃÊ±âÈ­½ÃÄÑ ÁØ´Ù.
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡ Â¼Â¼Ã€ÃŒÂºÃª Ã„Â«Â¿Ã®Ã†Â®Â°Â¡ Ã€ÃÃÂ¤ Â¼Ã¶Ã„Â¡Â¿Â¡ Â´Ã™Â´Ã™Â¸Â£Â¸Ã© Â¼Â¼Ã€ÃŒÂºÃªÃ‡ÃÂ°Ã­,
+        // Ã„Â«Â¿Ã®Ã†Â®Â¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â½ÃƒÃ„Ã‘ ÃÃ˜Â´Ã™.
         if (ExpSaveCount > VAMPIRE_EXP_SAVE_PERIOD) {
-            // cout << "°æÇèÄ¡¸¦ ÀúÀåÇÕ´Ï´Ù." << endl;
+            // cout << "Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã•Â´ÃÂ´Ã™." << endl;
 
             StringStream attrsave;
             //			attrsave << "Exp = " << NewExp << ", GoalExp = " << NewGoalExp;
@@ -5138,8 +5138,8 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
         pVampire->setExpSaveCount(ExpSaveCount);
     } else {
-        // cout << "·¹º§ÀÌ ¿Ã¶ú½À´Ï´Ù." << endl;
-        //  ·¹º§ ¾÷!!
+        // cout << "Â·Â¹ÂºÂ§Ã€ÃŒ Â¿ÃƒÂ¶ÃºÂ½Ã€Â´ÃÂ´Ã™." << endl;
+        //  Â·Â¹ÂºÂ§ Â¾Ã·!!
         VAMPIRE_RECORD prev;
         pVampire->getVampireRecord(prev);
 
@@ -5154,8 +5154,8 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
         //		if ((pVampire->getSTR(ATTR_BASIC) + pVampire->getDEX(ATTR_BASIC) + pVampire->getINT(ATTR_BASIC) +
         // pVampire->getBonus() - 60) < ((pVampire->getLevel() - 1) * 3))
         {
-            // ·¹º§¿¡ »ó°üÄ¡ ¾Ê°í, ¹«Á¶°Ç 3À¸·Î º¯°æµÇ¾ú´Ù.
-            // 2001.12.12 ±è¼º¹Î
+            // Â·Â¹ÂºÂ§Â¿Â¡ Â»Ã³Â°Ã¼Ã„Â¡ Â¾ÃŠÂ°Ã­, Â¹Â«ÃÂ¶Â°Ã‡ 3Ã€Â¸Â·Ã ÂºÂ¯Â°Ã¦ÂµÃ‡Â¾ÃºÂ´Ã™.
+            // 2001.12.12 Â±Ã¨Â¼ÂºÂ¹Ã
             bonus += 3;
         }
 
@@ -5168,7 +5168,7 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
         pVampire->setGoalExp(NextGoalExp);
         _ModifyInfo.addLongData(MODIFY_VAMP_GOAL_EXP, NextGoalExp);
-        // cout << "³²Àº °æÇèÄ¡´Â " << NextGoalExp << " ÀÔ´Ï´Ù." << endl;
+        // cout << "Â³Â²Ã€Âº Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ " << NextGoalExp << " Ã€Ã”Â´ÃÂ´Ã™." << endl;
 
         StringStream sav;
         sav << "Level = "
@@ -5177,13 +5177,13 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
             << ",GoalExp = " << (int)NextGoalExp << ",Bonus = " << (int)bonus;
         pVampire->tinysave(sav.toString());
 
-        // ·¹º§ÀÌ ¿Ã¶ó¼­ »õ·Î ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ »ı°å´Ù¸é ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù°í ¾Ë¸°´Ù.
+        // Â·Â¹ÂºÂ§Ã€ÃŒ Â¿ÃƒÂ¶Ã³Â¼Â­ Â»ÃµÂ·Ã Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â»Ã½Â°Ã¥Â´Ã™Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â°Ã­ Â¾Ã‹Â¸Â°Â´Ã™.
         SkillType_t NewLearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(SKILL_DOMAIN_VAMPIRE, curLevel);
         if (NewLearnSkillType != 0) {
-            // ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ°í ÀÌ¹Ì ¹è¿ìÁö ¾ÊÀº »óÅÂ¶ó¸é ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù´Â ÆĞÅ¶À» ³¯¸°´Ù.
+            // Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â°Ã­ Ã€ÃŒÂ¹ÃŒ Â¹Ã¨Â¿Ã¬ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â´Ã‚ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
             if (pVampire->hasSkill(NewLearnSkillType) == NULL) {
-                // GCLearnSkillReadyÀÇ m_SkillType¿¡ level upµÈ µµ¸ŞÀÎÀÇ °¡Àå ÃÖ±Ù
-                // ±â¼úÀ» ´ëÀÔÇÑ´Ù. Áï, Å¬¶óÀÌ¾ğÆ® ±× ´ÙÀ½ ½ºÅ³À» ¹è¿ï¼ö ÀÖ´Ù...
+                // GCLearnSkillReadyÃ€Ã‡ m_SkillTypeÂ¿Â¡ level upÂµÃˆ ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â°Â¡Ã€Ã¥ ÃƒÃ–Â±Ã™
+                // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã«Ã€Ã”Ã‡Ã‘Â´Ã™. ÃÃ¯, Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â® Â±Ã— Â´Ã™Ã€Â½ Â½ÂºÃ…Â³Ã€Â» Â¹Ã¨Â¿Ã¯Â¼Ã¶ Ã€Ã–Â´Ã™...
                 GCLearnSkillReady readyPacket;
                 readyPacket.setSkillDomainType(SKILL_DOMAIN_VAMPIRE);
                 pVampire->getPlayer()->sendPacket(&readyPacket);
@@ -5192,17 +5192,17 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
         healCreatureForLevelUp(pVampire, _ModifyInfo, &prev);
 
-        // ·¹º§¾÷ ÀÌÆåÆ®µµ º¸¿©ÁØ´Ù. by sigi. 2002.11.9
+        // Â·Â¹ÂºÂ§Â¾Ã· Ã€ÃŒÃ†Ã¥Ã†Â®ÂµÂµ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™. by sigi. 2002.11.9
         sendEffectLevelUp(pVampire);
 
         // by sigi. 2002.11.19
-        // À¯·á »ç¿ëÀÚ°¡ ¾Æ´Ï°Å³ª
-        // ¹«·á »ç¿ë±â°£ÀÌ ³²¾ÆÀÖÁö ¾ÊÀ¸¸é(È¤Àº ´É·ÂÄ¡ over) Â¥¸¥´Ù.
+        // Ã€Â¯Â·Ã¡ Â»Ã§Â¿Ã«Ã€ÃšÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã…Â³Âª
+        // Â¹Â«Â·Ã¡ Â»Ã§Â¿Ã«Â±Ã¢Â°Â£Ã€ÃŒ Â³Â²Â¾Ã†Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Â¸Â¸Ã©(ÃˆÂ¤Ã€Âº Â´Ã‰Â·Ã‚Ã„Â¡ over) Ã‚Â¥Â¸Â¥Â´Ã™.
         checkFreeLevelLimit(pVampire);
         pVampire->whenQuestLevelUpgrade();
 
-        // GrandMasterÀÎ °æ¿ì´Â Effect¸¦ ºÙ¿©ÁØ´Ù.
-        // 100·¾ ³Ñ°í ¾ÆÁ÷ Effect°¡ ¾È ºÙ¾îÀÖ´Ù¸é..
+        // GrandMasterÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ EffectÂ¸Â¦ ÂºÃ™Â¿Â©ÃÃ˜Â´Ã™.
+        // 100Â·Â¾ Â³Ã‘Â°Ã­ Â¾Ã†ÃÃ· EffectÂ°Â¡ Â¾Ãˆ ÂºÃ™Â¾Ã®Ã€Ã–Â´Ã™Â¸Ã©..
         // by sigi. 2002.11.9
         if (curLevel >= GRADE_GRAND_MASTER_LIMIT_LEVEL &&
             !pVampire->isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE)) {
@@ -5211,7 +5211,7 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
             pVampire->getEffectManager()->addEffect(pEffect);
 
-            // affect()¾È¿¡¼­.. Flag°É¾îÁÖ°í, ÁÖÀ§¿¡ broadcastµµ ÇØÁØ´Ù.
+            // affect()Â¾ÃˆÂ¿Â¡Â¼Â­.. FlagÂ°Ã‰Â¾Ã®ÃÃ–Â°Ã­, ÃÃ–Ã€Â§Â¿Â¡ broadcastÂµÂµ Ã‡Ã˜ÃÃ˜Â´Ã™.
             pEffect->affect();
         } else if (curLevel == 130 || curLevel == 150) {
             Effect* pEffect = pVampire->findEffect(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE);
@@ -5223,7 +5223,7 @@ void increaseVampExp(Vampire* pVampire, Exp_t Point, ModifyInfo& _ModifyInfo) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo) {
     Assert(pOusters != NULL);
@@ -5234,29 +5234,29 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
 
     Level_t curLevel = pOusters->getLevel();
 
-    // ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ¾È ¿Ã·ÁÁØ´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¾Ãˆ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
     if (pOusters->getZone() != NULL && pOusters->getZone()->isDynamicZone())
         return;
 
-    // VariableManager¿¡ ÀÇÇÑ Áõ°¡
+    // VariableManagerÂ¿Â¡ Ã€Ã‡Ã‡Ã‘ ÃÃµÂ°Â¡
     if (g_pVariableManager->getExpRatio() > 100 && g_pVariableManager->getEventActivate() == 1)
         Point = getPercentValue(Point, g_pVariableManager->getExpRatio());
 
     if (pOusters->isFlag(Effect::EFFECT_CLASS_BONUS_EXP))
         Point *= 2;
 
-    // °æÇèÄ¡ µÎ¹è
+    // Â°Ã¦Ã‡Ã¨Ã„Â¡ ÂµÃÂ¹Ã¨
     if (isAffectExp2X())
         Point *= 2;
 
-    // ½Ã°£´ë¿¡ µû¶ó ¿Ã¶ó°¡´Â °æÇèÄ¡°¡ ´Ş¶óÁø´Ù.
+    // Â½ÃƒÂ°Â£Â´Ã«Â¿Â¡ ÂµÃ»Â¶Ã³ Â¿ÃƒÂ¶Ã³Â°Â¡Â´Ã‚ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ Â´ÃÂ¶Ã³ÃÃ¸Â´Ã™.
     Point = (Exp_t)getPercentValue(Point, DomainExpTimebandFactor[getZoneTimeband(pOusters->getZone())]);
 
-    // cout << pOusters->getName() << " ¿¡°Ô " << Point << "¸¸Å­ °æÇèÄ¡¸¦ Áİ´Ï´Ù." << endl;
+    // cout << pOusters->getName() << " Â¿Â¡Â°Ã” " << Point << "Â¸Â¸Ã…Â­ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ ÃÃÂ´ÃÂ´Ã™." << endl;
 
     /*	if (curLevel >= OUSTERS_MAX_LEVEL)
         {
-            // ·¹º§ ÇÑ°è¿¡ µµ´ŞÇØµµ °æÇèÄ¡´Â ½×°Ô ÇØÁØ´Ù.
+            // Â·Â¹ÂºÂ§ Ã‡Ã‘Â°Ã¨Â¿Â¡ ÂµÂµÂ´ÃÃ‡Ã˜ÂµÂµ Â°Ã¦Ã‡Ã¨Ã„Â¡Â´Ã‚ Â½Ã—Â°Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
             // by sigi. 2002.8.31
             Exp_t NewExp = pOusters->getExp() + Point;
 
@@ -5282,7 +5282,7 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
     Exp_t OldGoalExp = pOusters->getGoalExp();
     Exp_t NewGoalExp = max(0, (int)(OldGoalExp - Point));
 
-    // ´©Àû °æÇèÄ¡¿¡´Â ¸ñÇ¥ °æÇèÄ¡°¡ ÁÙ¾îµç ¸¸Å­ ÇÃ·¯½º ÇÏ¿©¾ß ÇÑ´Ù.
+    // Â´Â©Ã€Ã» Â°Ã¦Ã‡Ã¨Ã„Â¡Â¿Â¡Â´Ã‚ Â¸Ã±Ã‡Â¥ Â°Ã¦Ã‡Ã¨Ã„Â¡Â°Â¡ ÃÃ™Â¾Ã®ÂµÃ§ Â¸Â¸Ã…Â­ Ã‡ÃƒÂ·Â¯Â½Âº Ã‡ÃÂ¿Â©Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     //	Exp_t DiffGoalExp = max(0, (int)(OldGoalExp - NewGoalExp));
     //	Exp_t NewExp      = OldExp + DiffGoalExp;
 
@@ -5296,8 +5296,8 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
         WORD ExpSaveCount = pOusters->getExpSaveCount();
         _ModifyInfo.addLongData(MODIFY_OUSTERS_GOAL_EXP, NewGoalExp);
 
-        // °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ®°¡ ÀÏÁ¤ ¼öÄ¡¿¡ ´Ù´Ù¸£¸é ¼¼ÀÌºêÇÏ°í,
-        // Ä«¿îÆ®¸¦ ÃÊ±âÈ­½ÃÄÑ ÁØ´Ù.
+        // Â°Ã¦Ã‡Ã¨Ã„Â¡ Â¼Â¼Ã€ÃŒÂºÃª Ã„Â«Â¿Ã®Ã†Â®Â°Â¡ Ã€ÃÃÂ¤ Â¼Ã¶Ã„Â¡Â¿Â¡ Â´Ã™Â´Ã™Â¸Â£Â¸Ã© Â¼Â¼Ã€ÃŒÂºÃªÃ‡ÃÂ°Ã­,
+        // Ã„Â«Â¿Ã®Ã†Â®Â¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Â½ÃƒÃ„Ã‘ ÃÃ˜Â´Ã™.
         if (ExpSaveCount > OUSTERS_EXP_SAVE_PERIOD) {
             StringStream attrsave;
             attrsave << "GoalExp = " << NewGoalExp;
@@ -5309,7 +5309,7 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
 
         pOusters->setExpSaveCount(ExpSaveCount);
     } else {
-        // ·¹º§ ¾÷!!
+        // Â·Â¹ÂºÂ§ Â¾Ã·!!
         OUSTERS_RECORD prev;
         pOusters->getOustersRecord(prev);
 
@@ -5344,13 +5344,13 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
             << ",GoalExp = " << (int)NextGoalExp << ",Bonus = " << (int)bonus << ",SkillBonus = " << (int)skillBonus;
         pOusters->tinysave(sav.toString());
 
-        // ·¹º§ÀÌ ¿Ã¶ó¼­ »õ·Î ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ »ı°å´Ù¸é ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù°í ¾Ë¸°´Ù.
+        // Â·Â¹ÂºÂ§Ã€ÃŒ Â¿ÃƒÂ¶Ã³Â¼Â­ Â»ÃµÂ·Ã Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Â»Ã½Â°Ã¥Â´Ã™Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â°Ã­ Â¾Ã‹Â¸Â°Â´Ã™.
         SkillType_t NewLearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(SKILL_DOMAIN_OUSTERS, curLevel);
         if (NewLearnSkillType != 0) {
-            // ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ°í ÀÌ¹Ì ¹è¿ìÁö ¾ÊÀº »óÅÂ¶ó¸é ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´Ù´Â ÆĞÅ¶À» ³¯¸°´Ù.
+            // Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â±Ã¢Â¼ÃºÃ€ÃŒ Ã€Ã–Â°Ã­ Ã€ÃŒÂ¹ÃŒ Â¹Ã¨Â¿Ã¬ÃÃ¶ Â¾ÃŠÃ€Âº Â»Ã³Ã…Ã‚Â¶Ã³Â¸Ã© Â±Ã¢Â¼ÃºÃ€Â» Â¹Ã¨Â¿Ã¯ Â¼Ã¶ Ã€Ã–Â´Ã™Â´Ã‚ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
             if (pOusters->hasSkill(NewLearnSkillType) == NULL) {
-                // GCLearnSkillReadyÀÇ m_SkillType¿¡ level upµÈ µµ¸ŞÀÎÀÇ °¡Àå ÃÖ±Ù
-                // ±â¼úÀ» ´ëÀÔÇÑ´Ù. Áï, Å¬¶óÀÌ¾ğÆ® ±× ´ÙÀ½ ½ºÅ³À» ¹è¿ï¼ö ÀÖ´Ù...
+                // GCLearnSkillReadyÃ€Ã‡ m_SkillTypeÂ¿Â¡ level upÂµÃˆ ÂµÂµÂ¸ÃÃ€ÃÃ€Ã‡ Â°Â¡Ã€Ã¥ ÃƒÃ–Â±Ã™
+                // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã«Ã€Ã”Ã‡Ã‘Â´Ã™. ÃÃ¯, Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â® Â±Ã— Â´Ã™Ã€Â½ Â½ÂºÃ…Â³Ã€Â» Â¹Ã¨Â¿Ã¯Â¼Ã¶ Ã€Ã–Â´Ã™...
                 GCLearnSkillReady readyPacket;
                 readyPacket.setSkillDomainType(SKILL_DOMAIN_OUSTERS);
                 pOusters->getPlayer()->sendPacket(&readyPacket);
@@ -5359,17 +5359,17 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
 
         healCreatureForLevelUp(pOusters, _ModifyInfo, &prev);
 
-        // ·¹º§¾÷ ÀÌÆåÆ®µµ º¸¿©ÁØ´Ù. by sigi. 2002.11.9
+        // Â·Â¹ÂºÂ§Â¾Ã· Ã€ÃŒÃ†Ã¥Ã†Â®ÂµÂµ ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™. by sigi. 2002.11.9
         sendEffectLevelUp(pOusters);
 
         // by sigi. 2002.11.19
-        // À¯·á »ç¿ëÀÚ°¡ ¾Æ´Ï°Å³ª
-        // ¹«·á »ç¿ë±â°£ÀÌ ³²¾ÆÀÖÁö ¾ÊÀ¸¸é(È¤Àº ´É·ÂÄ¡ over) Â¥¸¥´Ù.
+        // Ã€Â¯Â·Ã¡ Â»Ã§Â¿Ã«Ã€ÃšÂ°Â¡ Â¾Ã†Â´ÃÂ°Ã…Â³Âª
+        // Â¹Â«Â·Ã¡ Â»Ã§Â¿Ã«Â±Ã¢Â°Â£Ã€ÃŒ Â³Â²Â¾Ã†Ã€Ã–ÃÃ¶ Â¾ÃŠÃ€Â¸Â¸Ã©(ÃˆÂ¤Ã€Âº Â´Ã‰Â·Ã‚Ã„Â¡ over) Ã‚Â¥Â¸Â¥Â´Ã™.
         checkFreeLevelLimit(pOusters);
         pOusters->whenQuestLevelUpgrade();
 
-        // GrandMasterÀÎ °æ¿ì´Â Effect¸¦ ºÙ¿©ÁØ´Ù.
-        // 100·¾ ³Ñ°í ¾ÆÁ÷ Effect°¡ ¾È ºÙ¾îÀÖ´Ù¸é..
+        // GrandMasterÃ€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ EffectÂ¸Â¦ ÂºÃ™Â¿Â©ÃÃ˜Â´Ã™.
+        // 100Â·Â¾ Â³Ã‘Â°Ã­ Â¾Ã†ÃÃ· EffectÂ°Â¡ Â¾Ãˆ ÂºÃ™Â¾Ã®Ã€Ã–Â´Ã™Â¸Ã©..
         // by sigi. 2002.11.9
         if (curLevel >= GRADE_GRAND_MASTER_LIMIT_LEVEL &&
             !pOusters->isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS)) {
@@ -5378,7 +5378,7 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
 
             pOusters->getEffectManager()->addEffect(pEffect);
 
-            // affect()¾È¿¡¼­.. Flag°É¾îÁÖ°í, ÁÖÀ§¿¡ broadcastµµ ÇØÁØ´Ù.
+            // affect()Â¾ÃˆÂ¿Â¡Â¼Â­.. FlagÂ°Ã‰Â¾Ã®ÃÃ–Â°Ã­, ÃÃ–Ã€Â§Â¿Â¡ broadcastÂµÂµ Ã‡Ã˜ÃÃ˜Â´Ã™.
             pEffect->affect();
         } else if (curLevel == 130 || curLevel == 150) {
             Effect* pEffect = pOusters->findEffect(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS);
@@ -5390,21 +5390,21 @@ void increaseOustersExp(Ousters* pOusters, Exp_t Point, ModifyInfo& _ModifyInfo)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¹× ¹ìÆÄÀÌ¾î ¸í¼ºÀ» °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¹Ã— Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¸Ã­Â¼ÂºÃ€Â» Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void increaseFame(Creature* pCreature, uint amount) {
     if (pCreature == NULL)
         return;
 
-    // PKÁ¸ ¾È¿¡¼­´Â ¸í¼ºÀ» ¿Ã·ÁÁÖÁö ¾Ê´Â´Ù.
+    // PKÃÂ¸ Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â¸Ã­Â¼ÂºÃ€Â» Â¿ÃƒÂ·ÃÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (g_pPKZoneInfoManager->isPKZone(pCreature->getZoneID()))
         return;
 
-    // ´ÙÀÌ³ª¹Í Á¸¾È¿¡¼­´Â ¸í¼ºÀ» ¿Ã·ÁÁÖÁö ¾Ê´Â´Ù.
+    // Â´Ã™Ã€ÃŒÂ³ÂªÂ¹Ã ÃÂ¸Â¾ÃˆÂ¿Â¡Â¼Â­Â´Ã‚ Â¸Ã­Â¼ÂºÃ€Â» Â¿ÃƒÂ·ÃÃÃ–ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (pCreature->getZone() != NULL && pCreature->getZone()->isDynamicZone())
         return;
 
-    // ·ÎÄÃ ÆÄÆ¼°¡ Á¸ÀçÇÑ´Ù¸é, ÆÄÆ¼¿øÀÇ ¼ıÀÚ¿¡ µû¶ó¼­ ¿Ã¶ó°¡´Â ¼öÄ¡°¡ º¯ÇÑ´Ù.
+    // Â·ÃÃ„Ãƒ Ã†Ã„Ã†Â¼Â°Â¡ ÃÂ¸Ã€Ã§Ã‡Ã‘Â´Ã™Â¸Ã©, Ã†Ã„Ã†Â¼Â¿Ã¸Ã€Ã‡ Â¼Ã½Ã€ÃšÂ¿Â¡ ÂµÃ»Â¶Ã³Â¼Â­ Â¿ÃƒÂ¶Ã³Â°Â¡Â´Ã‚ Â¼Ã¶Ã„Â¡Â°Â¡ ÂºÂ¯Ã‡Ã‘Â´Ã™.
     int PartyID = pCreature->getPartyID();
     if (PartyID != 0) {
         LocalPartyManager* pLPM = pCreature->getLocalPartyManager();
@@ -5453,7 +5453,7 @@ void increaseFame(Creature* pCreature, uint amount) {
 
             pSlayer->setFameSaveCount(FameSaveCount);
 
-            // ¼¼ÀÌºêÇÏµç ¾È ÇÏµç, ¸í¼ºÄ¡ ¼¼ÆÃÀº ÇØÁà¾ß ÇÑ´Ù.
+            // Â¼Â¼Ã€ÃŒÂºÃªÃ‡ÃÂµÃ§ Â¾Ãˆ Ã‡ÃÂµÃ§, Â¸Ã­Â¼ÂºÃ„Â¡ Â¼Â¼Ã†ÃƒÃ€Âº Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
             pSlayer->setFame(NewFame);
         }
     } else if (pCreature->isVampire()) {
@@ -5475,7 +5475,7 @@ void increaseFame(Creature* pCreature, uint amount) {
 
             pVampire->setFameSaveCount(FameSaveCount);
 
-            // ¼¼ÀÌºêÇÏµç ¾È ÇÏµç, ¸í¼ºÄ¡ ¼¼ÆÃÀº ÇØÁà¾ß ÇÑ´Ù.
+            // Â¼Â¼Ã€ÃŒÂºÃªÃ‡ÃÂµÃ§ Â¾Ãˆ Ã‡ÃÂµÃ§, Â¸Ã­Â¼ÂºÃ„Â¡ Â¼Â¼Ã†ÃƒÃ€Âº Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
             pVampire->setFame(NewFame);
         }
     } else if (pCreature->isOusters()) {
@@ -5497,21 +5497,21 @@ void increaseFame(Creature* pCreature, uint amount) {
 
             pOusters->setFameSaveCount(FameSaveCount);
 
-            // ¼¼ÀÌºêÇÏµç ¾È ÇÏµç, ¸í¼ºÄ¡ ¼¼ÆÃÀº ÇØÁà¾ß ÇÑ´Ù.
+            // Â¼Â¼Ã€ÃŒÂºÃªÃ‡ÃÂµÃ§ Â¾Ãˆ Ã‡ÃÂµÃ§, Â¸Ã­Â¼ÂºÃ„Â¡ Â¼Â¼Ã†ÃƒÃ€Âº Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
             pOusters->setFame(NewFame);
         }
     }
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// °Å¸®¿¡ µû¸¥ SG, SRÀÇ º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+// Â°Ã…Â¸Â®Â¿Â¡ ÂµÃ»Â¸Â¥ SG, SRÃ€Ã‡ ÂºÂ¸Â³ÃŠÂ½ÂºÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 int computeArmsWeaponSplashSize(Item* pWeapon, int ox, int oy, int tx, int ty) {
     Assert(pWeapon != NULL);
     Item::ItemClass IClass = pWeapon->getItemClass();
     int Splash = 0;
 
-    // SGÀÏ °æ¿ì¿¡¸¸ ½ºÇÃ·¡½Ã È¿°ú°¡ Á¸ÀçÇÑ´Ù.
+    // SGÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÃˆÂ¿Â°ÃºÂ°Â¡ ÃÂ¸Ã€Ã§Ã‡Ã‘Â´Ã™.
     if (IClass == Item::ITEM_CLASS_SG) {
         switch (getDistance(ox, oy, tx, ty)) {
         case 1:
@@ -5618,14 +5618,14 @@ int computeArmsWeaponToHitBonus(Item* pWeapon, int ox, int oy, int tx, int ty) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ÁÂÇ¥ ÁÖÀ§ÀÇ ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ¸ÂÀ» Å©¸®ÃÄ¸¦ »Ì¾Æ¿Â´Ù.
+// ÃÃ¶ÃÂ¤ÂµÃˆ ÃÃ‚Ã‡Â¥ ÃÃ–Ã€Â§Ã€Ã‡ Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¸Ã‚Ã€Â» Ã…Â©Â¸Â®ÃƒÃ„Â¸Â¦ Â»ÃŒÂ¾Ã†Â¿Ã‚Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList,
                      int splash) {
     VSRect rect(0, 0, pZone->getWidth() - 1, pZone->getHeight() - 1);
 
-    // ÇØ´ç Å©¸®ÃÄ°¡ ½½·¹ÀÌ¾î¶ó¸é, ±× ½½·¹ÀÌ¾î¸¸ ¸Â°í,
-    // ÁÖÀ§ÀÇ ´Ù¸¥ ½½·¹ÀÌ¾îµéÀº ¸ÂÁö ¾Ê´Â´Ù.
+    // Ã‡Ã˜Â´Ã§ Ã…Â©Â¸Â®ÃƒÃ„Â°Â¡ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¶Ã³Â¸Ã©, Â±Ã— Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¸ Â¸Ã‚Â°Ã­,
+    // ÃÃ–Ã€Â§Ã€Ã‡ Â´Ã™Â¸Â¥ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®ÂµÃ©Ã€Âº Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
     if (CClass == Creature::CREATURE_CLASS_SLAYER) {
         if (rect.ptInRect(cx, cy)) {
             Tile& rTile = pZone->getTile(cx, cy);
@@ -5636,7 +5636,7 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
                     creatureList.push_back(pCreature);
                 }
             }
-            // ÇöÀç·Î¼­´Â ³¯¾Æ´Ù´Ï´Â ½½·¹ÀÌ¾î´Â ¾øÁö¸¸...
+            // Ã‡Ã¶Ã€Ã§Â·ÃÂ¼Â­Â´Ã‚ Â³Â¯Â¾Ã†Â´Ã™Â´ÃÂ´Ã‚ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â´Ã‚ Â¾Ã¸ÃÃ¶Â¸Â¸...
             if (rTile.hasCreature(Creature::MOVE_MODE_FLYING)) {
                 Creature* pCreature = rTile.getCreature(Creature::MOVE_MODE_FLYING);
                 if (pCreature->getCreatureClass() == CClass) {
@@ -5662,10 +5662,10 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
                 Creature* pCreature = rTile.getCreature(Creature::MOVE_MODE_WALKING);
 
                 if (CClass == Creature::CREATURE_CLASS_MAX) {
-                    // CREATURE_CLASS_MAX°¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î¿À´Â °æ¿ì¿¡´Â ¹«Á¶°Ç ´õÇÏÀÚ.
+                    // CREATURE_CLASS_MAXÂ°Â¡ Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ·Ã Â³Ã‘Â¾Ã®Â¿Ã€Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ Â´ÃµÃ‡ÃÃ€Ãš.
                     creatureVector.push_back(pCreature);
                 } else if (pCreature->getCreatureClass() == CClass) {
-                    // ¾Æ´Ñ °æ¿ì¿¡´Â CreatureClass°¡ °°Àº °æ¿ì¿¡¸¸ ´õÇÑ´Ù.
+                    // Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ CreatureClassÂ°Â¡ Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â´ÃµÃ‡Ã‘Â´Ã™.
                     creatureVector.push_back(pCreature);
                 }
             }
@@ -5673,35 +5673,35 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
             if (rTile.hasCreature(Creature::MOVE_MODE_FLYING)) {
                 Creature* pCreature = rTile.getCreature(Creature::MOVE_MODE_FLYING);
                 if (CClass == Creature::CREATURE_CLASS_MAX) {
-                    // CREATURE_CLASS_MAX°¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î¿À´Â °æ¿ì¿¡´Â ¹«Á¶°Ç ´õÇÏÀÚ.
+                    // CREATURE_CLASS_MAXÂ°Â¡ Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ·Ã Â³Ã‘Â¾Ã®Â¿Ã€Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ Â´ÃµÃ‡ÃÃ€Ãš.
                     creatureVector.push_back(pCreature);
                 } else if (pCreature->getCreatureClass() == CClass) {
-                    // ¾Æ´Ñ °æ¿ì¿¡´Â CreatureClass°¡ °°Àº °æ¿ì¿¡¸¸ ´õÇÑ´Ù.
+                    // Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ CreatureClassÂ°Â¡ Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â´ÃµÃ‡Ã‘Â´Ã™.
                     creatureVector.push_back(pCreature);
                 }
             }
         }
     }
 
-    // ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔÈú ³ğµéÀÇ ¼ıÀÚº¸´Ù ÇöÀç ÀÖ´Â Å©¸®ÃÄ°¡ Àû´Ù¸é,
-    // ¸ğµÎ ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔÈ÷¸é µÈ´Ù.
+    // Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Ã€Ã”ÃˆÃº Â³Ã°ÂµÃ©Ã€Ã‡ Â¼Ã½Ã€ÃšÂºÂ¸Â´Ã™ Ã‡Ã¶Ã€Ã§ Ã€Ã–Â´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„Â°Â¡ Ã€Ã»Â´Ã™Â¸Ã©,
+    // Â¸Ã°ÂµÃ Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Ã€Ã”ÃˆÃ·Â¸Ã© ÂµÃˆÂ´Ã™.
     if ((int)creatureVector.size() <= splash) {
         for (int i = 0; i < (int)creatureVector.size(); i++) {
             creatureList.push_back(creatureVector[i]);
         }
     }
-    // ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔÈú ³ğº¸´Ù ÇöÀç Á¸ÀçÇÏ´Â Å©¸®ÃÄµéÀÌ ¸¹´Ù¸é,
-    // ÀÌ Áß¿¡ splash ¼ıÀÚ¸¸Å­ÀÇ Å©¸®ÃÄ¸¦ ÀÓÀÇ·Î »Ì¾Æ¾ß ÇÑ´Ù.
+    // Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Ã€Ã”ÃˆÃº Â³Ã°ÂºÂ¸Â´Ã™ Ã‡Ã¶Ã€Ã§ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„ÂµÃ©Ã€ÃŒ Â¸Â¹Â´Ã™Â¸Ã©,
+    // Ã€ÃŒ ÃÃŸÂ¿Â¡ splash Â¼Ã½Ã€ÃšÂ¸Â¸Ã…Â­Ã€Ã‡ Ã…Â©Â¸Â®ÃƒÃ„Â¸Â¦ Ã€Ã“Ã€Ã‡Â·Ã Â»ÃŒÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     else {
-        // Á¦ÀÏ Ã³À½¿¡ 6³ğÀÌ ÀÖ°í, ÀÌ Áß¿¡ 4³ğÀ» »Ì¾Æ¾ß ÇÑ´Ù°í
-        // °¡Á¤ÇÏ¸é, size = 6ÀÌ µÈ´Ù.
-        // Indexes ¹è¿­¿¡´Â (0, 1, 2, 3, 4, 5, -1...)ÀÌ µé¾î°£´Ù.
-        // ÀÌ Áß¿¡ 2¸¦ »Ì¾Ò´Ù°í °¡Á¤ÇÏÀÚ.
-        // ±×·¯¸é ÀÌ ¹è¿­¿¡¼­ 2¸¦ Á¦°ÅÇØ Áà¾ß ÇÑ´Ù.
-        // µÚ¿¡¼­ºÎÅÍ ¾ÕÀ¸·Î ÇÑÄ­¾¿ ¿Å°ÜÁà¾ß ÇÑ´Ù.
+        // ÃÂ¦Ã€Ã ÃƒÂ³Ã€Â½Â¿Â¡ 6Â³Ã°Ã€ÃŒ Ã€Ã–Â°Ã­, Ã€ÃŒ ÃÃŸÂ¿Â¡ 4Â³Ã°Ã€Â» Â»ÃŒÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™Â°Ã­
+        // Â°Â¡ÃÂ¤Ã‡ÃÂ¸Ã©, size = 6Ã€ÃŒ ÂµÃˆÂ´Ã™.
+        // Indexes Â¹Ã¨Â¿Â­Â¿Â¡Â´Ã‚ (0, 1, 2, 3, 4, 5, -1...)Ã€ÃŒ ÂµÃ©Â¾Ã®Â°Â£Â´Ã™.
+        // Ã€ÃŒ ÃÃŸÂ¿Â¡ 2Â¸Â¦ Â»ÃŒÂ¾Ã’Â´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡ÃÃ€Ãš.
+        // Â±Ã—Â·Â¯Â¸Ã© Ã€ÃŒ Â¹Ã¨Â¿Â­Â¿Â¡Â¼Â­ 2Â¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+        // ÂµÃšÂ¿Â¡Â¼Â­ÂºÃÃ…Ã Â¾Ã•Ã€Â¸Â·Ã Ã‡Ã‘Ã„Â­Â¾Â¿ Â¿Ã…Â°ÃœÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
         // (0, 1, 3, 4, 5, 5...)
-        // ±× ´ÙÀ½ »çÀÌÁî¸¦ ÁÙÀÌ°í, ´Ù½Ã ±× Áß¿¡¼­ ÇÏ³ª¸¦ ·£´ıÀ¸·Î
-        // »Ì¾Æ°¡¸é °ãÄ¡Áö ¾Ê´Â Å©¸®ÃÄÀÇ ¸®½ºÆ®¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+        // Â±Ã— Â´Ã™Ã€Â½ Â»Ã§Ã€ÃŒÃÃ®Â¸Â¦ ÃÃ™Ã€ÃŒÂ°Ã­, Â´Ã™Â½Ãƒ Â±Ã— ÃÃŸÂ¿Â¡Â¼Â­ Ã‡ÃÂ³ÂªÂ¸Â¦ Â·Â£Â´Ã½Ã€Â¸Â·Ã
+        // Â»ÃŒÂ¾Ã†Â°Â¡Â¸Ã© Â°Ã£Ã„Â¡ÃÃ¶ Â¾ÃŠÂ´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„Ã€Ã‡ Â¸Â®Â½ÂºÃ†Â®Â¸Â¦ Â¾Ã²Ã€Â» Â¼Ã¶ Ã€Ã–Â´Ã™.
         int Indexes[50] =
             {
                 -1,
@@ -5730,7 +5730,7 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ÁÂÇ¥ ÁÖÀ§ÀÇ Å©¸®Ã³¸¦ Ã£¾Æ¼­ ³Ñ°ÜÁØ´Ù.
+// ÃÃ¶ÃÂ¤ÂµÃˆ ÃÃ‚Ã‡Â¥ ÃÃ–Ã€Â§Ã€Ã‡ Ã…Â©Â¸Â®ÃƒÂ³Â¸Â¦ ÃƒÂ£Â¾Ã†Â¼Â­ Â³Ã‘Â°ÃœÃÃ˜Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList,
                      int splash, int range) {
@@ -5752,10 +5752,10 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
                     Creature* pCreature = rTile.getCreature(Creature::MOVE_MODE_WALKING);
 
                     if (CClass == Creature::CREATURE_CLASS_MAX) {
-                        // CREATURE_CLASS_MAX°¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î¿À´Â °æ¿ì¿¡´Â ¹«Á¶°Ç ´õÇÏÀÚ.
+                        // CREATURE_CLASS_MAXÂ°Â¡ Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ·Ã Â³Ã‘Â¾Ã®Â¿Ã€Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ Â´ÃµÃ‡ÃÃ€Ãš.
                         creatureVector.push_back(pCreature);
                     } else if (pCreature->getCreatureClass() == CClass) {
-                        // ¾Æ´Ñ °æ¿ì¿¡´Â CreatureClass°¡ °°Àº °æ¿ì¿¡¸¸ ´õÇÑ´Ù.
+                        // Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ CreatureClassÂ°Â¡ Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â´ÃµÃ‡Ã‘Â´Ã™.
                         creatureVector.push_back(pCreature);
                     }
                 }
@@ -5763,10 +5763,10 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
                 if (rTile.hasCreature(Creature::MOVE_MODE_FLYING)) {
                     Creature* pCreature = rTile.getCreature(Creature::MOVE_MODE_FLYING);
                     if (CClass == Creature::CREATURE_CLASS_MAX) {
-                        // CREATURE_CLASS_MAX°¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î¿À´Â °æ¿ì¿¡´Â ¹«Á¶°Ç ´õÇÏÀÚ.
+                        // CREATURE_CLASS_MAXÂ°Â¡ Ã†Ã„Â¶Ã³Â¹ÃŒÃ…ÃÂ·Ã Â³Ã‘Â¾Ã®Â¿Ã€Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ Â¹Â«ÃÂ¶Â°Ã‡ Â´ÃµÃ‡ÃÃ€Ãš.
                         creatureVector.push_back(pCreature);
                     } else if (pCreature->getCreatureClass() == CClass) {
-                        // ¾Æ´Ñ °æ¿ì¿¡´Â CreatureClass°¡ °°Àº °æ¿ì¿¡¸¸ ´õÇÑ´Ù.
+                        // Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ CreatureClassÂ°Â¡ Â°Â°Ã€Âº Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â´ÃµÃ‡Ã‘Â´Ã™.
                         creatureVector.push_back(pCreature);
                     }
                 }
@@ -5774,25 +5774,25 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
         }
     }
 
-    // ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔÈú ³ğµéÀÇ ¼ıÀÚº¸´Ù ÇöÀç ÀÖ´Â Å©¸®ÃÄ°¡ Àû´Ù¸é,
-    // ¸ğµÎ ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔÈ÷¸é µÈ´Ù.
+    // Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Ã€Ã”ÃˆÃº Â³Ã°ÂµÃ©Ã€Ã‡ Â¼Ã½Ã€ÃšÂºÂ¸Â´Ã™ Ã‡Ã¶Ã€Ã§ Ã€Ã–Â´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„Â°Â¡ Ã€Ã»Â´Ã™Â¸Ã©,
+    // Â¸Ã°ÂµÃ Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Ã€Ã”ÃˆÃ·Â¸Ã© ÂµÃˆÂ´Ã™.
     if ((int)creatureVector.size() <= splash) {
         for (int i = 0; i < (int)creatureVector.size(); i++) {
             creatureList.push_back(creatureVector[i]);
         }
     }
-    // ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔÈú ³ğº¸´Ù ÇöÀç Á¸ÀçÇÏ´Â Å©¸®ÃÄµéÀÌ ¸¹´Ù¸é,
-    // ÀÌ Áß¿¡ splash ¼ıÀÚ¸¸Å­ÀÇ Å©¸®ÃÄ¸¦ ÀÓÀÇ·Î »Ì¾Æ¾ß ÇÑ´Ù.
+    // Â½ÂºÃ‡ÃƒÂ·Â¡Â½Ãƒ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Ã€Ã”ÃˆÃº Â³Ã°ÂºÂ¸Â´Ã™ Ã‡Ã¶Ã€Ã§ ÃÂ¸Ã€Ã§Ã‡ÃÂ´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„ÂµÃ©Ã€ÃŒ Â¸Â¹Â´Ã™Â¸Ã©,
+    // Ã€ÃŒ ÃÃŸÂ¿Â¡ splash Â¼Ã½Ã€ÃšÂ¸Â¸Ã…Â­Ã€Ã‡ Ã…Â©Â¸Â®ÃƒÃ„Â¸Â¦ Ã€Ã“Ã€Ã‡Â·Ã Â»ÃŒÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     else {
-        // Á¦ÀÏ Ã³À½¿¡ 6³ğÀÌ ÀÖ°í, ÀÌ Áß¿¡ 4³ğÀ» »Ì¾Æ¾ß ÇÑ´Ù°í
-        // °¡Á¤ÇÏ¸é, size = 6ÀÌ µÈ´Ù.
-        // Indexes ¹è¿­¿¡´Â (0, 1, 2, 3, 4, 5, -1...)ÀÌ µé¾î°£´Ù.
-        // ÀÌ Áß¿¡ 2¸¦ »Ì¾Ò´Ù°í °¡Á¤ÇÏÀÚ.
-        // ±×·¯¸é ÀÌ ¹è¿­¿¡¼­ 2¸¦ Á¦°ÅÇØ Áà¾ß ÇÑ´Ù.
-        // µÚ¿¡¼­ºÎÅÍ ¾ÕÀ¸·Î ÇÑÄ­¾¿ ¿Å°ÜÁà¾ß ÇÑ´Ù.
+        // ÃÂ¦Ã€Ã ÃƒÂ³Ã€Â½Â¿Â¡ 6Â³Ã°Ã€ÃŒ Ã€Ã–Â°Ã­, Ã€ÃŒ ÃÃŸÂ¿Â¡ 4Â³Ã°Ã€Â» Â»ÃŒÂ¾Ã†Â¾ÃŸ Ã‡Ã‘Â´Ã™Â°Ã­
+        // Â°Â¡ÃÂ¤Ã‡ÃÂ¸Ã©, size = 6Ã€ÃŒ ÂµÃˆÂ´Ã™.
+        // Indexes Â¹Ã¨Â¿Â­Â¿Â¡Â´Ã‚ (0, 1, 2, 3, 4, 5, -1...)Ã€ÃŒ ÂµÃ©Â¾Ã®Â°Â£Â´Ã™.
+        // Ã€ÃŒ ÃÃŸÂ¿Â¡ 2Â¸Â¦ Â»ÃŒÂ¾Ã’Â´Ã™Â°Ã­ Â°Â¡ÃÂ¤Ã‡ÃÃ€Ãš.
+        // Â±Ã—Â·Â¯Â¸Ã© Ã€ÃŒ Â¹Ã¨Â¿Â­Â¿Â¡Â¼Â­ 2Â¸Â¦ ÃÂ¦Â°Ã…Ã‡Ã˜ ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+        // ÂµÃšÂ¿Â¡Â¼Â­ÂºÃÃ…Ã Â¾Ã•Ã€Â¸Â·Ã Ã‡Ã‘Ã„Â­Â¾Â¿ Â¿Ã…Â°ÃœÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
         // (0, 1, 3, 4, 5, 5...)
-        // ±× ´ÙÀ½ »çÀÌÁî¸¦ ÁÙÀÌ°í, ´Ù½Ã ±× Áß¿¡¼­ ÇÏ³ª¸¦ ·£´ıÀ¸·Î
-        // »Ì¾Æ°¡¸é °ãÄ¡Áö ¾Ê´Â Å©¸®ÃÄÀÇ ¸®½ºÆ®¸¦ ¾òÀ» ¼ö ÀÖ´Ù.
+        // Â±Ã— Â´Ã™Ã€Â½ Â»Ã§Ã€ÃŒÃÃ®Â¸Â¦ ÃÃ™Ã€ÃŒÂ°Ã­, Â´Ã™Â½Ãƒ Â±Ã— ÃÃŸÂ¿Â¡Â¼Â­ Ã‡ÃÂ³ÂªÂ¸Â¦ Â·Â£Â´Ã½Ã€Â¸Â·Ã
+        // Â»ÃŒÂ¾Ã†Â°Â¡Â¸Ã© Â°Ã£Ã„Â¡ÃÃ¶ Â¾ÃŠÂ´Ã‚ Ã…Â©Â¸Â®ÃƒÃ„Ã€Ã‡ Â¸Â®Â½ÂºÃ†Â®Â¸Â¦ Â¾Ã²Ã€Â» Â¼Ã¶ Ã€Ã–Â´Ã™.
         int Indexes[50] =
             {
                 -1,
@@ -5820,36 +5820,36 @@ int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ´É·ÂÄ¡°¡ ÇÏ³ª¶óµµ »ó½ÂÇßÀ» ¶§, HP¿Í MP¸¦ ¸¸¶¥À¸·Î Ã¤¿öÁÖ´Â ÇÔ¼ö´Ù.
-// ½½·¹ÀÌ¾î¿ë -- 2002.01.14 ±è¼º¹Î
+// Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Ã‡ÃÂ³ÂªÂ¶Ã³ÂµÂµ Â»Ã³Â½Ã‚Ã‡ÃŸÃ€Â» Â¶Â§, HPÂ¿Ã MPÂ¸Â¦ Â¸Â¸Â¶Â¥Ã€Â¸Â·Ã ÃƒÂ¤Â¿Ã¶ÃÃ–Â´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â¿Ã« -- 2002.01.14 Â±Ã¨Â¼ÂºÂ¹Ã
 //////////////////////////////////////////////////////////////////////////////
 void healCreatureForLevelUp(Slayer* pSlayer, ModifyInfo& _ModifyInfo, SLAYER_RECORD* prev) {
-    // ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€Ã§Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     pSlayer->initAllStat();
 
-    // ´É·ÂÄ¡°¡ »ó½ÂÇßÀ¸´Ï ¹«¾ğ°¡ ºÎ°¡ÀûÀÎ ´É·ÂÄ¡°¡ º¯ÇßÀ¸¹Ç·Î º¸³»ÁØ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡ÃŸÃ€Â¸Â´Ã Â¹Â«Â¾Ã°Â°Â¡ ÂºÃÂ°Â¡Ã€Ã»Ã€Ã Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ ÂºÂ¯Ã‡ÃŸÃ€Â¸Â¹Ã‡Â·Ã ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
     pSlayer->sendRealWearingInfo();
     pSlayer->addModifyInfo(*prev, _ModifyInfo);
 
     if (pSlayer->isDead())
         return;
 
-    // ´É·ÂÄ¡°¡ ÇÏ³ª¶óµµ »ó½ÂÇß´Ù¸é HP¿Í MP¸¦ ¸¸¶¥À¸·Î Ã¤¿öÁØ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Ã‡ÃÂ³ÂªÂ¶Ã³ÂµÂµ Â»Ã³Â½Ã‚Ã‡ÃŸÂ´Ã™Â¸Ã© HPÂ¿Ã MPÂ¸Â¦ Â¸Â¸Â¶Â¥Ã€Â¸Â·Ã ÃƒÂ¤Â¿Ã¶ÃÃ˜Â´Ã™.
     HP_t OldHP = pSlayer->getHP(ATTR_CURRENT);
     HP_t OldMP = pSlayer->getMP(ATTR_CURRENT);
 
-    // ¸¸¶¥ Ã¤¿ì±â...
+    // Â¸Â¸Â¶Â¥ ÃƒÂ¤Â¿Ã¬Â±Ã¢...
     pSlayer->setHP(pSlayer->getHP(ATTR_MAX), ATTR_CURRENT);
     pSlayer->setMP(pSlayer->getMP(ATTR_MAX), ATTR_CURRENT);
 
     HP_t NewHP = pSlayer->getHP(ATTR_CURRENT);
     HP_t NewMP = pSlayer->getMP(ATTR_CURRENT);
 
-    // HP°¡ ¹Ù²î¾ú´Ù¸é...
+    // HPÂ°Â¡ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â¸Ã©...
     if (OldHP != NewHP) {
         _ModifyInfo.addShortData(MODIFY_CURRENT_HP, NewHP);
 
-        // ¹Ù²ï Ã¼·ÂÀ» ÁÖÀ§¿¡ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+        // Â¹Ã™Â²Ã¯ ÃƒÂ¼Â·Ã‚Ã€Â» ÃÃ–Ã€Â§Â¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
         GCStatusCurrentHP gcStatusCurrentHP;
         gcStatusCurrentHP.setObjectID(pSlayer->getObjectID());
         gcStatusCurrentHP.setCurrentHP(NewHP);
@@ -5858,7 +5858,7 @@ void healCreatureForLevelUp(Slayer* pSlayer, ModifyInfo& _ModifyInfo, SLAYER_REC
         pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcStatusCurrentHP, pSlayer);
     }
 
-    // MP°¡ ¹Ù²î¾ú´Ù¸é...
+    // MPÂ°Â¡ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â¸Ã©...
     if (OldMP != NewMP) {
         _ModifyInfo.addShortData(MODIFY_CURRENT_MP, NewMP);
     }
@@ -5867,14 +5867,14 @@ void healCreatureForLevelUp(Slayer* pSlayer, ModifyInfo& _ModifyInfo, SLAYER_REC
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ´É·ÂÄ¡°¡ »ó½ÂÇßÀ» ¶§, HP¸¦ ¸¸¶¥À¸·Î Ã¤¿öÁÖ´Â ÇÔ¼ö´Ù. ¹ìÆÄÀÌ¾î¿ë
-// -- 2002.01.14 ±è¼º¹Î
+// Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡ÃŸÃ€Â» Â¶Â§, HPÂ¸Â¦ Â¸Â¸Â¶Â¥Ã€Â¸Â·Ã ÃƒÂ¤Â¿Ã¶ÃÃ–Â´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™. Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â¿Ã«
+// -- 2002.01.14 Â±Ã¨Â¼ÂºÂ¹Ã
 //////////////////////////////////////////////////////////////////////////////
 void healCreatureForLevelUp(Vampire* pVampire, ModifyInfo& _ModifyInfo, VAMPIRE_RECORD* prev) {
-    // ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€Ã§Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     pVampire->initAllStat();
 
-    // ´É·ÂÄ¡°¡ »ó½ÂÇßÀ¸´Ï ¹«¾ğ°¡ ºÎ°¡ÀûÀÎ ´É·ÂÄ¡°¡ º¯ÇßÀ¸¹Ç·Î º¸³»ÁØ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡ÃŸÃ€Â¸Â´Ã Â¹Â«Â¾Ã°Â°Â¡ ÂºÃÂ°Â¡Ã€Ã»Ã€Ã Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ ÂºÂ¯Ã‡ÃŸÃ€Â¸Â¹Ã‡Â·Ã ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
     pVampire->sendRealWearingInfo();
     pVampire->addModifyInfo(*prev, _ModifyInfo);
 
@@ -5883,16 +5883,16 @@ void healCreatureForLevelUp(Vampire* pVampire, ModifyInfo& _ModifyInfo, VAMPIRE_
 
     HP_t OldHP = pVampire->getHP(ATTR_CURRENT);
 
-    // ¸¸¶¥ Ã¤¿ì±â...
+    // Â¸Â¸Â¶Â¥ ÃƒÂ¤Â¿Ã¬Â±Ã¢...
     pVampire->setHP(pVampire->getHP(ATTR_MAX), ATTR_CURRENT);
 
     HP_t NewHP = pVampire->getHP(ATTR_CURRENT);
 
-    // HP°¡ ¹Ù²î¾ú´Ù¸é...
+    // HPÂ°Â¡ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â¸Ã©...
     if (OldHP != NewHP) {
         _ModifyInfo.addShortData(MODIFY_CURRENT_HP, NewHP);
 
-        // ¹Ù²ï Ã¼·ÂÀ» ÁÖÀ§¿¡ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+        // Â¹Ã™Â²Ã¯ ÃƒÂ¼Â·Ã‚Ã€Â» ÃÃ–Ã€Â§Â¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
         GCStatusCurrentHP gcStatusCurrentHP;
         gcStatusCurrentHP.setObjectID(pVampire->getObjectID());
         gcStatusCurrentHP.setCurrentHP(NewHP);
@@ -5905,9 +5905,9 @@ void healCreatureForLevelUp(Vampire* pVampire, ModifyInfo& _ModifyInfo, VAMPIRE_
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼ú ½ÇÆĞ½Ã ÆĞÅ¶À» ³¯¸°´Ù.
-// ÀÏ¹İÀûÀÎ ½ÇÆĞ (È÷Æ®·Ñ ½ÇÆĞÇß´Ù´ø°¡, ¸¶³ª°¡ ¾ø´Ù´ø°¡...)ÀÏ °æ¿ì,
-// º»ÀÎ°ú ±×°ÍÀ» º¸´Â ÀÌµé¿¡°Ô ÆĞÅ¶À» ³¯¸°´Ù.
+// Â±Ã¢Â¼Ãº Â½Ã‡Ã†ÃÂ½Ãƒ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
+// Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã Â½Ã‡Ã†Ã (ÃˆÃ·Ã†Â®Â·Ã‘ Â½Ã‡Ã†ÃÃ‡ÃŸÂ´Ã™Â´Ã¸Â°Â¡, Â¸Â¶Â³ÂªÂ°Â¡ Â¾Ã¸Â´Ã™Â´Ã¸Â°Â¡...)Ã€Ã Â°Ã¦Â¿Ã¬,
+// ÂºÂ»Ã€ÃÂ°Ãº Â±Ã—Â°ÃÃ€Â» ÂºÂ¸Â´Ã‚ Ã€ÃŒÂµÃ©Â¿Â¡Â°Ã” Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void executeSkillFailNormal(Creature* pCreature, SkillType_t SkillType, Creature* pTargetCreature, BYTE Grade) {
     Assert(pCreature != NULL);
@@ -5924,10 +5924,10 @@ void executeSkillFailNormal(Creature* pCreature, SkillType_t SkillType, Creature
     gcSkillFailed2.setObjectID(pCreature->getObjectID());
     gcSkillFailed2.setGrade(Grade);
 
-    // ObjectSkillÀÏ °æ¿ì, »ó´ë¹æÀÇ OID°¡ Á¸ÀçÇÑ´Ù¸é ÆĞÅ¶¿¡´Ù ½Ç¾î¼­ º¸³»ÁØ´Ù.
-    // ¼¿ÇÁ ½ºÅ³ÀÌ³ª Å¸ÀÏ ½ºÅ³ÀÎ °æ¿ì¿¡´Â NULL·Î parameter°¡ ³Ñ¾î¿À´Â °ÍÀÌ Á¤»óÀÌ´Ù.
-    // (Å¬¶óÀÌ¾ğÆ®¿¡¼­´Â ¼¿ÇÁ³ª Å¸ÀÏ ½ºÅ³ÀÌ ½ÇÆĞÇØ¼­ ³¯¾Æ¿À´Â GCSkillFailed2ÀÏ °æ¿ì¿¡´Â,
-    // TargetObjectID¸¦ ÀĞÁöµµ ¾Ê´Â´Ù.)
+    // ObjectSkillÃ€Ã Â°Ã¦Â¿Ã¬, Â»Ã³Â´Ã«Â¹Ã¦Ã€Ã‡ OIDÂ°Â¡ ÃÂ¸Ã€Ã§Ã‡Ã‘Â´Ã™Â¸Ã© Ã†ÃÃ…Â¶Â¿Â¡Â´Ã™ Â½Ã‡Â¾Ã®Â¼Â­ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
+    // Â¼Â¿Ã‡Ã Â½ÂºÃ…Â³Ã€ÃŒÂ³Âª Ã…Â¸Ã€Ã Â½ÂºÃ…Â³Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ NULLÂ·Ã parameterÂ°Â¡ Â³Ã‘Â¾Ã®Â¿Ã€Â´Ã‚ Â°ÃÃ€ÃŒ ÃÂ¤Â»Ã³Ã€ÃŒÂ´Ã™.
+    // (Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â®Â¿Â¡Â¼Â­Â´Ã‚ Â¼Â¿Ã‡ÃÂ³Âª Ã…Â¸Ã€Ã Â½ÂºÃ…Â³Ã€ÃŒ Â½Ã‡Ã†ÃÃ‡Ã˜Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã€Â´Ã‚ GCSkillFailed2Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚,
+    // TargetObjectIDÂ¸Â¦ Ã€ÃÃÃ¶ÂµÂµ Â¾ÃŠÂ´Ã‚Â´Ã™.)
     if (pTargetCreature != NULL) {
         gcSkillFailed2.setTargetObjectID(pTargetCreature->getObjectID());
     } else {
@@ -5941,18 +5941,18 @@ void executeSkillFailNormal(Creature* pCreature, SkillType_t SkillType, Creature
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼ú ½ÇÆĞ½Ã ÆĞÅ¶À» ³¯¸°´Ù.
-// ½ºÅ³ÀÇ °á°ú¸¦ 2¹ø ³¯·ÁÁà¾ß µÈ´Ù.
-// ¶ó¹Ù ¸¸µé±â¿¡ ´ëÇÑ °Í ÇÏ³ª ÇÏ°í
-// Èí¿µ¿¡ °üÇÑ °Í ÇÏ³ª.
-// ±×·¡¼­ Ã³À½¿¡ Á¶°Ç Ã¼Å©ÇÏ´Ù°¡ ½ÇÆĞÇÒ °æ¿ì¿¡
-// SkillFail ÆĞÅ¶À» 2¹ø º¸³»ÁØ´Ù.
+// Â±Ã¢Â¼Ãº Â½Ã‡Ã†ÃÂ½Ãƒ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
+// Â½ÂºÃ…Â³Ã€Ã‡ Â°Ã¡Â°ÃºÂ¸Â¦ 2Â¹Ã¸ Â³Â¯Â·ÃÃÃ Â¾ÃŸ ÂµÃˆÂ´Ã™.
+// Â¶Ã³Â¹Ã™ Â¸Â¸ÂµÃ©Â±Ã¢Â¿Â¡ Â´Ã«Ã‡Ã‘ Â°Ã Ã‡ÃÂ³Âª Ã‡ÃÂ°Ã­
+// ÃˆÃ­Â¿ÂµÂ¿Â¡ Â°Ã¼Ã‡Ã‘ Â°Ã Ã‡ÃÂ³Âª.
+// Â±Ã—Â·Â¡Â¼Â­ ÃƒÂ³Ã€Â½Â¿Â¡ ÃÂ¶Â°Ã‡ ÃƒÂ¼Ã…Â©Ã‡ÃÂ´Ã™Â°Â¡ Â½Ã‡Ã†ÃÃ‡Ã’ Â°Ã¦Â¿Ã¬Â¿Â¡
+// SkillFail Ã†ÃÃ…Â¶Ã€Â» 2Â¹Ã¸ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void executeAbsorbSoulSkillFail(Creature* pCreature, SkillType_t SkillType, ObjectID_t TargetObjectID, bool bBroadcast,
                                 bool bSendTwice) {
     Assert(pCreature != NULL);
 
-    // Å¬¶óÀÌ¾ğÆ®¿¡ ¶ôÀÌ °É·ÁÀÖÀ¸¸é ½ºÅ³ »ç¿ëÇÑ º»ÀÎ¿¡°Ô´Â °ËÁõ ÆĞÅ¶À» 2¹ø º¸³»Áà¾ß µÈ´Ù.
+    // Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â®Â¿Â¡ Â¶Ã´Ã€ÃŒ Â°Ã‰Â·ÃÃ€Ã–Ã€Â¸Â¸Ã© Â½ÂºÃ…Â³ Â»Ã§Â¿Ã«Ã‡Ã‘ ÂºÂ»Ã€ÃÂ¿Â¡Â°Ã”Â´Ã‚ Â°Ã‹ÃÃµ Ã†ÃÃ…Â¶Ã€Â» 2Â¹Ã¸ ÂºÂ¸Â³Â»ÃÃ Â¾ÃŸ ÂµÃˆÂ´Ã™.
     if (pCreature->isPC()) {
         GCSkillFailed1 gcSkillFailed1;
         gcSkillFailed1.setSkillType(SkillType);
@@ -5975,9 +5975,9 @@ void executeAbsorbSoulSkillFail(Creature* pCreature, SkillType_t SkillType, Obje
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼ú ½ÇÆĞ½Ã ÆĞÅ¶À» ³¯¸°´Ù.
-// ÀÏ¹İÀûÀÎ ½ÇÆĞ (È÷Æ®·Ñ ½ÇÆĞÇß´Ù´ø°¡, ¸¶³ª°¡ ¾ø´Ù´ø°¡...)ÀÏ °æ¿ì,
-// º»ÀÎ°ú ±×°ÍÀ» º¸´Â ÀÌµé¿¡°Ô ÆĞÅ¶À» ³¯¸°´Ù.
+// Â±Ã¢Â¼Ãº Â½Ã‡Ã†ÃÂ½Ãƒ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
+// Ã€ÃÂ¹ÃÃ€Ã»Ã€Ã Â½Ã‡Ã†Ã (ÃˆÃ·Ã†Â®Â·Ã‘ Â½Ã‡Ã†ÃÃ‡ÃŸÂ´Ã™Â´Ã¸Â°Â¡, Â¸Â¶Â³ÂªÂ°Â¡ Â¾Ã¸Â´Ã™Â´Ã¸Â°Â¡...)Ã€Ã Â°Ã¦Â¿Ã¬,
+// ÂºÂ»Ã€ÃÂ°Ãº Â±Ã—Â°ÃÃ€Â» ÂºÂ¸Â´Ã‚ Ã€ÃŒÂµÃ©Â¿Â¡Â°Ã” Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void executeSkillFailNormalWithGun(Creature* pCreature, SkillType_t SkillType, Creature* pTargetCreature,
                                    BYTE RemainBullet) {
@@ -5994,10 +5994,10 @@ void executeSkillFailNormalWithGun(Creature* pCreature, SkillType_t SkillType, C
     gcSkillFailed2.setSkillType(SkillType);
     gcSkillFailed2.setObjectID(pCreature->getObjectID());
 
-    // ObjectSkillÀÏ °æ¿ì, »ó´ë¹æÀÇ OID°¡ Á¸ÀçÇÑ´Ù¸é ÆĞÅ¶¿¡´Ù ½Ç¾î¼­ º¸³»ÁØ´Ù.
-    // ¼¿ÇÁ ½ºÅ³ÀÌ³ª Å¸ÀÏ ½ºÅ³ÀÎ °æ¿ì¿¡´Â NULL·Î parameter°¡ ³Ñ¾î¿À´Â °ÍÀÌ Á¤»óÀÌ´Ù.
-    // (Å¬¶óÀÌ¾ğÆ®¿¡¼­´Â ¼¿ÇÁ³ª Å¸ÀÏ ½ºÅ³ÀÌ ½ÇÆĞÇØ¼­ ³¯¾Æ¿À´Â GCSkillFailed2ÀÏ °æ¿ì¿¡´Â,
-    // TargetObjectID¸¦ ÀĞÁöµµ ¾Ê´Â´Ù.)
+    // ObjectSkillÃ€Ã Â°Ã¦Â¿Ã¬, Â»Ã³Â´Ã«Â¹Ã¦Ã€Ã‡ OIDÂ°Â¡ ÃÂ¸Ã€Ã§Ã‡Ã‘Â´Ã™Â¸Ã© Ã†ÃÃ…Â¶Â¿Â¡Â´Ã™ Â½Ã‡Â¾Ã®Â¼Â­ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
+    // Â¼Â¿Ã‡Ã Â½ÂºÃ…Â³Ã€ÃŒÂ³Âª Ã…Â¸Ã€Ã Â½ÂºÃ…Â³Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚ NULLÂ·Ã parameterÂ°Â¡ Â³Ã‘Â¾Ã®Â¿Ã€Â´Ã‚ Â°ÃÃ€ÃŒ ÃÂ¤Â»Ã³Ã€ÃŒÂ´Ã™.
+    // (Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â®Â¿Â¡Â¼Â­Â´Ã‚ Â¼Â¿Ã‡ÃÂ³Âª Ã…Â¸Ã€Ã Â½ÂºÃ…Â³Ã€ÃŒ Â½Ã‡Ã†ÃÃ‡Ã˜Â¼Â­ Â³Â¯Â¾Ã†Â¿Ã€Â´Ã‚ GCSkillFailed2Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â´Ã‚,
+    // TargetObjectIDÂ¸Â¦ Ã€ÃÃÃ¶ÂµÂµ Â¾ÃŠÂ´Ã‚Â´Ã™.)
     if (pTargetCreature != NULL) {
         gcSkillFailed2.setTargetObjectID(pTargetCreature->getObjectID());
     } else {
@@ -6011,9 +6011,9 @@ void executeSkillFailNormalWithGun(Creature* pCreature, SkillType_t SkillType, C
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼ú ½ÇÆĞ½Ã ÆĞÅ¶À» ³¯¸°´Ù.
-// ¿¹¿ÜÀûÀÎ ½ÇÆĞ (NPC¸¦ °ø°İÇß´Ù´ø°¡...)
-// º»ÀÎ¿¡°Ô¸¸ ÆĞÅ¶À» ³¯¸°´Ù.
+// Â±Ã¢Â¼Ãº Â½Ã‡Ã†ÃÂ½Ãƒ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
+// Â¿Â¹Â¿ÃœÃ€Ã»Ã€Ã Â½Ã‡Ã†Ã (NPCÂ¸Â¦ Â°Ã¸Â°ÃÃ‡ÃŸÂ´Ã™Â´Ã¸Â°Â¡...)
+// ÂºÂ»Ã€ÃÂ¿Â¡Â°Ã”Â¸Â¸ Ã†ÃÃ…Â¶Ã€Â» Â³Â¯Â¸Â°Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void executeSkillFailException(Creature* pCreature, SkillType_t SkillType, BYTE Grade) {
     // by sigi. 2002.5.8
@@ -6030,14 +6030,14 @@ void executeSkillFailException(Creature* pCreature, SkillType_t SkillType, BYTE 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ´É·ÂÄ¡°¡ »ó½ÂÇßÀ» ¶§, HP, MP¸¦ ¸¸¶¥À¸·Î Ã¤¿öÁÖ´Â ÇÔ¼ö´Ù. ¾Æ¿ì½ºÅÍ½º¿ë
+// Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡ÃŸÃ€Â» Â¶Â§, HP, MPÂ¸Â¦ Â¸Â¸Â¶Â¥Ã€Â¸Â·Ã ÃƒÂ¤Â¿Ã¶ÃÃ–Â´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™. Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½ÂºÂ¿Ã«
 // -- 2003.04.19 by bezz
 //////////////////////////////////////////////////////////////////////////////
 void healCreatureForLevelUp(Ousters* pOusters, ModifyInfo& _ModifyInfo, OUSTERS_RECORD* prev) {
-    // ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â¸Â¦ Ã€Ã§Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     pOusters->initAllStat();
 
-    // ´É·ÂÄ¡°¡ »ó½ÂÇßÀ¸´Ï ¹«¾ğ°¡ ºÎ°¡ÀûÀÎ ´É·ÂÄ¡°¡ º¯ÇßÀ¸¹Ç·Î º¸³»ÁØ´Ù.
+    // Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ Â»Ã³Â½Ã‚Ã‡ÃŸÃ€Â¸Â´Ã Â¹Â«Â¾Ã°Â°Â¡ ÂºÃÂ°Â¡Ã€Ã»Ã€Ã Â´Ã‰Â·Ã‚Ã„Â¡Â°Â¡ ÂºÂ¯Ã‡ÃŸÃ€Â¸Â¹Ã‡Â·Ã ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
     pOusters->sendRealWearingInfo();
     pOusters->addModifyInfo(*prev, _ModifyInfo);
 
@@ -6047,18 +6047,18 @@ void healCreatureForLevelUp(Ousters* pOusters, ModifyInfo& _ModifyInfo, OUSTERS_
     HP_t OldHP = pOusters->getHP(ATTR_CURRENT);
     MP_t OldMP = pOusters->getMP(ATTR_CURRENT);
 
-    // ¸¸¶¥ Ã¤¿ì±â...
+    // Â¸Â¸Â¶Â¥ ÃƒÂ¤Â¿Ã¬Â±Ã¢...
     pOusters->setHP(pOusters->getHP(ATTR_MAX), ATTR_CURRENT);
     pOusters->setMP(pOusters->getMP(ATTR_MAX), ATTR_CURRENT);
 
     HP_t NewHP = pOusters->getHP(ATTR_CURRENT);
     MP_t NewMP = pOusters->getMP(ATTR_CURRENT);
 
-    // HP°¡ ¹Ù²î¾ú´Ù¸é...
+    // HPÂ°Â¡ Â¹Ã™Â²Ã®Â¾ÃºÂ´Ã™Â¸Ã©...
     if (OldHP != NewHP) {
         _ModifyInfo.addShortData(MODIFY_CURRENT_HP, NewHP);
 
-        // ¹Ù²ï Ã¼·ÂÀ» ÁÖÀ§¿¡ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+        // Â¹Ã™Â²Ã¯ ÃƒÂ¼Â·Ã‚Ã€Â» ÃÃ–Ã€Â§Â¿Â¡ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
         GCStatusCurrentHP gcStatusCurrentHP;
         gcStatusCurrentHP.setObjectID(pOusters->getObjectID());
         gcStatusCurrentHP.setCurrentHP(NewHP);
@@ -6074,11 +6074,11 @@ void healCreatureForLevelUp(Ousters* pOusters, ModifyInfo& _ModifyInfo, OUSTERS_
 }
 
 
-// HP¸¦ ÁÙÀÌ´Â ÇÔ¼ö
+// HPÂ¸Â¦ ÃÃ™Ã€ÃŒÂ´Ã‚ Ã‡Ã”Â¼Ã¶
 // by sigi. 2002.9.10
 void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attackerObjectID) {
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // Â¹Â«Ã€Ã»Â»Ã³Ã…Ã‚ ÃƒÂ¼Ã…Â©. by sigi. 2002.9.5
         && !pCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -6094,7 +6094,7 @@ void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attacke
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pSlayer->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ÂºÂ¯Ã‡Ã‘ HPÂ¸Â¦ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pSlayer->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -6114,7 +6114,7 @@ void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attacke
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pVampire->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ÂºÂ¯Ã‡Ã‘ HPÂ¸Â¦ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pVampire->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -6134,7 +6134,7 @@ void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attacke
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pOusters->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ÂºÂ¯Ã‡Ã‘ HPÂ¸Â¦ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pOusters->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -6150,7 +6150,7 @@ void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attacke
 
                 pMonster->setHP(RemainHP, ATTR_CURRENT);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ÂºÂ¯Ã‡Ã‘ HPÂ¸Â¦ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†ÃƒÃ‡Ã˜ÃÃ˜Â´Ã™.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pMonster->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -6158,7 +6158,7 @@ void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attacke
             }
         }
 
-        // attackerObjectID°¡ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // attackerObjectIDÂ°Â¡ pCreatureÂ¸Â¦ ÃÃ—Ã€Ã Â°Ã¦Â¿Ã¬Ã€Ã‡ KillCount ÃƒÂ³Â¸Â®
         // by sigi. 2002.9.9
         if (attackerObjectID != 0 && pCreature->isDead()) {
             Creature* pAttacker = pZone->getCreature(attackerObjectID);
@@ -6173,9 +6173,9 @@ void decreaseHP(Zone* pZone, Creature* pCreature, int Damage, ObjectID_t attacke
 //----------------------------------------------------------------------
 // Set Direction To Creature
 //----------------------------------------------------------------------
-// ´Ù¸¥ Creature¸¦ ÇâÇØ¼­ ¹Ù¶óº»´Ù.
+// Â´Ã™Â¸Â¥ CreatureÂ¸Â¦ Ã‡Ã¢Ã‡Ã˜Â¼Â­ Â¹Ã™Â¶Ã³ÂºÂ»Â´Ã™.
 //----------------------------------------------------------------------
-// 8¹æÇâ¿¡ µû¸¥ ±âÁØÀÌ µÇ´Â ±â¿ï±â : °¡·Î/¼¼·Î ºñÀ²°ú °ü·Ã
+// 8Â¹Ã¦Ã‡Ã¢Â¿Â¡ ÂµÃ»Â¸Â¥ Â±Ã¢ÃÃ˜Ã€ÃŒ ÂµÃ‡Â´Ã‚ Â±Ã¢Â¿Ã¯Â±Ã¢ : Â°Â¡Â·Ã/Â¼Â¼Â·Ã ÂºÃ±Ã€Â²Â°Ãº Â°Ã¼Â·Ãƒ
 //----------------------------------------------------------------------
 const float BASIS_DIRECTION_LOW = 0.35f;
 const float BASIS_DIRECTION_HIGH = 3.0f;
@@ -6183,14 +6183,14 @@ const float BASIS_DIRECTION_HIGH = 3.0f;
 Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY) {
     int stepX = destX - originX, stepY = destY - originY;
 
-    // 0ÀÏ ¶§ check
-    float k = (stepX == 0) ? 0 : (float)(stepY) / stepX; // ±â¿ï±â
+    // 0Ã€Ã Â¶Â§ check
+    float k = (stepX == 0) ? 0 : (float)(stepY) / stepX; // Â±Ã¢Â¿Ã¯Â±Ã¢
 
     //--------------------------------------------------
-    // ¹æÇâÀ» Á¤ÇØ¾ß ÇÑ´Ù.
+    // Â¹Ã¦Ã‡Ã¢Ã€Â» ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     //--------------------------------------------------
     if (stepY == 0) {
-        // XÃà
+        // XÃƒÃ 
         // - -;;
         if (stepX == 0)
             return DOWN;
@@ -6198,13 +6198,13 @@ Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY) {
             return RIGHT;
         else
             return LEFT;
-    } else if (stepY < 0) // UPÂÊÀ¸·Î
+    } else if (stepY < 0) // UPÃ‚ÃŠÃ€Â¸Â·Ã
     {
-        // yÃà À§
+        // yÃƒÃ  Ã€Â§
         if (stepX == 0) {
             return UP;
         }
-        // 1»çºĞ¸é
+        // 1Â»Ã§ÂºÃÂ¸Ã©
         else if (stepX > 0) {
             if (k < -BASIS_DIRECTION_HIGH)
                 return UP;
@@ -6213,7 +6213,7 @@ Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY) {
             else
                 return RIGHT;
         }
-        // 2»çºĞ¸é
+        // 2Â»Ã§ÂºÃÂ¸Ã©
         else {
             if (k > BASIS_DIRECTION_HIGH)
                 return UP;
@@ -6223,13 +6223,13 @@ Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY) {
                 return LEFT;
         }
     }
-    // ¾Æ·¡ÂÊ
+    // Â¾Ã†Â·Â¡Ã‚ÃŠ
     else {
-        // yÃà ¾Æ·¡
+        // yÃƒÃ  Â¾Ã†Â·Â¡
         if (stepX == 0) {
             return DOWN;
         }
-        // 4»çºĞ¸é
+        // 4Â»Ã§ÂºÃÂ¸Ã©
         else if (stepX > 0) {
             if (k > BASIS_DIRECTION_HIGH)
                 return DOWN;
@@ -6238,7 +6238,7 @@ Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY) {
             else
                 return RIGHT;
         }
-        // 3»çºĞ¸é
+        // 3Â»Ã§ÂºÃÂ¸Ã©
         else {
             if (k < -BASIS_DIRECTION_HIGH)
                 return DOWN;
@@ -6281,31 +6281,31 @@ Exp_t computeSkillPointBonus(SkillDomainType_t Domain, SkillLevel_t DomainLevel,
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ Â¼Ã¸Â¼Ã¶ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computePureSlayerDamage(Slayer* pSlayer) {
     Assert(pSlayer != NULL);
 
     Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
 
-    // ÀÏ´Ü ¸Ç¼ÕÀÇ µ¥¹ÌÁö¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Ã€ÃÂ´Ãœ Â¸Ã‡Â¼Ã•Ã€Ã‡ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     Damage_t MinDamage = pSlayer->getDamage(ATTR_CURRENT);
     Damage_t MaxDamage = pSlayer->getDamage(ATTR_MAX);
 
-    // ¹«±â¸¦ µé°í ÀÖ´Ù¸é, min, max¿¡ ¹«±âÀÇ min, max¸¦ °è»êÇØ ÁØ´Ù.
+    // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã©, min, maxÂ¿Â¡ Â¹Â«Â±Ã¢Ã€Ã‡ min, maxÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃÃ˜Â´Ã™.
     if (pItem != NULL && pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND)) {
         MinDamage += pItem->getMinDamage();
         MaxDamage += pItem->getMaxDamage();
     }
 
-    // ½ÇÁ¦ ·£´ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // Â½Ã‡ÃÂ¦ Â·Â£Â´Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Damage_t RealDamage = max(1, Random(MinDamage, MaxDamage));
 
     return RealDamage;
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î °ø°İÀÚÀÇ ¼ø¼ö µ¥ºñÁö¸¦ °è»êÇÑ´Ù.
+// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ Â¼Ã¸Â¼Ã¶ ÂµÂ¥ÂºÃ±ÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computePureVampireDamage(Vampire* pVampire) {
     Assert(pVampire != NULL);
@@ -6314,16 +6314,16 @@ Damage_t computePureVampireDamage(Vampire* pVampire) {
     Damage_t MaxDamage = pVampire->getDamage(ATTR_MAX);
     uint timeband = getZoneTimeband(pVampire->getZone());
 
-    // vampire ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö
+    // vampire Â¹Â«Â±Ã¢Â¿Â¡ Ã€Ã‡Ã‡Ã‘ ÂµÂ¥Â¹ÃŒÃÃ¶
     Item* pItem = pVampire->getWearItem(Vampire::WEAR_RIGHTHAND);
 
-    // ¹«±â¸¦ µé°í ÀÖ´Ù¸é, min, max¿¡ ¹«±âÀÇ min, max¸¦ °è»êÇØ ÁØ´Ù.
+    // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã©, min, maxÂ¿Â¡ Â¹Â«Â±Ã¢Ã€Ã‡ min, maxÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃÃ˜Â´Ã™.
     if (pItem != NULL && pVampire->isRealWearingEx(Vampire::WEAR_RIGHTHAND)) {
         MinDamage += pItem->getMinDamage();
         MaxDamage += pItem->getMaxDamage();
     }
 
-    // ½ÇÁ¦ ·£´ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // Â½Ã‡ÃÂ¦ Â·Â£Â´Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Damage_t RealDamage = max(1, Random(MinDamage, MaxDamage));
 
     RealDamage = (Damage_t)getPercentValue(RealDamage, VampireTimebandFactor[timeband]);
@@ -6333,7 +6333,7 @@ Damage_t computePureVampireDamage(Vampire* pVampire) {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º °ø°İÀÚÀÇ ¼ø¼ö µ¥ºñÁö¸¦ °è»êÇÑ´Ù.
+// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÂ½Âº Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ Â¼Ã¸Â¼Ã¶ ÂµÂ¥ÂºÃ±ÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computePureOustersDamage(Ousters* pOusters) {
     Assert(pOusters != NULL);
@@ -6341,23 +6341,23 @@ Damage_t computePureOustersDamage(Ousters* pOusters) {
     Damage_t MinDamage = pOusters->getDamage(ATTR_CURRENT);
     Damage_t MaxDamage = pOusters->getDamage(ATTR_MAX);
 
-    // vampire ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö
+    // vampire Â¹Â«Â±Ã¢Â¿Â¡ Ã€Ã‡Ã‡Ã‘ ÂµÂ¥Â¹ÃŒÃÃ¶
     Item* pItem = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
 
-    // ¹«±â¸¦ µé°í ÀÖ´Ù¸é, min, max¿¡ ¹«±âÀÇ min, max¸¦ °è»êÇØ ÁØ´Ù.
+    // Â¹Â«Â±Ã¢Â¸Â¦ ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã©, min, maxÂ¿Â¡ Â¹Â«Â±Ã¢Ã€Ã‡ min, maxÂ¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã˜ ÃÃ˜Â´Ã™.
     if (pItem != NULL && pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
         MinDamage += pItem->getMinDamage();
         MaxDamage += pItem->getMaxDamage();
     }
 
-    // ½ÇÁ¦ ·£´ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // Â½Ã‡ÃÂ¦ Â·Â£Â´Ã½ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
     Damage_t RealDamage = max(1, Random(MinDamage, MaxDamage));
 
     return RealDamage;
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// Â¸Ã³Â½ÂºÃ…Ã Â°Ã¸Â°ÃÃ€ÃšÃ€Ã‡ Â¼Ã¸Â¼Ã¶ ÂµÂ¥Â¹ÃŒÃÃ¶Â¸Â¦ Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 Damage_t computePureMonsterDamage(Monster* pMonster) {
     Assert(pMonster != NULL);
@@ -6372,14 +6372,14 @@ Damage_t computePureMonsterDamage(Monster* pMonster) {
     return RealDamage;
 }
 
-// Á¡°ú Á¡»çÀÌ¸¦ °É¾î¼­ °¥ ¼ö ÀÖ´Â°¡? ( Å©¸®ÃÄ·Î ¸·Èù °æ¿ì´Â Á¦¿Ü )
+// ÃÂ¡Â°Ãº ÃÂ¡Â»Ã§Ã€ÃŒÂ¸Â¦ Â°Ã‰Â¾Ã®Â¼Â­ Â°Â¥ Â¼Ã¶ Ã€Ã–Â´Ã‚Â°Â¡? ( Ã…Â©Â¸Â®ÃƒÃ„Â·Ã Â¸Â·ÃˆÃ¹ Â°Ã¦Â¿Ã¬Â´Ã‚ ÃÂ¦Â¿Ãœ )
 bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, bool blockByCreature) {
     list<TPOINT> tpList;
 
     if (pZone == NULL)
         return false;
 
-    // µÎ Á¡»çÀÌÀÇ Áø¼±À» ÀÌ·ç´Â Á¡µéÀ» ±¸ÇÑ´Ù.
+    // ÂµÃ ÃÂ¡Â»Ã§Ã€ÃŒÃ€Ã‡ ÃÃ¸Â¼Â±Ã€Â» Ã€ÃŒÂ·Ã§Â´Ã‚ ÃÂ¡ÂµÃ©Ã€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
     getLinePoint(sX, sY, eX, eY, tpList);
 
     if (tpList.empty())
@@ -6395,7 +6395,7 @@ bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, Zon
             return false;
 
         if (tp.x == sX && tp.y == sY) {
-            // ½ÃÀÛÁ¡Àº Ã¼Å© ¾ÈÇÑ´Ù.
+            // Â½ÃƒÃ€Ã›ÃÂ¡Ã€Âº ÃƒÂ¼Ã…Â© Â¾ÃˆÃ‡Ã‘Â´Ã™.
             continue;
         }
 
@@ -6408,8 +6408,8 @@ bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, Zon
             return false;
         }
 
-        // ´ë°¢¼±À¸·Î ¹Ù²ï °æ¿ì, ÇÑÂÊ ¹æÇâÀ¸·Î¸¸ °¥¼ö ÀÖ¾îµµ °¡´ÉÇÏ´Ù.
-        // (1,1) -> (2,2) ÀÎ °æ¿ì, (1,2) ³ª (2,1) µÑ Áß¿¡ ÇÏ³ª¸¸ Áö³ª°¥ ¼ö ÀÖ¾îµµ Áö³ª°¥ ¼ö ÀÖ´Ù°í º»´Ù.
+        // Â´Ã«Â°Â¢Â¼Â±Ã€Â¸Â·Ã Â¹Ã™Â²Ã¯ Â°Ã¦Â¿Ã¬, Ã‡Ã‘Ã‚ÃŠ Â¹Ã¦Ã‡Ã¢Ã€Â¸Â·ÃÂ¸Â¸ Â°Â¥Â¼Ã¶ Ã€Ã–Â¾Ã®ÂµÂµ Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™.
+        // (1,1) -> (2,2) Ã€Ã Â°Ã¦Â¿Ã¬, (1,2) Â³Âª (2,1) ÂµÃ‘ ÃÃŸÂ¿Â¡ Ã‡ÃÂ³ÂªÂ¸Â¸ ÃÃ¶Â³ÂªÂ°Â¥ Â¼Ã¶ Ã€Ã–Â¾Ã®ÂµÂµ ÃÃ¶Â³ÂªÂ°Â¥ Â¼Ã¶ Ã€Ã–Â´Ã™Â°Ã­ ÂºÂ»Â´Ã™.
         if (prev.x != tp.x && prev.y != tp.y) {
             if (!rect.ptInRect(tp.x, prev.y))
                 return false;
@@ -6430,7 +6430,7 @@ bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, Zon
     return true;
 }
 
-// µÎ Á¡»çÀÌÀÇ Áø¼±À» ÀÌ·ç´Â Á¡µéÀ» ±¸ÇÑ´Ù.
+// ÂµÃ ÃÂ¡Â»Ã§Ã€ÃŒÃ€Ã‡ ÃÃ¸Â¼Â±Ã€Â» Ã€ÃŒÂ·Ã§Â´Ã‚ ÃÂ¡ÂµÃ©Ã€Â» Â±Â¸Ã‡Ã‘Â´Ã™.
 void getLinePoint(ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, list<TPOINT>& tpList) {
     int xLength = abs(sX - eX);
     int yLength = abs(sY - eY);
@@ -6528,7 +6528,7 @@ Damage_t computeElementalCombatSkill(Ousters* pOusters, Creature* pTargetCreatur
         if (!bMaster && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_ICE_OF_SOUL_STONE) &&
             (rand() % 100) < min(23, ratio * 2 / 3)) {
             Turn_t duration = pOusters->getPassiveBonus(SKILL_ICE_OF_SOUL_STONE);
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // Ã€ÃŒÃ†Ã‘Ã†Â® Ã…Â¬Â·Â¡Â½ÂºÂ¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã® ÂºÃ™Ã€ÃÂ´Ã™.
             EffectIceOfSoulStone* pEffect = new EffectIceOfSoulStone(pTargetCreature);
             pEffect->setDeadline(duration);
             pTargetCreature->addEffect(pEffect);
@@ -6605,7 +6605,7 @@ Damage_t computeElementalCombatSkill(Ousters* pOusters, Creature* pTargetCreatur
         if (!bMaster && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOCK_HEAD) &&
             (rand() % 100) < min(15, ratio / 2)) {
             Turn_t duration = pOusters->getPassiveBonus(SKILL_BLOCK_HEAD);
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // Ã€ÃŒÃ†Ã‘Ã†Â® Ã…Â¬Â·Â¡Â½ÂºÂ¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã® ÂºÃ™Ã€ÃÂ´Ã™.
             EffectBlockHead* pEffect = new EffectBlockHead(pTargetCreature);
             pEffect->setDeadline(duration);
             pTargetCreature->addEffect(pEffect);
@@ -6753,29 +6753,29 @@ Damage_t computeElementalCombatSkill(Ousters* pOusters, Creature* pTargetCreatur
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// °ø°İÇÒ ¼ö ÀÖ´Â°¡?
-// ¹«Àû »óÅÂ³ª non PK ¸¦ À§ÇØ¼­ °ø°İÇÒ ¼ö ÀÖ´ÂÁö¸¦ Ã¼Å©ÇÑ´Ù.
+// Â°Ã¸Â°ÃÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚Â°Â¡?
+// Â¹Â«Ã€Ã» Â»Ã³Ã…Ã‚Â³Âª non PK Â¸Â¦ Ã€Â§Ã‡Ã˜Â¼Â­ Â°Ã¸Â°ÃÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã‚ÃÃ¶Â¸Â¦ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 bool canAttack(Creature* pAttacker, Creature* pDefender) {
     Assert(pDefender != NULL);
 
-    // ¹«Àû »óÅÂ Ã¼Å©
+    // Â¹Â«Ã€Ã» Â»Ã³Ã…Ã‚ ÃƒÂ¼Ã…Â©
     if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
         return false;
 
-    // Attacker °¡ NULL ÀÌ¸é °Á true
-    // Á¨Àå ¸Õ°¡ ±ò²ûÇÏ°Ô °íÄ¡±â ¹Ù¶÷ Effect¿¡¼­ Ã¼Å©ÇÒ¶§ Attacker °¡ NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // Attacker Â°Â¡ NULL Ã€ÃŒÂ¸Ã© Â°Ã true
+    // ÃÂ¨Ã€Ã¥ Â¸Ã•Â°Â¡ Â±Ã²Â²Ã»Ã‡ÃÂ°Ã” Â°Ã­Ã„Â¡Â±Ã¢ Â¹Ã™Â¶Ã· EffectÂ¿Â¡Â¼Â­ ÃƒÂ¼Ã…Â©Ã‡Ã’Â¶Â§ Attacker Â°Â¡ NULL Ã€ÃŒ ÂµÃ‰ Â¼Ã¶ Ã€Ã–Â´Ã™.
     if (pAttacker == NULL)
         return true;
 
-    // °ÔÀÓ¼­¹ö¿¡ PK ¼³Á¤ÀÌ µÇ¾ú´Â°¡?
+    // Â°Ã”Ã€Ã“Â¼Â­Â¹Ã¶Â¿Â¡ PK Â¼Â³ÃÂ¤Ã€ÃŒ ÂµÃ‡Â¾ÃºÂ´Ã‚Â°Â¡?
     static bool bNonPK =
         g_pGameServerInfoManager
             ->getGameServerInfo(1, g_pConfig->getPropertyInt("ServerID"), g_pConfig->getPropertyInt("WorldID"))
             ->isNonPKServer();
     // bool canPK = bNonPK || GDRLairManager::Instance().isGDRLairZone( pAttacker->getZoneID() );
 
-    // non PK Ã¼Å©
+    // non PK ÃƒÂ¼Ã…Â©
     if (bNonPK && pAttacker->isPC() && pDefender->isPC())
         return false;
 
@@ -6784,7 +6784,7 @@ bool canAttack(Creature* pAttacker, Creature* pDefender) {
 
 //////////////////////////////////////////////////////////////////////////
 // add by Coffee 2007-6-9
-// Ôö¼ÓĞÂ¼¼ÄÜÈı×åÊ¹ÓÃĞÂ¼¼ÄÜ ¿Û³ı¼¼ÄÜ¿¨ÑéÖ¤
+// Ã”Ã¶Â¼Ã“ÃÃ‚Â¼Â¼Ã„ÃœÃˆÃ½Ã—Ã¥ÃŠÂ¹Ã“ÃƒÃÃ‚Â¼Â¼Ã„Ãœ Â¿Ã›Â³Ã½Â¼Â¼Ã„ÃœÂ¿Â¨Ã‘Ã©Ã–Â¤
 //////////////////////////////////////////////////////////////////////////
 bool useSkillCrad(Creature* pCreature) {
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
@@ -6792,7 +6792,7 @@ bool useSkillCrad(Creature* pCreature) {
 
     CoordInven_t InvenX = 0;
     CoordInven_t InvenY = 0;
-    ItemType_t fitItem = 0; // ËÄÒ¶²İ
+    ItemType_t fitItem = 0; // Ã‹Ã„Ã’Â¶Â²Ã
     if (pCreature->isSlayer()) {
         fitItem = 5;
     } else if (pCreature->isVampire()) {
@@ -6804,7 +6804,7 @@ bool useSkillCrad(Creature* pCreature) {
         Item* pItem = pPC->getInventory()->findItem(Item::ITEM_CLASS_MOON_CARD, fitItem, InvenX, InvenY);
         if (pItem == NULL) {
             GCSystemMessage gcSystemMessage1;
-            gcSystemMessage1.setMessage("Ê¹ÓÃ¸Ã¼¼ÄÜĞèÒª¼¼ÄÜ¿¨!");
+            gcSystemMessage1.setMessage("ÃŠÂ¹Ã“ÃƒÂ¸ÃƒÂ¼Â¼Ã„ÃœÃÃ¨Ã’ÂªÂ¼Â¼Ã„ÃœÂ¿Â¨!");
             gcSystemMessage1.setType(SYSTEM_MESSAGE_OPERATOR);
             pGamePlayer->sendPacket(&gcSystemMessage1);
             return false;
@@ -6822,7 +6822,7 @@ bool useSkillCrad(Creature* pCreature) {
 
     } else {
         GCSystemMessage gcSystemMessage1;
-        gcSystemMessage1.setMessage("Ê¹ÓÃ¸Ã¼¼ÄÜĞèÒª¼¼ÄÜ¿¨!");
+        gcSystemMessage1.setMessage("ÃŠÂ¹Ã“ÃƒÂ¸ÃƒÂ¼Â¼Ã„ÃœÃÃ¨Ã’ÂªÂ¼Â¼Ã„ÃœÂ¿Â¨!");
         gcSystemMessage1.setType(SYSTEM_MESSAGE_OPERATOR);
         pGamePlayer->sendPacket(&gcSystemMessage1);
         return false;

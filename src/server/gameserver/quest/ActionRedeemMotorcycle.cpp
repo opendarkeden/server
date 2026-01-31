@@ -44,11 +44,11 @@ void ActionRedeemMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);
 
-    // ÀÏ´Ü Å¬¶óÀÌ¾ğÆ®¸¦ À§ÇØ okÆĞÅ¶À» ÇÏ³ª ³¯·ÁÁÖ°í...
+    // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ okíŒ¨í‚·ì„ í•˜ë‚˜ ë‚ ë ¤ì£¼ê³ ...
     GCNPCResponse answerOKpkt;
     pPlayer->sendPacket(&answerOKpkt);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÎÁö °Ë»çÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ê²€ì‚¬í•œë‹¤.
     if (pCreature2->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
         Zone* pZone = pSlayer->getZone();
@@ -70,10 +70,10 @@ void ActionRedeemMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
             BeltInvenHeight = pBeltInventory->getHeight();
         }
 
-        // ÀÎº¥Åä¸®¸¦ °Ë»öÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ë¥¼ ê²€ìƒ‰í•œë‹¤.
         for (uint y = 0; y < InvenHeight; y++) {
             for (uint x = 0; x < InvenWidth; x++) {
-                // x, y¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+                // x, yì— ì•„ì´í…œì´ ìˆë‹¤ë©´...
                 if (pInventory->hasItem(x, y)) {
                     pItem = pInventory->getItem(x, y);
                     if (load(pItem, pSlayer, pZone, pSlayer->getX(), pSlayer->getY())) {
@@ -84,7 +84,7 @@ void ActionRedeemMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
         }
 
         if (pBelt != NULL) {
-            // º§Æ®¸¦ °Ë»öÇÑ´Ù
+            // ë²¨íŠ¸ë¥¼ ê²€ìƒ‰í•œë‹¤
             for (uint y = 0; y < BeltInvenHeight; y++) {
                 for (uint x = 0; x < BeltInvenWidth; x++) {
                     if (pBeltInventory->hasItem(x, y)) {
@@ -96,7 +96,7 @@ void ActionRedeemMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
                 }
             }
         }
-    } else // ¹ìÆÄÀÌ¾î¶ó¸é...¿ÀÅä¹ÙÀÌ¸¦ Ã£¾ÆÁÙ ÀÌÀ¯°¡ ÀÖÀ»±î?
+    } else // ë±€íŒŒì´ì–´ë¼ë©´...ì˜¤í† ë°”ì´ë¥¼ ì°¾ì•„ì¤„ ì´ìœ ê°€ ìˆì„ê¹Œ?
     {
     }
 
@@ -112,7 +112,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
 
     __BEGIN_TRY
 
-    // ´Ü¼­°¡ µÇ´Â ¾ÆÀÌÅÛÀÌ Å°°¡ ¾Æ´Ï¶ó¸é false¸¦ ¸®ÅÏ.
+    // ë‹¨ì„œê°€ ë˜ëŠ” ì•„ì´í…œì´ í‚¤ê°€ ì•„ë‹ˆë¼ë©´ falseë¥¼ ë¦¬í„´.
     if (pItem->getItemClass() != Item::ITEM_CLASS_KEY)
         return false;
 
@@ -120,19 +120,19 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
     ItemID_t targetID = pKey->getTarget();
 
     try {
-        // Å°°¡ ¸Â´Ù¸é Å°ÀÇ Å¸°ÙÀÌ µÇ´Â ¾ÆÀÌÅÛÀÇ ¾ÆÀÌÅÛ ID¸¦ ¾ò¾î³½´Ù.
+        // í‚¤ê°€ ë§ë‹¤ë©´ í‚¤ì˜ íƒ€ê²Ÿì´ ë˜ëŠ” ì•„ì´í…œì˜ ì•„ì´í…œ IDë¥¼ ì–»ì–´ë‚¸ë‹¤.
         Statement* pStmt = NULL;
         Result* pResult = NULL;
 
-        // targetID°¡ 0ÀÎ °æ¿ì´Â.. targetID(motorcycleObjectÀÇ ItemID)°¡ ¼³Á¤ÀÌ ¾ÈµÈ °æ¿ì´Ù.
-        // ÀÌ ¶§´Â ÀÓ½Ã·Î targetID¸¦ keyÀÇ ItemID¿Í °°°Ô ÇÏ¸é µÈ´Ù...°í º»´Ù.
-        // targetID°¡ motorcycleÀÇ itemID·Î µé¾î°¡±â ¶§¹®¿¡..
-        // broadcasting µî¿¡¼­.. Assert()¿¡ ÀÇÇØ¼­ ´Ù¿îµÇ¾ú´Ù...°í º¸¿©Áø´Ù.  - -;
+        // targetIDê°€ 0ì¸ ê²½ìš°ëŠ”.. targetID(motorcycleObjectì˜ ItemID)ê°€ ì„¤ì •ì´ ì•ˆëœ ê²½ìš°ë‹¤.
+        // ì´ ë•ŒëŠ” ì„ì‹œë¡œ targetIDë¥¼ keyì˜ ItemIDì™€ ê°™ê²Œ í•˜ë©´ ëœë‹¤...ê³  ë³¸ë‹¤.
+        // targetIDê°€ motorcycleì˜ itemIDë¡œ ë“¤ì–´ê°€ê¸° ë•Œë¬¸ì—..
+        // broadcasting ë“±ì—ì„œ.. Assert()ì— ì˜í•´ì„œ ë‹¤ìš´ë˜ì—ˆë‹¤...ê³  ë³´ì—¬ì§„ë‹¤.  - -;
         // by sigi. 2002.12.25 x-mas T_T;
         if (targetID == 0) {
             targetID = pKey->setNewMotorcycle(pSlayer);
-            /*		// (!) MotorcycleObject¸¦ »ı¼ºÇÏ°í MotorcycleItemID==Target¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
-                    // ÀÌ ÄÚµå Á¦¹ß ÇÔ¼ö·Î »©±â¸¦.. -_-; by sigi
+            /*		// (!) MotorcycleObjectë¥¼ ìƒì„±í•˜ê³  MotorcycleItemID==Targetë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
+                    // ì´ ì½”ë“œ ì œë°œ í•¨ìˆ˜ë¡œ ë¹¼ê¸°ë¥¼.. -_-; by sigi
                     list<OptionType_t> optionNULL;
                     Item* pMotorcycle = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_MOTORCYCLE, 0, optionNULL);
                     Assert(pMotorcycle != NULL);
@@ -143,7 +143,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
 
                     targetID = pMotorcycle->getItemID();
 
-                    // targetID¸¦ DB¿¡µµ update½ÃÄÑ¾ß ÇÑ´Ù.
+                    // targetIDë¥¼ DBì—ë„ updateì‹œì¼œì•¼ í•œë‹¤.
                     BEGIN_DB
                     {
                         pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -155,11 +155,11 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
                     }
                     END_DB(pStmt)
 
-                    // ¹Ø¿¡¼­ pMotorcycleÀ» »ç¿ëÇØµµ µÇ°ÚÁö¸¸, ±âÁ¸ ÄÚµå ¾È °Çµå¸±·Á°í ¿©±â¼­ Áö¿î´Ù.
+                    // ë°‘ì—ì„œ pMotorcycleì„ ì‚¬ìš©í•´ë„ ë˜ê² ì§€ë§Œ, ê¸°ì¡´ ì½”ë“œ ì•ˆ ê±´ë“œë¦´ë ¤ê³  ì—¬ê¸°ì„œ ì§€ìš´ë‹¤.
                     SAFE_DELETE(pMotorcycle);*/
         } else {
-            // ÇÑ¹ø ¸ğÅÍ»çÀÌÅ¬ÀÌ¶û Å°¶û ¿¬°áµÆ´Âµ¥ ¸ğÅÍ»çÀÌÅ¬À» ´©°¡ ÀÚ²Ù Áö¿ì³ªº¸´Ù.
-            // Å°¿¡ ¿¬°áµÈ ¸ğÅÍ»çÀÌÅ¬ÀÌ ½ÇÁ¦·Î µğºñ¿¡ ÀÖ´ÂÁö Ã¼Å©ÇÏ°í ¾øÀ¸¸é »õ·Î ¸¸µé¾î¼­ ³Ö¾îÁØ´Ù.
+            // í•œë²ˆ ëª¨í„°ì‚¬ì´í´ì´ë‘ í‚¤ë‘ ì—°ê²°ëëŠ”ë° ëª¨í„°ì‚¬ì´í´ì„ ëˆ„ê°€ ìê¾¸ ì§€ìš°ë‚˜ë³´ë‹¤.
+            // í‚¤ì— ì—°ê²°ëœ ëª¨í„°ì‚¬ì´í´ì´ ì‹¤ì œë¡œ ë””ë¹„ì— ìˆëŠ”ì§€ ì²´í¬í•˜ê³  ì—†ìœ¼ë©´ ìƒˆë¡œ ë§Œë“¤ì–´ì„œ ë„£ì–´ì¤€ë‹¤.
             BEGIN_DB {
                 pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
                 pResult = pStmt->executeQuery("SELECT ItemID FROM MotorcycleObject WHERE ItemID=%lu", targetID);
@@ -177,17 +177,17 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
         }
 
 
-        // ÇÊ»ì ¹æ¾î ÄÚµå -_-;
+        // í•„ì‚´ ë°©ì–´ ì½”ë“œ -_-;
         if (targetID == 0) {
             filelog("errorLog.txt", "[ActionRedeemMotorcycle] itemID=%d, motorItemID=%d", (int)pItem->getItemID(),
                     (int)targetID);
             return false;
         }
 
-        // DB¿¡ Äõ¸®ÇÏ±â Àü¿¡ ¸ÕÀú °´Ã¼°¡ »ı¼ºµÇ¾î ÀÖÁö´Â ¾ÊÀºÁö Ã¼Å©ÇÑ´Ù.
+        // DBì— ì¿¼ë¦¬í•˜ê¸° ì „ì— ë¨¼ì € ê°ì²´ê°€ ìƒì„±ë˜ì–´ ìˆì§€ëŠ” ì•Šì€ì§€ ì²´í¬í•œë‹¤.
         if (g_pParkingCenter->hasMotorcycleBox(targetID)) {
-            // ÀÚ²Ù ´Ù¿îµÇ¾î¼­ È¤½Ã³ª ÇÏ°í..
-            // ÀÏ´Ü ÁÖ¼®Ã³¸®ÇÑ´Ù.  by sigi. 2002.11.16
+            // ìê¾¸ ë‹¤ìš´ë˜ì–´ì„œ í˜¹ì‹œë‚˜ í•˜ê³ ..
+            // ì¼ë‹¨ ì£¼ì„ì²˜ë¦¬í•œë‹¤.  by sigi. 2002.11.16
             /*
             if (!pSlayer->hasRideMotorcycle()
                 && !pSlayer->isFlag(Effect::EFFECT_CLASS_COMA))
@@ -197,7 +197,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
                 // by sigi. 2002.11.14
                 MotorcycleBox* pMotorcycleBox = g_pParkingCenter->getMotorcycleBox(targetID);
 
-                // ÀÖ´Ù¸é ¼ÒÈ¯ÇÑ´Ù.
+                // ìˆë‹¤ë©´ ì†Œí™˜í•œë‹¤.
                 if (pMotorcycleBox!=NULL
                     && !pMotorcycleBox->isTransport())
                 {
@@ -206,25 +206,25 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
                     ZoneCoord_t motorY = pMotorcycleBox->getY();
                     Motorcycle* pMotorcycle = pMotorcycleBox->getMotorcycle();
 
-                    // °°Àº Á¸¿¡ ÀÖ´Â °æ¿ì
-                    // °Å¸®°¡ ³Ê¹« °¡±î¿ì¸é ºÎ¸£Áö ¸»ÀÚ~
+                    // ê°™ì€ ì¡´ì— ìˆëŠ” ê²½ìš°
+                    // ê±°ë¦¬ê°€ ë„ˆë¬´ ê°€ê¹Œìš°ë©´ ë¶€ë¥´ì§€ ë§ì~
                     if (pMotorZone!=pZone
                         || pSlayer->getDistance(motorX, motorY) > 15)
                     {
-                        // ´Ù¸¥ zoneÀ¸·Î ÀÌµ¿ÁßÀÌ¶ó°í Ç¥½ÃÇÑ´Ù.
+                        // ë‹¤ë¥¸ zoneìœ¼ë¡œ ì´ë™ì¤‘ì´ë¼ê³  í‘œì‹œí•œë‹¤.
                         pMotorcycleBox->setTransport();
 
-                        // motorcycleÀ» slayerÀÇ zoneÀ¸·Î ¿Å±ä´Ù.
+                        // motorcycleì„ slayerì˜ zoneìœ¼ë¡œ ì˜®ê¸´ë‹¤.
                         pMotorZone->transportItem( motorX, motorY, pMotorcycle,
                                                     pZone, pSlayer->getX(), pSlayer->getY() );
 
-                        // Use OK ´ë¿ëÀÌ´Ù.
-                        // UseÇÏ¸é ¾ÆÀÌÅÛÀÌ »ç¶óÁö´ø°¡ ±×·¸Áö ½Í´Ù. - -;
+                        // Use OK ëŒ€ìš©ì´ë‹¤.
+                        // Useí•˜ë©´ ì•„ì´í…œì´ ì‚¬ë¼ì§€ë˜ê°€ ê·¸ë ‡ì§€ ì‹¶ë‹¤. - -;
                         //GCCannotUse _GCCannotUse;
                         //_GCCannotUse.setObjectID(pPacket->getObjectID());
                         //pGamePlayer->sendPacket(&_GCCannotUse);
 
-                        // ÇÑµ¿¾È delay¸¦ Áà¾ßÇÏ´Âµ¥..
+                        // í•œë™ì•ˆ delayë¥¼ ì¤˜ì•¼í•˜ëŠ”ë°..
                     }
                 }
 
@@ -249,7 +249,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
             pResult = pStmt->executeQueryString(sql.toString());
 
             // by sigi. 2002.10.14
-            // °á°ú¹°ÀÌ ¾ø´Ù¸é ¸ğÅÍ»çÀÌÅ¬ÀÌ ¾ø´Â °ÅÁã.
+            // ê²°ê³¼ë¬¼ì´ ì—†ë‹¤ë©´ ëª¨í„°ì‚¬ì´í´ì´ ì—†ëŠ” ê±°ì¥.
             if (pResult->getRowCount() <= 0) {
                 bFound = false;
 
@@ -269,7 +269,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
             }
 
 
-            // ¸ğÅÍ»çÀÌÅ¬ °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+            // ëª¨í„°ì‚¬ì´í´ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
             list<OptionType_t> optionTypes;
             setOptionTypeFromField(optionTypes, optionType);
             Motorcycle* pMotorcycle = new Motorcycle(itemType, optionTypes);
@@ -279,17 +279,17 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
             pMotorcycle->setItemID(itemID);
             pMotorcycle->setDurability(durability);
 
-            // Á¸¿¡´Ù ºÙÀÌ±â Àü¿¡ oid¸¦ »õ·Î ÇÒ´ç¹Ş´Â´Ù.
+            // ì¡´ì—ë‹¤ ë¶™ì´ê¸° ì „ì— oidë¥¼ ìƒˆë¡œ í• ë‹¹ë°›ëŠ”ë‹¤.
             (pZone->getObjectRegistry()).registerObject(pMotorcycle);
 
-            // »ı¼ºÇÑ ¸ğÅÍ»çÀÌÅ¬À» Á¸¿¡´Ù °®´ÙºÙÀÎ´Ù.
+            // ìƒì„±í•œ ëª¨í„°ì‚¬ì´í´ì„ ì¡´ì—ë‹¤ ê°–ë‹¤ë¶™ì¸ë‹¤.
             TPOINT pt = pZone->addItem(pMotorcycle, x, y, false);
             if (pt.x == -1) {
-                // ¿ÀÅä¹ÙÀÌ¸¦ Á¸¿¡´Ù ´õÇÒ ¼ö ¾ø¾ú´Ù. ¾¾¹Ù.
+                // ì˜¤í† ë°”ì´ë¥¼ ì¡´ì—ë‹¤ ë”í•  ìˆ˜ ì—†ì—ˆë‹¤. ì”¨ë°”.
                 filelog("motorError.txt",
-                        "ActionRedeemMotorcycle::load() : ¸ğÅÍ»çÀÌÅ¬À» Á¸¿¡´Ù ´õÇÒ ¼ö ¾ø½À´Ï´Ù. zoneID=%d, xy=(%d, %d)",
+                        "ActionRedeemMotorcycle::load() : ëª¨í„°ì‚¬ì´í´ì„ ì¡´ì—ë‹¤ ë”í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. zoneID=%d, xy=(%d, %d)",
                         (int)pZone->getZoneID(), (int)x, (int)y); // by sigi. 2002.12.24
-                throw Error("ActionRedeemMotorcycle::load() : ¸ğÅÍ»çÀÌÅ¬À» Á¸¿¡´Ù ´õÇÒ ¼ö ¾ø½À´Ï´Ù");
+                throw Error("ActionRedeemMotorcycle::load() : ëª¨í„°ì‚¬ì´í´ì„ ì¡´ì—ë‹¤ ë”í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤");
             }
 
             // by sigi. 2002.10.14
@@ -301,7 +301,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
                     durability);
             }
 
-            // ¸ğÅÍ»çÀÌÅ¬À» »¶Å· ¼¾ÅÍ¿¡ µî·ÏÇØÁØ´Ù.
+            // ëª¨í„°ì‚¬ì´í´ì„ ë»‘í‚¹ ì„¼í„°ì— ë“±ë¡í•´ì¤€ë‹¤.
             MotorcycleBox* pBox = new MotorcycleBox(pMotorcycle, pZone, pt.x, pt.y);
             Assert(pBox != NULL);
 
@@ -322,7 +322,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
     } catch (Throwable& t) { // by sigi. 2002.12.25
         filelog("motorError.txt", "%s - itemID=%d, motorItemID=%d", t.toString().c_str(), (int)pItem->getItemID(),
                 (int)targetID);
-        // ÀÏ´Ü ´Ù¿îÀº ¸·ÀÚ.
+        // ì¼ë‹¨ ë‹¤ìš´ì€ ë§‰ì.
         // throw;
     }
 

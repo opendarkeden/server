@@ -10,7 +10,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidBolt::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                        CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void AcidBolt::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Knowledge of Acid °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Acid ê°€ ìˆë‹¤ë©´ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
@@ -55,7 +55,7 @@ void AcidBolt::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidBolt::execute(Monster* pMonster, Creature* pEnemy)
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectGrandMasterOusters.h
 // Written by  :
-// Description : grand master Æ¼ ³»´Â°Å. - -;	 by sigi. 2002.11.8
+// Description : grand master í‹° ë‚´ëŠ”ê±°. - -;	 by sigi. 2002.11.8
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_GRAND_MASTER_OUSTERS__

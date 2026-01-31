@@ -22,8 +22,8 @@
 //
 // class CGSay;
 //
-// Å¬¶óÀÌ¾ğÆ®°¡ ¼­¹ö¿¡°Ô º¸³»´Â Say ÆĞÅ¶ÀÌ´Ù.
-// ³»ºÎ¿¡ Say String ¸¸À» µ¥ÀÌÅ¸ ÇÊµå·Î °¡Áø´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ì„œë²„ì—ê²Œ ë³´ë‚´ëŠ” Say íŒ¨í‚·ì´ë‹¤.
+// ë‚´ë¶€ì— Say String ë§Œì„ ë°ì´íƒ€ í•„ë“œë¡œ ê°€ì§„ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,10 +35,10 @@ class CGSay : public Packet {
 public:
     CGSay() {};
     virtual ~CGSay() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -114,7 +114,7 @@ public:
     }
 
     // get packet's max body size
-    // message ÀÇ ÃÖ´ë Å©±â¿¡ ´ëÇÑ ¼³Á¤ÀÌ ÇÊ¿äÇÏ´Ù.
+    // message ì˜ ìµœëŒ€ í¬ê¸°ì— ëŒ€í•œ ì„¤ì •ì´ í•„ìš”í•˜ë‹¤.
     PacketSize_t getPacketMaxSize() const {
         return szuint + szBYTE + 128;
     }
@@ -138,10 +138,10 @@ public:
     static void opzone(string msg, int i);
     static void opguild(string msg, int i, Creature* pCreature);
 
-    // ÀüÀï ½Ã½ºÅÛ °ü·Ã
+    // ì „ìŸ ì‹œìŠ¤í…œ ê´€ë ¨
     static void opcombat(GamePlayer* pPlayer, string msg, int i);
 
-    // set ÀÌº¥Æ® ¾ÆÀÌÅÛ È®·ü
+    // set ì´ë²¤íŠ¸ ì•„ì´í…œ í™•ë¥ 
     static void opset(GamePlayer* pPlayer, string msg, int i);
 
     static void opview(GamePlayer* pPlayer, string msg, int i);
@@ -212,7 +212,7 @@ public:
     // refresh info
     static void opload(GamePlayer* pPlayer, string msg, int i);
 
-    // ÀÓ½Ã
+    // ì„ì‹œ
     static void opsoulchain(GamePlayer* pPlayer, string msg, int i);
 
     // credit

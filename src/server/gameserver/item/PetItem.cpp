@@ -224,7 +224,7 @@ void PetItem::whenPCTake(PlayerCreature* pPC) {
     pPC->getPetItems().push_back(this);
 
     if (!pPC->isFlag(Effect::EFFECT_CLASS_HAS_PET)) {
-        // cout << pPC->getName() << " ¿¡°Ô Æê °¡Á³´Ù´Â ÀÌÆåÆ® ºÎÄ¨´Ï´ç" << endl;
+        // cout << pPC->getName() << " ì—ê²Œ í« ê°€ì¡Œë‹¤ëŠ” ì´í™íŠ¸ ë¶€ì¹©ë‹ˆë‹¹" << endl;
         EffectHasPet* pEffect = new EffectHasPet(pPC);
         pEffect->setNextTime(600);
         pPC->setFlag(Effect::EFFECT_CLASS_HAS_PET);
@@ -244,7 +244,7 @@ void PetItem::whenPCLost(PlayerCreature* pPC) {
 
     pPC->getPetItems().remove(this);
     if (pPC->getPetItems().empty()) {
-        // cout << pPC->getName() << " ¿¡°Ô¼­ Æê °¡Á³´Ù´Â ÀÌÆåÆ® ¶¼³¿´Ï´ç" << endl;
+        // cout << pPC->getName() << " ì—ê²Œì„œ í« ê°€ì¡Œë‹¤ëŠ” ì´í™íŠ¸ ë–¼ëƒ„ë‹ˆë‹¹" << endl;
         Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_PET);
         if (pEffect != NULL)
             pEffect->setDeadline(0);
@@ -433,7 +433,7 @@ void PetItemLoader::load(Creature* pCreature)
                 pPetInfo->setFeedTime(VSDateTime(pResult->getString(++i)));
                 pPetInfo->setNickname(pResult->getString(++i));
 
-                // ¾ç¹æÇâ ¸µÅ©
+                // ì–‘ë°©í–¥ ë§í¬
                 pPetItem->setPetInfo(pPetInfo);
                 pPetInfo->setPetItem(pPetItem);
 
@@ -484,7 +484,7 @@ void PetItemLoader::load(Creature* pCreature)
                     pInventory = pOusters->getInventory();
                     pStash = pOusters->getStash();
                 } else
-                    throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                    throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
                 PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
                 Assert(pPC != NULL);
@@ -537,7 +537,7 @@ void PetItemLoader::load(Creature* pCreature)
 
 
                 case STORAGE_PET_STASH:
-                    /* ÆêÀ» ºÒ·¯´Ù°¡ pCreature¿¡ ³Ö¾î¾ß µÇ³ª?...*/
+                    /* í«ì„ ë¶ˆëŸ¬ë‹¤ê°€ pCreatureì— ë„£ì–´ì•¼ ë˜ë‚˜?...*/
                     if (pPC->getPetStashItem(storageID) == NULL) {
                         pPC->addPetStashItem(storageID, pPetItem);
                         pPetItem->whenPCTake(pPC);
@@ -609,7 +609,7 @@ void PetItemLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

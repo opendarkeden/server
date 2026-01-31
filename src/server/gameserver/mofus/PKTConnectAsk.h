@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTConnectAsk.h
-// Desc		: ¿Â¶óÀÎ °ÔÀÓ ¼­¹ö°¡ ÆÄ¿öÂ¯ ¼­¹ö¿¡ ÀÚ»çÀÇ °ÔÀÓ ÄÚµå¿Í ÇÔ²²
-// 			  Á¢¼ÓÀ» ¿äÃ»ÇÑ´Ù.
+// Desc		: ì˜¨ë¼ì¸ ê²Œì„ ì„œë²„ê°€ íŒŒì›Œì§± ì„œë²„ì— ìì‚¬ì˜ ê²Œì„ ì½”ë“œì™€ í•¨ê»˜
+// 			  ì ‘ì†ì„ ìš”ì²­í•œë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_CONNECT_ASK_H__
@@ -11,11 +11,11 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ÆĞÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_CONNECT_ASK {
-    int nSize;       // ÆĞÅ¶ ÀüÃ¼ÀÇ Å©±â
-    int nCode;       // ÆĞÅ¶ ÄÚµå
-    int nOnGameCode; // ¸ğÆÛ½º¿¡¼­ ¹ß±ŞÇÑ ¿Â¶óÀÎ»ç °ÔÀÓ ÄÚµå °ª
+    int nSize;       // íŒ¨í‚· ì „ì²´ì˜ í¬ê¸°
+    int nCode;       // íŒ¨í‚· ì½”ë“œ
+    int nOnGameCode; // ëª¨í¼ìŠ¤ì—ì„œ ë°œê¸‰í•œ ì˜¨ë¼ì¸ì‚¬ ê²Œì„ ì½”ë“œ ê°’
 };
 
 const int szPKTConnectAsk = sizeof(_PKT_CONNECT_ASK);
@@ -23,29 +23,29 @@ const int szPKTConnectAsk = sizeof(_PKT_CONNECT_ASK);
 // class PKTConnectASK
 class PKTConnectAsk : public _PKT_CONNECT_ASK, public MPacket {
 public:
-    // »ı¼ºÀÚ
+    // ìƒì„±ì
     PKTConnectAsk();
 
 public:
-    // ÆĞÅ¶ ¾ÆÀÌµğ¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTConnectAsk - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜
     MPacket* create() {
         MPacket* pPacket = new PKTConnectAsk;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message

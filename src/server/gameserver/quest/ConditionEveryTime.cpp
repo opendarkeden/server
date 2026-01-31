@@ -19,7 +19,7 @@ bool ConditionEveryTime::isSatisfied(Creature* pCreature1, Creature* pCreature2,
     bool expired = pCreature1 != NULL && pCreature2 == NULL && currentTime > m_NextTurn;
 
     ////////////////////////////////////////////////////////////////////////////////
-    // ½Ã°£ÀÌ ÃÊ°úµÇ¾úÀ¸¸é, ´ÙÀ½ ½ÇÇà½Ã°£À» m_Turn ÀÌÈÄ·Î Àç¼³Á¤ÇÑ´Ù.
+    // ì‹œê°„ì´ ì´ˆê³¼ë˜ì—ˆìœ¼ë©´, ë‹¤ìŒ ì‹¤í–‰ì‹œê°„ì„ m_Turn ì´í›„ë¡œ ìž¬ì„¤ì •í•œë‹¤.
     ////////////////////////////////////////////////////////////////////////////////
     if (expired) {
         Timeval delay;

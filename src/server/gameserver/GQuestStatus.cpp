@@ -137,7 +137,7 @@ GQuestElement::ResultType GQuestStatus::checkElements(GQuestInfo::ElementType ty
     case GQuestInfo::OR:
         return checkElementsOR(type);
     default:
-        filelog("GQuestBug.log", "%u - GQuestStatus::checkElements(%u) : Àß¸øµÈ checkType : %d",
+        filelog("GQuestBug.log", "%u - GQuestStatus::checkElements(%u) : ì˜ëª»ëœ checkType : %d",
                 m_pGQuestInfo->getQuestID(), type, m_pGQuestInfo->getCheckType(type));
         Assert(false);
     }
@@ -145,7 +145,7 @@ GQuestElement::ResultType GQuestStatus::checkElements(GQuestInfo::ElementType ty
     return GQuestElement::FAIL;
 }
 
-// elementµéÀ» ¼ø¼­´ë·Î checkÇØ¾ß µÈ´Ù. ¾Õ¿¡²¨°¡ ¿Ï°áµÇ¾î¾ß µÚ¿¡²¨¸¦ Ã¼Å©ÇÑ´Ù.
+// elementë“¤ì„ ìˆœì„œëŒ€ë¡œ checkí•´ì•¼ ëœë‹¤. ì•ì—êº¼ê°€ ì™„ê²°ë˜ì–´ì•¼ ë’¤ì—êº¼ë¥¼ ì²´í¬í•œë‹¤.
 GQuestElement::ResultType GQuestStatus::checkElementsSEQ(GQuestInfo::ElementType type) {
     cout << "Checking SEQ : " << (int)type << endl;
     GQuestMission* pCurrentMission = m_MissionMap[m_ElementAdvance[type]];
@@ -198,7 +198,7 @@ GQuestElement::ResultType GQuestStatus::checkElementsSEQ(GQuestInfo::ElementType
     return GQuestElement::OK;
 }
 
-// ÇÏ³ª¶óµµ success¸é ok. FAIL Á¶°Ç Ã¼Å©ÇÒ¶§ ¾´´Ù. ¤Ì.¤Ğ
+// í•˜ë‚˜ë¼ë„ successë©´ ok. FAIL ì¡°ê±´ ì²´í¬í• ë•Œ ì“´ë‹¤. ã…œ.ã… 
 GQuestElement::ResultType GQuestStatus::checkElementsOR(GQuestInfo::ElementType type) {
     cout << "Checking OR : " << (int)type << endl;
 
@@ -210,12 +210,12 @@ GQuestElement::ResultType GQuestStatus::checkElementsOR(GQuestInfo::ElementType 
         if (pMission != NULL) {
             cout << "Checking Mission : " << pMission->getMissionName() << endl;
             if (pMission->m_Status == MissionInfo::SUCCESS) {
-                cout << "ÀÌ¹Ì ¼º°øÇÑ ¹Ì¼ÇÀÓ" << endl;
+                cout << "ì´ë¯¸ ì„±ê³µí•œ ë¯¸ì…˜ì„" << endl;
                 return GQuestElement::OK;
             }
 
             if (pMission->m_Status == MissionInfo::FAIL) {
-                cout << "ÀÌ¹Ì ½ÇÆĞÇÑ ¹Ì¼ÇÀÓ" << endl;
+                cout << "ì´ë¯¸ ì‹¤íŒ¨í•œ ë¯¸ì…˜ì„" << endl;
             } else {
                 GQuestElement::ResultType result = (*itr)->checkMission(pMission);
                 cout << "Result : " << result << endl;
@@ -240,7 +240,7 @@ GQuestElement::ResultType GQuestStatus::checkElementsOR(GQuestInfo::ElementType 
                 cout << "Creating new mission..." << endl;
                 GQuestMission* pNewMission = (*itr)->makeInitMission(m_pOwner);
                 if (pNewMission == NULL) {
-                    cout << "¹Ì¼Ç »ı¼º ½ÇÆĞ!!!!" << endl;
+                    cout << "ë¯¸ì…˜ ìƒì„± ì‹¤íŒ¨!!!!" << endl;
                     ++itr;
                     continue;
                 }
@@ -271,7 +271,7 @@ GQuestElement::ResultType GQuestStatus::checkElementsOR(GQuestInfo::ElementType 
     return GQuestElement::FAIL;
 }
 
-// ¸ğµç element¸¦ ÇÑ²¨¹ø¿¡ Æò°¡ÇÑ´Ù. ±â´Ù·Á¾ß µÇ´Â°Íµµ ÇÑ²¨¹ø¿¡ ±â´Ù¸°´Ù.
+// ëª¨ë“  elementë¥¼ í•œêº¼ë²ˆì— í‰ê°€í•œë‹¤. ê¸°ë‹¤ë ¤ì•¼ ë˜ëŠ”ê²ƒë„ í•œêº¼ë²ˆì— ê¸°ë‹¤ë¦°ë‹¤.
 GQuestElement::ResultType GQuestStatus::checkElementsAND(GQuestInfo::ElementType type) {
     cout << "Checking AND : " << (int)type << endl;
 
@@ -285,10 +285,10 @@ GQuestElement::ResultType GQuestStatus::checkElementsAND(GQuestInfo::ElementType
         if (pMission != NULL) {
             cout << "Checking Mission : " << pMission->getMissionName() << endl;
             if (pMission->m_Status == MissionInfo::FAIL) {
-                cout << "ÀÌ¹Ì ½ÇÆĞÇÑ ¹Ì¼ÇÀÓ" << endl;
+                cout << "ì´ë¯¸ ì‹¤íŒ¨í•œ ë¯¸ì…˜ì„" << endl;
                 return GQuestElement::FAIL;
             } else if (pMission->m_Status == MissionInfo::SUCCESS) {
-                cout << "ÀÌ¹Ì ¼º°øÇÑ ¹Ì¼ÇÀÓ" << endl;
+                cout << "ì´ë¯¸ ì„±ê³µí•œ ë¯¸ì…˜ì„" << endl;
             } else {
                 GQuestElement::ResultType result = (*itr)->checkMission(pMission);
                 cout << "Result : " << result << endl;
@@ -315,7 +315,7 @@ GQuestElement::ResultType GQuestStatus::checkElementsAND(GQuestInfo::ElementType
                 cout << "Creating new mission..." << endl;
                 GQuestMission* pNewMission = (*itr)->makeInitMission(m_pOwner);
                 if (pNewMission == NULL) {
-                    cout << "¹Ì¼Ç »ı¼º ½ÇÆĞ!!!!" << endl;
+                    cout << "ë¯¸ì…˜ ìƒì„± ì‹¤íŒ¨!!!!" << endl;
                     ++itr;
                     continue;
                 }

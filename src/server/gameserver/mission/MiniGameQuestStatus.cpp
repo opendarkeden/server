@@ -42,7 +42,7 @@ void MiniGameQuestStatus::executeWhenStart() {
                     "SELECT Name, Score FROM MiniGameScores WHERE Type=%u AND Level=0 ORDER BY Score DESC LIMIT 1",
        m_GameType);
 
-            // UPDATEÀÎ °æ¿ì´Â Result* ´ë½Å¿¡.. pStmt->getAffectedRowCount()
+            // UPDATEì¸ ê²½ìš°ëŠ” Result* ëŒ€ì‹ ì—.. pStmt->getAffectedRowCount()
 
             if (pResult->next())
             {
@@ -69,7 +69,7 @@ void MiniGameQuestStatus::executeWhenFail() {
     PlayerCreature* pPC = getOwnerPC();
     Assert(pPC != NULL);
 
-    // ½ÇÆÐÇÏ¸é Á×´Â´Ù.
+    // ì‹¤íŒ¨í•˜ë©´ ì£½ëŠ”ë‹¤.
     if (pPC->isSlayer()) {
         dynamic_cast<Slayer*>(pPC)->setHP(0);
     } else if (pPC->isVampire()) {

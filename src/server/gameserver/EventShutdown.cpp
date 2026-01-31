@@ -43,22 +43,22 @@ void EventShutdown::activate()
 
         g_pIncomingPlayerManager->clearPlayers();
     } catch (Throwable& t) {
-        // ¹«½Ã
+        // ë¬´ì‹œ
     }
 
 #ifdef __CONNECT_BILLING_SYSTEM__
-    // ¸ðµç ºô¸µ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
+    // ëª¨ë“  ë¹Œë§ ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
     g_pBillingPlayerManager->sendPayInit();
 #endif
 
 #if !defined(__THAILAND_SERVER__) && !defined(__CHINA_SERVER__)
-    // ÇÁ·Î¼¼½º Á¾·á. ²¥²¥~ Á×¾î¶ó~~ ²¥²¥~
+    // í”„ë¡œì„¸ìŠ¤ ì¢…ë£Œ. êº„êº„~ ì£½ì–´ë¼~~ êº„êº„~
     if (g_pVariableManager->isKillDaemonCtl() == 1) {
         kill(getppid(), 9);
     }
 
 #else
-    // ÇÁ·Î¼¼½º Á¾·á. ²¥²¥~ Á×¾î¶ó~~ ²¥²¥~
+    // í”„ë¡œì„¸ìŠ¤ ì¢…ë£Œ. êº„êº„~ ì£½ì–´ë¼~~ êº„êº„~
     if (g_pVariableManager->isKillDaemonCtl() == 1 && g_pVariableManager->isRemoveAllGame() == false &&
         g_pVariableManager->isEggDummyDB() == false) {
         kill(getppid(), 9);

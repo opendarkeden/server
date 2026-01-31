@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -56,23 +56,23 @@ void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
         ZoneCoord_t tX[3], tY[3];
 
-        // ¿ø·¡ ¸ñÇ¥(3°³Áß °¡¿îµ¥)
+        // ì›ëž˜ ëª©í‘œ(3ê°œì¤‘ ê°€ìš´ë°)
         X = tX[0] = pMonster->getX() + dirMoveMask[dir].x * 7;
         Y = tY[0] = pMonster->getY() + dirMoveMask[dir].y * 7;
 
-        // ¿ø·¡ ¸ñÇ¥ÀÇ ¿ÞÂÊ
+        // ì›ëž˜ ëª©í‘œì˜ ì™¼ìª½
         tX[1] = pMonster->getX() + dirMoveMask[dir2].x * 7;
         tY[1] = pMonster->getY() + dirMoveMask[dir2].y * 7;
 
-        // ¿ø·¡ ¸ñÇ¥ÀÇ ¿À¸¥ÂÊ
+        // ì›ëž˜ ëª©í‘œì˜ ì˜¤ë¥¸ìª½
         tX[2] = pMonster->getX() + dirMoveMask[dir3].x * 7;
         tY[2] = pMonster->getY() + dirMoveMask[dir3].y * 7;
 
 
         if (bRangeCheck && bHitRoll && bTileCheck) {
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             input.SkillLevel = pMonster->getLevel();
             SkillOutput output;
@@ -83,7 +83,7 @@ void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     continue;
                 Tile& tile = pZone->getTile(tX[i], tY[i]);
 
-                // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+                // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
                 EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, tX[i], tY[i]);
                 pEffect->setNextTime(output.Duration);
                 pEffect->setUserObjectID(pMonster->getObjectID());
@@ -95,11 +95,11 @@ void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                 pEffect->setSplashRatio(2, 50);
                 // pEffect->setLevel(pSkillInfo->getLevel()/2);
 
-                // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+                // íƒ€ì¼ì— ë¶™ì€ ì´íŽ™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
                 ObjectRegistry& objectregister = pZone->getObjectRegistry();
                 objectregister.registerObject(pEffect);
 
-                // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                 pZone->addEffect(pEffect);
                 tile.addEffect(pEffect);
             }

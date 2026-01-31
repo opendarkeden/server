@@ -15,7 +15,7 @@ void LogNameManager::init() {
             pResult = pStmt->executeQuery("SELECT Name FROM LogUserInfo");
 
             while (pResult->next()) {
-                // 0 Àº ÀÇ¹Ì¾ø´Ù.
+                // 0 ì€ ì˜ë¯¸ì—†ë‹¤.
                 add(pResult->getString(1), 0);
             }
 

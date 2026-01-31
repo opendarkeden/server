@@ -107,9 +107,9 @@ void CastleShrineInfoManager::load()
             pShrineSet->m_GuardShrine.setShrineType(ShrineInfo::SHRINE_GUARD);
             pShrineSet->m_HolyShrine.setShrineType(ShrineInfo::SHRINE_HOLY);
 
-            // ItemType°ú Shrine ID´Â °°¾Æ¾ß ÇÑ´Ù. °°Áö ¾ÊÀ» °æ¿ì DB¼³Á¤ ¿À·ù·Î ·Îµù°úÁ¤¿¡¼­ ¸·´Â´Ù.
+            // ItemTypeê³¼ Shrine IDëŠ” ê°™ì•„ì•¼ í•œë‹¤. ê°™ì§€ ì•Šì„ ê²½ìš° DBì„¤ì • ì˜¤ë¥˜ë¡œ ë¡œë”©ê³¼ì •ì—ì„œ ë§‰ëŠ”ë‹¤.
             if (pShrineSet->m_ItemType != pShrineSet->m_ShrineID) {
-                cout << "ShrineID ¿Í ItemTypeÀÌ ¸ÂÁö ¾Ê½À´Ï´Ù. DB¼³Á¤À» Á¡°ËÇÏ¼¼¿ä." << endl;
+                cout << "ShrineID ì™€ ItemTypeì´ ë§žì§€ ì•ŠìŠµë‹ˆë‹¤. DBì„¤ì •ì„ ì ê²€í•˜ì„¸ìš”." << endl;
                 Assert(false);
             }
 
@@ -128,7 +128,7 @@ ZoneID_t CastleShrineInfoManager::getGuardShrineZoneID(ZoneID_t castleZoneID) co
 
     HashMapShrineSetConstItor itr = m_ShrineSets.begin();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr != m_ShrineSets.end(); itr++) {
         CastleShrineSet* pShrineSet = itr->second;
 
@@ -143,7 +143,7 @@ ZoneID_t CastleShrineInfoManager::getGuardShrineZoneID(ZoneID_t castleZoneID) co
     }
 
     StringStream msg;
-    msg << "CastleZoneID¿Í °ü·ÃµÈ GuardZoneID°¡ ¾ø´Ù[" << (int)castleZoneID << "]";
+    msg << "CastleZoneIDì™€ ê´€ë ¨ëœ GuardZoneIDê°€ ì—†ë‹¤[" << (int)castleZoneID << "]";
     throw Error(msg.toString());
 
     __END_CATCH
@@ -180,7 +180,7 @@ Item* CastleShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_
 {
     __BEGIN_TRY
 
-    // ¼º´ÜÀ» ³ÖÀ» Á¸À» °¡Á®¿Â´Ù.
+    // ì„±ë‹¨ì„ ë„£ì„ ì¡´ì„ ê°€ì ¸ì˜¨ë‹¤.
     Zone* pZone = getZoneByZoneID(shrineInfo.getZoneID());
     Assert(pZone != NULL);
 
@@ -223,7 +223,7 @@ Item* CastleShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_
     TPOINT tp = pZone->addItem(pShrine, shrineInfo.getX(), shrineInfo.getY(), true);
     Assert(tp.x != -1);
 
-    // ¼ºÀÇ »óÂ¡À» Ãß°¡ÇÒ ÇÊ¿ä°¡ ÀÖ´Ù¸é Ãß°¡ÇÑ´Ù.
+    // ì„±ì˜ ìƒì§•ì„ ì¶”ê°€í•  í•„ìš”ê°€ ìžˆë‹¤ë©´ ì¶”ê°€í•œë‹¤.
     if (shrineInfo.getShrineType() == ShrineInfo::SHRINE_GUARD) {
         // if ( AddBible[ itemType ] )
         {
@@ -240,10 +240,10 @@ Item* CastleShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_
             pShrine->addTreasure(pItem);
         }
 
-        // ¼öÈ£¼º´ÜÀÌ¶ó´Â°É Ç¥½ÃÇØµÐ´Ù.
+        // ìˆ˜í˜¸ì„±ë‹¨ì´ë¼ëŠ”ê±¸ í‘œì‹œí•´ë‘”ë‹¤.
         pShrine->setFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_GUARD);
 
-        // ¸ðµç ¼öÈ£¼º´Ü¿¡ Shield Effect ºÙÀÎ´Ù
+        // ëª¨ë“  ìˆ˜í˜¸ì„±ë‹¨ì— Shield Effect ë¶™ì¸ë‹¤
         pShrine->setFlag(Effect::EFFECT_CLASS_SHRINE_SHIELD);
 
         EffectShrineShield* pEffect = new EffectShrineShield(pShrine);
@@ -252,11 +252,11 @@ Item* CastleShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_
 
         pShrine->getEffectManager().addEffect(pEffect);
     } else {
-        // ¼ºÁö¼º´ÜÀÌ¶ó´Â°É Ç¥½ÃÇØµÐ´Ù.
+        // ì„±ì§€ì„±ë‹¨ì´ë¼ëŠ”ê±¸ í‘œì‹œí•´ë‘”ë‹¤.
         pShrine->setFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_HOLY);
     }
 
-    // ¼º´Ü ÁÂÇ¥¸¦ »õ·Î ¼¼ÆÃÇÑ´Ù.
+    // ì„±ë‹¨ ì¢Œí‘œë¥¼ ìƒˆë¡œ ì„¸íŒ…í•œë‹¤.
     shrineInfo.setX(tp.x);
     shrineInfo.setY(tp.y);
 
@@ -332,12 +332,12 @@ bool CastleShrineInfoManager::isMatchHolyShrine(Item* pItem, MonsterCorpse* pMon
     CastleShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL) {
-        // ÀÌ ¼ºÀÇ »óÂ¡¿¡ ÇØ´çÇÏ´Â Shrine SetÀÌ ¾ø´Ù.
+        // ì´ ì„±ì˜ ìƒì§•ì— í•´ë‹¹í•˜ëŠ” Shrine Setì´ ì—†ë‹¤.
         return false;
     }
 
-    // ÀÌ ¼ºÀÇ »óÂ¡¿¡ ÇØ´çÇÏ´Â Shrine setÀÇ ¼ºÁö¼º´ÜÀÇ MonsterTypeÀÌ
-    // ³Ñ¾î¿Â MonsterCorpseÀÇ MonsterType°ú °°°í ObjectIDµµ °°À¸¸é true
+    // ì´ ì„±ì˜ ìƒì§•ì— í•´ë‹¹í•˜ëŠ” Shrine setì˜ ì„±ì§€ì„±ë‹¨ì˜ MonsterTypeì´
+    // ë„˜ì–´ì˜¨ MonsterCorpseì˜ MonsterTypeê³¼ ê°™ê³  ObjectIDë„ ê°™ìœ¼ë©´ true
     return pShrineSet->m_HolyShrine.getMonsterType() == pMonsterCorpse->getMonsterType() &&
            pShrineSet->m_HolyShrine.getObjectID() == pMonsterCorpse->getObjectID();
 
@@ -352,7 +352,7 @@ bool CastleShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, Monst
     Zone* pZone = pShrine->getZone();
     Assert(pZone != NULL);
 
-    // ¼ºÀÌ ¾Æ´Ï¸é »à~
+    // ì„±ì´ ì•„ë‹ˆë©´ ì‚‘~
     /*
     if ( !pZone->isCastle() )
     {
@@ -378,7 +378,7 @@ bool CastleShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, Monst
     /*
     if ( pWar->getWarType() == WAR_RACE )
     {
-        // Á¾Á· ÀüÀï Áß¿¡´Â ¼ºÀÇ ¼ÒÀ¯ Á¾Á·°ú °°Àº Á¾Á·ÀÌ¸é defender ÀÌ´Ù.
+        // ì¢…ì¡± ì „ìŸ ì¤‘ì—ëŠ” ì„±ì˜ ì†Œìœ  ì¢…ì¡±ê³¼ ê°™ì€ ì¢…ì¡±ì´ë©´ defender ì´ë‹¤.
         if ( pPC->getRace() == pCastleInfo->getRace() )
             return true;
     }
@@ -389,10 +389,10 @@ bool CastleShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, Monst
         Assert(pGuildWar != NULL);
 
         if (pCastleInfo->isCommon()) {
-            // °ø¿ë¼ºÀÎ °æ¿ì´Â °ø°Ý±æµå¸¸ ¾Æ´Ï¸é defenderÀÌ´Ù.
+            // ê³µìš©ì„±ì¸ ê²½ìš°ëŠ” ê³µê²©ê¸¸ë“œë§Œ ì•„ë‹ˆë©´ defenderì´ë‹¤.
             return pPC->getGuildID() != pGuildWar->getChallangerGuildID();
         } else {
-            // µ¿Á· ÀüÀï Áß¿¡´Â °ø¿ë¼ºÀÌ ¾Æ´Ò °æ¿ì ¼ºÀÇ ¼ÒÀ¯ ±æµå°¡ defender ÀÌ´Ù.
+            // ë™ì¡± ì „ìŸ ì¤‘ì—ëŠ” ê³µìš©ì„±ì´ ì•„ë‹ ê²½ìš° ì„±ì˜ ì†Œìœ  ê¸¸ë“œê°€ defender ì´ë‹¤.
             if (pPC->getGuildID() == pCastleInfo->getGuildID())
                 return true;
         }
@@ -403,13 +403,13 @@ bool CastleShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, Monst
     __END_CATCH
 }
 
-// ÀÌ Á¾Á·ÀÌ ¼ºÀÇ »óÂ¡ Á¶°¢À» µé ¼ö ÀÖ´Â°¡?
+// ì´ ì¢…ì¡±ì´ ì„±ì˜ ìƒì§• ì¡°ê°ì„ ë“¤ ìˆ˜ ìžˆëŠ”ê°€?
 bool CastleShrineInfoManager::canPickupCastleSymbol(Race_t race, CastleSymbol* pCastleSymbol) const
 
 {
     __BEGIN_TRY
 
-    // ÀÏ´Ü ÀÌ ¼ºÀÇ »óÂ¡ Á¶°¢ÀÌ ¾î´À ÀüÀï¿¡ ¼Ò¼ÓµÇ¾î ÀÖ´ÂÁö ¾Ë¾Æ¿Â´Ù.
+    // ì¼ë‹¨ ì´ ì„±ì˜ ìƒì§• ì¡°ê°ì´ ì–´ëŠ ì „ìŸì— ì†Œì†ë˜ì–´ ìžˆëŠ”ì§€ ì•Œì•„ì˜¨ë‹¤.
     CastleShrineSet* pShrineSet = getShrineSet(pCastleSymbol->getItemType());
 
     if (pShrineSet == NULL) {
@@ -425,8 +425,8 @@ bool CastleShrineInfoManager::canPickupCastleSymbol(Race_t race, CastleSymbol* p
     War* pWar = g_pWarSystem->getActiveWar(castleZoneID);
 
     if (pWar == NULL) {
-        // ¾Æ½Î »à»ç¸®´Ù~
-        filelog("WarError.log", "ÀüÀïµµ ¾ÈÇÏ´Âµ¥ ¼ºÀÇ »óÂ¡Á¶°¢À» ÁÖ¿ï·Á°í ÇÑ´Ù. ItemType: %u",
+        // ì•„ì‹¸ ì‚‘ì‚¬ë¦¬ë‹¤~
+        filelog("WarError.log", "ì „ìŸë„ ì•ˆí•˜ëŠ”ë° ì„±ì˜ ìƒì§•ì¡°ê°ì„ ì£¼ìš¸ë ¤ê³  í•œë‹¤. ItemType: %u",
                 (int)pCastleSymbol->getItemType());
         return false;
     }
@@ -434,7 +434,7 @@ bool CastleShrineInfoManager::canPickupCastleSymbol(Race_t race, CastleSymbol* p
     /*
     if ( pWar->getWarType() == WAR_RACE )
     {
-        // Á¾Á· ÀüÀïÀÌ¸é Áö³ª°³³ª ´Ù ÁÞ´Â´Ù.
+        // ì¢…ì¡± ì „ìŸì´ë©´ ì§€ë‚˜ê°œë‚˜ ë‹¤ ì¤ëŠ”ë‹¤.
         return true;
     }
     else
@@ -443,8 +443,8 @@ bool CastleShrineInfoManager::canPickupCastleSymbol(Race_t race, CastleSymbol* p
         CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(castleZoneID);
 
         if (pCastleInfo == NULL) {
-            // ¾Æ½Î »à»ç¸®´Ù~
-            filelog("WarError.log", "¼ºÀÌ ¾Æ´Ï´Ù. ItemType: %u, ZoneID : %u", (int)pCastleSymbol->getItemType(),
+            // ì•„ì‹¸ ì‚‘ì‚¬ë¦¬ë‹¤~
+            filelog("WarError.log", "ì„±ì´ ì•„ë‹ˆë‹¤. ItemType: %u, ZoneID : %u", (int)pCastleSymbol->getItemType(),
                     (int)castleZoneID);
             return false;
         }
@@ -452,8 +452,8 @@ bool CastleShrineInfoManager::canPickupCastleSymbol(Race_t race, CastleSymbol* p
         return (race == pCastleInfo->getRace());
     }
 
-    // ¾Æ½Î »à»ç¸®´Ù~
-    filelog("WarError.log", "ÀÌ»óÇÑ ÀüÀïÀÌ´Ù. WarType : %u", (int)pWar->getWarType());
+    // ì•„ì‹¸ ì‚‘ì‚¬ë¦¬ë‹¤~
+    filelog("WarError.log", "ì´ìƒí•œ ì „ìŸì´ë‹¤. WarType : %u", (int)pWar->getWarType());
 
     return false;
     __END_CATCH
@@ -473,7 +473,7 @@ bool CastleShrineInfoManager::getMatchGuardShrinePosition(Item* pItem, ZoneItemP
     CastleShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL) {
-        // ÀÌ ¼ºÀÇ »óÂ¡¿¡ ÇØ´çÇÏ´Â Shrine SetÀÌ ¾ø´Ù.
+        // ì´ ì„±ì˜ ìƒì§•ì— í•´ë‹¹í•˜ëŠ” Shrine Setì´ ì—†ë‹¤.
         return false;
     }
 
@@ -486,17 +486,17 @@ bool CastleShrineInfoManager::getMatchGuardShrinePosition(Item* pItem, ZoneItemP
     __END_CATCH
 }
 
-// putCastleSymbol ( ´©±º°¡ ¼ºÁö¼º´Ü¿¡ ¼ºÀÇ »óÂ¡À» ³õ¾ÒÀ»¶§ ) ÀÌ ºÒ·ÁÁö¸é bLock = false
-// returnAllCastleSymbol ( ½Ã°£ÀÌ ´Ù µÇ¾úÀ» ¶§ ) ÀÌ ºÒ·ÁÁö¸é bLock = true
-// trueÀÏ °æ¿ì ´Ù¸¥ ½º·¹µå (WarSystemÀÌ µ¹¾Æ°¡´Â ½º·¹µå)¿¡¼­ ºÒ·ÁÁö¹Ç·Î ³»ºÎ¿¡¼­ ¶ôÀ» °É¾îÁà¾ß ÇÏ°í
-// falseÀÏ °æ¿ì ¼ºÁö¼º´ÜÀÌ ÀÖ´Â Á¸°ú °°Àº Á¸±×·ì½º·¹µå¿¡¼­ µ¹¾Æ°¡¹Ç·Î ³»ºÎ¿¡¼­ ¶ôÀ» °É¾îÁÖÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+// putCastleSymbol ( ëˆ„êµ°ê°€ ì„±ì§€ì„±ë‹¨ì— ì„±ì˜ ìƒì§•ì„ ë†“ì•˜ì„ë•Œ ) ì´ ë¶ˆë ¤ì§€ë©´ bLock = false
+// returnAllCastleSymbol ( ì‹œê°„ì´ ë‹¤ ë˜ì—ˆì„ ë•Œ ) ì´ ë¶ˆë ¤ì§€ë©´ bLock = true
+// trueì¼ ê²½ìš° ë‹¤ë¥¸ ìŠ¤ë ˆë“œ (WarSystemì´ ëŒì•„ê°€ëŠ” ìŠ¤ë ˆë“œ)ì—ì„œ ë¶ˆë ¤ì§€ë¯€ë¡œ ë‚´ë¶€ì—ì„œ ë½ì„ ê±¸ì–´ì¤˜ì•¼ í•˜ê³ 
+// falseì¼ ê²½ìš° ì„±ì§€ì„±ë‹¨ì´ ìžˆëŠ” ì¡´ê³¼ ê°™ì€ ì¡´ê·¸ë£¹ìŠ¤ë ˆë“œì—ì„œ ëŒì•„ê°€ë¯€ë¡œ ë‚´ë¶€ì—ì„œ ë½ì„ ê±¸ì–´ì£¼ì§€ ì•Šì•„ì•¼ í•œë‹¤.
 // 2003. 2. 5. by Sequoia
 bool CastleShrineInfoManager::returnCastleSymbol(ShrineID_t shrineID, bool bLock) const
 
 {
     __BEGIN_TRY
 
-    // shrineID¿Í °ü·ÃµÈ CastleSymbolÀ» DBÁ¤º¸¸¦ ÀÌ¿ëÇØ¼­ Ã£´Â´Ù.
+    // shrineIDì™€ ê´€ë ¨ëœ CastleSymbolì„ DBì •ë³´ë¥¼ ì´ìš©í•´ì„œ ì°¾ëŠ”ë‹¤.
     CastleShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL)
@@ -530,7 +530,7 @@ bool CastleShrineInfoManager::returnCastleSymbol(ShrineID_t shrineID, bool bLock
     __END_CATCH
 }
 
-// WarSystem¿¡¼­¸¸ ºÎ¸¥´Ù.
+// WarSystemì—ì„œë§Œ ë¶€ë¥¸ë‹¤.
 bool CastleShrineInfoManager::returnAllCastleSymbol(ZoneID_t castleZoneID) const
 
 {
@@ -540,7 +540,7 @@ bool CastleShrineInfoManager::returnAllCastleSymbol(ZoneID_t castleZoneID) const
 
     HashMapShrineSetConstItor itr = m_ShrineSets.begin();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr != m_ShrineSets.end(); itr++) {
         CastleShrineSet* pShrineSet = itr->second;
 
@@ -568,7 +568,7 @@ bool CastleShrineInfoManager::returnCastleSymbol(Zone* pZone, CastleSymbol* pCas
     Assert(pZone != NULL);
     Assert(pCastleSymbol != NULL);
 
-    // TargetZone, ShrineÀ» Ã£´Â´Ù.
+    // TargetZone, Shrineì„ ì°¾ëŠ”ë‹¤.
     ShrineID_t shrineID = pCastleSymbol->getItemType();
     CastleShrineSet* pShrineSet = getShrineSet(shrineID);
 
@@ -585,8 +585,8 @@ bool CastleShrineInfoManager::returnCastleSymbol(Zone* pZone, CastleSymbol* pCas
     pZone->transportItemToCorpse(pCastleSymbol, pTargetZone, CorpseObjectID);
 
     //	StringStream msg;
-    //	msg << "¼ºÀÇ »óÂ¡ Á¶°¢(" << GuardShrine.getName() << ")ÀÌ ¼öÈ£¼º´Ü(" << GuardShrine.getName() << ")À¸·Î
-    // µ¹¾Æ°¬½À´Ï´Ù.";
+    //	msg << "ì„±ì˜ ìƒì§• ì¡°ê°(" << GuardShrine.getName() << ")ì´ ìˆ˜í˜¸ì„±ë‹¨(" << GuardShrine.getName() << ")ìœ¼ë¡œ
+    // ëŒì•„ê°”ìŠµë‹ˆë‹¤.";
 
     char msg[200];
     sprintf(msg, g_pStringPool->c_str(STRID_RETURN_TO_GUARD_SHRINE_CASTLE_SYMBOL), GuardShrine.getName().c_str(),
@@ -613,13 +613,13 @@ bool CastleShrineInfoManager::putCastleSymbol(PlayerCreature* pPC, Item* pItem, 
 
     ShrineID_t shrineID = pItem->getItemType();
 
-    filelog("WarLog.txt", "%s°¡ ¼ºÀÇ »óÂ¡[%u]À» ¼ºÁö ¼º´Ü[%s]¿¡ ³Ö¾ú½À´Ï´Ù.", pPC->getName().c_str(), (uint)shrineID,
+    filelog("WarLog.txt", "%sê°€ ì„±ì˜ ìƒì§•[%u]ì„ ì„±ì§€ ì„±ë‹¨[%s]ì— ë„£ì—ˆìŠµë‹ˆë‹¤.", pPC->getName().c_str(), (uint)shrineID,
             pCorpse->getName().c_str());
 
-    // ¼ºÀÇ »óÂ¡ÀÌ µé¾î°£ ¼º´ÜÀ¸·ÎºÎÅÍ ¼ºÀÇ »óÂ¡ÀÌ ³¯¾Æ¼­ µ¹¾Æ°¨À» ³ªÅ¸³»´Â ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+    // ì„±ì˜ ìƒì§•ì´ ë“¤ì–´ê°„ ì„±ë‹¨ìœ¼ë¡œë¶€í„° ì„±ì˜ ìƒì§•ì´ ë‚ ì•„ì„œ ëŒì•„ê°ì„ ë‚˜íƒ€ë‚´ëŠ” ì´íŽ™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
     //	sendCastleSymbolEffect( pCorpse, Effect::EFFECT_CLASS_SHRINE_HOLY_WARP );
 
-    // PC¿¡°Ô¼­ ¼ºÀÇ »óÂ¡À» »©¾Ñ¾Æ ¼º´Ü ¾È¿¡ ³Ö´Â´Ù.
+    // PCì—ê²Œì„œ ì„±ì˜ ìƒì§•ì„ ë¹¼ì•—ì•„ ì„±ë‹¨ ì•ˆì— ë„£ëŠ”ë‹¤.
     Assert(pItem->getObjectID() == pPC->getExtraInventorySlotItem()->getObjectID());
     pPC->deleteItemFromExtraInventorySlot();
 
@@ -642,17 +642,17 @@ bool CastleShrineInfoManager::putCastleSymbol(PlayerCreature* pPC, Item* pItem, 
     bool isCastle = g_pCastleInfoManager->getCastleZoneID(guardZoneID, castleZoneID);
     Assert(isCastle == true);
 
-    // ¾Ë¸ÂÀº ¼º´Ü¿¡ ³ÖÀ¸¸é ÀüÀïÀÌ ³¡³ª°í ¼öÈ£¼º´ÜÀ¸·Î µ¹¾Æ°¡°í
+    // ì•Œë§žì€ ì„±ë‹¨ì— ë„£ìœ¼ë©´ ì „ìŸì´ ëë‚˜ê³  ìˆ˜í˜¸ì„±ë‹¨ìœ¼ë¡œ ëŒì•„ê°€ê³ 
     if (isMatchHolyShrine(pItem, pCorpse) && g_pWarSystem->isModifyCastleOwner(castleZoneID, pPC)) {
         g_pWarSystem->endWar(pPC, castleZoneID);
 
-        // ÀüÀï ³¡³ª´Â War::executeEnd¿¡¼­ ¾Ë¾Æ¼­ µÇµ¹·ÁÁØ´Ù.
+        // ì „ìŸ ëë‚˜ëŠ” War::executeEndì—ì„œ ì•Œì•„ì„œ ë˜ëŒë ¤ì¤€ë‹¤.
         //        returnCastleSymbol( shrineID, false );
 
         return true;
     }
 
-    // ´Ù¸¥ ¼º´Ü¿¡ ³Ö°Å³ª ÀüÀïÀÌ ³¡³¯ »óÈ²ÀÌ ¾Æ´Ï¸é ¼öÈ£¼º´ÜÀ¸·Î ±×³É µ¹¾Æ°£´Ù
+    // ë‹¤ë¥¸ ì„±ë‹¨ì— ë„£ê±°ë‚˜ ì „ìŸì´ ëë‚  ìƒí™©ì´ ì•„ë‹ˆë©´ ìˆ˜í˜¸ì„±ë‹¨ìœ¼ë¡œ ê·¸ëƒ¥ ëŒì•„ê°„ë‹¤
     returnCastleSymbol(shrineID, false);
 
     return false;
@@ -660,7 +660,7 @@ bool CastleShrineInfoManager::putCastleSymbol(PlayerCreature* pPC, Item* pItem, 
     __END_CATCH
 }
 
-// pZoneÀº guardZoneÀÌ´Ù.
+// pZoneì€ guardZoneì´ë‹¤.
 bool CastleShrineInfoManager::removeShrineShield(Zone* pZone)
 
 {
@@ -671,7 +671,7 @@ bool CastleShrineInfoManager::removeShrineShield(Zone* pZone)
 
     ZoneID_t guardZoneID = pZone->getZoneID();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr != m_ShrineSets.end(); itr++) {
         CastleShrineSet* pShrineSet = itr->second;
 
@@ -703,7 +703,7 @@ bool CastleShrineInfoManager::removeShrineShield(Zone* pZone)
     __END_CATCH
 }
 
-// pZoneÀº guardZoneÀÌ´Ù.
+// pZoneì€ guardZoneì´ë‹¤.
 bool CastleShrineInfoManager::addShrineShield(Zone* pZone)
 
 {
@@ -724,7 +724,7 @@ bool CastleShrineInfoManager::addShrineShield(Zone* pZone)
     __END_CATCH
 }
 
-// pZoneÀº guardZoneÀÌ´Ù.
+// pZoneì€ guardZoneì´ë‹¤.
 bool CastleShrineInfoManager::addShrineShield_LOCKED(Zone* pZone)
 
 {
@@ -735,7 +735,7 @@ bool CastleShrineInfoManager::addShrineShield_LOCKED(Zone* pZone)
 
     ZoneID_t guardZoneID = pZone->getZoneID();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr != m_ShrineSets.end(); itr++) {
         CastleShrineSet* pShrineSet = itr->second;
 

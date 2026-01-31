@@ -35,9 +35,9 @@ void CGStashDepositHandler::execute(CGStashDeposit* pPacket, Player* pPlayer) {
     Gold_t amount = pPacket->getAmount();
 
     if (!pPC->checkGoldIntegrity() || !pPC->checkStashGoldIntegrity()) {
-        filelog("GoldBug.log", "CGStashDeposit : µ·ÀÌ DB¶û ¾È ¸Â´Â´Ù! [%s:%s]", pGamePlayer->getID().c_str(),
+        filelog("GoldBug.log", "CGStashDeposit : ëˆì´ DBëž‘ ì•ˆ ë§žëŠ”ë‹¤! [%s:%s]", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str());
-        throw DisconnectException("CGStashDeposit : µ·ÀÌ DB¶û ¾È ¸Â´Â´Ù!");
+        throw DisconnectException("CGStashDeposit : ëˆì´ DBëž‘ ì•ˆ ë§žëŠ”ë‹¤!");
     }
 
 
@@ -50,8 +50,8 @@ void CGStashDepositHandler::execute(CGStashDeposit* pPacket, Player* pPlayer) {
         if (pSlayer->getGold() < amount)
             return;
 
-        // º¸°üÇÔ¿¡ µé¾î°¥ ¼ö ÀÖ´Â µ·º¸´Ù ¸¹Àº ¾çÀÇ µ·À» ³ÖÀ¸·Á ÇÑ´Ù¸é
-        // ÀÏºÎ¸¸ ³Ö°í, ³ª¸ÓÁö´Â °Á ÇÃ·¹ÀÌ¾î¿¡°Ô ³²°Ü³õ¾Æ¾ß ÇÑ´Ù.
+        // ë³´ê´€í•¨ì— ë“¤ì–´ê°ˆ ìˆ˜ ìžˆëŠ” ëˆë³´ë‹¤ ë§Žì€ ì–‘ì˜ ëˆì„ ë„£ìœ¼ë ¤ í•œë‹¤ë©´
+        // ì¼ë¶€ë§Œ ë„£ê³ , ë‚˜ë¨¸ì§€ëŠ” ê± í”Œë ˆì´ì–´ì—ê²Œ ë‚¨ê²¨ë†“ì•„ì•¼ í•œë‹¤.
         if (pSlayer->getStashGold() + amount > MAX_MONEY) {
             Gold_t margin = MAX_MONEY - pSlayer->getStashGold();
             // pSlayer->setGoldEx(pSlayer->getGold() - margin);

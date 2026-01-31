@@ -16,7 +16,7 @@
 #include "HitRoll.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ºø«¡ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ ÏÖÄÌîÑ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void OpenCasket::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
 
@@ -42,13 +42,13 @@ void OpenCasket::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
         SkillType_t SkillType = getSkillType();
         // SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // ∞¸ º”ø° µÈæÓ¿÷¥¬ ∞ÊøÏ∏∏ ªÁøÎ ∞°¥…«œ¥Ÿ.
+        // Í¥Ä ÏÜçÏóê Îì§Ïñ¥ÏûàÎäî Í≤ΩÏö∞Îßå ÏÇ¨Ïö© Í∞ÄÎä•ÌïòÎã§.
         bool bEffected = pVampire->isFlag(Effect::EFFECT_CLASS_CASKET);
 
         if (bEffected) {
             // cout << "Open Casket Succeed" << endl;
 
-            // ¿Ã∆Â∆Æ ≈¨∑°Ω∫∏¶ ∏∏µÈæÓ ∫Ÿ¿Œ¥Ÿ.
+            // Ïù¥ÌéôÌä∏ ÌÅ¥ÎûòÏä§Î•º ÎßåÎì§Ïñ¥ Î∂ôÏù∏Îã§.
             EffectManager* pEffectManager = pVampire->getEffectManager();
             Assert(pEffectManager != NULL);
 
@@ -61,7 +61,7 @@ void OpenCasket::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
                 //				pVampire->removeFlag( Effect::EFFECT_CLASS_CASKET );
             }
 
-            // ∆–≈∂¿ª ∏∏µÈæÓ ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ ÎßåÎì§Ïñ¥ Î≥¥ÎÇ∏Îã§.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);

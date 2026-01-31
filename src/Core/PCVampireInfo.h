@@ -10,14 +10,14 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// Vampire Á¤º¸¸¦ ´ã°í ÀÖ´Â °´Ã¼.
-// GCPCList ÆĞÅ¶¿¡ ´ã°Ü¼­ Å¬¶óÀÌ¾ğÆ®¿¡°Ô Àü¼ÛµÈ´Ù.
-// ¾ÆÀÌÅÛÀÌ³ª °É·ÁÀÖ´Â ¸¶¹ı °°Àº Á¤º¸´Â ´ã°ÜÀÖÁö ¾Ê´Ù.
+// Vampire ì •ë³´ë¥¼ ë‹´ê³  ìˆëŠ” ê°ì²´.
+// GCPCList íŒ¨í‚·ì— ë‹´ê²¨ì„œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì „ì†¡ëœë‹¤.
+// ì•„ì´í…œì´ë‚˜ ê±¸ë ¤ìˆëŠ” ë§ˆë²• ê°™ì€ ì •ë³´ëŠ” ë‹´ê²¨ìˆì§€ ì•Šë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCVampireInfo : public PCInfo {
 public:
-    // ¾ÆÁ÷ bitsetÀº »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+    // ì•„ì§ bitsetì€ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
     enum VampireBits { VAMPIRE_BIT_COAT1, VAMPIRE_BIT_COAT2, VAMPIRE_BIT_COAT3, VAMPIRE_BIT_MAX };
 
     enum VampireColors { VAMPIRE_COLOR_COAT, VAMPIRE_COLOR_MAX };
@@ -32,41 +32,41 @@ public:
     void write(SocketOutputStream& oStream) const;
 
     uint getSize() const {
-        return szBYTE             // ÀÌ¸§±æÀÌ
-               + m_Name.size()    // ¹ìÆÄÀÌ¾î ÀÌ¸§
-               + szSlot           // ½½·Ô
-               + szAlignment      // ¼ºÇâ
-               + szSex            // ¼ºº°
-               + szColor * 2      // »ö»ó
-               + szBYTE + szColor // ¿Ê Å¸ÀÔ, »ö»ó
-               + szAttr * 3       // ´É·ÂÄ¡
+        return szBYTE             // ì´ë¦„ê¸¸ì´
+               + m_Name.size()    // ë±€íŒŒì´ì–´ ì´ë¦„
+               + szSlot           // ìŠ¬ë¡¯
+               + szAlignment      // ì„±í–¥
+               + szSex            // ì„±ë³„
+               + szColor * 2      // ìƒ‰ìƒ
+               + szBYTE + szColor // ì˜· íƒ€ì…, ìƒ‰ìƒ
+               + szAttr * 3       // ëŠ¥ë ¥ì¹˜
                + szHP * 2         // HP
-               + szRank           // °è±Ş
-               + szExp            // °æÇèÄ¡
-               + szLevel          // °æÇèÄ¡
+               + szRank           // ê³„ê¸‰
+               + szExp            // ê²½í—˜ì¹˜
+               + szLevel          // ê²½í—˜ì¹˜
                + szFame
-               //+ szGold					// µ·
-               + szBonus // º¸³Ê½º Æ÷ÀÎÆ®
+               //+ szGold					// ëˆ
+               + szBonus // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
                //+ szZoneID;					// ZoneID
                + szLevel;
     }
 
     // get max size of object
     static uint getMaxSize() {
-        return szBYTE + 20        // ¹ìÆÄÀÌ¾î ÀÌ¸§
-               + szSlot           // ½½·Ô
-               + szAlignment      // ¼ºÇâ
-               + szSex            // ¼ºº°
-               + szColor * 2      // »ö»ó
-               + szBYTE + szColor // ¿Ê Å¸ÀÔ, »ö»ó
-               + szAttr * 3       // ´É·ÂÄ¡
+        return szBYTE + 20        // ë±€íŒŒì´ì–´ ì´ë¦„
+               + szSlot           // ìŠ¬ë¡¯
+               + szAlignment      // ì„±í–¥
+               + szSex            // ì„±ë³„
+               + szColor * 2      // ìƒ‰ìƒ
+               + szBYTE + szColor // ì˜· íƒ€ì…, ìƒ‰ìƒ
+               + szAttr * 3       // ëŠ¥ë ¥ì¹˜
                + szHP * 2         // HP
-               + szRank           // °è±Ş
-               + szExp            // °æÇèÄ¡
+               + szRank           // ê³„ê¸‰
+               + szExp            // ê²½í—˜ì¹˜
                + szFame +
                szLevel
-               //+ szGold					// µ·
-               + szBonus // º¸³Ê½º Æ÷ÀÎÆ®
+               //+ szGold					// ëˆ
+               + szBonus // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
                //+ szZoneID;					// ZoneID
                + szLevel;
     }
@@ -248,7 +248,7 @@ private:
     // PC name
     string m_Name;
 
-    // PC ½½·Ô
+    // PC ìŠ¬ë¡¯
     Slot m_Slot;
 
     // Alignment
@@ -265,7 +265,7 @@ private:
     ItemType_t m_CoatType;
     Color_t m_CoatColor;
 
-    // °è±Ş
+    // ê³„ê¸‰
     Rank_t m_Rank;
 
     // Exp
@@ -296,7 +296,7 @@ private:
     Bonus_t m_Bonus;
 
     Level_t m_AdvancementLevel;
-    // °É·Á ÀÖ´Â ¸¶¹ı
+    // ê±¸ë ¤ ìˆëŠ” ë§ˆë²•
 };
 
 #endif

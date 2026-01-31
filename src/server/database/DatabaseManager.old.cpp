@@ -28,12 +28,12 @@ DatabaseManager::DatabaseManager() throw() {
 DatabaseManager::~DatabaseManager() throw() {
     __BEGIN_TRY
 
-    // ¸ðµç Connection ¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+    // ëª¨ë“  Connection ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
     unordered_map<int, Connection*>::iterator itr = m_Connections.begin();
     for (; itr != m_Connections.end(); itr++)
         SAFE_DELETE(itr->second);
 
-    // ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+    // í•´ì‰¬ë§µì•ˆì— ìžˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
     m_Connections.clear();
 
     SAFE_DELETE(m_pDefaultConnection);
@@ -128,7 +128,7 @@ void DatabaseManager::addConnection(int TID, Connection* pConnection)
 
 #ifdef __GAME_SERVER
 
-    // °ÔÀÓ ¼­¹öÀÏ °æ¿ì °¢ ¾²·¹µå º°·Î World DB ConnectionÀÌ ÀÖ´Â °æ¿ì°¡ ÁÁ´Ù.
+    // ê²Œìž„ ì„œë²„ì¼ ê²½ìš° ê° ì“°ë ˆë“œ ë³„ë¡œ World DB Connectionì´ ìžˆëŠ” ê²½ìš°ê°€ ì¢‹ë‹¤.
     Statement* pStmt = NULL;
     pStmt = m_pDefaultConnection->createStatement();
     Result* pResult = NULL;

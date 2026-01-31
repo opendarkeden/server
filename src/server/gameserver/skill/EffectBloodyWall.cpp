@@ -49,15 +49,15 @@ void EffectBloodyWall::affect()
 
     Assert(m_pZone != NULL);
 
-    // ÀÌÆåÆ®¸¦ »ç¿ëÇÑ Å©¸®ÃÄ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼öµµ ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´í™íŠ¸ë¥¼ ì‚¬ìš©í•œ í¬ë¦¬ì³ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ NULLì´ ë  ìˆ˜ ìˆë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {
@@ -70,19 +70,19 @@ void EffectBloodyWall::affect()
             Creature* pCreature = dynamic_cast<Creature*>(pObject);
             Assert(pCreature != NULL);
 
-            // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
-            // »ê ¸é¿ª. by sigi. 2002.9.13
-            // ÀÚ±â ÀÚ½ÅÀÌ¸é ¾È ¸Â´Â´Ù.
-            // ¾ÈÀüÁö´ë Ã¼Å©
+            // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
+            // ì‚° ë©´ì—­. by sigi. 2002.9.13
+            // ìê¸° ìì‹ ì´ë©´ ì•ˆ ë§ëŠ”ë‹¤.
+            // ì•ˆì „ì§€ëŒ€ ì²´í¬
             // 2003.1.10 by bezz, Sequoia
             if (!canAttack(pCastCreature, pCreature) || pCreature->isFlag(Effect::EFFECT_CLASS_COMA) ||
                 pCreature->getObjectID() == m_CasterID || !checkZoneLevelToHitTarget(pCreature)) {
                 continue;
             }
 
-            // °°Àº Á¶Á÷(--;)ÀÌ¸é ¾È ¸Â´Â´Ù.
+            // ê°™ì€ ì¡°ì§(--;)ì´ë©´ ì•ˆ ë§ëŠ”ë‹¤.
             if (m_CreatureClass == pCreature->getCreatureClass() && !isForce()) {
-                // vampire ³¢¸®´Â ¾È ¸Â´Â´Ù.
+                // vampire ë¼ë¦¬ëŠ” ì•ˆ ë§ëŠ”ë‹¤.
                 if (m_CreatureClass == Creature::CREATURE_CLASS_VAMPIRE) {
                     continue; // by sigi. 2003.1.14
                 } else if (m_CreatureClass == Creature::CREATURE_CLASS_MONSTER) {
@@ -111,14 +111,14 @@ void EffectBloodyWall::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 50; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 50; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 } else if (pCreature->isVampire()) {
@@ -131,14 +131,14 @@ void EffectBloodyWall::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 50; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 50; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 } else if (pCreature->isOusters()) {
@@ -151,14 +151,14 @@ void EffectBloodyWall::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 50; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 50; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 } else if (pCreature->isMonster()) {
@@ -170,19 +170,19 @@ void EffectBloodyWall::affect()
                         pMonster->addEnemy(pCastCreature);
                     }
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 50; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 50; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 }
 
-                // »ó´ë°¡ Á×¾ú´Ù¸é °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // ìƒëŒ€ê°€ ì£½ì—ˆë‹¤ë©´ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 if (pCreature->isDead()) {
                     if (pCastCreature != NULL && pCastCreature->isVampire()) {
                         Vampire* pVampire = dynamic_cast<Vampire*>(pCastCreature);
@@ -196,9 +196,9 @@ void EffectBloodyWall::affect()
                     }
                 }
 
-                // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+                // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
                 // by sigi. 2002.8.31
-                // setDamage ¸¦ È£ÃâÇÏ¿© ÇØ°áÇÑ´Ù. ÁÖ¼®Ã³¸®
+                // setDamage ë¥¼ í˜¸ì¶œí•˜ì—¬ í•´ê²°í•œë‹¤. ì£¼ì„ì²˜ë¦¬
                 // by bezz. 2003.1.3
                 /*				if (pCreature->isDead())
                                 {
@@ -327,7 +327,7 @@ WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CL
                         pEffect->setTick( value2 );
                         pEffect->setLevel( 300 );
 
-                        // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                        // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                         pZone->registerObject(pEffect);
                         pZone->addEffect(pEffect);
                         tile.addEffect(pEffect);

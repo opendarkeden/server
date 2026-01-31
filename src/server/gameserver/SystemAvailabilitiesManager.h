@@ -12,12 +12,12 @@
     SystemAvailabilitiesManager::AssertAvailable( \
         SystemAvailabilitiesManager::KIND,        \
         string() + __PRETTY_FUNCTION__ +          \
-            " : Àß¸øµÈ Å¬¶óÀÌ¾ğÆ®¸¦ »ç¿ëÇß°Å³ª Å¬¶óÀÌ¾ğÆ®¿Í ¼­¹öÀÇ Á¤º¸°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.")
+            " : ì˜ëª»ëœ í´ë¼ì´ì–¸íŠ¸ë¥¼ ì‚¬ìš©í–ˆê±°ë‚˜ í´ë¼ì´ì–¸íŠ¸ì™€ ì„œë²„ì˜ ì •ë³´ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.")
 #define SYSTEM_RETURN_IF_NOT(KIND)                                                                     \
     if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::KIND)) { \
         filelog("SystemAvailabilities.log",                                                            \
                 (string() + __PRETTY_FUNCTION__ +                                                      \
-                 " : Àß¸øµÈ Å¬¶óÀÌ¾ğÆ®¸¦ »ç¿ëÇß°Å³ª Å¬¶óÀÌ¾ğÆ®¿Í ¼­¹öÀÇ Á¤º¸°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.")        \
+                 " : ì˜ëª»ëœ í´ë¼ì´ì–¸íŠ¸ë¥¼ ì‚¬ìš©í–ˆê±°ë‚˜ í´ë¼ì´ì–¸íŠ¸ì™€ ì„œë²„ì˜ ì •ë³´ê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.")        \
                     .c_str());                                                                         \
         return;                                                                                        \
     }
@@ -79,7 +79,7 @@ public:
         return m_pAvailabilitiesPacket;
     }
 
-    // ½Ì±ÛÅæÀÌ´ç
+    // ì‹±ê¸€í†¤ì´ë‹¹
     static SystemAvailabilitiesManager* getInstance() {
         static SystemAvailabilitiesManager theInstance;
         return &theInstance;

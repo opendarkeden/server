@@ -83,10 +83,10 @@ bool MonsterKillQuest::checkSuccess(const QuestEvent* pQuestEvent) throw(Error) 
                 dynamic_cast<const QuestEventMonsterKill*>(pQuestEvent);
 
             if (*this == *pQuestEventMonsterKill) {
-                // «— ∏∂∏Æ ¡Ÿ¿Œ¥Ÿ.
+                // Ìïú ÎßàÎ¶¨ Ï§ÑÏù∏Îã§.
                 decreaseNumber();
 
-                // ¥Ÿ ¡◊ø¥¿∏∏È.. øœ∑·
+                // Îã§ Ï£ΩÏòÄÏúºÎ©¥.. ÏôÑÎ£å
                 if (getNumber() == 0) {
                     setState(STATE_COMPLETE);
                     return true;
@@ -135,7 +135,7 @@ Quest* MonsterKillQuestFactory::create(const QuestCreateInfo* qcInfo) const thro
     Assert(pQuest != NULL);
 
     // deadline
-    int availableMinute = (rand() % 6) * 10 + 10; // 10∫–~60∫–
+    int availableMinute = (rand() % 6) * 10 + 10; // 10Î∂Ñ~60Î∂Ñ
 
     int goldReward = (level + (60 - availableMinute) * 2) * 1000;
     int rankExpReward = (level + (60 - availableMinute) * 2) * 1000;
@@ -148,7 +148,7 @@ Quest* MonsterKillQuestFactory::create(const QuestCreateInfo* qcInfo) const thro
     pQuest->addReward(pReward);
     pQuest->addPenalty(pPenalty);
 
-    pQuest->setAvailableSecond(availableMinute * 60); // ∫–¿ª √ ∑Œ
+    pQuest->setAvailableSecond(availableMinute * 60); // Î∂ÑÏùÑ Ï¥àÎ°ú
 
     return pQuest;
 
@@ -202,23 +202,23 @@ string MonsterKillQuest::toString() const throw(Error) {
 
     StringStream msg;
 
-    msg << "∏ÛΩ∫≈Õ ¡◊¿Ã±‚(" << getObjectiveToString() << "), "
-        << "º∫∞¯(" << getRewardToString() << ") : "
-        << "Ω«∆–(" << getPenaltyToString() << ")";
+    msg << "Î™¨Ïä§ÌÑ∞ Ï£ΩÏù¥Í∏∞(" << getObjectiveToString() << "), "
+        << "ÏÑ±Í≥µ(" << getRewardToString() << ") : "
+        << "Ïã§Ìå®(" << getPenaltyToString() << ")";
 
     switch (getState()) {
     case Quest::STATE_NULL:
     case Quest::STATE_WAIT: {
-        msg << ", ºˆ«‡Ω√∞£(" << (m_AvailableSecond / 60) << ")∫–";
+        msg << ", ÏàòÌñâÏãúÍ∞Ñ(" << (m_AvailableSecond / 60) << ")Î∂Ñ";
     } break;
 
     case Quest::STATE_COMPLETE:
     case Quest::STATE_END:
-        msg << ", øœ∑·";
+        msg << ", ÏôÑÎ£å";
         break;
 
     default: {
-        msg << ", ≥≤¿∫Ω√∞£(" << (getRemainDuration() / 600) << ")∫–";
+        msg << ", ÎÇ®ÏùÄÏãúÍ∞Ñ(" << (getRemainDuration() / 600) << ")Î∂Ñ";
     }
     }
 

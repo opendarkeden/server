@@ -52,12 +52,12 @@ void EffectSnipingMode::unaffect(Creature* pCreature)
     // cout << "EffectSnipingMode " << "unaffect BEGIN" << endl;
 
     Assert(pCreature != NULL);
-    Assert(pCreature->isSlayer()); // ½½·¹ÀÌ¾î¸»°í´Â °É¸®Áö ¾Ê´Â´Ù.
+    Assert(pCreature->isSlayer()); // ìŠ¬ë ˆì´ì–´ë§ê³ ëŠ” ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
 
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // addUnSnipingModeCreature() ³»ºÎ¿¡¼­ ÇÃ·¡±×¸¦ ²ô¹Ç·Î...
+    // addUnSnipingModeCreature() ë‚´ë¶€ì—ì„œ í”Œëž˜ê·¸ë¥¼ ë„ë¯€ë¡œ...
     // pCreature->removeFlag(Effect::EFFECT_CLASS_SNIPING_MODE);
     addUnSnipingModeCreature(pZone, pCreature, false);
 

@@ -58,11 +58,11 @@ void CGAddMouseToGearHandler::execute(CGAddMouseToGear* pPacket, Player* pPlayer
             ObjectID_t ItemObjectID = pItem->getObjectID();
             SlotID_t SlotID = pPacket->getSlotID();
 
-            // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+            // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
             if (ItemObjectID == pPacket->getObjectID()) {
                 Item::ItemClass IClass = pItem->getItemClass();
 
-                switch (SlotID) // ½½¶ùÀ» º¸°í ±× ½½¶ù¿¡ ¸Â´Â ¾ÆÀÌÅÛ À¯ÇüÀÎÁö ºñ±³ÇÑ´Ù.
+                switch (SlotID) // ìŠ¬ëžì„ ë³´ê³  ê·¸ ìŠ¬ëžì— ë§žëŠ” ì•„ì´í…œ ìœ í˜•ì¸ì§€ ë¹„êµí•œë‹¤.
                 {
                 case Slayer::WEAR_HEAD:
                     if (IClass == Item::ITEM_CLASS_HELM)
@@ -143,7 +143,7 @@ void CGAddMouseToGearHandler::execute(CGAddMouseToGear* pPacket, Player* pPlayer
                     break;
                 }
 
-                // ±× ½½¶ù¿¡ ¸Â´Â ¾ÆÀÌÅÛÀ» ÀåÂøÇÏ·Á°í ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ê·¸ ìŠ¬ëžì— ë§žëŠ” ì•„ì´í…œì„ ìž¥ì°©í•˜ë ¤ê³  í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (Success)
                     pSlayer->wearItem((Slayer::WearPart)SlotID);
             }
@@ -163,11 +163,11 @@ void CGAddMouseToGearHandler::execute(CGAddMouseToGear* pPacket, Player* pPlayer
             ObjectID_t ItemObjectID = pItem->getObjectID();
             SlotID_t SlotID = pPacket->getSlotID();
 
-            // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+            // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
             if (ItemObjectID == pPacket->getObjectID()) {
                 Item::ItemClass IClass = pItem->getItemClass();
 
-                switch (SlotID) // ½½¶ùÀ» º¸°í ±× ½½¶ù¿¡ ¸Â´Â ¾ÆÀÌÅÛ À¯ÇüÀÎÁö ºñ±³ÇÑ´Ù.
+                switch (SlotID) // ìŠ¬ëžì„ ë³´ê³  ê·¸ ìŠ¬ëžì— ë§žëŠ” ì•„ì´í…œ ìœ í˜•ì¸ì§€ ë¹„êµí•œë‹¤.
                 {
                 case Vampire::WEAR_NECK:
                     if (IClass == Item::ITEM_CLASS_VAMPIRE_NECKLACE)
@@ -253,7 +253,7 @@ void CGAddMouseToGearHandler::execute(CGAddMouseToGear* pPacket, Player* pPlayer
                     break;
                 }
 
-                // ±× ½½¶ù¿¡ ¸Â´Â ¾ÆÀÌÅÛÀ» ÀåÂøÇÏ·Á°í ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ê·¸ ìŠ¬ëžì— ë§žëŠ” ì•„ì´í…œì„ ìž¥ì°©í•˜ë ¤ê³  í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (Success)
                     pVampire->wearItem((Vampire::WearPart)SlotID);
             }
@@ -273,11 +273,11 @@ void CGAddMouseToGearHandler::execute(CGAddMouseToGear* pPacket, Player* pPlayer
             ObjectID_t ItemObjectID = pItem->getObjectID();
             SlotID_t SlotID = pPacket->getSlotID();
 
-            // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+            // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
             if (ItemObjectID == pPacket->getObjectID()) {
                 Item::ItemClass IClass = pItem->getItemClass();
 
-                switch (SlotID) // ½½¶ùÀ» º¸°í ±× ½½¶ù¿¡ ¸Â´Â ¾ÆÀÌÅÛ À¯ÇüÀÎÁö ºñ±³ÇÑ´Ù.
+                switch (SlotID) // ìŠ¬ëžì„ ë³´ê³  ê·¸ ìŠ¬ëžì— ë§žëŠ” ì•„ì´í…œ ìœ í˜•ì¸ì§€ ë¹„êµí•œë‹¤.
                 {
                 case Ousters::WEAR_CIRCLET:
                     if (IClass == Item::ITEM_CLASS_OUSTERS_CIRCLET)
@@ -340,13 +340,13 @@ void CGAddMouseToGearHandler::execute(CGAddMouseToGear* pPacket, Player* pPlayer
                     break;
                 }
 
-                // ±× ½½¶ù¿¡ ¸Â´Â ¾ÆÀÌÅÛÀ» ÀåÂøÇÏ·Á°í ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ê·¸ ìŠ¬ëžì— ë§žëŠ” ì•„ì´í…œì„ ìž¥ì°©í•˜ë ¤ê³  í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (Success)
                     pOusters->wearItem((Ousters::WearPart)SlotID);
             }
         }
 
-        // Adding¿¡ ½ÇÆÐ ÇÏ¿´À» °æ¿ì
+        // Addingì— ì‹¤íŒ¨ í•˜ì˜€ì„ ê²½ìš°
         if (!Success) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());

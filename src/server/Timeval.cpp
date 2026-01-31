@@ -2,7 +2,7 @@
 //
 // Filename    : Timeval.cpp
 // Written By  : Reiot
-// Description : struct timeval ¿¡ °ü·ÃµÈ operator µéÀ» ¸ğ¾Æ³õÀº ÆÄÀÏ
+// Description : struct timeval ì— ê´€ë ¨ëœ operator ë“¤ì„ ëª¨ì•„ë†“ì€ íŒŒì¼
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -50,8 +50,8 @@ bool operator<(const Timeval& left, const Timeval& right) {
 
 
 //--------------------------------------------------------------------------------
-// timediffÀÇ °á°ú°ª³¢¸® ´õÇÒ °æ¿ì¿¡ »ç¿ëÇÑ´Ù.
-// (»ç½Ç ÇöÀç ½Ã°£³¢¸® ´õÇÑ´Ù´Â °ÍÀº ¿ì½º¿î ÁşÀÌ´Ù. - -; )
+// timediffì˜ ê²°ê³¼ê°’ë¼ë¦¬ ë”í•  ê²½ìš°ì— ì‚¬ìš©í•œë‹¤.
+// (ì‚¬ì‹¤ í˜„ì¬ ì‹œê°„ë¼ë¦¬ ë”í•œë‹¤ëŠ” ê²ƒì€ ìš°ìŠ¤ìš´ ì§“ì´ë‹¤. - -; )
 //--------------------------------------------------------------------------------
 Timeval operator+(const Timeval& left, const Timeval& right) {
     Timeval result;
@@ -69,7 +69,7 @@ Timeval operator+(const Timeval& left, const Timeval& right) {
 
 
 //--------------------------------------------------------------------------------
-// µÎ Timeval °£ÀÇ ½Ã°£Â÷¸¦ ±¸ÇÑ´Ù.
+// ë‘ Timeval ê°„ì˜ ì‹œê°„ì°¨ë¥¼ êµ¬í•œë‹¤.
 //--------------------------------------------------------------------------------
 Timeval timediff(const Timeval& left, const Timeval& right) {
     Timeval result;

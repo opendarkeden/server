@@ -2,8 +2,8 @@
 // Filename    : EffectFadeOut.cpp
 // Written by  : elca
 // Description :
-// ±ºÀÎ±â¼ú Sniping ¶Ç´Â ¹ìÆÄÀÌ¾î ±â¼ú Invisibility·Î ÀÎÇØ¼­
-// ÇöÀç Á¡Á¡ Èñ¹ÌÇØÁ®°¡°í ÀÖ´Â(»ç¶óÁö°í ÀÖ´Â) Å©¸®ÃÄ¿¡ ºÙ´Â ÀÌÆåÆ®ÀÌ´Ù.
+// êµ°ì¸ê¸°ìˆ  Sniping ë˜ëŠ” ë±€íŒŒì´ì–´ ê¸°ìˆ  Invisibilityë¡œ ì¸í•´ì„œ
+// í˜„ìž¬ ì ì  í¬ë¯¸í•´ì ¸ê°€ê³  ìžˆëŠ”(ì‚¬ë¼ì§€ê³  ìžˆëŠ”) í¬ë¦¬ì³ì— ë¶™ëŠ” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectFadeOut.h"
@@ -64,9 +64,9 @@ void EffectFadeOut::unaffect(Creature* pCreature)
     ZoneCoord_t y = pCreature->getY();
     pCreature->removeFlag(Effect::EFFECT_CLASS_FADE_OUT);
 
-    // ±ºÀÎ±â¼ú Sniping¿¡ ÀÇÇÑ °ÍÀÌ¶ó¸é...
+    // êµ°ì¸ê¸°ìˆ  Snipingì— ì˜í•œ ê²ƒì´ë¼ë©´...
     if (m_isSniping) {
-        // ½½·¹ÀÌ¾î¸¸ÀÌ ÇØ´çµÈ´Ù.
+        // ìŠ¬ë ˆì´ì–´ë§Œì´ í•´ë‹¹ëœë‹¤.
         Assert(pCreature->isSlayer());
         Assert(pCreature->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE) == false);
         Assert(pCreature->findEffect(Effect::EFFECT_CLASS_SNIPING_MODE) == NULL);
@@ -78,7 +78,7 @@ void EffectFadeOut::unaffect(Creature* pCreature)
         pSlayer->addEffect(pEffect);
         pSlayer->setFlag(Effect::EFFECT_CLASS_SNIPING_MODE);
 
-        // ÀÌÆåÆ®¸¦ ºÙ¿´À¸´Ï, ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+        // ì´íŽ™íŠ¸ë¥¼ ë¶™ì˜€ìœ¼ë‹ˆ, ëŠ¥ë ¥ì¹˜ë¥¼ ìž¬ê³„ì‚°í•œë‹¤.
         SLAYER_RECORD prev;
         pSlayer->getSlayerRecord(prev);
         pSlayer->initAllStat();
@@ -87,16 +87,16 @@ void EffectFadeOut::unaffect(Creature* pCreature)
 
         addSnipingModeCreature(pZone, pCreature, x, y);
     }
-    // ¹ìÆÄÀÌ¾î ±â¼ú Invisibility¿¡ ÀÇÇÑ °ÍÀÌ¶ó¸é...
+    // ë±€íŒŒì´ì–´ ê¸°ìˆ  Invisibilityì— ì˜í•œ ê²ƒì´ë¼ë©´...
     else {
-        // ¹ìÆÄÀÌ¾î³ª ¸ó½ºÅÍ¸¸ÀÌ ÇØ´çµÈ´Ù.
+        // ë±€íŒŒì´ì–´ë‚˜ ëª¬ìŠ¤í„°ë§Œì´ í•´ë‹¹ëœë‹¤.
         Assert(pCreature->isVampire() || pCreature->isMonster());
         Assert(pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY) == false);
         Assert(pCreature->findEffect(Effect::EFFECT_CLASS_INVISIBILITY) == NULL);
 
         EffectInvisibility* pEffect = new EffectInvisibility(pCreature);
         pEffect->setNextTime(10);
-        pEffect->setDeadline(99999999); // ¹«ÇÑÀÌ´Ù.
+        pEffect->setDeadline(99999999); // ë¬´í•œì´ë‹¤.
         pCreature->addEffect(pEffect);
 
         addInvisibleCreature(pZone, pCreature, x, y);

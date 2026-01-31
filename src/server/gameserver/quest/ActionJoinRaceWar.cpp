@@ -36,7 +36,7 @@ void ActionJoinRaceWar::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionJoinRaceWar::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -56,7 +56,7 @@ void ActionJoinRaceWar::execute(Creature* pCreature1, Creature* pCreature2)
 
     static int isJoinRaceWar = g_pConfig->getPropertyInt("JoinRaceWar");
 
-    // ¼­¹ö ÀÚÃ¼¿¡ Á¾Á· ÀüÀï Âü°¡ ½ÅÃ» ±â´ÉÀÌ ²¨Á®ÀÖ´Â °æ¿ì
+    // ì„œë²„ ìžì²´ì— ì¢…ì¡± ì „ìŸ ì°¸ê°€ ì‹ ì²­ ê¸°ëŠ¥ì´ êº¼ì ¸ìžˆëŠ” ê²½ìš°
     if (!isJoinRaceWar) {
         gcNPCResponse.setCode(NPC_RESPONSE_RACE_WAR_GO_FIRST_SERVER);
         pPC->getPlayer()->sendPacket(&gcNPCResponse);

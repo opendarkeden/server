@@ -19,7 +19,7 @@
 #include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -41,9 +41,9 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // ¸é¿ªÀÌ°Å³ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // ë©´ì—­ì´ê±°ë‚˜. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -59,7 +59,7 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus
+        // Knowledge of Blood ê°€ ìˆë‹¤ë©´ hit bonus
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -92,12 +92,12 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectArmageddon* pEffectArmageddon = new EffectArmageddon(pTargetCreature);
             //			pEffectArmageddon->setCasterName( pVampire->getName() );
             //			pEffectArmageddon->setPartyID( pVampire->getPartyID() );
             pEffectArmageddon->setUserObjectID(pVampire->getObjectID());
-            pEffectArmageddon->setHP(400); // ÇÏµåÄÚµùµÊ --; by Sequoia
+            pEffectArmageddon->setHP(400); // í•˜ë“œì½”ë”©ë¨ --; by Sequoia
             pEffectArmageddon->setDelay(output.Tick);
             pEffectArmageddon->setDamage(output.Damage);
             pEffectArmageddon->setNextTime(output.Tick);
@@ -109,7 +109,7 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             pTargetCreature->addEffect(pEffectArmageddon);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_ARMAGEDDON);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù´Â °ÍÀ» ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´í™íŠ¸ê°€ ë¶™ì—ˆë‹¤ëŠ” ê²ƒì„ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_ARMAGEDDON);
@@ -141,10 +141,10 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }

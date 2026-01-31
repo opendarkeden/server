@@ -24,13 +24,13 @@
 
 class CURequest : public Packet {
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream) throw(ProtocolException, Error);
 
-    // ¼ÒÄÏÀ¸·ÎºÎÅÍ Á÷Á¢ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì†Œì¼“ìœ¼ë¡œë¶€í„° ì§ì ‘ ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Socket* pSocket) throw(ProtocolException, Error);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
 
     // execute packet's handler
@@ -46,7 +46,7 @@ public:
         return m_Resource.getSize();
     }
 
-    // ÀÓ½Ã ÄÚµå´ç. -_-;
+    // ì„ì‹œ ì½”ë“œë‹¹. -_-;
     static PacketSize_t getPacketMaxSize() throw() {
         return Resource::getMaxSize();
     }

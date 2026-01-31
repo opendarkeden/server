@@ -20,8 +20,8 @@
 //
 // GGCommandHander::execute()
 //
-// °ÔÀÓ ¼­¹ö°¡ ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ GGCommand ÆĞÅ¶À» ¹Ş°Ô µÇ¸é,
-// ReconnectLoginInfo¸¦ »õ·Î Ãß°¡ÇÏ°Ô µÈ´Ù.
+// ê²Œì„ ì„œë²„ê°€ ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° GGCommand íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// ReconnectLoginInfoë¥¼ ìƒˆë¡œ ì¶”ê°€í•˜ê²Œ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void GGCommandHandler::execute(GGCommand* pPacket)
@@ -31,7 +31,7 @@ void GGCommandHandler::execute(GGCommand* pPacket)
 
 #ifdef __GAME_SERVER__
 
-            // pPacketÀÌ ´Ù¸¥ GameServer·ÎºÎÅÍ ³¯¾Æ¿Â°ÍÀÎÁö¸¦ È®ÀÎÇØ¾ß ÇÑ´Ù.
+            // pPacketì´ ë‹¤ë¥¸ GameServerë¡œë¶€í„° ë‚ ì•„ì˜¨ê²ƒì¸ì§€ë¥¼ í™•ì¸í•´ì•¼ í•œë‹¤.
             cout
         << "[" << pPacket->getHost().c_str() << ":" << pPacket->getPort() << "] " << pPacket->toString().c_str()
         << endl;
@@ -70,9 +70,9 @@ void GGCommandHandler::execute(GGCommand* pPacket)
 
     }
 
-    // °¢Á¾ ÇÔ¼ö¿ë °ª ¼¼ÆÃ¿ë ÇÔ¼ö
-    // set type value ÇüÅÂ·Î Á¤ÀÇµÈ´Ù.
-    // 2002.5.8 º° È®·üÀ» ÀÚÀ²ÀûÀ¸·Î Á¶ÀıÇÏ±â À§ÇØ¼­ ¸¸µë
+    // ê°ì¢… í•¨ìˆ˜ìš© ê°’ ì„¸íŒ…ìš© í•¨ìˆ˜
+    // set type value í˜•íƒœë¡œ ì •ì˜ëœë‹¤.
+    // 2002.5.8 ë³„ í™•ë¥ ì„ ììœ¨ì ìœ¼ë¡œ ì¡°ì ˆí•˜ê¸° ìœ„í•´ì„œ ë§Œë“¬
     else if (msg.substr(i + 1, 3) == "set") {
         CGSayHandler::opset(NULL, msg, i);
     }

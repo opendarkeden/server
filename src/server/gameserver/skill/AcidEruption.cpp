@@ -16,7 +16,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidEruption::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -36,7 +36,7 @@ void AcidEruption::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, SkillType);
             return;
@@ -152,7 +152,7 @@ void AcidEruption::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidEruption::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -193,7 +193,7 @@ void AcidEruption::execute(Monster* pMonster, Creature* pEnemy)
 
             Damage_t Damage = computeMagicDamage(pEnemy, output.Damage, SkillType);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectAcidEruption* pEffectAcidEruption = new EffectAcidEruption(pEnemy);
             pEffectAcidEruption->setDamage(Damage);
             pEffectAcidEruption->setTick(5);
@@ -203,7 +203,7 @@ void AcidEruption::execute(Monster* pMonster, Creature* pEnemy)
             pEnemy->addEffect(pEffectAcidEruption);
             pEnemy->setFlag(pEffectAcidEruption->getEffectClass());
 
-            // ÀÌÆåÆ®°¡ ºÙ¾úÀ¸´Ï, ºÙ¾ú´Ù°í ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆìœ¼ë‹ˆ, ë¶™ì—ˆë‹¤ê³  ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             /*			GCAddEffect gcAddEffect;
                         gcAddEffect.setObjectID(pEnemy->getObjectID());
                         gcAddEffect.setEffectID(pEffectAcidEruption->getSendEffectClass());

@@ -27,7 +27,7 @@ EffectHeterChakram::EffectHeterChakram(Creature* pCreature)
     m_UserOID = 0;
     m_Damage = 0;
     m_Duration = 0;
-    // m_AttackNum = 0; // 受到攻击次数
+    // m_AttackNum = 0; // 脢脺碌陆鹿楼禄梅麓脦脢媒
     // m_TrageSaveHP =0;
 
     __END_CATCH
@@ -67,11 +67,11 @@ void EffectHeterChakram::affect()
     // 		}
     // 		if ( CurrentHP < m_TrageSaveHP)
     // 		{
-    // 			// 增加其它攻击次数
+    // 			// 脭枚录脫脝盲脣眉鹿楼禄梅麓脦脢媒
     // 			m_AttackNum++;
     // 			//m_TrageSaveHP = CurrentHP;
     // 		}
-    // 创建伤害
+    // 麓麓陆篓脡脣潞娄
     affect(pCreature);
     // 		if (pCreature->isDead())
     // 		{
@@ -80,7 +80,7 @@ void EffectHeterChakram::affect()
     // 		if (pCreature->isSlayer())  CurrentHP = pSlayer->getHP();
     // 		if (pCreature->isVampire())	CurrentHP = pVampire->getHP();
     // 		if (pCreature->isMonster())	CurrentHP = pMonsterAttacker->getHP();
-    // 		// 记录当前HP
+    // 		// 录脟脗录碌卤脟掳HP
     // 		m_TrageSaveHP = CurrentHP;
     // 		if (m_AttackNum >=5)
     // 		{
@@ -224,11 +224,11 @@ void EffectHeterChakram::unaffect()
     //
     // 	}
 
-    // 创建目标伤害
+    // 麓麓陆篓脛驴卤锚脡脣潞娄
     affect(pCreature);
 
     // Creature* pCreature = m_pZone->getCreature(m_pTarget);
-    //  读取5*5范围内对象,并创建伤害
+    //  露脕脠隆5*5路露脦搂脛脷露脭脧贸,虏垄麓麓陆篓脡脣潞娄
     //  	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
 
@@ -257,7 +257,7 @@ void EffectHeterChakram::unaffect()
                 if (pTargetCreature == NULL || pTargetCreature->isOusters() || pTargetCreature == pCreature)
                     continue;
                 // if ( pTargetCreature->isFlag( getEffectClass() ) ) continue;
-                //  创建伤害
+                //  麓麓陆篓脡脣潞娄
                 affect(pTargetCreature);
                 // 	 			EffectHeterChakram* pEffect = new EffectHeterChakram( pTargetCreature );
                 // 	 			pEffect->setUserOID( m_UserOID );

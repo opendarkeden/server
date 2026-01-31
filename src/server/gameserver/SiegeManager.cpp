@@ -36,7 +36,7 @@ void SiegeManager::init(ZoneID_t zoneID) {
     if (pSiegeZone == NULL)
         return;
 
-    MonsterCorpse* pShrine = new MonsterCorpse(560, "Ê¥Îï±£¹ÜÌ¨", 2);
+    MonsterCorpse* pShrine = new MonsterCorpse(560, "åŠ è† ê´ë°—æ†©", 2);
     Assert(pShrine != NULL);
 
     pShrine->setShrine(true);
@@ -127,7 +127,7 @@ void SiegeManager::start(ZoneID_t zoneID) {
         Monster* pMonster = new Monster(mType);
         pMonster->setTreasure(false);
         pMonster->setScanEnemy(true);
-        pMonster->setName("ÎÀ±ø");
+        pMonster->setName("æ‹¬ê¹¡");
 
         try {
             pSiegeZone->addCreature(pMonster, guardPosition[i].x, guardPosition[i].y, 0);
@@ -221,7 +221,7 @@ void SiegeManager::putItem(PlayerCreature* pPC, MonsterCorpse* pCorpse, Item* pI
 
     GCSystemMessage gcSM;
     char buffer[256];
-    sprintf(buffer, "%dºÅ¹¥»÷·½»ñµÃÊ¤Àû.10ÃëºóÒÆ¶¯µ½¸´»îµØµã.", side);
+    sprintf(buffer, "%dëµ€ë¬‘ìƒŒë ˜ì‚¿ë¤åƒ¹ì .10ì·¨ë¹ˆï¤³ë•¡ë•ë¦¿ì‚¶ë’ˆë“.", side);
     gcSM.setMessage(buffer);
     pPC->getZone()->broadcastPacket(&gcSM);
 
@@ -244,7 +244,7 @@ void SiegeManager::recallGuild(ZoneID_t currentZoneID, ZoneID_t siegeZoneID, Gui
         if (pTargetCreature == NULL)
             continue;
 
-        // ¼ÒÈ¯ÀÚÀÇ Á¸°ú ÁÂÇ¥.
+        // ì†Œí™˜ìì˜ ì¡´ê³¼ ì¢Œí‘œ.
         ZoneID_t ZoneNum = siegeZoneID;
         Coord_t ZoneX = targetPos[side - 1].x;
         Coord_t ZoneY = targetPos[side - 1].y;

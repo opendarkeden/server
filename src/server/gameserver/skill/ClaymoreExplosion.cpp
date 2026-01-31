@@ -11,8 +11,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 ClaymoreExplosion::ClaymoreExplosion() throw() {
     __BEGIN_TRY
@@ -25,7 +25,7 @@ ClaymoreExplosion::ClaymoreExplosion() throw() {
             m_pClaymoreExplosionMask[index++].set(j, i);
         }
 
-    // ÁÖÀ§ 8Å¸ÀÏ
+    // ì£¼ìœ„ 8íƒ€ì¼
     /*	m_pClaymoreExplosionMask[0].set(1,  1);
         m_pClaymoreExplosionMask[1].set(-1, -1);
         m_pClaymoreExplosionMask[2].set(0, -1);
@@ -39,7 +39,7 @@ ClaymoreExplosion::ClaymoreExplosion() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ClaymoreExplosion::execute(Monster* pMonster)
 
@@ -63,7 +63,7 @@ void ClaymoreExplosion::execute(Monster* pMonster)
 
         if (bRangeCheck) {
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§ëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             SkillInput input(pMonster);
             SkillOutput output;
@@ -87,7 +87,7 @@ void ClaymoreExplosion::execute(Monster* pMonster)
                 param.addMask(m_pClaymoreExplosionMask[i].x, m_pClaymoreExplosionMask[i].y, 100);
             }
 
-            // °­Á¦·Î ¸Â´Â ¾ÖµéÀ» knockback ½ÃÅ²´Ù.
+            // ê°•ì œë¡œ ë§ëŠ” ì• ë“¤ì„ knockback ì‹œí‚¨ë‹¤.
             //	bool bForceKnockback = true;
             g_SimpleTileMeleeSkill.execute(pMonster, x, y, param, result, 0, false);
             GCAddEffectToTile gcAE;

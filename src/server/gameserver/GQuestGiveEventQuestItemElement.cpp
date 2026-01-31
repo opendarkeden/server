@@ -12,10 +12,10 @@
 #include "skill/SkillUtil.h"
 
 Exp_t ExpRewardTable[3][25] = {
-    // ½½·¹ÀÌ¾î
+    // ìŠ¬ë ˆì´ì–´
     {40,   50,   80,   135,  225,  360,   550,   800,   1130,  1530,  2030,  2620, 3320,
      4140, 5090, 6170, 7390, 8780, 10300, 12000, 13900, 16000, 18300, 20700, 23400},
-    // ¹ìÆÄÀÌ¾î
+    // ë±€íŒŒì´ì–´
     {110,  150,  190,  150,  320,  420,  540,   700,   920,   1200,  1550,  2020,
      2620, 3400, 4430, 5760, 7490, 9730, 12650, 16450, 20560, 25700, 32120, 40150},
     {110,  150,  190,  150,  320,  420,  540,   700,   920,   1200,  1550,  2020,
@@ -28,7 +28,7 @@ void giveMemberReward(PlayerCreature* pPC, uint type) {
     Exp_t exp = ExpRewardTable[pPC->getRace()][pPC->getLevel()];
     Gold_t gold = GoldRewardTable[pPC->getRace()][type];
 
-    cout << exp << " °æÇèÄ¡ , " << gold << " µ·" << endl;
+    cout << exp << " ê²½í—˜ì¹˜ , " << gold << " ëˆ" << endl;
 
     pPC->increaseGoldEx(gold);
     GCModifyInformation gcMI;

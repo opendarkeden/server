@@ -17,7 +17,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Purify::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -36,7 +36,7 @@ void Purify::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSki
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -54,7 +54,7 @@ void Purify::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSki
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -110,7 +110,7 @@ void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* p
             Range_t Range = output.Range;
 
             int oX = 0, oY = 0;
-            list<Creature*> cList; // ´çÇÏ´Â ºĞµé list
+            list<Creature*> cList; // ë‹¹í•˜ëŠ” ë¶„ë“¤ list
             for (oY = -Range; oY <= Range; oY++) {
                 for (oX = -Range; oX <= Range; oX++) {
                     int tileX = X + oX;
@@ -119,7 +119,7 @@ void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* p
                     if (rect.ptInRect(tileX, tileY)) {
                         Tile& tile = pZone->getTile(tileX, tileY);
 
-                        // ÇöÀç Å¸ÀÏ¿¡ ¶¥ ¼Ó¿¡ ÀÖ´Â Å©¸®ÃÄ°¡ Á¸ÀçÇÑ´Ù¸é...
+                        // í˜„ì¬ íƒ€ì¼ì— ë•… ì†ì— ìˆëŠ” í¬ë¦¬ì³ê°€ ì¡´ì¬í•œë‹¤ë©´...
                         if (tile.hasCreature(Creature::MOVE_MODE_BURROWING)) {
                             Creature* pTargetCreature = tile.getCreature(Creature::MOVE_MODE_BURROWING);
                             Assert(pTargetCreature != NULL);
@@ -141,7 +141,7 @@ void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* p
                                 UnBurrow = true;
 
                             if (UnBurrow) {
-                                // ¶¥¼Ó¿¡¼­ ²ôÁı¾î³»Áø ³ğµé ¸®½ºÆ®¿¡ Ãß°¡ÇÑ´Ù.
+                                // ë•…ì†ì—ì„œ ë„ì§‘ì–´ë‚´ì§„ ë†ˆë“¤ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•œë‹¤.
                                 cList.push_back(pTargetCreature);
 
                                 ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -150,7 +150,7 @@ void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* p
                                 _GCSkillToTileOK2.addCListElement(targetObjectID);
                                 _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                                // ¶¥ ¼Ó¿¡ µé¾îÀÖ´Â ³ğÀ» ²¨³»¾î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                // ë•… ì†ì— ë“¤ì–´ìˆëŠ” ë†ˆì„ êº¼ë‚´ì–´, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                 addUnburrowCreature(pZone, pTargetCreature, tileX, tileY, pTargetCreature->getDir());
                                 setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToTileOK2,
                                           &_GCSkillToTileOK1);
@@ -160,7 +160,7 @@ void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* p
                 }
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToTileOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
@@ -200,7 +200,7 @@ void Purify::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* p
             _GCSkillToTileOK5.setRange(Range);
             _GCSkillToTileOK5.setDuration(0);
 
-            // ¶¥ ¼Ó¿¡¼­ ²ôÁı¾î³»Áø ³ğµé¿¡°Ô Ã¼·ÂÀÌ ´â¾Ò´Ù´Â °ÍÀ» ¾Ë·ÁÁà¾ßÇÑ´Ù.
+            // ë•… ì†ì—ì„œ ë„ì§‘ì–´ë‚´ì§„ ë†ˆë“¤ì—ê²Œ ì²´ë ¥ì´ ë‹³ì•˜ë‹¤ëŠ” ê²ƒì„ ì•Œë ¤ì¤˜ì•¼í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
 

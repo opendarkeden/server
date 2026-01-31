@@ -22,10 +22,10 @@ PacketFactoryManager::PacketFactoryManager() throw() : m_Factories(NULL), m_Size
 
     Assert(m_Size > 0);
 
-    // ÆĞÅ¶ÆÑÅä¸®¹è¿­À» »ı¼ºÇÑ´Ù.
+    // íŒ¨í‚·íŒ©í† ë¦¬ë°°ì—´ì„ ìƒì„±í•œë‹¤.
     m_Factories = new PacketFactory*[m_Size];
 
-    // ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+    // íŒ©í† ë¦¬ì— ëŒ€í•œ í¬ì¸í„°ë“¤ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
     for (int i = 0; i < m_Size; i++)
         m_Factories[i] = NULL;
 
@@ -43,7 +43,7 @@ PacketFactoryManager::~PacketFactoryManager() throw() {
 
     Assert(m_Factories != NULL);
 
-    // °¢°¢ÀÇ ÆĞÅ¶ÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+    // ê°ê°ì˜ íŒ¨í‚·íŒ©í† ë¦¬ë“¤ì„ ì‚­ì œí•œë‹¤.
     for (int i = 0; i < m_Size; i++) {
 #ifdef __GAME_CLIENT__
         if (m_Factories[i] != NULL) {
@@ -55,7 +55,7 @@ PacketFactoryManager::~PacketFactoryManager() throw() {
 #endif
     }
 
-    // ÆĞÅ¶ÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+    // íŒ¨í‚·íŒ©í† ë¦¬ë°°ì—´ì„ ì‚­ì œí•œë‹¤.
 #ifdef __GAME_CLIENT__
     if (m_Factories != NULL) {
         delete[] m_Factories;
@@ -71,7 +71,7 @@ PacketFactoryManager::~PacketFactoryManager() throw() {
 
 //////////////////////////////////////////////////////////////////////
 //
-// Á¤ÀÇµÈ ¸ğµç ÆĞÅ¶ÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ì •ì˜ëœ ëª¨ë“  íŒ¨í‚·íŒ©í† ë¦¬ë“¤ì„ ì—¬ê¸°ì— ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void PacketFactoryManager::init() throw(Error) {
@@ -88,7 +88,7 @@ void PacketFactoryManager::init() throw(Error) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆÑÅä¸® °´Ã¼¸¦ Æ¯Á¤ ÀÎµ¦½º¿¡ Ãß°¡ÇÑ´Ù.
+// íŒ©í† ë¦¬ ê°ì²´ë¥¼ íŠ¹ì • ì¸ë±ìŠ¤ì— ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void PacketFactoryManager::addFactory(PacketFactory* pFactory) throw(Error) {
@@ -108,7 +108,7 @@ void PacketFactoryManager::addFactory(PacketFactory* pFactory) throw(Error) {
         throw Error(msg.toString());
     }
 
-    // ÆĞÅ¶ÆÑÅä¸®¸¦ µî·ÏÇÑ´Ù.
+    // íŒ¨í‚·íŒ©í† ë¦¬ë¥¼ ë“±ë¡í•œë‹¤.
     m_Factories[pFactory->getPacketID()] = pFactory;
 
     __END_CATCH
@@ -117,14 +117,14 @@ void PacketFactoryManager::addFactory(PacketFactory* pFactory) throw(Error) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆĞÅ¶¾ÆÀÌµğ·Î ÆĞÅ¶°´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+// íŒ¨í‚·ì•„ì´ë””ë¡œ íŒ¨í‚·ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 Packet* PacketFactoryManager::createPacket(PacketID_t packetID) throw(InvalidProtocolException, Error) {
     __BEGIN_TRY
 
-    // ÆĞÅ¶ ¾ÆÀÌµğ°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï.
-    // ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+    // ì´ëŸ° ì‚¬ìš©ìëŠ” ë‹¹ì¥ ì§¤ë¼ì•¼ í•œë‹¤.
     if (packetID >= m_Size || m_Factories[packetID] == NULL) {
         StringStream msg;
         msg << "packet factory [" << packetID << "] not exist.";
@@ -139,14 +139,14 @@ Packet* PacketFactoryManager::createPacket(PacketID_t packetID) throw(InvalidPro
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆĞÅ¶¾ÆÀÌµğ·Î Æ¯Á¤ ÆĞÅ¶ÀÇ ÃÖ´ë Å©±â¸¦ ¸®ÅÏÇÑ´Ù.
+// íŒ¨í‚·ì•„ì´ë””ë¡œ íŠ¹ì • íŒ¨í‚·ì˜ ìµœëŒ€ í¬ê¸°ë¥¼ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 PacketSize_t PacketFactoryManager::getPacketMaxSize(PacketID_t packetID) throw(InvalidProtocolException, Error) {
     __BEGIN_TRY
 
-    // ÆĞÅ¶ ¾ÆÀÌµğ°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï.
-    // ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+    // ì´ëŸ° ì‚¬ìš©ìëŠ” ë‹¹ì¥ ì§¤ë¼ì•¼ í•œë‹¤.
     if (packetID >= m_Size || m_Factories[packetID] == NULL) {
         StringStream msg;
         msg << "invalid packet id(" << packetID << ")";
@@ -161,15 +161,15 @@ PacketSize_t PacketFactoryManager::getPacketMaxSize(PacketID_t packetID) throw(I
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆĞÅ¶¾ÆÀÌµğ·Î Æ¯Á¤ ÆĞÅ¶ÀÇ ÀÌ¸§À» ¸®ÅÏÇÑ´Ù.
+// íŒ¨í‚·ì•„ì´ë””ë¡œ íŠ¹ì • íŒ¨í‚·ì˜ ì´ë¦„ì„ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 #if !defined(__GAME_CLIENT__) || defined(__GAME_CLIENT__) && defined(__DEBUG_OUTPUT__)
 string PacketFactoryManager::getPacketName(PacketID_t packetID) throw(InvalidProtocolException, Error) {
     __BEGIN_TRY
 
-    // ÆĞÅ¶ ¾ÆÀÌµğ°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ıÇÏÁö ¾Êµµ·Ï.
-    // ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+    // ì´ëŸ° ì‚¬ìš©ìëŠ” ë‹¹ì¥ ì§¤ë¼ì•¼ í•œë‹¤.
     if (packetID >= m_Size || m_Factories[packetID] == NULL) {
         StringStream msg;
         msg << "invalid packet id(" << packetID << ")";

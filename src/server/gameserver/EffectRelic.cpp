@@ -51,7 +51,7 @@ void EffectRelic::affect(Creature* pCreature)
                 HP_t PlusHP = min(500, CurrentHP + m_Point);
 
                 if (PlusHP < 500) {
-                    cout << "¿¡³ÊÁö¸¦ È¸º¹ÇÕ´Ï´Ù: " << PlusHP << endl;
+                    cout << "ì—ë„ˆì§€ë¥¼ íšŒë³µí•©ë‹ˆë‹¤: " << PlusHP << endl;
                 }
 
                 pMonster->setHP(PlusHP, ATTR_CURRENT);
@@ -62,11 +62,11 @@ void EffectRelic::affect(Creature* pCreature)
                 pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &pkt);
             }
         } else {
-            cout << "¼º¹° º¸°üÇÔÀÌ ¾Æ´Ï¶ó¸é ÀÌ ÀÌÆåÆ®°¡ ºÙÁö ¸øÇÔ" << endl;
+            cout << "ì„±ë¬¼ ë³´ê´€í•¨ì´ ì•„ë‹ˆë¼ë©´ ì´ ì´íŽ™íŠ¸ê°€ ë¶™ì§€ ëª»í•¨" << endl;
             return;
         }
     } else {
-        cout << "¸ó½ºÅÍ°¡ ¾Æ´Ï¶ó¸é ÀÌÆåÆ®°¡ ºÙÁö ¸øÇÔ" << endl;
+        cout << "ëª¬ìŠ¤í„°ê°€ ì•„ë‹ˆë¼ë©´ ì´íŽ™íŠ¸ê°€ ë¶™ì§€ ëª»í•¨" << endl;
         return;
     }
 
@@ -98,8 +98,8 @@ void EffectRelic::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_RELIC);
 
     Zone* pZone = pCreature->getZone();

@@ -30,7 +30,7 @@ DynamicZoneInfoManager::~DynamicZoneInfoManager() {
 }
 
 void DynamicZoneInfoManager::init() {
-    // Á¦´Ü ÀÔ±¸ Á¸ Ãß°¡
+    // ì œë‹¨ ìž…êµ¬ ì¡´ ì¶”ê°€
     {
         DynamicZoneInfo* pDynamicZoneInfo = new DynamicZoneInfo;
         pDynamicZoneInfo->setDynamicZoneType(DYNAMIC_ZONE_GATE_OF_ALTER);
@@ -39,7 +39,7 @@ void DynamicZoneInfoManager::init() {
         addDynamicZoneInfo(pDynamicZoneInfo);
     }
 
-    // ÇÇÀÇ Á¦´Ü Á¸ Ãß°¡
+    // í”¼ì˜ ì œë‹¨ ì¡´ ì¶”ê°€
     {
         DynamicZoneInfo* pDynamicZoneInfo = new DynamicZoneInfo;
         pDynamicZoneInfo->setDynamicZoneType(DYNAMIC_ZONE_ALTER_OF_BLOOD);
@@ -48,7 +48,7 @@ void DynamicZoneInfoManager::init() {
         addDynamicZoneInfo(pDynamicZoneInfo);
     }
 
-    // ½½·¹ÀÌ¾î ½É¿¬ÀÇ °Å¿ï Á¸ Ãß°¡
+    // ìŠ¬ë ˆì´ì–´ ì‹¬ì—°ì˜ ê±°ìš¸ ì¡´ ì¶”ê°€
     {
         DynamicZoneInfo* pDynamicZoneInfo = new DynamicZoneInfo;
         pDynamicZoneInfo->setDynamicZoneType(DYNAMIC_ZONE_SLAYER_MIRROR_OF_ABYSS);
@@ -57,7 +57,7 @@ void DynamicZoneInfoManager::init() {
         addDynamicZoneInfo(pDynamicZoneInfo);
     }
 
-    // ¹ìÆÄÀÌ¾î ½É¿¬ÀÇ °Å¿ï Á¸ Ãß°¡
+    // ë±€íŒŒì´ì–´ ì‹¬ì—°ì˜ ê±°ìš¸ ì¡´ ì¶”ê°€
     {
         DynamicZoneInfo* pDynamicZoneInfo = new DynamicZoneInfo;
         pDynamicZoneInfo->setDynamicZoneType(DYNAMIC_ZONE_VAMPIRE_MIRROR_OF_ABYSS);
@@ -66,7 +66,7 @@ void DynamicZoneInfoManager::init() {
         addDynamicZoneInfo(pDynamicZoneInfo);
     }
 
-    // ¾Æ¿ì½ºÅÍÁî ½É¿¬ÀÇ °Å¿ï Á¸ Ãß°¡
+    // ì•„ìš°ìŠ¤í„°ì¦ˆ ì‹¬ì—°ì˜ ê±°ìš¸ ì¡´ ì¶”ê°€
     {
         DynamicZoneInfo* pDynamicZoneInfo = new DynamicZoneInfo;
         pDynamicZoneInfo->setDynamicZoneType(DYNAMIC_ZONE_OUSTERS_MIRROR_OF_ABYSS);

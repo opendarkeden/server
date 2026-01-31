@@ -26,7 +26,7 @@ public:
         return SKILL_INSTALL_MINE;
     }
 
-    // ÀÎº¥Åä¸®¿ë ±â¼úÀÌ´Ù.
+    // ì¸ë²¤í† ë¦¬ìš© ê¸°ìˆ ì´ë‹¤.
     void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
                  CoordInven_t TargetY, SkillSlot* pSkillSlot);
 

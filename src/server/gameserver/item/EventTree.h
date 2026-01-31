@@ -66,8 +66,8 @@ private:
     ItemType_t m_ItemType;
     ItemNum_t m_Num;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµð ¹ß±Þ±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ëž˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -78,9 +78,9 @@ class EventTreeInfo : public ItemInfo {
 public:
     enum ITEM_FUNCTION {
         FUNCTION_NULL = 0,
-        FUNCTION_ENCHANT_OPTION = 0x01,      // ¿É¼ÇÀ» ´õ ÁÁ°Ô ¹Ù²Û´Ù.
-        FUNCTION_ADD_OPTION = 0x02,          // ¿É¼ÇÀ» Ãß°¡ÇÑ´Ù.
-        FUNCTION_ENCHANT_RARE_OPTION = 0x04, // ·¹¾î ¾ÆÀÌÅÛÀÇ ¿É¼ÇÀ» ¾÷~ÇÑ´Ù.
+        FUNCTION_ENCHANT_OPTION = 0x01,      // ì˜µì…˜ì„ ë” ì¢‹ê²Œ ë°”ê¾¼ë‹¤.
+        FUNCTION_ADD_OPTION = 0x02,          // ì˜µì…˜ì„ ì¶”ê°€í•œë‹¤.
+        FUNCTION_ENCHANT_RARE_OPTION = 0x04, // ë ˆì–´ ì•„ì´í…œì˜ ì˜µì…˜ì„ ì—…~í•œë‹¤.
     };
 
 public:

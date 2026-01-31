@@ -39,7 +39,7 @@ public:
     }
 
 private:
-    // DragonEye ¾ÆÀÌÅÛÀÇ ID. GlobalPostionLoader ¸¦ À§ÇÑ ¸â¹ö
+    // DragonEye ì•„ì´í…œì˜ ID. GlobalPostionLoader ë¥¼ ìœ„í•œ ë©¤ë²„
     ItemID_t m_ItemID;
 };
 

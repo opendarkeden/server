@@ -201,7 +201,7 @@ bool VampireCoupleRing::hasPartnerItem()
             "SELECT count(*) from VampireCoupleRingObject where ItemID=%ld and Storage IN(0, 1, 2, 3, 4, 9)",
             getPartnerItemID());
 
-        // UPDATEÀÎ °æ¿ì´Â Result* ´ë½Å¿¡.. pStmt->getAffectedRowCount()
+        // UPDATEì¸ ê²½ìš°ëŠ” Result* ëŒ€ì‹ ì—.. pStmt->getAffectedRowCount()
 
         if (pResult->next()) {
             int count = pResult->getInt(1);
@@ -350,7 +350,7 @@ void VampireCoupleRingLoader::load(Creature* pCreature)
                 pVampireCoupleRing->setName(pResult->getString(++i));
                 pVampireCoupleRing->setPartnerItemID(pResult->getDWORD(++i));
 
-                // ÆÄÆ®³Ê ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª ´õ ÀÌ»ó Ä¿ÇÃÀÌ ¾Æ´Ï¸é ¾ÆÀÌÅÛÀ» Áö¿öÁØ´Ù.
+                // íŒŒíŠ¸ë„ˆ ì•„ì´í…œì´ ì—†ê±°ë‚˜ ë” ì´ìƒ ì»¤í”Œì´ ì•„ë‹ˆë©´ ì•„ì´í…œì„ ì§€ì›Œì¤€ë‹¤.
                 PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
                 //				if ( !pVampireCoupleRing->hasPartnerItem() )
                 //				if ( pPC != NULL && !g_pCoupleManager->isCouple( pPC, pVampireCoupleRing->getName() ) )
@@ -363,7 +363,7 @@ void VampireCoupleRingLoader::load(Creature* pCreature)
                     pVampireCoupleRing->tinysave(sql);
                     SAFE_DELETE(pVampireCoupleRing);
 
-                    // FlagSet µµ ³¯·ÁÁØ´Ù.
+                    // FlagSet ë„ ë‚ ë ¤ì¤€ë‹¤.
                     pPC->getFlagSet()->turnOff(FLAGSET_IS_COUPLE);
                     pPC->getFlagSet()->save(pPC->getName());
                     continue;
@@ -392,7 +392,7 @@ void VampireCoupleRingLoader::load(Creature* pCreature)
                     pInventory = pVampire->getInventory();
                     pStash = pVampire->getStash();
                 } else
-                    throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                    throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
                 switch (storage) {
                 case STORAGE_INVENTORY:
@@ -472,7 +472,7 @@ void VampireCoupleRingLoader::load(Zone* pZone)
 {
     __BEGIN_TRY
 
-    cout << "Á¸¿¡ ¶³¾îÁø ¾ÆÀÌÅÛ ·Îµå´Â Áö¿øÇÏÁö ¾Ê½À´Ï´Ù." << endl;
+    cout << "ì¡´ì— ë–¨ì–´ì§„ ì•„ì´í…œ ë¡œë“œëŠ” ì§€ì›í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." << endl;
     Assert(false);
 
     Assert(pZone != NULL);
@@ -512,7 +512,7 @@ void VampireCoupleRingLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

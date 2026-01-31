@@ -10,8 +10,8 @@
 #include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ª˝º∫¿⁄
-// ∏∂Ω∫≈©∏¶ √ ±‚»≠«—¥Ÿ.
+// ÏÉùÏÑ±Ïûê
+// ÎßàÏä§ÌÅ¨Î•º Ï¥àÍ∏∞ÌôîÌïúÎã§.
 //////////////////////////////////////////////////////////////////////////////
 BloodyBall::BloodyBall() throw() {
     __BEGIN_TRY
@@ -31,7 +31,7 @@ BloodyBall::BloodyBall() throw() {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// πÏ∆ƒ¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Î±ÄÌååÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void BloodyBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -51,7 +51,7 @@ void BloodyBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pVampire, getSkillType());
 
@@ -70,7 +70,7 @@ void BloodyBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// πÏ∆ƒ¿ÃæÓ ≈∏¿œ «⁄µÈ∑Ø
+// Î±ÄÌååÏù¥Ïñ¥ ÌÉÄÏùº Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void BloodyBall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -102,7 +102,7 @@ void BloodyBall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
         param.addMask(m_pBloodyBallMask[i].x, m_pBloodyBallMask[i].y, 100);
     }
 
-    // Knowledge of Blood ∞° ¿÷¥Ÿ∏È hit bonus 10
+    // Knowledge of Blood Í∞Ä ÏûàÎã§Î©¥ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -119,7 +119,7 @@ void BloodyBall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ∏ÛΩ∫≈Õ ≈∏¿œ «⁄µÈ∑Ø
+// Î™¨Ïä§ÌÑ∞ ÌÉÄÏùº Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void BloodyBall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 

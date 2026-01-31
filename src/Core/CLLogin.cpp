@@ -57,8 +57,8 @@ void CLLogin::write(SocketOutputStream& oStream) const
 {
     __BEGIN_TRY
 
-    // ³Ý¸¶ºíÀÇ Cpsso °ü·ÃµÈ ÄÚµå´Â ¼­¹öÀÇ Write ¿¡¼­´Â °íÄ¡Áö ¾Ê´Â´Ù  (¾²ÀÌÁö ¾ÊÀ¸¹Ç·Î ;;)
-    // Client ¿¡¼­¸¸ ¾Ë¾Æ¼­ Ã³¸®ÇØ¼­ º¸³»ÁÖµµ·Ï ÇÑ´Ù.
+    // ë„·ë§ˆë¸”ì˜ Cpsso ê´€ë ¨ëœ ì½”ë“œëŠ” ì„œë²„ì˜ Write ì—ì„œëŠ” ê³ ì¹˜ì§€ ì•ŠëŠ”ë‹¤  (ì“°ì´ì§€ ì•Šìœ¼ë¯€ë¡œ ;;)
+    // Client ì—ì„œë§Œ ì•Œì•„ì„œ ì²˜ë¦¬í•´ì„œ ë³´ë‚´ì£¼ë„ë¡ í•œë‹¤.
     BYTE szID = m_ID.size();
 
     if (szID == 0)

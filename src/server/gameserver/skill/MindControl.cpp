@@ -18,7 +18,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MindControl::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -60,7 +60,7 @@ void MindControl::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ®¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectMindControl* pEffect = new EffectMindControl(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setDefenseBonus(output.Damage);
@@ -68,14 +68,14 @@ void MindControl::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pSlayer->setFlag(Effect::EFFECT_CLASS_MIND_CONTROL);
             pSlayer->addEffect(pEffect);
 
-            // ÀÌÆåÆ®¸¦ ºÙ¿´À¸´Ï, ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ë¶™ì˜€ìœ¼ë‹ˆ, ëŠ¥ë ¥ì¹˜ë¥¼ ìž¬ê³„ì‚°í•œë‹¤.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->addModifyInfo(prev, _GCSkillToSelfOK1);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 8, 1, _GCSkillToSelfOK1);

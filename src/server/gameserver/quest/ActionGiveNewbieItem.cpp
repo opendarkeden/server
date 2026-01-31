@@ -59,7 +59,7 @@ void ActionGiveNewbieItem::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// æ◊º«¿ª Ω««‡«—¥Ÿ.
+// Ïï°ÏÖòÏùÑ Ïã§ÌñâÌïúÎã§.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -74,11 +74,11 @@ void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);
 
-    // ∏’¿˙ ≈¨∂Û¿Ãæ∆Æ∏¶ ¿ß«ÿ GCNPCResponse∏¶ ∫∏≥ª¡ÿ¥Ÿ.
+    // Î®ºÏ†Ä ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Î•º ÏúÑÌï¥ GCNPCResponseÎ•º Î≥¥ÎÇ¥Ï§ÄÎã§.
     GCNPCResponse okpkt;
     pPlayer->sendPacket(&okpkt);
 
-    // √ ∫∏¿⁄∞° ΩΩ∑π¿ÃæÓ∞° æ∆¥— ∞ÊøÏ¥¬ æ¯¥Ÿ.
+    // Ï¥àÎ≥¥ÏûêÍ∞Ä Ïä¨Î†àÏù¥Ïñ¥Í∞Ä ÏïÑÎãå Í≤ΩÏö∞Îäî ÏóÜÎã§.
     if (!pCreature2->isSlayer())
         return;
 
@@ -88,16 +88,16 @@ void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
     Zone* pZone = pSlayer->getZone();
 
     ////////////////////////////////////////////////////////////
-    // ¡¯¬• √ ∫∏¿Œ¡ˆ∏¶ ∞ÀªÁ«—¥Ÿ.
-    // 0π¯¿ª √ ∫∏ æ∆¿Ã≈€ πﬁæ“¥Ÿ «√∑°±◊∑Œ ¡§«ﬂ¥Ÿ.
-    // ¿Ã∞Õ¿∫ æÓµ±Ó¡ˆ≥™ ∂´ªß ƒ⁄µÂ¥Ÿ.
+    // ÏßÑÏßú Ï¥àÎ≥¥Ïù∏ÏßÄÎ•º Í≤ÄÏÇ¨ÌïúÎã§.
+    // 0Î≤àÏùÑ Ï¥àÎ≥¥ ÏïÑÏù¥ÌÖú Î∞õÏïòÎã§ ÌîåÎûòÍ∑∏Î°ú Ï†ïÌñàÎã§.
+    // Ïù¥Í≤ÉÏùÄ Ïñ¥ÎîîÍπåÏßÄÎÇò ÎïúÎπµ ÏΩîÎìúÎã§.
     ////////////////////////////////////////////////////////////
 
     if (pFlagSet->isOn(0))
         return;
 
     ////////////////////////////////////////////////////////////
-    // ∞¢ æ∆¿Ã≈€ ≈¨∑°Ω∫ø° µ˚∂Û æ∆¿Ã≈€¿ª ª˝º∫«—¥Ÿ.
+    // Í∞Å ÏïÑÏù¥ÌÖú ÌÅ¥ÎûòÏä§Ïóê Îî∞Îùº ÏïÑÏù¥ÌÖúÏùÑ ÏÉùÏÑ±ÌïúÎã§.
     ////////////////////////////////////////////////////////////
     Item* pItem[10] = {
         NULL,
@@ -110,82 +110,82 @@ void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
     list<OptionType_t> nullList;
 
     if (m_ItemClass == Item::ITEM_CLASS_SWORD) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SWORD, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
     } else if (m_ItemClass == Item::ITEM_CLASS_BLADE) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_BLADE, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
     } else if (m_ItemClass == Item::ITEM_CLASS_CROSS) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_CROSS, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
     } else if (m_ItemClass == Item::ITEM_CLASS_MACE) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_MACE, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
     } else if (m_ItemClass == Item::ITEM_CLASS_AR) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_AR, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
-        // ≈∫√¢
+        // ÌÉÑÏ∞Ω
         pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 2, nullList);
         Magazine* pMagazine = dynamic_cast<Magazine*>(pItem[5]);
         pMagazine->setNum(9);
     } else if (m_ItemClass == Item::ITEM_CLASS_SR) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SR, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
-        // ≈∫√¢
+        // ÌÉÑÏ∞Ω
         pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 6, nullList);
         Magazine* pMagazine = dynamic_cast<Magazine*>(pItem[5]);
         pMagazine->setNum(9);
     } else if (m_ItemClass == Item::ITEM_CLASS_SG) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SG, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
-        // ≈∫√¢
+        // ÌÉÑÏ∞Ω
         pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 0, nullList);
         Magazine* pMagazine = dynamic_cast<Magazine*>(pItem[5]);
         pMagazine->setNum(9);
     } else if (m_ItemClass == Item::ITEM_CLASS_SMG) {
-        // π´±‚
+        // Î¨¥Í∏∞
         pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SMG, 0, nullList);
-        // ∆˜º«
+        // Ìè¨ÏÖò
         pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, nullList);
         pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
         pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 5, nullList);
-        // ≈∫√¢
+        // ÌÉÑÏ∞Ω
         pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 4, nullList);
         Magazine* pMagazine = dynamic_cast<Magazine*>(pItem[5]);
         pMagazine->setNum(9);
@@ -194,8 +194,8 @@ void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
     }
 
     ////////////////////////////////////////////////////////////
-    // ª˝º∫«— æ∆¿Ã≈€¿ª µÓ∑œ«œ∞Ì, DBø° ¿˙¿Â«œ∞Ì,
-    // ≈¨∂Û¿Ãæ∆Æø°∞‘ ¡§∫∏∏¶ ≥Ø∑¡¡ÿ¥Ÿ.
+    // ÏÉùÏÑ±Ìïú ÏïÑÏù¥ÌÖúÏùÑ Îì±Î°ùÌïòÍ≥†, DBÏóê Ï†ÄÏû•ÌïòÍ≥†,
+    // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏ÏóêÍ≤å Ï†ïÎ≥¥Î•º ÎÇ†Î†§Ï§ÄÎã§.
     ////////////////////////////////////////////////////////////
     ObjectRegistry& OR = pZone->getObjectRegistry();
     TPOINT pt;
@@ -232,7 +232,7 @@ void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
         }
     }
 
-    // µ∑µµ ¡ÿ¥Ÿ≥◊...
+    // ÎèàÎèÑ Ï§ÄÎã§ÎÑ§...
     // pSlayer->setGoldEx(pSlayer->getGold() + 500);
     // by sigi. 2002.9.18
     pSlayer->increaseGoldEx(500);
@@ -241,20 +241,20 @@ void ActionGiveNewbieItem::execute(Creature* pCreature1, Creature* pCreature2)
     pPlayer->sendPacket(&gcModifyInformation);
 
     ////////////////////////////////////////////////////////////
-    // æ∆¿Ã≈€¿ª πﬁæ“¿∏¥œ, «ˆ¿Á FlagSet¿ª ¿˙¿Â«—¥Ÿ.
-    // 0π¯¿ª √ ∫∏ æ∆¿Ã≈€ πﬁæ“¥Ÿ «√∑°±◊∑Œ ¡§«ﬂ¥Ÿ.
-    // ¿Ã∞Õ¿∫ æÓµ±Ó¡ˆ≥™ ∂´ªß ƒ⁄µÂ¥Ÿ.
+    // ÏïÑÏù¥ÌÖúÏùÑ Î∞õÏïòÏúºÎãà, ÌòÑÏû¨ FlagSetÏùÑ Ï†ÄÏû•ÌïúÎã§.
+    // 0Î≤àÏùÑ Ï¥àÎ≥¥ ÏïÑÏù¥ÌÖú Î∞õÏïòÎã§ ÌîåÎûòÍ∑∏Î°ú Ï†ïÌñàÎã§.
+    // Ïù¥Í≤ÉÏùÄ Ïñ¥ÎîîÍπåÏßÄÎÇò ÎïúÎπµ ÏΩîÎìúÎã§.
     ////////////////////////////////////////////////////////////
     pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM);
 
     if (m_ItemClass == Item::ITEM_CLASS_SWORD || m_ItemClass == Item::ITEM_CLASS_BLADE) {
-        // π´ªÁ¿œ ∞ÊøÏ 1
+        // Î¨¥ÏÇ¨Ïùº Í≤ΩÏö∞ 1
         pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_FIGHTER);
     } else if (m_ItemClass == Item::ITEM_CLASS_CROSS || m_ItemClass == Item::ITEM_CLASS_MACE) {
-        // º∫¡˜¿⁄¿œ ∞ÊøÏ 2
+        // ÏÑ±ÏßÅÏûêÏùº Í≤ΩÏö∞ 2
         pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_CLERIC);
     } else {
-        // ±∫¿Œ¿œ ∞ÊøÏ 3
+        // Íµ∞Ïù∏Ïùº Í≤ΩÏö∞ 3
         pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_GUNNER);
     }
 

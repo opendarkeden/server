@@ -95,14 +95,14 @@ public:
     virtual EnchantLevel_t getEnchantLevel() const;
 
 private:
-    ItemType_t m_ItemType; // ¾ÆÀÌÅÛ Å¸ÀÔ
-    int m_Charge;          // Æ÷Å»À» ¿­ ¼ö ÀÖ´Â È½¼ö
-    ZoneID_t m_ZoneID;     // ¸ñÇ¥ Á¸ ID
-    ZoneCoord_t m_X;       // ¸ñÇ¥ Á¸ ÁÂÇ¥
-    ZoneCoord_t m_Y;       // ¸ñÇ¥ Á¸ ÁÂÇ¥
+    ItemType_t m_ItemType; // ì•„ì´í…œ íƒ€ì…
+    int m_Charge;          // í¬íƒˆì„ ì—´ ìˆ˜ ìˆëŠ” íšŸìˆ˜
+    ZoneID_t m_ZoneID;     // ëª©í‘œ ì¡´ ID
+    ZoneCoord_t m_X;       // ëª©í‘œ ì¡´ ì¢Œí‘œ
+    ZoneCoord_t m_Y;       // ëª©í‘œ ì¡´ ì¢Œí‘œ
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 

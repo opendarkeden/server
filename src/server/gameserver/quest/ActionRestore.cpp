@@ -23,7 +23,7 @@ void ActionRestore::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRestore::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -38,17 +38,17 @@ void ActionRestore::execute(Creature* pCreature1, Creature* pCreature2)
     GCNPCResponse okpkt;
     pCreature2->getPlayer()->sendPacket(&okpkt);
 
-    // NPC¸¦ ¾ò¾î³»°í...
+    // NPCë¥¼ ì–»ì–´ë‚´ê³ ...
     NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
 
-    // ½ºÅ³ ÇÚµé·¯¸¦ ¾ò¾î³½´Ù...
+    // ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ë¥¼ ì–»ì–´ë‚¸ë‹¤...
     SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SKILL_RESTORE);
     Assert(pSkillHandler != NULL);
 
-    // ¸®½ºÅä¾î ÇÚµé·¯·Î ¹Ù²Ù°í...
+    // ë¦¬ìŠ¤í† ì–´ í•¸ë“¤ëŸ¬ë¡œ ë°”ê¾¸ê³ ...
     Restore* pRestore = dynamic_cast<Restore*>(pSkillHandler);
 
-    // ¸®½ºÅä¾î¸¦ ¼öÇàÇÑ´Ù.
+    // ë¦¬ìŠ¤í† ì–´ë¥¼ ìˆ˜í–‰í•œë‹¤.
     pRestore->execute(pNPC, pCreature2);
 
     __END_CATCH

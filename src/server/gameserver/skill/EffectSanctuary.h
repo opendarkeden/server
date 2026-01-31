@@ -85,13 +85,13 @@ public:
     void unaffectObject(Object*, bool bUnaffectByMove);
 
 private:
-    // effectÀÇ Áß½ÉÁÂÇ¥
+    // effectì˜ ì¤‘ì‹¬ì¢Œí‘œ
     ZoneCoord_t m_CenterX;
     ZoneCoord_t m_CenterY;
 
     Attr_t m_Level;
     Duration_t m_Duration;
-    Timeval m_StartTime; // ±â¼úÀÌ ½ÃÀÛµÈ ½Ã°£.
+    Timeval m_StartTime; // ê¸°ìˆ ì´ ì‹œì‘ëœ ì‹œê°„.
 };
 
 #endif // __EFFECT_SANCTUARY__

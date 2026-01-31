@@ -33,7 +33,7 @@ public:
     void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
-    POINT m_IceFieldMask[4][9]; // 4´Ü°è, 9°³¾¿
+    POINT m_IceFieldMask[4][9]; // 4ë‹¨ê³„, 9ê°œì”©
     int m_MaskNum[4];
 };
 

@@ -2,8 +2,8 @@
 // Filename    : TriggerManager.h
 // Written By  :
 // Description :
-// Ʈ���ŵ��� ������ �����ϴ� Ŭ����. ũ��ó/������/�� �� Ʈ���Ÿ� ����
-// �� �ִ� ��ü�鿡 ���ӵȴ�.
+// 트리거들의 집합을 관리하는 클래스. 크리처/아이템/존 등 트리거를 가질
+// 수 있는 객체들에 종속된다.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __TRIGGER_MANAGER_H__
@@ -52,7 +52,7 @@ private:
     ConditionSet m_ConditionSet;
 
     // list of triggers
-    // ��Ÿ�ӿ� Ʈ���Ű� �߰��� ���ɼ��� �ִ�.
+    // 런타임에 트리거가 추가될 가능성이 있다.
     list<Trigger*> m_Triggers;
 };
 

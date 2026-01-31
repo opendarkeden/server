@@ -16,7 +16,7 @@
 //
 // class GCAddNPC;
 //
-// ½Ã¾ß ¾È¿¡ NPC °¡ µé¾î¿ÔÀ» °æ¿ì, ÀÌ ÆĞÅ¶¿¡ NPC Á¤º¸¸¦ ´ã¾Æ¼­ Àü¼Û¹Ş´Â´Ù.
+// ì‹œì•¼ ì•ˆì— NPC ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°, ì´ íŒ¨í‚·ì— NPC ì •ë³´ë¥¼ ë‹´ì•„ì„œ ì „ì†¡ë°›ëŠ”ë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -24,10 +24,10 @@ class GCAddNPC : public Packet {
 public:
     GCAddNPC() {};
     ~GCAddNPC() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -40,7 +40,7 @@ public:
 
     // get packet's body size
     // *OPTIMIZATION HINT*
-    // const static GCAddNPCPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCAddNPCPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketSize() const {
         return szObjectID + szBYTE + m_Name.size() + szNPCID + szSpriteType + szColor + szColor + szCoord + szCoord +
                szDir;
@@ -129,23 +129,23 @@ public:
     }
 
 private:
-    // Á¸ ·¹º§¿¡¼­ À¯´ÏÅ©ÇÑ ¾ÆÀÌµğ·Î °´Ã¼ ±¸ºĞÀ» À§ÇØ¼­ »ç¿ëÇÑ´Ù.
+    // ì¡´ ë ˆë²¨ì—ì„œ ìœ ë‹ˆí¬í•œ ì•„ì´ë””ë¡œ ê°ì²´ êµ¬ë¶„ì„ ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
     ObjectID_t m_ObjectID;
 
-    // NPCÀÇ ÀÌ¸§
+    // NPCì˜ ì´ë¦„
     string m_Name;
 
-    // NPCÀÇ ¾ÆÀÌµğ(¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ ¾Æ´Ï´Ù.)
+    // NPCì˜ ì•„ì´ë””(ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ì•„ë‹ˆë‹¤.)
     NPCID_t m_NPCID;
 
-    // ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ
+    // ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…
     SpriteType_t m_SpriteType;
 
-    // »ö±ò Á¤º¸
+    // ìƒ‰ê¹” ì •ë³´
     Color_t m_MainColor;
     Color_t m_SubColor;
 
-    // X, Y ¹× ¹æÇâ
+    // X, Y ë° ë°©í–¥
     Coord_t m_X;
     Coord_t m_Y;
     Dir_t m_Dir;
@@ -179,7 +179,7 @@ public:
 
     // get packet's body size
     // *OPTIMIZATION HINT*
-    // const static GCAddNPCPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCAddNPCPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szObjectID + szBYTE + 40 + szNPCID + szSpriteType + szColor + szColor + szCoord + szCoord + szDir;
     }

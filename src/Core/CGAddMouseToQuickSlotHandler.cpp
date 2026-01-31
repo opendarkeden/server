@@ -53,7 +53,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
         SlotID_t SlotID = pPacket->getSlotID();
         Item::ItemClass IClass = pItem->getItemClass();
 
-        // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (ItemObjectID != pPacket->getObjectID()) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -61,7 +61,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
             return;
         }
 
-        // º§Æ®¸¦ ÀÔ°í ÀÖÁö ¾Ê´Ù¸é º§Æ®¿¡´Ù ¾ÆÀÌÅÛÀ» ´õÇÒ ¼ö°¡ ¾ø´Ù.
+        // ë²¨íŠ¸ë¥¼ ìž…ê³  ìžˆì§€ ì•Šë‹¤ë©´ ë²¨íŠ¸ì—ë‹¤ ì•„ì´í…œì„ ë”í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (!pSlayer->isWear(Slayer::WEAR_BELT)) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -69,7 +69,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
             return;
         }
 
-        // Æ÷¼Çµµ ¾Æ´Ï°í, ÅºÃ¢µµ ¾Æ´Ï¶ó¸é ´õÇÒ ¼ö°¡ ¾øÁö.
+        // í¬ì…˜ë„ ì•„ë‹ˆê³ , íƒ„ì°½ë„ ì•„ë‹ˆë¼ë©´ ë”í•  ìˆ˜ê°€ ì—†ì§€.
         if (IClass != Item::ITEM_CLASS_POTION && IClass != Item::ITEM_CLASS_MAGAZINE &&
             IClass != Item::ITEM_CLASS_EVENT_ETC && IClass != Item::ITEM_CLASS_KEY) {
             GCCannotAdd _GCCannotAdd;
@@ -88,12 +88,12 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
         Inventory* pBeltInventory = ((Belt*)pBelt)->getInventory();
 
         if (pBeltInventory->canAdding(SlotID, 0, pItem)) {
-            // ÇöÀç º§Æ®¿¡ ÀÖ´Â ItemÀ» ¹Þ¾Æ¿Â´Ù.
+            // í˜„ìž¬ ë²¨íŠ¸ì— ìžˆëŠ” Itemì„ ë°›ì•„ì˜¨ë‹¤.
             Item* pPrevItem = pBeltInventory->getItem(SlotID, 0);
 
-            // ÁöÁ¤ÇÑ ÀÚ¸®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+            // ì§€ì •í•œ ìžë¦¬ì— ì•„ì´í…œì´ ìžˆë‹¤ë©´...
             if (pPrevItem != NULL) {
-                // ¾ÆÀÌÅÛÀÌ ¿ÏÀüÈ÷ °°Àº ¾ÆÀÌÅÛÀÌ¶ó¸é...
+                // ì•„ì´í…œì´ ì™„ì „ížˆ ê°™ì€ ì•„ì´í…œì´ë¼ë©´...
                 if (isStackable(pItem) && isSameItem(pItem, pPrevItem)) {
                     int MaxStack = ItemMaxStack[pItem->getItemClass()];
 
@@ -107,27 +107,27 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
                         pBeltInventory->increaseNum(MaxStack - CurrentNum);
                         pBeltInventory->increaseWeight(pItem->getWeight() * (MaxStack - CurrentNum));
                         // pPrevItem->save(pSlayer->getName(), STORAGE_BELT, pBelt->getItemID(), SlotID, 0);
-                        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                         char pField[80];
                         sprintf(pField, "Num=%d, Storage=%d, StorageID=%lu, X=%d", MaxStack, STORAGE_BELT,
                                 pBelt->getItemID(), SlotID);
                         pPrevItem->tinysave(pField);
 
                         // pItem->save(pSlayer->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-                        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                         sprintf(pField, "Num=%d, Storage=%d", NewNum, STORAGE_EXTRASLOT);
                         pItem->tinysave(pField);
 
 
                         Success = true;
-                    } else // ¼ýÀÚ°¡ 9°³¸¦ ³ÑÁö ¾ÊÀ» ¶§.
+                    } else // ìˆ«ìžê°€ 9ê°œë¥¼ ë„˜ì§€ ì•Šì„ ë•Œ.
                     {
                         pSlayer->deleteItemFromExtraInventorySlot();
                         pPrevItem->setNum(pPrevItem->getNum() + pItem->getNum());
                         pBeltInventory->increaseNum(pItem->getNum());
                         pBeltInventory->increaseWeight(pItem->getWeight() * pItem->getNum());
                         // pPrevItem->save(pSlayer->getName(), STORAGE_BELT , pBelt->getItemID(), SlotID, 0);
-                        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                         char pField[80];
                         sprintf(pField, "Num=%d, Storage=%d, StorageID=%lu, X=%d", pPrevItem->getNum(), STORAGE_BELT,
                                 pBelt->getItemID(), SlotID);
@@ -137,40 +137,40 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
                         SAFE_DELETE(pItem);
                         Success = true;
                     }
-                } else // Å¬·¡½º¶û Å¸ÀÔÀÌ °°Áö ¾ÊÀ»¶§
+                } else // í´ëž˜ìŠ¤ëž‘ íƒ€ìž…ì´ ê°™ì§€ ì•Šì„ë•Œ
                 {
-                    // ¸¶¿ì½º¿¡ ´Þ·ÁÀÖ´Â ¾ÆÀÌÅÛ°ú º§Æ®¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+                    // ë§ˆìš°ìŠ¤ì— ë‹¬ë ¤ìžˆëŠ” ì•„ì´í…œê³¼ ë²¨íŠ¸ì— ìžˆëŠ” ì•„ì´í…œì„ ì œê±°í•œë‹¤.
                     pSlayer->deleteItemFromExtraInventorySlot();
                     pBeltInventory->deleteItem(pPrevItem->getObjectID());
 
-                    // µÑÀÇ À§Ä¡¸¦ ¹Ù²ã ÁØ´Ù.
+                    // ë‘˜ì˜ ìœ„ì¹˜ë¥¼ ë°”ê¿” ì¤€ë‹¤.
                     pSlayer->addItemToExtraInventorySlot(pPrevItem);
                     pBeltInventory->addItem(SlotID, 0, pItem);
 
-                    // DB¿¡´Ù°¡ ÀúÀåÀ» ÇÑ´Ù.
+                    // DBì—ë‹¤ê°€ ì €ìž¥ì„ í•œë‹¤.
                     // pPrevItem->save(pSlayer->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-                    // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    // itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     char pField[80];
                     sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
                     pPrevItem->tinysave(pField);
 
                     // pItem->save(pSlayer->getName(), STORAGE_BELT , pBelt->getItemID(), SlotID, 0);
-                    //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     sprintf(pField, "Storage=%d, StorageID=%lu, X=%d", STORAGE_BELT, pBelt->getItemID(), SlotID);
                     pItem->tinysave(pField);
 
 
                     Success = true;
                 }
-            } else // ½½¶ù¿¡ ¾Æ¹«·± ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀÌ ¾øÀ»¶§.
+            } else // ìŠ¬ëžì— ì•„ë¬´ëŸ° ê¸°ì¡´ì˜ ì•„ì´í…œì´ ì—†ì„ë•Œ.
             {
-                // Inventory¿¡ Æ¯Á¤ ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
+                // Inventoryì— íŠ¹ì • ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
                 pBeltInventory->addItem(SlotID, 0, pItem);
 
-                // ³Ö±â¿¡ ¼º°øÇÏ¸é ¸¶¿ì½º¿¡ ´Þ·ÁÀÖ´Â ¾ÆÀÌÅÛÀ» ¾ø¾Ø´Ù.
+                // ë„£ê¸°ì— ì„±ê³µí•˜ë©´ ë§ˆìš°ìŠ¤ì— ë‹¬ë ¤ìžˆëŠ” ì•„ì´í…œì„ ì—†ì•¤ë‹¤.
                 pSlayer->deleteItemFromExtraInventorySlot();
                 // pItem->save(pSlayer->getName(), STORAGE_BELT, pBelt->getItemID(), SlotID, 0);
-                //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                 char pField[80];
                 sprintf(pField, "Storage=%d, StorageID=%lu, X=%d", STORAGE_BELT, pBelt->getItemID(), SlotID);
                 pItem->tinysave(pField);
@@ -195,7 +195,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
         SlotID_t SlotID = pPacket->getSlotID();
         Item::ItemClass IClass = pItem->getItemClass();
 
-        // ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (ItemObjectID != pPacket->getObjectID()) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -207,7 +207,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
         if (SlotID > 2)
             SlotID -= 3;
 
-        // ÇØ´ç ¾Ï½º¹êµå°¡ ¾ø´Ù
+        // í•´ë‹¹ ì•”ìŠ¤ë°´ë“œê°€ ì—†ë‹¤
         if (!pOusters->isWear(part)) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -215,7 +215,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
             return;
         }
 
-        // ÇªÆÄµµ ¾Æ´Ï°í, ÄÞÆ÷½º¸ÞÀÌµµ ¾Æ´Ï¶ó¸é ´õÇÒ ¼ö°¡ ¾øÁö.
+        // í‘¸íŒŒë„ ì•„ë‹ˆê³ , ì½¤í¬ìŠ¤ë©”ì´ë„ ì•„ë‹ˆë¼ë©´ ë”í•  ìˆ˜ê°€ ì—†ì§€.
         if (IClass != Item::ITEM_CLASS_PUPA && IClass != Item::ITEM_CLASS_COMPOS_MEI &&
             IClass != Item::ITEM_CLASS_EVENT_ETC) {
             GCCannotAdd _GCCannotAdd;
@@ -235,12 +235,12 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
         Inventory* pArmsbandInventory = ((OustersArmsband*)pArmsband)->getInventory();
 
         if (pArmsbandInventory->canAdding(SlotID, 0, pItem)) {
-            // ÇöÀç º§Æ®¿¡ ÀÖ´Â ItemÀ» ¹Þ¾Æ¿Â´Ù.
+            // í˜„ìž¬ ë²¨íŠ¸ì— ìžˆëŠ” Itemì„ ë°›ì•„ì˜¨ë‹¤.
             Item* pPrevItem = pArmsbandInventory->getItem(SlotID, 0);
 
-            // ÁöÁ¤ÇÑ ÀÚ¸®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+            // ì§€ì •í•œ ìžë¦¬ì— ì•„ì´í…œì´ ìžˆë‹¤ë©´...
             if (pPrevItem != NULL) {
-                // ¾ÆÀÌÅÛÀÌ ¿ÏÀüÈ÷ °°Àº ¾ÆÀÌÅÛÀÌ¶ó¸é...
+                // ì•„ì´í…œì´ ì™„ì „ížˆ ê°™ì€ ì•„ì´í…œì´ë¼ë©´...
                 if (isSameItem(pItem, pPrevItem)) {
                     int MaxStack = ItemMaxStack[pItem->getItemClass()];
 
@@ -254,27 +254,27 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
                         pArmsbandInventory->increaseNum(MaxStack - CurrentNum);
                         pArmsbandInventory->increaseWeight(pItem->getWeight() * (MaxStack - CurrentNum));
                         // pPrevItem->save(pOusters->getName(), STORAGE_BELT, pArmsband->getItemID(), SlotID, 0);
-                        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                         char pField[80];
                         sprintf(pField, "Num=%d, Storage=%d, StorageID=%lu, X=%d", MaxStack, STORAGE_BELT,
                                 pArmsband->getItemID(), SlotID);
                         pPrevItem->tinysave(pField);
 
                         // pItem->save(pOusters->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-                        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                         sprintf(pField, "Num=%d, Storage=%d", NewNum, STORAGE_EXTRASLOT);
                         pItem->tinysave(pField);
 
 
                         Success = true;
-                    } else // ¼ýÀÚ°¡ 9°³¸¦ ³ÑÁö ¾ÊÀ» ¶§.
+                    } else // ìˆ«ìžê°€ 9ê°œë¥¼ ë„˜ì§€ ì•Šì„ ë•Œ.
                     {
                         pOusters->deleteItemFromExtraInventorySlot();
                         pPrevItem->setNum(pPrevItem->getNum() + pItem->getNum());
                         pArmsbandInventory->increaseNum(pItem->getNum());
                         pArmsbandInventory->increaseWeight(pItem->getWeight() * pItem->getNum());
                         // pPrevItem->save(pOusters->getName(), STORAGE_BELT , pArmsband->getItemID(), SlotID, 0);
-                        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                         char pField[80];
                         sprintf(pField, "Num=%d, Storage=%d, StorageID=%lu, X=%d", pPrevItem->getNum(), STORAGE_BELT,
                                 pArmsband->getItemID(), SlotID);
@@ -284,40 +284,40 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
                         SAFE_DELETE(pItem);
                         Success = true;
                     }
-                } else // Å¬·¡½º¶û Å¸ÀÔÀÌ °°Áö ¾ÊÀ»¶§
+                } else // í´ëž˜ìŠ¤ëž‘ íƒ€ìž…ì´ ê°™ì§€ ì•Šì„ë•Œ
                 {
-                    // ¸¶¿ì½º¿¡ ´Þ·ÁÀÖ´Â ¾ÆÀÌÅÛ°ú º§Æ®¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+                    // ë§ˆìš°ìŠ¤ì— ë‹¬ë ¤ìžˆëŠ” ì•„ì´í…œê³¼ ë²¨íŠ¸ì— ìžˆëŠ” ì•„ì´í…œì„ ì œê±°í•œë‹¤.
                     pOusters->deleteItemFromExtraInventorySlot();
                     pArmsbandInventory->deleteItem(pPrevItem->getObjectID());
 
-                    // µÑÀÇ À§Ä¡¸¦ ¹Ù²ã ÁØ´Ù.
+                    // ë‘˜ì˜ ìœ„ì¹˜ë¥¼ ë°”ê¿” ì¤€ë‹¤.
                     pOusters->addItemToExtraInventorySlot(pPrevItem);
                     pArmsbandInventory->addItem(SlotID, 0, pItem);
 
-                    // DB¿¡´Ù°¡ ÀúÀåÀ» ÇÑ´Ù.
+                    // DBì—ë‹¤ê°€ ì €ìž¥ì„ í•œë‹¤.
                     // pPrevItem->save(pOusters->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
-                    // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    // itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     char pField[80];
                     sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
                     pPrevItem->tinysave(pField);
 
                     // pItem->save(pOusters->getName(), STORAGE_BELT , pArmsband->getItemID(), SlotID, 0);
-                    //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                     sprintf(pField, "Storage=%d, StorageID=%lu, X=%d", STORAGE_BELT, pArmsband->getItemID(), SlotID);
                     pItem->tinysave(pField);
 
 
                     Success = true;
                 }
-            } else // ½½¶ù¿¡ ¾Æ¹«·± ±âÁ¸ÀÇ ¾ÆÀÌÅÛÀÌ ¾øÀ»¶§.
+            } else // ìŠ¬ëžì— ì•„ë¬´ëŸ° ê¸°ì¡´ì˜ ì•„ì´í…œì´ ì—†ì„ë•Œ.
             {
-                // Inventory¿¡ Æ¯Á¤ ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
+                // Inventoryì— íŠ¹ì • ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
                 pArmsbandInventory->addItem(SlotID, 0, pItem);
 
-                // ³Ö±â¿¡ ¼º°øÇÏ¸é ¸¶¿ì½º¿¡ ´Þ·ÁÀÖ´Â ¾ÆÀÌÅÛÀ» ¾ø¾Ø´Ù.
+                // ë„£ê¸°ì— ì„±ê³µí•˜ë©´ ë§ˆìš°ìŠ¤ì— ë‹¬ë ¤ìžˆëŠ” ì•„ì´í…œì„ ì—†ì•¤ë‹¤.
                 pOusters->deleteItemFromExtraInventorySlot();
                 // pItem->save(pOusters->getName(), STORAGE_BELT, pArmsband->getItemID(), SlotID, 0);
-                //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
                 char pField[80];
                 sprintf(pField, "Storage=%d, StorageID=%lu, X=%d", STORAGE_BELT, pArmsband->getItemID(), SlotID);
                 pItem->tinysave(pField);
@@ -327,7 +327,7 @@ void CGAddMouseToQuickSlotHandler::execute(CGAddMouseToQuickSlot* pPacket, Playe
         } // end of if (pArmsbandInventory->canAdding(SlotID, 0,  pItem))
     } // if (pCreature->isOusters())
 
-    // QuickSlot¿¡ ³Ö´Â °ÍÀ» ½ÇÆÐ ÇÏ¿´À»¶§ ½ÇÆÐ ÆÐÅ¶À» ³¯¸°´Ù.
+    // QuickSlotì— ë„£ëŠ” ê²ƒì„ ì‹¤íŒ¨ í•˜ì˜€ì„ë•Œ ì‹¤íŒ¨ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
     if (!Success) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());

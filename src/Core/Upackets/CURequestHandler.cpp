@@ -24,8 +24,8 @@
 
 //--------------------------------------------------------------------------------
 //
-// Å¬¶óÀÌ¾ðÆ®°¡ ¿äÃ»ÇÑ ¸®¼Ò½º°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©ÇÑ ÈÄ,
-// Á¸ÀçÇÒ °æ¿ì, sendfile()À» »ç¿ëÇØ¼­ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ìš”ì²­í•œ ë¦¬ì†ŒìŠ¤ê°€ ì¡´ìž¬í•˜ëŠ”ì§€ ì²´í¬í•œ í›„,
+// ì¡´ìž¬í•  ê²½ìš°, sendfile()ì„ ì‚¬ìš©í•´ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 void CURequestHandler::execute(CURequest* pPacket, Player* pPlayer) throw(ProtocolException, Error) {
@@ -56,26 +56,26 @@ void CURequestHandler::execute(CURequest* pPacket, Player* pPlayer) throw(Protoc
     ifstream ifile(filename, ios::in | ios::binary);
 
     if (!ifile) {
-        // Á¸ÀçÇÏÁö ¾Ê´Â ÆÄÀÏÀ» ¿äÃ»ÇÑ °ÍÀº ÇØÅ·À¸·Î °£ÁÖÇÑ´Ù.
-        // ·Î±×¸¦ ÇÑ ÈÄ, BAN ½ÃÄÑ¾ß ÇÑ´Ù.
+        // ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” íŒŒì¼ì„ ìš”ì²­í•œ ê²ƒì€ í•´í‚¹ìœ¼ë¡œ ê°„ì£¼í•œë‹¤.
+        // ë¡œê·¸ë¥¼ í•œ í›„, BAN ì‹œì¼œì•¼ í•œë‹¤.
         throw InvalidProtocolException(filename);
     }
 
-    // ÆÄÀÏ Å©±â¸¦ ¾Ë¾Æ³»±â À§ÇØ¼­ ÆÄÀÏ Æ÷ÀÎÅÍ¸¦ ¸Ç µÚ·Î ¿òÁ÷ÀÎ´Ù.
+    // íŒŒì¼ í¬ê¸°ë¥¼ ì•Œì•„ë‚´ê¸° ìœ„í•´ì„œ íŒŒì¼ í¬ì¸í„°ë¥¼ ë§¨ ë’¤ë¡œ ì›€ì§ì¸ë‹¤.
     ifile.seekg(0, ios::end);
     FileSize_t filesize = ifile.tellg();
 
     // cout << "Original FileSize  : " << filesize << endl;
     // cout << "Requested FileSize : " << resource.getFileSize() << endl;
 
-    // Å¬¶óÀÌ¾ðÆ®¿¡¼­ ¿äÃ»ÇÑ ÆÄÀÏÀÇ Å©±â¿Í ´Ù¸¦ °æ¿ì, ÇØÅ· ½Ãµµ·Î °£ÁÖÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ì—ì„œ ìš”ì²­í•œ íŒŒì¼ì˜ í¬ê¸°ì™€ ë‹¤ë¥¼ ê²½ìš°, í•´í‚¹ ì‹œë„ë¡œ ê°„ì£¼í•œë‹¤.
     if (resource.getFileSize() != filesize) {
         throw InvalidProtocolException("invalid filesize");
     }
 
     //--------------------------------------------------------------------------------
-    // CURequest ¿¡ ´ã°Ü¿Â ¸®¼Ò½º¸¦ ´Ù½Ã UCUpdate ¿¡ ´ã¾Æ¼­ ¸ÕÀú Àü¼ÛÇÑ´Ù.
-    // ±×´ÙÀ½ ÆÄÀÏ ³»¿ëÀ» Àü¼ÛÇÑ´Ù.
+    // CURequest ì— ë‹´ê²¨ì˜¨ ë¦¬ì†ŒìŠ¤ë¥¼ ë‹¤ì‹œ UCUpdate ì— ë‹´ì•„ì„œ ë¨¼ì € ì „ì†¡í•œë‹¤.
+    // ê·¸ë‹¤ìŒ íŒŒì¼ ë‚´ìš©ì„ ì „ì†¡í•œë‹¤.
     //--------------------------------------------------------------------------------
     UCUpdate ucUpdate;
     ucUpdate.setResource(resource);
@@ -85,7 +85,7 @@ void CURequestHandler::execute(CURequest* pPacket, Player* pPlayer) throw(Protoc
     //--------------------------------------------------------------------------------
     // write file content
     //--------------------------------------------------------------------------------
-    // ÆÄÀÏ Æ÷ÀÎÅÍ¸¦ ´Ù½Ã ¸Ç Ã³À½À¸·Î µÇµ¹¸°´Ù.
+    // íŒŒì¼ í¬ì¸í„°ë¥¼ ë‹¤ì‹œ ë§¨ ì²˜ìŒìœ¼ë¡œ ë˜ëŒë¦°ë‹¤.
     ifile.seekg(0);
     long offset = 0;
 
@@ -93,17 +93,17 @@ void CURequestHandler::execute(CURequest* pPacket, Player* pPlayer) throw(Protoc
     // cout << resource.getFilename() << " (" << filesize << "bytes) : ";
 
     // TODO: make fd() work??
-    // ÆÄÀÏ ³»¿ëÀ» Àü¼ÛÇÑ´Ù.
+    // íŒŒì¼ ë‚´ìš©ì„ ì „ì†¡í•œë‹¤.
     // DWORD nSent = sendfile( pSocket->getSOCKET() , ifile.rdbuf()->fd() , &offset, filesize );
 
     // cout << nSent << " bytes sent to client." << endl;
     // cout << "=======================================================================" << endl;
 
     // if ( nSent != filesize ) {
-    // 	throw Error("ÆÄÀÏ Àü¼Û ¿À·ù");
+    // 	throw Error("íŒŒì¼ ì „ì†¡ ì˜¤ë¥˜");
     // }
 
-    // ÆÄÀÏÀ» ´Ý´Â´Ù.
+    // íŒŒì¼ì„ ë‹«ëŠ”ë‹¤.
     ifile.close();
 
     pUpdateServerPlayer->setPlayerStatus(USPS_AFTER_SENDING_UC_UPDATE);

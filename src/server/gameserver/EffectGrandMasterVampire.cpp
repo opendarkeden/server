@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectGrandMasterVampire.cpp
-// Written by  : ½­
+// Written by  : ì‰­
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -64,7 +64,7 @@ void EffectGrandMasterVampire::affect(Creature* pCreature)
 
     pCreature->setFlag(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE);
 
-    // ÁÖÀ§¿¡ »Ñ·ÁÁØ´Ù.
+    // ì£¼ìœ„ì— ë¿Œë ¤ì¤€ë‹¤.
     GCAddEffect gcAddEffect;
     gcAddEffect.setObjectID(pCreature->getObjectID());
     gcAddEffect.setEffectID(getSendEffectClass());
@@ -97,8 +97,8 @@ void EffectGrandMasterVampire::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE);
 
     Zone* pZone = pCreature->getZone();

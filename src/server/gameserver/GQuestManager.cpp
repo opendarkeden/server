@@ -40,7 +40,7 @@ void GQuestManager::load()
 
             if (sta != QuestStatusInfo::COMPLETE && sta != QuestStatusInfo::FAIL &&
                 sta != QuestStatusInfo::CAN_REPLAY) {
-                filelog("GQuestError.log", "ÀúÀåµÈ Äù½ºÆ®ÀÇ status°¡ Àß¸øµÇ¾ú½À´Ï´Ù : [%s]:%d/%d",
+                filelog("GQuestError.log", "ì €ìž¥ëœ í€˜ìŠ¤íŠ¸ì˜ statusê°€ ìž˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤ : [%s]:%d/%d",
                         m_pOwner->getName().c_str(), qID, sta);
             } else {
                 if (sta == QuestStatusInfo::CAN_REPLAY)
@@ -56,9 +56,9 @@ void GQuestManager::load()
                 int lastSec = pResult->getInt(3);
                 if (lastSec > EVENT_QUEST_TIME_LIMIT)
                     lastSec = EVENT_QUEST_TIME_LIMIT;
-                cout << "Áö³­ ½Ã°£ lastSec : " << lastSec << endl;
+                cout << "ì§€ë‚œ ì‹œê°„ lastSec : " << lastSec << endl;
                 pEffect->setDeadline((EVENT_QUEST_TIME_LIMIT - lastSec) * 10);
-                cout << "µ¥µå¶óÀÎ : " << (Turn_t)((EVENT_QUEST_TIME_LIMIT - lastSec) * 10) << endl;
+                cout << "ë°ë“œë¼ì¸ : " << (Turn_t)((EVENT_QUEST_TIME_LIMIT - lastSec) * 10) << endl;
                 pEffect->setNextTime(((EVENT_QUEST_TIME_LIMIT - lastSec) % BROADCASTING_DELAY) * 10);
                 m_pOwner->addEffect(pEffect);
             }
@@ -135,18 +135,18 @@ Packet* GQuestManager::getStatusInfoPacket() const {
 void GQuestManager::accept(DWORD qID) {
     unordered_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
     if (itr == m_QuestStatuses.end()) {
-        cout << "accept : ¾ø´Ù -_- " << qID << endl;
+        cout << "accept : ì—†ë‹¤ -_- " << qID << endl;
         return;
     }
 
     //	GQuestStatus* pQS = m_QuestStatuses[qID];
     GQuestStatus* pQS = itr->second;
     if (pQS == NULL) {
-        cout << "accept : ³ÎÀÌ´Ù -_- " << qID << endl;
+        cout << "accept : ë„ì´ë‹¤ -_- " << qID << endl;
         return;
     }
     if (pQS->getStatus() != QuestStatusInfo::CAN_ACCEPT && pQS->getStatus() != QuestStatusInfo::CAN_REPLAY) {
-        cout << "accept : CAN_ACCEPT°¡ ¾Æ´Ï´Ù -_- " << (int)pQS->getStatus() << endl;
+        cout << "accept : CAN_ACCEPTê°€ ì•„ë‹ˆë‹¤ -_- " << (int)pQS->getStatus() << endl;
         return;
     }
 
@@ -163,18 +163,18 @@ void GQuestManager::accept(DWORD qID) {
 void GQuestManager::cancel(DWORD qID) {
     unordered_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
     if (itr == m_QuestStatuses.end()) {
-        cout << "accept : ¾ø´Ù -_- " << qID << endl;
+        cout << "accept : ì—†ë‹¤ -_- " << qID << endl;
         return;
     }
 
     //	GQuestStatus* pQS = m_QuestStatuses[qID];
     GQuestStatus* pQS = itr->second;
     if (pQS == NULL) {
-        cout << "cancel : ³ÎÀÌ´Ù -_- " << qID << endl;
+        cout << "cancel : ë„ì´ë‹¤ -_- " << qID << endl;
         return;
     }
     if (pQS->getStatus() != QuestStatusInfo::DOING) {
-        cout << "cancel : DOINGÀÌ ¾Æ´Ï´Ù -_- " << (int)pQS->getStatus() << endl;
+        cout << "cancel : DOINGì´ ì•„ë‹ˆë‹¤ -_- " << (int)pQS->getStatus() << endl;
         return;
     }
 
@@ -200,7 +200,7 @@ void GQuestManager::heartbeat() {
         Timeval endTime = pTimeMission->getEndTime();
         if (gCurrentTime > endTime) {
             pTimeMission->m_pParent->update();
-            // -_- ¶«»§;
+            // -_- ë•œë¹µ;
             break;
         }
     }
@@ -218,12 +218,12 @@ void GQuestManager::blooddrain() {
         char buffer[256];
 
         if (m_pOwner->isVampire()) {
-            sprintf(buffer, "½øÐÐÁË%u´ÎÎüÑª.", pBloodDrainMission->getCurrent());
+            sprintf(buffer, "ìµï¤‰ì£„%uëŠ´ä¿±æ²‚.", pBloodDrainMission->getCurrent());
             GCSystemMessage gcSM;
             gcSM.setMessage(buffer);
             m_pOwner->getPlayer()->sendPacket(&gcSM);
         } else if (m_pOwner->isOusters()) {
-            sprintf(buffer, "½øÐÐÁË%u´ÎÎüÁé.", pBloodDrainMission->getCurrent());
+            sprintf(buffer, "ìµï¤‰ì£„%uëŠ´ä¿±ì¥£.", pBloodDrainMission->getCurrent());
             GCSystemMessage gcSM;
             gcSM.setMessage(buffer);
             m_pOwner->getPlayer()->sendPacket(&gcSM);
@@ -238,7 +238,7 @@ void GQuestManager::blooddrain() {
             m_pOwner->getPlayer()->sendPacket(&gcSM);
         }
 
-        // -_- ¶«»§;
+        // -_- ë•œë¹µ;
         //		break;
     }
 }
@@ -253,7 +253,7 @@ void GQuestManager::levelUp() {
 
         if (pLevelMission->isSuccess(m_pOwner)) {
             pLevelMission->m_pParent->update();
-            // -_- ¶«»§;
+            // -_- ë•œë¹µ;
             //			break;
         }
     }
@@ -280,7 +280,7 @@ bool GQuestManager::metNPC(NPC* pNPC) {
 
         GQuestSayNPCElement* pSayNPCElement = dynamic_cast<GQuestSayNPCElement*>(*pSayNPCMission->m_Position);
         if (pSayNPCElement == NULL) {
-            cout << "SayNPCElement Ä³½ºÆÃ ½ÇÆÐ!!!!" << endl;
+            cout << "SayNPCElement ìºìŠ¤íŒ… ì‹¤íŒ¨!!!!" << endl;
             Assert(false);
         }
 
@@ -289,7 +289,7 @@ bool GQuestManager::metNPC(NPC* pNPC) {
         if (pSayNPCElement->getTarget() == pNPC->getNPCID()) {
             pSayNPCMission->meet();
             pSayNPCMission->m_pParent->update();
-            // ÇÑ¹ø¿¡ ÇÑ¸í¾¿¸¸ ¸¸³ª±â
+            // í•œë²ˆì— í•œëª…ì”©ë§Œ ë§Œë‚˜ê¸°
             return true;
         }
     }
@@ -324,7 +324,7 @@ void GQuestManager::killed() {
             pKilledMission->m_pParent->update();
         }
 
-        // -_- ¶«»§;
+        // -_- ë•œë¹µ;
         //		break;
     }
 }
@@ -357,7 +357,7 @@ void GQuestManager::rideMotorcycle(bool isParty) {
             pRideMotorcycleMission->m_pParent->update();
         }
 
-        // -_- ¶«»§;
+        // -_- ë•œë¹µ;
         //		break;
     }
 
@@ -395,14 +395,14 @@ void GQuestManager::touchWayPoint(MonsterCorpse* pWayPoint) {
         GQuestTouchWayPointElement* pTouchWayPointElement =
             dynamic_cast<GQuestTouchWayPointElement*>(*pTouchWayPointMission->m_Position);
         if (pTouchWayPointElement == NULL) {
-            cout << "TouchWayPointElement Ä³½ºÆÃ ½ÇÆÐ!!!!" << endl;
+            cout << "TouchWayPointElement ìºìŠ¤íŒ… ì‹¤íŒ¨!!!!" << endl;
             Assert(false);
         }
 
         if (pTouchWayPointElement->m_ZoneID == m_pOwner->getZoneID() &&
             pTouchWayPointElement->m_X == pWayPoint->getX() && pTouchWayPointElement->m_Y == pWayPoint->getY()) {
             if (pTouchWayPointElement->m_Type != pWayPoint->getMonsterType())
-                cout << "¸ó½ºÅÍ Å¸ÀÔÀÌ ´Ù¸£´Ù!! ¸ÕÀÏÀÌÁö -_-" << endl;
+                cout << "ëª¬ìŠ¤í„° íƒ€ìž…ì´ ë‹¤ë¥´ë‹¤!! ë¨¼ì¼ì´ì§€ -_-" << endl;
             pTouchWayPointMission->touch();
 
             pTouchWayPointMission->m_pParent->update();
@@ -444,7 +444,7 @@ void GQuestManager::killedMonster(Monster* pMonster) {
             GQuestKillMonsterElement* pKillMonsterElement =
                 dynamic_cast<GQuestKillMonsterElement*>(*pKillMonsterMission->m_Position);
             if (pKillMonsterElement == NULL) {
-                cout << "KillMonsterElement Ä³½ºÆÃ ½ÇÆÐ!!!!" << endl;
+                cout << "KillMonsterElement ìºìŠ¤íŒ… ì‹¤íŒ¨!!!!" << endl;
                 Assert(false);
             }
             if (pKillMonsterElement->getGoal() <= pKillMonsterMission->getCurrent()) {
@@ -463,16 +463,16 @@ void GQuestManager::partyDissect(MonsterCorpse* pMonsterCorpse) {
         if (pPartyDissectMission == NULL)
             continue;
 
-        cout << "¸ñÇ¥ : " << pPartyDissectMission->m_StrArg << endl;
-        cout << "¼ýÀÚ : " << (int)pPartyDissectMission->getTargetList().front() << endl;
-        cout << "ÀâÀº³ð : " << pMonsterCorpse->getMonsterType() << endl;
+        cout << "ëª©í‘œ : " << pPartyDissectMission->m_StrArg << endl;
+        cout << "ìˆ«ìž : " << (int)pPartyDissectMission->getTargetList().front() << endl;
+        cout << "ìž¡ì€ë†ˆ : " << pMonsterCorpse->getMonsterType() << endl;
 
         if (pPartyDissectMission->isTarget(
                 g_pMonsterInfoManager->getMonsterInfo(pMonsterCorpse->getMonsterType())->getSpriteType())) {
             GQuestPartyDissectElement* pPartyDissectElement =
                 dynamic_cast<GQuestPartyDissectElement*>(*pPartyDissectMission->m_Position);
             if (pPartyDissectElement == NULL) {
-                cout << "PartyDissectElement Ä³½ºÆÃ ½ÇÆÐ!!!!" << endl;
+                cout << "PartyDissectElement ìºìŠ¤íŒ… ì‹¤íŒ¨!!!!" << endl;
                 Assert(false);
             }
             pPartyDissectMission->increase();
@@ -491,7 +491,7 @@ void GQuestManager::partyDissect(MonsterCorpse* pMonsterCorpse) {
 
 void GQuestManager::eventParty() {
     m_bPartyQuest = true;
-    cout << "ÀÌº¥Æ® ÆÄÆ¼°¡ °á¼ºµÇ¾ú½À´Ï´Ù. : " << m_pOwner->getName() << endl;
+    cout << "ì´ë²¤íŠ¸ íŒŒí‹°ê°€ ê²°ì„±ë˜ì—ˆìŠµë‹ˆë‹¤. : " << m_pOwner->getName() << endl;
     list<GQuestMission*>::iterator itr = m_EventMissions[EVENT_PARTY].begin();
     while (itr != m_EventMissions[EVENT_PARTY].end()) {
         GQuestEventPartyMission* pEventPartyMission = dynamic_cast<GQuestEventPartyMission*>((*itr));
@@ -502,7 +502,7 @@ void GQuestManager::eventParty() {
         GQuestEventPartyElement* pEventPartyElement =
             dynamic_cast<GQuestEventPartyElement*>(*pEventPartyMission->m_Position);
         if (pEventPartyElement == NULL) {
-            cout << "EventPartyElement Ä³½ºÆÃ ½ÇÆÐ!!!!" << endl;
+            cout << "EventPartyElement ìºìŠ¤íŒ… ì‹¤íŒ¨!!!!" << endl;
             Assert(false);
         }
 
@@ -515,7 +515,7 @@ void GQuestManager::eventParty() {
 
 void GQuestManager::eventPartyCrash() {
     m_bPartyQuest = false;
-    cout << "ÀÌº¥Æ® ÆÄÆ¼°¡ ±úÁ³½À´Ï´Ù. : " << m_pOwner->getName() << endl;
+    cout << "ì´ë²¤íŠ¸ íŒŒí‹°ê°€ ê¹¨ì¡ŒìŠµë‹ˆë‹¤. : " << m_pOwner->getName() << endl;
     list<GQuestMission*>::iterator itr = m_EventMissions[EVENT_PARTY_CRASH].begin();
     while (itr != m_EventMissions[EVENT_PARTY_CRASH].end()) {
         GQuestEventPartyCrashMission* pEventPartyCrashMission = dynamic_cast<GQuestEventPartyCrashMission*>((*itr));
@@ -526,7 +526,7 @@ void GQuestManager::eventPartyCrash() {
         GQuestEventPartyCrashElement* pEventPartyCrashElement =
             dynamic_cast<GQuestEventPartyCrashElement*>(*pEventPartyCrashMission->m_Position);
         if (pEventPartyCrashElement == NULL) {
-            cout << "EventPartyCrashElement Ä³½ºÆÃ ½ÇÆÐ!!!!" << endl;
+            cout << "EventPartyCrashElement ìºìŠ¤íŒ… ì‹¤íŒ¨!!!!" << endl;
             Assert(false);
         }
 
@@ -644,7 +644,7 @@ void GQuestManager::advancementClassLevelUp() {
 
         if (pAdvancementClassLevelMission->isSuccess(m_pOwner)) {
             pAdvancementClassLevelMission->m_pParent->update();
-            // -_- ¶«»§;
+            // -_- ë•œë¹µ;
             //			break;
         }
     }
@@ -663,7 +663,7 @@ void GQuestManager::clearDynamicZone(ZoneID_t zoneID) {
 
         if (pClearDynamicZoneMission->isClear()) {
             pClearDynamicZoneMission->m_pParent->update();
-            // -_- ¶«»§;
+            // -_- ë•œë¹µ;
             //			break;
         }
     }
@@ -680,7 +680,7 @@ void GQuestManager::enterDynamicZone(ZoneID_t zoneID) {
 
         if (pEnterDynamicZoneMission->isEnter()) {
             pEnterDynamicZoneMission->m_pParent->update();
-            // -_- ¶«»§;
+            // -_- ë•œë¹µ;
             //			break;
         }
     }

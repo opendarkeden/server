@@ -32,7 +32,7 @@ void ActionPetDeposit::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetDeposit::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -50,7 +50,7 @@ void ActionPetDeposit::execute(Creature* pCreature1, Creature* pCreature2)
     GCPetStashList gcPetStashList;
     makeGCPetStashList(&gcPetStashList, pPC);
 
-    /* ÆÖº¸°üÇÔÀÌ ¶ß±â Àü¿¡ ´ëÈ­Ã¢À» ´İ¾ÆÁÖ¾î¾ß ÇÏ±â¿¡ ³¯¸°´Ù.*/
+    /* íŒ»ë³´ê´€í•¨ì´ ëœ¨ê¸° ì „ì— ëŒ€í™”ì°½ì„ ë‹«ì•„ì£¼ì–´ì•¼ í•˜ê¸°ì— ë‚ ë¦°ë‹¤.*/
     GCNPCResponse response;
     response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
     pPC->getPlayer()->sendPacket(&response);

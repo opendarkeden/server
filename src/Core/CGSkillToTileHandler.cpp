@@ -35,7 +35,7 @@ void CGSkillToTileHandler::execute(CGSkillToTile* pPacket, Player* pPlayer)
     Assert(pPlayer != NULL);
 
     try {
-        // Æ¯¼ö±â¼ú Å×½ºÆ®¸¦ À§ÇØ¼­ ÀÓ½Ã·Î ³Ö¾îµÎ´Â ÄÚµåÀÌ´Ù.
+        // íŠ¹ìˆ˜ê¸°ìˆ  í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•´ì„œ ì„ì‹œë¡œ ë„£ì–´ë‘ëŠ” ì½”ë“œì´ë‹¤.
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
         Assert(pGamePlayer != NULL); // by sigi
@@ -49,7 +49,7 @@ void CGSkillToTileHandler::execute(CGSkillToTile* pPacket, Player* pPlayer)
 
             SkillType_t SkillType = pPacket->getSkillType();
 
-            // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+            // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
             ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
             if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
                 (pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||

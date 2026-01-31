@@ -2,7 +2,7 @@
 //
 // Filename    : GGServerChatHandler.cpp
 // Written By  : inthesky
-// Description : ¼­¹ö°£ Whisper ChatÀ» ¼öÇàÇÑ´Ù.
+// Description : ì„œë²„ê°„ Whisper Chatì„ ìˆ˜í–‰í•œë‹¤.
 //
 //----------------------------------------------------------------------
 

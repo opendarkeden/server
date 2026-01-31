@@ -28,10 +28,10 @@ EffectDarkness::EffectDarkness(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY
 
 //////////////////////////////////////////////////////////////////////////////
 // EffectDarkness::affectCreature()
-// bAffectByMove°¡ false¸é Á¦ÀÚ¸®¿¡¼­ ´çÇÏ´Â °ÍÀÌ¹Ç·Î..
-// ¿ÜºÎÀÇ SkillOK¿¡¼­ modify info¸¦ º¸³½´Ù. µû¶ó¼­ GCModifyInformationÀ»
-// º¸³¾ ÇÊ¿ä°¡ ¾ø´Ù.
-// pTargetÀÇ ½Ã¾ß°¡ º¯ÇÑ  °æ¿ì true¸¦ return
+// bAffectByMoveê°€ falseë©´ ì œìžë¦¬ì—ì„œ ë‹¹í•˜ëŠ” ê²ƒì´ë¯€ë¡œ..
+// ì™¸ë¶€ì˜ SkillOKì—ì„œ modify infoë¥¼ ë³´ë‚¸ë‹¤. ë”°ë¼ì„œ GCModifyInformationì„
+// ë³´ë‚¼ í•„ìš”ê°€ ì—†ë‹¤.
+// pTargetì˜ ì‹œì•¼ê°€ ë³€í•œ  ê²½ìš° trueë¥¼ return
 //////////////////////////////////////////////////////////////////////////////
 bool EffectDarkness::affectObject(Object* pTarget, bool bAffectByMove)
 
@@ -41,11 +41,11 @@ bool EffectDarkness::affectObject(Object* pTarget, bool bAffectByMove)
     bool bAffected = false;
     if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE) {
         Creature* pTargetCreature = dynamic_cast<Creature*>(pTarget);
-        // ÀÌ¹Ì °É·ÁÀÖ´Â °æ¿ì¿¡´Â ´Ù½Ã °ÉÁö ¾Ê´Â´Ù.
+        // ì´ë¯¸ ê±¸ë ¤ìžˆëŠ” ê²½ìš°ì—ëŠ” ë‹¤ì‹œ ê±¸ì§€ ì•ŠëŠ”ë‹¤.
         if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_DARKNESS)) {
             return false;
         }
-        // ½½·¹ÀÌ¾îÀÏ °æ¿ì¿¡¸¸ °É¸°´Ù.
+        // ìŠ¬ë ˆì´ì–´ì¼ ê²½ìš°ì—ë§Œ ê±¸ë¦°ë‹¤.
         if (pTargetCreature->isSlayer() || pTargetCreature->isOusters()) {
             bAffected = true;
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_DARKNESS);

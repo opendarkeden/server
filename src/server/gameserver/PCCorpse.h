@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class PCCorpse;
-// PC °¡ Á×Àº °æ¿ì, ³²±â´Â ½ÃÃ¼´Ù.
+// PC ê°€ ì£½ì€ ê²½ìš°, ë‚¨ê¸°ëŠ” ì‹œì²´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCCorpse : public Corpse {
@@ -21,13 +21,13 @@ public:
 
     // methods from Item
 public:
-    // Å©¸®Ã³ÀÇ ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛÀ» ²¨³»¼­, ½ÃÃ¼¿¡ Áý¾î³Ö´Â´Ù.
+    // í¬ë¦¬ì²˜ì˜ ì¸ë²¤í† ë¦¬ì—ì„œ ì•„ì´í…œì„ êº¼ë‚´ì„œ, ì‹œì²´ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
     void transportItems(Creature* pCreature);
 
     // data members
 private:
-    // PC ½ÃÃ¼¿¡¼­ ±¸º°°¡´ÉÇÑ °ÍµéÀº ¹«¾ùÀÌ ÀÖÀ»±î?
-    // Çì¾î½ºÅ¸ÀÏ - ¸Ó¸®»ö - ÇÇºÎ»ö - ¸Ó¸® - »óÀÇ - ÇÏÀÇ - ¹«±â1 - ¹«±â2
+    // PC ì‹œì²´ì—ì„œ êµ¬ë³„ê°€ëŠ¥í•œ ê²ƒë“¤ì€ ë¬´ì—‡ì´ ìžˆì„ê¹Œ?
+    // í—¤ì–´ìŠ¤íƒ€ì¼ - ë¨¸ë¦¬ìƒ‰ - í”¼ë¶€ìƒ‰ - ë¨¸ë¦¬ - ìƒì˜ - í•˜ì˜ - ë¬´ê¸°1 - ë¬´ê¸°2
     HairStyle m_HairStyle;
     Color_t m_HairColor;
     Color_t m_SkinColor;

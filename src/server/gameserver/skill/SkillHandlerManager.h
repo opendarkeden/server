@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : SkillHandlerManager.h
 // Wrrtten by  : elca@ewestsoft.com
-// Description : ½ºÅ³ ÇÚµé·¯¸¦ °ü¸®ÇÏ´Â ManagerÀÌ´Ù.
+// Description : ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ë¥¼ ê´€ë¦¬í•˜ëŠ” Managerì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SKILL_HANDLER_MANAGER_H__
@@ -20,21 +20,21 @@ public:
     ~SkillHandlerManager() throw();
 
 public:
-    // °ÔÀÓ¼­¹ö°´Ã¼ÀÇ init()¿¡¼­ È£ÃâµÈ´Ù.
+    // ê²Œì„ì„œë²„ê°ì²´ì˜ init()ì—ì„œ í˜¸ì¶œëœë‹¤.
     void init();
 
-    // ½ºÅ³ ÇÚµé·¯ °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ ê°ì²´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     void addSkillHandler(SkillHandler* pSkillHandler);
 
-    // ½ºÅ³ ÇÚµé·¯¸¦ ¾ò¾î³½´Ù.
+    // ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ë¥¼ ì–»ì–´ë‚¸ë‹¤.
     SkillHandler* getSkillHandler(SkillType_t SkillType);
 
     // toString
     string toString() const throw();
 
 private:
-    SkillHandler** m_SkillHandlers; // ½ºÅ³ ÇÚµé·¯ ¹è¿­
-    ushort m_Size;                  // ½ºÅ³ ÇÚµé·¯ ¹è¿­ÀÇ Å©±â
+    SkillHandler** m_SkillHandlers; // ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ ë°°ì—´
+    ushort m_Size;                  // ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ ë°°ì—´ì˜ í¬ê¸°
 };
 
 extern SkillHandlerManager* g_pSkillHandlerManager;

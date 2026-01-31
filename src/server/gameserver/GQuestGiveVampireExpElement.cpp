@@ -17,7 +17,7 @@ GQuestElement::ResultType GQuestGiveVampireExpElement::checkCondition(PlayerCrea
     pVampire->getPlayer()->sendPacket(&gcMI);
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("»ñµÃ¾­ÑéÖµ.");
+    gcSM.setMessage("ì‚¿ë¤ì’”ï¤šä»¤.");
     pPC->getPlayer()->sendPacket(&gcSM);
 
     return OK;

@@ -14,7 +14,7 @@ public:
         m_VampireOptionTypes.clear();
     }
 
-    // ¾Æ´ãÀÇ ¼ºÁö¿¡¼­ÀÇ Á¾Á·º¸³Ê½º¸¦ ´Ù½Ã ¼³Á¤ÇÑ´Ù.
+    // ì•„ë‹´ì˜ ì„±ì§€ì—ì„œì˜ ì¢…ì¡±ë³´ë„ˆìŠ¤ë¥¼ ë‹¤ì‹œ ì„¤ì •í•œë‹¤.
     void refresh();
 
     const list<OptionType_t>& getSlayerOptionTypeList() const {

@@ -58,19 +58,19 @@ public:
     string toString() const;
 
 private:
-    // ½ºÅ³ µµ¸ŞÀÎÀÇ Å¸ÀÔ
+    // ìŠ¤í‚¬ ë„ë©”ì¸ì˜ íƒ€ì…
     SkillDomainType_t m_Type;
 
-    // ´Ü°è(½ºÅ³ Æ®¸®¿¡¼­ ÀÌ ±â¼úÀÇ depth)
+    // ë‹¨ê³„(ìŠ¤í‚¬ íŠ¸ë¦¬ì—ì„œ ì´ ê¸°ìˆ ì˜ depth)
     Level_t m_Level;
 
-    // ¸ñÇ¥ °æÇèÄ¡
+    // ëª©í‘œ ê²½í—˜ì¹˜
     Exp_t m_GoalExp;
 
-    // ´©Àû °æÇèÄ¡
+    // ëˆ„ì  ê²½í—˜ì¹˜
     Exp_t m_AccumExp;
 
-    // ÀûÀıÇÑ ¹«±â ´Ü°è
+    // ì ì ˆí•œ ë¬´ê¸° ë‹¨ê³„
     ItemType_t m_BestItemType;
 };
 

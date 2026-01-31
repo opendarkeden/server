@@ -3,44 +3,44 @@
 // Written By  : Reiot
 // Description :
 //
-// ÀÌ ÆĞÅ¶Àº Å¬¶óÀÌ¾ğÆ®°¡ ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå¸¦ ¾ÏÈ£È­ÇØ¼­
-// ·Î±×ÀÎ ¼­¹ö·Î Àü¼ÛÇÑ´Ù. ·Î±×ÀÎ ¼­¹ö´Â ÀÌ ÆĞÅ¶À» ¹Ş¾Æ¼­
-// ÇÃ·¹ÀÌ¾îÀÇ ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå°¡ Á¤È®ÇÑÁö DB·ÎºÎÅÍ ÀĞ¾î¼­
-// ºñ±³ÇÑ ÈÄ, ·Î±×ÀÎÀÇ ¼º°ø ¿©ºÎ¸¦ Àü¼ÛÇÑ´Ù.
+// ì´ íŒ¨í‚·ì€ í´ë¼ì´ì–¸íŠ¸ê°€ ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ ì•”í˜¸í™”í•´ì„œ
+// ë¡œê·¸ì¸ ì„œë²„ë¡œ ì „ì†¡í•œë‹¤. ë¡œê·¸ì¸ ì„œë²„ëŠ” ì´ íŒ¨í‚·ì„ ë°›ì•„ì„œ
+// í”Œë ˆì´ì–´ì˜ ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì •í™•í•œì§€ DBë¡œë¶€í„° ì½ì–´ì„œ
+// ë¹„êµí•œ í›„, ë¡œê·¸ì¸ì˜ ì„±ê³µ ì—¬ë¶€ë¥¼ ì „ì†¡í•œë‹¤.
 //
 // *CAUTION*
 //
-// Æ¯Á¤ ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå¸¦ °¡Áø ÇÃ·¹ÀÌ¾î¸¦ °Ë»öÇÏ´Â SQL ¹®À¸·Î ¾î¶² °ÍÀÌ
-// ´õ È¿À²ÀûÀÏ±î?
+// íŠ¹ì • ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œë¥¼ ê°€ì§„ í”Œë ˆì´ì–´ë¥¼ ê²€ìƒ‰í•˜ëŠ” SQL ë¬¸ìœ¼ë¡œ ì–´ë–¤ ê²ƒì´
+// ë” íš¨ìœ¨ì ì¼ê¹Œ?
 //
-// (1) SELECT Password FROM Player WHERE ID = 'AAA' À¸·Î °Ë»öÇÑ ÈÄ,
-//     ÆĞ½º¿öµå¸¦ ºñ±³ÇÑ´Ù.
-// (2) SELECT ID FROM Player WHERE ID = 'AAA' AND Password = 'BBB' À¸·Î
-//     °Ë»öÇØ¼­ ¸®ÅÏÇÏ´Â row °¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+// (1) SELECT Password FROM Player WHERE ID = 'AAA' ìœ¼ë¡œ ê²€ìƒ‰í•œ í›„,
+//     íŒ¨ìŠ¤ì›Œë“œë¥¼ ë¹„êµí•œë‹¤.
+// (2) SELECT ID FROM Player WHERE ID = 'AAA' AND Password = 'BBB' ìœ¼ë¡œ
+//     ê²€ìƒ‰í•´ì„œ ë¦¬í„´í•˜ëŠ” row ê°€ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 //
-// ÀÌ¿¡ µû¶ó¼­, ÀÎµ¦½º¸¦ ¾î¶»°Ô ¼³Á¤ÇÏ´ÂÁö°¡ °áÁ¤µÇ°Ú´Ù.
+// ì´ì— ë”°ë¼ì„œ, ì¸ë±ìŠ¤ë¥¼ ì–´ë–»ê²Œ ì„¤ì •í•˜ëŠ”ì§€ê°€ ê²°ì •ë˜ê² ë‹¤.
 //
 // (1) - CREATE INDEX PlayerIDIndex ON Player (ID)
 // (2) - CREATE INDEX PlayerIDPasswordIndex ON Player (ID , Password)
 //
-// ÇöÀçÀÇ ¼±ÅÃÀº (2) µÇ°Ú´Ù.
+// í˜„ì¬ì˜ ì„ íƒì€ (2) ë˜ê² ë‹¤.
 //
 // *CAUTION*
 //
-// °°Àº ÇÃ·¹ÀÌ¾îÀÇ µ¿½Ã Á¢¼ÓÀ» ¸·±â À§ÇØ¼­ Player Å×ÀÌºíÀÇ LogOn ÄÃ·³°ªÀ»
-// Ã¼Å©ÇØ¾ß ÇÑ´Ù. ¸¸¾à LogOn = 'LOGON' ÀÏ °æ¿ì, ÀÌ¹Ì Á¢¼ÓÇÏ°í ÀÖ´Ù°í °£ÁÖ
-// ÇØ¾ß ÇÏ¹Ç·Î, ÀÌ·± »ç¶÷Àº Á¢¼ÓÀ» Â÷´ÜÇØ¾ß ÇÑ´Ù. (¹°·Ğ ÀûÀıÇÑ ¸Ş½ÃÁö¸¦
-// Ãâ·ÂÇØÁà¾ß ÇÑ´Ù.)
+// ê°™ì€ í”Œë ˆì´ì–´ì˜ ë™ì‹œ ì ‘ì†ì„ ë§‰ê¸° ìœ„í•´ì„œ Player í…Œì´ë¸”ì˜ LogOn ì»¬ëŸ¼ê°’ì„
+// ì²´í¬í•´ì•¼ í•œë‹¤. ë§Œì•½ LogOn = 'LOGON' ì¼ ê²½ìš°, ì´ë¯¸ ì ‘ì†í•˜ê³  ìˆë‹¤ê³  ê°„ì£¼
+// í•´ì•¼ í•˜ë¯€ë¡œ, ì´ëŸ° ì‚¬ëŒì€ ì ‘ì†ì„ ì°¨ë‹¨í•´ì•¼ í•œë‹¤. (ë¬¼ë¡  ì ì ˆí•œ ë©”ì‹œì§€ë¥¼
+// ì¶œë ¥í•´ì¤˜ì•¼ í•œë‹¤.)
 //
-// ÁÖÀÇÇÒ Á¡Àº, ¼­¹ö°¡ crash µÉ °æ¿ì »õ·Î ¶ç¿öÁú¶§ LogOn ÇÊµå¸¦ ¸ğµÎ
-// LOGOFF ·Î ÃÊ±âÈ­ÇØÁà¾ß ÇÑ´Ù´Â Á¡ÀÌ´Ù.
+// ì£¼ì˜í•  ì ì€, ì„œë²„ê°€ crash ë  ê²½ìš° ìƒˆë¡œ ë„ì›Œì§ˆë•Œ LogOn í•„ë“œë¥¼ ëª¨ë‘
+// LOGOFF ë¡œ ì´ˆê¸°í™”í•´ì¤˜ì•¼ í•œë‹¤ëŠ” ì ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 /*
 
-   // ³İ¸¶ºíÀÇ Player table¿¡ ÇÊ¿äÇÑ°Í Á¤¸®. by sigi. 2002.10.23
+   // ë„·ë§ˆë¸”ì˜ Player tableì— í•„ìš”í•œê²ƒ ì •ë¦¬. by sigi. 2002.10.23
 
    PlayerID,
-   Password,	// ´Ù¸¥ ÀÇ¹Ì.
+   Password,	// ë‹¤ë¥¸ ì˜ë¯¸.
    CurrentWorldID,
    CurrentServerGroupID,
    CurrentLoginServerID,
@@ -54,7 +54,7 @@
    LoginIP
 
 
-   // ³İ¸¶ºí¿¡¼­ ÀÛ¾÷ÇØÁà¾ßÇÏ´Â °Í
+   // ë„·ë§ˆë¸”ì—ì„œ ì‘ì—…í•´ì¤˜ì•¼í•˜ëŠ” ê²ƒ
    UPDATE Player SET Password='12345678' WHERE PlayerID='playerid';
 
    if (getAffectedRowCount()==0)
@@ -91,8 +91,8 @@
 
 #endif
 
-#define SYMBOL_TEST_CLIENT '#'       // »ç³»Å×½ºÆ® ¹öÀüÀÎ °æ¿ì
-#define SYMBOL_NET_MARBLE_CLIENT '@' // ³İ¸¶ºí¿¡¼­ Á¢¼ÓÇÏ´Â °æ¿ì
+#define SYMBOL_TEST_CLIENT '#'       // ì‚¬ë‚´í…ŒìŠ¤íŠ¸ ë²„ì „ì¸ ê²½ìš°
+#define SYMBOL_NET_MARBLE_CLIENT '@' // ë„·ë§ˆë¸”ì—ì„œ ì ‘ì†í•˜ëŠ” ê²½ìš°
 
 bool isAdultByBirthday(const string& birthday);
 void addLoginPlayerData(const string& ID, const string& ip, const string& SSN, const string& zipcode);
@@ -116,7 +116,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
     LoginPlayer* pLoginPlayer = dynamic_cast<LoginPlayer*>(pPlayer);
     Statement* pStmt = NULL;
 
-    // ÁÂ¿ì °ø¹é Á¦°Å. by sigi. 2002.12.6
+    // ì¢Œìš° ê³µë°± ì œê±°. by sigi. 2002.12.6
     pPacket->setID(trim(pPacket->getID()));
 
     string connectIP = pLoginPlayer->getSocket()->getHost();
@@ -147,12 +147,12 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
         return;
     }
 
-    // »ç³»Å×½ºÆ® ¹öÀü¿¡¼­´Â '#sigi'  <-- ÀÌ·± ½ÄÀ¸·Î °èÁ¤ÀÌ µé¾î¿Â´Ù.
+    // ì‚¬ë‚´í…ŒìŠ¤íŠ¸ ë²„ì „ì—ì„œëŠ” '#sigi'  <-- ì´ëŸ° ì‹ìœ¼ë¡œ ê³„ì •ì´ ë“¤ì–´ì˜¨ë‹¤.
     if (ID[0] == SYMBOL_TEST_CLIENT) {
         ID = ID.c_str() + 1;
         pPacket->setID(ID);
 
-        // À¥ ·Î±×ÀÎ Ã¼Å©
+        // ì›¹ ë¡œê·¸ì¸ ì²´í¬
         if (bWebLogin) {
             // cout << "WebLogin" << endl;
 
@@ -164,7 +164,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
         } else {
             // cout << "not WebLogin" << endl;
 
-            // ³İ¸¶ºí¿¡¼­ Á¢¼ÓÇÏ´Â °æ¿ì
+            // ë„·ë§ˆë¸”ì—ì„œ ì ‘ì†í•˜ëŠ” ê²½ìš°
             // by sigi. 2002.10.23
             if (!checkNetMarbleClient(pPacket, pPlayer)) {
                 return;
@@ -173,14 +173,14 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 
         bFreePass = pLoginPlayer->isFreePass();
         if (!bWebLogin && bFreePass) {
-            // À¥·Î±×ÀÎÀÌ ¾Æ´Ñ FreePass ´Â ³İ¸¶ºí »ç¿ëÀÚ·Î ID ¾Õ¿¡ ¿¹¾à¹®ÀÚ°¡ ÇÏ³ª´õ ÀÖ´Ù.
+            // ì›¹ë¡œê·¸ì¸ì´ ì•„ë‹Œ FreePass ëŠ” ë„·ë§ˆë¸” ì‚¬ìš©ìë¡œ ID ì•ì— ì˜ˆì•½ë¬¸ìê°€ í•˜ë‚˜ë” ìˆë‹¤.
             ID = ID.c_str() + 1;
             pPacket->setID(ID);
         }
 
-        //		cout << "Å×½ºÆ® Å¬¶óÀÌ¾ğÆ®" << endl;
+        //		cout << "í…ŒìŠ¤íŠ¸ í´ë¼ì´ì–¸íŠ¸" << endl;
         BEGIN_DB {
-            // Áõ°Å¸¦ ³²±ä´Ù.
+            // ì¦ê±°ë¥¼ ë‚¨ê¸´ë‹¤.
             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
             pStmt->executeQuery("INSERT INTO TestClientUser (PlayerID, IP, LoginDate) VALUES ('%s', '%s', now())",
                                 ID.c_str(), connectIP.c_str());
@@ -189,9 +189,9 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
         }
         END_DB(pStmt)
     }
-    // ³İ¸¶ºí¿¡¼­ Á¢¼ÓÇÏ´Â °æ¿ì
+    // ë„·ë§ˆë¸”ì—ì„œ ì ‘ì†í•˜ëŠ” ê²½ìš°
     else {
-        // À¥ ·Î±×ÀÎ Ã¼Å©
+        // ì›¹ ë¡œê·¸ì¸ ì²´í¬
         if (bWebLogin) {
             // cout << "WebLogin" << endl;
 
@@ -230,7 +230,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
     string lastIP = "";
     string lastMacAddress = "";
 
-    // ºô¸µ~ by sigi. 2002.5.31
+    // ë¹Œë§~ by sigi. 2002.5.31
     PayType payType;
     string payPlayDate;
     string familyPayPlayDate;
@@ -240,8 +240,8 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 
     try {
         ////////////////////////////////////////////////////////////
-        // ID¶û PASSWORD¿¡ ÀÌ»óÇÑ ¹®ÀÚ°¡ µé¾îÀÖÀ¸¸é
-        // ¸ø µé¾î¿À°Ô ¸·´Â´Ù.
+        // IDë‘ PASSWORDì— ì´ìƒí•œ ë¬¸ìê°€ ë“¤ì–´ìˆìœ¼ë©´
+        // ëª» ë“¤ì–´ì˜¤ê²Œ ë§‰ëŠ”ë‹¤.
         ////////////////////////////////////////////////////////////
         bool bError = false;
 
@@ -251,7 +251,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
             bError = true;
 
         if (bError) {
-            //			cout << "ÀÌ»óÇÑ ±ÛÀÚ" << endl;
+            //			cout << "ì´ìƒí•œ ê¸€ì" << endl;
             // cout << "Error" << endl;
             LCLoginError lcLoginError;
             lcLoginError.setErrorID(INVALID_ID_PASSWORD);
@@ -264,10 +264,10 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         Result* pResult = NULL;
 
-        // BINARY¸¦ ºÙÀÌ¸é. ´ë¼Ò¹®ÀÚ ±¸ºĞÀ» ÇÏ°Ô µÈ´Ù.
-        // Áö±İ±îÁö´Â ´ë¼Ò¹®ÀÚ °ü°è¾øÀÌ loginÇÒ ¼ö ÀÖ¾ú´Âµ¥..
-        // ÀÌ°Ô ºô¸µ½Ã½ºÅÛÂÊ¿¡¼­ ¹®Á¦°¡ µÅ¼­ ¼öÁ¤Çß´Ù. by sigi. 2002.12.20
-        // BINARY PlayerID='%s'¿´´Âµ¥.. ±×³É PlayerID¸¦ ´Ù½Ã ÀĞ¾î¿Í¼­ ¾²´Â°Ô ³ªÀ»°Å °°¾Æ¼­..
+        // BINARYë¥¼ ë¶™ì´ë©´. ëŒ€ì†Œë¬¸ì êµ¬ë¶„ì„ í•˜ê²Œ ëœë‹¤.
+        // ì§€ê¸ˆê¹Œì§€ëŠ” ëŒ€ì†Œë¬¸ì ê´€ê³„ì—†ì´ loginí•  ìˆ˜ ìˆì—ˆëŠ”ë°..
+        // ì´ê²Œ ë¹Œë§ì‹œìŠ¤í…œìª½ì—ì„œ ë¬¸ì œê°€ ë¼ì„œ ìˆ˜ì •í–ˆë‹¤. by sigi. 2002.12.20
+        // BINARY PlayerID='%s'ì˜€ëŠ”ë°.. ê·¸ëƒ¥ PlayerIDë¥¼ ë‹¤ì‹œ ì½ì–´ì™€ì„œ ì“°ëŠ”ê²Œ ë‚˜ì„ê±° ê°™ì•„ì„œ..
         if (bWebLogin) {
             pResult = pStmt->executeQuery(
                 "SELECT PlayerID, SSN, CurrentServerGroupID, LogOn, Access, LoginIP, PayType, PayPlayDate, "
@@ -301,24 +301,24 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
         }
 
         // by sigi. 2002.10.30
-        // Player°¡ ¾ø´Ù : ¾ø°í ³İ¸¶ºíÀÌ ¾Æ´Ñ °æ¿ì
+        // Playerê°€ ì—†ë‹¤ : ì—†ê³  ë„·ë§ˆë¸”ì´ ì•„ë‹Œ ê²½ìš°
         bool bNoPlayer = ((pResult->getRowCount() == 0) && !bFreePass);
 
-        // Äõ¸® °á°ú ROW ÀÇ °³¼ö°¡ 0 ÀÌ¶ó´Â ¶æÀº
-        // invalid ID or Password ¶ó´Â ¶æÀÌ´Ù.
+        // ì¿¼ë¦¬ ê²°ê³¼ ROW ì˜ ê°œìˆ˜ê°€ 0 ì´ë¼ëŠ” ëœ»ì€
+        // invalid ID or Password ë¼ëŠ” ëœ»ì´ë‹¤.
         if (bNoPlayer) // pResult->getRowCount() == 0)
         {
             // cout << "no Result : " << ID.c_str() << endl;
-            //			cout << "ÇÃ·¹ÀÌ¾î ¾øÀ½" << endl;
+            //			cout << "í”Œë ˆì´ì–´ ì—†ìŒ" << endl;
             LCLoginError lcLoginError;
             lcLoginError.setErrorID(INVALID_ID_PASSWORD);
             pLoginPlayer->sendPacket(&lcLoginError);
             filelog("loginfail.txt", "Error Code: INVALID_ID_PASSWORD, 3, PlayerID : %s", pPacket->getID().c_str());
 
-            // ½ÇÆĞ È¸¼ö°¡ 3º¸´Ù Å¬ °æ¿ì, ¿¬°áÀ» Á¾·áÇÑ´Ù.
+            // ì‹¤íŒ¨ íšŒìˆ˜ê°€ 3ë³´ë‹¤ í´ ê²½ìš°, ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
             uint nFailed = pLoginPlayer->getFailureCount();
 
-            //			cout << "½ÇÆĞ È¸¼ö " << nFailed << endl;
+            //			cout << "ì‹¤íŒ¨ íšŒìˆ˜ " << nFailed << endl;
 
             if (nFailed > 3) {
                 SAFE_DELETE(pStmt);
@@ -330,8 +330,8 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 
             return;
         }
-        // Äõ¸® °á°ú°¡ ÀÖ´Ù´Â ¸»Àº
-        // ¿Ã¹Ù¸¥ ID¿Í ÆĞ½º¿öµå¶ó´Â ¸»ÀÌ´Ù...
+        // ì¿¼ë¦¬ ê²°ê³¼ê°€ ìˆë‹¤ëŠ” ë§ì€
+        // ì˜¬ë°”ë¥¸ IDì™€ íŒ¨ìŠ¤ì›Œë“œë¼ëŠ” ë§ì´ë‹¤...
         else {
             int i = 0;
 
@@ -353,7 +353,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                 familyPayPlayDate = pResult->getString(++i);
 
             } else if (bFreePass) {
-                // ³İ¸¶ºíÀÎ °æ¿ì¿¡.. °èÁ¤ÀÌ ¾ø´Ù¸é.. ¹Ù·Î »ı¼ºÇØ¾ß ÇÑ´Ù.
+                // ë„·ë§ˆë¸”ì¸ ê²½ìš°ì—.. ê³„ì •ì´ ì—†ë‹¤ë©´.. ë°”ë¡œ ìƒì„±í•´ì•¼ í•œë‹¤.
                 if (pResult->getRowCount() == 0) {
                     /*
                     cout << "NetMarble New Player: " << ID.c_str() << endl;
@@ -372,7 +372,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                     payPlayFlag          = 0;
                     */
 
-                    // checkFreePass()¿¡¼­ Ãß°¡ÇÏ¹Ç·Î ÀÖ¾î¾ß ÇÑ´Ù.
+                    // checkFreePass()ì—ì„œ ì¶”ê°€í•˜ë¯€ë¡œ ìˆì–´ì•¼ í•œë‹¤.
                     LCLoginError lcLoginError;
                     lcLoginError.setErrorID(ETC_ERROR);
                     pLoginPlayer->sendPacket(&lcLoginError);
@@ -461,12 +461,12 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 
 
 #ifdef __PAY_SYSTEM_LOGIN__
-			// ºô¸µ by sigi. 2002.5.31
+			// ë¹Œë§ by sigi. 2002.5.31
 			if (!pLoginPlayer->loginPayPlay(payType, 
 											payPlayDate, payPlayHours, payPlayFlag,
 											connectIP, ID))
 			{
-                // µ· ¾È ³½ °èÁ¤ÀÌ´Ù. ³É~~
+                // ëˆ ì•ˆ ë‚¸ ê³„ì •ì´ë‹¤. ëƒ¥~~
                 LCLoginError lcLoginError;
                 lcLoginError.setErrorID(NOT_PAY_ACCOUNT);
                 pLoginPlayer->sendPacket(&lcLoginError);
@@ -476,28 +476,28 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                 return;
 			}
 #elif defined(__PAY_SYSTEM_FREE_LIMIT__)
-            // ºô¸µ by sigi. 2002.11.21
+            // ë¹Œë§ by sigi. 2002.11.21
             if (pLoginPlayer->loginPayPlay(payType, payPlayDate, payPlayHours, payPlayFlag, connectIP, ID)) {
-                // ÀÏ´Ü ±×³É µé¾î°¡µĞ´Ù.
+                // ì¼ë‹¨ ê·¸ëƒ¥ ë“¤ì–´ê°€ë‘”ë‹¤.
             }
 #else // elif defined(__PAY_SYSTEM_ZONE__)
             pLoginPlayer->setPayPlayValue(payType, payPlayDate, payPlayHours, payPlayFlag, familyPayPlayDate);
 #endif
 
-			// ÀÌ¹Ì °ÔÀÓ Áß¿¡ Á¢¼ÓµÇ¾î ÀÖ´Ù¸é, Á¢¼ÓÇÒ ¼ö ¾ø´Ù.
+			// ì´ë¯¸ ê²Œì„ ì¤‘ì— ì ‘ì†ë˜ì–´ ìˆë‹¤ë©´, ì ‘ì†í•  ìˆ˜ ì—†ë‹¤.
 			bool bSameIP = false;
 			if (logon == "LOGON" || 
 				logon == "GAME")
 			{
-                // LOGON»óÅÂ¶ó¸é °°Àº IP¿¡¼­ Á¢¼ÓÇßÀ¸¸é Á¢¼Ó °¡´É
+                // LOGONìƒíƒœë¼ë©´ ê°™ì€ IPì—ì„œ ì ‘ì†í–ˆìœ¼ë©´ ì ‘ì† ê°€ëŠ¥
                 // if (logon=="LOGON" && connectIP==lastIP)
                 //{
                 //}
-                // (!) IP°¡ ´Ù¸£¸é ÀçÁ¢ºÒ°¡´Ù.
+                // (!) IPê°€ ë‹¤ë¥´ë©´ ì¬ì ‘ë¶ˆê°€ë‹¤.
                 // else
 
-                // LOGON»óÅÂ¿¡¼­´Â ÀçÁ¢ ºÒ°¡ÇÏ´Ù.
-                // IP Á¢¼ÓÁö°¡ ´Ù¸£¸é.. GAMEÀÌ¶óµµ Á¢¼ÓºÒ°¡´Ù.
+                // LOGONìƒíƒœì—ì„œëŠ” ì¬ì ‘ ë¶ˆê°€í•˜ë‹¤.
+                // IP ì ‘ì†ì§€ê°€ ë‹¤ë¥´ë©´.. GAMEì´ë¼ë„ ì ‘ì†ë¶ˆê°€ë‹¤.
                 if (logon == "LOGON" || connectIP != lastIP) // || !pPacket->checkMacAddress(lastMacAddress))
                 {
                     LCLoginError lcLoginError;
@@ -507,7 +507,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                     filelog("loginfail.txt", "Error Code: ALREADY_CONNECTED, 7, PlayerID : %s",
                             pPacket->getID().c_str());
 
-                    // ½ÇÆĞ È¸¼ö°¡ 3º¸´Ù Å¬ °æ¿ì, ¿¬°áÀ» Á¾·áÇÑ´Ù.
+                    // ì‹¤íŒ¨ íšŒìˆ˜ê°€ 3ë³´ë‹¤ í´ ê²½ìš°, ì—°ê²°ì„ ì¢…ë£Œí•œë‹¤.
                     uint nFailed = pLoginPlayer->getFailureCount();
 
                     if (nFailed > 3) {
@@ -522,27 +522,27 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 
                     // bSameIP = false;
                 }
-                // GAMEÀÌ°í IP°¡ °°Àº °æ¿ì
+                // GAMEì´ê³  IPê°€ ê°™ì€ ê²½ìš°
                 else {
                     bSameIP = true;
                 }
 			}
 
-			// -- µ· º¹»ç ¶§¹®¿¡ Àá½Ã ºÀÀÎ
-			// 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎµ¥..
-			// °­Á¦ Á¢¼Ó ÇØÁ¦¸¦ ½ÃÅ°±æ ±â´Ù¸®´Â »óÅÂ·Î ¼³Á¤ÇÑ´Ù.
+			// -- ëˆ ë³µì‚¬ ë•Œë¬¸ì— ì ì‹œ ë´‰ì¸
+			// 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ë°..
+			// ê°•ì œ ì ‘ì† í•´ì œë¥¼ ì‹œí‚¤ê¸¸ ê¸°ë‹¤ë¦¬ëŠ” ìƒíƒœë¡œ ì„¤ì •í•œë‹¤.
 			if (bSameIP)
 			{
                 if (!bFreePass || bWebLogin) // by sigi. 2002.10.23
                 {
-                    // ÇÑ±¹
+                    // í•œêµ­
                     if (strstr(SSN.c_str(), "-") != NULL) {
                         bAdult = isAdultByBirthday(SSN.substr(0, 6));
                     }
-                    // Áß±¹
+                    // ì¤‘êµ­
                     else {
 #ifdef __CHINA_SERVER__
-                        // Áß±¹Àº ¹«Á¶°Ç ¼ºÀÎ
+                        // ì¤‘êµ­ì€ ë¬´ì¡°ê±´ ì„±ì¸
                         bAdult = true;
 #else
                         if (SSN.size() == 15) {
@@ -550,20 +550,20 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                         } else if (SSN.size() == 18) {
                             bAdult = isAdultByBirthday(SSN.substr(8, 14));
                         } else {
-                            // ÀÌ·± °æ¿ì´Â ¾ø´Ù°í ÇÏ´Âµ¥ -_-a
+                            // ì´ëŸ° ê²½ìš°ëŠ” ì—†ë‹¤ê³  í•˜ëŠ”ë° -_-a
                             bAdult = false;
                         }
 #endif
                     }
                 }
 
-                // ÀÏ´Ü PlayerID¸¦ ÀúÀåÇØµĞ´Ù.
+                // ì¼ë‹¨ PlayerIDë¥¼ ì €ì¥í•´ë‘”ë‹¤.
                 pLoginPlayer->setID(ID);
                 pLoginPlayer->setSSN(SSN);
                 pLoginPlayer->setZipcode(zipcode);
 
-                // ÀÌ °æ¿ì´Â GameServerÀÇ ÀÀ´äÀ» ¹Ş¾Æ¾ßÁö LCLoginOK¸¦ º¸³»±â ¶§¹®¿¡
-                // ÀÏ´Ü, Äõ¸® °á°ú¸¦ ÀÌ¿ëÇØ¼­ °ªÀ» ÀúÀåÇØµĞ´Ù.
+                // ì´ ê²½ìš°ëŠ” GameServerì˜ ì‘ë‹µì„ ë°›ì•„ì•¼ì§€ LCLoginOKë¥¼ ë³´ë‚´ê¸° ë•Œë¬¸ì—
+                // ì¼ë‹¨, ì¿¼ë¦¬ ê²°ê³¼ë¥¼ ì´ìš©í•´ì„œ ê°’ì„ ì €ì¥í•´ë‘”ë‹¤.
                 pLoginPlayer->setAdult(bAdult);
 
                 pLoginPlayer->sendLGKickCharacter();
@@ -581,13 +581,13 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                 /*
                 if (bSameIP)
                 {
-                    // ·Î±×ÀÎ¿¡ ¼º°øÇßÀ¸¸é, LogOn Á¤º¸¸¦ LOGOFF ¿¡¼­ LOGON À¸·Î º¯°æÇÑ´Ù.
+                    // ë¡œê·¸ì¸ì— ì„±ê³µí–ˆìœ¼ë©´, LogOn ì •ë³´ë¥¼ LOGOFF ì—ì„œ LOGON ìœ¼ë¡œ ë³€ê²½í•œë‹¤.
                     pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGON' WHERE PlayerID = '%s'",ID.c_str());
                 }
                 else
                 {
                 */
-                // LOGOFFÀÎ °æ¿ì¸¸ LOGONÀ¸·Î ¹Ù²Û´Ù.
+                // LOGOFFì¸ ê²½ìš°ë§Œ LOGONìœ¼ë¡œ ë°”ê¾¼ë‹¤.
                 // by sigi. 2002.5.15
                 //					pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGON', LoginIP = '%s',MacAddress =
                 //'%s', CurrentLoginServerID=%d, LastLoginDate=now() WHERE PlayerID = '%s' AND
@@ -598,8 +598,8 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                                     connectIP.c_str(), g_pConfig->getPropertyInt("LoginServerID"), ID.c_str());
                 int affectedRowCount = pStmt->getAffectedRowCount();
 
-                // ÃÖ±Ù Á¢¼Ó IP¸¦ 5°³±îÁö ³²±ä´Ù. IP TableÀº º°µµ·Î ±â·ÏÇÑ´Ù.
-                // LoginPlayerData ¿¡ IP¸¦ ³²±â¹Ç·Î ÇÊ¿ä¾ø´Ù. by bezz 2003.04.21
+                // ìµœê·¼ ì ‘ì† IPë¥¼ 5ê°œê¹Œì§€ ë‚¨ê¸´ë‹¤. IP Tableì€ ë³„ë„ë¡œ ê¸°ë¡í•œë‹¤.
+                // LoginPlayerData ì— IPë¥¼ ë‚¨ê¸°ë¯€ë¡œ í•„ìš”ì—†ë‹¤. by bezz 2003.04.21
                 // pStmt->executeQuery("UPDATE PlayerIPList SET IP1=IP2, Date1=Date2, IP2=IP3, Date2=Date3, IP3=IP4,
                 // Date3=Date4, IP4=IP5, Date4=Date5, IP5='%s', Date5=now() WHERE PlayerID='%s'",connectIP.c_str(),
                 // ID.c_str());
@@ -610,17 +610,17 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                 //							ID.c_str());
                 // }
 
-                // LogOnÀÌ LOGOFF°¡ ¾Æ´Ï°Å³ª.
-                // PlayerID°¡ ¾ø°Å³ª.. -_-
+                // LogOnì´ LOGOFFê°€ ì•„ë‹ˆê±°ë‚˜.
+                // PlayerIDê°€ ì—†ê±°ë‚˜.. -_-
                 if (affectedRowCount == 0) {
-                    // ´Ù¸¥ LoginServer¿¡ ÀÌ¹Ì Á¢¼ÓµÇ¾î ÀÖ´ÂÁö È®ÀÎÇÏ°í
-                    // ÀÌ¹Ì ÀÖ´Ù¸é ±× Player¸¦ kickÇÏ°í
-                    // ¿©±â¼­ Á¢¼ÓÇÒ ¼ö ÀÖ°Ô ¼³Á¤ÇØ¾ß ÇÑ´Ù.
+                    // ë‹¤ë¥¸ LoginServerì— ì´ë¯¸ ì ‘ì†ë˜ì–´ ìˆëŠ”ì§€ í™•ì¸í•˜ê³ 
+                    // ì´ë¯¸ ìˆë‹¤ë©´ ê·¸ Playerë¥¼ kickí•˜ê³ 
+                    // ì—¬ê¸°ì„œ ì ‘ì†í•  ìˆ˜ ìˆê²Œ ì„¤ì •í•´ì•¼ í•œë‹¤.
 
-                    // ÀÏ´Ü ´Ù ¸·´Â´Ù. ¹º°¡ ¹®Á¦°¡ ÀÖ¾î¼­ LogOn »óÅÂ´Â Çã¿ë½ÃÄÑ³õÀº°Í °°Àºµ¥
-                    // ¹®Á¦°¡ »ı±â¸é ´Ù½Ã Ç¬´Ù. by bezz 2003.07.07
+                    // ì¼ë‹¨ ë‹¤ ë§‰ëŠ”ë‹¤. ë­”ê°€ ë¬¸ì œê°€ ìˆì–´ì„œ LogOn ìƒíƒœëŠ” í—ˆìš©ì‹œì¼œë†“ì€ê²ƒ ê°™ì€ë°
+                    // ë¬¸ì œê°€ ìƒê¸°ë©´ ë‹¤ì‹œ í‘¼ë‹¤. by bezz 2003.07.07
 
-                    // LogOn »óÅÂ´Â ÀÏ´Ü Çã¿ë½ÃÄÑ º»´Ù.
+                    // LogOn ìƒíƒœëŠ” ì¼ë‹¨ í—ˆìš©ì‹œì¼œ ë³¸ë‹¤.
                     // pStmt->executeQuery("UPDATE Player SET LoginIP = '%s', CurrentLoginServerID=%d,
                     // LastLoginDate=now() WHERE PlayerID = '%s' AND LogOn='LOGON'",connectIP.c_str(),
                     // g_pConfig->getPropertyInt("LoginServerID"), ID.c_str());
@@ -640,7 +640,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                     return;
                     //}
 
-                    // LogOn»óÅÂ·Î loginÀÌ Çã¿ëµÈ »óÅÂ
+                    // LogOnìƒíƒœë¡œ loginì´ í—ˆìš©ëœ ìƒíƒœ
                 }
                 /*
                 }
@@ -648,11 +648,11 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 
                 __END_DEBUG
 
-                // ÀÏ´Ü ÀÎÁõÀÌ µÇ¾úÀ¸¹Ç·Î, ¾ÆÀÌµğ¸¦ ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î °´Ã¼¿¡ ÀúÀåÇÑ´Ù.
+                // ì¼ë‹¨ ì¸ì¦ì´ ë˜ì—ˆìœ¼ë¯€ë¡œ, ì•„ì´ë””ë¥¼ ë¡œê·¸ì¸ í”Œë ˆì´ì–´ ê°ì²´ì— ì €ì¥í•œë‹¤.
                 pLoginPlayer->setID(ID);
 
-                // loginserver ¿¡¼­ billing ºÎºĞ »©±â·Î ÇÑ´Ù.
-                // ¾Öµåºô ¿äÃ». by bezz 2003.04.22
+                // loginserver ì—ì„œ billing ë¶€ë¶„ ë¹¼ê¸°ë¡œ í•œë‹¤.
+                // ì• ë“œë¹Œ ìš”ì²­. by bezz 2003.04.22
                 // #ifdef __CONNECT_BILLING_SYSTEM__
                 //  by sigi. 2002.11.21
                 // pLoginPlayer->setBillingSession();
@@ -660,29 +660,29 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                 // pLoginPlayer->sendBillingLogin();
 // #endif
 #ifdef __CONNECT_CBILLING_SYSTEM__
-                // Áß±¹ ºô¸µ ¼­¹ö¿¡ ·Î±×ÀÎ ÇÏ¶ó°í ¾Ë¸°´Ù.
+                // ì¤‘êµ­ ë¹Œë§ ì„œë²„ì— ë¡œê·¸ì¸ í•˜ë¼ê³  ì•Œë¦°ë‹¤.
                 g_pCBillingPlayerManager->sendLogin(pLoginPlayer);
 #endif
 
 
-                // ·Î±×ÀÎ Àü¿¡´Â ¹«Á¶°Ç °ÔÀÓ¼­¹ö¿¡ ÀÌ ÆĞÅ¶ º¸³»¼­
-                // Á¢¼ÓÇØ ÀÖÁö¸¸ DB ¿¡ Àß¸ø ±â·ÏµÇ Áßº¹ ·Î±äÀÌ µÇ´Â °ÍÀ» ¸·´Â´Ù
+                // ë¡œê·¸ì¸ ì „ì—ëŠ” ë¬´ì¡°ê±´ ê²Œì„ì„œë²„ì— ì´ íŒ¨í‚· ë³´ë‚´ì„œ
+                // ì ‘ì†í•´ ìˆì§€ë§Œ DB ì— ì˜ëª» ê¸°ë¡ë˜ ì¤‘ë³µ ë¡œê¸´ì´ ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ë‹¤
                 //				pLoginPlayer->sendLGKickCharacter();
 
-                // ·Î±×ÀÎ ¼º°øÀ» ¾Ë·ÁÁØ´Ù.
+                // ë¡œê·¸ì¸ ì„±ê³µì„ ì•Œë ¤ì¤€ë‹¤.
                 LCLoginOK lcLoginOK;
                 lcLoginOK.setFamily(false);
 
                 if (!bFreePass || bWebLogin) // by sigi. 2002.10.23
                 {
-                    // ÇÑ±¹
+                    // í•œêµ­
                     if (strstr(SSN.c_str(), "-") != NULL) {
                         bAdult = isAdultByBirthday(SSN.substr(0, 6));
                     }
-                    // Áß±¹
+                    // ì¤‘êµ­
                     else {
 #ifdef __CHINA_SERVER__
-                        // Áß±¹Àº ¹«Á¶°Ç ¼ºÀÎ
+                        // ì¤‘êµ­ì€ ë¬´ì¡°ê±´ ì„±ì¸
                         bAdult = true;
 #else
                         if (SSN.size() == 15) {
@@ -690,7 +690,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                         } else if (SSN.size() == 18) {
                             bAdult = isAdultByBirthday(SSN.substr(8, 14));
                         } else {
-                            // ÀÌ·± °æ¿ì´Â ¾ø´Ù°í ÇÏ´Âµ¥ -_-a
+                            // ì´ëŸ° ê²½ìš°ëŠ” ì—†ë‹¤ê³  í•˜ëŠ”ë° -_-a
                             bAdult = false;
                         }
 #endif
@@ -730,37 +730,37 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                             lcLoginOK.setFamily(true);
                             lcLoginOK.setLastDays(familyLastDays);
 
-                            cout << "Family ¿ä±İÁ¦" << endl;
+                            cout << "Family ìš”ê¸ˆì œ" << endl;
                         } else {
                             lcLoginOK.setFamily(false);
                             lcLoginOK.setLastDays(lastDays);
-                            cout << "Premium ¿ä±İÁ¦" << endl;
+                            cout << "Premium ìš”ê¸ˆì œ" << endl;
                         }
                     }
                 }
 
-                // cout << lcLoginOK.getLastDays() << "ÀÏ ³²¾Ò½À´Ï´Ù." << endl;
+                // cout << lcLoginOK.getLastDays() << "ì¼ ë‚¨ì•˜ìŠµë‹ˆë‹¤." << endl;
                 if (lcLoginOK.getLastDays() > 1000)
                     filelog("PayPlayDateLog.txt", "UserID : %s , LastDays : %ld", ID.c_str(), lcLoginOK.getLastDays());
 
-                // ÄÄ¹é ÀÌº¥Æ® °ü·Ã
+                // ì»´ë°± ì´ë²¤íŠ¸ ê´€ë ¨
                 {
                     pResult = pStmt->executeQuery(
                         "SELECT PlayerID FROM Event200501Main WHERE PlayerID = '%s' AND RecvPremiumDate = '0000-00-00'",
                         pLoginPlayer->getID().c_str());
 
                     if (pResult->next()) {
-                        // ÄÄ¹é ÀÌº¥Æ® ´ë»óÀÚ´Ù.
-                        // ÇÁ¸®¹Ì¾ö 7ÀÏÀ» ³Ö¾îÁÖÀÚ
+                        // ì»´ë°± ì´ë²¤íŠ¸ ëŒ€ìƒìë‹¤.
+                        // í”„ë¦¬ë¯¸ì—„ 7ì¼ì„ ë„£ì–´ì£¼ì
                         pStmt->executeQuery("UPDATE Player SET PayPlayDate = IF (PayPlayDate < NOW(), NOW() + INTERVAL "
                                             "7 DAY, PayPlayDate + INTERVAL 7 DAY ) WHERE PlayerID = '%s'",
                                             pLoginPlayer->getID().c_str());
 
-                        // ÄÄ¹é ÀÌº¥Æ® ÇÁ¸®¹Ì¾ö 7ÀÏÀ» ¹Ş¾Ò´Ù°í ³Ö¾îÁÖÀÚ
+                        // ì»´ë°± ì´ë²¤íŠ¸ í”„ë¦¬ë¯¸ì—„ 7ì¼ì„ ë°›ì•˜ë‹¤ê³  ë„£ì–´ì£¼ì
                         pStmt->executeQuery("UPDATE Event200501Main SET RecvPremiumDate = NOW() WHERE PlayerID = '%s'",
                                             pLoginPlayer->getID().c_str());
 
-                        // Å¬¶óÀÌ¾ğÆ®¿¡ ÀÌº¥Æ® ´ë»óÀÚ¶ó°í ¾Ë¸®±â
+                        // í´ë¼ì´ì–¸íŠ¸ì— ì´ë²¤íŠ¸ ëŒ€ìƒìë¼ê³  ì•Œë¦¬ê¸°
                         lcLoginOK.setLastDays(0xfffd);
                     }
                 }
@@ -768,7 +768,7 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
 #endif
 
 #ifdef __NETMARBLE_SERVER__
-                // ³İ¸¶ºí »ç¿ëÀÚ ¾à°ü µ¿ÀÇ ¿©ºÎ Ã¼Å©
+                // ë„·ë§ˆë¸” ì‚¬ìš©ì ì•½ê´€ ë™ì˜ ì—¬ë¶€ ì²´í¬
                 pResult = pStmt->executeQuery("SELECT PlayerID FROM PrivateAgreementRemain WHERE PlayerID = '%s'",
                                               pLoginPlayer->getID().c_str());
 
@@ -781,8 +781,8 @@ void CLLoginHandler::execute(CLLogin* pPacket, Player* pPlayer)
                 }
 #endif
                 /*
-                // ¼­¹ö ±×·ì ÀÌ¸§À» ¼ÂÆÃÇÑ´Ù.
-                // ¼­¹ö ¾ÆÀÌµğ·Î ¼­¹öÀÇ ±×·ì¾ÆÀÌµğ¸¦ Ã£Àº ´ÙÀ½ ¼­¹ö ±×·ì Á¤º¸¸¦ Ã£´Â´Ù.
+                // ì„œë²„ ê·¸ë£¹ ì´ë¦„ì„ ì…‹íŒ…í•œë‹¤.
+                // ì„œë²„ ì•„ì´ë””ë¡œ ì„œë²„ì˜ ê·¸ë£¹ì•„ì´ë””ë¥¼ ì°¾ì€ ë‹¤ìŒ ì„œë²„ ê·¸ë£¹ ì •ë³´ë¥¼ ì°¾ëŠ”ë‹¤.
                 lcLoginOK.setGroupName(g_pGameServerGroupInfoManager->getGameServerGroupInfo(pLoginPlayer->getServerGroupID())->getGroupName());
                 lcLoginOK.setStat(SERVER_FREE);
 
@@ -831,7 +831,7 @@ CurrentServerGroupID == 7 ) {
         throw Error(sqe.toString());
     }
 
-    // ´Ù¸¥ °÷¿¡¼­µµ ÇÊ¿äÇÑ ÄÚµå¶ó¼­. ÇÔ¼ö·Î »¯´ç. by sigi. 2002.5.8
+    // ë‹¤ë¥¸ ê³³ì—ì„œë„ í•„ìš”í•œ ì½”ë“œë¼ì„œ. í•¨ìˆ˜ë¡œ ëºë‹¹. by sigi. 2002.5.8
     addLoginPlayerData(ID, connectIP, SSN, zipcode);
 
 #endif
@@ -842,7 +842,7 @@ CurrentServerGroupID == 7 ) {
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// YYMMDD ·Î ¼ºÀÎ ÆÇº°
+// YYMMDD ë¡œ ì„±ì¸ íŒë³„
 //
 //////////////////////////////////////////////////////////////////////////////
 bool isAdultByBirthday(const string& birthday) {
@@ -863,13 +863,13 @@ bool isAdultByBirthday(const string& birthday) {
 
     // cout << "SSN = " << birthday.c_str() << " ADULTSSN = " << AdultSSN.toString().c_str() << endl;
 
-    // ¼ºÀÎÀÎÁö ¾Æ´ÑÁö ÁÖ¹Îµî·Ï ¹øÈ£ Ã¼Å©
+    // ì„±ì¸ì¸ì§€ ì•„ë‹Œì§€ ì£¼ë¯¼ë“±ë¡ ë²ˆí˜¸ ì²´í¬
     if (atoi(birthday.c_str()) <= atoi(AdultSSN.toString().c_str())) {
-        // cout << "¾î¸¥" << endl;
+        // cout << "ì–´ë¥¸" << endl;
         return true;
     }
 
-    // cout << "¾Öµé" << endl;
+    // cout << "ì• ë“¤" << endl;
     return false;
 }
 
@@ -878,8 +878,8 @@ bool isAdultByBirthday(const string& birthday) {
 //
 // add LoginPlayerdata
 //
-// Á¢¼ÓÀÚ Åë°è¸¦ À§ÇØ¼­
-// UserInfo DBÀÇ LoginPlayerData¿¡ LoginÇÑ »ç¿ëÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+// ì ‘ì†ì í†µê³„ë¥¼ ìœ„í•´ì„œ
+// UserInfo DBì˜ LoginPlayerDataì— Loginí•œ ì‚¬ìš©ìë¥¼ ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 void addLoginPlayerData(const string& ID, const string& ip, const string& SSN, const string& zipcode) {
@@ -887,19 +887,19 @@ void addLoginPlayerData(const string& ID, const string& ip, const string& SSN, c
 
     Statement* pStmt2 = NULL;
 
-    // [È«Ã¢ºÁ¶ó]
-    // ¹Ø¿¡²¨ ¸»°í..
+    // [í™ì°½ë´ë¼]
+    // ë°‘ì—êº¼ ë§ê³ ..
     // UPDATE Player Set LoginFlagDay=1, LoginFlagWeek=1, LoginFlagMonth=1 WHERE PlayerID='%s'
-    // ÀÌ Á¤µµ·Î¸¸ ÇØ³öµµ ±¦ÂúÁö ¾ÊÀ»±î..
-    // ½Ã°£À» ³Ö¾î¼­ ¾µ ÇÊ¿ä°¡ ÀÖ´ÂÁö È®ÀÎÀÌ ÇÊ¿äÇÏ°ÚÁö?
-    // ´©±¸ÀÇ ÃÖ±Ù Á¢¼Ó ½Ã°£ °°Àº°É UserInfo¿¡¼­ »Ì¾Æ¼­ ¾²´Â°¡?
-    // ±Ùµ¥ ÀÌ°Å SSNÀº ¿Ö ³Ö³ë? ³ªÀÌ Åë°èµµ »Ì³ª?
-    // ±Û°í. DARKEDENÀÌ¶û DB´Â ºĞ¸®µÈÃ¤·Î µÎ´Â°Ô ³ªÀ»±î?
-    // ±Ù¹«½Ã°£ÀÌ ´Ù¸£´Ï ´ä´äÇÏ±º.
+    // ì´ ì •ë„ë¡œë§Œ í•´ë†”ë„ ê´œì°®ì§€ ì•Šì„ê¹Œ..
+    // ì‹œê°„ì„ ë„£ì–´ì„œ ì“¸ í•„ìš”ê°€ ìˆëŠ”ì§€ í™•ì¸ì´ í•„ìš”í•˜ê² ì§€?
+    // ëˆ„êµ¬ì˜ ìµœê·¼ ì ‘ì† ì‹œê°„ ê°™ì€ê±¸ UserInfoì—ì„œ ë½‘ì•„ì„œ ì“°ëŠ”ê°€?
+    // ê·¼ë° ì´ê±° SSNì€ ì™œ ë„£ë…¸? ë‚˜ì´ í†µê³„ë„ ë½‘ë‚˜?
+    // ê¸€ê³ . DARKEDENì´ë‘ DBëŠ” ë¶„ë¦¬ëœì±„ë¡œ ë‘ëŠ”ê²Œ ë‚˜ì„ê¹Œ?
+    // ê·¼ë¬´ì‹œê°„ì´ ë‹¤ë¥´ë‹ˆ ë‹µë‹µí•˜êµ°.
 
-    // À¯Àú Åë°è °ü·Ã Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù.
+    // ìœ ì € í†µê³„ ê´€ë ¨ ì •ë³´ë¥¼ ì…ë ¥í•œë‹¤.
     BEGIN_DB {
-        // ¸ÕÀú ÇöÀç ½Ã°£À» ¾ò¾î³½´Ù.
+        // ë¨¼ì € í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ë‚¸ë‹¤.
         int year, month, day, hour, minute, second;
         getCurrentTimeEx(year, month, day, hour, minute, second);
         string currentDT = VSDateTime::currentDateTime().toDateTime();
@@ -947,7 +947,7 @@ bool CLLoginHandler::checkNetMarbleClient(CLLogin* pPacket, Player* pPlayer)
             return false;
         }
 
-        // ÀÏºÎ Ã¼Å©¿¡¼­.. FreePass·Î ³Ñ¾î°¡°Ô µÈ´Ù.
+        // ì¼ë¶€ ì²´í¬ì—ì„œ.. FreePassë¡œ ë„˜ì–´ê°€ê²Œ ëœë‹¤.
         pLoginPlayer->setFreePass(true);
 
 
@@ -973,9 +973,9 @@ bool CLLoginHandler::checkFreePass(CLLogin* pPacket, Player* pPlayer)
 
     // LoginPlayer* pLoginPlayer = dynamic_cast<LoginPlayer*>(pPlayer);
 
-    // key_code¸¦ ºĞ¼®ÇØ¼­
-    // DBÀÇ ±× IDÀÇ key_code¿Í ºñ±³ÇÑ´Ù.
-    // °°À¸¸é true
+    // key_codeë¥¼ ë¶„ì„í•´ì„œ
+    // DBì˜ ê·¸ IDì˜ key_codeì™€ ë¹„êµí•œë‹¤.
+    // ê°™ìœ¼ë©´ true
     Statement* pStmt = NULL;
 
     try {
@@ -999,13 +999,13 @@ bool CLLoginHandler::checkFreePass(CLLogin* pPacket, Player* pPlayer)
                 }
             } else {
                 // cout << "ID wrong: " << pPacket->getID().c_str() << endl;
-                //  ¿ø·¡´Â ¾ÈµÇ´Â°Çµ¥..
-                //  »õ »ç¿ëÀÚ´Â ¹«Á¶°Ç Ãß°¡ÇÑ´Ù°í ³İ¸¶ºíÇØ¼­ ±×·¡ ÇÏ¶ó³×. Çæ~~~
+                //  ì›ë˜ëŠ” ì•ˆë˜ëŠ”ê±´ë°..
+                //  ìƒˆ ì‚¬ìš©ìëŠ” ë¬´ì¡°ê±´ ì¶”ê°€í•œë‹¤ê³  ë„·ë§ˆë¸”í•´ì„œ ê·¸ë˜ í•˜ë¼ë„¤. í—~~~
                 cout << "NetMarble New Player: " << pPacket->getID().c_str() << endl;
 
-                // ¿©±â±îÁö ¿À¸é ¹«Á¶°Ç ³İ¸¶ºíÀÌ¶ó°í º»´Ù.
-                // SpecialEventCount Ä®·³Àº 2·Î ¼¼ÆÃÇØÁØ´Ù. Áï, ÀÌº¥Æ® ¾ÆÀÌÅÛÀ» ÀÌ¹ÌÁØ°É·Î »ı°¢
-                // ¿¹¾à°¡ÀÔ ÇÑ ³Ñµé ÇÑÅ×¸¸ ¾ÆÀÌÅÛ ÁØ´Ù.
+                // ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ ë¬´ì¡°ê±´ ë„·ë§ˆë¸”ì´ë¼ê³  ë³¸ë‹¤.
+                // SpecialEventCount ì¹¼ëŸ¼ì€ 2ë¡œ ì„¸íŒ…í•´ì¤€ë‹¤. ì¦‰, ì´ë²¤íŠ¸ ì•„ì´í…œì„ ì´ë¯¸ì¤€ê±¸ë¡œ ìƒê°
+                // ì˜ˆì•½ê°€ì… í•œ ë„˜ë“¤ í•œí…Œë§Œ ì•„ì´í…œ ì¤€ë‹¤.
                 // 2003.04.30 by bezz, DEW
                 pStmt->executeQuery(
                     "INSERT IGNORE INTO Player (PlayerID, Password, Name, SSN, SpecialEventCount, Event, "
@@ -1013,7 +1013,7 @@ bool CLLoginHandler::checkFreePass(CLLogin* pPacket, Player* pPlayer)
                     pPacket->getID().c_str(), pPacket->getPassword().c_str(), pPacket->getID().c_str());
 
                 // string  connectIP  = pPlayer->getSocket()->getHost();
-                //  LoginPlayerData ¿¡ IP Á¤º¸¸¦ ³²±â¹Ç·Î ÇÊ¿ä¾ø´Ù. by bezz 2003.04.21
+                //  LoginPlayerData ì— IP ì •ë³´ë¥¼ ë‚¨ê¸°ë¯€ë¡œ í•„ìš”ì—†ë‹¤. by bezz 2003.04.21
                 // pStmt->executeQuery("INSERT IGNORE INTO PlayerIPList (PlayerID) Values('%s')",
                 //						pPacket->getID().c_str());
 
@@ -1070,15 +1070,15 @@ bool isBlockIP(const string& ip) {
             int index;
 
             switch (ipClass) {
-            // classC °¡ ¸Â°í ¹üÀ§°¡ ÁöÁ¤µÈ °æ¿ì
+            // classC ê°€ ë§ê³  ë²”ìœ„ê°€ ì§€ì •ëœ ê²½ìš°
             case 0:
                 index = atoi(ip.substr(k + 1, ip.size() - k - 1).c_str());
                 break;
-            // classA °¡ ¸Â°í ¹üÀ§°¡ ÁöÁ¤µÈ °æ¿ì
+            // classA ê°€ ë§ê³  ë²”ìœ„ê°€ ì§€ì •ëœ ê²½ìš°
             case 1:
                 index = atoi(ip.substr(i + 1, j - i - 1).c_str());
                 break;
-            // classB °¡ ¸Â°í ¹üÀ§°¡ ÁöÁ¤µÈ °æ¿ì
+            // classB ê°€ ë§ê³  ë²”ìœ„ê°€ ì§€ì •ëœ ê²½ìš°
             case 2:
                 index = atoi(ip.substr(j + 1, k - j - 1).c_str());
                 break;
@@ -1146,7 +1146,7 @@ bool CLLoginHandler::checkWebLogin(CLLogin* pPacket, Player* pPlayer) {
 
                 // check key
                 if (key != pPacket->getPassword()) {
-                    // cout << "Å°°¡ Æ²¸² : " << pPacket->getPassword() << endl;
+                    // cout << "í‚¤ê°€ í‹€ë¦¼ : " << pPacket->getPassword() << endl;
                     LCLoginError lcLoginError;
                     lcLoginError.setErrorID(INVALID_ID_PASSWORD);
                     pLoginPlayer->sendPacket(&lcLoginError);
@@ -1171,14 +1171,14 @@ bool CLLoginHandler::checkWebLogin(CLLogin* pPacket, Player* pPlayer) {
                     return false;
                 }
 
-                // ÀÏºÎ Ã¼Å©¿¡¼­.. FreePass·Î ³Ñ¾î°¡°Ô µÈ´Ù.
+                // ì¼ë¶€ ì²´í¬ì—ì„œ.. FreePassë¡œ ë„˜ì–´ê°€ê²Œ ëœë‹¤.
                 pLoginPlayer->setFreePass(true);
 
-                // Å°¸¦ Áö¿î´Ù.
+                // í‚¤ë¥¼ ì§€ìš´ë‹¤.
                 pStmt->executeQuery("DELETE FROM WebLogin WHERE PlayerID = '%s'", pPacket->getID().c_str());
             } else {
-                // cout << "Å°°¡ ¾ø´Ù : " << pPacket->getID() << endl;
-                //  Å°°¡ ¾ø´Ù.
+                // cout << "í‚¤ê°€ ì—†ë‹¤ : " << pPacket->getID() << endl;
+                //  í‚¤ê°€ ì—†ë‹¤.
                 LCLoginError lcLoginError;
                 lcLoginError.setErrorID(NOT_FOUND_KEY);
                 pLoginPlayer->sendPacket(&lcLoginError);

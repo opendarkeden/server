@@ -144,7 +144,7 @@ public:
         m_Target = target;
     }
 
-    // »õ·Î¿î ¹öÁ¯À» À§ÇØ.(ÇÕÃÄÁø ¹öÀü...)
+    // ìƒˆë¡œìš´ ë²„ì ¼ì„ ìœ„í•´.(í•©ì³ì§„ ë²„ì „...)
     uint getSubSkill() const {
         return m_SubSkill;
     }
@@ -201,7 +201,7 @@ public:
         (bPhysic ? m_PropertyType.set(SKILL_PROPERTY_TYPE_PHYSIC) : m_PropertyType.reset(SKILL_PROPERTY_TYPE_PHYSIC));
     }
 
-    // ¹è¿ì±â À§ÇØ ÇÊ¿äÇÑ ½ºÅ³ Æ÷ÀÎÆ®
+    // ë°°ìš°ê¸° ìœ„í•´ í•„ìš”í•œ ìŠ¤í‚¬ í¬ì¸íŠ¸
     int getSkillPoint() const {
         return m_SkillPoint;
     }
@@ -209,7 +209,7 @@ public:
         m_SkillPoint = skillPoint;
     }
 
-    // ½ºÅ³ ·¹º§ ¾÷ Æ÷ÀÎÆ®
+    // ìŠ¤í‚¬ ë ˆë²¨ ì—… í¬ì¸íŠ¸
     int getLevelUpPoint() const {
         return m_LevelUpPoint;
     }
@@ -217,7 +217,7 @@ public:
         m_LevelUpPoint = levelUpPoint;
     }
 
-    // ÀÌÀü¿¡ ¹è¿ö¾ß ÇÒ ½ºÅ³µé
+    // ì´ì „ì— ë°°ì›Œì•¼ í•  ìŠ¤í‚¬ë“¤
     void addRequireSkill(SkillType_t skillType) {
         m_RequireSkills.push_back(skillType);
     }
@@ -225,7 +225,7 @@ public:
         return m_RequireSkills;
     }
 
-    // ÀÌÀü¿¡ ¹è¿ö¾ß ÇÒ ½ºÅ³µé
+    // ì´ì „ì— ë°°ì›Œì•¼ í•  ìŠ¤í‚¬ë“¤
     void addRequiredSkill(SkillType_t skillType) {
         m_RequiredSkills.push_back(skillType);
     }
@@ -241,7 +241,7 @@ public:
     }
 
     ////////////////////////////////////////////////////////////////////////////
-    // ½ÃÀüÇÏ±â À§ÇØ ÇÊ¿äÇÑ Á¶°Çµé. ¾Æ¿ì½ºÅÍ½º¿ë
+    // ì‹œì „í•˜ê¸° ìœ„í•´ í•„ìš”í•œ ì¡°ê±´ë“¤. ì•„ìš°ìŠ¤í„°ìŠ¤ìš©
     ////////////////////////////////////////////////////////////////////////////
     Elemental_t getRequireFire() const {
         return m_RequireFire;
@@ -317,60 +317,60 @@ private:
     uint m_Type;        // Type
     string m_Name;      // Name
     uint m_Level;       // m_Level
-    uint m_MinDamage;   // ÃÖ¼Ò µ¥¹ÌÁö
-    uint m_MaxDamage;   // ÃÖ´ë µ¥¹ÌÁö
-    uint m_MinDelay;    // ÃÖ¼Ò µô·¹ÀÌ
-    uint m_MaxDelay;    // ÃÖ´ë µô·¹ÀÌ
-    uint m_MinCastTime; // Ä³½ºÆÃ Å¸ÀÓ.. ÃÊ´ÜÀ§
-    uint m_MaxCastTime; // ÃÖ´ë Ä³½ºÆÃ Å¸ÀÓ
+    uint m_MinDamage;   // ìµœì†Œ ë°ë¯¸ì§€
+    uint m_MaxDamage;   // ìµœëŒ€ ë°ë¯¸ì§€
+    uint m_MinDelay;    // ìµœì†Œ ë”œë ˆì´
+    uint m_MaxDelay;    // ìµœëŒ€ ë”œë ˆì´
+    uint m_MinCastTime; // ìºìŠ¤íŒ… íƒ€ì„.. ì´ˆë‹¨ìœ„
+    uint m_MaxCastTime; // ìµœëŒ€ ìºìŠ¤íŒ… íƒ€ì„
 
-    // ÃÖ¼Ò Áö¼Ó½Ã°£
-    // ÃÖ´ë ÃÖ¼Ò°¡ ±¸º°¾øÀÌ ±×³É Áö¼Ó½Ã°£¸¸ ÀÖ´Â °ÍÀº ÃÖ¼Ò Áö¼Ó½Ã°£¿¡¼­ ÀĞ¾î¿À¸é µÈ´Ù.
-    // Áö¼Ó½Ã°£ÀÌ 0ÀÎ °ÍÀº Instant, -1 Àº LongÀ» ÀÇ¹ÌÇÑ´Ù.
+    // ìµœì†Œ ì§€ì†ì‹œê°„
+    // ìµœëŒ€ ìµœì†Œê°€ êµ¬ë³„ì—†ì´ ê·¸ëƒ¥ ì§€ì†ì‹œê°„ë§Œ ìˆëŠ” ê²ƒì€ ìµœì†Œ ì§€ì†ì‹œê°„ì—ì„œ ì½ì–´ì˜¤ë©´ ëœë‹¤.
+    // ì§€ì†ì‹œê°„ì´ 0ì¸ ê²ƒì€ Instant, -1 ì€ Longì„ ì˜ë¯¸í•œë‹¤.
     int m_MinDuration;
 
-    // ÃÖ´ë Áö¼Ó½Ã°£
+    // ìµœëŒ€ ì§€ì†ì‹œê°„
     int m_MaxDuration;
 
-    // MP ¼Òºñ·®
+    // MP ì†Œë¹„ëŸ‰
     uint m_ConsumeMP;
 
-    // ÃÖ´ë ÃÖ¼Ò »çÁ¤°Å¸®, ½Ã¾ß???
+    // ìµœëŒ€ ìµœì†Œ ì‚¬ì •ê±°ë¦¬, ì‹œì•¼???
     uint m_MaxRange;
     uint m_MinRange;
 
-    // ¸íÁß½ÃÅ³ ¼ö ÀÖ´Â Å¸°ÙÀÇ MoveType
+    // ëª…ì¤‘ì‹œí‚¬ ìˆ˜ ìˆëŠ” íƒ€ê²Ÿì˜ MoveType
     // 0x01 : burrowing
     // 0x02 : walking
     // 0x04 : flying
     uint m_Target;
 
-    // ÇÕÃÄÁø ¹öÁ¯À» À§ÇØ..
+    // í•©ì³ì§„ ë²„ì ¼ì„ ìœ„í•´..
     uint m_SubSkill;
     uint m_Point;
 
     BYTE m_Domain;
 
-    // ¸¶¹ıÀÇ °è¿­. µ¶, »ê, ÀúÁÖ µîµî
+    // ë§ˆë²•ì˜ ê³„ì—´. ë…, ì‚°, ì €ì£¼ ë“±ë“±
     int m_MagicDomain;
 
-    // Á¤·É °è¿­
+    // ì •ë ¹ ê³„ì—´
     int m_ElementalDomain;
 
-    // ÇÊ¿äÇÑ ½ºÅ³ Æ÷ÀÎÆ®
+    // í•„ìš”í•œ ìŠ¤í‚¬ í¬ì¸íŠ¸
     int m_SkillPoint;
     int m_LevelUpPoint;
 
-    // ÀÌÀü¿¡ ¹è¿ö¾ßÇÒ ½ºÅ³µé
+    // ì´ì „ì— ë°°ì›Œì•¼í•  ìŠ¤í‚¬ë“¤
     list<SkillType_t> m_RequireSkills;
 
-    // ÀÌ°Å ´ÙÀ½¿¡ ¹è¿ï ¼ö ÀÖ´Â ½ºÅ³µé
+    // ì´ê±° ë‹¤ìŒì— ë°°ìš¸ ìˆ˜ ìˆëŠ” ìŠ¤í‚¬ë“¤
     list<SkillType_t> m_RequiredSkills;
 
     BYTE m_CanDelete;
 
-    // ½ÃÀüÇÏ±â À§ÇØ ÇÊ¿äÇÑ Á¶°Çµé
-    // ¾Æ¿ì½ºÅÍ½º ¿ë
+    // ì‹œì „í•˜ê¸° ìœ„í•´ í•„ìš”í•œ ì¡°ê±´ë“¤
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ìš©
     Elemental_t m_RequireFire;
     Elemental_t m_RequireWater;
     Elemental_t m_RequireEarth;
@@ -412,17 +412,17 @@ public:
     void addSkillInfo(SkillInfo* pSkillInfo);
 
     // get SkillType by LearnLevel
-    // ÇöÀçÀÇ µµ¸ŞÀÎ ·¹º§¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÇ Å¸ÀÔÀº ¾î¶² °ÍÀÎÁö Ã£´Â´Ù.
-    // µµ¸ŞÀÎÀÇ ·¹º§·Î ¾Ë ¼ö ÀÖÁö··.
+    // í˜„ì¬ì˜ ë„ë©”ì¸ ë ˆë²¨ì—ì„œ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì˜ íƒ€ì…ì€ ì–´ë–¤ ê²ƒì¸ì§€ ì°¾ëŠ”ë‹¤.
+    // ë„ë©”ì¸ì˜ ë ˆë²¨ë¡œ ì•Œ ìˆ˜ ìˆì§€ë .
     SkillType_t getSkillTypeByLevel(SkillDomainType_t SkillDomain, Level_t Level);
 
-    // µµ¸ŞÀÎÀÇ ·¹º§·Î ±× ·¹º§Àº ¾î¶² µî±Ş¿¡ ÇØ´çÇÏ´ÂÁö ¾Æ´Â ÇÔ¼ö.
+    // ë„ë©”ì¸ì˜ ë ˆë²¨ë¡œ ê·¸ ë ˆë²¨ì€ ì–´ë–¤ ë“±ê¸‰ì— í•´ë‹¹í•˜ëŠ”ì§€ ì•„ëŠ” í•¨ìˆ˜.
     SkillGrade getGradeByDomainLevel(Level_t Level);
 
-    // ÇöÀç µî±Ş¿¡¼­ ±â¼úÀÌ ¾î´ÀÁ¤µµ ·¹º§±îÁö ¿Ã¶ó°¥ ¼ö ÀÖ´ÂÁö ¾Ë¾Æ º»´Ù.
+    // í˜„ì¬ ë“±ê¸‰ì—ì„œ ê¸°ìˆ ì´ ì–´ëŠì •ë„ ë ˆë²¨ê¹Œì§€ ì˜¬ë¼ê°ˆ ìˆ˜ ìˆëŠ”ì§€ ì•Œì•„ ë³¸ë‹¤.
     Level_t getLimitLevelByDomainGrade(SkillGrade Grade);
 
-    // ÇöÀç INT¿¡¼­ MP °¨¼Ò·®À» »Ì¾Æ³»±â À§ÇÑ ÇÔ¼ö.
+    // í˜„ì¬ INTì—ì„œ MP ê°ì†ŒëŸ‰ì„ ë½‘ì•„ë‚´ê¸° ìœ„í•œ í•¨ìˆ˜.
     MP_t getdecreaseConsumeMP(Attr_t INT) {
         return m_decreaseConsumeMP[INT];
     }

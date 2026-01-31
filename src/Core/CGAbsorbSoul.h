@@ -32,10 +32,10 @@ public:
 
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -123,11 +123,11 @@ private:
     ZoneCoord_t m_TargetZoneX;
     ZoneCoord_t m_TargetZoneY;
 
-    ObjectID_t m_InvenObjectID;  // ¶ó¹ÙÀÇ ObjectID
-    CoordInven_t m_InvenX;       // X ÁÂÇ¥
-    CoordInven_t m_InvenY;       // Y ÁÂÇ¥
-    CoordInven_t m_TargetInvenX; // Target X ÁÂÇ¥
-    CoordInven_t m_TargetInvenY; // Target Y ÁÂÇ¥
+    ObjectID_t m_InvenObjectID;  // ë¼ë°”ì˜ ObjectID
+    CoordInven_t m_InvenX;       // X ì¢Œí‘œ
+    CoordInven_t m_InvenY;       // Y ì¢Œí‘œ
+    CoordInven_t m_TargetInvenX; // Target X ì¢Œí‘œ
+    CoordInven_t m_TargetInvenY; // Target Y ì¢Œí‘œ
 };
 
 

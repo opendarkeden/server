@@ -45,7 +45,7 @@ void ActionWarpInZone::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpInZone::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -56,7 +56,7 @@ void ActionWarpInZone::execute(Creature* pCreature1, Creature* pCreature2)
 
     Assert(pCreature1->isNPC());
 
-    // ÀÌ¹ø ÅÏ¿¡ ¿òÁ÷ÀÏ °ÍÀÎÁö Ã¼Å©ÇÑ´Ù.
+    // ì´ë²ˆ í„´ì— ì›€ì§ì¼ ê²ƒì¸ì§€ ì²´í¬í•œë‹¤.
     uint diceResult = Dice(1, 100);
 
     if (diceResult < m_MovePercentage) {
@@ -71,7 +71,7 @@ void ActionWarpInZone::execute(Creature* pCreature1, Creature* pCreature2)
             tx = rand() % (pZone->getWidth() - 10) + 5;
             ty = rand() % (pZone->getHeight() - 10) + 5;
 
-            // 10 ³Ñ°Ô ¸ø Ã£À¸¸é °Á µÐ´Ù.
+            // 10 ë„˜ê²Œ ëª» ì°¾ìœ¼ë©´ ê± ë‘”ë‹¤.
             if (++count > 10)
                 return;
         }

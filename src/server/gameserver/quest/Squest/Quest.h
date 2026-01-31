@@ -23,8 +23,8 @@
 //
 //
 //--------------------------------------------------------------------------------
-// QuestID´Â ´Ü¼øÇÑ °¢ Quest±¸ºÐ¿ëÀÌ´Ù.
-// Thread SafeÇÏÁö ¾Ê°í, ¼­¹ö°£¿¡µµ µ¿±âÈ­µÇÁö ¾Ê´Â´Ù.
+// QuestIDëŠ” ë‹¨ìˆœí•œ ê° Questêµ¬ë¶„ìš©ì´ë‹¤.
+// Thread Safeí•˜ì§€ ì•Šê³ , ì„œë²„ê°„ì—ë„ ë™ê¸°í™”ë˜ì§€ ì•ŠëŠ”ë‹¤.
 //--------------------------------------------------------------------------------
 
 #ifndef __QUEST_H__
@@ -49,10 +49,10 @@ public:
     enum QuestState {
         STATE_NULL,
 
-        STATE_WAIT,     // QuestBoard¿¡¼­ ´©±º°¡°¡ ¹Þ¾Æ°¡±â¸¦ ±â´Ù¸®´Â »óÅÂ
-        STATE_ACTIVE,   // ´©°¡ Quest¸¦ ¹Þ¾Æ¼­ ÁøÇàÁßÀÎ »óÅÂ
-        STATE_COMPLETE, // Quest°¡ ¿Ï·áµÈ »óÅÂ(Reward ¹Þ±â Àü)
-        STATE_END       // Quest°¡ ³¡³­ »óÅÂ
+        STATE_WAIT,     // QuestBoardì—ì„œ ëˆ„êµ°ê°€ê°€ ë°›ì•„ê°€ê¸°ë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ìƒíƒœ
+        STATE_ACTIVE,   // ëˆ„ê°€ Questë¥¼ ë°›ì•„ì„œ ì§„í–‰ì¤‘ì¸ ìƒíƒœ
+        STATE_COMPLETE, // Questê°€ ì™„ë£Œëœ ìƒíƒœ(Reward ë°›ê¸° ì „)
+        STATE_END       // Questê°€ ëë‚œ ìƒíƒœ
     };
 
 public:

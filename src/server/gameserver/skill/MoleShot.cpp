@@ -16,12 +16,12 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ - ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì - ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 MoleShot::MoleShot() throw() {
     __BEGIN_TRY
 
-    // SG ¸¶½ºÅ©´Â ¹æÇâ°ú´Â °ü°è¾øÀÌ Ç×»ó + ¸ğ¾çÀÌ´Ù.
+    // SG ë§ˆìŠ¤í¬ëŠ” ë°©í–¥ê³¼ëŠ” ê´€ê³„ì—†ì´ í•­ìƒ + ëª¨ì–‘ì´ë‹¤.
     m_pSGMask[0].set(-1, -1);
     m_pSGMask[1].set(0, -1);
     m_pSGMask[2].set(1, -1);
@@ -32,17 +32,17 @@ MoleShot::MoleShot() throw() {
     m_pSGMask[7].set(0, 1);
     m_pSGMask[8].set(1, 1);
 
-    // AR ¸¶½ºÅ©¸¦ ÃÊ±âÈ­½ÃÅ²´Ù.
-    // SwordWave¿Í ºñ½ÁÇÏÁö¸¸, SwordWave´Â ½ÃÀüÀÚ ÁÖÀ§¸¦
-    // ¸¶½ºÅ©¸¦ ÀÌ¿ëÇØ °Ë»çÇÏÁö¸¸. MoleShotÀº Å¸°ÙÀÇ ÁÖÀ§¸¦ ¸¶½ºÅ©¸¦
-    // ÀÌ¿ëÇØ °Ë»çÇÑ´Ù´Â °ÍÀ» »ı°¢ÇØ¾ß ÇÑ´Ù.
+    // AR ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”ì‹œí‚¨ë‹¤.
+    // SwordWaveì™€ ë¹„ìŠ·í•˜ì§€ë§Œ, SwordWaveëŠ” ì‹œì „ì ì£¼ìœ„ë¥¼
+    // ë§ˆìŠ¤í¬ë¥¼ ì´ìš©í•´ ê²€ì‚¬í•˜ì§€ë§Œ. MoleShotì€ íƒ€ê²Ÿì˜ ì£¼ìœ„ë¥¼ ë§ˆìŠ¤í¬ë¥¼
+    // ì´ìš©í•´ ê²€ì‚¬í•œë‹¤ëŠ” ê²ƒì„ ìƒê°í•´ì•¼ í•œë‹¤.
     //
     // (-1,-1)(0,-1)(1,-1)
     // (-1, 0)(0, 0)(1, 0)
     // (-1, 1)(0, 1)(1, 1)
     //
-    // °¢ ¹æÇâ¿¡ µû¶ó ¾î´À Å¸ÀÏÀÌ ¸íÁß ´ë»óÀÌ³Ä¸¦
-    // »ı°¢ÇÏ¸é ¸¶½ºÅ©¸¦ ÀÌÇØÇÏ±â ½±´Ù.
+    // ê° ë°©í–¥ì— ë”°ë¼ ì–´ëŠ íƒ€ì¼ì´ ëª…ì¤‘ ëŒ€ìƒì´ëƒë¥¼
+    // ìƒê°í•˜ë©´ ë§ˆìŠ¤í¬ë¥¼ ì´í•´í•˜ê¸° ì‰½ë‹¤.
 
     m_pARMask[LEFT][0].set(0, -1);
     m_pARMask[LEFT][1].set(0, 0);
@@ -80,7 +80,7 @@ MoleShot::MoleShot() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MoleShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -99,17 +99,17 @@ void MoleShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
         }
 
-        // ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª, ÃÑ °è¿­ÀÇ ¹«±â°¡ ¾Æ´Ï°Å³ª, SRÀÌ¶ó¸é
-        // ÀÌ ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ì•„ì´í…œì´ ì—†ê±°ë‚˜, ì´ ê³„ì—´ì˜ ë¬´ê¸°ê°€ ì•„ë‹ˆê±°ë‚˜, SRì´ë¼ë©´
+        // ì´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || !isArmsWeapon(pItem))
-        // SRµµ »ç¿ë °¡´ÉÇÏ°Ô ¼öÁ¤. by sigi. 2002.12.3
+        // SRë„ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ ìˆ˜ì •. by sigi. 2002.12.3
         //	|| pItem->getItemClass() == Item::ITEM_CLASS_SR)
         {
             executeSkillFailException(pSlayer, getSkillType());
@@ -121,7 +121,7 @@ void MoleShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
             SGexecute(pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID);
         } else if (IClass == Item::ITEM_CLASS_AR ||
                    IClass == Item::ITEM_CLASS_SMG
-                   // SRµµ »ç¿ë °¡´ÉÇÏ°Ô ¼öÁ¤. by sigi. 2002.12.3
+                   // SRë„ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ ìˆ˜ì •. by sigi. 2002.12.3
                    || IClass == Item::ITEM_CLASS_SR) {
             ARSMGexecute(pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID);
         }
@@ -135,7 +135,7 @@ void MoleShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MoleShot::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -149,11 +149,11 @@ void MoleShot::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
         Zone* pZone = pSlayer->getZone();
         Assert(pZone != NULL);
 
-        // ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª, ÃÑ °è¿­ÀÇ ¹«±â°¡ ¾Æ´Ï°Å³ª, SRÀÌ¶ó¸é
-        // ÀÌ ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ì•„ì´í…œì´ ì—†ê±°ë‚˜, ì´ ê³„ì—´ì˜ ë¬´ê¸°ê°€ ì•„ë‹ˆê±°ë‚˜, SRì´ë¼ë©´
+        // ì´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || !isArmsWeapon(pItem))
-        // SRµµ »ç¿ë °¡´ÉÇÏ°Ô ¼öÁ¤. by sigi. 2002.12.3
+        // SRë„ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ ìˆ˜ì •. by sigi. 2002.12.3
         //|| pItem->getItemClass() == Item::ITEM_CLASS_SR)
         {
             executeSkillFailException(pSlayer, getSkillType());
@@ -165,7 +165,7 @@ void MoleShot::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
             SGexecute(pSlayer, X, Y, pSkillSlot, CEffectID);
         } else if (IClass == Item::ITEM_CLASS_AR ||
                    IClass == Item::ITEM_CLASS_SMG
-                   // SRµµ »ç¿ë °¡´ÉÇÏ°Ô ¼öÁ¤. by sigi. 2002.12.3
+                   // SRë„ ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ ìˆ˜ì •. by sigi. 2002.12.3
                    || IClass == Item::ITEM_CLASS_SR) {
             ARSMGexecute(pSlayer, X, Y, pSkillSlot, CEffectID);
         }
@@ -177,7 +177,7 @@ void MoleShot::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯ - SG¸¦ µé°í ÀÖÀ» °æ¿ì
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬ - SGë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°
 //////////////////////////////////////////////////////////////////////////////
 void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -216,16 +216,16 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
         bool bRangeCheck = verifyDistance(pSlayer, X, Y, pWeapon->getRange());
         bool bBulletCheck = (getRemainBullet(pWeapon) > 0) ? true : false;
 
-        // ÃÑ¾Ë ¼ö´Â ¹«Á¶°Ç ¶³¾î¶ß¸°´Ù.
+        // ì´ì•Œ ìˆ˜ëŠ” ë¬´ì¡°ê±´ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         Bullet_t RemainBullet = 0;
         if (bBulletCheck) {
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ì¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
         }
 
-        // µ¥¹ÌÁö, ÅõÈı º¸³Ê½º, ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // ë°ë¯¸ì§€, íˆ¬í› ë³´ë„ˆìŠ¤, ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
         int ToHitBonus = 0;
         int DamageBonus = 0;
         int ToHitPenalty = 0;
@@ -233,10 +233,10 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
         ZoneCoord_t myX = pSlayer->getX();
         ZoneCoord_t myY = pSlayer->getY();
         Dir_t dir = calcDirection(myX, myY, X, Y);
-        bool bHit = false;   // ÇÑ¹øÀÌ¶óµµ ¸Â¾Ò´Â°¡¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö
-        Damage_t Damage = 0; // ¸¶Áö¸·À¸·Î ÀÔÈù µ¥¹ÌÁö¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö
+        bool bHit = false;   // í•œë²ˆì´ë¼ë„ ë§ì•˜ëŠ”ê°€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
+        Damage_t Damage = 0; // ë§ˆì§€ë§‰ìœ¼ë¡œ ì…íŒ ë°ë¯¸ì§€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 
-        // SGÀÏ °æ¿ì¿¡´Â 4ºÎÅÍ ½ÃÀÛÇØ¼­ 9±îÁöÀÇ splash µ¥¹ÌÁö¸¦ ÀÔÈù´Ù.
+        // SGì¼ ê²½ìš°ì—ëŠ” 4ë¶€í„° ì‹œì‘í•´ì„œ 9ê¹Œì§€ì˜ splash ë°ë¯¸ì§€ë¥¼ ì…íŒë‹¤.
         int Splash = 3 + pSkillSlot->getExpLevel() / 10 + 1;
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bBulletCheck) {
@@ -246,7 +246,7 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
             SkillOutput output;
             computeOutput(input, output);
 
-            // output.ToHit°ªÀÌ À½¼öÀÌ±â ¶§¹®¿¡, %°ªÀÌ À½¼ö·Î µ¹¾Æ¿Â´Ù.
+            // output.ToHitê°’ì´ ìŒìˆ˜ì´ê¸° ë•Œë¬¸ì—, %ê°’ì´ ìŒìˆ˜ë¡œ ëŒì•„ì˜¨ë‹¤.
             ToHitPenalty = getPercentValue(pSlayer->getToHit(), output.ToHit);
 
             list<Creature*> cList;
@@ -279,19 +279,19 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
                 if (!bInvokerCheck && !bRaceCheck && bHitRoll && bPK && bZoneLevelCheck) {
                     bool bCriticalHit = false;
 
-                    // µ¥¹ÌÁö¸¦ °è»êÇØ¼­ Æä³ÎÆ¼¸¦ °¡ÇÑ´Ù.
-                    // º¸³Ê½º´Â ¸ÖÆ¼¼¦ Æä³ÎÆ¼ ¶§¹®¿¡ À½¼ö°¡ µÉ ¼öµµ ÀÖ´Ù.
+                    // ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•´ì„œ í˜ë„í‹°ë¥¼ ê°€í•œë‹¤.
+                    // ë³´ë„ˆìŠ¤ëŠ” ë©€í‹°ìƒ· í˜ë„í‹° ë•Œë¬¸ì— ìŒìˆ˜ê°€ ë  ìˆ˜ë„ ìˆë‹¤.
                     Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
                     DamagePenalty = getPercentValue(Damage, output.Damage);
                     Damage = max(0, Damage + DamagePenalty + DamageBonus);
 
-                    // ¸ŞÀÎ Å¸°ÙÀ» Á¦¿ÜÇÏ°í´Â, ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔ´Âµ¥,
-                    // ½ºÇÃ·¡½Ã µ¥¹ÌÁö´Â ÀÏ¹İ µ¥¹ÌÁöÀÇ 50%´Ù.
+                    // ë©”ì¸ íƒ€ê²Ÿì„ ì œì™¸í•˜ê³ ëŠ”, ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ë¥¼ ì…ëŠ”ë°,
+                    // ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ëŠ” ì¼ë°˜ ë°ë¯¸ì§€ì˜ 50%ë‹¤.
                     if (pTargetCreature->getX() != X || pTargetCreature->getY() != Y) {
                         Damage = Damage / 2;
                     }
 
-                    // ¼Òµå¿şÀÌºê¿Í´Â ´Ş¸® Å©·Î½º Ä«¿îÅÍ Ã¼Å©´Â ÇÏÁö ¾Ê´Â´Ù.
+                    // ì†Œë“œì›¨ì´ë¸Œì™€ëŠ” ë‹¬ë¦¬ í¬ë¡œìŠ¤ ì¹´ìš´í„° ì²´í¬ëŠ” í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     ObjectID_t targetObjectID = pTargetCreature->getObjectID();
                     cList.push_back(pTargetCreature);
                     _GCSkillToTileOK1.addCListElement(targetObjectID);
@@ -303,12 +303,12 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
                     increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
 
-                    // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                    // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                     if (bCriticalHit) {
                         knockbackCreature(pZone, pTargetCreature, myX, myY);
                     }
 
-                    // ½½·¹ÀÌ¾î ¾Æ´Ñ °æ¿ì¿¡¸¸ hitÇÑ °É·Î °£ÁÖÇÑ´Ù.
+                    // ìŠ¬ë ˆì´ì–´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ hití•œ ê±¸ë¡œ ê°„ì£¼í•œë‹¤.
                     if (!pTargetCreature->isSlayer()) {
                         bHit = true;
 
@@ -330,7 +330,7 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
             _GCSkillToTileOK1.addShortData(MODIFY_BULLET, RemainBullet);
 
-            // ÃÑ¾Ë ¼ıÀÚ¸¦ ÁÙÀÌ°í, ÃÑ¾Ë ¼ıÀÚ¸¦ ÀúÀåÇÏ°í, ³²Àº ÃÑ¾Ë ¼ıÀÚ¸¦ ¹ŞÀº ´ÙÀ½¿¡ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+            // ì´ì•Œ ìˆ«ìë¥¼ ì¤„ì´ê³ , ì´ì•Œ ìˆ«ìë¥¼ ì €ì¥í•˜ê³ , ë‚¨ì€ ì´ì•Œ ìˆ«ìë¥¼ ë°›ì€ ë‹¤ìŒì— ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
             _GCSkillToTileOK1.setSkillType(getSkillType());
@@ -367,7 +367,7 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -386,15 +386,15 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     Player* pPlayer = pTargetCreature->getPlayer();
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pSlayer);
                 }
@@ -421,7 +421,7 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯ - ARÀÌ³ª SMG¸¦ µé°í ÀÖÀ» °æ¿ì
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬ - ARì´ë‚˜ SMGë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°
 //////////////////////////////////////////////////////////////////////////////
 void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -460,16 +460,16 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
         bool bRangeCheck = verifyDistance(pSlayer, X, Y, pWeapon->getRange());
         bool bBulletCheck = (getRemainBullet(pWeapon) > 0) ? true : false;
 
-        // ÃÑ¾Ë ¼ıÀÚ´Â ¹«Á¶°Ç ¶³¾î¶ß¸°´Ù.
+        // ì´ì•Œ ìˆ«ìëŠ” ë¬´ì¡°ê±´ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         Bullet_t RemainBullet = 0;
         if (bBulletCheck) {
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ì¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
         }
 
-        // µ¥¹ÌÁö, ÅõÈı º¸³Ê½º, ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // ë°ë¯¸ì§€, íˆ¬í› ë³´ë„ˆìŠ¤, ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
         int ToHitBonus = 0;
         int DamageBonus = 0;
         int ToHitPenalty = 0;
@@ -477,10 +477,10 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
         ZoneCoord_t myX = pSlayer->getX();
         ZoneCoord_t myY = pSlayer->getY();
         Dir_t dir = calcDirection(myX, myY, X, Y);
-        bool bHit = false;   // ÇÑ¹øÀÌ¶óµµ ¸Â¾Ò´Â°¡¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö
-        Damage_t Damage = 0; // ¸¶Áö¸·À¸·Î ÀÔÈù µ¥¹ÌÁö¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö
+        bool bHit = false;   // í•œë²ˆì´ë¼ë„ ë§ì•˜ëŠ”ê°€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
+        Damage_t Damage = 0; // ë§ˆì§€ë§‰ìœ¼ë¡œ ì…íŒ ë°ë¯¸ì§€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 
-        // ARÀÌ³ª SMGÀÏ °æ¿ì¿¡´Â 2ºÎÅÍ ½ÃÀÛÇØ¼­ 4±îÁöÀÇ splash µ¥¹ÌÁö¸¦ ÀÔÈù´Ù.
+        // ARì´ë‚˜ SMGì¼ ê²½ìš°ì—ëŠ” 2ë¶€í„° ì‹œì‘í•´ì„œ 4ê¹Œì§€ì˜ splash ë°ë¯¸ì§€ë¥¼ ì…íŒë‹¤.
         int Splash = 1 + pSkillSlot->getExpLevel() / 30 + 1;
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bBulletCheck) {
@@ -490,7 +490,7 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
             SkillOutput output;
             computeOutput(input, output);
 
-            // À½¼ö °ªÀÌ µ¹¾Æ¿Â´Ù.
+            // ìŒìˆ˜ ê°’ì´ ëŒì•„ì˜¨ë‹¤.
             ToHitPenalty = getPercentValue(pSlayer->getToHit(), output.ToHit);
 
             list<Creature*> cList;
@@ -524,19 +524,19 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
                 if (!bInvokerCheck && !bRaceCheck && bHitRoll && bPK && bZoneLevelCheck) {
                     bool bCriticalHit = false;
 
-                    // µ¥¹ÌÁö¸¦ °è»êÇØ¼­ Æä³ÎÆ¼¸¦ °¡ÇÑ´Ù.
-                    // º¸³Ê½º´Â ¸ÖÆ¼¼¦ Æä³ÎÆ¼ ¶§¹®¿¡ À½¼ö°¡ µÉ ¼öµµ ÀÖ´Ù.
+                    // ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•´ì„œ í˜ë„í‹°ë¥¼ ê°€í•œë‹¤.
+                    // ë³´ë„ˆìŠ¤ëŠ” ë©€í‹°ìƒ· í˜ë„í‹° ë•Œë¬¸ì— ìŒìˆ˜ê°€ ë  ìˆ˜ë„ ìˆë‹¤.
                     Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel / 5, bCriticalHit);
                     DamagePenalty = getPercentValue(Damage, output.Damage);
                     Damage = max(0, Damage + DamagePenalty + DamageBonus);
 
-                    // ¸ŞÀÎ Å¸°ÙÀ» Á¦¿ÜÇÏ°í´Â, ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔ´Âµ¥,
-                    // ½ºÇÃ·¡½Ã µ¥¹ÌÁö´Â ÀÏ¹İ µ¥¹ÌÁöÀÇ 50%´Ù.
+                    // ë©”ì¸ íƒ€ê²Ÿì„ ì œì™¸í•˜ê³ ëŠ”, ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ë¥¼ ì…ëŠ”ë°,
+                    // ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ëŠ” ì¼ë°˜ ë°ë¯¸ì§€ì˜ 50%ë‹¤.
                     if (pTargetCreature->getX() != X || pTargetCreature->getY() != Y) {
                         Damage = Damage / 2;
                     }
 
-                    // ¼Òµå¿şÀÌºê¿Í´Â ´Ş¸® Å©·Î½º Ä«¿îÅÍ Ã¼Å©´Â ÇÏÁö ¾Ê´Â´Ù.
+                    // ì†Œë“œì›¨ì´ë¸Œì™€ëŠ” ë‹¬ë¦¬ í¬ë¡œìŠ¤ ì¹´ìš´í„° ì²´í¬ëŠ” í•˜ì§€ ì•ŠëŠ”ë‹¤.
                     ObjectID_t targetObjectID = pTargetCreature->getObjectID();
                     cList.push_back(pTargetCreature);
                     _GCSkillToTileOK1.addCListElement(targetObjectID);
@@ -546,12 +546,12 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
                     setDamage(pTargetCreature, Damage, pSlayer, getSkillType(), NULL, &_GCSkillToTileOK1);
                     computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
 
-                    // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                    // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                     if (bCriticalHit) {
                         knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                     }
 
-                    // ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¸ÂÃá °É·Î °£ÁÖÇÑ´Ù.
+                    // ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ë§ì¶˜ ê±¸ë¡œ ê°„ì£¼í•œë‹¤.
                     if (!pTargetCreature->isSlayer()) {
                         bHit = true;
                         if (maxEnemyLevel < pTargetCreature->getLevel())
@@ -608,7 +608,7 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -625,15 +625,15 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     Player* pPlayer = pTargetCreature->getPlayer();
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pSlayer);
                 }

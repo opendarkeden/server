@@ -90,8 +90,8 @@ void QuestBoard::regenerate(int num) throw(Error) {
 //--------------------------------------------------------------------------------
 // add( pQuest )
 //--------------------------------------------------------------------------------
-// questID¸¦ Ãß°¡ÇÑ´Ù.
-// ID°¡ duplicateÀÎ °æ¿ì´Â return false
+// questIDë¥¼ ì¶”ê°€í•œë‹¤.
+// IDê°€ duplicateì¸ ê²½ìš°ëŠ” return false
 //--------------------------------------------------------------------------------
 bool QuestBoard::add(Quest* pQuest) throw(Error) {
     __BEGIN_TRY
@@ -114,8 +114,8 @@ bool QuestBoard::add(Quest* pQuest) throw(Error) {
 //--------------------------------------------------------------------------------
 // remove( questID )
 //--------------------------------------------------------------------------------
-// questIDÀÇ Quest*¸¦ Ã£¾Æ¼­ returnÇÑ´Ù.
-// ¾øÀ¸¸é NULL
+// questIDì˜ Quest*ë¥¼ ì°¾ì•„ì„œ returní•œë‹¤.
+// ì—†ìœ¼ë©´ NULL
 //--------------------------------------------------------------------------------
 Quest* QuestBoard::remove(QuestID_t qid) throw(Error) {
     __BEGIN_TRY
@@ -137,7 +137,7 @@ Quest* QuestBoard::remove(QuestID_t qid) throw(Error) {
 //--------------------------------------------------------------------------------
 // makeNPCAskPacket( GCNPCAskDynamic& )
 //--------------------------------------------------------------------------------
-// QuestBoard¿¡ µé¾îÀÖ´Â ¸ğµç QuestµéÀÇ ³»¿ëÀ» GCNPCAskDynamic packetÀ¸·Î ¸¸µç´Ù.
+// QuestBoardì— ë“¤ì–´ìˆëŠ” ëª¨ë“  Questë“¤ì˜ ë‚´ìš©ì„ GCNPCAskDynamic packetìœ¼ë¡œ ë§Œë“ ë‹¤.
 //--------------------------------------------------------------------------------
 void QuestBoard::setScript(Script* pScript) const throw(Error) {
     __BEGIN_TRY
@@ -162,7 +162,7 @@ void QuestBoard::setScript(Script* pScript) const throw(Error) {
 //--------------------------------------------------------------------------------
 // makeNPCAskPacket( GCNPCAskDynamic& )
 //--------------------------------------------------------------------------------
-// QuestBoard¿¡ µé¾îÀÖ´Â ¸ğµç QuestµéÀÇ ³»¿ëÀ» GCNPCAskDynamic packetÀ¸·Î ¸¸µç´Ù.
+// QuestBoardì— ë“¤ì–´ìˆëŠ” ëª¨ë“  Questë“¤ì˜ ë‚´ìš©ì„ GCNPCAskDynamic packetìœ¼ë¡œ ë§Œë“ ë‹¤.
 //--------------------------------------------------------------------------------
 /*
 void

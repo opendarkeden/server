@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename     : CombatInfoManager.h
 // Written by   : bezz
-// Description  : ÀüÀïÀÇ ½ÂÆĞ¿Í °ü·ÃÇØ¼­ °ü·Ã °ªµéÀ» ¼³Á¤ÇÑ´Ù.
+// Description  : ì „ìŸì˜ ìŠ¹íŒ¨ì™€ ê´€ë ¨í•´ì„œ ê´€ë ¨ ê°’ë“¤ì„ ì„¤ì •í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __COMBAT_INFO_MANAGER_H__
@@ -16,15 +16,15 @@
 //////////////////////////////////////////////////////////////////////////////
 // class CombatInfoManager
 //
-// ÇöÀç RelicÀÇ Onwer¸¦ °¡Áö°í ÀÖÀ¸¸ç
-// ±×¿¡ µû¸¥ Bonus, Penalty °ªÀ» °è»êÇÏ¿© ¾Ë·ÁÁØ´Ù.
+// í˜„ì¬ Relicì˜ Onwerë¥¼ ê°€ì§€ê³  ìˆìœ¼ë©°
+// ê·¸ì— ë”°ë¥¸ Bonus, Penalty ê°’ì„ ê³„ì‚°í•˜ì—¬ ì•Œë ¤ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class CombatInfoManager {
 public:
     ///////////////////////////////////////////////////////////////////
     // Relic Owner
-    // RelicÀ» ¼ÒÀ¯ÇÏ¿© Bonus, Penalty¸¦ ¹ŞÀ» ´ë»ó
+    // Relicì„ ì†Œìœ í•˜ì—¬ Bonus, Penaltyë¥¼ ë°›ì„ ëŒ€ìƒ
     ///////////////////////////////////////////////////////////////////
     enum RelicOwner { RELIC_OWNER_NULL, RELIC_OWNER_SLAYER, RELIC_OWNER_VAMPIRE };
 
@@ -32,17 +32,17 @@ public:
     // Constructor
     CombatInfoManager();
 
-    // Bonus, Penalty °ªÀ» ÃÊ±âÈ­ ÇÑ´Ù.
+    // Bonus, Penalty ê°’ì„ ì´ˆê¸°í™” í•œë‹¤.
     void initModify();
 
-    // Bonus, Penalty¸¦ °è»êÇÑ´Ù.
+    // Bonus, Penaltyë¥¼ ê³„ì‚°í•œë‹¤.
     void computeModify();
 
-    // Relic Onwer¸¦ ¼³Á¤ÇÑ´Ù.
+    // Relic Onwerë¥¼ ì„¤ì •í•œë‹¤.
     void setRelicOwner(int index, RelicOwner relicOwner);
 
 
-    // Bonus, Penalty °ªÀ» return
+    // Bonus, Penalty ê°’ì„ return
     int getSlayerHPModify() const {
         return m_SlayerHPModify;
     }
@@ -71,10 +71,10 @@ public:
     }
 
 private:
-    // °¢ RelicÀÇ Owner
+    // ê° Relicì˜ Owner
     RelicOwner m_RelicOwner[maxRelic];
 
-    // Bonus, Penalty °ª
+    // Bonus, Penalty ê°’
     int m_SlayerHPModify;
     int m_SlayerToHitModify;
     int m_VampireHPModify;

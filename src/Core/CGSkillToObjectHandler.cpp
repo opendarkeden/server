@@ -49,7 +49,7 @@ void CGSkillToObjectHandler::execute(CGSkillToObject* pPacket, Player* pPlayer)
 
         SkillType_t SkillType = pPacket->getSkillType();
 
-        // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+        // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
         ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
         if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
             (pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||
@@ -117,7 +117,7 @@ void CGSkillToObjectHandler::execute(CGSkillToObject* pPacket, Player* pPlayer)
                             g_Sniping.checkRevealRatio(pSlayer, 20, 10);
                         } */
 
-            // ¸¸¾à¿¡ °°Àº Á¾Á·ÀÇ ¼º¹°º¸°üÇÔÀÌ¶ó¸é ±â¼úÀÌ »ç¿ëµÇÁö ¾Ê´Â´Ù.
+            // ë§Œì•½ì— ê°™ì€ ì¢…ì¡±ì˜ ì„±ë¬¼ë³´ê´€í•¨ì´ë¼ë©´ ê¸°ìˆ ì´ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ”ë‹¤.
             /*	if (pTargetCreature->isMonster() )
                 {
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
@@ -148,7 +148,7 @@ void CGSkillToObjectHandler::execute(CGSkillToObject* pPacket, Player* pPlayer)
             VampireSkillSlot* pVampireSkillSlot = pVampire->hasSkill(SkillType);
             bool bSuccess = true;
 
-            // BITE OF DEATH ¿ö¿ïÇÁ Ã¼Å©´Â isAbleToUseObjectSkill ¾È¿¡¼­ ÇÑ´Ù.
+            // BITE OF DEATH ì›Œìš¸í”„ ì²´í¬ëŠ” isAbleToUseObjectSkill ì•ˆì—ì„œ í•œë‹¤.
             if (pVampireSkillSlot == NULL && SkillType != SKILL_BITE_OF_DEATH)
                 bSuccess = false;
             if (!isAbleToUseObjectSkill(pVampire))
@@ -159,16 +159,16 @@ void CGSkillToObjectHandler::execute(CGSkillToObject* pPacket, Player* pPlayer)
                             addVisibleCreature(pZone, pVampire, true);
                         } */
 
-            // ¸¸¾à EXTREME ±â¼úÀ» »ç¿ëÇÑ »óÅÂ¶ó¸é ±â¼úÀ» ÇØÁ¦ÇØ ÁÖ¾î¾ß ÇÑ´Ù.
-            // EXTREME ±â¼úÀº ´Ù¸¥ ±â¼ú°ú º´ÇàÇØ¼­ »ç¿ëÇÏÁö ¸øÇÑ´Ù.
-            // ÀÌÀ¯´Â EXTREME±â¼úÀÇ µ¥¹ÌÁö »ó½ÂÀÌ ³Ê¹« Å©±â ¶§¹®ÀÌ°í.
-            // EXTREME±â¼úÀ» »ç¿ëÇÑ »óÅÂ¿¡¼­ ´Ù¸¥ ±â¼úÀ» »ç¿ëÇÒ¶§ Effect°¡ ¾ø±â ¶§¹®ÀÌ´Ù.
+            // ë§Œì•½ EXTREME ê¸°ìˆ ì„ ì‚¬ìš©í•œ ìƒíƒœë¼ë©´ ê¸°ìˆ ì„ í•´ì œí•´ ì£¼ì–´ì•¼ í•œë‹¤.
+            // EXTREME ê¸°ìˆ ì€ ë‹¤ë¥¸ ê¸°ìˆ ê³¼ ë³‘í–‰í•´ì„œ ì‚¬ìš©í•˜ì§€ ëª»í•œë‹¤.
+            // ì´ìœ ëŠ” EXTREMEê¸°ìˆ ì˜ ë°ë¯¸ì§€ ìƒìŠ¹ì´ ë„ˆë¬´ í¬ê¸° ë•Œë¬¸ì´ê³ .
+            // EXTREMEê¸°ìˆ ì„ ì‚¬ìš©í•œ ìƒíƒœì—ì„œ ë‹¤ë¥¸ ê¸°ìˆ ì„ ì‚¬ìš©í• ë•Œ Effectê°€ ì—†ê¸° ë•Œë¬¸ì´ë‹¤.
 
             // 2002.4.1
-            // EXTREME ±â¼úÀ» »ç¿ëÇÑ »óÅÂ¿¡¼­ MELEE Attack¿¡ ´ëÇØ¼­´Â »ç¿ë°¡´ÉÇÏµµ·Ï ¼öÁ¤Çß´Ù.
-            // ¸Ç¼Õ °ø°İ¸¸À¸·Î´Â ³Ê¹« ºÎÁ·ÇÏ´Ù´Â ÀÇ°ß¶§¹®
-            // EXTREME ±â¼úÀ» »ç¿ëÇÑ »óÅÂ¿¡¼­ »ç¿ëÇÒ ¼ö ÀÖ´Â MELEE SkillÀº
-            //  ACID TOUCH, POISONOUS HAND, BLOODY NAILÀÌ ÀÖ´Ù.
+            // EXTREME ê¸°ìˆ ì„ ì‚¬ìš©í•œ ìƒíƒœì—ì„œ MELEE Attackì— ëŒ€í•´ì„œëŠ” ì‚¬ìš©ê°€ëŠ¥í•˜ë„ë¡ ìˆ˜ì •í–ˆë‹¤.
+            // ë§¨ì† ê³µê²©ë§Œìœ¼ë¡œëŠ” ë„ˆë¬´ ë¶€ì¡±í•˜ë‹¤ëŠ” ì˜ê²¬ë•Œë¬¸
+            // EXTREME ê¸°ìˆ ì„ ì‚¬ìš©í•œ ìƒíƒœì—ì„œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” MELEE Skillì€
+            //  ACID TOUCH, POISONOUS HAND, BLOODY NAILì´ ìˆë‹¤.
             //
 
             /*			if (pVampire->isFlag(Effect::EFFECT_CLASS_EXTREME))
@@ -186,7 +186,7 @@ void CGSkillToObjectHandler::execute(CGSkillToObject* pPacket, Player* pPlayer)
                         } */
 
             /*
-            // ¸¸¾à¿¡ °°Àº Á¾Á·ÀÇ ¼º¹°º¸°üÇÔÀÌ¶ó¸é ±â¼úÀÌ »ç¿ëµÇÁö ¾Ê´Â´Ù.
+            // ë§Œì•½ì— ê°™ì€ ì¢…ì¡±ì˜ ì„±ë¬¼ë³´ê´€í•¨ì´ë¼ë©´ ê¸°ìˆ ì´ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ”ë‹¤.
             if (pTargetCreature->isMonster() )
             {
                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);

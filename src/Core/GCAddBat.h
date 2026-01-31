@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddBat;
 //
-// ½Ã¾ß ¾È¿¡ Bat °¡ µé¾î¿ÔÀ» °æ¿ì, ÀÌ ÆĞÅ¶¿¡ Bat Á¤º¸¸¦ ´ã¾Æ¼­ Àü¼Û¹Ş´Â´Ù.
+// ì‹œì•¼ ì•ˆì— Bat ê°€ ë“¤ì–´ì™”ì„ ê²½ìš°, ì´ íŒ¨í‚·ì— Bat ì •ë³´ë¥¼ ë‹´ì•„ì„œ ì „ì†¡ë°›ëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class GCAddBat : public Packet {
@@ -128,15 +128,15 @@ public:
 
 private:
     ObjectID_t m_ObjectID;
-    string m_Name; // BatÀÇ ÀÌ¸§
+    string m_Name; // Batì˜ ì´ë¦„
 
     /*
-    SpriteType_t m_SpriteType; // ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ
-    Color_t      m_MainColor;  // ¸ŞÀÎ Ä®¶ó
-    Color_t      m_SubColor;   // ¼­ºê Ä®¶ó
+    SpriteType_t m_SpriteType; // ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…
+    Color_t      m_MainColor;  // ë©”ì¸ ì¹¼ë¼
+    Color_t      m_SubColor;   // ì„œë¸Œ ì¹¼ë¼
     */
 
-    // º¯½Å ¾ÆÀÌÅÛÀÇ Á¾·ù
+    // ë³€ì‹  ì•„ì´í…œì˜ ì¢…ë¥˜
     ItemType_t m_ItemType;
 
     Coord_t m_X;         // X

@@ -24,10 +24,10 @@ GameServerGroupInfoManager::GameServerGroupInfoManager() throw() {}
 // destructor
 //----------------------------------------------------------------------
 GameServerGroupInfoManager::~GameServerGroupInfoManager() throw() {
-    // hashmap ¾ÈÀÇ °¢ pair ÀÇ second, Áï GameServerGroupInfo °´Ã¼¸¸À» »èÁ¦ÇÏ°í
-    // pair ÀÚÃ¼´Â ±×´ë·Î µĞ´Ù. (GameServerGroupInfo°¡ Èü¿¡ »ı¼ºµÇ¾î ÀÖ´Ù´Â °Í¿¡
-    // À¯ÀÇÇÏ¶ó. Áï ÇÊ»ì»èÁ¦¸¦ ÇØ¾ß ÇÑ´Ù. ÇÏ±ä, GSIMÀÌ destruct µÈ´Ù´Â °ÍÀº
-    // ·Î±×ÀÎ ¼­¹ö°¡ ¼Ë´Ù¿îµÈ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÏ´Ï±ñ.. - -; )
+    // hashmap ì•ˆì˜ ê° pair ì˜ second, ì¦‰ GameServerGroupInfo ê°ì²´ë§Œì„ ì‚­ì œí•˜ê³ 
+    // pair ìì²´ëŠ” ê·¸ëŒ€ë¡œ ë‘”ë‹¤. (GameServerGroupInfoê°€ í™ì— ìƒì„±ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì—
+    // ìœ ì˜í•˜ë¼. ì¦‰ í•„ì‚´ì‚­ì œë¥¼ í•´ì•¼ í•œë‹¤. í•˜ê¸´, GSIMì´ destruct ëœë‹¤ëŠ” ê²ƒì€
+    // ë¡œê·¸ì¸ ì„œë²„ê°€ ì…§ë‹¤ìš´ëœë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•˜ë‹ˆê¹.. - -; )
     for (int i = 1; i < m_MaxWorldID; i++) {
         for (HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[i].begin();
              itr != m_GameServerGroupInfos[i].end(); itr++) {
@@ -35,7 +35,7 @@ GameServerGroupInfoManager::~GameServerGroupInfoManager() throw() {
             itr->second = NULL;
         }
 
-        // ÀÌÁ¦ ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ğµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+        // ì´ì œ í•´ì‰¬ë§µì•ˆì— ìˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
         m_GameServerGroupInfos[i].clear();
     }
 
@@ -96,11 +96,11 @@ void GameServerGroupInfoManager::load() throw(Error) {
             addGameServerGroupInfo(pGameServerGroupInfo, WorldID);
         }
 
-        // ÇÊ»ì »èÁ¦!
+        // í•„ì‚´ ì‚­ì œ!
         delete pStmt;
 
     } catch (SQLQueryException& sqe) {
-        // ÇÊ»ì »èÁ¦!
+        // í•„ì‚´ ì‚­ì œ!
         delete pStmt;
 
         throw Error(sqe.toString());
@@ -139,14 +139,14 @@ void GameServerGroupInfoManager::deleteGameServerGroupInfo(const ServerGroupID_t
     HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[WorldID].find(GroupID);
 
     if (itr != m_GameServerGroupInfos[WorldID].end()) {
-        // GameServerGroupInfo ¸¦ »èÁ¦ÇÑ´Ù.
+        // GameServerGroupInfo ë¥¼ ì‚­ì œí•œë‹¤.
         delete itr->second;
 
-        // pair¸¦ »èÁ¦ÇÑ´Ù.
+        // pairë¥¼ ì‚­ì œí•œë‹¤.
         m_GameServerGroupInfos[WorldID].erase(itr);
 
     } else {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾øÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -162,7 +162,7 @@ GameServerGroupInfo* GameServerGroupInfoManager::getGameServerGroupInfo(const Se
     __BEGIN_TRY
 
     if (WorldID >= m_MaxWorldID) {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -173,7 +173,7 @@ GameServerGroupInfo* GameServerGroupInfoManager::getGameServerGroupInfo(const Se
     if (itr != m_GameServerGroupInfos[WorldID].end()) {
         pGameServerGroupInfo = itr->second;
     } else {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -200,7 +200,7 @@ string GameServerGroupInfoManager::toString() const throw() {
             //--------------------------------------------------
             // *OPTIMIZATION*
             //
-            // for_each()¸¦ »ç¿ëÇÒ °Í
+            // for_each()ë¥¼ ì‚¬ìš©í•  ê²ƒ
             //--------------------------------------------------
             for (HashMapGameServerGroupInfo::const_iterator itr = m_GameServerGroupInfos[i].begin();
                  itr != m_GameServerGroupInfos[i].end(); itr++)

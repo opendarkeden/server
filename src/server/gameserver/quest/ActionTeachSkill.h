@@ -2,9 +2,9 @@
 // Filename    : ActionTeachSkill.h
 // Written By  :
 // Description :
-// NPC°¡ ÇÃ·¹ÀÌ¾î¿¡°Ô ±â¼úÀ» °¡¸£ÃÄ ÁÙ ¶§ ¾²ÀÌ´Â ¾×¼ÇÀÌ´Ù.
-// ½ÇÁ¦ÀûÀ¸·Î´Â NPC°¡ °¡¸£ÃÄ ÁÙ ¼ö ÀÖ´Â ±â¼úÀ» ÆÐÅ¶À¸·Î
-// Àü¼ÛÇØ ÁÙ »ÓÀÌ°í, ³ª¸ÓÁö ÀÛ¾÷µéÀº ÆÐÅ¶ÀÌ ¿Õº¹ÇÏ´Â »çÀÌ¿¡ Ã³¸®µÈ´Ù.
+// NPCê°€ í”Œë ˆì´ì–´ì—ê²Œ ê¸°ìˆ ì„ ê°€ë¥´ì³ ì¤„ ë•Œ ì“°ì´ëŠ” ì•¡ì…˜ì´ë‹¤.
+// ì‹¤ì œì ìœ¼ë¡œëŠ” NPCê°€ ê°€ë¥´ì³ ì¤„ ìˆ˜ ìžˆëŠ” ê¸°ìˆ ì„ íŒ¨í‚·ìœ¼ë¡œ
+// ì „ì†¡í•´ ì¤„ ë¿ì´ê³ , ë‚˜ë¨¸ì§€ ìž‘ì—…ë“¤ì€ íŒ¨í‚·ì´ ì™•ë³µí•˜ëŠ” ì‚¬ì´ì— ì²˜ë¦¬ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_TEACH_SKILL_H__
@@ -43,7 +43,7 @@ public:
     }
 
 private:
-    SkillDomainType_t m_DomainType; // °¡¸£ÃÄ ÁÙ ½ºÅ³ÀÇ µµ¸ÞÀÎ
+    SkillDomainType_t m_DomainType; // ê°€ë¥´ì³ ì¤„ ìŠ¤í‚¬ì˜ ë„ë©”ì¸
 };
 
 

@@ -43,16 +43,16 @@ void CGAddGearToMouseHandler::execute(CGAddGearToMouse* pPacket, Player* pPlayer
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
             Assert(pSlayer != NULL);
 
-            // ¸¶¿ì½º¿¡ ¹º°¡¸¦ µé°í ÀÖ¾î¼± ¾È µÇ°í,
-            // ¹þÀ¸·Á´Â ºÎºÐ¿¡ ¾ÆÀÌÅÛÀ» ÀÔ°í ÀÖÁö ¾Ê¾Æ¼­µµ ¾È µÈ´Ù.
+            // ë§ˆìš°ìŠ¤ì— ë­”ê°€ë¥¼ ë“¤ê³  ìžˆì–´ì„  ì•ˆ ë˜ê³ ,
+            // ë²—ìœ¼ë ¤ëŠ” ë¶€ë¶„ì— ì•„ì´í…œì„ ìž…ê³  ìžˆì§€ ì•Šì•„ì„œë„ ì•ˆ ëœë‹¤.
             if (pSlayer->getExtraInventorySlotItem() == NULL && pSlayer->isWear((Slayer::WearPart)SlotID)) {
-                // ÀåÂøÇÏ°í ÀÖ´Â ItemÀ» ¹Þ¾Æ¿Â´Ù.
+                // ìž¥ì°©í•˜ê³  ìžˆëŠ” Itemì„ ë°›ì•„ì˜¨ë‹¤.
                 Item* pItem = pSlayer->getWearItem((Slayer::WearPart)SlotID);
 
-                // ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö ±× ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ì•„ì´í…œì´ ìžˆëŠ”ì§€ ê·¸ ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (pItem != NULL && pItem->getObjectID() == pPacket->getObjectID()) {
-                    // ¾ÆÀÌÅÛÀ» ÀåÂøÃ¢¿¡¼­ Áö¿ì°í Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
-                    // ¿ÊÀ» ¹þ±â¸é¼­ ´É·ÂÄ¡¸¦ ´Ù¿î½ÃÅ°°í ¹þÀº ¾ÆÀÌÅÛÀ» Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
+                    // ì•„ì´í…œì„ ìž¥ì°©ì°½ì—ì„œ ì§€ìš°ê³  Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
+                    // ì˜·ì„ ë²—ê¸°ë©´ì„œ ëŠ¥ë ¥ì¹˜ë¥¼ ë‹¤ìš´ì‹œí‚¤ê³  ë²—ì€ ì•„ì´í…œì„ Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
                     pSlayer->takeOffItem((Slayer::WearPart)SlotID, true, true);
                     bSuccess = true;
                 }
@@ -62,16 +62,16 @@ void CGAddGearToMouseHandler::execute(CGAddGearToMouse* pPacket, Player* pPlayer
 
             Assert(pVampire != NULL);
 
-            // ¸¶¿ì½º¿¡ ¹º°¡¸¦ µé°í ÀÖ¾î¼± ¾È µÇ°í,
-            // ¹þÀ¸·Á´Â ºÎºÐ¿¡ ¾ÆÀÌÅÛÀ» ÀÔ°í ÀÖÁö ¾Ê¾Æ¼­µµ ¾È µÈ´Ù.
+            // ë§ˆìš°ìŠ¤ì— ë­”ê°€ë¥¼ ë“¤ê³  ìžˆì–´ì„  ì•ˆ ë˜ê³ ,
+            // ë²—ìœ¼ë ¤ëŠ” ë¶€ë¶„ì— ì•„ì´í…œì„ ìž…ê³  ìžˆì§€ ì•Šì•„ì„œë„ ì•ˆ ëœë‹¤.
             if (pVampire->getExtraInventorySlotItem() == NULL && pVampire->isWear((Vampire::WearPart)SlotID)) {
-                // ÀåÂøÇÏ°í ÀÖ´Â ItemÀ» ¹Þ¾Æ¿Â´Ù.
+                // ìž¥ì°©í•˜ê³  ìžˆëŠ” Itemì„ ë°›ì•„ì˜¨ë‹¤.
                 Item* pItem = pVampire->getWearItem((Vampire::WearPart)SlotID);
 
-                // ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö ±× ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ì•„ì´í…œì´ ìžˆëŠ”ì§€ ê·¸ ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (pItem != NULL && pItem->getObjectID() == pPacket->getObjectID()) {
-                    // ¾ÆÀÌÅÛÀ» ÀåÂøÃ¢¿¡¼­ Áö¿ì°í Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
-                    // ¿ÊÀ» ¹þ±â¸é¼­ ´É·ÂÄ¡¸¦ ´Ù¿î½ÃÅ°°í ¹þÀº ¾ÆÀÌÅÛÀ» Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
+                    // ì•„ì´í…œì„ ìž¥ì°©ì°½ì—ì„œ ì§€ìš°ê³  Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
+                    // ì˜·ì„ ë²—ê¸°ë©´ì„œ ëŠ¥ë ¥ì¹˜ë¥¼ ë‹¤ìš´ì‹œí‚¤ê³  ë²—ì€ ì•„ì´í…œì„ Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
                     pVampire->takeOffItem((Vampire::WearPart)SlotID, true, true);
                     bSuccess = true;
                 }
@@ -81,16 +81,16 @@ void CGAddGearToMouseHandler::execute(CGAddGearToMouse* pPacket, Player* pPlayer
 
             Assert(pOusters != NULL);
 
-            // ¸¶¿ì½º¿¡ ¹º°¡¸¦ µé°í ÀÖ¾î¼± ¾È µÇ°í,
-            // ¹þÀ¸·Á´Â ºÎºÐ¿¡ ¾ÆÀÌÅÛÀ» ÀÔ°í ÀÖÁö ¾Ê¾Æ¼­µµ ¾È µÈ´Ù.
+            // ë§ˆìš°ìŠ¤ì— ë­”ê°€ë¥¼ ë“¤ê³  ìžˆì–´ì„  ì•ˆ ë˜ê³ ,
+            // ë²—ìœ¼ë ¤ëŠ” ë¶€ë¶„ì— ì•„ì´í…œì„ ìž…ê³  ìžˆì§€ ì•Šì•„ì„œë„ ì•ˆ ëœë‹¤.
             if (pOusters->getExtraInventorySlotItem() == NULL && pOusters->isWear((Ousters::WearPart)SlotID)) {
-                // ÀåÂøÇÏ°í ÀÖ´Â ItemÀ» ¹Þ¾Æ¿Â´Ù.
+                // ìž¥ì°©í•˜ê³  ìžˆëŠ” Itemì„ ë°›ì•„ì˜¨ë‹¤.
                 Item* pItem = pOusters->getWearItem((Ousters::WearPart)SlotID);
 
-                // ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö ±× ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ì•„ì´í…œì´ ìžˆëŠ”ì§€ ê·¸ ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (pItem != NULL && pItem->getObjectID() == pPacket->getObjectID()) {
-                    // ¾ÆÀÌÅÛÀ» ÀåÂøÃ¢¿¡¼­ Áö¿ì°í Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
-                    // ¿ÊÀ» ¹þ±â¸é¼­ ´É·ÂÄ¡¸¦ ´Ù¿î½ÃÅ°°í ¹þÀº ¾ÆÀÌÅÛÀ» Mouse·Î ÀÌµ¿½ÃÅ²´Ù.
+                    // ì•„ì´í…œì„ ìž¥ì°©ì°½ì—ì„œ ì§€ìš°ê³  Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
+                    // ì˜·ì„ ë²—ê¸°ë©´ì„œ ëŠ¥ë ¥ì¹˜ë¥¼ ë‹¤ìš´ì‹œí‚¤ê³  ë²—ì€ ì•„ì´í…œì„ Mouseë¡œ ì´ë™ì‹œí‚¨ë‹¤.
                     pOusters->takeOffItem((Ousters::WearPart)SlotID, true, true);
                     bSuccess = true;
                 }

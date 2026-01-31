@@ -69,16 +69,16 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, const SIMP
 
             uint HealPoint = param.SkillDamage;
 
-            // ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+            // í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
             if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
-                // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+                // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
                 if (pSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                     Effect* pEffect = pSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                     EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                 } else {
                     EffectAftermath* pEffectAftermath = new EffectAftermath(pSlayer);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                     pSlayer->addEffect(pEffectAftermath);
                     pSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                     pEffectAftermath->create(pSlayer->getName());
@@ -99,11 +99,11 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, const SIMP
                 pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
             }
 
-            // HP¸¦ ¼¼ÆÃÇÑ´Ù.
+            // HPë¥¼ ì„¸íŒ…í•œë‹¤.
             HP_t CurrentHP = pSlayer->getHP(ATTR_CURRENT);
             HP_t MaxHP = pSlayer->getHP(ATTR_MAX);
 
-            // ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+            // ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
             int RealHealPoint = 0;
             if (CurrentHP + HealPoint <= MaxHP) {
                 RealHealPoint = max((unsigned int)0, HealPoint);
@@ -111,7 +111,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, const SIMP
                 RealHealPoint = max(0, MaxHP - CurrentHP);
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
                          _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
@@ -120,7 +120,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, const SIMP
             CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
             pSlayer->setHP(CurrentHP, ATTR_CURRENT);
 
-            // HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+            // HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
             GCStatusCurrentHP gcStatusCurrentHP;
             gcStatusCurrentHP.setObjectID(pSlayer->getObjectID());
             gcStatusCurrentHP.setCurrentHP(CurrentHP);
@@ -173,8 +173,8 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // ½½·¹ÀÌ¾î ¿Ü¿¡´Â Ä¡·áÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // ìŠ¬ë ˆì´ì–´ ì™¸ì—ëŠ” ì¹˜ë£Œí•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isSlayer() == false) {
             executeSkillFailException(pSlayer, param.SkillType);
             return;
@@ -191,7 +191,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 
         bool bHPCheck = false;
 
-        // Ã¼·ÂÀÌ ´â°Å³ª, ÈíÇ÷À» ´çÇÑ »óÅÂ¿©¾ß ÇÑ´Ù.
+        // ì²´ë ¥ì´ ë‹³ê±°ë‚˜, í¡í˜ˆì„ ë‹¹í•œ ìƒíƒœì—¬ì•¼ í•œë‹¤.
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
         Assert(pTargetSlayer != NULL);
 
@@ -220,16 +220,16 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 
             uint HealPoint = param.SkillDamage;
 
-            // ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+            // í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
             if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level) {
-                // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+                // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
                 if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                     Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                     EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                 } else {
                     EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-                    pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+                    pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                     pTargetSlayer->addEffect(pEffectAftermath);
                     pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                     pEffectAftermath->create(pTargetSlayer->getName());
@@ -251,11 +251,11 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
                 pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
             }
 
-            // ´Ù¸¥ »ç¶÷À» Ä¡·áÇÑ´Ù.
+            // ë‹¤ë¥¸ ì‚¬ëŒì„ ì¹˜ë£Œí•œë‹¤.
             HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
             HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-            // ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+            // ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
             // int RealHealPoint = 0;
             // if( CurrentHP + HealPoint <= MaxHP ) {
             // 	RealHealPoint = max( (unsigned int)0, HealPoint );
@@ -263,7 +263,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
             // 	RealHealPoint = max( 0, MaxHP - CurrentHP );
             // }
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             shareAttrExp(pSlayer, HealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier,
                          _GCSkillToObjectOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1);
@@ -272,7 +272,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
             CurrentHP = min((int)(MaxHP), (int)(CurrentHP + HealPoint));
             pTargetSlayer->setHP(CurrentHP, ATTR_CURRENT);
 
-            // Ä¡·á°¡ µÇ¾úÀ¸´Ï HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+            // ì¹˜ë£Œê°€ ë˜ì—ˆìœ¼ë‹ˆ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
             GCStatusCurrentHP gcStatusCurrentHP;
             gcStatusCurrentHP.setObjectID(TargetObjectID);
             gcStatusCurrentHP.setCurrentHP(CurrentHP);

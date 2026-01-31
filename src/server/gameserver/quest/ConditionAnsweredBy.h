@@ -2,7 +2,7 @@
 // Filename    : ConditionAnsweredBy.h
 // Written By  :
 // Description :
-// PC°¡ NPCÀÇ Áú¹®¿¡ ´ë´äÇßÀ» °æ¿ì¿¡ ¹ß»ıÇÏ´Â ÄÁµğ¼ÇÀÌ´Ù.
+// PCê°€ NPCì˜ ì§ˆë¬¸ì— ëŒ€ë‹µí–ˆì„ ê²½ìš°ì— ë°œìƒí•˜ëŠ” ì»¨ë””ì…˜ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ANSWEREDBY_H__
@@ -27,7 +27,7 @@ public:
     }
     virtual bool isPassive() const {
         return true;
-    } // ÆĞÅ¶¿¡ ¹İÀÀÀ» ÇÏ´Ï±î... passive conditionÀÌ´Ù.
+    } // íŒ¨í‚·ì— ë°˜ì‘ì„ í•˜ë‹ˆê¹Œ... passive conditionì´ë‹¤.
     virtual bool isNeutral() const {
         return false;
     }

@@ -35,7 +35,7 @@ void EffectDragonEye::affect(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // HP °¡ µÎ¹è~
+    // HP ê°€ ë‘ë°°~
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         SLAYER_RECORD prev;
@@ -66,7 +66,7 @@ void EffectDragonEye::unaffect(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // HP ¿ø·¡´ë·Î
+    // HP ì›ëž˜ëŒ€ë¡œ
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         SLAYER_RECORD prev;

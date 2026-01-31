@@ -17,9 +17,9 @@
 //
 // class LCReconnect;
 //
-// ·Î±×ÀÎ ¼­¹ö¿¡¼­ ÀÎÁõÀ» ¹Ş°í, Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇÑ Å¬¶óÀÌ¾ğÆ®ÀÇ °æ¿ì,
-// Ä³¸¯ÅÍ°¡ ÀÌÀü ¿¬°á¿¡ Á¸ÀçÇß´ø Á¸À» ¾Ë¾Æ³»¼­, ±× Á¸À» °ü¸®ÇÏ´Â
-// °ÔÀÓ ¼­¹ö·Î ÀçÁ¢¼ÓÇÏ¶ó´Â ÆĞÅ¶ÀÌ´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ì¸ì¦ì„ ë°›ê³ , ìºë¦­í„°ë¥¼ ì„ íƒí•œ í´ë¼ì´ì–¸íŠ¸ì˜ ê²½ìš°,
+// ìºë¦­í„°ê°€ ì´ì „ ì—°ê²°ì— ì¡´ì¬í–ˆë˜ ì¡´ì„ ì•Œì•„ë‚´ì„œ, ê·¸ ì¡´ì„ ê´€ë¦¬í•˜ëŠ”
+// ê²Œì„ ì„œë²„ë¡œ ì¬ì ‘ì†í•˜ë¼ëŠ” íŒ¨í‚·ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,10 +27,10 @@ class LCReconnect : public Packet {
 public:
     LCReconnect() {};
     ~LCReconnect() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -43,9 +43,9 @@ public:
 
     // get packet's body size
     PacketSize_t getPacketSize() const {
-        return szBYTE + m_GameServerIP.size() // °ÔÀÓ ¼­¹ö ¾ÆÀÌÇÇ
-               + szuint                       // °ÔÀÓ ¼­¹ö Æ÷Æ®
-               + szDWORD;                     // ÀÎÁõ Å°
+        return szBYTE + m_GameServerIP.size() // ê²Œì„ ì„œë²„ ì•„ì´í”¼
+               + szuint                       // ê²Œì„ ì„œë²„ í¬íŠ¸
+               + szDWORD;                     // ì¸ì¦ í‚¤
     }
 
     // get packet name
@@ -120,11 +120,11 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static LCReconnectPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static LCReconnectPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
-        return szBYTE + 15 // °ÔÀÓ ¼­¹ö ¾ÆÀÌÇÇ
-               + szuint    // °ÔÀÓ ¼­¹ö Æ÷Æ®
-               + szDWORD;  // ÀÎÁõ Å°
+        return szBYTE + 15 // ê²Œì„ ì„œë²„ ì•„ì´í”¼
+               + szuint    // ê²Œì„ ì„œë²„ í¬íŠ¸
+               + szDWORD;  // ì¸ì¦ í‚¤
     }
 };
 

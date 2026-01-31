@@ -51,30 +51,30 @@ void CGPhoneDisconnectHandler::execute(CGPhoneDisconnect* pPacket, Player* pPlay
 
     // cout << "Disconnect PhoneSlot : " << (int)PhoneSlot << ", Phone Number : " << (int)TargetPhoneNumber << endl;
 
-    // Ã£¾ÒÀ¸¸é....
+    // ì°¾ì•˜ìœ¼ë©´....
     if (pTargetSlayer != NULL) {
         pTargetPlayer = pTargetSlayer->getPlayer();
 
         if (pTargetSlayer->isSlotByPhoneNumber(PhoneNumber)) {
-            // Æù ¹øÈ£·Î ±× ¹øÈ£°¡ µé¾îÀÖ´Â ½½¶ùÀ» Ã£´Â´Ù.
+            // í° ë²ˆí˜¸ë¡œ ê·¸ ë²ˆí˜¸ê°€ ë“¤ì–´ìˆëŠ” ìŠ¬ëì„ ì°¾ëŠ”ë‹¤.
             TargetPhoneSlot = pTargetSlayer->getSlotWithPhoneNumber(PhoneNumber);
 
             Success = true;
         }
     }
 
-    // Á¤»óÀûÀ¸·Î Ã£°í ²÷¾úÀ» °æ¿ì
+    // ì •ìƒì ìœ¼ë¡œ ì°¾ê³  ëŠì—ˆì„ ê²½ìš°
     if (Success) {
-        // ÀÌÁ¦ ²÷±â´Â ¸¶´çÀÌ¹Ç·Î 0 À¸·Î ¾çÃø ´Ù ¼ÂÆÃ.
+        // ì´ì œ ëŠê¸°ëŠ” ë§ˆë‹¹ì´ë¯€ë¡œ 0 ìœ¼ë¡œ ì–‘ì¸¡ ë‹¤ ì…‹íŒ….
         pTargetSlayer->setPhoneSlotNumber(TargetPhoneSlot, 0);
         pSlayer->setPhoneSlotNumber(PhoneSlot, 0);
 
-        // ²÷´Â »ç¶÷¿¡°Ô ³¯¸®´Â ÆĞÅ¶
+        // ëŠëŠ” ì‚¬ëŒì—ê²Œ ë‚ ë¦¬ëŠ” íŒ¨í‚·
         GCPhoneDisconnected gcPhoneDisconnected;
         gcPhoneDisconnected.setPhoneNumber(TargetPhoneNumber);
         gcPhoneDisconnected.setSlotID(PhoneSlot);
 
-        // »ó´ëÀûÀ¸·Î ²÷±â´Â »ç¶÷¿¡°Ô ³¯¸®´Â ÆĞÅ¶
+        // ìƒëŒ€ì ìœ¼ë¡œ ëŠê¸°ëŠ” ì‚¬ëŒì—ê²Œ ë‚ ë¦¬ëŠ” íŒ¨í‚·
         GCPhoneDisconnected gcPhoneDisconnected2;
         gcPhoneDisconnected2.setPhoneNumber(PhoneNumber);
         gcPhoneDisconnected2.setSlotID(TargetPhoneSlot);
@@ -84,13 +84,13 @@ void CGPhoneDisconnectHandler::execute(CGPhoneDisconnect* pPacket, Player* pPlay
 
         // cout << "Disconnected Successfull" << endl;
 
-        // ºñÁ¤»ó ÀûÀÏ °æ¿ì -_-;
+        // ë¹„ì •ìƒ ì ì¼ ê²½ìš° -_-;
     } else {
-        // µî·ÏµÈ ÀüÈ­¹øÈ£¸¦ °¡Áø »ç¶÷ÀÌ Æ¯Á¤ ÀÌÀ¯·Î ³ª°£ »óÅÂÀÌ´Ù.
-        // µû¶ó¼­ µî·Ï ¹øÈ£¸¦ ÃÊ±âÈ­ ½ÃÄÑÁØ´Ù.
+        // ë“±ë¡ëœ ì „í™”ë²ˆí˜¸ë¥¼ ê°€ì§„ ì‚¬ëŒì´ íŠ¹ì • ì´ìœ ë¡œ ë‚˜ê°„ ìƒíƒœì´ë‹¤.
+        // ë”°ë¼ì„œ ë“±ë¡ ë²ˆí˜¸ë¥¼ ì´ˆê¸°í™” ì‹œì¼œì¤€ë‹¤.
         pSlayer->setPhoneSlotNumber(PhoneSlot, 0);
 
-        // ²÷´Â »ç¶÷¿¡°Ô ³¯¸®´Â ÆĞÅ¶
+        // ëŠëŠ” ì‚¬ëŒì—ê²Œ ë‚ ë¦¬ëŠ” íŒ¨í‚·
         GCPhoneDisconnected gcPhoneDisconnected;
         gcPhoneDisconnected.setPhoneNumber(TargetPhoneNumber);
         gcPhoneDisconnected.setSlotID(PhoneSlot);

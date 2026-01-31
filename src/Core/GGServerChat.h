@@ -3,7 +3,7 @@
 //
 // Filename    : GGServerChat.h
 // Written By  : inthesky
-// Description : ¼­¹ö°£ Whisper Chat¼öÇàÇÑ´Ù.
+// Description : ì„œë²„ê°„ Whisper Chatìˆ˜í–‰í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -25,10 +25,10 @@ class GGServerChat : public DatagramPacket {
 public:
     GGServerChat() {};
     ~GGServerChat() {};
-    // Datagram °´Ã¼¿¡¼­ºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // Datagram ê°ì²´ì—ì„œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Datagram& iDatagram);
 
-    // Datagram °´Ã¼·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // Datagram ê°ì²´ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(Datagram& oDatagram) const;
 
     // execute packet's handler
@@ -143,7 +143,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GGServerChatPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GGServerChatPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + 10 +  // Sender
                szBYTE + 10 +  // Receiver

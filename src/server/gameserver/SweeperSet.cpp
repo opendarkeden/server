@@ -105,7 +105,7 @@ void SweeperSetManager::load(int level, Zone* pZone) {
             //			SweeperSet::SweeperIndex Owner = (SweeperSet::SweeperIndex)OwnerID;
 
             //			StringStream name;
-            //			name << "º¸°ü´ë" << (int)ItemType;
+            //			name << "ë³´ê´€ëŒ€" << (int)ItemType;
 
             string name = pResult->getString(14);
 
@@ -215,7 +215,7 @@ bool SweeperSetManager::putSweeper(Item* pSweeper, MonsterCorpse* pSafe) {
     Assert(pSweeper != NULL);
     Assert(pSafe != NULL);
 
-    // Sweepr ¸¦ ³Ö´Â »ç¿ëÀÚ¿Í pSafe ÀÇ Á¾Á·ÀÌ °°À½Àº À§¿¡¼­ È®ÀÎÇß´Ù°í °¡Á¤ÇÑ´Ù
+    // Sweepr ë¥¼ ë„£ëŠ” ì‚¬ìš©ìžì™€ pSafe ì˜ ì¢…ì¡±ì´ ê°™ìŒì€ ìœ„ì—ì„œ í™•ì¸í–ˆë‹¤ê³  ê°€ì •í•œë‹¤
     if (pSweeper->getItemClass() != Item::ITEM_CLASS_SWEEPER)
         return false;
     if (pSafe->getItemClass() != Item::ITEM_CLASS_CORPSE)
@@ -326,7 +326,7 @@ bool SweeperSetManager::returnSweeper( Zone* pZone, Sweeper* pSweeper ) const
 
     ObjectID_t CorpseObjectID = pDefaultSafe->getObjectID();
 
-    // Default Safe ·Î ¿Å±â°í ¼ÒÀ¯ÇÑ Á¾Á·¿¡ ´ëÇÑ °Íµµ ÀúÀåÇØ¾ß ÇÑ´Ù
+    // Default Safe ë¡œ ì˜®ê¸°ê³  ì†Œìœ í•œ ì¢…ì¡±ì— ëŒ€í•œ ê²ƒë„ ì €ìž¥í•´ì•¼ í•œë‹¤
 //	pZone->transportItemToCorpse( pSweeper, pTargetZone, CorpseObjectID );
 
     SweeperSet* pSweeperSet = getSweeperSet( 3 );

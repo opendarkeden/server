@@ -35,7 +35,7 @@ void ActionWarpLevelWarZone::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpLevelWarZone::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -57,14 +57,14 @@ void ActionWarpLevelWarZone::execute(Creature* pCreature1, Creature* pCreature2)
             return;
         }*/
 
-    // ·¹º§ ³Ê¹« ³ôÀº Ä³¸¯ÅÍ´Â µé¾î°¥ ¼ö ¾ø´Ù
+    // ë ˆë²¨ ë„ˆë¬´ ë†’ì€ ìºë¦­í„°ëŠ” ë“¤ì–´ê°ˆ ìˆ˜ ì—†ë‹¤
     if (g_pLevelWarZoneInfoManager->getCreatureLevelGrade(pCreature2) == -1) {
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_TO_HIGH_LEVEL_FOR_LEVEL_WAR));
         pGamePlayer->sendPacket(&gcSystemMessage);
         return;
     }
 
-    // Å©¸®ÃÄ Á¤º¸ º¸°í ¾Ë¾Æ¼­ Æ¨°ÜÁÖÀÚ =_=;;
+    // í¬ë¦¬ì³ ì •ë³´ ë³´ê³  ì•Œì•„ì„œ íŠ•ê²¨ì£¼ìž =_=;;
     ZONE_COORD pos(g_pLevelWarZoneInfoManager->getCreatureZoneID(pCreature2));
 
     if (pCreature2->isSlayer()) {

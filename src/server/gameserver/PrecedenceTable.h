@@ -2,10 +2,10 @@
 // Filename    : PrecedenceTable.h
 // Written by  : excel96
 // Description :
-// "¸ÔÀÚ" ¹æÁö¸¦ À§ÇÑ ¿ì¼±±Ç °è»êÀ» À§ÇÑ Å¬·¡½ºÀÌ´Ù.
-// °³º°ÀûÀÎ ¸ó½ºÅÍ °´Ã¼ ¾È¿¡ Á¸ÀçÇÏ´Ù°¡, ¸ó½ºÅÍ°¡ Á×°Å³ª ÈíÇ÷ ´çÇÒ ¶§°¡
-// µÇ¸é ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» ¸Ô°Å³ª, ÈíÇ÷À» ÇÒ ¼ö ÀÖ´Â Á¤´çÇÑ ±Ç¸®¸¦ °¡Áö°í
-// ÀÖ´ÂÁö¸¦ °Ë»çÇÑ´Ù.
+// "ë¨¹ìž" ë°©ì§€ë¥¼ ìœ„í•œ ìš°ì„ ê¶Œ ê³„ì‚°ì„ ìœ„í•œ í´ëž˜ìŠ¤ì´ë‹¤.
+// ê°œë³„ì ì¸ ëª¬ìŠ¤í„° ê°ì²´ ì•ˆì— ì¡´ìž¬í•˜ë‹¤ê°€, ëª¬ìŠ¤í„°ê°€ ì£½ê±°ë‚˜ í¡í˜ˆ ë‹¹í•  ë•Œê°€
+// ë˜ë©´ í”Œë ˆì´ì–´ê°€ ì•„ì´í…œì„ ë¨¹ê±°ë‚˜, í¡í˜ˆì„ í•  ìˆ˜ ìžˆëŠ” ì •ë‹¹í•œ ê¶Œë¦¬ë¥¼ ê°€ì§€ê³ 
+// ìžˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PRECEDENCETABLE_H__
@@ -23,9 +23,9 @@ class Creature;
 
 //////////////////////////////////////////////////////////////////////////////
 // class PrecedenceElement;
-// PrecedenceTable ¾È¿¡ µé¾î°¡´Â °´Ã¼·Î¼­ °¢°¢ÀÇ ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍ¿¡°Ô °¡ÇÑ
-// µ¥¹ÌÁö ¾ç°ú ¸¶Áö¸·À¸·Î µ¥¹ÌÁö¸¦ °¡ÇÑ ½Ã°£, ±×¸®°í ±× ÇÃ·¹ÀÌ¾î¾î¿¡ ´ëÇÑ
-// Á¤º¸¸¦ ±â·ÏÇØ µÎ´Â µ¥ ¾²ÀÎ´Ù.
+// PrecedenceTable ì•ˆì— ë“¤ì–´ê°€ëŠ” ê°ì²´ë¡œì„œ ê°ê°ì˜ í”Œë ˆì´ì–´ê°€ ëª¬ìŠ¤í„°ì—ê²Œ ê°€í•œ
+// ë°ë¯¸ì§€ ì–‘ê³¼ ë§ˆì§€ë§‰ìœ¼ë¡œ ë°ë¯¸ì§€ë¥¼ ê°€í•œ ì‹œê°„, ê·¸ë¦¬ê³  ê·¸ í”Œë ˆì´ì–´ì–´ì— ëŒ€í•œ
+// ì •ë³´ë¥¼ ê¸°ë¡í•´ ë‘ëŠ” ë° ì“°ì¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PrecedenceElement {
@@ -73,10 +73,10 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////
 // class PrecedenceTable;
-// PrecedenceElementÀÇ ÁýÇÕÃ¼·Î¼­ ¸ó½ºÅÍ °´Ã¼ ¾È¿¡ composition Çü½ÄÀ¸·Î
-// Æ÷ÇÔµÈ´Ù. addPrecedence ÇÔ¼ö¸¦ ÀÌ¿ëÇØ °¢°¢ÀÇ ÇÃ·¹ÀÌ¾î°¡ ÁØ µ¥¹ÌÁö¸¦
-// ±â¾ïÇÏ°í ÀÖ´Ù°¡, compute ÇÔ¼ö¸¦ ÀÌ¿ëÇØ ´©°¡ ÀÌ ¸ó½ºÅÍ¿¡¼­ ³ª¿À´Â ¾ÆÀÌÅÛ
-// ¶Ç´Â ÈíÇ÷¿¡ ´ëÇØ¼­ ¿ì¼±±ÇÀ» °¡Áö°í ÀÖ´Â °¡¸¦ ÆÇ´ÜÇØ ÀúÀåÇÏ°í ÀÖ´Â´Ù.
+// PrecedenceElementì˜ ì§‘í•©ì²´ë¡œì„œ ëª¬ìŠ¤í„° ê°ì²´ ì•ˆì— composition í˜•ì‹ìœ¼ë¡œ
+// í¬í•¨ëœë‹¤. addPrecedence í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ê°ê°ì˜ í”Œë ˆì´ì–´ê°€ ì¤€ ë°ë¯¸ì§€ë¥¼
+// ê¸°ì–µí•˜ê³  ìžˆë‹¤ê°€, compute í•¨ìˆ˜ë¥¼ ì´ìš©í•´ ëˆ„ê°€ ì´ ëª¬ìŠ¤í„°ì—ì„œ ë‚˜ì˜¤ëŠ” ì•„ì´í…œ
+// ë˜ëŠ” í¡í˜ˆì— ëŒ€í•´ì„œ ìš°ì„ ê¶Œì„ ê°€ì§€ê³  ìžˆëŠ” ê°€ë¥¼ íŒë‹¨í•´ ì €ìž¥í•˜ê³  ìžˆëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PrecedenceTable {
@@ -124,17 +124,17 @@ protected:
     unordered_map<string, PrecedenceElement*> m_CreatureMap;
     unordered_map<int, PrecedenceElement*> m_PartyMap;
 
-    string m_FirstAttackerName; // Á¦ÀÏ ¸ÕÀú ¼±°øÀ» °¡ÇÑ ÀÚÀÇ ÀÌ¸§
-    int m_FirstAttackerPartyID; // Á¦ÀÏ ¸ÕÀú ¼±°øÀ» °¡ÇÑ ÀÚÀÇ ÆÄÆ¼ ID
+    string m_FirstAttackerName; // ì œì¼ ë¨¼ì € ì„ ê³µì„ ê°€í•œ ìžì˜ ì´ë¦„
+    int m_FirstAttackerPartyID; // ì œì¼ ë¨¼ì € ì„ ê³µì„ ê°€í•œ ìžì˜ íŒŒí‹° ID
 
-    string m_HostName; // ÁÖÀÎÀÇ ÀÌ¸§
-    int m_HostPartyID; // ÁÖÀÎÀÇ ÆÄÆ¼ ID
+    string m_HostName; // ì£¼ì¸ì˜ ì´ë¦„
+    int m_HostPartyID; // ì£¼ì¸ì˜ íŒŒí‹° ID
 
-    string m_QuestHostName; // Äù½ºÆ® ¾ÆÀÌÅÛÀÇ ÁÖÀÎ ÀÌ¸§
+    string m_QuestHostName; // í€˜ìŠ¤íŠ¸ ì•„ì´í…œì˜ ì£¼ì¸ ì´ë¦„
 
-    bool m_bComputeFlag; // °è»êÀ» ¸¶Ä£ »óÅÂÀÎ°¡...?
+    bool m_bComputeFlag; // ê³„ì‚°ì„ ë§ˆì¹œ ìƒíƒœì¸ê°€...?
 
-    Damage_t m_TotalDamage; // µ¥¹ÌÁö ÃÑÇÕ
+    Damage_t m_TotalDamage; // ë°ë¯¸ì§€ ì´í•©
 };
 
 #endif

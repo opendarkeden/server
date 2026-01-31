@@ -21,7 +21,7 @@ class SBillingPlayer;
 /////////////////////////////////////////////////////
 // class SBillingPlayerManager
 //
-// Áß±¹ ºô¸µ ¼­¹ö¿Í Åë½ÅÀ» Àü´ãÇÏ´Â ¾²·¹µå
+// ì¤‘êµ­ ë¹Œë§ ì„œë²„ì™€ í†µì‹ ì„ ì „ë‹´í•˜ëŠ” ì“°ë ˆë“œ
 /////////////////////////////////////////////////////
 class SBillingPlayerManager : public Thread {
 public:
@@ -33,7 +33,7 @@ public:
     void stop() throw(Error);
     void run() throw();
 
-    // ºô¸µ °ü·Ã ÆĞÅ¶ º¸³»±â ÇÔ¼ö
+    // ë¹Œë§ ê´€ë ¨ íŒ¨í‚· ë³´ë‚´ê¸° í•¨ìˆ˜
     bool sendLogin(PayUser* pPayUser, int i) throw(ProtocolException, Error);
     void sendIntervalValidation(int i) throw(ProtocolException, Error);
     bool sendMinusPoint(PayUser* pPayUser, int i) throw(ProtocolException, Error);

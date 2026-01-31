@@ -48,17 +48,17 @@ public:
     bool satisfy(uint op, uint current, uint restriction) const;
 
 private:
-    uint m_ReqSTR;   // ÇÊ¿ä STR
-    uint m_ReqDEX;   // ÇÊ¿ä DEX
-    uint m_ReqINT;   // ÇÊ¿ä INT
-    uint m_ReqSum;   // ÇÊ¿ä ´É·ÂÄ¡ÀÇ ÇÕ
-    uint m_ReqLevel; // ÇÊ¿ä LEVEL
+    uint m_ReqSTR;   // í•„ìš” STR
+    uint m_ReqDEX;   // í•„ìš” DEX
+    uint m_ReqINT;   // í•„ìš” INT
+    uint m_ReqSum;   // í•„ìš” ëŠ¥ë ¥ì¹˜ì˜ í•©
+    uint m_ReqLevel; // í•„ìš” LEVEL
 
-    uint m_STROperator;   // STR ¿¬»êÀÚ
-    uint m_DEXOperator;   // DEX ¿¬»êÀÚ
-    uint m_INTOperator;   // INT ¿¬»êÀÚ
-    uint m_SumOperator;   // SUM ¿¬»êÀÚ
-    uint m_LevelOperator; // LEVEL ¿¬»êÀÚ
+    uint m_STROperator;   // STR ì—°ì‚°ì
+    uint m_DEXOperator;   // DEX ì—°ì‚°ì
+    uint m_INTOperator;   // INT ì—°ì‚°ì
+    uint m_SumOperator;   // SUM ì—°ì‚°ì
+    uint m_LevelOperator; // LEVEL ì—°ì‚°ì
 };
 
 //////////////////////////////////////////////////////////////////////////////

@@ -41,7 +41,7 @@ void CGRequestStoreInfoHandler::execute(CGRequestStoreInfo* pPacket, Player* pPl
         PlayerCreature* pTargetPC =
             dynamic_cast<PlayerCreature*>(pPC->getZone()->getCreature(pPacket->getOwnerObjectID()));
         if (pTargetPC != NULL && pTargetPC->getRace() == pPC->getRace()) {
-            // cout << pTargetPC->getName() << " ÀÇ »óÁ¡ Á¤º¸¸¦ º¸³À´Ï´Ù." << endl;
+            // cout << pTargetPC->getName() << " ì˜ ìƒì  ì •ë³´ë¥¼ ë³´ëƒ…ë‹ˆë‹¤." << endl;
             GCOtherStoreInfo gcInfo;
             gcInfo.setObjectID(pTargetPC->getObjectID());
             gcInfo.setRequested(1);

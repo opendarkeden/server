@@ -18,7 +18,7 @@
 #include "LogClient.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 
@@ -38,11 +38,11 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // ¸é¿ª »óÅÂ. by sigi. 2002.9.13
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi.2002.9.5
-        // Á×Àº ¾Ö´Â ÇÇ »¡ ¼ö ¾ø´Ù. by Sequoia.2003. 3. 20
-        if (pTargetCreature == NULL // NoSuch Á¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // ë©´ì—­ ìƒíƒœ. by sigi. 2002.9.13
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi.2002.9.5
+        // ì£½ì€ ì• ëŠ” í”¼ ë¹¨ ìˆ˜ ì—†ë‹¤. by Sequoia.2003. 3. 20
+        if (pTargetCreature == NULL // NoSuch ì œê±°. by sigi. 2002.5.2
             || pTargetCreature->isNPC() || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN) ||
             !canAttack(pVampire, pTargetCreature) || pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) ||
             pTargetCreature->isDead()) {
@@ -65,16 +65,16 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
         bool bPK = verifyPK(pVampire, pTargetCreature);
 
         if (bHitRoll && bCanHit && bTimeCheck && bRangeCheck && bPK) {
-            // ½½·¹ÀÌ¾îÀÏ °æ¿ì¿¡¸¸ ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ìŠ¬ë ˆì´ì–´ì¼ ê²½ìš°ì—ë§Œ ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             if (pTargetCreature->isSlayer()) {
                 EffectBloodDrain* pEffectBloodDrain = new EffectBloodDrain(pTargetCreature);
                 pEffectBloodDrain->setLevel(pVampire->getLevel());
-                pEffectBloodDrain->setDeadline(BLOODDRAIN_DURATION); // 3ÀÏ??
+                pEffectBloodDrain->setDeadline(BLOODDRAIN_DURATION); // 3ì¼??
                 pTargetCreature->addEffect(pEffectBloodDrain);
                 pEffectBloodDrain->create(pTargetCreature->getName());
                 _GCBloodDrainOK2.addShortData(MODIFY_EFFECT_STAT, Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-                // Å¸°ÙÀÌ ¹¹µç ÇÃ·¡±×´Â °Ç´Ù.
+                // íƒ€ê²Ÿì´ ë­ë“  í”Œë˜ê·¸ëŠ” ê±´ë‹¤.
                 pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
                 Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -84,10 +84,10 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
                 pTargetSlayer->sendRealWearingInfo();
                 pTargetSlayer->addModifyInfo(prev, _GCBloodDrainOK2);
 
-                // ·Î±×¸¦ ³²±ä´Ù.
+                // ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
                 log(LOG_BLOODDRAINED, pTargetCreature->getName(), pVampire->getName());
             }
-            // ¾Æ¿ì½ºÅÍÁîÀÇ °æ¿ì¿£..... -_-; Á¦ÇÑ½Ã°£ ¾ø´Â ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù. ¾ö¹ĞÈ÷ ¸»ÇØ Á¦ÇÑ½Ã°£ÀÌ ¾ø´Â °Ç ¾Æ´ÏÁö¸¸..
+            // ì•„ìš°ìŠ¤í„°ì¦ˆì˜ ê²½ìš°ì—”..... -_-; ì œí•œì‹œê°„ ì—†ëŠ” ì´í™íŠ¸ë¥¼ ìƒì„±í•œë‹¤. ì—„ë°€íˆ ë§í•´ ì œí•œì‹œê°„ì´ ì—†ëŠ” ê±´ ì•„ë‹ˆì§€ë§Œ..
             //			else if ( pTargetCreature->isOusters() )
             //			{
             //				EffectBloodDrain* pEffectBloodDrain = new EffectBloodDrain(pTargetCreature);
@@ -96,7 +96,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
             //				pEffectBloodDrain->create(pTargetCreature->getName());
             //				_GCBloodDrainOK2.addShortData(MODIFY_EFFECT_STAT, Effect::EFFECT_CLASS_BLOOD_DRAIN);
             //
-            //				// Å¸°ÙÀÌ ¹¹µç ÇÃ·¡±×´Â °Ç´Ù.
+            //				// íƒ€ê²Ÿì´ ë­ë“  í”Œë˜ê·¸ëŠ” ê±´ë‹¤.
             //				pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
             //
             //				Sight_t oldSight = pTargetCreature->getSight();
@@ -115,15 +115,15 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
             //				}
             //			}
 
-            // Å¸°ÙÀÌ ¹¹µç ÇÃ·¡±×´Â °Ç´Ù.
+            // íƒ€ê²Ÿì´ ë­ë“  í”Œë˜ê·¸ëŠ” ê±´ë‹¤.
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 
-            // ¿Ã¸± °æÇèÄ¡·®À» °è»êÇÑ´Ù.
+            // ì˜¬ë¦´ ê²½í—˜ì¹˜ëŸ‰ì„ ê³„ì‚°í•œë‹¤.
             Exp_t Exp = computeCreatureExp(pTargetCreature, BLOODDRAIN_EXP);
 
             int targetLevel = 0;
             int targetMaxHP = 0;
-            // ÆäÀÓÀ» ¿Ã·ÁÁØ´Ù.
+            // í˜ì„ì„ ì˜¬ë ¤ì¤€ë‹¤.
             if (pTargetCreature->isSlayer()) {
                 // increaseFame(pVampire, Exp);
                 Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -155,20 +155,20 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 
             shareVampExp(pVampire, Exp, _GCBloodDrainOK1);
 
-            // ÈíÇ÷À» ÇÏ°Ô µÇ¸é ÈíÇ÷ÇÑ »ç¶÷ÀÇ Ã¼·ÂÀÌ ¿Ã¶ó°£´Ù.
-            // MephistoÀÌÆåÆ®°¡ °É·ÁÀÖÀ¸¸é HP´Â ¾È ¿Ã¶ó°£´Ù.
+            // í¡í˜ˆì„ í•˜ê²Œ ë˜ë©´ í¡í˜ˆí•œ ì‚¬ëŒì˜ ì²´ë ¥ì´ ì˜¬ë¼ê°„ë‹¤.
+            // Mephistoì´í™íŠ¸ê°€ ê±¸ë ¤ìˆìœ¼ë©´ HPëŠ” ì•ˆ ì˜¬ë¼ê°„ë‹¤.
             if (!pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO)) {
                 HP_t HealPoint = (Exp == 0 ? computeBloodDrainHealPoint(pTargetCreature, BLOODDRAIN_EXP) : Exp);
                 HP_t CurrentHP = pVampire->getHP();
                 HP_t MaxHP = pVampire->getHP(ATTR_MAX);
                 HP_t NewHP = min((int)MaxHP, (int)CurrentHP + (int)HealPoint);
 
-                // Àº µ¥¹ÌÁö °ü·Ã Ã³¸®¸¦ ÇØ ÁØ´Ù.
+                // ì€ ë°ë¯¸ì§€ ê´€ë ¨ ì²˜ë¦¬ë¥¼ í•´ ì¤€ë‹¤.
                 Silver_t newSilverDamage = max(0, (int)pVampire->getSilverDamage() - (int)HealPoint);
                 pVampire->saveSilverDamage(newSilverDamage);
                 _GCBloodDrainOK1.addShortData(MODIFY_SILVER_DAMAGE, newSilverDamage);
 
-                // ¹ìÆÄÀÌ¾îÀÇ HP¸¦ ¼¼ÆÃÇÑ´Ù.
+                // ë±€íŒŒì´ì–´ì˜ HPë¥¼ ì„¸íŒ…í•œë‹¤.
                 pVampire->setHP(NewHP);
 
                 GCStatusCurrentHP gcStatusCurrentHP;
@@ -179,8 +179,8 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
                 _GCBloodDrainOK1.addShortData(MODIFY_CURRENT_HP, NewHP);
             }
 
-            // ÈíÇ÷À» ´çÇÑ ¾Ö´Â HP°¡ ÁÙ¾îµç´Ù.
-            // ´ë»óÀÌ ³» ·¹º§º¸´Ù ³ô´Ù¸é.. MaxHPÀÇ 10~15% damage
+            // í¡í˜ˆì„ ë‹¹í•œ ì• ëŠ” HPê°€ ì¤„ì–´ë“ ë‹¤.
+            // ëŒ€ìƒì´ ë‚´ ë ˆë²¨ë³´ë‹¤ ë†’ë‹¤ë©´.. MaxHPì˜ 10~15% damage
             // by sigi. 2002.9.14
             int drainDamage = 0;
             int myLevel = pVampire->getLevel();
@@ -188,7 +188,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
             if (targetLevel > myLevel) {
                 drainDamage = targetMaxHP * (rand() % 6 + 10) / 100;
             } else {
-                // ·¹º§ 5Â÷ÀÌ¸¶´Ù 1%¾¿ ´õ~
+                // ë ˆë²¨ 5ì°¨ì´ë§ˆë‹¤ 1%ì”© ë”~
                 int damagePercent = min(30, (rand() % 6 + 10 + (myLevel - targetLevel)));
                 drainDamage = targetMaxHP * damagePercent / 100;
             }
@@ -197,7 +197,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
                 // decreaseHP(pZone, pTargetCreature, drainDamage, pVampire->getObjectID());
                 EffectDecreaseHP* pEffect = new EffectDecreaseHP(pTargetCreature);
                 pEffect->setPoint(drainDamage);
-                pEffect->setDeadline(20); // 2ÃÊ ÈÄ
+                pEffect->setDeadline(20); // 2ì´ˆ í›„
                 pEffect->setUserObjectID(pVampire->getObjectID());
                 pTargetCreature->addEffect(pEffect);
                 pTargetCreature->setFlag(Effect::EFFECT_CLASS_DECREASE_HP);
@@ -205,10 +205,10 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 
             pVampire->getGQuestManager()->blooddrain();
 
-            // ÈíÇ÷½Ã¿¡µµ ¼ºÇâ ¹Ù²ñ
+            // í¡í˜ˆì‹œì—ë„ ì„±í–¥ ë°”ë€œ
             // by sigi. 2002.12.16
-            // EffectDecreaseHP¿¡¼­ HP°¡ ´â¾Æ¼­ 0ÀÌ µÇ¾î¾ßÇÏ´Â °æ¿ì°¡ ÀÖ¾î¼­
-            // EffectDecreaseHP::unaffect()·Î ¿Å±ä´Ù.
+            // EffectDecreaseHPì—ì„œ HPê°€ ë‹³ì•„ì„œ 0ì´ ë˜ì–´ì•¼í•˜ëŠ” ê²½ìš°ê°€ ìˆì–´ì„œ
+            // EffectDecreaseHP::unaffect()ë¡œ ì˜®ê¸´ë‹¤.
             // computeAlignmentChange(pTargetCreature, drainDamage, pVampire, NULL, &_GCBloodDrainOK1);
 
             _GCBloodDrainOK1.setObjectID(TargetObjectID);
@@ -275,16 +275,16 @@ void BloodDrain::execute(Monster* pMonster, Creature* pEnemy)
             addVisibleCreature(pZone, pMonster, true);
         }
 
-        // ¸¶½ºÅÍ : ±¤¿ª ÈíÇ÷ - -;
+        // ë§ˆìŠ¤í„° : ê´‘ì—­ í¡í˜ˆ - -;
         if (pMonster->isMaster()
 #ifdef __UNDERWORLD__
             || pMonster->isUnderworld() || pMonster->getMonsterType() == 599
 #endif
         ) {
-            //			cout << pMonster->getName() << "°¡ ±¤¿ªÈíÇ÷ÇÔ" << endl;
+            //			cout << pMonster->getName() << "ê°€ ê´‘ì—­í¡í˜ˆí•¨" << endl;
             int x = pMonster->getX();
             int y = pMonster->getY();
-            int Splash = 3 + rand() % 5; // 3~7 ¸¶¸®
+            int Splash = 3 + rand() % 5; // 3~7 ë§ˆë¦¬
             int range = 5;               // 11 x 11
             list<Creature*> creatureList;
             getSplashVictims(pMonster->getZone(), x, y, Creature::CREATURE_CLASS_MAX, creatureList, Splash, range);
@@ -300,7 +300,7 @@ void BloodDrain::execute(Monster* pMonster, Creature* pEnemy)
                 }
             }
         }
-        // ÀÏ¹İ ¸÷ : ÇÑ ¸¶¸®
+        // ì¼ë°˜ ëª¹ : í•œ ë§ˆë¦¬
         else {
             if (executeMonster(pMonster, pEnemy)) {
                 bSuccess = true;
@@ -312,10 +312,10 @@ void BloodDrain::execute(Monster* pMonster, Creature* pEnemy)
         executeSkillFailException(pMonster, getSkillType());
     }
 
-    // ¼º°øÀÌµç ½ÇÆĞµç ¸ó½ºÅÍ¿¡°Ô µô·¹ÀÌ´Â °É¾îÁØ´Ù.
+    // ì„±ê³µì´ë“  ì‹¤íŒ¨ë“  ëª¬ìŠ¤í„°ì—ê²Œ ë”œë ˆì´ëŠ” ê±¸ì–´ì¤€ë‹¤.
     Timeval NextTurn = pMonster->getNextTurn();
     Timeval DelayTurn;
-    DelayTurn.tv_sec = (bSuccess ? 4 : 1); // ¼º°ø°ú ½ÇÆĞÀÇ delay¸¦ ´Ù¸£°Ô ÇÑ´Ù. by sigi. 2002.9.14
+    DelayTurn.tv_sec = (bSuccess ? 4 : 1); // ì„±ê³µê³¼ ì‹¤íŒ¨ì˜ delayë¥¼ ë‹¤ë¥´ê²Œ í•œë‹¤. by sigi. 2002.9.14
     DelayTurn.tv_usec = 500000;
     pMonster->addAccuDelay(DelayTurn);
 
@@ -336,9 +336,9 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 #endif
         ;
 
-    // Á×¾úÀ¸¸é ÈíÇ÷ ¸øÇÏ°í..
-    // ¸¶½ºÅÍ´Â ¾Æ¹«³ª ´Ù ºş´Ù - -;
-    // ´ë»óÀÌ Á×¾úÀ¸¸é ¸ø ºş´Ù.
+    // ì£½ì—ˆìœ¼ë©´ í¡í˜ˆ ëª»í•˜ê³ ..
+    // ë§ˆìŠ¤í„°ëŠ” ì•„ë¬´ë‚˜ ë‹¤ ë¹¤ë‹¤ - -;
+    // ëŒ€ìƒì´ ì£½ì—ˆìœ¼ë©´ ëª» ë¹¤ë‹¤.
     if (pMonster->isDead() || pMonster->isFlag(Effect::EFFECT_CLASS_COMA) ||
         !pMonster->isEnemyToAttack(pEnemy) && !isMaster || pEnemy->isDead() ||
         pEnemy->isFlag(Effect::EFFECT_CLASS_COMA)) {
@@ -352,24 +352,24 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
     GCBloodDrainOK2 _GCBloodDrainOK2;
     GCBloodDrainOK3 _GCBloodDrainOK3;
 
-    // ¸¶½ºÅÍ´Â Ã¼·Â 100% ¶óµµ ¹®´Ù.
-    int HPMultiplier = (isMaster ? 1 : 3); // ÇöÀç HP°¡ 1/1,  1/3
+    // ë§ˆìŠ¤í„°ëŠ” ì²´ë ¥ 100% ë¼ë„ ë¬¸ë‹¤.
+    int HPMultiplier = (isMaster ? 1 : 3); // í˜„ì¬ HPê°€ 1/1,  1/3
     bool bHitRoll = HitRoll::isSuccessBloodDrain(pMonster, pEnemy, HPMultiplier);
     bool bCanHit = canHit(pMonster, pEnemy, SKILL_BLOOD_DRAIN);
-    // ¸¶½ºÅÍ´Â °Å¸®¿¡ °ü°è¾øÀÌ ¹®´Ù~
+    // ë§ˆìŠ¤í„°ëŠ” ê±°ë¦¬ì— ê´€ê³„ì—†ì´ ë¬¸ë‹¤~
     bool bRangeCheck = isMaster || verifyDistance(pMonster, pEnemy, 1);
 
-    // ÈíÇ÷ ¸é¿ª »óÅÂ. by sigi. 2002.9.13
+    // í¡í˜ˆ ë©´ì—­ ìƒíƒœ. by sigi. 2002.9.13
     bool bEffected = pEnemy->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN);
 
     if (bHitRoll && bCanHit && bRangeCheck && !bEffected) {
         if (pEnemy->isSlayer()) {
             // Set EffectBloodDrain
-            // ¸¶½ºÅÍ¸é ¾È°Ç´Ù.
+            // ë§ˆìŠ¤í„°ë©´ ì•ˆê±´ë‹¤.
             if (!isMaster) {
                 EffectBloodDrain* pEffectBloodDrain = new EffectBloodDrain(pEnemy);
                 pEffectBloodDrain->setLevel(pMonster->getLevel());
-                pEffectBloodDrain->setDeadline(BLOODDRAIN_DURATION); // °ÔÀÓ½Ã°£À¸·Î 3ÀÏ Á¤µµ
+                pEffectBloodDrain->setDeadline(BLOODDRAIN_DURATION); // ê²Œì„ì‹œê°„ìœ¼ë¡œ 3ì¼ ì •ë„
                 pEnemy->addEffect(pEffectBloodDrain);
                 pEffectBloodDrain->create(pEnemy->getName());
                 _GCBloodDrainOK2.addShortData(MODIFY_EFFECT_STAT, Effect::EFFECT_CLASS_BLOOD_DRAIN);
@@ -384,10 +384,10 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
                 pTargetSlayer->addModifyInfo(prev, _GCBloodDrainOK2);
             }
 
-            // ·Î±×¸¦ ³²±ä´Ù.
-            log(LOG_BLOODDRAINED, pEnemy->getName(), "°ÔÀÓ ³»ÀÇ ¸ó½ºÅÍ");
+            // ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
+            log(LOG_BLOODDRAINED, pEnemy->getName(), "ê²Œì„ ë‚´ì˜ ëª¬ìŠ¤í„°");
         }
-        // ¾Æ¿ì½ºÅÍÁîÀÇ °æ¿ì¿£..... -_-; Á¦ÇÑ½Ã°£ ¾ø´Â ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù. ¾ö¹ĞÈ÷ ¸»ÇØ Á¦ÇÑ½Ã°£ÀÌ ¾ø´Â °Ç ¾Æ´ÏÁö¸¸..
+        // ì•„ìš°ìŠ¤í„°ì¦ˆì˜ ê²½ìš°ì—”..... -_-; ì œí•œì‹œê°„ ì—†ëŠ” ì´í™íŠ¸ë¥¼ ìƒì„±í•œë‹¤. ì—„ë°€íˆ ë§í•´ ì œí•œì‹œê°„ì´ ì—†ëŠ” ê±´ ì•„ë‹ˆì§€ë§Œ..
         //		else if ( pEnemy->isOusters() && !isMaster )
         //		{
         //			EffectBloodDrain* pEffectBloodDrain = new EffectBloodDrain(pEnemy);
@@ -418,8 +418,8 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
         _GCBloodDrainOK3.setObjectID(pMonster->getObjectID());
         _GCBloodDrainOK3.setTargetObjectID(pEnemy->getObjectID());
 
-        // Å¸°ÙÀÌ ¹¹µç ÇÃ·¡±×´Â °Ç´Ù.
-        // ¸¶½ºÅÍ¸é ¾È°Ç´Ù.
+        // íƒ€ê²Ÿì´ ë­ë“  í”Œë˜ê·¸ëŠ” ê±´ë‹¤.
+        // ë§ˆìŠ¤í„°ë©´ ì•ˆê±´ë‹¤.
         if (!isMaster) {
             pEnemy->setFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
         }
@@ -455,7 +455,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
         } else if (pEnemy->isMonster()) {
             Monster* pEnemyMonster = dynamic_cast<Monster*>(pEnemy);
 
-            // ÈíÇ÷´çÇÏ´Â ¸ó½ºÅÍÇÑÅ× µô·¹ÀÌ °É¾îÁØ´Ù.
+            // í¡í˜ˆë‹¹í•˜ëŠ” ëª¬ìŠ¤í„°í•œí…Œ ë”œë ˆì´ ê±¸ì–´ì¤€ë‹¤.
             Timeval DelayTurn;
             DelayTurn.tv_sec = 4;
             DelayTurn.tv_usec = 500000;
@@ -467,7 +467,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 #endif
                  ) &&
                 pMonster->getClanType() == pEnemyMonster->getClanType()) {
-                // °°Àº clanÀÇ ¸¶½ºÅÍÀÌ¸é ÇÇ »ó³³ÀÌ¶ó°í º¼ ¼ö ÀÖÀ»±î -_-;
+                // ê°™ì€ clanì˜ ë§ˆìŠ¤í„°ì´ë©´ í”¼ ìƒë‚©ì´ë¼ê³  ë³¼ ìˆ˜ ìˆì„ê¹Œ -_-;
             } else {
                 pEnemyMonster->addEnemy(pMonster);
             }
@@ -476,22 +476,22 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
             targetMaxHP = pEnemyMonster->getHP(ATTR_MAX);
         }
 
-        // ÀÚ½ÅÀÌ³ª »ó´ë¹æ Áß.. HP°¡ ¸¹Àº ÂÊÀÇ 15~25%
+        // ìì‹ ì´ë‚˜ ìƒëŒ€ë°© ì¤‘.. HPê°€ ë§ì€ ìª½ì˜ 15~25%
         HP_t maxHP = max((int)pMonster->getHP(ATTR_MAX), targetMaxHP);
         HP_t drainHP = maxHP * (rand() % 11 + 15) / 100; // 15~25%
 
-        // ÇÑ¹ø¿¡ 1000ÀÌ»ó ¾È Âù´Ù.
+        // í•œë²ˆì— 1000ì´ìƒ ì•ˆ ì°¬ë‹¤.
         if (pMonster->getMonsterType() >= 717)
             drainHP = min((int)drainHP, 2000);
         else
             drainHP = min((int)drainHP, 1000);
 
-        // ¸ó½ºÅÍÀÇ HP¸¦ ¿Ã·ÁÁØ´Ù.
+        // ëª¬ìŠ¤í„°ì˜ HPë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
         HP_t CurrentHP = pMonster->getHP();
         HP_t MaxHP = pMonster->getHP(ATTR_MAX);
         HP_t NewHP = min((int)MaxHP, (int)CurrentHP + (int)drainHP);
 
-        // ¹ìÆÄÀÌ¾îÀÇ HP¸¦ ¼¼ÆÃÇÑ´Ù.
+        // ë±€íŒŒì´ì–´ì˜ HPë¥¼ ì„¸íŒ…í•œë‹¤.
         pMonster->setHP(NewHP);
 
         GCStatusCurrentHP gcStatusCurrentHP;
@@ -499,8 +499,8 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
         gcStatusCurrentHP.setCurrentHP(NewHP);
         pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &gcStatusCurrentHP);
 
-        // ÈíÇ÷ ´çÇÑ ¾ÖÀÇ HP¸¦ ÁÙÀÎ´Ù.
-        // ´ë»óÀÌ ³» ·¹º§º¸´Ù ³ô´Ù¸é.. MaxHPÀÇ 10~15% damage
+        // í¡í˜ˆ ë‹¹í•œ ì• ì˜ HPë¥¼ ì¤„ì¸ë‹¤.
+        // ëŒ€ìƒì´ ë‚´ ë ˆë²¨ë³´ë‹¤ ë†’ë‹¤ë©´.. MaxHPì˜ 10~15% damage
         // by sigi. 2002.9.14
         int drainDamage = 0;
         int myLevel = pMonster->getLevel();
@@ -508,7 +508,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
         if (targetLevel > myLevel) {
             drainDamage = targetMaxHP * (rand() % 6 + 10) / 100;
         } else {
-            // ·¹º§ 5Â÷ÀÌ¸¶´Ù 1%¾¿ ´õ~
+            // ë ˆë²¨ 5ì°¨ì´ë§ˆë‹¤ 1%ì”© ë”~
             int damagePercent = min(30, (rand() % 6 + 10 + (myLevel - targetLevel)));
             drainDamage = targetMaxHP * damagePercent / 100;
         }
@@ -517,19 +517,19 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
             // decreaseHP(pZone, pEnemy, drainDamage);
             EffectDecreaseHP* pEffect = new EffectDecreaseHP(pEnemy);
             pEffect->setPoint(drainDamage);
-            pEffect->setDeadline(20); // 2ÃÊ ÈÄ
+            pEffect->setDeadline(20); // 2ì´ˆ í›„
             pEffect->setUserObjectID(pMonster->getObjectID());
             pEnemy->addEffect(pEffect);
             pEnemy->setFlag(Effect::EFFECT_CLASS_DECREASE_HP);
         }
 
-        // ÈíÇ÷ ¸ğ½À º¸ÀÌ°Ô..
+        // í¡í˜ˆ ëª¨ìŠµ ë³´ì´ê²Œ..
         list<Creature*> cList;
         cList.push_back(pEnemy);
         cList.push_back(pMonster);
         pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &_GCBloodDrainOK3, cList);
 
-        // ÈíÇ÷ ¼º°ø
+        // í¡í˜ˆ ì„±ê³µ
         return true;
     }
 

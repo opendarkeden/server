@@ -42,11 +42,11 @@ void ActionSearchMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);
 
-    // ÀÏ´Ü Å¬¶óÀÌ¾ğÆ®¸¦ À§ÇØ okÆĞÅ¶À» ÇÏ³ª ³¯·ÁÁÖ°í...
+    // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ okíŒ¨í‚·ì„ í•˜ë‚˜ ë‚ ë ¤ì£¼ê³ ...
     GCNPCResponse answerOKpkt;
     pPlayer->sendPacket(&answerOKpkt);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÎÁö °Ë»çÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ê²€ì‚¬í•œë‹¤.
     if (pCreature2->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
         Inventory* pInventory = pSlayer->getInventory();
@@ -70,10 +70,10 @@ void ActionSearchMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
             BeltInvenHeight = pBeltInventory->getHeight();
         }
 
-        // ÀÎº¥Åä¸®¸¦ °Ë»öÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ë¥¼ ê²€ìƒ‰í•œë‹¤.
         for (uint y = 0; y < InvenHeight; y++) {
             for (uint x = 0; x < InvenWidth; x++) {
-                // x, y¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+                // x, yì— ì•„ì´í…œì´ ìˆë‹¤ë©´...
                 if (pInventory->hasItem(x, y)) {
                     pItem = pInventory->getItem(x, y);
                     if (search(pItem, motorZoneID, motorX, motorY)) {
@@ -89,10 +89,10 @@ void ActionSearchMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
         }
 
         if (pBelt != NULL) {
-            // ÀÎº¥Åä¸®¸¦ °Ë»öÇÑ´Ù.
+            // ì¸ë²¤í† ë¦¬ë¥¼ ê²€ìƒ‰í•œë‹¤.
             for (uint y = 0; y < BeltInvenHeight; y++) {
                 for (uint x = 0; x < BeltInvenWidth; x++) {
-                    // x, y¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+                    // x, yì— ì•„ì´í…œì´ ìˆë‹¤ë©´...
                     if (pBeltInventory->hasItem(x, y)) {
                         pItem = pBeltInventory->getItem(x, y);
                         if (search(pItem, motorZoneID, motorX, motorY)) {
@@ -107,7 +107,7 @@ void ActionSearchMotorcycle::execute(Creature* pCreature1, Creature* pCreature2)
                 }
             }
         }
-    } else // ¹ìÆÄÀÌ¾î¶ó¸é...¿ÀÅä¹ÙÀÌ¸¦ Ã£¾ÆÁÙ ÀÌÀ¯°¡ ÀÖÀ»±î?
+    } else // ë±€íŒŒì´ì–´ë¼ë©´...ì˜¤í† ë°”ì´ë¥¼ ì°¾ì•„ì¤„ ì´ìœ ê°€ ìˆì„ê¹Œ?
     {
     }
 
@@ -124,14 +124,14 @@ bool ActionSearchMotorcycle::search(Item* pItem, uint& zoneid, uint& x, uint& y)
 
     bool bFound = false;
 
-    // ´Ü¼­°¡ µÇ´Â ¾ÆÀÌÅÛÀÌ Å°°¡ ¾Æ´Ï¶ó¸é false¸¦ ¸®ÅÏ.
+    // ë‹¨ì„œê°€ ë˜ëŠ” ì•„ì´í…œì´ í‚¤ê°€ ì•„ë‹ˆë¼ë©´ falseë¥¼ ë¦¬í„´.
     if (pItem->getItemClass() != Item::ITEM_CLASS_KEY)
         return false;
 
-    // Å°°¡ ¸Â´Ù¸é Å°ÀÇ Å¸°ÙÀÌ µÇ´Â ¾ÆÀÌÅÛÀÇ ¾ÆÀÌÅÛ ID¸¦ ¾ò¾î³½´Ù.
+    // í‚¤ê°€ ë§ë‹¤ë©´ í‚¤ì˜ íƒ€ê²Ÿì´ ë˜ëŠ” ì•„ì´í…œì˜ ì•„ì´í…œ IDë¥¼ ì–»ì–´ë‚¸ë‹¤.
     DWORD targetID = dynamic_cast<Key*>(pItem)->getTarget();
 
-    // ÇØ´çÇÏ´Â ¿ÀÅä¹ÙÀÌ°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+    // í•´ë‹¹í•˜ëŠ” ì˜¤í† ë°”ì´ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
     if (g_pParkingCenter->hasMotorcycleBox(targetID)) {
         MotorcycleBox* pBox = g_pParkingCenter->getMotorcycleBox(targetID);
         Assert(pBox != NULL);

@@ -27,10 +27,10 @@ void TurretFire::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
     bool bBulletCheck = (getRemainBullet(pWeapon) > 0) ? true : false;
 
-    // ÃÑ¾Ë ¼ıÀÚ´Â ¹«Á¶°Ç ¶³¾î¶ß¸°´Ù.
+    // ì´ì•Œ ìˆ«ìëŠ” ë¬´ì¡°ê±´ ë–¨ì–´ëœ¨ë¦°ë‹¤.
     Bullet_t RemainBullet = 0;
     if (bBulletCheck) {
-        // ÃÑ¾Ë ¼ıÀÚ¸¦ ¶³¾î¶ß¸®°í, ÀúÀåÇÏ°í, ³²Àº ÃÑ¾Ë ¼ıÀÚ¸¦ ¹Ş¾Æ¿Â´Ù.
+        // ì´ì•Œ ìˆ«ìë¥¼ ë–¨ì–´ëœ¨ë¦¬ê³ , ì €ì¥í•˜ê³ , ë‚¨ì€ ì´ì•Œ ìˆ«ìë¥¼ ë°›ì•„ì˜¨ë‹¤.
         decreaseBullet(pWeapon);
         RemainBullet = getRemainBullet(pWeapon);
     } else {
@@ -57,7 +57,7 @@ void TurretFire::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // ¸ñÇ¥À§Ä¡+4¹æÇâ
+    // ëª©í‘œìœ„ì¹˜+4ë°©í–¥
     param.addMask(0, 0, 100);
     param.addMask(-1, -1, 100);
     param.addMask(0, -1, 100);
@@ -74,7 +74,7 @@ void TurretFire::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TurretFire::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 

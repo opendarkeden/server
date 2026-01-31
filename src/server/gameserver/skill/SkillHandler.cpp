@@ -250,7 +250,7 @@ void SkillHandler::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, CoordInve
     }
 }
 
-// Create Holy Water ¿ë execute
+// Create Holy Water ìš© execute
 void SkillHandler::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectID_t ItemObjectID, CoordInven_t X,
                            CoordInven_t Y)
 
@@ -349,11 +349,11 @@ void SkillHandler::execute(Monster* pMonster, Creature* pEnemy)
 
 void SkillHandler::execute(Monster* pMonster, ZoneCoord_t x, ZoneCoord_t y) {}
 
-// Mine & Bomb °ü·Ã
-const int ETypeCount = 5;                             // Æø¹ßÀÇ Á¾·ù
-const int tilesByEType[ETypeCount] = {3, 3, 5, 5, 9}; // Æø¹ß Å¸ÀÔ¿¡ µû¸¥ ÇÇÇØ Å¸ÀÏÀÇ ¼ö.
+// Mine & Bomb ê´€ë ¨
+const int ETypeCount = 5;                             // í­ë°œì˜ ì¢…ë¥˜
+const int tilesByEType[ETypeCount] = {3, 3, 5, 5, 9}; // í­ë°œ íƒ€ì…ì— ë”°ë¥¸ í”¼í•´ íƒ€ì¼ì˜ ìˆ˜.
 
-// ¹æÇâ ¿ŞÂÊ ºÎÅÍ ¹ØÀ¸·Î µ·´Ù.
+// ë°©í–¥ ì™¼ìª½ ë¶€í„° ë°‘ìœ¼ë¡œ ëˆë‹¤.
 const int xOffsetByEType0[DIR_MAX][3] = {{-1, 0, 1}, {-1, 0, 1}, {0, 0, 0}, {-1, 0, 1},
                                          {-1, 0, 1}, {-1, 0, 1}, {0, 0, 0}, {-1, 0, 1}};
 
@@ -380,7 +380,7 @@ const int xOffsetByEType4[9] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
 const int yOffsetByEType4[9] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
 
 /*
-// Æø¹ß Á¾·ù¿¡ µû¸¥ ÇÇÇØ Å¸ÀÏÀÇ À§Ä¡
+// í­ë°œ ì¢…ë¥˜ì— ë”°ë¥¸ í”¼í•´ íƒ€ì¼ì˜ ìœ„ì¹˜
 const int xOffsetByEType0[ 1 ] = { 0};
 const int yOffsetByEType0[ 1 ] = { 0};
 

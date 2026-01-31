@@ -2,7 +2,7 @@
 // Filename    : ActionCancelEventQuestScript.h
 // Written By  : excel96
 // Description :
-// Creature°¡ PC¿¡°Ô Áú¹®À» ´øÁø´Ù. ÀÌ ´ë»ç´Â NPC ´ëÈ­Ã¢¿¡ Ãâ·ÂµÈ´Ù.
+// Creatureê°€ PCì—ê²Œ ì§ˆë¬¸ì„ ë˜ì§„ë‹¤. ì´ ëŒ€ì‚¬ëŠ” NPC ëŒ€í™”ì°½ì— ì¶œë ¥ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_CANCEL_EVENT_QUEST_SCRIPT_H__
@@ -35,7 +35,7 @@ public:
     }
 
 private:
-    ScriptID_t m_ScriptID[5]; // ¸»ÇÒ ´ë»ç ¾ÆÀÌµğ
+    ScriptID_t m_ScriptID[5]; // ë§í•  ëŒ€ì‚¬ ì•„ì´ë””
     ScriptID_t m_CounterScriptID;
     ScriptID_t m_SuccessScriptID;
 };

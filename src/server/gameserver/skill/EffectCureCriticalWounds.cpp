@@ -93,14 +93,14 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
                                     Assert(pEffectBloodDrain != NULL);
 
                                     if (pEffectBloodDrain->getLevel() < CriticalBloodDrainLevel) {
-                                        // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+                                        // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´íŽ™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
                                         if (pSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
                                             Effect* pEffect = pSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
                                             EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-                                            pEffectAftermath->setDeadline(5 * 600); // 5ºÐ µ¿¾È Áö¼ÓµÈ´Ù.
+                                            pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                                         } else {
                                             EffectAftermath* pEffectAftermath = new EffectAftermath(pSlayer);
-                                            pEffectAftermath->setDeadline(5 * 600); // 5ºÐ µ¿¾È Áö¼ÓµÈ´Ù.
+                                            pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
                                             pSlayer->addEffect(pEffectAftermath);
                                             pSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
                                             pEffectAftermath->create(pSlayer->getName());
@@ -167,7 +167,7 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
             Slayer* pCastSlayer = dynamic_cast<Slayer*>(pCreature);
             GCModifyInformation gcMI;
             SkillDomainType_t DomainType = pSkillInfo->getDomainType();
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             shareAttrExp(pCastSlayer, ExpUp, 1, 1, 8, gcMI);
             increaseDomainExp(pCastSlayer, DomainType, ExpUp, gcMI);
             increaseSkillExp(pCastSlayer, DomainType, pSkillSlot, pSkillInfo, gcMI);

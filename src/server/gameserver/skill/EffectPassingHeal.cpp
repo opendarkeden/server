@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPassingHeal.cpp
 // Written by  : excel96
-// Description : PassingHeal¿¡ ÀÇÇØ¼­ »ı¼ºµÇ´Â »ê¼º µ¥¹ÌÁö ¾àÈ­ ÀÌÆåÆ®ÀÌ´Ù.
+// Description : PassingHealì— ì˜í•´ì„œ ìƒì„±ë˜ëŠ” ì‚°ì„± ë°ë¯¸ì§€ ì•½í™” ì´í™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectPassingHeal.h"
@@ -98,7 +98,7 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
     EffectParalyze* pEffectParalyze = NULL;
     EffectSeduction* pEffectSeduction = NULL;
 
-    // ÀúÁÖ °è¿­ ÇØ¼Ò
+    // ì €ì£¼ ê³„ì—´ í•´ì†Œ
     if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_DOOM)) {
         pEffectDoom = dynamic_cast<EffectDoom*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_DOOM));
         Assert(pEffectDoom != NULL);
@@ -124,11 +124,11 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
         bSeduction = HitRoll::isSuccessRemoveCurse(50, 100, 30, pEffectSeduction->getLevel(), 10);
     }
 
-    // µ¶ °è¿­ ÇØ¼Ò
-    bool bGreenPoison = false;    // GreenPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-    bool bYellowPoison = false;   // YellowPoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-    bool bDarkBluePoison = false; // DarkBluePoisonÀ» Ä¡·áÇÒ±îÀÇ ¿©ºÎ
-    bool bGreenStalker = false;   // GreenStalker¸¦ Ä¡·áÇÒ±îÀÇ ¿©ºÎ
+    // ë… ê³„ì—´ í•´ì†Œ
+    bool bGreenPoison = false;    // GreenPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+    bool bYellowPoison = false;   // YellowPoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+    bool bDarkBluePoison = false; // DarkBluePoisonì„ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
+    bool bGreenStalker = false;   // GreenStalkerë¥¼ ì¹˜ë£Œí• ê¹Œì˜ ì—¬ë¶€
 
     EffectPoison* pEffectPoison = NULL;
     EffectYellowPoisonToCreature* pEffectYellowPoisonToCreature = NULL;
@@ -168,18 +168,18 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 
     int cureCount = 0;
 
-    // ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+    // í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
     if (cureCount < m_CureCount && pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < 150 &&
         pTargetCreature->isSlayer()) {
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
-        // ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+        // í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
         if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_AFTERMATH)) {
             Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
             EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-            pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+            pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
         } else {
             EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetCreature);
-            pEffectAftermath->setDeadline(5 * 600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+            pEffectAftermath->setDeadline(5 * 600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
             pTargetCreature->addEffect(pEffectAftermath);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
             pEffectAftermath->create(pTargetCreature->getName());
@@ -223,8 +223,8 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
         ++cureCount;
     }
 
-    // °¢°¢ÀÇ µ¶¸¶´Ù Ä¡·á¸¦ ÇÏ°í,
-    // ÆĞÅ¶¿¡´Ù ÀÌÆåÆ® »èÁ¦ÇÏ¶ó°í ´õÇÑ´Ù.
+    // ê°ê°ì˜ ë…ë§ˆë‹¤ ì¹˜ë£Œë¥¼ í•˜ê³ ,
+    // íŒ¨í‚·ì—ë‹¤ ì´í™íŠ¸ ì‚­ì œí•˜ë¼ê³  ë”í•œë‹¤.
     if (cureCount < m_CureCount && bGreenPoison) {
         pEffectPoison->setDeadline(0);
         pTargetCreature->removeFlag(Effect::EFFECT_CLASS_POISON);
@@ -360,7 +360,7 @@ void EffectPassingHeal::unaffect()
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´í™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_PASSING_HEAL);

@@ -13,7 +13,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -41,7 +41,7 @@ void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t 
         ZoneCoord_t x = pVampire->getX();
         ZoneCoord_t y = pVampire->getY();
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -66,7 +66,7 @@ void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bTileCheck && bMoveModeCheck && !bEffected) {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ¹ìÆÄÀÌ¾î¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+            // ë±€íŒŒì´ì–´ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -78,12 +78,12 @@ void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t 
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(x, y, &_GCSkillToSelfOK3, pVampire);
 
-            // ¶¥ À§¿¡ ³ª¿ÍÀÖ´Â ¹ìÆÄÀÌ¾î »èÁ¦ÇÏ¶ó°í ¾Ë¸°´Ù.
+            // ë•… ìœ„ì— ë‚˜ì™€ìˆëŠ” ë±€íŒŒì´ì–´ ì‚­ì œí•˜ë¼ê³  ì•Œë¦°ë‹¤.
             GCDeleteObject gcDO;
             gcDO.setObjectID(pVampire->getObjectID());
             pZone->broadcastPacket(x, y, &gcDO, pVampire);
 
-            // ¶¥ ¼Ó¿¡´Ù°¡ ¹ìÆÄÀÌ¾î¸¦ Ãß°¡ÇÑ´Ù.
+            // ë•… ì†ì—ë‹¤ê°€ ë±€íŒŒì´ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
             addBurrowingCreature(pZone, pVampire, x, y);
 
             pSkillSlot->setRunTime();
@@ -100,7 +100,7 @@ void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Hide::execute(Monster* pMonster)
 
@@ -138,19 +138,19 @@ void Hide::execute(Monster* pMonster)
         bool bEffected = pMonster->isFlag(Effect::EFFECT_CLASS_HIDE);
 
         if (bRangeCheck && bHitRoll && bTileCheck && bMoveModeCheck && !bEffected) {
-            // ¸ó½ºÅÍ¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+            // ëª¬ìŠ¤í„°ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
             _GCSkillToSelfOK3.setXY(x, y);
             _GCSkillToSelfOK3.setDuration(0);
             _GCSkillToSelfOK3.setSkillType(SkillType);
 
             pZone->broadcastPacket(x, y, &_GCSkillToSelfOK3);
 
-            // ¶¥ À§¿¡ ³ª¿ÍÀÖ´Â ¸ó½ºÅÍ »èÁ¦ÇÏ¶ó°í ¾Ë¸°´Ù.
+            // ë•… ìœ„ì— ë‚˜ì™€ìˆëŠ” ëª¬ìŠ¤í„° ì‚­ì œí•˜ë¼ê³  ì•Œë¦°ë‹¤.
             GCDeleteObject gcDO;
             gcDO.setObjectID(pMonster->getObjectID());
             pZone->broadcastPacket(x, y, &gcDO);
 
-            // ¶¥ ¼Ó¿¡´Ù°¡ ¸ó½ºÅÍ¸¦ Ãß°¡ÇÑ´Ù.
+            // ë•… ì†ì—ë‹¤ê°€ ëª¬ìŠ¤í„°ë¥¼ ì¶”ê°€í•œë‹¤.
             addBurrowingCreature(pZone, pMonster, x, y);
         } else {
             executeSkillFailNormal(pMonster, getSkillType(), NULL);

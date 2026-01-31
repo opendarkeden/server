@@ -2,8 +2,8 @@
 // Filename    : CGUseItemFromInventory.cpp
 // Written By  : excel96
 // Description :
-// ÀÎº¥Åä¸® ¾ÈÀÇ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ ¶§, Å¬¶óÀÌ¾ðÆ®°¡ X, Y ¹× ObjectID¸¦
-// º¸³»¸é ¾ÆÀÌÅÛ Å¬·¡½º¿¡ µû¶ó¼­, ¼­¹ö°¡ ÀÌ¿¡ ¸Â´Â ÄÚµå¸¦ Ã³¸®ÇÑ´Ù.
+// ì¸ë²¤í† ë¦¬ ì•ˆì˜ ì•„ì´í…œì„ ì‚¬ìš©í•  ë•Œ, í´ë¼ì´ì–¸íŠ¸ê°€ X, Y ë° ObjectIDë¥¼
+// ë³´ë‚´ë©´ ì•„ì´í…œ í´ëž˜ìŠ¤ì— ë”°ë¼ì„œ, ì„œë²„ê°€ ì´ì— ë§žëŠ” ì½”ë“œë¥¼ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGUseItemFromInventory.h"

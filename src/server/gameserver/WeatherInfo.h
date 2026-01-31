@@ -16,15 +16,15 @@
 
 class WeatherInfo {
 public:
-    // È®·ü°ªÀ» ÆÄ¶ó¹ÌÅÍ·Î ³Ñ°ÜÁÖ¸é, ¿À´ÃÀÇ ³¯¾¾¸¦ ¸®ÅÏÇÑ´Ù.
+    // í™•ë¥ ê°’ì„ íŒŒë¼ë¯¸í„°ë¡œ ë„˜ê²¨ì£¼ë©´, ì˜¤ëŠ˜ì˜ ë‚ ì”¨ë¥¼ ë¦¬í„´í•œë‹¤.
     Weather getWeather(uint probability) const;
 
-    // Æ¯Á¤ ³¯¾¾ÀÇ È®·üÀ» ¸®ÅÏÇÑ´Ù.
+    // íŠ¹ì • ë‚ ì”¨ì˜ í™•ë¥ ì„ ë¦¬í„´í•œë‹¤.
     uint getProbability(Weather weather) const {
         return m_Probabilities[weather];
     }
 
-    // Æ¯Á¤ ³¯¾¾ÀÇ È®·üÀ» ÁöÁ¤ÇÑ´Ù.
+    // íŠ¹ì • ë‚ ì”¨ì˜ í™•ë¥ ì„ ì§€ì •í•œë‹¤.
     void setProbability(Weather weather, uint prob) {
         m_Probabilities[weather] = prob;
     }
@@ -40,7 +40,7 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 // class WeatherInfoManager;
 //
-// ¿ùº° ³¯¾¾ Á¤º¸¸¦ °ü¸®ÇÏ´Â ¸Å´ÏÀú Å¬·¡½ºÀÌ´Ù.
+// ì›”ë³„ ë‚ ì”¨ ì •ë³´ë¥¼ ê´€ë¦¬í•˜ëŠ” ë§¤ë‹ˆì € í´ë˜ìŠ¤ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 class WeatherInfoManager {
@@ -69,7 +69,7 @@ public:
     string toString() const;
 
 private:
-    // WeatherInfoÀÇ ÀÌÂ÷¿ø ¹è¿­
+    // WeatherInfoì˜ ì´ì°¨ì› ë°°ì—´
     WeatherInfo m_WeatherInfos[12];
 };
 

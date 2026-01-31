@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// CorpseItemPosition Å¬·¡½º ±¸Çö
+// CorpseItemPosition í´ë˜ìŠ¤ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "CorpseItemPosition.h"
@@ -44,7 +44,7 @@ Item* CorpseItemPosition::getItem_LOCKED(bool isDel)
     m_pZone = pZone;
 
     if (pZone == NULL) {
-        filelog("ItemError.log", "CorpseItemPosition:getItem() : ZoneID°¡ Àß¸øµÇ¾ú½À´Ï´Ù.");
+        filelog("ItemError.log", "CorpseItemPosition:getItem() : ZoneIDê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
         return NULL;
     }
 
@@ -62,7 +62,7 @@ Item* CorpseItemPosition::getItem_UNLOCKED(bool isDel)
     m_pZone = pZone;
 
     if (pZone == NULL) {
-        filelog("ItemError.log", "CorpseItemPosition:getItem() : ZoneID°¡ Àß¸øµÇ¾ú½À´Ï´Ù.");
+        filelog("ItemError.log", "CorpseItemPosition:getItem() : ZoneIDê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
         return NULL;
     }
 
@@ -88,7 +88,7 @@ Item* CorpseItemPosition::getItem_CORE(Zone* pZone, bool isDel)
     Item* pRet = NULL;
 
     if (pCorpse == NULL || pCorpse->getItemClass() != Item::ITEM_CLASS_CORPSE) {
-        filelog("ItemError.log", "CorpseItemPosition::getItem() : ÇØ´çÇÏ´Â ½ÃÃ¼°¡ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "CorpseItemPosition::getItem() : í•´ë‹¹í•˜ëŠ” ì‹œì²´ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
         return NULL;
     }
@@ -97,7 +97,7 @@ Item* CorpseItemPosition::getItem_CORE(Zone* pZone, bool isDel)
         pRet = pCorpse->popTreasure(m_ObjectID);
 
         if (pRet == NULL) {
-            filelog("ItemError.log", "CorpseItemPosition::getItem() : ÇØ´ç ¾ÆÀÌÅÛÀÌ ½ÃÃ¼ ¾È¿¡ ¾ø½À´Ï´Ù.");
+            filelog("ItemError.log", "CorpseItemPosition::getItem() : í•´ë‹¹ ì•„ì´í…œì´ ì‹œì²´ ì•ˆì— ì—†ìŠµë‹ˆë‹¤.");
 
             return NULL;
         }
@@ -127,7 +127,7 @@ Item* CorpseItemPosition::getItem_CORE(Zone* pZone, bool isDel)
                     gcAddEffectToTile.setObjectID(pMonsterCorpse->getObjectID());
                     gcAddEffectToTile.setEffectID(effectClass);
                     gcAddEffectToTile.setXY(pMonsterCorpse->getX(), pMonsterCorpse->getY());
-                    gcAddEffectToTile.setDuration(10); // º° ÀÇ¹Ì ¾ø´Ù ±×³É 1ÃÊ
+                    gcAddEffectToTile.setDuration(10); // ë³„ ì˜ë¯¸ ì—†ë‹¤ ê·¸ëƒ¥ 1ì´ˆ
 
                     pZone->broadcastPacket(pMonsterCorpse->getX(), pMonsterCorpse->getY(), &gcAddEffectToTile);
                 }
@@ -137,7 +137,7 @@ Item* CorpseItemPosition::getItem_CORE(Zone* pZone, bool isDel)
         pRet = pCorpse->getTreasure(m_ObjectID);
 
     if (pRet == NULL) {
-        filelog("ItemError.log", "CorpseItemPosition::getItem() : ÇØ´ç ¾ÆÀÌÅÛÀÌ ½ÃÃ¼ ¾È¿¡ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "CorpseItemPosition::getItem() : í•´ë‹¹ ì•„ì´í…œì´ ì‹œì²´ ì•ˆì— ì—†ìŠµë‹ˆë‹¤.");
 
         return NULL;
     }

@@ -9,7 +9,7 @@
 #include "VSDateTime.h"
 
 /**
- * ±âº» abstract classµé
+ * ê¸°ë³¸ abstract classë“¤
  **/
 class State {
 public:
@@ -18,7 +18,7 @@ public:
 
     virtual DWORD getStateType() const = 0;
 
-    // ´ÙÀ½ »óÅÂ¸¦ return ÇÑ´Ù. StateType 0 Àº »óÅÂ°¡ º¯ÇÏÁö ¾Ê´Â´Ù´Â ÀÇ¹Ì.
+    // ë‹¤ìŒ ìƒíƒœë¥¼ return í•œë‹¤. StateType 0 ì€ ìƒíƒœê°€ ë³€í•˜ì§€ ì•ŠëŠ”ë‹¤ëŠ” ì˜ë¯¸.
     virtual DWORD heartbeat(Timeval currentTime) = 0;
 
     virtual void start() {}
@@ -65,11 +65,11 @@ protected:
 };
 
 /**
- * ÀÚÁÖ »ç¿ëµÉ¸¸ÇÑ ±âº» classµé
+ * ìì£¼ ì‚¬ìš©ë ë§Œí•œ ê¸°ë³¸ classë“¤
  **/
 class TimerState : public State {
 public:
-    // ¼ö¸íÀº ÃÊ´ÜÀ§ÀÌ´Ù.
+    // ìˆ˜ëª…ì€ ì´ˆë‹¨ìœ„ì´ë‹¤.
     TimerState(DWORD nState, Turn_t life) : m_TimeOutState(nState), m_LifeSpan(life) {}
     void start();
     DWORD heartbeat(Timeval currentTime);
@@ -103,8 +103,8 @@ private:
     Timeval m_Deadline;
 };
 
-// ±×³É ¸ğµç state¸¦ °®°í ÀÖ°í °®°í ÀÖ´Â °´Ã¼¸¦ ³Ñ°ÜÁØ´Ù.
-// °´Ã¼ ¾È¿¡ »óÅÂ°¡ µé¾îÀÖÀ» °æ¿ì ¼­·Î ´Ù¸¥ FSM¿¡¼­ °øÀ¯°¡ ¾ÈµÇ¹Ç·Î ÁÖÀÇ
+// ê·¸ëƒ¥ ëª¨ë“  stateë¥¼ ê°–ê³  ìˆê³  ê°–ê³  ìˆëŠ” ê°ì²´ë¥¼ ë„˜ê²¨ì¤€ë‹¤.
+// ê°ì²´ ì•ˆì— ìƒíƒœê°€ ë“¤ì–´ìˆì„ ê²½ìš° ì„œë¡œ ë‹¤ë¥¸ FSMì—ì„œ ê³µìœ ê°€ ì•ˆë˜ë¯€ë¡œ ì£¼ì˜
 class FlyweightStateFactory : public StateFactory {
 public:
     void registerState(State* pState) {

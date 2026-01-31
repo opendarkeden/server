@@ -41,7 +41,7 @@ void CGRequestUnionInfoHandler::execute(CGRequestUnionInfo* pPacket, Player* pPl
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ìž…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -49,7 +49,7 @@ void CGRequestUnionInfoHandler::execute(CGRequestUnionInfo* pPacket, Player* pPl
     GCGuildResponse gcGuildResponse;
 
     GuildUnion* pGuildUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
-    // ÀÚ±â°¡ ¼ÓÇÑ ±æµå°¡ ¿¬ÇÕ¿¡ °¡ÀÔµÇ¾îÀÖ´ÂÁö Ã£´Â´Ù
+    // ìžê¸°ê°€ ì†í•œ ê¸¸ë“œê°€ ì—°í•©ì— ê°€ìž…ë˜ì–´ìžˆëŠ”ì§€ ì°¾ëŠ”ë‹¤
     if (pGuildUnion == NULL) {
         gcGuildResponse.setCode(GuildUnionOfferManager::NOT_IN_UNION);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -57,7 +57,7 @@ void CGRequestUnionInfoHandler::execute(CGRequestUnionInfo* pPacket, Player* pPl
         return;
     }
 
-    // Master ±æµåÀÇ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+    // Master ê¸¸ë“œì˜ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pGuildUnion->getMasterGuildID());
 
     if (pGuild == NULL) {

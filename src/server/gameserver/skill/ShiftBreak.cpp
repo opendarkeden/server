@@ -13,8 +13,8 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ý¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ìž
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 ShiftBreak::ShiftBreak() throw() {
     __BEGIN_TRY
@@ -52,7 +52,7 @@ ShiftBreak::ShiftBreak() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ShiftBreak::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -72,7 +72,7 @@ void ShiftBreak::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pOusters, getSkillType());
             return;
@@ -166,10 +166,10 @@ void ShiftBreak::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
         //		if ( input.SkillLevel > 15 ) Ratio += 10;
         //		Ratio = max(10, Ratio);
 
-        cout << "´ÙÅ©´Ï½º ÀÖÀ½. È®·ü " << Ratio << endl;
+        cout << "ë‹¤í¬ë‹ˆìŠ¤ ìžˆìŒ. í™•ë¥  " << Ratio << endl;
 
         if (rand() % 100 < Ratio) {
-            cout << "¼º°ø " << endl;
+            cout << "ì„±ê³µ " << endl;
             pZone->deleteEffect(pEffect->getObjectID());
 
             GCDeleteEffectFromTile gcDeleteEffectFromTile;

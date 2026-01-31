@@ -70,8 +70,8 @@ private:
     ItemType_t m_ItemType;
     ItemNum_t m_Num;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -81,8 +81,8 @@ private:
 class ResurrectItemInfo : public ItemInfo {
 public:
     enum ResurrectType {
-        HP_1,   // HP°¡ 1ÀÎ »óÅÂ·Î ºÎÈ°
-        HP_FULL // HP°¡ ²ËÂù »óÅÂ·Î ºÎÈ°
+        HP_1,   // HPê°€ 1ì¸ ìƒíƒœë¡œ ë¶€í™œ
+        HP_FULL // HPê°€ ê½‰ì°¬ ìƒíƒœë¡œ ë¶€í™œ
     };
 
 public:

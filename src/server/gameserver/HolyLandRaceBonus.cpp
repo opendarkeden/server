@@ -15,14 +15,14 @@ void HolyLandRaceBonus::refresh()
 {
     __BEGIN_TRY
 
-    // ±âÁ¸²¨´Â Áö¿ì°í..
+    // ê¸°ì¡´êº¼ëŠ” ì§€ìš°ê³ ..
     clear();
 
     const unordered_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
     unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
 
 
-    // ÇöÀç ¼ºÀÇ ¼ÒÀ¯Á¾Á·¿¡ µû¶ó¼­ º¸³Ê½º¸¦ ¼³Á¤ÇÑ´Ù.
+    // í˜„ìž¬ ì„±ì˜ ì†Œìœ ì¢…ì¡±ì— ë”°ë¼ì„œ ë³´ë„ˆìŠ¤ë¥¼ ì„¤ì •í•œë‹¤.
     for (; itr != castleInfos.end(); itr++) {
         CastleInfo* pCastleInfo = itr->second;
 
@@ -33,7 +33,7 @@ void HolyLandRaceBonus::refresh()
             const list<OptionType_t>& optionTypes = pCastleInfo->getOptionTypeList();
             m_VampireOptionTypes.insert(m_VampireOptionTypes.begin(), optionTypes.begin(), optionTypes.end());
         } else {
-            // ¹«½Ã
+            // ë¬´ì‹œ
         }
     }
 

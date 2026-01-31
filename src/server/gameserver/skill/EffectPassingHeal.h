@@ -2,7 +2,7 @@
 // Filename    : EffectPassingHeal.h
 // Written by  : excel96
 // Description :
-// PassingHeal¿¡ ÀÇÇØ¼­ »ı¼ºµÇ´Â »ê¼º µ¥¹ÌÁö ¾àÈ­ ÀÌÆåÆ®ÀÌ´Ù.
+// PassingHealì— ì˜í•´ì„œ ìƒì„±ë˜ëŠ” ì‚°ì„± ë°ë¯¸ì§€ ì•½í™” ì´í™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PASSING_HEAL__

@@ -43,7 +43,7 @@ void EffectHeavenGround::affect()
 
     Assert(m_pZone != NULL);
     // cout << "UserObejctID:" << (int)m_UserObjectID << endl;
-    //  »ñÈ¡Ê¹ÓÃ¼¼ÄÜµÄÈËÎï
+    //  Â»Ã±ÃˆÂ¡ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÂµÃ„ÃˆÃ‹ÃÃ¯
     Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
 
     if (pCastCreature == NULL) {
@@ -53,10 +53,10 @@ void EffectHeavenGround::affect()
     }
     // Slayer* pSlayer = dynamic_cast<Slayer*>(pSlayer);
 
-    // È¡³öµØÍ¼
+    // ÃˆÂ¡Â³Ã¶ÂµÃ˜ÃÂ¼
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-    // »ñÈ¡µØÍ¼ÎïÆ·Á´±í
+    // Â»Ã±ÃˆÂ¡ÂµÃ˜ÃÂ¼ÃÃ¯Ã†Â·ÃÂ´Â±Ã­
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {
@@ -69,22 +69,22 @@ void EffectHeavenGround::affect()
             Creature* pCreature = dynamic_cast<Creature*>(pObject);
             Assert(pCreature != NULL);
 
-            // ¼ì²âµ±Ç°¶ÔÏóÊÇ·ñ¿É¹¥»÷
+            // Â¼Ã¬Â²Ã¢ÂµÂ±Ã‡Â°Â¶Ã”ÃÃ³ÃŠÃ‡Â·Ã±Â¿Ã‰Â¹Â¥Â»Ã·
             if (!canAttack(pCastCreature, pCreature) || pCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_ACID) ||
                 pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
                 continue;
             }
 
-            // ¼ì²âµØÍ¼µÈ¼¶
+            // Â¼Ã¬Â²Ã¢ÂµÃ˜ÃÂ¼ÂµÃˆÂ¼Â¶
             if (!checkZoneLevelToHitTarget(pCreature))
                 continue;
-            // ´´½¨ÉËº¦
+            // Â´Â´Â½Â¨Ã‰Ã‹ÂºÂ¦
             int AcidDamage = computeMagicDamage(pCreature, m_Damage, SKILL_HEAVEN_GROUND, m_bSlayer, pCastCreature);
-            // ¿ÕÖĞµÄ²»¹¥»÷
+            // Â¿Ã•Ã–ÃÂµÃ„Â²Â»Â¹Â¥Â»Ã·
             if (pCreature->getMoveMode() != Creature::MOVE_MODE_FLYING) {
                 GCModifyInformation gcAttackerMI;
                 GCModifyInformation gcDefenderMI;
-                // Èç¹ûÊÇÈËÀà,Ôò²»»áÔì³ÉÉËº¦
+                // ÃˆÃ§Â¹Ã»ÃŠÃ‡ÃˆÃ‹Ã€Ã ,Ã”Ã²Â²Â»Â»Ã¡Ã”Ã¬Â³Ã‰Ã‰Ã‹ÂºÂ¦
                 if (pCreature->isSlayer()) {
                     continue;
                     // setNextTime(m_Tick);
@@ -115,7 +115,7 @@ void EffectHeavenGround::affect()
 
                 bool modifiedAttacker = false;
 
-                // Á×¾úÀ¸¸é °æÇèÄ¡ÁØ´Ù. À½.....
+                // ÃÃ—Â¾ÃºÃ€Â¸Â¸Ã© Â°Ã¦Ã‡Ã¨Ã„Â¡ÃÃ˜Â´Ã™. Ã€Â½.....
                 // 				if ( pCastCreature != NULL )
                 // 				{
                 // 					if (pCreature->isDead() && pCastCreature->isVampire())
@@ -124,7 +124,7 @@ void EffectHeavenGround::affect()
                 // &gcAttackerMI);
                 // 						//decreaseDurability(pSlayer, pCreature, NULL, &gcAttackerMI, &gcDefenderMI);
                 //
-                // 						// Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // 						// Ã…Â¸Â°Ã™Ã€ÃŒ Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸ Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
                 // 						if (!pCreature->isSlayer())
                 // 						{
                 // // 							//shareAttrExp(pSlayer, AcidDamage , 1, 1, 8, _GCSkillToObjectOK1);
@@ -138,7 +138,7 @@ void EffectHeavenGround::affect()
                 // 					}
                 // 				}
 
-                // ¼ºÇâ °è»êÇÏ±â
+                // Â¼ÂºÃ‡Ã¢ Â°Ã¨Â»ÃªÃ‡ÃÂ±Ã¢
                 if (pCastCreature != NULL && pCastCreature->isPC() && pCreature->isPC()) {
                     computeAlignmentChange(pCreature, AcidDamage, pCastCreature, &gcDefenderMI, &gcAttackerMI);
                     modifiedAttacker = true;

@@ -38,9 +38,9 @@ void Untransform::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             gcOK1.setSkillType(SKILL_UN_TRANSFORM);
             pSlayer->getPlayer()->sendPacket(&gcOK1);
 
-            // EffectSummonSylph¿¡ unaffect¿¡¼­ ´Ù ÇØÁØ´Ù.
+            // EffectSummonSylphì— unaffectì—ì„œ ë‹¤ í•´ì¤€ë‹¤.
 
-            // Á¸¿¡ ÀÌÆåÆ® ¾ø¾İ´Ù°í º¸³»ÁÖ°í
+            // ì¡´ì— ì´í™íŠ¸ ì—†ì•´ë‹¤ê³  ë³´ë‚´ì£¼ê³ 
             //			GCRemoveEffect removeEffect;
             //			removeEffect.setObjectID(pSlayer->getObjectID());
             //			removeEffect.addEffectList(Effect::EFFECT_CLASS_SUMMON_SYLPH);
@@ -49,7 +49,7 @@ void Untransform::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             //
             //			GCModifyInformation gcMI;
             //
-            //			// µğÆæ ÇÁÅØ ´Ù½Ã °è»êÇØ¼­ º¸³»ÁÖ°í
+            //			// ë””íœ í”„í… ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë³´ë‚´ì£¼ê³ 
             //			OUSTERS_RECORD prev;
             //			pSlayer->getSlayerRecord(prev);
             //			pSlayer->initAllStat();
@@ -62,7 +62,7 @@ void Untransform::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pSlayer->getPlayer()->sendPacket(&gcFail);
         }
     } catch (Throwable& t) {
-        //		Å¬¶óÀÌ¾ğÆ®¿¡¼­ -_- ÀÌ·± °Å º¸³»Áö ¸»¶õ´Ù Èæ ¤Ğ¤Ğ
+        //		í´ë¼ì´ì–¸íŠ¸ì—ì„œ -_- ì´ëŸ° ê±° ë³´ë‚´ì§€ ë§ë€ë‹¤ í‘ ã… ã… 
         //		executeSkillFailException(pSlayer, getSkillType());
     }
 
@@ -120,9 +120,9 @@ void Untransform::execute(Ousters* pOusters)
             gcOK1.setSkillType(SKILL_UN_TRANSFORM);
             pOusters->getPlayer()->sendPacket(&gcOK1);
 
-            // EffectSummonSylph¿¡ unaffect¿¡¼­ ´Ù ÇØÁØ´Ù.
+            // EffectSummonSylphì— unaffectì—ì„œ ë‹¤ í•´ì¤€ë‹¤.
 
-            // Á¸¿¡ ÀÌÆåÆ® ¾ø¾İ´Ù°í º¸³»ÁÖ°í
+            // ì¡´ì— ì´í™íŠ¸ ì—†ì•´ë‹¤ê³  ë³´ë‚´ì£¼ê³ 
             //			GCRemoveEffect removeEffect;
             //			removeEffect.setObjectID(pOusters->getObjectID());
             //			removeEffect.addEffectList(Effect::EFFECT_CLASS_SUMMON_SYLPH);
@@ -131,7 +131,7 @@ void Untransform::execute(Ousters* pOusters)
             //
             //			GCModifyInformation gcMI;
             //
-            //			// µğÆæ ÇÁÅØ ´Ù½Ã °è»êÇØ¼­ º¸³»ÁÖ°í
+            //			// ë””íœ í”„í… ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë³´ë‚´ì£¼ê³ 
             //			OUSTERS_RECORD prev;
             //			pOusters->getOustersRecord(prev);
             //			pOusters->initAllStat();
@@ -144,7 +144,7 @@ void Untransform::execute(Ousters* pOusters)
             pOusters->getPlayer()->sendPacket(&gcFail);
         }
     } catch (Throwable& t) {
-        //		Å¬¶óÀÌ¾ğÆ®¿¡¼­ -_- ÀÌ·± °Å º¸³»Áö ¸»¶õ´Ù Èæ ¤Ğ¤Ğ
+        //		í´ë¼ì´ì–¸íŠ¸ì—ì„œ -_- ì´ëŸ° ê±° ë³´ë‚´ì§€ ë§ë€ë‹¤ í‘ ã… ã… 
         //		executeSkillFailException(pOusters, getSkillType());
     }
 

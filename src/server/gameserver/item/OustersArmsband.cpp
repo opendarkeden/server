@@ -123,11 +123,11 @@ bool OustersArmsband::destroy()
     Statement* pStmt;
 
     //-------------------------------------------------------
-    // ¾Ï½º¹êµå¿¡ ³²¾ÆÀÖ´Â ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛµéµµ
-    // destroy ÇØÁà¾ß ÇÑ´Ù.
-    // ¾Ï½º¹êµå °°Àº °æ¿ì´Â À§¿¡¼­ deleteÇÏ¸é¼­ ¾ÆÀÌÅÛÀ» »èÁ¦
-    // ÇÏ±â ¶§¹®¿¡ ¿©±â¼­´Â deleteÇØÁÖÁö ¾Ê±â·Î ÇÑ´Ù...
-    // ¾µ¸ğ°¡ ¾ø´Ù¸é À§¿¡¼­ ÇÊÈ÷ º§Æ®¸¦ Áö¿ö¾ß ÇÑ´Ù.
+    // ì•”ìŠ¤ë°´ë“œì— ë‚¨ì•„ìˆëŠ” ì•„ì´í…œì´ ìˆë‹¤ë©´ ì•ˆì— ìˆëŠ” ì•„ì´í…œë“¤ë„
+    // destroy í•´ì¤˜ì•¼ í•œë‹¤.
+    // ì•”ìŠ¤ë°´ë“œ ê°™ì€ ê²½ìš°ëŠ” ìœ„ì—ì„œ deleteí•˜ë©´ì„œ ì•„ì´í…œì„ ì‚­ì œ
+    // í•˜ê¸° ë•Œë¬¸ì— ì—¬ê¸°ì„œëŠ” deleteí•´ì£¼ì§€ ì•Šê¸°ë¡œ í•œë‹¤...
+    // ì“¸ëª¨ê°€ ì—†ë‹¤ë©´ ìœ„ì—ì„œ í•„íˆ ë²¨íŠ¸ë¥¼ ì§€ì›Œì•¼ í•œë‹¤.
     //-------------------------------------------------------
     for (int i = 0; i < m_pInventory->getHeight(); i++) {
         for (int j = 0; j < m_pInventory->getWidth(); j++) {
@@ -219,7 +219,7 @@ void OustersArmsband::save(const string& ownerID, Storage storage, StorageID_t s
             m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(),
             getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
 
-        // ÀÏÀÏÀÌ ¾ÆÀÌÅÛÀ» ÇÏ³ª¾¿ ²¨³»¼­ ¹Ù·Î UPDATE ÇÏµµ·Ï ÇÑ´Ù.
+        // ì¼ì¼ì´ ì•„ì´í…œì„ í•˜ë‚˜ì”© êº¼ë‚´ì„œ ë°”ë¡œ UPDATE í•˜ë„ë¡ í•œë‹¤.
         for (int i = 0; i < m_pInventory->getHeight(); i++) {
             for (int j = 0; j < m_pInventory->getWidth(); j++) {
                 Item* pItem = m_pInventory->getItem(j, 0);
@@ -241,7 +241,7 @@ void OustersArmsband::makePCItemInfo(PCItemInfo& result) const {
 
     BYTE SubItemCount = 0;
 
-    // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+    // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
     for (int i = 0; i < getPocketCount(); i++) {
         Item* pOustersArmsbandItem = getInventory()->getItem(i, 0);
 
@@ -535,7 +535,7 @@ void OustersArmsbandLoader::load(Creature* pCreature)
                     pInventory = pOusters->getInventory();
                     pStash = pOusters->getStash();
                 } else
-                    throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                    throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
                 switch (storage) {
                 case STORAGE_INVENTORY:
@@ -661,7 +661,7 @@ void OustersArmsbandLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

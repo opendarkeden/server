@@ -2,8 +2,8 @@
 // Filename    : EffectVampirePortal.h
 // Written by  : excel96
 // Description :
-// ¹ìÆÄÀÌ¾î°¡ Æ÷Å»À» ¿­ °æ¿ì, Æ÷Å»À» ¿¬ °÷°ú ¸ñÇ¥ ÁöÁ¡¿¡ µ¿½Ã¿¡ »ý±â´Â
-// Å¸ÀÏ¿¡ ºÙÀº ¹ìÆÄÀÌ¾î Æ÷Å» ÀÌÆåÆ®ÀÌ´Ù.
+// ë±€íŒŒì´ì–´ê°€ í¬íƒˆì„ ì—´ ê²½ìš°, í¬íƒˆì„ ì—° ê³³ê³¼ ëª©í‘œ ì§€ì ì— ë™ì‹œì— ìƒê¸°ëŠ”
+// íƒ€ì¼ì— ë¶™ì€ ë±€íŒŒì´ì–´ í¬íƒˆ ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_VAMPIRE_PORTAL__
@@ -75,10 +75,10 @@ public:
     }
 
 private:
-    string m_OwnerID;       // ÀÌ Æ÷Å»ÀÇ ÁÖÀÎ
-    ZONE_COORD m_ZoneCoord; // Æ÷Å»ÀÇ ¸ñÇ¥ Á¸ ID ¹× ÁÂÇ¥
-    Duration_t m_Duration;  // ¸¶¹ýÀÇ Áö¼Ó ½Ã°£
-    int m_Count;            // ÀÌ Æ÷Å»À» »ç¿ëÇÒ ¼ö ÀÖ´Â ÃÖ´ë È½¼ö
+    string m_OwnerID;       // ì´ í¬íƒˆì˜ ì£¼ì¸
+    ZONE_COORD m_ZoneCoord; // í¬íƒˆì˜ ëª©í‘œ ì¡´ ID ë° ì¢Œí‘œ
+    Duration_t m_Duration;  // ë§ˆë²•ì˜ ì§€ì† ì‹œê°„
+    int m_Count;            // ì´ í¬íƒˆì„ ì‚¬ìš©í•  ìˆ˜ ìžˆëŠ” ìµœëŒ€ íšŸìˆ˜
 };
 
 #endif // __EFFECT_VAMPIRE_PORTAL__

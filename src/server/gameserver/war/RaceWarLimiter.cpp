@@ -64,14 +64,14 @@ void PCWarLimiter::load()
 //--------------------------------------------------------------------------------
 // saveCurrent
 //
-// lock°É¸° »óÅÂ¿¡¼­ ºÒ·Á¾ß ÇÑ´Ù.
+// lockê±¸ë¦° ìƒíƒœì—ì„œ ë¶ˆë ¤ì•¼ í•œë‹¤.
 //--------------------------------------------------------------------------------
 void PCWarLimiter::clearCurrent()
 
 {
     __BEGIN_TRY
 
-    // Âü°¡ ÀÎ¿øÀ» 0À¸·Î
+    // ì°¸ê°€ ì¸ì›ì„ 0ìœ¼ë¡œ
     int num = m_LimitInfos.size();
     for (int i = 0; i < num; i++) {
         LimitInfo_t* pLI = &(m_LimitInfos[i]);
@@ -79,7 +79,7 @@ void PCWarLimiter::clearCurrent()
         pLI->setCurrent(0);
     }
 
-    // DB¿¡µµ 0À¸·Î ¹Ù²ãÁØ´Ù.
+    // DBì—ë„ 0ìœ¼ë¡œ ë°”ê¿”ì¤€ë‹¤.
     Statement* pStmt = NULL;
 
     BEGIN_DB {
@@ -96,7 +96,7 @@ void PCWarLimiter::clearCurrent()
 //--------------------------------------------------------------------------------
 // saveCurrent
 //
-// lock°É¸° »óÅÂ¿¡¼­ ºÒ·Á¾ß ÇÑ´Ù.
+// lockê±¸ë¦° ìƒíƒœì—ì„œ ë¶ˆë ¤ì•¼ í•œë‹¤.
 //--------------------------------------------------------------------------------
 void PCWarLimiter::saveCurrent(const LevelLimitInfo* pLI) const
 

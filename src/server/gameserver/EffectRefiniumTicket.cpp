@@ -39,7 +39,7 @@ void EffectRefiniumTicket::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ÇÃ·¡±×¸¦ ²ö´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ëˆë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET);
 
     __END_CATCH

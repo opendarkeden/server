@@ -20,7 +20,7 @@
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -41,9 +41,9 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö ¾ø´Ù.
-        // ÀúÁÖ ¸é¿ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // ì €ì£¼ ë©´ì—­. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE) ||
             !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
@@ -61,7 +61,7 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
         SkillType_t SkillType = pSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Curse °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Curse ê°€ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
@@ -95,13 +95,13 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
             SkillOutput output;
             computeOutput(input, output);
 
-            // pTargetCreature°¡ ÀúÁÖ¸¶¹ýÀ» ¹Ý»çÇÏ´Â °æ¿ì
+            // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
             if (CheckReflection(pVampire, pTargetCreature, getSkillType())) {
                 pTargetCreature = (Creature*)pVampire;
                 TargetObjectID = pVampire->getObjectID();
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             EffectDoom* pEffect = new EffectDoom(pTargetCreature);
             pEffect->setDeadline(output.Duration);
             pEffect->setLevel(pSkillInfo->getLevel() / 2);
@@ -110,7 +110,7 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
             pTargetCreature->addEffect(pEffect);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_DOOM);
 
-            // ´É·ÂÄ¡¸¦ °è»êÇØ¼­ º¸³»ÁØ´Ù.
+            // ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
             if (pTargetCreature->isSlayer()) {
                 Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
@@ -179,10 +179,10 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }
@@ -235,7 +235,7 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Doom::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -262,7 +262,7 @@ void Doom::execute(Monster* pMonster, Creature* pEnemy)
         if (pMonster->isMaster()) {
             int x = pMonster->getX();
             int y = pMonster->getY();
-            int Splash = 3 + rand() % 5; // 3~7 ¸¶¸®
+            int Splash = 3 + rand() % 5; // 3~7 ë§ˆë¦¬
             int range = 2;               // 5x5
             list<Creature*> creatureList;
             getSplashVictims(pZone, x, y, Creature::CREATURE_CLASS_MAX, creatureList, Splash, range);
@@ -324,13 +324,13 @@ void Doom::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         SkillOutput output;
         computeOutput(input, output);
 
-        // pTargetCreature°¡ ÀúÁÖ¸¶¹ýÀ» ¹Ý»çÇÏ´Â °æ¿ì
+        // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
         if (CheckReflection(pMonster, pEnemy, getSkillType())) {
             pEnemy = (Creature*)pMonster;
         }
 
 
-        // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ ºÙÀÎ´Ù.
+        // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
         EffectDoom* pEffect = new EffectDoom(pEnemy);
         pEffect->setDeadline(output.Duration);
         pEffect->setLevel(pSkillInfo->getLevel() / 2);
@@ -339,7 +339,7 @@ void Doom::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         pEnemy->setFlag(Effect::EFFECT_CLASS_DOOM);
         pEnemy->addEffect(pEffect);
 
-        // ´É·ÂÄ¡¸¦ °è»êÇØ¼­ º¸³»ÁØ´Ù.
+        // ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
         if (pEnemy->isSlayer()) {
             Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pEnemy);
 

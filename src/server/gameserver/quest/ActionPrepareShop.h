@@ -2,8 +2,8 @@
 // Filename    : ActionPrepareShop.h
 // Written By  :
 // Description :
-// »óÁ¡ NPC¸¦ Á¦ÀÏ Ã³À½ ·ÎµùÇÒ ¶§, »óÁ¡ NPC°¡ ÆÈ°Ô µÉ ¾ÆÀÌÅÛÀ»
-// ÁØºñÇÏ´Â ¾×¼ÇÀÌ´Ù. ShopTemplate Å¬·¡½º¿Í ¸Å´ÏÀú¸¦ Âü°íÇÒ °Í.
+// ìƒì  NPCë¥¼ ì œì¼ ì²˜ìŒ ë¡œë”©í•  ë•Œ, ìƒì  NPCê°€ íŒ”ê²Œ ë  ì•„ì´í…œì„
+// ì¤€ë¹„í•˜ëŠ” ì•¡ì…˜ì´ë‹¤. ShopTemplate í´ëž˜ìŠ¤ì™€ ë§¤ë‹ˆì €ë¥¼ ì°¸ê³ í•  ê²ƒ.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_PREPARE_SHOP_H__

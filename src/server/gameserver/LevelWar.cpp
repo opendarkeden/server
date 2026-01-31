@@ -11,7 +11,7 @@ void LevelWar::execute() {
         executeEnd();
         break;
     default:
-        Assert(/*·¹º§¿ö »óÅÂ°¡ ÀÌ»óÇÔ*/ false);
+        Assert(/*ë ˆë²¨ì›Œ ìƒíƒœê°€ ì´ìƒí•¨*/ false);
     }
 
     __END_CATCH
@@ -35,7 +35,7 @@ void LevelWar::executeEnd() {
 
     m_State = READY;
 
-    // ÀÌ°Ç LevelWarManager ¿¡¼­ ÇØÁÖµµ·Ï ÇÑ´Ù
+    // ì´ê±´ LevelWarManager ì—ì„œ í•´ì£¼ë„ë¡ í•œë‹¤
     // m_pManager->addSchedule( new Schedule( this, m_pManager->getNextLevelWarTime() ) );
 }
 

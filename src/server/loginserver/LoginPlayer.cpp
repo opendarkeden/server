@@ -28,14 +28,14 @@
 const int defaultLoginPlayerInputStreamSize = 1024;
 const int defaultLoginPlayerOutputStreamSize = 4096;
 
-static int maxIdleSec = 60 * 15; // 15 ºĞµ¿¾È ÀÔ·ÂÀ» ÇÏÁö ¾ÊÀ¸¸é ÀÚµ¿ Á¢¼Ó Á¾·áµÈ´ç.
+static int maxIdleSec = 60 * 15; // 15 ë¶„ë™ì•ˆ ì…ë ¥ì„ í•˜ì§€ ì•Šìœ¼ë©´ ìë™ ì ‘ì† ì¢…ë£Œëœë‹¹.
 
-// 'ÀÌ¹Ì Á¢¼Ó Áß'¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇÑ.. ½Ã°£ Ã¼Å©
-static uint maxWaitForKickCharacter = 3;      // GameServerÀÇ ÀÀ´äÀ» 5ÃÊ°£ ±â´Ù¸°´Ù.
-static uint maxWaitForKickCharacterCount = 3; // GameServer°¡ ¹İÀÀÀÌ ¾øÀ¸¸é 3È¸ ÀÀ´äÀ» ½ÃµµÇÑ´Ù.
+// 'ì´ë¯¸ ì ‘ì† ì¤‘'ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸° ìœ„í•œ.. ì‹œê°„ ì²´í¬
+static uint maxWaitForKickCharacter = 3;      // GameServerì˜ ì‘ë‹µì„ 5ì´ˆê°„ ê¸°ë‹¤ë¦°ë‹¤.
+static uint maxWaitForKickCharacterCount = 3; // GameServerê°€ ë°˜ì‘ì´ ì—†ìœ¼ë©´ 3íšŒ ì‘ë‹µì„ ì‹œë„í•œë‹¤.
 
 
-// CLLoginHandler.cpp¿¡ ÀÖ´Â ÇÔ¼ö´Ù.
+// CLLoginHandler.cppì— ìˆëŠ” í•¨ìˆ˜ë‹¤.
 void addLoginPlayerData(const string& ID, const string& ip, const string& SSN, const string& zipcode);
 void addLogoutPlayerData(Player* pPlayer);
 
@@ -69,7 +69,7 @@ LoginPlayer::LoginPlayer(Socket* pSocket)
 
     Assert(m_PacketHistory.empty());
 
-    // ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î°¡ »ı¼ºµÉ ¶§, ÇöÀç ½Ã°£À» ÃÖÁ¾ ÀÔ·Â ½Ã°£À¸·Î °£ÁÖÇÑ´Ù.
+    // ë¡œê·¸ì¸ í”Œë ˆì´ì–´ê°€ ìƒì„±ë  ë•Œ, í˜„ì¬ ì‹œê°„ì„ ìµœì¢… ì…ë ¥ ì‹œê°„ìœ¼ë¡œ ê°„ì£¼í•œë‹¤.
     getCurrentTime(m_ExpireTime);
     m_ExpireTime.tv_sec += maxIdleSec;
 
@@ -96,8 +96,8 @@ LoginPlayer::LoginPlayer(Socket* pSocket)
 LoginPlayer::~LoginPlayer() {
     __BEGIN_TRY
 
-    // ±× ¾î¶² ÇÃ·¹ÀÌ¾î °´Ã¼°¡ »èÁ¦µÉ ¶§¿¡µµ, ±× »óÅÂ´Â ·Î±×¾Æ¿ôÀÌ¾î¾ß ÇÑ´Ù.
-    // Áï ¾î¶² ÇÃ·¹ÀÌ¾î¸¦ Á¢¼Ó Á¾·á ½ÃÅ°·Á¸é, ±× »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µé¾î¾ß ÇÑ´Ù.
+    // ê·¸ ì–´ë–¤ í”Œë ˆì´ì–´ ê°ì²´ê°€ ì‚­ì œë  ë•Œì—ë„, ê·¸ ìƒíƒœëŠ” ë¡œê·¸ì•„ì›ƒì´ì–´ì•¼ í•œë‹¤.
+    // ì¦‰ ì–´ë–¤ í”Œë ˆì´ì–´ë¥¼ ì ‘ì† ì¢…ë£Œ ì‹œí‚¤ë ¤ë©´, ê·¸ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
     Assert(m_PlayerStatus == LPS_END_SESSION);
 
     // delete all previous packets
@@ -112,8 +112,8 @@ LoginPlayer::~LoginPlayer() {
 
 //////////////////////////////////////////////////////////////////////
 //
-// 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì. Ä³¸¯ÅÍÀÇ °­Á¦ Á¢¼Ó ÇØÁ¦¸¦ À§ÇØ¼­
-// ´ë±âÇÏ´Â ½Ã°£ ¼³Á¤.
+// 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°. ìºë¦­í„°ì˜ ê°•ì œ ì ‘ì† í•´ì œë¥¼ ìœ„í•´ì„œ
+// ëŒ€ê¸°í•˜ëŠ” ì‹œê°„ ì„¤ì •.
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayer::setExpireTimeForKickCharacter() {
@@ -132,18 +132,18 @@ void LoginPlayer::processCommand(bool Option) {
 
     //	static Timeval currentTime;
 
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì.. °­Á¦ Á¢¼Ó ÇØÁ¦¸¦ ½ÃÅ³·Á°í ÇÒ ¶§.
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°.. ê°•ì œ ì ‘ì† í•´ì œë¥¼ ì‹œí‚¬ë ¤ê³  í•  ë•Œ.
     if (m_PlayerStatus == LPS_WAITING_FOR_GL_KICK_VERIFY) {
         Timeval currentTime;
         getCurrentTime(currentTime);
 
-        // timeout Ã¼Å©
+        // timeout ì²´í¬
         if (currentTime >= m_ExpireTimeForKickCharacter) {
-            // ´Ù½Ã KickCharcter¸¦ º¸³»º»´Ù.
+            // ë‹¤ì‹œ KickCharcterë¥¼ ë³´ë‚´ë³¸ë‹¤.
             sendLGKickCharacter();
 
-            // ¹İÀÀÀÌ ¾ø´Â °æ¿ì ¿©·¯¹ø ½Ãµµ¸¦ ÇØº»´Ù.
-            // ÇÑ°è¿¡ µµ´ŞÇÏ¸é.. GameServer°¡ Á×¾ú´Ù°í ÆÇ´ÜÇÏ°í LoginOK¸¦ º¸³½´Ù.
+            // ë°˜ì‘ì´ ì—†ëŠ” ê²½ìš° ì—¬ëŸ¬ë²ˆ ì‹œë„ë¥¼ í•´ë³¸ë‹¤.
+            // í•œê³„ì— ë„ë‹¬í•˜ë©´.. GameServerê°€ ì£½ì—ˆë‹¤ê³  íŒë‹¨í•˜ê³  LoginOKë¥¼ ë³´ë‚¸ë‹¤.
             if (++m_KickCharacterCount >= maxWaitForKickCharacterCount) {
                 sendLCLoginOK();
             }
@@ -153,28 +153,28 @@ void LoginPlayer::processCommand(bool Option) {
     }
 
     try {
-        // Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ı¼º
+        // í—¤ë”ë¥¼ ì„ì‹œì €ì¥í•  ë²„í¼ ìƒì„±
         char header[szPacketHeader];
         PacketID_t packetID;
         PacketSize_t packetSize;
         Packet* pPacket;
 
-        // ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆĞÅ¶µéÀ» ¸ğÁ¶¸® Ã³¸®ÇÑ´Ù.
+        // ì…ë ¥ë²„í¼ì— ë“¤ì–´ìˆëŠ” ì™„ì „í•œ íŒ¨í‚·ë“¤ì„ ëª¨ì¡°ë¦¬ ì²˜ë¦¬í•œë‹¤.
         while (true) {
-            // ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆĞÅ¶Çì´õÅ©±â¸¸Å­ ÀĞ¾îº»´Ù.
-            // ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀĞÀ» ¼ö ¾ø´Ù¸é,
-            // Insufficient ¿¹¿Ü°¡ ¹ß»ıÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
+            // ì…ë ¥ìŠ¤íŠ¸ë¦¼ì—ì„œ íŒ¨í‚·í—¤ë”í¬ê¸°ë§Œí¼ ì½ì–´ë³¸ë‹¤.
+            // ë§Œì•½ ì§€ì •í•œ í¬ê¸°ë§Œí¼ ìŠ¤íŠ¸ë¦¼ì—ì„œ ì½ì„ ìˆ˜ ì—†ë‹¤ë©´,
+            // Insufficient ì˜ˆì™¸ê°€ ë°œìƒí•˜ê³ , ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤.
             if (!m_pInputStream->peek(header, szPacketHeader)) {
-                // ÀÔ·ÂÀÌ ¾Æ¹« °Íµµ ¾ø¾ú´Ù¸é, ÀÔ·ÂÁ¦ÇÑ ½Ã°£À» ÃÊ°úÇß´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ì…ë ¥ì´ ì•„ë¬´ ê²ƒë„ ì—†ì—ˆë‹¤ë©´, ì…ë ¥ì œí•œ ì‹œê°„ì„ ì´ˆê³¼í–ˆëŠ”ì§€ ì²´í¬í•œë‹¤.
                 Timeval currentTime;
                 getCurrentTime(currentTime);
                 if (currentTime >= m_ExpireTime)
-                    throw DisconnectException("ÀÏÁ¤ ½Ã°£µ¿¾È ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é Á¢¼ÓÀÌ Á¾·áµË´Ï´Ù.");
+                    throw DisconnectException("ì¼ì • ì‹œê°„ë™ì•ˆ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´ ì ‘ì†ì´ ì¢…ë£Œë©ë‹ˆë‹¤.");
                 break;
             }
 
-            // ÆĞÅ¶¾ÆÀÌµğ ¹× ÆĞÅ¶Å©±â¸¦ ¾Ë¾Æ³½´Ù.
-            // ÀÌ¶§ ÆĞÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
+            // íŒ¨í‚·ì•„ì´ë”” ë° íŒ¨í‚·í¬ê¸°ë¥¼ ì•Œì•„ë‚¸ë‹¤.
+            // ì´ë•Œ íŒ¨í‚·í¬ê¸°ëŠ” í—¤ë”ë¥¼ í¬í•¨í•œë‹¤.
             memcpy(&packetID, &header[0], szPacketID);
             memcpy(&packetSize, &header[szPacketID], szPacketSize);
 
@@ -194,58 +194,58 @@ void LoginPlayer::processCommand(bool Option) {
                 << packetID << ") " << szPacketHeader + packetSize << "/" << m_pInputStream->length() << eos;
             cout << msg.toString() << endl;
 
-            // ÆĞÅ¶ ¾ÆÀÌµğ°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+            // íŒ¨í‚· ì•„ì´ë””ê°€ ì´ìƒí•˜ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
             if (packetID >= Packet::PACKET_MAX)
-                // µğ¹ö±ëÀ» À§ÇØ¼­ ¿¡·¯¸¦ ±¸Ã¼ÀûÀ¸·Î Ç¥½ÃÇØµĞ´Ù.
+                // ë””ë²„ê¹…ì„ ìœ„í•´ì„œ ì—ëŸ¬ë¥¼ êµ¬ì²´ì ìœ¼ë¡œ í‘œì‹œí•´ë‘”ë‹¤.
                 throw InvalidProtocolException("too large packet id");
 
             try {
-                // ÆĞÅ¶ÀÇ ¼ø¼­°¡ valid ÇÑÁö Ã¼Å©ÇÑ´Ù.
+                // íŒ¨í‚·ì˜ ìˆœì„œê°€ valid í•œì§€ ì²´í¬í•œë‹¤.
                 if (!g_pPacketValidator->isValidPacketID(getPlayerStatus(), packetID)) {
                     // DEBUG by tiancaiamao
                     cout << "player status: " << getPlayerStatus() << " receive packet: " << packetID << endl;
                     throw InvalidProtocolException("invalid packet order");
                 }
 
-                // ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+                // íŒ¨í‚· í¬ê¸°ê°€ ë„ˆë¬´ í¬ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
                 if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID))
                     throw InvalidProtocolException("too large packet size");
 
-                // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-                // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+                // ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+                // ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ì“¸ ê²ƒì´ë‹¤.)
                 if (m_pInputStream->length() < szPacketHeader + packetSize)
                     //	throw InsufficientDataException();
                     break;
 
-                // ÃÖÁ¾ÀÔ·Â½Ã°£À» °»½ÅÇÑ´Ù.
-                // ÃÖÁ¾ÀÔ·Â½Ã°£Àº ÆĞÅ¶ ÇÏ³ª°¡ ¿ÏÀüÇÏ°Ô µµÂøÇÑ ½Ã°£À» ÀÇ¹ÌÇÑ´Ù.
+                // ìµœì¢…ì…ë ¥ì‹œê°„ì„ ê°±ì‹ í•œë‹¤.
+                // ìµœì¢…ì…ë ¥ì‹œê°„ì€ íŒ¨í‚· í•˜ë‚˜ê°€ ì™„ì „í•˜ê²Œ ë„ì°©í•œ ì‹œê°„ì„ ì˜ë¯¸í•œë‹¤.
                 getCurrentTime(m_ExpireTime);
                 m_ExpireTime.tv_sec += maxIdleSec;
 
-                // ¿©±â±îÁö ¿Ô´Ù¸é ÀÔ·Â¹öÆÛ¿¡´Â ¿ÏÀüÇÑ ÆĞÅ¶ ÇÏ³ª ÀÌ»óÀÌ µé¾îÀÖ´Ù´Â ¶æÀÌ´Ù.
-                // ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú·ÎºÎÅÍ ÆĞÅ¶¾ÆÀÌµğ¸¦ »ç¿ëÇØ¼­ ÆĞÅ¶ ½ºÆ®·°Ã³¸¦ »ı¼ºÇÏ¸é µÈ´Ù.
-                // ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+                // ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ë©´ ì…ë ¥ë²„í¼ì—ëŠ” ì™„ì „í•œ íŒ¨í‚· í•˜ë‚˜ ì´ìƒì´ ë“¤ì–´ìˆë‹¤ëŠ” ëœ»ì´ë‹¤.
+                // íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ë¡œë¶€í„° íŒ¨í‚·ì•„ì´ë””ë¥¼ ì‚¬ìš©í•´ì„œ íŒ¨í‚· ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ìƒì„±í•˜ë©´ ëœë‹¤.
+                // íŒ¨í‚·ì•„ì´ë””ê°€ ì˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
                 pPacket = g_pPacketFactoryManager->createPacket(packetID);
 
-                // ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-                // ÆĞÅ¶ÇÏÀ§Å¬·¡½º¿¡ Á¤ÀÇµÈ read()°¡ virtual ¸ŞÄ¿´ÏÁò¿¡ ÀÇÇØ¼­ È£ÃâµÇ¾î
-                // ÀÚµ¿ÀûÀ¸·Î ÃÊ±âÈ­µÈ´Ù.
+                // ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+                // íŒ¨í‚·í•˜ìœ„í´ë˜ìŠ¤ì— ì •ì˜ëœ read()ê°€ virtual ë©”ì»¤ë‹ˆì¦˜ì— ì˜í•´ì„œ í˜¸ì¶œë˜ì–´
+                // ìë™ì ìœ¼ë¡œ ì´ˆê¸°í™”ëœë‹¤.
                 m_pInputStream->readPacket(pPacket);
 
                 Timeval start, end;
                 getCurrentTime(start);
 
-                // ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆĞÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
-                // ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+                // ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ê°€ì§€ê³  íŒ¨í‚·í•¸ë“¤ëŸ¬ë¥¼ ìˆ˜í–‰í•˜ë©´ ëœë‹¤.
+                // íŒ¨í‚·ì•„ì´ë””ê°€ ì˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·í•¸ë“¤ëŸ¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
                 pPacket->execute(this);
 
                 getCurrentTime(end);
                 g_PacketProfileManager.addAccuTime(pPacket->getPacketName(), start, end);
 
-                // ÇöÀç ÆĞÅ¶À» ÆĞÅ¶ È÷½ºÅä¸®ÀÇ ¸Ç µÚ¿¡ ³Ö´Â´Ù.
+                // í˜„ì¬ íŒ¨í‚·ì„ íŒ¨í‚· íˆìŠ¤í† ë¦¬ì˜ ë§¨ ë’¤ì— ë„£ëŠ”ë‹¤.
                 m_PacketHistory.push_back(pPacket);
 
-                // ÆĞÅ¶À» nPacketHistory °³¸¸Å­¸¸ ÀúÀåÇÑ´Ù.
+                // íŒ¨í‚·ì„ nPacketHistory ê°œë§Œí¼ë§Œ ì €ì¥í•œë‹¤.
                 while (m_PacketHistory.size() > nPacketHistory) {
                     Packet* oldPacket = m_PacketHistory.front();
                     delete oldPacket;
@@ -253,41 +253,41 @@ void LoginPlayer::processCommand(bool Option) {
                 }
 
             } catch (IgnorePacketException&) {
-                // PacketValidator ¿¡¼­ ÆĞÅ¶À» ¹«½ÃÇÏ¶ó°í ÇßÀ¸´Ï,
-                // ÀÔ·Â½ºÆ®¸²¿¡¼­ ¸ğµÎ Áö¿ö¹ö¸®°í ½ÇÇàÇÏÁö ¾Êµµ·Ï ÇÑ´Ù.
+                // PacketValidator ì—ì„œ íŒ¨í‚·ì„ ë¬´ì‹œí•˜ë¼ê³  í–ˆìœ¼ë‹ˆ,
+                // ì…ë ¥ìŠ¤íŠ¸ë¦¼ì—ì„œ ëª¨ë‘ ì§€ì›Œë²„ë¦¬ê³  ì‹¤í–‰í•˜ì§€ ì•Šë„ë¡ í•œë‹¤.
 
-                // ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+                // íŒ¨í‚· í¬ê¸°ê°€ ë„ˆë¬´ í¬ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
                 if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID))
                     throw InvalidProtocolException("too large packet size");
 
-                // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-                // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ?°ÍÀÌ´Ù.)
+                // ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+                // ìµœì í™”ì‹œ break ë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. (ì—¬ê¸°ì„œëŠ” ì¼ë‹¨ exceptionì„ ?ê²ƒì´ë‹¤.)
                 if (m_pInputStream->length() < szPacketHeader + packetSize)
                     throw InsufficientDataException();
 
-                // µ¥ÀÌÅ¸°¡ ¸ğµÎ µµÂøÇßÀ¸¸é, ±× Å©±â¸¸Å­ ¹«½ÃÇÏ°í,
-                // ´Ù¸¥ ÆĞÅ¶À» Ã³¸®ÇÏµµ·Ï ÇÑ´Ù....
+                // ë°ì´íƒ€ê°€ ëª¨ë‘ ë„ì°©í–ˆìœ¼ë©´, ê·¸ í¬ê¸°ë§Œí¼ ë¬´ì‹œí•˜ê³ ,
+                // ë‹¤ë¥¸ íŒ¨í‚·ì„ ì²˜ë¦¬í•˜ë„ë¡ í•œë‹¤....
                 m_pInputStream->skip(szPacketHeader + packetSize);
 
-                // ¹«½ÃµÈ ÆĞÅ¶Àº, expire ¿¡ ¿µÇâÀ» ÁÖÁö ¾Ê°Ô µÈ´Ù.
-                // Áï À¯È¿ÇÑ ÆĞÅ¶¸¸ÀÌ Â©¸®Áö ¾Ê°Ô ÇØÁØ´Ù.
-                // ¶ÇÇÑ È÷½ºÅä¸®¿¡µµ µé¾î°¡Áö ¾Ê´Â´Ù.
+                // ë¬´ì‹œëœ íŒ¨í‚·ì€, expire ì— ì˜í–¥ì„ ì£¼ì§€ ì•Šê²Œ ëœë‹¤.
+                // ì¦‰ ìœ íš¨í•œ íŒ¨í‚·ë§Œì´ ì§¤ë¦¬ì§€ ì•Šê²Œ í•´ì¤€ë‹¤.
+                // ë˜í•œ íˆìŠ¤í† ë¦¬ì—ë„ ë“¤ì–´ê°€ì§€ ì•ŠëŠ”ë‹¤.
             }
         }
 
     } catch (InsufficientDataException& ide) {
-        // ÀÔ·ÂÀÌ ¾Æ¹« °Íµµ ¾ø¾ú´Ù¸é, ÀÔ·ÂÁ¦ÇÑ ½Ã°£À» ÃÊ°úÇß´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì…ë ¥ì´ ì•„ë¬´ ê²ƒë„ ì—†ì—ˆë‹¤ë©´, ì…ë ¥ì œí•œ ì‹œê°„ì„ ì´ˆê³¼í–ˆëŠ”ì§€ ì²´í¬í•œë‹¤.
         Timeval currentTime;
         getCurrentTime(currentTime);
         if (currentTime >= m_ExpireTime)
-            throw DisconnectException("ÀÏÁ¤ ½Ã°£µ¿¾È ÀÔ·ÂÇÏÁö ¾ÊÀ¸¸é Á¢¼ÓÀÌ Á¾·áµË´Ï´Ù.");
+            throw DisconnectException("ì¼ì • ì‹œê°„ë™ì•ˆ ì…ë ¥í•˜ì§€ ì•Šìœ¼ë©´ ì ‘ì†ì´ ì¢…ë£Œë©ë‹ˆë‹¤.");
 
     } catch (InvalidProtocolException& ipe) {
-        // Á¢¼ÓÀ» °­Á¦Á¾·á½ÃÄÑ¾ß ÇÑ´Ù. ¹«½¼ ¹æ¹ıÀ¸·Î??
+        // ì ‘ì†ì„ ê°•ì œì¢…ë£Œì‹œì¼œì•¼ í•œë‹¤. ë¬´ìŠ¨ ë°©ë²•ìœ¼ë¡œ??
         throw;
 
     } catch (DisconnectException& de) {
-        // ÆĞÅ¶ Ã³¸®¿¡¼­ ¹ß»ıÇÑ ¾î¶² ¹®Á¦·Î ¿¬°áÀ» Á¾·áÇØ¾ß ÇÑ´Ù.
+        // íŒ¨í‚· ì²˜ë¦¬ì—ì„œ ë°œìƒí•œ ì–´ë–¤ ë¬¸ì œë¡œ ì—°ê²°ì„ ì¢…ë£Œí•´ì•¼ í•œë‹¤.
         throw;
     }
 
@@ -302,52 +302,52 @@ void LoginPlayer::disconnect(bool bDisconnected) {
     __BEGIN_TRY
 
     if (bDisconnected == UNDISCONNECTED) {
-        // Å¬¶óÀÌ¾ğÆ®¿¡°Ô GCDisconnect ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ GCDisconnect íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
         // GCDisconnect lcDisconnect;
         // sendPacket( lcDisconnect );
 
-        // Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
+        // ì¶œë ¥ ë²„í¼ì— ë‚¨ì•„ìˆëŠ” ë°ì´íƒ€ë¥¼ ì „ì†¡í•œë‹¤.
         m_pOutputStream->flush();
     }
 
-    // ¼ÒÄÏ ¿¬°áÀ» ´İ´Â´Ù.
+    // ì†Œì¼“ ì—°ê²°ì„ ë‹«ëŠ”ë‹¤.
     m_pSocket->close();
 
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì, Ä³¸¯ÅÍ °­Á¦ Á¢¼Ó ÇØÁ¦¸¦ ±â´Ù¸®´Â »óÈ².
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°, ìºë¦­í„° ê°•ì œ ì ‘ì† í•´ì œë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ìƒí™©.
     if (m_PlayerStatus == LPS_WAITING_FOR_GL_KICK_VERIFY) {
         m_ID = "NONE";
     }
 
-    // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µç´Ù.
+    // í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“ ë‹¤.
     Assert(m_PlayerStatus != LPS_END_SESSION);
     m_PlayerStatus = LPS_END_SESSION;
 
-    // ¾ÆÀÌµğ°¡ ¼³Á¤µÇ¾ú´Ù´Â ¶æÀº, ·Î±×ÀÎÀÌ ÀÌ·ç¾îÁ³´Ù´Â ¶æÀÌ´Ù.
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì¿¡..
-    // Ä³¸¯ Á¢¼Ó ÇØÁ¦¸¦ ±â´Ù¸®´Â °æ¿ì´Â ID°¡ ¼³Á¤µÉ ¼ö ÀÖÀ¸¹Ç·Î ¾Æ´Ï´Ù
+    // ì•„ì´ë””ê°€ ì„¤ì •ë˜ì—ˆë‹¤ëŠ” ëœ»ì€, ë¡œê·¸ì¸ì´ ì´ë£¨ì–´ì¡Œë‹¤ëŠ” ëœ»ì´ë‹¤.
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°ì—..
+    // ìºë¦­ ì ‘ì† í•´ì œë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ê²½ìš°ëŠ” IDê°€ ì„¤ì •ë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì•„ë‹ˆë‹¤
     if (m_ID != "NONE") {
         Statement* pStmt = NULL;
         // Result*    pResult = NULL;
 
         try {
             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-            // queryÇØ¼­ ¾È ¾²±æ·¡.. ³¯·È¶¥.. by sigi. 2002.5.7
+            // queryí•´ì„œ ì•ˆ ì“°ê¸¸ë˜.. ë‚ ë ¸ë•….. by sigi. 2002.5.7
             //	pResult = pStmt->executeQuery( "SELECT LogOn FROM Player WHERE PlayerID='%s'" , m_ID.c_str() );
 
-            // ·Î±×¿ÂÀÌ¾î¾ß ÇÑ´Ù.
+            // ë¡œê·¸ì˜¨ì´ì–´ì•¼ í•œë‹¤.
             //	pResult->next();
             //	string logon = pResult->getString(1);
             // cout << "logon = " << logon << endl;
             // Assert( logon == "LOGON" );
 
-            // LogOnÀÌ 'LOGON'ÀÎ °æ¿ì¸¸ 'LOGOFF'·Î º¯°æÇÑ´Ù. by sigi. 2002.5.15
-            // ·Î±×¿ÀÇÁ·Î º¯°æÇÑ´Ù.
+            // LogOnì´ 'LOGON'ì¸ ê²½ìš°ë§Œ 'LOGOFF'ë¡œ ë³€ê²½í•œë‹¤. by sigi. 2002.5.15
+            // ë¡œê·¸ì˜¤í”„ë¡œ ë³€ê²½í•œë‹¤.
             pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGOFF' WHERE PlayerID='%s' AND LogOn='LOGON'",
                                 m_ID.c_str());
 
 #if defined(__PAY_SYSTEM_LOGIN__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
-            bool bClear = false;        // À¯·á Á¤º¸ ¿ÏÀü Á¦°Å
-            bool bDecreaseTime = false; // »ç¿ë ½Ã°£ °¨¼Ò - loginserver¿¡¼­´Â ¹«½ÃÇÏÀÚ.
+            bool bClear = false;        // ìœ ë£Œ ì •ë³´ ì™„ì „ ì œê±°
+            bool bDecreaseTime = false; // ì‚¬ìš© ì‹œê°„ ê°ì†Œ - loginserverì—ì„œëŠ” ë¬´ì‹œí•˜ì.
             logoutPayPlay(m_ID, bClear, bDecreaseTime);
 #endif
 
@@ -367,58 +367,58 @@ void LoginPlayer::disconnect(bool bDisconnected) {
 }
 //--------------------------------------------------------------------------------
 // disconnect player no log
-// DB ¿¡ ·Î±×¸¦ ½×Áö ¾Ê°Ô ÇÑ´Ù.
+// DB ì— ë¡œê·¸ë¥¼ ìŒ“ì§€ ì•Šê²Œ í•œë‹¤.
 //--------------------------------------------------------------------------------
 void LoginPlayer::disconnect_nolog(bool bDisconnected) {
     __BEGIN_TRY
 
     if (bDisconnected == UNDISCONNECTED) {
-        // Å¬¶óÀÌ¾ğÆ®¿¡°Ô GCDisconnect ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ GCDisconnect íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
         // GCDisconnect lcDisconnect;
         // sendPacket( lcDisconnect );
 
-        // Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
+        // ì¶œë ¥ ë²„í¼ì— ë‚¨ì•„ìˆëŠ” ë°ì´íƒ€ë¥¼ ì „ì†¡í•œë‹¤.
         m_pOutputStream->flush();
     }
 
-    // ¼ÒÄÏ ¿¬°áÀ» ´İ´Â´Ù.
+    // ì†Œì¼“ ì—°ê²°ì„ ë‹«ëŠ”ë‹¤.
     m_pSocket->close();
 
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì, Ä³¸¯ÅÍ °­Á¦ Á¢¼Ó ÇØÁ¦¸¦ ±â´Ù¸®´Â »óÈ².
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°, ìºë¦­í„° ê°•ì œ ì ‘ì† í•´ì œë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ìƒí™©.
     if (m_PlayerStatus == LPS_WAITING_FOR_GL_KICK_VERIFY) {
         m_ID = "NONE";
     }
 
-    // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µç´Ù.
+    // í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ë¡œê·¸ì•„ì›ƒìœ¼ë¡œ ë§Œë“ ë‹¤.
     Assert(m_PlayerStatus != LPS_END_SESSION);
     m_PlayerStatus = LPS_END_SESSION;
 
-    // ¾ÆÀÌµğ°¡ ¼³Á¤µÇ¾ú´Ù´Â ¶æÀº, ·Î±×ÀÎÀÌ ÀÌ·ç¾îÁ³´Ù´Â ¶æÀÌ´Ù.
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì¿¡..
-    // Ä³¸¯ Á¢¼Ó ÇØÁ¦¸¦ ±â´Ù¸®´Â °æ¿ì´Â ID°¡ ¼³Á¤µÉ ¼ö ÀÖÀ¸¹Ç·Î ¾Æ´Ï´Ù
+    // ì•„ì´ë””ê°€ ì„¤ì •ë˜ì—ˆë‹¤ëŠ” ëœ»ì€, ë¡œê·¸ì¸ì´ ì´ë£¨ì–´ì¡Œë‹¤ëŠ” ëœ»ì´ë‹¤.
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°ì—..
+    // ìºë¦­ ì ‘ì† í•´ì œë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ê²½ìš°ëŠ” IDê°€ ì„¤ì •ë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì•„ë‹ˆë‹¤
     if (m_ID != "NONE") {
         Statement* pStmt = NULL;
         // Result*    pResult = NULL;
 
         try {
             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-            // queryÇØ¼­ ¾È ¾²±æ·¡.. ³¯·È¶¥.. by sigi. 2002.5.7
+            // queryí•´ì„œ ì•ˆ ì“°ê¸¸ë˜.. ë‚ ë ¸ë•….. by sigi. 2002.5.7
             //	pResult = pStmt->executeQuery( "SELECT LogOn FROM Player WHERE PlayerID='%s'" , m_ID.c_str() );
 
-            // ·Î±×¿ÂÀÌ¾î¾ß ÇÑ´Ù.
+            // ë¡œê·¸ì˜¨ì´ì–´ì•¼ í•œë‹¤.
             //	pResult->next();
             //	string logon = pResult->getString(1);
             // cout << "logon = " << logon << endl;
             // Assert( logon == "LOGON" );
 
-            // LogOnÀÌ 'LOGON'ÀÎ °æ¿ì¸¸ 'LOGOFF'·Î º¯°æÇÑ´Ù. by sigi. 2002.5.15
-            // ·Î±×¿ÀÇÁ·Î º¯°æÇÑ´Ù.
+            // LogOnì´ 'LOGON'ì¸ ê²½ìš°ë§Œ 'LOGOFF'ë¡œ ë³€ê²½í•œë‹¤. by sigi. 2002.5.15
+            // ë¡œê·¸ì˜¤í”„ë¡œ ë³€ê²½í•œë‹¤.
             pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGOFF' WHERE PlayerID='%s' AND LogOn='LOGON'",
                                 m_ID.c_str());
 
 #if defined(__PAY_SYSTEM_LOGIN__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
-            bool bClear = false;        // À¯·á Á¤º¸ ¿ÏÀü Á¦°Å
-            bool bDecreaseTime = false; // »ç¿ë ½Ã°£ °¨¼Ò - loginserver¿¡¼­´Â ¹«½ÃÇÏÀÚ.
+            bool bClear = false;        // ìœ ë£Œ ì •ë³´ ì™„ì „ ì œê±°
+            bool bDecreaseTime = false; // ì‚¬ìš© ì‹œê°„ ê°ì†Œ - loginserverì—ì„œëŠ” ë¬´ì‹œí•˜ì.
             logoutPayPlay(m_ID, bClear, bDecreaseTime);
 #endif
 
@@ -438,10 +438,10 @@ void LoginPlayer::disconnect_nolog(bool bDisconnected) {
 
 //--------------------------------------------------------------------------------
 //
-// ¿ø·¡´Â ·Î±×ÀÎÇÃ·¹ÀÌ¾î¸Å´ÏÀú ¿Ü¿¡´Â ·Î±×ÀÎÇÃ·¹ÀÌ¾î¿¡ µ¿½Ã¿¡ Á¢¼ÓÇÏ´Â
-// ¾²·¹µå´Â Á¸ÀçÇÏÁö ¾ÊÀ» °èÈ¹ÀÌ¾úÁö¸¸, °ÔÀÓ¼­¹ö¸Å´ÏÀú°¡ µ¿½Ã¿¡ ¾²·¹µå·Î
-// µ¹¾Æ°¡¸é¼­ ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î¿¡ Á¢±ÙÇÒ °¡´É¼ºÀÌ »ı°Ü¹ö·È´Ù. - -; ±×·¡¼­,
-// ¾Æ·¡¿Í °°ÀÌ mutex ·Î º¸È£µÇ´Â ¹öÀüÀ» ±ŞÁ¶Çß´Ù.
+// ì›ë˜ëŠ” ë¡œê·¸ì¸í”Œë ˆì´ì–´ë§¤ë‹ˆì € ì™¸ì—ëŠ” ë¡œê·¸ì¸í”Œë ˆì´ì–´ì— ë™ì‹œì— ì ‘ì†í•˜ëŠ”
+// ì“°ë ˆë“œëŠ” ì¡´ì¬í•˜ì§€ ì•Šì„ ê³„íšì´ì—ˆì§€ë§Œ, ê²Œì„ì„œë²„ë§¤ë‹ˆì €ê°€ ë™ì‹œì— ì“°ë ˆë“œë¡œ
+// ëŒì•„ê°€ë©´ì„œ ë¡œê·¸ì¸ í”Œë ˆì´ì–´ì— ì ‘ê·¼í•  ê°€ëŠ¥ì„±ì´ ìƒê²¨ë²„ë ¸ë‹¤. - -; ê·¸ë˜ì„œ,
+// ì•„ë˜ì™€ ê°™ì´ mutex ë¡œ ë³´í˜¸ë˜ëŠ” ë²„ì „ì„ ê¸‰ì¡°í–ˆë‹¤.
 //
 //--------------------------------------------------------------------------------
 void LoginPlayer::sendPacket(Packet* pPacket) {
@@ -461,11 +461,11 @@ void LoginPlayer::sendPacket(Packet* pPacket) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÃÖ±Ù N ¹øÂ°ÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+// ìµœê·¼ N ë²ˆì§¸ì˜ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
 //
-// N == 0 ÀÏ °æ¿ì, °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÏ°Ô µÈ´Ù.
+// N == 0 ì¼ ê²½ìš°, ê°€ì¥ ìµœê·¼ì˜ íŒ¨í‚·ì„ ë¦¬í„´í•˜ê²Œ ëœë‹¤.
 //
-// ÃÖ´ë nPacketHistory - 1 ±îÁö ÁöÁ¤ÇÒ ¼ö ÀÖ´Ù.
+// ìµœëŒ€ nPacketHistory - 1 ê¹Œì§€ ì§€ì •í•  ìˆ˜ ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 Packet* LoginPlayer::getOldPacket(uint prev) {
@@ -483,7 +483,7 @@ Packet* LoginPlayer::getOldPacket(uint prev) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// Æ¯Á¤ ÆĞÅ¶¾ÆÀÌµğ¸¦ °¡Áø °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • íŒ¨í‚·ì•„ì´ë””ë¥¼ ê°€ì§„ ê°€ì¥ ìµœê·¼ì˜ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 Packet* LoginPlayer::getOldPacket(PacketID_t packetID) {
@@ -512,13 +512,13 @@ Packet* LoginPlayer::getOldPacket(PacketID_t packetID) {
 //
 // send LGKickCharacter
 //
-// GameServer·Î 'ÀÌ¹Ì Á¢¼ÓÁß'ÀÎ Ä³¸¯ÅÍ¸¦ Á¦°ÅÇØ´Ş¶ó°í ¸Ş¼¼Áö¸¦ º¸³½´Ù.
+// GameServerë¡œ 'ì´ë¯¸ ì ‘ì†ì¤‘'ì¸ ìºë¦­í„°ë¥¼ ì œê±°í•´ë‹¬ë¼ê³  ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 void LoginPlayer::sendLGKickCharacter() {
     cout << "send LGKickCharacter" << endl;
 
-    // Game¼­¹ö·Î Ä³¸¯ÅÍ¸¦ Á¦°ÅÇØ´Ş¶ó´Â message¸¦ º¸³½´Ù.
+    // Gameì„œë²„ë¡œ ìºë¦­í„°ë¥¼ ì œê±°í•´ë‹¬ë¼ëŠ” messageë¥¼ ë³´ë‚¸ë‹¤.
     LGKickCharacter lgKickCharacter;
 
     Statement* pStmt = NULL;
@@ -531,8 +531,8 @@ void LoginPlayer::sendLGKickCharacter() {
     uint gameServerPort;
 
     //----------------------------------------------------------------------
-    // DB¿¡¼­ ÀÌ player°¡ ÃÖ±Ù¿¡ Á¢¼ÓÇÑ
-    // WorldID, ServerID, LastSlotÀ» ¾ò¾î³»ÀÚ.
+    // DBì—ì„œ ì´ playerê°€ ìµœê·¼ì— ì ‘ì†í•œ
+    // WorldID, ServerID, LastSlotì„ ì–»ì–´ë‚´ì.
     //----------------------------------------------------------------------
     if (!isSetWorldGroupID()) {
         BEGIN_DB {
@@ -542,7 +542,7 @@ void LoginPlayer::sendLGKickCharacter() {
                 getID().c_str());
 
             if (pResult->next()) {
-                serverID = 1; // ÇöÀç´Â ¹«Á¶°Ç 1ÀÌ´Ù.
+                serverID = 1; // í˜„ì¬ëŠ” ë¬´ì¡°ê±´ 1ì´ë‹¤.
                 worldID = pResult->getInt(1);
                 serverGroupID = pResult->getInt(2);
                 lastSlot = pResult->getInt(3);
@@ -551,23 +551,23 @@ void LoginPlayer::sendLGKickCharacter() {
                 setGroupID(serverGroupID);
                 setLastSlot(lastSlot);
 
-                setWorldGroupID(true); // °ªÀÌ ¼³Á¤µÆ´Ù´Â ÀÇ¹Ì.
-                                       // ´ÙÀ½¿¡ ´Ù½Ã Query ¾È ÇÒ·Á°í
+                setWorldGroupID(true); // ê°’ì´ ì„¤ì •ëë‹¤ëŠ” ì˜ë¯¸.
+                                       // ë‹¤ìŒì— ë‹¤ì‹œ Query ì•ˆ í• ë ¤ê³ 
             }
 
             SAFE_DELETE(pStmt1);
         }
         END_DB(pStmt1)
     } else {
-        // ±âÁ¸¿¡ ÀúÀåµÈ °ªÀ» ±×´ë·Î ¾´´Ù.
-        serverID = 1; // ÇöÀç´Â ¹«Á¶°Ç 1ÀÌ´Ù.
+        // ê¸°ì¡´ì— ì €ì¥ëœ ê°’ì„ ê·¸ëŒ€ë¡œ ì“´ë‹¤.
+        serverID = 1; // í˜„ì¬ëŠ” ë¬´ì¡°ê±´ 1ì´ë‹¤.
         worldID = getWorldID();
         serverGroupID = getGroupID();
     }
 
 
     //----------------------------------------------------------------------
-    // Slot¿¡ ´ëÀÀµÇ´Â Ä³¸¯ÅÍ ÀÌ¸§À» ¾Ë¾Æ³½´Ù.
+    // Slotì— ëŒ€ì‘ë˜ëŠ” ìºë¦­í„° ì´ë¦„ì„ ì•Œì•„ë‚¸ë‹¤.
     //----------------------------------------------------------------------
     if (characterName.size() == 0) {
         BEGIN_DB {
@@ -581,13 +581,13 @@ void LoginPlayer::sendLGKickCharacter() {
                 setLastCharacterName(characterName);
             } else {
                 cout << "No CharacterName" << endl;
-                // LoginError(ÀÌ¹Ì Á¢¼Ó Áß)
+                // LoginError(ì´ë¯¸ ì ‘ì† ì¤‘)
                 LCLoginError lcLoginError;
                 lcLoginError.setErrorID(ALREADY_CONNECTED);
                 sendPacket(&lcLoginError);
                 setPlayerStatus(LPS_BEGIN_SESSION);
 
-                setID("NONE"); // disconnect¿¡¼­ LOGOFF·Î ¼³Á¤µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­
+                setID("NONE"); // disconnectì—ì„œ LOGOFFë¡œ ì„¤ì •ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œ
 
                 SAFE_DELETE(pStmt);
                 return;
@@ -599,9 +599,9 @@ void LoginPlayer::sendLGKickCharacter() {
     }
 
     //----------------------------------------------------------------------
-    // GameServerÀÇ Á¤º¸¸¦ ¾Ë¾Æ³½´Ù.
+    // GameServerì˜ ì •ë³´ë¥¼ ì•Œì•„ë‚¸ë‹¤.
     //
-    // ÇØ´ç World ¿¡ ¸ğµç Server ¿¡ º¸³½´Ù
+    // í•´ë‹¹ World ì— ëª¨ë“  Server ì— ë³´ë‚¸ë‹¤
     //----------------------------------------------------------------------
     for (int i = 0; i < g_pGameServerInfoManager->getMaxServerGroupID(); i++) {
         serverGroupID = i;
@@ -622,18 +622,18 @@ void LoginPlayer::sendLGKickCharacter() {
             }
         } catch (NoSuchElementException&) {
             cout << "No GameServerInfo" << endl;
-            // LoginError(ÀÌ¹Ì Á¢¼Ó Áß)
+            // LoginError(ì´ë¯¸ ì ‘ì† ì¤‘)
             //		LCLoginError lcLoginError;
             //		lcLoginError.setErrorID(ALREADY_CONNECTED);
             //		sendPacket(&lcLoginError);
             //		setPlayerStatus(LPS_BEGIN_SESSION);
 
-            setID("NONE"); // disconnect¿¡¼­ LOGOFF·Î ¼³Á¤µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­
+            setID("NONE"); // disconnectì—ì„œ LOGOFFë¡œ ì„¤ì •ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œ
 
             return;
         }
 
-        lgKickCharacter.setID(getSocket()->getSOCKET()); // SocketFD. °Ë»öÀ» À§ÇØ¼­
+        lgKickCharacter.setID(getSocket()->getSOCKET()); // SocketFD. ê²€ìƒ‰ì„ ìœ„í•´ì„œ
         lgKickCharacter.setPCName(characterName);
 
         cout << "( " << gameServerIP.c_str() << ", " << gameServerPort << " )" << endl;
@@ -649,9 +649,9 @@ void LoginPlayer::sendLGKickCharacter() {
 //
 // send LCLoginOK
 //
-// Player tableÀÇ LogOnÀ» 'LOGON'À¸·Î ¹Ù²Ù°í
-// client¿¡°Ô LCLoginOK¸¦ º¸³½´Ù.
-// PlayerStatus´Â LPS_WAITING_FOR_CL_GET_PC_LIST·Î ¼³Á¤.
+// Player tableì˜ LogOnì„ 'LOGON'ìœ¼ë¡œ ë°”ê¾¸ê³ 
+// clientì—ê²Œ LCLoginOKë¥¼ ë³´ë‚¸ë‹¤.
+// PlayerStatusëŠ” LPS_WAITING_FOR_CL_GET_PC_LISTë¡œ ì„¤ì •.
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayer::sendLCLoginOK() {
@@ -667,7 +667,7 @@ void LoginPlayer::sendLCLoginOK() {
 
             pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGON' WHERE PlayerID = '%s'", getID().c_str());
             if (pStmt->getAffectedRowCount() == 0) {
-                filelog("MultiLogin.log", "¸ÖÆ¼ ·Î±×ÀÎ Á¢¼Ó ½Ãµµ·Î ¿¹»óµÊ : [%s:%s]", getID().c_str(),
+                filelog("MultiLogin.log", "ë©€í‹° ë¡œê·¸ì¸ ì ‘ì† ì‹œë„ë¡œ ì˜ˆìƒë¨ : [%s:%s]", getID().c_str(),
                         connectIP.c_str());
                 LCLoginError lcLoginError;
                 // lcLoginError.setMessage("already connected");
@@ -688,10 +688,10 @@ void LoginPlayer::sendLCLoginOK() {
         END_DB(pStmt)
 
 
-        // Player tableÀÇ LoginÀ» LOGONÀ¸·Î ¹Ù²Û´Ù.
+        // Player tableì˜ Loginì„ LOGONìœ¼ë¡œ ë°”ê¾¼ë‹¤.
         LCLoginOK lcLoginOK;
 
-        // ÀÌ Àü¿¡ LoginPlayer¿¡ ÀúÀåÇØµĞ´Ù.
+        // ì´ ì „ì— LoginPlayerì— ì €ì¥í•´ë‘”ë‹¤.
         lcLoginOK.setAdult(isAdult());
         lcLoginOK.setLastDays(0xffff);
 
@@ -699,7 +699,7 @@ void LoginPlayer::sendLCLoginOK() {
 
         setPlayerStatus(LPS_WAITING_FOR_CL_GET_PC_LIST);
 
-        // »ç¿ëÀÚ Á¢¼ÓÇß´Ù°í ±â·Ï
+        // ì‚¬ìš©ì ì ‘ì†í–ˆë‹¤ê³  ê¸°ë¡
         addLoginPlayerData(m_ID, connectIP, m_SSN, m_Zipcode);
 
     } catch (Throwable& t) {
@@ -719,10 +719,10 @@ bool LoginPlayer::sendBillingLogin() {
         if (currentTime > m_BillingNextLoginRequestTime) {
             g_pBillingPlayerManager->sendPayLogin(this);
 
-            // PayLogin ¿äÃ»ÇÑ È¸¼ö ±â¾ï
+            // PayLogin ìš”ì²­í•œ íšŒìˆ˜ ê¸°ì–µ
             m_BillingLoginRequestCount++;
 
-            // 10ÃÊ ÈÄ ´Ù½Ã Ã¼Å©ÇÑ´Ù.
+            // 10ì´ˆ í›„ ë‹¤ì‹œ ì²´í¬í•œë‹¤.
             m_BillingNextLoginRequestTime.tv_sec = currentTime.tv_sec + 10;
         }
 
@@ -754,8 +754,8 @@ string LoginPlayer::toString() const {
 //
 // add LogoutPlayerdata
 //
-// Á¢¼ÓÀÚ Åë°è¸¦ À§ÇØ¼­
-// UserInfo DBÀÇ LogoutPlayerData¿¡ LogoutÇÑ »ç¿ëÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+// ì ‘ì†ì í†µê³„ë¥¼ ìœ„í•´ì„œ
+// UserInfo DBì˜ LogoutPlayerDataì— Logoutí•œ ì‚¬ìš©ìë¥¼ ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 void addLogoutPlayerData(Player* pPlayer) {
@@ -766,13 +766,13 @@ void addLogoutPlayerData(Player* pPlayer) {
 
         pStmt = g_pDatabaseManager->getUserInfoConnection()->createStatement();
 
-        // À¯Àú Åë°è °ü·Ã Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù.
+        // ìœ ì € í†µê³„ ê´€ë ¨ ì •ë³´ë¥¼ ì…ë ¥í•œë‹¤.
         BEGIN_DB
         {
             string ID = pPlayer->getID();
             string ip = pPlayer->getSocket()->getHost();
 
-            // ¸ÕÀú ÇöÀç ½Ã°£À» ¾ò¾î³½´Ù.
+            // ë¨¼ì € í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ë‚¸ë‹¤.
             int year, month, day, hour, minute, second;
             getCurrentTimeEx(year, month, day, hour, minute, second);
             string currentDT = VSDateTime::currentDateTime().toDateTime();
@@ -804,21 +804,21 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
         pStmt2 = g_pDatabaseManager->getConnection(WorldID)->createStatement();
 
         //----------------------------------------------------------------------
-        // ¿ì¼± ½½·¹ÀÌ¾î Å×ÀÌºíÀ» °Ë»öÇØ¼­, Active ÇÑ ½½·¹ÀÌ¾î Á¤º¸¸¦ ·ÎµùÇÑ´Ù.
-        // Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇØ¾ß ÇÒ Á¤º¸´Â ´ÙÀ½°ú °°´Ù.
+        // ìš°ì„  ìŠ¬ë ˆì´ì–´ í…Œì´ë¸”ì„ ê²€ìƒ‰í•´ì„œ, Active í•œ ìŠ¬ë ˆì´ì–´ ì •ë³´ë¥¼ ë¡œë”©í•œë‹¤.
+        // í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•´ì•¼ í•  ì •ë³´ëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
         //
-        //    - ÀÌ¸§
-        //    - ½½¶ù¹øÈ£
-        //    - ¼ºº°
-        //    - Çì¾î½ºÅ¸ÀÏ : ½½·¹ÀÌ¾î Àü¿ë
-        //    - ¸Ó¸®»ö
-        //    - ÇÇºÎ»ö
-        //    - ÀÔ°íÀÖ´Â¿ÊÁ¤º¸ : ½½·¹ÀÌ¾î Àü¿ë, ¸Ó¸®/»óÀÇ/ÇÏÀÇÀÇ »ö»óÁ¤º¸
-        //    - ´É·ÂÄ¡ : STR,DEX,CON
-        //    - HP/MP ÀÇ ÇöÀç ¹× ÃÖ´ë : ¹ìÆÄÀÌ¾î´Â MP ¾øÀ½
-        //    - ±â¼ú°ú ±× °æÇèÄ¡ : ½½·¹ÀÌ¾îÀü¿ë
-        //    - °®°í ÀÖ´Â µ·
-        //    - Á¸ÀÇ ¾ÆÀÌµğ
+        //    - ì´ë¦„
+        //    - ìŠ¬ëë²ˆí˜¸
+        //    - ì„±ë³„
+        //    - í—¤ì–´ìŠ¤íƒ€ì¼ : ìŠ¬ë ˆì´ì–´ ì „ìš©
+        //    - ë¨¸ë¦¬ìƒ‰
+        //    - í”¼ë¶€ìƒ‰
+        //    - ì…ê³ ìˆëŠ”ì˜·ì •ë³´ : ìŠ¬ë ˆì´ì–´ ì „ìš©, ë¨¸ë¦¬/ìƒì˜/í•˜ì˜ì˜ ìƒ‰ìƒì •ë³´
+        //    - ëŠ¥ë ¥ì¹˜ : STR,DEX,CON
+        //    - HP/MP ì˜ í˜„ì¬ ë° ìµœëŒ€ : ë±€íŒŒì´ì–´ëŠ” MP ì—†ìŒ
+        //    - ê¸°ìˆ ê³¼ ê·¸ ê²½í—˜ì¹˜ : ìŠ¬ë ˆì´ì–´ì „ìš©
+        //    - ê°–ê³  ìˆëŠ” ëˆ
+        //    - ì¡´ì˜ ì•„ì´ë””
         //
         //----------------------------------------------------------------------
         pResult1 = pStmt->executeQuery(
@@ -828,7 +828,7 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
             "Slayer WHERE PlayerID = '%s' AND Active = 'ACTIVE'",
             getID().c_str());
 
-        // º¹Àå flag. by sigi. 2002.6.18
+        // ë³µì¥ flag. by sigi. 2002.6.18
         DWORD shape;
         Color_t colors[PCSlayerInfo::SLAYER_COLOR_MAX];
         Color_t colorsVamp[PCVampireInfo::VAMPIRE_COLOR_MAX];
@@ -839,10 +839,10 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
             string name = pResult1->getString(++i);
 
             if (race == "SLAYER") {
-                // ½½·¹ÀÌ¾î PCInfo °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+                // ìŠ¬ë ˆì´ì–´ PCInfo ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
                 PCSlayerInfo* pPCSlayerInfo = new PCSlayerInfo();
 
-                // °¢ ÇÊµå°ªÀ» ÁöÁ¤ÇÑ´Ù.
+                // ê° í•„ë“œê°’ì„ ì§€ì •í•œë‹¤.
                 pPCSlayerInfo->setName(name);
                 pPCSlayerInfo->setSlot(pResult1->getString(++i));
                 pPCSlayerInfo->setSex(pResult1->getString(++i));
@@ -866,7 +866,7 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
 
                 pPCSlayerInfo->setAlignment(pResult1->getInt(++i));
 
-                // º¹Àå Á¤º¸¸¦ flag·Î ´ëÃ¼ÇÑ´Ù. by sigi. 2002.6.18
+                // ë³µì¥ ì •ë³´ë¥¼ flagë¡œ ëŒ€ì²´í•œë‹¤. by sigi. 2002.6.18
                 shape = pResult1->getDWORD(++i);
 
                 colors[PCSlayerInfo::SLAYER_COLOR_HAIR] = pPCSlayerInfo->getHairColor();
@@ -884,16 +884,16 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
                 lcPCList.setPCInfo(pPCSlayerInfo->getSlot(), pPCSlayerInfo);
             } else if (race == "VAMPIRE") {
                 //----------------------------------------------------------------------
-                // ÀÌÁ¦ ¹ìÆÄÀÌ¾î Å×ÀÌºíÀ» °Ë»öÇØ¼­ LCPCList ÆĞÅ¶¿¡ Áı¾î³ÖÀÚ..
-                // Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇØ¾ß ÇÒ Á¤º¸´Â ´ÙÀ½°ú °°´Ù.
+                // ì´ì œ ë±€íŒŒì´ì–´ í…Œì´ë¸”ì„ ê²€ìƒ‰í•´ì„œ LCPCList íŒ¨í‚·ì— ì§‘ì–´ë„£ì..
+                // í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•´ì•¼ í•  ì •ë³´ëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
                 //
                 //    - Name
                 //    - Slot
                 //    - Sex
                 //    - BatColor
                 //    - SkinColor
-                //    - »óÀÇ/ÇÏÀÇÀÇ »ö»óÁ¤º¸
-                //    - ´É·ÂÄ¡ : STR,DEX,CON
+                //    - ìƒì˜/í•˜ì˜ì˜ ìƒ‰ìƒì •ë³´
+                //    - ëŠ¥ë ¥ì¹˜ : STR,DEX,CON
                 //    - CurrentHP/MaxHP
                 //    - Gold
                 //    - ZoneID
@@ -912,10 +912,10 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
 
                 pResult2->next();
 
-                // ¹ìÆÄÀÌ¾î PCInfo °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+                // ë±€íŒŒì´ì–´ PCInfo ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
                 PCVampireInfo* pPCVampireInfo = new PCVampireInfo();
 
-                // °¢ ÇÊµå°ªÀ» ÁöÁ¤ÇÑ´Ù.
+                // ê° í•„ë“œê°’ì„ ì§€ì •í•œë‹¤.
                 uint i = 0;
 
                 pPCVampireInfo->setName(pResult2->getString(++i));
@@ -937,7 +937,7 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
                 pPCVampireInfo->setFame(pResult2->getInt(++i));
                 pPCVampireInfo->setAlignment(pResult2->getInt(++i));
 
-                // º¹Àå Á¤º¸ ÀĞ¾î¿À±â ÃÖÀûÈ­. by sigi. 2002.6.19
+                // ë³µì¥ ì •ë³´ ì½ì–´ì˜¤ê¸° ìµœì í™”. by sigi. 2002.6.19
                 shape = pResult2->getDWORD(++i);
 
                 colorsVamp[0] = pResult2->getInt(++i); // CoatColor
@@ -946,16 +946,16 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
                 lcPCList.setPCInfo(pPCVampireInfo->getSlot(), pPCVampireInfo);
             } else {
                 //----------------------------------------------------------------------
-                // ÀÌÁ¦ ¾Æ¿ì½ºÅÍÁî Å×ÀÌºíÀ» °Ë»öÇØ¼­ LCPCList ÆĞÅ¶¿¡ Áı¾î³ÖÀÚ..
-                // Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇØ¾ß ÇÒ Á¤º¸´Â ´ÙÀ½°ú °°´Ù.
+                // ì´ì œ ì•„ìš°ìŠ¤í„°ì¦ˆ í…Œì´ë¸”ì„ ê²€ìƒ‰í•´ì„œ LCPCList íŒ¨í‚·ì— ì§‘ì–´ë„£ì..
+                // í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•´ì•¼ í•  ì •ë³´ëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
                 //
                 //    - Name
                 //    - Slot
                 //    - Sex
                 //    - HairColor
                 //    - SkinColor
-                //    - »óÀÇ/ÇÏÀÇÀÇ »ö»óÁ¤º¸
-                //    - ´É·ÂÄ¡ : STR,DEX,CON
+                //    - ìƒì˜/í•˜ì˜ì˜ ìƒ‰ìƒì •ë³´
+                //    - ëŠ¥ë ¥ì¹˜ : STR,DEX,CON
                 //    - CurrentHP/MaxHP
                 //    - Gold
                 //    - ZoneID
@@ -974,10 +974,10 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
 
                 pResult2->next();
 
-                // ¾Æ¿ì½ºÅÍÁî PCInfo °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+                // ì•„ìš°ìŠ¤í„°ì¦ˆ PCInfo ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
                 PCOustersInfo* pPCOustersInfo = new PCOustersInfo();
 
-                // °¢ ÇÊµå°ªÀ» ÁöÁ¤ÇÑ´Ù.
+                // ê° í•„ë“œê°’ì„ ì§€ì •í•œë‹¤.
                 uint i = 0;
 
                 pPCOustersInfo->setName(pResult2->getString(++i));
@@ -1008,11 +1008,11 @@ void LoginPlayer::makePCList(LCPCList& lcPCList) {
             }
         }
 
-        // Äõ¸® °á°ú ¹× Äõ¸®¹® °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+        // ì¿¼ë¦¬ ê²°ê³¼ ë° ì¿¼ë¦¬ë¬¸ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
         SAFE_DELETE(pStmt);
         SAFE_DELETE(pStmt2);
     } catch (SQLQueryException& sce) {
-        // Äõ¸® °á°ú ¹× Äõ¸®¹® °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+        // ì¿¼ë¦¬ ê²°ê³¼ ë° ì¿¼ë¦¬ë¬¸ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
         SAFE_DELETE(pStmt);
         SAFE_DELETE(pStmt2);
 

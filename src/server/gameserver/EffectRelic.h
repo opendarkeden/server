@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectRelic.h
 // Written by  :
-// Description : Doom¿¡ ÀÇÇÑ ¹æ¾î·Â ÇÏ°­ effect
+// Description : Doomì— ì˜í•œ ë°©ì–´ë ¥ í•˜ê°• effect
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_RELIC__
@@ -46,7 +46,7 @@ public:
     }
 
 private:
-    HP_t m_Point; // È¸º¹ ¿¡³ÊÁö·®
+    HP_t m_Point; // íšŒë³µ ì—ë„ˆì§€ëŸ‰
     Turn_t m_Tick;
 };
 

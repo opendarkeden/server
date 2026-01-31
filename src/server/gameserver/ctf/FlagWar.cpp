@@ -37,7 +37,7 @@ void FlagWar::execute() {
         setState(STATE_WAIT);
         break;
     default:
-        filelog("FlagWar.log", "ÀÌ»óÇÑ FlagWar »óÅÂ..");
+        filelog("FlagWar.log", "ì´ìƒí•œ FlagWar ìƒíƒœ..");
         break;
     }
 
@@ -58,7 +58,7 @@ void FlagWar::executeReady() {
 
     g_pZoneGroupManager->broadcast(&gcNE);
 
-    // 5ºĞÀÖ´Ù°¡ ½ÃÀÛÇÏÀÚ
+    // 5ë¶„ìˆë‹¤ê°€ ì‹œì‘í•˜ì
     g_pFlagManager->addSchedule(new Schedule(this, VSDateTime::currentDateTime().addSecs(300)));
 
     __END_CATCH
@@ -90,7 +90,7 @@ void FlagWar::addFlagsRandom(ZoneID_t zoneID, uint no) {
         TPOINT ptInZone = pZone->addItem(pItem, pt.x, pt.y, true, 36000);
         pItem->create("", STORAGE_ZONE, pZone->getZoneID(), ptInZone.x, ptInZone.y);
 
-        filelog("FlagWar.log", "%d : (%d,%d) ¿¡ ±ê¹ßÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.", pZone->getZoneID(), ptInZone.x, ptInZone.y);
+        filelog("FlagWar.log", "%d : (%d,%d) ì— ê¹ƒë°œì´ ë§Œë“¤ì–´ì¡ŒìŠµë‹ˆë‹¤.", pZone->getZoneID(), ptInZone.x, ptInZone.y);
 
         m_Flags.push_back(pItem->getItemID());
     }
@@ -119,8 +119,8 @@ void FlagWar::executeStart() {
     addFlags();
     //	addFlagsRandom( 1122, 20 );
 
-    // ·£´ıÇÏ°Ô Á¸À» ¼±ÅÃÇØ¼­ 100°³ÀÇ ±ê¹ßÀ» »ı¼ºÇÑ´Ù.
-    // 2½Ã°£ ÇÏÀÚ
+    // ëœë¤í•˜ê²Œ ì¡´ì„ ì„ íƒí•´ì„œ 100ê°œì˜ ê¹ƒë°œì„ ìƒì„±í•œë‹¤.
+    // 2ì‹œê°„ í•˜ì
     g_pFlagManager->addSchedule(new Schedule(this, VSDateTime::currentDateTime().addSecs(getWarTime())));
     g_pFlagManager->startFlagWar();
 
@@ -138,7 +138,7 @@ void FlagWar::executeFinish() {
 
     g_pZoneGroupManager->broadcast(&gcNE);
 
-    // 3ºĞÀÖ´Ù°¡ ¾ÆÅÛ ÅÍÄ£´Ù.
+    // 3ë¶„ìˆë‹¤ê°€ ì•„í…œ í„°ì¹œë‹¤.
     g_pFlagManager->addSchedule(new Schedule(this, VSDateTime::currentDateTime().addSecs(180)));
     g_pFlagManager->endFlagWar();
 
@@ -148,7 +148,7 @@ void FlagWar::executeFinish() {
 void FlagWar::executeEnd() {
     __BEGIN_TRY
 
-    // »ı¼ºÇß´ø ±ê¹ßµéÀ» ÂÑ¾Æ°¡¼­ ´Ù Áö¿ö»Ó´Ù.
+    // ìƒì„±í–ˆë˜ ê¹ƒë°œë“¤ì„ ì«“ì•„ê°€ì„œ ë‹¤ ì§€ì›Œë¿ë‹¤.
     vector<ItemID_t>::iterator itr = m_Flags.begin();
     vector<ItemID_t>::iterator endItr = m_Flags.end();
 
@@ -158,21 +158,21 @@ void FlagWar::executeEnd() {
         if (pItemPosition == NULL)
             continue;
 
-        // popItemÀº ¾ÆÅÛÀ» ÇØ´ç À§Ä¡¿¡¼­ »Ì¾Æ³»¹Ç·Î Áö¿ö¹ö·Áµµ µÈ´Ù.
-        // ÀÌ°Ç FlagManager °¡ µµ´Â ½º·¹µå¿¡¼­ ºÒ·¯Áö¹Ç·Î ¾È¿¡¼­ ¶ô°É¾îÁà¾ß µÈ´Ù.
+        // popItemì€ ì•„í…œì„ í•´ë‹¹ ìœ„ì¹˜ì—ì„œ ë½‘ì•„ë‚´ë¯€ë¡œ ì§€ì›Œë²„ë ¤ë„ ëœë‹¤.
+        // ì´ê±´ FlagManager ê°€ ë„ëŠ” ìŠ¤ë ˆë“œì—ì„œ ë¶ˆëŸ¬ì§€ë¯€ë¡œ ì•ˆì—ì„œ ë½ê±¸ì–´ì¤˜ì•¼ ëœë‹¤.
         Item* pItem = pItemPosition->popItem(true);
         if (pItem != NULL) {
             pItem->destroy();
             SAFE_DELETE(pItem);
         } else {
-            filelog("FlagWar.log", "±ê¹ß ¾ÆÀÌÅÛ ÃßÀû ½ÇÆĞ... ¤Ì.¤Ğ");
+            filelog("FlagWar.log", "ê¹ƒë°œ ì•„ì´í…œ ì¶”ì  ì‹¤íŒ¨... ã…œ.ã… ");
         }
     }
 
     g_pFlagManager->resetFlagCounts();
     m_Flags.clear();
 
-    // ´ÙÀ½À» ±â¾àÇÏÀÚ
+    // ë‹¤ìŒì„ ê¸°ì•½í•˜ì
     g_pFlagManager->addSchedule(new Schedule(this, getNextFlagWarTime()));
 
     /*	ZoneCoord_t	ZoneX, ZoneY;
@@ -240,8 +240,8 @@ VSDateTime FlagWar::getNextFlagWarTime() {
         }
     }
 
-    // cout << nextWarDateTime.toString() << "¿¡ ±ê¹ß ÀüÀï ½ÃÀÛÇÔ´ç~" << endl;
-    filelog("FlagWar.log", "%s¿¡ ±ê¹ß »¯±â ÀÌº¥Æ® ½ÃÀÛ", nextWarDateTime.toString().c_str());
+    // cout << nextWarDateTime.toString() << "ì— ê¹ƒë°œ ì „ìŸ ì‹œì‘í•¨ë‹¹~" << endl;
+    filelog("FlagWar.log", "%sì— ê¹ƒë°œ ëºê¸° ì´ë²¤íŠ¸ ì‹œì‘", nextWarDateTime.toString().c_str());
 
     return nextWarDateTime;
 }

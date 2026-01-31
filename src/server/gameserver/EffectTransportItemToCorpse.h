@@ -11,8 +11,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectTransportItemToCorpse;
-// ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¼­ ¹Ù´ÚÀÇ ¾ÆÀÌÅÛÀº »ç¶óÁö°í
-// ´Ù¸¥ Á¸À¸·Î ¿Å°ÜÁö°Ô µÈ´Ù.
+// ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ì„œ ë°”ë‹¥ì˜ ì•„ì´í…œì€ ì‚¬ë¼ì§€ê³ 
+// ë‹¤ë¥¸ ì¡´ìœ¼ë¡œ ì˜®ê²¨ì§€ê²Œ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class Item;
@@ -27,7 +27,7 @@ public:
         return EFFECT_CLASS_TRANSPORT_ITEM_TO_CORPSE;
     }
 
-    // OBJECT_PRIORITY_NONE ¶ó´Â ¶æÀº, Å¸ÀÏ¿¡ µé¾î°¡¼­´Â ¾ÈµÈ´Ù´Â ¶æÀÌ´Ù.
+    // OBJECT_PRIORITY_NONE ë¼ëŠ” ëœ»ì€, íƒ€ì¼ì— ë“¤ì–´ê°€ì„œëŠ” ì•ˆëœë‹¤ëŠ” ëœ»ì´ë‹¤.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }

@@ -20,7 +20,7 @@
 bool isAvailableID(const char* pID);
 
 //////////////////////////////////////////////////////////////////////////////
-// DB ·ÎºÎÅÍ Æ¯Á¤ ÇÃ·¹ÀÌ¾î ¾ÆÀÌµğ¸¦ Ã£¾Æ¼­ ±× ¿©ºÎ¸¦ Å¬¶óÀÌ¾ğÆ®·Î ¸®ÅÏÇØÁØ´Ù.
+// DB ë¡œë¶€í„° íŠ¹ì • í”Œë ˆì´ì–´ ì•„ì´ë””ë¥¼ ì°¾ì•„ì„œ ê·¸ ì—¬ë¶€ë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ë¦¬í„´í•´ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CLQueryCharacterNameHandler::execute(CLQueryCharacterName* pPacket, Player* pPlayer) {
     __BEGIN_TRY __BEGIN_DEBUG_EX
@@ -60,7 +60,7 @@ void CLQueryCharacterNameHandler::execute(CLQueryCharacterName* pPacket, Player*
         }
 
         //--------------------------------------------------------------------------------
-        // ¿î¿µÀÚ¿Í °ü·ÃµÈ ÀÌ¸§Àº ¾Æ´ÑÁö °ËÁõÇÑ´Ù.
+        // ìš´ì˜ìì™€ ê´€ë ¨ëœ ì´ë¦„ì€ ì•„ë‹Œì§€ ê²€ì¦í•œë‹¤.
         //--------------------------------------------------------------------------------
         // by sigi
         if (!isAvailableID(pPacket->getCharacterName().c_str())) {
@@ -71,14 +71,14 @@ void CLQueryCharacterNameHandler::execute(CLQueryCharacterName* pPacket, Player*
         string text = pPacket->getCharacterName();
 
         list<string> InvalidTokenList;
-        InvalidTokenList.push_back("°ü¸®ÀÚ");
-        InvalidTokenList.push_back("µµ¿ì¹Ì");
-        InvalidTokenList.push_back("´ã´çÀÚ");
-        InvalidTokenList.push_back("¿î¿µ");
-        InvalidTokenList.push_back("±âÈ¹ÀÚ");
-        InvalidTokenList.push_back("°³¹ßÀÚ");
-        InvalidTokenList.push_back("Å×½ºÅÍ");
-        InvalidTokenList.push_back("Á÷¿ø");
+        InvalidTokenList.push_back("ê´€ë¦¬ì");
+        InvalidTokenList.push_back("ë„ìš°ë¯¸");
+        InvalidTokenList.push_back("ë‹´ë‹¹ì");
+        InvalidTokenList.push_back("ìš´ì˜");
+        InvalidTokenList.push_back("ê¸°íšì");
+        InvalidTokenList.push_back("ê°œë°œì");
+        InvalidTokenList.push_back("í…ŒìŠ¤í„°");
+        InvalidTokenList.push_back("ì§ì›");
         list<string>::const_iterator itr = InvalidTokenList.begin();
         for (; itr != InvalidTokenList.end(); itr++)
         {
@@ -93,9 +93,9 @@ void CLQueryCharacterNameHandler::execute(CLQueryCharacterName* pPacket, Player*
 
         pLoginPlayer->sendPacket(&lcQueryResultCharacterName);
 
-        // Äõ¸®°¡ ¿©·¯ ¹ø ¿Ã ¼ö ÀÖÀ¸¹Ç·Î, ¿©ÀüÈ÷ LWFRP ÀÌ´Ù.
-        // ¹®Á¦´Â ´©±º°¡°¡ ÇÁ·Î±×·¥À» Â¥¼­ DOS °ø°İÀ» ÇÒ ¼ö ÀÖÀ¸¹Ç·Î,
-        // ÃÖ¼Ò ½Ã°£À» µÖ¾ß ÇÑ´Ù´Â Á¡ÀÌ´Ù.
+        // ì¿¼ë¦¬ê°€ ì—¬ëŸ¬ ë²ˆ ì˜¬ ìˆ˜ ìˆìœ¼ë¯€ë¡œ, ì—¬ì „íˆ LWFRP ì´ë‹¤.
+        // ë¬¸ì œëŠ” ëˆ„êµ°ê°€ê°€ í”„ë¡œê·¸ë¨ì„ ì§œì„œ DOS ê³µê²©ì„ í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ,
+        // ìµœì†Œ ì‹œê°„ì„ ë‘¬ì•¼ í•œë‹¤ëŠ” ì ì´ë‹¤.
         pLoginPlayer->setPlayerStatus(LPS_WAITING_FOR_CL_GET_PC_LIST);
 
         SAFE_DELETE(pStmt);

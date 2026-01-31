@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradeAddItem.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -43,7 +43,7 @@ public:
         size += szDurability;                         // m_Durability
         size += szItemNum;                            // m_ItemNum
         size += szSilver;                             // silver coating amount
-        size += szGrade;                              // ¾ÆÀÌÅÛ µî±Ş
+        size += szGrade;                              // ì•„ì´í…œ ë“±ê¸‰
         size += szEnchantLevel;                       // enchant level
         size += szBYTE;                               // m_ListNum
         size += (SubItemInfo::getSize() * m_ListNum); // list<SubItemInfo*> m_InfoList;
@@ -174,20 +174,20 @@ public:
     }
 
 private:
-    ObjectID_t m_TargetObjectID;     // ±³È¯À» ÇÏ°í ÀÖ´Â »ó´ë¹æÀÇ OID
-    ObjectID_t m_ItemObjectID;       // ¾ÆÀÌÅÛ OID
-    CoordInven_t m_X;                // ÀÎº¥Åä¸®¿¡¼­ÀÇ X ÁÂÇ¥
-    CoordInven_t m_Y;                // ÀÎº¥Åä¸®¿¡¼­ÀÇ Y ÁÂÇ¥
-    BYTE m_ItemClass;                // ¾ÆÀÌÅÛ Å¬·¡½º
-    ItemType_t m_ItemType;           // ¾ÆÀÌÅÛ Å¸ÀÔ
-    list<OptionType_t> m_OptionType; // ¿É¼Ç Å¸ÀÔ
-    Durability_t m_Durability;       // ³»±¸µµ
-    ItemNum_t m_ItemNum;             // ¾ÆÀÌÅÛ ¼ıÀÚ
+    ObjectID_t m_TargetObjectID;     // êµí™˜ì„ í•˜ê³  ìˆëŠ” ìƒëŒ€ë°©ì˜ OID
+    ObjectID_t m_ItemObjectID;       // ì•„ì´í…œ OID
+    CoordInven_t m_X;                // ì¸ë²¤í† ë¦¬ì—ì„œì˜ X ì¢Œí‘œ
+    CoordInven_t m_Y;                // ì¸ë²¤í† ë¦¬ì—ì„œì˜ Y ì¢Œí‘œ
+    BYTE m_ItemClass;                // ì•„ì´í…œ í´ë˜ìŠ¤
+    ItemType_t m_ItemType;           // ì•„ì´í…œ íƒ€ì…
+    list<OptionType_t> m_OptionType; // ì˜µì…˜ íƒ€ì…
+    Durability_t m_Durability;       // ë‚´êµ¬ë„
+    ItemNum_t m_ItemNum;             // ì•„ì´í…œ ìˆ«ì
     Silver_t m_Silver;               // silver coating amount
-    Grade_t m_Grade;                 // ¾ÆÀÌÅÛ µî±Ş
+    Grade_t m_Grade;                 // ì•„ì´í…œ ë“±ê¸‰
     EnchantLevel_t m_EnchantLevel;   // enchant level
-    BYTE m_ListNum;                  // º§Æ®ÀÏ °æ¿ì, ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ıÀÚ
-    list<SubItemInfo*> m_InfoList;   // º§Æ®ÀÏ °æ¿ì, ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Á¤º¸
+    BYTE m_ListNum;                  // ë²¨íŠ¸ì¼ ê²½ìš°, ì•ˆì— ìˆëŠ” ì•„ì´í…œì˜ ìˆ«ì
+    list<SubItemInfo*> m_InfoList;   // ë²¨íŠ¸ì¼ ê²½ìš°, ì•ˆì— ìˆëŠ” ì•„ì´í…œì˜ ì •ë³´
 };
 
 
@@ -220,7 +220,7 @@ public:
         size += szDurability;                 // m_Durability
         size += szItemNum;                    // m_ItemNum
         size += szSilver;                     // silver coating amount
-        size += szGrade;                      // ¾ÆÀÌÅÛ µî±Ş
+        size += szGrade;                      // ì•„ì´í…œ ë“±ê¸‰
         size += szEnchantLevel;               // enchant level
         size += szBYTE;                       // m_ListNum
         size += (SubItemInfo::getSize() * 8); // list<SubItemInfo*> m_InfoList;

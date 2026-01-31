@@ -83,7 +83,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
         ZoneCoord_t ZoneX = pPacket->getX();
         ZoneCoord_t ZoneY = pPacket->getY();
 
-        // ¹Ù¿îµå¸¦ ³Ñ¾î°¡Áö´Â ¾Ê´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ì§€ëŠ” ì•ŠëŠ”ì§€ ì²´í¬í•œë‹¤.
         if (!isValidZoneCoord(pZone, ZoneX, ZoneY)) {
             return;
         }
@@ -91,13 +91,13 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
         Tile& rTile = pZone->getTile(ZoneX, ZoneY);
         Item* pItem = rTile.getItem();
 
-        // Coma»óÅÂ¶ó¸é ·çÆÃ ºÒ°¡. by sigi. 2002.12.10
-        // ÇöÀç ¹ÚÁã »óÅÂ¶ó¸é ¸®ÅÏ
+        // Comaìƒíƒœë¼ë©´ ë£¨íŒ… ë¶ˆê°€. by sigi. 2002.12.10
+        // í˜„ì¬ ë°•ì¥ ìƒíƒœë¼ë©´ ë¦¬í„´
         if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE) ||
             (pCreature->isVampire() && pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT)))
             return;
 
-        // ½½·¹ÀÌ¾îÀÎ °æ¿ì ¿ÀÅä¹ÙÀÌ Å¸°í ÀÖÀ¸¸é ¾ÆÀÌÅÛ ·çÆÃ ºÒ°¡ by sigi
+        // ìŠ¬ë ˆì´ì–´ì¸ ê²½ìš° ì˜¤í† ë°”ì´ íƒ€ê³  ìˆìœ¼ë©´ ì•„ì´í…œ ë£¨íŒ… ë¶ˆê°€ by sigi
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
             if (pSlayer->hasRideMotorcycle()) {
@@ -105,7 +105,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
             }
         }
 
-        // ¾Æ¿ì½ºÅÍÁîÀÎ °æ¿ì ½ÇÇÁ Å¸°í ÀÖÀ¸¸é ·çÆÃ ºÒ°¡ by DEW
+        // ì•„ìš°ìŠ¤í„°ì¦ˆì¸ ê²½ìš° ì‹¤í”„ íƒ€ê³  ìˆìœ¼ë©´ ë£¨íŒ… ë¶ˆê°€ by DEW
         if (pCreature->isOusters()) {
             Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
             if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH)) {
@@ -113,9 +113,9 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
             }
         }
 
-        // ¹Ù´Ú¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é ¸®ÅÏ
-        // ¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ¸®ÅÏ
-        // ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÌ ½ÃÃ¼°¡ ¾Æ´Ï¸é ¸®ÅÏ
+        // ë°”ë‹¥ì— ì•„ì´í…œì´ ì—†ìœ¼ë©´ ë¦¬í„´
+        // ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ ë¦¬í„´
+        // ë°”ë‹¥ì— ìˆëŠ” ì•„ì´í…œì´ ì‹œì²´ê°€ ì•„ë‹ˆë©´ ë¦¬í„´
         if (pItem == NULL || pItem->getObjectID() != pPacket->getObjectID() ||
             pItem->getItemClass() != Item::ITEM_CLASS_CORPSE) {
             return;
@@ -124,18 +124,18 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
         bool bSlayerRelicTable = pItem->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE);
         bool bVampireRelicTable = pItem->isFlag(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE);
 
-        // ½½·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÇ ¼º¹°º¸°üÇÔÀ» Å¬¸¯ÇÒ ¼ö ¾ø°í,
-        // ¹ìÆÄÀÌ¾îµµ ¹ìÆÄÀÌ¾îÀÇ ¼º¹°º¸°üÇÔÀ» Å¬¸¯ÇÒ ¼ö ¾ø´Ù.
+        // ìŠ¬ë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì˜ ì„±ë¬¼ë³´ê´€í•¨ì„ í´ë¦­í•  ìˆ˜ ì—†ê³ ,
+        // ë±€íŒŒì´ì–´ë„ ë±€íŒŒì´ì–´ì˜ ì„±ë¬¼ë³´ê´€í•¨ì„ í´ë¦­í•  ìˆ˜ ì—†ë‹¤.
         if ((pCreature->isSlayer() && bSlayerRelicTable) || (pCreature->isVampire() && bVampireRelicTable)) {
             return;
         }
 
-        // ¼º´ÜÀÏ °æ¿ì ÀüÀïÁßÀÌ ¾Æ´Ï¶ó¸é Å¬¸¯ÇÒ ¼ö ¾ø´Ù.
-        // ¼öÈ£ ¼º´ÜÀÏ °æ¿ì ¼öºñÃø¿¡¼­´Â Å¬¸¯ÇÒ ¼ö ¾ø´Ù.
+        // ì„±ë‹¨ì¼ ê²½ìš° ì „ìŸì¤‘ì´ ì•„ë‹ˆë¼ë©´ í´ë¦­í•  ìˆ˜ ì—†ë‹¤.
+        // ìˆ˜í˜¸ ì„±ë‹¨ì¼ ê²½ìš° ìˆ˜ë¹„ì¸¡ì—ì„œëŠ” í´ë¦­í•  ìˆ˜ ì—†ë‹¤.
         if (pItem->getItemType() == MONSTER_CORPSE) {
             MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pItem);
             if (pMonsterCorpse->getTreasureCount() > 200) {
-                // Äù½ºÆ®¿ë ½ÃÃ¼. ¼³¸¶ ÁøÂ¥·Î 200°³ ·çÆÃµÇ´Â ¸ó½ºÅÍ´Â ¾ø°ÚÁö --;
+                // í€˜ìŠ¤íŠ¸ìš© ì‹œì²´. ì„¤ë§ˆ ì§„ì§œë¡œ 200ê°œ ë£¨íŒ…ë˜ëŠ” ëª¬ìŠ¤í„°ëŠ” ì—†ê² ì§€ --;
                 PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
                 pPC->getGQuestManager()->touchWayPoint(pMonsterCorpse);
                 return;
@@ -153,7 +153,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                     return;
                 }
             } else if (pMonsterCorpse->isShrine()) {
-                // º¸È£¸·ÀÌ °É·ÁÀÖÀ¸¸é ¸ø ²¨³½´Ù.
+                // ë³´í˜¸ë§‰ì´ ê±¸ë ¤ìˆìœ¼ë©´ ëª» êº¼ë‚¸ë‹¤.
                 if (pMonsterCorpse->isFlag(Effect::EFFECT_CLASS_SHRINE_SHIELD))
                     return;
 
@@ -168,10 +168,10 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                 isCastle = g_pCastleInfoManager->getCastleZoneID(pZone->getZoneID(), castleZoneID);
 
                 if (isCastle && g_pWarSystem->hasCastleActiveWar(castleZoneID)) {
-                    // ±æµåÀüÀïÀÏ °æ¿ì Ã³¸®
+                    // ê¸¸ë“œì „ìŸì¼ ê²½ìš° ì²˜ë¦¬
                     // if (pItem->getItemClass() != Item::ITEM_CLASS_CASTLE_SYMBOL ) return;
 
-                    // ¼º¿¡¼­´Â ¹æ¾îÃøÀÏ °æ¿ì Å¬¸¯ÇÒ ¼ö ¾ø´Ù.
+                    // ì„±ì—ì„œëŠ” ë°©ì–´ì¸¡ì¼ ê²½ìš° í´ë¦­í•  ìˆ˜ ì—†ë‹¤.
 #ifndef __OLD_GUILD_WAR__
 #else
                     if (g_pCastleShrineInfoManager->isDefenderOfGuardShrine(pPC, pMonsterCorpse))
@@ -186,28 +186,28 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                 }
 
                 if (g_pWarSystem->hasActiveRaceWar()) {
-                    // Á¾Á·°£ ÀüÀïÀÏ °æ¿ì Ã³¸®
+                    // ì¢…ì¡±ê°„ ì „ìŸì¼ ê²½ìš° ì²˜ë¦¬
                     // if (pItem->getItemClass() != Item::ITEM_CLASS_BLOOD_BIBLE ) return;
 
-                    // ¼º¿¡¼­´Â ¹æ¾îÃøÀÏ °æ¿ì Å¬¸¯ÇÒ ¼ö ¾ø´Ù.
+                    // ì„±ì—ì„œëŠ” ë°©ì–´ì¸¡ì¼ ê²½ìš° í´ë¦­í•  ìˆ˜ ì—†ë‹¤.
                     if (g_pShrineInfoManager->isDefenderOfGuardShrine(pPC, pMonsterCorpse))
                         return;
 
                     hasWar = true;
                 }
 
-                // ÀüÀïÀÌ ¾Ï°Íµµ ¾øÀ¸¸é ¼º´Ü¿¡¼­ ¾Ï°Íµµ ¸ø ²¨³½´Ù.
+                // ì „ìŸì´ ì•”ê²ƒë„ ì—†ìœ¼ë©´ ì„±ë‹¨ì—ì„œ ì•”ê²ƒë„ ëª» êº¼ë‚¸ë‹¤.
                 if (!hasWar) {
                     return;
                 }
             }
         }
 
-        // ÀÌ±îÁö ¿Ô´Ù¸é, »ó´ëÆí Á¾Á·ÀÇ ¼º¹°º¸°üÇÔÀ» Å¬¸¯ÇÑ °æ¿ìÀÌ´Ù.
-        // ÀÌ °æ¿ì, ¸¸¾à EffectRelicÀÌ ¾ó¸¸Å­ ³²¾Æ ÀÖ´ÂÁö Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+        // ì´ê¹Œì§€ ì™”ë‹¤ë©´, ìƒëŒ€í¸ ì¢…ì¡±ì˜ ì„±ë¬¼ë³´ê´€í•¨ì„ í´ë¦­í•œ ê²½ìš°ì´ë‹¤.
+        // ì´ ê²½ìš°, ë§Œì•½ EffectRelicì´ ì–¼ë§Œí¼ ë‚¨ì•„ ìˆëŠ”ì§€ ì²´í¬í•´ì•¼ í•œë‹¤.
         EffectRelicTable* pRelicTableEffect = NULL;
 
-        // ¼º¹° º¸°ü´ë Á¾·ù¿¡ µû¶ó¼­ ºÙ¾îÀÖ´Â Effect¸¦ ¾ò¾î¿Â´Ù.
+        // ì„±ë¬¼ ë³´ê´€ëŒ€ ì¢…ë¥˜ì— ë”°ë¼ì„œ ë¶™ì–´ìˆëŠ” Effectë¥¼ ì–»ì–´ì˜¨ë‹¤.
         if (bSlayerRelicTable) {
             pRelicTableEffect = dynamic_cast<EffectRelicTable*>(
                 pItem->getEffectManager().findEffect(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE));
@@ -216,9 +216,9 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                 pItem->getEffectManager().findEffect(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE));
         }
 
-        // ¼º¹° º¸°ü´ë¿¡¼­ ¾ÆÀÌÅÛÀ» »©¾î³¾ ¼ö ÀÖ´Â ½Ã°£ÀÎ°¡?
-        // SafeTimeÀÌ µÇÁö ¾Ê¾ÒÀ¸¸é ¾ÈµÈ´Ù.
-        // LockTime µ¿¾ÈÀº ¾ÈµÈ´Ù.
+        // ì„±ë¬¼ ë³´ê´€ëŒ€ì—ì„œ ì•„ì´í…œì„ ë¹¼ì–´ë‚¼ ìˆ˜ ìˆëŠ” ì‹œê°„ì¸ê°€?
+        // SafeTimeì´ ë˜ì§€ ì•Šì•˜ìœ¼ë©´ ì•ˆëœë‹¤.
+        // LockTime ë™ì•ˆì€ ì•ˆëœë‹¤.
         if (pRelicTableEffect != NULL && (!pRelicTableEffect->isSafeTime() || pRelicTableEffect->isLockTime())) {
             GCSystemMessage gcSystemMessage;
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_TAKE_RELIC_NOW));
@@ -227,7 +227,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
             return;
         }
 
-        // ¼ºÇâÀ» Ã¼Å© ÇØ¾ß ÇÑ´Ù.
+        // ì„±í–¥ì„ ì²´í¬ í•´ì•¼ í•œë‹¤.
         if (pItem->getItemType() != MONSTER_CORPSE) {
             if (pPacket->isPet())
                 return;
@@ -237,13 +237,13 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
 
                     PCSlayerInfo3& rPCSlayerInfo = pSlayerCorpse->getSlayerInfo();
 
-                    // ÀÚ±â ½ÃÃ¼°¡ ¾Æ´Ï¶ó¸é
+                    // ìê¸° ì‹œì²´ê°€ ì•„ë‹ˆë¼ë©´
                     if (rPCSlayerInfo.getName() != pCreature->getName()) {
-                        // ¾ÇÇÑÀÚÀÇ ½ÃÃ¼´Â º¸È£¹ŞÁö ¸øÇÑ´Ù....
+                        // ì•…í•œìì˜ ì‹œì²´ëŠ” ë³´í˜¸ë°›ì§€ ëª»í•œë‹¤....
                         if (g_pAlignmentManager->getAlignmentType(rPCSlayerInfo.getAlignment()) >= NEUTRAL) {
                             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-                            // ¼ºÇâÀÌ -500 ³»·Á°£´Ù~
+                            // ì„±í–¥ì´ -500 ë‚´ë ¤ê°„ë‹¤~
                             Alignment_t NewAlignment = max(-10000, pSlayer->getAlignment() - 500);
 
                             pSlayer->setAlignment(NewAlignment);
@@ -255,13 +255,13 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                 } else if (pItem->getItemType() == VAMPIRE_CORPSE && pCreature->isVampire()) {
                     PCVampireInfo3& rPCVampireInfo = dynamic_cast<VampireCorpse*>(pItem)->getVampireInfo();
 
-                    // ÀÚ±â ½ÃÃ¼°¡ ¾Æ´Ï¶ó¸é
+                    // ìê¸° ì‹œì²´ê°€ ì•„ë‹ˆë¼ë©´
                     if (rPCVampireInfo.getName() != pCreature->getName()) {
-                        // ¾ÇÇÑÀÚÀÇ ½ÃÃ¼´Â º¸È£¹ŞÁö ¸øÇÑ´Ù....
+                        // ì•…í•œìì˜ ì‹œì²´ëŠ” ë³´í˜¸ë°›ì§€ ëª»í•œë‹¤....
                         if (g_pAlignmentManager->getAlignmentType(rPCVampireInfo.getAlignment()) >= NEUTRAL) {
                             Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-                            // ¼ºÇâÀÌ -500 ³»·Á°£´Ù~
+                            // ì„±í–¥ì´ -500 ë‚´ë ¤ê°„ë‹¤~
                             Alignment_t NewAlignment = max(-10000, pVampire->getAlignment() - 500);
 
                             pVampire->setAlignment(NewAlignment);
@@ -273,13 +273,13 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                 } else if (pItem->getItemType() == OUSTERS_CORPSE && pCreature->isOusters()) {
                     PCOustersInfo3& rPCOustersInfo = dynamic_cast<OustersCorpse*>(pItem)->getOustersInfo();
 
-                    // ÀÚ±â ½ÃÃ¼°¡ ¾Æ´Ï¶ó¸é
+                    // ìê¸° ì‹œì²´ê°€ ì•„ë‹ˆë¼ë©´
                     if (rPCOustersInfo.getName() != pCreature->getName()) {
-                        // ¾ÇÇÑÀÚÀÇ ½ÃÃ¼´Â º¸È£¹ŞÁö ¸øÇÑ´Ù....
+                        // ì•…í•œìì˜ ì‹œì²´ëŠ” ë³´í˜¸ë°›ì§€ ëª»í•œë‹¤....
                         if (g_pAlignmentManager->getAlignmentType(rPCOustersInfo.getAlignment()) >= NEUTRAL) {
                             Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-                            // ¼ºÇâÀÌ -500 ³»·Á°£´Ù~
+                            // ì„±í–¥ì´ -500 ë‚´ë ¤ê°„ë‹¤~
                             Alignment_t NewAlignment = max(-10000, pOusters->getAlignment() - 500);
 
                             pOusters->setAlignment(NewAlignment);
@@ -303,7 +303,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
             if (pMonsterCorpse != NULL && g_pFlagManager->isFlagPole(pMonsterCorpse)) {
                 if (!g_pFlagManager->hasFlagWar())
                     return;
-                // °°Àº Á¾Á·ÀÌ¸é ¸ø »Ì´Â´Ù..
+                // ê°™ì€ ì¢…ì¡±ì´ë©´ ëª» ë½‘ëŠ”ë‹¤..
                 if (g_pFlagManager->getFlagPoleRace(pMonsterCorpse) == pPC->getRace())
                     return;
 
@@ -343,8 +343,8 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
         Corpse* pCorpse = dynamic_cast<Corpse*>(pItem);
         bool bDissectAll = false;
 
-        // ½ÃÃ¼¿¡ ¾ÆÀÌÅÛÀÌ 3°³ º¸´Ù ´õ ¸¹ÀÌ µé¾î°¡ ÀÖÀ¸¸é ÇÑ ¹ø¿¡ ´Ù»Ç¹Ù³½´Ù.
-        // ÆêÀÌ »Ì¾Æ³»´Â ¾ÆÀÌÅÛÀº ÇÑ¹ø¿¡ ´Ù »ÌÇô³ª¿Â´Ù.
+        // ì‹œì²´ì— ì•„ì´í…œì´ 3ê°œ ë³´ë‹¤ ë” ë§ì´ ë“¤ì–´ê°€ ìˆìœ¼ë©´ í•œ ë²ˆì— ë‹¤ë½€ë°”ë‚¸ë‹¤.
+        // í«ì´ ë½‘ì•„ë‚´ëŠ” ì•„ì´í…œì€ í•œë²ˆì— ë‹¤ ë½‘í˜€ë‚˜ì˜¨ë‹¤.
         // 2003.1.14  by bezz, Sequoia, sigi
         if (pCorpse->getTreasureCount() > 3 || pPacket->isPet())
             bDissectAll = true;
@@ -377,15 +377,15 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                 pTreasure->setFlag(Effect::EFFECT_CLASS_PET_DISSECT);
 
             ////////////////////////////////////////////////////////////////
-            // 2002³â ¾î¸°ÀÌ³¯ ÀÌº¥Æ®
-            // °ËÀºº° ¾ÆÀÌÅÛÀº °¡Á·»çÁø ÃÔ¿µ±ÇÀ¸·Î ±³È¯µÈ´Ù.
-            // ±×·¯¹Ç·Î °³¼ö°¡ ÀÏÁ¤ ¼öÁØ(Æ®·£½Çº£´Ï¾Æ7°³, ¿Ğ¶óÅ°¾Æ 3°³)À»
-            // ³Ñ°Ô ³ª¿Ã ¼ö ¾ø´Ù.
-            // ¸¸¾à °ËÀºº° ¾ÆÀÌÅÛÀÌ ³ª¿ÔÀ» °æ¿ì,
-            // ¾ÆÀÌÅÛÀÇ ¼ıÀÚ¸¦ ÆÄ¾ÇÇØ¼­, Á¦ÇÑ °³¼ö ÀÌ»óÀÌ¸é ³ª¿ÀÁö ¾Êµµ·Ï ÇÑ´Ù.
+            // 2002ë…„ ì–´ë¦°ì´ë‚  ì´ë²¤íŠ¸
+            // ê²€ì€ë³„ ì•„ì´í…œì€ ê°€ì¡±ì‚¬ì§„ ì´¬ì˜ê¶Œìœ¼ë¡œ êµí™˜ëœë‹¤.
+            // ê·¸ëŸ¬ë¯€ë¡œ ê°œìˆ˜ê°€ ì¼ì • ìˆ˜ì¤€(íŠ¸ëœì‹¤ë² ë‹ˆì•„7ê°œ, ì™ˆë¼í‚¤ì•„ 3ê°œ)ì„
+            // ë„˜ê²Œ ë‚˜ì˜¬ ìˆ˜ ì—†ë‹¤.
+            // ë§Œì•½ ê²€ì€ë³„ ì•„ì´í…œì´ ë‚˜ì™”ì„ ê²½ìš°,
+            // ì•„ì´í…œì˜ ìˆ«ìë¥¼ íŒŒì•…í•´ì„œ, ì œí•œ ê°œìˆ˜ ì´ìƒì´ë©´ ë‚˜ì˜¤ì§€ ì•Šë„ë¡ í•œë‹¤.
 
             if (pTreasure->getItemClass() == Item::ITEM_CLASS_EVENT_STAR && pTreasure->getItemType() == 0) {
-                // cout << "°ËÀºº° ÃâÇö" << endl;
+                // cout << "ê²€ì€ë³„ ì¶œí˜„" << endl;
                 Statement* pStmt = NULL;
                 Result* pResult = NULL;
 
@@ -402,7 +402,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                     if (pResult->next()) {
                         int BlackStarNumber = pResult->getInt(1);
                         if (BlackStarNumber >= 7)
-                            cout << "°ËÀºº°ÀÌ 10°³ ³Ñ¾ú½À´Ï´Ù" << endl;
+                            cout << "ê²€ì€ë³„ì´ 10ê°œ ë„˜ì—ˆìŠµë‹ˆë‹¤" << endl;
                         else {
                             (pZone->getObjectRegistry()).registerObject(pTreasure);
 
@@ -411,9 +411,9 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                                 if (pItem->getItemType() == MONSTER_CORPSE) {
                                     MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pItem);
 
-                                    // ¸ó½ºÅÍ ½ÃÃ¼¿¡¼­ ³ª¿Â ¾ÆÀÌÅÛÀÌ¶ó¸é ¿ì¼±±Ç ÀÌÆåÆ®¸¦ ºÙ¿©ÁÖ¾î¾ß ÇÑ´Ù.
-                                    // È¤½Ã¶óµµ ±âÁ¸ÀÇ ÀÌÆåÆ®°¡ ÀÖ´Ù¸é »èÁ¦ÇØÁÖ°í,
-                                    // »õ·ÎÀÌ ÀÌÆåÆ®¸¦ ´õÇÑ´Ù.
+                                    // ëª¬ìŠ¤í„° ì‹œì²´ì—ì„œ ë‚˜ì˜¨ ì•„ì´í…œì´ë¼ë©´ ìš°ì„ ê¶Œ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì£¼ì–´ì•¼ í•œë‹¤.
+                                    // í˜¹ì‹œë¼ë„ ê¸°ì¡´ì˜ ì´í™íŠ¸ê°€ ìˆë‹¤ë©´ ì‚­ì œí•´ì£¼ê³ ,
+                                    // ìƒˆë¡œì´ ì´í™íŠ¸ë¥¼ ë”í•œë‹¤.
                                     const string& HostName = pMonsterCorpse->getHostName();
                                     int HostPartyID = pMonsterCorpse->getHostPartyID();
 
@@ -435,16 +435,16 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                                         pTreasure->setFlag(Effect::EFFECT_CLASS_PRECEDENCE);
                                     }
 
-                                    // ¸¸¾à ÇØ°ñÀÌ¶ó¸é ÁÖÀ§¿¡´Ù°¡ ½ÃÃ¼¿¡¼­ ¸ñÀ» Á¦°ÅÇÏ¶ó°í ÆĞÅ¶À» ³¯·ÁÁÖ¾î¾ß ÇÑ´Ù.
+                                    // ë§Œì•½ í•´ê³¨ì´ë¼ë©´ ì£¼ìœ„ì—ë‹¤ê°€ ì‹œì²´ì—ì„œ ëª©ì„ ì œê±°í•˜ë¼ê³  íŒ¨í‚·ì„ ë‚ ë ¤ì£¼ì–´ì•¼ í•œë‹¤.
                                     if (pTreasure->getItemClass() == Item::ITEM_CLASS_SKULL) {
-                                        // ¸ñ ÀÚ¸£±â~~ by sigi
+                                        // ëª© ìë¥´ê¸°~~ by sigi
                                         pMonsterCorpse->removeHead();
 
                                         GCRemoveCorpseHead _GCRemoveCorpseHead;
                                         _GCRemoveCorpseHead.setObjectID(pItem->getObjectID());
                                         // pZone->broadcastPacket(pt.x, pt.y, &_GCRemoveCorpseHead);
                                         pZone->broadcastPacket(ZoneX, ZoneY,
-                                                               &_GCRemoveCorpseHead); // ¿ø·¡ ½ÃÃ¼ ÁÂÇ¥ by sigi
+                                                               &_GCRemoveCorpseHead); // ì›ë˜ ì‹œì²´ ì¢Œí‘œ by sigi
 
                                         if (pCreature->getPartyID() != 0 && HostPartyID == pCreature->getPartyID()) {
                                             Party* pParty =
@@ -456,8 +456,8 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                                     }
                                 }
 
-                                // ±âÁ¸ÀÇ ItemID¸¦ ±×´ë·Î À¯ÁöÇÑ´Ù.
-                                // ItemID°¡ 0ÀÌ¸é.. create()ÇÒ¶§ ´Ù½Ã ItemID¸¦ ¹Ş´Â´Ù.
+                                // ê¸°ì¡´ì˜ ItemIDë¥¼ ê·¸ëŒ€ë¡œ ìœ ì§€í•œë‹¤.
+                                // ItemIDê°€ 0ì´ë©´.. create()í• ë•Œ ë‹¤ì‹œ ItemIDë¥¼ ë°›ëŠ”ë‹¤.
                                 // by sigi. 2002.10.28
                                 pTreasure->create("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y,
                                                   pTreasure->getItemID());
@@ -472,7 +472,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                     throw Error(sqe.toString());
                 }
             } else if (pTreasure->isFlagItem()) {
-                // ±ê¹ßÀº ¹Ù·Î ÀÎº¥Åä¸®·Î ³Ö¾îÁØ´Ù.
+                // ê¹ƒë°œì€ ë°”ë¡œ ì¸ë²¤í† ë¦¬ë¡œ ë„£ì–´ì¤€ë‹¤.
                 PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
                 Assert(pPC != NULL);
 
@@ -483,7 +483,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
 
                 if (!pInventory->getEmptySlot(pTreasure, tp) || pCorpse->getItemType() != MONSTER_CORPSE ||
                     !g_pFlagManager->getFlag(pPC, dynamic_cast<MonsterCorpse*>(pCorpse))) {
-                    // µµ·Î ³Ö´Â´Ù.
+                    // ë„ë¡œ ë„£ëŠ”ë‹¤.
                     pCorpse->addTreasure(pTreasure);
 
                     pCorpse->setFlag(Effect::EFFECT_CLASS_FLAG_INSERT);
@@ -521,7 +521,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                         MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pItem);
 
                         if (dissectionRelicItem(pCorpse, pTreasure, pt)) {
-                            // pTreasure°¡ relicItemÀÎ °æ¿ì
+                            // pTreasureê°€ relicItemì¸ ê²½ìš°
                         }
 
                         treasureCount++;
@@ -540,7 +540,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                                 pZone->broadcastPacket(pMonsterCorpse->getX(), pMonsterCorpse->getY(), &gcRE);
                             }
 
-                            // »ÌÀ¸¸é Á¸¿¡ »Ñ·ÁÁØ´Ù.
+                            // ë½‘ìœ¼ë©´ ì¡´ì— ë¿Œë ¤ì¤€ë‹¤.
                             char safeRace[15];
                             if (pZone->getLevelWarManager()->getSafeIndex(pMonsterCorpse) == 0) {
                                 sprintf(safeRace, g_pStringPool->c_str(STRID_SLAYER));
@@ -576,11 +576,11 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                             pZone->broadcastPacket(&gcSystemMessage);
                         }
 
-                        // ¸ó½ºÅÍ ½ÃÃ¼¿¡¼­ ³ª¿Â ¾ÆÀÌÅÛÀÌ¶ó¸é ¿ì¼±±Ç ÀÌÆåÆ®¸¦ ºÙ¿©ÁÖ¾î¾ß ÇÑ´Ù.
-                        // È¤½Ã¶óµµ ±âÁ¸ÀÇ ÀÌÆåÆ®°¡ ÀÖ´Ù¸é »èÁ¦ÇØÁÖ°í,
-                        // »õ·ÎÀÌ ÀÌÆåÆ®¸¦ ´õÇÑ´Ù.
-                        // 2003.2.28 ±âÁ¸ÀÇ ÀÌÆåÆ®°¡ ÀÖ´Ù¸é ±×³É µĞ´Ù. ½ÃÃ¼¿¡ °¡ ¹Ù´Ú¿¡ Ãß°¡µÉ ¶§
-                        // ¹Ù´Ú¿¡ ÀÖ´ø ¾ÆÀÌÅÛÀÌ µé¾î°¥ °æ¿ì¿¡ ¿ì¼±±Ç ÀÌÅØÆ®¸¦ ºÙÀÌÁö ¾Ê±â À§ÇØ
+                        // ëª¬ìŠ¤í„° ì‹œì²´ì—ì„œ ë‚˜ì˜¨ ì•„ì´í…œì´ë¼ë©´ ìš°ì„ ê¶Œ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì£¼ì–´ì•¼ í•œë‹¤.
+                        // í˜¹ì‹œë¼ë„ ê¸°ì¡´ì˜ ì´í™íŠ¸ê°€ ìˆë‹¤ë©´ ì‚­ì œí•´ì£¼ê³ ,
+                        // ìƒˆë¡œì´ ì´í™íŠ¸ë¥¼ ë”í•œë‹¤.
+                        // 2003.2.28 ê¸°ì¡´ì˜ ì´í™íŠ¸ê°€ ìˆë‹¤ë©´ ê·¸ëƒ¥ ë‘”ë‹¤. ì‹œì²´ì— ê°€ ë°”ë‹¥ì— ì¶”ê°€ë  ë•Œ
+                        // ë°”ë‹¥ì— ìˆë˜ ì•„ì´í…œì´ ë“¤ì–´ê°ˆ ê²½ìš°ì— ìš°ì„ ê¶Œ ì´í…íŠ¸ë¥¼ ë¶™ì´ì§€ ì•Šê¸° ìœ„í•´
                         if (!bSlayerRelicTable && !bVampireRelicTable) {
                             const string& HostName = pMonsterCorpse->getHostName();
                             int HostPartyID = pMonsterCorpse->getHostPartyID();
@@ -591,12 +591,12 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                                 && !pTreasure->isFlag(Effect::EFFECT_CLASS_PRECEDENCE)) {
                                 EffectPrecedence* pEffectPrecedence = new EffectPrecedence(pTreasure);
                                 if (!pTreasure->isQuestItem()) {
-                                    // Äù½ºÆ® ¾ÆÀÌÅÛÀº ÆÄÆ¼¿øµµ ¸ø Áİ´Â´Ù.
+                                    // í€˜ìŠ¤íŠ¸ ì•„ì´í…œì€ íŒŒí‹°ì›ë„ ëª» ì¤ëŠ”ë‹¤.
                                     pEffectPrecedence->setDeadline(100);
                                     pEffectPrecedence->setHostPartyID(HostPartyID);
                                     pEffectPrecedence->setHostName(HostName);
                                 } else {
-                                    // Äù½ºÆ® ¾ÆÀÌÅÛÀº ¾ø¾îÁú¶§±îÁö ¿ì¼±±ÇÀÌ ¾È ¾ø¾îÁø´Ù.
+                                    // í€˜ìŠ¤íŠ¸ ì•„ì´í…œì€ ì—†ì–´ì§ˆë•Œê¹Œì§€ ìš°ì„ ê¶Œì´ ì•ˆ ì—†ì–´ì§„ë‹¤.
                                     pEffectPrecedence->setDeadline(999999);
                                     pEffectPrecedence->setHostName(pMonsterCorpse->getQuestHostName());
                                 }
@@ -607,15 +607,15 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                             }
                         }
 
-                        // ¸¸¾à ÇØ°ñÀÌ¶ó¸é ÁÖÀ§¿¡´Ù°¡ ½ÃÃ¼¿¡¼­ ¸ñÀ» Á¦°ÅÇÏ¶ó°í ÆĞÅ¶À» ³¯·ÁÁÖ¾î¾ß ÇÑ´Ù.
+                        // ë§Œì•½ í•´ê³¨ì´ë¼ë©´ ì£¼ìœ„ì—ë‹¤ê°€ ì‹œì²´ì—ì„œ ëª©ì„ ì œê±°í•˜ë¼ê³  íŒ¨í‚·ì„ ë‚ ë ¤ì£¼ì–´ì•¼ í•œë‹¤.
                         if (pTreasure->getItemClass() == Item::ITEM_CLASS_SKULL) {
-                            // ¸ñ ÀÚ¸£±â~~ by sigi
+                            // ëª© ìë¥´ê¸°~~ by sigi
                             pMonsterCorpse->removeHead();
 
                             GCRemoveCorpseHead _GCRemoveCorpseHead;
                             _GCRemoveCorpseHead.setObjectID(pItem->getObjectID());
                             // pZone->broadcastPacket(pt.x, pt.y, &_GCRemoveCorpseHead);
-                            pZone->broadcastPacket(ZoneX, ZoneY, &_GCRemoveCorpseHead); // ¿ø·¡ ½ÃÃ¼ ÁÂÇ¥ by sigi
+                            pZone->broadcastPacket(ZoneX, ZoneY, &_GCRemoveCorpseHead); // ì›ë˜ ì‹œì²´ ì¢Œí‘œ by sigi
 
                             if (pCreature->getPartyID() != 0 &&
                                 pMonsterCorpse->getHostPartyID() == pCreature->getPartyID()) {
@@ -627,7 +627,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                         }
                     }
 
-                    // DB¿¡ ÀúÀåÇÑ´Ù.
+                    // DBì— ì €ì¥í•œë‹¤.
                     saveDissectionItem(pCreature, pTreasure, pt.x, pt.y);
                 } else {
                     SAFE_DELETE(pTreasure);
@@ -637,7 +637,7 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
 
         if (pItem->getItemType() == MONSTER_CORPSE) {
             MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pItem);
-            // Æê °æÇèÄ¡ ÁÖÀÚ
+            // í« ê²½í—˜ì¹˜ ì£¼ì
             if (pPacket->isPet() && treasureCount != 0) {
                 PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
                 GCModifyInformation gcMI;
@@ -646,10 +646,10 @@ void CGDissectionCorpseHandler::execute(CGDissectionCorpse* pPacket, Player* pPl
                                   g_pMonsterInfoManager->getMonsterInfo(pMonsterCorpse->getMonsterType())->getLevel(),
                                   pPC->getPetInfo(), pGamePlayer);
                 if (!increasePetExp(pPC->getPetInfo(), exp, &gcMI)) {
-                    //					cout << "°æÇèÄ¡°¡ ¹Ù²î¾ú¾î¿ä : " << gcMI.toString() << endl;
+                    //					cout << "ê²½í—˜ì¹˜ê°€ ë°”ë€Œì—ˆì–´ìš” : " << gcMI.toString() << endl;
                     pGamePlayer->sendPacket(&gcMI);
                 } else {
-                    //					cout << "·¹º§¾øÀ» Çß´ë¿ä" << endl;
+                    //					cout << "ë ˆë²¨ì—†ì„ í–ˆëŒ€ìš”" << endl;
                     sendPetInfo(pGamePlayer, true);
                 }
 

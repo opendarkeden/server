@@ -17,9 +17,9 @@
 //
 // class CLReconnectLogin;
 //
-// Å¬¶óÀÌ¾ðÆ®°¡ ¼­¹ö¿¡°Ô º¸³»´Â ¿¬°á ÆÐÅ¶ÀÌ´Ù.
-// ¼­¹ö°£ ÀÌµ¿¿¡ »ç¿ëµÇ¸ç, ÀÌÀü ¼­¹ö°¡ ÁØ Key ¸¦ »õ ¼­¹ö¿¡°Ô Àü¼ÛÇØ¼­
-// ÀÎÁõÀ» ¹Þ´Â´Ù. ¶ÇÇÑ, »õ ¼­¹ö¿¡¼­ »ç¿ëÇÒ Å©¸®Ã³ ¾ÆÀÌµð¸¦ ´ã°í ÀÖ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ì„œë²„ì—ê²Œ ë³´ë‚´ëŠ” ì—°ê²° íŒ¨í‚·ì´ë‹¤.
+// ì„œë²„ê°„ ì´ë™ì— ì‚¬ìš©ë˜ë©°, ì´ì „ ì„œë²„ê°€ ì¤€ Key ë¥¼ ìƒˆ ì„œë²„ì—ê²Œ ì „ì†¡í•´ì„œ
+// ì¸ì¦ì„ ë°›ëŠ”ë‹¤. ë˜í•œ, ìƒˆ ì„œë²„ì—ì„œ ì‚¬ìš©í•  í¬ë¦¬ì²˜ ì•„ì´ë””ë¥¼ ë‹´ê³  ìžˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,10 +27,10 @@ class CLReconnectLogin : public Packet {
 public:
     CLReconnectLogin() {};
     virtual ~CLReconnectLogin() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler

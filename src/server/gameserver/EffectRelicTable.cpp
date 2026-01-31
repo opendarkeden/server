@@ -80,8 +80,8 @@ void EffectRelicTable::unaffect(Item* pItem)
 
     Assert(pItem != NULL);
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œë˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pItem->removeFlag(Effect::EFFECT_CLASS_HAS_SLAYER_RELIC);
 
     Zone* pZone = pItem->getZone();
@@ -100,7 +100,7 @@ void EffectRelicTable::unaffect(Item* pItem)
     __END_CATCH
 }
 
-// SafeTime ÀÌ Áö³ªÁö ¾Ê¾ÒÀ¸¸é ¼º¹°À» ²¨³¾ ¼ö ¾ø´Ù.
+// SafeTime ì´ ì§€ë‚˜ì§€ ì•Šì•˜ìœ¼ë©´ ì„±ë¬¼ì„ êº¼ë‚¼ ìˆ˜ ì—†ë‹¤.
 bool EffectRelicTable::isSafeTime() const {
     Timeval currentTime;
     getCurrentTime(currentTime);
@@ -108,7 +108,7 @@ bool EffectRelicTable::isSafeTime() const {
     return currentTime > m_SafeTime;
 }
 
-// LockTime µ¿¾ÈÀº ¼º¹°À» ²¨³¾ ¼ö ¾ø´Ù.
+// LockTime ë™ì•ˆì€ ì„±ë¬¼ì„ êº¼ë‚¼ ìˆ˜ ì—†ë‹¤.
 bool EffectRelicTable::isLockTime() const {
     Timeval currentTime;
     getCurrentTime(currentTime);

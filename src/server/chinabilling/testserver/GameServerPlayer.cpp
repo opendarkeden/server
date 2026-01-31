@@ -110,7 +110,7 @@ void GameServerPlayer::processOutput() throw(IOException, Error) {
     try {
         m_pOutputStream->flush();
     } catch (InvalidProtocolException&) {
-        throw DisconnectException("ÀÌ»óÇÑ ÆÐÅ¶ÀÓ");
+        throw DisconnectException("ì´ìƒí•œ íŒ¨í‚·ìž„");
     }
 
     __END_CATCH
@@ -126,14 +126,14 @@ void GameServerPlayer::processCommand() throw(IOException, Error) {
     __BEGIN_TRY
 
     try {
-        // ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆÐÅ¶µéÀ» ¸ðÁ¶¸® Ã³¸®ÇÑ´Ù.
+        // ìž…ë ¥ë²„í¼ì— ë“¤ì–´ìžˆëŠ” ì™„ì „í•œ íŒ¨í‚·ë“¤ì„ ëª¨ì¡°ë¦¬ ì²˜ë¦¬í•œë‹¤.
         while (true) {
-            // Çì´õ¸¦ ÀúÀåÇÒ ¹öÆÛ »ý¼º
+            // í—¤ë”ë¥¼ ì €ìž¥í•  ë²„í¼ ìƒì„±
             CBillingPacketHeader header;
 
-            // ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆÐÅ¶Çì´õÅ©±â¸¸Å­ ÀÐ¾îº»´Ù.
-            // ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀÐÀ» ¼ö ¾ø´Ù¸é,
-            // Insufficient ¿¹¿Ü°¡ ¹ß»ýÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
+            // ìž…ë ¥ìŠ¤íŠ¸ë¦¼ì—ì„œ íŒ¨í‚·í—¤ë”í¬ê¸°ë§Œí¼ ì½ì–´ë³¸ë‹¤.
+            // ë§Œì•½ ì§€ì •í•œ í¬ê¸°ë§Œí¼ ìŠ¤íŠ¸ë¦¼ì—ì„œ ì½ì„ ìˆ˜ ì—†ë‹¤ë©´,
+            // Insufficient ì˜ˆì™¸ê°€ ë°œìƒí•˜ê³ , ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤.
             if (!m_pInputStream->peek((char*)&header, szCBillingPacketHeaderInfo))
                 break;
 
@@ -258,9 +258,9 @@ void GameServerPlayer::disconnect(bool bDisconnected) throw(InvalidProtocolExcep
     __BEGIN_TRY
 
     try {
-        // Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÇÑ °æ¿ì¿¡´Â Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÒ ¼ö ÀÖ´Ù.
-        // ±×·¯³ª, ºÒ¹ýÀûÀÎ µð½º¸¦ °É¾ú´Ù¸é ¼ÒÄÏÀÌ ´Ý°åÀ¸¹Ç·Î
-        // ÇÃ·¯½ÃÇÒ °æ¿ì SIG_PIPE À» ¹Þ°Ô µÈ´Ù.
+        // ì •ë‹¹í•˜ê²Œ ë¡œê·¸ì•„ì›ƒí•œ ê²½ìš°ì—ëŠ” ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•  ìˆ˜ ìžˆë‹¤.
+        // ê·¸ëŸ¬ë‚˜, ë¶ˆë²•ì ì¸ ë””ìŠ¤ë¥¼ ê±¸ì—ˆë‹¤ë©´ ì†Œì¼“ì´ ë‹«ê²¼ìœ¼ë¯€ë¡œ
+        // í”ŒëŸ¬ì‹œí•  ê²½ìš° SIG_PIPE ì„ ë°›ê²Œ ëœë‹¤.
         if (bDisconnected == UNDISCONNECTED) {
             m_pOutputStream->flush();
         }
@@ -270,7 +270,7 @@ void GameServerPlayer::disconnect(bool bDisconnected) throw(InvalidProtocolExcep
         cerr << "GameServerPlayer::disconnect Exception Check!!" << endl;
         cerr << t.toString() << endl;
         m_pSocket->close();
-        // throw Error("¾¾¹Ù...");
+        // throw Error("ì”¨ë°”...");
     }
 
     __END_CATCH
@@ -338,7 +338,7 @@ void GameServerPlayer::executeLogin(CBillingPacketHeader& header,
     sHeader.Body_Length = szCBillingPacketResponseLoginBodyInfo;
     // sHeader.Body_Length = szCBillingPacketErrorBodyInfo;
 
-    // strcpy( sBody.Return_Message, "¸Þ·Õ" );
+    // strcpy( sBody.Return_Message, "ë©”ë¡±" );
     strcpy(sBody.Login_Name, body.Login_Name);
     sBody.Player_Type = CBILLING_PLAYER_TYPE_UNLIMITED;
     sBody.Pay_Type = CBILLING_PAY_TYPE_PRE_PAID;

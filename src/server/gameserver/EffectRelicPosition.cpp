@@ -52,21 +52,21 @@ void EffectRelicPosition::affect(Item* pItem)
 {
     __BEGIN_TRY
 
-    // Á¸ Á¤º¸¸¦ ¾ò´Â´Ù.
+    // ì¡´ ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤.
     ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
     Assert(pZoneInfo != NULL);
 
     if (pItem->getItemClass() == Item::ITEM_CLASS_RELIC) {
-        // ¼º¹°ÀÇ Á¤º¸¸¦ ¾ò´Â´Ù.
+        // ì„±ë¬¼ì˜ ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤.
         ItemType_t relicIndex = pItem->getItemType();
         const RelicInfo* pRelicInfo = dynamic_cast<RelicInfo*>(g_pRelicInfoManager->getItemInfo(relicIndex));
         Assert(pRelicInfo != NULL);
 
         //		StringStream msg;
 
-        /*		// À§Ä¡¸¦ ¾Ë¸°´Ù.
-                msg << "¼º¹°(" << pRelicInfo->getName() << ")ÀÌ "
-                    << pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y << ")¿¡ ¶³¾îÁ® ÀÖ½À´Ï´Ù."; */
+        /*		// ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
+                msg << "ì„±ë¬¼(" << pRelicInfo->getName() << ")ì´ "
+                    << pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y << ")ì— ë–¨ì–´ì ¸ ìžˆìŠµë‹ˆë‹¤."; */
 
         char msg[100];
 
@@ -97,8 +97,8 @@ void EffectRelicPosition::affect(Item* pItem)
         g_pZoneGroupManager->broadcast(pGCBBS);
         g_pShrineInfoManager->registerBloodBibleStatus(m_Part, pGCBBS);
         /*
-        msg << "ÇÇÀÇ ¼º¼­ Á¶°¢ÀÌ "
-            << pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y << ")¿¡ ¶³¾îÁ® ÀÖ½À´Ï´Ù.";
+        msg << "í”¼ì˜ ì„±ì„œ ì¡°ê°ì´ "
+            << pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y << ")ì— ë–¨ì–´ì ¸ ìžˆìŠµë‹ˆë‹¤.";
 
         g_pZoneGroupManager->broadcast( &gcSystemMessage );
         */
@@ -107,8 +107,8 @@ void EffectRelicPosition::affect(Item* pItem)
     } else if (pItem->getItemClass() == Item::ITEM_CLASS_CASTLE_SYMBOL) {
         //		StringStream msg;
 
-        //		msg << "¼ºÀÇ »óÂ¡ÀÌ "
-        //			<< pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y << ")¿¡ ¶³¾îÁ® ÀÖ½À´Ï´Ù.";
+        //		msg << "ì„±ì˜ ìƒì§•ì´ "
+        //			<< pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y << ")ì— ë–¨ì–´ì ¸ ìžˆìŠµë‹ˆë‹¤.";
 
         char msg[200];
         sprintf(msg, g_pStringPool->c_str(STRID_BROADCAST_CASTLE_SYMBOL_POSITION_3), pZoneInfo->getFullName().c_str(),

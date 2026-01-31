@@ -2,7 +2,7 @@
 //
 // Filename    : ClientManager.cpp
 // Written by  : reiot@ewestsoft.com
-// Description : ·Î±×ÀÎ ¼­¹ö¿ë Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀú
+// Description : ë¡œê·¸ì¸ ì„œë²„ìš© í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -29,13 +29,13 @@
 //
 // constructor
 //
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »ı¼ºÇÏ´Â °÷ÀÌ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ìƒì„±í•˜ëŠ” ê³³ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 ClientManager::ClientManager() throw(Error) {
     __BEGIN_TRY
 
-    // ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¸¦ »ı¼ºÇÑ´Ù.
+    // ë¡œê·¸ì¸ í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ë¥¼ ìƒì„±í•œë‹¤.
     g_pLoginPlayerManager = new LoginPlayerManager();
 
     __END_CATCH
@@ -46,13 +46,13 @@ ClientManager::ClientManager() throw(Error) {
 //
 // destructor
 //
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »èÁ¦ÇÏ´Â °÷ÀÌ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì‚­ì œí•˜ëŠ” ê³³ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 ClientManager::~ClientManager() throw(Error) {
     __BEGIN_TRY
 
-    // ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¸¦ »èÁ¦ÇÑ´Ù.
+    // ë¡œê·¸ì¸ í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ë¥¼ ì‚­ì œí•œë‹¤.
     if (g_pLoginPlayerManager != NULL) {
         delete g_pLoginPlayerManager;
         g_pLoginPlayerManager = NULL;
@@ -64,7 +64,7 @@ ClientManager::~ClientManager() throw(Error) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ ÃÊ±âÈ­ÇÏ°í, ÀÚ½ÅÀ» ÃÊ±âÈ­ÇÑ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì´ˆê¸°í™”í•˜ê³ , ìì‹ ì„ ì´ˆê¸°í™”í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void ClientManager::init() throw(Error) {
@@ -78,13 +78,13 @@ void ClientManager::init() throw(Error) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ¼­ºñ½º¸¦ ½ÃÀÛÇÑ´Ù.
+// ì„œë¹„ìŠ¤ë¥¼ ì‹œì‘í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void ClientManager::start() throw(Error) {
     __BEGIN_TRY
 
-    run(); // ¹Ù·Î run() ¸Ş½îµå¸¦ È£ÃâÇÑ´Ù. ^^;
+    run(); // ë°”ë¡œ run() ë©”ì˜ë“œë¥¼ í˜¸ì¶œí•œë‹¤. ^^;
 
     __END_CATCH
 }
@@ -92,7 +92,7 @@ void ClientManager::start() throw(Error) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÀÚ½ÅÀÇ ¼­ºñ½º¸¦ Áß´ÜÇÑ ÈÄ, ÇÏÀ§ ¸Å´ÏÀú °´Ã¼µéÀÇ ¼­ºñ½º¸¦ Áß´Ü½ÃÅ²´Ù.
+// ìì‹ ì˜ ì„œë¹„ìŠ¤ë¥¼ ì¤‘ë‹¨í•œ í›„, í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë“¤ì˜ ì„œë¹„ìŠ¤ë¥¼ ì¤‘ë‹¨ì‹œí‚¨ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void ClientManager::stop() throw(Error) {
@@ -105,7 +105,7 @@ void ClientManager::stop() throw(Error) {
 
 
 //////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀúÀÇ ¸ŞÀÎ ·çÇÁÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ì˜ ë©”ì¸ ë£¨í”„ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void ClientManager::run() throw(Error) {
     __BEGIN_TRY
@@ -115,9 +115,9 @@ void ClientManager::run() throw(Error) {
     Timeval NextTime;
     getCurrentTime(NextTime);
 
-    // GameWorldInfo, GameServerInfo »õ·Î ·ÎµåÇÏ´Â ½Ã°£
+    // GameWorldInfo, GameServerInfo ìƒˆë¡œ ë¡œë“œí•˜ëŠ” ì‹œê°„
     Timeval ReloadNextTime = NextTime;
-    // GameWorldInfo, GameServerInfo »õ·Î ·ÎµåÇÏ´Â ½Ã°£ °£°İ, ºĞ ´ÜÀ§
+    // GameWorldInfo, GameServerInfo ìƒˆë¡œ ë¡œë“œí•˜ëŠ” ì‹œê°„ ê°„ê²©, ë¶„ ë‹¨ìœ„
     int ReloadGap = g_pConfig->getPropertyInt("ServerInfoReloadTime") * 60;
     ReloadNextTime.tv_sec += ReloadGap;
 
@@ -167,8 +167,8 @@ void ClientManager::run() throw(Error) {
             NextTime.tv_sec = currentTime.tv_sec + 10;
             NextTime.tv_usec = currentTime.tv_usec;
 
-            // ¸ÅÅÏ¸¶´Ù ÇÁ·ÎÆÄÀÏ µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇØÁØ´Ù.
-            // ´©Àû µ¥ÀÌÅÍº¸´Ù´Â ½Ã°£´ë¿¡ µû¸¥ ½Ã°£À» ÃøÁ¤ÇÏ±â À§ÇØ¼­...
+            // ë§¤í„´ë§ˆë‹¤ í”„ë¡œíŒŒì¼ ë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•´ì¤€ë‹¤.
+            // ëˆ„ì  ë°ì´í„°ë³´ë‹¤ëŠ” ì‹œê°„ëŒ€ì— ë”°ë¥¸ ì‹œê°„ì„ ì¸¡ì •í•˜ê¸° ìœ„í•´ì„œ...
             initProfileEx();
 
             // g_PacketProfileManager.outputResultToFile("PacketProfile.txt");
@@ -187,7 +187,7 @@ void ClientManager::run() throw(Error) {
             ReloadNextTime.tv_sec += ReloadGap;
         }
 
-        // DB connection ÀÌ timeout À¸·Î ²÷¾îÁöÁö ¾Ê°Ô °¡²û¾¿ ÀÇ¹Ì¾ø´Â Äõ¸®ÇÔÇØÁØ´Ù.
+        // DB connection ì´ timeout ìœ¼ë¡œ ëŠì–´ì§€ì§€ ì•Šê²Œ ê°€ë”ì”© ì˜ë¯¸ì—†ëŠ” ì¿¼ë¦¬í•¨í•´ì¤€ë‹¤.
         // by bezz. 2003.04.21
         if (dummyQueryTime < currentTime) {
             g_pDatabaseManager->executeDummyQuery(g_pDatabaseManager->getConnection("DARKEDEN"));

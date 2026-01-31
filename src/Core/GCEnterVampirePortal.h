@@ -2,8 +2,8 @@
 // Filename    : GCEnterVampirePortal.h
 // Written By  : excel96
 // Description :
-// �����̾ �����̾� ��Ż�� ���� ������� ���,
-// ������ ��ε�ĳ���õǴ� ��Ŷ�̴�.
+// 뱀파이어가 뱀파이어 포탈에 들어가서 사라지는 경우,
+// 주위에 브로드캐스팅되는 패킷이다.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ENTER_VAMPIRE_PORTAL_H__

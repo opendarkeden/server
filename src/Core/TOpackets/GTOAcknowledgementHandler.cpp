@@ -47,8 +47,8 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
 
 
         /*
-        ServerIP¿Í ActualIP Å°¸¦ °¡Áö°í ÇöÀç Policy¸¦ º»´Ù.
-        Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ROW¸¦ Ãß°¡ÇÑ´Ù.
+        ServerIPì™€ ActualIP í‚¤ë¥¼ ê°€ì§€ê³  í˜„ì¬ Policyë¥¼ ë³¸ë‹¤.
+        ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ROWë¥¼ ì¶”ê°€í•œë‹¤.
         */
         if (pResult->getRowCount() == 0) {
             if (strNewServerPolicy == "allow" || strNewServerPolicy == "ALLOW" || strNewServerPolicy == "Allow") {
@@ -58,7 +58,7 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
                                     pPacket->getUDPPort(), pPacket->getMessage().c_str());
 
                 pStmt->executeQuery(
-                    "INSERT IGNORE INTO %s VALUES ('%s',now(),'NEW','NEW','[%s] ¼­¹ö°¡ Ãß°¡ µÇ¾ú½À´Ï´Ù.')",
+                    "INSERT IGNORE INTO %s VALUES ('%s',now(),'NEW','NEW','[%s] ì„œë²„ê°€ ì¶”ê°€ ë˜ì—ˆìŠµë‹ˆë‹¤.')",
                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(), pPacket->getHost().c_str());
             } else {
                 GGCommand ggCommand;
@@ -69,8 +69,8 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
                 ggCommand.setCommand("*shutdown 0");
                 g_pGameServerManager->sendPacket(pPacket->getHost(), pPacket->getUDPPort(), &ggCommand);
 
-                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'DENY','DENY','[%s] ¼­¹ö°¡ Çã°¡¾øÀÌ "
-                                    "Á¢±ÙÇÏ¿© KILL½ÃÄ×½À´Ï´Ù..')",
+                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'DENY','DENY','[%s] ì„œë²„ê°€ í—ˆê°€ì—†ì´ "
+                                    "ì ‘ê·¼í•˜ì—¬ KILLì‹œì¼°ìŠµë‹ˆë‹¤..')",
                                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(),
                                     pPacket->getHost().c_str());
             }
@@ -78,7 +78,7 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
 
         }
         /*
-        Á¸ÀçÇÑ´Ù¸é
+        ì¡´ì¬í•œë‹¤ë©´
         */
         else {
             pResult->next();
@@ -92,11 +92,11 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
 
             if (strPolicy == "KILL") {
                 cout << "strPolicy : KILL..." << endl;
-                // Á¤Ã¥ÀÌ KILL(Á×¿©¶ó)ÀÌ´Ù. ÆĞÅ¶À» ³¯·Á¾ß ÇÏ°Ú´Ù.
-                // ÆĞÅ¶À» ½÷¹ö¸®ÀÚ.
-                // POLICY FIELD¸¦ "DEATH" ·Î º¯°æÇØ³õ´Â´Ù. Á×¾úÀ¸´Ï±î.
+                // ì •ì±…ì´ KILL(ì£½ì—¬ë¼)ì´ë‹¤. íŒ¨í‚·ì„ ë‚ ë ¤ì•¼ í•˜ê² ë‹¤.
+                // íŒ¨í‚·ì„ ì´ë²„ë¦¬ì.
+                // POLICY FIELDë¥¼ "DEATH" ë¡œ ë³€ê²½í•´ë†“ëŠ”ë‹¤. ì£½ì—ˆìœ¼ë‹ˆê¹Œ.
 
-                // GGCommand ·Î kill_daemonctl À» º¸³½µÚ¿¡.
+                // GGCommand ë¡œ kill_daemonctl ì„ ë³´ë‚¸ë’¤ì—.
                 GGCommand ggCommand;
                 ggCommand.setCommand("*set KILL_DAEMONCTL 1");
 
@@ -109,8 +109,8 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
                 pStmt->executeQuery("UPDATE %s SET Policy='DEATH' WHERE ActualIP='%s'", strTargetTableName.c_str(),
                                     pPacket->getHost().c_str());
 
-                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'KILL','DEATH','[%s] ¼­¹ö°¡ KILLÁ¤Ã¥¿¡ "
-                                    "µû¶ó DEATH»óÅÂ°¡ µÇ¾ú½À´Ï´Ù')",
+                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'KILL','DEATH','[%s] ì„œë²„ê°€ KILLì •ì±…ì— "
+                                    "ë”°ë¼ DEATHìƒíƒœê°€ ë˜ì—ˆìŠµë‹ˆë‹¤')",
                                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(),
                                     pPacket->getHost().c_str());
 
@@ -132,8 +132,8 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
                 pStmt->executeQuery("UPDATE %s SET Policy='CLEAR' WHERE ActualIP='%s'", strTargetTableName.c_str(),
                                     pPacket->getHost().c_str());
 
-                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'REMOVE','CLEAR','[%s] ¼­¹ö°¡ "
-                                    "REMOVEÁ¤Ã¥¿¡ µû¶ó CLEAR»óÅÂ°¡ µÇ¾ú½À´Ï´Ù')",
+                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'REMOVE','CLEAR','[%s] ì„œë²„ê°€ "
+                                    "REMOVEì •ì±…ì— ë”°ë¼ CLEARìƒíƒœê°€ ë˜ì—ˆìŠµë‹ˆë‹¤')",
                                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(),
                                     pPacket->getHost().c_str());
 
@@ -152,21 +152,21 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
                 g_pGameServerManager->sendPacket(pPacket->getHost(), pPacket->getUDPPort(), &ggCommand);
 
 
-                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'CLEAR','REMOVE','[%s] ¼­¹ö°¡ "
-                                    "CLEAR»óÅÂÀÎµ¥µµ Á¢±ÙÇÏ¿´±â ¶§¹®¿¡ ´ÙÀ½¿¡ ´Ù½Ã REMOVE½ÃÅµ´Ï´Ù.')",
+                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'CLEAR','REMOVE','[%s] ì„œë²„ê°€ "
+                                    "CLEARìƒíƒœì¸ë°ë„ ì ‘ê·¼í•˜ì˜€ê¸° ë•Œë¬¸ì— ë‹¤ìŒì— ë‹¤ì‹œ REMOVEì‹œí‚µë‹ˆë‹¤.')",
                                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(),
                                     pPacket->getHost().c_str());
 
             } else if (strPolicy == "DEATH") {
                 /*
-                    // Á×Àº»óÅÂÀÎµ¥ ¶Ç ³¯¾Æ¿Ô´Ù.
-                    // LIVE ·Î ¹Ù²ãÁÖÀÚ.
+                    // ì£½ì€ìƒíƒœì¸ë° ë˜ ë‚ ì•„ì™”ë‹¤.
+                    // LIVE ë¡œ ë°”ê¿”ì£¼ì.
                     pStmt->executeQuery( "UPDATE %s SET Policy='LIVE' WHERE ServerIP='%s'",
                                         strTargetTableName.c_str(),
                                         pPacket->getServerIP().c_str() );
 
-                    pStmt->executeQuery( "INSERT IGNORE INTO %s VALUES ('%s',now(),'DEATH','LIVE','[%s] ¼­¹ö°¡
-                   DEATH»óÅÂÀÎµ¥µµ Á¢±ÙÇÏ¿´±â ¶§¹®¿¡ LIVE»óÅÂ·Î ¹Ù²ãÁİ´Ï´Ù.')", strTargetTableName_Log.c_str(),
+                    pStmt->executeQuery( "INSERT IGNORE INTO %s VALUES ('%s',now(),'DEATH','LIVE','[%s] ì„œë²„ê°€
+                   DEATHìƒíƒœì¸ë°ë„ ì ‘ê·¼í•˜ì˜€ê¸° ë•Œë¬¸ì— LIVEìƒíƒœë¡œ ë°”ê¿”ì¤ë‹ˆë‹¤.')", strTargetTableName_Log.c_str(),
                     pPacket->getServerIP().c_str(),
                     pPacket->getServerIP().c_str());
                 */
@@ -178,21 +178,21 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
                 ggCommand.setCommand("*shutdown 0");
                 g_pGameServerManager->sendPacket(pPacket->getHost(), pPacket->getUDPPort(), &ggCommand);
 
-                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'DEATH','LIVE','[%s] ¼­¹ö°¡ "
-                                    "DEATH»óÅÂÀÎµ¥µµ Á¢±ÙÇÏ¿´±â ¶§¹®¿¡ ´Ù½Ã KILL ½ÃÄ×½À´Ï´Ù..')",
+                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'DEATH','LIVE','[%s] ì„œë²„ê°€ "
+                                    "DEATHìƒíƒœì¸ë°ë„ ì ‘ê·¼í•˜ì˜€ê¸° ë•Œë¬¸ì— ë‹¤ì‹œ KILL ì‹œì¼°ìŠµë‹ˆë‹¤..')",
                                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(),
                                     pPacket->getHost().c_str());
 
 
-            } else if (strPolicy == "LIVE") // 'LIVE' ÀÏ°ÍÀÌ´Ù. ±×³É ³»ºñµÎÀÚ.
+            } else if (strPolicy == "LIVE") // 'LIVE' ì¼ê²ƒì´ë‹¤. ê·¸ëƒ¥ ë‚´ë¹„ë‘ì.
             {
                 // continue..
                 cout << "strPolicy : LIVE..." << endl;
             } else {
                 cout << "strPolicy : BAD! POLICY!" << endl;
 
-                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'UNKNOWN','UNKNOWN','[%s] ¼­¹ö¿¡¼­ ¾Ë ¼ö "
-                                    "¾ø´Â »óÈ²ÀÌ ¹ß»ıÇÏ¿´½À´Ï´Ù.')",
+                pStmt->executeQuery("INSERT IGNORE INTO %s VALUES ('%s',now(),'UNKNOWN','UNKNOWN','[%s] ì„œë²„ì—ì„œ ì•Œ ìˆ˜ "
+                                    "ì—†ëŠ” ìƒí™©ì´ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.')",
                                     strTargetTableName_Log.c_str(), pPacket->getHost().c_str(),
                                     pPacket->getHost().c_str());
             }
@@ -216,10 +216,10 @@ void GTOAcknowledgementHandler::execute(GTOAcknowledgement* pPacket) throw(Proto
     }
     END_DB(pStmt)
 
-    filelog("TheOneServer.log", "ÆĞÅ¶ÀÌ µµÂøÇß½À´Ï´Ù. : [%s:%05d] %s", pPacket->getHost().c_str(), pPacket->getPort(),
+    filelog("TheOneServer.log", "íŒ¨í‚·ì´ ë„ì°©í–ˆìŠµë‹ˆë‹¤. : [%s:%05d] %s", pPacket->getHost().c_str(), pPacket->getPort(),
             pPacket->toString().c_str());
     cout << "Touch.[" << pPacket->getHost() << ":" << pPacket->getPort() << "].[Policy : " << strPolicy << "]" << endl;
-    //	cout << "ÆĞÅ¶ÀÌ µµÂøÇß½À´Ï´Ù. : [" << pPacket->getHost() << ":" << pPacket->getPort() <<"] : " <<
+    //	cout << "íŒ¨í‚·ì´ ë„ì°©í–ˆìŠµë‹ˆë‹¤. : [" << pPacket->getHost() << ":" << pPacket->getPort() <<"] : " <<
     // pPacket->toString() << endl;
 
 #endif

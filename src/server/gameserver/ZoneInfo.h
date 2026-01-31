@@ -175,27 +175,27 @@ public:
     string toString() const;
 
 private:
-    ZoneID_t m_ZoneID;               // Á¸ ¾ÆÀÌµğ
-    ZoneGroupID_t m_ZoneGroupID;     // Á¸ ±×·ì ¾ÆÀÌµğ
-    ZoneType m_ZoneType;             // Á¸ Å¸ÀÔ
-    ZoneLevel_t m_ZoneLevel;         // Á¸ ·¹º§(0 - 10)
-    ZoneAccessMode m_ZoneAccessMode; // Á¸ Á¢±Ù ¸ğµå
-    bool m_bPayPlay;                 // À¯·áÈ­ Á¸? = µ· ³»¾ß µé¾î°¥ ¼ö ÀÖ´Â °÷
-    bool m_bPremiumZone;             // ÇÁ¸®¹Ì¾ö ¼­ºñ½º°¡ µÇ´Â Á¸
-    string m_OwnerID;                // Á¸ ¼ÒÀ¯ÀÚ ¾ÆÀÌµğ
-    string m_SMPFilename;            // SMP ÆÄÀÏ ÀÌ¸§
-    string m_SSIFilename;            // SSI ÆÄÀÏ ÀÌ¸§
-    string m_FullName;               // Á¸ ÀÌ¸§
-    string m_ShortName;              // ÂªÀº ÀÌ¸§
+    ZoneID_t m_ZoneID;               // ì¡´ ì•„ì´ë””
+    ZoneGroupID_t m_ZoneGroupID;     // ì¡´ ê·¸ë£¹ ì•„ì´ë””
+    ZoneType m_ZoneType;             // ì¡´ íƒ€ì…
+    ZoneLevel_t m_ZoneLevel;         // ì¡´ ë ˆë²¨(0 - 10)
+    ZoneAccessMode m_ZoneAccessMode; // ì¡´ ì ‘ê·¼ ëª¨ë“œ
+    bool m_bPayPlay;                 // ìœ ë£Œí™” ì¡´? = ëˆ ë‚´ì•¼ ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” ê³³
+    bool m_bPremiumZone;             // í”„ë¦¬ë¯¸ì—„ ì„œë¹„ìŠ¤ê°€ ë˜ëŠ” ì¡´
+    string m_OwnerID;                // ì¡´ ì†Œìœ ì ì•„ì´ë””
+    string m_SMPFilename;            // SMP íŒŒì¼ ì´ë¦„
+    string m_SSIFilename;            // SSI íŒŒì¼ ì´ë¦„
+    string m_FullName;               // ì¡´ ì´ë¦„
+    string m_ShortName;              // ì§§ì€ ì´ë¦„
 
-    bool m_bPKZone;       // ¼ºÇâ ¾È ¶³¾îÁö´Â Á¸
-    bool m_bNoPortalZone; // portal·Î ÀÌµ¿ÀÌ ºÒ°¡´ÉÇÑ Á¸
-    bool m_bMasterLair;   // ¸¶½ºÅÍ ·¹¾îÀÎ°¡?
-    bool m_bCastle;       // CastleÀÎ°¡?
-    bool m_bHolyLand;     // ¾Æ´ãÀÇ ¼ºÁöÀÎ°¡?
-    bool m_bAvailable;    // ³ª¿Í¾ß µÇ´Â Á¸ÀÎ°¡?
+    bool m_bPKZone;       // ì„±í–¥ ì•ˆ ë–¨ì–´ì§€ëŠ” ì¡´
+    bool m_bNoPortalZone; // portalë¡œ ì´ë™ì´ ë¶ˆê°€ëŠ¥í•œ ì¡´
+    bool m_bMasterLair;   // ë§ˆìŠ¤í„° ë ˆì–´ì¸ê°€?
+    bool m_bCastle;       // Castleì¸ê°€?
+    bool m_bHolyLand;     // ì•„ë‹´ì˜ ì„±ì§€ì¸ê°€?
+    bool m_bAvailable;    // ë‚˜ì™€ì•¼ ë˜ëŠ” ì¡´ì¸ê°€?
 
-    int m_OpenLevel; // Á¸ÀÇ °ø°³ ·¹º§. OpenDegree°¡ Á¸ÀÇ °ø°³ ·¹º§º¸´Ù ³ô¾Æ¾ß ³ª¿Â´Ù.
+    int m_OpenLevel; // ì¡´ì˜ ê³µê°œ ë ˆë²¨. OpenDegreeê°€ ì¡´ì˜ ê³µê°œ ë ˆë²¨ë³´ë‹¤ ë†’ì•„ì•¼ ë‚˜ì˜¨ë‹¤.
 };
 
 #endif

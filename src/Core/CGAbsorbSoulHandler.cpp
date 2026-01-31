@@ -38,13 +38,13 @@ void CGAbsorbSoulHandler::execute(CGAbsorbSoul* pPacket, Player* pPlayer)
             Creature* pCreature = pGamePlayer->getCreature();
             Assert(pCreature != NULL);
 
-            // ¾Æ¿ì½ºÅÍÁî°¡ ¾Æ´Ñ ³ðÀÌ Èí¿µÀ» ÇÒ ¼ö´Â ¾ø´Ù.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆê°€ ì•„ë‹Œ ë†ˆì´ í¡ì˜ì„ í•  ìˆ˜ëŠ” ì—†ë‹¤.
             if (!pCreature->isOusters())
                 return;
 
             Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-            // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+            // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
             ZoneLevel_t ZoneLevel = pCreature->getZone()->getZoneLevel(pCreature->getX(), pCreature->getY());
             if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (!isAbleToUseObjectSkill(pOusters, SKILL_ABSORB_SOUL))) {
                 GCSkillFailed1 gcSkillFailed1;

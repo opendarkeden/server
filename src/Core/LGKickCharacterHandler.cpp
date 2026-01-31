@@ -24,8 +24,8 @@
 //
 // LGKickCharacterHander::execute()
 //
-// °ÔÀÓ ¼­¹ö°¡ ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ LGKickCharacter ÆĞÅ¶À» ¹Ş°Ô µÇ¸é,
-// ConnectionInfo¸¦ »õ·Î Ãß°¡ÇÏ°Ô µÈ´Ù.
+// ê²Œì„ ì„œë²„ê°€ ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° LGKickCharacter íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// ConnectionInfoë¥¼ ìƒˆë¡œ ì¶”ê°€í•˜ê²Œ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void LGKickCharacterHandler::execute(LGKickCharacter* pPacket)
@@ -34,7 +34,7 @@ void LGKickCharacterHandler::execute(LGKickCharacter* pPacket)
     __BEGIN_TRY __BEGIN_DEBUG_EX
 #ifdef __GAME_SERVER__
 
-        // ³ÄÇáÇá
+        // ëƒí–í–
         /*
         if (!g_pPCFinder->setKickCharacter(pPacket->getPCName(), pPacket->getHost(), pPacket->getPort() ))
         {
@@ -56,10 +56,10 @@ void LGKickCharacterHandler::execute(LGKickCharacter* pPacket)
 
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
-        // ÀÌ¸§À¸·Î »ç¿ëÀÚ¸¦ Ã£¾Æ¿Â´Ù.
+        // ì´ë¦„ìœ¼ë¡œ ì‚¬ìš©ìë¥¼ ì°¾ì•„ì˜¨ë‹¤.
         Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pPacket->getPCName());
 
-        // Ä³¸¯ÅÍ°¡ ¾ø´Â °æ¿ì¿¡´Â GLKickVerify(false)¸¦ º¸³½´Ù.
+        // ìºë¦­í„°ê°€ ì—†ëŠ” ê²½ìš°ì—ëŠ” GLKickVerify(false)ë¥¼ ë³´ë‚¸ë‹¤.
         if (pCreature == NULL) {
             GLKickVerify glKickVerify;
             glKickVerify.setKicked(false);
@@ -81,14 +81,14 @@ void LGKickCharacterHandler::execute(LGKickCharacter* pPacket)
         try {
             pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
         } catch (Throwable& t) {
-            // pCreature->getPlayer()¾È¿¡¼­ Assert(m_pPlayer!=NULL)¶§¹®ÀÌ´Ù.
+            // pCreature->getPlayer()ì•ˆì—ì„œ Assert(m_pPlayer!=NULL)ë•Œë¬¸ì´ë‹¤.
             // filelog("kickCharacterAssert.txt", "%s", t.toString().c_str());
             g_pPCFinder->unlock();
             return;
         }
 
         // Assert(pGamePlayer!=NULL);
-        if (pGamePlayer == NULL) // ¾î¶»°Ô °¡´ÉÇÒ±î? -_-;
+        if (pGamePlayer == NULL) // ì–´ë–»ê²Œ ê°€ëŠ¥í• ê¹Œ? -_-;
         {
             g_pPCFinder->unlock();
             return;
@@ -103,12 +103,12 @@ void LGKickCharacterHandler::execute(LGKickCharacter* pPacket)
                                     (pSocket == NULL ? "NULL" : pSocket->getHost().c_str()));
 
 
-        // °­Á¦ Á¾·á ½ÃÅ²´Ù.
+        // ê°•ì œ ì¢…ë£Œ ì‹œí‚¨ë‹¤.
         pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
         pGamePlayer->setItemRatioBonusPoint(4);
         pGamePlayer->setKickForLogin(true);
 
-        // Á¢¼Ó ÇØÁ¦ ÈÄ, ÀÀ´äÀ» º¸³»ÁÙ °÷..
+        // ì ‘ì† í•´ì œ í›„, ì‘ë‹µì„ ë³´ë‚´ì¤„ ê³³..
         pGamePlayer->setKickRequestHost(pPacket->getHost());
         pGamePlayer->setKickRequestPort(pPacket->getPort());
 

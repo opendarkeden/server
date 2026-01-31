@@ -35,13 +35,13 @@ void GSGuildMemberLogOnHandler::execute(GSGuildMemberLogOn* pPacket, Player* pPl
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     // try { Assert(pGuild != NULL); } catch (Throwable& ) { return; }
     if (pGuild == NULL)
         return;
 
-    // ±æµåÀÇ ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // ê¸¸ë“œì˜ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     // try { Assert(pGuildMember != NULL); } catch (Throwable& ) { return; }
     if (pGuildMember == NULL)
@@ -49,7 +49,7 @@ void GSGuildMemberLogOnHandler::execute(GSGuildMemberLogOn* pPacket, Player* pPl
 
     pGuildMember->setLogOn(pPacket->getLogOn());
 
-    // °ÔÀÓ ¼­¹ö·Î º¸³¾ ÆÐÅ¶À» ¸¸µç´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ ë³´ë‚¼ íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     SGGuildMemberLogOnOK sgGuildMemberLogOnOK;
     sgGuildMemberLogOnOK.setGuildID(pGuild->getID());
     sgGuildMemberLogOnOK.setName(pPacket->getName());
@@ -57,7 +57,7 @@ void GSGuildMemberLogOnHandler::execute(GSGuildMemberLogOn* pPacket, Player* pPl
     sgGuildMemberLogOnOK.setServerID(pPacket->getServerID());
 
 
-    // °ÔÀÓ ¼­¹ö·Î ÆÐÅ¶À» º¸³½´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgGuildMemberLogOnOK);
 
 #endif

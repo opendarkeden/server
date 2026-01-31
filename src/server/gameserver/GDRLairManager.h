@@ -28,7 +28,7 @@ enum GDRLairStatus {
     GDR_LAIR_KILL_ALL,
 };
 
-// Æò½Ã. ·¹¾î´Â ½¬°í ÀÖ°í ½Ã°£ÀÌ µÇ¸é ·¹¾î¸¦ ¿­¾îÁØ´Ù.
+// í‰ì‹œ. ë ˆì–´ëŠ” ì‰¬ê³  ìˆê³  ì‹œê°„ì´ ë˜ë©´ ë ˆì–´ë¥¼ ì—´ì–´ì¤€ë‹¤.
 class GDRLairIdle : public SetTimeState {
 public:
     DWORD getStateType() const {
@@ -48,7 +48,7 @@ public:
 private:
 };
 
-// 20ºĞ°£ ·¹¾î°¡ ¿­¸®¸é¼­ ÀÏ·çÁ¯½º ¿şÀÌ ÇÔÁ¤ÀÌ È°¼ºÈ­µÈ´Ù.
+// 20ë¶„ê°„ ë ˆì–´ê°€ ì—´ë¦¬ë©´ì„œ ì¼ë£¨ì ¼ìŠ¤ ì›¨ì´ í•¨ì •ì´ í™œì„±í™”ëœë‹¤.
 class GDRLairEntrance : public TimerState {
 public:
     DWORD getStateType() const {
@@ -67,9 +67,9 @@ public:
     }
 };
 
-// ·¹¾î ÀÔ±¸°¡ ´İÈù µÚ¿¡µµ 5ºĞ°£ ÀÏ·çÁ¯½º ¿şÀÌ¸¦ Åë°úÇÒ ¼ö ÀÖ´Â ½Ã°£ÀÌ ÀÖ´Ù.
-// ±×³É 5ºĞ ½Ã°£²ô´Â°Å°í ÀÏ·çÁ¯½º ¿şÀÌ¸¦ ÇÑ¸íÀÌ¶óµµ Åë°úÇÏ¸é ¹Ù·Î Icepole
-// State·Î ³Ñ¾î°£´Ù.
+// ë ˆì–´ ì…êµ¬ê°€ ë‹«íŒ ë’¤ì—ë„ 5ë¶„ê°„ ì¼ë£¨ì ¼ìŠ¤ ì›¨ì´ë¥¼ í†µê³¼í•  ìˆ˜ ìˆëŠ” ì‹œê°„ì´ ìˆë‹¤.
+// ê·¸ëƒ¥ 5ë¶„ ì‹œê°„ë„ëŠ”ê±°ê³  ì¼ë£¨ì ¼ìŠ¤ ì›¨ì´ë¥¼ í•œëª…ì´ë¼ë„ í†µê³¼í•˜ë©´ ë°”ë¡œ Icepole
+// Stateë¡œ ë„˜ì–´ê°„ë‹¤.
 /*class GDRLairIllusionsWayOnly : public TimerState
 {
 public:
@@ -84,9 +84,9 @@ public:
     string	toString() const { return "GDRLairIllusionsWayOnly"; }
 };*/
 
-// ÀÏ·çÁ¯½º ¿şÀÌ¸¦ Åë°úÇÑ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Ù¸é ¾óÀ½ ±âµÕÀ» ±ı ¼ö ÀÖ´Â ½Ã°£À»
-// ÁØ´Ù. ½ÃÀÛÇÒ ¶§ ¾óÀ½ ±âµÕÀ» ¼ÒÈ¯ÇÏ°í ¾óÀ½ ±âµÕ ±úÁö¸é ±× ÀÚ¸®¿¡ 1ºĞµÚ¿¡
-// µ¥¹ÌÁö¸¦ ÁÖ´Â ¾óÀ½±âµÕ ÀÌÆåÆ®°¡.. (--)
+// ì¼ë£¨ì ¼ìŠ¤ ì›¨ì´ë¥¼ í†µê³¼í•œ í”Œë ˆì´ì–´ê°€ ìˆë‹¤ë©´ ì–¼ìŒ ê¸°ë‘¥ì„ ê¹° ìˆ˜ ìˆëŠ” ì‹œê°„ì„
+// ì¤€ë‹¤. ì‹œì‘í•  ë•Œ ì–¼ìŒ ê¸°ë‘¥ì„ ì†Œí™˜í•˜ê³  ì–¼ìŒ ê¸°ë‘¥ ê¹¨ì§€ë©´ ê·¸ ìë¦¬ì— 1ë¶„ë’¤ì—
+// ë°ë¯¸ì§€ë¥¼ ì£¼ëŠ” ì–¼ìŒê¸°ë‘¥ ì´í™íŠ¸ê°€.. (--)
 class GDRLairIcepole : public State {
 public:
     void start();
@@ -106,8 +106,8 @@ private:
     Timeval m_BroadcastTime;
 };
 
-// ¾óÀ½ ±âµÕÀ» Åë°úÇÑ ³ÑÀÌ ÀÖ´Ù¸é Áúµå·¹°¡ µîÀåÇÑ´Ù.
-// Áúµå·¹°¡ ¼ÒÈ¯µÇ°í ÀÌÆåÆ®°¡ ¹ß»ıÇÏ°í Áúµå·¹ ´ë»ç 1À» ÇÑ´Ù.
+// ì–¼ìŒ ê¸°ë‘¥ì„ í†µê³¼í•œ ë„˜ì´ ìˆë‹¤ë©´ ì§ˆë“œë ˆê°€ ë“±ì¥í•œë‹¤.
+// ì§ˆë“œë ˆê°€ ì†Œí™˜ë˜ê³  ì´í™íŠ¸ê°€ ë°œìƒí•˜ê³  ì§ˆë“œë ˆ ëŒ€ì‚¬ 1ì„ í•œë‹¤.
 class GDRLairScene1 : public GDRScene {
 public:
     GDRLairScene1() : GDRScene(GDR_LAIR_SUMMON_MONSTER) {}
@@ -125,9 +125,9 @@ public:
     }
 };
 
-// Áúµå·¹ ·¹¾î¿¡ ÀÏ¹İ ¸ó½ºÅÍ¸¦ 10È¸ ¼ÒÈ¯ÇÑ´Ù.
-// »ì¾Æ³²Àº ³ÑÀÌ ¾ø¾îÁö¸é Idle·Î
-// 10È¸ ¼ÒÈ¯ÇÑ µÚ¿¡µµ »ì¾Æ³²Àº ³ÑÀÌ ÀÖÀ¸¸é Scene2·Î
+// ì§ˆë“œë ˆ ë ˆì–´ì— ì¼ë°˜ ëª¬ìŠ¤í„°ë¥¼ 10íšŒ ì†Œí™˜í•œë‹¤.
+// ì‚´ì•„ë‚¨ì€ ë„˜ì´ ì—†ì–´ì§€ë©´ Idleë¡œ
+// 10íšŒ ì†Œí™˜í•œ ë’¤ì—ë„ ì‚´ì•„ë‚¨ì€ ë„˜ì´ ìˆìœ¼ë©´ Scene2ë¡œ
 class GDRLairSummonMonster : public MonsterSummonState {
 public:
     GDRLairSummonMonster();
@@ -146,8 +146,8 @@ public:
     }
 };
 
-// Áúµå·¹°¡ ´ë»ç 2¸¦ ÇÏ°í ÀÌÆåÆ® ½ÃÀü ÈÄ ÁöÁ¤ À§Ä¡·Î ÀÌµ¿ÇÑ µÚ
-// ´ë»ç 3À» ÇÑ´Ù.
+// ì§ˆë“œë ˆê°€ ëŒ€ì‚¬ 2ë¥¼ í•˜ê³  ì´í™íŠ¸ ì‹œì „ í›„ ì§€ì • ìœ„ì¹˜ë¡œ ì´ë™í•œ ë’¤
+// ëŒ€ì‚¬ 3ì„ í•œë‹¤.
 class GDRLairScene2 : public GDRScene {
 public:
     GDRLairScene2() : GDRScene(GDR_LAIR_SUMMON_GDR_DUP) {}
@@ -165,7 +165,7 @@ public:
     }
 };
 
-// Áúµå·¹°¡ ºĞ½ÅÀ» ¼ÒÈ¯ÇÑ´Ù.
+// ì§ˆë“œë ˆê°€ ë¶„ì‹ ì„ ì†Œí™˜í•œë‹¤.
 class GDRLairSummonGDRDup : public MonsterSummonState {
 public:
     GDRLairSummonGDRDup();
@@ -184,7 +184,7 @@ public:
     }
 };
 
-// Áúµå·¹°¡ ´ë»ç 4¸¦ ÇÏ°í ÀÌÆåÆ®¸¦ ½ÃÀüÇÑ´Ù.
+// ì§ˆë“œë ˆê°€ ëŒ€ì‚¬ 4ë¥¼ í•˜ê³  ì´í™íŠ¸ë¥¼ ì‹œì „í•œë‹¤.
 class GDRLairScene3 : public GDRScene {
 public:
     GDRLairScene3() : GDRScene(GDR_LAIR_GDR_FIGHT) {}
@@ -202,7 +202,7 @@ public:
     }
 };
 
-// Áúµå·¹°¡ È°¼ºÈ­µÇ¾î ÇÃ·¹ÀÌ¾îµé°ú ½Î¿î´Ù.
+// ì§ˆë“œë ˆê°€ í™œì„±í™”ë˜ì–´ í”Œë ˆì´ì–´ë“¤ê³¼ ì‹¸ìš´ë‹¤.
 class GDRLairGDRFight : public State {
 public:
     DWORD getStateType() const {
@@ -220,9 +220,9 @@ public:
     }
 };
 
-// Áúµå·¹°¡ ´ë»ç 5¸¦ ÇÏ°í ¿£µù ¿¬ÃâÀÌ ³ª¿Â´Ù.
-// ÀÌÈÄ Áúµå·¹ ÄÚ¾î·Î ÇÃ·¹ÀÌ¾î¸¦ ¸ù¶¥ ¿Å°Ü¹ö¸°µÚ
-// Áúµå·¹ °¢¼ºÃ¼°¡ ´ë»ç 6À» ÇÑ´Ù.
+// ì§ˆë“œë ˆê°€ ëŒ€ì‚¬ 5ë¥¼ í•˜ê³  ì—”ë”© ì—°ì¶œì´ ë‚˜ì˜¨ë‹¤.
+// ì´í›„ ì§ˆë“œë ˆ ì½”ì–´ë¡œ í”Œë ˆì´ì–´ë¥¼ ëª½ë•… ì˜®ê²¨ë²„ë¦°ë’¤
+// ì§ˆë“œë ˆ ê°ì„±ì²´ê°€ ëŒ€ì‚¬ 6ì„ í•œë‹¤.
 class GDRLairScene4 : public GDRScene {
 public:
     GDRLairScene4() : GDRScene(GDR_LAIR_AWAKENED_GDR_FIGHT) {}
@@ -239,8 +239,8 @@ public:
     }
 };
 
-// Áúµå·¹ °¢¼ºÃ¼°¡ È°¼ºÈ­µÇ¾î ÇÃ·¹ÀÌ¾îµé°ú ½Î¿î´Ù.
-// HP°¡ 50% ¾Æ·¡·Î ¶³¾îÁö¸é Scene5·Î, Á×À¸¸é Scene6À¸·Î.
+// ì§ˆë“œë ˆ ê°ì„±ì²´ê°€ í™œì„±í™”ë˜ì–´ í”Œë ˆì´ì–´ë“¤ê³¼ ì‹¸ìš´ë‹¤.
+// HPê°€ 50% ì•„ë˜ë¡œ ë–¨ì–´ì§€ë©´ Scene5ë¡œ, ì£½ìœ¼ë©´ Scene6ìœ¼ë¡œ.
 class GDRLairAwakenedGDRFight : public State {
     bool m_bGDRDamaged;
 
@@ -260,7 +260,7 @@ public:
     }
 };
 
-// ´ë»ç 7À» ÇÏ°í ÁöÁ¤ À§Ä¡·Î ÀÌµ¿ÇÑ µÚ ´ë»ç 8À» ÇÑ´Ù.
+// ëŒ€ì‚¬ 7ì„ í•˜ê³  ì§€ì • ìœ„ì¹˜ë¡œ ì´ë™í•œ ë’¤ ëŒ€ì‚¬ 8ì„ í•œë‹¤.
 class GDRLairScene5 : public GDRScene {
 public:
     GDRLairScene5() : GDRScene(GDR_LAIR_MINION_FIGHT) {}
@@ -277,7 +277,7 @@ public:
     }
 };
 
-// Áß°£º¸½º¸¦ Á¦ÇÑµÈ ½Ã°£ ¾È¿¡ Àâ¾Æ¾ß ÇÑ´Ù.
+// ì¤‘ê°„ë³´ìŠ¤ë¥¼ ì œí•œëœ ì‹œê°„ ì•ˆì— ì¡ì•„ì•¼ í•œë‹¤.
 class GDRLairMinionFight : public MonsterSummonState {
 public:
     GDRLairMinionFight();
@@ -296,7 +296,7 @@ public:
     }
 };
 
-// ´ë»ç 9¸¦ ÇÏ°í ÁöÁ¤ À§Ä¡·Î ÀÌµ¿ÇÑ µÚ ´ë»ç 10À» ÇÑ´Ù.
+// ëŒ€ì‚¬ 9ë¥¼ í•˜ê³  ì§€ì • ìœ„ì¹˜ë¡œ ì´ë™í•œ ë’¤ ëŒ€ì‚¬ 10ì„ í•œë‹¤.
 class GDRLairScene6 : public GDRScene {
 public:
     GDRLairScene6() : GDRScene(GDR_LAIR_AWAKENED_GDR_FIGHT) {}
@@ -313,8 +313,8 @@ public:
     }
 };
 
-// Á×À¸¸é¼­ ´ë»ç¸¦ ÇÏ°í º¸»ó ¾ÆÀÌÅÛÀ» Áö±ŞÇÑ´Ù.
-// »ç½Ç º°·Î ÇÒ °Å ¾ø´Ù -_-
+// ì£½ìœ¼ë©´ì„œ ëŒ€ì‚¬ë¥¼ í•˜ê³  ë³´ìƒ ì•„ì´í…œì„ ì§€ê¸‰í•œë‹¤.
+// ì‚¬ì‹¤ ë³„ë¡œ í•  ê±° ì—†ë‹¤ -_-
 class GDRLairEnding : public TimerState {
 public:
     GDRLairEnding() : TimerState(GDR_LAIR_IDLE, 10) {}
@@ -333,7 +333,7 @@ public:
     }
 };
 
-// ³¡Àå³µ´Ù. ´Ù Á×¾î¶ó
+// ëì¥ë‚¬ë‹¤. ë‹¤ ì£½ì–´ë¼
 class GDRLairKillAll : public TimerState {
 public:
     GDRLairKillAll() : TimerState(GDR_LAIR_IDLE, 10) {}
@@ -353,7 +353,7 @@ public:
     }
 };
 
-// Áúµå·¹ ·¹¾î¸¦ ÃÑ°ıÇÏ´Â ¸Å´ÏÀú. ClientManagerÀÇ ½º·¹µå¿¡¼­ µ·´Ù.
+// ì§ˆë“œë ˆ ë ˆì–´ë¥¼ ì´ê´„í•˜ëŠ” ë§¤ë‹ˆì €. ClientManagerì˜ ìŠ¤ë ˆë“œì—ì„œ ëˆë‹¤.
 class GDRLairManager : public FiniteStateMachine, public Thread {
 public:
     enum GDRLairZones {

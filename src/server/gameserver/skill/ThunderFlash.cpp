@@ -15,8 +15,8 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 ThunderFlash::ThunderFlash() throw() {
     __BEGIN_TRY
@@ -30,7 +30,7 @@ ThunderFlash::ThunderFlash() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ThunderFlash::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,7 +49,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -87,7 +87,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, SWORD°¡ ¾Æ´Ï¶ó¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ì¥í•˜ê³  ìˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, SWORDê°€ ì•„ë‹ˆë¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_SWORD) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -111,12 +111,12 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
 
-        // ¸¶³ª°¡ ÀÖ¾î¾ß ÇÏ°í, ½Ã°£°ú °Å¸® Ã¼Å©¿¡ ¼º°øÇÏ°í,
+        // ë§ˆë‚˜ê°€ ìˆì–´ì•¼ í•˜ê³ , ì‹œê°„ê³¼ ê±°ë¦¬ ì²´í¬ì— ì„±ê³µí•˜ê³ ,
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // MP¸¦ ¶³¾î¶ß¸°´Ù.
+            // MPë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
             Dir_t dir = calcDirection(myX, myY, X, Y);
@@ -140,9 +140,9 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                 int tileX = X + m_pThunderFlashMask[count].x;
                 int tileY = Y + m_pThunderFlashMask[count].y;
 
-                // ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é, ¸ÂÀ» È®·üÀÌ ÀÖ´Ù.
+                // í˜„ì¬ íƒ€ì¼ì´ ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´, ë§ì„ í™•ë¥ ì´ ìˆë‹¤.
                 if (rect.ptInRect(tileX, tileY)) {
-                    // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                    // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                     Tile& tile = pZone->getTile(tileX, tileY);
 
                     list<Creature*> targetList;
@@ -180,17 +180,17 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                             _GCSkillToTileOK2.addCListElement(targetObjectID);
                             _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                            // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                            // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                             setDamage(pTargetCreature, Damage, pSlayer, SkillType, NULL, &_GCSkillToTileOK1);
                             computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
                             increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
 
-                            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                             if (bCriticalHit) {
                                 knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                             }
 
-                            // ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¸ÂÀº °ÍÀ¸·Î °£ÁÖÇÑ´Ù.
+                            // ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ë§ì€ ê²ƒìœ¼ë¡œ ê°„ì£¼í•œë‹¤.
                             if (!pTargetCreature->isSlayer()) {
                                 bHit = true;
                                 if (maxEnemyLevel < pTargetCreature->getLevel())
@@ -211,7 +211,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                 }
             }
 
-            // °ø°İÀÚ ¾ÆÀÌÅÛ ³»±¸¼º ¶³¾îÆ®¸².
+            // ê³µê²©ì ì•„ì´í…œ ë‚´êµ¬ì„± ë–¨ì–´íŠ¸ë¦¼.
             decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
             _GCSkillToTileOK1.setSkillType(SkillType);
@@ -237,7 +237,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -245,7 +245,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                 if (pTargetCreature->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pTargetCreature->isSlayer())
                         targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -253,13 +253,13 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                         targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pSlayer);
                 }

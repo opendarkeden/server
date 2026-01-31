@@ -12,7 +12,7 @@
 #include "PKTUserInfo.h"
 
 
-// ½ÇÇà ÇÔ¼ö
+// ì‹¤í–‰ í•¨ìˆ˜
 void PKTUserInfoHandler::execute(GameServerPlayer* pPlayer, MPacket* pPacket) {
     cout << "--------------------------------------------------" << endl;
     cout << "RECV UserInfo" << endl;
@@ -22,7 +22,7 @@ void PKTUserInfoHandler::execute(GameServerPlayer* pPlayer, MPacket* pPacket) {
     filelog(MOFUS_PACKET_FILE, "RECV : %s", pPacket->toString().c_str());
 
     PKTPowerPoint pkt;
-    strcpy(pkt.sCharName, "½½11");
+    strcpy(pkt.sCharName, "ìŠ¬11");
     pkt.nPowerPoint = 300;
     pkt.nContinue = rand() % 2;
     pkt.nOnGameCode = 1;

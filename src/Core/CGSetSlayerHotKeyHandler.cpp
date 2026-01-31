@@ -29,8 +29,8 @@ void CGSetSlayerHotKeyHandler::execute(CGSetSlayerHotKey* pPacket, Player* pPlay
 
     //	if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) {
 
-            // ÀÌ »óÅÂ¿¡¼­´Â Å©¸®Ã³°¡ ¿Ç°Ô ·ÎµùµÇ¾ú¾î¾ß ÇÏ¹Ç·Î, NULL ÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-            // PLAYER_INGAME ÀÚÃ¼°¡ Å©¸®Ã³ ·ÎµùÀÌ ¼º°øµÇ¾úÀ½À» ÀÇ¹ÌÇÑ´Ù.
+            // ì´ ìƒíƒœì—ì„œëŠ” í¬ë¦¬ì²˜ê°€ ì˜³ê²Œ ë¡œë”©ë˜ì—ˆì–´ì•¼ í•˜ë¯€ë¡œ, NULL ì´ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
+            // PLAYER_INGAME ìžì²´ê°€ í¬ë¦¬ì²˜ ë¡œë”©ì´ ì„±ê³µë˜ì—ˆìŒì„ ì˜ë¯¸í•œë‹¤.
             Creature* pCreature = pGamePlayer->getCreature();
             Assert(pCreature != NULL);
             if (pCreature->isSlayer()) {

@@ -9,7 +9,7 @@
 
 #include "SkillHandler.h"
 
-#define REGENERATION_DELAY 30 // 3ÃÊ ¸¶´Ù È¸º¹..
+#define REGENERATION_DELAY 30 // 3ì´ˆ ë§ˆë‹¤ íšŒë³µ..
 
 //////////////////////////////////////////////////////////////////////////////
 // class Regeneration;

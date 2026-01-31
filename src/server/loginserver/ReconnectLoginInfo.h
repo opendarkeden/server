@@ -19,7 +19,7 @@
 //
 // class ReconnectLoginInfo;
 //
-// ������ �̵����� ������ ���ῡ ���� ������ ��Ÿ���� ��ü
+// ¼­¹ö°£ ÀÌµ¿¿¡¼­ Á¤´çÇÑ ¿¬°á¿¡ ´ëÇÑ Á¤º¸¸¦ ³ªÅ¸³»´Â °´Ã¼
 //
 //----------------------------------------------------------------------
 
@@ -81,7 +81,7 @@ private:
     // PlayerID
     string m_PlayerID;
 
-    // expire time : �������� �� ������ �����ϰ� �־�� �ϴ���..
+    // expire time : ¾ðÁ¦±îÁö ÀÌ Á¤º¸¸¦ À¯ÁöÇÏ°í ÀÖ¾î¾ß ÇÏ´ÂÁö..
     Timeval m_ExpireTime;
 
     // validation key
@@ -92,13 +92,13 @@ private:
 //
 // CompareReconnectLoginInfo
 //
-// priority_queue ���� ReconnectLoginInfo ���� ���� �� ����ϴ� Ŭ�����
+// priority_queue ¿¡¼­ ReconnectLoginInfo ³¢¸® ºñ±³ÇÒ ¶§ »ç¿ëÇÏ´Â Å¬·¡½º¸
 //
 // *CAUTION*
 //
-// �ð������� �̸�(�ð����� ����) ���� PQ �� top �� ��ġ�ؾ� �Ѵ�.
-// �� PQ �� ascending order �� �̷�� �Ѵ�. �� �׷����� �� ���캸�⸦..
-// �ð��� ���� �����.. - -;
+// ½Ã°£ÀûÀ¸·Î ÀÌ¸¥(½Ã°£°ªÀÌ ÀÛÀº) ÂÊÀÌ PQ ÀÇ top ¿¡ À§Ä¡ÇØ¾ß ÇÑ´Ù.
+// Áï PQ ´Â ascending order ¸¦ ÀÌ·ï¾ß ÇÑ´Ù. ¿Ö ±×·±Áö´Â Àß »ìÆìº¸±â¸¦..
+// ½Ã°£ÀÌ ¾ø´Â °ü°è·Î.. - -;
 //
 //----------------------------------------------------------------------
 class CompareReconnectLoginInfo {

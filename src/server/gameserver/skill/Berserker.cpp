@@ -13,7 +13,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -32,7 +32,7 @@ void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, µµ°¡ ¾Æ´Ï¶ó¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ìž¥í•˜ê³  ìžˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, ë„ê°€ ì•„ë‹ˆë¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_BLADE) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -57,7 +57,7 @@ void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
         bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
-        // Â÷Â¡ ÆÄ¿ö¶û µ¿½Ã¿¡ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ì°¨ì§• íŒŒì›Œëž‘ ë™ì‹œì— ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         bool bEffected =
             pSlayer->isFlag(Effect::EFFECT_CLASS_BERSERKER) || pSlayer->isFlag(Effect::EFFECT_CLASS_CHARGING_POWER);
 
@@ -69,13 +69,13 @@ void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
             computeOutput(input, output);
 
             // by sigi. 2002.12.3
-            // by È«Ã¢. 2002.12.6
+            // by í™ì°½. 2002.12.6
             //			int DefensePenalty = 35 - pSkillSlot->getExpLevel()*2/13;	// %
             //			int ProtectionPenalty = 25 - pSkillSlot->getExpLevel()*2/13;	// %
             int DefensePenalty = 25 - pSkillSlot->getExpLevel() * 2 / 13;    // %
             int ProtectionPenalty = 20 - pSkillSlot->getExpLevel() * 2 / 13; // %
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectBerserker* pEffect = new EffectBerserker(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setDefensePenalty(DefensePenalty);
@@ -85,14 +85,14 @@ void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_BERSERKER);
 
-            // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+            // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->sendModifyInfo(prev);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
 

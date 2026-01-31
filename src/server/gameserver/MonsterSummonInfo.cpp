@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterSummonInfo.cpp
-// Written By  : ½­
+// Written By  : ì‰­
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -21,13 +21,13 @@
 //	int             Num;
 //
 //        a        b   c
-// ex1>  "(µ¥µå¹Ùµğ, 20)"		// µ¥µå¹Ùµğ 20¸¶¸®
+// ex1>  "(ë°ë“œë°”ë””, 20)"		// ë°ë“œë°”ë”” 20ë§ˆë¦¬
 //
 //        0 2   6
 //        a b   c
-// ex2>  "(5, 10)"				// SpriteType 5¹ø(µ¥µå¹Ùµğ) 10¸¶¸®
+// ex2>  "(5, 10)"				// SpriteType 5ë²ˆ(ë°ë“œë°”ë””) 10ë§ˆë¦¬
 //
-// ex3>  "({34}, 20)"		// ÀÌ °æ¿ì{}´Â MonsterTypeÀ» »ç¿ëÇÑ´Ù.
+// ex3>  "({34}, 20)"		// ì´ ê²½ìš°{}ëŠ” MonsterTypeì„ ì‚¬ìš©í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void MonsterCollectionInfo::parseString(const string& text) {
     SpriteType = 0;
@@ -76,7 +76,7 @@ void MonsterCollectionInfo::parseString(const string& text) {
         }
 
         if (SpriteType == 0 && MonsterType == 0) {
-            cout << "[Error] MonsterSummonInfo¿¡ ¾Ë ¼ö ¾ø´Â ¸ó½ºÅÍ : " << name.c_str() << endl;
+            cout << "[Error] MonsterSummonInfoì— ì•Œ ìˆ˜ ì—†ëŠ” ëª¬ìŠ¤í„° : " << name.c_str() << endl;
             Assert(false);
         }
     }
@@ -102,7 +102,7 @@ string MonsterCollectionInfo::toString() const {
 // list<MonsterCollectionInfo> Infos;
 //
 //      a          bc a          b
-// ex> "(µ¥µå¹Ùµğ,5), (ÅÍ´×µ¥µå,3)"      // µ¥µå¹Ùµğ 5¸¶¸® + ÅÍ´×µ¥µå 3¸¶¸®
+// ex> "(ë°ë“œë°”ë””,5), (í„°ë‹ë°ë“œ,3)"      // ë°ë“œë°”ë”” 5ë§ˆë¦¬ + í„°ë‹ë°ë“œ 3ë§ˆë¦¬
 //////////////////////////////////////////////////////////////////////////////
 void MonsterCollection::parseString(const string& text) {
     Infos.clear();
@@ -128,7 +128,7 @@ void MonsterCollection::parseString(const string& text) {
         if (c == string::npos)
             break;
 
-        c++; // Å« »ó°üÀº ¾øÁö¸¸..
+        c++; // í° ìƒê´€ì€ ì—†ì§€ë§Œ..
     }
 }
 
@@ -173,16 +173,16 @@ const MonsterCollection* MonsterSummonStep::getRandomMonsterCollection() const {
 //////////////////////////////////////////////////////////////////////////////
 //	vector<MonsterCollection>  Collections;
 //
-// ex>  // µ¥µå¹Ùµğ5+ÅÍ´×µ¥µå3 or µ¥µå¹Ùµğ10+ÅÍ´×µ¥µå1
+// ex>  // ë°ë“œë°”ë””5+í„°ë‹ë°ë“œ3 or ë°ë“œë°”ë””10+í„°ë‹ë°ë“œ1
 //
 //       a                        b c a                         b
-//     "[(µ¥µå¹Ùµğ,5), (ÅÍ´×µ¥µå,3) / (µ¥µå¹Ùµğ,10), (ÅÍ´×µ¥µå,1)]"
+//     "[(ë°ë“œë°”ë””,5), (í„°ë‹ë°ë“œ,3) / (ë°ë“œë°”ë””,10), (í„°ë‹ë°ë“œ,1)]"
 //
 //////////////////////////////////////////////////////////////////////////////
 void MonsterSummonStep::parseString(const string& text) {
     Collections.clear();
 
-    // °³¼ö ¾Ë¾Æ³»±â
+    // ê°œìˆ˜ ì•Œì•„ë‚´ê¸°
     size_t l = text.find_first_of('[');
     size_t r = text.find_first_of(']');
 
@@ -259,17 +259,17 @@ bool MonsterSummonInfo::hasNextMonsterCollection(int step) const {
 //////////////////////////////////////////////////////////////////////////////
 // vector<MonsterSummonStep>  Steps;
 //
-// ex>  // 1´Ü°è: µ¥µå¹Ùµğ5+ÅÍ´×µ¥µå3 or µ¥µå¹Ùµğ10+ÅÍ´×µ¥µå1
-//      // 2´Ü°è: ÅÍ´×µ¥µå8+Å°µå2 or ÅÍ´×µ¥µå3+¼ÖÁ®3
+// ex>  // 1ë‹¨ê³„: ë°ë“œë°”ë””5+í„°ë‹ë°ë“œ3 or ë°ë“œë°”ë””10+í„°ë‹ë°ë“œ1
+//      // 2ë‹¨ê³„: í„°ë‹ë°ë“œ8+í‚¤ë“œ2 or í„°ë‹ë°ë“œ3+ì†”ì ¸3
 
 //      a                                                        b
-//     "[(µ¥µå¹Ùµğ,5), (ÅÍ´×µ¥µå,3) / (µ¥µå¹Ùµğ,10), (ÅÍ´×µ¥µå,1)]
+//     "[(ë°ë“œë°”ë””,5), (í„°ë‹ë°ë“œ,3) / (ë°ë“œë°”ë””,10), (í„°ë‹ë°ë“œ,1)]
 //      a                                               b
-//      [(ÅÍ´×µ¥µå,8), (Å°µå,2) / (ÅÍ´×µ¥µå,3), (¼ÖÁ®,3)]"
+//      [(í„°ë‹ë°ë“œ,8), (í‚¤ë“œ,2) / (í„°ë‹ë°ë“œ,3), (ì†”ì ¸,3)]"
 //
 //////////////////////////////////////////////////////////////////////////////
 void MonsterSummonInfo::parseString(const string& text) {
-    // °³¼ö ¾Ë¾Æ³»±â
+    // ê°œìˆ˜ ì•Œì•„ë‚´ê¸°
     size_t a, b = 0;
     while (1) {
         a = text.find_first_of('[', b);

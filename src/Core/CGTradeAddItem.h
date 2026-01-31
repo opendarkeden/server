@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : CGTradeAddItem.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -50,8 +50,8 @@ public:
     }
 
 private:
-    ObjectID_t m_TargetObjectID; // ±³È¯À» ¿øÇÏ´Â »ó´ë¹æÀÇ ObjectID
-    ObjectID_t m_ItemObjectID;   // ±³È¯ ¸®½ºÆ®¿¡ Ãß°¡ÇÒ ¾ÆÀÌÅÛÀÇ OID
+    ObjectID_t m_TargetObjectID; // êµí™˜ì„ ì›í•˜ëŠ” ìƒëŒ€ë°©ì˜ ObjectID
+    ObjectID_t m_ItemObjectID;   // êµí™˜ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•  ì•„ì´í…œì˜ OID
 };
 
 

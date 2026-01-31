@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradeFinish.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,20 +11,20 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// ±³È¯ ÄÚµå
+// êµí™˜ ì½”ë“œ
 ////////////////////////////////////////////////////////////////////////////////
 
 enum {
-    // ±³È¯À» Çã¶ôÇÒ ¶§ º¸³»´Â ÄÚµå
+    // êµí™˜ì„ í—ˆë½í•  ë•Œ ë³´ë‚´ëŠ” ì½”ë“œ
     GC_TRADE_FINISH_ACCEPT = 0,
 
-    // ±³È¯À» °ÅºÎÇÒ ¶§ º¸³»´Â ÄÚµå
+    // êµí™˜ì„ ê±°ë¶€í•  ë•Œ ë³´ë‚´ëŠ” ì½”ë“œ
     GC_TRADE_FINISH_REJECT,
 
-    // ±³È¯À» Àç°í·ÁÇÒ ¶§ º¸³»´Â ÄÚµå
+    // êµí™˜ì„ ìž¬ê³ ë ¤í•  ë•Œ ë³´ë‚´ëŠ” ì½”ë“œ
     GC_TRADE_FINISH_RECONSIDER,
 
-    // ±³È¯À» ½ÇÁ¦ÀûÀ¸·Î ÇÏ¶ó´Â ÄÚµå
+    // êµí™˜ì„ ì‹¤ì œì ìœ¼ë¡œ í•˜ë¼ëŠ” ì½”ë“œ
     GC_TRADE_FINISH_EXECUTE,
 
     GC_TRADE_FINISH_MAX
@@ -70,8 +70,8 @@ public:
     }
 
 private:
-    ObjectID_t m_TargetObjectID; // ±³È¯À» ¿øÇÏ´Â »ó´ë¹æÀÇ ObjectID
-    BYTE m_Code;                 // ±³È¯ ÄÚµå
+    ObjectID_t m_TargetObjectID; // êµí™˜ì„ ì›í•˜ëŠ” ìƒëŒ€ë°©ì˜ ObjectID
+    BYTE m_Code;                 // êµí™˜ ì½”ë“œ
 };
 
 

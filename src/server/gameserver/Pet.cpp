@@ -32,7 +32,7 @@ Pet* Pet::makePet(PlayerCreature* pOwner, PetInfo* pPetInfo) {
     Assert(pPet != NULL);
     getCurrentTime(pPet->m_SkillDelay);
 
-    // 1/10ÃÊ ´ÜÀ§ µô·¹ÀÌ
+    // 1/10ì´ˆ ë‹¨ìœ„ ë”œë ˆì´
     int delay = pPet->getDelay();
 
     pPet->m_SkillDelay.tv_sec += delay / 10;
@@ -47,7 +47,7 @@ void Pet::heartbeat(const Timeval& currentTime) {
 
     if (m_SkillDelay < currentTime) {
         if (useSkill()) {
-            // 1/10ÃÊ ´ÜÀ§ µô·¹ÀÌ
+            // 1/10ì´ˆ ë‹¨ìœ„ ë”œë ˆì´
             int delay = getDelay();
 
             m_SkillDelay = currentTime;
@@ -182,13 +182,13 @@ bool Pixie::useSkill() {
         return false;
     }
 
-    //	cout << "Å¸°Ù È®ÀÎ" << endl;
+    //	cout << "íƒ€ê²Ÿ í™•ì¸" << endl;
 
     Range_t range = getRange();
     if (!verifyDistance(pOwner, X, Y, range))
         return false;
 
-    //	cout << "°Å¸® È®ÀÎ" << endl;
+    //	cout << "ê±°ë¦¬ í™•ì¸" << endl;
 
     int HealPoint;
 
@@ -200,7 +200,7 @@ bool Pixie::useSkill() {
 
     HealPoint = HealPoint * getPetInfo()->getPetLevel() * 3 / 500;
 
-    //	cout << "Èú Æ÷ÀÎÆ® : " << HealPoint << endl;
+    //	cout << "íž í¬ì¸íŠ¸ : " << HealPoint << endl;
 
     GCPetUseSkill gcPetUseSkill;
     gcPetUseSkill.setAttacker(pOwner->getObjectID());

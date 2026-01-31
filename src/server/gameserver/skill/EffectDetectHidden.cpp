@@ -16,7 +16,7 @@ EffectDetectHidden::EffectDetectHidden(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // µðÅØÆ® È÷µçÀº ½½·¹ÀÌ¾î¸¸ÀÌ ¾µ ¼ö ÀÖ´Ù.
+    // ë””í…íŠ¸ ížˆë“ ì€ ìŠ¬ë ˆì´ì–´ë§Œì´ ì“¸ ìˆ˜ ìžˆë‹¤.
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
@@ -55,15 +55,15 @@ void EffectDetectHidden::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
-    // ÇÃ·¡±×¸¦ Á¦°ÅÇÑ´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ì œê±°í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_DETECT_HIDDEN);
 
-    // ¸¶¹ýÀÇ ÈûÀ¸·Î º¸°í ÀÖ´ø Å©¸®ÃÄµéÀ» »èÁ¦ÇÑ´Ù.
+    // ë§ˆë²•ì˜ íž˜ìœ¼ë¡œ ë³´ê³  ìžˆë˜ í¬ë¦¬ì³ë“¤ì„ ì‚­ì œí•œë‹¤.
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
     pZone->updateHiddenScan(pCreature);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_DETECT_HIDDEN);

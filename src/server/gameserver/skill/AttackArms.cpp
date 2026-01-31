@@ -22,7 +22,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
@@ -42,15 +42,15 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pSlayer, pTargetCreature)) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayer)" << endl;
             return;
         }
 
-        // ÆĞÅ¶À» ÁØºñÇÏ°í...
+        // íŒ¨í‚·ì„ ì¤€ë¹„í•˜ê³ ...
         GCAttackArmsOK1 _GCAttackArmsOK1;
         GCAttackArmsOK2 _GCAttackArmsOK2;
         GCAttackArmsOK3 _GCAttackArmsOK3;
@@ -60,12 +60,12 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
         _GCAttackArmsOK5.setSkillSuccess(false);
         _GCAttackArmsOK1.setSkillSuccess(false);
 
-        // ½ºÅ³ ½½¶ùÀ» ¹Ş¾Æ¿Â´Ù.
+        // ìŠ¤í‚¬ ìŠ¬ëì„ ë°›ì•„ì˜¨ë‹¤.
         SkillSlot* pSkillSlot = pSlayer->getSkill(SKILL_ATTACK_ARMS);
         Assert(pSkillSlot != NULL);
 
-        // ½½·¹ÀÌ¾î°¡ ¾²°í ÀÖ´Â ¾ÆÀÌÅÛÀ» °¡Á®¿Â´Ù.
-        // ¸Ç¼ÕÀÌ°Å³ª, ÃÑ Á¾·ùÀÇ ¹«±â°¡ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+        // ìŠ¬ë ˆì´ì–´ê°€ ì“°ê³  ìˆëŠ” ì•„ì´í…œì„ ê°€ì ¸ì˜¨ë‹¤.
+        // ë§¨ì†ì´ê±°ë‚˜, ì´ ì¢…ë¥˜ì˜ ë¬´ê¸°ê°€ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || isArmsWeapon(pWeapon) == false) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -77,16 +77,16 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
         bool bBulletCheck = (getRemainBullet(pWeapon) > 0) ? true : false;
 
-        // ÃÑ¾ËÀº ¹«Á¶°Ç ¶³¾î¶ß¸°´Ù.
+        // ì´ì•Œì€ ë¬´ì¡°ê±´ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         Bullet_t RemainBullet = 0;
         if (bBulletCheck) {
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ì¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
         }
 
-        // ÃÑ¿¡ ÃÑ¾ËÀÌ ³²¾ÆÀÖ´Ù¸é...
+        // ì´ì— ì´ì•Œì´ ë‚¨ì•„ìˆë‹¤ë©´...
         if (bBulletCheck) {
             SkillDomainType_t DomainType = SKILL_DOMAIN_GUN;
             int ToHitBonus = 0;
@@ -100,7 +100,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
             int Splash = computeArmsWeaponSplashSize(pWeapon, myX, myY, targetX, targetY);
 
             ////////////////////////////////////////////////////////////////////////////////
-            // SG°¡ ¾Æ´Ñ ´Ù¸¥ ÃÑÀÇ ÀÏ¹İ °ø°İ
+            // SGê°€ ì•„ë‹Œ ë‹¤ë¥¸ ì´ì˜ ì¼ë°˜ ê³µê²©
             ////////////////////////////////////////////////////////////////////////////////
             if (Splash == 0) {
                 ToHitBonus = computeArmsWeaponToHitBonus(pWeapon, myX, myY, targetX, targetY);
@@ -111,8 +111,8 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
                 bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pWeapon->getRange());
                 bool bPK = verifyPK(pSlayer, pTargetCreature);
 
-                // °ø°İÀÚ¿Í »ó´ëÀÇ ¾ÆÀÌÅÛ ³»±¸¼º ¶³¾îÆ®¸².
-                // ¹Ø¿¡ ÀÖ´ø°É ÀÌÂÊÀ¸·Î ¿Å°å´Ù. by sigi. 2002.5.13
+                // ê³µê²©ìì™€ ìƒëŒ€ì˜ ì•„ì´í…œ ë‚´êµ¬ì„± ë–¨ì–´íŠ¸ë¦¼.
+                // ë°‘ì— ìˆë˜ê±¸ ì´ìª½ìœ¼ë¡œ ì˜®ê²¼ë‹¤. by sigi. 2002.5.13
                 decreaseDurability(pSlayer, pTargetCreature, NULL, &_GCAttackArmsOK1, &_GCAttackArmsOK2);
 
                 if (bHitRoll && bTimeCheck && bRangeCheck && bPK) {
@@ -123,7 +123,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
                     setDamage(pTargetCreature, Damage, pSlayer, getSkillType(), &_GCAttackArmsOK2, &_GCAttackArmsOK1);
                     computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
 
-                    // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                    // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                     if (bCriticalHit) {
                         knockbackCreature(pZone, pTargetCreature, myX, myY);
                     }
@@ -173,11 +173,11 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
                 pZone->broadcastPacket(targetX, targetY, &_GCAttackArmsOK4, cList);
             }
             ////////////////////////////////////////////////////////////////////////////////
-            // SG´Â ±âº»ÀûÀ¸·Î splash°¡ µé¾î°£´Ù.
+            // SGëŠ” ê¸°ë³¸ì ìœ¼ë¡œ splashê°€ ë“¤ì–´ê°„ë‹¤.
             ////////////////////////////////////////////////////////////////////////////////
             else {
-                Damage_t Damage = 0; // ¸¶Áö¸·À¸·Î ÀÔÈù µ¥¹ÌÁö¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö.
-                bool bHit = false;   // ÇÑ ¸íÀÌ¶óµµ ¸Â¾Ò´Â°¡¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö.
+                Damage_t Damage = 0; // ë§ˆì§€ë§‰ìœ¼ë¡œ ì…íŒ ë°ë¯¸ì§€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜.
+                bool bHit = false;   // í•œ ëª…ì´ë¼ë„ ë§ì•˜ëŠ”ê°€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜.
 
                 GCSkillToTileOK1 _GCSkillToTileOK1;
                 GCSkillToTileOK2 _GCSkillToTileOK2;
@@ -210,8 +210,8 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
                         Damage = computeDamage(pSlayer, pEnemy, 0, bCriticalHit);
 
-                        // ¸ŞÀÎ Å¸°ÙÀ» Á¦¿ÜÇÏ°í´Â, ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔ´Âµ¥,
-                        // ½ºÇÃ·¡½Ã µ¥¹ÌÁö´Â ÀÏ¹İ µ¥¹ÌÁöÀÇ 50%ÀÌ´Ù.
+                        // ë©”ì¸ íƒ€ê²Ÿì„ ì œì™¸í•˜ê³ ëŠ”, ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ë¥¼ ì…ëŠ”ë°,
+                        // ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ëŠ” ì¼ë°˜ ë°ë¯¸ì§€ì˜ 50%ì´ë‹¤.
                         if (pTargetCreature != pEnemy) {
                             Damage = Damage / 2;
                         }
@@ -227,12 +227,12 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
                         increaseAlignment(pSlayer, pEnemy, _GCSkillToTileOK1);
 
-                        // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                        // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                         if (bCriticalHit) {
                             knockbackCreature(pZone, pEnemy, myX, myY);
                         }
 
-                        // Å¸°ÙÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                        // íƒ€ê²Ÿì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                         if (!pTargetCreature->isSlayer()) {
                             bHit = true;
                             if (maxEnemyLevel < pTargetCreature->getLevel())
@@ -247,7 +247,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
                     increaseDomainExp(pSlayer, DomainType, 1, _GCSkillToTileOK1, maxEnemyLevel, EnemyNum);
                 }
 
-                // ÃÑ¾Ë ¼ıÀÚ¸¦ ÁÙÀÌ°í, ÃÑ¾Ë ¼ıÀÚ¸¦ ÀúÀåÇÏ°í, ³²Àº ÃÑ¾Ë ¼ıÀÚ¸¦ ¹ŞÀº ´ÙÀ½¿¡ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                // ì´ì•Œ ìˆ«ìë¥¼ ì¤„ì´ê³ , ì´ì•Œ ìˆ«ìë¥¼ ì €ì¥í•˜ê³ , ë‚¨ì€ ì´ì•Œ ìˆ«ìë¥¼ ë°›ì€ ë‹¤ìŒì— ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 _GCSkillToTileOK1.addShortData(MODIFY_BULLET, RemainBullet);
 
                 decreaseDurability(pSlayer, NULL, NULL, &_GCSkillToTileOK1, NULL);
@@ -286,7 +286,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
                 pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-                // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+                // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
                 for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                     Creature* pVictim = *itr;
                     Assert(pVictim != NULL);
@@ -340,7 +340,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AttackArms::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -377,7 +377,7 @@ void AttackArms::execute(Monster* pMonster, Creature* pEnemy)
             Damage_t Damage = computeDamage(pMonster, pEnemy, 0, bCriticalHit);
             setDamage(pEnemy, Damage, pMonster, SKILL_ATTACK_ARMS, &_GCAttackArmsOK2, NULL);
 
-            // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+            // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
             if (bCriticalHit) {
                 knockbackCreature(pZone, pEnemy, pMonster->getX(), pMonster->getY());
             }
@@ -395,7 +395,7 @@ void AttackArms::execute(Monster* pMonster, Creature* pEnemy)
 
                 pTargetMonster->addEnemy(pMonster);
 
-                // ¸¶½ºÅÍ´Â µô·¹ÀÌ¾ø´Ù.
+                // ë§ˆìŠ¤í„°ëŠ” ë”œë ˆì´ì—†ë‹¤.
                 if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
                     && !pMonster->isUnderworld() && pMonster->getMonsterType() != 599
@@ -411,7 +411,7 @@ void AttackArms::execute(Monster* pMonster, Creature* pEnemy)
                 }
             }
 
-            // °ø°İÀÚ¿Í »ó´ëÀÇ ¾ÆÀÌÅÛ ³»±¸¼º ¶³¾îÆ®¸².
+            // ê³µê²©ìì™€ ìƒëŒ€ì˜ ì•„ì´í…œ ë‚´êµ¬ì„± ë–¨ì–´íŠ¸ë¦¼.
             decreaseDurability(pMonster, pEnemy, NULL, NULL, &_GCAttackArmsOK2);
 
             ZoneCoord_t targetX = pEnemy->getX();

@@ -36,7 +36,7 @@ void CGModifyTaxRatioHandler::execute(CGModifyTaxRatio* pPacket, Player* pPlayer
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ìž…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -63,8 +63,8 @@ void CGModifyTaxRatioHandler::execute(CGModifyTaxRatio* pPacket, Player* pPlayer
         }
     }
 
-    if (!g_pGuildManager->isGuildMaster(guildID, pPC) // ±æµå ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.
-        || !bOwner                                    // ÀÌ ÇÃ·¹ÀÌ¾îÀÇ ±æµå°¡ Á¡·ÉÇÑ ¼ºÀÌ ¾Æ´Ï´Ù.
+    if (!g_pGuildManager->isGuildMaster(guildID, pPC) // ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.
+        || !bOwner                                    // ì´ í”Œë ˆì´ì–´ì˜ ê¸¸ë“œê°€ ì ë ¹í•œ ì„±ì´ ì•„ë‹ˆë‹¤.
         || pPacket->getRatio() > 10) {
         GCNPCResponse fail;
         fail.setCode(NPC_RESPONSE_MODIFY_TAX_RATIO_FAIL);

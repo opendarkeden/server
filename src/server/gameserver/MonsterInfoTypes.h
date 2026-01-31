@@ -4,14 +4,14 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // Class Monster;
-// AI ¿¡ ÀÇÇØ¼­ Á¶Á¾À» ¹ÞÀ¸¸ç, ÁÖ·Î PC µéÀÇ ÀüÅõ ´ë»óÀÌ µÇ´Â Å©¸®Ã³µéÀÌ´Ù.
+// AI ì— ì˜í•´ì„œ ì¡°ì¢…ì„ ë°›ìœ¼ë©°, ì£¼ë¡œ PC ë“¤ì˜ ì „íˆ¬ ëŒ€ìƒì´ ë˜ëŠ” í¬ë¦¬ì²˜ë“¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 enum {
-    CLAN_NONE,                    // ¾îµð¿¡µµ ¼ÓÇÏÁö ¾Ê´Â ¾Ö´ú.. 0
-    CLAN_VAMPIRE_MONSTER,         // ¶°µ¹ÀÌ ¹ìÆÄ ¸ó½ºÅÍ -_-;     1
-    CLAN_VAMPIRE_BATHORY_MONSTER, // ¹ÙÅä¸® ¼Ò¼Ó ¸ó½ºÅÍ          2
-    CLAN_VAMPIRE_TEPEZ_MONSTER,   // Å×ÆäÁî ¼Ò¼Ó ¸ó½ºÅÍ          3
-    CLAN_SLAYER_MONSTER,          // ½½·¹ÀÌ¾î ¸ó½ºÅÍ - -;;       4
+    CLAN_NONE,                    // ì–´ë””ì—ë„ ì†í•˜ì§€ ì•ŠëŠ” ì• ëœ.. 0
+    CLAN_VAMPIRE_MONSTER,         // ë– ëŒì´ ë±€íŒŒ ëª¬ìŠ¤í„° -_-;     1
+    CLAN_VAMPIRE_BATHORY_MONSTER, // ë°”í† ë¦¬ ì†Œì† ëª¬ìŠ¤í„°          2
+    CLAN_VAMPIRE_TEPEZ_MONSTER,   // í…ŒíŽ˜ì¦ˆ ì†Œì† ëª¬ìŠ¤í„°          3
+    CLAN_SLAYER_MONSTER,          // ìŠ¬ë ˆì´ì–´ ëª¬ìŠ¤í„° - -;;       4
 
     CLAN_MAX
 };
@@ -19,16 +19,16 @@ enum {
 extern int DefaultClanID[CLAN_MAX];
 
 //////////////////////////////////////////////////////////////////////////////
-// RegenType - ¸ó½ºÅÍ°¡ ³ªÅ¸³ª´Â ¹æ¹ý
+// RegenType - ëª¬ìŠ¤í„°ê°€ ë‚˜íƒ€ë‚˜ëŠ” ë°©ë²•
 //
-// Ã¼Å©ÇÏ´Â ¼ø¼­ÀÇ ÀÇ¹Ìµµ ÀÖ´Âµ¥,
-// Hide°¡ default¶ó¼­ °¡Àå Å« °ªÀÌ¹Ç·Î °¡Àå ³ªÁß¿¡ Ã¼Å©ÇØ¾ßÇÑ´Ù.
+// ì²´í¬í•˜ëŠ” ìˆœì„œì˜ ì˜ë¯¸ë„ ìžˆëŠ”ë°,
+// Hideê°€ defaultë¼ì„œ ê°€ìž¥ í° ê°’ì´ë¯€ë¡œ ê°€ìž¥ ë‚˜ì¤‘ì— ì²´í¬í•´ì•¼í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 enum RegenType {
-    REGENTYPE_PORTAL,    // Æ÷Å»À» Å¸°í ³ªÅ¸³ª´Â ¸ð½À
-    REGENTYPE_INVISIBLE, // invisible»óÅÂ·Î ³ªÅ¸³ª´Â ¸ð½À
-    REGENTYPE_BAT,       // ¹ÚÁã »óÅÂ·Î ³ªÅ¸³ª´Â ¸ð½À
-    REGENTYPE_HIDE,      // ¶¥ ¼Ó¿¡ ¼û¾î ÀÖ´Â »óÅÂ·Î
+    REGENTYPE_PORTAL,    // í¬íƒˆì„ íƒ€ê³  ë‚˜íƒ€ë‚˜ëŠ” ëª¨ìŠµ
+    REGENTYPE_INVISIBLE, // invisibleìƒíƒœë¡œ ë‚˜íƒ€ë‚˜ëŠ” ëª¨ìŠµ
+    REGENTYPE_BAT,       // ë°•ì¥ ìƒíƒœë¡œ ë‚˜íƒ€ë‚˜ëŠ” ëª¨ìŠµ
+    REGENTYPE_HIDE,      // ë•… ì†ì— ìˆ¨ì–´ ìžˆëŠ” ìƒíƒœë¡œ
 
     REGENTYPE_MAX
 };

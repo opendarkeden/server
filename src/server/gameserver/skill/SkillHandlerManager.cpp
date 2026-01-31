@@ -8,11 +8,11 @@
 
 #include "Assert.h"
 
-// ÀÏ¹İ °ø°İ
+// Ã€ÃÂ¹Ã Â°Ã¸Â°Ã
 #include "AttackArms.h"
 #include "AttackMelee.h"
 
-// °Ë°è¿­
+// Â°Ã‹Â°Ã¨Â¿Â­
 #include "CrossCounter.h"
 #include "DancingSword.h"
 #include "DoubleImpact.h"
@@ -33,7 +33,7 @@
 #include "TripleSlasher.h"
 #include "WindDivider.h"
 
-// µµ°è¿­
+// ÂµÂµÂ°Ã¨Â¿Â­
 #include "AirShield.h"
 #include "Berserker.h"
 #include "ChargingPower.h"
@@ -54,7 +54,7 @@
 #include "WildSmash.h"
 #include "WildTyphoon.h"
 
-// ±ºÀÎ °è¿­
+// Â±ÂºÃ€Ã Â°Ã¨Â¿Â­
 #include "BulletOfLight.h"
 #include "Concealment.h"
 #include "CreateBomb.h"
@@ -73,7 +73,7 @@
 #include "TripleShot.h"
 #include "UltimateBlow.h"
 
-// ÀÎÃ¦ °è¿­
+// Ã€ÃÃƒÂ¦ Â°Ã¨Â¿Â­
 #include "AuraBall.h"
 #include "AuraRing.h"
 #include "Bless.h"
@@ -99,7 +99,7 @@
 #include "VigorDrop.h"
 #include "Visible.h"
 
-// Èú¸µ °è¿­
+// ÃˆÃºÂ¸Âµ Â°Ã¨Â¿Â­
 #include "Activation.h"
 #include "CauseCriticalWounds.h"
 #include "CauseLightWounds.h"
@@ -127,7 +127,7 @@
 #include "TurnUndead.h"
 
 
-// ¹ìÇÁ °è¿­
+// Â¹Ã¬Ã‡Ã Â°Ã¨Â¿Â­
 #include "AcidBall.h"
 #include "AcidBolt.h"
 #include "AcidSwamp.h"
@@ -188,7 +188,7 @@
 #include "Untransform.h"
 
 
-// ±âÅ¸ °è¿­
+// Â±Ã¢Ã…Â¸ Â°Ã¨Â¿Â­
 #include "CriticalGround.h"
 #include "DuplicateSelf.h"
 #include "GroundAttack.h"
@@ -206,13 +206,13 @@
 #include "SharpShield.h"
 #include "WideLightning.h"
 
-// ¼ºÁö½ºÅ³
+// Â¼ÂºÃÃ¶Â½ÂºÃ…Â³
 #include "IllusionOfAvenge.h"
 #include "MagicElusion.h"
 #include "PoisonMesh.h"
 #include "WillOfLife.h"
 
-// ¾Æ¿ì½ºÅÍÁî ½ºÅ³
+// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® Â½ÂºÃ…Â³
 #include "AbsorbSoul.h"
 #include "AcidEruption.h"
 #include "BackStab.h"
@@ -318,7 +318,7 @@
 #include "WideIceField.h"
 #include "WideIceHail.h"
 
-// ¾Æ¿ì½ºÅÍÁî 140·¹º§ ½ºÅ³
+// Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ® 140Â·Â¹ÂºÂ§ Â½ÂºÃ…Â³
 #include "ARAttack.h"
 #include "Cannonade.h"
 #include "FuryOfGnome.h"
@@ -330,7 +330,7 @@
 #include "SummonMiga.h"
 #include "SummonMigaAttack.h"
 
-// ½ÂÁ÷ ½ºÅ³
+// Â½Ã‚ÃÃ· Â½ÂºÃ…Â³
 #include "Aberration.h"
 #include "BikeCrash.h"
 #include "Destinies.h"
@@ -343,27 +343,27 @@
 #include "ShadowOfStorm.h"
 #include "WildWolf.h"
 // add by coffee 2007-3-1
-#include "BloodCurse.h"        //ÑªÖ®Ô{Öä
-#include "BloodyScarify.h"     //ÑªÖ®ÀÓÓ¡
-#include "BombCrashWalk.h"     //¾ŞÅÚºäÕ¨
-#include "HeavenGround.h"      //ÌìÉñ½µÁÙ
-#include "IllusionInversion.h" //¿Ö²À»Ã¾õ(ÈËÀàÒ½Éú)
-#include "SatelliteBomb.h"     //ÎÀĞÇºä»÷ (ÈËÀàÇ¹ĞÂ¼¼ÄÜ)
-#include "ShineSword.h"        //ÉÁÒ«Ö®½£ (ÈËÀà ½£¼¼ÄÜ)]
-// Ä§Áé
+#include "BloodCurse.h"        //Ã‘ÂªÃ–Â®Ã”{Ã–Ã¤
+#include "BloodyScarify.h"     //Ã‘ÂªÃ–Â®Ã€Ã“Ã“Â¡
+#include "BombCrashWalk.h"     //Â¾ÃÃ…ÃšÂºÃ¤Ã•Â¨
+#include "HeavenGround.h"      //ÃŒÃ¬Ã‰Ã±Â½ÂµÃÃ™
+#include "IllusionInversion.h" //Â¿Ã–Â²Ã€Â»ÃƒÂ¾Ãµ(ÃˆÃ‹Ã€Ã Ã’Â½Ã‰Ãº)
+#include "SatelliteBomb.h"     //ÃÃ€ÃÃ‡ÂºÃ¤Â»Ã· (ÃˆÃ‹Ã€Ã Ã‡Â¹ÃÃ‚Â¼Â¼Ã„Ãœ)
+#include "ShineSword.h"        //Ã‰ÃÃ’Â«Ã–Â®Â½Â£ (ÃˆÃ‹Ã€Ã  Â½Â£Â¼Â¼Ã„Ãœ)]
+// Ã„Â§ÃÃ©
 #include "BigRockfall.h"      //395 ADD BY RALLSER
 #include "BrambleHalo.h"      //390 ADD BY RALLSER
 #include "CutStorm.h"         //387 ADD BY RALLSER
-#include "DeadlyClaw.h"       //391ÖÂÉËÁÑ×¦ add by rallser
-#include "DummyDrake.h"       // µÂÀ×¿Ë¿şÀÜ(»ğ·¨)
+#include "DeadlyClaw.h"       //391Ã–Ã‚Ã‰Ã‹ÃÃ‘Ã—Â¦ add by rallser
+#include "DummyDrake.h"       // ÂµÃ‚Ã€Ã—Â¿Ã‹Â¿Ã¾Ã€Ãœ(Â»Ã°Â·Â¨)
 #include "FireMeteor.h"       //394 ADD BY RALLSER
-#include "HeterChakram.h"     // ÏÄ²¼Àû»ùÒò(ÃôÕ½)
-#include "HydroConvergence.h" // ¸´ºÏË®ÁÆ(Ë®·¨)
+#include "HeterChakram.h"     // ÃÃ„Â²Â¼Ã€Ã»Â»Ã¹Ã’Ã²(ÃƒÃ´Ã•Â½)
+#include "HydroConvergence.h" // Â¸Â´ÂºÃÃ‹Â®ÃÃ†(Ã‹Â®Â·Â¨)
 #include "PenetrateWheel.h"   //393 ADD BY RALLSER
 #include "RapidFreeze.h"      //396 ADD BY RALLSER
 #include "SacredStamp.h"      //389 ADD BY RALLSER
-#include "SkyFire.h"          //386 ÌìÀ×»ğ»¨ ADD BY RALLSER
-#include "SummonClay.h"       // Õ³ÍÁÕÙ»½(ÍÁ·¨)
+#include "SkyFire.h"          //386 ÃŒÃ¬Ã€Ã—Â»Ã°Â»Â¨ ADD BY RALLSER
+#include "SummonClay.h"       // Ã•Â³ÃÃÃ•Ã™Â»Â½(ÃÃÂ·Â¨)
 #include "VoodooRing.h"       //392 ADD BY RALLSER
 #include "XRLMissile.h"       //388 ADD BY RALLSER
 // end
@@ -372,7 +372,7 @@
 // global variable declaration
 SkillHandlerManager* g_pSkillHandlerManager = NULL;
 
-// ¸ó½ºÅÍ ·¹ÀÎÁö ½ºÅ³µé
+// Â¸Ã³Â½ÂºÃ…Ã Â·Â¹Ã€ÃÃÃ¶ Â½ÂºÃ…Â³ÂµÃ©
 MonsterRangeSkill g_TraslaAttack(SKILL_TRASLA_ATTACK, false), g_PuscaAttack(SKILL_PUSCA_ATTACK, false),
     g_NodCopilaAttack(SKILL_NOD_COPILA_ATTACK, false), g_NodCopilaAttack2(SKILL_NOD_COPILA_ATTACK_2, false);
 
@@ -383,10 +383,10 @@ SkillHandlerManager::SkillHandlerManager() throw() : m_SkillHandlers(NULL), m_Si
 
     Assert(m_Size > 0);
 
-    // ½ºÅ³ ÇÚµé·¯ ¹è¿­À» »ı¼ºÇÑ´Ù.
+    // Â½ÂºÃ…Â³ Ã‡ÃšÂµÃ©Â·Â¯ Â¹Ã¨Â¿Â­Ã€Â» Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
     m_SkillHandlers = new SkillHandler*[m_Size];
 
-    // ½ºÅ³ ÇÚµé·¯ÀÇ ¹è¿­À» ÃÊ±âÈ­ÇÑ´Ù.
+    // Â½ÂºÃ…Â³ Ã‡ÃšÂµÃ©Â·Â¯Ã€Ã‡ Â¹Ã¨Â¿Â­Ã€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
     for (int i = 0; i < m_Size; i++)
         m_SkillHandlers[i] = NULL;
 
@@ -400,12 +400,12 @@ SkillHandlerManager::~SkillHandlerManager() throw() {
 
     Assert(m_SkillHandlers != NULL);
 
-    // ½ºÅ³ ÇÚµé·¯¸¦ °¢°¢ »èÁ¦ÇÑ´Ù.
+    // Â½ÂºÃ…Â³ Ã‡ÃšÂµÃ©Â·Â¯Â¸Â¦ Â°Â¢Â°Â¢ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
     for (int i = 0; i < m_Size; i++) {
         SAFE_DELETE(m_SkillHandlers[i]);
     }
 
-    // ½ºÅ³ÇÚµé·¯ ¹è¿­À» »èÁ¦ÇÑ´Ù.
+    // Â½ÂºÃ…Â³Ã‡ÃšÂµÃ©Â·Â¯ Â¹Ã¨Â¿Â­Ã€Â» Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
     SAFE_DELETE_ARRAY(m_SkillHandlers);
 
     __END_CATCH
@@ -418,11 +418,11 @@ void SkillHandlerManager::init()
 {
     __BEGIN_TRY
 
-    // ±âº» °ø°İ
+    // Â±Ã¢ÂºÂ» Â°Ã¸Â°Ã
     addSkillHandler(&g_AttackMelee);
     addSkillHandler(&g_AttackArms);
 
-    // °Ë °è¿­
+    // Â°Ã‹ Â°Ã¨Â¿Â­
     addSkillHandler(&g_DoubleImpact);
     addSkillHandler(&g_TripleSlasher);
     addSkillHandler(&g_RainbowSlasher);
@@ -445,7 +445,7 @@ void SkillHandlerManager::init()
     // addSkillHandler(&g_FiveStormCrash);
     // addSkillHandler(&g_HeavensSword);
 
-    // µµ°è¿­
+    // ÂµÂµÂ°Ã¨Â¿Â­
     addSkillHandler(&g_SingleBlow);
     addSkillHandler(&g_SpiralSlay);
     addSkillHandler(&g_TripleBreak);
@@ -462,7 +462,7 @@ void SkillHandlerManager::init()
     addSkillHandler(&g_ShadowDancing);
     addSkillHandler(&g_Typhoon);
 
-    // ±ºÀÎ °è¿­
+    // Â±ÂºÃ€Ã Â°Ã¨Â¿Â­
     addSkillHandler(&g_QuickFire);
     addSkillHandler(&g_DoubleShot);
     addSkillHandler(&g_TripleShot);
@@ -478,7 +478,7 @@ void SkillHandlerManager::init()
     addSkillHandler(&g_CreateMine);
     addSkillHandler(&g_ObservingEye);
 
-    // ÀÎÃ¦ °è¿­
+    // Ã€ÃÃƒÂ¦ Â°Ã¨Â¿Â­
     addSkillHandler(&g_CreateHolyWater);
     addSkillHandler(&g_Light);
     addSkillHandler(&g_DetectHidden);
@@ -499,7 +499,7 @@ void SkillHandlerManager::init()
     addSkillHandler(&g_Reflection);
     addSkillHandler(&g_Hymn);
 
-    // Èú¸µ °è¿­
+    // ÃˆÃºÂ¸Âµ Â°Ã¨Â¿Â­
     addSkillHandler(&g_CureLightWounds);
     addSkillHandler(&g_CurePoison);
     addSkillHandler(&g_ProtectionFromPoison);
@@ -522,7 +522,7 @@ void SkillHandlerManager::init()
     // addSkillHandler(&g_MassCure);
     // addSkillHandler(&g_MassHeal);
 
-    // ¹ìÇÁ °è¿­
+    // Â¹Ã¬Ã‡Ã Â°Ã¨Â¿Â­
     addSkillHandler(&g_BloodDrain);
 
     addSkillHandler(&g_PoisonousHands);
@@ -778,16 +778,16 @@ void SkillHandlerManager::init()
     addSkillHandler(&g_NodCopilaAttack);
     addSkillHandler(&g_NodCopilaAttack2);
     // add by coffee 2007-2-17 start
-    // ÎüÑª¹íĞÂ¼¼ÄÜ
+    // ÃÃ¼Ã‘ÂªÂ¹Ã­ÃÃ‚Â¼Â¼Ã„Ãœ
     addSkillHandler(&g_BloodyScarify);
     addSkillHandler(&g_BloodCurse);
-    // ÈËÀà¼¼ÄÜ
+    // ÃˆÃ‹Ã€Ã Â¼Â¼Ã„Ãœ
     addSkillHandler(&g_ShineSword);
     addSkillHandler(&g_BombCrashWalk);
     addSkillHandler(&g_SatelliteBomb);
     addSkillHandler(&g_IllusionInversion);
     addSkillHandler(&g_HeavenGround);
-    // Ä§ÁéĞÂ¼¼ÄÜ
+    // Ã„Â§ÃÃ©ÃÃ‚Â¼Â¼Ã„Ãœ
     addSkillHandler(&g_DummyDrake);
     addSkillHandler(&g_HydroConvergence);
     addSkillHandler(&g_SummonClay);
@@ -819,7 +819,7 @@ void SkillHandlerManager::addSkillHandler(SkillHandler* pSkillHandler)
         throw Error(msg.toString());
     }
 
-    // ½ºÅ³ÇÚµé·¯¸¦ µî·ÏÇÑ´Ù.
+    // Â½ÂºÃ…Â³Ã‡ÃšÂµÃ©Â·Â¯Â¸Â¦ ÂµÃ®Â·ÃÃ‡Ã‘Â´Ã™.
     m_SkillHandlers[pSkillHandler->getSkillType()] = pSkillHandler;
 
     __END_CATCH
@@ -832,7 +832,7 @@ SkillHandler* SkillHandlerManager::getSkillHandler(SkillType_t SkillType)
 {
     __BEGIN_TRY
 
-    // Wide Storm À» °¡Áö°í ÀÖÀ» °æ¿ì, Wide Ã³¸®´Â ¿ø·¡ ±â¼ú ¾È¿¡¼­ Ã³¸®ÇÑ´Ù.
+    // Wide Storm Ã€Â» Â°Â¡ÃÃ¶Â°Ã­ Ã€Ã–Ã€Â» Â°Ã¦Â¿Ã¬, Wide ÃƒÂ³Â¸Â®Â´Ã‚ Â¿Ã¸Â·Â¡ Â±Ã¢Â¼Ãº Â¾ÃˆÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
     /*	if ( SkillType == SKILL_DARKNESS_WIDE )
         {
             SkillType = SKILL_DARKNESS;

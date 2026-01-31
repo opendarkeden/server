@@ -21,8 +21,8 @@
 //
 // CGPortCheckHander::execute()
 //
-// °ÔÀÓ ¼­¹ö°¡ ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ CGPortCheck ÆÐÅ¶À» ¹Þ°Ô µÇ¸é,
-// ConnectionInfo¸¦ »õ·Î Ãß°¡ÇÏ°Ô µÈ´Ù.
+// ê²Œìž„ ì„œë²„ê°€ ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° CGPortCheck íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// ConnectionInfoë¥¼ ìƒˆë¡œ ì¶”ê°€í•˜ê²Œ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void CGPortCheckHandler::execute(CGPortCheck* pPacket)
@@ -47,7 +47,7 @@ void CGPortCheckHandler::execute(CGPortCheck* pPacket)
                             pPacket->getPCName().c_str(), IP, port, g_pConfig->getPropertyInt("ServerID"));
 
         if (pStmt->getAffectedRowCount() == 0) {
-            // ´Ù½Ã ÇÑ¹ø ½Ãµµ
+            // ë‹¤ì‹œ í•œë²ˆ ì‹œë„
             pStmt->executeQuery("UPDATE UserIPInfo Set IP=%lu, Port=%u WHERE Name='%s'", IP, port,
                                 pPacket->getPCName().c_str());
 
@@ -59,7 +59,7 @@ void CGPortCheckHandler::execute(CGPortCheck* pPacket)
     } catch (SQLQueryException&) {
         /*
         try {
-            // ´Ù½Ã ÇÑ¹ø ½Ãµµ
+            // ë‹¤ì‹œ í•œë²ˆ ì‹œë„
             pStmt->executeQuery( "UPDATE UserIPInfo Set IP=%ld, Port=%d WHERE Name='%s'",
                                     IP,
                                     port,
@@ -72,7 +72,7 @@ void CGPortCheckHandler::execute(CGPortCheck* pPacket)
         } catch (SQLQueryException & sqe) {	//se) {
 
             SAFE_DELETE(pStmt);
-            // ¹«½ÃÇÑ´Ù.
+            // ë¬´ì‹œí•œë‹¤.
             //throw ProtocolException("Duplicated IPInfo");
         }
         */

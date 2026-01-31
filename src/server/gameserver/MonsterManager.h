@@ -47,37 +47,37 @@ public:
     // add monster
     void addCreature(Creature* pCreature);
 
-    // ¸ó½ºÅÍµéÀ» Ãß°¡ÇÑ´Ù.
+    // ëª¬ìŠ¤í„°ë“¤ì„ ì¶”ê°€í•œë‹¤.
     void addMonsters(ZoneCoord_t x, ZoneCoord_t y, MonsterType_t monsterType, int num, const SUMMON_INFO& summonInfo,
                      list<Monster*>* pSummonedMonsters = NULL);
 
     // delete monster
     void deleteCreature(ObjectID_t objectID); // NoSuchElementException, Error);
 
-    // ¸Å´ÏÀú¿¡ ¼Ò¼ÓµÈ Å©¸®Ã³µé(NPC,Monster)À» Ã³¸®ÇÑ´Ù.
+    // ë§¤ë‹ˆì €ì— ì†Œì†ëœ í¬ë¦¬ì²˜ë“¤(NPC,Monster)ì„ ì²˜ë¦¬í•œë‹¤.
     void processCreatures();
 
-    // ¸ó½ºÅÍÀÇ ¼ıÀÚ°¡ ÁÙ¾îµé¾úÀ» °æ¿ì¿¡, ¸ó½ºÅÍ¸¦ Ãß°¡ÇÑ´Ù.
+    // ëª¬ìŠ¤í„°ì˜ ìˆ«ìê°€ ì¤„ì–´ë“¤ì—ˆì„ ê²½ìš°ì—, ëª¬ìŠ¤í„°ë¥¼ ì¶”ê°€í•œë‹¤.
     void regenerateCreatures();
 
-    // ¸ó½ºÅÍ¸¦ Ãß°¡ÇÒ ÀûÀıÇÑ À§Ä¡¸¦ °Ë»öÇÑ´Ù.
+    // ëª¬ìŠ¤í„°ë¥¼ ì¶”ê°€í•  ì ì ˆí•œ ìœ„ì¹˜ë¥¼ ê²€ìƒ‰í•œë‹¤.
     bool findPosition(MonsterType_t monsterType, ZoneCoord_t& x, ZoneCoord_t& y) const;
 
-    // Á×Àº Å©¸®Ã³¸¦ Ã³¸®ÇÑ´Ù.
+    // ì£½ì€ í¬ë¦¬ì²˜ë¥¼ ì²˜ë¦¬í•œë‹¤.
     void killCreature(Creature* pDeadMonster);
 
-    // Á×Àº ¸ó½ºÅÍ¿¡°Ô¼­ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+    // ì£½ì€ ëª¬ìŠ¤í„°ì—ê²Œì„œ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
     void addItem(Monster* pDeadMonster, MonsterCorpse* pMonsterCorpse);
 
-    // ÇØ½¬¸ÊÀ» Á÷Á¢ ¾×¼¼½ºÇÒ ¶§
+    // í•´ì‰¬ë§µì„ ì§ì ‘ ì•¡ì„¸ìŠ¤í•  ë•Œ
     const unordered_map<MonsterType_t, MonsterCounter*>& getMonsters(void) {
         return m_Monsters;
     }
 
-    // ÀüÃ¼ÀÇ ÀáÀçÀûÀÎ ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù. pMonster¸¦ pCreature°¡ °ø°İÇÑ °æ¿ì¿¡..
+    // ì „ì²´ì˜ ì ì¬ì ì¸ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤. pMonsterë¥¼ pCreatureê°€ ê³µê²©í•œ ê²½ìš°ì—..
     void addPotentialEnemy(Monster* pMonster, Creature* pCreature);
 
-    // ÀüÃ¼ÀÇ ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù. pMonster¸¦ pCreature°¡ °ø°İÇÑ °æ¿ì¿¡..
+    // ì „ì²´ì˜ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤. pMonsterë¥¼ pCreatureê°€ ê³µê²©í•œ ê²½ìš°ì—..
     void addEnemy(Monster* pMonster, Creature* pCreature);
 
     // get debug string
@@ -98,9 +98,9 @@ protected:
     void parseEventMonsterList(const string& text, bool bReload = false);
 
 private:
-    Zone* m_pZone;                                           // ¸ó½ºÅÍ ¸Å´ÏÀú°¡ ¼Ò¼ÓµÈ Á¸¿¡ ´ëÇÑ Æ÷ÀÎÅÍ
-    unordered_map<SpriteType_t, MonsterCounter*> m_Monsters; // ÇöÀç Á¸¿¡ Á¸ÀçÇÏ´Â ¸ó½ºÅÍÀÇ ¼ıÀÚ ÇöÈ²
-    Timeval m_RegenTime;                                     // ´ÙÀ½ ¸ó½ºÅÍ Àç»ı ½Ã°£
+    Zone* m_pZone;                                           // ëª¬ìŠ¤í„° ë§¤ë‹ˆì €ê°€ ì†Œì†ëœ ì¡´ì— ëŒ€í•œ í¬ì¸í„°
+    unordered_map<SpriteType_t, MonsterCounter*> m_Monsters; // í˜„ì¬ ì¡´ì— ì¡´ì¬í•˜ëŠ” ëª¬ìŠ¤í„°ì˜ ìˆ«ì í˜„í™©
+    Timeval m_RegenTime;                                     // ë‹¤ìŒ ëª¬ìŠ¤í„° ì¬ìƒ ì‹œê°„
 
     int m_RICE_CAKE_PROB_RATIO[5];
     int m_SumOfCakeRatio;

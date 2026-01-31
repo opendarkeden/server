@@ -35,7 +35,7 @@ void CGExpelGuildMemberHandler::execute(CGExpelGuildMember* pPacket, Player* pPl
 
     SYSTEM_ASSERT(SYSTEM_GUILD);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     try {
         Assert(pGuild != NULL);
@@ -43,9 +43,9 @@ void CGExpelGuildMemberHandler::execute(CGExpelGuildMember* pPacket, Player* pPl
         return;
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ±æµåÀÇ ¸¶½ºÅÍÀÎÁö¸¦ È®ÀÎÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ì§€ë¥¼ í™•ì¸í•œë‹¤.
     if (pGuild->getMaster() != pPlayerCreature->getName()) {
-        // ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù. ¹«½Ã
+        // ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤. ë¬´ì‹œ
         return;
     }
 

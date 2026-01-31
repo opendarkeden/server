@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RapidFreeze::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                           CEffectID_t CEffectID)
@@ -38,8 +38,8 @@ void RapidFreeze::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
         // Assert(pTargetCreature != NULL);
 
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType(), 0);
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -58,7 +58,7 @@ void RapidFreeze::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî Å¸ÀÏ ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RapidFreeze::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
                           CEffectID_t CEffectID)
@@ -95,7 +95,7 @@ void RapidFreeze::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
         SkillType_t SkillType = pOustersSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+        // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pOusters, pOustersSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -120,7 +120,7 @@ void RapidFreeze::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 
             Tile& tile = pZone->getTile(X, Y);
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´íŽ™íŠ¸ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_Rapid_Freeze);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
@@ -129,7 +129,7 @@ void RapidFreeze::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 
             checkMine(pZone, X, Y);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectRapidFreeze* pEffect = new EffectRapidFreeze(pZone, X, Y);
             pEffect->setUserObjectID(pOusters->getObjectID());
             pEffect->setDeadline(output.Duration);
@@ -138,11 +138,11 @@ void RapidFreeze::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
             pEffect->setDamage(output.Damage);
             pEffect->setBroadcastingEffect(false);
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´íŽ™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 

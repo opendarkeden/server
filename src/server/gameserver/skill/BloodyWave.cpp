@@ -10,8 +10,8 @@
 #include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 BloodyWave::BloodyWave() throw() {
     __BEGIN_TRY
@@ -33,7 +33,7 @@ BloodyWave::BloodyWave() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ
+// ë±€íŒŒì´ì–´ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
 
@@ -59,7 +59,7 @@ void BloodyWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -79,7 +79,7 @@ void BloodyWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         // Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         /*
         if (pTargetCreature==NULL)
         {
@@ -101,7 +101,7 @@ void BloodyWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -133,10 +133,10 @@ void BloodyWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
         param.addMask(m_pBloodyWaveMask[i].x, m_pBloodyWaveMask[i].y, 100);
     }
 
-    // °­Á¦·Î knockback½ÃÅ³ È®·ü
+    // ê°•ì œë¡œ knockbackì‹œí‚¬ í™•ë¥ 
     bool bForceKnockback = rand() % 100 < output.ToHit;
 
-    // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Blood ê°€ ìˆë‹¤ë©´ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -154,7 +154,7 @@ void BloodyWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -187,7 +187,7 @@ void BloodyWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
     bool bForceKnockback = false;
 
-    // ¸¶½ºÅÍ´Â °­Á¦·Î knockback½ÃÅ²´Ù.
+    // ë§ˆìŠ¤í„°ëŠ” ê°•ì œë¡œ knockbackì‹œí‚¨ë‹¤.
     if (pMonster->isMaster()) {
         bForceKnockback = true;
     }

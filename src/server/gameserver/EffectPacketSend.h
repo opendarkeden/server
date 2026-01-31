@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectPacketSend.h
 // Written by  :
-// Description : PacketSend¿¡ ÀÇÇÑ ¹æ¾î·Â ÇÏ°­ effect
+// Description : PacketSendì— ì˜í•œ ë°©ì–´ë ¥ í•˜ê°• effect
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PACKET_SEND__
@@ -21,7 +21,7 @@ public:
     EffectPacketSend(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
 public:
-    // ¾È ¾´´Ù -_-; KIN
+    // ì•ˆ ì“´ë‹¤ -_-; KIN
     EffectClass getEffectClass() const {
         return EFFECT_CLASS_PK_ZONE_REGEN;
     }

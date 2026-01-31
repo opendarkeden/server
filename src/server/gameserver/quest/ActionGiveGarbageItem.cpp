@@ -31,7 +31,7 @@ void ActionGiveGarbageEventItem::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveGarbageEventItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -49,18 +49,18 @@ void ActionGiveGarbageEventItem::execute(Creature* pCreature1, Creature* pCreatu
     Player* pPlayer = pPC->getPlayer();
     Assert(pPlayer != NULL);
 
-    // ¸ÕÀú Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ GCNPCResponse¸¦ º¸³»ÁØ´Ù.
+    // ë¨¼ì € í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ GCNPCResponseë¥¼ ë³´ë‚´ì¤€ë‹¤.
     GCNPCResponse okpkt;
     pPlayer->sendPacket(&okpkt);
 
-    // °¡ºñÁö ¸®½ºÆ®¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÑ´Ù¸é...
+    // ê°€ë¹„ì§€ ë¦¬ìŠ¤íŠ¸ì— ì•„ì´í…œì´ ì¡´ìž¬í•œë‹¤ë©´...
     if (pPC->getGarbageSize() > 0) {
         TPOINT pt;
 
         Item* pItem = pPC->popItemFromGarbage();
         Assert(pItem != NULL);
 
-        // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ÀÖ´Ù¸é ÀÎº¥Åä¸®¿¡´Ù°¡ ´õÇÏ°í ÇÃ·¹ÀÌ¾î¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // ì¸ë²¤í† ë¦¬ì— ìžë¦¬ê°€ ìžˆë‹¤ë©´ ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ë”í•˜ê³  í”Œë ˆì´ì–´ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         if (pInventory->addItem(pItem, pt)) {
             pItem->save(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
 
@@ -77,15 +77,15 @@ void ActionGiveGarbageEventItem::execute(Creature* pCreature1, Creature* pCreatu
 
             pPlayer->sendPacket(&gcCreateItem);
 
-            // ItemTraceLog ¸¦ ³²±ä´Ù
+            // ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
             if (pItem != NULL && pItem->isTraceItem()) {
                 remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
                 remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC,
                                   pCreature1->getZone()->getZoneID(), pCreature1->getX(), pCreature1->getY());
             }
         }
-        // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ¾ø´Ù¸é, ´Ù½Ã °¡ºñÁö ¸®½ºÆ®¿¡´Ù°¡ ´õÇÏ°í
-        // ÇÃ·¹ÀÌ¾î¿¡°Ô ±× »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+        // ì¸ë²¤í† ë¦¬ì— ìžë¦¬ê°€ ì—†ë‹¤ë©´, ë‹¤ì‹œ ê°€ë¹„ì§€ ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ë”í•˜ê³ 
+        // í”Œë ˆì´ì–´ì—ê²Œ ê·¸ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
         else {
             pPC->addItemToGarbage(pItem);
 

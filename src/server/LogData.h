@@ -65,11 +65,11 @@ public: // misc
     ///// Member data /////
 
 protected:
-    short m_Type;     // »ç°ÇÀÇ Á¾·ù
-    short m_ZoneID;   // »ç°ÇÀÌ ÀÏ¾î³­ °÷ÀÇ zone id
-    string m_Source;  // »ç°ÇÀ» ¹ß»ı½ÃÅ² ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§
-    string m_Target;  // »ç°ÇÀ» ´çÇÑ(?) ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§
-    string m_Content; // »ç°ÇÀÇ ³»¿ë
+    short m_Type;     // ì‚¬ê±´ì˜ ì¢…ë¥˜
+    short m_ZoneID;   // ì‚¬ê±´ì´ ì¼ì–´ë‚œ ê³³ì˜ zone id
+    string m_Source;  // ì‚¬ê±´ì„ ë°œìƒì‹œí‚¨ í”Œë ˆì´ì–´ì˜ ì´ë¦„
+    string m_Target;  // ì‚¬ê±´ì„ ë‹¹í•œ(?) í”Œë ˆì´ì–´ì˜ ì´ë¦„
+    string m_Content; // ì‚¬ê±´ì˜ ë‚´ìš©
 };
 
 #endif

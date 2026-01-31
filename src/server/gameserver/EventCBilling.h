@@ -37,7 +37,7 @@ public:
     }
 
 private:
-    int m_TrySendLoginCount; // Login ÆĞÅ¶À» º¸³»±â ½Ãµµ È¸¼ö
+    int m_TrySendLoginCount; // Login íŒ¨í‚·ì„ ë³´ë‚´ê¸° ì‹œë„ íšŒìˆ˜
 };
 
 #endif

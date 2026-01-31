@@ -12,7 +12,7 @@
 #include "SkillUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HitConvert::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -52,7 +52,7 @@ void HitConvert::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
     Creature* pTargetCreature = pSlayer->getZone()->getCreature(TargetObjectID);
     bool bRangeCheck = pTargetCreature != NULL && verifyDistance(pSlayer, pTargetCreature, output.Range);
 
-    // Àú ¾È¿¡¼­´Â Max Range ¸¸ Ã¼Å©ÇÑ´Ù. -_-;
+    // ì € ì•ˆì—ì„œëŠ” Max Range ë§Œ ì²´í¬í•œë‹¤. -_-;
     if (!bRangeCheck) {
         executeSkillFailNormal(pSlayer, param.SkillType, pTargetCreature);
         return;
@@ -68,7 +68,7 @@ void HitConvert::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 
     // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayer)" << endl;
 
-    // knockback ½ÃÅ²´Ù.
+    // knockback ì‹œí‚¨ë‹¤.
     if (result.bSuccess) {
         int dist = 1 + pSkillSlot->getExpLevel() / 100;
         for (int i = 0; i < dist; ++i) {

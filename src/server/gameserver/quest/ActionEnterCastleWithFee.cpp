@@ -54,7 +54,7 @@ void ActionEnterCastleWithFee::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterCastleWithFee::execute(Creature* pNPC, Creature* pCreature)
 
@@ -75,16 +75,16 @@ void ActionEnterCastleWithFee::execute(Creature* pNPC, Creature* pCreature)
     try {
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
 
-        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìžê°€ ì•„ë‹ˆë©´...
         if (pZoneInfo == NULL ||
             pZoneInfo->isPayPlay() && !(pGamePlayer->isPayPlaying() || pGamePlayer->isFamilyFreePass())) {
             string connectIP = pGamePlayer->getSocket()->getHost();
 
-            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                 sendPayInfo(pGamePlayer);
             } else {
-                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                 GCSystemMessage gcSystemMessage;
 
                 if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
@@ -110,7 +110,7 @@ void ActionEnterCastleWithFee::execute(Creature* pNPC, Creature* pCreature)
             if (remain < fee) {
                 static char buf[200];
                 sprintf(buf, g_pStringPool->c_str(STRID_NOT_ENOUGH_ENTRANCE_FEE), (int)fee);
-                // µ·ÀÌ ¸ðÀÚ¶õ´Ù.
+                // ëˆì´ ëª¨ìžëž€ë‹¤.
                 GCSystemMessage message;
                 message.setType(SYSTEM_MESSAGE_HOLY_LAND);
                 message.setMessage(buf);
@@ -119,7 +119,7 @@ void ActionEnterCastleWithFee::execute(Creature* pNPC, Creature* pCreature)
                 bTransport = false;
             } else {
                 if (fee > 0) {
-                    // ÀÔÀå·á¸¦ ³½´Ù.
+                    // ìž…ìž¥ë£Œë¥¼ ë‚¸ë‹¤.
                     pPC->decreaseGoldEx(fee);
                     g_pCastleInfoManager->increaseTaxBalance(m_ZoneID, fee);
 

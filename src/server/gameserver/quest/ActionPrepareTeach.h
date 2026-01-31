@@ -2,9 +2,9 @@
 // Filename    : ActionPrepareTeach.h
 // Written By  :
 // Description :
-// ±³°ü NPC°¡ °¡¸£ÃÄ ÁÙ ¼ö ÀÖ´Â ±â¼úÀÇ Á¾·ù¸¦ Á¤ÇÏ´Â ¾×¼ÇÀÌ´Ù.
-// PrepareShop°ú ºñ½ÁÇÏ°Ô AtFirst ÄÁµð¼ÇÀ» ÀÌ¿ëÇÏ¿© Ã³À½
-// ÇÑ¹ø¸¸ ½ÇÇàÇÏ°í ´Ù½Ã´Â ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+// êµê´€ NPCê°€ ê°€ë¥´ì³ ì¤„ ìˆ˜ ìžˆëŠ” ê¸°ìˆ ì˜ ì¢…ë¥˜ë¥¼ ì •í•˜ëŠ” ì•¡ì…˜ì´ë‹¤.
+// PrepareShopê³¼ ë¹„ìŠ·í•˜ê²Œ AtFirst ì»¨ë””ì…˜ì„ ì´ìš©í•˜ì—¬ ì²˜ìŒ
+// í•œë²ˆë§Œ ì‹¤í–‰í•˜ê³  ë‹¤ì‹œëŠ” ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_PREPARE_TEACH_H__
@@ -37,7 +37,7 @@ public:
     }
 
 private:
-    SkillLevel_t m_MaxLevel; // °¡¸£ÃÄ ÁÙ ½ºÅ³ÀÇ ¸Æ½º ·¹º§
+    SkillLevel_t m_MaxLevel; // ê°€ë¥´ì³ ì¤„ ìŠ¤í‚¬ì˜ ë§¥ìŠ¤ ë ˆë²¨
 };
 
 

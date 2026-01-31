@@ -12,10 +12,10 @@
 void InventorySlotInfo::read(SocketInputStream& iStream) {
     __BEGIN_TRY
 
-    // ¸ÕÀú ÇÏÀ§ Å¬·¡½º¿¡¼­ ÀĞ¾îµéÀÎ´Ù.
+    // ë¨¼ì € í•˜ìœ„ í´ë˜ìŠ¤ì—ì„œ ì½ì–´ë“¤ì¸ë‹¤.
     PCItemInfo::read(iStream);
 
-    // ÀÌ Å¬·¡½º¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍ¸¦ ÀĞ¾îµéÀÎ´Ù.
+    // ì´ í´ë˜ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ë°ì´í„°ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
     iStream.read(m_InvenX);
     iStream.read(m_InvenY);
 
@@ -28,10 +28,10 @@ void InventorySlotInfo::read(SocketInputStream& iStream) {
 void InventorySlotInfo::write(SocketOutputStream& oStream) const {
     __BEGIN_TRY
 
-    // ¸ÕÀú ÇÏÀ§ Å¬·¡½º¿¡¼­ ¾´´Ù.
+    // ë¨¼ì € í•˜ìœ„ í´ë˜ìŠ¤ì—ì„œ ì“´ë‹¤.
     PCItemInfo::write(oStream);
 
-    // ÀÌ Å¬·¡½º¿¡ ÇØ´çÇÏ´Â µ¥ÀÌÅÍ¸¦ ¾´´Ù.
+    // ì´ í´ë˜ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ë°ì´í„°ë¥¼ ì“´ë‹¤.
     oStream.write(m_InvenX);
     oStream.write(m_InvenY);
 

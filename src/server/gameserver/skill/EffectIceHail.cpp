@@ -45,7 +45,7 @@ void EffectIceHail::affect()
 
     Assert(m_pZone != NULL);
 
-    // ½ÃÀüÀÚ¸¦ °¡Á®¿Â´Ù.
+    // ì‹œì „ìžë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
     if (pCastCreature == NULL)
         return;
@@ -58,7 +58,7 @@ void EffectIceHail::affect()
             forward_list<Object*>::const_iterator itr = rList.begin();
             forward_list<Object*>::const_iterator endItr = rList.end();
 
-            //	cout << "¾ÆÇÁ³Ä?" << endl;
+            //	cout << "ì•„í”„ëƒ?" << endl;
 
             for (; itr != endItr; ++itr) {
                 Object* pObject = *itr;
@@ -113,7 +113,7 @@ void EffectIceHail::affect()
                 gcHP.setCurrentHP(finalHP);
                 m_pZone->broadcastPacket(m_X, m_Y, &gcHP);
 
-                //		cout << "¾ÆÇÁ´Ù" << endl;
+                //		cout << "ì•„í”„ë‹¤" << endl;
             }
         }
     }

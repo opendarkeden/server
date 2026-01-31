@@ -17,12 +17,12 @@
 //
 // class CLLogin;
 //
-// Å¬¶óÀÌ¾ðÆ®°¡ ·Î±×ÀÎ ¼­¹ö¿¡°Ô ÃÖÃÊ¿¡ Àü¼ÛÇÏ´Â ÆÐÅ¶ÀÌ´Ù.
-// ¾ÆÀÌµð¿Í ÆÐ½º¿öµå°¡ ¾ÏÈ£È­µÇ¾î ÀÖ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ë¡œê·¸ì¸ ì„œë²„ì—ê²Œ ìµœì´ˆì— ì „ì†¡í•˜ëŠ” íŒ¨í‚·ì´ë‹¤.
+// ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì•”í˜¸í™”ë˜ì–´ ìžˆë‹¤.
 //
 //--------------------------------------------------------------------------------
 
-// ÃÖ´ë MAC ADDRESS ±æÀÌ
+// ìµœëŒ€ MAC ADDRESS ê¸¸ì´
 #define MAX_LENGTH_MAC 6
 
 
@@ -34,10 +34,10 @@ public:
     virtual ~CLLogin() {};
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -109,14 +109,14 @@ public:
     }
 
 private:
-    // ÇÃ·¹ÀÌ¾î ¾ÆÀÌµð
+    // í”Œë ˆì´ì–´ ì•„ì´ë””
     string m_ID;
 
-    // ÇÃ·¹ÀÌ¾î ÆÐ½º¿öµå
+    // í”Œë ˆì´ì–´ íŒ¨ìŠ¤ì›Œë“œ
     string m_Password;
 
-    // º¸³»°í ¹Þ´Â °Ç ¾Æ´ÏÁö¸¸ Á¤º¸¸¦ °¡Áö°í ÀÖÀ» ÇÊ¿ä°¡ ÀÖ¾î¼­ ¸â¹ö º¯¼ö Ãß°¡
-    // Size °è»êÀº ÇÏÁö ¾Ê´Â´Ù. (³Ý¸¶ºíÀÇ Cpsso ¹æ½ÄÀÇ ÀÎÁõ Á¤º¸¿¡ µé¾î ÀÖ´Â ³»¿ë º¸°ü)
+    // ë³´ë‚´ê³  ë°›ëŠ” ê±´ ì•„ë‹ˆì§€ë§Œ ì •ë³´ë¥¼ ê°€ì§€ê³  ìžˆì„ í•„ìš”ê°€ ìžˆì–´ì„œ ë©¤ë²„ ë³€ìˆ˜ ì¶”ê°€
+    // Size ê³„ì‚°ì€ í•˜ì§€ ì•ŠëŠ”ë‹¤. (ë„·ë§ˆë¸”ì˜ Cpsso ë°©ì‹ì˜ ì¸ì¦ ì •ë³´ì— ë“¤ì–´ ìžˆëŠ” ë‚´ìš© ë³´ê´€)
     bool m_bNetmarble;
     bool m_bAdult;
 

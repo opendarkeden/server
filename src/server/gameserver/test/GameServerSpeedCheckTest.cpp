@@ -6,7 +6,7 @@
 void GameServerSpeedCheckTest::testSpeedHack() {
     __BEGIN_TEST_CASE
 
-    Socket* pSocket = new Socket(); // gameplayer¾È¿¡¼­ deleteµÈ´Ù.
+    Socket* pSocket = new Socket(); // gameplayerì•ˆì—ì„œ deleteëœë‹¤.
     GamePlayer gameplayer(pSocket);
 
     bool bCheck = false;

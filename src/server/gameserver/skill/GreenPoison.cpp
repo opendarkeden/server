@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenPoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -37,8 +37,8 @@ void GreenPoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -56,7 +56,7 @@ void GreenPoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -86,7 +86,7 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Poison ÀÌ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Poison ì´ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
@@ -116,21 +116,21 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GREEN_POISON);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectGreenPoison* pEffect = new EffectGreenPoison(pZone, X, Y);
             pEffect->setUserObjectID(pVampire->getObjectID());
             pEffect->setDeadline(output.Duration);
@@ -139,15 +139,15 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             pEffect->setLevel(pSkillInfo->getLevel() / 2);
             pEffect->setVampire();
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 
@@ -157,10 +157,10 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             ZoneCoord_t myX = pVampire->getX();
             ZoneCoord_t myY = pVampire->getY();
 
-            // ¸ğµç Å©¸®ÃÄ°¡ µ¶¿¡ Áßµ¶µÉ ¼ö ÀÖ°Ô ÇÏ¶ó´Â ±âÈ¹¾È¿¡ µû¶ó,
-            // ¹ìÆÄÀÌ¾î ¹× ¸ó½ºÅÍµµ µ¶¿¡ Áßµ¶µÉ ¼ö ÀÖµµ·Ï º¯°æÇÑ´Ù.
-            // ÇÏÁö¸¸ ÀÌ·¸°Ô µÇ¸é ¸ó½ºÅÍ°¡ ¾²´Â ±×¸° Æ÷ÀÌÁğ¿¡ ÀÇÇØ¼­ ´Ù¸¥ ¸ó½ºÅÍ°¡ Áßµ¶µÇ´Â
-            // Çö»óÀÌ ¹ß»ıÇÏ°Ô µÇ´Âµ¥...
+            // ëª¨ë“  í¬ë¦¬ì³ê°€ ë…ì— ì¤‘ë…ë  ìˆ˜ ìˆê²Œ í•˜ë¼ëŠ” ê¸°íšì•ˆì— ë”°ë¼,
+            // ë±€íŒŒì´ì–´ ë° ëª¬ìŠ¤í„°ë„ ë…ì— ì¤‘ë…ë  ìˆ˜ ìˆë„ë¡ ë³€ê²½í•œë‹¤.
+            // í•˜ì§€ë§Œ ì´ë ‡ê²Œ ë˜ë©´ ëª¬ìŠ¤í„°ê°€ ì“°ëŠ” ê·¸ë¦° í¬ì´ì¦Œì— ì˜í•´ì„œ ë‹¤ë¥¸ ëª¬ìŠ¤í„°ê°€ ì¤‘ë…ë˜ëŠ”
+            // í˜„ìƒì´ ë°œìƒí•˜ê²Œ ë˜ëŠ”ë°...
             // if (pTargetCreature != NULL && pTargetCreature->isSlayer())
             if (pTargetCreature != NULL) {
                 if (pEffect->affectCreature(pTargetCreature, false) == true) {
@@ -248,7 +248,7 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenPoison::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -268,7 +268,7 @@ void GreenPoison::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -316,36 +316,36 @@ void GreenPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
         if (bRangeCheck && bHitRoll && bTileCheck) {
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GREEN_POISON);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectGreenPoison* pEffect = new EffectGreenPoison(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setDuration(output.Duration);
             pEffect->setDamage(output.Damage);
             pEffect->setLevel(pSkillInfo->getLevel() / 2);
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 
@@ -355,10 +355,10 @@ void GreenPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             ZoneCoord_t myX = pMonster->getX();
             ZoneCoord_t myY = pMonster->getY();
 
-            // ¸ğµç Å©¸®ÃÄ°¡ µ¶¿¡ Áßµ¶µÉ ¼ö ÀÖ°Ô ÇÏ¶ó´Â ±âÈ¹¾È¿¡ µû¶ó,
-            // ¹ìÆÄÀÌ¾î ¹× ¸ó½ºÅÍµµ µ¶¿¡ Áßµ¶µÉ ¼ö ÀÖµµ·Ï º¯°æÇÑ´Ù.
-            // ÇÏÁö¸¸ ÀÌ·¸°Ô µÇ¸é ¸ó½ºÅÍ°¡ ¾²´Â ±×¸° Æ÷ÀÌÁğ¿¡ ÀÇÇØ¼­ ´Ù¸¥ ¸ó½ºÅÍ°¡ Áßµ¶µÇ´Â
-            // Çö»óÀÌ ¹ß»ıÇÏ°Ô µÇ´Âµ¥...
+            // ëª¨ë“  í¬ë¦¬ì³ê°€ ë…ì— ì¤‘ë…ë  ìˆ˜ ìˆê²Œ í•˜ë¼ëŠ” ê¸°íšì•ˆì— ë”°ë¼,
+            // ë±€íŒŒì´ì–´ ë° ëª¬ìŠ¤í„°ë„ ë…ì— ì¤‘ë…ë  ìˆ˜ ìˆë„ë¡ ë³€ê²½í•œë‹¤.
+            // í•˜ì§€ë§Œ ì´ë ‡ê²Œ ë˜ë©´ ëª¬ìŠ¤í„°ê°€ ì“°ëŠ” ê·¸ë¦° í¬ì´ì¦Œì— ì˜í•´ì„œ ë‹¤ë¥¸ ëª¬ìŠ¤í„°ê°€ ì¤‘ë…ë˜ëŠ”
+            // í˜„ìƒì´ ë°œìƒí•˜ê²Œ ë˜ëŠ”ë°...
             // if (pTargetCreature != NULL && pTargetCreature->isSlayer())
             if (pTargetCreature != NULL) {
                 if (pEffect->affectCreature(pTargetCreature, false) == true) {
@@ -434,7 +434,7 @@ void GreenPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GreenPoison::execute(Monster* pMonster)
 
@@ -461,7 +461,7 @@ void GreenPoison::execute(Monster* pMonster)
         ZoneCoord_t X = pMonster->getX();
         ZoneCoord_t Y = pMonster->getY();
 
-        // ¸ó½ºÅÍÀÇ ½ÃÃ¼°¡ ÀÖ´Â Å¸ÀÏ¿Í ±× ÁÖº¯ Å¸ÀÏ Áß ·£´ıÀ¸·Î ÇÏ³ª¿¡ »Ñ¸°´Ù.
+        // ëª¬ìŠ¤í„°ì˜ ì‹œì²´ê°€ ìˆëŠ” íƒ€ì¼ì™€ ê·¸ ì£¼ë³€ íƒ€ì¼ ì¤‘ ëœë¤ìœ¼ë¡œ í•˜ë‚˜ì— ë¿Œë¦°ë‹¤.
         int dir = rand() % 8;
         list<POINT> ptList;
         ptList.push_back(POINT(X, Y));
@@ -484,30 +484,30 @@ void GreenPoison::execute(Monster* pMonster)
             if (bTileCheck) {
                 Tile& tile = pZone->getTile(tileX, tileY);
 
-                // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+                // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
                 Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GREEN_POISON);
                 if (pOldEffect != NULL) {
                     ObjectID_t effectID = pOldEffect->getObjectID();
                     pZone->deleteEffect(effectID);
                 }
 
-                // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+                // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
                 SkillInput input(pMonster);
                 SkillOutput output;
                 computeOutput(input, output);
 
-                // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+                // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
                 EffectGreenPoison* pEffect = new EffectGreenPoison(pZone, tileX, tileY);
                 pEffect->setDeadline(output.Duration);
                 pEffect->setDuration(output.Duration);
                 pEffect->setDamage(output.Damage);
                 pEffect->setLevel(pSkillInfo->getLevel() / 2);
 
-                // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+                // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
                 ObjectRegistry& OR = pZone->getObjectRegistry();
                 OR.registerObject(pEffect);
 
-                // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                 pZone->addEffect(pEffect);
                 tile.addEffect(pEffect);
 
@@ -517,11 +517,11 @@ void GreenPoison::execute(Monster* pMonster)
                 gcAddEffectToTile.setXY(tileX, tileY);
                 gcAddEffectToTile.setDuration(output.Duration);
 
-                // list¿¡ POINT°¡ µÎ°³ µé¾î°¡ ÀÖÀ¸¹Ç·Î, µÎ¹ø ºê·ÎµåÄ³½ºÆÃÀ» ÇÏ°Ô µÈ´Ù.
-                // ÀÌ ºÎºĞÀº ÆĞÅ¶ÀÇ ¸®½ºÆ®¸¦ ÇÔ¼öÀÇ ÀÎÀÚ·Î ¹Ş´Â ºê·ÎµåÄ³½ºÆÃ
-                // ÇÔ¼ö¸¦ ¸¸µé¾î¼­ ÇÑ¹ø¿¡ ³¡³»´Â °ÍÀÌ ¼­¹öÀÇ ±â´É Çâ»ó¿¡ µµ¿òÀÌ
-                // µÉ °ÍÀÌ´Ù.
-                // 2002-01-23 ±è¼º¹Î
+                // listì— POINTê°€ ë‘ê°œ ë“¤ì–´ê°€ ìˆìœ¼ë¯€ë¡œ, ë‘ë²ˆ ë¸Œë¡œë“œìºìŠ¤íŒ…ì„ í•˜ê²Œ ëœë‹¤.
+                // ì´ ë¶€ë¶„ì€ íŒ¨í‚·ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ í•¨ìˆ˜ì˜ ì¸ìë¡œ ë°›ëŠ” ë¸Œë¡œë“œìºìŠ¤íŒ…
+                // í•¨ìˆ˜ë¥¼ ë§Œë“¤ì–´ì„œ í•œë²ˆì— ëë‚´ëŠ” ê²ƒì´ ì„œë²„ì˜ ê¸°ëŠ¥ í–¥ìƒì— ë„ì›€ì´
+                // ë  ê²ƒì´ë‹¤.
+                // 2002-01-23 ê¹€ì„±ë¯¼
                 pZone->broadcastPacket(tileX, tileY, &gcAddEffectToTile);
             }
         }

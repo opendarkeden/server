@@ -17,7 +17,7 @@
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot,
                           CEffectID_t CEffectID)
@@ -38,9 +38,9 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö ¾ø´Ù.
-        // ÀúÁÖ ¸é¿ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // ì €ì£¼ ë©´ì—­. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC() ||
             !pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF) || pTargetCreature->isDead() ||
             pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
@@ -99,12 +99,12 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
                 HP_t MaxHP = pVampire->getHP(ATTR_MAX);
                 HP_t NewHP = min((int)MaxHP, (int)CurrentHP + (int)HealPoint);
 
-                // Àº µ¥¹ÌÁö °ü·Ã Ã³¸®¸¦ ÇØ ÁØ´Ù.
+                // ì€ ë°ë¯¸ì§€ ê´€ë ¨ ì²˜ë¦¬ë¥¼ í•´ ì¤€ë‹¤.
                 Silver_t newSilverDamage = max(0, (int)pVampire->getSilverDamage() - (int)HealPoint);
                 pVampire->saveSilverDamage(newSilverDamage);
                 _GCSkillToObjectOK1.addShortData(MODIFY_SILVER_DAMAGE, newSilverDamage);
 
-                // ¹ìÆÄÀÌ¾îÀÇ HP¸¦ ¼¼ÆÃÇÑ´Ù.
+                // ë±€íŒŒì´ì–´ì˜ HPë¥¼ ì„¸íŒ…í•œë‹¤.
                 pVampire->setHP(NewHP);
 
                 GCStatusCurrentHP gcStatusCurrentHP;
@@ -116,7 +116,7 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
             }
 
 
-            // Å¸°Ù Áä¿©»Ó´Ù.
+            // íƒ€ê²Ÿ ì¥‘ì—¬ë¿ë‹¤.
             if (pTargetCreature->isSlayer()) {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
                 pSlayer->setHP(0);
@@ -159,10 +159,10 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
             _GCSkillToObjectOK6.setXY(myX, myY);
             _GCSkillToObjectOK6.setSkillType(SkillType);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }

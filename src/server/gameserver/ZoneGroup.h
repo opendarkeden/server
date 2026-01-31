@@ -68,7 +68,7 @@ public:
     Zone* getZone(ZoneID_t zoneID) const;
 
     // #ifdef __NO_COMBAT__
-    Zone* getCombatZone(ZoneID_t zoneID) const; // getZone°ú °°Àº ÀÏÀ» ¼öÇàÇÏ³ª NULLÀ» ¸®ÅÏÇÏ´Â °ÍÀÌ °¡´É, ±è°æ¼®
+    Zone* getCombatZone(ZoneID_t zoneID) const; // getZoneê³¼ ê°™ì€ ì¼ì„ ìˆ˜í–‰í•˜ë‚˜ NULLì„ ë¦¬í„´í•˜ëŠ” ê²ƒì´ ê°€ëŠ¥, ê¹€ê²½ì„
     // #endif
 
     //--------------------------------------------------
@@ -127,7 +127,7 @@ private:
     // zone group id
     ZoneGroupID_t m_ZoneGroupID;
 
-    // zone ÀÇ ÇØ½¬¸Ê
+    // zone ì˜ í•´ì‰¬ë§µ
     unordered_map<ZoneID_t, Zone*> m_Zones;
 
     // zone player manager

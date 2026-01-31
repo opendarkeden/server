@@ -26,11 +26,11 @@
 
 #ifdef __GAME_SERVER__
 
-// Å¸ÀÔ
-// ¹æÇâ
-// ¸¶½ºÅ©
+// íƒ€ì…
+// ë°©í–¥
+// ë§ˆìŠ¤í¬
 int BombMask[5][9][9] = {
-    // 0¹ø Å¸ÀÔ ÆøÅº
+    // 0ë²ˆ íƒ€ì… í­íƒ„
     {{0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
@@ -40,7 +40,7 @@ int BombMask[5][9][9] = {
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 0, 0, 0, 0, 0}},
-    // 1¹ø Å¸ÀÔ ÆøÅº
+    // 1ë²ˆ íƒ€ì… í­íƒ„
     {{0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
@@ -50,7 +50,7 @@ int BombMask[5][9][9] = {
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 0, 0, 0, 0, 0}},
-    // 2¹ø Å¸ÀÔ ÆøÅº
+    // 2ë²ˆ íƒ€ì… í­íƒ„
     {{0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
@@ -60,7 +60,7 @@ int BombMask[5][9][9] = {
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 100, 0, 0, 0, 0},
      {0, 0, 0, 0, 0, 0, 0, 0, 0}},
-    // 3¹ø Å¸ÀÔ ÆøÅº
+    // 3ë²ˆ íƒ€ì… í­íƒ„
     {{0, 50, 0, 0, 100, 0, 0, 50, 0},
      {50, 0, 0, 0, 100, 0, 0, 0, 50},
      {0, 0, 0, 50, 100, 50, 0, 0, 0},
@@ -70,7 +70,7 @@ int BombMask[5][9][9] = {
      {0, 0, 0, 50, 100, 50, 0, 0, 0},
      {0, 0, 50, 0, 100, 0, 50, 0, 0},
      {0, 0, 0, 0, 0, 0, 0, 0, 0}},
-    // 4¹ø Å¸ÀÔ ÆøÅº
+    // 4ë²ˆ íƒ€ì… í­íƒ„
     {{0, 50, 0, 50, 100, 50, 0, 50, 0},
      {50, 0, 50, 0, 100, 0, 50, 0, 50},
      {0, 50, 0, 50, 100, 50, 0, 50, 0},
@@ -95,7 +95,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
         Assert(pPacket != NULL);
     Assert(pPlayer != NULL);
 
-    // °ÔÀÓ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+    // ê²Œì„ í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
         return;
@@ -103,7 +103,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
     Creature* pCreature = pGamePlayer->getCreature();
     Assert(pCreature != NULL);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
     if (!pCreature->isSlayer())
         return;
 
@@ -121,7 +121,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
     Assert(pInventory != NULL);
 
 
-    // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+    // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
     ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pSlayer->getX(), pSlayer->getY());
     if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (BombX >= pInventory->getWidth() || BombY >= pInventory->getHeight())) {
         GCSkillFailed1 _GCSkillFailed1;
@@ -141,7 +141,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
 
         Item* pItem = pInventory->getItem(BombX, BombY);
 
-        // ¾ÆÀÌÅÛÀÌ ³ÎÀÌ°Å³ª ÆøÅºÀÌ ¾Æ´Ï¶ó¸é...
+        // ì•„ì´í…œì´ ë„ì´ê±°ë‚˜ í­íƒ„ì´ ì•„ë‹ˆë¼ë©´...
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_BOMB) {
             GCSkillFailed1 _GCSkillFailed1;
             //_GCSkillFailed1.setSkillType(SKILL_THROW_BOMB);
@@ -150,8 +150,8 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
         }
 
         /*
-        // 6Àº ÀÓÀÇÀÇ »çÁ¤ °Å¸®´Ù...
-        // »çÁ¤ °Å¸®º¸´Ù ¸Ö¸® ´øÁö·Á°í ÇÏ¸é, ¾î¶»°Ô ÇÏ´Â °ÍÀÌ ÁÁÀ»±î?
+        // 6ì€ ì„ì˜ì˜ ì‚¬ì • ê±°ë¦¬ë‹¤...
+        // ì‚¬ì • ê±°ë¦¬ë³´ë‹¤ ë©€ë¦¬ ë˜ì§€ë ¤ê³  í•˜ë©´, ì–´ë–»ê²Œ í•˜ëŠ” ê²ƒì´ ì¢‹ì„ê¹Œ?
         if (!verifyDistance(pSlayer, ZoneX, ZoneY, 6))
         {
             GCSkillFailed1 _GCSkillFailed1;
@@ -161,7 +161,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
         }
         */
 
-        // ÆøÅºÀÇ °¢Á¾ Á¤º¸¸¦ ¾ò¾î¿Â´Ù.
+        // í­íƒ„ì˜ ê°ì¢… ì •ë³´ë¥¼ ì–»ì–´ì˜¨ë‹¤.
         Bomb* pBomb = dynamic_cast<Bomb*>(pItem);
         ItemType_t BombType = pBomb->getItemType();
         Damage_t MinDamage = pBomb->getMinDamage();
@@ -171,7 +171,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
         Level_t SkillLevel = pSkillSlot->getExpLevel();
         Damage_t RealDamage = MinDamage + (max(0, ((int)MaxDamage * (int)SkillLevel / 100) - MinDamage));
 
-        // »ç¿ëÀÚÀÇ À§Ä¡¿Í ´øÁú °÷ÀÇ À§Ä¡·Î ¹æÇâÀ» °è»êÇÑ´Ù.
+        // ì‚¬ìš©ìì˜ ìœ„ì¹˜ì™€ ë˜ì§ˆ ê³³ì˜ ìœ„ì¹˜ë¡œ ë°©í–¥ì„ ê³„ì‚°í•œë‹¤.
         ZoneCoord_t myX = pSlayer->getX();
         ZoneCoord_t myY = pSlayer->getY();
         Dir_t dir = calcDirection(myX, myY, ZoneX, ZoneY);
@@ -190,7 +190,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = verifyDistance(pSlayer, ZoneX, ZoneY, 6);
 
-        // ¸Âµç ¸ÂÁö ¾Ê¾Òµç ÆøÅºÀÇ ¼ıÀÚ´Â ÁÙ¿©ÁÖ¾î¾ß ÇÑ´Ù.
+        // ë§ë“  ë§ì§€ ì•Šì•˜ë“  í­íƒ„ì˜ ìˆ«ìëŠ” ì¤„ì—¬ì£¼ì–´ì•¼ í•œë‹¤.
         decreaseItemNum(pBomb, pInventory, pSlayer->getName(), STORAGE_INVENTORY, 0, BombX, BombY);
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
@@ -203,14 +203,14 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
 
         decreaseMana(pSlayer, RequiredMP, _GCThrowBombOK1);
 
-        // °¢°¢ÀÇ Å¸ÀÏÀ» µ¹¸é¼­ È÷Æ® Ã¼Å©¸¦ ÇÑ´Ù.
+        // ê°ê°ì˜ íƒ€ì¼ì„ ëŒë©´ì„œ íˆíŠ¸ ì²´í¬ë¥¼ í•œë‹¤.
         for (int tileY = ZoneY - 1; tileY <= ZoneY + 1; tileY++) {
             for (int tileX = ZoneX - 1; tileX <= ZoneX + 1; tileX++, count++) {
-                // ¿Ã¹Ù¸¥ Á¸ ÁÂÇ¥°¡ ¾Æ´Ï¶ó¸é, continue
+                // ì˜¬ë°”ë¥¸ ì¡´ ì¢Œí‘œê°€ ì•„ë‹ˆë¼ë©´, continue
                 if (!isValidZoneCoord(pZone, tileX, tileY))
                     continue;
 
-                // mask°¡ 0ÀÌ¶ó¸é, Áï È÷Æ®·ÑÀ» ÇÒ ÇÊ¿ä°¡ ¾ø´Ù¸é continue
+                // maskê°€ 0ì´ë¼ë©´, ì¦‰ íˆíŠ¸ë¡¤ì„ í•  í•„ìš”ê°€ ì—†ë‹¤ë©´ continue
                 int Mask = BombMask[BombType][dir][count];
                 if (Mask == 0)
                     continue;
@@ -223,14 +223,14 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
                 if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) {
                     Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
-                    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+                    // NoSuchì œê±°. by sigi. 2002.5.2
                     if (pCreature != NULL && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA))
                         targetList.push_back(pCreature);
                 }
                 if (tile.hasCreature(Creature::MOVE_MODE_BURROWING)) {
                     Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_BURROWING);
 
-                    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+                    // NoSuchì œê±°. by sigi. 2002.5.2
                     if (pCreature != NULL && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA))
                         targetList.push_back(pCreature);
                 }
@@ -254,8 +254,8 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
                     bool bPK = verifyPK(pSlayer, pTargetCreature);
                     bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 
-                    // »ç¿ëÀÚ°¡ Å¸°ÙÀÌ¶ó¸é °æÇèÄ¡¸¦ ¾È¿Ã¸±·Á±¸ ³ë·Â ÇÑ´Ù.
-                    // ¸ö»§ÀÌ »ı°Ü³¯ ¼ö ÀÖ±â ¶§¹®ÀÌ´Ù.
+                    // ì‚¬ìš©ìê°€ íƒ€ê²Ÿì´ë¼ë©´ ê²½í—˜ì¹˜ë¥¼ ì•ˆì˜¬ë¦´ë ¤êµ¬ ë…¸ë ¥ í•œë‹¤.
+                    // ëª¸ë¹µì´ ìƒê²¨ë‚  ìˆ˜ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
                     if (tileX == ZoneX && tileY == ZoneY) {
                         if (pTargetCreature->isSlayer()) {
                             bRaceCheck = false;
@@ -280,18 +280,18 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
             }
         } // for (int tileY = ZoneY-1; tileY <= ZoneY+1; tileY++)
 
-        // ¸ğµç Å¸ÀÏ Ã¼Å©°¡ ³¡³µÀ¸´Ï, °æÇèÄ¡¸¦ ¾à°£ ¿Ã¸®°í, ¾ÆÀÌÅÛ ¼ıÀÚ¸¦ ÁÙ¿©ÁØ´Ù.
+        // ëª¨ë“  íƒ€ì¼ ì²´í¬ê°€ ëë‚¬ìœ¼ë‹ˆ, ê²½í—˜ì¹˜ë¥¼ ì•½ê°„ ì˜¬ë¦¬ê³ , ì•„ì´í…œ ìˆ«ìë¥¼ ì¤„ì—¬ì¤€ë‹¤.
         if (bHit && bRaceCheck) {
             shareAttrExp(pSlayer, RealDamage, 1, 8, 1, _GCThrowBombOK1);
             increaseDomainExp(pSlayer, SKILL_DOMAIN_GUN, pSkillInfo->getPoint(), _GCThrowBombOK1);
 
-            // ½ºÅ³À» »ç¿ëÇÒ ¼ö ÀÖÀ» ¶§¸¸ ½ºÅ³ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ìˆ˜ ìˆì„ ë•Œë§Œ ìŠ¤í‚¬ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             // 2003. 1. 12 by bezz
             if (pSkillSlot->canUse())
                 increaseSkillExp(pSlayer, SKILL_DOMAIN_GUN, pSkillSlot, pSkillInfo, _GCThrowBombOK1);
             //			increaseAlignment(pSlayer, SKILL_DOMAIN_GUN, _GCThrowBombOK1);
             // shareAttrExp(pSlayer, RealDamage, 1, 8, 1, _GCSkillToTileOK1);
-            // ÀÌ ºÎºĞ¿¡¼­ ÆĞÅ¶À» º¸³»Áà¾ß ÇÏ´Âµ¥..
+            // ì´ ë¶€ë¶„ì—ì„œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•˜ëŠ”ë°..
         }
 
         _GCThrowBombOK1.setXYDir(ZoneX, ZoneY, dir);
@@ -318,7 +318,7 @@ void CGThrowBombHandler::execute(CGThrowBomb* pPacket, Player* pPlayer)
 
             _GCThrowBombOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-            // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+            // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCThrowBombOK2);
 
 

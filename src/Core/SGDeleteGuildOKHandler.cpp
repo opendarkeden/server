@@ -40,14 +40,14 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
 
 #ifdef __GAME_SERVER__
 
-    // ±ÊµÂ æ∆¡ˆ∆Æø° ¿÷¥¬ ∏‚πˆ∏¶ warp Ω√≈≤¥Ÿ.
-    // ±ÊµÂ æ∆¡ˆ∆Æ∏¶ ªË¡¶«—¥Ÿ.
-    // ∏‚πˆ warpøÕ ±ÊµÂ æ∆¡ˆ∆Æ ªË¡¶ Ω√ ¥Ÿ∏• æ≤∑πµÂø°º≠ ZoneGroup Thread ≥ª∫Œø°º≠ ¿œæÓ≥™∞‘ «ÿæﬂ ∫∞≈ª¿Ã æ¯¿ª µÌ «œ¥Ÿ.
-    // ¿œ¥‹¿∫ ∞¡ µ–¥Ÿ. Portal ¿Ã ∏∑»˜π«∑Œ ¥ŸΩ√ µÈæÓ∞• ºˆ æ¯¿ª ∞Õ¿Ã¥Ÿ.
+    // Í∏∏Îìú ÏïÑÏßÄÌä∏Ïóê ÏûàÎäî Î©§Î≤ÑÎ•º warp ÏãúÌÇ®Îã§.
+    // Í∏∏Îìú ÏïÑÏßÄÌä∏Î•º ÏÇ≠Ï†úÌïúÎã§.
+    // Î©§Î≤Ñ warpÏôÄ Í∏∏Îìú ÏïÑÏßÄÌä∏ ÏÇ≠Ï†ú Ïãú Îã§Î•∏ Ïì∞Î†àÎìúÏóêÏÑú ZoneGroup Thread ÎÇ¥Î∂ÄÏóêÏÑú ÏùºÏñ¥ÎÇòÍ≤å Ìï¥Ïïº Î≥ÑÌÉàÏù¥ ÏóÜÏùÑ ÎìØ ÌïòÎã§.
+    // ÏùºÎã®ÏùÄ Í±ç ÎëîÎã§. Portal Ïù¥ ÎßâÌûàÎØÄÎ°ú Îã§Ïãú Îì§Ïñ¥Í∞à Ïàò ÏóÜÏùÑ Í≤ÉÏù¥Îã§.
 
     Assert(pPacket != NULL);
 
-    // ±ÊµÂ∏¶ ∞°¡Æø¬¥Ÿ.
+    // Í∏∏ÎìúÎ•º Í∞ÄÏ†∏Ïò®Îã§.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     try {
         Assert(pGuild != NULL);
@@ -56,7 +56,7 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
     }
 
 
-    // ±ÊµÂ »∞µø ¡ﬂ¿Œ ªÛ≈¬ø°º≠¿« «ÿ√º¿Œ¡ˆ ¥Î±‚ ¡ﬂ¿Œ ªÛ≈¬ø°º≠¿« «ÿ√º¿Œ¡ˆ ±∏∫∞«—¥Ÿ.
+    // Í∏∏Îìú ÌôúÎèô Ï§ëÏù∏ ÏÉÅÌÉúÏóêÏÑúÏùò Ìï¥Ï≤¥Ïù∏ÏßÄ ÎåÄÍ∏∞ Ï§ëÏù∏ ÏÉÅÌÉúÏóêÏÑúÏùò Ìï¥Ï≤¥Ïù∏ÏßÄ Íµ¨Î≥ÑÌïúÎã§.
     if (pGuild->getState() == Guild::GUILD_STATE_ACTIVE) {
         HashMapGuildMember& Members = pGuild->getMembers();
         HashMapGuildMemberItor itr = Members.begin();
@@ -64,7 +64,7 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
         for (; itr != Members.end(); itr++) {
             GuildMember* pGuildMember = itr->second;
 
-            // ¡¢º”«ÿ ¿÷¿∏∏È
+            // Ï†ëÏÜçÌï¥ ÏûàÏúºÎ©¥
             __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
             Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
@@ -75,29 +75,29 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
                 PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
                 Assert(pPlayerCreature != NULL);
 
-                // Slayer, Vampire ¿« ±ÊµÂ æ∆¿Ãµ∏¶ πŸ≤€¥Ÿ.
+                // Slayer, Vampire Ïùò Í∏∏Îìú ÏïÑÏù¥ÎîîÎ•º Î∞îÍæºÎã§.
                 if (pPlayerCreature->isSlayer()) {
-                    pPlayerCreature->setGuildID(99); // ΩΩ∑π¿ÃæÓ ∞°¿‘æ»«— ªÛ≈¬¿« ±ÊµÂ ID
+                    pPlayerCreature->setGuildID(99); // Ïä¨Î†àÏù¥Ïñ¥ Í∞ÄÏûÖÏïàÌïú ÏÉÅÌÉúÏùò Í∏∏Îìú ID
 
-                    // ≈¨∂Û¿Ãæ∆Æø° ±ÊµÂ æ∆¿Ãµ∞° πŸ≤º¿Ω¿ª æÀ∏∞¥Ÿ.
+                    // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê Í∏∏Îìú ÏïÑÏù¥ÎîîÍ∞Ä Î∞îÍºàÏùåÏùÑ ÏïåÎ¶∞Îã§.
                     GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                     gcModifyGuildMemberInfo.setGuildID(pPlayerCreature->getGuildID());
                     gcModifyGuildMemberInfo.setGuildName("");
                     gcModifyGuildMemberInfo.setGuildMemberRank(GuildMember::GUILDMEMBER_RANK_DENY);
                     pPlayer->sendPacket(&gcModifyGuildMemberInfo);
                 } else if (pPlayerCreature->isVampire()) {
-                    pPlayerCreature->setGuildID(0); // πÏ∆ƒ¿ÃæÓ ∞°¿‘æ»«— ªÛ≈¬¿« ±ÊµÂ ID
+                    pPlayerCreature->setGuildID(0); // Î±ÄÌååÏù¥Ïñ¥ Í∞ÄÏûÖÏïàÌïú ÏÉÅÌÉúÏùò Í∏∏Îìú ID
 
-                    // ≈¨∂Û¿Ãæ∆Æø° ±ÊµÂ æ∆¿Ãµ∞° πŸ≤º¿Ω¿ª æÀ∏∞¥Ÿ.
+                    // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê Í∏∏Îìú ÏïÑÏù¥ÎîîÍ∞Ä Î∞îÍºàÏùåÏùÑ ÏïåÎ¶∞Îã§.
                     GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                     gcModifyGuildMemberInfo.setGuildID(pPlayerCreature->getGuildID());
                     gcModifyGuildMemberInfo.setGuildName("");
                     gcModifyGuildMemberInfo.setGuildMemberRank(GuildMember::GUILDMEMBER_RANK_DENY);
                     pPlayer->sendPacket(&gcModifyGuildMemberInfo);
                 } else if (pPlayerCreature->isOusters()) {
-                    pPlayerCreature->setGuildID(66); // æ∆øÏΩ∫≈Õ¡Ó ∞°¿‘æ»«— ªÛ≈¬¿« ±ÊµÂ ID
+                    pPlayerCreature->setGuildID(66); // ÏïÑÏö∞Ïä§ÌÑ∞Ï¶à Í∞ÄÏûÖÏïàÌïú ÏÉÅÌÉúÏùò Í∏∏Îìú ID
 
-                    // ≈¨∂Û¿Ãæ∆Æø° ±ÊµÂ æ∆¿Ãµ∞° πŸ≤º¿Ω¿ª æÀ∏∞¥Ÿ.
+                    // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê Í∏∏Îìú ÏïÑÏù¥ÎîîÍ∞Ä Î∞îÍºàÏùåÏùÑ ÏïåÎ¶∞Îã§.
                     GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                     gcModifyGuildMemberInfo.setGuildID(pPlayerCreature->getGuildID());
                     gcModifyGuildMemberInfo.setGuildName("");
@@ -105,7 +105,7 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
                     pPlayer->sendPacket(&gcModifyGuildMemberInfo);
                 }
 
-                // ¡÷¿ßø° ≈¨∂Û¿Ãæ∆Æø° ±ÊµÂ æ∆¿Ãµ∞° πŸ≤º¿Ω¿ª æÀ∏∞¥Ÿ.
+                // Ï£ºÏúÑÏóê ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê Í∏∏Îìú ÏïÑÏù¥ÎîîÍ∞Ä Î∞îÍºàÏùåÏùÑ ÏïåÎ¶∞Îã§.
                 GCOtherModifyInfo gcOtherModifyInfo;
                 gcOtherModifyInfo.setObjectID(pCreature->getObjectID());
                 gcOtherModifyInfo.addShortData(MODIFY_GUILDID, pPlayerCreature->getGuildID());
@@ -118,17 +118,17 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
 
             __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
-            // Guild Member ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+            // Guild Member Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
             SAFE_DELETE(pGuildMember);
         }
 
-        // ±ÊµÂ ∏‚πˆ ∏ ¿ª ªË¡¶«—¥Ÿ.
+        // Í∏∏Îìú Î©§Î≤Ñ ÎßµÏùÑ ÏÇ≠Ï†úÌïúÎã§.
         Members.clear();
 
-        // ±ÊµÂ ∏≈¥œ¿˙ø°º≠ ±ÊµÂ∏¶ ªË¡¶«—¥Ÿ.
+        // Í∏∏Îìú Îß§ÎãàÏ†ÄÏóêÏÑú Í∏∏ÎìúÎ•º ÏÇ≠Ï†úÌïúÎã§.
         g_pGuildManager->deleteGuild(pGuild->getID());
 
-        // ±ÊµÂ ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+        // Í∏∏Îìú Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
         SAFE_DELETE(pGuild);
     } else if (pGuild->getState() == Guild::GUILD_STATE_WAIT) {
         HashMapGuildMember& Members = pGuild->getMembers();
@@ -143,7 +143,7 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
             for (; itr != Members.end(); itr++) {
                 GuildMember* pGuildMember = itr->second;
 
-                // ¡¢º”«ÿ ¿÷¿∏∏È
+                // Ï†ëÏÜçÌï¥ ÏûàÏúºÎ©¥
                 __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
                 Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
@@ -154,7 +154,7 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
                     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
                     Assert(pPlayerCreature != NULL);
 
-                    // µÓ∑œ∫Ò∏¶ »Ø∫“«—¥Ÿ.
+                    // Îì±Î°ùÎπÑÎ•º ÌôòÎ∂àÌïúÎã§.
                     Gold_t Gold = pPlayerCreature->getGold();
                     if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_MASTER) {
                         Gold = min((uint64_t)(Gold + RETURN_SLAYER_MASTER_GOLD), (uint64_t)2000000000);
@@ -168,7 +168,7 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
                     gcModifyInformation.addLongData(MODIFY_GOLD, Gold);
                     pPlayer->sendPacket(&gcModifyInformation);
 
-                    // ∏ﬁΩ√¡ˆ∏¶ ∫∏≥Ω¥Ÿ.
+                    // Î©îÏãúÏßÄÎ•º Î≥¥ÎÇ∏Îã§.
                     pResult = pStmt->executeQuery("SELECT Message FROM Messages WHERE Receiver = '%s'",
                                                   pCreature->getName().c_str());
 
@@ -183,18 +183,18 @@ void SGDeleteGuildOKHandler::execute(SGDeleteGuildOK* pPacket)
 
                 __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
-                // ±ÊµÂ ∏‚πˆ ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+                // Í∏∏Îìú Î©§Î≤Ñ Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
                 SAFE_DELETE(pGuildMember);
             }
 
-            // ±ÊµÂ ∏‚πˆ «ÿΩ¨ ∏ ¿ª ¡ˆøÓ¥Ÿ.
+            // Í∏∏Îìú Î©§Î≤Ñ Ìï¥Ïâ¨ ÎßµÏùÑ ÏßÄÏö¥Îã§.
             Members.clear();
 
-            // ±ÊµÂ ∏≈¥œ¿˙ø°º≠ ±ÊµÂ∏¶ ªË¡¶«—¥Ÿ.
+            // Í∏∏Îìú Îß§ÎãàÏ†ÄÏóêÏÑú Í∏∏ÎìúÎ•º ÏÇ≠Ï†úÌïúÎã§.
             g_pGuildManager->deleteGuild(pGuild->getID());
             GuildUnionManager::Instance().removeMasterGuild(pGuild->getID());
 
-            // ±ÊµÂ ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+            // Í∏∏Îìú Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
             SAFE_DELETE(pGuild);
 
             SAFE_DELETE(pStmt);

@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterAI.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ¸ó½ºÅÍÀÇ Çàµ¿À» °áÁ¤ÇÏ´Â ³úÀÇ ¿ªÇÒÀ» ÇØÁÖ´Â AI Å¬·¡½ºÀÌ´ç.
+// ëª¬ìŠ¤í„°ì˜ í–‰ë™ì„ ê²°ì •í•˜ëŠ” ë‡Œì˜ ì—­í• ì„ í•´ì£¼ëŠ” AI í´ë˜ìŠ¤ì´ë‹¹.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MONSTERAI_H__
@@ -15,7 +15,7 @@
 #include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ±â¼ú ½ÇÆĞ °ü·Ã »ó¼ö
+// ê¸°ìˆ  ì‹¤íŒ¨ ê´€ë ¨ ìƒìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 enum {
     SKILL_FAILED_RANGE = 1,
@@ -26,7 +26,7 @@ enum {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// µô·¹ÀÌ °ü·Ã »ó¼ö
+// ë”œë ˆì´ ê´€ë ¨ ìƒìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 enum {
     LAST_ACTION_NONE,
@@ -37,7 +37,7 @@ enum {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// µô·¹ÀÌ °ü·Ã »ó¼ö
+// ë”œë ˆì´ ê´€ë ¨ ìƒìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 enum MoveRule {
     MOVE_RULE_NORMAL,
@@ -62,7 +62,7 @@ public:
     virtual ~MonsterAI();
 
 public:
-    // µ¥ÀÌÅÍ ÇÔ¼ö
+    // ë°ì´í„° í•¨ìˆ˜
     bool getDamaged(void) const {
         return m_bDamaged;
     }
@@ -70,14 +70,14 @@ public:
         m_bDamaged = value;
     }
 
-    // ´ÙÀÌ·ºÆ¼ºê °ü·Ã ÇÔ¼ö
+    // ë‹¤ì´ë ‰í‹°ë¸Œ ê´€ë ¨ í•¨ìˆ˜
     void addDirective(Directive* pDirective);
 
-    // Á¶°Ç ÇÔ¼ö
+    // ì¡°ê±´ í•¨ìˆ˜
     bool checkCondition(int condition, Creature* pEnemy);
     bool checkDirective(Directive* pDirective, Creature* pEnemy);
 
-    // Çàµ¿ ÇÔ¼ö
+    // í–‰ë™ í•¨ìˆ˜
     bool move(ZoneCoord_t ex, ZoneCoord_t ey);
     bool move(Creature* pEnemy, bool bRetreat = false);
     bool approach(Creature* pEnemy) {
@@ -86,7 +86,7 @@ public:
     bool flee(Creature* pEnemy);
     int useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio);
 
-    // ÀÌµ¿ ÇÔ¼ö
+    // ì´ë™ í•¨ìˆ˜
     bool moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir);
     bool moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir, bool bLeft);
     void setMoveRule(MoveRule mr) {
@@ -94,7 +94,7 @@ public:
         m_WallCount = 0;
     }
 
-    // º®Å¸±â --
+    // ë²½íƒ€ê¸° --
     MoveRule getMoveRule() const {
         return m_MoveRule;
     }
@@ -102,11 +102,11 @@ public:
         return m_WallCount;
     }
 
-    // Çàµ¿ ÆĞÅÏ ¼±ÅÃ ÇÔ¼ö
+    // í–‰ë™ íŒ¨í„´ ì„ íƒ í•¨ìˆ˜
     void deal(Creature* pEnemy, const Timeval& currentTime);
     void actDeadAction(Creature* pEnemy);
 
-    // µô·¹ÀÌ °ü·Ã ÇÔ¼ö
+    // ë”œë ˆì´ ê´€ë ¨ í•¨ìˆ˜
     void setDelay(const Timeval& currentTime);
     void setAttackDelay(const Timeval& currentTime);
 
@@ -118,44 +118,44 @@ public:
     }
 
 private:
-    // ÀÌ AI°¡ Á¶Á¤ÇÏ´Â º»Ã¼
+    // ì´ AIê°€ ì¡°ì •í•˜ëŠ” ë³¸ì²´
     Monster* m_pBody;
 
-    // AIÀÇ ¼ºÇâ Å¸ÀÔ
+    // AIì˜ ì„±í–¥ íƒ€ì…
     uint m_AIType;
 
-    // Á¶°Ç°ú ¸í·É ÁıÇÕ
+    // ì¡°ê±´ê³¼ ëª…ë ¹ ì§‘í•©
     DirectiveSet* m_pDirectiveSet;
 
-    // µµ¸ÁÄ¡´Â ÅÏ È½¼ö Ä«¿îÅÍ
+    // ë„ë§ì¹˜ëŠ” í„´ íšŸìˆ˜ ì¹´ìš´í„°
     int m_Panic;
 
-    // µµ¸ÁÄ¡´Â ÃÖ´ë ÅÏ È½¼ö
+    // ë„ë§ì¹˜ëŠ” ìµœëŒ€ í„´ íšŸìˆ˜
     int m_PanicMax;
 
-    // µµ¸ÁÄ¡´Ù°¡ ¸ØÃç¼¹À» °æ¿ì,
-    // ¾È µµ¸ÁÄ¡°í °ø°İÇÏ´Â È½¼ö Ä«¿îÅÍ
+    // ë„ë§ì¹˜ë‹¤ê°€ ë©ˆì¶°ì„°ì„ ê²½ìš°,
+    // ì•ˆ ë„ë§ì¹˜ê³  ê³µê²©í•˜ëŠ” íšŸìˆ˜ ì¹´ìš´í„°
     int m_Courage;
 
-    // ¾È µµ¸ÁÄ¡°í °ø°İÇÏ´Â ÃÖ´ë ÅÏ È½¼ö
+    // ì•ˆ ë„ë§ì¹˜ê³  ê³µê²©í•˜ëŠ” ìµœëŒ€ í„´ íšŸìˆ˜
     int m_CourageMax;
 
-    // Áö³­ ÅÏ¿¡ ¸Â¾Ò´Ù, ¾È ¸Â¾Ò´Ù ÇÃ·¡±×...
+    // ì§€ë‚œ í„´ì— ë§ì•˜ë‹¤, ì•ˆ ë§ì•˜ë‹¤ í”Œë˜ê·¸...
     bool m_bDamaged;
 
-    // ÀÌ¹ø ÅÏ¿¡ ¹«¾ùÀ» Çß´Ù´Â ÇÃ·¡±×
+    // ì´ë²ˆ í„´ì— ë¬´ì—‡ì„ í–ˆë‹¤ëŠ” í”Œë˜ê·¸
     int m_LastAction;
 
-    // ÀÌµ¿ÇÏ´Â ¹æ¹ı
+    // ì´ë™í•˜ëŠ” ë°©ë²•
     MoveRule m_MoveRule;
 
-    // º®¿¡ ÀÇÇØ blockµÈ ¹æÇâ==´ÙÀ½¿¡ ²À °¥ ¼ö ÀÖ¾î¾ßÇÏ´Â ¹æÇâ
+    // ë²½ì— ì˜í•´ blockëœ ë°©í–¥==ë‹¤ìŒì— ê¼­ ê°ˆ ìˆ˜ ìˆì–´ì•¼í•˜ëŠ” ë°©í–¥
     Dir_t m_BlockedDir;
 
-    // º®Å¸°í °£ È¸¼ö
+    // ë²½íƒ€ê³  ê°„ íšŒìˆ˜
     int m_WallCount;
 
-    // ÇÔ¼ö Æ÷ÀÎÅÍµé...
+    // í•¨ìˆ˜ í¬ì¸í„°ë“¤...
     ConditionCheckFunction m_pCondChecker[DIRECTIVE_COND_MAX];
 };
 

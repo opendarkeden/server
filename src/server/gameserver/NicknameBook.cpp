@@ -74,7 +74,7 @@ void NicknameBook::load() {
             pLevelNickname->setNicknameIndex( level/10 );
             setNicknameInfo( 1, pLevelNickname );
 
-            cout << "´Ð³×ÀÓ ¹øÈ£ : " << level/10 << endl;
+            cout << "ë‹‰ë„¤ìž„ ë²ˆí˜¸ : " << level/10 << endl;
         }*/
 
     if (m_pOwner->getLevel() >= 10) {
@@ -97,10 +97,10 @@ void NicknameBook::load() {
     }
 
     if (m_pOwner->getGuildID() != m_pOwner->getCommonGuildID()) {
-        // ±æµå¸¦ °¡Á®¿Â´Ù.
+        // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Guild* pGuild = g_pGuildManager->getGuild(m_pOwner->getGuildID());
 
-        // ÇÃ·¹ÀÌ¾î°¡ ±æµåÀÇ ¸¶½ºÅÍÀÎÁö¸¦ È®ÀÎÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ì§€ë¥¼ í™•ì¸í•œë‹¤.
         if (pGuild != NULL && pGuild->getMaster() == m_pOwner->getName()) {
             NicknameInfo* pLevelNickname = new NicknameInfo;
             pLevelNickname->setNicknameID(GUILD_MASTER_NICKNAME_ID);

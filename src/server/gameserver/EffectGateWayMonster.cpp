@@ -24,7 +24,7 @@ EffectGateWayMonster::EffectGateWayMonster(Creature* pCreature)
 
     setTarget(pCreature);
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     __END_CATCH
@@ -47,7 +47,7 @@ void EffectGateWayMonster::affect(Creature* pCreature)
     HP_t HPRecovery = 1;
 
     if (pCreature->isSlayer() || pCreature->isVampire() || pCreature->isOusters()) {
-        cout << "½½·¹ÀÌ¾î³ª ¹ìÆÄÀÌ¾î´Â ÀÌ ÀÌÆåÆ®°¡ ºÙÁö ¾ÊÀ½" << endl;
+        cout << "ìŠ¬ë ˆì´ì–´ë‚˜ ë±€íŒŒì´ì–´ëŠ” ì´ ì´íŽ™íŠ¸ê°€ ë¶™ì§€ ì•ŠìŒ" << endl;
         return;
     }
 
@@ -67,11 +67,11 @@ void EffectGateWayMonster::affect(Creature* pCreature)
                 pkt.setCurrentHP(RemainHP);
                 pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &pkt);
             } else {
-                cout << "¼º¹° º¸°üÇÔÀÌ ¾Æ´Ï¶ó¸é ÀÌ ÀÌÆåÆ®°¡ ºÙÁö ¸øÇÔ" << endl;
+                cout << "ì„±ë¬¼ ë³´ê´€í•¨ì´ ì•„ë‹ˆë¼ë©´ ì´ ì´íŽ™íŠ¸ê°€ ë¶™ì§€ ëª»í•¨" << endl;
                 return;
             }
         } else {
-            cout << "¸ó½ºÅÍ°¡ ¾Æ´Ï¶ó¸é ÀÌÆåÆ®°¡ ºÙÁö ¸øÇÔ" << endl;
+            cout << "ëª¬ìŠ¤í„°ê°€ ì•„ë‹ˆë¼ë©´ ì´íŽ™íŠ¸ê°€ ë¶™ì§€ ëª»í•¨" << endl;
             return 0;
         }
 
@@ -103,8 +103,8 @@ void EffectGateWayMonster::affect(Creature* pCreature)
 
         Assert(pCreature != NULL);
 
-        // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-        // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+        // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+        // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
         pCreature->removeFlag(Effect::EFFECT_CLASS_GATEWAY_MONSTER);
 
         Zone* pZone = pCreature->getZone();

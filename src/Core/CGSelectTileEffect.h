@@ -43,7 +43,7 @@ public:
     }
 
 private:
-    ObjectID_t m_EffectObjectID; // ¼±ÅÃÇÑ ÀÌÆåÆ®ÀÇ ¿ÀºêÁ§Æ® ID
+    ObjectID_t m_EffectObjectID; // ì„ íƒí•œ ì´í™íŠ¸ì˜ ì˜¤ë¸Œì íŠ¸ ID
 };
 
 

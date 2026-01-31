@@ -87,7 +87,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) && !pCreature->isDead() &&
         !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
         && canAttack(NULL, pCreature)) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -103,7 +103,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pSlayer->getPlayer()->sendPacket(&gcMI);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pSlayer->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -123,7 +123,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pVampire->getPlayer()->sendPacket(&gcMI);
 
-                // °ø°İ(ÈíÇ÷) ´çÇÏ´Â °æ¿ì¿¡´Â °ø°İÀÚÀÇ ¼ºÇâÀÌ ¹Ù²ñ by sigi. 2002.12.27
+                // ê³µê²©(í¡í˜ˆ) ë‹¹í•˜ëŠ” ê²½ìš°ì—ëŠ” ê³µê²©ìì˜ ì„±í–¥ì´ ë°”ë€œ by sigi. 2002.12.27
                 Creature* pAttacker = pZone->getCreature(m_UserObjectID);
                 if (pAttacker != NULL && pAttacker->isVampire()) {
                     Vampire* pAttackVampire = dynamic_cast<Vampire*>(pAttacker);
@@ -131,13 +131,13 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
                     GCModifyInformation gcAttackerMI;
                     computeAlignmentChange(pVampire, decreaseHP, pAttackVampire, NULL, &gcAttackerMI);
 
-                    // ¹º°¡ º¯ÇÑ Á¤º¸°¡ ÀÖ´Ù¸é º¸³»ÁØ´Ù.
+                    // ë­”ê°€ ë³€í•œ ì •ë³´ê°€ ìˆë‹¤ë©´ ë³´ë‚´ì¤€ë‹¤.
                     if (gcAttackerMI.getShortCount() + gcAttackerMI.getLongCount() > 0) {
                         pAttackVampire->getPlayer()->sendPacket(&gcAttackerMI);
                     }
                 }
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pVampire->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -157,7 +157,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
                 gcMI.addShortData(MODIFY_CURRENT_HP, RemainHP);
                 pOusters->getPlayer()->sendPacket(&gcMI);
 
-                // °ø°İ(ÈíÇ÷) ´çÇÏ´Â °æ¿ì¿¡´Â °ø°İÀÚÀÇ ¼ºÇâÀÌ ¹Ù²ñ by sigi. 2002.12.27
+                // ê³µê²©(í¡í˜ˆ) ë‹¹í•˜ëŠ” ê²½ìš°ì—ëŠ” ê³µê²©ìì˜ ì„±í–¥ì´ ë°”ë€œ by sigi. 2002.12.27
                 Creature* pAttacker = pZone->getCreature(m_UserObjectID);
                 if (pAttacker != NULL && pAttacker->isOusters()) {
                     Ousters* pAttackOusters = dynamic_cast<Ousters*>(pAttacker);
@@ -165,13 +165,13 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
                     GCModifyInformation gcAttackerMI;
                     computeAlignmentChange(pOusters, decreaseHP, pAttackOusters, NULL, &gcAttackerMI);
 
-                    // ¹º°¡ º¯ÇÑ Á¤º¸°¡ ÀÖ´Ù¸é º¸³»ÁØ´Ù.
+                    // ë­”ê°€ ë³€í•œ ì •ë³´ê°€ ìˆë‹¤ë©´ ë³´ë‚´ì¤€ë‹¤.
                     if (gcAttackerMI.getShortCount() + gcAttackerMI.getLongCount() > 0) {
                         pAttackOusters->getPlayer()->sendPacket(&gcAttackerMI);
                     }
                 }
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pOusters->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -187,7 +187,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 
                 pMonster->setHP(RemainHP, ATTR_CURRENT);
 
-                // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 GCStatusCurrentHP pkt;
                 pkt.setObjectID(pMonster->getObjectID());
                 pkt.setCurrentHP(RemainHP);
@@ -209,7 +209,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
         }
 
 
-        // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+        // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
         // by sigi. 2002.9.9
         if (pCreature->isDead()) {
             Creature* pAttacker = pZone->getCreature(m_UserObjectID);
@@ -217,7 +217,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
             if (pAttacker != NULL) {
                 if (pAttacker->isVampire()) {
                     Vampire* pVampire = dynamic_cast<Vampire*>(pAttacker);
-                    // Á×ÀÏ¶§ °æÇèÄ¡¸¦ ÁØ´Ù.
+                    // ì£½ì¼ë•Œ ê²½í—˜ì¹˜ë¥¼ ì¤€ë‹¤.
                     GCModifyInformation mi;
 
                     int exp = computeCreatureExp(pCreature, KILL_EXP);

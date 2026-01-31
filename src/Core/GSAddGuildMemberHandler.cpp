@@ -43,27 +43,27 @@ void GSAddGuildMemberHandler::execute(GSAddGuildMember* pPacket, Player* pPlayer
         pGuildMember->setRequestDateTime(VSDateTime::currentDateTime());
     }
 
-    // DB ¿¡ Guild Member ¸¦ ÀúÀåÇÑ´Ù.
+    // DB ì— Guild Member ë¥¼ ì €ì¥í•œë‹¤.
     pGuildMember->create();
 
-    // Guild Member Intro ¸¦ DB¿¡ ÀúÀåÇÑ´Ù.
+    // Guild Member Intro ë¥¼ DBì— ì €ì¥í•œë‹¤.
     pGuildMember->saveIntro(pPacket->getGuildMemberIntro());
 
-    // ±æµå¿¡ Ãß°¡ÇÑ´Ù.
+    // ê¸¸ë“œì— ì¶”ê°€í•œë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     pGuild->addMember(pGuildMember);
 
-    // °ÔÀÓ ¼­¹ö·Î º¸³¾ ÆĞÅ¶À» ¸¸µç´Ù.
+    // ê²Œì„ ì„œë²„ë¡œ ë³´ë‚¼ íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     SGAddGuildMemberOK sgAddGuildMemberOK;
     sgAddGuildMemberOK.setGuildID(pGuildMember->getGuildID());
     sgAddGuildMemberOK.setName(pGuildMember->getName());
     sgAddGuildMemberOK.setGuildMemberRank(pGuildMember->getRank());
     sgAddGuildMemberOK.setServerGroupID(pPacket->getServerGroupID());
 
-    // °ÔÀÓ ¼­¹ö·Î ÆĞÅ¶À» º¸³½´Ù.
+    // ê²Œì„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgAddGuildMemberOK);
 
-    // µî·Ï ´ë±â ±æµåÀÌ°í ±æµå¿øÀÌ 5¸í ÀÌ»óÀÌ µÇ¸é Á¤½Ä ±æµå°¡ µÈ´Ù.
+    // ë“±ë¡ ëŒ€ê¸° ê¸¸ë“œì´ê³  ê¸¸ë“œì›ì´ 5ëª… ì´ìƒì´ ë˜ë©´ ì •ì‹ ê¸¸ë“œê°€ ëœë‹¤.
     if (pGuild->getState() == Guild::GUILD_STATE_WAIT && pGuild->getActiveMemberCount() > 4) {
         HashMapGuildMember& Members = pGuild->getMembers();
         HashMapGuildMemberItor itr = Members.begin();
@@ -71,8 +71,8 @@ void GSAddGuildMemberHandler::execute(GSAddGuildMember* pPacket, Player* pPlayer
             pGuildMember = itr->second;
 
             ///////////////////////////////////////////////////////////////////////////
-            // DB¿¡ Slayer, Vampire, Ousters Å×ÀÌºíÀÇ GuildID¸¦ ¹Ù²Û´Ù.
-            // DB¿¡ Message¸¦ Ãß°¡ÇÑ´Ù.
+            // DBì— Slayer, Vampire, Ousters í…Œì´ë¸”ì˜ GuildIDë¥¼ ë°”ê¾¼ë‹¤.
+            // DBì— Messageë¥¼ ì¶”ê°€í•œë‹¤.
             ///////////////////////////////////////////////////////////////////////////
             Statement* pStmt = NULL;
             BEGIN_DB {

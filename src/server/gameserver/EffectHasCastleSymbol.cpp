@@ -59,7 +59,7 @@ void EffectHasCastleSymbol::affect(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // Á¸ Á¤º¸¸¦ ¾ò´Â´Ù.
+    // ì¡´ ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤.
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
@@ -69,13 +69,13 @@ void EffectHasCastleSymbol::affect(Creature* pCreature)
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPC != NULL);
 
-    // À§Ä¡¸¦ ¾Ë¸°´Ù.
+    // ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
     /*	StringStream msg;
-        msg << pCreature->getName() << " ´Ô("
-            //<< ( pCreature->isSlayer() ? "½½·¹ÀÌ¾î" : "¹ìÆÄÀÌ¾î" ) << ")ÀÌ "
-            << g_pGuildManager->getGuildName( pPC->getGuildID() ) << ")ÀÌ "
+        msg << pCreature->getName() << " ë‹˜("
+            //<< ( pCreature->isSlayer() ? "ìŠ¬ë ˆì´ì–´" : "ë±€íŒŒì´ì–´" ) << ")ì´ "
+            << g_pGuildManager->getGuildName( pPC->getGuildID() ) << ")ì´ "
             << pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
-            << ")¿¡¼­ ¼ºÀÇ »óÂ¡(" << m_PartName << ")À» °¡Áö°í ÀÖ½À´Ï´Ù.";
+            << ")ì—ì„œ ì„±ì˜ ìƒì§•(" << m_PartName << ")ì„ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤.";
         */
 
     char msg[300];
@@ -117,7 +117,7 @@ void EffectHasCastleSymbol::affect(Item* pItem)
     if (m_pZone == NULL)
         return;
 
-    // ¼º¿¡ ÀüÀïÀÌ ÁøÇàÁßÀÎ °æ¿ì¸¸ ¸Ş¼¼Áö¸¦ º¸³»ÁØ´Ù.
+    // ì„±ì— ì „ìŸì´ ì§„í–‰ì¤‘ì¸ ê²½ìš°ë§Œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     ZoneID_t castleZoneID;
     bool isCastle;
 
@@ -127,10 +127,10 @@ void EffectHasCastleSymbol::affect(Item* pItem)
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_pZone->getZoneID());
         Assert(pZoneInfo != NULL);
 
-        // À§Ä¡¸¦ ¾Ë¸°´Ù.
+        // ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
         /*		StringStream msg;
                 msg << pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y
-                    << ")ÀÇ ¼º´Ü¿¡ " << m_PartName << " ¼ºÀÇ »óÂ¡ ÀÌ ÀÖ½À´Ï´Ù.";
+                    << ")ì˜ ì„±ë‹¨ì— " << m_PartName << " ì„±ì˜ ìƒì§• ì´ ìˆìŠµë‹ˆë‹¤.";
         */
 
         char msg[200];

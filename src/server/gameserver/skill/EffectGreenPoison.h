@@ -66,9 +66,9 @@ public:
     bool affectCreature(Creature* pCreature, bool bAffectByMove);
 
 private:
-    int m_Level;           // ¸¶¹ıÀÇ MagicLevel
-    Damage_t m_Damage;     // ¸¶¹ıÀÇ µ¥¹ÌÁö
-    Duration_t m_Duration; // ¸¶¹ıÀÇ Áö¼Ó ½Ã°£
+    int m_Level;           // ë§ˆë²•ì˜ MagicLevel
+    Damage_t m_Damage;     // ë§ˆë²•ì˜ ë°ë¯¸ì§€
+    Duration_t m_Duration; // ë§ˆë²•ì˜ ì§€ì† ì‹œê°„
     ObjectID_t m_UserObjectID;
     bool m_bVampire;
 };

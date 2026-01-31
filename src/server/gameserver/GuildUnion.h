@@ -120,31 +120,31 @@ public:
         OK = 0,
         ALREADY_IN_UNION,
         ALREADY_OFFER_SOMETHING,
-        TARGET_IS_NOT_MASTER, // ╩С╢К╧Фюл ╦╤╫╨ем╟║ ╬ф╢о╤СЁв;;
+        TARGET_IS_NOT_MASTER, // Л┐│К▄─К╟╘Л²╢ К╖┬Л┼╓М└╟Й╟─ Л∙└К▀┬К²╪К└╓;;
         NOT_IN_UNION,
-        MASTER_CANNOT_QUIT, // ©╛гуюг ╦╤╫╨ем ╠Ф╣Е╢б ╫╨╫╨╥н е╩еП╨р╟║(гою╖╠Ф╣Е╟║ ╬Ью╩╤╖╦╦ ╟║╢и-юз╣©юл╥║)
+        MASTER_CANNOT_QUIT, // Л≈╟М∙╘Л²≤ К╖┬Л┼╓М└╟ Й╦╦К⌠°К┼■ Л┼╓Л┼╓К║° М┐┬М┤╢К╤┬Й╟─(М∙≤Л°└Й╦╦К⌠°Й╟─ Л≈├Л²└К∙▄К╖▄ Й╟─К┼╔-Л·░К▐≥Л²╢К·≤)
         NO_TARGET_UNION,
         NOT_YOUR_UNION,
-        SOURCE_IS_NOT_MASTER, // ╫ец╩гя ╩Г╤Вюл ╦╤╫╨ем╟║ ╬ф╢о╢ы
-        YOU_HAVE_PENALTY,     // ╟╜а╕╥н е╩еПгя ╠Б╥оюл юж╢ы. ╫ец╩гр ╪Ж ╬Ь╢ы
-        NOT_ENOUGH_SLOT,      // OfferJoin╫ц...╟║ютгр ╪Ж юж╢б Slotюл ╡кбВ юж╢ы.
-        TOO_MANY_MEMBER       // ╦Б╧Ж╟║ 50╦М юл╩Сюл╤С ╟║ютгр ╪Ж ╬Ь╢ы.
+        SOURCE_IS_NOT_MASTER, // Л▀═Л╡╜М∙° Л┌╛К·▄Л²╢ К╖┬Л┼╓М└╟Й╟─ Л∙└К▀┬К▀╓
+        YOU_HAVE_PENALTY,     // Й╟∙Л═°К║° М┐┬М┤╢М∙° Й╦╟К║²Л²╢ Л·┬К▀╓. Л▀═Л╡╜М∙═ Л┬≤ Л≈├К▀╓
+        NOT_ENOUGH_SLOT,      // OfferJoinЛ▀°...Й╟─Л·┘М∙═ Л┬≤ Л·┬К┼■ SlotЛ²╢ Й╫┴Л╟╗ Л·┬К▀╓.
+        TOO_MANY_MEMBER       // К╘╓К╡└Й╟─ 50К╙┘ Л²╢Л┐│Л²╢К²╪ Й╟─Л·┘М∙═ Л┬≤ Л≈├К▀╓.
 
 
     };
-    uint offerJoin(GuildID_t gID, GuildID_t MasterGID); // ©╛гу╟║ют ╫ец╩
-    uint offerQuit(GuildID_t gID);                      // ©╛гуе╩еП ╫ец╩
+    uint offerJoin(GuildID_t gID, GuildID_t MasterGID); // Л≈╟М∙╘Й╟─Л·┘ Л▀═Л╡╜
+    uint offerQuit(GuildID_t gID);                      // Л≈╟М∙╘М┐┬М┤╢ Л▀═Л╡╜
 
-    uint acceptJoin(GuildID_t gID); // ©╛гу╟║ют ╪Ж╤Т
-    uint acceptQuit(GuildID_t gID); // ©╛гуе╩еП ╪Ж╤Т
+    uint acceptJoin(GuildID_t gID); // Л≈╟М∙╘Й╟─Л·┘ Л┬≤К²╫
+    uint acceptQuit(GuildID_t gID); // Л≈╟М∙╘М┐┬М┤╢ Л┬≤К²╫
 
-    uint denyJoin(GuildID_t gID); // ©╛гу╟║ют ╟е╨н
-    uint denyQuit(GuildID_t gID); // ©╠гуе╩еП ╟е╨н
+    uint denyJoin(GuildID_t gID); // Л≈╟М∙╘Й╟─Л·┘ Й╠╟К╤─
+    uint denyQuit(GuildID_t gID); // Л≈╫М∙╘М┐┬М┤╢ Й╠╟К╤─
 
     void clearOffer(GuildID_t gID);
     bool hasOffer(GuildID_t gID);
 
-    bool makeOfferList(uint uID, GCUnionOfferList& offerList); // ╦Я╥о©Дц╩
+    bool makeOfferList(uint uID, GCUnionOfferList& offerList); // К╙╘К║²Л ■Л╡╜
 
     static GuildUnionOfferManager& Instance() {
         static GuildUnionOfferManager theInstance;

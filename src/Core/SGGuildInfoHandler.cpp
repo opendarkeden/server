@@ -36,7 +36,7 @@ void SGGuildInfoHandler::execute(SGGuildInfo* pPacket)
 
     g_pGuildManager->lock();
 
-    // ¸ðµç ±æµé »èÁ¦ÇÑ´Ù.
+    // ëª¨ë“  ê¸¸ë“¤ ì‚­ì œí•œë‹¤.
     g_pGuildManager->clear_NOBLOCKED();
 
     GuildInfo2* pGuildInfo = NULL;

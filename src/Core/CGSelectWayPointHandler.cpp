@@ -55,13 +55,13 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
             executeEnterQuestZone(pPacket, pPlayer, targetDynamicZoneType);
         }
 
-        // °ÔÀÓ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+        // ê²Œì„ í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
         Assert(pGamePlayer != NULL);
         if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
             return;
 
-        // Å©¸®ÃÄ°¡ ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é ¸®ÅÏÇÑ´Ù.
+        // í¬ë¦¬ì³ê°€ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ë¦¬í„´í•œë‹¤.
         Creature* pCreature = pGamePlayer->getCreature();
         Assert(pCreature != NULL);
 
@@ -73,11 +73,11 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
         if (pCreature->hasRelicItem())
             return;
 
-        // Å©¸®ÃÄ°¡ Á×¾úÀ¸¸é ¸®ÅÏ
+        // í¬ë¦¬ì³ê°€ ì£½ì—ˆìœ¼ë©´ ë¦¬í„´
         if (pCreature->isDead())
             return;
 
-        // ÃÊº¸Á¸À¸·Î µé¾î°¡´Â °æ¿ì¿£ Á¾Á· »ó°ü¾øÀÌ º¸³»ÁØ´Ù.
+        // ì´ˆë³´ì¡´ìœ¼ë¡œ ë“¤ì–´ê°€ëŠ” ê²½ìš°ì—” ì¢…ì¡± ìƒê´€ì—†ì´ ë³´ë‚´ì¤€ë‹¤.
         if (pPacket->getZoneID() == 1122) {
             ZONE_COORD pos(1122);
 
@@ -96,21 +96,21 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
             if (!canEnterBeginnerZone(pCreature))
                 return;
 
-            // ÃÊº¸Á¸ÀÌ À¯·áÁ¸ÀÏ¼öµµ ÀÖÀ»¶ó³ª...?
+            // ì´ˆë³´ì¡´ì´ ìœ ë£Œì¡´ì¼ìˆ˜ë„ ìˆì„ë¼ë‚˜...?
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
             ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pos.id);
 
-            // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+            // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìê°€ ì•„ë‹ˆë©´...
             if (pZoneInfo == NULL || ((pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone()) &&
                                       (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass()))) {
                 // Statement* pStmt = NULL;
                 string connectIP = pGamePlayer->getSocket()->getHost();
 
-                // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                 if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                     sendPayInfo(pGamePlayer);
                 } else if (pZoneInfo->isPayPlay()) {
-                    // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                    // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                     GCSystemMessage gcSystemMessage;
 
                     if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
@@ -152,7 +152,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
                         }
             */
 
-            // Å©¸®ÃÄ Á¤º¸ º¸°í ¾Ë¾Æ¼­ Æ¨°ÜÁÖÀÚ =_=;;
+            // í¬ë¦¬ì³ ì •ë³´ ë³´ê³  ì•Œì•„ì„œ íŠ•ê²¨ì£¼ì =_=;;
             ZONE_COORD pos(g_pLevelWarZoneInfoManager->getCreatureZoneID(pCreature));
 
             if (g_pSweeperBonusManager->isAble(g_pLevelWarZoneInfoManager->getCreatureZoneID(pCreature))) {
@@ -217,7 +217,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
                         }
             */
 
-            // Å©¸®ÃÄ Á¤º¸ º¸°í ¾Ë¾Æ¼­ Æ¨°ÜÁÖÀÚ =_=;;
+            // í¬ë¦¬ì³ ì •ë³´ ë³´ê³  ì•Œì•„ì„œ íŠ•ê²¨ì£¼ì =_=;;
             ZONE_COORD pos;
 
             if (pCreature->isSlayer()) {
@@ -236,7 +236,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
             /*#if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
                         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pos.id);
 
-                        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+                        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìê°€ ì•„ë‹ˆë©´...
                         if (pZoneInfo==NULL
                             || (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
                                 && (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass() ))
@@ -244,14 +244,14 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
                             //Statement* pStmt = NULL;
                             string connectIP = pGamePlayer->getSocket()->getHost();
 
-                            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID()))
                             {
                                 sendPayInfo(pGamePlayer);
                             }
                             else if (pZoneInfo->isPayPlay())
                             {
-                                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                                 GCSystemMessage gcSystemMessage;
 
                                 if (g_pConfig->getPropertyInt("IsNetMarble")==0)
@@ -283,17 +283,17 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
         }
 
         if (!pCreature->isSlayer() && !pCreature->isOusters()) {
-            // ¹º°¡¸¦ ÇØ¾ßÇÏÁö ¾ÊÀ»±î?
+            // ë­”ê°€ë¥¼ í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ?
             return;
         }
 
         if (pCreature->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)) {
-            // ¹º°¡¸¦ ÇØ¾ßÇÏÁö ¾ÊÀ»±î?
+            // ë­”ê°€ë¥¼ í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ?
             return;
         }
 
         if (pCreature->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER)) {
-            // ¹º°¡¸¦ ÇØ¾ßÇÏÁö ¾ÊÀ»±î?
+            // ë­”ê°€ë¥¼ í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ?
             return;
         }
 
@@ -302,7 +302,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
 
         bool bCancel = false;
 
-        // ÀÌÆåÆ®°¡ °É·ÁÀÖ¾î¾ß Á¤»óÀûÀÎ ÀÌµ¿ÀÌ´Ù.
+        // ì´í™íŠ¸ê°€ ê±¸ë ¤ìˆì–´ì•¼ ì •ìƒì ì¸ ì´ë™ì´ë‹¤.
         if (pCreature->isOusters() ||
             (pCreature->isSlayer() && pCreature->isFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL))) {
             ZoneID_t id = pPacket->getZoneID();
@@ -312,15 +312,15 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
             if (id == 0 && x == 0 && y == 0) {
                 bCancel = true;
             } else {
-                // ¼®È­ »óÅÂÀÏ °æ¿ì »ı±ñ´Ù.
+                // ì„í™” ìƒíƒœì¼ ê²½ìš° ìƒê¹ë‹¤.
                 if (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) {
                     bCancel = true;
                 }
 
-                // ¿şÀÌÆ÷ÀÎÆ® ¸Å´ÏÀú¸¦ ÅëÇØ¼­ Å¬¶óÀÌ¾ğÆ®°¡ º¸³»¿Â
-                // ¿şÀÌÆ÷ÀÎÆ®°¡ Á¤»óÀûÀÎ ¿şÀÌÆ÷ÀÎÆ®ÀÎÁö¸¦ °ËÁõÇÑ´Ù.
+                // ì›¨ì´í¬ì¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œ í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚´ì˜¨
+                // ì›¨ì´í¬ì¸íŠ¸ê°€ ì •ìƒì ì¸ ì›¨ì´í¬ì¸íŠ¸ì¸ì§€ë¥¼ ê²€ì¦í•œë‹¤.
                 if (!g_pWayPointManager->isValidWayPoint(id, x, y, pCreature->getRace())) {
-                    // ¹º°¡¸¦ ÇØ¾ßÇÏÁö ¾ÊÀ»±î?
+                    // ë­”ê°€ë¥¼ í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ?
                     bCancel = true;
 
                     // return;
@@ -331,17 +331,17 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
                         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(id);
 
-                        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+                        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìê°€ ì•„ë‹ˆë©´...
                         if (pZoneInfo == NULL || ((pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone()) &&
                                                   (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass()))) {
                             // Statement* pStmt = NULL;
                             string connectIP = pGamePlayer->getSocket()->getHost();
 
-                            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                                 sendPayInfo(pGamePlayer);
                             } else if (pZoneInfo->isPayPlay()) {
-                                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                                 GCSystemMessage gcSystemMessage;
 
                                 if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
@@ -358,7 +358,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
 #endif
 
                         if (!bCancel) {
-                            // ÀÌµ¿½ÃÅ°±â Àü¿¡ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+                            // ì´ë™ì‹œí‚¤ê¸° ì „ì— ì´í™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
                             if (pCreature->isSlayer())
                                 pCreature->removeFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL);
 
@@ -368,7 +368,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
 
                                 GCNoticeEvent gcNoticeEvent;
 
-                                // ´ëÁöÁ¤·ÉÀÇ »ÔÀ» »ç¿ëÇÒ¶ó¸é ½Ã¿À¶÷°ú °è¾àÀ» ¸Î¾ú¾î¾ß ÇÑ´Ù.
+                                // ëŒ€ì§€ì •ë ¹ì˜ ë¿”ì„ ì‚¬ìš©í• ë¼ë©´ ì‹œì˜¤ëŒê³¼ ê³„ì•½ì„ ë§ºì—ˆì–´ì•¼ í•œë‹¤.
                                 if (!pOusters->getFlagSet()->isOn(FLAGSET_GNOMES_HORN)) {
                                     gcNoticeEvent.setCode(NOTICE_EVENT_CONTRACT_GNOMES_HORN);
                                     pPlayer->sendPacket(&gcNoticeEvent);
@@ -400,7 +400,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
                                 }
                             }
 
-                            // ¿Ã¹Ù¸¥ ¿şÀÌÆ÷ÀÎÆ®¶ó¸é ½½·¹ÀÌ¾î¸¦ ÀÌµ¿½ÃÄÑÁØ´Ù.
+                            // ì˜¬ë°”ë¥¸ ì›¨ì´í¬ì¸íŠ¸ë¼ë©´ ìŠ¬ë ˆì´ì–´ë¥¼ ì´ë™ì‹œì¼œì¤€ë‹¤.
                             pPC->getGQuestManager()->illegalWarp();
                             transportCreature(pCreature, id, x, y, false);
                         }
@@ -415,10 +415,10 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket, Player* pPlayer
             Zone* pZone = pCreature->getZone();
             Assert(pZone != NULL);
 
-            // id, x, y°¡ ¸ğµÎ 0ÀÏ °æ¿ì ÀÌµ¿À» Ãë¼ÒÇÑ´Ù´Â ¶æÀÌ´Ù.
+            // id, x, yê°€ ëª¨ë‘ 0ì¼ ê²½ìš° ì´ë™ì„ ì·¨ì†Œí•œë‹¤ëŠ” ëœ»ì´ë‹¤.
             pCreature->removeFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL);
 
-            // Çï±â¸¦ Á¦°ÅÇÏ¶ó°í »Ñ·ÁÁØ´Ù.
+            // í—¬ê¸°ë¥¼ ì œê±°í•˜ë¼ê³  ë¿Œë ¤ì¤€ë‹¤.
             GCAddHelicopter gcAddHelicopter;
             gcAddHelicopter.setObjectID(pCreature->getObjectID());
             gcAddHelicopter.setCode(1);

@@ -29,10 +29,10 @@
 //
 // class ThreadPool
 //
-// ¾²·¹µå °´Ã¼µéÀÇ ÄÃ·º¼Ç Å¬·¡½ºÀÌ´Ù. ¼­¹ö Á¾·á½Ã È°µ¿ÁßÀÎ ¸ðµç ¾²·¹µåµéÀ»
-// Áß´Ü½ÃÅ³ ¶§, ¾²·¹µåÇ® °´Ã¼ÀÇ Stop¸Þ½îµå¸¦ »ç¿ëÇÏ¸é µÈ´Ù. ³»ºÎÀûÀ¸·Î
-// ½Ã±×³ÎÀÌ³ª Äµ½½·¹ÀÌ¼ÇÀÌ »ç¿ëµÉ Àü¸ÁÀÌ´Ù. ±×·±µ¥, ¾ÆÁ÷Àº ÀÚ·á°¡ ¾ø¾î¼­
-// ±¸ÇöÀ» ¸øÇÏ°í ÀÖ´Ù. ^^;
+// ì“°ë ˆë“œ ê°ì²´ë“¤ì˜ ì»¬ë ‰ì…˜ í´ëž˜ìŠ¤ì´ë‹¤. ì„œë²„ ì¢…ë£Œì‹œ í™œë™ì¤‘ì¸ ëª¨ë“  ì“°ë ˆë“œë“¤ì„
+// ì¤‘ë‹¨ì‹œí‚¬ ë•Œ, ì“°ë ˆë“œí’€ ê°ì²´ì˜ Stopë©”ì˜ë“œë¥¼ ì‚¬ìš©í•˜ë©´ ëœë‹¤. ë‚´ë¶€ì ìœ¼ë¡œ
+// ì‹œê·¸ë„ì´ë‚˜ ìº”ìŠ¬ë ˆì´ì…˜ì´ ì‚¬ìš©ë  ì „ë§ì´ë‹¤. ê·¸ëŸ°ë°, ì•„ì§ì€ ìžë£Œê°€ ì—†ì–´ì„œ
+// êµ¬í˜„ì„ ëª»í•˜ê³  ìžˆë‹¤. ^^;
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -45,7 +45,7 @@ public:
     ThreadPool() throw();
 
     // destructor
-    // Æ÷ÇÔÇÏ°í ÀÖ´Â ¸ðµç ¾²·¹µå °´Ã¼¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+    // í¬í•¨í•˜ê³  ìžˆëŠ” ëª¨ë“  ì“°ë ˆë“œ ê°ì²´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
     virtual ~ThreadPool() throw();
 
 
@@ -53,26 +53,26 @@ public:
     // methods
     //////////////////////////////////////////////////
 public:
-    // ¾²·¹µåÇ®¾È¿¡ µî·ÏµÈ ¾²·¹µåµéÀ» RUNNING »óÅÂ·Î ¸¸µç´Ù.
+    // ì“°ë ˆë“œí’€ì•ˆì— ë“±ë¡ëœ ì“°ë ˆë“œë“¤ì„ RUNNING ìƒíƒœë¡œ ë§Œë“ ë‹¤.
     void start() throw(Error);
 
-    // ¾²·¹µåÇ®¾È¿¡ µî·ÏµÈ ¸ðµç ¾²·¹µåÀÇ ½ÇÇàÀ» Áß´Ü½ÃÅ²´Ù.
-    //(ÀÌ´Â singal È¤Àº cancellation À¸·Î ±¸ÇöÇØ¾ß ÇÏ°Ú´Ù.)
+    // ì“°ë ˆë“œí’€ì•ˆì— ë“±ë¡ëœ ëª¨ë“  ì“°ë ˆë“œì˜ ì‹¤í–‰ì„ ì¤‘ë‹¨ì‹œí‚¨ë‹¤.
+    //(ì´ëŠ” singal í˜¹ì€ cancellation ìœ¼ë¡œ êµ¬í˜„í•´ì•¼ í•˜ê² ë‹¤.)
     void stop() throw(Error);
 
-    // ¾²·¹µåÇ®¿¡ ¾²·¹µå °´Ã¼¸¦ µî·ÏÇÑ´Ù.
+    // ì“°ë ˆë“œí’€ì— ì“°ë ˆë“œ ê°ì²´ë¥¼ ë“±ë¡í•œë‹¤.
     void addThread(Thread* thread) throw(Error);
 
-    // ¾²·¹µåÇ®¿¡¼­ Æ¯Á¤ ¾²·¹µå °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+    // ì“°ë ˆë“œí’€ì—ì„œ íŠ¹ì • ì“°ë ˆë“œ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
     void deleteThread(TID tid) throw(NoSuchElementException, Error);
 
-    // ¾²·¹µåÇ®¿¡¼­ Æ¯Á¤ ¾²·¹µå °´Ã¼¸¦ Ã£¾Æ¼­ ¸®ÅÏÇÑ´Ù.
+    // ì“°ë ˆë“œí’€ì—ì„œ íŠ¹ì • ì“°ë ˆë“œ ê°ì²´ë¥¼ ì°¾ì•„ì„œ ë¦¬í„´í•œë‹¤.
     Thread* getThread(TID tid) throw(NoSuchElementException, Error);
 
     // #ifdef __NO_COMBAT__
     list<Thread*> getThreads() {
         return m_Threads;
-    } // ±è°æ¼®
+    } // ê¹€ê²½ì„
     // #endif
 
     //////////////////////////////////////////////////
@@ -80,9 +80,9 @@ public:
     //////////////////////////////////////////////////
 private:
     //
-    // ¾²·¹µå °´Ã¼ÀÇ Æ÷ÀÎÅÍ¿¡ ´ëÇÑ ¸®½ºÆ®
-    // ½ÇÁ¦·Î´Â ¾²·¹µå Å¬·¡½ºÀÇ ÇÏÀ§ Å¬·¡½º°¡ µé¾î°¡°Ô µÈ´Ù.
-    // ÀÏ¹ÝÀûÀ¸·Î °°Àº Á¾·ùÀÇ ¾²·¹µåµéÀÌ µî·ÏµÈ´Ù.
+    // ì“°ë ˆë“œ ê°ì²´ì˜ í¬ì¸í„°ì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸
+    // ì‹¤ì œë¡œëŠ” ì“°ë ˆë“œ í´ëž˜ìŠ¤ì˜ í•˜ìœ„ í´ëž˜ìŠ¤ê°€ ë“¤ì–´ê°€ê²Œ ëœë‹¤.
+    // ì¼ë°˜ì ìœ¼ë¡œ ê°™ì€ ì¢…ë¥˜ì˜ ì“°ë ˆë“œë“¤ì´ ë“±ë¡ëœë‹¤.
     //
     // ex> PlayerThreadPool - PlayerThread
     //     NPCThreadPool    - NPCThread

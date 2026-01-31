@@ -36,7 +36,7 @@ bool EffectPoisonStorm::affectCreature(Creature* pTargetCreature, bool bAffectBy
 
     Assert(pTargetCreature != NULL);
 
-    // »ó´ë¿¡°Ô ÀÌ¹Ì poison ÀÌÆåÆ®°¡ °É·ÁÁ® ÀÖ´Â °æ¿ì¿¡´Â °É¸®Áö ¾Ê´Â´Ù.
+    // ìƒëŒ€ì—ê²Œ ì´ë¯¸ poison ì´íŽ™íŠ¸ê°€ ê±¸ë ¤ì ¸ ìžˆëŠ” ê²½ìš°ì—ëŠ” ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
     if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_STORM_POSION)) {
         // cout << "EffectPoisonStorm " << "affectCreature End " << endl;
         return false;
@@ -45,22 +45,22 @@ bool EffectPoisonStorm::affectCreature(Creature* pTargetCreature, bool bAffectBy
     Zone* pZone = pTargetCreature->getZone();
 
     Creature* pAttacker = pZone->getCreature(m_UserObjectID);
-    // »ó´ë¹æ¿¡°Ô ¹ÌÄ¥ µ¶ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œ ë¯¸ì¹  ë… ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
     int StormDamage = computeMagicDamage(pTargetCreature, m_Damage, SKILL_POISON_STORM, m_bVampire, pAttacker);
 
     if (StormDamage > 0) {
-        // Æ÷ÀÌÁð ÀÌÆåÆ®¸¦ »ý¼ºÇØ¼­, Å¸°Ù Å©¸®ÃÄ¿¡ ºÙÀÌ°í, ÇÃ·¡±×¸¦ ÄÑÁØ´Ù.
+        // í¬ì´ì¦Œ ì´íŽ™íŠ¸ë¥¼ ìƒì„±í•´ì„œ, íƒ€ê²Ÿ í¬ë¦¬ì³ì— ë¶™ì´ê³ , í”Œëž˜ê·¸ë¥¼ ì¼œì¤€ë‹¤.
         EffectStormPoison* pEffectStormPoison = new EffectStormPoison(pTargetCreature);
         pEffectStormPoison->setLevel(m_Level);
         pEffectStormPoison->setPoint(StormDamage / 3);
-        pEffectStormPoison->setDeadline(16); // ÀÌºÎºÐ ¹Ù²ã¾ß ÇÑ´Ù.
-        pEffectStormPoison->setTick(5);      // ÀÌºÎºÐµµ ¹Ù²ã¾ß ÇÑ´Ù.
+        pEffectStormPoison->setDeadline(16); // ì´ë¶€ë¶„ ë°”ê¿”ì•¼ í•œë‹¤.
+        pEffectStormPoison->setTick(5);      // ì´ë¶€ë¶„ë„ ë°”ê¿”ì•¼ í•œë‹¤.
         pEffectStormPoison->setUserObjectID(m_UserObjectID);
         pEffectStormPoison->affect(pTargetCreature);
         pTargetCreature->addEffect(pEffectStormPoison);
         pTargetCreature->setFlag(Effect::EFFECT_CLASS_STORM_POSION);
 
-        // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ÁÖº¯¿¡ ¾Ë·ÁÁØ´Ù.
+        // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì£¼ë³€ì— ì•Œë ¤ì¤€ë‹¤.
         GCAddEffect gcAddEffect;
         gcAddEffect.setObjectID(pTargetCreature->getObjectID());
         gcAddEffect.setEffectID(Effect::EFFECT_CLASS_STORM_POSION);

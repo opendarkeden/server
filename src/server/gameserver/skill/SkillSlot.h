@@ -76,8 +76,8 @@ public:
         m_Name = Name;
     }
 
-    // »ç¿ë°¡´ÉÇÒ °æ¿ì true
-    // »ç¿ë ºÒ°¡´ÉÇÒ °æ¿ì false
+    // ì‚¬ìš©ê°€ëŠ¥í•  ê²½ìš° true
+    // ì‚¬ìš© ë¶ˆê°€ëŠ¥í•  ê²½ìš° false
     void setDisable() throw() {
         m_Enable = false;
     }
@@ -88,18 +88,18 @@ public:
         return m_Enable;
     }
 
-    // ´ÙÀ½ Ä³½ºÆÃÀÌ °¡´ÉÇÒ¶§±îÁö ³²Àº ½Ã°£
+    // ë‹¤ìŒ ìºìŠ¤íŒ…ì´ ê°€ëŠ¥í• ë•Œê¹Œì§€ ë‚¨ì€ ì‹œê°„
     Turn_t getRemainTurn(Timeval currentTime) const throw();
 
 protected:
     string m_Name;
-    SkillType_t m_SkillType; // ¸¶¹ı, ±â¼úÀÇ Á¾·ù
-    Exp_t m_Exp;             // ¼÷·Ãµµ
-    ExpLevel_t m_ExpLevel;   // ¼÷·Ãµµ ·¹º§
-    Turn_t m_Interval;       // ¸¶¹ı, ±â¼úÀÇ µô·¹ÀÌ, 0.1 ÃÊ ´ÜÀ§
-    Turn_t m_CastingTime;    // Ä³½ºÆÃ Å¸ÀÓ... 0.1ÃÊ ´ÜÀ§
-    Timeval m_runTime;       // ´ÙÀ½¿¡ ¾µ ¼ö ÀÖ´Â ½Ã°£
-    bool m_Enable;           // »ç¿ë °¡´É ÇÑ°¡ ¾ÈÇÑ°¡
+    SkillType_t m_SkillType; // ë§ˆë²•, ê¸°ìˆ ì˜ ì¢…ë¥˜
+    Exp_t m_Exp;             // ìˆ™ë ¨ë„
+    ExpLevel_t m_ExpLevel;   // ìˆ™ë ¨ë„ ë ˆë²¨
+    Turn_t m_Interval;       // ë§ˆë²•, ê¸°ìˆ ì˜ ë”œë ˆì´, 0.1 ì´ˆ ë‹¨ìœ„
+    Turn_t m_CastingTime;    // ìºìŠ¤íŒ… íƒ€ì„... 0.1ì´ˆ ë‹¨ìœ„
+    Timeval m_runTime;       // ë‹¤ìŒì— ì“¸ ìˆ˜ ìˆëŠ” ì‹œê°„
+    bool m_Enable;           // ì‚¬ìš© ê°€ëŠ¥ í•œê°€ ì•ˆí•œê°€
 };
 
 #endif // __SKILL_SLOT_H__

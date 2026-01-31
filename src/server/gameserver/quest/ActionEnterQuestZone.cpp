@@ -44,7 +44,7 @@ void ActionEnterQuestZone::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterQuestZone::execute(Creature* pNPC, Creature* pCreature)
 
@@ -65,16 +65,16 @@ void ActionEnterQuestZone::execute(Creature* pNPC, Creature* pCreature)
     try {
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
 
-        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìê°€ ì•„ë‹ˆë©´...
         if (pZoneInfo == NULL ||
             pZoneInfo->isPayPlay() && !(pGamePlayer->isPayPlaying() || pGamePlayer->isFamilyFreePass())) {
             string connectIP = pGamePlayer->getSocket()->getHost();
 
-            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                 sendPayInfo(pGamePlayer);
             } else {
-                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                 GCSystemMessage gcSystemMessage;
 
                 if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
@@ -93,11 +93,11 @@ void ActionEnterQuestZone::execute(Creature* pNPC, Creature* pCreature)
 #endif
 
     if (bTransport) {
-        // Dynamic Á¸ÀÎÁö È®ÀÎ.
+        // Dynamic ì¡´ì¸ì§€ í™•ì¸.
         int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID(m_ZoneID);
 
         if (targetDynamicZoneType != DYNAMIC_ZONE_MAX) {
-            // Dynamic Á¸ÀÏ °æ¿ì
+            // Dynamic ì¡´ì¼ ê²½ìš°
             DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup(targetDynamicZoneType);
             Assert(pDynamicZoneGroup != NULL);
 
@@ -112,7 +112,7 @@ void ActionEnterQuestZone::execute(Creature* pNPC, Creature* pCreature)
                 pAlterOfBlood->setRace(pPC->getRace());
             }
         } else {
-            // Dynamic Á¸ÀÌ ¾Æ´Ò °æ¿ì
+            // Dynamic ì¡´ì´ ì•„ë‹ ê²½ìš°
             transportCreature(pCreature, m_ZoneID, m_X, m_Y, true);
         }
     } else {

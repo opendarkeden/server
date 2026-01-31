@@ -38,9 +38,9 @@ struct OFFERING_TEMPLATE {
     string Name[5];
 };
 
-const OFFERING_TEMPLATE OfferingTemplate[3] = {{793, {"Ô¼º²Ñ·", "±ÈÁ¦", "Àí²éµÂ", "°£Ë¹¿¨Ì¹", "Â·Ò×Ë¹"}},
-                                               {794, {"Õ²Ä·Ë¹", "¿­Éª", "ÅÂÒ×", "ÄáÄÇÂ¬Ë¹", "Â¬"}},
-                                               {795, {"ÅåË¹ÌØ", "Ğ¤", "°¢Â¬Ë¹", "Õ²ç÷", "¸ñÅ¬"}}};
+const OFFERING_TEMPLATE OfferingTemplate[3] = {{793, {"Ã”Â¼ÂºÂ²Ã‘Â·", "Â±ÃˆÃÂ¦", "Ã€Ã­Â²Ã©ÂµÃ‚", "Â°Â£Ã‹Â¹Â¿Â¨ÃŒÂ¹", "Ã‚Â·Ã’Ã—Ã‹Â¹"}},
+                                               {794, {"Ã•Â²Ã„Â·Ã‹Â¹", "Â¿Â­Ã‰Âª", "Ã…Ã‚Ã’Ã—", "Ã„Ã¡Ã„Ã‡Ã‚Â¬Ã‹Â¹", "Ã‚Â¬"}},
+                                               {795, {"Ã…Ã¥Ã‹Â¹ÃŒÃ˜", "ÃÂ¤", "Â°Â¢Ã‚Â¬Ã‹Â¹", "Ã•Â²Ã§Ã·", "Â¸Ã±Ã…Â¬"}}};
 
 struct OFFERING_COORDINATE {
     ZoneCoord_t X;
@@ -125,7 +125,7 @@ void DynamicZoneAlterOfBlood::heartbeat() {
 bool DynamicZoneAlterOfBlood::checkPC() {
     Assert(m_pZone != NULL);
 
-    // PC ¼ö Ã¼Å©
+    // PC Â¼Ã¶ ÃƒÂ¼Ã…Â©
     uint size = m_pZone->getPCManager()->getSize();
 
     return size != 0;
@@ -135,7 +135,7 @@ bool DynamicZoneAlterOfBlood::addOffering() {
     Assert(m_pZone != NULL);
 
     for (int i = 0; i < 5; ++i) {
-        // Á¦¹°À» »ı¼ºÇÏ¿© Ãß°¡ÇÑ´Ù. Á¦¹°Àº ³ú°¡ ¾ø´Â ¸ó½ºÅÍ´Ù
+        // ÃÂ¦Â¹Â°Ã€Â» Â»Ã½Â¼ÂºÃ‡ÃÂ¿Â© ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™. ÃÂ¦Â¹Â°Ã€Âº Â³ÃºÂ°Â¡ Â¾Ã¸Â´Ã‚ Â¸Ã³Â½ÂºÃ…ÃÂ´Ã™
         Monster* pMonster = new Monster(OfferingTemplate[m_Race].MonsterType);
         Assert(pMonster != NULL);
 
@@ -203,7 +203,7 @@ bool DynamicZoneAlterOfBlood::clearOffering() {
 }
 
 bool DynamicZoneAlterOfBlood::openGateToOut() {
-    // Äù½ºÆ®¸¦ ÁøÇà½ÃÅ²´Ù.
+    // Ã„Ã¹Â½ÂºÃ†Â®Â¸Â¦ ÃÃ¸Ã‡Ã Â½ÃƒÃ…Â²Â´Ã™.
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
@@ -219,7 +219,7 @@ bool DynamicZoneAlterOfBlood::openGateToOut() {
         }
     }
 
-    // Æ÷Å» À§Ä¡¸¦ Ã£¾Æ¼­ ±× À§¿¡´Ù EffectTilePortal À» º¸³½´Ù.
+    // Ã†Ã·Ã…Â» Ã€Â§Ã„Â¡Â¸Â¦ ÃƒÂ£Â¾Ã†Â¼Â­ Â±Ã— Ã€Â§Â¿Â¡Â´Ã™ EffectTilePortal Ã€Â» ÂºÂ¸Â³Â½Â´Ã™.
     int tx = -1;
     int ty = -1;
     for (int x = 0; x < m_pZone->getWidth(); x++) {
@@ -246,7 +246,7 @@ bool DynamicZoneAlterOfBlood::openGateToOut() {
 }
 
 void DynamicZoneAlterOfBlood::processEntering() {
-    // Äù½ºÆ® Á¸¿¡ µé¾î¿ÔÀ½À» ¾Ë¸°´Ù
+    // Ã„Ã¹Â½ÂºÃ†Â® ÃÂ¸Â¿Â¡ ÂµÃ©Â¾Ã®Â¿Ã”Ã€Â½Ã€Â» Â¾Ã‹Â¸Â°Â´Ã™
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 

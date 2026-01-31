@@ -79,7 +79,7 @@ Item* getCardItem(MoonCard card) {
     }
 
     if (putInDB) {
-        filelog("MoonCard.log", "¾ÆÀÌÅÛÀÌ ³ª¿Ô½À´Ï´Ù. : %d", (int)card);
+        filelog("MoonCard.log", "ì•„ì´í…œì´ ë‚˜ì™”ìŠµë‹ˆë‹¤. : %d", (int)card);
         Statement* pStmt = NULL;
 
         BEGIN_DB {

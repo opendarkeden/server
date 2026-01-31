@@ -51,10 +51,10 @@ void TimeLimitItemManager::load()
     __END_CATCH
 }
 
-// ¾ÆÀÌÅÛÀ» Å×ÀÌºí°ú ºñ±³ÇØ¼­ ¿ÀºêÁ§Æ® ¾ÆÀÌµð¸¦ µî·ÏÇØÁØ´Ù.
-// true °¡ ¸®ÅÏµÉ °æ¿ì ¿ÀºêÁ§Æ® ¾ÆÀÌµð°¡ µî·ÏµÈ´Ù.
-// false °¡ ¸®ÅÏµÉ °æ¿ì ¿ÀºêÁ§Æ®°¡ ¾ÆÀÌµð°¡ µî·ÏµÇÁö ¾ÊÀ¸¹Ç·Î m_ItemTimeLimits[pItem->ObjectID()] ´Â
-// ¿¹¿Ü°¡ ¹ß»ýÇÑ´Ù.
+// ì•„ì´í…œì„ í…Œì´ë¸”ê³¼ ë¹„êµí•´ì„œ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ë¥¼ ë“±ë¡í•´ì¤€ë‹¤.
+// true ê°€ ë¦¬í„´ë  ê²½ìš° ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ë“±ë¡ëœë‹¤.
+// false ê°€ ë¦¬í„´ë  ê²½ìš° ì˜¤ë¸Œì íŠ¸ê°€ ì•„ì´ë””ê°€ ë“±ë¡ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ m_ItemTimeLimits[pItem->ObjectID()] ëŠ”
+// ì˜ˆì™¸ê°€ ë°œìƒí•œë‹¤.
 bool TimeLimitItemManager::registerItem(Item* pItem)
 
 {
@@ -95,17 +95,17 @@ bool TimeLimitItemManager::checkTimeLimit(Item* pItem)
 
     if (itr == m_ItemTimeLimits.end()) {
         if (!registerItem(pItem)) {
-            // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛÀÌ ¾Æ´Ï´Ù.
-            // Áï ½Ã°£Á¦ÇÑ ¹«Á¦ÇÑÀÌ´Ù. ¤¾¤¾
+            // ì‹œê°„ì œí•œ ì•„ì´í…œì´ ì•„ë‹ˆë‹¤.
+            // ì¦‰ ì‹œê°„ì œí•œ ë¬´ì œí•œì´ë‹¤. ã…Žã…Ž
             return true;
         }
     }
 
     VSDateTime currentTime = VSDateTime::currentDateTime();
     if (currentTime > m_ItemTimeLimits[objectID]) {
-        cout << pItem->toString() << " ½Ã°£Á¦ÇÑ ÃÊ°ú : " << currentTime.toString() << " > "
+        cout << pItem->toString() << " ì‹œê°„ì œí•œ ì´ˆê³¼ : " << currentTime.toString() << " > "
              << m_ItemTimeLimits[objectID].toString() << endl;
-        // ½Ã°£ Á¦ÇÑÀÌ Áö³µ´Ù.
+        // ì‹œê°„ ì œí•œì´ ì§€ë‚¬ë‹¤.
         return false;
     }
 
@@ -187,7 +187,7 @@ bool TimeLimitItemManager::updateItemTimeLimit(Item* pItem, DWORD time) {
     __END_CATCH
 }
 
-// ¹Ýµå½Ã Á¸¿¡ ¾ÆÀÌÅÛÀ» µî·ÏÇÑ ÈÄ¿¡ È£ÃâÇØ¾ß ÇÑ´Ù.
+// ë°˜ë“œì‹œ ì¡´ì— ì•„ì´í…œì„ ë“±ë¡í•œ í›„ì— í˜¸ì¶œí•´ì•¼ í•œë‹¤.
 void TimeLimitItemManager::addTimeLimitItem(Item* pItem, DWORD time)
 
 {
@@ -224,7 +224,7 @@ void TimeLimitItemManager::addTimeLimitItem(Item* pItem, DWORD time)
     __END_CATCH
 }
 
-// ¸Þ¸ð¸®¿¡ ÀÖ´Â ¾Ö´Â ÀÏ´Ü ¾ÆÁ÷ ½Ã°£ÀÌ ³²Àº ³ÑÀÌ´Ù.
+// ë©”ëª¨ë¦¬ì— ìžˆëŠ” ì• ëŠ” ì¼ë‹¨ ì•„ì§ ì‹œê°„ì´ ë‚¨ì€ ë„˜ì´ë‹¤.
 bool TimeLimitItemManager::changeStatus(Item* pItem, TimeLimitStatus status) {
     __BEGIN_TRY
 
@@ -261,16 +261,16 @@ bool TimeLimitItemManager::changeStatus(Item* pItem, TimeLimitStatus status) {
     }
 
     if (!erased)
-        filelog("QuestItem.log", "[%u,%u] : ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛÀ» Å×ÀÌºí¿¡¼­ Áö¿ü´Âµ¥ ¸Þ¸ð¸®¿¡ ¾ø½À´Ï´Ù.",
+        filelog("QuestItem.log", "[%u,%u] : ì‹œê°„ì œí•œ ì•„ì´í…œì„ í…Œì´ë¸”ì—ì„œ ì§€ì› ëŠ”ë° ë©”ëª¨ë¦¬ì— ì—†ìŠµë‹ˆë‹¤.",
                 (uint)pItem->getItemClass(), (uint)pItem->getItemID());
 
-    // À§Çè -_- ObjectID..... 0ÀÌ¸é »¶³­´Ù. ¾ÆÀÌÅÛ ÆÈ ¶§´Â Á¸ ¾È¿¡ ÀÖÀ»¶§¸¸ ºÎ¸£´Ï±î ÀÏ´Ü 0ÀÏ ¸®°¡ ¾ø´Ù.
+    // ìœ„í—˜ -_- ObjectID..... 0ì´ë©´ ë»‘ë‚œë‹¤. ì•„ì´í…œ íŒ” ë•ŒëŠ” ì¡´ ì•ˆì— ìžˆì„ë•Œë§Œ ë¶€ë¥´ë‹ˆê¹Œ ì¼ë‹¨ 0ì¼ ë¦¬ê°€ ì—†ë‹¤.
     ItemTimeLimitMap::iterator itr2 = m_ItemTimeLimits.find(pItem->getObjectID());
 
     if (itr2 != m_ItemTimeLimits.end()) {
         m_ItemTimeLimits.erase(itr2);
     } else {
-        filelog("QuestItem.log", "[%u,%u] : Item Time Limit Map ¿¡µµ ¾ø½À´Ï´Ù.", (uint)pItem->getItemClass(),
+        filelog("QuestItem.log", "[%u,%u] : Item Time Limit Map ì—ë„ ì—†ìŠµë‹ˆë‹¤.", (uint)pItem->getItemClass(),
                 (uint)pItem->getItemID());
     }
 

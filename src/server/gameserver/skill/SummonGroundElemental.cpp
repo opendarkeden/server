@@ -79,7 +79,7 @@ SummonGroundElemental::SummonGroundElemental() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonGroundElemental::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                                     CEffectID_t CEffectID)
@@ -110,8 +110,8 @@ void SummonGroundElemental::execute(Ousters* pOusters, ObjectID_t TargetObjectID
         // Assert(pTargetCreature != NULL);
 
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType(), Grade);
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -130,7 +130,7 @@ void SummonGroundElemental::execute(Ousters* pOusters, ObjectID_t TargetObjectID
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî Å¸ÀÏ ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonGroundElemental::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y,
                                     OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
@@ -175,7 +175,7 @@ void SummonGroundElemental::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_
         SkillType_t SkillType = pOustersSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+        // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pOusters, pOustersSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -229,7 +229,7 @@ void SummonGroundElemental::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_
             Regen = 1 HP per 1 sec
             */
             Monster* pGroundElemental = new Monster(GROUND_ELEMENTAL_TYPE);
-            pGroundElemental->setName("´ëÁö Á¤·É");
+            pGroundElemental->setName("ëŒ€ì§€ ì •ë ¹");
             pGroundElemental->setHP(1000 + input.SkillLevel * 100);
             pGroundElemental->setHP(1000 + input.SkillLevel * 100, ATTR_MAX);
             pGroundElemental->setDefense(0);
@@ -242,14 +242,14 @@ void SummonGroundElemental::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_
             pGroundElemental->removeFlag(Effect::EFFECT_CLASS_HIDE);
             pGroundElemental->setMoveMode(Creature::MOVE_MODE_WALKING);
 
-            // ¹«³úÁ¤·É
+            // ë¬´ë‡Œì •ë ¹
             pGroundElemental->setBrain(NULL);
 
             pZone->addCreature(pGroundElemental, X, Y, 2);
             X = pGroundElemental->getX();
             Y = pGroundElemental->getY();
 
-            cout << pGroundElemental->toString() << " À» " << X << ", " << Y << " ¿¡ ºÒ·¯³Â½À´Ï´Ù." << endl;
+            cout << pGroundElemental->toString() << " ì„ " << X << ", " << Y << " ì— ë¶ˆëŸ¬ëƒˆìŠµë‹ˆë‹¤." << endl;
 
             EffectGroundElemental* pCreatureEffect = new EffectGroundElemental(pGroundElemental);
             pCreatureEffect->setDeadline(output.Duration);
@@ -282,22 +282,22 @@ void SummonGroundElemental::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_
                     if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))
                         continue;
 
-                    // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+                    // ê°™ì€ ì´íŽ™íŠ¸ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
                     Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GROUND_ELEMENTAL_AURA);
                     if (pOldEffect != NULL) {
                         ObjectID_t effectID = pOldEffect->getObjectID();
                         pZone->deleteEffect(effectID);
                     }
 
-                    // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+                    // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
                     EffectSummonGroundElemental* pEffect = new EffectSummonGroundElemental(pZone, oX, oY);
                     pEffect->setDeadline(output.Duration);
 
-                    // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+                    // íƒ€ì¼ì— ë¶™ì€ ì´íŽ™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
                     ObjectRegistry& objectregister = pZone->getObjectRegistry();
                     objectregister.registerObject(pEffect);
 
-                    // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                    // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                     pZone->addEffect(pEffect);
                     tile.addEffect(pEffect);
 

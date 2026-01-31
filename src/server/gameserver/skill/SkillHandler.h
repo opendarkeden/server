@@ -25,7 +25,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ÅÅ©·Î, »ó¼ö, ÇÔ¼ö Çì´õ
+// ë§¤í¬ë¡œ, ìƒìˆ˜, í•¨ìˆ˜ í—¤ë”
 //////////////////////////////////////////////////////////////////////////////
 
 #define MAKEWORD(U, D) (WORD)((WORD)(U) << 8 | (WORD)(D))
@@ -75,12 +75,12 @@ public:
     }
 
 public:
-    int Damage;   // µ¥¹ÌÁö ¶Ç´Â È¿°úÄ¡
-    int Duration; // Áö¼Ó ½Ã°£À» °¡Áö´Â ±â¼úÀÏ °æ¿ì, Áö¼Ó ½Ã°£
-    int Tick;     // ÀÏÁ¤ ÁÖ±â¸¶´Ù ¿µÇâÀ» ÁÖ´Â ±â¼úÀÏ °æ¿ì, ±× ÀÏÁ¤ ÁÖ±â
-    int ToHit;    // µ¥¹ÌÁö¿Í ÇÔ²² ¸íÁß·üµµ °°ÀÌ º¯È­½ÃÅ°´Â ±â¼úÀÏ °æ¿ì.
-    int Range;    // ¼÷·Ãµµ, INT µî¿¡ µû¶ó ¿µÇâ ¹üÀ§°¡ º¯ÇÏ´Â ±â¼úÀÏ °æ¿ì.
-    int Delay;    // ´ÙÀ½À¸·Î ±â¼úÀ» ¾µ ¼ö ÀÖ´Â ½Ã°£
+    int Damage;   // ë°ë¯¸ì§€ ë˜ëŠ” íš¨ê³¼ì¹˜
+    int Duration; // ì§€ì† ì‹œê°„ì„ ê°€ì§€ëŠ” ê¸°ìˆ ì¼ ê²½ìš°, ì§€ì† ì‹œê°„
+    int Tick;     // ì¼ì • ì£¼ê¸°ë§ˆë‹¤ ì˜í–¥ì„ ì£¼ëŠ” ê¸°ìˆ ì¼ ê²½ìš°, ê·¸ ì¼ì • ì£¼ê¸°
+    int ToHit;    // ë°ë¯¸ì§€ì™€ í•¨ê»˜ ëª…ì¤‘ë¥ ë„ ê°™ì´ ë³€í™”ì‹œí‚¤ëŠ” ê¸°ìˆ ì¼ ê²½ìš°.
+    int Range;    // ìˆ™ë ¨ë„, INT ë“±ì— ë”°ë¼ ì˜í–¥ ë²”ìœ„ê°€ ë³€í•˜ëŠ” ê¸°ìˆ ì¼ ê²½ìš°.
+    int Delay;    // ë‹¤ìŒìœ¼ë¡œ ê¸°ìˆ ì„ ì“¸ ìˆ˜ ìžˆëŠ” ì‹œê°„
 };
 
 
@@ -129,15 +129,15 @@ public:
                          CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot);
     virtual void execute(Ousters* pOusters, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y,
                          CoordInven_t TargetX, CoordInven_t TargetY, OustersSkillSlot* pOustersSkillSlot);
-    // Throw Holy Water¿ë...
+    // Throw Holy Waterìš©...
     virtual void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectID_t ItemObjectID, CoordInven_t X,
                          CoordInven_t Y);
-    // Absorb Soul ¿ë
+    // Absorb Soul ìš©
     virtual void execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord_t TargetZoneX, ZoneCoord_t TargetZoneY,
                          ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX,
                          CoordInven_t TargetY);
 
-    // TargetÀÌ ÀÌ¸§À¸·Î ½Äº°µÇ´Â °æ¿ì
+    // Targetì´ ì´ë¦„ìœ¼ë¡œ ì‹ë³„ë˜ëŠ” ê²½ìš°
     // ex) SoulChain .
     virtual void execute(PlayerCreature* pPC, const string& TargetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
     virtual void execute(Slayer* pSlayer, const string& TargetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID);

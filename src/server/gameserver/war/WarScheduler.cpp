@@ -13,31 +13,31 @@
 #include "WarSystem.h"
 #include "Zone.h"
 
-// dt ÀÌÈÄÀÇ ¿ù, ¼ö, ±İ ¿ÀÈÄ 8½Ã(~9½Ã)
-// dt ÀÌÈÄÀÇ ÀÏ¿äÀÏ 7½Ã(~9½Ã)
+// dt ì´í›„ì˜ ì›”, ìˆ˜, ê¸ˆ ì˜¤í›„ 8ì‹œ(~9ì‹œ)
+// dt ì´í›„ì˜ ì¼ìš”ì¼ 7ì‹œ(~9ì‹œ)
 const int NextWarDay[2][8] = {
-    {0, 1, 7, 6, 5, 4, 3, 2}, // ±æµåÀü
-    //{ 0, 2, 1, 0, 3, 2, 1, 0 }	// RaceWar ÈÕ,Ò»,¶ş,Èı,ËÄ,Îå,Áù,ÈÕ
-    {0, 6, 5, 4, 3, 2, 1, 0} // RaceWar ÈÕ,Ò»,¶ş,Èı,ËÄ,Îå,Áù,ÈÕ
+    {0, 1, 7, 6, 5, 4, 3, 2}, // ê¸¸ë“œì „
+    //{ 0, 2, 1, 0, 3, 2, 1, 0 }	// RaceWar íœ‘,å¯§,ë—,í›,æ„·,å·§,ì§‡,íœ‘
+    {0, 6, 5, 4, 3, 2, 1, 0} // RaceWar íœ‘,å¯§,ë—,í›,æ„·,å·§,ì§‡,íœ‘
 };
 
-// Å×½ºÆ® ¼­¹ö¿¡¼­..
+// í…ŒìŠ¤íŠ¸ ì„œë²„ì—ì„œ..
 const int NextWarHour[2][24] = {
     //                               *     *              *     *
     // 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18  19  20  21  22  23
-    {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 1, 5, 4, 3, 2, 1, 2, 1, 15, 14, 13, 12, 11}, // ±æµåÀü
+    {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 1, 5, 4, 3, 2, 1, 2, 1, 15, 14, 13, 12, 11}, // ê¸¸ë“œì „
 
     //                                           *                          *
     // 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18  19  20  21  22  23
-    {14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 8, 7, 6, 5, 4, 3, 2, 1, 16, 15} // Á¾Á·Àü
+    {14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 8, 7, 6, 5, 4, 3, 2, 1, 16, 15} // ì¢…ì¡±ì „
 };
 
 
 WarScheduler::WarScheduler(Zone* pZone)
 
     : m_pZone(pZone) {
-    // Zone¿¡ ºÙ¾î¼­ µ¹¾Æ°£´Ù.
-    // ±×·±µ¥, cancelGuildSchedules()´Â ¿ÜºÎ¿¡¼­ ºÒ¸°´Ù.
+    // Zoneì— ë¶™ì–´ì„œ ëŒì•„ê°„ë‹¤.
+    // ê·¸ëŸ°ë°, cancelGuildSchedules()ëŠ” ì™¸ë¶€ì—ì„œ ë¶ˆë¦°ë‹¤.
     m_Mutex.setName("WarSheduler");
 }
 
@@ -65,7 +65,7 @@ bool WarScheduler::makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList) 
         pGCWarScheduleList->addWarScheduleInfo(pWSI);
     }
 
-    // ÀÚµ¿À¸·Î ½ÃÀÛÇÏ´Â ±â´ÉÀÌ ¼³Á¤µÇ¾î ÀÖ´Ù¸é, Á¾Á· ÀüÀï Á¤º¸´Â ¹«Á¶°Ç ³Ö¾îÁØ´Ù.
+    // ìë™ìœ¼ë¡œ ì‹œì‘í•˜ëŠ” ê¸°ëŠ¥ì´ ì„¤ì •ë˜ì–´ ìˆë‹¤ë©´, ì¢…ì¡± ì „ìŸ ì •ë³´ëŠ” ë¬´ì¡°ê±´ ë„£ì–´ì¤€ë‹¤.
     if (g_pVariableManager->isAutoStartRaceWar()) {
         WarScheduleInfo* pWSI = new WarScheduleInfo;
         if (g_pWarSystem->addRaceWarScheduleInfo(pWSI)) {
@@ -96,7 +96,7 @@ Work* WarScheduler::heartbeat()
     __LEAVE_CRITICAL_SECTION(m_Mutex)
 
 
-    // Á¾Á· ÀüÀïÀÎ °æ¿ì´Â ´Ù½Ã 1ÁÖÀÏ ÈÄ ½ºÄÉÁìÀ» ³Ö¾îÁØ´Ù.
+    // ì¢…ì¡± ì „ìŸì¸ ê²½ìš°ëŠ” ë‹¤ì‹œ 1ì£¼ì¼ í›„ ìŠ¤ì¼€ì¥´ì„ ë„£ì–´ì¤€ë‹¤.
     /*
     if (pWork != NULL)
     {
@@ -110,7 +110,7 @@ Work* WarScheduler::heartbeat()
 
             addWar( pNewWar );
 
-            filelog("WarLog.txt", "[%d][WarID=%d] Á¾Á· ÀüÀïÀÌ ½ÃÀÛµÇ¾úÀ¸¹Ç·Î ´ÙÀ½ Á¾Á· ÀüÀïÀ» Ãß°¡ÇÕ´Ï´Ù.",
+            filelog("WarLog.txt", "[%d][WarID=%d] ì¢…ì¡± ì „ìŸì´ ì‹œì‘ë˜ì—ˆìœ¼ë¯€ë¡œ ë‹¤ìŒ ì¢…ì¡± ì „ìŸì„ ì¶”ê°€í•©ë‹ˆë‹¤.",
                                 (int)m_pZone->getZoneID(), (int)pWar->getWarID());
         }
     }
@@ -190,7 +190,7 @@ void WarScheduler::load()
                 dateTemp = pResult->getString(++i);
                 warStartTime = VSDateTime(dateTemp);
 
-                // ÀÌ¹Ì ½ÃÀÛµÇ¾ú¾î¾ßÇÒ ÀüÀïÀÌ¶ó¸é ½ÃÀÛ½Ã°£À» ¹Ù²ãÁØ´Ù.
+                // ì´ë¯¸ ì‹œì‘ë˜ì—ˆì–´ì•¼í•  ì „ìŸì´ë¼ë©´ ì‹œì‘ì‹œê°„ì„ ë°”ê¿”ì¤€ë‹¤.
                 if (warStartTime < currentDateTime) {
                     warStartTime = currentDateTime;
                 }
@@ -230,7 +230,7 @@ void WarScheduler::load()
     }
     END_DB(pStmt)
 
-    // Á¾Á· ÀüÀï ¼³Á¤µÈ°Ô ¾øÀ¸¸é ¼³Á¤ÇÑ´Ù.
+    // ì¢…ì¡± ì „ìŸ ì„¤ì •ëœê²Œ ì—†ìœ¼ë©´ ì„¤ì •í•œë‹¤.
     /*
     if (numRaceWar==0)
     {
@@ -240,7 +240,7 @@ void WarScheduler::load()
         WarSchedule* pWarSchedule = new WarSchedule( pRaceWar, warStartTime, Schedule::SCHEDULE_TYPE_PERIODIC );
         addSchedule( pWarSchedule );
 
-        filelog("WarLog.txt", "[%d][WarID=%d] Á¾Á· ÀüÀïÀÌ ¾øÀ¸¹Ç·Î Á¾Á· ÀüÀïÀ» Ãß°¡ÇÕ´Ï´Ù.",
+        filelog("WarLog.txt", "[%d][WarID=%d] ì¢…ì¡± ì „ìŸì´ ì—†ìœ¼ë¯€ë¡œ ì¢…ì¡± ì „ìŸì„ ì¶”ê°€í•©ë‹ˆë‹¤.",
                                 (int)m_pZone->getZoneID(), (int)pRaceWar->getWarID());
 
         pWarSchedule->create();
@@ -303,7 +303,7 @@ void WarScheduler::tinysave(WarID_t warID, const string& query)
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
 
-    filelog("WarError.log", "WarScheduler::tinySave() DB¿¡ WarID:%d ÀÎ WarScheduleÀÌ ¾ø½À´Ï´Ù.", warID);
+    filelog("WarError.log", "WarScheduler::tinySave() DBì— WarID:%d ì¸ WarScheduleì´ ì—†ìŠµë‹ˆë‹¤.", warID);
 
     __END_CATCH
 }
@@ -331,23 +331,23 @@ VSDateTime WarScheduler::getLastWarDateTime(WarType_t warType) const {
     return dt;
 }
 
-// dt ÀÌÈÄÀÇ ÀüÀï ½Ã°£À» ¾Ë¾Æ¿Â´Ù.
+// dt ì´í›„ì˜ ì „ìŸ ì‹œê°„ì„ ì•Œì•„ì˜¨ë‹¤.
 VSDateTime WarScheduler::getNextWarDateTime(WarType_t warType, const VSDateTime& dt) {
     int startHour = 0;
 
     VSDateTime nextWarDateTime;
     VSTime nextWarTime;
 
-    if (g_pVariableManager->isWarPeriodWeek()) // ¾Æ ³Ê¹«ÇÏÀÚ³ª ¤Ì¤Ì
+    if (g_pVariableManager->isWarPeriodWeek()) // ì•„ ë„ˆë¬´í•˜ìë‚˜ ã…œã…œ
     {
         switch (warType) {
         case WAR_GUILD:
-            // dt ÀÌÈÄÀÇ ¿ù, ¼ö, ±İ ¿ÀÈÄ 8½Ã(~9½Ã)
+            // dt ì´í›„ì˜ ì›”, ìˆ˜, ê¸ˆ ì˜¤í›„ 8ì‹œ(~9ì‹œ)
             startHour = 20;
             break;
 
         case WAR_RACE:
-            // dt ÀÌÈÄÀÇ ÀÏ¿äÀÏ 7½Ã(~9½Ã)
+            // dt ì´í›„ì˜ ì¼ìš”ì¼ 7ì‹œ(~9ì‹œ)
             startHour = 19;
             break;
         }
@@ -398,8 +398,8 @@ bool WarScheduler::addWar(War* pWar)
 
     addSchedule(pWarSchedule);
 
-    filelog("WarLog.txt", "[%d][WarID=%d] %s ÀüÀïÀ» ½ÅÃ»ÇßÀ¸¹Ç·Î ½ºÄÉÁì¿¡ Ãß°¡ÇÕ´Ï´Ù.", (int)m_pZone->getZoneID(),
-            (int)pWar->getWarID(), (pWar->getWarType() == WAR_GUILD ? "±æµå" : "Á¾Á·"));
+    filelog("WarLog.txt", "[%d][WarID=%d] %s ì „ìŸì„ ì‹ ì²­í–ˆìœ¼ë¯€ë¡œ ìŠ¤ì¼€ì¥´ì— ì¶”ê°€í•©ë‹ˆë‹¤.", (int)m_pZone->getZoneID(),
+            (int)pWar->getWarID(), (pWar->getWarType() == WAR_GUILD ? "ê¸¸ë“œ" : "ì¢…ì¡±"));
 
     pWarSchedule->create();
 
@@ -440,7 +440,7 @@ void WarScheduler::cancelGuildSchedules()
     }
     END_DB(pStmt)
 
-    // ´Ù½Ã ·ÎµåÇÑ´Ù. ¤»¤» - -;
+    // ë‹¤ì‹œ ë¡œë“œí•œë‹¤. ã…‹ã…‹ - -;
     load();
 
     __END_CATCH

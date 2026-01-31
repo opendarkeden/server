@@ -79,7 +79,7 @@ Item* getCardItem(MoonCard card) {
     }
 
     if (putInDB) {
-        filelog("MoonCard.log", "¾ÆÀÌÅÛÀÌ ³ª¿Ô½À´Ï´Ù. : %d", (int)card);
+        filelog("MoonCard.log", "ì•„ì´í…œì´ ë‚˜ì™”ìŠµë‹ˆë‹¤. : %d", (int)card);
         Statement* pStmt = NULL;
 
         BEGIN_DB {
@@ -163,7 +163,7 @@ Item* getLuckyBagItem(LuckyBag luckybag) {
     }
 
     if (putInDB) {
-        filelog("LuckyBag.log", "¾ÆÀÌÅÛÀÌ ³ª¿Ô½À´Ï´Ù. : %d", (int)luckybag);
+        filelog("LuckyBag.log", "ì•„ì´í…œì´ ë‚˜ì™”ìŠµë‹ˆë‹¤. : %d", (int)luckybag);
         Statement* pStmt = NULL;
 
         BEGIN_DB {
@@ -249,7 +249,7 @@ Item* getGiftBoxItem(GiftBox giftbox) {
     }
 
     if (putInDB) {
-        filelog("GiftBox.log", "¾ÆÀÌÅÛÀÌ ³ª¿Ô½À´Ï´Ù. : %d", (int)giftbox + 1);
+        filelog("GiftBox.log", "ì•„ì´í…œì´ ë‚˜ì™”ìŠµë‹ˆë‹¤. : %d", (int)giftbox + 1);
         Statement* pStmt = NULL;
 
         BEGIN_DB {
@@ -266,7 +266,7 @@ Item* getGiftBoxItem(GiftBox giftbox) {
 }
 
 int getBlackGiftBoxType(int t1, int t2) {
-    // ÇÊ»ì ÇÏµåÄÚµùÀÌ´Ù -¤Ğ-
+    // í•„ì‚´ í•˜ë“œì½”ë”©ì´ë‹¤ -ã… -
     int min = 0;
     int max = 0;
 

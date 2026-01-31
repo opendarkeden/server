@@ -55,7 +55,7 @@ void EffectSummonWaterElemental::affect()
     Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
     if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET ||
         !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
-        // Áß°£¿¡ ¸®½ºÆ²¸´À» »©¹ö¸®¸é ÀÌÆåÆ®µµ »ç¶óÁø´Ù.
+        // ì¤‘ê°„ì— ë¦¬ìŠ¤í‹€ë¦¿ì„ ë¹¼ë²„ë¦¬ë©´ ì´íŽ™íŠ¸ë„ ì‚¬ë¼ì§„ë‹¤.
         setDeadline(0);
         return;
     }
@@ -78,8 +78,8 @@ void EffectSummonWaterElemental::affect()
 
         int PartyID = pOusters->getPartyID();
         if (PartyID != 0) {
-            // ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ
-            // ÁÖÀ§ÀÇ ÆÄÆ¼¿øµé°ú °æÇèÄ¡¸¦ °øÀ¯ÇÑ´Ù.
+            // íŒŒí‹°ì— ê°€ìž…ë˜ì–´ ìžˆë‹¤ë©´ ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ë¥¼ í†µí•´
+            // ì£¼ìœ„ì˜ íŒŒí‹°ì›ë“¤ê³¼ ê²½í—˜ì¹˜ë¥¼ ê³µìœ í•œë‹¤.
             LocalPartyManager* pLPM = pOusters->getLocalPartyManager();
             Assert(pLPM != NULL);
             healed = pLPM->shareWaterElementalHeal(PartyID, pOusters, HealPoint);
@@ -140,7 +140,7 @@ void EffectSummonWaterElemental::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isOusters());
 
-    // ÇÃ·¡±×¸¦ ²ö´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ëˆë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_WATER_ELEMENTAL);
 
     Zone* pZone = pCreature->getZone();
@@ -149,7 +149,7 @@ void EffectSummonWaterElemental::unaffect(Creature* pCreature)
     Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
     Assert(pTargetOusters != NULL);
 
-    // ÀÌÆåÆ®¸¦ »èÁ¦ÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_WATER_ELEMENTAL);

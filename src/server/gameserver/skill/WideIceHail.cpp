@@ -17,7 +17,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void WideIceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -46,7 +46,7 @@ void WideIceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             Tile& tile = pZone->getTile(X, Y);
             if (tile.canAddEffect())
                 bTileCheck = true;
-            // ¸Ó½Ã ±×¶ó¿îµå ÀÖÀ½ Ãß°¡ ¸øÇÑ´ç.
+            // ë¨¸ì‹œ ê·¸ë¼ìš´ë“œ ìžˆìŒ ì¶”ê°€ ëª»í•œë‹¹.
             //			if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
         }
 
@@ -56,12 +56,12 @@ void WideIceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
         ZoneCoord_t myY = pMonster->getY();
 
         if (bHitRoll && bTileCheck) {
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectIceHail* pEffect = new EffectIceHail(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamage(output.Damage);
@@ -70,11 +70,11 @@ void WideIceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             pEffect->setRange(4);
             pEffect->setCasterID(pMonster->getObjectID());
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´íŽ™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             pZone->getTile(X, Y).addEffect(pEffect);
 

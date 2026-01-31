@@ -56,8 +56,8 @@ void EffectArmageddon::affect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®¸¦ °Ç Å©¸®ÃÄ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ¶°³µÀ» ¼öµµ ÀÖÀ¸¹Ç·Î NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´í™íŠ¸ë¥¼ ê±´ í¬ë¦¬ì³ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë– ë‚¬ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ NULL ì´ ë  ìˆ˜ ìˆë‹¤.
     // by bezz. 2003.1.4
     // Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 
@@ -71,7 +71,7 @@ void EffectArmageddon::affect(Creature* pCreature)
 
     // cout << "EffectArmageddon affect damage :" << m_Damage << endl;
 
-    // ¸ÅÃÊ µ¥¹ÌÁö ÁÖ´Â°Å Àá½Ã ¸·¾Æ³õÀ½. by Sequoia
+    // ë§¤ì´ˆ ë°ë¯¸ì§€ ì£¼ëŠ”ê±° ì ì‹œ ë§‰ì•„ë†“ìŒ. by Sequoia
     /*if ( pCreature->isSlayer() )
     {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -111,13 +111,13 @@ void EffectArmageddon::unaffect(Creature* pCreature)
 
     // cout << "EffectArmageddon unaffect.." << endl;
 
-    // ÇÃ·¡±×¸¦ ²ö´Ù.
+    // í”Œë˜ê·¸ë¥¼ ëˆë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_ARMAGEDDON);
 
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®¸¦ »èÁ¦ÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+    // ì´í™íŠ¸ë¥¼ ì‚­ì œí•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_ARMAGEDDON);
@@ -161,7 +161,7 @@ void EffectArmageddon::decreaseHP(Damage_t damage) throw() {
     HP_t RemainHP = max(0, m_HP - damage);
 
     setHP(RemainHP);
-    // ³²Àº HP°¡ 0ÀÏ °æ¿ì ´ÙÀ½ EffectManager::heartbeat() ¿¡¼­ ÀÌÆåÆ®¸¦ ³¯·ÁÁØ´Ù.
+    // ë‚¨ì€ HPê°€ 0ì¼ ê²½ìš° ë‹¤ìŒ EffectManager::heartbeat() ì—ì„œ ì´í™íŠ¸ë¥¼ ë‚ ë ¤ì¤€ë‹¤.
     if (RemainHP == 0)
         setDeadline(0);
 }

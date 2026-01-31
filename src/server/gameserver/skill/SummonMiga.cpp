@@ -21,7 +21,7 @@
 SummonMiga::SummonMiga() throw() {}
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonMiga::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -52,8 +52,8 @@ void SummonMiga::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
         // Assert(pTargetCreature != NULL);
 
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType(), Grade);
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -72,7 +72,7 @@ void SummonMiga::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî Å¸ÀÏ ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -117,7 +117,7 @@ void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
         SkillType_t SkillType = pOustersSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+        // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pOusters, pOustersSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -140,7 +140,7 @@ void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
             decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
             Monster* pMiga = new Monster(MIGA_TYPE);
-            pMiga->setName("¹Ì°¡");
+            pMiga->setName("ë¯¸ê°€");
             pMiga->setClanType(33);
             pMiga->setTreasure(false);
             pMiga->setScanEnemy(true);
@@ -155,7 +155,7 @@ void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
             X = pMiga->getX();
             Y = pMiga->getY();
 
-            cout << pMiga->toString() << " À» " << X << ", " << Y << " ¿¡ ºÒ·¯³Â½À´Ï´Ù." << endl;
+            cout << pMiga->toString() << " ì„ " << X << ", " << Y << " ì— ë¶ˆëŸ¬ëƒˆìŠµë‹ˆë‹¤." << endl;
 
             EffectKillTimer* pCreatureEffect = new EffectKillTimer(pMiga);
             pCreatureEffect->setDeadline(output.Duration);

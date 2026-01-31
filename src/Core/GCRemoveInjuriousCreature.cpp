@@ -11,7 +11,7 @@ void GCRemoveInjuriousCreature::read(SocketInputStream& iStream)
 {
     __BEGIN_TRY
 
-    // ¿Ã∏ß ¿–±‚
+    // Ïù¥Î¶Ñ ÏùΩÍ∏∞
     BYTE szName;
 
     iStream.read(szName);
@@ -32,7 +32,7 @@ void GCRemoveInjuriousCreature::write(SocketOutputStream& oStream) const
 {
     __BEGIN_TRY
 
-    // ¿Ã∏ß æ≤±‚
+    // Ïù¥Î¶Ñ Ïì∞Í∏∞
     BYTE szName = m_Name.size();
 
     if (szName == 0)

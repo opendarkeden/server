@@ -41,7 +41,7 @@ string PropertyBuffer::getProperty(string key) {
     while (m_Index < bufferLen) {
         string line = trim(getline(m_Buffer, m_Index));
 
-        // ºó ¶óÀÎ ¶Ç´Â ÄÚ¸àÆ® ¶óÀÎÀÌ ¾Æ´Ñ °æ¿ì
+        // ë¹ˆ ë¼ì¸ ë˜ëŠ” ì½”ë©˜íŠ¸ ë¼ì¸ì´ ì•„ë‹Œ ê²½ìš°
         if (line.size() != 0 && line[0] != Comment) {
             size_t i = line.find(Separator);
 
@@ -81,7 +81,7 @@ bool PropertyBuffer::getProperty(string key, string& value) {
     while (m_Index < bufferLen) {
         string line = trim(getline(m_Buffer, m_Index));
 
-        // ºó ¶óÀÎ ¶Ç´Â ÄÚ¸àÆ® ¶óÀÎÀÌ ¾Æ´Ñ °æ¿ì
+        // ë¹ˆ ë¼ì¸ ë˜ëŠ” ì½”ë©˜íŠ¸ ë¼ì¸ì´ ì•„ë‹Œ ê²½ìš°
         if (line.size() != 0 && line[0] != Comment) {
             size_t i = line.find(Separator);
 

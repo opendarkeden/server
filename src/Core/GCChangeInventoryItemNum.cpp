@@ -2,8 +2,8 @@
 //
 // Filename    : GCChangeInventoryItemNum.cpp
 // Written By  : elca@ewestsoft.com
-// Description : ÀÚ½Å¿¡°Ô ¾²´Â ±â¼úÀÇ ¼º°øÀ» ¾Ë¸®±â À§ÇÑ ÆĞÅ¶ Å¬·¡½ºÀÇ
-//               ¸â¹ö Á¤ÀÇ.
+// Description : ìì‹ ì—ê²Œ ì“°ëŠ” ê¸°ìˆ ì˜ ì„±ê³µì„ ì•Œë¦¬ê¸° ìœ„í•œ íŒ¨í‚· í´ë˜ìŠ¤ì˜
+//               ë©¤ë²„ ì •ì˜.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -37,14 +37,14 @@ GCChangeInventoryItemNum::~GCChangeInventoryItemNum()
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCChangeInventoryItemNum::read(SocketInputStream& iStream)
 
 {
     __BEGIN_TRY
 
-    // ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+    // ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
     iStream.read(m_ChangedItemListNum);
 
     int i;
@@ -65,12 +65,12 @@ void GCChangeInventoryItemNum::read(SocketInputStream& iStream)
 
 
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCChangeInventoryItemNum::write(SocketOutputStream& oStream) const {
     __BEGIN_TRY
 
-    // ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+    // ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
     oStream.write(m_ChangedItemListNum);
 
     for (list<ObjectID_t>::const_iterator itr = m_ChangedItemList.begin(); itr != m_ChangedItemList.end(); itr++) {
@@ -88,7 +88,7 @@ void GCChangeInventoryItemNum::write(SocketOutputStream& oStream) const {
 //
 // GCChangeInventoryItemNum::addListElement()
 //
-// (º¯È­ºÎÀ§, º¯È­¼öÄ¡ ) ÀÇ ÇÑ ¼ÂÀ» ¸®½ºÆ®¿¡ ³Ö±â À§ÇÑ ¸â¹ö ÇÔ¼ö.
+// (ë³€í™”ë¶€ìœ„, ë³€í™”ìˆ˜ì¹˜ ) ì˜ í•œ ì…‹ì„ ë¦¬ìŠ¤íŠ¸ì— ë„£ê¸° ìœ„í•œ ë©¤ë²„ í•¨ìˆ˜.
 //
 //////////////////////////////////////////////////////////////////////
 void GCChangeInventoryItemNum::addChangedItemListElement(ObjectID_t id, ItemNum_t num)
@@ -96,11 +96,11 @@ void GCChangeInventoryItemNum::addChangedItemListElement(ObjectID_t id, ItemNum_
 {
     __BEGIN_TRY
 
-    // º¯ÇÏ´Â °ÍÀÌ ¹«¾ùÀÎÁö List¿¡ ³Ö´Â´Ù.
+    // ë³€í•˜ëŠ” ê²ƒì´ ë¬´ì—‡ì¸ì§€ Listì— ë„£ëŠ”ë‹¤.
     m_ChangedItemList.push_back(id);
     m_ChangedItemNumList.push_back(num);
 
-    // º¯È­ ¼ÂÀÇ °¹¼ö¸¦ ÇÏ³ª Áõ°¡ ½ÃÅ²´Ù.
+    // ë³€í™” ì…‹ì˜ ê°¯ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ ì‹œí‚¨ë‹¤.
     m_ChangedItemListNum++;
 
     __END_CATCH

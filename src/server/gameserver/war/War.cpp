@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ÀüÀï¿¡ ´ëÇÑ Àü¹ÝÀûÀÎ Á¤º¸ ¹× ÀüÀï ½ÃÀÛ ¹× Á¾·á½Ã Ã³¸®·çÆ¾ ±¸Çö
+// ì „ìŸì— ëŒ€í•œ ì „ë°˜ì ì¸ ì •ë³´ ë° ì „ìŸ ì‹œìž‘ ë° ì¢…ë£Œì‹œ ì²˜ë¦¬ë£¨í‹´ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "War.h"
@@ -129,7 +129,7 @@ void War::execute()
         Assert(false);
     }
 
-    // execute()ÈÄ¿¡´Â WarScheduleÀÇ heartbeat()¿¡¼­ DBÀÇ Status¸¦ ¼³Á¤ÇÏ°Ô µÈ´Ù.
+    // execute()í›„ì—ëŠ” WarScheduleì˜ heartbeat()ì—ì„œ DBì˜ Statusë¥¼ ì„¤ì •í•˜ê²Œ ëœë‹¤.
 
     __END_CATCH
 }
@@ -139,7 +139,7 @@ void War::execute()
 // send Message
 //
 //--------------------------------------------------------------------------------
-// ÀüÀï ½ÃÀÛÇÒ ¶§
+// ì „ìŸ ì‹œìž‘í•  ë•Œ
 //--------------------------------------------------------------------------------
 void War::sendWarStartMessage() const
 
@@ -148,7 +148,7 @@ void War::sendWarStartMessage() const
 
     GCSystemMessage gcSystemMessage;
     char str[80];
-    // sprintf(str, "%sÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù.", getWarName().c_str());
+    // sprintf(str, "%sì´ ì‹œìž‘ë˜ì—ˆìŠµë‹ˆë‹¤.", getWarName().c_str());
     sprintf(str, g_pStringPool->c_str(STRID_WAR_START), getWarName().c_str());
 
     gcSystemMessage.setMessage(str);
@@ -160,7 +160,7 @@ void War::sendWarStartMessage() const
 }
 
 //--------------------------------------------------------------------------------
-// ÀüÀï ³¡³¯ ¶§
+// ì „ìŸ ëë‚  ë•Œ
 //--------------------------------------------------------------------------------
 void War::sendWarEndMessage() const
 
@@ -169,7 +169,7 @@ void War::sendWarEndMessage() const
 
     GCSystemMessage gcSystemMessage;
     char str[80];
-    //	sprintf(str, "%sÀÌ ³¡³µ½À´Ï´Ù.", getWarName().c_str());
+    //	sprintf(str, "%sì´ ëë‚¬ìŠµë‹ˆë‹¤.", getWarName().c_str());
     sprintf(str, g_pStringPool->c_str(STRID_WAR_END), getWarName().c_str());
 
     gcSystemMessage.setMessage(str);

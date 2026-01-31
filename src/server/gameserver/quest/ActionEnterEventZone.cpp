@@ -55,7 +55,7 @@ void ActionEnterEventZone::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterEventZone::execute(Creature* pNPC, Creature* pCreature)
 
@@ -98,15 +98,15 @@ void ActionEnterEventZone::execute(Creature* pNPC, Creature* pCreature)
     try {
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pEventZoneInfo->getZoneID());
 
-        // À¯·áÁ¸ÀÎµ¥ À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é...
+        // ìœ ë£Œì¡´ì¸ë° ìœ ë£Œì‚¬ìš©ìžê°€ ì•„ë‹ˆë©´...
         if (pZoneInfo == NULL || pZoneInfo->isPayPlay() && !pGamePlayer->isPayPlaying()) {
             string connectIP = pGamePlayer->getSocket()->getHost();
 
-            // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+            // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
             if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
                 sendPayInfo(pGamePlayer);
             } else {
-                // À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
                 GCSystemMessage gcSystemMessage;
 
                 if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
@@ -131,7 +131,7 @@ void ActionEnterEventZone::execute(Creature* pNPC, Creature* pCreature)
             Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
             Assert(pSlayer != NULL);
 
-            // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é ¿ÀÅä¹ÙÀÌ¿¡¼­ ³»¸°´Ù.
+            // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìžˆìœ¼ë©´ ì˜¤í† ë°”ì´ì—ì„œ ë‚´ë¦°ë‹¤.
             if (pSlayer->hasRideMotorcycle()) {
                 pSlayer->getOffMotorcycle();
             }
@@ -141,7 +141,7 @@ void ActionEnterEventZone::execute(Creature* pNPC, Creature* pCreature)
             Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
             Assert(pOusters != NULL);
 
-            // ½ÇÇÁ Å¸°í ÀÖÀ¸¸é ³»·ÁÁØ´Ù
+            // ì‹¤í”„ íƒ€ê³  ìžˆìœ¼ë©´ ë‚´ë ¤ì¤€ë‹¤
             if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH)) {
                 Effect* pEffect = pOusters->findEffect(Effect::EFFECT_CLASS_SUMMON_SYLPH);
                 if (pEffect != NULL)

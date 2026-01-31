@@ -2,7 +2,7 @@
 //
 // Filename    : GCSkillToTileOK6.h
 // Written By  : elca@ewestsoft.com
-// Description : ±â¼ú¿¡ ´çÇß´Âµ¥ »ç¿ëÀÚ´Â º¼ ¼ö ¾ø´Â ÀÚ°¡ ¹Ş´Â packet
+// Description : ê¸°ìˆ ì— ë‹¹í–ˆëŠ”ë° ì‚¬ìš©ìëŠ” ë³¼ ìˆ˜ ì—†ëŠ” ìê°€ ë°›ëŠ” packet
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SKILL_TO_TILE_OK_6_H__
@@ -31,10 +31,10 @@ public:
 
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -46,7 +46,7 @@ public:
     }
 
     // get packet's body size
-    // ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+    // ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
     PacketSize_t getPacketSize() const {
         return szCoord * 2 + szSkillType + szCoord * 2 + szRange + szDuration + szBYTE + szObjectID * m_CListNum +
                szBYTE + ModifyInfo::getPacketSize();
@@ -150,7 +150,7 @@ public:
 
 private:
     // ObjectID
-    Coord_t m_OrgX, m_OrgY; // ±â¼ú »ç¿ëÀÚÀÇ À§Ä¡.
+    Coord_t m_OrgX, m_OrgY; // ê¸°ìˆ  ì‚¬ìš©ìì˜ ìœ„ì¹˜.
 
     // SkillType
     SkillType_t m_SkillType;

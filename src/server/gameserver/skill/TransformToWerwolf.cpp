@@ -18,7 +18,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y,
                                  CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
@@ -43,8 +43,8 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
         Item* pItem = pInventory->getItem(X, Y);
         Assert(pItem != NULL);
 
-        // Àû´çÇÑ ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¶ó¸é ´ç¿¬È÷ º¯½ÅÇÒ ¼ö ¾ø´Ù.
-        // PKÁ¸¿¡¼­´Â º¯½ÅÇÒ ¼ö ¾ø´Ù.
+        // ì ë‹¹í•œ ì•„ì´í…œì´ ì•„ë‹ˆë¼ë©´ ë‹¹ì—°ížˆ ë³€ì‹ í•  ìˆ˜ ì—†ë‹¤.
+        // PKì¡´ì—ì„œëŠ” ë³€ì‹ í•  ìˆ˜ ì—†ë‹¤.
         if (pItem->getItemClass() != Item::ITEM_CLASS_SKULL || pItem->getItemType() != 39 || pVampire->hasRelicItem() ||
             g_pPKZoneInfoManager->isPKZone(pZone->getZoneID()) ||
             pVampire->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET)) {
@@ -61,7 +61,7 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
         ZoneCoord_t x = pVampire->getX();
         ZoneCoord_t y = pVampire->getY();
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -87,13 +87,13 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectTransformToWerwolf* pEffectTTW = new EffectTransformToWerwolf(pVampire);
             pEffectTTW->setDeadline(999999999);
             pVampire->addEffect(pEffectTTW);
             pVampire->setFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF);
 
-            // ÀÌ·Î ÀÎÇØ¼­ º¯ÇÏ´Â ´É·ÂÄ¡µéÀ» º¸³»ÁØ´Ù.
+            // ì´ë¡œ ì¸í•´ì„œ ë³€í•˜ëŠ” ëŠ¥ë ¥ì¹˜ë“¤ì„ ë³´ë‚´ì¤€ë‹¤.
             VAMPIRE_RECORD prev;
             pVampire->getVampireRecord(prev);
             pVampire->initAllStat();
@@ -109,7 +109,7 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
             Color_t color[PCVampireInfo::VAMPIRE_COLOR_MAX];
             pVampire->getShapeInfo(dummyFlag, color);
 
-            // ¹ìÆÄÀÌ¾î ´ë½Å ´Á´ë¸¦ ´õÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+            // ë±€íŒŒì´ì–´ ëŒ€ì‹  ëŠ‘ëŒ€ë¥¼ ë”í•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddWolf gcAddWerwolf;
             gcAddWerwolf.setObjectID(pVampire->getObjectID());
             gcAddWerwolf.setName(pVampire->getName());
@@ -142,7 +142,7 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TransformToWerwolf::execute(Monster* pMonster)
 
@@ -173,16 +173,16 @@ void TransformToWerwolf::execute(Monster* pMonster)
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectTransformToWerwolf* pEffectTTW = new EffectTransformToWerwolf(pMonster);
             pEffectTTW->setDeadline(999999999);
             pMonster->addEffect(pEffectTTW);
             pMonster->setFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF);
 
-            // ÀÌ·Î ÀÎÇØ¼­ º¯ÇÏ´Â ´É·ÂÄ¡µéÀ» º¸³»ÁØ´Ù.
+            // ì´ë¡œ ì¸í•´ì„œ ë³€í•˜ëŠ” ëŠ¥ë ¥ì¹˜ë“¤ì„ ë³´ë‚´ì¤€ë‹¤.
             pMonster->initAllStat();
 
-            // ¹ìÆÄÀÌ¾î ´ë½Å ´Á´ë¸¦ ´õÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+            // ë±€íŒŒì´ì–´ ëŒ€ì‹  ëŠ‘ëŒ€ë¥¼ ë”í•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddWolf gcAddWerwolf;
             gcAddWerwolf.setObjectID(pMonster->getObjectID());
             gcAddWerwolf.setName(pMonster->getName());

@@ -4,7 +4,7 @@
 //	filename	:	StringParser.cpp
 //	author		:	bezz
 //
-//	purpose		:	StringParser Å¬·¡½º
+//	purpose		:	StringParser í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -5,10 +5,10 @@
 //
 //////////////////////////////////////////////////////////////////////
 //
-// STORAGE_CORPSE  ItemType, ZoneID, Race, X, Y  ÃÖÃÊ¿¡, ¿Å°ÜÁ³À»¶§: load(), returnBloodBible()
-// STORAGE_INVENTORY  ItemType, ZoneID, OwnerName, Race, X, Y  ´©±º°¡°¡ ÁÖ¿üÀ»¶§: CGAddZoneToInventory
-// STORAGE_MOUSE  ItemType, ZoneID, OwnerName, Race, X, Y  ´©±º°¡°¡ ÁÖ¿üÀ»¶§: CGAddZoneToMouse
-// STORAGE_ZONE  ItemType, ZoneID, X, Y  ¹Ù´Ú¿¡ ¶³¾îÁ³À»¶§: CGAddMouseToZone, CGDissectionCorpse
+// STORAGE_CORPSE  ItemType, ZoneID, Race, X, Y  ìµœì´ˆì—, ì˜®ê²¨ì¡Œì„ë•Œ: load(), returnBloodBible()
+// STORAGE_INVENTORY  ItemType, ZoneID, OwnerName, Race, X, Y  ëˆ„êµ°ê°€ê°€ ì£¼ì› ì„ë•Œ: CGAddZoneToInventory
+// STORAGE_MOUSE  ItemType, ZoneID, OwnerName, Race, X, Y  ëˆ„êµ°ê°€ê°€ ì£¼ì› ì„ë•Œ: CGAddZoneToMouse
+// STORAGE_ZONE  ItemType, ZoneID, X, Y  ë°”ë‹¥ì— ë–¨ì–´ì¡Œì„ë•Œ: CGAddMouseToZone, CGDissectionCorpse
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,9 +24,9 @@
 //
 // class GCBloodBibleStatus;
 //
-// °ÔÀÓ ¼­¹ö°¡ Æ¯Á¤ ÇÃ·¹ÀÌ¾îÀÇ BloodBibleStatus ¸¦ ´Ù¸¥ ÇÃ·¹ÀÌ¾îµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®
-// ÇÒ ¶§ Àü¼ÛÇÏ´Â ÆĞÅ¶ÀÌ´Ù. ³»ºÎ¿¡ Ä³¸¯ÅÍ¸í°ú BloodBibleStatus ½ºÆ®¸µÀ» µ¥ÀÌÅ¸
-// ÇÊµå·Î °¡Áö°í ÀÖ´Ù.
+// ê²Œì„ ì„œë²„ê°€ íŠ¹ì • í”Œë ˆì´ì–´ì˜ BloodBibleStatus ë¥¼ ë‹¤ë¥¸ í”Œë ˆì´ì–´ë“¤ì—ê²Œ ë¸Œë¡œë“œìºìŠ¤íŠ¸
+// í•  ë•Œ ì „ì†¡í•˜ëŠ” íŒ¨í‚·ì´ë‹¤. ë‚´ë¶€ì— ìºë¦­í„°ëª…ê³¼ BloodBibleStatus ìŠ¤íŠ¸ë§ì„ ë°ì´íƒ€
+// í•„ë“œë¡œ ê°€ì§€ê³  ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -34,10 +34,10 @@ class GCBloodBibleStatus : public Packet {
 public:
     GCBloodBibleStatus() {};
     ~GCBloodBibleStatus() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -127,7 +127,7 @@ public:
     }
 
 private:
-    ItemType_t m_ItemType; // ÇÇÀÇ ¼º¼­ Á¾·ù
+    ItemType_t m_ItemType; // í”¼ì˜ ì„±ì„œ ì¢…ë¥˜
 
     ZoneID_t m_ZoneID;
 
@@ -167,7 +167,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCBloodBibleStatusPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCBloodBibleStatusPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szItemType + szZoneID + szStorage + szBYTE + 255 + szRace + szRace + szZoneCoord + szZoneCoord;
     }

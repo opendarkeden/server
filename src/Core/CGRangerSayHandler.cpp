@@ -32,21 +32,21 @@ void CGRangerSayHandler::execute(CGRangerSay* pPacket, Player* pPlayer)
     Creature* pCreature = pGamePlayer->getCreature();
     Assert(pCreature != NULL);
 
-    // Å©¸®ÃÄ ÀÌ¸§°ú ¸Ş½ÃÁö¸¦ ÆĞÅ¶¿¡ ³Ö´Â´Ù.
+    // í¬ë¦¬ì³ ì´ë¦„ê³¼ ë©”ì‹œì§€ë¥¼ íŒ¨í‚·ì— ë„£ëŠ”ë‹¤.
     StringStream msg;
     msg << pCreature->getName() << " " << pPacket->getMessage();
 
     Race_t race = pCreature->getRace();
 
-    // ÆĞÅ¶ »ı¼º
+    // íŒ¨í‚· ìƒì„±
     GCSystemMessage gcSystemMessage;
     gcSystemMessage.setMessage(msg.toString());
     gcSystemMessage.setType(SYSTEM_MESSAGE_RANGER_SAY);
 
-    // ÇÊÅÍ »ı¼º
+    // í•„í„° ìƒì„±
     BroadcastFilterRace filter(race);
 
-    // ¸ğµç »ç¿ëÀÚ¿¡°Ô »Ñ¸®±â
+    // ëª¨ë“  ì‚¬ìš©ìì—ê²Œ ë¿Œë¦¬ê¸°
     g_pZoneGroupManager->pushBroadcastPacket(&gcSystemMessage, &filter);
 
 /*	hash_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = g_pZoneGroupManager->getZoneGroups().begin();

@@ -46,15 +46,15 @@ void EffectIceField::affect()
 
     Assert(m_pZone != NULL);
 
-    // ÀÌÆåÆ®¸¦ »ç¿ëÇÑ Å©¸®ÃÄ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼öµµ ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´í™íŠ¸ë¥¼ ì‚¬ìš©í•œ í¬ë¦¬ì³ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ NULLì´ ë  ìˆ˜ ìˆë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {
@@ -67,29 +67,29 @@ void EffectIceField::affect()
             Creature* pCreature = dynamic_cast<Creature*>(pObject);
             Assert(pCreature != NULL);
 
-            // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
-            // »ê ¸é¿ª. by sigi. 2002.9.13
-            // ÀÚ±â ÀÚ½ÅÀÌ¸é ¾È ¸Â´Â´Ù.
-            // ¾ÈÀüÁö´ë Ã¼Å©
+            // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
+            // ì‚° ë©´ì—­. by sigi. 2002.9.13
+            // ìê¸° ìì‹ ì´ë©´ ì•ˆ ë§ëŠ”ë‹¤.
+            // ì•ˆì „ì§€ëŒ€ ì²´í¬
             // 2003.1.10 by bezz, Sequoia
             if (!canAttack(pCastCreature, pCreature) || pCreature->isFlag(Effect::EFFECT_CLASS_COMA) ||
                 pCreature->getObjectID() == m_CasterID || !checkZoneLevelToHitTarget(pCreature)) {
                 continue;
             }
 
-            // °°Àº Á¶Á÷(--;)ÀÌ¸é ¾È ¸Â´Â´Ù.
+            // ê°™ì€ ì¡°ì§(--;)ì´ë©´ ì•ˆ ë§ëŠ”ë‹¤.
             if (pCreature->isOusters() && !isForce()) {
                 continue;
             }
 
-            // À¯Àú°¡ ¾´°Ô ¾Æ´Ï¸é ¸ó½ºÅÍ°¡ ¾È ¸Â´Â´Ù.
+            // ìœ ì €ê°€ ì“´ê²Œ ì•„ë‹ˆë©´ ëª¬ìŠ¤í„°ê°€ ì•ˆ ë§ëŠ”ë‹¤.
             if (pCreature->isMonster() && isForce()) {
                 continue;
             }
 
             if (pCreature->getMoveMode() != Creature::MOVE_MODE_FLYING &&
                 !pCreature->isFlag(Effect::EFFECT_CLASS_ICE_FIELD_TO_CREATURE)) {
-                // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+                // ì´íŒ©íŠ¸ í´ë˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
                 EffectIceFieldToCreature* pEffect = new EffectIceFieldToCreature(pCreature);
                 pEffect->setDeadline(m_Duration);
                 pCreature->addEffect(pEffect);
@@ -200,7 +200,7 @@ void EffectIceFieldLoader::load(Zone* pZone)
                             pEffect->setTick(10);
                             pEffect->setForce(true);
 
-                            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                             pZone->registerObject(pEffect);
                             pZone->addEffect(pEffect);
                             tile.addEffect(pEffect);

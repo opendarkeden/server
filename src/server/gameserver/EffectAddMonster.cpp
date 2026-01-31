@@ -23,7 +23,7 @@ EffectAddMonster::EffectAddMonster(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Cr
     : Effect(pZone, x, y, pCreature, delay) {
     __BEGIN_TRY
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     Assert(getZone() != NULL);
@@ -52,8 +52,8 @@ EffectAddMonster::~EffectAddMonster()
 
 //----------------------------------------------------------------------
 // affect to target
-// ÀÌ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ Á¾¼ÓµÇÁö ¾ÊÀ¸¹Ç·Î, affect()´Â È£ÃâµÇÁö ¾Ê´Â´Ù.
-// ¿Ö³ÄÇÏ¸é, targetÀº »ý¼ºÀÚ¿¡¼­ ÁöÁ¤µÇ¸ç, ¾Æ¹«·± ÀÏµµ ÇÏÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// ì´ ì´íŽ™íŠ¸ëŠ” íƒ€ì¼ì— ì¢…ì†ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ, affect()ëŠ” í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.
+// ì™œëƒí•˜ë©´, targetì€ ìƒì„±ìžì—ì„œ ì§€ì •ë˜ë©°, ì•„ë¬´ëŸ° ì¼ë„ í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void EffectAddMonster::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pTarget)
 
@@ -74,7 +74,7 @@ void EffectAddMonster::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creat
 {
     __BEGIN_TRY
 
-    // ¿Ã¹Ù¸¥ ÁÂÇ¥ÀÌ¾î¾ß ÇÑ´Ù.
+    // ì˜¬ë°”ë¥¸ ì¢Œí‘œì´ì–´ì•¼ í•œë‹¤.
     Assert(pTarget != NULL);
     Assert(isValidZoneCoord(pZone, x, y));
 
@@ -85,15 +85,15 @@ void EffectAddMonster::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creat
 
         TPOINT pt = pZone->addCreature(pMonster, x, y, 2);
 
-        cout << pZone->getZoneID() << "Á¸ÀÇ (" << x << "," << y << ")¿¡ ¸ó½ºÅÍ°¡ Ãß°¡µÇ¾ú½À´Ï´Ù" << endl;
+        cout << pZone->getZoneID() << "ì¡´ì˜ (" << x << "," << y << ")ì— ëª¬ìŠ¤í„°ê°€ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤" << endl;
 
         if (pt.x == -1) {
             SAFE_DELETE(pMonster);
-            throw Error("Zone¿¡ ¸ó½ºÅÍ µé¾î°¥ ÀÚ¸®°¡ ¾ø´Ù");
+            throw Error("Zoneì— ëª¬ìŠ¤í„° ë“¤ì–´ê°ˆ ìžë¦¬ê°€ ì—†ë‹¤");
         }
     } else {
         SAFE_DELETE(pMonster);
-        throw Error("EffectAddMonsterÀÎµ¥ itemÀÌ ¾Æ´Ñ°¡?");
+        throw Error("EffectAddMonsterì¸ë° itemì´ ì•„ë‹Œê°€?");
     }
 
     pTarget = NULL;

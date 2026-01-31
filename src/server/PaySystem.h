@@ -16,43 +16,43 @@ class Statement;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¿ä±İÁ¦
+// ìš”ê¸ˆì œ
 //////////////////////////////////////////////////////////////////////////////
 enum PayPlayType {
-    PAY_PLAY_TYPE_PERSON, // °³ÀÎ ¿ä±İ
-    PAY_PLAY_TYPE_PCROOM, // °ÔÀÓ¹æ ¿ä±İ
-    PAY_PLAY_TYPE_ETC,    // ±âÅ¸(¹¹Áö.. ±×³É ³Ö¾îµÒ -_-;)
+    PAY_PLAY_TYPE_PERSON, // ê°œì¸ ìš”ê¸ˆ
+    PAY_PLAY_TYPE_PCROOM, // ê²Œì„ë°© ìš”ê¸ˆ
+    PAY_PLAY_TYPE_ETC,    // ê¸°íƒ€(ë­ì§€.. ê·¸ëƒ¥ ë„£ì–´ë‘  -_-;)
     PAY_PLAY_TYPE_MAX
 };
 
 enum PayType {
-    PAY_TYPE_FREE,   // ¹«·á »ç¿ëÀÚ
-    PAY_TYPE_PERIOD, // ¿ù »ç¿ëÀÚ
-    PAY_TYPE_TIME,   // ½Ã°£Á¦ »ç¿ëÀÚ
-    PAY_TYPE_POST,   // ÈÄºÒ ½Ã°£Á¦ »ç¿ëÀÚ
+    PAY_TYPE_FREE,   // ë¬´ë£Œ ì‚¬ìš©ì
+    PAY_TYPE_PERIOD, // ì›” ì‚¬ìš©ì
+    PAY_TYPE_TIME,   // ì‹œê°„ì œ ì‚¬ìš©ì
+    PAY_TYPE_POST,   // í›„ë¶ˆ ì‹œê°„ì œ ì‚¬ìš©ì
     PAY_TYPE_MAX
 };
 
 enum PayIPType {
-    PAY_IP_TYPE_ALL,    // IPÀüÃ¼
-    PAY_IP_TYPE_LIMIT,  // µ¿½ÃÁ¢¼Ó »ç¿ë´ë¼ö Á¦ÇÑ
-    PAY_IP_TYPE_ASSIGN, // Æ¯Á¤IP
+    PAY_IP_TYPE_ALL,    // IPì „ì²´
+    PAY_IP_TYPE_LIMIT,  // ë™ì‹œì ‘ì† ì‚¬ìš©ëŒ€ìˆ˜ ì œí•œ
+    PAY_IP_TYPE_ASSIGN, // íŠ¹ì •IP
     PAY_IP_TYPE_MAX
 };
 
 enum FamilyPayPartyType {
     FAMILY_PAY_PARTY_TYPE_NONE,
-    FAMILY_PAY_PARTY_TYPE_FREE_PASS,     // ÆĞ¹Ğ¸® ¿ä±İÁ¦ ÆÄÆ¼ À¯·áÁ¸ ÃâÀÔ°¡´É
-    FAMILY_PAY_PARTY_TYPE_FREE_PASS_END, // ÆĞ¹Ğ¸® ¿ä±İÁ¦ ÆÄÆ¼ À¯·áÁ¸ ÃâÀÔ°¡´É ³¡
+    FAMILY_PAY_PARTY_TYPE_FREE_PASS,     // íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ íŒŒí‹° ìœ ë£Œì¡´ ì¶œì…ê°€ëŠ¥
+    FAMILY_PAY_PARTY_TYPE_FREE_PASS_END, // íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ íŒŒí‹° ìœ ë£Œì¡´ ì¶œì…ê°€ëŠ¥ ë
 };
 
 #define PAY_PLAY_FLAG_ALL 0xFFFF
 #define PAY_PLAY_FLAG_ZONE 0x0001
 
 
-#define __PAY_SYSTEM_ZONE__ // Zone ÃâÀÔ¿©ºÎ¿¡ PaySystemÀ» Àû¿ë
-// #define __PAY_SYSTEM_LOGIN__		// Login¿©ºÎ¿¡ PaySystemÀ» Àû¿ë
-// #define __PAY_SYSTEM_FREE_LIMIT__		// °ÔÀÓ ºÒ°¡ »ç¿ëÀÚÀÎ °æ¿ì, ÀÚÃ¼ ¹«·á ¼­ºñ½º·Î..
+#define __PAY_SYSTEM_ZONE__ // Zone ì¶œì…ì—¬ë¶€ì— PaySystemì„ ì ìš©
+// #define __PAY_SYSTEM_LOGIN__		// Loginì—¬ë¶€ì— PaySystemì„ ì ìš©
+// #define __PAY_SYSTEM_FREE_LIMIT__		// ê²Œì„ ë¶ˆê°€ ì‚¬ìš©ìì¸ ê²½ìš°, ìì²´ ë¬´ë£Œ ì„œë¹„ìŠ¤ë¡œ..
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -105,17 +105,17 @@ public:
     void setPayPlayAvailableDateTime(const string& pat);
     const VSDateTime& getPayPlayAvailableDateTime() const {
         return m_PayPlayAvailableDateTime;
-    } // ¾ğÁ¦±îÁö play°¡´ÉÇÑ°¡?
+    } // ì–¸ì œê¹Œì§€ playê°€ëŠ¥í•œê°€?
 
     void setFamilyPayPlayAvailableDateTime(const string& pat);
     const VSDateTime& getFamilyPayPlayAvailableDateTime() const {
         return m_FamilyPayPlayAvailableDateTime;
-    } // ¾ğÁ¦±îÁö play°¡´ÉÇÑ°¡?
+    } // ì–¸ì œê¹Œì§€ playê°€ëŠ¥í•œê°€?
 
     void setPayStartAvailableDateTime(const string& pat);
     const VSDateTime& getPayStartAvailableDateTime() const {
         return m_PayStartAvailableDateTime;
-    } // ¾ğÁ¦ºÎÅÍ play°¡´ÉÇÑ°¡?
+    } // ì–¸ì œë¶€í„° playê°€ëŠ¥í•œê°€?
 
     Timeval getPayPlayTime(const Timeval& currentTime) const {
         return timediff(m_PayPlayStartTime, currentTime);
@@ -133,24 +133,24 @@ public:
 
 
 public:
-    // »ç¿ë °¡´ÉÇÑÁö Ã¼Å©
+    // ì‚¬ìš© ê°€ëŠ¥í•œì§€ ì²´í¬
     bool checkPayPlayAvailable();
 
-    // ÀÏ´Ü °ª¸¸ ¼³Á¤
+    // ì¼ë‹¨ ê°’ë§Œ ì„¤ì •
     void setPayPlayValue(PayType payType, const string& payPlayDate, int payPlayHours, uint payPlayFlag,
                          const string& familyPayPlayDate = "");
 
-    // pay½ÃÀÛ
+    // payì‹œì‘
     bool loginPayPlay(PayType payType, const string& payPlayDate, int payPlayHours, uint payPlayFlag, const string& ip,
                       const string& playerID);
 
-    // pay½ÃÀÛ
+    // payì‹œì‘
     bool loginPayPlay(const string& ip, const string& playerID);
 
-    // pay ½Ã°£ update µî..
+    // pay ì‹œê°„ update ë“±..
     bool updatePayPlayTime(const string& playerID, const VSDateTime& currentDateTime, const Timeval& currentTime);
 
-    // pay³¡
+    // payë
     void logoutPayPlay(const string& playerID, bool bClear = false, bool bDecreaseTime = true);
 
     //
@@ -189,51 +189,51 @@ public:
         return m_bPCRoomPlay;
     }
 
-    // °³ÀÎ À¯·á Á¤¾× »ç¿ëÀÚÀÎ°¡?
+    // ê°œì¸ ìœ ë£Œ ì •ì•¡ ì‚¬ìš©ìì¸ê°€?
     static bool isPayPlayingPeriodPersonal(const string& PlayerID);
 
     bool isPlayInPayPCRoom(const string& ip, const string& playerID);
 
 protected:
-    // PC¹æÀÎ °æ¿ìÀÇ Ã³¸®
+    // PCë°©ì¸ ê²½ìš°ì˜ ì²˜ë¦¬
     bool loginPayPlayPCRoom(const string& ip, const string& playerID);
     void logoutPayPlayPCRoom(const string& playerID);
 
-    // Á¤·®Á¦ÀÎ °æ¿ì ½Ã°£ ÁÙÀÏ¶§..
+    // ì •ëŸ‰ì œì¸ ê²½ìš° ì‹œê°„ ì¤„ì¼ë•Œ..
     void decreasePayPlayTime(const string& playerID, uint mm);
     void decreasePayPlayTimePCRoom(uint mm);
 
-    // ÀÌ»óÇÑ Á¤¾×Á¦ ÄÚµå
+    // ì´ìƒí•œ ì •ì•¡ì œ ì½”ë“œ
     void increasePayPlayTimePCRoom(uint mm);
 
-    // ¸ğµç PayÁ¤º¸¸¦ »èÁ¦ÇÏ°í, ¹«·á »ç¿ëÀÚ·Î ¸¸µç´Ù. by sigi. 2002.11.18
+    // ëª¨ë“  Payì •ë³´ë¥¼ ì‚­ì œí•˜ê³ , ë¬´ë£Œ ì‚¬ìš©ìë¡œ ë§Œë“ ë‹¤. by sigi. 2002.11.18
     void clearPayPlayDateTime(const string& playerID);
 
 protected:
-    bool m_bSetPersonValue; // °ªÀÌ ¼³Á¤µÇ¾ú³ª.
+    bool m_bSetPersonValue; // ê°’ì´ ì„¤ì •ë˜ì—ˆë‚˜.
 
-    PayPlayType m_PayPlayType; // °³ÀÎ/°×¹æ..
-    ObjectID_t m_PCRoomID;     // PC¹æ ID
-    uint m_UserLimit;          // »ç¿ëÀÚ ¼ıÀÚ Á¦ÇÑ(Á¾·®Á¦)
-    uint m_UserMax;            // »ç¿ëÀÚ ¼ıÀÚ ÃÖ´ëÁ¦ÇÑ(Á¤·®Á¦)
+    PayPlayType m_PayPlayType; // ê°œì¸/ê²œë°©..
+    ObjectID_t m_PCRoomID;     // PCë°© ID
+    uint m_UserLimit;          // ì‚¬ìš©ì ìˆ«ì ì œí•œ(ì¢…ëŸ‰ì œ)
+    uint m_UserMax;            // ì‚¬ìš©ì ìˆ«ì ìµœëŒ€ì œí•œ(ì •ëŸ‰ì œ)
 
-    PayType m_PayType;     // ¹«·á/½Ã°£/±â°£/±âÅ¸..
-    PayIPType m_PayIPType; // °ÔÀÓ¹æÀÎ °æ¿ìÀÇ IP type
+    PayType m_PayType;     // ë¬´ë£Œ/ì‹œê°„/ê¸°ê°„/ê¸°íƒ€..
+    PayIPType m_PayIPType; // ê²Œì„ë°©ì¸ ê²½ìš°ì˜ IP type
 
-    VSDateTime m_PayStartAvailableDateTime;      // ¾ğÁ¦ºÎÅÍ play°¡´ÉÇÑ°¡?
-    VSDateTime m_PayPlayAvailableDateTime;       // ¾ğÁ¦±îÁö play°¡´ÉÇÑ°¡?
-    int m_PayPlayAvailableHours;                 // »ç¿ë °¡´ÉÇÑ ½Ã°£(½Ã°£Á¦ÀÎ °æ¿ì)
-    Timeval m_PayPlayStartTime;                  // Á¢¼ÓÇØ¼­ playÇÑ ½Ã°£
-    VSDateTime m_FamilyPayPlayAvailableDateTime; // ¾ğÁ¦±îÁö Family Pay play°¡ °¡´ÉÇÑ°¡?
+    VSDateTime m_PayStartAvailableDateTime;      // ì–¸ì œë¶€í„° playê°€ëŠ¥í•œê°€?
+    VSDateTime m_PayPlayAvailableDateTime;       // ì–¸ì œê¹Œì§€ playê°€ëŠ¥í•œê°€?
+    int m_PayPlayAvailableHours;                 // ì‚¬ìš© ê°€ëŠ¥í•œ ì‹œê°„(ì‹œê°„ì œì¸ ê²½ìš°)
+    Timeval m_PayPlayStartTime;                  // ì ‘ì†í•´ì„œ playí•œ ì‹œê°„
+    VSDateTime m_FamilyPayPlayAvailableDateTime; // ì–¸ì œê¹Œì§€ Family Pay playê°€ ê°€ëŠ¥í•œê°€?
 
-    uint m_PayPlayFlag; // »ç¿ë°¡´ÉÇÑ ¼­ºñ½º
+    uint m_PayPlayFlag; // ì‚¬ìš©ê°€ëŠ¥í•œ ì„œë¹„ìŠ¤
 
     bool m_bPremiumPlay;
-    bool m_bPCRoomPlay; // PC ¹æ »ç¿ëÀÚÀÎ°¡?
-                        // PC ¹æ À¯Àú Á¦ÇÑ¿¡ »ó°ü¾øÀÌ À¯·á Àû¿ë ÁßÀÎ PC ¹æ¿¡¼­ ÇÃ·¹ÀÌÇÏ°í ÀÖ´Â°¡?
+    bool m_bPCRoomPlay; // PC ë°© ì‚¬ìš©ìì¸ê°€?
+                        // PC ë°© ìœ ì € ì œí•œì— ìƒê´€ì—†ì´ ìœ ë£Œ ì ìš© ì¤‘ì¸ PC ë°©ì—ì„œ í”Œë ˆì´í•˜ê³  ìˆëŠ”ê°€?
 
-    bool m_bFamilyPayAvailable;              // ÆĞ¹Ğ¸® ¿ä±İÁ¦ »ç¿ëÀÚÀÎ°¡?
-    FamilyPayPartyType m_FamilyPayPartyType; // ÆĞ¹Ğ¸® ¿ä±İÁ¦ ÆÄÆ¼ Àû¿ë Å¸ÀÔ
+    bool m_bFamilyPayAvailable;              // íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì‚¬ìš©ìì¸ê°€?
+    FamilyPayPartyType m_FamilyPayPartyType; // íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ íŒŒí‹° ì ìš© íƒ€ì…
 };
 
 #endif

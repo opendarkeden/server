@@ -35,9 +35,9 @@ void GameServerSkillTest::testSharpShieldFormula() {
 
     pSkillHandler->computeOutput(input, output);
 
-    CPPUNIT_ASSERT(output.Duration == 350); // 35ÃÊ
+    CPPUNIT_ASSERT(output.Duration == 350); // 35ì´ˆ
     CPPUNIT_ASSERT(output.Damage == 4);
-    CPPUNIT_ASSERT(output.Delay == 30); // 3ÃÊ
+    CPPUNIT_ASSERT(output.Delay == 30); // 3ì´ˆ
 
     //---------------------------------------------------------------------------
     // SkillLevel( 1 ), STR( 100 )
@@ -49,9 +49,9 @@ void GameServerSkillTest::testSharpShieldFormula() {
 
     pSkillHandler->computeOutput(input, output);
 
-    CPPUNIT_ASSERT(output.Duration == 100); // 10ÃÊ
+    CPPUNIT_ASSERT(output.Duration == 100); // 10ì´ˆ
     CPPUNIT_ASSERT(output.Damage == 5);
-    CPPUNIT_ASSERT(output.Delay == 50); // 5ÃÊ
+    CPPUNIT_ASSERT(output.Delay == 50); // 5ì´ˆ
 
 
     __END_TEST_CASE
@@ -64,7 +64,7 @@ void GameServerSkillTest::testSharpShieldExecute() {
     /*
     ObjectID_t	TargetObjectID	= 111;
     SkillSlot*  pSkillSlot 		= pSlayer->hasSkill(SkillType);
-    EffectID_t 	EffectID 		= 0;	// ÀÇ¹Ì ¾ø´Ù.
+    EffectID_t 	EffectID 		= 0;	// ì˜ë¯¸ ì—†ë‹¤.
     pSkillHandler->execute(pSlayer, TargetObjectID, pSkillSlot, EffectID);
 
     Damage_t damage = 10;

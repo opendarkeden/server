@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectMasterLairPass.cpp
-// Written by  : ½­
+// Written by  : ì‰­
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ EffectMasterLairPass::EffectMasterLairPass(Creature* pCreature, ZoneID_t zoneID)
 
     setTarget(pCreature);
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     __END_CATCH
@@ -76,8 +76,8 @@ void EffectMasterLairPass::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_MASTER_LAIR_PASS);
 
     Zone* pZone = pCreature->getZone();

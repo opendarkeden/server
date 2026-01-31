@@ -23,12 +23,12 @@ class MonsterAI;
 struct SUMMON_INFO2;
 
 class Monster : public Creature {
-    // »ı¼ºÀÚ/¼Ò¸êÀÚ
+    // ìƒì„±ì/ì†Œë©¸ì
 public:
     Monster(MonsterType_t monsterType);
     virtual ~Monster();
 
-    // ÇÏÀ§ Å¬·¡½º »ó¼Ó ÇÔ¼ö
+    // í•˜ìœ„ í´ë˜ìŠ¤ ìƒì† í•¨ìˆ˜
 public:
     virtual CreatureClass getCreatureClass() const {
         return CREATURE_CLASS_MONSTER;
@@ -50,7 +50,7 @@ public:
 
     // AI specific methods
 public:
-    // AI ÄÚµå°¡ ¼öÇàµÇ´Â ¸ŞÀÎ ¸Ş½îµåÀÌ´Ù.
+    // AI ì½”ë“œê°€ ìˆ˜í–‰ë˜ëŠ” ë©”ì¸ ë©”ì˜ë“œì´ë‹¤.
     void act(const Timeval& currentTime);
     void actDeadAction(void);
 
@@ -62,12 +62,12 @@ public:
     Creature* getPrimaryEnemy() const;
     ObjectID_t getEnemy(EnemyPriority enemyPriority = ENEMY_PRIMARY) const;
 
-    // Enemy ¸®½ºÆ®¿¡¼­ ·Î±×¾Æ¿ôÇÑ PC ¸¦ »èÁ¦ÇÑ´Ù.
+    // Enemy ë¦¬ìŠ¤íŠ¸ì—ì„œ ë¡œê·¸ì•„ì›ƒí•œ PC ë¥¼ ì‚­ì œí•œë‹¤.
     void verifyEnemies();
 
     bool isRealEnemy(Creature* pEnemy);
 
-    // ÀÌ ¸ó½ºÅÍ¿¡°Ô ÀûÀÌ ÇÏ³ªÀÌ»ó ÁöÁ¤µÇ¾î ÀÖ´Â°¡?
+    // ì´ ëª¬ìŠ¤í„°ì—ê²Œ ì ì´ í•˜ë‚˜ì´ìƒ ì§€ì •ë˜ì–´ ìˆëŠ”ê°€?
     bool hasEnemy() const {
         return m_Enemies.size() > 0;
     }
@@ -77,7 +77,7 @@ public:
         return m_Enemies;
     }
 
-    // ¼±Á¦ °ø°İ EnemyÆÇº°. by sigi. 2002.9.23
+    // ì„ ì œ ê³µê²© EnemyíŒë³„. by sigi. 2002.9.23
     bool isEnemyToAttack(Creature* pCreature) const;
     bool isEnemyToAttack(Slayer* pSlayer) const;
     bool isEnemyToAttack(Vampire* pVampire) const;
@@ -283,7 +283,7 @@ public:
         m_LastHitCreatureClass = CClass;
     }
 
-    // ¸ó½ºÅÍ ÀÌº¥Æ® ¸ó½ºÅÍÀÎÁö ¼¼ÆÃÇÏ´Â ºÎºĞ
+    // ëª¬ìŠ¤í„° ì´ë²¤íŠ¸ ëª¬ìŠ¤í„°ì¸ì§€ ì„¸íŒ…í•˜ëŠ” ë¶€ë¶„
     bool getEventMonsterFlag(void) const {
         return m_isEventMonster;
     }
@@ -334,15 +334,15 @@ public:
         m_bMaster = bMaster;
     }
 
-    // ¸÷¿¡¼­ ¾ÆÀÌÅÛ ³ª¿Ã±î? by sigi. 2002.9.2
+    // ëª¹ì—ì„œ ì•„ì´í…œ ë‚˜ì˜¬ê¹Œ? by sigi. 2002.9.2
     bool hasTreasure() const {
         return m_bTreasure;
     }
     void setTreasure(bool bTreasure = true) {
         m_bTreasure = m_bTreasure && bTreasure;
-    } // ¿ø·¡ Treasure°¡ ÀÖ´Â ¾Öµé¸¸ Treasure°¡ ÀÖ¾î¾ß µÈ´Ù.
+    } // ì›ë˜ Treasureê°€ ìˆëŠ” ì• ë“¤ë§Œ Treasureê°€ ìˆì–´ì•¼ ëœë‹¤.
 
-    // ¸ó½ºÅÍ°¡ ¼ÒÈ¯ÇÏ´Â ¸ó½ºÅÍÀÇ Á¾·ù. by sigi. 2002.9.2
+    // ëª¬ìŠ¤í„°ê°€ ì†Œí™˜í•˜ëŠ” ëª¬ìŠ¤í„°ì˜ ì¢…ë¥˜. by sigi. 2002.9.2
     bool getMonsterSummonInfo(SUMMON_INFO2& summonInfo);
     bool hasNextMonsterSummonInfo();
     int getMonsterSummonStep() const {
@@ -418,52 +418,52 @@ private:
     bool m_isEventMonster;
     bool m_bChief;
 
-    // Exp : ¸ó½ºÅÍ¸¦ Á×¿´À» ¶§ ¹Ş´Â °æÇèÄ¡´Â?
+    // Exp : ëª¬ìŠ¤í„°ë¥¼ ì£½ì˜€ì„ ë•Œ ë°›ëŠ” ê²½í—˜ì¹˜ëŠ”?
     Exp_t m_Exp;
 
-    // »ç±â - ¸ó½ºÅÍ°¡ ÀüÅõ¿¡ ¾ó¸¶³ª Ãæ½ÇÈ÷ ÀÓÇÏ´Â°¡?
+    // ì‚¬ê¸° - ëª¬ìŠ¤í„°ê°€ ì „íˆ¬ì— ì–¼ë§ˆë‚˜ ì¶©ì‹¤íˆ ì„í•˜ëŠ”ê°€?
     Moral_t m_Moral;
 
-    // Ã³¸® µô·¹ÀÌ - ¸ó½ºÅÍÀÇ »óÅÂ¿¡ µû¶ó¼­, Ã³¸® µô·¹ÀÌ´Â ´Ş¶óÁ®¾ß ÇÑ´Ù.
-    // °¡·É ÀÌ»óÇÑ ¸¶¹ı¿¡ °É·È´ÙµçÁö ÇÏ¸é, Ã³¸® µô·¹ÀÌ°¡ ±æ¾îÁ®¼­ ¸ó½ºÅÍ°¡
-    // ¹İÀÀÀÌ ´À·ÁÁú °ÍÀÌ´Ù. ÀÌ´Â °³Ã¼ ·¹º§ÀÌ´Ù.
+    // ì²˜ë¦¬ ë”œë ˆì´ - ëª¬ìŠ¤í„°ì˜ ìƒíƒœì— ë”°ë¼ì„œ, ì²˜ë¦¬ ë”œë ˆì´ëŠ” ë‹¬ë¼ì ¸ì•¼ í•œë‹¤.
+    // ê°€ë ¹ ì´ìƒí•œ ë§ˆë²•ì— ê±¸ë ¸ë‹¤ë“ ì§€ í•˜ë©´, ì²˜ë¦¬ ë”œë ˆì´ê°€ ê¸¸ì–´ì ¸ì„œ ëª¬ìŠ¤í„°ê°€
+    // ë°˜ì‘ì´ ëŠë ¤ì§ˆ ê²ƒì´ë‹¤. ì´ëŠ” ê°œì²´ ë ˆë²¨ì´ë‹¤.
     Turn_t m_Delay;
     Turn_t m_AttackDelay;
     Timeval m_AccuDelay;
 
     // enemy list
     // *CAUTION*
-    // ½±°Ô »ı°¢ÇÏ¸é, Creture* ÀÇ ¸®½ºÆ®·Î ±¸ÇöÇÒ ¼öµµ ÀÖ°ÚÁö¸¸,
-    // ÀÌ·² °æ¿ì, enemy ·Î ÁöÁ¤µÈ PC °¡ ·Î±×¾Æ¿ôÇÏ´Â °æ¿ì, ÀÚ½ÅÀ»
-    // ÀûÀ¸·Î ÁöÁ¤ÇÑ ¸ó½ºÅÍ¸¦ Ã£¾Æ¼­ ¸®½ºÆ®¿¡¼­ »èÁ¦ÇØ¾ß ÇÑ´Ù´Â
-    // °á·ĞÀÌ ³ª¿Â´Ù. µû¶ó¼­, OID ¸¦ ÀúÀåÇØ¾ß ÇÏ¸ç, ÀÌ °ªÀ» »ç¿ëÇØ¼­
-    // PC µîÀ» °Ë»öÇØ¾ß ÇÑ´Ù.
+    // ì‰½ê²Œ ìƒê°í•˜ë©´, Creture* ì˜ ë¦¬ìŠ¤íŠ¸ë¡œ êµ¬í˜„í•  ìˆ˜ë„ ìˆê² ì§€ë§Œ,
+    // ì´ëŸ´ ê²½ìš°, enemy ë¡œ ì§€ì •ëœ PC ê°€ ë¡œê·¸ì•„ì›ƒí•˜ëŠ” ê²½ìš°, ìì‹ ì„
+    // ì ìœ¼ë¡œ ì§€ì •í•œ ëª¬ìŠ¤í„°ë¥¼ ì°¾ì•„ì„œ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•´ì•¼ í•œë‹¤ëŠ”
+    // ê²°ë¡ ì´ ë‚˜ì˜¨ë‹¤. ë”°ë¼ì„œ, OID ë¥¼ ì €ì¥í•´ì•¼ í•˜ë©°, ì´ ê°’ì„ ì‚¬ìš©í•´ì„œ
+    // PC ë“±ì„ ê²€ìƒ‰í•´ì•¼ í•œë‹¤.
     list<ObjectID_t> m_Enemies;
 
-    // ´ÙÀ½ ¾×¼Ç ½ÇÇà ½Ã°£
+    // ë‹¤ìŒ ì•¡ì…˜ ì‹¤í–‰ ì‹œê°„
     Timeval m_NextTurn;
 
     // MonsterAI class
     MonsterAI* m_pBrain;
 
-    // Àº µµ±İ µ¥¹ÌÁö
+    // ì€ ë„ê¸ˆ ë°ë¯¸ì§€
     Silver_t m_SilverDamage;
 
-    // Å¬·£ Å¸ÀÔ
+    // í´ëœ íƒ€ì…
     ClanType_t m_ClanType;
 
-    // "¸ÔÀÚ" ¹æÁö¸¦ À§ÇÑ ¿ì¼±±Ç Å×ÀÌºí
+    // "ë¨¹ì" ë°©ì§€ë¥¼ ìœ„í•œ ìš°ì„ ê¶Œ í…Œì´ë¸”
     PrecedenceTable m_PrecedenceTable;
 
-    // ÀÌ ¸ó½ºÅÍ¿¡¼­ ³ª¿À´Â ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¿ì¼±±ÇÀ» °¡Áø ÀÚÀÇ ÀÌ¸§°ú ÆÄÆ¼ ID
+    // ì´ ëª¬ìŠ¤í„°ì—ì„œ ë‚˜ì˜¤ëŠ” ì•„ì´í…œì— ëŒ€í•œ ìš°ì„ ê¶Œì„ ê°€ì§„ ìì˜ ì´ë¦„ê³¼ íŒŒí‹° ID
     string m_HostName;
     int m_HostPartyID;
 
-    // ÀÌ ¸ó½ºÅÍ¸¦ ¸¶Áö¸·À¸·Î ¶§¸° Á¾Á·ÀÇ Å©¸®ÃÄ Å¬·¡½º
-    // ÀÌ ¸ó½ºÅÍ°¡ Á×¾úÀ» °æ¿ì¿¡, »ı¼ºÇÏ´Â ¾ÆÀÌÅÛÀ» °áÁ¤ÇÏ±â À§ÇÑ °ÍÀÌ´Ù.
+    // ì´ ëª¬ìŠ¤í„°ë¥¼ ë§ˆì§€ë§‰ìœ¼ë¡œ ë•Œë¦° ì¢…ì¡±ì˜ í¬ë¦¬ì³ í´ë˜ìŠ¤
+    // ì´ ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆì„ ê²½ìš°ì—, ìƒì„±í•˜ëŠ” ì•„ì´í…œì„ ê²°ì •í•˜ê¸° ìœ„í•œ ê²ƒì´ë‹¤.
     CreatureClass m_LastHitCreatureClass;
 
-    // ÀÌ ¸ó½ºÅÍ°¡ RelicÀ» °¡Áö°í ÀÖ´Â°¡ ¾Æ´Ñ°¡?
+    // ì´ ëª¬ìŠ¤í„°ê°€ Relicì„ ê°€ì§€ê³  ìˆëŠ”ê°€ ì•„ë‹Œê°€?
     int m_RelicIndex;
 
     // #ifdef __XMAS_EVENT_CODE__
@@ -473,7 +473,7 @@ private:
     bool m_bScanEnemy;
     Timeval m_NextScanTurn;
 
-    // ¸ó½ºÅÍÀÇ Àû ÀÎ½ÄÅ¸ÀÓ
+    // ëª¬ìŠ¤í„°ì˜ ì  ì¸ì‹íƒ€ì„
     bool m_bEnemyLimit;
     Timeval m_EnemyLimitTime;
     Creature* m_pOldEnemy;
@@ -481,7 +481,7 @@ private:
     // 2002.9.2
     bool m_bMaster;
     bool m_bTreasure;
-    int m_MonsterSummonStep; // ¼ÒÈ¯ ´Ü°è
+    int m_MonsterSummonStep; // ì†Œí™˜ ë‹¨ê³„
 
 #ifdef __UNDERWORLD__
     bool m_bUnderWorld;
@@ -490,7 +490,7 @@ private:
     // AttackOrder
     AttackOrder m_AttackOrder;
 
-    // ¼ÒÈ¯µÈ ¸÷ÀÎ °æ¿ì.. È¤Àº ¾Æ´Ï´õ¶óµµ.. ÁÖÀÎÀÇ Á¤º¸
+    // ì†Œí™˜ëœ ëª¹ì¸ ê²½ìš°.. í˜¹ì€ ì•„ë‹ˆë”ë¼ë„.. ì£¼ì¸ì˜ ì •ë³´
     ObjectID_t m_OwnerObjectID;
 
     // 2002.10.14

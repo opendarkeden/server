@@ -10,9 +10,9 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// Ousters Á¤º¸¸¦ ´ã°í ÀÖ´Â °´Ã¼.
-// GCPCList ÆĞÅ¶¿¡ ´ã°Ü¼­ Å¬¶óÀÌ¾ğÆ®¿¡°Ô Àü¼ÛµÈ´Ù.
-// ¾ÆÀÌÅÛÀÌ³ª °É·ÁÀÖ´Â ¸¶¹ı °°Àº Á¤º¸´Â ´ã°ÜÀÖÁö ¾Ê´Ù.
+// Ousters ì •ë³´ë¥¼ ë‹´ê³  ìˆëŠ” ê°ì²´.
+// GCPCList íŒ¨í‚·ì— ë‹´ê²¨ì„œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì „ì†¡ëœë‹¤.
+// ì•„ì´í…œì´ë‚˜ ê±¸ë ¤ìˆëŠ” ë§ˆë²• ê°™ì€ ì •ë³´ëŠ” ë‹´ê²¨ìˆì§€ ì•Šë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCOustersInfo : public PCInfo {
@@ -35,42 +35,42 @@ public:
     void write(SocketOutputStream& oStream) const;
 
     uint getSize() const {
-        return szBYTE                        // ÀÌ¸§±æÀÌ
-               + m_Name.size()               // ¾Æ¿ì½ºÅÍ½º ÀÌ¸§
-               + szSlot                      // ½½·Ô
-               + szAlignment                 // ¼ºÇâ
-               + szSex                       // ¼ºº°
-               + szColor * OUSTERS_COLOR_MAX // »ö»ó
-               + szBYTE                      // ¿Ê, ¹«±â Å¸ÀÔ
-               + szAttr * 3                  // ´É·ÂÄ¡
+        return szBYTE                        // ì´ë¦„ê¸¸ì´
+               + m_Name.size()               // ì•„ìš°ìŠ¤í„°ìŠ¤ ì´ë¦„
+               + szSlot                      // ìŠ¬ë¡¯
+               + szAlignment                 // ì„±í–¥
+               + szSex                       // ì„±ë³„
+               + szColor * OUSTERS_COLOR_MAX // ìƒ‰ìƒ
+               + szBYTE                      // ì˜·, ë¬´ê¸° íƒ€ì…
+               + szAttr * 3                  // ëŠ¥ë ¥ì¹˜
                + szHP * 2                    // HP
                + szMP * 2                    // MP
-               + szRank                      // °è±Ş
-               + szExp                       // °æÇèÄ¡
-               + szLevel                     // ·¹º§
-               + szFame                      // ¸í¼º
-               + szBonus                     // º¸³Ê½º Æ÷ÀÎÆ®
-               + szSkillBonus                // ½ºÅ³º¸³Ê½º Æ÷ÀÎÆ®
+               + szRank                      // ê³„ê¸‰
+               + szExp                       // ê²½í—˜ì¹˜
+               + szLevel                     // ë ˆë²¨
+               + szFame                      // ëª…ì„±
+               + szBonus                     // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
+               + szSkillBonus                // ìŠ¤í‚¬ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
                + szLevel;
     }
 
     // get max size of object
     static uint getMaxSize() {
-        return szBYTE + 20                   // ¾Æ¿ì½ºÅÍ½º ÀÌ¸§
-               + szSlot                      // ½½·Ô
-               + szAlignment                 // ¼ºÇâ
-               + szSex                       // ¼ºº°
-               + szColor * OUSTERS_COLOR_MAX // »ö»ó
-               + szBYTE                      // ¿Ê, ¹«±â Å¸ÀÔ
-               + szAttr * 3                  // ´É·ÂÄ¡
+        return szBYTE + 20                   // ì•„ìš°ìŠ¤í„°ìŠ¤ ì´ë¦„
+               + szSlot                      // ìŠ¬ë¡¯
+               + szAlignment                 // ì„±í–¥
+               + szSex                       // ì„±ë³„
+               + szColor * OUSTERS_COLOR_MAX // ìƒ‰ìƒ
+               + szBYTE                      // ì˜·, ë¬´ê¸° íƒ€ì…
+               + szAttr * 3                  // ëŠ¥ë ¥ì¹˜
                + szHP * 2                    // HP
                + szMP * 2                    // MP
-               + szRank                      // °è±Ş
-               + szExp                       // °æÇèÄ¡
-               + szFame                      // ¸í¼ºÄ¡
-               + szLevel                     // ·¹º§
-               + szBonus                     // º¸³Ê½º Æ÷ÀÎÆ®
-               + szSkillBonus                // ½ºÅ³ º¸³Ê½º Æ÷ÀÎÆ®
+               + szRank                      // ê³„ê¸‰
+               + szExp                       // ê²½í—˜ì¹˜
+               + szFame                      // ëª…ì„±ì¹˜
+               + szLevel                     // ë ˆë²¨
+               + szBonus                     // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
+               + szSkillBonus                // ìŠ¤í‚¬ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
                + szLevel;
     }
 
@@ -273,7 +273,7 @@ private:
     // PC name
     string m_Name;
 
-    // PC ½½·Ô
+    // PC ìŠ¬ë¡¯
     Slot m_Slot;
 
     // Alignment
@@ -292,7 +292,7 @@ private:
     OustersCoatType m_CoatType;
     OustersArmType m_ArmType;
 
-    // °è±Ş
+    // ê³„ê¸‰
     Rank_t m_Rank;
 
     // Exp

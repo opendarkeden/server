@@ -40,7 +40,7 @@ void CGAppointSubmasterHandler::execute(CGAppointSubmaster* pPacket, Player* pPl
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ìž…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -48,8 +48,8 @@ void CGAppointSubmasterHandler::execute(CGAppointSubmaster* pPacket, Player* pPl
     SYSTEM_ASSERT(SYSTEM_GUILD);
 
     if (!g_pGuildManager->isGuildMaster(pPacket->getGuildID(), pPlayerCreature)) {
-        // GC_GUILD_RESPONSE ³¯·ÁÁØ´Ù.
-        // ³»¿ë : ±æµå ¸¶½ºÅÍ°¡ ¾Æ´ÏÀÚ³à -.-+
+        // GC_GUILD_RESPONSE ë‚ ë ¤ì¤€ë‹¤.
+        // ë‚´ìš© : ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆìžë…€ -.-+
         GCGuildResponse gcGR;
         gcGR.setCode(GuildUnionOfferManager::SOURCE_IS_NOT_MASTER);
         pPlayer->sendPacket(&gcGR);

@@ -88,8 +88,8 @@ private:
     //	BYTE          m_BonusDamage;
     //	Silver_t      m_Silver;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 
@@ -169,7 +169,7 @@ private:
     Silver_t m_MaxSilver;
     Speed_t m_Speed;
     uint m_ItemLevel;
-    int m_CriticalBonus; // ¾ÆÀÌÅÛ¸¶´Ù ´Ù¸¥ Å©¸®Æ¼ÄÃ È®·ü
+    int m_CriticalBonus; // ì•„ì´í…œë§ˆë‹¤ ë‹¤ë¥¸ í¬ë¦¬í‹°ì»¬ í™•ë¥ 
 };
 
 

@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodCurse::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -37,8 +37,8 @@ void BloodCurse::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -57,7 +57,7 @@ void BloodCurse::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -84,7 +84,7 @@ void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -98,7 +98,7 @@ void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
         bool bTimeCheck = verifyRunTime(pVampireSkillSlot);
         bool bRangeCheck = verifyDistance(pVampire, X, Y, pSkillInfo->getRange());
         bool bHitRoll = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot, HitBonus);
-        // add by Coffee 2007-6-9 Ôö¼Ó¿Û³ı¼¼ÄÜ¿¨
+        // add by Coffee 2007-6-9 è—¤ì†ì™±ë‡œì„¸ì½˜ì—¥
         // bool bUseSkillCrad		= useSkillCrad(pVampire);
 
         bool bTileCheck = false;
@@ -114,9 +114,9 @@ void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_BLOOD_CURSE);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
@@ -125,12 +125,12 @@ void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 
             checkMine(pZone, X, Y);
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectBloodCurse* pEffect = new EffectBloodCurse(pZone, X, Y, true);
             pEffect->setUserObjectID(pVampire->getObjectID());
             pEffect->setDamage(output.Damage);
@@ -138,18 +138,18 @@ void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
             // pEffect->setNextTime(0);
             // pEffect->setTick(output.Tick);
 
-            // ¿ì¼±±Ç ½Ã½ºÅÛÀ» À§ÇÏ¿© ÀÌ¸§°ú ÆÄÆ¼ ¾ÆÀÌµğ¸¦ ³Ö´Â´Ù.
+            // ìš°ì„ ê¶Œ ì‹œìŠ¤í…œì„ ìœ„í•˜ì—¬ ì´ë¦„ê³¼ íŒŒí‹° ì•„ì´ë””ë¥¼ ë„£ëŠ”ë‹¤.
             // pEffect->setCasterName(pVampire->getName());
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 
@@ -254,7 +254,7 @@ void BloodCurse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodCurse::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -293,22 +293,22 @@ void BloodCurse::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             }
 
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_BLOOD_CURSE);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             input.SkillLevel = pMonster->getLevel();
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectBloodCurse* pEffect = new EffectBloodCurse(pZone, X, Y);
             pEffect->setNextTime(output.Duration);
             pEffect->setUserObjectID(pMonster->getObjectID());
@@ -317,15 +317,15 @@ void BloodCurse::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             pEffect->setDamage(output.Damage);
             // pEffect->setLevel(pSkillInfo->getLevel()/2);
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 

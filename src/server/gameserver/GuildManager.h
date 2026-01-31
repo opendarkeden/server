@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GuildManager.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -17,8 +17,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildManager
-// ÇöÀç È°µ¿ÁßÀÎ ±æµå¿Í µî·Ï ´ë±âÁßÀÎ ±æµå¸¦ ¸Ş¸ğ¸®¿¡ map ÇüÅÂ·Î °¡Áö°í ÀÖ°í,
-// »õ·Î¿î ±æµåÀÇ µî·Ï/»èÁ¦¸¦ ´ã´çÇÑ´Ù.
+// í˜„ì¬ í™œë™ì¤‘ì¸ ê¸¸ë“œì™€ ë“±ë¡ ëŒ€ê¸°ì¤‘ì¸ ê¸¸ë“œë¥¼ ë©”ëª¨ë¦¬ì— map í˜•íƒœë¡œ ê°€ì§€ê³  ìˆê³ ,
+// ìƒˆë¡œìš´ ê¸¸ë“œì˜ ë“±ë¡/ì‚­ì œë¥¼ ë‹´ë‹¹í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -96,14 +96,14 @@ public:
 
     string getGuildName(GuildID_t guildID);
 
-    // ±æµå°¡ ¼ºÀ» °¡Á³³ª?
+    // ê¸¸ë“œê°€ ì„±ì„ ê°€ì¡Œë‚˜?
     bool hasCastle(GuildID_t guildID);
     bool hasCastle(GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID);
 
-    // ±æµå°¡ ÀüÀï½ÅÃ»À» Çß³ª?
+    // ê¸¸ë“œê°€ ì „ìŸì‹ ì²­ì„ í–ˆë‚˜?
     bool hasWarSchedule(GuildID_t guildID);
 
-    // ÇöÀç ÁøÇàÁßÀÎ ÀüÀïÀÌ ÀÖ´Â°¡?
+    // í˜„ì¬ ì§„í–‰ì¤‘ì¸ ì „ìŸì´ ìˆëŠ”ê°€?
     bool hasActiveWar(GuildID_t guidlID);
 
 public: // debug
@@ -113,9 +113,9 @@ public: // debug
     ///// Member data /////
 
 protected:
-    unordered_map<GuildID_t, Guild*> m_Guilds; // ±æµå Æ÷ÀÎÅÍ ¸Ê
+    unordered_map<GuildID_t, Guild*> m_Guilds; // ê¸¸ë“œ í¬ì¸í„° ë§µ
 
-    Timeval m_WaitMemberClearTime; // heartbeat ¿¡¼­ Wait ÁßÀÎ ±æµå¸â¹ö Á¤¸® ½Ã°£
+    Timeval m_WaitMemberClearTime; // heartbeat ì—ì„œ Wait ì¤‘ì¸ ê¸¸ë“œë©¤ë²„ ì •ë¦¬ ì‹œê°„
 
     // mutex
     mutable Mutex m_Mutex;

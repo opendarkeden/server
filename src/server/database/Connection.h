@@ -2,7 +2,7 @@
 //
 // File Name 	: Connection.h
 // Written by	: Gday29@ewestsoft.com
-// Description	: µ¥ÀÌÅ¸º£ÀÌ½º¿ÍÀÇ ¿¬°áÀ» ´ã´çÇÏ´Â Å¬·¡½º
+// Description	: ë°ì´íƒ€ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì„ ë‹´ë‹¹í•˜ëŠ” í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ class Statement;
 //
 // class Connection;
 //
-// µ¥ÀÌÅÍ º£ÀÌ½º¿¡ ¿¬°áÇÏ°í, °ü¸®ÇÑ´Ù.
+// ë°ì´í„° ë² ì´ìŠ¤ì— ì—°ê²°í•˜ê³ , ê´€ë¦¬í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -41,10 +41,10 @@ public:
     // close the connection to database
     void close();
 
-    // µ¥ÀÌÅ¸º£ÀÌ½º¿¡ ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+    // ë°ì´íƒ€ë² ì´ìŠ¤ì— ì—°ê²°ì„ ì‹œë„í•œë‹¤.
     void connect(string host, string db, string user, string password, uint port = 0);
 
-    // µ¥ÀÌÅ¸º£ÀÌ½º¿¡ ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+    // ë°ì´íƒ€ë² ì´ìŠ¤ì— ì—°ê²°ì„ ì‹œë„í•œë‹¤.
     void connect();
 
     // check the connection
@@ -55,7 +55,7 @@ public:
         return m_bConnected == false;
     }
 
-    // Statement °´Ã¼¸¦ »ı¼ºÇØ¼­ ¸®ÅÏÇÑ´Ù.
+    // Statement ê°ì²´ë¥¼ ìƒì„±í•´ì„œ ë¦¬í„´í•œë‹¤.
     Statement* createStatement();
 
     // get the MYSQL object
@@ -126,28 +126,28 @@ private:
     // is connected?
     bool m_bConnected;
 
-    // DBMS °¡ ¿î¿µµÇ´Â È£½ºÆ® ¸í
+    // DBMS ê°€ ìš´ì˜ë˜ëŠ” í˜¸ìŠ¤íŠ¸ ëª…
     string m_Host;
 
-    // DBMS ÀÇ ¿¬°á Æ÷Æ®
+    // DBMS ì˜ ì—°ê²° í¬íŠ¸
     uint m_Port;
 
-    // µ¥ÀÌÅ¸º£ÀÌ½º ÀÌ¸§
+    // ë°ì´íƒ€ë² ì´ìŠ¤ ì´ë¦„
     string m_Database;
 
-    // »ç¿ëÀÚ ¾ÆÀÌµğ
+    // ì‚¬ìš©ì ì•„ì´ë””
     string m_User;
 
-    // »ç¿ëÀÚ ÆĞ½º¿öµå
+    // ì‚¬ìš©ì íŒ¨ìŠ¤ì›Œë“œ
     string m_Password;
 
-    // connection name(DatabaseManager ¿¡¼­ »ç¿ëÇÒ Å°°ª)
+    // connection name(DatabaseManager ì—ì„œ ì‚¬ìš©í•  í‚¤ê°’)
     string m_Name;
 
-    // ÇöÀç »ç¿ëÁßÀÎ Ä¿³Ø¼ÇÀÎ°¡?
+    // í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ ì»¤ë„¥ì…˜ì¸ê°€?
     bool m_bBusy;
 
-    // µ¿½Ã Äõ¸®¸¦ ¸·±â À§ÇÑ lock
+    // ë™ì‹œ ì¿¼ë¦¬ë¥¼ ë§‰ê¸° ìœ„í•œ lock
     Mutex m_Mutex;
 };
 

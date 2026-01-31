@@ -82,7 +82,7 @@ void EffectTryingPosition::affect(Creature* pCreature) {
     if (!RegenZoneManager::getInstance()->canTryRegenZone(pPC, m_pTower))
         return;
 
-    // ¸®Á¨Á¸Å¸¿ö°¡ ¸ÔÈ÷´Â ÁßÀÌ¶ó´Â ÀÌÆåÆ®¸¦ Âï¾îÁØ´Ù.
+    // ë¦¬ì  ì¡´íƒ€ì›Œê°€ ë¨¹íˆëŠ” ì¤‘ì´ë¼ëŠ” ì´í™íŠ¸ë¥¼ ì°ì–´ì¤€ë‹¤.
     EffectTryRegenZone* pTowerEffect = new EffectTryRegenZone(m_pTower);
     Assert(pTowerEffect != NULL);
 

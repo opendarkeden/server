@@ -10,8 +10,8 @@
 #include "StringStream.h"
 
 ZoneInfo::ZoneInfo() {
-    m_bMasterLair = false; // ÀÌ°Ç MasterLairInfoManager¿¡¼­ ¼³Á¤ÇÑ´Ù.
-    m_bCastle = false;     // ÀÌ°Ç CastleInfoManager¿¡¼­ ¼³Á¤ÇÑ´Ù.
+    m_bMasterLair = false; // ì´ê±´ MasterLairInfoManagerì—ì„œ ì„¤ì •í•œë‹¤.
+    m_bCastle = false;     // ì´ê±´ CastleInfoManagerì—ì„œ ì„¤ì •í•œë‹¤.
 }
 
 ZoneInfo::~ZoneInfo() {}
@@ -29,7 +29,7 @@ void ZoneInfo::load(ZoneID_t zoneID)
         // create statement
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // OwnerID, °¡ ´Ù NULLÀÌ¶ó¼­ ÀÏ´Ü »©¹ö·È´Ù.
+        // OwnerID, ê°€ ë‹¤ NULLì´ë¼ì„œ ì¼ë‹¨ ë¹¼ë²„ë ¸ë‹¤.
         Result* pResult = pStmt->executeQuery( "SELECT ZoneGroupID, Type, Level, AccessMode, PayPlayZone, PremiumZone,
     PKZone, NoPortalZone, SMPFilename, SSIFilename, FullName, ShortName FROM ZoneInfo WHERE ZoneID = %d", zoneID ); if (
     pResult->next() )

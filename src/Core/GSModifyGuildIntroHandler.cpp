@@ -33,19 +33,19 @@ void GSModifyGuildIntroHandler::execute(GSModifyGuildIntro* pPacket, Player* pPl
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     if (pGuild == NULL)
         return;
 
     pGuild->saveIntro(pPacket->getGuildIntro());
 
-    // °ÔÀÓ ¼­¹ö·Î º¸³¾ ÆÐÅ¶À» ¸¸µç´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ ë³´ë‚¼ íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     SGModifyGuildIntroOK sgModifyGuildIntroOK;
     sgModifyGuildIntroOK.setGuildID(pGuild->getID());
     sgModifyGuildIntroOK.setGuildIntro(pPacket->getGuildIntro());
 
-    // °ÔÀÓ ¼­¹ö·Î ÆÐÅ¶À» º¸³½´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgModifyGuildIntroOK);
 
 #endif

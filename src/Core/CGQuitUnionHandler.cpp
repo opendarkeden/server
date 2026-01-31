@@ -45,7 +45,7 @@ void CGQuitUnionHandler::execute(CGQuitUnion* pPacket, Player* pPlayer)
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("»¹Ã»ÓĞ¿ª·Å´Ë¹¦ÄÜ.");
+    gcSM.setMessage("ë»˜ì²­å”ì—­ë ´ëŠªë¬˜ì½˜.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -66,12 +66,12 @@ void CGQuitUnionHandler::execute(CGQuitUnion* pPacket, Player* pPlayer)
     uint tempUnionID = pUnion->getUnionID();
 
 
-    // ¿äÃ»ÇÑ³ğÀÌ Áö°¡ ¼ÓÇÑ ±æµåÀÇ ¸¶½ºÅÍÀÎ°¡?
+    // ìš”ì²­í•œë†ˆì´ ì§€ê°€ ì†í•œ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ê°€?
     if (!g_pGuildManager->isGuildMaster(pPlayerCreature->getGuildID(), pPlayerCreature)
         //|| pUnion->getMasterGuildID() != pPlayerCreature->getGuildID()
     ) {
-        // GC_GUILD_RESPONSE ³¯·ÁÁØ´Ù.
-        // ³»¿ë : ±æµå ¸¶½ºÅÍ°¡ ¾Æ´ÏÀÚ³à -.-+
+        // GC_GUILD_RESPONSE ë‚ ë ¤ì¤€ë‹¤.
+        // ë‚´ìš© : ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆìë…€ -.-+
 
         gcGuildResponse.setCode(GuildUnionOfferManager::SOURCE_IS_NOT_MASTER);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -83,7 +83,7 @@ void CGQuitUnionHandler::execute(CGQuitUnion* pPacket, Player* pPlayer)
     // cout << "CGQuitUnion - Guild : " << pPacket->getGuildID() << ", Method : " << (int)pPacket->getQuitMethod() <<
     // endl;
 
-    // Á¤»óÀûÀ¸·Î ½ÅÃ»ÇÑ´Ù
+    // ì •ìƒì ìœ¼ë¡œ ì‹ ì²­í•œë‹¤
     if (pPacket->getQuitMethod() == CGQuitUnion::QUIT_NORMAL) {
         uint result = GuildUnionOfferManager::Instance().offerQuit(pPlayerCreature->getGuildID());
 
@@ -91,16 +91,16 @@ void CGQuitUnionHandler::execute(CGQuitUnion* pPacket, Player* pPlayer)
         pPlayer->sendPacket(&gcGuildResponse);
         // cout << "normal send quit result : " << result << endl;
     }
-    // °­Á¦ÀûÀ¸·Î Å»ÅğÇÑ´Ù
+    // ê°•ì œì ìœ¼ë¡œ íƒˆí‡´í•œë‹¤
     else if (pPacket->getQuitMethod() == CGQuitUnion::QUIT_QUICK) {
-        // ±æµå¸¶½ºÅÍÀÇ ¸¶½ºÅÍ ¾ÆÀÌµğ..
+        // ê¸¸ë“œë§ˆìŠ¤í„°ì˜ ë§ˆìŠ¤í„° ì•„ì´ë””..
         string TargetGuildMaster = g_pGuildManager->getGuild(pUnion->getMasterGuildID())->getMaster();
 
         if (GuildUnionManager::Instance().removeGuild(pUnion->getUnionID(), pPlayerCreature->getGuildID())) {
             gcGuildResponse.setCode(GuildUnionOfferManager::OK);
             pPlayer->sendPacket(&gcGuildResponse);
 
-            /* 10ÀÏ°£ ´Ù¸¥¿¬ÇÕ¿¡ °¡ÀÔÇÏÁö ¸øÇÏµµ·Ï ÆĞ³ÎÆ¼ Ã³¸®ÇÑ´Ù. TODO
+            /* 10ì¼ê°„ ë‹¤ë¥¸ì—°í•©ì— ê°€ì…í•˜ì§€ ëª»í•˜ë„ë¡ íŒ¨ë„í‹° ì²˜ë¦¬í•œë‹¤. TODO
              */
             Statement* pStmt = NULL;
             BEGIN_DB {
@@ -115,13 +115,13 @@ void CGQuitUnionHandler::execute(CGQuitUnion* pPacket, Player* pPlayer)
                 pStmt->executeQuery("INSERT INTO GuildUnionOffer values('%u','ESCAPE','%u',now())", tempUnionID,
                                     pPacket->getGuildID());
 
-                // ¿¬ÇÕ¸É¹ö°¡ ÀÖ´ÂÁö º¸ÀÚ..¾øÀ¸¸é?
+                // ì—°í•©ë§´ë²„ê°€ ìˆëŠ”ì§€ ë³´ì..ì—†ìœ¼ë©´?
                 Result* pResult =
                     pStmt->executeQuery("SELECT count(*) FROM GuildUnionMember WHERE UnionID='%u'", tempUnionID);
                 pResult->next();
 
                 if (pResult->getInt(1) == 0) {
-                    // cout << "°­Á¦ÀûÀ¸·Î Å»Åğ¸¦ ÇÑ´Ù..¿¬ÇÕ¿¡ ¸â¹ö°¡ ¾øÀ¸¹Ç·Î ¿¬ÇÕÀ»..Áö¿ö¹ö¸°´Ù : unionid " <<
+                    // cout << "ê°•ì œì ìœ¼ë¡œ íƒˆí‡´ë¥¼ í•œë‹¤..ì—°í•©ì— ë©¤ë²„ê°€ ì—†ìœ¼ë¯€ë¡œ ì—°í•©ì„..ì§€ì›Œë²„ë¦°ë‹¤ : unionid " <<
                     // (int)tempUnionID << endl;
                     pStmt->executeQuery("DELETE FROM GuildUnionInfo WHERE UnionID='%u'", tempUnionID);
                     pStmt->executeQuery("INSERT INTO Messages (Receiver, Message) values('%s','%s')",
@@ -166,7 +166,7 @@ void CGQuitUnionHandler::execute(CGQuitUnion* pPacket, Player* pPlayer)
             sendGCOtherModifyInfoGuildUnion(pTargetCreature);
             sendGCOtherModifyInfoGuildUnion(pCreature);
 
-            // ´Ù¸¥ ¼­¹ö¿¡ ÀÖ´Â ³ğµé¿¡°Ô º¯°æ»çÇ×À» ¾Ë¸°´Ù.
+            // ë‹¤ë¥¸ ì„œë²„ì— ìˆëŠ” ë†ˆë“¤ì—ê²Œ ë³€ê²½ì‚¬í•­ì„ ì•Œë¦°ë‹¤.
             GuildUnionManager::Instance().sendModifyUnionInfo(
                 dynamic_cast<PlayerCreature*>(pTargetCreature)->getGuildID());
             GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pCreature)->getGuildID());

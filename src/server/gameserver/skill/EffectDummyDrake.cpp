@@ -165,9 +165,9 @@ void EffectDummyDrake::unaffect()
     // cout << "EffectDummyDrake" << "unaffect BEGIN" << endl;
 
     Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-    // 读取5*5范围内对象,并创建伤害
+    // 露脕脠隆5*5路露脦搂脛脷露脭脧贸,虏垄麓麓陆篓脡脣潞娄
     // 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-    // 创建目标伤害
+    // 麓麓陆篓脛驴卤锚脡脣潞娄
     affect(pCreature);
 
     int cx = pCreature->getX();
@@ -196,7 +196,7 @@ void EffectDummyDrake::unaffect()
                     continue;
                 if (pTargetCreature->isFlag(getEffectClass()))
                     continue;
-                // 创建伤害
+                // 麓麓陆篓脡脣潞娄
                 affect(pTargetCreature);
                 // 	 			EffectDummyDrake* pEffect = new EffectDummyDrake( pTargetCreature );
                 // 	 			pEffect->setUserOID( m_UserOID );

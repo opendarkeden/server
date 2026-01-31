@@ -57,7 +57,7 @@ void GGGuildChatHandler::execute(GGGuildChat* pPacket)
 
 #ifdef __GAME_SERVER__
 
-        // ±æµåÀÇ ÇöÀç Á¢¼Ó ÁßÀÎ ¸â¹ö¸¦ °¡Á®¿Â´Ù.
+        // ê¸¸ë“œì˜ í˜„ìž¬ ì ‘ì† ì¤‘ì¸ ë©¤ë²„ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
         Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
 
     if (pGuild == NULL) {
@@ -65,7 +65,7 @@ void GGGuildChatHandler::execute(GGGuildChat* pPacket)
         return;
     }
 
-    // ±æµå Ã¤ÆÃ ÆÐÅ¶À» ¸¸µç´Ù.
+    // ê¸¸ë“œ ì±„íŒ… íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     GCGuildChat gcGuildChat;
     gcGuildChat.setType(pPacket->getType());
     gcGuildChat.setSendGuildName(pGuild->getName());
@@ -76,7 +76,7 @@ void GGGuildChatHandler::execute(GGGuildChat* pPacket)
     if (pPacket->getType() == 0) {
         broadcastGuild(pGuild, &gcGuildChat);
     } else {
-        // ¿¬ÇÕ Ã¤ÆÃ
+        // ì—°í•© ì±„íŒ…
         GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(pGuild->getID());
         if (pUnion == NULL) {
             broadcastGuild(pGuild, &gcGuildChat);

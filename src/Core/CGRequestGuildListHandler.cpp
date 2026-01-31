@@ -46,14 +46,14 @@ void CGRequestGuildListHandler::execute(CGRequestGuildList* pPacket, Player* pPl
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
 
     GuildType_t tmpGuildType = pPacket->getGuildType();
 
-    // ´ë±â±æµå ÀÌ¸é
+    // ëŒ€ê¸°ê¸¸ë“œ ì´ë©´
     if (tmpGuildType == CGRequestGuildList::GUILDTYPE_WAIT) {
         GCWaitGuildList gcWaitGuildList;
 
@@ -72,7 +72,7 @@ void CGRequestGuildListHandler::execute(CGRequestGuildList* pPacket, Player* pPl
         pPlayer->sendPacket(&gcWaitGuildList);
 
     }
-    // ÀÏ¹İ±æµå ÀÌ¸é
+    // ì¼ë°˜ê¸¸ë“œ ì´ë©´
     else if (tmpGuildType == CGRequestGuildList::GUILDTYPE_NORMAL) {
         GCActiveGuildList gcActiveGuildList;
 

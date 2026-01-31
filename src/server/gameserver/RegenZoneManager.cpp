@@ -107,7 +107,7 @@ void RegenZoneManager::reload() {
             Item* pTowerItem = pZone->getTile(ZoneX, ZoneY).getItem();
             if (pTowerItem == NULL || pTowerItem->getItemClass() != Item::ITEM_CLASS_CORPSE ||
                 pTowerItem->getItemType() != MONSTER_CORPSE) {
-                filelog("RaceWar.log", "¸®Á¨Á¸ Å¸¿ö¸¦ ¸ø Ã£¾Ò½À´Ï´Ù. [%d:(%d,%d)]", ZoneID, ZoneX, ZoneY);
+                filelog("RaceWar.log", "ë¦¬ì  ì¡´ íƒ€ì›Œë¥¼ ëª» ì°¾ì•˜ìŠµë‹ˆë‹¤. [%d:(%d,%d)]", ZoneID, ZoneX, ZoneY);
                 pZone->unlock();
                 continue;
             }
@@ -117,7 +117,7 @@ void RegenZoneManager::reload() {
 
             RegenZoneInfo* pInfo = m_RegenZoneInfos[ID];
             if (pInfo == NULL) {
-                filelog("RaceWar.log", "Reload : ÇØ´çµÇ´Â ¸®Á¨Á¸ÀÌ ¾ø½À´Ï´Ù. [%d]", ID);
+                filelog("RaceWar.log", "Reload : í•´ë‹¹ë˜ëŠ” ë¦¬ì  ì¡´ì´ ì—†ìŠµë‹ˆë‹¤. [%d]", ID);
                 m_RegenZoneInfos.erase(ID);
                 pZone->unlock();
                 continue;
@@ -128,7 +128,7 @@ void RegenZoneManager::reload() {
             EffectRegenZone* pEffect = dynamic_cast<EffectRegenZone*>(
                 pTower->getEffectManager().findEffect(Effect::EFFECT_CLASS_SLAYER_REGEN_ZONE));
             if (pEffect == NULL) {
-                filelog("RaceWar.log", "Reload : ¸®Á¨Á¸ ÀÌÆåÆ®°¡ ³¯¶ó°¬½À´Ï´Ù. [%d]", ID);
+                filelog("RaceWar.log", "Reload : ë¦¬ì  ì¡´ ì´í™íŠ¸ê°€ ë‚ ë¼ê°”ìŠµë‹ˆë‹¤. [%d]", ID);
                 pZone->unlock();
                 continue;
             }
@@ -287,11 +287,11 @@ bool RegenZoneManager::canRegen(PlayerCreature* pPC, uint ID) {
 
     if (itr == m_RegenZoneInfos.end()) {
         switch (ID) {
-        case 8:  // ¿ÁÅ¸ºÎ½º
-        case 10: // ¼ÁÆ¼¹«½º
+        case 8:  // ì˜¥íƒ€ë¶€ìŠ¤
+        case 10: // ì…‰í‹°ë¬´ìŠ¤
             return pPC->isSlayer();
-        case 9:  // Å×¸£Æ¼¿ì½º
-        case 11: // Äí¾Æ¸£Åõ½º
+        case 9:  // í…Œë¥´í‹°ìš°ìŠ¤
+        case 11: // ì¿ ì•„ë¥´íˆ¬ìŠ¤
             return pPC->isVampire();
         case 12:
         case 13:
@@ -305,7 +305,7 @@ bool RegenZoneManager::canRegen(PlayerCreature* pPC, uint ID) {
             unordered_map<ObjectID_t, Creature*>& cmap = pMM->getCreatures();
             unordered_map<ObjectID_t, Creature*>::iterator itr = cmap.begin();
 
-            // ¼º¹®ÀÌ ÀÖÀ¸¸é ¾ÈµÈ´Ù.
+            // ì„±ë¬¸ì´ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
             for (; itr != cmap.end(); ++itr) {
                 Monster* pMonster = dynamic_cast<Monster*>((itr->second));
                 if (pMonster != NULL && pMonster->getMonsterType() == 726)
@@ -335,28 +335,28 @@ void RegenZoneManager::regeneratePC(PlayerCreature* pPC, uint ID) {
 
     if (itr == m_RegenZoneInfos.end()) {
         switch (ID) {
-        case 8: // ¿ÁÅ¸ºÎ½º
+        case 8: // ì˜¥íƒ€ë¶€ìŠ¤
         {
             targetPos.id = 1201;
             targetPos.x = 120;
             targetPos.y = 120;
             break;
         }
-        case 9: // Å×¸£Æ¼¿ì½º
+        case 9: // í…Œë¥´í‹°ìš°ìŠ¤
         {
             targetPos.id = 1202;
             targetPos.x = 30;
             targetPos.y = 120;
             break;
         }
-        case 10: // ¼ÁÆ¼¹«½º
+        case 10: // ì…‰í‹°ë¬´ìŠ¤
         {
             targetPos.id = 1203;
             targetPos.x = 120;
             targetPos.y = 30;
             break;
         }
-        case 11: // Äí¾Æ¸£Åõ½º
+        case 11: // ì¿ ì•„ë¥´íˆ¬ìŠ¤
         {
             targetPos.id = 1204;
             targetPos.x = 30;

@@ -13,8 +13,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class Event;
-// ÇÃ·¹ÀÌ¾î Å¬·¡½º¿¡ ¿¬°üµÇ¾î ÀÖÀ¸¸ç,
-// ÀÏÁ¤ ½Ã°£ ÈÄ¿¡ Æ¯Á¤ ¾×¼ÇÀ» ÃëÇÏµµ·Ï ÇØÁØ´Ù.
+// í”Œë ˆì´ì–´ í´ëž˜ìŠ¤ì— ì—°ê´€ë˜ì–´ ìžˆìœ¼ë©°,
+// ì¼ì • ì‹œê°„ í›„ì— íŠ¹ì • ì•¡ì…˜ì„ ì·¨í•˜ë„ë¡ í•´ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class GamePlayer;
@@ -22,20 +22,20 @@ class GamePlayer;
 class Event {
 public:
     enum EventClass {
-        EVENT_CLASS_RESURRECT,                // Å©¸®Ã³°¡ Á×¾úÀ» °æ¿ì, ºÎÈ°½ÃÅ°±â..
-        EVENT_CLASS_MORPH,                    // ½½·¹ÀÌ¾î -> ¹ìÆÄÀÌ¾îº¯½Å
-        EVENT_CLASS_RESTORE,                  // ¹ìÆÄÀÌ¾î -> ½½·¹ÀÌ¾î º¯½Å
-        EVENT_SAVE,                           // ÁÖ±âÀûÀ¸·Î Å©¸®Ã³ Á¤º¸¸¦ ÀúÀåÇÏ±â
-        EVENT_CLASS_REGENERATION,             // ¹ìÆÄÀÌ¾î¸¦ ÁÖ±âÀûÀ¸·Î È¸º¹ÇØÁÖ±â
-        EVENT_CLASS_RELOAD_INFO,              // DB¿¡¼­ info¸¦ reloadÇÑ´Ù.
-        EVENT_CLASS_TRANSPORT,                // ZoneÀÌµ¿ ÇÑ´Ù.
-        EVENT_CLASS_KICK,                     // ¾ó¸¶ ÈÄ¿¡ kickÇÑ´Ù.
-        EVENT_CLASS_SYSTEM_MESSAGE,           // Incoming¿¡¼­ ¹ÞÀº System¸Þ¼¼Áö¸¦ °®°í ÀÖ´Ù°¡ »Ñ·ÁÁØ´Ù.
-        EVENT_CLASS_REFRESH_HOLY_LAND_PLAYER, // Holy Land Race Bonus º¯È­¿¡ µû¶ó Holy Land Player Stat À» °»½Å
-        EVENT_CLASS_SHUTDOWN,                 // »ç¿ëÀÚµéÀ» ¸ù¶¥ Á¤¸®ÇÏ°í ¼Ë´Ù¿î
-        EVENT_CLASS_HEAD_COUNT,               // 30ºÐ¿¡ ÇÑ¹ø¾¿ ¸Ó¸® µý °¹¼ö ¼¼Àå
-        EVENT_CLASS_CBILLING,                 // Áß±¹ ºô¸µ. ÁÖ±âÀûÀ¸·Î minus point/minute ÆÐÅ¶À» º¸³½´Ù.
-        EVENT_CLASS_AUTH,                     // Nprotect ÀÎÁõ
+        EVENT_CLASS_RESURRECT,                // í¬ë¦¬ì²˜ê°€ ì£½ì—ˆì„ ê²½ìš°, ë¶€í™œì‹œí‚¤ê¸°..
+        EVENT_CLASS_MORPH,                    // ìŠ¬ë ˆì´ì–´ -> ë±€íŒŒì´ì–´ë³€ì‹ 
+        EVENT_CLASS_RESTORE,                  // ë±€íŒŒì´ì–´ -> ìŠ¬ë ˆì´ì–´ ë³€ì‹ 
+        EVENT_SAVE,                           // ì£¼ê¸°ì ìœ¼ë¡œ í¬ë¦¬ì²˜ ì •ë³´ë¥¼ ì €ìž¥í•˜ê¸°
+        EVENT_CLASS_REGENERATION,             // ë±€íŒŒì´ì–´ë¥¼ ì£¼ê¸°ì ìœ¼ë¡œ íšŒë³µí•´ì£¼ê¸°
+        EVENT_CLASS_RELOAD_INFO,              // DBì—ì„œ infoë¥¼ reloadí•œë‹¤.
+        EVENT_CLASS_TRANSPORT,                // Zoneì´ë™ í•œë‹¤.
+        EVENT_CLASS_KICK,                     // ì–¼ë§ˆ í›„ì— kickí•œë‹¤.
+        EVENT_CLASS_SYSTEM_MESSAGE,           // Incomingì—ì„œ ë°›ì€ Systemë©”ì„¸ì§€ë¥¼ ê°–ê³  ìžˆë‹¤ê°€ ë¿Œë ¤ì¤€ë‹¤.
+        EVENT_CLASS_REFRESH_HOLY_LAND_PLAYER, // Holy Land Race Bonus ë³€í™”ì— ë”°ë¼ Holy Land Player Stat ì„ ê°±ì‹ 
+        EVENT_CLASS_SHUTDOWN,                 // ì‚¬ìš©ìžë“¤ì„ ëª½ë•… ì •ë¦¬í•˜ê³  ì…§ë‹¤ìš´
+        EVENT_CLASS_HEAD_COUNT,               // 30ë¶„ì— í•œë²ˆì”© ë¨¸ë¦¬ ë”´ ê°¯ìˆ˜ ì„¸ìž¥
+        EVENT_CLASS_CBILLING,                 // ì¤‘êµ­ ë¹Œë§. ì£¼ê¸°ì ìœ¼ë¡œ minus point/minute íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
+        EVENT_CLASS_AUTH,                     // Nprotect ì¸ì¦
         EVENT_CLASS_MAX
     };
 
@@ -47,7 +47,7 @@ public:
     virtual EventClass getEventClass() const = 0;
 
     // get event life-cycle
-    // ±âº»ÀûÀ¸·Î ¸ðµç ÀÌº¥Æ®µéÀº 1È¸¿ëÀÌ´Ù.
+    // ê¸°ë³¸ì ìœ¼ë¡œ ëª¨ë“  ì´ë²¤íŠ¸ë“¤ì€ 1íšŒìš©ì´ë‹¤.
     virtual bool isTemporary() const {
         return true;
     }
@@ -65,8 +65,8 @@ public:
     virtual string toString() const = 0;
 
 protected:
-    GamePlayer* m_pGamePlayer; // °ÔÀÓ ÇÃ·¹ÀÌ¾î °´Ã¼
-    Timeval m_Deadline;        // ½ÇÇà ½Ã°£
+    GamePlayer* m_pGamePlayer; // ê²Œìž„ í”Œë ˆì´ì–´ ê°ì²´
+    Timeval m_Deadline;        // ì‹¤í–‰ ì‹œê°„
 };
 
 #endif

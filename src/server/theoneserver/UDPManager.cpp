@@ -56,17 +56,17 @@ void UDPManager::sendPacket(const string& host, uint port, DatagramPacket* pPack
     __BEGIN_DEBUG
 
     try {
-        // µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ÇÏ³ª µÎ°í, Àü¼ÛÇÒ peer ÀÇ È£½ºÆ®¿Í Æ÷Æ®¸¦ ÁöÁ¤ÇÑ´Ù.
+        // ë°ì´í„°ê·¸ëž¨ ê°ì²´ë¥¼ í•˜ë‚˜ ë‘ê³ , ì „ì†¡í•  peer ì˜ í˜¸ìŠ¤íŠ¸ì™€ í¬íŠ¸ë¥¼ ì§€ì •í•œë‹¤.
         Datagram datagram;
 
 
         datagram.setHost(host);
         datagram.setPort(port);
 
-        // µ¥ÀÌÅÍ±×·¥ ÆÐÅ¶À» µ¥ÀÌÅÍ±×·¥¿¡ Áý¾î³Ö´Â´Ù.
+        // ë°ì´í„°ê·¸ëž¨ íŒ¨í‚·ì„ ë°ì´í„°ê·¸ëž¨ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
         datagram.write(pPacket);
 
-        // µ¥ÀÌÅÍ±×·¥ ¼ÒÄÏÀ» ÅëÇØ¼­ µ¥ÀÌÅÍ±×·¥À» Àü¼ÛÇÑ´Ù.
+        // ë°ì´í„°ê·¸ëž¨ ì†Œì¼“ì„ í†µí•´ì„œ ë°ì´í„°ê·¸ëž¨ì„ ì „ì†¡í•œë‹¤.
         m_pDatagramSocket->send(&datagram);
     } catch (Throwable& t) {
         // cerr << "====================================================================" << endl;

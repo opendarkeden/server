@@ -2,8 +2,8 @@
 // Filename    : EffectFadeOut.h
 // Written by  : elca@ewestsoft.com
 // Description :
-// ±ºÀÎ±â¼ú Sniping ¶Ç´Â ¹ìÆÄÀÌ¾î ±â¼ú Invisibility·Î ÀÎÇØ¼­
-// ÇöÀç Á¡Á¡ Èñ¹ÌÇØÁ®°¡°í ÀÖ´Â(»ç¶óÁö°í ÀÖ´Â) Å©¸®ÃÄ¿¡ ºÙ´Â ÀÌÆåÆ®ÀÌ´Ù.
+// êµ°ì¸ê¸°ìˆ  Sniping ë˜ëŠ” ë±€íŒŒì´ì–´ ê¸°ìˆ  Invisibilityë¡œ ì¸í•´ì„œ
+// í˜„ìž¬ ì ì  í¬ë¯¸í•´ì ¸ê°€ê³  ìžˆëŠ”(ì‚¬ë¼ì§€ê³  ìžˆëŠ”) í¬ë¦¬ì³ì— ë¶™ëŠ” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_FADE_OUT__

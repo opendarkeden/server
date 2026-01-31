@@ -23,7 +23,7 @@ public:
     ~NPCManager();
 
 public:
-    void load(ZoneID_t zoneID, int race = 0xFF); // 0xFF¿Ã∏È ALL.. -_-;
+    void load(ZoneID_t zoneID, int race = 0xFF); // 0xFFÏù¥Î©¥ ALL.. -_-;
     void processCreatures();
     string toString() const;
 };

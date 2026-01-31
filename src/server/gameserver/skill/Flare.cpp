@@ -36,8 +36,8 @@ void Flare::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkil
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPCÀÌ°Å³ª, ½½·¹ÀÌ¾î¿¡°Ô´Â Flare¸¦ ¾µ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCì´ê±°ë‚˜, ìŠ¬ë ˆì´ì–´ì—ê²ŒëŠ” Flareë¥¼ ì“¸ ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isNPC() || pTargetCreature->isSlayer()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -67,32 +67,32 @@ void Flare::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkil
             pTargetCreature->getCompetence() == 3) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectFlare* pEffect = new EffectFlare(pTargetCreature);
             // pEffect->setOldSight(13);
             pEffect->setOldSight(pTargetCreature->getSight());
-            // Á¦°ÅÇÒ¶§ levelÃ¼Å©ÇÏ±â À§ÇÞ¼­.by sigi. 2002.6.21
+            // ì œê±°í• ë•Œ levelì²´í¬í•˜ê¸° ìœ„í–‡ì„œ.by sigi. 2002.6.21
             pEffect->setLevel(pSkillInfo->getLevel());
             pEffect->setDeadline(output.Duration);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_FLARE);
             pTargetCreature->addEffect(pEffect);
 
-            // ÀÌÆåÆ®¸¦ Àû¿ë½ÃÅ²´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
             pEffect->affect(pTargetCreature);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);
 
-            // ÆÐÅ¶À» ÁØºñÇÑ´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•œë‹¤.
             ZoneCoord_t targetX = pTargetCreature->getX();
             ZoneCoord_t targetY = pTargetCreature->getY();
             ZoneCoord_t myX = pSlayer->getX();

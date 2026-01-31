@@ -24,10 +24,10 @@ class LGIncomingConnectionOK : public DatagramPacket {
 public:
     LGIncomingConnectionOK() {};
     ~LGIncomingConnectionOK() {};
-    // Datagram °´Ã¼¿¡¼­ºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // Datagram ê°ì²´ì—ì„œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Datagram& iDatagram);
 
-    // Datagram °´Ã¼·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // Datagram ê°ì²´ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(Datagram& oDatagram) const;
 
     // execute packet's handler
@@ -77,14 +77,14 @@ public:
     }
 
 private:
-    // ¾î¶² ÇÃ·¹ÀÌ¾î¿¡°Ô LCReconnect ÆĞÅ¶À» º¸³»¾ß ÇÏ´ÂÁö´Â ¾Ë¾Æ¾ß ÇÑ´Ù.
+    // ì–´ë–¤ í”Œë ˆì´ì–´ì—ê²Œ LCReconnect íŒ¨í‚·ì„ ë³´ë‚´ì•¼ í•˜ëŠ”ì§€ëŠ” ì•Œì•„ì•¼ í•œë‹¤.
     string m_PlayerID;
 
-    // °ÔÀÓ ¼­¹ö°¡ ÀÚ½ÅÀÇ TCP Æ÷Æ®¸¦ ¾Ë·ÁÁÜÀ¸·Î½á
-    // ·Î±×ÀÎ ¼­¹ö´Â °ÔÀÓ ¼­¹öÀÇ TCP Æ÷Æ®¸¦ ¸ô¶óµµ ¹«¹æÇÏ´Ù.
+    // ê²Œì„ ì„œë²„ê°€ ìì‹ ì˜ TCP í¬íŠ¸ë¥¼ ì•Œë ¤ì¤Œìœ¼ë¡œì¨
+    // ë¡œê·¸ì¸ ì„œë²„ëŠ” ê²Œì„ ì„œë²„ì˜ TCP í¬íŠ¸ë¥¼ ëª°ë¼ë„ ë¬´ë°©í•˜ë‹¤.
     uint m_TCPPort;
 
-    // °ÔÀÓ ¼­¹ö¿¡¼­ »ı¼ºÇÑ ÀÎÁõ Å°
+    // ê²Œì„ ì„œë²„ì—ì„œ ìƒì„±í•œ ì¸ì¦ í‚¤
     DWORD m_Key;
 };
 
@@ -116,7 +116,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static LGIncomingConnectionOKPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static LGIncomingConnectionOKPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + 20 + szuint + szDWORD;
     }

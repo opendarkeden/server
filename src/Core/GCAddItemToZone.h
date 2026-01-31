@@ -173,10 +173,10 @@ public:
     }
 
 protected:
-    // ItemÀÇ ObjectID
+    // Itemì˜ ObjectID
     ObjectID_t m_ObjectID;
 
-    // ZoneÀÇ X, Y ÁÂÇ¥
+    // Zoneì˜ X, Y ì¢Œí‘œ
     Coord_t m_X;
     Coord_t m_Y;
 

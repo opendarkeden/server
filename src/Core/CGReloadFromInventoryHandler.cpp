@@ -61,7 +61,7 @@ void CGReloadFromInventoryHandler::execute(CGReloadFromInventory* pPacket, Playe
                     return;
                 }
 
-                // ÀÎº¥Åä¸® ½½¶ù¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Object¸¦ ¹Þ´Â´Ù.
+                // ì¸ë²¤í† ë¦¬ ìŠ¬ëžì— ìžˆëŠ” ì•„ì´í…œì˜ Objectë¥¼ ë°›ëŠ”ë‹¤.
                 ItemObjectID = pItem->getObjectID();
 
                 if (ItemObjectID != pPacket->getObjectID()) {
@@ -79,7 +79,7 @@ void CGReloadFromInventoryHandler::execute(CGReloadFromInventory* pPacket, Playe
             }
         }
 
-        // reload delay°¡ ÀÖÀ¸¹Ç·Î effect¿¡ µî·Ï ½ÃÅ²´Ù.
+        // reload delayê°€ ìžˆìœ¼ë¯€ë¡œ effectì— ë“±ë¡ ì‹œí‚¨ë‹¤.
         EffectManager* pEffectManager = pSlayer->getEffectManager();
         if (pEffectManager == NULL)
             return;
@@ -92,9 +92,9 @@ void CGReloadFromInventoryHandler::execute(CGReloadFromInventory* pPacket, Playe
             pEffect->setInventoryXY(x, y);
 
             if (pSlayer->hasSkill(SKILL_FAST_RELOAD))
-                pEffect->setDeadline(7); // ºü¸¥ reload(0.7ÃÊ)
+                pEffect->setDeadline(7); // ë¹ ë¥¸ reload(0.7ì´ˆ)
             else
-                pEffect->setDeadline(2 * 10); // º¸Åë reload(2sec)
+                pEffect->setDeadline(2 * 10); // ë³´í†µ reload(2sec)
 
             pSlayer->setFlag(Effect::EFFECT_CLASS_RELOAD_TIMER);
             pEffectManager->addEffect(pEffect);

@@ -40,11 +40,11 @@ void CGUntransformHandler::execute(CGUntransform* pPacket, Player* pPlayer)
             if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
             {
 
-                // ÇÃ·¹ÀÌ¾î¿¡¼­ Flag ¶§ÁÖ°í
+                // í”Œë ˆì´ì–´ì—ì„œ Flag ë•Œì£¼ê³ 
                 pOusters->removeFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH);
                 Zone* pZone = pCreature->getZone();
 
-                // Á¸¿¡ ÀÌÆåÆ® ¾ø¾Ý´Ù°í º¸³»ÁÖ°í
+                // ì¡´ì— ì´íŽ™íŠ¸ ì—†ì•´ë‹¤ê³  ë³´ë‚´ì£¼ê³ 
                 GCRemoveEffect removeEffect;
                 removeEffect.setObjectID(pOusters->getObjectID());
                 removeEffect.addEffectList(Effect::EFFECT_CLASS_SUMMON_SYLPH);
@@ -53,7 +53,7 @@ void CGUntransformHandler::execute(CGUntransform* pPacket, Player* pPlayer)
 
                 GCModifyInformation gcMI;
 
-                // µðÆæ ÇÁÅØ ´Ù½Ã °è»êÇØ¼­ º¸³»ÁÖ°í
+                // ë””íŽœ í”„í… ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ë³´ë‚´ì£¼ê³ 
                 OUSTERS_RECORD prev;
                 pOusters->getOustersRecord(prev);
                 pOusters->initAllStat();

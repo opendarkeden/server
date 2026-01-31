@@ -16,7 +16,7 @@
 #include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ºø«¡
+// Ïä¨Î†àÏù¥Ïñ¥ ÏÖÄÌîÑ
 //////////////////////////////////////////////////////////////////////////////
 void InstallTrap::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -35,7 +35,7 @@ void InstallTrap::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, ∞À¿Ã æ∆¥œ∂Û∏È ±‚º˙¿ª æµ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, Í≤ÄÏù¥ ÏïÑÎãàÎùºÎ©¥ Í∏∞Ïà†ÏùÑ Ïì∏ Ïàò ÏóÜÎã§.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || !isArmsWeapon(pWeapon)) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -71,7 +71,7 @@ void InstallTrap::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¿Ã∆Â∆Æ ≈¨∑°Ω∫∏¶ ∏∏µÈæÓ ∫Ÿ¿Œ¥Ÿ.
+            // Ïù¥ÌéôÌä∏ ÌÅ¥ÎûòÏä§Î•º ÎßåÎì§Ïñ¥ Î∂ôÏù∏Îã§.
             EffectTrapInstalled* pEffect = new EffectTrapInstalled(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setUserOID(pSlayer->getObjectID());
@@ -81,7 +81,7 @@ void InstallTrap::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pZone->addEffect(pEffect);
             rTile.addEffect(pEffect);
 
-            // ∞Ê«Ëƒ°∏¶ ø√∏∞¥Ÿ.
+            // Í≤ΩÌóòÏπòÎ•º Ïò¨Î¶∞Îã§.
             /*			SkillGrade Grade =
                g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType)); Exp_t ExpUp =
                10*(Grade+1); if ( bIncreaseDomainExp )
@@ -91,7 +91,7 @@ void InstallTrap::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
                             increaseSkillExp(pSlayer, DomainType,  pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
                         }*/
 
-            // ∆–≈∂¿ª ∏∏µÈæÓ ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ ÎßåÎì§Ïñ¥ Î≥¥ÎÇ∏Îã§.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);

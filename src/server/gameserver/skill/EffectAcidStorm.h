@@ -66,7 +66,7 @@ private:
     Turn_t m_Tick;              // EffectAcidStorm turn;
     int m_Level;                // EffectAcidStorm level;
     Duration_t m_Duration;      // EffectAcidStorm Duration;
-    Duration_t m_StormDuration; // AcidStorm Effect Áö¼Ó ½Ã°£
+    Duration_t m_StormDuration; // AcidStorm Effect ì§€ì† ì‹œê°„
     ObjectID_t m_UserObjectID;
     bool m_bVampire;
 };

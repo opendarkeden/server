@@ -96,7 +96,7 @@ void EffectInvisibility::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone);
 
-    // true¸é ³»ºÎ¿¡¼­ effectManagerÀÇ effect¸¦ »èÁ¦ÇÑ´Ù.
+    // trueë©´ ë‚´ë¶€ì—ì„œ effectManagerì˜ effectë¥¼ ì‚­ì œí•œë‹¤.
     addVisibleCreature(pZone, pCreature, false);
 
     // cout << "EffectInvisibility " << "unaffect END" << endl;

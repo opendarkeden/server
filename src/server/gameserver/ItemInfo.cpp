@@ -133,7 +133,7 @@ void ItemInfo::setDefaultOptions(const string& options)
         try {
             optionType = g_pOptionInfoManager->getOptionType(optionName);
         } catch (NoSuchElementException&) {
-            throw Error("±×·± ¿É¼ÇÀÌ ¾ø´Ü´Ù.");
+            throw Error("ê·¸ëŸ° ì˜µì…˜ì´ ì—†ë‹¨ë‹¤.");
         }
 
         addDefaultOptions( optionType );
@@ -158,17 +158,17 @@ void ItemInfo::clearDefaultOptions()
     m_DefaultOptions.clear();
 }
 
-// ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade°¡ ¼º°øÇß³ª?
+// ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeê°€ ì„±ê³µí–ˆë‚˜?
 bool ItemInfo::isUpgradeSucceed() const {
-    // 0ÀÌ ¾Æ´Ï°í
-    // È®·ü¸¸Å­ rand()ÇßÀ»¶§ Æ¯Á¤ÇÑ ÇÑ °ª(0)ÀÌ ³ª¿À´Â °æ¿ì°¡ ¼º°øÀÌ´Ù.
+    // 0ì´ ì•„ë‹ˆê³ 
+    // í™•ë¥ ë§Œí¼ rand()í–ˆì„ë•Œ íŠ¹ì •í•œ í•œ ê°’(0)ì´ ë‚˜ì˜¤ëŠ” ê²½ìš°ê°€ ì„±ê³µì´ë‹¤.
     // return m_UpgradeRatio!=0 && (rand()%m_UpgradeRatio==0);
 
-    // ±×·±µ¥.. ±âÈ¹ÀÌ ¹éºĞÀ²·Î ³ª¿Ô´Ù. -_-;
+    // ê·¸ëŸ°ë°.. ê¸°íšì´ ë°±ë¶„ìœ¨ë¡œ ë‚˜ì™”ë‹¤. -_-;
     return (rand() % 100 < (int)m_UpgradeRatio);
 }
 
-// ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade ÇÏ´Ù°¡ ½ÇÆĞÇØ¼­ itemÀÌ ºÎ¼­Á³³ª?
+// ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgrade í•˜ë‹¤ê°€ ì‹¤íŒ¨í•´ì„œ itemì´ ë¶€ì„œì¡Œë‚˜?
 bool ItemInfo::isUpgradeCrash() const {
     return (rand() % 100 < m_UpgradeCrashPercent);
 }

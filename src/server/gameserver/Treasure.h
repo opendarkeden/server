@@ -144,7 +144,7 @@ public:
     int m_ItemTypeTotalRatio;
     vector<TreasureItemType*> m_TreasureItemTypes;
 
-    // Add By Sonic 2006.10.21  Ôö¼ÓÒ»¸öµô±¦ÊôĞÔ×î´óÖµ±äÁ¿
+    // Add By Sonic 2006.10.21  è—¤ì†å¯§ëª¸ë”œê´œæ©„æ˜‘é›¢ëŒ•ä»¤ê¸´ì¢†
     void setRndItemOptionMax(int Value = 2) {
         m_OptionRatioMax = Value;
     }
@@ -173,11 +173,11 @@ public:
     //	XMLTree*	makeXMLTree() const;
 
 public:
-    int m_ItemRatio;           // ¾ÆÀÌÅÛ ÀÚÃ¼°¡ ³ª¿Ã È®·ü
-    int m_OptionRatio;         // ³ª¿Â ¾ÆÀÌÅÛ¿¡ ¿É¼ÇÀÌ ºÙÀ» È®·ü
-    int m_ItemClassTotalRatio; // ¸ğµç ¾ÆÀÌÅÛ Å¬·¡½ºÀÇ È®·üÀÇ ÇÕ
+    int m_ItemRatio;           // ì•„ì´í…œ ìì²´ê°€ ë‚˜ì˜¬ í™•ë¥ 
+    int m_OptionRatio;         // ë‚˜ì˜¨ ì•„ì´í…œì— ì˜µì…˜ì´ ë¶™ì„ í™•ë¥ 
+    int m_ItemClassTotalRatio; // ëª¨ë“  ì•„ì´í…œ í´ë˜ìŠ¤ì˜ í™•ë¥ ì˜ í•©
     vector<TreasureItemClass*> m_TreasureItemClasses;
-    // Add By Sonic 2006.10.21  Ôö¼ÓÒ»¸öµô±¦ÊôĞÔ×î´óÖµ±äÁ¿
+    // Add By Sonic 2006.10.21  è—¤ì†å¯§ëª¸ë”œê´œæ©„æ˜‘é›¢ëŒ•ä»¤ê¸´ì¢†
     void setRndItemOptionMax(int Value = 2) {
         m_OptionRatioMax = Value;
     }

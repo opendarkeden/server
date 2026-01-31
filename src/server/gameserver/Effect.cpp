@@ -57,10 +57,10 @@ void Effect::setNextTime(Turn_t delay)
 {
     __BEGIN_TRY
 
-    // ÇöÀç ½Ã°£À» ÃøÁ¤ÇÑ´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ì¸¡ì •í•œë‹¤.
     getCurrentTime(m_NextTime);
 
-    // ÀÌ¶§, delay ´Â 0.1 ÃÊ°¡ 1 ÀÌ´Ù.
+    // ì´ë•Œ, delay ëŠ” 0.1 ì´ˆê°€ 1 ì´ë‹¤.
     m_NextTime.tv_sec += delay / 10;
     m_NextTime.tv_usec += (delay % 10) * 100000;
 
@@ -70,18 +70,18 @@ void Effect::setNextTime(Turn_t delay)
 void Effect::setDeadline(Turn_t delay) {
     __BEGIN_TRY
 
-    // ÇöÀç ½Ã°£À» ÃøÁ¤ÇÑ´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ì¸¡ì •í•œë‹¤.
     getCurrentTime(m_Deadline);
 
-    // µ¥µå¶óÀÎÀ» °áÁ¤ÇÑ´Ù.
-    // ÀÌ¶§, delay ´Â 0.1 ÃÊ°¡ 1 ÀÌ´Ù.
+    // ë°ë“œë¼ì¸ì„ ê²°ì •í•œë‹¤.
+    // ì´ë•Œ, delay ëŠ” 0.1 ì´ˆê°€ 1 ì´ë‹¤.
     m_Deadline.tv_sec += delay / 10;
     m_Deadline.tv_usec += (delay % 10) * 100000;
 
     __END_CATCH
 }
 
-// ³²Àº duration(1/10ÃÊ ´ÜÀ§)
+// ë‚¨ì€ duration(1/10ì´ˆ ë‹¨ìœ„)
 Duration_t Effect::getRemainDuration() {
     __BEGIN_TRY
 

@@ -138,7 +138,7 @@ public:
         m_IsSummonInfo = isSummon;
     }
 
-    // -_- °ÔÀÓ¼­¹öÂÊ¿¡ Á¤ÀÇÇØ¾ßÁã PetItem.cpp ¿¡ ÀÖÀ½
+    // -_- ê²Œì„ì„œë²„ìª½ì— ì •ì˜í•´ì•¼ì¥ PetItem.cpp ì— ìˆìŒ
     ObjectID_t getItemObjectID() const;
 
     VSDateTime& getLastFeedTime() {

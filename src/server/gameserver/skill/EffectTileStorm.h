@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectTileStorm.h
 // Written by  : elca@ewestsoft.com
-// Description : ¼ºÁ÷¸¶¹ı TileStormÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
+// Description : ì„±ì§ë§ˆë²• TileStormì˜ Effectë¥¼ ì²˜ë¦¬í•´ì£¼ê¸° ìœ„í•œ í´ë˜ìŠ¤ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_TILE_STORM__
@@ -79,9 +79,9 @@ private:
     int m_Damage;
     ObjectID_t m_UserObjectID;
     SkillType_t m_SkillType;
-    int m_StormTime; // µ¥¹ÌÁö¸¦ ¸î ¹ø °¡ÇÏ´Â°¡?
-    Turn_t m_Tick;   // ¸î ÅÏ °£°İÀ¸·Î ¶³¾îÁö´Â°¡?
-    bool m_bLarge;   // true ¸é 5x5 false¸é 3x3
+    int m_StormTime; // ë°ë¯¸ì§€ë¥¼ ëª‡ ë²ˆ ê°€í•˜ëŠ”ê°€?
+    Turn_t m_Tick;   // ëª‡ í„´ ê°„ê²©ìœ¼ë¡œ ë–¨ì–´ì§€ëŠ”ê°€?
+    bool m_bLarge;   // true ë©´ 5x5 falseë©´ 3x3
 };
 
 //////////////////////////////////////////////////////////////////////////////

@@ -25,21 +25,21 @@ bool ConditionCanEnterGDRLair::isSatisfied(Creature* pCreature1, Creature* pCrea
     /*	if ( GDRLairManager::Instance().getTotalPCs() > 36 )
         {
             GCSystemMessage gcSystemMessage;
-            gcSystemMessage.setMessage( "Á¦ÇÑ ÀÎ¿øÀÌ ÃÊ°úµÇ¾î µé¾î°¥ ¼ö ¾ø½À´Ï´Ù." );
+            gcSystemMessage.setMessage( "ì œí•œ ì¸ì›ì´ ì´ˆê³¼ë˜ì–´ ë“¤ì–´ê°ˆ ìˆ˜ ì—†ìŠµë‹ˆë‹¤." );
             pCreature2->getPlayer()->sendPacket (&gcSystemMessage);
             return false;
         }*/
 
     if (!GDRLairManager::Instance().canEnter()) {
         GCSystemMessage gcSystemMessage;
-        gcSystemMessage.setMessage("ÈÈ´ïÈğĞĞ¹¬»¹Ã»¿ªÆô.");
+        gcSystemMessage.setMessage("í›‘ëŒí©ï¤‰ë¬µë»˜ì²­ì—­í˜.");
         pCreature2->getPlayer()->sendPacket(&gcSystemMessage);
         return false;
     }
 
     if (!pCreature2->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR)) {
         GCSystemMessage gcSystemMessage;
-        gcSystemMessage.setMessage("±ØĞëµ½Ê§ÂäÖ®Ëş2²ãÆÆ»µÏÄÂóË¹Ã¤ÈËÊ¯Ïñ.");
+        gcSystemMessage.setMessage("ê·¹ä¼ë•å‘µì­è£‚æª¢2ê¿”íŒë»è¬³ì°è–‘ì±„í›™æŸ¯ç—.");
         pCreature2->getPlayer()->sendPacket(&gcSystemMessage);
         return false;
     }

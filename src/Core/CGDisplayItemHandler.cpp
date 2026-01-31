@@ -50,44 +50,44 @@ void CGDisplayItemHandler::execute(CGDisplayItem* pPacket, Player* pPlayer) {
     GCNoticeEvent errorNotice;
 
     if (pPacket->getIndex() > MAX_ITEM_NUM) {
-        filelog("Store.log", "[%s:%s] (%u) Àß¸øµÈ ÀÎµ¦½ºÀÔ´Ï´Ù.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
+        filelog("Store.log", "[%s:%s] (%u) ì˜ëª»ëœ ì¸ë±ìŠ¤ì…ë‹ˆë‹¤.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
                 pPacket->getIndex());
         return;
     }
 
     if (pPacket->getX() >= pInventory->getWidth() || pPacket->getY() >= pInventory->getHeight()) {
-        filelog("Store.log", "[%s:%s] (%u,%u) ÀÎº¥Åä¸® ÁÂÇ¥¸¦ Àß¸ø º¸³»Áá½À´Ï´Ù..", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%u,%u) ì¸ë²¤í† ë¦¬ ì¢Œí‘œë¥¼ ì˜ëª» ë³´ë‚´ì¤¬ìŠµë‹ˆë‹¤..", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pPacket->getX(), pPacket->getY());
         return;
     }
 
     Item* pItem = pInventory->getItem(pPacket->getX(), pPacket->getY());
     if (pItem == NULL || pItem->getObjectID() != pPacket->getItemObjectID()) {
-        filelog("Store.log", "[%s:%s] (%u, %u) : %u ¾ÆÀÌÅÛ ÁÂÇ¥°¡ Àß¸øµÇ¾ú°Å³ª ¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ Àß¸øµÇ¾ú½À´Ï´Ù.",
+        filelog("Store.log", "[%s:%s] (%u, %u) : %u ì•„ì´í…œ ì¢Œí‘œê°€ ì˜ëª»ë˜ì—ˆê±°ë‚˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.",
                 pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getX(), pPacket->getY(),
                 pPacket->getItemObjectID());
         return;
     }
 
     if (pPC->getZone()->getTradeManager()->getTradeInfo(pPC->getName()) != NULL) {
-        filelog("Store.log", "[%s:%s] : °Å·¡Áß¿¡´Â ¹°°ÇÀ» ¿Ã·Á³õÀ» ¼ö ¾ø½À´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] : ê±°ë˜ì¤‘ì—ëŠ” ë¬¼ê±´ì„ ì˜¬ë ¤ë†“ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str());
         return;
     }
 
     if (pStore->hasItem(pItem)) {
-        filelog("Store.log", "[%s:%s] (%u, %u) ÀÌ¹Ì ¾ÆÀÌÅÛÀÌ »óÁ¡¿¡ ÀÖ½À´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%u, %u) ì´ë¯¸ ì•„ì´í…œì´ ìƒì ì— ìˆìŠµë‹ˆë‹¤.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pItem->getObjectID(), pPacket->getIndex());
-        //		errorMsg.setMessage("ÀÌ¹Ì Áø¿­µÈ ¾ÆÀÌÅÛÀÔ´Ï´Ù.");
+        //		errorMsg.setMessage("ì´ë¯¸ ì§„ì—´ëœ ì•„ì´í…œì…ë‹ˆë‹¤.");
         errorNotice.setCode(NOTICE_EVENT_ALREADY_DISPLAYED);
         pGamePlayer->sendPacket(&errorNotice);
         return;
     }
 
     if (pItem->isTimeLimitItem() || !canSell(pItem) || !canTrade(pItem)) {
-        filelog("Store.log", "[%s:%s] (%s) ÆÈ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s) íŒ” ìˆ˜ ì—†ëŠ” ì•„ì´í…œì…ë‹ˆë‹¤.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pItem->toString().c_str());
-        //		errorMsg.setMessage("ÆÇ¸ÅÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.");
+        //		errorMsg.setMessage("íŒë§¤í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì…ë‹ˆë‹¤.");
         errorNotice.setCode(NOTICE_EVENT_CANNOT_SELL);
         pGamePlayer->sendPacket(&errorNotice);
         return;
@@ -95,7 +95,7 @@ void CGDisplayItemHandler::execute(CGDisplayItem* pPacket, Player* pPlayer) {
 
     BYTE result = pStore->setStoreItem(pPacket->getIndex(), pItem, pPacket->getPrice());
     if (result != 0) {
-        filelog("Store.log", "[%s:%s] (%u) ¾ÆÀÌÅÛÀ» ³õÀ» ¼ö ¾ø½À´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%u) ì•„ì´í…œì„ ë†“ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), result);
         return;
     }

@@ -42,7 +42,7 @@ void CGDialUpHandler::execute(CGDialUp* pPacket, Player* pPlayer)
     SlotID_t PSlot = MAX_PHONE_SLOT;
     SlotID_t PSlot2 = MAX_PHONE_SLOT;
 
-    // Æù ¹øÈ£¸¦ ¹Þ¾Æ¿Â´Ù.
+    // í° ë²ˆí˜¸ë¥¼ ë°›ì•„ì˜¨ë‹¤.
     PhoneNumber_t PNumber = pPacket->getPhoneNumber();
 
     Slayer* pTargetSlayer = g_pTelephoneCenter->getSlayer(PNumber);
@@ -60,28 +60,28 @@ void CGDialUpHandler::execute(CGDialUp* pPacket, Player* pPlayer)
     }
 
     if (Success) {
-        // »ó´ë¹æÀÇ ºó ½½¶ùÀ» ¹Þ¾Æ¿Â´Ù.
+        // ìƒëŒ€ë°©ì˜ ë¹ˆ ìŠ¬ëžì„ ë°›ì•„ì˜¨ë‹¤.
         PSlot2 = pTargetSlayer->findEmptyPhoneSlot();
 
-        // ÀÚ½ÅÀÇ ºó ½½¶ùÀ» Ã£´Â´Ù.
+        // ìžì‹ ì˜ ë¹ˆ ìŠ¬ëžì„ ì°¾ëŠ”ë‹¤.
         PSlot = pSlayer->findEmptyPhoneSlot();
 
-        // »ó´ë¹æÀÇ ½½¶ù¿¡ ÀÚ½ÅÀÇ ¹øÈ£¸¦ ¼ÂÆÃ
+        // ìƒëŒ€ë°©ì˜ ìŠ¬ëžì— ìžì‹ ì˜ ë²ˆí˜¸ë¥¼ ì…‹íŒ…
         pTargetSlayer->setPhoneSlotNumber(PSlot2, pSlayer->getPhoneNumber());
 
-        // ÀÚ½ÅÀÇ ½½¶ù¿¡ »ó´ë¹æÀÇ ¹øÈ£ ¼ÂÆÃ
+        // ìžì‹ ì˜ ìŠ¬ëžì— ìƒëŒ€ë°©ì˜ ë²ˆí˜¸ ì…‹íŒ…
         pSlayer->setPhoneSlotNumber(PSlot, PNumber);
 
         // cout << "Call Number : " << pSlayer->getPhoneNumber() << ", Called Number : " << PNumber << endl;
         // cout << "Call Slot : " << PSlot << ", Called Slot : " << PSlot2 << endl;
 
-        // ÀüÈ­ ¹ÞÀ» »ó´ë¿¡°Ô ³¯¸®´Â ÆÐÅ¶
+        // ì „í™” ë°›ì„ ìƒëŒ€ì—ê²Œ ë‚ ë¦¬ëŠ” íŒ¨í‚·
         GCRing gcRing;
         gcRing.setPhoneNumber(pSlayer->getPhoneNumber());
         gcRing.setSlotID(PSlot2);
         gcRing.setName(pSlayer->getName());
 
-        // ÀüÈ­ °Ç ´ç»çÀÚ¿¡°Ô ³¯¸®´Â ÆÐÅ¶
+        // ì „í™” ê±´ ë‹¹ì‚¬ìžì—ê²Œ ë‚ ë¦¬ëŠ” íŒ¨í‚·
         GCPhoneConnected gcPhoneConnected;
         gcPhoneConnected.setSlotID(PSlot);
         gcPhoneConnected.setName(pTargetSlayer->getName());

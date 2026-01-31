@@ -413,15 +413,15 @@ class Store;
 
 //////////////////////////////////////////////////////////////////////////////
 // class Item
-// ¶¥¿¡ ¶³¾îÁ® ÀÖ°Å³ª, Å©¸®Ã³¿¡°Ô ¼ÒÀ¯µÇ´Â ¼öµ¿ÀûÀÎ ¾ÆÀÌÅÛµéÀ» ³ªÅ¸³½´Ù.
+// ë•…ì— ë–¨ì–´ì ¸ ìžˆê±°ë‚˜, í¬ë¦¬ì²˜ì—ê²Œ ì†Œìœ ë˜ëŠ” ìˆ˜ë™ì ì¸ ì•„ì´í…œë“¤ì„ ë‚˜íƒ€ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class Item : public Object {
 public:
-    // Item ÀÇ ÇÏÀ§ ºÐ·ù¸¦ ³ªÅ¸³½´Ù. Item Å¬·¡½º¸¦
-    // Á÷Á¢ »ó¼Ó¹ÞÀº Å¬·¡½º¸¦ ¾Æ·¡ ¸®½ºÆ®¿¡ Ãß°¡ÇÏ±â
-    // ¹Ù¶õ´Ù. ¶ÇÇÑ ÀÌ Å¬·¡½ºµéÀº getItemClass() ¸¦
-    // ÀçÁ¤ÀÇÇØÁà¾ß ÇÑ´Ù.
+    // Item ì˜ í•˜ìœ„ ë¶„ë¥˜ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤. Item í´ëž˜ìŠ¤ë¥¼
+    // ì§ì ‘ ìƒì†ë°›ì€ í´ëž˜ìŠ¤ë¥¼ ì•„ëž˜ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•˜ê¸°
+    // ë°”ëž€ë‹¤. ë˜í•œ ì´ í´ëž˜ìŠ¤ë“¤ì€ getItemClass() ë¥¼
+    // ìž¬ì •ì˜í•´ì¤˜ì•¼ í•œë‹¤.
     enum ItemClass {
         ITEM_CLASS_MOTORCYCLE,          // 0
         ITEM_CLASS_POTION,              // 1
@@ -518,18 +518,18 @@ public:
     };
 
     enum CreateType {
-        CREATE_TYPE_NORMAL,         // ÀÏ¹ÝÀûÀÎ ¾ÆÀÌÅÛ »ý¼º				// 0
-        CREATE_TYPE_MONSTER,        // ¸ó½ºÅÍ¿¡ ÀÇÇØ¼­ »ý¼º				// 1
-        CREATE_TYPE_SHOP,           // »óÁ¡¿¡¼­ »ý¼º					// 2
-        CREATE_TYPE_GAMBLE,         // °·ºíÀ» ÅëÇØ¼­ »ý¼º				// 3
-        CREATE_TYPE_ENCHANT,        // ÀÎÃ¦Æ®¸¦ ÅëÇØ¼­ »ý¼º				// 4
-        CREATE_TYPE_GAME,           // ´Ù¸¥ °ÔÀÓ ½Ã½ºÅÛ¿¡ ÀÇÇØ¼­ »ý¼º	// 5
-        CREATE_TYPE_CREATE,         // ¿î¿µÀÚ ¸í·É¾î·Î »ý¼º				// 6
-        CREATE_TYPE_MALL,           // À¥ÀÇ ¼¥ ¸ô¿¡¼­ ±¸¸ÅÇÑ ¾ÆÀÌÅÛ		// 7
-        CREATE_TYPE_PRIZE,          // ±âÅ¸ ÀÌº¥Æ®·Î ÁØ ¾ÆÀÌÅÛ			// 8
-        CREATE_TYPE_MIXING,         // Mixing Forge ·Î ¸¸µç ¾ÆÀÌÅÛ		// 9
-        CREATE_TYPE_SPECIAL,        // »çÀå´Ô ¾ÆÀÌÅÛ -_-;				// 10
-        CREATE_TYPE_TIME_EXTENSION, // ½Å±Ô À¯Àú ÀÌº¥Æ®½Ã Á¦ÇÑ½Ã°£ ´Ã·ÁÁà¾ß µÇ´Â ¾ÆÀÌÅÛ	// 11
+        CREATE_TYPE_NORMAL,         // ì¼ë°˜ì ì¸ ì•„ì´í…œ ìƒì„±				// 0
+        CREATE_TYPE_MONSTER,        // ëª¬ìŠ¤í„°ì— ì˜í•´ì„œ ìƒì„±				// 1
+        CREATE_TYPE_SHOP,           // ìƒì ì—ì„œ ìƒì„±					// 2
+        CREATE_TYPE_GAMBLE,         // ê°¬ë¸”ì„ í†µí•´ì„œ ìƒì„±				// 3
+        CREATE_TYPE_ENCHANT,        // ì¸ì±ˆíŠ¸ë¥¼ í†µí•´ì„œ ìƒì„±				// 4
+        CREATE_TYPE_GAME,           // ë‹¤ë¥¸ ê²Œìž„ ì‹œìŠ¤í…œì— ì˜í•´ì„œ ìƒì„±	// 5
+        CREATE_TYPE_CREATE,         // ìš´ì˜ìž ëª…ë ¹ì–´ë¡œ ìƒì„±				// 6
+        CREATE_TYPE_MALL,           // ì›¹ì˜ ìƒµ ëª°ì—ì„œ êµ¬ë§¤í•œ ì•„ì´í…œ		// 7
+        CREATE_TYPE_PRIZE,          // ê¸°íƒ€ ì´ë²¤íŠ¸ë¡œ ì¤€ ì•„ì´í…œ			// 8
+        CREATE_TYPE_MIXING,         // Mixing Forge ë¡œ ë§Œë“  ì•„ì´í…œ		// 9
+        CREATE_TYPE_SPECIAL,        // ì‚¬ìž¥ë‹˜ ì•„ì´í…œ -_-;				// 10
+        CREATE_TYPE_TIME_EXTENSION, // ì‹ ê·œ ìœ ì € ì´ë²¤íŠ¸ì‹œ ì œí•œì‹œê°„ ëŠ˜ë ¤ì¤˜ì•¼ ë˜ëŠ” ì•„ì´í…œ	// 11
 
         CREATE_TYPE_MAX
     };
@@ -554,7 +554,7 @@ public:
     // DB methods
 public:
     virtual void create(const string& ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y,
-                        ItemID_t itemID = 0) = 0; // itemID=0 <-- Æ¯Á¤ ItemID·Î »ý¼º. by sigi. 2002.10.28
+                        ItemID_t itemID = 0) = 0; // itemID=0 <-- íŠ¹ì • ItemIDë¡œ ìƒì„±. by sigi. 2002.10.28
     virtual bool destroy();
     virtual void save(const string& ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y) = 0;
     virtual void tinysave(const string& field) const = 0;
@@ -562,9 +562,9 @@ public:
 
     // own methods
     // *CAUTION*
-    // ItemTypeÀº Item ÀÇ ÇÏÀ§ Å¬·¡½º¿¡¼­ Á¤ÀÇµÈ´Ù.
-    // ÀÌÀ¯´Â ¿ª½Ã ¸Þ¸ð¸® Á¤·Ä ¹®Á¦·Î ÀÎÇÑ ³¶ºñ¸¦
-    // ¸·±â À§ÇØ¼­ÀÌ´Ù.
+    // ItemTypeì€ Item ì˜ í•˜ìœ„ í´ëž˜ìŠ¤ì—ì„œ ì •ì˜ëœë‹¤.
+    // ì´ìœ ëŠ” ì—­ì‹œ ë©”ëª¨ë¦¬ ì •ë ¬ ë¬¸ì œë¡œ ì¸í•œ ë‚­ë¹„ë¥¼
+    // ë§‰ê¸° ìœ„í•´ì„œì´ë‹¤.
 public:
     virtual ItemClass getItemClass() const = 0;
     string getItemClassName() const {
@@ -787,15 +787,15 @@ protected:
     EffectManager m_EffectManager;           // EffectManager
     bitset<Effect::EFFECT_CLASS_MAX> m_Flag; // Effect flag
 
-    CreateType m_CreateType; // ¾ÆÀÌÅÛ »ý¼º Á¾·ù
-    bool m_bUnique;          // À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ°¡?
-    bool m_bQuest;           // Äù½ºÆ® ¾ÆÀÌÅÛÀÎ°¡..
-    bool m_bTrace;           // Trace Log ¸¦ ³²±æ ¾ÆÀÌÅÛÀÎ°¡?
+    CreateType m_CreateType; // ì•„ì´í…œ ìƒì„± ì¢…ë¥˜
+    bool m_bUnique;          // ìœ ë‹ˆí¬ ì•„ì´í…œì¸ê°€?
+    bool m_bQuest;           // í€˜ìŠ¤íŠ¸ ì•„ì´í…œì¸ê°€..
+    bool m_bTrace;           // Trace Log ë¥¼ ë‚¨ê¸¸ ì•„ì´í…œì¸ê°€?
 
-    bool m_bTimeLimit; // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛÀÎ°¡?
-    int m_Hour;        // Á¦ÇÑ½Ã°£
+    bool m_bTimeLimit; // ì‹œê°„ì œí•œ ì•„ì´í…œì¸ê°€?
+    int m_Hour;        // ì œí•œì‹œê°„
 
-    bool m_bOnStore; // °³ÀÎ»óÁ¡¿¡ Áø¿­µÇ¾îÀÖ´Â°¡
+    bool m_bOnStore; // ê°œì¸ìƒì ì— ì§„ì—´ë˜ì–´ìžˆëŠ”ê°€
     Store* m_pStore;
 };
 

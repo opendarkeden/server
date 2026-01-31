@@ -27,7 +27,7 @@ EffectHydroConvergence::EffectHydroConvergence(Creature* pCreature)
     m_UserOID = 0;
     m_Damage = 0;
     m_Duration = 0;
-    m_AttackNum = 0; // 受到攻击次数
+    m_AttackNum = 0; // 脢脺碌陆鹿楼禄梅麓脦脢媒
     m_TrageSaveHP = 0;
     if (!pCreature->isDead() && !pCreature->isOusters()) {
         if (pCreature->isSlayer()) {
@@ -74,11 +74,11 @@ void EffectHydroConvergence::affect()
             CurrentHP = pMonsterAttacker->getHP();
         }
         if (CurrentHP < m_TrageSaveHP) {
-            // 增加其它攻击次数
+            // 脭枚录脫脝盲脣眉鹿楼禄梅麓脦脢媒
             m_AttackNum++;
             // m_TrageSaveHP = CurrentHP;
         }
-        // 创建伤害
+        // 麓麓陆篓脡脣潞娄
         affect(pCreature);
         if (pCreature->isSlayer())
             CurrentHP = pSlayer->getHP();
@@ -86,7 +86,7 @@ void EffectHydroConvergence::affect()
             CurrentHP = pVampire->getHP();
         if (pCreature->isMonster())
             CurrentHP = pMonsterAttacker->getHP();
-        // 记录当前HP
+        // 录脟脗录碌卤脟掳HP
         m_TrageSaveHP = CurrentHP;
         if (m_AttackNum >= 5) {
             setDuration(0);
@@ -220,9 +220,9 @@ void EffectHydroConvergence::unaffect()
     // cout << "EffectHydroConvergence" << "unaffect BEGIN" << endl;
 
     Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-    // 读取5*5范围内对象,并创建伤害
+    // 露脕脠隆5*5路露脦搂脛脷露脭脧贸,虏垄麓麓陆篓脡脣潞娄
     // 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-    // 创建目标伤害
+    // 麓麓陆篓脛驴卤锚脡脣潞娄
     affect(pCreature);
 
     int cx = pCreature->getX();
@@ -251,7 +251,7 @@ void EffectHydroConvergence::unaffect()
                     continue;
                 if (pTargetCreature->isFlag(getEffectClass()))
                     continue;
-                // 创建伤害
+                // 麓麓陆篓脡脣潞娄
                 affect(pTargetCreature);
                 // 	 			EffectHydroConvergence* pEffect = new EffectHydroConvergence( pTargetCreature );
                 // 	 			pEffect->setUserOID( m_UserOID );

@@ -15,7 +15,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ºø«¡ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ ÏÖÄÌîÑ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void Sniping::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -34,7 +34,7 @@ void Sniping::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // π´¿Â«œ∞Ì ¿÷¥¬ π´±‚∞° ≥Œ¿Ã∞≈≥™, √—¿Ã æ∆¥œ∂Û∏È ªÁøÎ«“ ºˆ æ¯¥Ÿ.
+        // Î¨¥Ïû•ÌïòÍ≥† ÏûàÎäî Î¨¥Í∏∞Í∞Ä ÎÑêÏù¥Í±∞ÎÇò, Ï¥ùÏù¥ ÏïÑÎãàÎùºÎ©¥ ÏÇ¨Ïö©Ìï† Ïàò ÏóÜÎã§.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || isArmsWeapon(pItem) == false || pSlayer->hasRelicItem()) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -70,9 +70,9 @@ void Sniping::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¿Ã∆Â∆Æ ≈¨∑°Ω∫∏¶ ∏∏µÈæÓ ∫Ÿ¿Œ¥Ÿ.
-            // ¥…∑¬ƒ° ¿Á∞ËªÍ¿∫ EffectFadeOut¿Ã unaffectµ«∏Èº≠,
-            // ¡Ô EffectSnipingMode∞° ∫Ÿ¿∏∏Èº≠ ¿Ã∑ÁæÓ¡¯¥Ÿ.
+            // Ïù¥ÌéôÌä∏ ÌÅ¥ÎûòÏä§Î•º ÎßåÎì§Ïñ¥ Î∂ôÏù∏Îã§.
+            // Îä•Î†•Ïπò Ïû¨Í≥ÑÏÇ∞ÏùÄ EffectFadeOutÏù¥ unaffectÎêòÎ©¥ÏÑú,
+            // Ï¶â EffectSnipingModeÍ∞Ä Î∂ôÏúºÎ©¥ÏÑú Ïù¥Î£®Ïñ¥ÏßÑÎã§.
             EffectFadeOut* pEffect = new EffectFadeOut(pSlayer);
             pEffect->setDuration(output.Duration);
             pEffect->setDeadline(40);
@@ -80,14 +80,14 @@ void Sniping::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_FADE_OUT);
 
-            // ∞Ê«Ëƒ°∏¶ ø√∏∞¥Ÿ.
+            // Í≤ΩÌóòÏπòÎ•º Ïò¨Î¶∞Îã§.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 8, 1, _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ∆–≈∂¿ª ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÇ∏Îã§.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -137,7 +137,7 @@ void Sniping::checkRevealRatio(Creature* pCreature, int base, int divisor) {
 
     if (rand() % 100 < pEffectSM->getRevealRatio()) {
         // addUnSnipingModeCreature(pZone, pCreature, true);
-        //  ¿Ã∆Â∆Æ∞° ≤®¡ˆµµ∑œ «—¥Ÿ.
+        //  Ïù¥ÌéôÌä∏Í∞Ä Í∫ºÏßÄÎèÑÎ°ù ÌïúÎã§.
         //  2003. 1. 17 by bezz
         pEffectSM->setDeadline(0);
     }

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // filename	: MJob.h
-// desc		: ΈπΖΫ½ΊΏ΅ Ώ¬°αΗΨΌ­ ΖΔΏφΖχΐΞΖ®Έ¦ °΅Α®Ώΐ΄Β ΗΟ³ªΐΗ ΐΫΎχ ΄άΐ§
+// desc		: λª¨νΌμ¤μ— μ—°κ²°ν•΄μ„ νμ›ν¬μΈνΈλ¥Ό κ°€μ Έμ¤λ” ν•λ‚μ μ‘μ—… λ‹¨μ„
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MJOB_H__
@@ -12,7 +12,7 @@ public:
         : m_UserID(userID), m_Name(name), m_CellNum(cellnum), m_PowerPoint(0), m_ErrorCode(0), m_bEnd(false) {}
 
 public:
-    // ΖχΐΞΖ® ΄©ΐϋ
+    // ν¬μΈνΈ λ„μ 
     void addPowerPoint(int point) {
         m_PowerPoint += point;
     }
@@ -48,22 +48,22 @@ public:
     }
 
 private:
-    // »ηΏλΐΪ ID
+    // μ‚¬μ©μ ID
     string m_UserID;
 
-    // Δ³Έ―ΕΝ Έν
+    // μΊλ¦­ν„° λª…
     string m_Name;
 
-    // ΗΪµεΖω ΉψΘ£
+    // ν•Έλ“ν° λ²νΈ
     string m_CellNum;
 
-    // °΅Α®ΏΒ ΖχΐΞΖ®
+    // κ°€μ Έμ¨ ν¬μΈνΈ
     int m_PowerPoint;
 
-    // Ώ΅·― ΔΪµε
+    // μ—λ¬ μ½”λ“
     int m_ErrorCode;
 
-    // ΐΫΎχΐΜ ³΅³µ³ª?
+    // μ‘μ—…μ΄ λλ‚¬λ‚?
     bool m_bEnd;
 };
 

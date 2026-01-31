@@ -70,14 +70,14 @@ void WarSystem::prepareRaceWar() throw(Error) {
 
     SAFE_DELETE(m_pRaceWarSchedule);
 
-    // Á¾Á· ÀüÀïÀ» ÁØºñÇØµĞ´Ù.
+    // ì¢…ì¡± ì „ìŸì„ ì¤€ë¹„í•´ë‘”ë‹¤.
     VSDateTime warStartTime = WarScheduler::getNextWarDateTime(WAR_RACE, VSDateTime::currentDateTime());
 
     War* pRaceWar = new RaceWar(War::WAR_STATE_WAIT);
     pRaceWar->setWarStartTime(warStartTime);
     m_pRaceWarSchedule = new Schedule(pRaceWar, warStartTime);
 
-    filelog("WarLog.txt", "[WarID=%d,Time=%s] Á¾Á· ÀüÀïÀ» Ãß°¡ÇÕ´Ï´Ù.", (int)pRaceWar->getWarID(),
+    filelog("WarLog.txt", "[WarID=%d,Time=%s] ì¢…ì¡± ì „ìŸì„ ì¶”ê°€í•©ë‹ˆë‹¤.", (int)pRaceWar->getWarID(),
             warStartTime.toString().c_str());
 
     __END_CATCH
@@ -86,21 +86,21 @@ void WarSystem::prepareRaceWar() throw(Error) {
 
 void WarSystem::load() throw (Error){__BEGIN_TRY
 
-                                         // loadÇÒ°Å ¾ø´Ù.
+                                         // loadí• ê±° ì—†ë‹¤.
 
-                                         // ÁøÇàÁßÀÎ ÀüÀïÀ» loadÇØ¾ß ÇÑ´Ù.
+                                         // ì§„í–‰ì¤‘ì¸ ì „ìŸì„ loadí•´ì•¼ í•œë‹¤.
 
                                          __END_CATCH}
 
 VSDateTime WarSystem::getWarEndTime(WarType_t warType) const {
     int seconds = 0;
     switch (warType) {
-    // ±æµåÀüÀº 1½Ã°£
+    // ê¸¸ë“œì „ì€ 1ì‹œê°„
     case WAR_GUILD:
         seconds = g_pVariableManager->getVariable(GUILD_WAR_TIME);
         break;
 
-    // Á¾Á·ÀüÀº 2½Ã°£
+    // ì¢…ì¡±ì „ì€ 2ì‹œê°„
     case WAR_RACE:
         seconds = g_pVariableManager->getVariable(RACE_WAR_TIME);
         break;
@@ -117,7 +117,7 @@ bool WarSystem::addWarDelayed(War* pWar) throw(Error) {
     Assert(pWar != NULL);
 
     if (hasActiveRaceWar() && pWar->getWarType() == WAR_RACE) {
-        throw Error("ÀÌ¹Ì Á¾Á· ÀüÀïÀÌ ÁøÇàÁßÀÔ´Ï´Ù.");
+        throw Error("ì´ë¯¸ ì¢…ì¡± ì „ìŸì´ ì§„í–‰ì¤‘ì…ë‹ˆë‹¤.");
     }
 
     __ENTER_CRITICAL_SECTION(m_MutexWarQueue);
@@ -152,7 +152,7 @@ bool WarSystem::addQueuedWar() throw(Error) {
     __END_CATCH
 }
 
-// WarSystem ¾È¿¡¼­¸¸ È£ÃâµÇ´Â ÇÔ¼öÀÌ¹Ç·Î LOCKÇÊ¿ä¾ø´Ù.
+// WarSystem ì•ˆì—ì„œë§Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜ì´ë¯€ë¡œ LOCKí•„ìš”ì—†ë‹¤.
 bool WarSystem::addWar(War* pWar) throw(Error) {
     __BEGIN_TRY
 
@@ -170,7 +170,7 @@ bool WarSystem::addWar(War* pWar) throw(Error) {
 
     addSchedule(pWarSchedule);
 
-    // ÀÏ´Ü ¸ğµç Á¸¿¡ »Ñ¸°´Ù.
+    // ì¼ë‹¨ ëª¨ë“  ì¡´ì— ë¿Œë¦°ë‹¤.
     if (makeGCWarList_LOCKED()) {
         GCWarList gcWarList;
 
@@ -183,16 +183,16 @@ bool WarSystem::addWar(War* pWar) throw(Error) {
         g_pZoneGroupManager->broadcast(&gcWarList);
     }
 
-    // ÀÌ¹Ì ¸¸µé¾îÁ³´Ù. WarSchedulerÀÇ execute¿¡¼­ tinysaveÇß±â ¶§¸Ş Status¹Ù²Ü ÇÊ¿äµµ ¾ø´Ù.
+    // ì´ë¯¸ ë§Œë“¤ì–´ì¡Œë‹¤. WarSchedulerì˜ executeì—ì„œ tinysaveí–ˆê¸° ë•Œë©” Statusë°”ê¿€ í•„ìš”ë„ ì—†ë‹¤.
     // pWarSchedule->create();
 
-    // ÁøÇà ÁßÀÎ ÀüÀï ¸®½ºÆ®¿¡ Ãß°¡½ÃÄÑÁØ´Ù.
-    // heartbeat()¿¡¼­ Á¦°Å½ÃÄÑÁØ´Ù.
+    // ì§„í–‰ ì¤‘ì¸ ì „ìŸ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€ì‹œì¼œì¤€ë‹¤.
+    // heartbeat()ì—ì„œ ì œê±°ì‹œì¼œì¤€ë‹¤.
     if (pWar->getWarType() == WAR_GUILD) {
         SuildWar* pSiegeWar = dynamic_cast<SiegeWar*>(pWar);
         Assert(pSiegeWar != NULL);
 
-        // ¼ºÁö¿¡ ÀÖ´Â À¯ÀúÀÇ »óÅÂ¸¦ Refresh ÇØÁØ´Ù.
+        // ì„±ì§€ì— ìˆëŠ” ìœ ì €ì˜ ìƒíƒœë¥¼ Refresh í•´ì¤€ë‹¤.
         EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
         pEvent->setDeadline(0);
         g_pClientManager->addEvent(pEvent);
@@ -205,15 +205,15 @@ bool WarSystem::addWar(War* pWar) throw(Error) {
     } else if (pWar->getWarType() == WAR_RACE) {
         m_bHasRaceWar = true;
 
-        // ¼ºÁö¿¡ ÀÖ´Â À¯ÀúÀÇ »óÅÂ¸¦ Refresh ÇØÁØ´Ù.
+        // ì„±ì§€ì— ìˆëŠ” ìœ ì €ì˜ ìƒíƒœë¥¼ Refresh í•´ì¤€ë‹¤.
         EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
         pEvent->setDeadline(0);
         g_pClientManager->addEvent(pEvent);
 
-        // ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ ÇÇÀÇ ¼º¼­ À§Ä¡¸¦ º¸³»ÁØ´Ù.
+        // ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— í”¼ì˜ ì„±ì„œ ìœ„ì¹˜ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         g_pShrineInfoManager->broadcastBloodBibleStatus();
 
-        // Á¾Á· ÀüÀï¿¡ Âü°¡ÇÏÁö ¾Ê´Â »ç¶÷µéÀ» ³»º¸³½´Ù.
+        // ì¢…ì¡± ì „ìŸì— ì°¸ê°€í•˜ì§€ ì•ŠëŠ” ì‚¬ëŒë“¤ì„ ë‚´ë³´ë‚¸ë‹¤.
         g_pHolyLandManager->remainRaceWarPlayers();
     }
 
@@ -257,7 +257,7 @@ bool WarSystem::makeGCWarList_LOCKED() throw(Error) {
             pWarInfo = new RaceWarInfo;
             break;
         default:
-            throw Error("WarTypeÀÌ Àß¸øµÆ´Ù.");
+            throw Error("WarTypeì´ ì˜ëª»ëë‹¤.");
         }
 
         pWarSchedule->makeWarInfo(pWarInfo);
@@ -317,16 +317,16 @@ Work* WarSystem::heartbeat() throw(Error) {
     pWork = Scheduler::heartbeat();
 
     if (pWork != NULL) {
-        // ½Ã°£ÀÌ ´Ù µÅ¼­ ³¡³­ ÀüÀï¿¡ ´ëÇÑ Ã³¸®
+        // ì‹œê°„ì´ ë‹¤ ë¼ì„œ ëë‚œ ì „ìŸì— ëŒ€í•œ ì²˜ë¦¬
         War* pWar = dynamic_cast<War*>(pWork);
         Assert(pWar != NULL);
 
-        // ´ëÃ¼·Î´Â War::executeEnd()¿¡¼­ ÇÒ °ÍÀÌ´Ù.
+        // ëŒ€ì²´ë¡œëŠ” War::executeEnd()ì—ì„œ í•  ê²ƒì´ë‹¤.
         if (pWar->getWarType() == WAR_GUILD) {
             SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(pWar);
             Assert(pSiegeWar != NULL);
 
-            // ÁøÇà ÁßÀÎ ÀüÀï ¸®½ºÆ®¿¡¼­ Á¦°Å½ÃÄÑÁØ´Ù.
+            // ì§„í–‰ ì¤‘ì¸ ì „ìŸ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°ì‹œì¼œì¤€ë‹¤.
             __ENTER_CRITICAL_SECTION(m_MutexActiveWars)
 
             list<ActiveWarInfo>::iterator itr =
@@ -339,7 +339,7 @@ Work* WarSystem::heartbeat() throw(Error) {
         } else if (pWar->getWarType() == WAR_RACE) {
             m_bHasRaceWar = false;
 
-            // ¼ºÁö¿¡ ÀÖ´Â À¯ÀúÀÇ »óÅÂ¸¦ Refresh ÇØÁØ´Ù.
+            // ì„±ì§€ì— ìˆëŠ” ìœ ì €ì˜ ìƒíƒœë¥¼ Refresh í•´ì¤€ë‹¤.
             EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
             pEvent->setDeadline(0);
             g_pClientManager->addEvent(pEvent);
@@ -348,12 +348,12 @@ Work* WarSystem::heartbeat() throw(Error) {
         SAFE_DELETE(pWork);
     }
 
-    // Á¾Á· ÀüÀïÀ» ÀÚµ¿À¸·Î ½ÃÀÛ ½ÃÅ²´Ù.
+    // ì¢…ì¡± ì „ìŸì„ ìë™ìœ¼ë¡œ ì‹œì‘ ì‹œí‚¨ë‹¤.
     if (m_pRaceWarSchedule != NULL && !m_bHasRaceWar && g_pVariableManager->isAutoStartRaceWar()) {
         checkStartRaceWar();
     }
 
-    // WarList¸¦ °»½ÅÇØÁØ´Ù.
+    // WarListë¥¼ ê°±ì‹ í•´ì¤€ë‹¤.
     static Timeval nextTime = {0, 0};
     Timeval currentTime;
     getCurrentTime(currentTime);
@@ -427,8 +427,8 @@ bool WarSystem::hasCastleActiveWar(ZoneID_t zoneID) const throw(Error) {
     __LEAVE_CRITICAL_SECTION(m_MutexActiveWars)
 
     /*
-    // deadlock(ZoneÀÇ EffectHasBloodBible::affect(Item)¿¡¼­, µıµ¥µµ ÀÖ°ÚÁö¸¸ -_-;) ¹®Á¦·Î ÀÎÇÏ¿©
-    // ½ÇÇàÁßÀÎ ÀüÀï¿¡ ´ëÇÑ ¸®½ºÆ®¸¦ µû·Î °®°í Ã³¸®ÇÑ´Ù.
+    // deadlock(Zoneì˜ EffectHasBloodBible::affect(Item)ì—ì„œ, ë”´ë°ë„ ìˆê² ì§€ë§Œ -_-;) ë¬¸ì œë¡œ ì¸í•˜ì—¬
+    // ì‹¤í–‰ì¤‘ì¸ ì „ìŸì— ëŒ€í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë”°ë¡œ ê°–ê³  ì²˜ë¦¬í•œë‹¤.
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
     const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
@@ -483,7 +483,7 @@ WarSchedule* WarSystem::getActiveWarSchedule_LOCKED(ZoneID_t zoneID) throw(Error
 
         War* pWar = dynamic_cast<War*>(pWarSchedule->getWork());
         if (pWar == NULL) {
-            cout << "WarSystem¿¡ µé¾îÀÖ´Â ScheduleÀÇ Work°´Ã¼°¡ War°¡ ¾Æ´Ï°Å³ª NULLÀÔ´Ï´Ù. »ğÁú»ğÁú~~~~" << endl;
+            cout << "WarSystemì— ë“¤ì–´ìˆëŠ” Scheduleì˜ Workê°ì²´ê°€ Warê°€ ì•„ë‹ˆê±°ë‚˜ NULLì…ë‹ˆë‹¤. ì‚½ì§ˆì‚½ì§ˆ~~~~" << endl;
             continue;
         }
 
@@ -539,7 +539,7 @@ bool WarSystem::isEndCondition(Item* pItem, MonsterCorpse* pMonsterCorpse) throw
     Assert(pItem != NULL);
     Assert(pMonsterCorpse != NULL);
 
-    // pItem°ú pMonsterCorpseÀÇ Â¦ÀÌ ¸Â´Â°¡?
+    // pItemê³¼ pMonsterCorpseì˜ ì§ì´ ë§ëŠ”ê°€?
     // return pBloodBibleItem->getBibleMonsterType()==pMonsterCorpse->getMonter()->getMonsterType()
 
     return true;
@@ -558,7 +558,7 @@ bool WarSystem::isModifyCastleOwner(ZoneID_t castleZoneID, PlayerCreature* pPC) 
     __END_CATCH
 }
 
-// pPC°¡ castleZoneID¿Í °ü·ÃµÈ ÀüÀï¿¡ ½Â¸®Çß´Ù.
+// pPCê°€ castleZoneIDì™€ ê´€ë ¨ëœ ì „ìŸì— ìŠ¹ë¦¬í–ˆë‹¤.
 bool WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID) throw(Error) {
     __BEGIN_TRY
 
@@ -578,10 +578,10 @@ bool WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID) throw(Error) 
         Assert(pWar != NULL);
 
         if (pWar->endWar(pPC)) {
-            // ÀüÀï Á¦°Å( ½Ã°£ ¼öÁ¤À¸·Î ÀÚµ¿À¸·Î ºüÁöµµ·Ï ÇÏÀÚ)
+            // ì „ìŸ ì œê±°( ì‹œê°„ ìˆ˜ì •ìœ¼ë¡œ ìë™ìœ¼ë¡œ ë¹ ì§€ë„ë¡ í•˜ì)
             pWarSchedule->setScheduledTime(VSDateTime::currentDateTime());
 
-            // heapÀ» ´Ù½Ã ±¸¼ºÇØ¾ß ÇÑ´Ù.
+            // heapì„ ë‹¤ì‹œ êµ¬ì„±í•´ì•¼ í•œë‹¤.
             m_RecentSchedules.arrange();
 
             bEndWar = true;
@@ -595,7 +595,7 @@ bool WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID) throw(Error) 
     __END_CATCH
 }
 
-// castleZoneIDÀÇ ÁøÇàÁßÀÎ ÀüÀïÀ» Á¦°ÅÇÑ´Ù.
+// castleZoneIDì˜ ì§„í–‰ì¤‘ì¸ ì „ìŸì„ ì œê±°í•œë‹¤.
 bool WarSystem::removeWar(ZoneID_t castleZoneID) throw(Error) {
     __BEGIN_TRY
 
@@ -606,10 +606,10 @@ bool WarSystem::removeWar(ZoneID_t castleZoneID) throw(Error) {
     WarSchedule* pWarSchedule = getActiveWarSchedule_LOCKED(castleZoneID);
 
     if (pWarSchedule != NULL) {
-        // ÀüÀï Á¦°Å( ½Ã°£ ¼öÁ¤À¸·Î ÀÚµ¿À¸·Î ºüÁöµµ·Ï ÇÏÀÚ)
+        // ì „ìŸ ì œê±°( ì‹œê°„ ìˆ˜ì •ìœ¼ë¡œ ìë™ìœ¼ë¡œ ë¹ ì§€ë„ë¡ í•˜ì)
         pWarSchedule->setScheduledTime(VSDateTime::currentDateTime());
 
-        // heapÀ» ´Ù½Ã ±¸¼ºÇØ¾ß ÇÑ´Ù.
+        // heapì„ ë‹¤ì‹œ êµ¬ì„±í•´ì•¼ í•œë‹¤.
         m_RecentSchedules.arrange();
 
         bRemoved = true;
@@ -622,7 +622,7 @@ bool WarSystem::removeWar(ZoneID_t castleZoneID) throw(Error) {
     __END_CATCH
 }
 
-// castleZoneIDÀÇ ÁøÇàÁßÀÎ ÀüÀïÀ» Á¦°ÅÇÑ´Ù.
+// castleZoneIDì˜ ì§„í–‰ì¤‘ì¸ ì „ìŸì„ ì œê±°í•œë‹¤.
 bool WarSystem::removeRaceWar() throw(Error) {
     __BEGIN_TRY
 
@@ -640,10 +640,10 @@ bool WarSystem::removeRaceWar() throw(Error) {
             continue;
 
         if (pWar->getWarType() == WAR_RACE) {
-            // ÀüÀï Á¦°Å( ½Ã°£ ¼öÁ¤À¸·Î ÀÚµ¿À¸·Î ºüÁöµµ·Ï ÇÏÀÚ)
+            // ì „ìŸ ì œê±°( ì‹œê°„ ìˆ˜ì •ìœ¼ë¡œ ìë™ìœ¼ë¡œ ë¹ ì§€ë„ë¡ í•˜ì)
             pSchedule->setScheduledTime(VSDateTime::currentDateTime());
 
-            // heapÀ» ´Ù½Ã ±¸¼ºÇØ¾ß ÇÑ´Ù.
+            // heapì„ ë‹¤ì‹œ êµ¬ì„±í•´ì•¼ í•œë‹¤.
             m_RecentSchedules.arrange();
 
             bRemoved = true;
@@ -657,7 +657,7 @@ bool WarSystem::removeRaceWar() throw(Error) {
     __END_CATCH
 }
 
-// Æ¯Á¤ÇÑ ÇÃ·¹ÀÌ¾î¿¡°Ô ÇöÀç ÁøÇàÁßÀÎ ÀüÀïÀÇ ¸®½ºÆ®¸¦ º¸³»ÁØ´Ù.
+// íŠ¹ì •í•œ í”Œë ˆì´ì–´ì—ê²Œ í˜„ì¬ ì§„í–‰ì¤‘ì¸ ì „ìŸì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 void WarSystem::broadcastWarList(GamePlayer* pGamePlayer) const throw(Error) {
     __BEGIN_TRY
 
@@ -689,8 +689,8 @@ void WarSystem::broadcastWarList(GamePlayer* pGamePlayer) const throw(Error) {
         warExist = true;
 
         /*		StringStream msg;
-                msg << pWar->getWarName() << "ÀÌ "
-                    << ( pSchedule->getScheduledTime() ).toString() << " ±îÁö ÁøÇàµË´Ï´Ù.";
+                msg << pWar->getWarName() << "ì´ "
+                    << ( pSchedule->getScheduledTime() ).toString() << " ê¹Œì§€ ì§„í–‰ë©ë‹ˆë‹¤.";
         */
 
         char msg[100];

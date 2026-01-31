@@ -18,8 +18,8 @@ class GCBloodBibleStatus;
 class ShrineInfo {
 public:
     enum ShrineType {
-        SHRINE_GUARD, // ¼º¿¡ ÀÖ´Â ¼öÈ£¼º´Ü
-        SHRINE_HOLY   // ¼º ¹Û¿¡ ÀÖ´Â ¼ºÁö¼º´Ü
+        SHRINE_GUARD, // ì„±ì— ìˆëŠ” ìˆ˜í˜¸ì„±ë‹¨
+        SHRINE_HOLY   // ì„± ë°–ì— ìˆëŠ” ì„±ì§€ì„±ë‹¨
     };
 
 public:
@@ -80,11 +80,11 @@ public:
 private:
     MonsterType_t m_MonsterType;
     ShrineType m_ShrineType;
-    ZoneID_t m_ZoneID; // Á¸ID
+    ZoneID_t m_ZoneID; // ì¡´ID
     ZoneCoord_t m_X;
     ZoneCoord_t m_Y;
     ObjectID_t m_ObjectID;
-    string m_Name; // ¼º´Ü ÀÌ¸§
+    string m_Name; // ì„±ë‹¨ ì´ë¦„
 };
 
 class ShrineSet {
@@ -154,15 +154,15 @@ public:
     bool saveBloodBibleOwner();
 
 private:
-    ShrineID_t m_ShrineID;           // Shrine ID. ItemType°ú °°¾Æ¾ß ÇÑ´Ù.
-    ShrineInfo m_SlayerGuardShrine;  // ½½·¹ÀÌ¾î ¼º ¾È¿¡ ÀÖ´Â Shrine
-    ShrineInfo m_VampireGuardShrine; // ¹ìÆÄÀÌ¾î ¼º ¾È¿¡ ÀÖ´Â Shrine
-    ShrineInfo m_OustersGuardShrine; // ¾Æ¿ì½ºÅÍÁî ¼º ¾È¿¡ ÀÖ´Â Shrine
-    ShrineInfo m_HolyShrine;         // ¾Æ´ãÀÇ ¼ºÁö¿¡ ÀÖ´Â Shrine
-    ItemType_t m_ItemType;           // ¼º¼­ Á¶°¢ ItemType
-    ItemID_t m_ItemID;               // ¼º¼­ Á¶°¢ ItemID
-    Race_t m_OwnerRace;              // ÃÖÁ¾ÀûÀ¸·Î Â÷ÁöÇß´ø Á¾Á·
-    GCBloodBibleStatus* m_pGCBBS;    // ÇÇÀÇ ¼º¼­ À§Ä¡ Á¤º¸
+    ShrineID_t m_ShrineID;           // Shrine ID. ItemTypeê³¼ ê°™ì•„ì•¼ í•œë‹¤.
+    ShrineInfo m_SlayerGuardShrine;  // ìŠ¬ë ˆì´ì–´ ì„± ì•ˆì— ìˆëŠ” Shrine
+    ShrineInfo m_VampireGuardShrine; // ë±€íŒŒì´ì–´ ì„± ì•ˆì— ìˆëŠ” Shrine
+    ShrineInfo m_OustersGuardShrine; // ì•„ìš°ìŠ¤í„°ì¦ˆ ì„± ì•ˆì— ìˆëŠ” Shrine
+    ShrineInfo m_HolyShrine;         // ì•„ë‹´ì˜ ì„±ì§€ì— ìˆëŠ” Shrine
+    ItemType_t m_ItemType;           // ì„±ì„œ ì¡°ê° ItemType
+    ItemID_t m_ItemID;               // ì„±ì„œ ì¡°ê° ItemID
+    Race_t m_OwnerRace;              // ìµœì¢…ì ìœ¼ë¡œ ì°¨ì§€í–ˆë˜ ì¢…ì¡±
+    GCBloodBibleStatus* m_pGCBBS;    // í”¼ì˜ ì„±ì„œ ìœ„ì¹˜ ì •ë³´
 
     mutable Mutex m_Mutex;
 };
@@ -220,10 +220,10 @@ public:
     void addAllShrineShield();
     bool removeAllShrineShield();
 
-    // DB¿¡ ÇöÀç OwnerÁ¤º¸¸¦ ÀúÀåÇÑ´Ù.
+    // DBì— í˜„ì¬ Ownerì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
     bool saveBloodBibleOwner();
 
-    // ÇÇÀÇ ¼º¼­ À§Ä¡ Á¤º¸¸¦ µî·ÏÇÑ´Ù.
+    // í”¼ì˜ ì„±ì„œ ìœ„ì¹˜ ì •ë³´ë¥¼ ë“±ë¡í•œë‹¤.
     void registerBloodBibleStatus(ItemType_t m_Part, GCBloodBibleStatus* pGCBBS);
     void sendBloodBibleStatus(PlayerCreature* pPC);
 

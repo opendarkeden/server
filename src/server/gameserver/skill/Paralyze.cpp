@@ -25,7 +25,7 @@
 #include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                        CEffectID_t CEffectID)
@@ -47,9 +47,9 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // ¸é¿ªÀÌ°Å³ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // ë©´ì—­ì´ê±°ë‚˜. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_PARALYZE) ||
             !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
@@ -66,7 +66,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Curse °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Curse ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
@@ -105,7 +105,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
             SkillOutput output;
             computeOutput(input, output);
 
-            // Wisdom of Silence ÀÌ ÀÖ´Ù¸é Áö¼Ó½Ã°£ 20% Áõ°¡
+            // Wisdom of Silence ì´ ìˆë‹¤ë©´ ì§€ì†ì‹œê°„ 20% ì¦ê°€
             if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_SILENCE)) {
                 RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_SILENCE);
                 Assert(pRankBonus != NULL);
@@ -113,7 +113,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
                 output.Duration += getPercentValue(output.Duration, pRankBonus->getPoint());
             }
 
-            // pTargetCreature°¡ ÀúÁÖ¸¶¹ıÀ» ¹İ»çÇÏ´Â °æ¿ì
+            // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
             if (CheckReflection(pVampire, pTargetCreature, getSkillType())) {
                 pTargetCreature = (Creature*)pVampire;
                 TargetObjectID = pVampire->getObjectID();
@@ -127,7 +127,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
             if (output.Duration < 20)
                 output.Duration = 20;
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectParalyze* pEffectParalyze = new EffectParalyze(pTargetCreature);
             pEffectParalyze->setLevel(pSkillInfo->getLevel() / 2);
             //			pEffectParalyze->setDefensePenalty(output.Damage);
@@ -141,8 +141,8 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
                     pEffect->setDeadline(0);
             }
 
-            // ÀúÁÖ¿¡ °É¸®¸é µğÆæ½º°¡ ¶³¾îÁø´Ù.
-            // µğÆæ½º Æä³ÎÆ¼°¡ ¾ø¾îÁü. 2002.05.09 - by bezz
+            // ì €ì£¼ì— ê±¸ë¦¬ë©´ ë””íœìŠ¤ê°€ ë–¨ì–´ì§„ë‹¤.
+            // ë””íœìŠ¤ í˜ë„í‹°ê°€ ì—†ì–´ì§. 2002.05.09 - by bezz
             /*			if (pTargetCreature->isSlayer())
                         {
                             Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -166,7 +166,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
                         }
                         else Assert(false);
             */
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù´Â °ÍÀ» ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´í™íŠ¸ê°€ ë¶™ì—ˆë‹¤ëŠ” ê²ƒì„ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_PARALYZE);
@@ -198,10 +198,10 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }
@@ -244,7 +244,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Paralyze::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -272,7 +272,7 @@ void Paralyze::execute(Monster* pMonster, Creature* pEnemy)
         if (pMonster->isMaster()) {
             int x = pMonster->getX();
             int y = pMonster->getY();
-            int Splash = 3 + rand() % 5; // 3~7 ¸¶¸®
+            int Splash = 3 + rand() % 5; // 3~7 ë§ˆë¦¬
             int range = 2;               // 5x5
             list<Creature*> creatureList;
             getSplashVictims(pMonster->getZone(), x, y, Creature::CREATURE_CLASS_MAX, creatureList, Splash, range);
@@ -334,7 +334,7 @@ void Paralyze::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         SkillOutput output;
         computeOutput(input, output);
 
-        // pTargetCreature°¡ ÀúÁÖ¸¶¹ıÀ» ¹İ»çÇÏ´Â °æ¿ì
+        // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
         if (CheckReflection(pMonster, pEnemy, getSkillType())) {
             pEnemy = (Creature*)pMonster;
         }
@@ -347,7 +347,7 @@ void Paralyze::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         if (output.Duration < 20)
             output.Duration = 20;
 
-        // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù.
+        // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
         EffectParalyze* pEffectParalyze = new EffectParalyze(pEnemy);
         pEffectParalyze->setLevel(pSkillInfo->getLevel() / 2);
         // pEffectParalyze->setDefensePenalty(output.Damage);
@@ -355,7 +355,7 @@ void Paralyze::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         pEnemy->addEffect(pEffectParalyze);
         pEnemy->setFlag(Effect::EFFECT_CLASS_PARALYZE);
 
-        // ÀúÁÖ¿¡ °É¸®¸é µğÆæ½º°¡ ¶³¾îÁø´Ù.
+        // ì €ì£¼ì— ê±¸ë¦¬ë©´ ë””íœìŠ¤ê°€ ë–¨ì–´ì§„ë‹¤.
         if (pEnemy->isSlayer()) {
             Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pEnemy);
             SLAYER_RECORD prev;
@@ -380,7 +380,7 @@ void Paralyze::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         } else
             Assert(false);
 
-        // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù´Â °ÍÀ» ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+        // ì´í™íŠ¸ê°€ ë¶™ì—ˆë‹¤ëŠ” ê²ƒì„ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
         GCAddEffect gcAddEffect;
         gcAddEffect.setObjectID(pEnemy->getObjectID());
         gcAddEffect.setEffectID(Effect::EFFECT_CLASS_PARALYZE);

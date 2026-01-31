@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : PriceManager.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ¾ÆÀÌÅÛÀ» »óÁ¡¿¡¼­ »ç°í ÆÈ ¶§, ±× ¸Å¸Å°¡°İÀ» °áÁ¤ÇÏ´Â Å¬·¡½ºÀÌ´Ù.
-// ³»ºÎÀûÀ¸·Î´Â ItemInfoManagerÀÇ ¿ø·¡ °¡°İÀ» ÀÌ¿ëÇØ °è»êÀ» ÇÑ´Ù.
+// ì•„ì´í…œì„ ìƒì ì—ì„œ ì‚¬ê³  íŒ” ë•Œ, ê·¸ ë§¤ë§¤ê°€ê²©ì„ ê²°ì •í•˜ëŠ” í´ë˜ìŠ¤ì´ë‹¤.
+// ë‚´ë¶€ì ìœ¼ë¡œëŠ” ItemInfoManagerì˜ ì›ë˜ ê°€ê²©ì„ ì´ìš©í•´ ê³„ì‚°ì„ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PriceManager.h"
@@ -32,22 +32,22 @@ const uint SUMMON_ITEM_CHARGE_PRICE = 1000;
 
 //////////////////////////////////////////////////////////////////////////////
 // getPrice()
-// ¾ÆÀÌÅÛ Á¤º¸¸¦ ÂüÁ¶ÇØ ½ÇÁ¦ ¹°°Ç°ªÀ» Á¤ÇÑ´Ù.
-// nDiscount º¯¼ö(¹éºĞÀ²)¸¦ ÀÌ¿ëÇØ ¹°°Ç°ªÀ» ÄÁÆ®·ÑÇÒ ¼ö ÀÖ´Ù.
+// ì•„ì´í…œ ì •ë³´ë¥¼ ì°¸ì¡°í•´ ì‹¤ì œ ë¬¼ê±´ê°’ì„ ì •í•œë‹¤.
+// nDiscount ë³€ìˆ˜(ë°±ë¶„ìœ¨)ë¥¼ ì´ìš©í•´ ë¬¼ê±´ê°’ì„ ì»¨íŠ¸ë¡¤í•  ìˆ˜ ìˆë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType_t shopType,
                                Creature* pCreature) const {
-    // Ã·¿¡ °øÂ¥·Î ÁØ ¾ÆÀÌÅÛÀº ÆÈ¾Æµµ 1¿ø¹Û¿¡ ¸ø ¾ò´Â´Ù. 2003. 1. 15. Sequoia
+    // ì²¨ì— ê³µì§œë¡œ ì¤€ ì•„ì´í…œì€ íŒ”ì•„ë„ 1ì›ë°–ì— ëª» ì–»ëŠ”ë‹¤. 2003. 1. 15. Sequoia
     if (pItem->getCreateType() == Item::CREATE_TYPE_GAME)
         return (Price_t)1;
-    // Äù½ºÆ® ¾ÆÀÌÅÛÀº ¿Àµğ¹ø~~~ 2003. 4. 14. Sequoia
+    // í€˜ìŠ¤íŠ¸ ì•„ì´í…œì€ ì˜¤ë””ë²ˆ~~~ 2003. 4. 14. Sequoia
     if (pItem->isTimeLimitItem())
         return (Price_t)50;
     if (pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 4) {
         return (Price_t)g_pVariableManager->getVariable(CROWN_PRICE);
     }
 
-    // ¾ÆÀÌÅÛÀÇ ¿ø·¡ °¡°İÀ» ¾ò¾î³½´Ù.
+    // ì•„ì´í…œì˜ ì›ë˜ ê°€ê²©ì„ ì–»ì–´ë‚¸ë‹¤.
     ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
     double originalPrice = pItemInfo->getPrice();
     double finalPrice = 0;
@@ -58,7 +58,7 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
         originalPrice *= (gradePercent / 100.0);
     }
 
-    // ½½·¹ÀÌ¾î Æ÷Å» °°Àº °æ¿ì¿¡´Â ¿ø·¡ °¡°İ¿¡´Ù ÇöÀç Â÷Áö ¼ö¸¸Å­ÀÇ °¡°İÀ» ´õÇØ¾ß ÇÑ´Ù.
+    // ìŠ¬ë ˆì´ì–´ í¬íƒˆ ê°™ì€ ê²½ìš°ì—ëŠ” ì›ë˜ ê°€ê²©ì—ë‹¤ í˜„ì¬ ì°¨ì§€ ìˆ˜ë§Œí¼ì˜ ê°€ê²©ì„ ë”í•´ì•¼ í•œë‹¤.
     if (pItem->getItemClass() == Item::ITEM_CLASS_SLAYER_PORTAL_ITEM) {
         SlayerPortalItem* pSlayerPortalItem = dynamic_cast<SlayerPortalItem*>(pItem);
         originalPrice += (pSlayerPortalItem->getCharge() * PORTAL_ITEM_CHARGE_PRICE);
@@ -70,12 +70,12 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
         originalPrice += (pOustersSummonItem->getCharge() * SUMMON_ITEM_CHARGE_PRICE);
     }
 
-    // ¿É¼ÇÀÌ ÀÖ´Ù¸é ¿É¼Ç¸¸Å­ÀÇ °¡°İÀ» °öÇØ¾ß ÇÑ´Ù.
+    // ì˜µì…˜ì´ ìˆë‹¤ë©´ ì˜µì…˜ë§Œí¼ì˜ ê°€ê²©ì„ ê³±í•´ì•¼ í•œë‹¤.
     const list<OptionType_t>& optionTypes = pItem->getOptionTypeList();
     if (!optionTypes.empty()) {
         finalPrice = 0;
 
-        // °¡°İ = (¿ø·¡ °¡°İ * ¿É¼ÇÀÇ PriceMultiplier / 100) + ..
+        // ê°€ê²© = (ì›ë˜ ê°€ê²© * ì˜µì…˜ì˜ PriceMultiplier / 100) + ..
         double priceMultiplier = 0;
         list<OptionType_t>::const_iterator itr;
         for (itr = optionTypes.begin(); itr != optionTypes.end(); itr++) {
@@ -88,25 +88,25 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
         originalPrice = finalPrice;
     }
 
-    // ¾ÆÀÌÅÛÀÌ ¼Õ»óµÇ¾ú´Ù¸é ¼Õ»óµÈ ¸¸Å­ÀÇ °¡°İÀ» ±ï¾Æ¾ß ÇÑ´Ù.
+    // ì•„ì´í…œì´ ì†ìƒë˜ì—ˆë‹¤ë©´ ì†ìƒëœ ë§Œí¼ì˜ ê°€ê²©ì„ ê¹ì•„ì•¼ í•œë‹¤.
     double maxDurability = (double)computeMaxDurability(pItem);
     double curDurability = (double)(pItem->getDurability());
 
-    // ¾ÆÀÌÅÛ Áß¿¡ ³»±¸µµ°¡ ¾ø´Â °ÍµéÀÌ Á¸ÀçÇÏ±â ¶§¹®¿¡ Ã³¸®ÇØÁØ´Ù.
+    // ì•„ì´í…œ ì¤‘ì— ë‚´êµ¬ë„ê°€ ì—†ëŠ” ê²ƒë“¤ì´ ì¡´ì¬í•˜ê¸° ë•Œë¬¸ì— ì²˜ë¦¬í•´ì¤€ë‹¤.
     if (maxDurability > 1)
         finalPrice = originalPrice * curDurability / maxDurability;
     else
         finalPrice = originalPrice;
 
-    // »óÁ¡ ½Ã¼¼¿¡ µû¶ó °¡°İÀ» ´Ù½Ã Á¶Á¤ÇØÁØ´Ù.
+    // ìƒì  ì‹œì„¸ì— ë”°ë¼ ê°€ê²©ì„ ë‹¤ì‹œ ì¡°ì •í•´ì¤€ë‹¤.
     finalPrice = finalPrice * nDiscount / 100;
 
-    // »óÁ¡ÀÇ Á¾·ù¿¡ µû¶ó °¡°İÀ» ´Ù½Ã Á¶Á¤ÇØÁØ´Ù.
+    // ìƒì ì˜ ì¢…ë¥˜ì— ë”°ë¼ ê°€ê²©ì„ ë‹¤ì‹œ ì¡°ì •í•´ì¤€ë‹¤.
     if (shopType == SHOP_RACK_MYSTERIOUS) {
         finalPrice *= 10;
     }
 
-    // Å©¸®ÃÄÀÇ º¯È­ ¿ä¼Ò¿¡ µû¶ó °¡°İÀ» ´Ù½Ã Á¶Á¤ÇØÁØ´Ù.
+    // í¬ë¦¬ì³ì˜ ë³€í™” ìš”ì†Œì— ë”°ë¼ ê°€ê²©ì„ ë‹¤ì‹œ ì¡°ì •í•´ì¤€ë‹¤.
     if (pCreature != NULL) {
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -119,19 +119,19 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
                 finalPrice = getPercentValue((int)finalPrice, 70);
             }
         } else if (pCreature->isVampire()) {
-            // ¹ìÆÄÀÌ¾î°¡ ÇØ°ñÀ» ÆÈ °æ¿ì¿¡´Â ÇØ°ñÀÇ °¡°İÀ» ¹İÀ¸·Î ÁÙ¿©ÁØ´Ù.
+            // ë±€íŒŒì´ì–´ê°€ í•´ê³¨ì„ íŒ” ê²½ìš°ì—ëŠ” í•´ê³¨ì˜ ê°€ê²©ì„ ë°˜ìœ¼ë¡œ ì¤„ì—¬ì¤€ë‹¤.
             if (pItem->getItemClass() == Item::ITEM_CLASS_SKULL) {
                 finalPrice = finalPrice / 2.0;
             }
         } else if (pCreature->isOusters()) {
-            // ¾Æ¿ì½ºÅÍÁî°¡ ÇØ°ñÀ» ÆÈ °æ¿ì¿¡´Â ÇØ°ñÀÇ °¡°İÀÇ 75%.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆê°€ í•´ê³¨ì„ íŒ” ê²½ìš°ì—ëŠ” í•´ê³¨ì˜ ê°€ê²©ì˜ 75%.
             if (pItem->getItemClass() == Item::ITEM_CLASS_SKULL) {
                 finalPrice *= 0.75;
             }
         }
     }
 
-    // À¯·á »ç¿ëÀÚÀÌ°í À¯·áÁ¸ ÀÌ¸é
+    // ìœ ë£Œ ì‚¬ìš©ìì´ê³  ìœ ë£Œì¡´ ì´ë©´
     if (g_pVariableManager->getVariable(PREMIUM_HALF_EVENT)) {
         if (pItem->getItemClass() == Item::ITEM_CLASS_POTION || pItem->getItemClass() == Item::ITEM_CLASS_SERUM ||
             pItem->getItemClass() == Item::ITEM_CLASS_LARVA || pItem->getItemClass() == Item::ITEM_CLASS_PUPA ||
@@ -140,20 +140,20 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
                 PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
                 GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
                 if (pGamePlayer->isPayPlaying()) {
-                    // ¹İ °ª.
+                    // ë°˜ ê°’.
                     finalPrice = finalPrice / 2;
                 }
             }
         }
     }
 
-    // Blood Bible º¸³Ê½º Àû¿ë
+    // Blood Bible ë³´ë„ˆìŠ¤ ì ìš©
     if (pItem->getItemClass() == Item::ITEM_CLASS_POTION || pItem->getItemClass() == Item::ITEM_CLASS_SERUM) {
         if (pCreature->isPC()) {
             PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
             int ratio = pPC->getPotionPriceRatio();
             if (ratio != 0) {
-                // ratio °ªÀÌ ¸¶ÀÌ³Ê½º °ªÀÌ´Ù.
+                // ratio ê°’ì´ ë§ˆì´ë„ˆìŠ¤ ê°’ì´ë‹¤.
                 finalPrice += getPercentValue((int)finalPrice, ratio);
             }
         }
@@ -164,12 +164,12 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 
 //////////////////////////////////////////////////////////////////////////////
 // getRepairPrice()
-// ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÒ ¶§ µå´Â ºñ¿ëÀ» ¸®ÅÏÇÑ´Ù.
-// ¾ÆÀÌÅÛ ¼ö¸®ºñ´Â ¿ÏÀüÈ÷ ¹Ú»ì³­ ¾ÆÀÌÅÛÀÏ °æ¿ì
-// ¿ø·¡ ¾ÆÀÌÅÛ °¡°İÀÇ 10ºĞÀÇ 1ÀÌ´Ù.
+// ì•„ì´í…œì„ ìˆ˜ë¦¬í•  ë•Œ ë“œëŠ” ë¹„ìš©ì„ ë¦¬í„´í•œë‹¤.
+// ì•„ì´í…œ ìˆ˜ë¦¬ë¹„ëŠ” ì™„ì „íˆ ë°•ì‚´ë‚œ ì•„ì´í…œì¼ ê²½ìš°
+// ì›ë˜ ì•„ì´í…œ ê°€ê²©ì˜ 10ë¶„ì˜ 1ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const {
-    // ¾ÆÀÌÅÛÀÇ ¿ø·¡ °¡°İÀ» ¾ò¾î³½´Ù.
+    // ì•„ì´í…œì˜ ì›ë˜ ê°€ê²©ì„ ì–»ì–´ë‚¸ë‹¤.
     ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
     double originalPrice = pItemInfo->getPrice();
     double finalPrice = 0;
@@ -180,7 +180,7 @@ Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const {
         originalPrice *= (gradePercent / 100.0);
     }
 
-    // ½½·¹ÀÌ¾î Æ÷Å» °°Àº °æ¿ì¿¡´Â ¼ö¸®¸¦ ÇÒ ¼ö´Â ¾øÁö¸¸, Â÷Áö¸¦ ´Ã¸± ¼ö°¡ ÀÖ´Ù.
+    // ìŠ¬ë ˆì´ì–´ í¬íƒˆ ê°™ì€ ê²½ìš°ì—ëŠ” ìˆ˜ë¦¬ë¥¼ í•  ìˆ˜ëŠ” ì—†ì§€ë§Œ, ì°¨ì§€ë¥¼ ëŠ˜ë¦´ ìˆ˜ê°€ ìˆë‹¤.
     if (pItem->getItemClass() == Item::ITEM_CLASS_SLAYER_PORTAL_ITEM) {
         SlayerPortalItem* pSlayerPortalItem = dynamic_cast<SlayerPortalItem*>(pItem);
         int MaxCharge = pSlayerPortalItem->getMaxCharge();
@@ -197,11 +197,11 @@ Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const {
         return (MaxCharge - CurCharge) * SUMMON_ITEM_CHARGE_PRICE;
     }
 
-    // ¿É¼ÇÀÌ ÀÖ´Ù¸é ¿É¼Ç¸¸Å­ÀÇ °¡°İÀ» °öÇØ¾ß ÇÑ´Ù.
+    // ì˜µì…˜ì´ ìˆë‹¤ë©´ ì˜µì…˜ë§Œí¼ì˜ ê°€ê²©ì„ ê³±í•´ì•¼ í•œë‹¤.
     const list<OptionType_t>& optionTypes = pItem->getOptionTypeList();
     if (!optionTypes.empty()) {
         finalPrice = 0;
-        // °¡°İ = (¿ø·¡ °¡°İ * ¿É¼ÇÀÇ PriceMultiplierÀÇ ÃÑÇÕ / 100) * ¿É¼ÇÀÇ °³¼ö
+        // ê°€ê²© = (ì›ë˜ ê°€ê²© * ì˜µì…˜ì˜ PriceMultiplierì˜ ì´í•© / 100) * ì˜µì…˜ì˜ ê°œìˆ˜
         double priceMultiplier = 0;
         list<OptionType_t>::const_iterator itr;
         for (itr = optionTypes.begin(); itr != optionTypes.end(); itr++) {
@@ -223,27 +223,27 @@ Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const {
     }
     */
 
-    // ¾ÆÀÌÅÛÀÌ ¼Õ»óµÇ¾ú´Ù¸é ¼Õ»óµÈ ¸¸Å­ÀÇ °¡°İÀ» ±ï¾Æ¾ß ÇÑ´Ù.
+    // ì•„ì´í…œì´ ì†ìƒë˜ì—ˆë‹¤ë©´ ì†ìƒëœ ë§Œí¼ì˜ ê°€ê²©ì„ ê¹ì•„ì•¼ í•œë‹¤.
     double maxDurability = (double)computeMaxDurability(pItem);
     double curDurability = (double)(pItem->getDurability());
 
-    // ¾ÆÀÌÅÛ Áß¿¡ ³»±¸µµ°¡ ¾ø´Â °ÍµéÀÌ Á¸ÀçÇÏ±â ¶§¹®¿¡ Ã³¸®ÇØÁØ´Ù.
+    // ì•„ì´í…œ ì¤‘ì— ë‚´êµ¬ë„ê°€ ì—†ëŠ” ê²ƒë“¤ì´ ì¡´ì¬í•˜ê¸° ë•Œë¬¸ì— ì²˜ë¦¬í•´ì¤€ë‹¤.
     if (maxDurability != 0) {
-        // ¾ÆÀÌÅÛÀÇ ÇöÀç ³»±¸µµ°¡ ¸Æ½º¶ó¸é ¸®ÅÏÇÑ´Ù.
+        // ì•„ì´í…œì˜ í˜„ì¬ ë‚´êµ¬ë„ê°€ ë§¥ìŠ¤ë¼ë©´ ë¦¬í„´í•œë‹¤.
         if (curDurability == maxDurability) {
             return 0;
         }
 
-        // ÇöÀç ³»±¸µµ¸¦ ÃÖ³» ³»±¸µµ·Î ³ª´©¸é ±× ¾ÆÀÌÅÛÀÇ ¼Õ»óµÈ Á¤µµ°¡ ³ª¿Â´Ù.
-        // ÀÌ¸¦ ¿ø·¡ °¡°İ¿¡´Ù °öÇÏ¸é, ³»±¸µµ°¡ ±ïÀÎ ¸¸Å­ ¾ÆÀÌÅÛÀÇ °ªÀÌ ¶³¾îÁö°Ô µÈ´Ù.
+        // í˜„ì¬ ë‚´êµ¬ë„ë¥¼ ìµœë‚´ ë‚´êµ¬ë„ë¡œ ë‚˜ëˆ„ë©´ ê·¸ ì•„ì´í…œì˜ ì†ìƒëœ ì •ë„ê°€ ë‚˜ì˜¨ë‹¤.
+        // ì´ë¥¼ ì›ë˜ ê°€ê²©ì—ë‹¤ ê³±í•˜ë©´, ë‚´êµ¬ë„ê°€ ê¹ì¸ ë§Œí¼ ì•„ì´í…œì˜ ê°’ì´ ë–¨ì–´ì§€ê²Œ ëœë‹¤.
         finalPrice = originalPrice * curDurability / maxDurability;
     } else {
-        // ³»±¸µµ°¡ ¾ø´Â ¾ÆÀÌÅÛÀº ¼Õ»óµÇÁö°¡ ¾ÊÀ¸¹Ç·Î,
-        // ³»±¸µµ¸¦ °í·ÁÇÑ °¡°İÀº ¿ø·¡ÀÇ °ª°ú ¶È°°´Ù.
+        // ë‚´êµ¬ë„ê°€ ì—†ëŠ” ì•„ì´í…œì€ ì†ìƒë˜ì§€ê°€ ì•Šìœ¼ë¯€ë¡œ,
+        // ë‚´êµ¬ë„ë¥¼ ê³ ë ¤í•œ ê°€ê²©ì€ ì›ë˜ì˜ ê°’ê³¼ ë˜‘ê°™ë‹¤.
         finalPrice = originalPrice;
     }
 
-    // ¼ö¸® ºñ¿ëÀº ¿ø·¡ °ªÀÇ 10ºĞÀÇ 1ÀÌ´Ù.
+    // ìˆ˜ë¦¬ ë¹„ìš©ì€ ì›ë˜ ê°’ì˜ 10ë¶„ì˜ 1ì´ë‹¤.
     finalPrice = (originalPrice - finalPrice) / 10.0;
 
     if (finalPrice < 1.0) {
@@ -255,7 +255,7 @@ Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const {
 
 //////////////////////////////////////////////////////////////////////////////
 // getSilverCoatingPrice()
-// ¾ÆÀÌÅÛÀ» Àº µµ±İÇÒ ¶§ÀÇ °¡°İÀÌ´Ù.
+// ì•„ì´í…œì„ ì€ ë„ê¸ˆí•  ë•Œì˜ ê°€ê²©ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Price_t PriceManager::getSilverCoatingPrice(Item* pItem, Creature* pCreature) const {
     if (pItem == NULL)
@@ -275,7 +275,7 @@ Price_t PriceManager::getSilverCoatingPrice(Item* pItem, Creature* pCreature) co
     double maxSilver = pItemInfo->getMaxSilver();
     double finalPrice = 0;
 
-    // ¶«»§À¸·Î Áı¾î³ÖÀº ÀºÀÇ °¡°İÀÌ´Ù.
+    // ë•œë¹µìœ¼ë¡œ ì§‘ì–´ë„£ì€ ì€ì˜ ê°€ê²©ì´ë‹¤.
     finalPrice = maxSilver;
 
     return max(0, (int)finalPrice);
@@ -283,8 +283,8 @@ Price_t PriceManager::getSilverCoatingPrice(Item* pItem, Creature* pCreature) co
 
 //////////////////////////////////////////////////////////////////////////////
 // getStashPrice()
-// º¸°üÇÔ °¡°İÀ» ¸®ÅÏÇÑ´Ù.
-// ±×·¸°Ô ÀÚÁÖ º¯µ¿µÉ °¡°İÀÌ ¾Æ´Ï±â ¶§¹®¿¡ ÄÚµå¿¡´Ù Áı¾î³Ö¾î ³õ¾Ò´Ù.
+// ë³´ê´€í•¨ ê°€ê²©ì„ ë¦¬í„´í•œë‹¤.
+// ê·¸ë ‡ê²Œ ìì£¼ ë³€ë™ë  ê°€ê²©ì´ ì•„ë‹ˆê¸° ë•Œë¬¸ì— ì½”ë“œì—ë‹¤ ì§‘ì–´ë„£ì–´ ë†“ì•˜ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Price_t PriceManager::getStashPrice(BYTE index, Creature* pCreature) const {
     Price_t price = 0;
@@ -316,12 +316,12 @@ Price_t PriceManager::getStashPrice(BYTE index, Creature* pCreature) const {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÌº¥Æ®¿ë °¡°İ ÇÔ¼ö
-// 2001³â Å©¸®½º¸¶½º ÀÌº¥Æ®¶§ »ç¿ëÇÏ¿´´ø º° ¾ÆÀÌÅÛ¿¡ ´ëÇÑ Á¤º¸ÀÌ´Ù.
-// 2002³â ¾î¸°ÀÌ³¯¿¡µµ °°Àº ÀÌº¥Æ®¸¦ »ç¿ëÇÏ±â·Î ÇÏ¿´±â ¶§¹®¿¡ ÁÖ¼®À» ÇØÁö
+// ì´ë²¤íŠ¸ìš© ê°€ê²© í•¨ìˆ˜
+// 2001ë…„ í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ë•Œ ì‚¬ìš©í•˜ì˜€ë˜ ë³„ ì•„ì´í…œì— ëŒ€í•œ ì •ë³´ì´ë‹¤.
+// 2002ë…„ ì–´ë¦°ì´ë‚ ì—ë„ ê°™ì€ ì´ë²¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ê¸°ë¡œ í•˜ì˜€ê¸° ë•Œë¬¸ì— ì£¼ì„ì„ í•´ì§€
 //
-// º° ÀÌº¥Æ®°¡ ¾ÕÀ¸·Î ÀÏ¾î³¯ ¼ö ÀÖ´Â °ü°è·Î,
-// ÀÌ¸§À» STAR_EVENT_CODE·Î º¯°æÇÏ´Â °ÍÀ» °í·ÁÇØ¾ß ÇÏ°Ú´Ù.
+// ë³„ ì´ë²¤íŠ¸ê°€ ì•ìœ¼ë¡œ ì¼ì–´ë‚  ìˆ˜ ìˆëŠ” ê´€ê³„ë¡œ,
+// ì´ë¦„ì„ STAR_EVENT_CODEë¡œ ë³€ê²½í•˜ëŠ” ê²ƒì„ ê³ ë ¤í•´ì•¼ í•˜ê² ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 int PriceManager::getStarPrice(Item* pItem, XMAS_STAR& star) const {
     Assert(pItem != NULL);
@@ -368,8 +368,8 @@ int PriceManager::getBallPrice(int price, XMAS_STAR& star) const {
     return 0;
 }
 
-// Mysterious Item °¡°İ
-// itemClass¿Í pCreatureÀÇ ´É·ÂÄ¡¿¡ µû¶ó¼­ °¡°İÀÌ ´Ş¶óÁø´Ù.
+// Mysterious Item ê°€ê²©
+// itemClassì™€ pCreatureì˜ ëŠ¥ë ¥ì¹˜ì— ë”°ë¼ì„œ ê°€ê²©ì´ ë‹¬ë¼ì§„ë‹¤.
 Price_t PriceManager::getMysteriousPrice(Item::ItemClass itemClass, Creature* pCreature) const {
     int multiplier = 1;
 
@@ -381,40 +381,40 @@ Price_t PriceManager::getMysteriousPrice(Item::ItemClass itemClass, Creature* pC
         Attr_t CINT = pSlayer->getINT(ATTR_BASIC);
         Attr_t CSUM = CSTR + CDEX + CINT;
 
-        // 0~20 »çÀÌ
+        // 0~20 ì‚¬ì´
         multiplier = CSUM / 15;
     } else if (pCreature->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
         Level_t CLevel = pVampire->getLevel();
 
-        // 0~20 »çÀÌ
+        // 0~20 ì‚¬ì´
         multiplier = CLevel / 5;
     } else if (pCreature->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
         Level_t CLevel = pOusters->getLevel();
 
-        // 0~20 »çÀÌ
+        // 0~20 ì‚¬ì´
         multiplier = CLevel / 5;
     }
 
-    // 1~20»çÀÌ
+    // 1~20ì‚¬ì´
     multiplier = max(1, multiplier);
 
-    // °¡°İ Æò±ÕÀ» ¾Ë¾Æ¿Â´Ù.
+    // ê°€ê²© í‰ê· ì„ ì•Œì•„ì˜¨ë‹¤.
     InfoClassManager* pInfoClass = g_pItemInfoManager->getInfoManager(itemClass);
     Assert(pInfoClass != NULL);
 
-    // °¡°İ Æò±Õ * ´É·ÂÄ¡ ºñÀ²?
+    // ê°€ê²© í‰ê·  * ëŠ¥ë ¥ì¹˜ ë¹„ìœ¨?
     int finalPrice = (int)pInfoClass->getAveragePrice() * multiplier;
 
-    // Blood Bible º¸³Ê½º Àû¿ë
+    // Blood Bible ë³´ë„ˆìŠ¤ ì ìš©
     if (pCreature->isPC()) {
         PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
         int ratio = pPC->getGamblePriceRatio();
         if (ratio != 0) {
-            // ratio °ªÀº ¸¶ÀÌ³Ê½º °ªÀÌ´Ù.
+            // ratio ê°’ì€ ë§ˆì´ë„ˆìŠ¤ ê°’ì´ë‹¤.
             finalPrice += getPercentValue(finalPrice, ratio);
         }
     }

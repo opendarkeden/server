@@ -37,24 +37,24 @@ void GSExpelGuildMemberHandler::execute(GSExpelGuildMember* pPacket, Player* pPl
 
         Assert(pPacket != NULL);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¼ÓÇÑ ±æµå¸¦ °¡Á®¿Â´Ù.
+    // í”Œë ˆì´ì–´ê°€ ì†í•œ ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     // try { Assert(pGuild != NULL); } catch (Throwable& ) { return; }
     if (pGuild == NULL)
         return;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ±æµåÀÇ ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ê¸¸ë“œì˜ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     // try { Assert(pGuildMember != NULL); } catch (Throwable& ) { return; }
     if (pGuildMember == NULL)
         return;
 
-    // ±æµå Å»Åð ·Î±×¸¦ ³²±ä´Ù.
+    // ê¸¸ë“œ íƒˆí‡´ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
     filelog("GuildExit.log", "GuildID: %d, GuildName: %s, Expel: %s, By: %s", pGuild->getID(),
             pGuild->getName().c_str(), pPacket->getName().c_str(), pPacket->getSender().c_str());
 
     ///////////////////////////////////////////////////////////////////
-    //  DB¿¡ Slayer, Vampire, Ousters Å×ÀÌºíÀÇ GuildID ¸¦ ¹Ù²Û´Ù.
+    //  DBì— Slayer, Vampire, Ousters í…Œì´ë¸”ì˜ GuildID ë¥¼ ë°”ê¾¼ë‹¤.
     ///////////////////////////////////////////////////////////////////
     Statement* pStmt = NULL;
     BEGIN_DB {
@@ -72,28 +72,28 @@ void GSExpelGuildMemberHandler::execute(GSExpelGuildMember* pPacket, Player* pPl
     }
     END_DB(pStmt)
 
-    // Guild Member ¸¦ expire ½ÃÅ²´Ù.
+    // Guild Member ë¥¼ expire ì‹œí‚¨ë‹¤.
     pGuildMember->expire();
 
-    // Guild ¿¡¼­ »èÁ¦ÇÑ´Ù.
+    // Guild ì—ì„œ ì‚­ì œí•œë‹¤.
     pGuild->deleteMember(pGuildMember->getName());
 
-    // °ÔÀÓ ¼­¹ö·Î º¸³¾ ÆÐÅ¶À» ¸¸µç´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ ë³´ë‚¼ íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     SGExpelGuildMemberOK sgExpelGuildMemberOK;
     sgExpelGuildMemberOK.setGuildID(pGuild->getID());
     sgExpelGuildMemberOK.setName(pPacket->getName());
     sgExpelGuildMemberOK.setSender(pPacket->getSender());
 
-    // °ÔÀÓ ¼­¹ö·Î ÆÐÅ¶À» º¸³½´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgExpelGuildMemberOK);
 
-    // ±æµå ÀÎ¿øÀÌ 5¸í ¹Ì¸¸ÀÌ µÉ °æ¿ì ±æµå¸¦ »èÁ¦ÇÑ´Ù.
+    // ê¸¸ë“œ ì¸ì›ì´ 5ëª… ë¯¸ë§Œì´ ë  ê²½ìš° ê¸¸ë“œë¥¼ ì‚­ì œí•œë‹¤.
     if (pGuild->getState() == Guild::GUILD_STATE_ACTIVE && pGuild->getActiveMemberCount() < MIN_GUILDMEMBER_COUNT) {
-        // ±æµå »èÁ¦ ·Î±×¸¦ ³²±ä´Ù.
+        // ê¸¸ë“œ ì‚­ì œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
         filelog("GuildBroken.log", "GuildID: %d, GuildName: %s, MemberCount: %d, Expel: %s", pGuild->getID(),
                 pGuild->getName().c_str(), pGuild->getActiveMemberCount(), pPacket->getName().c_str());
 
-        // ±æµå ¸â¹ö expire and delete
+        // ê¸¸ë“œ ë©¤ë²„ expire and delete
         HashMapGuildMember& Members = pGuild->getMembers();
         HashMapGuildMemberItor itr = Members.begin();
 
@@ -104,7 +104,7 @@ void GSExpelGuildMemberHandler::execute(GSExpelGuildMember* pPacket, Player* pPl
                 GuildMember* pGuildMember = itr->second;
 
                 ///////////////////////////////////////////////////////////////////
-                //  DB¿¡ Slayer, Vampire, Ousters Å×ÀÌºíÀÇ GuildID ¸¦ ¹Ù²Û´Ù.
+                //  DBì— Slayer, Vampire, Ousters í…Œì´ë¸”ì˜ GuildID ë¥¼ ë°”ê¾¼ë‹¤.
                 ///////////////////////////////////////////////////////////////////
                 if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER) {
                     pStmt->executeQuery("UPDATE Slayer SET GuildID = 99 WHERE Name = '%s'",
@@ -117,12 +117,12 @@ void GSExpelGuildMemberHandler::execute(GSExpelGuildMember* pPacket, Player* pPl
                                         pGuildMember->getName().c_str());
                 }
 
-                // ±æµå ¸â¹ö¸¦ expire ½ÃÅ²´Ù.
+                // ê¸¸ë“œ ë©¤ë²„ë¥¼ expire ì‹œí‚¨ë‹¤.
                 pGuildMember->expire();
-                // ¿ÏÀüÈ÷ DB¿¡¼­ Á¦°ÅÇÑ´Ù.
+                // ì™„ì „ížˆ DBì—ì„œ ì œê±°í•œë‹¤.
                 // pGuildMember->destroy();
 
-                // ±æµå ¸â¹ö¸¦ »èÁ¦
+                // ê¸¸ë“œ ë©¤ë²„ë¥¼ ì‚­ì œ
                 SAFE_DELETE(pGuildMember);
             }
 
@@ -132,14 +132,14 @@ void GSExpelGuildMemberHandler::execute(GSExpelGuildMember* pPacket, Player* pPl
 
         Members.clear();
 
-        // ±æµå¸¦ »èÁ¦ÇÑ´Ù
+        // ê¸¸ë“œë¥¼ ì‚­ì œí•œë‹¤
         pGuild->setState(Guild::GUILD_STATE_BROKEN);
         pGuild->save();
 
         SAFE_DELETE(pGuild);
         g_pGuildManager->deleteGuild(pPacket->getGuildID());
 
-        // ±æµå¸¦ »èÁ¦ÇÏµµ·Ï ÆÐÅ¶À» º¸³½´Ù.
+        // ê¸¸ë“œë¥¼ ì‚­ì œí•˜ë„ë¡ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
         SGDeleteGuildOK sgDeleteGuildOK;
         sgDeleteGuildOK.setGuildID(pPacket->getGuildID());
 

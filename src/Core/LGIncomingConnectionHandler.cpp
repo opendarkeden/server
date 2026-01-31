@@ -25,8 +25,8 @@
 //
 // LGIncomingConnectionHander::execute()
 //
-// °ÔÀÓ ¼­¹ö°¡ ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ LGIncomingConnection ÆÐÅ¶À» ¹Þ°Ô µÇ¸é,
-// ConnectionInfo¸¦ »õ·Î Ãß°¡ÇÏ°Ô µÈ´Ù.
+// ê²Œìž„ ì„œë²„ê°€ ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° LGIncomingConnection íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// ConnectionInfoë¥¼ ìƒˆë¡œ ì¶”ê°€í•˜ê²Œ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void LGIncomingConnectionHandler::execute(LGIncomingConnection* pPacket)
@@ -38,33 +38,33 @@ void LGIncomingConnectionHandler::execute(LGIncomingConnection* pPacket)
 
         //--------------------------------------------------------------------------------
         //
-        // ÀÎÁõÅ°¸¦ »ý¼ºÇÑ´Ù.
+        // ì¸ì¦í‚¤ë¥¼ ìƒì„±í•œë‹¤.
         //
         // *NOTE*
         //
-        // ±âÁ¸ÀÇ ¹æ½ÄÀº ·Î±×ÀÎ ¼­¹ö¿¡¼­ ÀÎÁõÅ°¸¦ »ý¼ºÇØ¼­ °ÔÀÓ¼­¹ö¿¡ º¸³½ ÈÄ, Å¬¶óÀÌ¾ðÆ®·Î
-        // Àü¼ÛÇß´Ù. ÀÌ·¸°Ô ÇÒ °æ¿ì CLSelectPCHandler::execute()¿¡¼­ ÀÎÁõÅ°¸¦ »ý¼ºÇÏ°í
-        // GLIncomingConnectionOKHandler::execute()¿¡¼­ ÀÎÁõÅ°¸¦ Å¬¶óÀÌ¾ðÆ®·Î º¸³»°Ô µÇ´Âµ¥,
-        // Ã³¸® ¸Þ½îµå°¡ ´Ù¸£¹Ç·Î Å°°ªÀÌ ¾îµð¿¡¼±°¡ À¯ÁöµÇ¾î¾ß ÇÑ´Ù. °¡Àå ´Ü¼øÇÑ ¹æ¹ýÀº ·Î±×ÀÎ
-        // ÇÃ·¹ÀÌ¾î °´Ã¼¿¡ ÀúÀåÇÏ¸é µÇ´Âµ¥.. ¹º°¡ ²ÙÁöÇÏ´Ù. ¶Ç´Ù¸¥ ¹æ¹ýÀº °ÔÀÓ ¼­¹ö¿¡¼­ ´Ù½Ã
-        // ·Î±×ÀÎ ¼­¹ö·Î Å°°ªÀ» µÇµ¹·ÁÁÖ´Â °ÍÀÎµ¥, ÀÌ´Â ³×Æ®¿öÅ©»ó¿¡ Å°°ªÀÌ 2È¸ ¿Õº¹ÇÑ´Ù´Â
-        // Á¡¿¡¼­ ºÒÇÊ¿äÇÏ´Ù.
+        // ê¸°ì¡´ì˜ ë°©ì‹ì€ ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ì¸ì¦í‚¤ë¥¼ ìƒì„±í•´ì„œ ê²Œìž„ì„œë²„ì— ë³´ë‚¸ í›„, í´ë¼ì´ì–¸íŠ¸ë¡œ
+        // ì „ì†¡í–ˆë‹¤. ì´ë ‡ê²Œ í•  ê²½ìš° CLSelectPCHandler::execute()ì—ì„œ ì¸ì¦í‚¤ë¥¼ ìƒì„±í•˜ê³ 
+        // GLIncomingConnectionOKHandler::execute()ì—ì„œ ì¸ì¦í‚¤ë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ê²Œ ë˜ëŠ”ë°,
+        // ì²˜ë¦¬ ë©”ì˜ë“œê°€ ë‹¤ë¥´ë¯€ë¡œ í‚¤ê°’ì´ ì–´ë””ì—ì„ ê°€ ìœ ì§€ë˜ì–´ì•¼ í•œë‹¤. ê°€ìž¥ ë‹¨ìˆœí•œ ë°©ë²•ì€ ë¡œê·¸ì¸
+        // í”Œë ˆì´ì–´ ê°ì²´ì— ì €ìž¥í•˜ë©´ ë˜ëŠ”ë°.. ë­”ê°€ ê¾¸ì§€í•˜ë‹¤. ë˜ë‹¤ë¥¸ ë°©ë²•ì€ ê²Œìž„ ì„œë²„ì—ì„œ ë‹¤ì‹œ
+        // ë¡œê·¸ì¸ ì„œë²„ë¡œ í‚¤ê°’ì„ ë˜ëŒë ¤ì£¼ëŠ” ê²ƒì¸ë°, ì´ëŠ” ë„¤íŠ¸ì›Œí¬ìƒì— í‚¤ê°’ì´ 2íšŒ ì™•ë³µí•œë‹¤ëŠ”
+        // ì ì—ì„œ ë¶ˆí•„ìš”í•˜ë‹¤.
         //
-        // µû¶ó¼­, °ÔÀÓ ¼­¹ö¿¡¼­ »ý¼ºÇØ¼­ ·Î±×ÀÎ¼­¹ö¿¡ º¸³»ÁÖ´Â ÆíÀÌ ÈÎ¾À ±ò²ûÇØÁö°Ô µÈ´Ù.
+        // ë”°ë¼ì„œ, ê²Œìž„ ì„œë²„ì—ì„œ ìƒì„±í•´ì„œ ë¡œê·¸ì¸ì„œë²„ì— ë³´ë‚´ì£¼ëŠ” íŽ¸ì´ í›¨ì”¬ ê¹”ë”í•´ì§€ê²Œ ëœë‹¤.
         //
         // *TODO*
         //
-        // ÃÖ¾ÇÀÇ °æ¿ì, ·ÎÄÃ³×Æ®¿öÅ©°¡ ½º´ÏÆÛ¸µ´çÇØ¼­ Å°°ªÀÌ À¯ÃâµÉ ¼ö ÀÖ´Ù. (ÇÏ±ä ¹¹ ·çÆ®
-        // ÆÐ½º¿öµå°¡ À¯ÃâµÉ °¡´É¼ºµµ ÀÖ´Âµ¥.. - -; ÀÌ·± °Å¾ß SSLÀ» ½á¾ß ÇÏ´Â°Å°í..)
-        // ÀÌ¸¦ ´ëºñÇØ¼­ GLIncomingConnectionOK ÆÐÅ¶Àº ¾ÏÈ£È­µÇ¾î¾ß ÇÑ´Ù.
+        // ìµœì•…ì˜ ê²½ìš°, ë¡œì»¬ë„¤íŠ¸ì›Œí¬ê°€ ìŠ¤ë‹ˆí¼ë§ë‹¹í•´ì„œ í‚¤ê°’ì´ ìœ ì¶œë  ìˆ˜ ìžˆë‹¤. (í•˜ê¸´ ë­ ë£¨íŠ¸
+        // íŒ¨ìŠ¤ì›Œë“œê°€ ìœ ì¶œë  ê°€ëŠ¥ì„±ë„ ìžˆëŠ”ë°.. - -; ì´ëŸ° ê±°ì•¼ SSLì„ ì¨ì•¼ í•˜ëŠ”ê±°ê³ ..)
+        // ì´ë¥¼ ëŒ€ë¹„í•´ì„œ GLIncomingConnectionOK íŒ¨í‚·ì€ ì•”í˜¸í™”ë˜ì–´ì•¼ í•œë‹¤.
         //
-        // ¶ÇÇÑ Å°°ªÀº ¿¹ÃøºÒ°¡´ÉÇØ¾ß ÇÑ´Ù. (¾îÂ÷ÇÇ ÄÚµå¸¦ º¸¸é ¿¹Ãø°¡´ÉÇØÁø´Ù.)
+        // ë˜í•œ í‚¤ê°’ì€ ì˜ˆì¸¡ë¶ˆê°€ëŠ¥í•´ì•¼ í•œë‹¤. (ì–´ì°¨í”¼ ì½”ë“œë¥¼ ë³´ë©´ ì˜ˆì¸¡ê°€ëŠ¥í•´ì§„ë‹¤.)
         //
         //--------------------------------------------------------------------------------
 
         DWORD authKey = rand() << ((time(0) % 10) + rand()) >> (time(0) % 10);
 
-    // CI °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+    // CI ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
     ConnectionInfo* pConnectionInfo = new ConnectionInfo();
     pConnectionInfo->setClientIP(pPacket->getClientIP());
     pConnectionInfo->setKey(authKey);
@@ -73,11 +73,11 @@ void LGIncomingConnectionHandler::execute(LGIncomingConnection* pPacket)
 
     //--------------------------------------------------------------------------------
     //
-    // ÇöÀç ½Ã°£ + 20 ÃÊ ÈÄ¸¦ expire time À¸·Î ¼³Á¤ÇÑ´Ù.
+    // í˜„ìž¬ ì‹œê°„ + 20 ì´ˆ í›„ë¥¼ expire time ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
     //
     // *TODO*
     //
-    // expire period ¿ª½Ã Config ÆÄÀÏ¿¡¼­ ÁöÁ¤ÇØÁÖ¸é ÁÁ°Ú´Ù.
+    // expire period ì—­ì‹œ Config íŒŒì¼ì—ì„œ ì§€ì •í•´ì£¼ë©´ ì¢‹ê² ë‹¤.
     //
     //--------------------------------------------------------------------------------
     Timeval currentTime;
@@ -96,7 +96,7 @@ void LGIncomingConnectionHandler::execute(LGIncomingConnection* pPacket)
      */
 
     try {
-        // CIM ¿¡ Ãß°¡ÇÑ´Ù.
+        // CIM ì— ì¶”ê°€í•œë‹¤.
         g_pConnectionInfoManager->addConnectionInfo(pConnectionInfo);
 
         // by sigi. 2002.12.7
@@ -104,7 +104,7 @@ void LGIncomingConnectionHandler::execute(LGIncomingConnection* pPacket)
                                     pPacket->getPCName().c_str(), pPacket->getClientIP().c_str(), authKey);
 
 
-        // ·Î±×ÀÎ ¼­¹ö¿¡°Ô ´Ù½Ã ¾Ë·ÁÁØ´Ù.
+        // ë¡œê·¸ì¸ ì„œë²„ì—ê²Œ ë‹¤ì‹œ ì•Œë ¤ì¤€ë‹¤.
         GLIncomingConnectionOK glIncomingConnectionOK;
         glIncomingConnectionOK.setPlayerID(pPacket->getPlayerID());
         glIncomingConnectionOK.setTCPPort(g_pConfig->getPropertyInt("TCPPort"));
@@ -116,7 +116,7 @@ void LGIncomingConnectionHandler::execute(LGIncomingConnection* pPacket)
         cout << "LGIncomingConnectionHandler Send Packet to ServerPort : " << pPacket->getPort() << endl;
 
     } catch (DuplicatedException& de) {
-        // ½ÇÆÐÇßÀ» °æ¿ì CI ¸¦ »èÁ¦ÇÏ°í, ·Î±×ÀÎ ¼­¹ö¿¡°Ô GLIncomingConnectionError ÆÐÅ¶À» Àü¼ÛÇÑ´Ù.
+        // ì‹¤íŒ¨í–ˆì„ ê²½ìš° CI ë¥¼ ì‚­ì œí•˜ê³ , ë¡œê·¸ì¸ ì„œë²„ì—ê²Œ GLIncomingConnectionError íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
         SAFE_DELETE(pConnectionInfo);
 
         //		GLIncomingConnectionError glIncomingConnectionError;

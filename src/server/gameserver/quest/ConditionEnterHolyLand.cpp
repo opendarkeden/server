@@ -29,7 +29,7 @@ bool ConditionEnterHolyLand::isSatisfied(Creature* pCreature1, Creature* pCreatu
     {
         return false;
     }*/
-    // ³ªÁß¿¡ ÀüÀïÁßÀÎÁö Ã¼Å©ÇØ¾ß µÈ´Ù
+    // ë‚˜ì¤‘ì— ì „ìŸì¤‘ì¸ì§€ ì²´í¬í•´ì•¼ ëœë‹¤
 
     Assert(pCreature2 != NULL);
     Assert(pCreature2->isPC());
@@ -42,12 +42,12 @@ bool ConditionEnterHolyLand::isSatisfied(Creature* pCreature1, Creature* pCreatu
     Assert(pGamePlayer != NULL);
 
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
-    // ÀÌ¹Ì À¯·áÁ¸¿¡ ÀÖ´Â °æ¿ì¶ó¸é... °ü°è¾ø°ÚÁö.
-    // ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÁßÀÏ °æ¿ì
+    // ì´ë¯¸ ìœ ë£Œì¡´ì— ìˆëŠ” ê²½ìš°ë¼ë©´... ê´€ê³„ì—†ê² ì§€.
+    // íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì¤‘ì¼ ê²½ìš°
     if (pGamePlayer->isPayPlaying() || pGamePlayer->isFamilyFreePass()) {
         bPayPlay = true;
     } else {
-        // ÀÏ´Ü zone ¿ä±İ Ã¼Å©
+        // ì¼ë‹¨ zone ìš”ê¸ˆ ì²´í¬
         string connectIP = pGamePlayer->getSocket()->getHost();
 
         if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
@@ -59,25 +59,25 @@ bool ConditionEnterHolyLand::isSatisfied(Creature* pCreature1, Creature* pCreatu
     bPayPlay = true;
 #endif
 
-    // µ· ³½ »ç¶÷¸¸ castle ¿¡ µé¾î°¥ ¼ö ÀÖ´Ù.
+    // ëˆ ë‚¸ ì‚¬ëŒë§Œ castle ì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
     if (bPayPlay) {
-        // Á¾Á· ÀüÀï Áß¿¡.. ÀüÀï Âü°¡ ÀÎ¿ø Á¦ÇÑÀ» ÇÑ´Ù¸é..
+        // ì¢…ì¡± ì „ìŸ ì¤‘ì—.. ì „ìŸ ì°¸ê°€ ì¸ì› ì œí•œì„ í•œë‹¤ë©´..
         if (g_pWarSystem->hasActiveRaceWar() && g_pVariableManager->isActiveRaceWarLimiter()) {
             Zone* pZone = getZoneByZoneID(m_TargetZoneID);
             Assert(pZone != NULL);
 
-            // ¾Æ´ãÀÇ ¼ºÁö¿¡ µé¾î°¥¶§
+            // ì•„ë‹´ì˜ ì„±ì§€ì— ë“¤ì–´ê°ˆë•Œ
             if (!pZone->isHolyLand()) {
                 return true;
             }
 
             PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-            // ÀüÀï Âü°¡¸¦ Çß¾ú¾î¾ß ÇÑ´Ù.
+            // ì „ìŸ ì°¸ê°€ë¥¼ í–ˆì—ˆì–´ì•¼ í•œë‹¤.
             return pPC->isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
         }
 
-        // ÀüÀï Áß ¾Æ´Ï¸é ±×³É µé¾î°£´Ù.
+        // ì „ìŸ ì¤‘ ì•„ë‹ˆë©´ ê·¸ëƒ¥ ë“¤ì–´ê°„ë‹¤.
         return true;
     }
 

@@ -38,7 +38,7 @@ void ActionAdvanceEventQuest::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAdvanceEventQuest::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -75,7 +75,7 @@ void ActionAdvanceEventQuest::execute(Creature* pCreature1, Creature* pCreature2
                     pPC->getQuestManager()->getEventQuestAdvanceManager()->save(m_QuestLevel);
                 else
                     filelog("EventBug.txt",
-                            "ActionAdvanceEventQuest : ¾îµå¹ê½º ÇØÁá´Âµ¥ ¿Ö ¾ÈµÇ´Â°Å¾ß¾Æ¾Æ¾Æ¾Æ¾Æ... %s:%d",
+                            "ActionAdvanceEventQuest : ì–´ë“œë°´ìŠ¤ í•´ì¤¬ëŠ”ë° ì™œ ì•ˆë˜ëŠ”ê±°ì•¼ì•„ì•„ì•„ì•„ì•„... %s:%d",
                             pPC->getName().c_str(), qID);
 
                 pPC->getQuestManager()->questRewarded(qID);

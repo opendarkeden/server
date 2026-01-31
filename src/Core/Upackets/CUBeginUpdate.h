@@ -17,8 +17,8 @@
 //
 // class CUBeginUpdate;
 //
-// ¾÷µ¥ÀÌÆ®¼­¹ö¿Í ¿¬°áÇÑ Å¬¶óÀÌ¾ðÆ®°¡ ÃÖÃÊ·Î º¸³»´Â ÆÐÅ¶ÀÌ´Ù. ³»ºÎ¿¡ Å¬¶óÀÌ¾ðÆ®
-// ¹öÀüÀ» ´ã°í ÀÖ´Ù.
+// ì—…ë°ì´íŠ¸ì„œë²„ì™€ ì—°ê²°í•œ í´ë¼ì´ì–¸íŠ¸ê°€ ìµœì´ˆë¡œ ë³´ë‚´ëŠ” íŒ¨í‚·ì´ë‹¤. ë‚´ë¶€ì— í´ë¼ì´ì–¸íŠ¸
+// ë²„ì „ì„ ë‹´ê³  ìžˆë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -27,13 +27,13 @@ public:
     enum TYPE { OLD_UPDATE, ONE_VERSION_KEY_BACK, TWO_VERSION_KEY_FRONT };
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream) throw(ProtocolException, Error);
 
-    // ¼ÒÄÏÀ¸·ÎºÎÅÍ Á÷Á¢ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì†Œì¼“ìœ¼ë¡œë¶€í„° ì§ì ‘ ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(Socket* pSocket) throw(ProtocolException, Error);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
 
     // execute packet's handler
@@ -91,11 +91,11 @@ public:
     }
 
 private:
-    // Å¬¶óÀÌ¾ðÆ® ¹öÀü
+    // í´ë¼ì´ì–¸íŠ¸ ë²„ì „
     WORD m_Version;
-    // ±æµå ¹öÀü
+    // ê¸¸ë“œ ë²„ì „
     WORD m_GuildVersion;
-    // ÀÎÆ÷ ¹öÀü
+    // ì¸í¬ ë²„ì „
     WORD m_InfoVersion;
 
     TYPE m_Type;

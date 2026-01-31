@@ -152,7 +152,7 @@ void DynamicZoneGateOfAlter::heartbeat() {
 bool DynamicZoneGateOfAlter::addTileEffect() {
     Assert(m_pZone != NULL);
 
-    // ¹Ù´Ú¿¡ ÀÌÆåÆ®¸¦ ±ñ´Ù.
+    // ë°”ë‹¥ì— ì´í™íŠ¸ë¥¼ ê¹ë‹¤.
     for (ZoneCoord_t x = 0; x < m_pZone->getWidth(); ++x)
     // for ( ZoneCoord_t x = 15; x <= 17; ++x )
     {
@@ -160,21 +160,21 @@ bool DynamicZoneGateOfAlter::addTileEffect() {
         // for ( ZoneCoord_t y = 15; y <= 17; ++y )
         {
             if (EffectMask[y][x] != 0) {
-                // Å¸ÀÏÀ» °¡Á®¿Í¼­ ÀÌÆåÆ®¸¦ »ı¼ºÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎ
+                // íƒ€ì¼ì„ ê°€ì ¸ì™€ì„œ ì´í™íŠ¸ë¥¼ ìƒì„±í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸
                 Tile& tile = m_pZone->getTile(x, y);
 
                 if (!tile.canAddEffect() || tile.hasEffect())
                     continue;
 
-                // ÀÌÆåÆ® ¿ÀºêÁ§Æ® »ı¼º
+                // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ ìƒì„±
                 EffectDeleteTile* pEffect = new EffectDeleteTile(m_pZone, x, y);
                 pEffect->setDeadline(999999);
 
-                // Á¸¿¡ OID µî·Ï
+                // ì¡´ì— OID ë“±ë¡
                 m_pZone->registerObject(pEffect);
                 m_pZone->addEffect(pEffect);
 
-                // Å¸ÀÏ ¿¡ ºÙÀÌ±â
+                // íƒ€ì¼ ì— ë¶™ì´ê¸°
                 tile.addEffect(pEffect);
             }
         }
@@ -186,7 +186,7 @@ bool DynamicZoneGateOfAlter::addTileEffect() {
 bool DynamicZoneGateOfAlter::checkPC() {
     Assert(m_pZone != NULL);
 
-    // PC ¼ö Ã¼Å©
+    // PC ìˆ˜ ì²´í¬
     uint size = m_pZone->getPCManager()->getSize();
 
     return size != 0;
@@ -195,7 +195,7 @@ bool DynamicZoneGateOfAlter::checkPC() {
 bool DynamicZoneGateOfAlter::checkNoEffect() {
     Assert(m_pZone != NULL);
 
-    // ÀÌÆåÆ® ¼ö Ã¼Å©
+    // ì´í™íŠ¸ ìˆ˜ ì²´í¬
     uint size = m_pZone->getEffectManager()->getSize();
 
     //		char msg[8];
@@ -210,7 +210,7 @@ bool DynamicZoneGateOfAlter::checkNoEffect() {
 bool DynamicZoneGateOfAlter::openGateToAlter() {
     Assert(m_pZone != NULL);
 
-    // Äù½ºÆ®¸¦ ÁøÇà½ÃÅ²´Ù.
+    // í€˜ìŠ¤íŠ¸ë¥¼ ì§„í–‰ì‹œí‚¨ë‹¤.
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
@@ -225,7 +225,7 @@ bool DynamicZoneGateOfAlter::openGateToAlter() {
         }
     }
 
-    // Æ÷Å» À§Ä¡¸¦ Ã£¾Æ¼­ ±× À§¿¡´Ù EffectTilePortal À» º¸³½´Ù.
+    // í¬íƒˆ ìœ„ì¹˜ë¥¼ ì°¾ì•„ì„œ ê·¸ ìœ„ì—ë‹¤ EffectTilePortal ì„ ë³´ë‚¸ë‹¤.
     int tx = -1;
     int ty = -1;
     for (int x = 0; x < m_pZone->getWidth(); x++) {
@@ -254,7 +254,7 @@ bool DynamicZoneGateOfAlter::openGateToAlter() {
 bool DynamicZoneGateOfAlter::removeTileEffect() {
     Assert(m_pZone != NULL);
 
-    // ¸ğµç ÀÌÆåÆ®¸¦ Áö¿î´Ù.
+    // ëª¨ë“  ì´í™íŠ¸ë¥¼ ì§€ìš´ë‹¤.
     m_pZone->getEffectManager()->setTimeOutAllEffect();
 
     return true;
@@ -283,7 +283,7 @@ void DynamicZoneGateOfAlter::removeEffect(ZoneCoord_t x, ZoneCoord_t y) {
 void DynamicZoneGateOfAlter::addFakeEffect() {
     Assert(m_pZone != NULL);
 
-    // ¸ğµç Æ÷Å»À§Ä¡·Î FakeEffect ¸¦ º¸³½´Ù.
+    // ëª¨ë“  í¬íƒˆìœ„ì¹˜ë¡œ FakeEffect ë¥¼ ë³´ë‚¸ë‹¤.
     for (int x = 0; x < m_pZone->getWidth(); x++) {
         for (int y = 0; y < m_pZone->getHeight(); y++) {
             Tile& tile = m_pZone->getTile(x, y);
@@ -299,7 +299,7 @@ void DynamicZoneGateOfAlter::addFakeEffect() {
 }
 
 void DynamicZoneGateOfAlter::processEntering() {
-    // Äù½ºÆ® Á¸¿¡ µé¾î¿ÔÀ½À» ¾Ë¸°´Ù.
+    // í€˜ìŠ¤íŠ¸ ì¡´ì— ë“¤ì–´ì™”ìŒì„ ì•Œë¦°ë‹¤.
     unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
     unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 

@@ -73,12 +73,12 @@ public:
     }
 
 private:
-    ItemType_t m_ItemType;     // ¾ÆÀÌÅÛ Å¸ÀÔ
-    Durability_t m_Durability; // ³»±¸¼º
+    ItemType_t m_ItemType;     // ì•„ì´í…œ íƒ€ì…
+    Durability_t m_Durability; // ë‚´êµ¬ì„±
     EnchantLevel_t m_EnchantLevel;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 
@@ -88,7 +88,7 @@ private:
 
 const int maxRelic = 2;
 
-// Relic Type, ¼º¹°ÀÇ º»·¡ ¼ÒÀ¯
+// Relic Type, ì„±ë¬¼ì˜ ë³¸ë˜ ì†Œìœ 
 enum RelicType { RELIC_TYPE_SLAYER, RELIC_TYPE_VAMPIRE };
 
 extern const string RelicType2String[maxRelic];
@@ -147,8 +147,8 @@ public:
     virtual string toString() const;
 
 private:
-    Durability_t m_Durability; // ³»±¸¼º
-    Defense_t m_DefenseBonus;  // ¸íÁß·ü º¸³Ê½º
+    Durability_t m_Durability; // ë‚´êµ¬ì„±
+    Defense_t m_DefenseBonus;  // ëª…ì¤‘ë¥  ë³´ë„ˆìŠ¤
     Protection_t m_ProtectionBonus;
     uint m_ItemLevel;
 };

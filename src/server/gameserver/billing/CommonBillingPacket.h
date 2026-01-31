@@ -20,7 +20,7 @@
 //
 // class CommonBillingPacket;
 //
-// GameServer¿Í BillingServer°¡ ÁÖ°í ¹Ş´Â packetÀÌ´Ù.
+// GameServerì™€ BillingServerê°€ ì£¼ê³  ë°›ëŠ” packetì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -30,10 +30,10 @@ class GamePlayer;
 
 class CommonBillingPacket : public Packet, public BillingInfo {
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -91,7 +91,7 @@ public:
     string getExpire_DateToString() const;
 
 private:
-    // 256Àº BillingInfo°¡ 196ÀÌ±â ¶§¹®¿¡ ÀÏ´Ü ÀÌ·¸°Ô Àâ¾ÆµĞ°Å´Ù
+    // 256ì€ BillingInfoê°€ 196ì´ê¸° ë•Œë¬¸ì— ì¼ë‹¨ ì´ë ‡ê²Œ ì¡ì•„ë‘”ê±°ë‹¤
     char m_pBuffer[256];
 };
 
@@ -122,7 +122,7 @@ public:
     }
 
     // get packet's max body size
-    // message ÀÇ ÃÖ´ë Å©±â¿¡ ´ëÇÑ ¼³Á¤ÀÌ ÇÊ¿äÇÏ´Ù.
+    // message ì˜ ìµœëŒ€ í¬ê¸°ì— ëŒ€í•œ ì„¤ì •ì´ í•„ìš”í•˜ë‹¤.
     PacketSize_t getPacketMaxSize() const {
         return szBillingInfo;
     }

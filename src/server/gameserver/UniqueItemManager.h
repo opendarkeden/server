@@ -18,16 +18,16 @@ class UniqueItemManager {
 public:
     void init();
 
-    // unique itemÀ» ÇÏ³ª »ı¼ºÇÑ´Ù.
+    // unique itemì„ í•˜ë‚˜ ìƒì„±í•œë‹¤.
     // Item* getRandomUniqueitem() ;
 
-    // ¾ÆÀÌÅÛ »ı¼º °¡´ÉÇÑ°¡? (¾ÆÀÌÅÛ °³¼ö Á¦ÇÑ)
+    // ì•„ì´í…œ ìƒì„± ê°€ëŠ¥í•œê°€? (ì•„ì´í…œ ê°œìˆ˜ ì œí•œ)
     static bool isPossibleCreate(Item::ItemClass itemClass, ItemType_t itemType);
 
-    // ¾ÆÀÌÅÛ »ı¼ºÇß´Ù. (°³¼ö º¯°æ)
+    // ì•„ì´í…œ ìƒì„±í–ˆë‹¤. (ê°œìˆ˜ ë³€ê²½)
     static void createItem(Item::ItemClass itemClass, ItemType_t itemType);
 
-    // ¾ÆÀÌÅÛ »ı¼ºÇß´Ù. (°³¼ö º¯°æ)
+    // ì•„ì´í…œ ìƒì„±í–ˆë‹¤. (ê°œìˆ˜ ë³€ê²½)
     static void deleteItem(Item::ItemClass itemClass, ItemType_t itemType);
 
 private:

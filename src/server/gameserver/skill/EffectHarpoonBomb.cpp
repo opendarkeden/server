@@ -76,8 +76,8 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) {
                     Creature* pCreature = dynamic_cast<Creature*>(pObject);
                     Assert(pCreature != NULL);
 
-                    // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù
-                    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+                    // Ã€ÃšÂ½Ã…Ã€Âº Â¸Ã‚ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™
+                    // Â¹Â«Ã€Ã»Â»Ã³Ã…Ã‚ ÃƒÂ¼Ã…Â©. by sigi. 2002.9.5
                     if (pCreature->getObjectID() == m_UserObjectID || !canAttack(pCastCreature, pCreature) ||
                         pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || !checkZoneLevelToHitTarget(pCreature) ||
                         pCreature->isDead() || pCreature->isSlayer()) {
@@ -131,9 +131,9 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) {
                             pMonster->addEnemy(pCastCreature);
                     }
 
-                    // userÇÑÅ×´Â ¸Â´Â ¸ð½ÀÀ» º¸¿©ÁØ´Ù.
+                    // userÃ‡Ã‘Ã…Ã—Â´Ã‚ Â¸Ã‚Â´Ã‚ Â¸Ã°Â½Ã€Ã€Â» ÂºÂ¸Â¿Â©ÃÃ˜Â´Ã™.
                     if (pCreature->isPC()) {
-                        gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                        gcSkillToObjectOK2.setObjectID(1); // Ã€Ã‡Â¹ÃŒ Â¾Ã¸Â´Ã™.
                         gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                         gcSkillToObjectOK2.setDuration(0);
                         pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
@@ -214,7 +214,7 @@ void EffectHarpoonBomb::affect()
                 } else if (pObject->getObjectClass() == Object::OBJECT_CLASS_ITEM) {
                     Item* pTargetItem = dynamic_cast<Item*>(pObject);
                     if (pTargetItem->getItemClass() == Item::ITEM_CLASS_CORPSE) {
-                        // add by coffee 2006-12.29 ÐÞÕýÇ¹ÊÖÕ¨Ê¥µ®Ê÷ºÍÖØÉúËþ
+                        // add by coffee 2006-12.29 ÃÃžÃ•Ã½Ã‡Â¹ÃŠÃ–Ã•Â¨ÃŠÂ¥ÂµÂ®ÃŠÃ·ÂºÃÃ–Ã˜Ã‰ÃºÃ‹Ã¾
                         // if( pMonster->getMonsterType() 	== 482 || pMonster->getMonsterType() 	== 673 ) continue;
                         /*
                         //cout << "Test2 " << endl;

@@ -2,8 +2,8 @@
 //
 // Filename    : GCSkillToTileOK4.cpp
 // Written By  : elca@ewestsoft.com
-// Description : ÀÚ½Å¿¡°Ô ¾²´Â ±â¼úÀÇ ¼º°øÀ» ¾Ë¸®±â À§ÇÑ ÆĞÅ¶ Å¬·¡½ºÀÇ
-//               ¸â¹ö Á¤ÀÇ.
+// Description : ìì‹ ì—ê²Œ ì“°ëŠ” ê¸°ìˆ ì˜ ì„±ê³µì„ ì•Œë¦¬ê¸° ìœ„í•œ íŒ¨í‚· í´ë˜ìŠ¤ì˜
+//               ë©¤ë²„ ì •ì˜.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -40,14 +40,14 @@ GCSkillToTileOK4::~GCSkillToTileOK4()
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK4::read(SocketInputStream& iStream)
 
 {
     __BEGIN_TRY
 
-    // ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+    // ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
     iStream.read(m_SkillType);
     iStream.read(m_X);
     iStream.read(m_Y);
@@ -70,12 +70,12 @@ void GCSkillToTileOK4::read(SocketInputStream& iStream)
 
 
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK4::write(SocketOutputStream& oStream) const {
     __BEGIN_TRY
 
-    // ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+    // ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
     oStream.write(m_SkillType);
     oStream.write(m_X);
     oStream.write(m_Y);
@@ -96,7 +96,7 @@ void GCSkillToTileOK4::write(SocketOutputStream& oStream) const {
 //
 // GCSkillToTileOK4::addListElement()
 //
-// (º¯È­ºÎÀ§, º¯È­¼öÄ¡ ) ÀÇ ÇÑ ¼ÂÀ» ¸®½ºÆ®¿¡ ³Ö±â À§ÇÑ ¸â¹ö ÇÔ¼ö.
+// (ë³€í™”ë¶€ìœ„, ë³€í™”ìˆ˜ì¹˜ ) ì˜ í•œ ì…‹ì„ ë¦¬ìŠ¤íŠ¸ì— ë„£ê¸° ìœ„í•œ ë©¤ë²„ í•¨ìˆ˜.
 //
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK4::addCListElement(ObjectID_t ObjectID)
@@ -104,10 +104,10 @@ void GCSkillToTileOK4::addCListElement(ObjectID_t ObjectID)
 {
     __BEGIN_TRY
 
-    // Creature ID¸¦ Ãß°¡ÇÑ´Ù.
+    // Creature IDë¥¼ ì¶”ê°€í•œë‹¤.
     m_CList.push_back(ObjectID);
 
-    // Å©¸®Ã³ ID count¸¦ Áõ°¡½ÃÅ²´Ù.
+    // í¬ë¦¬ì²˜ ID countë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
     m_CListNum++;
 
     __END_CATCH
@@ -118,7 +118,7 @@ void GCSkillToTileOK4::addCListElement(ObjectID_t ObjectID)
 //
 // GCSkillToTileOK4::deleteCListElement()
 //
-// Creature ListÀÇ ¿ä¼Ò¸¦ Áö¿ï¶§ ÇÊ¿äÇÑ ¸â¹ö ÇÔ¼ö.
+// Creature Listì˜ ìš”ì†Œë¥¼ ì§€ìš¸ë•Œ í•„ìš”í•œ ë©¤ë²„ í•¨ìˆ˜.
 //
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK4::deleteCListElement()
@@ -126,10 +126,10 @@ void GCSkillToTileOK4::deleteCListElement()
 {
     __BEGIN_TRY
 
-    // Å©¸®ÃÄ ¾ÆÀÌµğ¸¦ ÇÏ³ª Áö¿î´Ù.
+    // í¬ë¦¬ì³ ì•„ì´ë””ë¥¼ í•˜ë‚˜ ì§€ìš´ë‹¤.
     m_CList.pop_front();
 
-    // Å©¸®Ã³ ¸®½ºÆ® Ä«¿îÅÍ¸¦ ÇÏ³ª Áö¿î´Ù.
+    // í¬ë¦¬ì²˜ ë¦¬ìŠ¤íŠ¸ ì¹´ìš´í„°ë¥¼ í•˜ë‚˜ ì§€ìš´ë‹¤.
     m_CListNum--;
 
     __END_CATCH

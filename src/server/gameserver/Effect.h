@@ -17,21 +17,21 @@ class Zone;
 //////////////////////////////////////////////////////////////////////////////
 // class Effect;
 //
-// ���������� ����Ʈ�� ũ��ó, ��, ������ � ���� �ð��Ŀ� �Ͼ��
-// ���� ���� ȿ������ �ǹ��Ѵ�.
+// ¼­¹ö¿¡¼­ÀÇ ÀÌÆåÆ®´Â Å©¸®Ã³, Á¸, ¾ÆÀÌÅÛ µî¿¡ ÀÏÁ¤ ½Ã°£ÈÄ¿¡ ÀÏ¾î³ª´Â
+// ¿©·¯ °¡Áö È¿°úµéÀ» ÀÇ¹ÌÇÑ´Ù.
 //
-// ����, ��ü�� ���� �ð� �Ŀ� �������� ������� ���̳�, ���� ������
-// �ɸ� Ÿ�Ͽ� ũ��ó�� �ö󰡼� �ߵ��� �Ǵ� �� ��� ����Ʈ�� �����ȴ�.
-// ����, ���� ������ �����ۿ� �ɷ��ִ� ���� ���� ����Ʈ�� �����ȴ�.
+// °¡·É, ½ÃÃ¼°¡ ÀÏÁ¤ ½Ã°£ ÈÄ¿¡ ¼­¹ö¿¡¼­ »ç¶óÁö´Â °ÍÀÌ³ª, °¡½º ¸¶¹ýÀÌ
+// °É¸° Å¸ÀÏ¿¡ Å©¸®Ã³°¡ ¿Ã¶ó°¡¼­ Áßµ¶ÀÌ µÇ´Â °Í ¸ðµÎ ÀÌÆåÆ®·Î ±¸ÇöµÈ´Ù.
+// ¶ÇÇÑ, ¶¥¿¡ ¶³¾îÁø ¾ÆÀÌÅÛ¿¡ °É·ÁÀÖ´Â ¸¶¹ý ¿ª½Ã ÀÌÆåÆ®·Î ±¸ÇöµÈ´Ù.
 //
-// ���� Ŭ�������� affect(), unaffect() �޽�带 �����ؼ� �پ���
-// ȿ���� ǥ���ϵ��� �Ѵ�.
+// ÇÏÀ§ Å¬·¡½º¿¡¼­ affect(), unaffect() ¸Þ½îµå¸¦ ±¸ÇöÇØ¼­ ´Ù¾çÇÑ
+// È¿°ú¸¦ Ç¥ÇöÇÏµµ·Ï ÇÑ´Ù.
 //
 // *CAUTION*
 //
-// Ÿ�� ���� ���� �ִ� ����Ʈ�� ��ü�� �پ��ִ� ����Ʈ�� ����� ���� �ٸ���.
-// Ÿ�� ���� ����Ʈ�� Ÿ�Ͽ� �Ҽӵ�����, ��ü�� ����Ʈ�� ���� ����
-// ����Ʈ �Ŵ������� �Ҽӵȴ�.
+// Å¸ÀÏ À§¿¡ ³õ¿© ÀÖ´Â ÀÌÆåÆ®¿Í ½ÃÃ¼¿¡ ºÙ¾îÀÖ´Â ÀÌÆåÆ®´Â °³³ä»ó ¸¹ÀÌ ´Ù¸£´Ù.
+// Å¸ÀÏ À§ÀÇ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ ¼Ò¼ÓµÇÁö¸¸, ½ÃÃ¼ÀÇ ÀÌÆåÆ®´Â ´ÜÁö Á¸ÀÇ
+// ÀÌÆåÆ® ¸Å´ÏÀú¿¡¸¸ ¼Ò¼ÓµÈ´Ù.
 //
 // void SkillHandler::execute(...)
 // {
@@ -70,7 +70,7 @@ class Effect : public Object {
 public:
     enum EffectClass {
         ////////////////////////////////////////////////////////////
-        // ���� �߰��Ǵ� ����� ���� �ؿ� �־��ּ���!!!!!!!!!!!
+        // »õ·Î Ãß°¡µÇ´Â ±â¼úÀº Á¦ÀÏ ¹Ø¿¡ ³Ö¾îÁÖ¼¼¿ä!!!!!!!!!!!
         ////////////////////////////////////////////////////////////
         EFFECT_CLASS_LIGHT = 0,                   // 0
         EFFECT_CLASS_DETECT_HIDDEN,               // 1
@@ -144,7 +144,7 @@ public:
         EFFECT_CLASS_PRECEDENCE,                  // 69
         EFFECT_CLASS_RESTORE,                     // 70
 
-        // �̰� �̸� �ٲ��� �Ѵ�.
+        // ÀÌ°Å ÀÌ¸§ ¹Ù²¸¾ß ÇÑ´Ù.
         EFFECT_CLASS_CURE_CRITICAL_WOUNDS, // 70
 
         EFFECT_CLASS_EXTREME,    // 71
@@ -224,7 +224,7 @@ public:
         EFFECT_CLASS_SOUL_CHAIN, // 123
 
         // by sigi. 2002.11.7
-        EFFECT_CLASS_TRANSPORT_CREATURE, // 124	- ����� ���� �ȵ�.
+        EFFECT_CLASS_TRANSPORT_CREATURE, // 124	- Á¦´ë·Î ±¸Çö ¾ÈµÊ.
 
         // by sigi. 2002.11.8
         EFFECT_CLASS_GRAND_MASTER_SLAYER, // 125
@@ -308,8 +308,8 @@ public:
         EFFECT_CLASS_SHRINE_HOLY_11, // 185
         EFFECT_CLASS_SHRINE_HOLY_12, // 186
 
-        EFFECT_CLASS_SHRINE_GUARD_WARP,     // 187		  ��ȣ���ܿ��� �����ɶ�
-        EFFECT_CLASS_SHRINE_HOLY_WARP,      // 188		  �������ܿ��� �����ɶ�
+        EFFECT_CLASS_SHRINE_GUARD_WARP,     // 187		  ¼öÈ£¼º´Ü¿¡¼­ ¿öÇÁµÉ¶§
+        EFFECT_CLASS_SHRINE_HOLY_WARP,      // 188		  ¼ºÁö¼º´Ü¿¡¼­ ¿öÇÁµÉ¶§
         EFFECT_CLASS_CHANGE_CASTLE_CHANGED, // 189
 
         EFFECT_CLASS_SHRINE_SHIELD, // 190
@@ -318,11 +318,11 @@ public:
         EFFECT_CLASS_TRANSPORT_ITEM_TO_CORPSE, // 192
         EFFECT_CLASS_ADD_ITEM_TO_CORPSE,       // 193
 
-        EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME,   // 194 ���� �������ִ� ���Ǽ����� �����ɶ� �Ӹ��� ����ִ�-_- ����Ʈ
-        EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_TILE, // 195 ���� �������ִ� ���Ǽ����� �����ɶ� �� Ÿ�Ͽ� ����ִ� ����Ʈ
+        EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME,   // 194 ³»°¡ °¡Áö°íÀÖ´ø ÇÇÀÇ¼º¼­°¡ ¿öÇÁµÉ¶§ ¸Ó¸®¿¡ Âï¾îÁÖ´Â-_- ÀÌÆåÆ®
+        EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_TILE, // 195 ¶¥¿¡ ¶³¾îÁ®ÀÖ´ø ÇÇÀÇ¼º¼­°¡ ¿öÇÁµÉ¶§ ±× Å¸ÀÏ¿¡ Âï¾îÁÖ´Â ÀÌÆåÆ®
 
-        EFFECT_CLASS_WARP_HOLY_LAND_VAMPIRE, // 196 �����̾ ��Ż�� �̵��Ҷ�
-        EFFECT_CLASS_WARP_HOLY_LAND_SLAYER,  // 197 �����̾ ��Ż�� �̵��Ҷ�
+        EFFECT_CLASS_WARP_HOLY_LAND_VAMPIRE, // 196 ¹ìÆÄÀÌ¾î°¡ Æ÷Å»·Î ÀÌµ¿ÇÒ¶§
+        EFFECT_CLASS_WARP_HOLY_LAND_SLAYER,  // 197 ½½·¹ÀÌ¾î°¡ Æ÷Å»·Î ÀÌµ¿ÇÒ¶§
 
         EFFECT_CLASS_HAS_CASTLE_SYMBOL,   // 198
         EFFECT_CLASS_HAS_CASTLE_SYMBOL_2, // 199
@@ -344,12 +344,12 @@ public:
         EFFECT_CLASS_PK_ZONE_REGEN,        // 209
         EFFECT_CLASS_PK_ZONE_RESURRECTION, // 210
 
-        EFFECT_CLASS_MAGIC_ELUSION,      // 211	��Ÿ�ν�
-        EFFECT_CLASS_POISON_MESH,        // 212	�׸�Ƽ�콺
-        EFFECT_CLASS_ILLUSION_OF_AVENGE, // 213	��Ƽ����
-        EFFECT_CLASS_WILL_OF_LIFE,       // 214	���Ƹ�����
+        EFFECT_CLASS_MAGIC_ELUSION,      // 211	¿ÁÅ¸ºÎ½º
+        EFFECT_CLASS_POISON_MESH,        // 212	Å×¸£Æ¼¿ì½º
+        EFFECT_CLASS_ILLUSION_OF_AVENGE, // 213	¼ÁÆ¼¹«½º
+        EFFECT_CLASS_WILL_OF_LIFE,       // 214	Äí¾Æ¸£Åõ½º
 
-        // �ű� ��ų Effect �߰�
+        // ½Å±Ô ½ºÅ³ Effect Ãß°¡
         EFFECT_CLASS_DENIAL_MAGIC,         // 215
         EFFECT_CLASS_DENIAL_MAGIC_DAMAGED, // 216
         EFFECT_CLASS_REQUITAL,             // 217
@@ -433,8 +433,8 @@ public:
         EFFECT_CLASS_REDIANCE,       // 272
         EFFECT_CLASS_HEART_CATALYST, // 273
 
-        EFFECT_CLASS_WARP_HOLY_LAND_OUSTERS, // 274 �ƿ콺��� ��Ż�� �̵��Ҷ�
-        EFFECT_CLASS_FAMILY_BONUS,           // 275 �йи� ����� ���ʽ�
+        EFFECT_CLASS_WARP_HOLY_LAND_OUSTERS, // 274 ¾Æ¿ì½ºÅÍÁî°¡ Æ÷Å»·Î ÀÌµ¿ÇÒ¶§
+        EFFECT_CLASS_FAMILY_BONUS,           // 275 ÆÐ¹Ð¸® ¿ä±ÝÁ¦ º¸³Ê½º
 
         EFFECT_CLASS_PROTECTION_FROM_BLOOD, // 276
         EFFECT_CLASS_ETERNITY,              // 277
@@ -443,8 +443,8 @@ public:
         EFFECT_CLASS_ETERNITY_PAUSE, // 279
 
         EFFECT_CLASS_TRAP_INSTALLED, // 280
-        EFFECT_CLASS_TRAP_TRIGGERED, // 281 Ʈ���� �ɷ��� �� ����������(?) ����Ʈ
-        EFFECT_CLASS_TRAPPED,        // 282 ũ���İ� Ʈ���� �ɷ��ִ� ����Ʈ
+        EFFECT_CLASS_TRAP_TRIGGERED, // 281 Æ®·¦¿¡ °É·ÈÀ» ¶§ ÀâÇô¸ÔÈ÷´Â(?) ÀÌÆåÆ®
+        EFFECT_CLASS_TRAPPED,        // 282 Å©¸®ÃÄ°¡ Æ®·¦¿¡ °É·ÁÀÖ´Â ÀÌÆåÆ®
         EFFECT_CLASS_MERCY_GROUND,   // 283
         EFFECT_CLASS_HOLY_ARMOR,     // 284
 
@@ -614,30 +614,30 @@ public:
         EFFECT_CLASS_PK_COUNTED,     // 410
         EFFECT_CLASS_PUNISH_COUNTED, // 411
 
-        EFFECT_CLASS_SIEGE_DEFENDER,  // 412	// ������ �����
-        EFFECT_CLASS_SIEGE_REINFORCE, // 413	// ������ ����� ����
+        EFFECT_CLASS_SIEGE_DEFENDER,  // 412	// °ø¼ºÀü ¹æ¾îÃø
+        EFFECT_CLASS_SIEGE_REINFORCE, // 413	// °ø¼ºÀü ¹æ¾îÃø ¿ø±º
 
-        EFFECT_CLASS_SIEGE_ATTACKER_1, // 414	// ������ ������ 1��
-        EFFECT_CLASS_SIEGE_ATTACKER_2, // 415	// ������ ������ 2��
-        EFFECT_CLASS_SIEGE_ATTACKER_3, // 416	// ������ ������ 3��
-        EFFECT_CLASS_SIEGE_ATTACKER_4, // 417	// ������ ������ 4��
-        EFFECT_CLASS_SIEGE_ATTACKER_5, // 418	// ������ ������ 5��
+        EFFECT_CLASS_SIEGE_ATTACKER_1, // 414	// °ø¼ºÀü °ø°ÝÃø 1¹ø
+        EFFECT_CLASS_SIEGE_ATTACKER_2, // 415	// °ø¼ºÀü °ø°ÝÃø 2¹ø
+        EFFECT_CLASS_SIEGE_ATTACKER_3, // 416	// °ø¼ºÀü °ø°ÝÃø 3¹ø
+        EFFECT_CLASS_SIEGE_ATTACKER_4, // 417	// °ø¼ºÀü °ø°ÝÃø 4¹ø
+        EFFECT_CLASS_SIEGE_ATTACKER_5, // 418	// °ø¼ºÀü °ø°ÝÃø 5¹ø
 
-        EFFECT_CLASS_SHARE_HP, // 419	// HP �����ϱ�~
+        EFFECT_CLASS_SHARE_HP, // 419	// HP °øÀ¯ÇÏ±â~
 
-        EFFECT_CLASS_LAND_MINE_EXPLOSION, // 420	// ���帶�� ������ ����Ʈ
-        EFFECT_CLASS_CLAYMORE_EXPLOTION,  // 421	// ũ����� ������ ����Ʈ
-        EFFECT_CLASS_PLEASURE_EXPLOSION,  // 422	// �÷��� �����̼� ������ ����Ʈ
-        EFFECT_CLASS_TURRET_LASER,        // 423	// �ͷ� ������ 1Ÿ��
-        EFFECT_CLASS_TURRET_LASER_ATTACK, // 424	// �ͷ� ������ ���� 1Ÿ�� (���������� ����)
-        EFFECT_CLASS_AUTO_TURRET,         // 425	// ���� �ͷ� ���ִ°�
+        EFFECT_CLASS_LAND_MINE_EXPLOSION, // 420	// ·£µå¸¶ÀÎ ÅÍÁö´Â ÀÌÆåÆ®
+        EFFECT_CLASS_CLAYMORE_EXPLOTION,  // 421	// Å©·¹¸ð¾î ÅÍÁö´Â ÀÌÆåÆ®
+        EFFECT_CLASS_PLEASURE_EXPLOSION,  // 422	// ÇÃ·¹Á® ½ºÅ×ÀÌ¼Ç ÅÍÁö´Â ÀÌÆåÆ®
+        EFFECT_CLASS_TURRET_LASER,        // 423	// ÅÍ·¿ ·¹ÀÌÀú 1Å¸ÀÏ
+        EFFECT_CLASS_TURRET_LASER_ATTACK, // 424	// ÅÍ·¿ ·¹ÀÌÀú °ø°Ý 1Å¸ÀÏ (°ø°ÝÃø¿¡µµ º¸ÀÓ)
+        EFFECT_CLASS_AUTO_TURRET,         // 425	// ¿ÀÅä ÅÍ·¿ ¼­ÀÖ´Â°Å
 
-        EFFECT_CLASS_HIDE_TO_ATTACKER, // 426	// ���� ���������� �� ���δ�.
+        EFFECT_CLASS_HIDE_TO_ATTACKER, // 426	// °ø¼º °ø°ÝÃø¿¡´Â ¾È º¸ÀÎ´Ù.
 
         EFFECT_CLASS_REPUTO_FACTUM,      // 427
-        EFFECT_CLASS_REPUTO_FACTUM_LAST, // 428	// ��������Ʈ
+        EFFECT_CLASS_REPUTO_FACTUM_LAST, // 428	// Áö¼ÓÀÌÆåÆ®
 
-        EFFECT_CLASS_SWORD_OF_THOR, // 429	// Ÿ�Ͽ� �پ ������ Į
+        EFFECT_CLASS_SWORD_OF_THOR, // 429	// Å¸ÀÏ¿¡ ºÙ¾î¼­ ÅÍÁö´Â Ä®
 
         EFFECT_CLASS_BURNING_SOL_CHARGE_1, // 430
         EFFECT_CLASS_BURNING_SOL_CHARGE_2, // 431
@@ -648,7 +648,7 @@ public:
         EFFECT_CLASS_WHITSUNTIDE,    // 435
 
         EFFECT_CLASS_DRAGON_EYE,             // 436
-        EFFECT_CLASS_ROCKET_LAUNCHER,        // 437	// Ŭ���̾�Ʈ�� ����
+        EFFECT_CLASS_ROCKET_LAUNCHER,        // 437	// Å¬¶óÀÌ¾ðÆ®¸¸ ¾´´Ù
         EFFECT_CLASS_PLASMA_ROCKET_LAUNCHER, // 438
         EFFECT_CLASS_INTIMATE_GRAIL,         // 439
 
@@ -684,33 +684,33 @@ public:
 
         EFFECT_CLASS_TILE_PORTAL,                    // 464
                                                      // add by Coffee 2007-5-20
-        EFFECT_CLASS_BLOOD_BLLODY_SCARIFY,           // Ѫ֮��ӡ(��Ѫ��)
-        EFFECT_CLASS_BLOOD_CURSE,                    // Ѫ֮�{��(��Ѫ��)
+        EFFECT_CLASS_BLOOD_BLLODY_SCARIFY,           // ÑªÖ®ÀÓÓ¡(ÎüÑª¹í)
+        EFFECT_CLASS_BLOOD_CURSE,                    // ÑªÖ®Ô{Öä(ÎüÑª¹í)
         EFFECT_CLASS_SKILL_BOMB_CRASH_WALK_TO_ENEMY, // 465
-        EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM,       // ���Ǻ�� Ч������ (����)
-        EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT,     // ���Ǻ�� Ч������ (����)
-        EFFECT_CLASS_SKILL_SATELLITE_BOMB_FIRE,      // ��ǹЧ��
-        EFFECT_CLASS_HEAVEN_GROUND,                  // ��ʦ������
-        EFFECT_CLASS_DUMMY_DRAKE,                    // ���׿˿���(ħ��)
-        EFFECT_CLASS_HYDRO_CONVERGENCE,              //  ����ˮ��
-        EFFECT_CLASS_SUMMON_CLAY,                    //  Summon Clay  ճ���ٻ�    (ħ���¼��� ����)
-        EFFECT_CLASS_HETER_CHAKRAM,                  //  Heter Chakram �Ĳ�������  (ħ���¼���  սʿ)
+        EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM,       // ÎÀÐÇºä»÷ Ð§¹û¶¨Òå (ÈËÀà)
+        EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT,     // ÎÀÐÇºä»÷ Ð§¹û¶¨Òå (ÈËÀà)
+        EFFECT_CLASS_SKILL_SATELLITE_BOMB_FIRE,      // ¿ªÇ¹Ð§¹û
+        EFFECT_CLASS_HEAVEN_GROUND,                  // ·¨Ê¦ÌìÉñ½µÁÙ
+        EFFECT_CLASS_DUMMY_DRAKE,                    // µÂÀ×¿Ë¿þÀÜ(Ä§Áé)
+        EFFECT_CLASS_HYDRO_CONVERGENCE,              //  ¸´ºÏË®ÁÆ
+        EFFECT_CLASS_SUMMON_CLAY,                    //  Summon Clay  Õ³ÍÁÕÙ»½    (Ä§ÁéÐÂ¼¼ÄÜ ÍÁ·¨)
+        EFFECT_CLASS_HETER_CHAKRAM,                  //  Heter Chakram ÏÄ²¼Àû»ùÒò  (Ä§ÁéÐÂ¼¼ÄÜ  Õ½Ê¿)
 
 
         // add by viva
-        EFFECT_CLASS_XRL_Missile, // XRL ը�ѵ���
+        EFFECT_CLASS_XRL_Missile, // XRL Õ¨ÁÑµ¼µ¯
         EFFECTSTATUS_UNKOWN_VIVA2,
         EFFECTSTATUS_UNKOWN_VIVA3,
         EFFECTSTATUS_UNKOWN_VIVA4,
 
-        EFFECT_CLASS_Bramble_Halo,    // Original Action:390 //�����⻷ //ף��
+        EFFECT_CLASS_Bramble_Halo,    // Original Action:390 //¾£¼¬¹â»· //×£¸£
         EFFECTSTATUS_UNKOWN_VIVA5,    // EffectSpriteType:1134
         EFFECT_CLASS_Rapid_Freeze,    // Original Action:396
         EFFECT_CLASS_Penetrate_Wheel, // Orginal Action : 393
         EFFECTSTATUS_UNKOWN_VIVA6,
         EFFECTSTATUS_VAMPIRE_TRANSFORM_TO_D_BAT,   // Original Action : 409
         EFFECTSTATUS_VAMPIRE_TRANSFORM_TO_D_ANGEL, // Original Action : 410
-        EFFECTSTATUS_SUMMON_SYLPH1,                // �ٻ�����//ousters//Original Action : 247
+        EFFECTSTATUS_SUMMON_SYLPH1,                // ÕÙ»½¾«Áé//ousters//Original Action : 247
         EFFECTSTATUS_SUMMON_SYLPH2,
         EFFECTSTATUS_UNKOWN_VIVA7,
 
@@ -753,7 +753,7 @@ public:
         return getEffectClass();
     }
 
-    // Client�� �ѷ�����ϴ� Effect�ΰ�? by sigi. 2002.11.14
+    // Client¿¡ »Ñ·ÁÁà¾ßÇÏ´Â EffectÀÎ°¡? by sigi. 2002.11.14
     bool isBroadcastingEffect() {
         return m_bBroadcastingEffect;
     }
@@ -780,7 +780,7 @@ public:
     virtual void unaffect() = 0;
     virtual void unaffect(Creature* pCreature) {
         throw UnsupportedError(__PRETTY_FUNCTION__);
-    } // ������ pure virtual�̾��µ� EffectRelicTable���� �ٲ��. by sigi
+    } // ¿ø·¡´Â pure virtualÀÌ¾ú´Âµ¥ EffectRelicTable¶§¸Þ ¹Ù²å´Ù. by sigi
     virtual void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget) {
         throw UnsupportedError(__PRETTY_FUNCTION__);
     }
@@ -846,14 +846,14 @@ public:
     // data members
     ////////////////////////////////////////////////////////////
 protected:
-    Zone* m_pZone; // target object�� ��ġ
+    Zone* m_pZone; // target objectÀÇ À§Ä¡
     ZoneCoord_t m_X;
     ZoneCoord_t m_Y;
-    Object* m_pTarget;  // target object - � ��ü�� �ɷ� �ִ°�?
-    Timeval m_NextTime; // ���� ���� �����ؾ� �ϴ� �ð�
-    Timeval m_Deadline; // ���� �� ��ü�� �����ؾ� �ϴ°�?�� ��Ÿ���� �ð�
+    Object* m_pTarget;  // target object - ¾î¶² °´Ã¼¿¡ °É·Á ÀÖ´Â°¡?
+    Timeval m_NextTime; // ´ÙÀ½ ¹ø¿¡ ½ÇÇàÇØ¾ß ÇÏ´Â ½Ã°£
+    Timeval m_Deadline; // ¾ðÁ¦ ÀÌ °´Ã¼¸¦ »èÁ¦ÇØ¾ß ÇÏ´Â°¡?¸¦ ³ªÅ¸³»´Â ½Ã°£
 
-    // Client�� �ѷ�����ϴ� Effect�ΰ�? by sigi. 2002.11.14
+    // Client¿¡ »Ñ·ÁÁà¾ßÇÏ´Â EffectÀÎ°¡? by sigi. 2002.11.14
     bool m_bBroadcastingEffect;
 };
 

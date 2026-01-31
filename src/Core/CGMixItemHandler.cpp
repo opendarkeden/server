@@ -55,9 +55,9 @@ void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
     CoordInven_t InvenX = pPacket->getX();
     CoordInven_t InvenY = pPacket->getY();
 
-    // cout << "ÆÐÅ¶³¯¶ó¿È : " << pPacket->toString() << endl;
+    // cout << "íŒ¨í‚·ë‚ ë¼ì˜´ : " << pPacket->toString() << endl;
 
-    // ÀÎº¥Åä¸® ÁÂÇ¥¸¦ ³Ñ¾î°¡´Â ¿µ¿ªÀÌ¶ó¸é ¾È µÈ´Ù.
+    // ì¸ë²¤í† ë¦¬ ì¢Œí‘œë¥¼ ë„˜ì–´ê°€ëŠ” ì˜ì—­ì´ë¼ë©´ ì•ˆ ëœë‹¤.
     if (InvenX >= pInventory->getWidth() || InvenY >= pInventory->getHeight()) {
         sendCannotUse(pPacket, pPlayer);
         return;
@@ -65,25 +65,25 @@ void CGMixItemHandler::execute(CGMixItem* pPacket, Player* pPlayer)
 
     Item* pItem = pPC->findItemOID(pPacket->getObjectID());
 
-    //	// ÀÎº¥Åä¸®¿¡ ±× ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ¿¡·¯´Ù.
+    //	// ì¸ë²¤í† ë¦¬ì— ê·¸ ì•„ì´í…œì´ ì—†ë‹¤ë©´ ì—ëŸ¬ë‹¤.
     //	Item* pItem = pInventory->getItem(InvenX, InvenY);
     if (pItem == NULL) {
         sendCannotUse(pPacket, pPlayer);
         return;
     }
 
-    // ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Object¸¦ ¹Þ´Â´Ù.
+    // ì¸ë²¤í† ë¦¬ì— ìžˆëŠ” ì•„ì´í…œì˜ Objectë¥¼ ë°›ëŠ”ë‹¤.
     //	ObjectID_t ItemObjectID = pItem->getObjectID();
 
-    // OID°¡ ÀÏÄ¡ÇÏÁö ¾Ê°Å³ª, »ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ¿¡·¯´Ù.
+    // OIDê°€ ì¼ì¹˜í•˜ì§€ ì•Šê±°ë‚˜, ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì´ë¼ë©´ ì—ëŸ¬ë‹¤.
     //	if (ItemObjectID != pPacket->getObjectID())
     //	{
-    //		//cout << "¾ÆÅÛ »ç¿ë ºÒ°¡. ¿ÉÁ§Æ® ¾Æµð°¡ ¾È ¸Â´ø°¡..." << endl;
+    //		//cout << "ì•„í…œ ì‚¬ìš© ë¶ˆê°€. ì˜µì íŠ¸ ì•„ë””ê°€ ì•ˆ ë§žë˜ê°€..." << endl;
     //		sendCannotUse( pPacket, pPlayer );
     //		return;
     //	}
 
-    // ¹Í½Ì Æ÷Áö°¡ ¾Æ´Ï¸é ¾ÈµÈ´Ù -_-
+    // ë¯¹ì‹± í¬ì§€ê°€ ì•„ë‹ˆë©´ ì•ˆëœë‹¤ -_-
     if (pItem->getItemClass() != Item::ITEM_CLASS_MIXING_ITEM) {
         sendCannotUse(pPacket, pPlayer);
         return;
@@ -279,7 +279,7 @@ void CGMixItemHandler::executeMix(CGMixItem* pPacket, Player* pPlayer, Item* pIt
     }
 
     pTargetItem1->addOptionType(option2);
-    // pTargetItem1 ÀÌ³ª pTargetItem2 Áß ÇÏ³ª¶óµµ ³²±â´Â °Å¸é ¸¸µé¾îÁö´Â °Íµµ ³²±ä´Ù
+    // pTargetItem1 ì´ë‚˜ pTargetItem2 ì¤‘ í•˜ë‚˜ë¼ë„ ë‚¨ê¸°ëŠ” ê±°ë©´ ë§Œë“¤ì–´ì§€ëŠ” ê²ƒë„ ë‚¨ê¸´ë‹¤
     pTargetItem1->setTraceItem(pTargetItem1->isTraceItem() || pTargetItem2->isTraceItem());
     pTargetItem1->setGrade(TargetGrade);
 
@@ -456,7 +456,7 @@ void CGMixItemHandler::executeDetach(CGMixItem* pPacket, Player* pPlayer, Item* 
     list<OptionType_t> oList = pTargetItem->getOptionTypeList();
     Assert(oList.size() == 2);
 
-    // optionNo´Â 0 ¾Æ´Ï¸é 1ÀÌ´Ù. (À§¿¡¼­ Ã¼Å©Çß´Ù.)
+    // optionNoëŠ” 0 ì•„ë‹ˆë©´ 1ì´ë‹¤. (ìœ„ì—ì„œ ì²´í¬í–ˆë‹¤.)
     if (optionNo == 0)
         oList.pop_front();
     else
@@ -473,7 +473,7 @@ void CGMixItemHandler::executeDetach(CGMixItem* pPacket, Player* pPlayer, Item* 
 
     //	pInventory->deleteItem( pItem->getObjectID() );
     Assert(pItem == pPC->getExtraInventorySlotItem());
-    // ¿É¼Ç ¶¼³»´Â ¾ÆÅÛÀº ¸¶¿ì½º À§¿¡ ÀÖ´Ù. ¾øÀ½¸»°í
+    // ì˜µì…˜ ë–¼ë‚´ëŠ” ì•„í…œì€ ë§ˆìš°ìŠ¤ ìœ„ì— ìžˆë‹¤. ì—†ìŒë§ê³ 
     pPC->deleteItemFromExtraInventorySlot();
     if (pItem->isTraceItem()) {
         remainTraceLog(pItem, pPC->getName(), "Furitas", ITEM_LOG_DELETE, DETAIL_ENCHANT);
@@ -579,18 +579,18 @@ void CGMixItemHandler::executeClearOption(CGMixItem* pPacket, Player* pPlayer, I
         return;
     }
 
-    // ÀÌÁ¦ ¿É¼ÇÀ» ¾ø¾Ö¹ö¸°´Ù.
+    // ì´ì œ ì˜µì…˜ì„ ì—†ì• ë²„ë¦°ë‹¤.
     oList.clear();
     pTargetItem->setOptionType(oList);
 
-    // ¿É¼ÇÀÌ ¾ø´Ù°í DB¿¡ ÀúÀåÇÑ´Ù
+    // ì˜µì…˜ì´ ì—†ë‹¤ê³  DBì— ì €ìž¥í•œë‹¤
     pTargetItem->tinysave("OptionType=''");
 
     pTargetItem->setTraceItem(bTraceLog(pTargetItem));
 
     //	pInventory->deleteItem( pItem->getObjectID() );
     Assert(pItem == pPC->getExtraInventorySlotItem());
-    // ¿É¼Ç ¶¼³»´Â ¾ÆÅÛÀº ¸¶¿ì½º À§¿¡ ÀÖ´Ù. ¾øÀ½¸»°í
+    // ì˜µì…˜ ë–¼ë‚´ëŠ” ì•„í…œì€ ë§ˆìš°ìŠ¤ ìœ„ì— ìžˆë‹¤. ì—†ìŒë§ê³ 
     pPC->deleteItemFromExtraInventorySlot();
     if (pItem->isTraceItem()) {
         remainTraceLog(pItem, pPC->getName(), "ClearOption", ITEM_LOG_DELETE, DETAIL_ENCHANT);

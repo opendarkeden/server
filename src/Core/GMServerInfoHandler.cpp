@@ -20,8 +20,8 @@
 //
 // GMServerInfoHander::execute()
 //
-// °ÔÀÓ ¼­¹ö°¡ ·Î±×ÀÎ ¼­¹ö·ÎºÎÅÍ GMServerInfo ÆĞÅ¶À» ¹Ş°Ô µÇ¸é,
-// ReconnectLoginInfo¸¦ »õ·Î Ãß°¡ÇÏ°Ô µÈ´Ù.
+// ê²Œì„ ì„œë²„ê°€ ë¡œê·¸ì¸ ì„œë²„ë¡œë¶€í„° GMServerInfo íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// ReconnectLoginInfoë¥¼ ìƒˆë¡œ ì¶”ê°€í•˜ê²Œ ëœë‹¤.
 //
 //----------------------------------------------------------------------
 void GMServerInfoHandler::execute(GMServerInfo* pPacket)

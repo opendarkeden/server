@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////
 // Filename : StringPool.h
-// Desc     : ¼­¹ö³»¿¡¼­ »ç¿ëµÇ´Â string µéÀÇ pool
+// Desc     : ì„œë²„ë‚´ì—ì„œ ì‚¬ìš©ë˜ëŠ” string ë“¤ì˜ pool
 ////////////////////////////////////////////////////////////////////
 
 #ifndef __STRING_POOL_H__
@@ -141,7 +141,7 @@ enum StringID {
     STRID_QUIT_TEAM_2,                       // 125
     STRID_QUIT_CLAN_2,                       // 126
 
-    // Action ¿¡ ÀÖ´Â String Ã³¸® ¾ÈµÇ¾î ÀÖ¾úÀ½
+    // Action ì— ìžˆëŠ” String ì²˜ë¦¬ ì•ˆë˜ì–´ ìžˆì—ˆìŒ
     STRID_NOT_ENOUGH_MONEY,           // 127
     STRID_NOT_ENOUGH_INVENTORY_SPACE, // 128
     STRID_ITEM_NOT_EXIST,             // 129

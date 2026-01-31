@@ -37,19 +37,19 @@ void CGThrowItemHandler::execute(CGThrowItem* pPacket, Player* pPlayer)
     try {
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
-        // °ÔÀÓ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+        // ê²Œìž„ í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
         if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
             return;
 
         Creature* pCreature = pGamePlayer->getCreature();
-        // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
         if (!pCreature->isSlayer())
             return;
 
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         Assert(pSlayer != NULL);
 
-        // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+        // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
         ZoneLevel_t ZoneLevel = pSlayer->getZone()->getZoneLevel(pSlayer->getX(), pSlayer->getY());
         if (ZoneLevel & COMPLETE_SAFE_ZONE) {
             GCSkillFailed1 _GCSkillFailed1;

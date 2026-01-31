@@ -32,7 +32,7 @@ void CGVerifyTimeHandler::execute(CGVerifyTime* pPacket, Player* pPlayer)
 
     if (!(pGamePlayer->verifySpeed(pPacket))) {
         saveSpeedHackPlayer(pPlayer);
-        throw DisconnectException("½ºÇÇµåÇÙ µü! °É·Á½á!!");
+        throw DisconnectException("ìŠ¤í”¼ë“œí•µ ë”±! ê±¸ë ¤ì¨!!");
     }
 
 #endif
@@ -69,7 +69,7 @@ void CGVerifyTimeHandler::saveSpeedHackPlayer(Player* pPlayer) {
     filelog("SpeedHack.log", "ID[%s], Name[%s], IP[%s]", ID.c_str(), Name.c_str(), IP.c_str());
 
     /////////////////////////////////////////////////////////
-    // µğºñ¿¡ °ü·Ã Á¤º¸¸¦ ³Ö´Â´Ù.
+    // ë””ë¹„ì— ê´€ë ¨ ì •ë³´ë¥¼ ë„£ëŠ”ë‹¤.
     /////////////////////////////////////////////////////////
     Statement* pStmt = NULL;
 

@@ -16,7 +16,7 @@ int LuaSelectItem::executeFile(const string& filename)
     lua_getglobal(m_pState->getState(), "ItemClass");
     lua_getglobal(m_pState->getState(), "ItemType");
     lua_getglobal(m_pState->getState(), "OptionType");
-    lua_getglobal(m_pState->getState(), "OptionType2"); // -_-; ÇÑ°³ ´õ Ãß°¡µÇ¸é list·Î ¹Ù²ÙÀÚ~
+    lua_getglobal(m_pState->getState(), "OptionType2"); // -_-; í•œê°œ ë” ì¶”ê°€ë˜ë©´ listë¡œ ë°”ê¾¸ì~
 
     m_ItemClass = (Item::ItemClass)lua_tonumber(m_pState->getState(), 1);
     m_ItemType = (ItemType_t)lua_tonumber(m_pState->getState(), 2);

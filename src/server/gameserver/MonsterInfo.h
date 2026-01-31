@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterInfo.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -20,12 +20,12 @@
 #include "Treasure.h"
 #include "Types.h"
 
-// ¸ó½ºÅÍ ½ºÇÁ¶óÀÌÆ® Á¾·ù ÃÖ´ë ¼ıÀÚ
+// ëª¬ìŠ¤í„° ìŠ¤í”„ë¼ì´íŠ¸ ì¢…ë¥˜ ìµœëŒ€ ìˆ«ì
 // add by viva
 const int MAX_SPRITE_TYPE = 1000;
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ°¡ ±â¾ïÇÒ ¼ö ÀÖ´Â ÀûÀÇ ÃÖ´ë °³¼ö, ¶Ç´Â ÀûÀÇ ¸®½ºÆ®¿¡ Á¢±ÙÇÏ´Â ÀÎµ¦½º
+// ëª¬ìŠ¤í„°ê°€ ê¸°ì–µí•  ìˆ˜ ìˆëŠ” ì ì˜ ìµœëŒ€ ê°œìˆ˜, ë˜ëŠ” ì ì˜ ë¦¬ìŠ¤íŠ¸ì— ì ‘ê·¼í•˜ëŠ” ì¸ë±ìŠ¤
 //////////////////////////////////////////////////////////////////////////////
 enum EnemyPriority {
     ENEMY_PRIMARY = 1,
@@ -41,18 +41,18 @@ enum EnemyPriority {
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀûÀÌ ¿©·¯¸íÀÏ ¶§, ´©±¸¸¦ ¸ÕÀú °ø°İÇÏ´Â°¡?
+// ì ì´ ì—¬ëŸ¬ëª…ì¼ ë•Œ, ëˆ„êµ¬ë¥¼ ë¨¼ì € ê³µê²©í•˜ëŠ”ê°€?
 //////////////////////////////////////////////////////////////////////////////
 enum AttackOrder {
-    ATTACK_FIRST,     // Á¦ÀÏ ¸ÕÀú ¶§¸° ³ğºÎÅÍ °ø°İ
-    ATTACK_LAST,      // Á¦ÀÏ ³ªÁß¿¡ ¶§¸° ³ğ ºÎÅÍ °ø°İ
-    ATTACK_WEAKEST,   // Á¦ÀÏ ¾àÇÑ ³ğºÎÅÍ °ø°İ
-    ATTACK_STRONGEST, // Á¦ÀÏ °­ÇÑ ³ğºÎÅÍ °ø°İ
-    ATTACK_CLOSEST,   // Á¦ÀÏ °¡±î¿î ³ğ ºÎÅÍ °ø°İ
-    ATTACK_FAREST,    // Á¦ÀÏ ¸Õ ³ğ ºÎÅÍ °ø°İ
-    ATTACK_FIGHTER,   // Àü»ç ¸ÕÀú °ø°İ
-    ATTACK_PRIEST,    // ¼ºÁ÷ÀÚ ¸ÕÀú °ø°İ
-    ATTACK_GUNNER,    // °Ç³Ê ¸ÕÀú °ø°İ
+    ATTACK_FIRST,     // ì œì¼ ë¨¼ì € ë•Œë¦° ë†ˆë¶€í„° ê³µê²©
+    ATTACK_LAST,      // ì œì¼ ë‚˜ì¤‘ì— ë•Œë¦° ë†ˆ ë¶€í„° ê³µê²©
+    ATTACK_WEAKEST,   // ì œì¼ ì•½í•œ ë†ˆë¶€í„° ê³µê²©
+    ATTACK_STRONGEST, // ì œì¼ ê°•í•œ ë†ˆë¶€í„° ê³µê²©
+    ATTACK_CLOSEST,   // ì œì¼ ê°€ê¹Œìš´ ë†ˆ ë¶€í„° ê³µê²©
+    ATTACK_FAREST,    // ì œì¼ ë¨¼ ë†ˆ ë¶€í„° ê³µê²©
+    ATTACK_FIGHTER,   // ì „ì‚¬ ë¨¼ì € ê³µê²©
+    ATTACK_PRIEST,    // ì„±ì§ì ë¨¼ì € ê³µê²©
+    ATTACK_GUNNER,    // ê±´ë„ˆ ë¨¼ì € ê³µê²©
     ATTACK_MAX
 };
 
@@ -62,7 +62,7 @@ const string AttackOrder2String[] = {"ATTACK_FIRST",   "ATTACK_LAST",   "ATTACK_
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼ºÇâ - ¸ó½ºÅÍ´Â PC¸¦ º¸°í ¾î¶»°Ô ¹İÀÀÇÏ´Â°¡?
+// ëª¬ìŠ¤í„° ì„±í–¥ - ëª¬ìŠ¤í„°ëŠ” PCë¥¼ ë³´ê³  ì–´ë–»ê²Œ ë°˜ì‘í•˜ëŠ”ê°€?
 //////////////////////////////////////////////////////////////////////////////
 enum MAlignment { ALIGNMENT_FRIENDLY, ALIGNMENT_NEUTRAL, ALIGNMENT_AGGRESSIVE };
 
@@ -70,7 +70,7 @@ const string MAlignment2String[] = {"ALIGNMENT_FRIENDLY", "ALIGNMENT_NEUTRAL", "
 
 
 //////////////////////////////////////////////////////////////////////////////
-// AI Level - ¸ó½ºÅÍ´Â ¾ó¸¶³ª ¶È¶ÈÇÑ°¡?
+// AI Level - ëª¬ìŠ¤í„°ëŠ” ì–¼ë§ˆë‚˜ ë˜‘ë˜‘í•œê°€?
 //////////////////////////////////////////////////////////////////////////////
 enum AILevel {
     AI_VERY_LOW, //   1 - 50
@@ -81,7 +81,7 @@ enum AILevel {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// Body Size - ¸ó½ºÅÍÀÇ ¸öÅë Å©±â
+// Body Size - ëª¬ìŠ¤í„°ì˜ ëª¸í†µ í¬ê¸°
 //////////////////////////////////////////////////////////////////////////////
 enum BodySize { BODYSIZE_SMALL = 0, BODYSIZE_MEDIUM, BODYSIZE_LARGE };
 
@@ -379,50 +379,50 @@ public:
     string toString() const;
 
 private:
-    MonsterType_t m_MonsterType;                // ¸ó½ºÅÍ Å¸ÀÔ
-    SpriteType_t m_SpriteType;                  // »ç¿ë ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ
-    string m_HName;                             // ¸ó½ºÅÍ ÇÑ±Û ÀÌ¸§
-    string m_EName;                             // ¸ó½ºÅÍ ¿µ¹® ÀÌ¸§
-    Level_t m_Level;                            // ¸ó½ºÅÍ ·¹º§
-    Attr_t m_STR;                               // ±âº» STR
-    Attr_t m_DEX;                               // ±âº» DEX
-    Attr_t m_INT;                               // ±âº» INT
-    uint m_BodySize;                            // ¸ó½ºÅÍÀÇ Å©±â
-    HP_t m_HP;                                  // »ı¸í·Â
-    Exp_t m_Exp;                                // Á×¿´À» ¶§ PC ¹ìÆÄÀÌ¾î°¡ ¹Ş´Â °æÇèÄ¡ (not used)
+    MonsterType_t m_MonsterType;                // ëª¬ìŠ¤í„° íƒ€ì…
+    SpriteType_t m_SpriteType;                  // ì‚¬ìš© ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…
+    string m_HName;                             // ëª¬ìŠ¤í„° í•œê¸€ ì´ë¦„
+    string m_EName;                             // ëª¬ìŠ¤í„° ì˜ë¬¸ ì´ë¦„
+    Level_t m_Level;                            // ëª¬ìŠ¤í„° ë ˆë²¨
+    Attr_t m_STR;                               // ê¸°ë³¸ STR
+    Attr_t m_DEX;                               // ê¸°ë³¸ DEX
+    Attr_t m_INT;                               // ê¸°ë³¸ INT
+    uint m_BodySize;                            // ëª¬ìŠ¤í„°ì˜ í¬ê¸°
+    HP_t m_HP;                                  // ìƒëª…ë ¥
+    Exp_t m_Exp;                                // ì£½ì˜€ì„ ë•Œ PC ë±€íŒŒì´ì–´ê°€ ë°›ëŠ” ê²½í—˜ì¹˜ (not used)
     Color_t m_MainColor;                        // Main Color (not used)
     Color_t m_SubColor;                         // Sub Color (not used)
-    MAlignment m_Alignment;                     // ¼ºÇâ
-    AttackOrder m_AttackOrder;                  // °ø°İ ¼ø¼­¿¡ °ü·ÃµÈ ¼ºÇâ
-    Moral_t m_Moral;                            // »ç±â
-    Turn_t m_Delay;                             // ´ÙÀ½ ÇàÀ§¸¦ ÇÏ±â ±îÁöÀÇ µô·¹ÀÌ ½Ã°£.
-    Turn_t m_AttackDelay;                       // ´ÙÀ½ °ø°İÀ» ÇÏ±â ±îÁöÀÇ µô·¹ÀÌ ½Ã°£.
-    Sight_t m_Sight;                            // ½Ã¾ß
-    int m_MeleeRange;                           // Á¢±ÙÀü »çÁ¤°Å¸®
-    int m_MissileRange;                         // ¹Ì»çÀÏ »çÁ¤°Å¸®
-    Creature::MoveMode m_MoveMode;              // ÀÌµ¿ ¸ğµå
-    uint m_AIType;                              // ÀÎ°øÁö´É Å¸ÀÔ
-    int m_EnhanceHP;                            // Ã¼·Â °­È­ ¹è¼ö
-    int m_EnhanceToHit;                         // ToHit °­È­ ¹è¼ö
-    int m_EnhanceDefense;                       // µğÆæ½º °­È­ ¹è¼ö
-    int m_EnhanceProtection;                    // ÇÁ·ÎÅØ¼Ç °­È­ ¹è¼ö
-    int m_EnhanceMinDamage;                     // µ¥¹ÌÁö °­È­ ¹è¼ö
-    int m_EnhanceMaxDamage;                     // µ¥¹ÌÁö °­È­ ¹è¼ö
-    TreasureList* m_pSlayerTreasureList;        // ½½·¹ÀÌ¾î¸¦ À§ÇÑ º¸¹°ÀÇ ¸®½ºÆ®
-    TreasureList* m_pVampireTreasureList;       // ¹ìÆÄÀÌ¾î¸¦ À§ÇÑ º¸¹°ÀÇ ¸®½ºÆ®
-    TreasureList* m_pOustersTreasureList;       // ¾Æ¿ì½ºÅÍÁî¸¦ À§ÇÑ º¸¹°ÀÇ ¸®½ºÆ®
-    int m_RegenType[REGENTYPE_MAX];             // °¢ »ı¼º¹æ¹ıÀÇ È®·ü
-    int m_UnburrowChance;                       // »ı¼ºµÈ ÈÄ¿¡ ¶¥À§·Î ³ª¿Ã È®·ü
-    bool m_bMaster;                             // ¹ìÆÄÀÌ¾î ¸¶½ºÅÍÀÎ°¡?
-    int m_ClanType;                             // ¾î´À clan¿¡ ¼ÓÇÏ´Â ¸ó½ºÅÍÀÎ°¡?
-    MonsterSummonInfo* m_pMonsterSummonInfo;    // ¸ó½ºÅÍ ¼ÒÈ¯ Á¤º¸
-    list<Effect::EffectClass> m_DefaultEffects; // ¸ó½ºÅÍ¿¡°Ô ±âº»ÀûÀ¸·Î ºÙ¾îÀÖ´Â ÀÌÆåÆ®
-    bool m_bNormalRegen;                        // ¸®Á¨ ½Ã¿¡ ¼±ÅÃµÇ´Â ¸ó½ºÅÍ Å¸ÀÙÀÎ°¡?
-    bool m_bHasTreasure;                        // Treasure.bin È­ÀÏÀÌ ÇÊ¿äÇÑ°¡?
-    bool m_bChief;                              // Ä¡ÇÁ ¸ó½ºÅÍÀÎ°¡?
+    MAlignment m_Alignment;                     // ì„±í–¥
+    AttackOrder m_AttackOrder;                  // ê³µê²© ìˆœì„œì— ê´€ë ¨ëœ ì„±í–¥
+    Moral_t m_Moral;                            // ì‚¬ê¸°
+    Turn_t m_Delay;                             // ë‹¤ìŒ í–‰ìœ„ë¥¼ í•˜ê¸° ê¹Œì§€ì˜ ë”œë ˆì´ ì‹œê°„.
+    Turn_t m_AttackDelay;                       // ë‹¤ìŒ ê³µê²©ì„ í•˜ê¸° ê¹Œì§€ì˜ ë”œë ˆì´ ì‹œê°„.
+    Sight_t m_Sight;                            // ì‹œì•¼
+    int m_MeleeRange;                           // ì ‘ê·¼ì „ ì‚¬ì •ê±°ë¦¬
+    int m_MissileRange;                         // ë¯¸ì‚¬ì¼ ì‚¬ì •ê±°ë¦¬
+    Creature::MoveMode m_MoveMode;              // ì´ë™ ëª¨ë“œ
+    uint m_AIType;                              // ì¸ê³µì§€ëŠ¥ íƒ€ì…
+    int m_EnhanceHP;                            // ì²´ë ¥ ê°•í™” ë°°ìˆ˜
+    int m_EnhanceToHit;                         // ToHit ê°•í™” ë°°ìˆ˜
+    int m_EnhanceDefense;                       // ë””íœìŠ¤ ê°•í™” ë°°ìˆ˜
+    int m_EnhanceProtection;                    // í”„ë¡œí…ì…˜ ê°•í™” ë°°ìˆ˜
+    int m_EnhanceMinDamage;                     // ë°ë¯¸ì§€ ê°•í™” ë°°ìˆ˜
+    int m_EnhanceMaxDamage;                     // ë°ë¯¸ì§€ ê°•í™” ë°°ìˆ˜
+    TreasureList* m_pSlayerTreasureList;        // ìŠ¬ë ˆì´ì–´ë¥¼ ìœ„í•œ ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
+    TreasureList* m_pVampireTreasureList;       // ë±€íŒŒì´ì–´ë¥¼ ìœ„í•œ ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
+    TreasureList* m_pOustersTreasureList;       // ì•„ìš°ìŠ¤í„°ì¦ˆë¥¼ ìœ„í•œ ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
+    int m_RegenType[REGENTYPE_MAX];             // ê° ìƒì„±ë°©ë²•ì˜ í™•ë¥ 
+    int m_UnburrowChance;                       // ìƒì„±ëœ í›„ì— ë•…ìœ„ë¡œ ë‚˜ì˜¬ í™•ë¥ 
+    bool m_bMaster;                             // ë±€íŒŒì´ì–´ ë§ˆìŠ¤í„°ì¸ê°€?
+    int m_ClanType;                             // ì–´ëŠ clanì— ì†í•˜ëŠ” ëª¬ìŠ¤í„°ì¸ê°€?
+    MonsterSummonInfo* m_pMonsterSummonInfo;    // ëª¬ìŠ¤í„° ì†Œí™˜ ì •ë³´
+    list<Effect::EffectClass> m_DefaultEffects; // ëª¬ìŠ¤í„°ì—ê²Œ ê¸°ë³¸ì ìœ¼ë¡œ ë¶™ì–´ìˆëŠ” ì´í™íŠ¸
+    bool m_bNormalRegen;                        // ë¦¬ì   ì‹œì— ì„ íƒë˜ëŠ” ëª¬ìŠ¤í„° íƒ€ìì¸ê°€?
+    bool m_bHasTreasure;                        // Treasure.bin í™”ì¼ì´ í•„ìš”í•œê°€?
+    bool m_bChief;                              // ì¹˜í”„ ëª¬ìŠ¤í„°ì¸ê°€?
 
-    int m_MonsterClass;     // ¸ó½ºÅÍÀÇ Å¬·¡½º
-    ItemType_t m_SkullType; // ¸ó½ºÅÍÀÇ ÇØ°ñ Å¸ÀÔ
+    int m_MonsterClass;     // ëª¬ìŠ¤í„°ì˜ í´ë˜ìŠ¤
+    ItemType_t m_SkullType; // ëª¬ìŠ¤í„°ì˜ í•´ê³¨ íƒ€ì…
 };
 
 
@@ -449,8 +449,8 @@ public:
     // get monster info with monster type
     const MonsterInfo* getMonsterInfo(MonsterType_t monsterType) const;
 
-    // ÀÓÀÇÀÇ ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀ» °¡Áø ¸ó½ºÅÍÀÇ Å¸ÀÔ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
-    // (¿©·¯ ¸ó½ºÅÍ°¡ ÇÏ³ªÀÇ ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀ» °¡Áú ¼ö ÀÖ±â ¶§¹®¿¡)
+    // ì„ì˜ì˜ ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…ì„ ê°€ì§„ ëª¬ìŠ¤í„°ì˜ íƒ€ì… ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // (ì—¬ëŸ¬ ëª¬ìŠ¤í„°ê°€ í•˜ë‚˜ì˜ ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…ì„ ê°€ì§ˆ ìˆ˜ ìˆê¸° ë•Œë¬¸ì—)
     const vector<MonsterType_t>& getMonsterTypeBySprite(SpriteType_t spriteType) const;
     string getNameBySpriteType(SpriteType_t spriteType) const;
 
@@ -475,13 +475,13 @@ private:
     uint m_MaxMonsterType;                                      // size of MonsterInfo* array
     MonsterInfo** m_MonsterInfos;                               // array of monster info
     vector<MonsterType_t> m_MonsterSpriteSet[MAX_SPRITE_TYPE];  // array of MonsterType by SpriteType
-    unordered_map<string, SpriteType_t> m_MonsterSpriteTypes;   // ÀÌ¸§À¸·Î SpriteType_tÃ£±â
-    unordered_map<string, MonsterType_t> m_ChiefMonster;        // Chief ¸ó½ºÅÍ Á¤º¸ °¡Áö°í ÀÖ±â
-    unordered_map<int, vector<SpriteType_t>> m_MonsterClassMap; // ¸ó½ºÅÍ Å¬·¡½º·Î ¸ó½ºÅÍ Å¸ÀÔ Ã£±â
+    unordered_map<string, SpriteType_t> m_MonsterSpriteTypes;   // ì´ë¦„ìœ¼ë¡œ SpriteType_tì°¾ê¸°
+    unordered_map<string, MonsterType_t> m_ChiefMonster;        // Chief ëª¬ìŠ¤í„° ì •ë³´ ê°€ì§€ê³  ìˆê¸°
+    unordered_map<int, vector<SpriteType_t>> m_MonsterClassMap; // ëª¬ìŠ¤í„° í´ë˜ìŠ¤ë¡œ ëª¬ìŠ¤í„° íƒ€ì… ì°¾ê¸°
 
-    TreasureLists m_SlayerTreasureLists;  // ½½·¹ÀÌ¾î¸¦ À§ÇÑ º¸¹°ÀÇ ¸®½ºÆ®
-    TreasureLists m_VampireTreasureLists; // ¹ìÆÄÀÌ¾î¸¦ À§ÇÑ º¸¹°ÀÇ ¸®½ºÆ®
-    TreasureLists m_OustersTreasureLists; // ¾Æ¿ì½ºÅÍÁî¸¦ À§ÇÑ º¸¹°ÀÇ ¸®½ºÆ®
+    TreasureLists m_SlayerTreasureLists;  // ìŠ¬ë ˆì´ì–´ë¥¼ ìœ„í•œ ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
+    TreasureLists m_VampireTreasureLists; // ë±€íŒŒì´ì–´ë¥¼ ìœ„í•œ ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
+    TreasureLists m_OustersTreasureLists; // ì•„ìš°ìŠ¤í„°ì¦ˆë¥¼ ìœ„í•œ ë³´ë¬¼ì˜ ë¦¬ìŠ¤íŠ¸
 };
 
 // global variable declaration

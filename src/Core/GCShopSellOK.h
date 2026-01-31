@@ -1,12 +1,12 @@
 //--------------------------------------------------------------------------------
 //
 // Filename    : GCShopSellOK.h
-// Written By  : ±è¼º¹Î
-// Description : ÇÃ·¹ÀÌ¾î°¡ »óÁ¡ NPC¿¡°Ô ¹°°Ç ±¸ÀÔÀ» ¿äÃ»ÇßÀ» ¶§, Á¦´ë·Î
-//               ÀÎÁõÀÌ µÇ¸é ÀÌ ÆÐÅ¶ÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ³¯¾Æ°£´Ù.
-//               Å¬¶óÀÌ¾ðÆ®´Â ÀÌ ÆÐÅ¶À» ¹Þ¾Æ¼­ »óÁ¡ ¹öÀüÀ» ¾÷µ¥ÀÌÆ®ÇÏ°í,
-//               ¿ÀºêÁ§Æ® ID·Î ¾ÆÀÌÅÛ Á¤º¸¸¦ Ã¼Å©ÇØ ³õ°í, °¡°ÝÀ» ÀÌ¿ëÇØ
-//               ÇÃ·¹ÀÌ¾îÀÇ µ·À» ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
+// Written By  : ê¹€ì„±ë¯¼
+// Description : í”Œë ˆì´ì–´ê°€ ìƒì  NPCì—ê²Œ ë¬¼ê±´ êµ¬ìž…ì„ ìš”ì²­í–ˆì„ ë•Œ, ì œëŒ€ë¡œ
+//               ì¸ì¦ì´ ë˜ë©´ ì´ íŒ¨í‚·ì´ í”Œë ˆì´ì–´ì—ê²Œ ë‚ ì•„ê°„ë‹¤.
+//               í´ë¼ì´ì–¸íŠ¸ëŠ” ì´ íŒ¨í‚·ì„ ë°›ì•„ì„œ ìƒì  ë²„ì „ì„ ì—…ë°ì´íŠ¸í•˜ê³ ,
+//               ì˜¤ë¸Œì íŠ¸ IDë¡œ ì•„ì´í…œ ì •ë³´ë¥¼ ì²´í¬í•´ ë†“ê³ , ê°€ê²©ì„ ì´ìš©í•´
+//               í”Œë ˆì´ì–´ì˜ ëˆì„ ì—…ë°ì´íŠ¸í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -29,10 +29,10 @@ public:
     GCShopSellOK();
     virtual ~GCShopSellOK();
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -94,13 +94,13 @@ private:
     // NPC's object id
     ObjectID_t m_ObjectID;
 
-    // »óÁ¡ ¹öÁ¯
+    // ìƒì  ë²„ì ¼
     ShopVersion_t m_Version;
 
-    // ¾ÆÀÌÅÛ Á¤º¸
+    // ì•„ì´í…œ ì •ë³´
     ObjectID_t m_ItemObjectID;
 
-    // °¡°Ý
+    // ê°€ê²©
     Price_t m_Price;
 };
 

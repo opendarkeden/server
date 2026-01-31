@@ -2,7 +2,7 @@
 //
 // Filename    : LoginPlayerManager.cpp
 // Written by  : reiot@ewestsoft.com
-// Description : ·Î±×ÀÎ ¼­¹ö¿ë Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀú
+// Description : ë¡œê·¸ì¸ ì„œë²„ìš© í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@
 //
 // constructor
 //
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »ı¼ºÇÏ´Â °÷ÀÌ´Ù. (±×·±µ¥, ¾ø´Ù. - -;)
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ìƒì„±í•˜ëŠ” ê³³ì´ë‹¤. (ê·¸ëŸ°ë°, ì—†ë‹¤. - -;)
 //
 //////////////////////////////////////////////////////////////////////
 LoginPlayerManager::LoginPlayerManager() : m_pServerSocket(NULL), m_ServerFD(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1) {
@@ -46,7 +46,7 @@ LoginPlayerManager::LoginPlayerManager() : m_pServerSocket(NULL), m_ServerFD(INV
 //
 // destructor
 //
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »èÁ¦ÇÏ´Â °÷ÀÌ´Ù. (±×·±µ¥, ¾ø´Ù. - -;)
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì‚­ì œí•˜ëŠ” ê³³ì´ë‹¤. (ê·¸ëŸ°ë°, ì—†ë‹¤. - -;)
 //
 //////////////////////////////////////////////////////////////////////
 LoginPlayerManager::~LoginPlayerManager() {
@@ -58,8 +58,8 @@ LoginPlayerManager::~LoginPlayerManager() {
         m_pServerSocket = NULL;
     }
 
-    // base classÀÎ PlayerManagerÀÇ destructor¿¡¼­ Á¢¼ÓÇÑ ¸ğµç ÇÃ·¹ÀÌ¾îµéÀÇ
-    // ¿¬°áÀ» ²÷°í, °´Ã¼¸¦ »èÁ¦ÇÏ¹Ç·Î ½Å°æ¾²Áö ¾Ê¾Æµµ µÈ´Ù.
+    // base classì¸ PlayerManagerì˜ destructorì—ì„œ ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì˜
+    // ì—°ê²°ì„ ëŠê³ , ê°ì²´ë¥¼ ì‚­ì œí•˜ë¯€ë¡œ ì‹ ê²½ì“°ì§€ ì•Šì•„ë„ ëœë‹¤.
     //
     if (g_pReconnectLoginInfoManager != NULL) {
         delete g_pReconnectLoginInfoManager;
@@ -72,18 +72,18 @@ LoginPlayerManager::~LoginPlayerManager() {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ ÃÊ±âÈ­ÇÏ°í, ÀÚ½ÅÀ» ÃÊ±âÈ­ÇÑ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ì´ˆê¸°í™”í•˜ê³ , ìì‹ ì„ ì´ˆê¸°í™”í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::init() {
     __BEGIN_TRY
 
-    // ¹ÙÀÎµåµÉ¶§±îÁö Àç½Ãµµ
+    // ë°”ì¸ë“œë ë•Œê¹Œì§€ ì¬ì‹œë„
     while (1) {
         try {
-            // ¼­¹ö ¼ÒÄÏÀ» »ı¼ºÇÑ´Ù.
+            // ì„œë²„ ì†Œì¼“ì„ ìƒì„±í•œë‹¤.
             m_pServerSocket = new ServerSocket(g_pConfig->getPropertyInt("LoginServerPort"));
-            // Á¤»óÀûÀ¸·Î ¹ÙÀÎµåµÇ¸é ³ª°£´Ù.
+            // ì •ìƒì ìœ¼ë¡œ ë°”ì¸ë“œë˜ë©´ ë‚˜ê°„ë‹¤.
             break;
         } catch (BindException& be) {
             SAFE_DELETE(m_pServerSocket);
@@ -92,28 +92,28 @@ void LoginPlayerManager::init() {
         }
     }
 
-    // ¼­¹ö ¼ÒÄÏ µğ½ºÅ©¸³ÅÍ¸¦ ÁöÁ¤ÇÑ´Ù.
+    // ì„œë²„ ì†Œì¼“ ë””ìŠ¤í¬ë¦½í„°ë¥¼ ì§€ì •í•œë‹¤.
     m_ServerFD = m_pServerSocket->getSOCKET();
 
-    // fd_set µéÀ» 0 À¸·Î ÃÊ±âÈ­ÇÑ´Ù.
+    // fd_set ë“¤ì„ 0 ìœ¼ë¡œ ì´ˆê¸°í™”í•œë‹¤.
     FD_ZERO(&m_ReadFDs[0]);
     FD_ZERO(&m_WriteFDs[0]);
     FD_ZERO(&m_ExceptFDs[0]);
 
-    // ¼­¹ö ¼ÒÄÏÀ» ÄÒ´Ù.
+    // ì„œë²„ ì†Œì¼“ì„ ì¼ ë‹¤.
     FD_SET(m_ServerFD, &m_ReadFDs[0]);
 
     // set min/max fd
     m_MaxFD = m_MinFD = m_ServerFD;
 
-    // m_Timeout À» ÃÊ±âÈ­ÇÑ´Ù.
-    // ³ªÁß¿¡´Â ÀÌ ÁÖ±â ¿ª½Ã ¿É¼ÇÀ¸·Î Ã³¸®ÇÏµµ·Ï ÇÏÀÚ.
-    // ZonePlayerManager¿¡ ºñÇØ¼­ ±æ¾îµµ ¹«¹æÇÏ´Ù.....
+    // m_Timeout ì„ ì´ˆê¸°í™”í•œë‹¤.
+    // ë‚˜ì¤‘ì—ëŠ” ì´ ì£¼ê¸° ì—­ì‹œ ì˜µì…˜ìœ¼ë¡œ ì²˜ë¦¬í•˜ë„ë¡ í•˜ì.
+    // ZonePlayerManagerì— ë¹„í•´ì„œ ê¸¸ì–´ë„ ë¬´ë°©í•˜ë‹¤.....
     m_Timeout[0].tv_sec = 0;
     m_Timeout[0].tv_usec = 0;
 
     //--------------------------------------------------------------------------------
-    // Player.LogOn ¸¦ Á¤¸®ÇØÁØ´Ù.
+    // Player.LogOn ë¥¼ ì •ë¦¬í•´ì¤€ë‹¤.
     //--------------------------------------------------------------------------------
     Statement* pStmt = NULL;
     Statement* pStmt2 = NULL;
@@ -125,8 +125,8 @@ void LoginPlayerManager::init() {
             pStmt->executeQuery("SELECT PlayerID from Player WHERE LogOn = 'LOGON' AND CurrentLoginServerID=%d",
                                 g_pConfig->getPropertyInt("LoginServerID"));
 
-        // °×¹æ¿¡¼­ ³î´ø¾Öµé Á¤¸®ÇØÁØ´Ù.
-        // ºô¸µ~ by sigi 2002.5.31
+        // ê²œë°©ì—ì„œ ë†€ë˜ì• ë“¤ ì •ë¦¬í•´ì¤€ë‹¤.
+        // ë¹Œë§~ by sigi 2002.5.31
         while (pResult->next()) {
             string playerID = pResult->getString(1);
 
@@ -152,30 +152,30 @@ void LoginPlayerManager::init() {
 }
 
 //////////////////////////////////////////////////////////////////////
-// select()¸¦ »ç¿ëÇØ¼­ I/O Multiplexing À» ÇÑ´Ù.
+// select()ë¥¼ ì‚¬ìš©í•´ì„œ I/O Multiplexing ì„ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::select() {
     __BEGIN_TRY
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
-    // m_Timeout[0] À» m_Timeout[1] À¸·Î º¹»çÇÑ´Ù.
+    // m_Timeout[0] ì„ m_Timeout[1] ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
     m_Timeout[1].tv_sec = m_Timeout[0].tv_sec;
     m_Timeout[1].tv_usec = m_Timeout[0].tv_usec;
 
-    // m_XXXFDs[0] À» m_XXXFDs[1] À¸·Î º¹»çÇÑ´Ù.
+    // m_XXXFDs[0] ì„ m_XXXFDs[1] ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
     m_ReadFDs[1] = m_ReadFDs[0];
     m_WriteFDs[1] = m_WriteFDs[0];
     m_ExceptFDs[1] = m_ExceptFDs[0];
 
     try {
-        // ÀÌÁ¦ m_XXXFDs[1] À» °¡Áö°í select() ¸¦ È£ÃâÇÑ´Ù.
+        // ì´ì œ m_XXXFDs[1] ì„ ê°€ì§€ê³  select() ë¥¼ í˜¸ì¶œí•œë‹¤.
         SocketAPI::select_ex(m_MaxFD + 1, &m_ReadFDs[1], &m_WriteFDs[1], &m_ExceptFDs[1], &m_Timeout[1]);
 
     } catch (TimeoutException) {
         // do nothing
     } catch (InterruptedException& ie) {
-        // ½Ã±×³ÎÀÌ ¿Ã ¸®°¡ ¾öÂî~~
+        // ì‹œê·¸ë„ì´ ì˜¬ ë¦¬ê°€ ì—„ì°Œ~~
         log(LOG_LOGINSERVER, "", "", ie.toString());
     }
 
@@ -185,7 +185,7 @@ void LoginPlayerManager::select() {
 }
 
 //////////////////////////////////////////////////////////////////////
-// È¤½Ã¸ğ¸¦ OOB µ¥ÀÌÅ¸¸¦ Ã³¸®ÇÑ´Ù.
+// í˜¹ì‹œëª¨ë¥¼ OOB ë°ì´íƒ€ë¥¼ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processExceptions() {
     __BEGIN_TRY
@@ -201,13 +201,13 @@ void LoginPlayerManager::processExceptions() {
             log(LOG_LOGINSERVER_ERROR, "", "", msg.toString());
             cout << msg.toString() << endl;
 
-            // Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÑ´Ù.
+            // ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•œë‹¤.
             m_pPlayers[i]->disconnect(UNDISCONNECTED);
 
-            // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+            // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
             delete m_pPlayers[i];
 
-            // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+            // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
             deletePlayer_NOLOCKED(i);
         }
     }
@@ -218,7 +218,7 @@ void LoginPlayerManager::processExceptions() {
 }
 
 //////////////////////////////////////////////////////////////////////
-// Á¢¼ÓÇÑ ¸ğµç ÇÃ·¹ÀÌ¾îµéÀÇ ÀÔ·ÂÀ» °¢ÀÚÀÇ ÀÔ·Â ¹öÆÛ¿¡ º¹»çÇÑ´Ù.
+// ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì˜ ì…ë ¥ì„ ê°ìì˜ ì…ë ¥ ë²„í¼ì— ë³µì‚¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processInputs() {
     __BEGIN_TRY
@@ -228,7 +228,7 @@ void LoginPlayerManager::processInputs() {
     for (int i = m_MinFD; i <= m_MaxFD; i++) {
         if (FD_ISSET(i, &m_ReadFDs[1])) {
             if (i == m_ServerFD) {
-                // ¼­¹ö ¼ÒÄÏÀÏ °æ¿ì, »õ·Î¿î Á¢¼ÓÀÌ µé¾î¿Ô´Ù´Â ¶æÀÌ´Ù.
+                // ì„œë²„ ì†Œì¼“ì¼ ê²½ìš°, ìƒˆë¡œìš´ ì ‘ì†ì´ ë“¤ì–´ì™”ë‹¤ëŠ” ëœ»ì´ë‹¤.
                 acceptNewConnection();
 
             } else {
@@ -236,31 +236,31 @@ void LoginPlayerManager::processInputs() {
 
                 try {
                     if (m_pPlayers[i]->getSocket()->getSockError()) {
-                        // ÀÌ¹Ì ¿¬°áÀÌ ²÷±ä »óÅÂÀÌ¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÏÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+                        // ì´ë¯¸ ì—°ê²°ì´ ëŠê¸´ ìƒíƒœì´ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
                         m_pPlayers[i]->disconnect(DISCONNECTED);
 
-                        // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                        // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                         delete m_pPlayers[i];
 
-                        // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+                        // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
                         deletePlayer_NOLOCKED(i);
                     } else {
                         m_pPlayers[i]->processInput();
                     }
 
                 } catch (ConnectException& ce) {
-                    // Blocking ¼ÒÄÏÀÌ¹Ç·Î ConnectException °ú Error¸¦ Á¦¿ÜÇÑ ¾î¶² ¿¹¿Üµµ ¹ß»ıÇÏÁö ¾Ê´Â´Ù.
+                    // Blocking ì†Œì¼“ì´ë¯€ë¡œ ConnectException ê³¼ Errorë¥¼ ì œì™¸í•œ ì–´ë–¤ ì˜ˆì™¸ë„ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
 
                     cout << ce.toString() << endl;
                     log(LOG_LOGINSERVER_ERROR, "", ce.toString());
 
-                    // ÀÌ¹Ì ¿¬°áÀÌ ²÷±ä »óÅÂÀÌ¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÏÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+                    // ì´ë¯¸ ì—°ê²°ì´ ëŠê¸´ ìƒíƒœì´ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
                     m_pPlayers[i]->disconnect(DISCONNECTED);
 
-                    // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                    // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                     delete m_pPlayers[i];
 
-                    // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+                    // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
                     deletePlayer_NOLOCKED(i);
                 }
             }
@@ -273,15 +273,15 @@ void LoginPlayerManager::processInputs() {
 }
 
 //////////////////////////////////////////////////////////////////////
-// Á¢¼ÓÇÑ ¸ğµç ÇÃ·¹ÀÌ¾îµéÀÇ ÀÔ·Â ÆĞÅ¶À» Ã³¸®ÇÑ´Ù.
+// ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì˜ ì…ë ¥ íŒ¨í‚·ì„ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processCommands() {
     __BEGIN_TRY
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
-    // m_pPlayers[i] != NULL ÀÇ È®·üÀÌ i != m_ServerFD º¸´Ù ³ôÀ¸¹Ç·Î
-    // ÀÌ Á¶°ÇÀ» ¾Õ¿¡´Ù°¡ µĞ´Ù.
+    // m_pPlayers[i] != NULL ì˜ í™•ë¥ ì´ i != m_ServerFD ë³´ë‹¤ ë†’ìœ¼ë¯€ë¡œ
+    // ì´ ì¡°ê±´ì„ ì•ì—ë‹¤ê°€ ë‘”ë‹¤.
 
     for (int i = m_MinFD; i <= m_MaxFD; i++) {
         if (m_pPlayers[i] != NULL && i != m_ServerFD) {
@@ -290,8 +290,8 @@ void LoginPlayerManager::processCommands() {
 
                 // LoginPlayer* pLoginPlayer = dynamic_cast<LoginPlayer*>(m_pPlayers[i]);
 
-                // ¾ÆÁ÷ ºô¸µ ½Ã½ºÅÛ¿¡¼­ °ËÁõµÇÁö ¾Ê¾Ò´Ù¸é..
-                // ÇÑ¹ø¸¸ º¸³»°í °Ô±â´Â °É·Î ¼öÁ¤. ¾Öµåºô(¹ÚÁ¤¼ö) ¿äÃ». by bezz. 2003.04.21
+                // ì•„ì§ ë¹Œë§ ì‹œìŠ¤í…œì—ì„œ ê²€ì¦ë˜ì§€ ì•Šì•˜ë‹¤ë©´..
+                // í•œë²ˆë§Œ ë³´ë‚´ê³  ê²Œê¸°ëŠ” ê±¸ë¡œ ìˆ˜ì •. ì• ë“œë¹Œ(ë°•ì •ìˆ˜) ìš”ì²­. by bezz. 2003.04.21
                 // if (!pLoginPlayer->isBillingLoginVerified())
                 //{
                 // pLoginPlayer->sendBillingLogin();
@@ -301,15 +301,15 @@ void LoginPlayerManager::processCommands() {
                 m_pPlayers[i]->processCommand();
             } catch (ProtocolException& pe) {
                 //--------------------------------------------------
-                // ProtocolExceptionÀÇ Á¾·ù¿¡´Â 3 °¡Áö°¡ ÀÖ´Ù.
+                // ProtocolExceptionì˜ ì¢…ë¥˜ì—ëŠ” 3 ê°€ì§€ê°€ ìˆë‹¤.
                 //
-                // - InvalidProtocolException : ÇÁ·ÎÅäÄİ ¿¡·¯
-                // - DisconnectException : ¿¬°áÀ» Á¾·á½ÃÅ´
-                // - InsufficiendDataException : ÆĞÅ¶ÀÌ ºÎºĞÀûÀ¸·Î¸¸ µµÂøÇßÀ½
+                // - InvalidProtocolException : í”„ë¡œí† ì½œ ì—ëŸ¬
+                // - DisconnectException : ì—°ê²°ì„ ì¢…ë£Œì‹œí‚´
+                // - InsufficiendDataException : íŒ¨í‚·ì´ ë¶€ë¶„ì ìœ¼ë¡œë§Œ ë„ì°©í–ˆìŒ
                 //
-                // ÀÌ ¸ğµÎ Å¬¶óÀÌ¾ğÆ®¿ÍÀÇ ¿¬°áÀÌ Áö¼ÓµÇ¾î ÀÖ´Â »óÅÂ
-                // ÀÌ¹Ç·Î, disconnect½Ã UNDISCONNECTED ÆÄ¶ó¹ÌÅÍ¸¦ »ç¿ëÇØ¼­
-                // Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØÁà¾ß ÇÑ´Ù.
+                // ì´ ëª¨ë‘ í´ë¼ì´ì–¸íŠ¸ì™€ì˜ ì—°ê²°ì´ ì§€ì†ë˜ì–´ ìˆëŠ” ìƒíƒœ
+                // ì´ë¯€ë¡œ, disconnectì‹œ UNDISCONNECTED íŒŒë¼ë¯¸í„°ë¥¼ ì‚¬ìš©í•´ì„œ
+                // ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì¤˜ì•¼ í•œë‹¤.
                 //
                 //--------------------------------------------------
 
@@ -318,23 +318,23 @@ void LoginPlayerManager::processCommands() {
 
                 m_pPlayers[i]->disconnect(UNDISCONNECTED);
 
-                // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                 delete m_pPlayers[i];
 
-                // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
                 deletePlayer_NOLOCKED(i);
             }
-            // ±è¼º¹Î¿¡ ÀÇÇØ Ãß°¡...
+            // ê¹€ì„±ë¯¼ì— ì˜í•´ ì¶”ê°€...
             catch (ConnectException& ce) {
                 cout << ce.toString() << endl;
                 log(LOG_LOGINSERVER_ERROR, "", "", ce.toString());
 
                 m_pPlayers[i]->disconnect(DISCONNECTED);
 
-                // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                 delete m_pPlayers[i];
 
-                // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
                 deletePlayer_NOLOCKED(i);
             }
         }
@@ -346,7 +346,7 @@ void LoginPlayerManager::processCommands() {
 }
 
 //////////////////////////////////////////////////////////////////////
-// Á¢¼ÓÇÑ ¸ğµç ÇÃ·¹ÀÌ¾îµéÀÇ Ãâ·ÂÀ» Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÑ´Ù.
+// ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì˜ ì¶œë ¥ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processOutputs() {
     __BEGIN_TRY
@@ -364,26 +364,26 @@ void LoginPlayerManager::processOutputs() {
                 cout << ce.toString() << endl;
                 log(LOG_LOGINSERVER_ERROR, "", "", ce.toString());
 
-                // ÀÌ¹Ì ¿¬°áÀÌ ²÷±ä »óÅÂÀÌ¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÏÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+                // ì´ë¯¸ ì—°ê²°ì´ ëŠê¸´ ìƒíƒœì´ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
                 m_pPlayers[i]->disconnect(DISCONNECTED);
 
-                // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                 delete m_pPlayers[i];
 
-                // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
                 deletePlayer_NOLOCKED(i);
 
             } catch (ProtocolException& pe) {
                 cout << pe.toString() << endl;
                 log(LOG_LOGINSERVER_ERROR, "", "", pe.toString());
 
-                // ÀÌ¹Ì ¿¬°áÀÌ ²÷±ä »óÅÂÀÌ¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÏÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+                // ì´ë¯¸ ì—°ê²°ì´ ëŠê¸´ ìƒíƒœì´ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
                 m_pPlayers[i]->disconnect(DISCONNECTED);
 
-                // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
                 delete m_pPlayers[i];
 
-                // ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+                // í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
                 deletePlayer_NOLOCKED(i);
             }
         }
@@ -399,18 +399,18 @@ void LoginPlayerManager::processOutputs() {
 //
 // accept new connection
 //
-// select ±â¹İ¿¡¼­´Â nonblocking ¼ÒÄÏÀ» »ç¿ëÇÏÁö ¾Ê´Â´Ù.
+// select ê¸°ë°˜ì—ì„œëŠ” nonblocking ì†Œì¼“ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //
-// ·Î±×ÀÎ ¼­¹ö´Â ±âº»ÀûÀ¸·Î ¸ğµç ¿¬°á½Ãµµ¸¦ ¹Ş¾ÆµéÀÎ´Ù.
-// ´Ü BAN DB¿¡ µî·ÏµÈ IP·ÎºÎÅÍÀÇ ¿¬°áÀº ¹Ş¾ÆµéÀÌÁö ¾Ê´Â´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ëŠ” ê¸°ë³¸ì ìœ¼ë¡œ ëª¨ë“  ì—°ê²°ì‹œë„ë¥¼ ë°›ì•„ë“¤ì¸ë‹¤.
+// ë‹¨ BAN DBì— ë“±ë¡ëœ IPë¡œë¶€í„°ì˜ ì—°ê²°ì€ ë°›ì•„ë“¤ì´ì§€ ì•ŠëŠ”ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::acceptNewConnection() {
     __BEGIN_TRY
 
-    // ºí·ÏÅ· ¹æ½ÄÀ¸·Î connectionÀ» ±â´Ù¸± °æ¿ì
-    // ¸®ÅÏµÇ´Â °ªÀº Àı´ë NULLÀÌ µÉ ¼ö ¾ø´Ù.
-    // ¶ÇÇÑ NonBlockingIOExceptionµµ ¹ß»ıÇÒ ¼ö ¾ø´Ù.
+    // ë¸”ë¡í‚¹ ë°©ì‹ìœ¼ë¡œ connectionì„ ê¸°ë‹¤ë¦´ ê²½ìš°
+    // ë¦¬í„´ë˜ëŠ” ê°’ì€ ì ˆëŒ€ NULLì´ ë  ìˆ˜ ì—†ë‹¤.
+    // ë˜í•œ NonBlockingIOExceptionë„ ë°œìƒí•  ìˆ˜ ì—†ë‹¤.
     Socket* client = NULL;
 
     try {
@@ -418,9 +418,9 @@ void LoginPlayerManager::acceptNewConnection() {
     } catch (Throwable& t) {
     }
 
-    // ConnectException ÀÌ ¹ß»ıÇÒ °¡´É¼ºÀÌ ÀÖ´Ù. (½ÇÁ¦·Î ¹ß»ıÇß´Ù.)
-    // ÇöÀç ³»ºÎ¿¡¼­ CE °¡ ¹ß»õÇÒ °æ¿ì, NULL À» ¸®ÅÏÇÏ±â ¶§¹®¿¡..
-    // NULL À» Ã¼Å©ÇØ¼­, ¹«½ÃÇØÁà¾ß ÇÑ´Ù.
+    // ConnectException ì´ ë°œìƒí•  ê°€ëŠ¥ì„±ì´ ìˆë‹¤. (ì‹¤ì œë¡œ ë°œìƒí–ˆë‹¤.)
+    // í˜„ì¬ ë‚´ë¶€ì—ì„œ CE ê°€ ë°œìƒˆí•  ê²½ìš°, NULL ì„ ë¦¬í„´í•˜ê¸° ë•Œë¬¸ì—..
+    // NULL ì„ ì²´í¬í•´ì„œ, ë¬´ì‹œí•´ì¤˜ì•¼ í•œë‹¤.
     if (client == NULL)
         return;
 
@@ -444,7 +444,7 @@ void LoginPlayerManager::acceptNewConnection() {
     cerr << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort() << endl;
 
     //--------------------------------------------------
-    // BAN DB¿¡ Äõ¸®ÇØ¼­ ÇöÀç IP°¡ ¿Ã¹Ù¸¥Áö È®ÀÎÇØº»´Ù.
+    // BAN DBì— ì¿¼ë¦¬í•´ì„œ í˜„ì¬ IPê°€ ì˜¬ë°”ë¥¸ì§€ í™•ì¸í•´ë³¸ë‹¤.
     //--------------------------------------------------
     /*
     if ( g_pBanManager->isBanned( client->getHost() ) ) {
@@ -458,14 +458,14 @@ void LoginPlayerManager::acceptNewConnection() {
     // set socket option ( !NonBlocking, NoLinger )
     client->setLinger(0);
 
-    // Å¬¶óÀÌ¾ğÆ® ¼ÒÄÏÀ» ÆÄ¶ó¹ÌÅÍ·Î »ç¿ëÇØ¼­ ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ì†Œì¼“ì„ íŒŒë¼ë¯¸í„°ë¡œ ì‚¬ìš©í•´ì„œ í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
     LoginPlayer* pPlayer = new LoginPlayer(client);
 
     // set player status to PLAYER_LOGON
     Assert(pPlayer->getPlayerStatus() == LPS_NONE);
     pPlayer->setPlayerStatus(LPS_BEGIN_SESSION);
 
-    // LoginPlayerManager¿¡ µî·ÏÇÑ´Ù.
+    // LoginPlayerManagerì— ë“±ë¡í•œë‹¤.
     addPlayer_NOLOCKED(pPlayer);
 
     __END_CATCH
@@ -473,10 +473,10 @@ void LoginPlayerManager::acceptNewConnection() {
 
 //////////////////////////////////////////////////////////////////////
 //
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì— ì¶”ê°€í•œë‹¤.
 //
-// ·Î±×ÀÎ ¼­¹ö¿¡¼­´Â ÇÃ·¹ÀÌ¾î ¹è¿­¿¡ ´ëÇØ¼­ µû·Î ¾²·¹µå°¡ µ¹Áö ¾ÊÀ¸¹Ç·Î
-// locking À» ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì—ì„œëŠ” í”Œë ˆì´ì–´ ë°°ì—´ì— ëŒ€í•´ì„œ ë”°ë¡œ ì“°ë ˆë“œê°€ ëŒì§€ ì•Šìœ¼ë¯€ë¡œ
+// locking ì„ í•  í•„ìš”ê°€ ì—†ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::addPlayer_NOLOCKED(Player* pPlayer) {
@@ -486,12 +486,12 @@ void LoginPlayerManager::addPlayer_NOLOCKED(Player* pPlayer) {
 
     SOCKET fd = pPlayer->getSocket()->getSOCKET();
 
-    // m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
+    // m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
     m_MinFD = min(fd, m_MinFD);
     m_MaxFD = max(fd, m_MaxFD);
 
-    // ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ on ½ÃÅ²´Ù.
-    // m_XXXFDs[1] Àº ´ÙÀ½¹ø¿¡ Ã³¸®ÇØÁÖ¸é µÈ´Ù.
+    // ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ on ì‹œí‚¨ë‹¤.
+    // m_XXXFDs[1] ì€ ë‹¤ìŒë²ˆì— ì²˜ë¦¬í•´ì£¼ë©´ ëœë‹¤.
     FD_SET(fd, &m_ReadFDs[0]);
     FD_SET(fd, &m_WriteFDs[0]);
     FD_SET(fd, &m_ExceptFDs[0]);
@@ -513,10 +513,10 @@ void LoginPlayerManager::addPlayer(Player* pPlayer) {
 
 //--------------------------------------------------------------------------------
 //
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
 //
-// ·Î±×ÀÎ ¼­¹ö¿¡¼­´Â ÇÃ·¹ÀÌ¾î ¹è¿­¿¡ ´ëÇØ¼­ µû·Î ¾²·¹µå°¡ µ¹Áö ¾ÊÀ¸¹Ç·Î
-// locking À» ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì—ì„œëŠ” í”Œë ˆì´ì–´ ë°°ì—´ì— ëŒ€í•´ì„œ ë”°ë¡œ ì“°ë ˆë“œê°€ ëŒì§€ ì•Šìœ¼ë¯€ë¡œ
+// locking ì„ í•  í•„ìš”ê°€ ì—†ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::deletePlayer_NOLOCKED(SOCKET fd) {
@@ -526,11 +526,11 @@ void LoginPlayerManager::deletePlayer_NOLOCKED(SOCKET fd) {
 
     Assert(m_pPlayers[fd] == NULL);
 
-    // m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
-    // fd == m_MinFD && fd == m_MaxFD ÀÎ °æ¿ì´Â Ã¹¹øÂ° if ¿¡¼­ Ã³¸®µÈ´Ù.
+    // m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
+    // fd == m_MinFD && fd == m_MaxFD ì¸ ê²½ìš°ëŠ” ì²«ë²ˆì§¸ if ì—ì„œ ì²˜ë¦¬ëœë‹¤.
     if (fd == m_MinFD) {
-        // ¾Õ¿¡¼­ºÎÅÍ Á¦ÀÏ ÀÛÀº fd ¸¦ Ã£´Â´Ù.
-        // m_MinFD ÀÚ¸®´Â ÇöÀç NULL ÀÌ µÇ¾î ÀÖÀ½À» À¯ÀÇÇÏ¶ó.
+        // ì•ì—ì„œë¶€í„° ì œì¼ ì‘ì€ fd ë¥¼ ì°¾ëŠ”ë‹¤.
+        // m_MinFD ìë¦¬ëŠ” í˜„ì¬ NULL ì´ ë˜ì–´ ìˆìŒì„ ìœ ì˜í•˜ë¼.
         int i = m_MinFD;
         for (; i <= m_MaxFD; i++) {
             if (m_pPlayers[i] != NULL || i == m_ServerFD) {
@@ -539,15 +539,15 @@ void LoginPlayerManager::deletePlayer_NOLOCKED(SOCKET fd) {
             }
         }
 
-        // ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
-        // ÀÌ¶§¿¡´Â m_MinFD == m_MaxFD ÀÎ °æ¿ìÀÌ´Ù.
-        // ÀÌ¶§¿¡´Â µÑ ´Ù -1 ·Î ¼³Á¤ÇØÁÖÀÚ.
+        // ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
+        // ì´ë•Œì—ëŠ” m_MinFD == m_MaxFD ì¸ ê²½ìš°ì´ë‹¤.
+        // ì´ë•Œì—ëŠ” ë‘˜ ë‹¤ -1 ë¡œ ì„¤ì •í•´ì£¼ì.
         if (i > m_MaxFD)
             m_MinFD = m_MaxFD = -1;
 
     } else if (fd == m_MaxFD) {
-        // µÚ¿¡¼­ºÎÅÍ °¡Àå Å« fd ¸¦ Ã£´Â´Ù.
-        // ServerFD ¿¡ À¯ÀÇÇÒ °Í! ( ServerFD ÀÇ °æ¿ì Player Æ÷ÀÎÅÍ´Â NULL ÀÌ´Ù. )
+        // ë’¤ì—ì„œë¶€í„° ê°€ì¥ í° fd ë¥¼ ì°¾ëŠ”ë‹¤.
+        // ServerFD ì— ìœ ì˜í•  ê²ƒ! ( ServerFD ì˜ ê²½ìš° Player í¬ì¸í„°ëŠ” NULL ì´ë‹¤. )
         int i = m_MaxFD;
         for (; i >= m_MinFD; i--) {
             if (m_pPlayers[i] != NULL || i == m_ServerFD) {
@@ -556,15 +556,15 @@ void LoginPlayerManager::deletePlayer_NOLOCKED(SOCKET fd) {
             }
         }
 
-        // ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
+        // ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
         if (i < m_MinFD) {
             throw UnknownError("m_MinFD & m_MaxFD problem.");
         }
     }
 
-    // ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ off ½ÃÅ²´Ù.
-    // m_XXXFDs[1]µµ °íÃÄ¾ß ÇÏ´Â ÀÌÀ¯´Â, ÀÌÈÄ Ã³¸®¿¡¼­ °´Ã¼°¡ ¾ø¾îÁ³´Âµ¥µµ
-    // Ã³¸®¹ŞÀ» È®·üÀÌ ÀÖ±â ¶§¹®ÀÌ´Ù.
+    // ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ off ì‹œí‚¨ë‹¤.
+    // m_XXXFDs[1]ë„ ê³ ì³ì•¼ í•˜ëŠ” ì´ìœ ëŠ”, ì´í›„ ì²˜ë¦¬ì—ì„œ ê°ì²´ê°€ ì—†ì–´ì¡ŒëŠ”ë°ë„
+    // ì²˜ë¦¬ë°›ì„ í™•ë¥ ì´ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
     FD_CLR(fd, &m_ReadFDs[0]);
     FD_CLR(fd, &m_ReadFDs[1]);
     FD_CLR(fd, &m_WriteFDs[0]);
@@ -587,7 +587,7 @@ void LoginPlayerManager::deletePlayer(SOCKET fd) {
 
 
 //----------------------------------------------------------------------
-// ·Î±×ÀÎ ¼­¹ö¿¡ Á¢¼ÓÇÑ Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ °Ë»öÇÑ´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì— ì ‘ì†í•œ íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ê²€ìƒ‰í•œë‹¤.
 //----------------------------------------------------------------------
 LoginPlayer* LoginPlayerManager::getPlayer_NOLOCKED(const string& id) const {
     __BEGIN_TRY
@@ -611,7 +611,7 @@ LoginPlayer* LoginPlayerManager::getPlayer_NOLOCKED(const string& id) const {
     }
 
     if (pLoginPlayer == NULL)
-        throw NoSuchElementException("±×·± ¾ÆÀÌµğ¸¦ °¡Áø ÇÃ·¹ÀÌ¾î´Â Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        throw NoSuchElementException("ê·¸ëŸ° ì•„ì´ë””ë¥¼ ê°€ì§„ í”Œë ˆì´ì–´ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
     return pLoginPlayer;
 
@@ -635,7 +635,7 @@ LoginPlayer* LoginPlayerManager::getPlayer(const string& id) const {
 
 
 //--------------------------------------------------------------------------------
-// ·Î±×ÀÎ ¼­¹ö¿¡ Á¢¼ÓÇÑ ¸ğµç ÇÃ·¹ÀÌ¾îµé¿¡°Ô Æ¯Á¤ ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì— ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì—ê²Œ íŠ¹ì • íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::broadcastPacket(Packet* pPacket) {
     __BEGIN_TRY
@@ -651,7 +651,7 @@ void LoginPlayerManager::broadcastPacket(Packet* pPacket) {
 
 
 //--------------------------------------------------------------------------------
-// ·Î±×ÀÎ ¼­¹ö¿¡ Á¢¼ÓÇÑ Æ¯Á¤ ÇÃ·¹ÀÌ¾î¿¡°Ô Æ¯Á¤ ÆĞÅ¶À» º¸³½´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì— ì ‘ì†í•œ íŠ¹ì • í”Œë ˆì´ì–´ì—ê²Œ íŠ¹ì • íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::sendPacket(const string& id, Packet* pPacket) {
     __BEGIN_TRY

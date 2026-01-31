@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : CGStashList.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// Å¬¶óÀÌ¾ðÆ®°¡ º¸°üÇÔ ¾È¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¸¦ ¿ä±¸ÇÒ ¶§ ¾²ÀÌ´Â
-// ÆÐÅ¶ÀÌ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ê´€í•¨ ì•ˆì— ë“¤ì–´ìžˆëŠ” ì•„ì´í…œì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ìš”êµ¬í•  ë•Œ ì“°ì´ëŠ”
+// íŒ¨í‚·ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_STASH_LIST_H__
@@ -46,7 +46,7 @@ public:
     }
 
 private:
-    ObjectID_t m_ObjectID; // ÇÃ·¹ÀÌ¾î Å©¸®ÃÄÀÇ object id
+    ObjectID_t m_ObjectID; // í”Œë ˆì´ì–´ í¬ë¦¬ì³ì˜ object id
 };
 
 

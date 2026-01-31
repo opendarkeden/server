@@ -61,7 +61,7 @@ void VariableInfo::parse()
     do {
         j = parameters.find_first_of(ParamSeperator, i);
 
-        // seperator °¡ ¾ø´Ù¸é ¸¶Áö¸· °ªÀÌ´Ù.
+        // seperator ê°€ ì—†ë‹¤ë©´ ë§ˆì§€ë§‰ ê°’ì´ë‹¤.
         if (j == string::npos) {
             j = parameters.size();
             bEnd = true;

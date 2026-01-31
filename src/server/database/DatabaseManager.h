@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : DatabaseManager.h
 // Written By  : elca
-// Description : µ¥ÀÌÅ¸º£ÀÌ½º ¸Å´ÏÀú
+// Description : ë°ì´íƒ€ë² ì´ìŠ¤ ë§¤ë‹ˆì €
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __DATABASE_MANAGER_H__
@@ -41,57 +41,57 @@ public:
 
     //--------------------------------------------------------------------
     // * elca's NOTE
-    // ·Î±×ÀÎ ¼­¹ö¿¡¼­´Â Ä³¸¯ÅÍÀÇ Á¤º¸¸¦ ¾îµð¼­ ¾ò¾î¿À´ÂÁö ¾Ë¾Æ³»±â À§ÇÏ¿©
-    // DBÀÇ À§Ä¡¸¦ ¾Ë¾Æ³» ¿Â´Ù.
-    // ¸ÞÀÎ DB¿¡¼­´Â DBÀÇ À§Ä¡¸¦ Æ÷ÇÔÇÏ´Â TableÀÌ Á¸ÀçÇØ¾ß ÇÑ´Ù.
-    // GameServerIP·Î »Ì¾Æ ³¾ ¼öµµ ÀÖÁö¸¸ DB¿Í GameServer°¡ ´Ù¸¥ °æ¿ì¸¦
-    // »ý°¢ÇÏ¿© È®Àå¼ºÀ» °í·ÁÇÑ´Ù.
+    // ë¡œê·¸ì¸ ì„œë²„ì—ì„œëŠ” ìºë¦­í„°ì˜ ì •ë³´ë¥¼ ì–´ë””ì„œ ì–»ì–´ì˜¤ëŠ”ì§€ ì•Œì•„ë‚´ê¸° ìœ„í•˜ì—¬
+    // DBì˜ ìœ„ì¹˜ë¥¼ ì•Œì•„ë‚´ ì˜¨ë‹¤.
+    // ë©”ì¸ DBì—ì„œëŠ” DBì˜ ìœ„ì¹˜ë¥¼ í¬í•¨í•˜ëŠ” Tableì´ ì¡´ìž¬í•´ì•¼ í•œë‹¤.
+    // GameServerIPë¡œ ë½‘ì•„ ë‚¼ ìˆ˜ë„ ìžˆì§€ë§Œ DBì™€ GameServerê°€ ë‹¤ë¥¸ ê²½ìš°ë¥¼
+    // ìƒê°í•˜ì—¬ í™•ìž¥ì„±ì„ ê³ ë ¤í•œë‹¤.
     //--------------------------------------------------------------------
 
     //--------------------------------------------------------------------
     // * elca's NOTE
-    // °¢ °ÔÀÓ ¼­¹öÀÇ °æ¿ì Parent/Main DB¸¸À» ¾Ë¸é µÈ´Ù.
-    // ¸ÞÀÎ DB ¼­¹öÀÇ ¿ùµå ¾ÆÀÌµð´Â ¹«Á¶°Ç 0 ¹øÀÌ¶ó°í ¾àÁ¤ÇÏ°í
-    // ¸ÞÀÎ DB ¼­¹ö¿¡ Äõ¸®´Â 0 ¹ø ÀÎÀÚ·Î ³Ñ±ä´Ù.
-    // °ÔÀÓ ¼­¹öÀÏ °æ¿ì ÀÌ 0 ¹øÀÇ Ä¿³Ø¼Ç¸¸ °¡Áö°í ÀÖÀ¸¸é µÈ´Ù.
-    // È¤½Ã³ª ÇÏ´Â ¹ö±×ÀÇ ¿ì·Á°¡ ÀÖ±â ¶§¹®¿¡ Àý´ë ´Ù¸¥ Ä¿³Ø¼ÇÀº ¿­Áö ¾Êµµ·Ï
-    // ÁÖÀÇ ÇÏµµ·Ï ÇÑ´Ù.
-    // ÀÏ¹Ý °ÔÀÓ ¼­¹ö¿¡¼­ÀÇ Äõ¸®´Â ¾²·¹µå º°·Î ³ª´µ¾îÁ® ÀÖ±â ¶§¹®¿¡
-    // ½Å°æ¾²Áö ¾Êµµ·Ï ÇÑ´Ù.
+    // ê° ê²Œìž„ ì„œë²„ì˜ ê²½ìš° Parent/Main DBë§Œì„ ì•Œë©´ ëœë‹¤.
+    // ë©”ì¸ DB ì„œë²„ì˜ ì›”ë“œ ì•„ì´ë””ëŠ” ë¬´ì¡°ê±´ 0 ë²ˆì´ë¼ê³  ì•½ì •í•˜ê³ 
+    // ë©”ì¸ DB ì„œë²„ì— ì¿¼ë¦¬ëŠ” 0 ë²ˆ ì¸ìžë¡œ ë„˜ê¸´ë‹¤.
+    // ê²Œìž„ ì„œë²„ì¼ ê²½ìš° ì´ 0 ë²ˆì˜ ì»¤ë„¥ì…˜ë§Œ ê°€ì§€ê³  ìžˆìœ¼ë©´ ëœë‹¤.
+    // í˜¹ì‹œë‚˜ í•˜ëŠ” ë²„ê·¸ì˜ ìš°ë ¤ê°€ ìžˆê¸° ë•Œë¬¸ì— ì ˆëŒ€ ë‹¤ë¥¸ ì»¤ë„¥ì…˜ì€ ì—´ì§€ ì•Šë„ë¡
+    // ì£¼ì˜ í•˜ë„ë¡ í•œë‹¤.
+    // ì¼ë°˜ ê²Œìž„ ì„œë²„ì—ì„œì˜ ì¿¼ë¦¬ëŠ” ì“°ë ˆë“œ ë³„ë¡œ ë‚˜ë‰˜ì–´ì ¸ ìžˆê¸° ë•Œë¬¸ì—
+    // ì‹ ê²½ì“°ì§€ ì•Šë„ë¡ í•œë‹¤.
     //--------------------------------------------------------------------
     Connection* getConnection(int TID);
     //	void addConnection(WorldID_t WorldID, Connection * pConnection) throw(DuplicatedException);
 
 private:
-    // °¢ ¾²·¹µåº°·Î Á¸ÀçÇÏ´Â DB ¿¬°á
+    // ê° ì“°ë ˆë“œë³„ë¡œ ì¡´ìž¬í•˜ëŠ” DB ì—°ê²°
     unordered_map<int, Connection*> m_Connections;
 
-    // °¢ ¾²·¹µåº°·Î Á¸ÀçÇÏ´Â Distribute DB ¿¬°á
+    // ê° ì“°ë ˆë“œë³„ë¡œ ì¡´ìž¬í•˜ëŠ” Distribute DB ì—°ê²°
     unordered_map<int, Connection*> m_DistConnections;
 
     //	unordered_map<WorldID_t, Connection*> m_WorldConnections;
     unordered_map<int, Connection*> m_WorldConnections;
 
-    // °¢ ¾²·¹µåº°·Î Á¸ÀçÇÏ´Â CBilling DB ¿¬°á
+    // ê° ì“°ë ˆë“œë³„ë¡œ ì¡´ìž¬í•˜ëŠ” CBilling DB ì—°ê²°
     unordered_map<int, Connection*> m_CBillingConnections;
 
-    // PC¹æ ÅëÇÕ¿ë DB ¿¬°á
+    // PCë°© í†µí•©ìš© DB ì—°ê²°
     //	unordered_map<int, Connection*> m_PCRoomConnections;
 
-    // °¢ ¿ùµåº°·Î Á¸ÀçÇÏ´Â DB ¿¬°á
+    // ê° ì›”ë“œë³„ë¡œ ì¡´ìž¬í•˜ëŠ” DB ì—°ê²°
 
-    // Á¦ÀÏ Ã³À½ »ý¼ºµÇ´Â ±âº» DB ¿¬°á
+    // ì œì¼ ì²˜ìŒ ìƒì„±ë˜ëŠ” ê¸°ë³¸ DB ì—°ê²°
     Connection* m_pDefaultConnection;
 
-    // Á¦ÀÏ Ã³À½ »ý¼ºµÇ´Â ÃÖ »óÀ§ DBÀÇ ±âº» ¿¬°á
+    // ì œì¼ ì²˜ìŒ ìƒì„±ë˜ëŠ” ìµœ ìƒìœ„ DBì˜ ê¸°ë³¸ ì—°ê²°
     Connection* m_pWorldDefaultConnection;
 
-    // »ç¿ëÀÚ Åë°è °ü·Ã DB ¿¬°á
+    // ì‚¬ìš©ìž í†µê³„ ê´€ë ¨ DB ì—°ê²°
     Connection* m_pUserInfoConnection;
 
     Connection* m_pDistConnection;
 
-    // PC¹æ ÅëÇÕ¿ë DB ¿¬°á default. ·Î±×ÀÎ ¼­¹ö¿¡¼­ ¾´´Ù.
+    // PCë°© í†µí•©ìš© DB ì—°ê²° default. ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ì“´ë‹¤.
     //	Connection* m_pPCRoomConnection;
 
     mutable Mutex m_Mutex;

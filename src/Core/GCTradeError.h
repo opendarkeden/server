@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradeError.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,50 +11,50 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¿¡·¯ ÄÚµå
+// ì—ëŸ¬ ì½”ë“œ
 ////////////////////////////////////////////////////////////////////////////////
 
 enum {
-    // ±³È¯À» ¿ä±¸ÇÑ ´ë»óÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù
+    // êµí™˜ì„ ìš”êµ¬í•œ ëŒ€ìƒì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤
     GC_TRADE_ERROR_CODE_TARGET_NOT_EXIST = 0,
 
-    // ±³È¯À» ¿ä±¸ÇÑ ´ë»óÀÌ ´Ù¸¥ Á¾Á·ÀÌ´Ù
+    // êµí™˜ì„ ìš”êµ¬í•œ ëŒ€ìƒì´ ë‹¤ë¥¸ ì¢…ì¡±ì´ë‹¤
     GC_TRADE_ERROR_CODE_RACE_DIFFER,
 
-    // ±³È¯À» ÇÏ·Á°í ÇÏ´Â °÷ÀÌ ¾ÈÀü Áö´ë°¡ ¾Æ´Ï´Ù.
+    // êµí™˜ì„ í•˜ë ¤ê³  í•˜ëŠ” ê³³ì´ ì•ˆì „ ì§€ëŒ€ê°€ ì•„ë‹ˆë‹¤.
     GC_TRADE_ERROR_CODE_NOT_SAFE,
 
-    // ¸ðÅÍ»çÀÌÅ¬À» Åº Ã¤·Î ±³È¯À» ½ÃµµÇÏ°í ÀÖ´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì„ íƒ„ ì±„ë¡œ êµí™˜ì„ ì‹œë„í•˜ê³  ìžˆë‹¤.
     GC_TRADE_ERROR_CODE_MOTORCYCLE,
 
-    // ´Á´ë³ª ¹ÚÁã »óÅÂ¿¡¼­´Â ±³È¯À» ÇÒ ¼ö ¾ø´Ù.
+    // ëŠ‘ëŒ€ë‚˜ ë°•ì¥ ìƒíƒœì—ì„œëŠ” êµí™˜ì„ í•  ìˆ˜ ì—†ë‹¤.
     GC_TRADE_ERROR_CODE_BAT_OR_WOLF,
 
-    // ±³È¯ ÁßÀÌ¸é¼­ ´Ù½Ã ±³È¯À» ÇÏ·Á°í ÇÑ´Ù
+    // êµí™˜ ì¤‘ì´ë©´ì„œ ë‹¤ì‹œ êµí™˜ì„ í•˜ë ¤ê³  í•œë‹¤
     GC_TRADE_ERROR_CODE_ALREADY_TRADING,
 
-    // ±³È¯ ÁßÀÌ ¾Æ´Ñµ¥, ±³È¯ °ü·Ã ÆÐÅ¶ÀÌ ³¯¾Æ¿Ô´Ù.
+    // êµí™˜ ì¤‘ì´ ì•„ë‹Œë°, êµí™˜ ê´€ë ¨ íŒ¨í‚·ì´ ë‚ ì•„ì™”ë‹¤.
     GC_TRADE_ERROR_CODE_NOT_TRADING,
 
-    // ±³È¯ ´ë»ó¿¡ ´õÇÏ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖÁö ¾Ê´Ù
+    // êµí™˜ ëŒ€ìƒì— ë”í•˜ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìžˆì§€ ì•Šë‹¤
     GC_TRADE_ERROR_CODE_ADD_ITEM,
 
-    // ±³È¯ ´ë»ó¿¡¼­ »©·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖÁö ¾Ê´Ù
+    // êµí™˜ ëŒ€ìƒì—ì„œ ë¹¼ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìžˆì§€ ì•Šë‹¤
     GC_TRADE_ERROR_CODE_REMOVE_ITEM,
 
-    // ±³È¯ ´ë»ó¿¡ ´õÇÏ·Á°í ÇÏ´Â µ·À» °¡Áö°í ÀÖÁö ¾Ê´Ù.
+    // êµí™˜ ëŒ€ìƒì— ë”í•˜ë ¤ê³  í•˜ëŠ” ëˆì„ ê°€ì§€ê³  ìžˆì§€ ì•Šë‹¤.
     GC_TRADE_ERROR_CODE_INCREASE_MONEY,
 
-    // ±³È¯ ´ë»ó¿¡¼­ »©·Á°í ÇÏ´Â µ·À» °¡Áö°í ÀÖÁö ¾Ê´Ù.
+    // êµí™˜ ëŒ€ìƒì—ì„œ ë¹¼ë ¤ê³  í•˜ëŠ” ëˆì„ ê°€ì§€ê³  ìžˆì§€ ì•Šë‹¤.
     GC_TRADE_ERROR_CODE_DECREASE_MONEY,
 
-    // ±³È¯À» Çß´Âµ¥, ÀÚ¸®°¡ ¸ðÀÚ¶ó¼­ ½ÇÆÐÇß´Ù
+    // êµí™˜ì„ í–ˆëŠ”ë°, ìžë¦¬ê°€ ëª¨ìžë¼ì„œ ì‹¤íŒ¨í–ˆë‹¤
     GC_TRADE_ERROR_CODE_NOT_ENOUGH_SPACE,
 
-    // ±³È¯À» Çß´Âµ¥, ¼±¹° »óÀÚ ±³È¯ Á¶°Ç ¶§¹®¿¡ ½ÇÆÐÇß´Ù
+    // êµí™˜ì„ í–ˆëŠ”ë°, ì„ ë¬¼ ìƒìž êµí™˜ ì¡°ê±´ ë•Œë¬¸ì— ì‹¤íŒ¨í–ˆë‹¤
     GC_TRADE_ERROR_CODE_EVENT_GIFT_BOX,
 
-    // ¾Ë ¼ö ¾ø´Â ¿¡·¯ÀÌ´Ù...
+    // ì•Œ ìˆ˜ ì—†ëŠ” ì—ëŸ¬ì´ë‹¤...
     GC_TRADE_ERROR_CODE_UNKNOWN,
 
     GC_TRADE_ERROR_CODE_MAX
@@ -100,8 +100,8 @@ public:
     }
 
 private:
-    ObjectID_t m_TargetObjectID; // ±³È¯ÀÇ ´ë»ó ¾ÆÀÌµð
-    BYTE m_Code;                 // ÄÚµå
+    ObjectID_t m_TargetObjectID; // êµí™˜ì˜ ëŒ€ìƒ ì•„ì´ë””
+    BYTE m_Code;                 // ì½”ë“œ
 };
 
 

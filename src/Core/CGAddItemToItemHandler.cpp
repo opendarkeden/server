@@ -5,20 +5,20 @@
 //////////////////////////////////////////////////////////////////////////////
 /*
 
-// ÇÑ ¾ÆÀÌÅÛÀ» µé¾î¼­ ´Ù¸¥ ¾ÆÀÌÅÛ¿¡ ³Ö´Â´Ù.
+// Ã‡Ã‘ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» ÂµÃ©Â¾Ã®Â¼Â­ Â´Ã™Â¸Â¥ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ Â³Ã–Â´Ã‚Â´Ã™.
  [Client]                                               [Server]
            -- CGAddItemToItem
               (mouseItem_ObjectID, invenX, invenY)
-              =(¸¶¿ì½º¿¡ µé°íÀÖ´Â º°, upgradeÇÒ item XY) -->
+              =(Â¸Â¶Â¿Ã¬Â½ÂºÂ¿Â¡ ÂµÃ©Â°Ã­Ã€Ã–Â´Ã‚ ÂºÂ°, upgradeÃ‡Ã’ item XY) -->
 
-            <-- GCAddItemToItemVerify(°á°úÄÚµå, °ü·Ã°ª) ---
+            <-- GCAddItemToItemVerify(Â°Ã¡Â°ÃºÃ„ÃšÂµÃ¥, Â°Ã¼Â·ÃƒÂ°Âª) ---
 
 //-------------+---------------------------------------------
-// »ç¿ë packet | client Ã³¸®
+// Â»Ã§Â¿Ã« packet | client ÃƒÂ³Â¸Â®
 //-------------+---------------------------------------------
-// ºÒ°¡ packet | ºÒ°¡ message Ãâ·Â
-// ½ÇÆĞ packet | ½ÇÆĞ message Ãâ·Â, º° »èÁ¦, [¾ÆÀÌÅÛ Á¦°Å]
-// ¼º°ø packet | º° »èÁ¦, optionº¯°æ
+// ÂºÃ’Â°Â¡ packet | ÂºÃ’Â°Â¡ message ÃƒÃ¢Â·Ã‚
+// Â½Ã‡Ã†Ã packet | Â½Ã‡Ã†Ã message ÃƒÃ¢Â·Ã‚, ÂºÂ° Â»Ã¨ÃÂ¦, [Â¾Ã†Ã€ÃŒÃ…Ã› ÃÂ¦Â°Ã…]
+// Â¼ÂºÂ°Ã¸ packet | ÂºÂ° Â»Ã¨ÃÂ¦, optionÂºÂ¯Â°Ã¦
 //-------------+---------------------------------------------
 */
 
@@ -68,7 +68,7 @@ void downgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo
 
 void sendEnchantImpossible(GamePlayer* pGamePlayer);
 void sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange);
-// add by sonic ³åÈıÊôĞÔ·µ»ØµÄ·â°ü
+// add by sonic Â³Ã¥ÃˆÃ½ÃŠÃ´ÃÃ”Â·ÂµÂ»Ã˜ÂµÃ„Â·Ã¢Â°Ã¼
 void sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange, DWORD optionCHange2);
 
 #endif // __GAME_SERVER__
@@ -99,7 +99,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
         CoordInven_t invenX = pPacket->getX();
         CoordInven_t invenY = pPacket->getY();
 
-        // ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ»¶§(ÁÂÇ¥Ã¼Å©µµ ÇÏ°Ô µÈ´Ù.)
+        // Ã€ÃÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã¸Ã€Â»Â¶Â§(ÃÃ‚Ã‡Â¥ÃƒÂ¼Ã…Â©ÂµÂµ Ã‡ÃÂ°Ã” ÂµÃˆÂ´Ã™.)
         if (!pInventory->hasItem(invenX, invenY)) {
             GCAddItemToItemVerify gcAddItemToItemVerify;
             gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
@@ -107,14 +107,14 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             return;
         }
 
-        // ¸¶¿ì½º ¾ÆÀÌÅÛ
+        // Â¸Â¶Â¿Ã¬Â½Âº Â¾Ã†Ã€ÃŒÃ…Ã›
         Item* pMouseItem = pPC->getExtraInventorySlotItem();
 
-        // ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛ
+        // Ã€ÃÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›
         Item* pItem = pInventory->getItem(invenX, invenY);
 
-        // ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª
-        // objectID°¡ Àß¸øµÈ °æ¿ì
+        // Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã¸Â°Ã…Â³Âª
+        // objectIDÂ°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃˆ Â°Ã¦Â¿Ã¬
         if (pMouseItem == NULL || pItem == NULL || pMouseItem->getObjectID() != objectID || pMouseItem->getNum() != 1) {
             // cout << "Wrong Item" << endl;
 
@@ -131,7 +131,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
         // 				ITEM_CLASS_EVENT_STAR
         //
         //---------------------------------------------------------
-        // ¾ÆÀÌÅÛÀÇ ¿É¼ÇÀ» upgrade ½ÃÅ²´Ù.
+        // Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ Â¿Ã‰Â¼Ã‡Ã€Â» upgrade Â½ÃƒÃ…Â²Â´Ã™.
         //---------------------------------------------------------
         case Item::ITEM_CLASS_EVENT_STAR: {
             ItemInfo* pItemInfo = g_pEventStarInfoManager->getItemInfo(pMouseItem->getItemType());
@@ -141,7 +141,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             Assert(pEventStarInfo != NULL);
 
             int optionSize = pItem->getOptionTypeSize();
-            // Éı¼¶×°±¸µÈ¼¶
+            // Ã‰Ã½Â¼Â¶Ã—Â°Â±Â¸ÂµÃˆÂ¼Â¶
             if ((pEventStarInfo->getFunctionFlag() & EventStarInfo::FUNCTION_UP_GRADE) != 0) {
                 executeUpGrade(pGamePlayer, pMouseItem, pItem);
             } else if (pEventStarInfo->isFunctionTransKit()) {
@@ -151,7 +151,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             else if (optionSize > 1) // by sigi. 2002.10.21
             {
                 if (pEventStarInfo->isFunctionEnchantRareOption()) {
-                    if (pMouseItem->getItemType() == 6) // ³åÈıÊôĞÔ×°±¸
+                    if (pMouseItem->getItemType() == 6) // Â³Ã¥ÃˆÃ½ÃŠÃ´ÃÃ”Ã—Â°Â±Â¸
                         executeEnchantRareThreeOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
                     else
                         executeEnchantRareOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
@@ -174,7 +174,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
         case Item::ITEM_CLASS_PET_ENCHANT_ITEM: {
             // cout << "Trying Pet Enchant... " << endl;
             if (pItem->getItemClass() != Item::ITEM_CLASS_PET_ITEM) {
-                // cout << "Æê ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇÑ°Ô ¾Æ´Ô´Ù." << endl;
+                // cout << "Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡Â´Ã™Â°Â¡ Ã‡Ã‘Â°Ã” Â¾Ã†Â´Ã”Â´Ã™." << endl;
                 GCAddItemToItemVerify gcAddItemToItemVerify;
                 gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                 pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -188,7 +188,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
             PetInfo* pPetInfo = NULL;
             if (pPetItem == NULL || (pPetInfo = pPetItem->getPetInfo()) == NULL) {
-                // cout << "Æê ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª Æê ¾ÆÀÌÅÛ¿¡ Æê »óÅÂ°¡ ¾ø½À´Ï´Ù." << endl;
+                // cout << "Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã†Â´ÃÂ°Ã…Â³Âª Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ Ã†Ãª Â»Ã³Ã…Ã‚Â°Â¡ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™." << endl;
                 GCAddItemToItemVerify gcAddItemToItemVerify;
                 gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                 pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -204,19 +204,19 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             switch (pItemInfo->getFunction()) {
             case PetEnchantItemInfo::ENCHANT_FUNCTION: {
                 if (pPetInfo->getPetAttr() != 0xff) {
-                    // cout << "ÀÌ¹Ì ÀÎÃ¦Æ®µÈ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
+                    // cout << "Ã€ÃŒÂ¹ÃŒ Ã€ÃÃƒÂ¦Ã†Â®ÂµÃˆ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã”Â´ÃÂ´Ã™." << endl;
                     GCAddItemToItemVerify gcAddItemToItemVerify;
                     gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
                     return;
                 }
-                // cout << "Ç¥ÁØ ÀÎÃ¦Æ® ½ÃµµÁßÀÔ´Ï´Ù." << endl;
+                // cout << "Ã‡Â¥ÃÃ˜ Ã€ÃÃƒÂ¦Ã†Â® Â½ÃƒÂµÂµÃÃŸÃ€Ã”Â´ÃÂ´Ã™." << endl;
                 pPC->deleteItemFromExtraInventorySlot();
                 pMouseItem->destroy();
                 SAFE_DELETE(pMouseItem);
 
                 if (PetAttrInfoManager::Instance().enchantRandomAttr(pPetInfo, pItemInfo->getFunctionGrade())) {
-                    // cout << "ÀÎÃ¦Æ® ¼º°ø." << endl;
+                    // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸." << endl;
                     pPetItem->savePetInfo();
 
                     GCAddItemToItemVerify gcAddItemToItemVerify;
@@ -227,13 +227,13 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
 
                     if (pPC->getPetInfo() == pPetInfo) {
-                        // cout << "ÀÌ¹Ì ºÒ·¯Á®ÀÖ¾î¼­ ÆĞÅ¶ º¸³»´Â ÁßÀÔ´Ï´Ù." << endl;
+                        // cout << "Ã€ÃŒÂ¹ÃŒ ÂºÃ’Â·Â¯ÃÂ®Ã€Ã–Â¾Ã®Â¼Â­ Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â»Â´Ã‚ ÃÃŸÃ€Ã”Â´ÃÂ´Ã™." << endl;
                         sendPetInfo(pGamePlayer, true);
                         pPC->initAllStatAndSend();
                     }
                     return;
                 } else {
-                    // cout << "ÀÎÃ¦Æ® ½ÇÆĞ" << endl;
+                    // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â½Ã‡Ã†Ã" << endl;
                     GCAddItemToItemVerify gcAddItemToItemVerify;
                     gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL);
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -242,7 +242,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             } break;
             case PetEnchantItemInfo::SPEC_OPTION_FUNCTION: {
                 if (pPetInfo->getPetAttr() != 0xff) {
-                    // cout << "ÀÌ¹Ì ÀÎÃ¦Æ®µÈ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
+                    // cout << "Ã€ÃŒÂ¹ÃŒ Ã€ÃÃƒÂ¦Ã†Â®ÂµÃˆ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã”Â´ÃÂ´Ã™." << endl;
                     GCAddItemToItemVerify gcAddItemToItemVerify;
                     gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -276,9 +276,9 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
                 }
             } break;
             case PetEnchantItemInfo::RARE_FUNCTION: {
-                // cout << "Æê ·¹¾î ÀÎÃ¦Æ® ÁßÀÔ´Ï´Ù." << endl;
+                // cout << "Ã†Ãª Â·Â¹Â¾Ã® Ã€ÃÃƒÂ¦Ã†Â® ÃÃŸÃ€Ã”Â´ÃÂ´Ã™." << endl;
                 if (pPetInfo->getPetLevel() != 49) {
-                    // cout << "·¹º§µµ ¾ÈµÈ ³Ñ ÀÎÃ¦Æ®ÇÏÁö ¸¶¼À" << endl;
+                    // cout << "Â·Â¹ÂºÂ§ÂµÂµ Â¾ÃˆÂµÃˆ Â³Ã‘ Ã€ÃÃƒÂ¦Ã†Â®Ã‡ÃÃÃ¶ Â¸Â¶Â¼Ã€" << endl;
                     GCAddItemToItemVerify gcAddItemToItemVerify;
                     gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -321,9 +321,9 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
                 pItem->tinysave(query);
             } break;
             case PetEnchantItemInfo::REVIVAL_FUNCTION: {
-                // cout << "ºÎÈ° ½ÃµµÁß ÀÔ´Ï´Ù."  << endl;
+                // cout << "ÂºÃÃˆÂ° Â½ÃƒÂµÂµÃÃŸ Ã€Ã”Â´ÃÂ´Ã™."  << endl;
                 if (pPetInfo->getPetHP() != 0) {
-                    // cout << "¾È Á×Àº ¾Ö ºÎÈ°½ÃÅ°Áö ¸¶¼À" << endl;
+                    // cout << "Â¾Ãˆ ÃÃ—Ã€Âº Â¾Ã– ÂºÃÃˆÂ°Â½ÃƒÃ…Â°ÃÃ¶ Â¸Â¶Â¼Ã€" << endl;
                     GCAddItemToItemVerify gcAddItemToItemVerify;
                     gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -361,7 +361,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             } break;
             case PetEnchantItemInfo::MUTANT_FUNCTION: {
                 if (pPetInfo->getPetType() != 1) {
-                    cout << "¿ïÇÁµ¶ÀÌ ¾Æ´Ï¶ø´Ï´Ù." << endl;
+                    cout << "Â¿Ã¯Ã‡ÃÂµÂ¶Ã€ÃŒ Â¾Ã†Â´ÃÂ¶Ã¸Â´ÃÂ´Ã™." << endl;
                     GCAddItemToItemVerify gcAddItemToItemVerify;
                     gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                     pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -423,7 +423,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
 
         case Item::ITEM_CLASS_MIXING_ITEM: {
             if (pItem->getItemClass() != Item::ITEM_CLASS_PET_ITEM) {
-                // cout << "Æê ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇÑ°Ô ¾Æ´Ô´Ù." << endl;
+                // cout << "Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡Â´Ã™Â°Â¡ Ã‡Ã‘Â°Ã” Â¾Ã†Â´Ã”Â´Ã™." << endl;
                 GCAddItemToItemVerify gcAddItemToItemVerify;
                 gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                 pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -435,7 +435,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             Assert(pItemInfo != NULL);
 
             if (pItemInfo->getType() != MixingItemInfo::TYPE_DETACH) {
-                // cout << "Æê ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇÑ°Ô ¾Æ´Ô´Ù." << endl;
+                // cout << "Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡Â´Ã™Â°Â¡ Ã‡Ã‘Â°Ã” Â¾Ã†Â´Ã”Â´Ã™." << endl;
                 GCAddItemToItemVerify gcAddItemToItemVerify;
                 gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                 pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -445,7 +445,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
             PetInfo* pPetInfo = NULL;
             if (pPetItem == NULL || (pPetInfo = pPetItem->getPetInfo()) == NULL || pPetInfo->getPetOption() == 0) {
-                // cout << "Æê ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª Æê ¾ÆÀÌÅÛ¿¡ Æê »óÅÂ°¡ ¾ø½À´Ï´Ù." << endl;
+                // cout << "Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã†Â´ÃÂ°Ã…Â³Âª Ã†Ãª Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ Ã†Ãª Â»Ã³Ã…Ã‚Â°Â¡ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™." << endl;
                 GCAddItemToItemVerify gcAddItemToItemVerify;
                 gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
                 pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -466,7 +466,7 @@ void CGAddItemToItemHandler::execute(CGAddItemToItem* pPacket, Player* pPlayer) 
             pGamePlayer->sendPacket(&gcAddItemToItemVerify);
 
             if (pPC->getPetInfo() == pPetInfo) {
-                // cout << "ÀÌ¹Ì ºÒ·¯Á®ÀÖ¾î¼­ ÆĞÅ¶ º¸³»´Â ÁßÀÔ´Ï´Ù." << endl;
+                // cout << "Ã€ÃŒÂ¹ÃŒ ÂºÃ’Â·Â¯ÃÂ®Ã€Ã–Â¾Ã®Â¼Â­ Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â»Â´Ã‚ ÃÃŸÃ€Ã”Â´ÃÂ´Ã™." << endl;
                 sendPetInfo(pGamePlayer, true);
                 pPC->initAllStatAndSend();
             }
@@ -533,12 +533,12 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     //		Inventory* 		pInventory  = pPC->getInventory();
 
-    // ½ÇÆĞÇÒ È®·üÀº itemType¿¡ ÀÇÇØ¼­ °áÁ¤µÈ´Ù.
+    // Â½Ã‡Ã†ÃÃ‡Ã’ ÃˆÂ®Â·Ã¼Ã€Âº itemTypeÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ Â°Ã¡ÃÂ¤ÂµÃˆÂ´Ã™.
     const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 
-    // ÀÎÃ¦Æ® ÇÒ·Á´Â ¾ÆÀÌÅÛÀÇ ÇöÀç ¿É¼ÇÀÌ 2°³°¡ ¾Æ´Ï°Å³ª
-    // À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
-    // È¤Àº º°À» 2°³ ÀÌ»ó µé°í ÀÎÃ¦Æ®ÇÒ¶ó°í ÇÒ ¶§
+    // Ã€ÃÃƒÂ¦Ã†Â® Ã‡Ã’Â·ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ Ã‡Ã¶Ã€Ã§ Â¿Ã‰Â¼Ã‡Ã€ÃŒ 2Â°Â³Â°Â¡ Â¾Ã†Â´ÃÂ°Ã…Â³Âª
+    // Ã€Â¯Â´ÃÃ…Â© Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬
+    // ÃˆÂ¤Ã€Âº ÂºÂ°Ã€Â» 2Â°Â³ Ã€ÃŒÂ»Ã³ ÂµÃ©Â°Ã­ Ã€ÃÃƒÂ¦Ã†Â®Ã‡Ã’Â¶Ã³Â°Ã­ Ã‡Ã’ Â¶Â§
     if (pItem->getOptionTypeSize() != 3 || pItemInfo->isUnique() || pMouseItem->getNum() != 1) {
         // cout << "no Option " << endl;
         sendEnchantImpossible(pGamePlayer);
@@ -574,16 +574,16 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
     //		cout << "firstOption : " << pFirstOptionInfo->getName() <<  endl;
     //		cout << "secondOption : " << pSecondOptionInfo->getName() <<  endl;
     //		cout << "thirdOption : " << pThirdOptionInfo->getName() <<  endl;
-    // Éı¼¶ÎïÆ·ÊôĞÔ¼ì²é
+    // Ã‰Ã½Â¼Â¶ÃÃ¯Ã†Â·ÃŠÃ´ÃÃ”Â¼Ã¬Â²Ã©
     if (pFirstOptionInfo == NULL || pSecondOptionInfo == NULL || pThirdOptionInfo == NULL) {
         sendEnchantImpossible(pGamePlayer);
         return;
     }
-    // ¼ì²âÊÇ·ñÊÇ¿ÉÉı¼¶ÎïÆ·
+    // Â¼Ã¬Â²Ã¢ÃŠÃ‡Â·Ã±ÃŠÃ‡Â¿Ã‰Ã‰Ã½Â¼Â¶ÃÃ¯Ã†Â·
     bool bFirstUpgradePossible = pFirstOptionInfo->isUpgradePossible();
     bool bSecondUpgradePossible = pSecondOptionInfo->isUpgradePossible();
     bool bThirdUpgradePossible = pThirdOptionInfo->isUpgradePossible();
-    // ¼ì²âÊôĞÔÉı¼¶¿ÉÄÜ
+    // Â¼Ã¬Â²Ã¢ÃŠÃ´ÃÃ”Ã‰Ã½Â¼Â¶Â¿Ã‰Ã„Ãœ
     if (!bFirstUpgradePossible && !bSecondUpgradePossible && !bThirdUpgradePossible) {
         sendEnchantImpossible(pGamePlayer);
         return;
@@ -591,18 +591,18 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
     // if ((rand() %6000) > diceValue)
     // diceValue*=2;
     if (bFirstUpgradePossible) {
-        // Ã¹¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº ºí·çµå·Ó 2ÀÇ È®·ü¿¡ µû¸¥´Ù.
+        // ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼Ã€Âº ÂºÃ­Â·Ã§ÂµÃ¥Â·Ã“ 2Ã€Ã‡ ÃˆÂ®Â·Ã¼Â¿Â¡ ÂµÃ»Â¸Â¥Â´Ã™.
         int succeedRatio = pFirstOptionInfo->getUpgradeSecondRatio() * (pItemInfo->getUpgradeRatio() + (rand() % 50));
         // int dice = rand()%10000;
         int dice = rand() % diceValue;
         cout << "dice : " << (int)dice << endl;
         cout << "diceValue : " << (int)diceValue << endl;
 
-        // cout << "Ã¹¹øÂ° ¿É¼Ç : " << pFirstOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+        // cout << "ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pFirstOptionInfo->getHName() << " Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼ " << succeedRatio << endl;
         // dice =succeedRatio-1;
-        if (dice < succeedRatio) // Èç¹ûÍ¨¹ı£¬ÔòÉı¼¶×°±¸
+        if (dice < succeedRatio) // ÃˆÃ§Â¹Ã»ÃÂ¨Â¹Ã½Â£Â¬Ã”Ã²Ã‰Ã½Â¼Â¶Ã—Â°Â±Â¸
         {
-            // cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸" << endl;
             processUpgradeOptionType(pItem, firstOption, pFirstOptionInfo);
 
             OptionType_t upgradeOptionType = pFirstOptionInfo->getUpgradeType();
@@ -616,12 +616,12 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
                 int downgradeRatio = 46;
                 dice = rand() % 100;
 
-                cout << "downgradeRatio" << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+                cout << "downgradeRatio" << pItemInfo->getName() << " Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ " << downgradeRatio << endl;
 
                 if (dice < noChangeRatio) {
-                    // º¯È­¾øÀ½
+                    // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
                 } else if (dice < noChangeRatio + downgradeRatio) {
-                    // ¿É¼Ç¶³¾îÁü
+                    // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                     downgradeOptionType(pItem, firstOption, pFirstOptionInfo);
 
                     OptionType_t previousOptionType = pFirstOptionInfo->getPreviousType();
@@ -633,7 +633,7 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
     shiftValue -= 16;
 
     if (bSecondUpgradePossible) {
-        // µÎ¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº Ã¹¹øÂ° ¿É¼ÇÀÇ ¼º°ø¿©ºÎ¿¡ µû¸¥´Ù.
+        // ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼Ã€Âº ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Â¼ÂºÂ°Ã¸Â¿Â©ÂºÃÂ¿Â¡ ÂµÃ»Â¸Â¥Â´Ã™.
 
         int succeedRatio = g_pOptionInfoManager->getRareUpgradeRatio(secondOption, bFirstSucceed) *
                            (pItemInfo->getUpgradeRatio() + (rand() % 50));
@@ -641,10 +641,10 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
         // int dice = rand() %10000;
         int dice = rand() % diceValue;
 
-        // cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+        // cout << "ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pSecondOptionInfo->getHName() << " Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼ " << succeedRatio << endl;
         // dice =succeedRatio-1;
         if (dice < succeedRatio) {
-            // cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸" << endl;
             processUpgradeOptionType(pItem, secondOption, pSecondOptionInfo);
 
             OptionType_t upgradeOptionType = pSecondOptionInfo->getUpgradeType();
@@ -658,12 +658,12 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
                 int downgradeRatio = 46;
                 dice = rand() % 100;
 
-                cout << "downgradeRatio" << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+                cout << "downgradeRatio" << pItemInfo->getName() << " Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ " << downgradeRatio << endl;
 
                 if (dice < noChangeRatio) {
-                    // º¯È­¾øÀ½
+                    // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
                 } else if (dice < noChangeRatio + downgradeRatio) {
-                    // ¿É¼Ç¶³¾îÁü
+                    // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                     downgradeOptionType(pItem, secondOption, pSecondOptionInfo);
 
                     OptionType_t previousOptionType = pSecondOptionInfo->getPreviousType();
@@ -674,16 +674,16 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
     }
     shiftValue = 0;
     if (bThirdUpgradePossible) {
-        // µÎ¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº Ã¹¹øÂ° ¿É¼ÇÀÇ ¼º°ø¿©ºÎ¿¡ µû¸¥´Ù.
+        // ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼Ã€Âº ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Â¼ÂºÂ°Ã¸Â¿Â©ÂºÃÂ¿Â¡ ÂµÃ»Â¸Â¥Â´Ã™.
         int succeedRatio = g_pOptionInfoManager->getRareUpgradeRatio(thirdOption, bFirstSucceed) *
                            (pItemInfo->getUpgradeRatio() + (rand() % 50));
         // int dice = rand() %10000;
 
         int dice = rand() % diceValue;
-        // cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+        // cout << "ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pSecondOptionInfo->getHName() << " Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼ " << succeedRatio << endl;
         // dice =succeedRatio-1;
         if (dice < succeedRatio) {
-            // cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸" << endl;
             processUpgradeOptionType(pItem, thirdOption, pThirdOptionInfo);
 
             OptionType_t upgradeOptionType = pThirdOptionInfo->getUpgradeType();
@@ -696,12 +696,12 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
                 int downgradeRatio = 46;
                 dice = rand() % 100;
 
-                cout << "downgradeRatio" << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+                cout << "downgradeRatio" << pItemInfo->getName() << " Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ " << downgradeRatio << endl;
 
                 if (dice < noChangeRatio) {
-                    // º¯È­¾øÀ½
+                    // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
                 } else if (dice < noChangeRatio + downgradeRatio) {
-                    // ¿É¼Ç¶³¾îÁü
+                    // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                     downgradeOptionType(pItem, thirdOption, pThirdOptionInfo);
 
                     OptionType_t previousOptionType = pThirdOptionInfo->getPreviousType();
@@ -712,16 +712,16 @@ void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, It
     }
 EnOK:
     //{
-    // µé°í ÀÖ´Â º° »èÁ¦
+    // ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ ÂºÂ° Â»Ã¨ÃÂ¦
     pPC->deleteItemFromExtraInventorySlot();
 
-    // DB¿¡¼­ »èÁ¦
+    // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
     pMouseItem->destroy();
 
-    // ¸Ş¸ğ¸®¿¡¼­ »èÁ¦
+    // Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
     SAFE_DELETE(pMouseItem);
 
-    // °á°ú ÆĞÅ¶ º¸³»±â
+    // Â°Ã¡Â°Ãº Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â»Â±Ã¢
     cout << "optionChange : " << optionChange << endl;
     sendEnchantOK(pGamePlayer, optionChange, optionChange2);
 
@@ -737,16 +737,16 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     //		Inventory* 		pInventory  = pPC->getInventory();
 
-    // ½ÇÆĞÇÒ È®·üÀº itemType¿¡ ÀÇÇØ¼­ °áÁ¤µÈ´Ù.
+    // Â½Ã‡Ã†ÃÃ‡Ã’ ÃˆÂ®Â·Ã¼Ã€Âº itemTypeÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ Â°Ã¡ÃÂ¤ÂµÃˆÂ´Ã™.
     const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 
-    // ÀÎÃ¦Æ® ÇÒ·Á´Â ¾ÆÀÌÅÛÀÇ ÇöÀç ¿É¼ÇÀÌ 2°³°¡ ¾Æ´Ï°Å³ª
-    // À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
-    // È¤Àº º°À» 2°³ ÀÌ»ó µé°í ÀÎÃ¦Æ®ÇÒ¶ó°í ÇÒ ¶§
-    /*		// add by Coffee 2006.11.2  ÅĞ¶ÏÊÇ·ñÎªÈıÊôĞÔÎïÆ·£¬Èç¹ûÊÇ¾Íµ÷ÓÃĞÂ¼ÓµÄ³äÈıÊôĞÔº¯Êı
+    // Ã€ÃÃƒÂ¦Ã†Â® Ã‡Ã’Â·ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ Ã‡Ã¶Ã€Ã§ Â¿Ã‰Â¼Ã‡Ã€ÃŒ 2Â°Â³Â°Â¡ Â¾Ã†Â´ÃÂ°Ã…Â³Âª
+    // Ã€Â¯Â´ÃÃ…Â© Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬
+    // ÃˆÂ¤Ã€Âº ÂºÂ°Ã€Â» 2Â°Â³ Ã€ÃŒÂ»Ã³ ÂµÃ©Â°Ã­ Ã€ÃÃƒÂ¦Ã†Â®Ã‡Ã’Â¶Ã³Â°Ã­ Ã‡Ã’ Â¶Â§
+    /*		// add by Coffee 2006.11.2  Ã…ÃÂ¶ÃÃŠÃ‡Â·Ã±ÃÂªÃˆÃ½ÃŠÃ´ÃÃ”ÃÃ¯Ã†Â·Â£Â¬ÃˆÃ§Â¹Ã»ÃŠÃ‡Â¾ÃÂµÃ·Ã“ÃƒÃÃ‚Â¼Ã“ÂµÃ„Â³Ã¤ÃˆÃ½ÃŠÃ´ÃÃ”ÂºÂ¯ÃŠÃ½
             if (pItem->getOptionTypeSize() ==3);
             {
-                //³åÈıÊôĞÔ×°±¸
+                //Â³Ã¥ÃˆÃ½ÃŠÃ´ÃÃ”Ã—Â°Â±Â¸
                 executeEnchantRareThreeOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
                 return;
             }
@@ -786,14 +786,14 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
     }
 
     if (bFirstUpgradePossible) {
-        // Ã¹¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº ºí·çµå·Ó 2ÀÇ È®·ü¿¡ µû¸¥´Ù.
+        // ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼Ã€Âº ÂºÃ­Â·Ã§ÂµÃ¥Â·Ã“ 2Ã€Ã‡ ÃˆÂ®Â·Ã¼Â¿Â¡ ÂµÃ»Â¸Â¥Â´Ã™.
         int succeedRatio = pFirstOptionInfo->getUpgradeSecondRatio() * pItemInfo->getUpgradeRatio();
         int dice = rand() % 10000;
 
-        // cout << "Ã¹¹øÂ° ¿É¼Ç : " << pFirstOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+        // cout << "ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pFirstOptionInfo->getHName() << " Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼ " << succeedRatio << endl;
 
         if (dice < succeedRatio) {
-            // cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸" << endl;
             processUpgradeOptionType(pItem, firstOption, pFirstOptionInfo);
 
             OptionType_t upgradeOptionType = pFirstOptionInfo->getUpgradeType();
@@ -805,22 +805,22 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
             int downgradeRatio = pItemInfo->getDowngradeRatio();
             dice = rand() % 100;
 
-            // cout << "ÀÎÃ¦Æ® ¾ÆÅÛ : " << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¾Ã†Ã…Ã› : " << pItemInfo->getName() << " Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ " << downgradeRatio << endl;
 
             if (dice < noChangeRatio) {
-                // º¯È­¾øÀ½
+                // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
             } else if (dice < noChangeRatio + downgradeRatio) {
-                // ¿É¼Ç¶³¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                 downgradeOptionType(pItem, firstOption, pFirstOptionInfo);
 
                 OptionType_t previousOptionType = pFirstOptionInfo->getPreviousType();
                 optionChange = (firstOption << (shiftValue + 8)) | (previousOptionType << shiftValue);
             } else {
-                // ¿É¼Ç¾ø¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¾Ã¸Â¾Ã®ÃÃ¼
                 pItem->removeOptionType(firstOption);
                 optionChange = (firstOption << (shiftValue + 8));
 
-                // DBº¯°æ
+                // DBÂºÂ¯Â°Ã¦
                 string optionField;
                 setOptionTypeToField(pItem->getOptionTypeList(), optionField);
 
@@ -833,29 +833,29 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
         OptionType_t prev = pFirstOptionInfo->getPreviousType();
 
         if (prev != 0) {
-            // ¿É¼Ç¶³¾îÁú È®·ü °è»êÇØ¾ß µÈ´Ù.
+            // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ Â°Ã¨Â»ÃªÃ‡Ã˜Â¾ÃŸ ÂµÃˆÂ´Ã™.
 
             int noChangeRatio = 33;
             int downgradeRatio = pItemInfo->getDowngradeRatio();
             int dice = rand() % 100;
 
-            // cout << "Ã¹¹øÂ° ¿É¼Ç : " << pFirstOptionInfo->getHName() << " ¿É ¶³¾îÁú È®·ü : " << downgradeRatio <<
+            // cout << "ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pFirstOptionInfo->getHName() << " Â¿Ã‰ Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ : " << downgradeRatio <<
             // endl;
 
             if (dice < noChangeRatio) {
-                // º¯È­¾øÀ½
+                // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
             } else if (dice < noChangeRatio + downgradeRatio) {
-                // ¿É¼Ç¶³¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                 downgradeOptionType(pItem, firstOption, pFirstOptionInfo);
 
                 OptionType_t previousOptionType = pFirstOptionInfo->getPreviousType();
                 optionChange = (firstOption << (shiftValue + 8)) | (previousOptionType << shiftValue);
             } else {
-                // ¿É¼Ç¾ø¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¾Ã¸Â¾Ã®ÃÃ¼
                 pItem->removeOptionType(firstOption);
                 optionChange = (firstOption << (shiftValue + 8));
 
-                // DBº¯°æ
+                // DBÂºÂ¯Â°Ã¦
                 string optionField;
                 setOptionTypeToField(pItem->getOptionTypeList(), optionField);
 
@@ -869,15 +869,15 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
     shiftValue -= 16;
 
     if (bSecondUpgradePossible) {
-        // µÎ¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº Ã¹¹øÂ° ¿É¼ÇÀÇ ¼º°ø¿©ºÎ¿¡ µû¸¥´Ù.
+        // ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼Ã€Âº ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€Ã‡ Â¼ÂºÂ°Ã¸Â¿Â©ÂºÃÂ¿Â¡ ÂµÃ»Â¸Â¥Â´Ã™.
         int succeedRatio =
             g_pOptionInfoManager->getRareUpgradeRatio(secondOption, bFirstSucceed) * pItemInfo->getUpgradeRatio();
         int dice = rand() % 10000;
 
-        // cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+        // cout << "ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pSecondOptionInfo->getHName() << " Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼ " << succeedRatio << endl;
 
         if (dice < succeedRatio) {
-            // cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸" << endl;
             processUpgradeOptionType(pItem, secondOption, pSecondOptionInfo);
 
             OptionType_t upgradeOptionType = pSecondOptionInfo->getUpgradeType();
@@ -889,22 +889,22 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
             int downgradeRatio = pItemInfo->getDowngradeRatio();
             dice = rand() % 100;
 
-            // cout << "ÀÎÃ¦Æ® ¾ÆÅÛ : " << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+            // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¾Ã†Ã…Ã› : " << pItemInfo->getName() << " Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ " << downgradeRatio << endl;
 
             if (dice < noChangeRatio) {
-                // º¯È­¾øÀ½
+                // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
             } else if (dice < noChangeRatio + downgradeRatio) {
-                // ¿É¼Ç¶³¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                 downgradeOptionType(pItem, secondOption, pSecondOptionInfo);
 
                 OptionType_t previousOptionType = pSecondOptionInfo->getPreviousType();
                 optionChange |= (secondOption << (shiftValue + 8)) | (previousOptionType << shiftValue);
             } else {
-                // ¿É¼Ç¾ø¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¾Ã¸Â¾Ã®ÃÃ¼
                 pItem->removeOptionType(secondOption);
                 optionChange |= (secondOption << (shiftValue + 8));
 
-                // DBº¯°æ
+                // DBÂºÂ¯Â°Ã¦
                 string optionField;
                 setOptionTypeToField(pItem->getOptionTypeList(), optionField);
 
@@ -917,28 +917,28 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
         OptionType_t prev = pSecondOptionInfo->getPreviousType();
 
         if (prev != 0) {
-            // ¿É¼Ç¶³¾îÁú È®·ü °è»êÇØ¾ß µÈ´Ù.
+            // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ Â°Ã¨Â»ÃªÃ‡Ã˜Â¾ÃŸ ÂµÃˆÂ´Ã™.
             int noChangeRatio = 33;
             int downgradeRatio = pItemInfo->getDowngradeRatio();
             int dice = rand() % 100;
 
-            // cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ¿É ¶³¾îÁú È®·ü : " << downgradeRatio <<
+            // cout << "ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ : " << pSecondOptionInfo->getHName() << " Â¿Ã‰ Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ : " << downgradeRatio <<
             // endl;
 
             if (dice < noChangeRatio) {
-                // º¯È­¾øÀ½
+                // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
             } else if (dice < noChangeRatio + downgradeRatio) {
-                // ¿É¼Ç¶³¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                 downgradeOptionType(pItem, secondOption, pSecondOptionInfo);
 
                 OptionType_t previousOptionType = pSecondOptionInfo->getPreviousType();
                 optionChange |= (secondOption << (shiftValue + 8)) | (previousOptionType << shiftValue);
             } else {
-                // ¿É¼Ç¾ø¾îÁü
+                // Â¿Ã‰Â¼Ã‡Â¾Ã¸Â¾Ã®ÃÃ¼
                 pItem->removeOptionType(secondOption);
                 optionChange |= (secondOption << (shiftValue + 8));
 
-                // DBº¯°æ
+                // DBÂºÂ¯Â°Ã¦
                 string optionField;
                 setOptionTypeToField(pItem->getOptionTypeList(), optionField);
 
@@ -949,13 +949,13 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
         }
     }
 
-    /*		// ¿É¼ÇÀÌ ¿©·¯°³ÀÎ °æ¿ì´Â ºÒ°¡´ÉÇÏÁö´Â ¾Ê´Ù°í º¸°í..
-            // µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÌ ¸Â´ÂÁö È®ÀÎÇÏ°í
-            // upgrade°¡´ÉÇÑ optionÀÎ °æ¿ì¿¡...
+    /*		// Â¿Ã‰Â¼Ã‡Ã€ÃŒ Â¿Â©Â·Â¯Â°Â³Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ ÂºÃ’Â°Â¡Â´Ã‰Ã‡ÃÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã™Â°Ã­ ÂºÂ¸Â°Ã­..
+            // ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¸Ã‚Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡ÃÂ°Ã­
+            // upgradeÂ°Â¡Â´Ã‰Ã‡Ã‘ optionÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡...
 
 
             //const list<OptionType_t>& optionList = pItem->getOptionTypeList();
-            // º¹»çÇØ¼­ ¾´´Ù..
+            // ÂºÂ¹Â»Ã§Ã‡Ã˜Â¼Â­ Â¾Â´Â´Ã™..
             list<OptionType_t>::const_iterator itr = optionList.begin();
 
             for (; itr!=optionList.end(); itr++)
@@ -975,17 +975,17 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
                 if (bUpgradePossible)
                 {
                     //---------------------------------------------------------
-                    // item°³¼ö°¡ 1°³ÀÎ °æ¿ì¸¸ ÇÒ ¼ö ÀÖµµ·Ï ÇØµĞ´Ù.
-                    // ¿©·¯°³ÀÎ °æ¿ìµµ °¡´ÉÇÏ°Ô ÇÏ·Á¸é
-                    // ¾ÆÀÌÅÛ °³¼ö¸¦ ÁÙ¿©¾ß°ÚÁö.. clientµµ ¼öÁ¤ÇØ¾ß ÇÑ´Ù.
-                    // upgrade ¼º°øÇÒ±î?
+                    // itemÂ°Â³Â¼Ã¶Â°Â¡ 1Â°Â³Ã€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÂµÂµÂ·Ã Ã‡Ã˜ÂµÃÂ´Ã™.
+                    // Â¿Â©Â·Â¯Â°Â³Ã€Ã Â°Ã¦Â¿Ã¬ÂµÂµ Â°Â¡Â´Ã‰Ã‡ÃÂ°Ã” Ã‡ÃÂ·ÃÂ¸Ã©
+                    // Â¾Ã†Ã€ÃŒÃ…Ã› Â°Â³Â¼Ã¶Â¸Â¦ ÃÃ™Â¿Â©Â¾ÃŸÂ°ÃšÃÃ¶.. clientÂµÂµ Â¼Ã¶ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+                    // upgrade Â¼ÂºÂ°Ã¸Ã‡Ã’Â±Ã®?
                     //---------------------------------------------------------
-                    // ¿É¼ÇÈ®·ü * Å¸ÀÙÈ®·ü / 10000
+                    // Â¿Ã‰Â¼Ã‡ÃˆÂ®Â·Ã¼ * Ã…Â¸Ã€Ã™ÃˆÂ®Â·Ã¼ / 10000
                     //---------------------------------------------------------
-                    // Ã¹¹øÂ° ¿É¼Ç
+                    // ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡
                     //---------------------------------------------------------
 
-                    // Ã¹¹øÂ° ¿É¼ÇÀÌ ¼º°øÇÏ¸é µÎ¹øÂ° ¿É¼ÇÈ®·ü·Î °è»êÇÑ´Ù.
+                    // ÃƒÂ¹Â¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡Ã€ÃŒ Â¼ÂºÂ°Ã¸Ã‡ÃÂ¸Ã© ÂµÃÂ¹Ã¸Ã‚Â° Â¿Ã‰Â¼Ã‡ÃˆÂ®Â·Ã¼Â·Ã Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
                     int upgradeRatio = (bFirstSucceed? pOptionInfo->getUpgradeSecondRatio()
                                                     : pOptionInfo->getUpgradeRatio());
 
@@ -1016,7 +1016,7 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
                         //cout << gcAddItemToItemVerify.toString().c_str() << endl;
                     }
                     //---------------------------------------------------------
-                    // upgrade ½ÇÆĞ
+                    // upgrade Â½Ã‡Ã†Ã
                     //---------------------------------------------------------
                     else
                     {
@@ -1025,7 +1025,7 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
 
                         if ( bCrashItem )
                         {
-                            // ¾ÆÀÌÅÛ ºÎ¼ö±â Àü¿¡ ItemTrace Log ³²±âÀÚ ¤Ñ.¤Ñ;
+                            // Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¼Ã¶Â±Ã¢ Ã€Ã¼Â¿Â¡ ItemTrace Log Â³Â²Â±Ã¢Ã€Ãš Â¤Ã‘.Â¤Ã‘;
                             if ( pItem != NULL && pItem->isTraceItem() )
                             {
                                 remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_ENCHANT);
@@ -1040,8 +1040,8 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
                         }
                         else
                         {
-                            // À§¿¡¼­ list¸¦ reference·Î ¾²¸é ¿©±â¿¡¼­ ¿É¼ÇÀÌ Á¦°ÅµÉ ¼ö ÀÖÀ¸¹Ç·Î
-                            // list iterator°¡ ´ÙÀÌ~µÉ¼öµµ ÀÖ´Ù.
+                            // Ã€Â§Â¿Â¡Â¼Â­ listÂ¸Â¦ referenceÂ·Ã Â¾Â²Â¸Ã© Â¿Â©Â±Ã¢Â¿Â¡Â¼Â­ Â¿Ã‰Â¼Ã‡Ã€ÃŒ ÃÂ¦Â°Ã…ÂµÃ‰ Â¼Ã¶ Ã€Ã–Ã€Â¸Â¹Ã‡Â·Ã
+                            // list iteratorÂ°Â¡ Â´Ã™Ã€ÃŒ~ÂµÃ‰Â¼Ã¶ÂµÂµ Ã€Ã–Â´Ã™.
                             downgradeOptionType( pItem, currentOptionType, pOptionInfo );
 
                             OptionType_t previousOptionType = pOptionInfo->getPreviousType();
@@ -1058,16 +1058,16 @@ void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* p
             }*/
 
     {
-        // µé°í ÀÖ´Â º° »èÁ¦
+        // ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ ÂºÂ° Â»Ã¨ÃÂ¦
         pPC->deleteItemFromExtraInventorySlot();
 
-        // DB¿¡¼­ »èÁ¦
+        // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
         pMouseItem->destroy();
 
-        // ¸Ş¸ğ¸®¿¡¼­ »èÁ¦
+        // Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
         SAFE_DELETE(pMouseItem);
 
-        // °á°ú ÆĞÅ¶ º¸³»±â
+        // Â°Ã¡Â°Ãº Ã†ÃÃ…Â¶ ÂºÂ¸Â³Â»Â±Ã¢
         sendEnchantOK(pGamePlayer, optionChange);
     }
 
@@ -1082,18 +1082,18 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     Inventory* pInventory = pPC->getInventory();
 
-    // ItemÀÇ OptionInfo¸¦ ¾ò¾î¿Â´Ù.
+    // ItemÃ€Ã‡ OptionInfoÂ¸Â¦ Â¾Ã²Â¾Ã®Â¿Ã‚Â´Ã™.
     OptionType_t currentOptionType = // pItem->getFirstOptionType();
         pItem->getRandomOptionType();
 
     int optionSize = pItem->getOptionTypeSize();
 
-    // ½ÇÆĞÇÒ È®·üÀº itemType¿¡ ÀÇÇØ¼­ °áÁ¤µÈ´Ù.
+    // Â½Ã‡Ã†ÃÃ‡Ã’ ÃˆÂ®Â·Ã¼Ã€Âº itemTypeÂ¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ Â°Ã¡ÃÂ¤ÂµÃˆÂ´Ã™.
     const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 
-    // ÀÎÃ¦Æ® ÇÒ·Á´Â ¾ÆÀÌÅÛÀÌ ¹«¿ÉÀÌ°Å³ª
-    // ·¹¾î ¾ÆÀÌÅÛÀÌ°Å³ª
-    // À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
+    // Ã€ÃÃƒÂ¦Ã†Â® Ã‡Ã’Â·ÃÂ´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¹Â«Â¿Ã‰Ã€ÃŒÂ°Ã…Â³Âª
+    // Â·Â¹Â¾Ã® Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒÂ°Ã…Â³Âª
+    // Ã€Â¯Â´ÃÃ…Â© Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã Â°Ã¦Â¿Ã¬
     if (optionSize != 1 || pItemInfo->isUnique()) {
         // cout << "no Option " << endl;
         sendEnchantImpossible(pGamePlayer);
@@ -1109,29 +1109,29 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
 
     uint optionChange = 0;
 
-    // ¿É¼ÇÀÌ ¿©·¯°³ÀÎ °æ¿ì´Â ºÒ°¡´ÉÇÏÁö´Â ¾Ê´Ù°í º¸°í..
-    // µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÌ ¸Â´ÂÁö È®ÀÎÇÏ°í
-    // upgrade°¡´ÉÇÑ optionÀÎ °æ¿ì¿¡...
+    // Â¿Ã‰Â¼Ã‡Ã€ÃŒ Â¿Â©Â·Â¯Â°Â³Ã€Ã Â°Ã¦Â¿Ã¬Â´Ã‚ ÂºÃ’Â°Â¡Â´Ã‰Ã‡ÃÃÃ¶Â´Ã‚ Â¾ÃŠÂ´Ã™Â°Ã­ ÂºÂ¸Â°Ã­..
+    // ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¸Ã‚Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡ÃÂ°Ã­
+    // upgradeÂ°Â¡Â´Ã‰Ã‡Ã‘ optionÃ€Ã Â°Ã¦Â¿Ã¬Â¿Â¡...
     bool bUpgradePossible = pOptionInfo->isUpgradePossible();
     if (optionSize > 1 || bUpgradePossible) {
         //---------------------------------------------------------
-        // item°³¼ö°¡ 1°³ÀÎ °æ¿ì¸¸ ÇÒ ¼ö ÀÖµµ·Ï ÇØµĞ´Ù.
-        // ¿©·¯°³ÀÎ °æ¿ìµµ °¡´ÉÇÏ°Ô ÇÏ·Á¸é
-        // ¾ÆÀÌÅÛ °³¼ö¸¦ ÁÙ¿©¾ß°ÚÁö.. clientµµ ¼öÁ¤ÇØ¾ß ÇÑ´Ù.
-        // upgrade ¼º°øÇÒ±î?
+        // itemÂ°Â³Â¼Ã¶Â°Â¡ 1Â°Â³Ã€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ Ã‡Ã’ Â¼Ã¶ Ã€Ã–ÂµÂµÂ·Ã Ã‡Ã˜ÂµÃÂ´Ã™.
+        // Â¿Â©Â·Â¯Â°Â³Ã€Ã Â°Ã¦Â¿Ã¬ÂµÂµ Â°Â¡Â´Ã‰Ã‡ÃÂ°Ã” Ã‡ÃÂ·ÃÂ¸Ã©
+        // Â¾Ã†Ã€ÃŒÃ…Ã› Â°Â³Â¼Ã¶Â¸Â¦ ÃÃ™Â¿Â©Â¾ÃŸÂ°ÃšÃÃ¶.. clientÂµÂµ Â¼Ã¶ÃÂ¤Ã‡Ã˜Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+        // upgrade Â¼ÂºÂ°Ã¸Ã‡Ã’Â±Ã®?
         //---------------------------------------------------------
-        // ¿É¼ÇÈ®·ü * Å¸ÀÙÈ®·ü / 10000
+        // Â¿Ã‰Â¼Ã‡ÃˆÂ®Â·Ã¼ * Ã…Â¸Ã€Ã™ÃˆÂ®Â·Ã¼ / 10000
         int succeedRatio = 0;
 
         if (pMouseItem->getItemType() == 15) {
-            // ºí·ç µå·Ó 2~ 2003.5.11
+            // ÂºÃ­Â·Ã§ ÂµÃ¥Â·Ã“ 2~ 2003.5.11
             succeedRatio = pOptionInfo->getUpgradeSecondRatio() * pItemInfo->getUpgradeRatio();
         } else {
-            // ±âÁ¸ ÀÎÃ¦Æ® ¾ÆÅÛµé
+            // Â±Ã¢ÃÂ¸ Ã€ÃÃƒÂ¦Ã†Â® Â¾Ã†Ã…Ã›ÂµÃ©
             succeedRatio = pOptionInfo->getUpgradeRatio() * pItemInfo->getUpgradeRatio();
         }
 
-        //			cout << "¿É¼Ç " << pOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü : " << succeedRatio << endl;
+        //			cout << "Â¿Ã‰Â¼Ã‡ " << pOptionInfo->getHName() << " Ã€ÃÃƒÂ¦Ã†Â® ÃˆÂ®Â·Ã¼ : " << succeedRatio << endl;
 
         int dice = rand() % 10000;
         bool bSucceed = (dice < succeedRatio);
@@ -1146,11 +1146,11 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
         // cout << "Before = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
         // cout << "CurrentOptionType = " << (int)currentOptionType << endl;
 
-        // ¿É¼ÇÀÌ ¿©·¯°³ ºÙ¾îÀÖ´Â °æ¿ì¿¡ ÇöÀç ÁöÁ¤ÇÑ ¿É¼ÇÀÌ upgrade°¡ ºÒ°¡´ÉÇÏ´Ù¸é ½ÇÆĞ·Î º»´Ù.
-        // À§ÀÇ if¿¡¼­ optionSize>1 À» Ã¼Å©Çß±â ¶§¹®¿¡.. bUpgradePossibleÀÎ °æ¿ì°¡ ¾Æ´Ï¸é,
-        // optionSize>1 ÀÌ¶ó°í ÆÇ´ÜÇÒ ¼ö ÀÖ´Ù.
+        // Â¿Ã‰Â¼Ã‡Ã€ÃŒ Â¿Â©Â·Â¯Â°Â³ ÂºÃ™Â¾Ã®Ã€Ã–Â´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡ Ã‡Ã¶Ã€Ã§ ÃÃ¶ÃÂ¤Ã‡Ã‘ Â¿Ã‰Â¼Ã‡Ã€ÃŒ upgradeÂ°Â¡ ÂºÃ’Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™Â¸Ã© Â½Ã‡Ã†ÃÂ·Ã ÂºÂ»Â´Ã™.
+        // Ã€Â§Ã€Ã‡ ifÂ¿Â¡Â¼Â­ optionSize>1 Ã€Â» ÃƒÂ¼Ã…Â©Ã‡ÃŸÂ±Ã¢ Â¶Â§Â¹Â®Â¿Â¡.. bUpgradePossibleÃ€Ã Â°Ã¦Â¿Ã¬Â°Â¡ Â¾Ã†Â´ÃÂ¸Ã©,
+        // optionSize>1 Ã€ÃŒÂ¶Ã³Â°Ã­ Ã†Ã‡Â´ÃœÃ‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
         if (bUpgradePossible && pMouseItem->getNum() == 1 && bSucceed) {
-            //				cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+            //				cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¼ÂºÂ°Ã¸" << endl;
             processUpgradeOptionType(pItem, currentOptionType, pOptionInfo);
 
             OptionType_t upgradeOptionType = pOptionInfo->getUpgradeType();
@@ -1161,17 +1161,17 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
             // cout << gcAddItemToItemVerify.toString().c_str() << endl;
         }
         //---------------------------------------------------------
-        // upgrade ½ÇÆĞ
+        // upgrade Â½Ã‡Ã†Ã
         //---------------------------------------------------------
         else {
             // cout << "Failed!" << endl;
             bool bCrashItem = pItemInfo->isUpgradeCrash();
 
-            // ½ÇÆĞ packet : ¾ÆÀÌÅÛÀÌ ºÎ¼­Áö´ÂÁö ¾Æ´ÑÁö °áÁ¤
+            // Â½Ã‡Ã†Ã packet : Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ ÂºÃÂ¼Â­ÃÃ¶Â´Ã‚ÃÃ¶ Â¾Ã†Â´Ã‘ÃÃ¶ Â°Ã¡ÃÂ¤
             GCAddItemToItemVerify gcAddItemToItemVerify;
 
             if (bCrashItem) {
-                // ¾ÆÀÌÅÛ ºÎ¼ö±â Àü¿¡ ItemTrace Log ³²±âÀÚ ¤Ñ.¤Ñ;
+                // Â¾Ã†Ã€ÃŒÃ…Ã› ÂºÃÂ¼Ã¶Â±Ã¢ Ã€Ã¼Â¿Â¡ ItemTrace Log Â³Â²Â±Ã¢Ã€Ãš Â¤Ã‘.Â¤Ã‘;
                 if (pItem != NULL && pItem->isTraceItem()) {
                     remainTraceLog(pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_ENCHANT);
                 }
@@ -1186,12 +1186,12 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
                 int downgradeRatio = pItemInfo->getDowngradeRatio();
                 int dice = rand() % 100;
 
-                // cout << "ÀÎÃ¦Æ® ¾ÆÅÛ : " << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+                // cout << "Ã€ÃÃƒÂ¦Ã†Â® Â¾Ã†Ã…Ã› : " << pItemInfo->getName() << " Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃº ÃˆÂ®Â·Ã¼ " << downgradeRatio << endl;
 
                 if (dice < noChangeRatio) {
-                    // º¯È­¾øÀ½
+                    // ÂºÂ¯ÃˆÂ­Â¾Ã¸Ã€Â½
                 } else if (dice < noChangeRatio + downgradeRatio) {
-                    // ¿É¼Ç¶³¾îÁü
+                    // Â¿Ã‰Â¼Ã‡Â¶Â³Â¾Ã®ÃÃ¼
                     downgradeOptionType(pItem, currentOptionType, pOptionInfo);
 
                     OptionType_t previousOptionType = pOptionInfo->getPreviousType();
@@ -1207,13 +1207,13 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
             // cout << "Upgrade Failed " << (bCrashItem? ": Crash!":" ") << endl;
         }
 
-        // µé°í ÀÖ´Â º° »èÁ¦
+        // ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ ÂºÂ° Â»Ã¨ÃÂ¦
         pPC->deleteItemFromExtraInventorySlot();
 
-        // DB¿¡¼­ »èÁ¦
+        // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
         pMouseItem->destroy();
 
-        // ¸Ş¸ğ¸®¿¡¼­ »èÁ¦
+        // Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
         SAFE_DELETE(pMouseItem);
     } else {
         sendEnchantImpossible(pGamePlayer);
@@ -1223,14 +1223,14 @@ void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem
     __END_CATCH
 }
 
-// ¹«¿É ¾ÆÀÌÅÛ¿¡ ¿É¼ÇÀ» Ãß°¡½ÃÅ²´Ù.
+// Â¹Â«Â¿Ã‰ Â¾Ã†Ã€ÃŒÃ…Ã›Â¿Â¡ Â¿Ã‰Â¼Ã‡Ã€Â» ÃƒÃŸÂ°Â¡Â½ÃƒÃ…Â²Â´Ã™.
 void executeAddOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, OptionType_t addOptionType) {
     __BEGIN_TRY
 
     Creature* pCreature = pGamePlayer->getCreature();
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-    // ÇÁ¸®¹Ì¾ö ¼­ºñ½º°¡ ¾Æ´Ñ °æ¿ì´Â ¾ÈµÇÁö..
+    // Ã‡ÃÂ¸Â®Â¹ÃŒÂ¾Ã¶ Â¼Â­ÂºÃ±Â½ÂºÂ°Â¡ Â¾Ã†Â´Ã‘ Â°Ã¦Â¿Ã¬Â´Ã‚ Â¾ÃˆÂµÃ‡ÃÃ¶..
     /*		if (!pGamePlayer->isPayPlaying()
                 && !pGamePlayer->isPremiumPlay())
             {
@@ -1242,32 +1242,32 @@ void executeAddOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, Op
             }
     */
 
-    // ÀÌ Å¬·¡½º¿¡ ºÙÀ» ¼ö ÀÖ´Â ¿É¼ÇÅ¬·¡½ºÀÌ°í..
-    // ¿É¼ÇÀÌ ¾ø°í
-    // À¯´ÏÅ©°¡ ¾Æ´Ï°í
-    // ¸¶¿ì½º¿¡ ÇÑ°³¸¸ µé°í ÇÏ´Â °æ¿ì¿¡ ¿É¼Ç Ãß°¡°¡ °¡´ÉÇÏ´Ù.
+    // Ã€ÃŒ Ã…Â¬Â·Â¡Â½ÂºÂ¿Â¡ ÂºÃ™Ã€Â» Â¼Ã¶ Ã€Ã–Â´Ã‚ Â¿Ã‰Â¼Ã‡Ã…Â¬Â·Â¡Â½ÂºÃ€ÃŒÂ°Ã­..
+    // Â¿Ã‰Â¼Ã‡Ã€ÃŒ Â¾Ã¸Â°Ã­
+    // Ã€Â¯Â´ÃÃ…Â©Â°Â¡ Â¾Ã†Â´ÃÂ°Ã­
+    // Â¸Â¶Â¿Ã¬Â½ÂºÂ¿Â¡ Ã‡Ã‘Â°Â³Â¸Â¸ ÂµÃ©Â°Ã­ Ã‡ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬Â¿Â¡ Â¿Ã‰Â¼Ã‡ ÃƒÃŸÂ°Â¡Â°Â¡ Â°Â¡Â´Ã‰Ã‡ÃÂ´Ã™.
     if (isPossibleOptionItemClass(pItem->getItemClass()) && pItem->getOptionTypeSize() == 0 && !pItem->isUnique() &&
         pMouseItem->getNum() == 1) {
-        // ¿É¼Ç º¯°æ
+        // Â¿Ã‰Â¼Ã‡ ÂºÂ¯Â°Ã¦
         pItem->addOptionType(addOptionType);
 
         string optionField;
         setOptionTypeToField(pItem->getOptionTypeList(), optionField);
 
-        // DBº¯°æ
+        // DBÂºÂ¯Â°Ã¦
         char pField[80];
         sprintf(pField, "OptionType='%s'", optionField.c_str());
         pItem->tinysave(pField);
 
         uint optionChange = addOptionType;
 
-        // µé°í ÀÖ´Â º° »èÁ¦
+        // ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ ÂºÂ° Â»Ã¨ÃÂ¦
         pPC->deleteItemFromExtraInventorySlot();
-        pMouseItem->destroy();   // DB¿¡¼­ »èÁ¦
-        SAFE_DELETE(pMouseItem); // ¸Ş¸ğ¸®¿¡¼­ »èÁ¦
+        pMouseItem->destroy();   // DBÂ¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
+        SAFE_DELETE(pMouseItem); // Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦
 
 
-        // ¼º°øpacket : upgradeµÉ optionÀ» ³Ö¾îÁØ´Ù.
+        // Â¼ÂºÂ°Ã¸packet : upgradeÂµÃ‰ optionÃ€Â» Â³Ã–Â¾Ã®ÃÃ˜Â´Ã™.
         GCAddItemToItemVerify gcAddItemToItemVerify;
         gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
         gcAddItemToItemVerify.setParameter(optionChange);
@@ -1277,8 +1277,8 @@ void executeAddOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, Op
     } else {
         // cout << "Enchant Impossible" << endl;
         // cout << "impossibleOption : " << (int)currentOptionType << endl;
-        //  upgrade ÇÒ ¼ö ¾ø´Â optionÀÌ´Ù.
-        //  ºÒ°¡ packet
+        //  upgrade Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã‚ optionÃ€ÃŒÂ´Ã™.
+        //  ÂºÃ’Â°Â¡ packet
         GCAddItemToItemVerify gcAddItemToItemVerify;
         gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE);
         pGamePlayer->sendPacket(&gcAddItemToItemVerify);
@@ -1350,10 +1350,10 @@ void processUpgradeOptionType(Item* pItem, OptionType_t currentOptionType, Optio
     __BEGIN_TRY
 
     // cout << "Succeed!" << endl;
-    //  upgrageµÉ option
+    //  upgrageÂµÃ‰ option
     OptionType_t upgradeOptionType = pOptionInfo->getUpgradeType();
 
-    // ¿É¼Ç º¯°æ
+    // Â¿Ã‰Â¼Ã‡ ÂºÂ¯Â°Ã¦
     pItem->changeOptionType(currentOptionType, upgradeOptionType);
 
     // cout << "Succeed = " << getOptionTypeToString( pItem->getOptionTypeList() );
@@ -1365,7 +1365,7 @@ void processUpgradeOptionType(Item* pItem, OptionType_t currentOptionType, Optio
     // setOptionTypeFromField( op, optionField );
     // cout << "Check = " << getOptionTypeToString( op ) << endl;
 
-    // DBº¯°æ
+    // DBÂºÂ¯Â°Ã¦
     char pField[80];
     sprintf(pField, "OptionType='%s'", optionField.c_str());
     pItem->tinysave(pField);
@@ -1376,13 +1376,13 @@ void processUpgradeOptionType(Item* pItem, OptionType_t currentOptionType, Optio
 void crashItem(Item* pItem, Inventory* pInventory, CoordInven_t invenX, CoordInven_t invenY) {
     __BEGIN_TRY
 
-    // inventory¿¡¼­ ¾ÆÀÌÅÛ Á¦°Å
+    // inventoryÂ¿Â¡Â¼Â­ Â¾Ã†Ã€ÃŒÃ…Ã› ÃÂ¦Â°Ã…
     pInventory->deleteItem(invenX, invenY);
 
-    // DB¿¡¼­ Á¦°Å
+    // DBÂ¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
     pItem->destroy();
 
-    // ¸Ş¸ğ¸®¿¡¼­ Á¦°Å
+    // Â¸ÃÂ¸Ã°Â¸Â®Â¿Â¡Â¼Â­ ÃÂ¦Â°Ã…
     SAFE_DELETE(pItem);
 
     __END_CATCH
@@ -1391,13 +1391,13 @@ void crashItem(Item* pItem, Inventory* pInventory, CoordInven_t invenX, CoordInv
 void downgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo* pOptionInfo) {
     __BEGIN_TRY
 
-    // ¾ÆÀÌÅÛÀÇ ¿É¼ÇÀ» ÇÑ´Ü°è ¶³¾î¶ß¸°´Ù.
+    // Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã‡ Â¿Ã‰Â¼Ã‡Ã€Â» Ã‡Ã‘Â´ÃœÂ°Ã¨ Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â°Â´Ã™.
     OptionType_t previousOptionType = pOptionInfo->getPreviousType();
 
     // cout << "FailBefore : " << getOptionTypeToString(pItem->getOptionTypeList()) << endl;
 
-    // ¿É¼Ç º¯°æ
-    // ÀÌÀü ¿É¼ÇÀÌ ¾ø´Ù¸é ¾Æ¿¹ ¿É¼ÇÀ» ¾ø¾Ø´Ù.
+    // Â¿Ã‰Â¼Ã‡ ÂºÂ¯Â°Ã¦
+    // Ã€ÃŒÃ€Ã¼ Â¿Ã‰Â¼Ã‡Ã€ÃŒ Â¾Ã¸Â´Ã™Â¸Ã© Â¾Ã†Â¿Â¹ Â¿Ã‰Â¼Ã‡Ã€Â» Â¾Ã¸Â¾Ã˜Â´Ã™.
     if (previousOptionType == 0) {
         pItem->removeOptionType(currentOptionType);
         // cout << "Remove = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
@@ -1406,7 +1406,7 @@ void downgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo
         // cout << "Down = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
     }
 
-    // DBº¯°æ
+    // DBÂºÂ¯Â°Ã¦
     string optionField;
     setOptionTypeToField(pItem->getOptionTypeList(), optionField);
 

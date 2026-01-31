@@ -59,10 +59,10 @@ void EffectStriking::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
-    // ¸ÕÀú ÇÃ·¡±×¸¦ ³¯¸°´Ù.
+    // ë¨¼ì € í”Œëž˜ê·¸ë¥¼ ë‚ ë¦°ë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_STRIKING);
 
-    // ´É·ÂÄ¡¸¦ »õ·Î °è»êÇØ¼­ º¸³»ÁØ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ìƒˆë¡œ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
     Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
     SLAYER_RECORD prev;
     pSlayer->getSlayerRecord(prev);
@@ -70,7 +70,7 @@ void EffectStriking::unaffect(Creature* pCreature)
     pSlayer->sendRealWearingInfo();
     pSlayer->sendModifyInfo(prev);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ÁÖÀ§¿¡ ¾Ë¸°´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì£¼ìœ„ì— ì•Œë¦°ë‹¤.
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
     GCRemoveEffect gcRemoveEffect;

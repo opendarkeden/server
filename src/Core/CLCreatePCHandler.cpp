@@ -76,13 +76,13 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
     try {
         pStmt = g_pDatabaseManager->getConnection(WorldID)->createStatement();
 
-        // ½Ã½ºÅÛ¿¡¼­ »ç¿ëÇÏ°Å³ª, ±İÁöµÈ ÀÌ¸§Àº ¾Æ´Ñ±â °ËÁõÇÑ´Ù.
+        // ì‹œìŠ¤í…œì—ì„œ ì‚¬ìš©í•˜ê±°ë‚˜, ê¸ˆì§€ëœ ì´ë¦„ì€ ì•„ë‹Œê¸° ê²€ì¦í•œë‹¤.
         // NONE, ZONE***, INV***, QUICK...
         // string text = pPacket->getName();
 
         if (!isAvailableID(pPacket->getName().c_str())) {
             lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
-            throw DuplicatedException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+            throw DuplicatedException("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
         }
 
         /*
@@ -92,21 +92,21 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
             if (text.find(*itr) != string::npos)
             {
                 lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
-                throw DuplicatedException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+                throw DuplicatedException("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
             }
         }
         */
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
 
         /*
-         * ÅÂ±¹¾î ¹®ÀÚ¼Â tis620 thailand charset ¿¡¼­ Çã¿ëÇÏ´Â ¹®ÀÚ¸¸À» ÄÉ¸¯ÅÍ ÀÌ¸§À¸·Î
-         * ¾µ ¼ö ÀÖµµ·Ï Á¦¾îÇÑ´Ù.
+         * íƒœêµ­ì–´ ë¬¸ìì…‹ tis620 thailand charset ì—ì„œ í—ˆìš©í•˜ëŠ” ë¬¸ìë§Œì„ ì¼€ë¦­í„° ì´ë¦„ìœ¼ë¡œ
+         * ì“¸ ìˆ˜ ìˆë„ë¡ ì œì–´í•œë‹¤.
          *
          * */
 
         /*
-         * Áß±¹¾î ¹®ÀÚÄÚµå¼Â gb2312-simple chinese ¿¡¼­ Çã¿ëÇÏ´Â ¹®ÀÚ¸¸À» ÄÉ¸¯ÅÍ ÀÌ¸§À¸·Î
-         * ¾µ ¼ö ÀÖµµ·Ï Á¦¾îÇÑ´Ù.
+         * ì¤‘êµ­ì–´ ë¬¸ìì½”ë“œì…‹ gb2312-simple chinese ì—ì„œ í—ˆìš©í•˜ëŠ” ë¬¸ìë§Œì„ ì¼€ë¦­í„° ì´ë¦„ìœ¼ë¡œ
+         * ì“¸ ìˆ˜ ìˆë„ë¡ ì œì–´í•œë‹¤.
          *
          * */
 
@@ -115,29 +115,29 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
 
         if (isAllowStr == false) {
             lcCreatePCError.setErrorID(ETC_ERROR);
-            throw DuplicatedException("Çã¿ëÇÏÁö ¾Ê´Â ¹®ÀÚ°¡ Æ÷ÇÔµÇ¾î ÀÖÀ½");
+            throw DuplicatedException("í—ˆìš©í•˜ì§€ ì•ŠëŠ” ë¬¸ìê°€ í¬í•¨ë˜ì–´ ìˆìŒ");
         }
 
 #endif
 
 
-        // ÀÌ¹Ì Á¸ÀçÇÏ´Â Ä³¸¯ÅÍ ÀÌ¸§ÀÌ ¾Æ´ÑÁö °ËÁõÇÑ´Ù.
+        // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ìºë¦­í„° ì´ë¦„ì´ ì•„ë‹Œì§€ ê²€ì¦í•œë‹¤.
         ///*
         pResult = pStmt->executeQuery("SELECT Name FROM Slayer WHERE Name = '%s'", pPacket->getName().c_str());
         if (pResult->getRowCount() != 0) {
             lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
-            throw DuplicatedException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+            throw DuplicatedException("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
         }
 
-        // ÇØ´ç ½½¶ù¿¡ Ä³¸¯ÅÍ°¡ ÀÌ¹Ì ÀÖÁö´Â ¾ÊÀºÁö °ËÁõÇÑ´Ù.
+        // í•´ë‹¹ ìŠ¬ëì— ìºë¦­í„°ê°€ ì´ë¯¸ ìˆì§€ëŠ” ì•Šì€ì§€ ê²€ì¦í•œë‹¤.
         pResult = pStmt->executeQuery("SELECT Name FROM Slayer WHERE PlayerID ='%s' and Slot ='%s' AND Active='ACTIVE'",
                                       pLoginPlayer->getID().c_str(), Slot2String[pPacket->getSlot()].c_str());
         if (pResult->getRowCount() != 0) {
             lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
-            throw DuplicatedException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+            throw DuplicatedException("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
         }
         //*/
-        // µÎ Äõ¸®¸¦ ÇÏ³ª·Î. 2002. 7. 13 by sigi. ÀÌ°Å ¾ÈÁÁ´Ù. - -;
+        // ë‘ ì¿¼ë¦¬ë¥¼ í•˜ë‚˜ë¡œ. 2002. 7. 13 by sigi. ì´ê±° ì•ˆì¢‹ë‹¤. - -;
         /*
         pResult = pStmt->executeQuery("SELECT Name FROM Slayer WHERE Name='%s' OR PlayerID='%s' AND Slot='%s'",
                                             pPacket->getName().c_str(),
@@ -147,12 +147,12 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
         if (pResult->getRowCount() != 0)
         {
             lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
-            throw DuplicatedException("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+            throw DuplicatedException("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
         }
         */
 
 
-        // Àß¸øµÈ ´É·ÂÄ¡¸¦ °¡Áö°í Ä³¸¯ÅÍ¸¦ »ı¼ºÇÏ·Á ÇÏ´Â °ÍÀº ¾Æ´ÑÁö °ËÁõÇÑ´Ù.
+        // ì˜ëª»ëœ ëŠ¥ë ¥ì¹˜ë¥¼ ê°€ì§€ê³  ìºë¦­í„°ë¥¼ ìƒì„±í•˜ë ¤ í•˜ëŠ” ê²ƒì€ ì•„ë‹Œì§€ ê²€ì¦í•œë‹¤.
 
 
         bool bInvalidAttr = false;
@@ -218,13 +218,13 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
                 bInvalidAttr = true;
 
             // cout << "Slayer: " << nSTR << ", " << nDEX << ", " << nINT << endl;
-        } else if (pPacket->getRace() == RACE_VAMPIRE) // vampireÀÎ °æ¿ì. ¹«Á¶°Ç 20. by sigi. 2002.10.31
+        } else if (pPacket->getRace() == RACE_VAMPIRE) // vampireì¸ ê²½ìš°. ë¬´ì¡°ê±´ 20. by sigi. 2002.10.31
         {
             if (nSTR != 20 || nDEX != 20 || nINT != 20) {
                 bInvalidAttr = true;
             } else {
-                // Á¤»óÀûÀÎ vampireÀÎ °æ¿ì
-                // SlayerÀÇ ´É·ÂÄ¡¸¦ ´Ù½Ã ¼³Á¤ÇØÁà¾ß ÇÑ´Ù. -_-;
+                // ì •ìƒì ì¸ vampireì¸ ê²½ìš°
+                // Slayerì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ë‹¤ì‹œ ì„¤ì •í•´ì¤˜ì•¼ í•œë‹¤. -_-;
                 // by sigi. 2002.11.7
                 nSTR = 5 + rand() % 16; // 5~20
                 nDEX = 5 + rand() % (21 - nSTR);
@@ -256,11 +256,11 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
             throw InvalidProtocolException("CLCreatePCHandler::too large character attribute");
         }
 
-        // ¸ğµç °Ë»ç¸¦ ¸¸Á·Çß´Ù¸é ÀÌÁ¦ Ä³¸¯ÅÍ¸¦ »ı¼ºÇÑ´Ù.
+        // ëª¨ë“  ê²€ì‚¬ë¥¼ ë§Œì¡±í–ˆë‹¤ë©´ ì´ì œ ìºë¦­í„°ë¥¼ ìƒì„±í•œë‹¤.
         ServerGroupID_t CurrentServerGroupID = pPlayer->getServerGroupID();
 
-        // ¿ìÇìÇì.. ÀÏ´Ü Äõ¸®¸¦ ÁÙÀÏ·Á°í staticÀ¸·Î »ğÁúÀ» Çß´Ù.
-        // ³ªÁß¿¡ ¾Æ¿¹ ·Î±×ÀÎ ¼­¹ö ¶ã¶§¿¡ °æÇèÄ¡ tableµéÀ» loadingÇØ µÎµµ·ÏÇØ¾ßÇÒ °ÍÀÌ´Ù. 2002.7.13 by sigi
+        // ìš°í—¤í—¤.. ì¼ë‹¨ ì¿¼ë¦¬ë¥¼ ì¤„ì¼ë ¤ê³  staticìœ¼ë¡œ ì‚½ì§ˆì„ í–ˆë‹¤.
+        // ë‚˜ì¤‘ì— ì•„ì˜ˆ ë¡œê·¸ì¸ ì„œë²„ ëœ°ë•Œì— ê²½í—˜ì¹˜ tableë“¤ì„ loadingí•´ ë‘ë„ë¡í•´ì•¼í•  ê²ƒì´ë‹¤. 2002.7.13 by sigi
         static int STRGoalExp[100] = {
             0,
         };
@@ -322,7 +322,7 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
                 nINTExp = INTAccumExp[nINT - 1] = pResult->getInt(1);
         }
 
-        // ÀÏ´Ü º¹ÀåÀº ¾ø°í.. ³²/³à ±¸ºĞ¸¸..
+        // ì¼ë‹¨ ë³µì¥ì€ ì—†ê³ .. ë‚¨/ë…€ êµ¬ë¶„ë§Œ..
         DWORD slayerShape = (pPacket->getSex() == 1 ? 1 : 0);
         DWORD vampireShape = slayerShape;
 
@@ -401,7 +401,7 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
         pStmt->executeQuery(vampireSQL.toString());
         */
 
-        // Ä³¸¯ÅÍ »ı¼º½Ã¿¡ ¹ìÆÄÀÌ¾î¸¦ ¼±ÅÃÇÒ ¼ö ÀÖ´Ù.
+        // ìºë¦­í„° ìƒì„±ì‹œì— ë±€íŒŒì´ì–´ë¥¼ ì„ íƒí•  ìˆ˜ ìˆë‹¤.
         // by sigi. 2002.10.31
         string race;
         switch (pPacket->getRace()) {
@@ -416,7 +416,7 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
             break;
         default:
             lcCreatePCError.setErrorID(ETC_ERROR);
-            pLoginPlayer->sendPacket(&lcCreatePCError); // Å¬¶óÀÌ¾ğÆ®¿¡°Ô PC »ı¼º ½ÇÆĞ ÆĞÅ¶À» ³¯¸°´Ù.
+            pLoginPlayer->sendPacket(&lcCreatePCError); // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ìƒì„± ì‹¤íŒ¨ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
             return;
         }
 
@@ -436,10 +436,10 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
             (int)pPacket->getINT() * 2, slayerShape, (int)HelmetColor, (int)JacketColor, (int)PantsColor,
             (int)WeaponColor, (int)ShieldColor);
 
-        // »ı¼º À§Ä¡ º¯°æ. by sigi. 2002.10.31
-        // ¾Æ¿ì½ºÅÍ½º·ÎÀÇ Á¾Á·°£ º¯½ÅÀÌ ¾øÀ¸¹Ç·Î µÑÁß¿¡ ÇÏ³ª¸¸ ¸¸µç´Ù.
-        // ±Ùµ¥ ¿ØÁö Á¾Á·°£ º¯½ÅÀÌ µé¾î°¥Áöµµ ¸ğ¸¥´Ù´Â ºÒ±æÇÑ ¿¹°£ÀÌ µé°í
-        // Ç×»ó ±×·± ¿¹°¨µéÀº ¸Â¾Æ ¿Ô±â¶§¹®¿¡ ¾ğÁ¨°¡ ÀÌ ÁÖ¼®À» º¸°í µÑ´Ù Ç®¾îÁÖ´Â°Ô....À¸¾Æ~~
+        // ìƒì„± ìœ„ì¹˜ ë³€ê²½. by sigi. 2002.10.31
+        // ì•„ìš°ìŠ¤í„°ìŠ¤ë¡œì˜ ì¢…ì¡±ê°„ ë³€ì‹ ì´ ì—†ìœ¼ë¯€ë¡œ ë‘˜ì¤‘ì— í•˜ë‚˜ë§Œ ë§Œë“ ë‹¤.
+        // ê·¼ë° ì™ ì§€ ì¢…ì¡±ê°„ ë³€ì‹ ì´ ë“¤ì–´ê°ˆì§€ë„ ëª¨ë¥¸ë‹¤ëŠ” ë¶ˆê¸¸í•œ ì˜ˆê°„ì´ ë“¤ê³ 
+        // í•­ìƒ ê·¸ëŸ° ì˜ˆê°ë“¤ì€ ë§ì•„ ì™”ê¸°ë•Œë¬¸ì— ì–¸ì  ê°€ ì´ ì£¼ì„ì„ ë³´ê³  ë‘˜ë‹¤ í’€ì–´ì£¼ëŠ”ê²Œ....ìœ¼ì•„~~
         if (pPacket->getRace() != RACE_OUSTERS) {
             pStmt->executeQuery(
                 "INSERT INTO Vampire ( Name, PlayerID, Slot, ServerGroupID, Active, Sex, SkinColor, STR, DEX, INTE, "
@@ -470,7 +470,7 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
                                 pPacket->getName().c_str());
         }
 
-        // Å¬¶óÀÌ¾ğÆ®¿¡°Ô PC »ı¼º ¼º°ø ÆĞÅ¶À» ³¯¸°´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ìƒì„± ì„±ê³µ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
         LCCreatePCOK lcCreatePCOK;
         pLoginPlayer->sendPacket(&lcCreatePCOK);
         pLoginPlayer->setPlayerStatus(LPS_WAITING_FOR_CL_GET_PC_LIST);
@@ -478,11 +478,11 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
         SAFE_DELETE(pStmt);
     } catch (DuplicatedException& de) {
         SAFE_DELETE(pStmt);
-        pLoginPlayer->sendPacket(&lcCreatePCError); // Å¬¶óÀÌ¾ğÆ®¿¡°Ô PC »ı¼º ½ÇÆĞ ÆĞÅ¶À» ³¯¸°´Ù.
+        pLoginPlayer->sendPacket(&lcCreatePCError); // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ìƒì„± ì‹¤íŒ¨ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
     } catch (SQLQueryException& sqe) {
         SAFE_DELETE(pStmt);
         lcCreatePCError.setErrorID(ETC_ERROR);
-        pLoginPlayer->sendPacket(&lcCreatePCError); // Å¬¶óÀÌ¾ğÆ®¿¡°Ô PC »ı¼º ½ÇÆĞ ÆĞÅ¶À» ³¯¸°´Ù.
+        pLoginPlayer->sendPacket(&lcCreatePCError); // í´ë¼ì´ì–¸íŠ¸ì—ê²Œ PC ìƒì„± ì‹¤íŒ¨ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
     }
 
 #endif
@@ -492,10 +492,10 @@ void CLCreatePCHandler::execute(CLCreatePC* pPacket, Player* pPlayer) {
 
 bool isAvailableID(const char* pID) {
     const int maxInvalidID = 10;
-    static const char* invalidID[maxInvalidID] = {"NONE",   "°ü¸®ÀÚ", "µµ¿ì¹Ì", "´ã´çÀÚ", "¿î¿µ",
-                                                  "±âÈ¹ÀÚ", "°³¹ßÀÚ", "Å×½ºÅÍ", "Á÷¿ø",   "GM"};
+    static const char* invalidID[maxInvalidID] = {"NONE",   "ê´€ë¦¬ì", "ë„ìš°ë¯¸", "ë‹´ë‹¹ì", "ìš´ì˜",
+                                                  "ê¸°íšì", "ê°œë°œì", "í…ŒìŠ¤í„°", "ì§ì›",   "GM"};
 
-    // Á» ºü¸¦±î. - -; 2002.7.13 by sigi.
+    // ì¢€ ë¹ ë¥¼ê¹Œ. - -; 2002.7.13 by sigi.
     for (int i = 0; i < maxInvalidID; i++) {
         if (strstr(pID, invalidID[i]) != NULL) {
             return false;
@@ -607,11 +607,11 @@ bool isAllowString(string str) {
         int nNor = extTis620Normal(str);
 
         if (nNum == -1)
-            isAllow = false; // ¹®ÀÚ¿­ÀÇ Ã³À½ÀÌ ¼ıÀÚ·Î ½ÃÀÛÇÏ¸é
+            isAllow = false; // ë¬¸ìì—´ì˜ ì²˜ìŒì´ ìˆ«ìë¡œ ì‹œì‘í•˜ë©´
         if (nEng && nNor)
-            isAllow = false; // ÀÏ¹İ¹®ÀÚ¿Í ¿µ¹®ÀÌ ¼¯¿© ÀÖ´Ù¸é
+            isAllow = false; // ì¼ë°˜ë¬¸ìì™€ ì˜ë¬¸ì´ ì„ì—¬ ìˆë‹¤ë©´
         if (nASpc)
-            isAllow = false; // Ascii¿µ¿ª¿¡¼­ Æ¯¼ö¹®ÀÚ°¡ ¹ß°ßµÇ¸é
+            isAllow = false; // Asciiì˜ì—­ì—ì„œ íŠ¹ìˆ˜ë¬¸ìê°€ ë°œê²¬ë˜ë©´
     }
 
     return isAllow;
@@ -621,10 +621,10 @@ bool isAllowString(string str) {
 
 
 #ifdef __CHINA_SERVER__
-// ¹®ÀÚ¿­¿¡ ¼ıÀÚ°¡ ¸î°³ ÀÖ´ÂÁö Ã£±â
-// return : -1 ¹®ÀÚ¿­ÀÇ Ã³À½¿¡ ¼ıÀÚ°¡ ÀÖ´Ù.
-// return : 0  ¹®ÀÚ¿­¿¡¼­ ¼ıÀÚ¸¦ Ã£Áö ¸øÇß´Ù.
-// return : x > 0 ¹®ÀÚ¿­¿¡¼­ 1°³ ÀÌ»óÀÇ ¼ıÀÚ¸¦ Ã£¾Ò´Ù.
+// ë¬¸ìì—´ì— ìˆ«ìê°€ ëª‡ê°œ ìˆëŠ”ì§€ ì°¾ê¸°
+// return : -1 ë¬¸ìì—´ì˜ ì²˜ìŒì— ìˆ«ìê°€ ìˆë‹¤.
+// return : 0  ë¬¸ìì—´ì—ì„œ ìˆ«ìë¥¼ ì°¾ì§€ ëª»í–ˆë‹¤.
+// return : x > 0 ë¬¸ìì—´ì—ì„œ 1ê°œ ì´ìƒì˜ ìˆ«ìë¥¼ ì°¾ì•˜ë‹¤.
 int extNumberic(string srcStr) {
     unsigned char ch;
     int nNumChar = 0;
@@ -648,9 +648,9 @@ int extNumberic(string srcStr) {
 }
 
 
-// ¹®ÀÚ¿­¿¡¼­ ¿µÀÚ°¡ ¸î°³ ÀÖ´ÂÁö Ã£´Â´Ù
-// return : 0 ¹®ÀÚ¿­¿¡¼­ ¼ıÀÚ¸¦ Ã£Áö ¸øÇß´Ù.
-// return : x > 0 ¹®ÀÚ¿­¿¡¼­ 1°³ ÀÌ»óÀÇ ¼ıÀÚ¸¦ Ã£¾Ò´Ù. x´Â Ã£Àº °¹¼ö
+// ë¬¸ìì—´ì—ì„œ ì˜ìê°€ ëª‡ê°œ ìˆëŠ”ì§€ ì°¾ëŠ”ë‹¤
+// return : 0 ë¬¸ìì—´ì—ì„œ ìˆ«ìë¥¼ ì°¾ì§€ ëª»í–ˆë‹¤.
+// return : x > 0 ë¬¸ìì—´ì—ì„œ 1ê°œ ì´ìƒì˜ ìˆ«ìë¥¼ ì°¾ì•˜ë‹¤. xëŠ” ì°¾ì€ ê°¯ìˆ˜
 int extEnglish(string srcStr) {
     unsigned char ch;
     int nEngChar = 0;
@@ -670,7 +670,7 @@ int extEnglish(string srcStr) {
 
     return nEngChar;
 }
-// GB2312 ÄÚµå¼ÂÀÇ ¹®ÀÚ°¡ ¸î°³ ÀÖ´ÂÁö ÀÖ´ÂÁö Ã£´Â´Ù.
+// GB2312 ì½”ë“œì…‹ì˜ ë¬¸ìê°€ ëª‡ê°œ ìˆëŠ”ì§€ ìˆëŠ”ì§€ ì°¾ëŠ”ë‹¤.
 int extGb2312Normal(string srcStr) {
     unsigned char ch;
     int nNormalChar = 0;
@@ -758,13 +758,13 @@ bool isAllowString(string str) {
         int nASpc = extAsciiSpecial(str);
 
         if (nNum == -1)
-            isAllow = false; // ¹®ÀÚ¿­ÀÇ Ã³À½ÀÌ ¼ıÀÚ·Î ½ÃÀÛÇÏ¸é
+            isAllow = false; // ë¬¸ìì—´ì˜ ì²˜ìŒì´ ìˆ«ìë¡œ ì‹œì‘í•˜ë©´
         if (nSpc)
-            isAllow = false; // Æ¯¼ö¹®ÀÚ°¡ Æ÷ÇÔµÇ¾î ÀÖ´Ù¸é (gb2312¾È¿¡¼­¸¸ Ã¼Å©ÇÑ
+            isAllow = false; // íŠ¹ìˆ˜ë¬¸ìê°€ í¬í•¨ë˜ì–´ ìˆë‹¤ë©´ (gb2312ì•ˆì—ì„œë§Œ ì²´í¬í•œ
         if (nEng && nNor)
-            isAllow = false; // ÀÏ¹İ¹®ÀÚ¿Í ¿µ¹®ÀÌ ¼¯¿© ÀÖ´Ù¸é
+            isAllow = false; // ì¼ë°˜ë¬¸ìì™€ ì˜ë¬¸ì´ ì„ì—¬ ìˆë‹¤ë©´
         if (nASpc)
-            isAllow = false; // Ascii¿µ¿ª¿¡¼­ Æ¯¼ö¹®ÀÚ°¡ ¹ß°ßµÇ¸é
+            isAllow = false; // Asciiì˜ì—­ì—ì„œ íŠ¹ìˆ˜ë¬¸ìê°€ ë°œê²¬ë˜ë©´
     }
 
     return isAllow;
