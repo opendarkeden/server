@@ -7,6 +7,7 @@
 #include "Mutex.h"
 #include "Types.h"
 
+class Creature;
 class Packet;
 
 class LevelWarZoneInfo {

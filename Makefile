@@ -1,11 +1,16 @@
 # DarkEden Makefile
 
-.PHONY: all fmt fmt fmt-check fmt-check-all clean help
+.PHONY: all fmt fmt fmt-check fmt-check-all clean help debug
 
 # Default target
 all:
 	cmake -B build -DCMAKE_BUILD_TYPE=Release
 	cmake --build build -j$(shell sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4)
+
+debug:
+	cmake -B build -DCMAKE_BUILD_TYPE=Debug
+	cmake --build build -j$(shell sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4)
+
 
 # Format code with clang-format
 fmt:
