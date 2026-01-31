@@ -27,12 +27,12 @@ bool ConditionPayPlay::isSatisfied(Creature* pCreature1, Creature* pCreature2, v
 
     Assert(pGamePlayer != NULL);
 
-    // ÀÌ¹Ì À¯·áÁ¸¿¡ ÀÖ´Â °æ¿ì¶ó¸é... °ü°è¾ø°ÚÁö.
+    // ì´ë¯¸ ìœ ë£Œì¡´ì— ìžˆëŠ” ê²½ìš°ë¼ë©´... ê´€ê³„ì—†ê² ì§€.
     if (pGamePlayer->isPayPlaying() || pGamePlayer->isFamilyFreePass()) {
         return true;
     }
 
-    // ÀÏ´Ü zone ¿ä±Ý Ã¼Å©
+    // ì¼ë‹¨ zone ìš”ê¸ˆ ì²´í¬
     // return pGamePlayer->hasPayPlayFlag(PAY_PLAY_FLAG_ZONE)
 
     string connectIP = pGamePlayer->getSocket()->getHost();

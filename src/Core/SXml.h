@@ -58,19 +58,19 @@ private:
     typedef unordered_map<string, XMLTree*> CHILDREN_MAP;
     typedef vector<XMLTree*> CHILDREN_VECTOR;
 
-    string m_Name;      ///< ³ëµåÀÇ ÀÌ¸§
-    string m_Text;      ///< ³ëµå¿¡ ¼ÓÇÑ ÅØ½ºÆ®
-    XMLTree* m_pParent; ///< ºÎ¸ð ³ëµåÀÇ Æ÷ÀÎÅÍ
+    string m_Name;      ///< ë…¸ë“œì˜ ì´ë¦„
+    string m_Text;      ///< ë…¸ë“œì— ì†í•œ í…ìŠ¤íŠ¸
+    XMLTree* m_pParent; ///< ë¶€ëª¨ ë…¸ë“œì˜ í¬ì¸í„°
 
-    ATTRIBUTES_MAP m_AttributesMap;       ///< °¡Áö°í ÀÖ´Â ¼Ó¼º°ªµé
-    ATTRIBUTES_VECTOR m_AttributesVector; ///< °¡Áö°í ÀÖ´Â ¼Ó¼º°ªµé
-    CHILDREN_MAP m_ChildrenMap;           ///< ÀÚ½Ä ³ëµåµé
-    CHILDREN_VECTOR m_ChildrenVector;     ///< ÀÚ½Ä ³ëµåµé
+    ATTRIBUTES_MAP m_AttributesMap;       ///< ê°€ì§€ê³  ìžˆëŠ” ì†ì„±ê°’ë“¤
+    ATTRIBUTES_VECTOR m_AttributesVector; ///< ê°€ì§€ê³  ìžˆëŠ” ì†ì„±ê°’ë“¤
+    CHILDREN_MAP m_ChildrenMap;           ///< ìžì‹ ë…¸ë“œë“¤
+    CHILDREN_VECTOR m_ChildrenVector;     ///< ìžì‹ ë…¸ë“œë“¤
 
 public:
     XMLTree();
     XMLTree(const string& name);
-    XMLTree(const XMLTree& xmlTree); // copy constructor : ±íÀº º¹»ç
+    XMLTree(const XMLTree& xmlTree); // copy constructor : ê¹Šì€ ë³µì‚¬
     virtual ~XMLTree();
 
 public:

@@ -18,9 +18,9 @@ typedef HashMapGameServerInfo::iterator HashMapGameServerInfoItor;
 
 //////////////////////////////////////////////////////////////////////////////
 // class GameServerInfoManager;
-// °ÔÀÓ ¼­¹öÀÇ ID ¸¦ Å°°ªÀ¸·Î ÇÏ´Â GameServerInfoÀÇ unordered_map À»
-// ³»ºÎ¿¡ °¡Áö°í ÀÖ´Ù.
-// World ÇÏ³ªÀÇ GameServerInfo¸¦ °¡Áø´Ù.
+// ê²Œì„ ì„œë²„ì˜ ID ë¥¼ í‚¤ê°’ìœ¼ë¡œ í•˜ëŠ” GameServerInfoì˜ unordered_map ì„
+// ë‚´ë¶€ì— ê°€ì§€ê³  ìˆë‹¤.
+// World í•˜ë‚˜ì˜ GameServerInfoë¥¼ ê°€ì§„ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class GameServerInfoManager {

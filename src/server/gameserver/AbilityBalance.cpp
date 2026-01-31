@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : AbilityBalance.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// °¢ Å©¸®ÃÄ º°·Î ´É·ÂÄ¡¸¦ °è»êÇÏ´Â ÇÔ¼öµéÀ» ¸ğ¾Æ³õÀº ÆÄÀÏÀÌ´Ù.
+// ê° í¬ë¦¬ì³ ë³„ë¡œ ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜ë“¤ì„ ëª¨ì•„ë†“ì€ íŒŒì¼ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "AbilityBalance.h"
@@ -14,8 +14,8 @@
 #include "Vampire.h"
 #include "VariableManager.h"
 
-// ÀÌ°Å ¹Ù²î¸é Slayer::load(), Vampire::load(), Ousters::load() ¿¡¼­
-// maxHP¸¦ °è»êÇØ¼­ ¼³Á¤ÇØÁÖ´Â ºÎºĞµµ ¹Ù²ãÁà¾ß ÇÑ´Ù. by sigi.
+// ì´ê±° ë°”ë€Œë©´ Slayer::load(), Vampire::load(), Ousters::load() ì—ì„œ
+// maxHPë¥¼ ê³„ì‚°í•´ì„œ ì„¤ì •í•´ì£¼ëŠ” ë¶€ë¶„ë„ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤. by sigi.
 HP_t computeHP(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enhance) {
     Assert(pAttr != NULL);
 
@@ -26,18 +26,18 @@ HP_t computeHP(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enhance) {
     double CLEVEL = pAttr->nLevel;
     Item* pWeapon = pAttr->pWeapon;
     /*
-     add by Coffee ĞŞ¸ÄÎªº«·şµÄĞÂHP¼ÆÄ£Ê½
+     add by Coffee éŒ¦ë§£æ§¨ë²´ë¥©ë¨åŠ¤HPì…•ì¹œé§•
 
-    ÈËÀà
+    í›™ìš
      Sword, Blade
      STR*3+Domain Level*5
     Gun, Enchant, heal
      STR*2+Domain Level*4
-    ¹í
+    ë±
      (STR*3 + INT + DEX + Level)*1.5 + 10
-    MOÕ½Ê¿
+    MOæ¿«å´
      (STR*3 + INT + DEX + Level)*1.5 + 10
-    MO·¨Ê¦
+    MOë¬å¯
      (STR*3 + (INT*0.7) + DEX + Level)*1.5 + 10
      */
     //==========================================================
@@ -85,7 +85,7 @@ HP_t computeHP(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enhance) {
         // cout << "STR:" << CSTR << " DEX/2:" << (int)(CDEX/2) << " INT:" << CINT << " LEV:" << CLEVEL << " HPMAX:" <<
         // maxHP << endl;
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         // maxHP = (int)((CSTR*3.00 + CINT + CDEX + CLEVEL));
 
@@ -109,7 +109,7 @@ HP_t computeHP(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enhance) {
     //================================================================================
 
     /*
-    // È¥µôÔ­À´µÄ¼ÆËã¹«Ê½
+    // í˜¼ë”œè¦©ìœ±ë¨ì…•ç‚¬ë¬´é§•
 
     if (CClass == Creature::CREATURE_CLASS_SLAYER)
     {
@@ -155,7 +155,7 @@ HP_t computeHP(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enhance) {
         //cout << "STR:" << CSTR << " DEX/2:" << (int)(CDEX/2) << " INT:" << CINT << " LEV:" << CLEVEL << " HPMAX:" <<
 maxHP << endl;
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS)
     {
         maxHP = (int)(CSTR*1.50 + CINT/2.00 + CDEX + CLEVEL );
@@ -192,7 +192,7 @@ MP_t computeMP(Creature::CreatureClass CClass, BASIC_ATTR* pAttr) {
         maxMP = (int)(CINTE * 2.0);
         maxMP = min((int)maxMP, SLAYER_MAX_MP);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         maxMP = (int)((CINTE + CLEVEL) * 0.7);
         maxMP = min((int)maxMP, OUSTERS_MAX_MP);
@@ -212,8 +212,8 @@ ToHit_t computeToHit(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enha
         toHit = (int)(CDEX / 2);
 
         if (pAttr->pWeapon != NULL) {
-            // ¹«»ç ¹«±â³ª, ±ºÀÎ ¹«±â¸¦ µé°í ÀÖÀ» °æ¿ì,
-            // µµ¸ŞÀÎ ·¹º§¿¡ ÀÇÇØ¼­ º¸³Ê½º Æ÷ÀÎÆ®°¡ Á¸ÀçÇÑ´Ù.
+            // ë¬´ì‚¬ ë¬´ê¸°ë‚˜, êµ°ì¸ ë¬´ê¸°ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°,
+            // ë„ë©”ì¸ ë ˆë²¨ì— ì˜í•´ì„œ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ê°€ ì¡´ì¬í•œë‹¤.
             if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_SWORD) {
                 toHit += (int)(pAttr->pDomainLevel[SKILL_DOMAIN_SWORD] * 1.5);
             } else if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_BLADE) {
@@ -232,7 +232,7 @@ ToHit_t computeToHit(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enha
         toHit = (int)(CDEX + CLEVEL / 2.5);
         toHit = min((int)toHit, VAMPIRE_MAX_TOHIT);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         toHit = (int)(CDEX / 2.0 + CLEVEL);
         toHit = min((int)toHit, OUSTERS_MAX_TOHIT);
@@ -259,7 +259,7 @@ Defense_t computeDefense(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int 
         Defense = (int)(CDEX / 2.0 + CLEVEL / 5.0);
         Defense = min((int)Defense, VAMPIRE_MAX_DEFENSE);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         Defense = (int)(CDEX / 2.0 + CLEVEL / 5.0);
         Defense = min((int)Defense, OUSTERS_MAX_DEFENSE);
@@ -289,7 +289,7 @@ Protection_t computeProtection(Creature::CreatureClass CClass, BASIC_ATTR* pAttr
         Protection = (int)(CSTR + CLEVEL / 5.0);
         Protection = min((int)Protection, VAMPIRE_MAX_PROTECTION);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         Protection = (int)(CSTR + CLEVEL / 10.0);
         Protection = min((int)Protection, OUSTERS_MAX_PROTECTION);
@@ -313,7 +313,7 @@ Damage_t computeMinDamage(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int
         minDamage = (int)(CSTR / 15.0);
 
         if (pAttr->pWeapon != NULL) {
-            // ±ºÀÎ ¹«±â °°Àº °æ¿ì¿¡´Â Èû¿¡ ÀÇÇÑ º¸³Ê½º°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+            // êµ°ì¸ ë¬´ê¸° ê°™ì€ ê²½ìš°ì—ëŠ” í˜ì— ì˜í•œ ë³´ë„ˆìŠ¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (isArmsWeapon(pAttr->pWeapon)) {
                 minDamage = 1;
             }
@@ -329,7 +329,7 @@ Damage_t computeMinDamage(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int
 
         minDamage = min((int)minDamage, VAMPIRE_MAX_DAMAGE);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         minDamage = (int)(CSTR / 10.0 + CLEVEL / 10.0);
 
@@ -355,7 +355,7 @@ Damage_t computeMaxDamage(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int
         maxDamage = (int)(CSTR / 10.0);
 
         if (pAttr->pWeapon != NULL) {
-            // ±ºÀÎ ¹«±â °°Àº °æ¿ì¿¡´Â Èû¿¡ ÀÇÇÑ º¸³Ê½º°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+            // êµ°ì¸ ë¬´ê¸° ê°™ì€ ê²½ìš°ì—ëŠ” í˜ì— ì˜í•œ ë³´ë„ˆìŠ¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (isArmsWeapon(pAttr->pWeapon)) {
                 maxDamage = 2;
             }
@@ -371,7 +371,7 @@ Damage_t computeMaxDamage(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int
 
         maxDamage = min((int)maxDamage, VAMPIRE_MAX_DAMAGE);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         maxDamage = (int)(CSTR / 6.0 + CLEVEL / 6.0);
 
@@ -395,18 +395,18 @@ Speed_t computeAttackSpeed(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, in
     double CLEVEL = pAttr->nLevel;
 
     if (CClass == Creature::CREATURE_CLASS_SLAYER) {
-        // ±âº»ÀûÀ¸·Î´Â Èû¿¡ ÀÇÇØ ¾îÅÃ ½ºÇÇµå°¡ °áÁ¤µÈ´Ù.
+        // ê¸°ë³¸ì ìœ¼ë¡œëŠ” í˜ì— ì˜í•´ ì–´íƒ ìŠ¤í”¼ë“œê°€ ê²°ì •ëœë‹¤.
         AttackSpeed = (int)(CSTR / 10.0);
 
         if (pAttr->pWeapon != NULL) {
-            // ¹«»ç ¹«±â³ª, ±ºÀÎ ¹«±â¸¦ µé°í ÀÖÀ» °æ¿ì,
-            // µµ¸ŞÀÎ ·¹º§¿¡ ÀÇÇØ¼­ º¸³Ê½º Æ÷ÀÎÆ®°¡ Á¸ÀçÇÑ´Ù.
+            // ë¬´ì‚¬ ë¬´ê¸°ë‚˜, êµ°ì¸ ë¬´ê¸°ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°,
+            // ë„ë©”ì¸ ë ˆë²¨ì— ì˜í•´ì„œ ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ê°€ ì¡´ì¬í•œë‹¤.
             if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_SWORD) {
                 AttackSpeed += (int)(pAttr->pDomainLevel[SKILL_DOMAIN_SWORD] / 5.0);
             } else if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_BLADE) {
                 AttackSpeed += (int)(pAttr->pDomainLevel[SKILL_DOMAIN_BLADE] / 5.0);
             } else if (isArmsWeapon(pAttr->pWeapon)) {
-                // ±ºÀÎ ¹«±âÀÏ °æ¿ì¿¡´Â µ¦½º¿¡ ÀÇÇØ ¾îÅÃ ½ºÇÇµå°¡ °áÁ¤µÈ´Ù.
+                // êµ°ì¸ ë¬´ê¸°ì¼ ê²½ìš°ì—ëŠ” ë±ìŠ¤ì— ì˜í•´ ì–´íƒ ìŠ¤í”¼ë“œê°€ ê²°ì •ëœë‹¤.
                 AttackSpeed = (int)(CDEX / 10.0);
                 AttackSpeed += (int)(pAttr->pDomainLevel[SKILL_DOMAIN_GUN] / 5.0);
             }
@@ -416,7 +416,7 @@ Speed_t computeAttackSpeed(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, in
         AttackSpeed = (int)(CDEX / 10.0 + 10.0);
         AttackSpeed = min((Speed_t)VAMPIRE_MAX_ATTACK_SPEED, AttackSpeed);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         AttackSpeed = (int)(CDEX / 10.0 + CLEVEL / 10.0);
         AttackSpeed = min((Speed_t)OUSTERS_MAX_ATTACK_SPEED, AttackSpeed);
@@ -438,14 +438,14 @@ int computeCriticalRatio(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int 
             } else if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_BLADE) {
                 CriticalRatio = (int)(pAttr->pDomainLevel[SKILL_DOMAIN_BLADE] / 5.0);
             } else if (isArmsWeapon(pAttr->pWeapon)) {
-                // ±ºÀÎ ¹«±âÀÏ °æ¿ì¿¡´Â µ¦½º¿¡ ÀÇÇØ ¾îÅÃ ½ºÇÇµå°¡ °áÁ¤µÈ´Ù.
+                // êµ°ì¸ ë¬´ê¸°ì¼ ê²½ìš°ì—ëŠ” ë±ìŠ¤ì— ì˜í•´ ì–´íƒ ìŠ¤í”¼ë“œê°€ ê²°ì •ëœë‹¤.
                 CriticalRatio = (int)(pAttr->pDomainLevel[SKILL_DOMAIN_GUN] / 5.0);
             }
         }
     } else if (CClass == Creature::CREATURE_CLASS_VAMPIRE) {
         CriticalRatio = (int)((CDEX - 20.0) / 30.0);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         CriticalRatio = (int)((CDEX - 20.0) / 30.0);
     } else if (CClass == Creature::CREATURE_CLASS_MONSTER) {
@@ -457,7 +457,7 @@ int computeCriticalRatio(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int 
 }
 
 Steal_t computeStealRatio(Creature::CreatureClass CClass, Steal_t amount, BASIC_ATTR* pAttr) {
-    // ¸¸ÀÏ ½ºÆ¿ÇÏ´Â ¾çÀÌ 0ÀÌ¶ó¸é, ½ºÆ¿ÇÒ È®·ü ¿ª½Ã 0ÀÌ´Ù.
+    // ë§Œì¼ ìŠ¤í‹¸í•˜ëŠ” ì–‘ì´ 0ì´ë¼ë©´, ìŠ¤í‹¸í•  í™•ë¥  ì—­ì‹œ 0ì´ë‹¤.
     if (amount == 0)
         return 0;
 
@@ -480,7 +480,7 @@ Steal_t computeStealRatio(Creature::CreatureClass CClass, Steal_t amount, BASIC_
     } else if (CClass == Creature::CREATURE_CLASS_VAMPIRE) {
         result = (Steal_t)(90.0 - (float)amount * 1.4);
     }
-    // ¾Æ¿ì½ºÅÍ½º Ãß°¡ by bezz 2003.04.22
+    // ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ by bezz 2003.04.22
     else if (CClass == Creature::CREATURE_CLASS_OUSTERS) {
         result = (Steal_t)(90.0 - (float)amount * 1.4);
     } else if (CClass == Creature::CREATURE_CLASS_MONSTER) {

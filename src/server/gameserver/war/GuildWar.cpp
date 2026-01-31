@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ÀüÀï¿¡ ´ëÇÑ Àü¹İÀûÀÎ Á¤º¸ ¹× ÀüÀï ½ÃÀÛ ¹× Á¾·á½Ã Ã³¸®·çÆ¾ ±¸Çö
+// ì „ìŸì— ëŒ€í•œ ì „ë°˜ì ì¸ ì •ë³´ ë° ì „ìŸ ì‹œì‘ ë° ì¢…ë£Œì‹œ ì²˜ë¦¬ë£¨í‹´ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "GuildWar.h"
@@ -46,10 +46,10 @@ GuildWar::~GuildWar() {}
 // executeStart
 //
 //--------------------------------------------------------------------------------
-// ÀüÀïÀÌ ½ÃÀÛÇÏ´Â ½ÃÁ¡¿¡¼­ Ã³¸®ÇØ¾ß µÉ °Íµé
+// ì „ìŸì´ ì‹œì‘í•˜ëŠ” ì‹œì ì—ì„œ ì²˜ë¦¬í•´ì•¼ ë  ê²ƒë“¤
 //
-// (!) Zone¿¡ ºÙ¾îÀÖ´Â WarScheduler¿¡¼­ ½ÇÇàµÇ´Â ºÎºĞÀÌ¹Ç·Î
-//     ÀÚ½ÅÀÇ Zone(¼º)¿¡ ´ëÇÑ Ã³¸®´Â lockÀÌ ÇÊ¿ä¾ø´Ù.
+// (!) Zoneì— ë¶™ì–´ìˆëŠ” WarSchedulerì—ì„œ ì‹¤í–‰ë˜ëŠ” ë¶€ë¶„ì´ë¯€ë¡œ
+//     ìì‹ ì˜ Zone(ì„±)ì— ëŒ€í•œ ì²˜ë¦¬ëŠ” lockì´ í•„ìš”ì—†ë‹¤.
 //--------------------------------------------------------------------------------
 void GuildWar::executeStart()
 
@@ -58,26 +58,26 @@ void GuildWar::executeStart()
 
     sendWarStartMessage();
 
-    // ¼º ¾ÈÀÇ ¾ÈÀüÁö´ë¸¦ ²ö´Ù.
+    // ì„± ì•ˆì˜ ì•ˆì „ì§€ëŒ€ë¥¼ ëˆë‹¤.
     ZoneID_t guardShrineZoneID = g_pCastleShrineInfoManager->getGuardShrineZoneID(m_CastleZoneID);
     Zone* pZone = getZoneByZoneID(guardShrineZoneID);
     Assert(pZone != NULL);
 
     /*
-    // NPC¸¦ ¸ğµÎ Áö¿î´Ù.
+    // NPCë¥¼ ëª¨ë‘ ì§€ìš´ë‹¤.
     pZone->deleteNPCs( RACE_SLAYER );
     pZone->deleteNPCs( RACE_VAMPIRE );
 
     pZone->releaseSafeZone();
     */
 
-    // ÀÌ ºÎºĞÀº ³ªÁß¿¡~~ CastleInfo·Î ³Ö´Â°Ô ³´°Ú´Ù.
+    // ì´ ë¶€ë¶„ì€ ë‚˜ì¤‘ì—~~ CastleInfoë¡œ ë„£ëŠ”ê²Œ ë‚«ê² ë‹¤.
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
     Assert(pCastleInfo != NULL);
 
     GuildID_t OwnerGuildID = pCastleInfo->getGuildID();
 
-    // °ø¿ë¼ºÀÌ ¾Æ´Ñ °æ¿ì¸¸ ¸ó½ºÅÍ¸¦ ¾ø¾ÖÁØ´Ù.
+    // ê³µìš©ì„±ì´ ì•„ë‹Œ ê²½ìš°ë§Œ ëª¬ìŠ¤í„°ë¥¼ ì—†ì• ì¤€ë‹¤.
     if (OwnerGuildID != SlayerCommon && OwnerGuildID != VampireCommon) {
         const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
 
@@ -86,7 +86,7 @@ void GuildWar::executeStart()
             ZoneID_t targetZoneID = *itr;
             Zone* pTargetZone = getZoneByZoneID(targetZoneID);
 
-            // ¼ºÀÌ ¾Æ´Ï°í.. ´øÀü ¸ÊÀÎ °æ¿ì..
+            // ì„±ì´ ì•„ë‹ˆê³ .. ë˜ì „ ë§µì¸ ê²½ìš°..
             if (targetZoneID != m_CastleZoneID) {
                 pTargetZone->killAllMonsters();
             }
@@ -95,7 +95,7 @@ void GuildWar::executeStart()
 
     g_pCastleShrineInfoManager->removeShrineShield(pZone);
 
-    // GuildWarHistory Table ¿¡ ±â·Ï
+    // GuildWarHistory Table ì— ê¸°ë¡
     recordGuildWarStart();
 
     __END_CATCH
@@ -110,7 +110,7 @@ void GuildWar::recordGuildWarStart()
 
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
 
-    // NULL ÀÏ¸®µµ ¾øÁö¸¸ È¤½Ã³ª ÇÏ´Â ¸¾¿¡ -_-;
+    // NULL ì¼ë¦¬ë„ ì—†ì§€ë§Œ í˜¹ì‹œë‚˜ í•˜ëŠ” ë§˜ì— -_-;
     if (pCastleInfo == NULL)
         return;
 
@@ -134,7 +134,7 @@ void GuildWar::recordGuildWarStart()
 // executeEnd
 //
 //--------------------------------------------------------------------------------
-// ÀüÀïÀÌ ³¡³ª´Â ½ÃÁ¡¿¡¼­ Ã³¸®ÇØ¾ß µÉ °Íµé
+// ì „ìŸì´ ëë‚˜ëŠ” ì‹œì ì—ì„œ ì²˜ë¦¬í•´ì•¼ ë  ê²ƒë“¤
 //--------------------------------------------------------------------------------
 void GuildWar::executeEnd()
 
@@ -142,12 +142,12 @@ void GuildWar::executeEnd()
     __BEGIN_TRY
 
     //----------------------------------------------------------------------------
-    // ÀüÀï ³¡³µ´Ù´Â °É ¾Ë¸°´Ù.
+    // ì „ìŸ ëë‚¬ë‹¤ëŠ” ê±¸ ì•Œë¦°ë‹¤.
     //----------------------------------------------------------------------------
     sendWarEndMessage();
 
     //----------------------------------------------------------------------------
-    // ¼º ÁÖÀÎ º¯°æ
+    // ì„± ì£¼ì¸ ë³€ê²½
     //----------------------------------------------------------------------------
     if (m_bModifyCastleOwner) {
         g_pCastleInfoManager->modifyCastleOwner(m_CastleZoneID, m_WinnerRace, m_WinnerGuildID);
@@ -158,21 +158,21 @@ void GuildWar::executeEnd()
             CGSayHandler::opworld(NULL, sCommand, 0, true);
         }
     } else {
-        // WinnerGuildID ¸¦ Áö±İ ÁÖÀÎÀ¸·Î ¼ÂÆÃÇØÁØ´Ù
+        // WinnerGuildID ë¥¼ ì§€ê¸ˆ ì£¼ì¸ìœ¼ë¡œ ì…‹íŒ…í•´ì¤€ë‹¤
         CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
         m_WinnerGuildID = pCastleInfo->getGuildID();
     }
 
     //----------------------------------------------------------------------------
-    // ¼º »óÂ¡À» µÇµ¹·ÁÁØ´Ù.
+    // ì„± ìƒì§•ì„ ë˜ëŒë ¤ì¤€ë‹¤.
     //----------------------------------------------------------------------------
     g_pCastleShrineInfoManager->returnAllCastleSymbol(m_CastleZoneID);
 
     //----------------------------------------------------------------------------
-    // ¼º ¾È ¾ÈÀüÁö´ë º¹±¸
+    // ì„± ì•ˆ ì•ˆì „ì§€ëŒ€ ë³µêµ¬
     //----------------------------------------------------------------------------
-    // ÀÌ ÇÔ¼ö´Â ClientManager¿Í °°Àº ½º·¹µå¿¡¼­ µ¹¾Æ°¡´Â WarSystem¿¡¼­ ºÒ·¯ÁÖ¹Ç·Î
-    // ¼ºÀÌ Æ÷ÇÔµÈ ZoneÀÇ ¶ôÀ» °É¾îÁà¾ß µÈ´Ù.
+    // ì´ í•¨ìˆ˜ëŠ” ClientManagerì™€ ê°™ì€ ìŠ¤ë ˆë“œì—ì„œ ëŒì•„ê°€ëŠ” WarSystemì—ì„œ ë¶ˆëŸ¬ì£¼ë¯€ë¡œ
+    // ì„±ì´ í¬í•¨ëœ Zoneì˜ ë½ì„ ê±¸ì–´ì¤˜ì•¼ ëœë‹¤.
     ZoneID_t guardShrineZoneID = g_pCastleShrineInfoManager->getGuardShrineZoneID(m_CastleZoneID);
     Zone* pZone = getZoneByZoneID(guardShrineZoneID);
     Assert(pZone != NULL);
@@ -195,14 +195,14 @@ void GuildWar::executeEnd()
     g_pCastleShrineInfoManager->addShrineShield(pZone);
 
     //----------------------------------------------------------------------------
-    // ÀüÀï ½ÅÃ»±İÀ» ¼º¿¡ ½×´Â´Ù.
-    // (¿ì¼± ÀüÀï °á°ú¿¡ µû¶ó¼­ ¼ºÀÇ ÁÖÀÎÀÌ ¹Ù²î¾ú´Ù°í °¡Á¤ÇÑ´Ù.)
+    // ì „ìŸ ì‹ ì²­ê¸ˆì„ ì„±ì— ìŒ“ëŠ”ë‹¤.
+    // (ìš°ì„  ì „ìŸ ê²°ê³¼ì— ë”°ë¼ì„œ ì„±ì˜ ì£¼ì¸ì´ ë°”ë€Œì—ˆë‹¤ê³  ê°€ì •í•œë‹¤.)
     //----------------------------------------------------------------------------
     g_pCastleInfoManager->increaseTaxBalance(m_CastleZoneID, m_RegistrationFee);
     m_RegistrationFee = 0;
-    // tinysave("ÀüÀï½ÅÃ»±İ=0") <-- ÇÒ ÇÊ¿ä ÀÖÀ»±î?
+    // tinysave("ì „ìŸì‹ ì²­ê¸ˆ=0") <-- í•  í•„ìš” ìˆì„ê¹Œ?
 
-    // GuildWarHistory Table ¿¡ ±â·Ï
+    // GuildWarHistory Table ì— ê¸°ë¡
     recordGuildWarEnd();
 
     __END_CATCH
@@ -223,7 +223,7 @@ void GuildWar::recordGuildWarEnd()
     }
     END_DB(pStmt)
 
-    // script µ¹¸®±â ¤Ñ.,¤Ñ system ÇÔ¼ö¸¦ ¾²°Ô µÉ ÁÙÀÌ¾ß !_!
+    // script ëŒë¦¬ê¸° ã…¡.,ã…¡ system í•¨ìˆ˜ë¥¼ ì“°ê²Œ ë  ì¤„ì´ì•¼ !_!
     char cmd[100];
     sprintf(cmd, "/home/darkeden/vs/bin/script/recordGuildWarHistory.py %d %d %d ", (int)getWarID(),
             g_pConfig->getPropertyInt("Dimension"), g_pConfig->getPropertyInt("WorldID"));
@@ -247,10 +247,10 @@ string GuildWar::getWarName() const
         pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_CastleZoneID);
 
         if (pGuild == NULL || pZoneInfo == NULL)
-            return "±æµå ÀüÀï";
+            return "ê¸¸ë“œ ì „ìŸ";
 
     } catch (Throwable& t) {
-        return "±æµå ÀüÀï";
+        return "ê¸¸ë“œ ì „ìŸ";
     }
 
     Assert(pZoneInfo != NULL);
@@ -258,8 +258,8 @@ string GuildWar::getWarName() const
 
     StringStream msg;
 
-    msg << pGuild->getName() << "±æµå°¡ ";
-    msg << pZoneInfo->getFullName() << "À» °ø°İÇÏ´Â ±æµå ÀüÀï";
+    msg << pGuild->getName() << "ê¸¸ë“œê°€ ";
+    msg << pZoneInfo->getFullName() << "ì„ ê³µê²©í•˜ëŠ” ê¸¸ë“œ ì „ìŸ";
 
     return msg.toString();
 
@@ -271,7 +271,7 @@ string GuildWar::getWarName() const
 //	isModifyCastleOwner( PlayerCreature* pPC )
 //
 //--------------------------------------------------------------------------------
-// ¼ºÀÇ ÁÖÀÎÀÌ ¹Ù²î´Â °æ¿ì
+// ì„±ì˜ ì£¼ì¸ì´ ë°”ë€ŒëŠ” ê²½ìš°
 //--------------------------------------------------------------------------------
 bool GuildWar::isModifyCastleOwner(PlayerCreature* pPC)
 
@@ -283,14 +283,14 @@ bool GuildWar::isModifyCastleOwner(PlayerCreature* pPC)
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
     Assert(pCastleInfo != NULL);
 
-    // °ø¿ë¼º : °ø°İ±æµå --> °ø°İ±æµå¼º
-    // °ø¿ë¼º : ÀÏ¹İ --> ¿ø·¡ ÀÚ¸®·Î
-    // ±æµå¼º : °ø°İ±æµå --> °ø°İ±æµå¼º
-    // ±æµå¼º : ¼öºñ±æµå --> ¿ø·¡ ÀÚ¸®·Î
-    // ±æµå¼º : ÀÏ¹İ --> °ø¿ë¼º
+    // ê³µìš©ì„± : ê³µê²©ê¸¸ë“œ --> ê³µê²©ê¸¸ë“œì„±
+    // ê³µìš©ì„± : ì¼ë°˜ --> ì›ë˜ ìë¦¬ë¡œ
+    // ê¸¸ë“œì„± : ê³µê²©ê¸¸ë“œ --> ê³µê²©ê¸¸ë“œì„±
+    // ê¸¸ë“œì„± : ìˆ˜ë¹„ê¸¸ë“œ --> ì›ë˜ ìë¦¬ë¡œ
+    // ê¸¸ë“œì„± : ì¼ë°˜ --> ê³µìš©ì„±
 
-    // ±æµåÀüÀïÀÎ °æ¿ì : ÀüÀï ½ÅÃ»ÇÑ ±æµåÀÌ°Å³ª
-    // 					 ±æµå¼ºÀÎ °æ¿ì´Â ÀÏ¹İÀÎ
+    // ê¸¸ë“œì „ìŸì¸ ê²½ìš° : ì „ìŸ ì‹ ì²­í•œ ê¸¸ë“œì´ê±°ë‚˜
+    // 					 ê¸¸ë“œì„±ì¸ ê²½ìš°ëŠ” ì¼ë°˜ì¸
     if (pPC->getGuildID() == m_ChallangerGuildID ||
         (!pCastleInfo->isCommon() && pPC->getCommonGuildID() == pPC->getGuildID())) {
         return true;
@@ -307,7 +307,7 @@ bool GuildWar::isModifyCastleOwner(PlayerCreature* pPC)
 // getWinnerGuildID( PlayerCreature* pPC )
 //
 //--------------------------------------------------------------------------------
-// ÀüÀï¿¡ ½Â¸®ÇÑ ±æµåÀÇ GuildID¸¦ ³Ñ°ÜÁØ´Ù.
+// ì „ìŸì— ìŠ¹ë¦¬í•œ ê¸¸ë“œì˜ GuildIDë¥¼ ë„˜ê²¨ì¤€ë‹¤.
 //--------------------------------------------------------------------------------
 GuildID_t GuildWar::getWinnerGuildID(PlayerCreature* pPC)
 
@@ -316,9 +316,9 @@ GuildID_t GuildWar::getWinnerGuildID(PlayerCreature* pPC)
 
     Assert(pPC != NULL);
 
-    // ±æµåÀüÀïÀÎ °æ¿ì : ÀüÀï½ÅÃ» ±æµå¿Í pPCÀÇ ±æµå°¡ °°À¸¸é pPCÀÇ GuildID
-    // 					 ¾Æ´Ï¸é ¿ø·¡ ¼ºÁÖÀÎÀÇ ±æµåID¿Í °°À¸¸é ¿ø·¡ ¼ºÁÖÀÎ GuildID
-    //					 ¾Æ´Ï¸é COMMON_GUILD_ID
+    // ê¸¸ë“œì „ìŸì¸ ê²½ìš° : ì „ìŸì‹ ì²­ ê¸¸ë“œì™€ pPCì˜ ê¸¸ë“œê°€ ê°™ìœ¼ë©´ pPCì˜ GuildID
+    // 					 ì•„ë‹ˆë©´ ì›ë˜ ì„±ì£¼ì¸ì˜ ê¸¸ë“œIDì™€ ê°™ìœ¼ë©´ ì›ë˜ ì„±ì£¼ì¸ GuildID
+    //					 ì•„ë‹ˆë©´ COMMON_GUILD_ID
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
     Assert(pCastleInfo != NULL);
 
@@ -338,7 +338,7 @@ bool GuildWar::endWar(PlayerCreature* pPC)
 
     Assert(pPC != NULL);
 
-    // < ¼º ÁÖÀÎ º¯°æ >
+    // < ì„± ì£¼ì¸ ë³€ê²½ >
     if (isModifyCastleOwner(pPC)) {
         m_WinnerRace = pPC->getRace();
         m_WinnerGuildID = getWinnerGuildID(pPC);
@@ -353,7 +353,7 @@ bool GuildWar::endWar(PlayerCreature* pPC)
 }
 
 //--------------------------------------------------------------------------------
-// ÀüÀï ³¡³¯ ¶§
+// ì „ìŸ ëë‚  ë•Œ
 //--------------------------------------------------------------------------------
 void GuildWar::sendWarEndMessage() const
 
@@ -362,7 +362,7 @@ void GuildWar::sendWarEndMessage() const
 
     War::sendWarEndMessage();
 
-    // ¾ÈÀüÁö´ë ÇØÁ¦ È®ÀÎ? ÆĞÅ¶
+    // ì•ˆì „ì§€ëŒ€ í•´ì œ í™•ì¸? íŒ¨í‚·
     GCNoticeEvent gcNoticeEvent;
     gcNoticeEvent.setCode(NOTICE_EVENT_WAR_OVER);
     gcNoticeEvent.setParameter(m_CastleZoneID);
@@ -399,24 +399,24 @@ void GuildWar::makeWarInfo(WarInfo* pWarInfo) const
     Assert(pGuildWarInfo != NULL);
 
     //---------------------------------------------------
-    // ÇöÀç ¼º ÁÖÀÎ ±¸ÇÏ±â
+    // í˜„ì¬ ì„± ì£¼ì¸ êµ¬í•˜ê¸°
     //---------------------------------------------------
     CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(getCastleZoneID());
     if (pCastleInfo == NULL) {
-        filelog("WarError.log", "CastleInfo°¡ ¾ø´Ù(%d)", getCastleZoneID());
+        filelog("WarError.log", "CastleInfoê°€ ì—†ë‹¤(%d)", getCastleZoneID());
         return;
     }
 
     GuildID_t ownGuildID = pCastleInfo->getGuildID();
     GuildID_t challangerGuildID = getChallangerGuildID();
 
-    pGuildWarInfo->addJoinGuild(ownGuildID);        // ÇöÀç ¼º ÁÖÀÎ
-    pGuildWarInfo->addJoinGuild(challangerGuildID); // ¼º¿¡ °ø°İÇÏ´Â ±æµå
+    pGuildWarInfo->addJoinGuild(ownGuildID);        // í˜„ì¬ ì„± ì£¼ì¸
+    pGuildWarInfo->addJoinGuild(challangerGuildID); // ì„±ì— ê³µê²©í•˜ëŠ” ê¸¸ë“œ
     pGuildWarInfo->setCastleID(getCastleZoneID());
 
-    // °ø°İ ±æµå ÀÌ¸§
-    static const string commonSlayerGuild("¾øÀ½");
-    static const string commonVampireGuild("¾øÀ½");
+    // ê³µê²© ê¸¸ë“œ ì´ë¦„
+    static const string commonSlayerGuild("ì—†ìŒ");
+    static const string commonVampireGuild("ì—†ìŒ");
 
     string attackGuildName;
     string defenseGuildName;

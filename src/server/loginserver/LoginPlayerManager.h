@@ -2,7 +2,7 @@
 //
 // Filename    : LoginPlayerManager.h
 // Written by  : reiot@ewestsoft.com
-// Description : ·Î±×ÀÎ ¼­¹ö¿ë ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú
+// Description : ë¡œê·¸ì¸ ì„œë²„ìš© ë¡œê·¸ì¸ í”Œë ˆì´ì–´ ë§¤ë‹ˆì €
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@ class LoginPlayer;
 //
 // class LoginPlayerManager;
 //
-// ·Î±×ÀÎ ¼­¹ö¿¡ Á¢¼ÓÇÑ ¸ðµç ÇÃ·¹ÀÌ¾îµéÀ» °ü¸®ÇÑ´Ù.
+// ë¡œê·¸ì¸ ì„œë²„ì— ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì„ ê´€ë¦¬í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -34,43 +34,43 @@ public:
     ~LoginPlayerManager();
 
 public:
-    // Å¬¶óÀÌ¾ðÆ® ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+    // í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
     void init();
 
     // accept new connection
     void acceptNewConnection();
 
-    // select() ½Ã½ºÅÛÄÝÀ» »ç¿ëÇØ¼­ I/O MultiplexingÀ» ÇÑ´Ù.
+    // select() ì‹œìŠ¤í…œì½œì„ ì‚¬ìš©í•´ì„œ I/O Multiplexingì„ í•œë‹¤.
     void select();
 
-    // Á¢¼ÓÇÑ ¸ðµç »ç¿ëÀÚÀÇ ÀÔ·ÂÀ» ÀÔ·Â ¹öÆÛ·Î º¹»çÇÑ´Ù.
+    // ì ‘ì†í•œ ëª¨ë“  ì‚¬ìš©ìžì˜ ìž…ë ¥ì„ ìž…ë ¥ ë²„í¼ë¡œ ë³µì‚¬í•œë‹¤.
     void processInputs();
 
-    // Á¢¼ÓÇÑ ¸ðµç »ç¿ëÀÚÀÇ Ãâ·ÂÀ» Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÑ´Ù.
+    // ì ‘ì†í•œ ëª¨ë“  ì‚¬ìš©ìžì˜ ì¶œë ¥ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•œë‹¤.
     void processOutputs();
 
-    // Á¢¼ÓÇÑ ¸ðµç »ç¿ëÀÚÀÇ ÆÐÅ¶À» Ã³¸®ÇÑ´Ù.
+    // ì ‘ì†í•œ ëª¨ë“  ì‚¬ìš©ìžì˜ íŒ¨í‚·ì„ ì²˜ë¦¬í•œë‹¤.
     void processCommands();
 
-    // OOB µ¥ÀÌÅ¸¸¦ Ã³¸®ÇÑ´Ù. ^^;
+    // OOB ë°ì´íƒ€ë¥¼ ì²˜ë¦¬í•œë‹¤. ^^;
     void processExceptions();
 
 public:
-    // ·Î±×ÀÎ ¼­¹ö¿¡ Á¢¼ÓÇÑ ¸ðµç ÇÃ·¹ÀÌ¾îµé¿¡°Ô Æ¯Á¤ ÆÐÅ¶À» Àü´ÞÇÑ´Ù.
+    // ë¡œê·¸ì¸ ì„œë²„ì— ì ‘ì†í•œ ëª¨ë“  í”Œë ˆì´ì–´ë“¤ì—ê²Œ íŠ¹ì • íŒ¨í‚·ì„ ì „ë‹¬í•œë‹¤.
     void broadcastPacket(Packet* pPacket);
 
-    // Æ¯Á¤ ¾ÆÀÌµðÀÇ ÇÃ·¹ÀÌ¾î¿¡°Ô Æ¯Á¤ ÆÐÅ¶À» Àü´ÞÇÑ´Ù.
+    // íŠ¹ì • ì•„ì´ë””ì˜ í”Œë ˆì´ì–´ì—ê²Œ íŠ¹ì • íŒ¨í‚·ì„ ì „ë‹¬í•œë‹¤.
     void sendPacket(const string& id, Packet* pPacket);
 
-    // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ Ãß°¡ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì¶”ê°€í•œë‹¤.
     void addPlayer(Player* pPlayer);
     void addPlayer_NOLOCKED(Player* pPlayer);
 
-    // ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
     void deletePlayer(SOCKET fd);
     void deletePlayer_NOLOCKED(SOCKET fd);
 
-    // ÇÃ·¹ÀÌ¾î °´Ã¼¿¡ Á¢±ÙÇÑ´Ù.
+    // í”Œë ˆì´ì–´ ê°ì²´ì— ì ‘ê·¼í•œë‹¤.
     LoginPlayer* getPlayer(const string& PCName) const;
     LoginPlayer* getPlayer_NOLOCKED(const string& PCName) const;
 
@@ -86,34 +86,34 @@ public:
     string toString() const;
 
 private:
-    // ¼­¹ö ¼ÒÄÏ
+    // ì„œë²„ ì†Œì¼“
     ServerSocket* m_pServerSocket;
 
-    // ¼­¹ö ¼ÒÄÏ µð½ºÅ©¸³ÅÍ ( for fast reference )
+    // ì„œë²„ ì†Œì¼“ ë””ìŠ¤í¬ë¦½í„° ( for fast reference )
     SOCKET m_ServerFD;
 
-    // ¼Ò¼ÓµÈ ÇÃ·¹ÀÌ¾îµéÀÇ ¼ÒÄÏ µð½ºÅ©¸³ÅÍÀÇ ÁýÇÕÀÌ´Ù.
-    // m_XXXXFDs[0]Àº ÀúÀå¿ëÀÌ¸ç, m_XXXFDs[1]ÀÌ ½ÇÁ¦·Î select()ÀÇ ÆÄ¶ó¹ÌÅÍ·Î »ç¿ëµÈ´Ù.
-    // Áï select()ÇÏ±â Àü¿¡ [0] -> [1] ·Î º¹»ç°¡ ÀÌ·ç¾îÁ®¾ß ÇÑ´Ù.
+    // ì†Œì†ëœ í”Œë ˆì´ì–´ë“¤ì˜ ì†Œì¼“ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©ì´ë‹¤.
+    // m_XXXXFDs[0]ì€ ì €ìž¥ìš©ì´ë©°, m_XXXFDs[1]ì´ ì‹¤ì œë¡œ select()ì˜ íŒŒë¼ë¯¸í„°ë¡œ ì‚¬ìš©ëœë‹¤.
+    // ì¦‰ select()í•˜ê¸° ì „ì— [0] -> [1] ë¡œ ë³µì‚¬ê°€ ì´ë£¨ì–´ì ¸ì•¼ í•œë‹¤.
     fd_set m_ReadFDs[2];
     fd_set m_WriteFDs[2];
     fd_set m_ExceptFDs[2];
 
-    // select¿¡ »ç¿ëµÇ´Â ½Ã°£
+    // selectì— ì‚¬ìš©ë˜ëŠ” ì‹œê°„
     Timeval m_Timeout[2];
 
     // min_fd , max_fd
-    // select()ÈÄ iterating ÇÒ ¶§ ¼Óµµ Áõ°¡¸¦ À§ÇØ¼­ »ç¿ëÇÑ´Ù.
-    // ¶ÇÇÑ select()ÀÇ Ã¹¹øÂ° ÆÄ¶ó¹ÌÅÍ¸¦ °è»êÇÏ±â À§ÇØ¼­ »ç¿ëÇÑ´Ù.
+    // select()í›„ iterating í•  ë•Œ ì†ë„ ì¦ê°€ë¥¼ ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
+    // ë˜í•œ select()ì˜ ì²«ë²ˆì§¸ íŒŒë¼ë¯¸í„°ë¥¼ ê³„ì‚°í•˜ê¸° ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
     SOCKET m_MinFD;
     SOCKET m_MaxFD;
 
-    // ·Î±×ÀÎ ¼­¹öÀÇ ¸ÞÀÎ ·çÇÁ´Â ´ÜÀÏ ¾²·¹µå·Î ±¸ÇöµÈ´Ù.
-    // µû¶ó¼­, mutex ¸¦ »ç¿ëÇÏÁö ¾Ê¾Æµµ µÉ °ÍÃ³·³ º¸ÀÌÁö¸¸..
-    // °ÔÀÓ¼­¹ö·ÎºÎÅÍ µ¥ÀÌÅÍ±×·¥À» ¹Þ¾Æ¼­ Ã³¸®ÇÏ´Â ·çÆ¾Àº
-    // µ¶¸³ÀûÀÎ ¾²·¹µå·Î ±¸ÇöµÈ´Ù. Áï, ÀÌ ¾²·¹µå°¡ LPMÀÇ
-    // ÇÃ·¹ÀÌ¾î ¹è¿­À» manipulateÇÒ ¶§ °æÀïÁ¶°ÇÀÌ ¹ß»ýÇÒ
-    // °¡´É¼ºÀÌ ³ô´Ù. - -;
+    // ë¡œê·¸ì¸ ì„œë²„ì˜ ë©”ì¸ ë£¨í”„ëŠ” ë‹¨ì¼ ì“°ë ˆë“œë¡œ êµ¬í˜„ëœë‹¤.
+    // ë”°ë¼ì„œ, mutex ë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šì•„ë„ ë  ê²ƒì²˜ëŸ¼ ë³´ì´ì§€ë§Œ..
+    // ê²Œìž„ì„œë²„ë¡œë¶€í„° ë°ì´í„°ê·¸ëž¨ì„ ë°›ì•„ì„œ ì²˜ë¦¬í•˜ëŠ” ë£¨í‹´ì€
+    // ë…ë¦½ì ì¸ ì“°ë ˆë“œë¡œ êµ¬í˜„ëœë‹¤. ì¦‰, ì´ ì“°ë ˆë“œê°€ LPMì˜
+    // í”Œë ˆì´ì–´ ë°°ì—´ì„ manipulateí•  ë•Œ ê²½ìŸì¡°ê±´ì´ ë°œìƒí• 
+    // ê°€ëŠ¥ì„±ì´ ë†’ë‹¤. - -;
     mutable Mutex m_Mutex;
 };
 

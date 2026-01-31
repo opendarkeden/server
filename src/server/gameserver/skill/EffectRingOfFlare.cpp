@@ -52,7 +52,7 @@ void EffectRingOfFlare::affect()
     Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
     if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET ||
         !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
-        // Áß°£¿¡ ¸®½ºÆ²¸´À» »©¹ö¸®¸é ÀÌÆåÆ®µµ »ç¶óÁø´Ù.
+        // ì¤‘ê°„ì— ë¦¬ìŠ¤í‹€ë¦¿ì„ ë¹¼ë²„ë¦¬ë©´ ì´íŽ™íŠ¸ë„ ì‚¬ë¼ì§„ë‹¤.
         setDeadline(0);
         return;
     }
@@ -79,7 +79,7 @@ void EffectRingOfFlare::affect()
             if (!rect.ptInRect(X, Y))
                 continue;
 
-            // Å¸ÀÏ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Â´Ù.
+            // íƒ€ì¼ì•ˆì— ì¡´ìž¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             Tile& tile = pZone->getTile(X, Y);
 
             if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) {
@@ -88,8 +88,8 @@ void EffectRingOfFlare::affect()
 
                 GCModifyInformation gcAttackerMI;
 
-                // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù. ¹«Àûµµ ¾È ¸Â´Â´Ù. ½½·¹ÀÌ¾îµµ ¾È ¸Â´À´Ù.
-                // ¾ÈÀüÁö´ë Ã¼Å©
+                // ìžì‹ ì€ ë§žì§€ ì•ŠëŠ”ë‹¤. ë¬´ì ë„ ì•ˆ ë§žëŠ”ë‹¤. ìŠ¬ë ˆì´ì–´ë„ ì•ˆ ë§žëŠë‹¤.
+                // ì•ˆì „ì§€ëŒ€ ì²´í¬
                 // 2003.1.10 by bezz, Sequoia
                 if (pCreature == m_pTarget || !canAttack(pCastCreature, pCreature) ||
                     pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isOusters() ||
@@ -98,16 +98,16 @@ void EffectRingOfFlare::affect()
                 }
 
                 if (pCreature->isPC()) {
-                    // cout << pCreature->getName() << "À» RingOfFlare·Î " << m_Damage << "¸¸Å­ÀÇ µ¥¹ÌÁö¸¦ Áá½À´Ï´Ù." <<
+                    // cout << pCreature->getName() << "ì„ RingOfFlareë¡œ " << m_Damage << "ë§Œí¼ì˜ ë°ë¯¸ì§€ë¥¼ ì¤¬ìŠµë‹ˆë‹¤." <<
                     // endl;
                     GCModifyInformation gcMI;
                     ::setDamage(pCreature, m_Damage, pCastCreature, SKILL_RING_OF_FLARE, &gcMI, &gcAttackerMI);
 
                     pCreature->getPlayer()->sendPacket(&gcMI);
 
-                    // ¸Â´Â µ¿ÀÛÀ» º¸¿©ÁØ´Ù.
+                    // ë§žëŠ” ë™ìž‘ì„ ë³´ì—¬ì¤€ë‹¤.
                     GCSkillToObjectOK2 gcSkillToObjectOK2;
-                    gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                    gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                     gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                     gcSkillToObjectOK2.setDuration(0);
                     pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
@@ -127,7 +127,7 @@ void EffectRingOfFlare::affect()
 
                 pZone->broadcastPacket(X, Y, &gcSkillToObjectOK4, pCreature);
 
-                // Á×¾úÀ¸¸é °æÇèÄ¡ÁØ´Ù. À½.....
+                // ì£½ì—ˆìœ¼ë©´ ê²½í—˜ì¹˜ì¤€ë‹¤. ìŒ.....
                 if (pCastCreature != NULL) {
                     if (pCreature->isDead() && pCastCreature->isOusters()) {
                         Ousters* pCastOusters = dynamic_cast<Ousters*>(pCastCreature);
@@ -161,7 +161,7 @@ void EffectRingOfFlare::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isOusters());
 
-    // ÇÃ·¡±×¸¦ ²ö´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ëˆë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_RING_OF_FLARE);
 
     Zone* pZone = pCreature->getZone();
@@ -170,7 +170,7 @@ void EffectRingOfFlare::unaffect(Creature* pCreature)
     Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
     Assert(pTargetOusters != NULL);
 
-    // ÀÌÆåÆ®¸¦ »èÁ¦ÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(getSendEffectClass());

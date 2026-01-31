@@ -1,5 +1,5 @@
 
-// ¸î°³ÀÇ Zone ¿¡¸¸ ¸Ş¼¼Áö¸¦ »Ñ¸®±â À§ÇØ¼­ ¼º¿¡ ¼ÓÇÑ ZoneIDList°¡ ÇÊ¿äÇÔ
+// ëª‡ê°œì˜ Zone ì—ë§Œ ë©”ì„¸ì§€ë¥¼ ë¿Œë¦¬ê¸° ìœ„í•´ì„œ ì„±ì— ì†í•œ ZoneIDListê°€ í•„ìš”í•¨
 void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList) {
     __BEGIN_TRY
 
@@ -21,7 +21,7 @@ void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList) {
 
         string zoneID = trim(zoneIDs.substr(a, b - a));
 
-        // À½ -_- ±×³É atoi ½áµµ µÉ·Á³ª ;;
+        // ìŒ -_- ê·¸ëƒ¥ atoi ì¨ë„ ë ë ¤ë‚˜ ;;
         zoneIDList.push_back(atoi(zoneID.c_str()));
 
         a = b + 1;

@@ -21,7 +21,7 @@ EffectPrecedence::EffectPrecedence(Creature* pCreature)
 
     setTarget(pCreature);
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     m_bItem = false;
@@ -39,7 +39,7 @@ EffectPrecedence::EffectPrecedence(Item* pItem)
 
     m_bItem = true;
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     __END_CATCH

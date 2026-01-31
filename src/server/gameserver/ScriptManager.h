@@ -16,8 +16,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // class ScriptManager
 //
-// ¸ğµç NPCµéÀÌ °øÀ¯ÇÏ´Â public script ¶Ç´Â Æ¯Á¤ NPC ¸¸ÀÌ »ç¿ëÇÏ´Â private script db
-// ¸¦ ³ªÅ¸³»´Â script manager ÀÌ´Ù.
+// ëª¨ë“  NPCë“¤ì´ ê³µìœ í•˜ëŠ” public script ë˜ëŠ” íŠ¹ì • NPC ë§Œì´ ì‚¬ìš©í•˜ëŠ” private script db
+// ë¥¼ ë‚˜íƒ€ë‚´ëŠ” script manager ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class XMLTree;
@@ -35,7 +35,7 @@ public:
 
     string toString() const;
 
-    // °®´Ù ¾²Áö ¸¶¼¼¿ä.
+    // ê°–ë‹¤ ì“°ì§€ ë§ˆì„¸ìš”.
     XMLTree* getXML(const string& owner) {
         return m_XMLS[owner];
     }

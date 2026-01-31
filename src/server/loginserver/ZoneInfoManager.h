@@ -22,7 +22,7 @@ typedef unordered_map<ZoneID_t, ZoneInfo*> HashMapZoneInfo;
 //
 // class ZoneInfoManager;
 //
-// Á¸ ¾ÆÀÌµğ¸¦ Å°°ªÀ¸·Î ÇÏ´Â Á¸ Á¤º¸ÀÇ unordered_map À» °¡Áö°í ÀÖ´Ù.
+// ì¡´ ì•„ì´ë””ë¥¼ í‚¤ê°’ìœ¼ë¡œ í•˜ëŠ” ì¡´ ì •ë³´ì˜ unordered_map ì„ ê°€ì§€ê³  ìˆë‹¤.
 //
 //----------------------------------------------------------------------
 

@@ -24,7 +24,7 @@ void ActionCallHelicopter::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCallHelicopter::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -36,7 +36,7 @@ void ActionCallHelicopter::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pCreature1->isNPC());
     Assert(pCreature2->isPC());
 
-    // ½½·¹ÀÌ¾î¸¸ÀÌ ÀÌ ¾×¼ÇÀÇ ´ë»óÀÌ µÈ´Ù.
+    // ìŠ¬ë ˆì´ì–´ë§Œì´ ì´ ì•¡ì…˜ì˜ ëŒ€ìƒì´ ëœë‹¤.
     if (!pCreature2->isSlayer())
         return;
     if (pCreature2->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) || pCreature2->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER))
@@ -45,7 +45,7 @@ void ActionCallHelicopter::execute(Creature* pCreature1, Creature* pCreature2)
     Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
     Assert(pSlayer != NULL);
 
-    // ½½·¹ÀÌ¾î¿¡°Ô ÀÌÆåÆ®¸¦ °É¾îÁØ´Ù.
+    // ìŠ¬ë ˆì´ì–´ì—ê²Œ ì´íŽ™íŠ¸ë¥¼ ê±¸ì–´ì¤€ë‹¤.
     if (!pSlayer->isFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL))
         pSlayer->setFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL);
 

@@ -59,7 +59,7 @@ void ThunderStorm::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // ¸ñÇ¥À§Ä¡+4¹æÇâ
+    // ëª©í‘œìœ„ì¹˜+4ë°©í–¥
     param.addMask(0, 0, 100);
     param.addMask(-1, -1, 100);
     param.addMask(0, -1, 100);
@@ -70,8 +70,8 @@ void ThunderStorm::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
     param.addMask(0, 1, 100);
     param.addMask(1, 1, 100);
 
-    // ÀÚ½ÅÀÇ ÁÖº¯¿¡ ¶³¾î¶ß¸°´Ù.
-    // ¾Æ´Ï´Ù.. --;
+    // ìì‹ ì˜ ì£¼ë³€ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
+    // ì•„ë‹ˆë‹¤.. --;
     // X = pSlayer->getX();
     // Y = pSlayer->getY();
 
@@ -83,7 +83,7 @@ void ThunderStorm::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ThunderStorm::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 

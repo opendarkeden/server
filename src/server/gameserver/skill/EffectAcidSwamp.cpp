@@ -46,8 +46,8 @@ void EffectAcidSwamp::affect()
 
     Assert(m_pZone != NULL);
 
-    // ÀÌÆåÆ® »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-    // Á¸¿¡ ¾øÀ» ¼ö ÀÖÀ¸¹Ç·Î NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´í™íŠ¸ ì‚¬ìš©ìë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // ì¡´ì— ì—†ì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ NULL ì´ ë  ìˆ˜ ìˆë‹¤.
     Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
 
     if (pCastCreature == NULL && !isForce()) {
@@ -56,10 +56,10 @@ void EffectAcidSwamp::affect()
         return;
     }
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {
@@ -72,15 +72,15 @@ void EffectAcidSwamp::affect()
             Creature* pCreature = dynamic_cast<Creature*>(pObject);
             Assert(pCreature != NULL);
 
-            // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
-            // »ê ¸é¿ª. by sigi. 2002.9.13
+            // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
+            // ì‚° ë©´ì—­. by sigi. 2002.9.13
             if (!canAttack(pCastCreature, pCreature) || pCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_ACID) ||
                 pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
                 continue;
             }
 
             // 2003.1.10 by Sequoia
-            // ¾ÈÀüÁö´ë Ã¼Å©
+            // ì•ˆì „ì§€ëŒ€ ì²´í¬
             if (!checkZoneLevelToHitTarget(pCreature))
                 continue;
 
@@ -125,7 +125,7 @@ void EffectAcidSwamp::affect()
 
                 bool modifiedAttacker = false;
 
-                // Á×¾úÀ¸¸é °æÇèÄ¡ÁØ´Ù. À½.....
+                // ì£½ì—ˆìœ¼ë©´ ê²½í—˜ì¹˜ì¤€ë‹¤. ìŒ.....
                 if (pCastCreature != NULL) {
                     if (pCreature->isDead() && pCastCreature->isVampire()) {
                         int exp = computeCreatureExp(pCreature, KILL_EXP);
@@ -137,7 +137,7 @@ void EffectAcidSwamp::affect()
                     }
                 }
 
-                // ¼ºÇâ °è»êÇÏ±â
+                // ì„±í–¥ ê³„ì‚°í•˜ê¸°
                 if (pCastCreature != NULL && pCastCreature->isPC() && pCreature->isPC() &&
                     (pCreature->getObjectID() == m_TargetObjectID[0] ||
                      pCreature->getObjectID() == m_TargetObjectID[1])) {
@@ -262,7 +262,7 @@ void EffectAcidSwampLoader::load(Zone* pZone)
                             pEffect->setNextTime(0);
                             pEffect->setLevel(100);
 
-                            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                             pZone->registerObject(pEffect);
                             pZone->addEffect(pEffect);
                             tile.addEffect(pEffect);

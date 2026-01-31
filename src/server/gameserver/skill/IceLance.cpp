@@ -10,7 +10,7 @@
 #include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void IceLance::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                        CEffectID_t CEffectID)
@@ -28,7 +28,7 @@ void IceLance::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pOusters, getSkillType());
 

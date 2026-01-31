@@ -44,7 +44,7 @@ void EffectDetectMine::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
 
     pCreature->removeFlag(Effect::EFFECT_CLASS_REVEALER);
-    // detect hiddenÀÇ ÈûÀ¸·Î º¼¼ö ÀÖ¾ú´ø hidden creature¸¦ »èÁ¦ÇØ¾ßÇÑ´Ù.
+    // detect hiddenì˜ íž˜ìœ¼ë¡œ ë³¼ìˆ˜ ìžˆì—ˆë˜ hidden creatureë¥¼ ì‚­ì œí•´ì•¼í•œë‹¤.
     Zone* pZone = pCreature->getZone();
     pZone->updateMineScan(pCreature);
 

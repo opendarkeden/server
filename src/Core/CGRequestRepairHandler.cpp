@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGRequestRepairHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -46,7 +46,7 @@ void CGRequestRepairHandler::execute(CGRequestRepair* pPacket, Player* pPlayer)
     bool bOusters = false;
     Item* pItem = NULL;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÎÁö ¹ìÆÄÀÌ¾îÀÎÁö ±¸ºĞ.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ë±€íŒŒì´ì–´ì¸ì§€ êµ¬ë¶„.
     if (pPC->isSlayer())
         bSlayer = true;
     else if (pPC->isVampire())
@@ -57,7 +57,7 @@ void CGRequestRepairHandler::execute(CGRequestRepair* pPacket, Player* pPlayer)
         throw ProtocolException("CGRequestRepairHandler::execute() : Unknown player creature!");
 
     if (ITEMOID == 0) {
-        // ObjectID°¡ 0ÀÌ¶ó¸é ¸ğµç ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÏ°íÀÚ ÇÏ´Â °ÍÀÌ´Ù.
+        // ObjectIDê°€ 0ì´ë¼ë©´ ëª¨ë“  ì•„ì´í…œì„ ìˆ˜ë¦¬í•˜ê³ ì í•˜ëŠ” ê²ƒì´ë‹¤.
         executeAll(pPacket, pPlayer);
     } else {
         if (bSlayer)
@@ -67,16 +67,16 @@ void CGRequestRepairHandler::execute(CGRequestRepair* pPacket, Player* pPlayer)
         else if (bOusters)
             pItem = (dynamic_cast<Ousters*>(pPC))->findItemOID(ITEMOID);
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´Ù¸é
+        // í”Œë ˆì´ì–´ê°€ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆë‹¤ë©´
         if (pItem != NULL) {
-            // ±× ¾ÆÀÌÅÛÀÌ ¸ğÅÍ »çÀÌÅ¬ Å°¶ó¸é...
+            // ê·¸ ì•„ì´í…œì´ ëª¨í„° ì‚¬ì´í´ í‚¤ë¼ë©´...
             if (pItem->getItemClass() == Item::ITEM_CLASS_KEY && pItem->getItemType() == 2) {
                 executeMotorcycle(pPacket, pPlayer);
                 return;
             } else
                 executeNormal(pPacket, pPlayer);
         } else {
-            // ¾ÆÀÌÅÛÀÌ ¾øÀ¸´Ï, ´ç¿¬È÷ ¼ö¸®ÇÒ ¼ö ¾ø´Ù.
+            // ì•„ì´í…œì´ ì—†ìœ¼ë‹ˆ, ë‹¹ì—°íˆ ìˆ˜ë¦¬í•  ìˆ˜ ì—†ë‹¤.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_REPAIR_FAIL_ITEM_NOT_EXIST);
             pPlayer->sendPacket(&response);
@@ -89,7 +89,7 @@ void CGRequestRepairHandler::execute(CGRequestRepair* pPacket, Player* pPlayer)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÏ¹İ ¾ÆÀÌÅÛÀ» Ã³¸®ÇÑ´Ù.
+// ì¼ë°˜ ì•„ì´í…œì„ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPlayer)
 
@@ -114,7 +114,7 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
     int Y = 0;
     GCNPCResponse response;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÎÁö ¹ìÆÄÀÌ¾îÀÎÁö ±¸ºĞ.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ë±€íŒŒì´ì–´ì¸ì§€ êµ¬ë¶„.
     if (pPC->isSlayer())
         bSlayer = true;
     else if (pPC->isVampire())
@@ -122,7 +122,7 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
     else if (pPC->isOusters())
         bOusters = true;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¼ö¸®ÇÏ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö °Ë»ç
+    // í”Œë ˆì´ì–´ê°€ ìˆ˜ë¦¬í•˜ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬
     if (bSlayer) {
         pSlayer = dynamic_cast<Slayer*>(pPC);
         playerMoney = pSlayer->getGold();
@@ -137,16 +137,16 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
         pItem = pOusters->findItemOID(ITEMOID, storage, X, Y);
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¼ö¸®ÇÏ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
-    // »óÀ§¿¡¼­ °Ë»ç¸¦ ÇÏ±â ¶§¹®¿¡, pItemÀÌ ³ÎÀÏ¸®´Â ¾ø´Ù.
-    // ´Ü, ¼ö¸®ÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÎÁö¸¦ °Ë»çÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ìˆ˜ë¦¬í•˜ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€
+    // ìƒìœ„ì—ì„œ ê²€ì‚¬ë¥¼ í•˜ê¸° ë•Œë¬¸ì—, pItemì´ ë„ì¼ë¦¬ëŠ” ì—†ë‹¤.
+    // ë‹¨, ìˆ˜ë¦¬í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì¸ì§€ë¥¼ ê²€ì‚¬í•œë‹¤.
     if (isRepairableItem(pItem) == false) {
         response.setCode(NPC_RESPONSE_REPAIR_FAIL_ITEM_TYPE);
         pPlayer->sendPacket(&response);
         return;
     }
 
-    // ÀÌÀü ³»±¸µµ¸¦ ÀúÀåÇÑ´Ù.
+    // ì´ì „ ë‚´êµ¬ë„ë¥¼ ì €ì¥í•œë‹¤.
     Durability_t oldDurability = pItem->getDurability();
 
     repairPrice = g_pPriceManager->getRepairPrice(pItem);
@@ -157,10 +157,10 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
         return;
     }
 
-    // ¼ö¸®ÇÑ´Ù.
+    // ìˆ˜ë¦¬í•œë‹¤.
     repairItem(pItem);
 
-    // ¼ö¸®ÇÑ ¾ÆÀÌÅÛÀÌ ±â¾îÃ¢ÀÇ ¾ÆÀÌÅÛÀÌ°í ÀÌÀü ³»±¸µµ°¡ 0 ÀÌ¾ú´Ù¸é Á¤º¸¸¦ »õ·Î º¸³»Áà¾ßÇÑ´Ù.
+    // ìˆ˜ë¦¬í•œ ì•„ì´í…œì´ ê¸°ì–´ì°½ì˜ ì•„ì´í…œì´ê³  ì´ì „ ë‚´êµ¬ë„ê°€ 0 ì´ì—ˆë‹¤ë©´ ì •ë³´ë¥¼ ìƒˆë¡œ ë³´ë‚´ì¤˜ì•¼í•œë‹¤.
     if (storage == STORAGE_GEAR && oldDurability == 0) {
         if (bSlayer && pSlayer != NULL) {
             pSlayer->initAllStatAndSend();
@@ -174,7 +174,7 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
         }
     }
 
-    // µ·À» ÁÙÀÎ´Ù.
+    // ëˆì„ ì¤„ì¸ë‹¤.
     if (bSlayer) {
         // pSlayer->setGoldEx(playerMoney-repairPrice);
         //  by sigi. 2002.9.4
@@ -190,13 +190,13 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
         // log(LOG_REPAIR_ITEM, pOusters->getName(), "", pItem->toString());
     }
 
-    // ¾ÆÀÌÅÛÀ» ¼ö¸®Çß´Ù´Â Á¤º¸¸¦ DB¿¡´Ù°¡ ÀúÀåÇØÁØ´Ù.
-    // ´Ü ºĞ¸íÈ÷ STORAGE_STASH°¡ µ¹¾Æ¿Ã ¼ö ÀÖÁö¸¸,
-    // º¸°üÇÔ¿¡ ÀÖ´Â °ÍÀ» ¼ö¸®ÇÑ´Ù´Â °ÍÀº ¸»ÀÌ ¾È µÇ¹Ç·Î,
-    // ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+    // ì•„ì´í…œì„ ìˆ˜ë¦¬í–ˆë‹¤ëŠ” ì •ë³´ë¥¼ DBì—ë‹¤ê°€ ì €ì¥í•´ì¤€ë‹¤.
+    // ë‹¨ ë¶„ëª…íˆ STORAGE_STASHê°€ ëŒì•„ì˜¬ ìˆ˜ ìˆì§€ë§Œ,
+    // ë³´ê´€í•¨ì— ìˆëŠ” ê²ƒì„ ìˆ˜ë¦¬í•œë‹¤ëŠ” ê²ƒì€ ë§ì´ ì•ˆ ë˜ë¯€ë¡œ,
+    // ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 
-    // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.17
+    // itemì €ì¥ ìµœì í™”. by sigi. 2002.5.17
     if (repairPrice > 0) {
         char pField[80];
 
@@ -214,10 +214,10 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
     }
 
     /*
-    // ¹¹°¡ µÆµç.. durability¸¸ ¹Ù²Ù¸é µÈ´Ù.
-    // ±Ùµ¥.. ItemObject¿¡ Durability field°¡ ¾ø´Â °Íµµ ÀÖ°í
-    // Charge¸¦ ÀúÀåÇØ¾ß ÇÏ´Â °Íµµ ÀÖ´Ù.
-    // ±×·¡¼­.. ÀÏ´ÜÀº ¸ğµÎ ´Ù ÀúÀåÇÏ´Â save¸¦ ÀÌ¿ëÇÏµµ·Ï ÇÑ´Ù.
+    // ë­ê°€ ëë“ .. durabilityë§Œ ë°”ê¾¸ë©´ ëœë‹¤.
+    // ê·¼ë°.. ItemObjectì— Durability fieldê°€ ì—†ëŠ” ê²ƒë„ ìˆê³ 
+    // Chargeë¥¼ ì €ì¥í•´ì•¼ í•˜ëŠ” ê²ƒë„ ìˆë‹¤.
+    // ê·¸ë˜ì„œ.. ì¼ë‹¨ì€ ëª¨ë‘ ë‹¤ ì €ì¥í•˜ëŠ” saveë¥¼ ì´ìš©í•˜ë„ë¡ í•œë‹¤.
     switch (storage)
     {
         case STORAGE_INVENTORY:
@@ -244,7 +244,7 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
     }
     */
 
-    // OK ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+    // OK íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
     response.setCode(NPC_RESPONSE_REPAIR_OK);
     response.setParameter(playerMoney - repairPrice);
     pPlayer->sendPacket(&response);
@@ -256,7 +256,7 @@ void CGRequestRepairHandler::executeNormal(CGRequestRepair* pPacket, Player* pPl
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ğÅÍ »çÀÌÅ¬À» Ã³¸®ÇÑ´Ù.
+// ëª¨í„° ì‚¬ì´í´ì„ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player* pPlayer)
 
@@ -265,7 +265,7 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
 
 #ifdef __GAME_SERVER__
 
-        // ÆĞÅ¶ Á¤º¸¸¦ »Ì¾Æ³½´Ù.
+        // íŒ¨í‚· ì •ë³´ë¥¼ ë½‘ì•„ë‚¸ë‹¤.
         ObjectID_t ITEMOID = pPacket->getObjectID();
     Creature* pPC = dynamic_cast<GamePlayer*>(pPlayer)->getCreature();
     Zone* pZone = pPC->getZone();
@@ -278,7 +278,7 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
     bool bOusters = false;
     GCNPCResponse response;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÎÁö ¹ìÆÄÀÌ¾îÀÎÁö ±¸ºĞ.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ë±€íŒŒì´ì–´ì¸ì§€ êµ¬ë¶„.
     if (pPC->isSlayer())
         bSlayer = true;
     else if (pPC->isVampire())
@@ -288,8 +288,8 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
     else
         throw ProtocolException("CGRequestRepairHandler::execute() : Unknown player creature!");
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¼ö¸®ÇÏ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
-    // »óÀ§¿¡¼­ °Ë»ç¸¦ ÇÏ±â ¶§¹®¿¡, pItemÀÌ ³ÎÀÏ¸®´Â ¾ø´Ù.
+    // í”Œë ˆì´ì–´ê°€ ìˆ˜ë¦¬í•˜ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€
+    // ìƒìœ„ì—ì„œ ê²€ì‚¬ë¥¼ í•˜ê¸° ë•Œë¬¸ì—, pItemì´ ë„ì¼ë¦¬ëŠ” ì—†ë‹¤.
     if (bSlayer) {
         pItem = (dynamic_cast<Slayer*>(pPC))->findItemOID(ITEMOID);
         playerMoney = (dynamic_cast<Slayer*>(pPC))->getGold();
@@ -301,7 +301,7 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
         playerMoney = (dynamic_cast<Ousters*>(pPC))->getGold();
     }
 
-    // ÁÖÀ§ ÀÏÁ¤ ¹üÀ§¸¦ °Ë»öÇØ¼­, ¸ğÅÍ »çÀÌÅ¬ÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+    // ì£¼ìœ„ ì¼ì • ë²”ìœ„ë¥¼ ê²€ìƒ‰í•´ì„œ, ëª¨í„° ì‚¬ì´í´ì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
     for (ZoneCoord_t zx = CenterX - 5; zx <= CenterX + 5; zx++) {
         for (ZoneCoord_t zy = CenterY - 5; zy <= CenterY + 5; zy++) {
             if (!isValidZoneCoord(pZone, zx, zy))
@@ -313,7 +313,7 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
                 Item* pItemOnTile = tile.getItem();
                 Assert(pItemOnTile != NULL);
 
-                // ¸¸ÀÏ ¾ÆÀÌÅÛÀÌ Å¸ÀÏ À§¿¡ ÀÖÀ» °æ¿ì, ¸ğÅÍ »çÀÌÅ¬ÀÎÁö È®ÀÎÇÑ´Ù.
+                // ë§Œì¼ ì•„ì´í…œì´ íƒ€ì¼ ìœ„ì— ìˆì„ ê²½ìš°, ëª¨í„° ì‚¬ì´í´ì¸ì§€ í™•ì¸í•œë‹¤.
                 if (pItemOnTile->getItemClass() == Item::ITEM_CLASS_MOTORCYCLE) {
                     DWORD targetID = dynamic_cast<Key*>(pItem)->getTarget();
                     ItemID_t motorcycleID = pItemOnTile->getItemID();
@@ -327,18 +327,18 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
                             return;
                         }
 
-                        // ¼ö¸®ÇÑ´Ù.
+                        // ìˆ˜ë¦¬í•œë‹¤.
                         repairItem(pItemOnTile);
 
-                        // ÀúÀåÇÑ´Ù.
+                        // ì €ì¥í•œë‹¤.
                         // pItemOnTile->save(pPC->getName(), STORAGE_ZONE, pZone->getZoneID(), zx, zy);
-                        // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        // itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
                         char pField[80];
                         sprintf(pField, "Durability=%d", pItemOnTile->getDurability());
                         pItemOnTile->tinysave(pField);
 
 
-                        // µ·À» ÁÙÀÎ´Ù.
+                        // ëˆì„ ì¤„ì¸ë‹¤.
                         // if (bSlayer) (dynamic_cast<Slayer*>(pPC))->setGoldEx(playerMoney-repairPrice);
                         // else         (dynamic_cast<Vampire*>(pPC))->setGoldEx(playerMoney-repairPrice);
 
@@ -356,8 +356,8 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
         } // end of for (ZoneCoord_t zy=CenterY-5; zy<=CenterY+5; zy++)
     } // end of for (ZoneCoord_t zx=CenterX-5; zx<=CenterX+5; zx++)
 
-    // FOR ·çÇÁ¸¦ ´Ù µ¹°í, ÀÌ±îÁö ¿Ô´Ù´Â °ÍÀº ±ÙÃ³¿¡ ¿ÀÅä¹ÙÀÌ°¡ ¾ø´Ù´Â ¸»ÀÌ´ç...
-    // ±×·¯¹Ç·Î ¸ğÅÍ »çÀÌÅ¬ ÆÈ±â°¡ ½ÇÆĞÇß´Ù´Â °ÍÀ» ¾Ë¸°´Ù.
+    // FOR ë£¨í”„ë¥¼ ë‹¤ ëŒê³ , ì´ê¹Œì§€ ì™”ë‹¤ëŠ” ê²ƒì€ ê·¼ì²˜ì— ì˜¤í† ë°”ì´ê°€ ì—†ë‹¤ëŠ” ë§ì´ë‹¹...
+    // ê·¸ëŸ¬ë¯€ë¡œ ëª¨í„° ì‚¬ì´í´ íŒ”ê¸°ê°€ ì‹¤íŒ¨í–ˆë‹¤ëŠ” ê²ƒì„ ì•Œë¦°ë‹¤.
     response.setCode(NPC_RESPONSE_REPAIR_FAIL_ITEM_NOT_EXIST);
     pPlayer->sendPacket(&response);
 
@@ -367,7 +367,7 @@ void CGRequestRepairHandler::executeMotorcycle(CGRequestRepair* pPacket, Player*
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ğµç ¾ÆÀÌÅÛ ¼ö¸®ÇÏ±â
+// ëª¨ë“  ì•„ì´í…œ ìˆ˜ë¦¬í•˜ê¸°
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::executeAll(CGRequestRepair* pPacket, Player* pPlayer)
 
@@ -385,43 +385,43 @@ void CGRequestRepairHandler::executeAll(CGRequestRepair* pPacket, Player* pPlaye
     if (pPC->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 
-        // ¸ğµç ¾ÆÀÌÅÛÀ» ÇÕÇÑ ¼ö¸®ºñ¸¦ °è»êÇÑ´Ù.
+        // ëª¨ë“  ì•„ì´í…œì„ í•©í•œ ìˆ˜ë¦¬ë¹„ë¥¼ ê³„ì‚°í•œë‹¤.
         for (int i = 0; i < Slayer::WEAR_MAX; i++) {
             Item* pItem = pSlayer->getWearItem((Slayer::WearPart)i);
             if (pItem != NULL) {
                 if (i == Slayer::WEAR_RIGHTHAND && isTwohandWeapon(pItem)) {
-                    // ¿À¸¥¼ÕÀÌ°í, ÇöÀç µé°í ÀÖ´Â ¹«±â°¡ ¾ç¼Õ ¹«±â¶ó¸é...
-                    // ¼ö¸® °¡°İ¿¡ Æ÷ÇÔ½ÃÅ³ ÇÊ¿ä°¡ ¾ø´Ù.
+                    // ì˜¤ë¥¸ì†ì´ê³ , í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°ê°€ ì–‘ì† ë¬´ê¸°ë¼ë©´...
+                    // ìˆ˜ë¦¬ ê°€ê²©ì— í¬í•¨ì‹œí‚¬ í•„ìš”ê°€ ì—†ë‹¤.
                 } else {
                     repairPrice += g_pPriceManager->getRepairPrice(pItem);
                 }
             }
         }
 
-        // µ·ÀÌ ¸ğÀÚ¶ó´Ù¸é ¸®ÅÏÇÑ´Ù.
+        // ëˆì´ ëª¨ìë¼ë‹¤ë©´ ë¦¬í„´í•œë‹¤.
         if (pSlayer->getGold() < repairPrice) {
             response.setCode(NPC_RESPONSE_REPAIR_FAIL_MONEY);
             pPlayer->sendPacket(&response);
             return;
         }
 
-        // °¢°¢ÀÇ ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÏ°í, DB¿¡ ÀúÀåÇÑ´Ù.
+        // ê°ê°ì˜ ì•„ì´í…œì„ ìˆ˜ë¦¬í•˜ê³ , DBì— ì €ì¥í•œë‹¤.
         char pField[80];
 
         for (int i = 0; i < Slayer::WEAR_MAX; i++) {
             Item* pItem = pSlayer->getWearItem((Slayer::WearPart)i);
             if (pItem != NULL) {
                 if (i == Slayer::WEAR_RIGHTHAND && isTwohandWeapon(pItem)) {
-                    // ¿À¸¥¼ÕÀÌ°í, ÇöÀç µé°í ÀÖ´Â ¹«±â°¡ ¾ç¼Õ ¹«±â¶ó¸é...
-                    // ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+                    // ì˜¤ë¥¸ì†ì´ê³ , í˜„ì¬ ë“¤ê³  ìˆëŠ” ë¬´ê¸°ê°€ ì–‘ì† ë¬´ê¸°ë¼ë©´...
+                    // ìˆ˜ë¦¬í•  í•„ìš”ê°€ ì—†ë‹¤.
                 } else if (isRepairableItem(pItem)) {
                     Durability_t oldDurability = pItem->getDurability();
                     repairItem(pItem);
                     if (pItem->getDurability() != oldDurability) {
-                        // DB Äõ¸®¸¦ ÁÙÀÌ±â À§ÇØ¼­
-                        // ³»±¸µµÀÇ º¯È­°¡ »ı±ä °æ¿ì¿¡¸¸ ¼¼ÀÌºêÇÑ´Ù.
+                        // DB ì¿¼ë¦¬ë¥¼ ì¤„ì´ê¸° ìœ„í•´ì„œ
+                        // ë‚´êµ¬ë„ì˜ ë³€í™”ê°€ ìƒê¸´ ê²½ìš°ì—ë§Œ ì„¸ì´ë¸Œí•œë‹¤.
                         // pItem->save(pSlayer->getName(), STORAGE_GEAR, 0, i, 0);
-                        // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        // itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
                         sprintf(pField, "Durability=%d", pItem->getDurability());
                         pItem->tinysave(pField);
                     }
@@ -432,57 +432,57 @@ void CGRequestRepairHandler::executeAll(CGRequestRepair* pPacket, Player* pPlaye
             }
         }
 
-        // µ·À» ÁÙÀÌ°í...
+        // ëˆì„ ì¤„ì´ê³ ...
         // pSlayer->setGoldEx(pSlayer->getGold() - repairPrice);
 
         // by sigi.2002.9.4
         pSlayer->decreaseGoldEx(repairPrice);
 
-        // ·Î±×¸¦ ³²±ä´Ù.
+        // ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
         // log(LOG_REPAIR_ITEM, pSlayer->getName(), "", "ALL");
 
-        // OK ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+        // OK íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
         response.setCode(NPC_RESPONSE_REPAIR_OK);
         response.setParameter(pSlayer->getGold());
         pPlayer->sendPacket(&response);
     } else if (pPC->isVampire()) {
         Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 
-        // ¸ğµç ¾ÆÀÌÅÛÀ» ÇÕÇÑ ¼ö¸®ºñ¸¦ °è»êÇÑ´Ù.
+        // ëª¨ë“  ì•„ì´í…œì„ í•©í•œ ìˆ˜ë¦¬ë¹„ë¥¼ ê³„ì‚°í•œë‹¤.
         for (int i = 0; i < Vampire::VAMPIRE_WEAR_MAX; i++) {
             Item* pItem = pVampire->getWearItem((Vampire::WearPart)i);
             if (pItem != NULL) {
                 if (i == Vampire::WEAR_RIGHTHAND && isTwohandWeapon(pItem)) {
-                    // ¾ç¼Õ¹«±â´Â ÇÑÂÊ¸¸ ¼ö¸®ÇÑ´Ù.
+                    // ì–‘ì†ë¬´ê¸°ëŠ” í•œìª½ë§Œ ìˆ˜ë¦¬í•œë‹¤.
                 } else {
                     repairPrice += g_pPriceManager->getRepairPrice(pItem);
                 }
             }
         }
 
-        // µ·ÀÌ ¸ğÀÚ¶ó´Ù¸é ¸®ÅÏÇÑ´Ù.
+        // ëˆì´ ëª¨ìë¼ë‹¤ë©´ ë¦¬í„´í•œë‹¤.
         if (pVampire->getGold() < repairPrice) {
             response.setCode(NPC_RESPONSE_REPAIR_FAIL_MONEY);
             pPlayer->sendPacket(&response);
             return;
         }
 
-        // °¢°¢ÀÇ ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÏ°í, DB¿¡ ÀúÀåÇÑ´Ù.
+        // ê°ê°ì˜ ì•„ì´í…œì„ ìˆ˜ë¦¬í•˜ê³ , DBì— ì €ì¥í•œë‹¤.
         char pField[80];
 
         for (int i = 0; i < Vampire::VAMPIRE_WEAR_MAX; i++) {
             Item* pItem = pVampire->getWearItem((Vampire::WearPart)i);
             if (pItem != NULL) {
                 if (i == Vampire::WEAR_RIGHTHAND && isTwohandWeapon(pItem)) {
-                    // ¾ç¼Õ¹«±â´Â ÇÑÂÊ¸¸ ¼ö¸®ÇÑ´Ù.
+                    // ì–‘ì†ë¬´ê¸°ëŠ” í•œìª½ë§Œ ìˆ˜ë¦¬í•œë‹¤.
                 } else {
                     Durability_t oldDurability = pItem->getDurability();
                     repairItem(pItem);
                     if (pItem->getDurability() != oldDurability) {
-                        // DB Äõ¸®¸¦ ÁÙÀÌ±â À§ÇØ¼­
-                        // ³»±¸µµÀÇ º¯È­°¡ »ı±ä °æ¿ì¿¡¸¸ ¼¼ÀÌºêÇÑ´Ù.
+                        // DB ì¿¼ë¦¬ë¥¼ ì¤„ì´ê¸° ìœ„í•´ì„œ
+                        // ë‚´êµ¬ë„ì˜ ë³€í™”ê°€ ìƒê¸´ ê²½ìš°ì—ë§Œ ì„¸ì´ë¸Œí•œë‹¤.
                         // pItem->save(pVampire->getName(), STORAGE_GEAR, 0, i, 0);
-                        // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        // itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
                         sprintf(pField, "Durability=%d", pItem->getDurability());
                         pItem->tinysave(pField);
                     }
@@ -493,56 +493,56 @@ void CGRequestRepairHandler::executeAll(CGRequestRepair* pPacket, Player* pPlaye
             }
         }
 
-        // µ·À» ÁÙÀÌ°í...
+        // ëˆì„ ì¤„ì´ê³ ...
         // pVampire->setGoldEx(pVampire->getGold() - repairPrice);
         // by sigi.2002.9.4
         pVampire->decreaseGoldEx(repairPrice);
 
-        // ·Î±×¸¦ ³²±ä´Ù.
+        // ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
         // log(LOG_REPAIR_ITEM, pVampire->getName(), "", "ALL");
 
-        // OK ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+        // OK íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
         response.setCode(NPC_RESPONSE_REPAIR_OK);
         response.setParameter(pVampire->getGold());
         pPlayer->sendPacket(&response);
     } else if (pPC->isOusters()) {
         Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 
-        // ¸ğµç ¾ÆÀÌÅÛÀ» ÇÕÇÑ ¼ö¸®ºñ¸¦ °è»êÇÑ´Ù.
+        // ëª¨ë“  ì•„ì´í…œì„ í•©í•œ ìˆ˜ë¦¬ë¹„ë¥¼ ê³„ì‚°í•œë‹¤.
         for (int i = 0; i < Ousters::OUSTERS_WEAR_MAX; i++) {
             Item* pItem = pOusters->getWearItem((Ousters::WearPart)i);
             if (pItem != NULL) {
                 if (i == Ousters::WEAR_RIGHTHAND && isTwohandWeapon(pItem)) {
-                    // ¾ç¼Õ¹«±â´Â ÇÑÂÊ¸¸ ¼ö¸®ÇÑ´Ù.
+                    // ì–‘ì†ë¬´ê¸°ëŠ” í•œìª½ë§Œ ìˆ˜ë¦¬í•œë‹¤.
                 } else {
                     repairPrice += g_pPriceManager->getRepairPrice(pItem);
                 }
             }
         }
 
-        // µ·ÀÌ ¸ğÀÚ¶ó´Ù¸é ¸®ÅÏÇÑ´Ù.
+        // ëˆì´ ëª¨ìë¼ë‹¤ë©´ ë¦¬í„´í•œë‹¤.
         if (pOusters->getGold() < repairPrice) {
             response.setCode(NPC_RESPONSE_REPAIR_FAIL_MONEY);
             pPlayer->sendPacket(&response);
             return;
         }
 
-        // °¢°¢ÀÇ ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÏ°í, DB¿¡ ÀúÀåÇÑ´Ù.
+        // ê°ê°ì˜ ì•„ì´í…œì„ ìˆ˜ë¦¬í•˜ê³ , DBì— ì €ì¥í•œë‹¤.
         char pField[80];
 
         for (int i = 0; i < Ousters::OUSTERS_WEAR_MAX; i++) {
             Item* pItem = pOusters->getWearItem((Ousters::WearPart)i);
             if (pItem != NULL) {
                 if (i == Ousters::WEAR_RIGHTHAND && isTwohandWeapon(pItem)) {
-                    // ¾ç¼Õ¹«±â´Â ÇÑÂÊ¸¸ ¼ö¸®ÇÑ´Ù.
+                    // ì–‘ì†ë¬´ê¸°ëŠ” í•œìª½ë§Œ ìˆ˜ë¦¬í•œë‹¤.
                 } else {
                     Durability_t oldDurability = pItem->getDurability();
                     repairItem(pItem);
                     if (pItem->getDurability() != oldDurability) {
-                        // DB Äõ¸®¸¦ ÁÙÀÌ±â À§ÇØ¼­
-                        // ³»±¸µµÀÇ º¯È­°¡ »ı±ä °æ¿ì¿¡¸¸ ¼¼ÀÌºêÇÑ´Ù.
+                        // DB ì¿¼ë¦¬ë¥¼ ì¤„ì´ê¸° ìœ„í•´ì„œ
+                        // ë‚´êµ¬ë„ì˜ ë³€í™”ê°€ ìƒê¸´ ê²½ìš°ì—ë§Œ ì„¸ì´ë¸Œí•œë‹¤.
                         // pItem->save(pOusters->getName(), STORAGE_GEAR, 0, i, 0);
-                        // itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                        // itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
                         sprintf(pField, "Durability=%d", pItem->getDurability());
                         pItem->tinysave(pField);
                     }
@@ -553,15 +553,15 @@ void CGRequestRepairHandler::executeAll(CGRequestRepair* pPacket, Player* pPlaye
             }
         }
 
-        // µ·À» ÁÙÀÌ°í...
+        // ëˆì„ ì¤„ì´ê³ ...
         // pOusters->setGoldEx(pOusters->getGold() - repairPrice);
         // by sigi.2002.9.4
         pOusters->decreaseGoldEx(repairPrice);
 
-        // ·Î±×¸¦ ³²±ä´Ù.
+        // ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
         // log(LOG_REPAIR_ITEM, pOusters->getName(), "", "ALL");
 
-        // OK ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+        // OK íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
         response.setCode(NPC_RESPONSE_REPAIR_OK);
         response.setParameter(pOusters->getGold());
         pPlayer->sendPacket(&response);

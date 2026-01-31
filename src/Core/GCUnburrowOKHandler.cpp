@@ -24,7 +24,7 @@ void GCUnburrowOKHandler::execute(GCUnburrowOK* pPacket, Player* pPlayer)
 
         ClientPlayer* pClientPlayer = dynamic_cast<ClientPlayer*>(pPlayer);
 
-    // ´ÙÀ½ ÁÂÇ¥¸¦ ÇÃ·¹ÀÌ¾î¿¡ ÁöÁ¤ÇØ ³õ´Â´Ù.
+    // ë‹¤ìŒ ì¢Œí‘œë¥¼ í”Œë ˆì´ì–´ì— ì§€ì •í•´ ë†“ëŠ”ë‹¤.
     pClientPlayer->setX(pPacket->getX());
     pClientPlayer->setY(pPacket->getY());
     pClientPlayer->setDir(pPacket->getDir());

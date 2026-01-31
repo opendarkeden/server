@@ -99,8 +99,8 @@ private:
     Grade_t m_Grade;                  // Grade
     list<OptionType_t> m_OptionTypes; // OptionType list
     int m_Num;
-    bool m_bTimeLimit; // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛÀÎ°¡?
-    int m_Hour;        // »ç¿ë Á¦ÇÑ ½Ã°£
+    bool m_bTimeLimit; // ì‹œê°„ì œí•œ ì•„ì´í…œì¸ê°€?
+    int m_Hour;        // ì‚¬ìš© ì œí•œ ì‹œê°„
 };
 
 //////////////////////////////////////////////////////////////////////////////

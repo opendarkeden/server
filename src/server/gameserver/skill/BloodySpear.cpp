@@ -10,7 +10,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodySpear::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void BloodySpear::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Blood ê°€ ìžˆë‹¤ë©´ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -55,7 +55,7 @@ void BloodySpear::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodySpear::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -111,9 +111,9 @@ void BloodySpear::execute(Monster* pMonster, Creature* pEnemy)
                     pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
                 if (pTargetCreature != NULL
-                    // NPCµµ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
+                    // NPCë„ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
                     && !pTargetCreature->isNPC()
-                    // °ø°Ý ´ë»óÀÌ ¸Â´ÂÁö È®ÀÎ
+                    // ê³µê²© ëŒ€ìƒì´ ë§žëŠ”ì§€ í™•ì¸
                     && pMonster->isEnemyToAttack(pTargetCreature)) {
                     g_SimpleMissileSkill.execute(pMonster, pTargetCreature, param, result);
                 }

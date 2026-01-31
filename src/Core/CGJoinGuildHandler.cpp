@@ -53,9 +53,9 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
     // cout << pPacket->toString() << endl;
 
     BEGIN_DB {
-        // ¡§ªÛ¿˚¿Œ ∞˙¡§¿ª ∞≈√∆¥Ÿ∏È ø©±‚º≠ √º≈©«“∂ß ∞…∏Æ∏È æ»µ»¥Ÿ.
-        // ±◊∑± ¿Ã¿Ø∑Œ ø°∑Ø∏ﬁΩ√¡ˆ∏¶ ≈¨∂Û¿Ãæ∆Æ∑Œ ∫∏≥ª¡ˆ æ ¥¬¥Ÿ.
-        // ¥Ÿ∏• ±ÊµÂ º“º”¿Œ¡ˆ √º≈©
+        // Ï†ïÏÉÅÏ†ÅÏù∏ Í≥ºÏ†ïÏùÑ Í±∞Ï≥§Îã§Î©¥ Ïó¨Í∏∞ÏÑú Ï≤¥ÌÅ¨Ìï†Îïå Í±∏Î¶¨Î©¥ ÏïàÎêúÎã§.
+        // Í∑∏Îü∞ Ïù¥Ïú†Î°ú ÏóêÎü¨Î©îÏãúÏßÄÎ•º ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Î°ú Î≥¥ÎÇ¥ÏßÄ ÏïäÎäîÎã§.
+        // Îã§Î•∏ Í∏∏Îìú ÏÜåÏÜçÏù∏ÏßÄ Ï≤¥ÌÅ¨
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         pResult = pStmt->executeQuery("SELECT GuildID, `Rank`, ExpireDate FROM GuildMember WHERE Name = '%s'",
                                       pCreature->getName().c_str());
@@ -77,15 +77,15 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
                 Time.tm_min = 0;
                 Time.tm_sec = 0;
 
-                //				if ( difftime( daytime, mktime(&Time) ) < 604800 )	// Ω«Ω√∞£ 7¿œ¿Ã ¡ˆ≥µ¥¬∞°?
+                //				if ( difftime( daytime, mktime(&Time) ) < 604800 )	// Ïã§ÏãúÍ∞Ñ 7ÏùºÏù¥ ÏßÄÎÇ¨ÎäîÍ∞Ä?
                 if (difftime(daytime, mktime(&Time)) <
-                    g_pVariableManager->getVariable(QUIT_GUILD_PENALTY_TERM) * 24 * 3600) // Ω«Ω√∞£ 7¿œ¿Ã ¡ˆ≥µ¥¬∞°?
+                    g_pVariableManager->getVariable(QUIT_GUILD_PENALTY_TERM) * 24 * 3600) // Ïã§ÏãúÍ∞Ñ 7ÏùºÏù¥ ÏßÄÎÇ¨ÎäîÍ∞Ä?
                 {
                     /*					if (Rank==GuildMember::GUILDMEMBER_RANK_DENY
                                             && GuildID != pPacket->getGuildID())
                                         {
-                                            // rank4==√ﬂπÊ/∞≈∫Œ..¿Œ æ÷µÈ¿∫ ¥Ÿ∏• ±ÊµÂø°¥¬ µÈæÓ∞• ºˆ ¿÷¥Ÿ.
-                                            // ±‚¡∏ø° ¿÷¥¯ GuildMemberø°º≠ ¡¶∞≈«—¥Ÿ.
+                                            // rank4==Ï∂îÎ∞©/Í±∞Î∂Ä..Ïù∏ Ïï†Îì§ÏùÄ Îã§Î•∏ Í∏∏ÎìúÏóêÎäî Îì§Ïñ¥Í∞à Ïàò ÏûàÎã§.
+                                            // Í∏∞Ï°¥Ïóê ÏûàÎçò GuildMemberÏóêÏÑú Ï†úÍ±∞ÌïúÎã§.
                                             pStmt->executeQuery( "DELETE FROM GuildMember WHERE Name = '%s'",
                                                                     pCreature->getName().c_str() );
                                         }
@@ -96,14 +96,14 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
                                             return;
                                         }*/
 
-                    // Ω«Ω√∞£ 7¿œ¿Ã ¡ˆ≥™¡ˆ æ ¿∏∏È ∞°¿‘«“ ºˆ æ¯¥Ÿ. π´¡∂∞«
+                    // Ïã§ÏãúÍ∞Ñ 7ÏùºÏù¥ ÏßÄÎÇòÏßÄ ÏïäÏúºÎ©¥ Í∞ÄÏûÖÌï† Ïàò ÏóÜÎã§. Î¨¥Ï°∞Í±¥
                     // 2003. 6. 25 by bezz
                     SAFE_DELETE(pStmt);
 
                     return;
                 }
             } else {
-                // ¿ÃπÃ ¥Ÿ∏• ±ÊµÂø° º“º”µ«æÓ ¿÷¿Ω
+                // Ïù¥ÎØ∏ Îã§Î•∏ Í∏∏ÎìúÏóê ÏÜåÏÜçÎêòÏñ¥ ÏûàÏùå
                 SAFE_DELETE(pStmt);
 
                 return;
@@ -115,9 +115,9 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
     END_DB(pStmt)
 
 
-    // Ω∫≈∏∆√ ∏‚πˆ∑Œ ∞°¿‘«“ ∞ÊøÏ
+    // Ïä§ÌÉÄÌåÖ Î©§Î≤ÑÎ°ú Í∞ÄÏûÖÌï† Í≤ΩÏö∞
     if (pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
-        // ±ÊµÂ∞° ¿ÃπÃ ¡§Ωƒ ±ÊµÂ∑Œ µÓ∑œµ«æ˙¥¬¡ˆ »Æ¿Œ«—¥Ÿ.
+        // Í∏∏ÎìúÍ∞Ä Ïù¥ÎØ∏ Ï†ïÏãù Í∏∏ÎìúÎ°ú Îì±Î°ùÎêòÏóàÎäîÏßÄ ÌôïÏù∏ÌïúÎã§.
         Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
         if (pGuild == NULL)
             return;
@@ -131,10 +131,10 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
 
             SkillDomainType_t highest = pSlayer->getHighestSkillDomain();
 
-            // µÓ∑œ ∞°¥… ø©∫Œ √º≈©
-            if ((pSlayer->getGold() >= REQUIRE_SLAYER_SUBMASTER_GOLD) &&                               // µÓ∑œ∫Ò 5√µ∏∏
-                (pSlayer->getFame() >= REQUIRE_SLAYER_SUBMASTER_FAME[highest]) &&                      // ∏Ìº∫ƒ°
-                (pSlayer->getSkillDomainLevel(highest) >= REQUIRE_SLAYER_SUBMASTER_SKILL_DOMAIN_LEVEL) // ∑π∫ß 40 ¿ÃªÛ
+            // Îì±Î°ù Í∞ÄÎä• Ïó¨Î∂Ä Ï≤¥ÌÅ¨
+            if ((pSlayer->getGold() >= REQUIRE_SLAYER_SUBMASTER_GOLD) &&                               // Îì±Î°ùÎπÑ 5Ï≤úÎßå
+                (pSlayer->getFame() >= REQUIRE_SLAYER_SUBMASTER_FAME[highest]) &&                      // Î™ÖÏÑ±Ïπò
+                (pSlayer->getSkillDomainLevel(highest) >= REQUIRE_SLAYER_SUBMASTER_SKILL_DOMAIN_LEVEL) // Î†àÎ≤® 40 Ïù¥ÏÉÅ
             ) {
                 GSAddGuildMember gsAddGuildMember;
 
@@ -151,9 +151,9 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
             Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
             Assert(pVampire != NULL);
 
-            // µÓ∑œ ∞°¥… ø©∫Œ √º≈©
-            if ((pVampire->getGold() >= REQUIRE_VAMPIRE_SUBMASTER_GOLD) && // µÓ∑œ∫Ò 5√µ∏∏
-                (pVampire->getLevel() >= REQUIRE_VAMPIRE_SUBMASTER_LEVEL)  // ∑π∫ß 40 ¿ÃªÛ
+            // Îì±Î°ù Í∞ÄÎä• Ïó¨Î∂Ä Ï≤¥ÌÅ¨
+            if ((pVampire->getGold() >= REQUIRE_VAMPIRE_SUBMASTER_GOLD) && // Îì±Î°ùÎπÑ 5Ï≤úÎßå
+                (pVampire->getLevel() >= REQUIRE_VAMPIRE_SUBMASTER_LEVEL)  // Î†àÎ≤® 40 Ïù¥ÏÉÅ
             ) {
                 GSAddGuildMember gsAddGuildMember;
 
@@ -169,9 +169,9 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
             Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
             Assert(pOusters != NULL);
 
-            // µÓ∑œ ∞°¥… ø©∫Œ √º≈©
-            if ((pOusters->getGold() >= REQUIRE_OUSTERS_SUBMASTER_GOLD) && // µÓ∑œ∫Ò 5√µ∏∏
-                (pOusters->getLevel() >= REQUIRE_OUSTERS_SUBMASTER_LEVEL)  // ∑π∫ß 40 ¿ÃªÛ
+            // Îì±Î°ù Í∞ÄÎä• Ïó¨Î∂Ä Ï≤¥ÌÅ¨
+            if ((pOusters->getGold() >= REQUIRE_OUSTERS_SUBMASTER_GOLD) && // Îì±Î°ùÎπÑ 5Ï≤úÎßå
+                (pOusters->getLevel() >= REQUIRE_OUSTERS_SUBMASTER_LEVEL)  // Î†àÎ≤® 40 Ïù¥ÏÉÅ
             ) {
                 GSAddGuildMember gsAddGuildMember;
 
@@ -185,7 +185,7 @@ void CGJoinGuildHandler::execute(CGJoinGuild* pPacket, Player* pPlayer)
             }
         }
     } else if (pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_WAIT) {
-        // ±ÊµÂ ∞°¿‘ Ω≈√ª, ¥Î±‚ ªÛ≈¬
+        // Í∏∏Îìú Í∞ÄÏûÖ Ïã†Ï≤≠, ÎåÄÍ∏∞ ÏÉÅÌÉú
         GSAddGuildMember gsAddGuildMember;
 
         gsAddGuildMember.setGuildID(pPacket->getGuildID());

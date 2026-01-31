@@ -45,11 +45,11 @@ void SGModifyGuildOKHandler::execute(SGModifyGuildOK* pPacket)
 
     if (pGuild->getState() == Guild::GUILD_STATE_WAIT && pPacket->getGuildState() == Guild::GUILD_STATE_ACTIVE) {
         /////////////////////////////////////////////////////////////
-        // Á¸ Ãß°¡
+        // ì¡´ ì¶”ê°€
         /////////////////////////////////////////////////////////////
         /*		if (pGuild->getServerGroupID() == g_pConfig->getPropertyInt("ServerID" ) )
                 {
-                    // ÀÌ °ÔÀÓ ¼­¹ö¿¡ ±æµå ¾ÆÁöÆ®¸¦ ¸¸µç´Ù.
+                    // ì´ ê²Œì„ ì„œë²„ì— ê¸¸ë“œ ì•„ì§€íŠ¸ë¥¼ ë§Œë“ ë‹¤.
 
                     //////////////
                     // Zone Info
@@ -96,7 +96,7 @@ void SGModifyGuildOKHandler::execute(SGModifyGuildOK* pPacket)
                 }
         */
 
-        // Á¤½Ä ±æµå·Î º¯°æ
+        // ì •ì‹ ê¸¸ë“œë¡œ ë³€ê²½
         pGuild->setState(Guild::GUILD_STATE_ACTIVE);
 
         HashMapGuildMember& Members = pGuild->getMembers();
@@ -104,7 +104,7 @@ void SGModifyGuildOKHandler::execute(SGModifyGuildOK* pPacket)
         for (; itr != Members.end(); itr++) {
             GuildMember* pGuildMember = itr->second;
 
-            // ¸â¹ö°¡ Á¢¼ÓÇØ ÀÖ´Ù¸é
+            // ë©¤ë²„ê°€ ì ‘ì†í•´ ìˆë‹¤ë©´
             __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
             Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuildMember->getName());
@@ -115,17 +115,17 @@ void SGModifyGuildOKHandler::execute(SGModifyGuildOK* pPacket)
                 PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
                 Assert(pPlayerCreature != NULL);
 
-                // ±æµå ¾ÆÀÌµğ¸¦ ¹Ù²ãÁØ´Ù.
+                // ê¸¸ë“œ ì•„ì´ë””ë¥¼ ë°”ê¿”ì¤€ë‹¤.
                 pPlayerCreature->setGuildID(pGuild->getID());
 
-                // Å¬¶óÀÌ¾ğÆ®¿¡ ±æµå ¾ÆÀÌµğ°¡ ¹Ù²¼À½À» ¾Ë·ÁÁØ´Ù.
+                // í´ë¼ì´ì–¸íŠ¸ì— ê¸¸ë“œ ì•„ì´ë””ê°€ ë°”ê¼ˆìŒì„ ì•Œë ¤ì¤€ë‹¤.
                 GCModifyGuildMemberInfo gcModifyGuildMemberInfo;
                 gcModifyGuildMemberInfo.setGuildID(pGuild->getID());
                 gcModifyGuildMemberInfo.setGuildName(pGuild->getName());
                 gcModifyGuildMemberInfo.setGuildMemberRank(pGuildMember->getRank());
                 pPlayer->sendPacket(&gcModifyGuildMemberInfo);
 
-                // ÁÖÀ§¿¡ ¾Ë¸°´Ù.
+                // ì£¼ìœ„ì— ì•Œë¦°ë‹¤.
                 Zone* pZone = pCreature->getZone();
                 Assert(pZone != NULL);
 
@@ -135,7 +135,7 @@ void SGModifyGuildOKHandler::execute(SGModifyGuildOK* pPacket)
 
                 pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcOtherModifyInfo, pCreature);
 
-                // Á¤½Ä ±æµå°¡ µÇ¾úÀ½À» ¾Ë¸²
+                // ì •ì‹ ê¸¸ë“œê°€ ë˜ì—ˆìŒì„ ì•Œë¦¼
                 Statement* pStmt = NULL;
                 Result* pResult = NULL;
 

@@ -15,7 +15,7 @@
 #include "item/VampirePortalItem.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y,
                            CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
@@ -37,11 +37,11 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
         Assert(pZone != NULL);
         Assert(pInventory != NULL);
 
-        // ÀüÀï Á¸ÀÌ¶ó¸é BloodyTunnel¸¦ »ç¿ëÇÒ ¼ö ¾ø´Ù.
-        // ÀÏ´ÜÀº ZoneID·Î °¡´Âµ¥.. ZoneInfo¿¡ ³Öµµ·Ï ÇØ¾ßÇÑ´Ù.
+        // ì „ìŸ ì¡´ì´ë¼ë©´ BloodyTunnelë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+        // ì¼ë‹¨ì€ ZoneIDë¡œ ê°€ëŠ”ë°.. ZoneInfoì— ë„£ë„ë¡ í•´ì•¼í•œë‹¤.
         ///*
         // if (pZone->getZoneID()==1122 || pZone->getZoneID()==1123)
-        //  ÀÌº¥Æ® °æ±âÀå/OX ¸·±â. by sigi. 2002.8.31
+        //  ì´ë²¤íŠ¸ ê²½ê¸°ì¥/OX ë§‰ê¸°. by sigi. 2002.8.31
         // int zoneID = pZone->getZoneID();
         // if (zoneID==1005 || zoneID==1006)
         if (pZone->isNoPortalZone() || pZone->isMasterLair() || pZone->isCastle() || pZone->isHolyLand()) {
@@ -53,7 +53,7 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
 
 
         Item* pItem = pInventory->getItem(X, Y);
-        // ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª, ¹ìÆÄÀÌ¾î Æ÷Å» ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª, OID°¡ Æ²¸®´Ù¸é ±â¼ú »ç¿ë ºÒ°¡
+        // ì•„ì´í…œì´ ì—†ê±°ë‚˜, ë±€íŒŒì´ì–´ í¬íƒˆ ì•„ì´í…œì´ ì•„ë‹ˆê±°ë‚˜, OIDê°€ í‹€ë¦¬ë‹¤ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_VAMPIRE_PORTAL_ITEM ||
             pItem->getObjectID() != InvenObjectID) {
             executeSkillFailException(pVampire, getSkillType());
@@ -64,7 +64,7 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
         VampirePortalItem* pVampirePortalItem = dynamic_cast<VampirePortalItem*>(pItem);
         Assert(pVampirePortalItem != NULL);
 
-        // ¹ìÆÄÀÌ¾î Æ÷Å» ¾ÆÀÌÅÛ¿¡ ±â·ÏµÈ À§Ä¡°¡ ¾øÀ» °æ¿ì¿¡´Â ½ÇÆĞ´Ù.
+        // ë±€íŒŒì´ì–´ í¬íƒˆ ì•„ì´í…œì— ê¸°ë¡ëœ ìœ„ì¹˜ê°€ ì—†ì„ ê²½ìš°ì—ëŠ” ì‹¤íŒ¨ë‹¤.
         ZoneID_t zoneid = pVampirePortalItem->getZoneID();
         ZoneCoord_t tx = pVampirePortalItem->getX();
         ZoneCoord_t ty = pVampirePortalItem->getY();
@@ -74,16 +74,16 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
             return;
         }
 
-        // ¾ò¾î¿Â ¸ñÇ¥ Á¸°ú ÁÂÇ¥¸¦ °ËÁõÇÑ´Ù.
+        // ì–»ì–´ì˜¨ ëª©í‘œ ì¡´ê³¼ ì¢Œí‘œë¥¼ ê²€ì¦í•œë‹¤.
         Zone* pTargetZone = getZoneByZoneID(zoneid);
 
-        // ¾Æ´ãÀÇ ¼ºÁö¿Í ´Ù¸¥ Á¸°ú´Â ¿¬°áµÇÁö ¾Ê´Â´Ù.
+        // ì•„ë‹´ì˜ ì„±ì§€ì™€ ë‹¤ë¥¸ ì¡´ê³¼ëŠ” ì—°ê²°ë˜ì§€ ì•ŠëŠ”ë‹¤.
         if (pZone->isHolyLand() != pTargetZone->isHolyLand()) {
             executeSkillFailException(pVampire, getSkillType());
             return;
         }
 
-        // cout << "Å¸°Ù Á¸ Æ÷ÀÎÅÍ È¹µæ ¼º°ø" << endl;
+        // cout << "íƒ€ê²Ÿ ì¡´ í¬ì¸í„° íšë“ ì„±ê³µ" << endl;
 
         VSRect* pRect = pTargetZone->getOuterRect();
 
@@ -93,7 +93,7 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
             return;
         }
 
-        // cout << "ÁÂÇ¥ °ËÁõ ¼º°ø" << endl;
+        // cout << "ì¢Œí‘œ ê²€ì¦ ì„±ê³µ" << endl;
 
         GCSkillToInventoryOK1 _GCSkillToInventoryOK1;
 
@@ -114,7 +114,7 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
             SkillOutput output;
             computeOutput(input, output);
 
-            // °¢°¢ÀÇ Á¸¿¡´Ù°¡ Æ÷Å»À» ´õÇÑ´Ù.
+            // ê°ê°ì˜ ì¡´ì—ë‹¤ê°€ í¬íƒˆì„ ë”í•œë‹¤.
             ZONE_COORD s_coord;
             ZONE_COORD t_coord;
 
@@ -136,19 +136,19 @@ void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInv
 
             pPlayer->sendPacket(&_GCSkillToInventoryOK1);
 
-            // Â÷Áö ¼ö¸¦ ÁÙÀÎ´Ù.
+            // ì°¨ì§€ ìˆ˜ë¥¼ ì¤„ì¸ë‹¤.
             pVampirePortalItem->setCharge(pVampirePortalItem->getCharge() - 1);
 
             if (pVampirePortalItem->getCharge() > 0) {
-                // ¾ÆÁ÷ Â÷Áö°¡ ³²¾Ò´Ù¸é »ì·ÁµĞ´Ù.
+                // ì•„ì§ ì°¨ì§€ê°€ ë‚¨ì•˜ë‹¤ë©´ ì‚´ë ¤ë‘”ë‹¤.
                 pVampirePortalItem->save(pVampire->getName(), STORAGE_INVENTORY, 0, X, Y);
             } else {
-                // Æ÷Å» ¾ÆÀÌÅÛÀÇ Â÷Áö°¡ ´Ù ¼Ò¸ğµÇ¾ú´Ù¸é »èÁ¦½ÃÅ²´Ù.
+                // í¬íƒˆ ì•„ì´í…œì˜ ì°¨ì§€ê°€ ë‹¤ ì†Œëª¨ë˜ì—ˆë‹¤ë©´ ì‚­ì œì‹œí‚¨ë‹¤.
                 pInventory->deleteItem(X, Y);
                 pVampirePortalItem->destroy();
 
-                // ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ ÀÚÃ¼°¡ Áö¿öÁö°í, NULLÀÌ µÇ¸é,
-                // ÀÌÆåÆ® ³»ºÎ¿¡¼­ÀÇ ¾ÆÀÌÅÛ Æ÷ÀÎÅÍµµ NULLÀÌ µÇ°ÚÁö...
+                // ì•„ì´í…œ í¬ì¸í„° ìì²´ê°€ ì§€ì›Œì§€ê³ , NULLì´ ë˜ë©´,
+                // ì´í™íŠ¸ ë‚´ë¶€ì—ì„œì˜ ì•„ì´í…œ í¬ì¸í„°ë„ NULLì´ ë˜ê² ì§€...
                 SAFE_DELETE(pVampirePortalItem);
             }
 

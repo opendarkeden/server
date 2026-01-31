@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGShopRequestListHandler.cpp
-// Written By  : ±è¼º¹Î
-// Description : CGShopRequestListÀÇ ÇÚµé·¯ÀÌ´Ù.
+// Written By  : ê¹€ì„±ë¯¼
+// Description : CGShopRequestListì˜ í•¸ë“¤ëŸ¬ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGShopRequestList.h"
@@ -31,11 +31,11 @@ void CGShopRequestListHandler::execute(CGShopRequestList* pPacket, Player* pPlay
         Assert(pPacket != NULL);
     Assert(pPlayer != NULL);
 
-    // ÆĞÅ¶¿¡¼­ Á¤º¸¸¦ »Ì¾Æ³½´Ù.
+    // íŒ¨í‚·ì—ì„œ ì •ë³´ë¥¼ ë½‘ì•„ë‚¸ë‹¤.
     ObjectID_t NPCID = pPacket->getObjectID();
     ShopRackType_t type = pPacket->getRackType();
 
-    // ÆÄ¶ó¹ÌÅÍ ¹× ÆĞÅ¶¿¡¼­ »Ì¾Æ³½ Á¤º¸¸¦ °¡°ø
+    // íŒŒë¼ë¯¸í„° ë° íŒ¨í‚·ì—ì„œ ë½‘ì•„ë‚¸ ì •ë³´ë¥¼ ê°€ê³µ
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
     Zone* pZone = pPC->getZone();
@@ -52,7 +52,7 @@ void CGShopRequestListHandler::execute(CGShopRequestList* pPacket, Player* pPlay
     }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pNPCBase = pZone->getCreature(NPCID);
 
     if (pNPCBase == NULL || pNPCBase->isNPC() == false) {
@@ -64,7 +64,7 @@ void CGShopRequestListHandler::execute(CGShopRequestList* pPacket, Player* pPlay
     NPC* pNPC = dynamic_cast<NPC*>(pNPCBase);
 
     if (type == SHOP_RACK_SPECIAL) {
-        // »óÇ°ÀÇ ¸®½ºÆ®¸¦ ÆĞÅ¶¿¡´Ù ÀÛ¼ºÇÑ´Ù.
+        // ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ íŒ¨í‚·ì—ë‹¤ ì‘ì„±í•œë‹¤.
         GCShopList pkt;
         pkt.setNPCShopType(pNPC->getShopType());
         pkt.setObjectID(NPCID);
@@ -72,7 +72,7 @@ void CGShopRequestListHandler::execute(CGShopRequestList* pPacket, Player* pPlay
         pkt.setShopType(type);
 
         for (BYTE i = 0; i < SHOP_RACK_INDEX_MAX; i++) {
-            // °¢°¢ÀÇ ¾ÆÀÌÅÛ Á¤º¸¸¦ Àû´Â´Ù.
+            // ê°ê°ì˜ ì•„ì´í…œ ì •ë³´ë¥¼ ì ëŠ”ë‹¤.
             Item* pItem = pNPC->getShopItem(type, i);
             if (pItem != NULL)
                 pkt.setShopItem(i, pItem);
@@ -82,17 +82,17 @@ void CGShopRequestListHandler::execute(CGShopRequestList* pPacket, Player* pPlay
         //		pkt.setMarketCondSell(pNPC->getMarketCondSell());
         pkt.setMarketCondSell(pNPC->getTaxRatio(pPC));
 
-        // ÆĞÅ¶À» º¸³»ÀÚ.
+        // íŒ¨í‚·ì„ ë³´ë‚´ì.
         pPlayer->sendPacket(&pkt);
     } else if (type == SHOP_RACK_MYSTERIOUS) {
-        // »óÇ°ÀÇ ¸®½ºÆ®¸¦ ÆĞÅ¶¿¡´Ù ÀÛ¼ºÇÑ´Ù.
+        // ìƒí’ˆì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ íŒ¨í‚·ì—ë‹¤ ì‘ì„±í•œë‹¤.
         GCShopListMysterious pkt;
         pkt.setObjectID(NPCID);
         pkt.setShopVersion(pNPC->getShopVersion(type));
         pkt.setShopType(type);
 
         for (BYTE i = 0; i < SHOP_RACK_INDEX_MAX; i++) {
-            // °¢°¢ÀÇ ¾ÆÀÌÅÛ Á¤º¸¸¦ Àû´Â´Ù.
+            // ê°ê°ì˜ ì•„ì´í…œ ì •ë³´ë¥¼ ì ëŠ”ë‹¤.
             Item* pItem = pNPC->getShopItem(type, i);
             if (pItem != NULL)
                 pkt.setShopItem(i, pItem);
@@ -102,7 +102,7 @@ void CGShopRequestListHandler::execute(CGShopRequestList* pPacket, Player* pPlay
         //		pkt.setMarketCondSell(pNPC->getMarketCondSell());
         pkt.setMarketCondSell(pNPC->getTaxRatio(pPC));
 
-        // ÆĞÅ¶À» º¸³»ÀÚ.
+        // íŒ¨í‚·ì„ ë³´ë‚´ì.
         pPlayer->sendPacket(&pkt);
     } else {
         throw ProtocolException("NORMAL shop item list not allowed!!!");

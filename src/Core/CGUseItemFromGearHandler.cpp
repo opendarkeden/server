@@ -86,7 +86,7 @@ void CGUseItemFromGearHandler::execute(CGUseItemFromGear* pPacket, Player* pPlay
 
     ObjectID_t ItemObjectID = pItem->getObjectID();
 
-    // OID°¡ ÀÏÄ¡ÇÏÁö ¾Ê°Å³ª, »ç¿ëÇÒ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ¶ó¸é ¿¡·¯´Ù.
+    // OIDê°€ ì¼ì¹˜í•˜ì§€ ì•Šê±°ë‚˜, ì‚¬ìš©í•  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì´ë¼ë©´ ì—ëŸ¬ë‹¤.
     if (ItemObjectID != pPacket->getObjectID() || !isUsableItem(pItem, pCreature)) {
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -94,7 +94,7 @@ void CGUseItemFromGearHandler::execute(CGUseItemFromGear* pPacket, Player* pPlay
         return;
     }
 
-    // ¾ÆÀÌÅÛÀÇ Á¾·ù¿¡ µû¶ó, Ã³¸® ÇÔ¼ö¸¦ ºĞ±â½ÃÄÑ ÁØ´Ù.
+    // ì•„ì´í…œì˜ ì¢…ë¥˜ì— ë”°ë¼, ì²˜ë¦¬ í•¨ìˆ˜ë¥¼ ë¶„ê¸°ì‹œì¼œ ì¤€ë‹¤.
     // cout << pItem->getItemClass() << endl;
 
     switch (pItem->getItemClass()) {
@@ -128,8 +128,8 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
         Assert(pPacket != NULL);
     Assert(pGamePlayer != NULL);
 
-    // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯ Ã¼Å©¸¦ ¸¹ÀÌ Çß±â ¶§¹®¿¡,
-    // ¿¡·¯ Ã¼Å©¸¦ ´ëÆø Ãà¼ÒÇÑ´Ù.
+    // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ ì²´í¬ë¥¼ ë§ì´ í–ˆê¸° ë•Œë¬¸ì—,
+    // ì—ëŸ¬ ì²´í¬ë¥¼ ëŒ€í­ ì¶•ì†Œí•œë‹¤.
     Creature* pCreature = pGamePlayer->getCreature();
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     CoupleRingBase* pCoupleRing = NULL;
@@ -157,7 +157,7 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
 
     bool bValidZone = false;
 
-    // trace ÇÏ´Â ºÎºĞ
+    // trace í•˜ëŠ” ë¶€ë¶„
     __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
     pTargetCreature = g_pPCFinder->getCreature_LOCKED(targetName);
@@ -172,7 +172,7 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
 
     Zone* pTargetZone = pTargetCreature->getZone();
     if (pTargetZone != NULL) {
-        // ¾ßÀü»ç·ÉºÎ, ½Ã¿Ü°ûÁö¿ª, ÀÌº¥Æ®°æ±âÀå, ÀÌº¥Æ®OX Á¸, ¸¶½ºÅÍ·¹¾î, ¼ºÁö, PKÁ¸, ´ÙÀÌ³ª¹Í Á¸À¸·Î´Â °¥ ¼ö ¾ø´Ù.
+        // ì•¼ì „ì‚¬ë ¹ë¶€, ì‹œì™¸ê³½ì§€ì—­, ì´ë²¤íŠ¸ê²½ê¸°ì¥, ì´ë²¤íŠ¸OX ì¡´, ë§ˆìŠ¤í„°ë ˆì–´, ì„±ì§€, PKì¡´, ë‹¤ì´ë‚˜ë¯¹ ì¡´ìœ¼ë¡œëŠ” ê°ˆ ìˆ˜ ì—†ë‹¤.
         bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
                      pTargetZone->getZoneID() != 1005 && pTargetZone->getZoneID() != 1006 &&
                      pTargetZone->getZoneID() != 1122 && pTargetZone->getZoneID() != 1131 &&
@@ -183,7 +183,7 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
     }
     __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
-    // °¥ ¼ö ¾ø´Â °÷ÀÌ¶ó¸é ½ÇÆĞ´Ù.
+    // ê°ˆ ìˆ˜ ì—†ëŠ” ê³³ì´ë¼ë©´ ì‹¤íŒ¨ë‹¤.
     if (!bValidZone) {
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -191,7 +191,7 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
         return;
     }
 
-    // 10 ÃÊ µ¿¾È ¿òÁ÷ÀÏ ¼ö ¾øµµ·Ï ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+    // 10 ì´ˆ ë™ì•ˆ ì›€ì§ì¼ ìˆ˜ ì—†ë„ë¡ ì´í™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
     EffectLoveChain* pEffect = new EffectLoveChain(pPC);
     pEffect->setItemObjectID(pPacket->getObjectID());
     pEffect->setDeadline(100);

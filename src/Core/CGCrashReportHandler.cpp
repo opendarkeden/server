@@ -44,7 +44,7 @@ void CGCrashReportHandler::execute(CGCrashReport* pPacket, Player* pPlayer)
             SAFE_DELETE(pStmt);
         }
         END_DB(pStmt)
-        // ´©°¡ ÀÌ»óÇÑ°Å ³¯¸®¸é ¹«½ÃÇÏÀÚ
+        // ëˆ„ê°€ ì´ìƒí•œê±° ë‚ ë¦¬ë©´ ë¬´ì‹œí•˜ìž
     } catch (...) {
         filelog("CrashReport.log", "%s", pPacket->toString().c_str());
     }

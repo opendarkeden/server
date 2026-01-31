@@ -26,7 +26,7 @@ using namespace std;
 #endif
 
 /////////////////////////////////////////
-// PacketType ¿¡ ´ëÇÑ °ª
+// PacketType ì— ëŒ€í•œ ê°’
 /////////////////////////////////////////
 enum CBillingPacketType {
     CBILLING_PACKET_REQUEST = 1,  // request packet
@@ -36,50 +36,50 @@ enum CBillingPacketType {
 };
 
 /////////////////////////////////////////
-// MethodCode ¿¡ ´ëÇÑ °ª
+// MethodCode ì— ëŒ€í•œ ê°’
 /////////////////////////////////////////
 enum CBillingMethodCode {
-    CBILLING_METHOD_CODE_LOGIN = 1001,               // Login, ÇÃ·¹ÀÌ¾îÀÇ Á¢¼Ó
-    CBILLING_METHOD_CODE_MINUS_POINT = 1002,         // minus point, ÀÏÁ¤ ½Ã°£ÀÌ Áö³­ ÈÄ Æ÷ÀÎÆ®¸¦ ±ñ´Ù.
-    CBILLING_METHOD_CODE_MINUS_MINUTE = 1003,        // minus minute, ÀÏÁ¤ ½Ã°£ÀÌ Áö³­ ÈÄ ½Ã°£À» ±ñ´Ù.
-    CBILLING_METHOD_CODE_LOGOUT = 1004,              // Logout, ÇÃ·¹ÀÌ¾îÀÇ Á¢¼Ó Á¾·á
-    CBILLING_METHOD_CODE_INTERVAL_VALIDATION = 1005, // interval validation, °£°Ý È®ÀÎ¿ë
+    CBILLING_METHOD_CODE_LOGIN = 1001,               // Login, í”Œë ˆì´ì–´ì˜ ì ‘ì†
+    CBILLING_METHOD_CODE_MINUS_POINT = 1002,         // minus point, ì¼ì • ì‹œê°„ì´ ì§€ë‚œ í›„ í¬ì¸íŠ¸ë¥¼ ê¹ë‹¤.
+    CBILLING_METHOD_CODE_MINUS_MINUTE = 1003,        // minus minute, ì¼ì • ì‹œê°„ì´ ì§€ë‚œ í›„ ì‹œê°„ì„ ê¹ë‹¤.
+    CBILLING_METHOD_CODE_LOGOUT = 1004,              // Logout, í”Œë ˆì´ì–´ì˜ ì ‘ì† ì¢…ë£Œ
+    CBILLING_METHOD_CODE_INTERVAL_VALIDATION = 1005, // interval validation, ê°„ê²© í™•ì¸ìš©
 
     CBILLING_METHOD_CODE_MAX
 };
 
 /////////////////////////////////////////
-// ReturnCode ¿¡ ´ëÇÑ °ª
+// ReturnCode ì— ëŒ€í•œ ê°’
 /////////////////////////////////////////
 enum CBillingReturnCode {
-    CBILLING_RETURN_CODE_SUCCESS = 0,             // success, ¼º°ø
-    CBILLING_RETURN_CODE_FAIL = 1,                // fail, ½ÇÆÐ
-    CBILLING_RETURN_CODE_DB_ERROR = 2,            // db error, µ¥ÀÌÅÍ º£ÀÌ½º ¿¡·¯
-    CBILLING_RETURN_CODE_INVALID_LOGIN_NAME = 11, // login name invalid, À¯È¿ÇÏÁö ¾ÊÀº login name
-    CBILLING_RETURN_CODE_FAIL_MINUS_POINT = 12,   // fail to minus point, minus point ¿¡ ´ëÇÑ ½ÇÆÐ
-    CBILLING_RETURN_CODE_FAIL_MINUS_MINUTE = 13,  // fail to minus minute, minus minute ¿¡ ´ëÇÑ ½ÇÆÐ
+    CBILLING_RETURN_CODE_SUCCESS = 0,             // success, ì„±ê³µ
+    CBILLING_RETURN_CODE_FAIL = 1,                // fail, ì‹¤íŒ¨
+    CBILLING_RETURN_CODE_DB_ERROR = 2,            // db error, ë°ì´í„° ë² ì´ìŠ¤ ì—ëŸ¬
+    CBILLING_RETURN_CODE_INVALID_LOGIN_NAME = 11, // login name invalid, ìœ íš¨í•˜ì§€ ì•Šì€ login name
+    CBILLING_RETURN_CODE_FAIL_MINUS_POINT = 12,   // fail to minus point, minus point ì— ëŒ€í•œ ì‹¤íŒ¨
+    CBILLING_RETURN_CODE_FAIL_MINUS_MINUTE = 13,  // fail to minus minute, minus minute ì— ëŒ€í•œ ì‹¤íŒ¨
 
     CBILLGIN_RETURN_CODE_MAX
 };
 
 /////////////////////////////////////////
-// PlayerType ¿¡ ´ëÇÑ °ª
+// PlayerType ì— ëŒ€í•œ ê°’
 /////////////////////////////////////////
 enum CBillingPlayerType {
-    CBILLING_PLAYER_TYPE_UNLIMITED = 1, // unlimited using, ¹«Á¦ÇÑ »ç¿ëÀÚ
-    CBILLING_PLAYER_TYPE_LIMITED = 2,   // limited using, Á¦ÇÑ »ç¿ëÀÚ
-    CBILLING_PLAYER_TYPE_MONTHLY = 3,   // monthly, ¿ù´ÜÀ§ »ç¿ëÀÚ
-    CBILLING_PLAYER_TYPE_POINT = 4,     // point, point »ç¿ëÀÚ
+    CBILLING_PLAYER_TYPE_UNLIMITED = 1, // unlimited using, ë¬´ì œí•œ ì‚¬ìš©ìž
+    CBILLING_PLAYER_TYPE_LIMITED = 2,   // limited using, ì œí•œ ì‚¬ìš©ìž
+    CBILLING_PLAYER_TYPE_MONTHLY = 3,   // monthly, ì›”ë‹¨ìœ„ ì‚¬ìš©ìž
+    CBILLING_PLAYER_TYPE_POINT = 4,     // point, point ì‚¬ìš©ìž
 
     CBILLING_PLAYER_TYPE_MAX
 };
 
 /////////////////////////////////////////
-// PayType ¿¡ ´ëÇÑ °ª
+// PayType ì— ëŒ€í•œ ê°’
 /////////////////////////////////////////
 enum CBillingPayType {
-    CBILLING_PAY_TYPE_PRE_PAID = 1,  // PrePaid, ¼±°áÁ¦
-    CBILLING_PAY_TYPE_POST_PAID = 2, // PostPaid, ÈÄ°áÁ¦
+    CBILLING_PAY_TYPE_PRE_PAID = 1,  // PrePaid, ì„ ê²°ì œ
+    CBILLING_PAY_TYPE_POST_PAID = 2, // PostPaid, í›„ê²°ì œ
 
     CBILLING_PAY_TYPE_MAX
 };

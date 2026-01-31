@@ -2,9 +2,9 @@
 // Filename    : ActionPrepareTeach.cpp
 // Written By  :
 // Description :
-// ±³°ü NPC°¡ °¡¸£ÃÄ ÁÙ ¼ö ÀÖ´Â ±â¼úÀÇ Á¾·ù¸¦ Á¤ÇÏ´Â ¾×¼ÇÀÌ´Ù.
-// PrepareShop°ú ºñ½ÁÇÏ°Ô AtFirst ÄÁµğ¼ÇÀ» ÀÌ¿ëÇÏ¿© Ã³À½
-// ÇÑ¹ø¸¸ ½ÇÇàÇÏ°í ´Ù½Ã´Â ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+// êµê´€ NPCê°€ ê°€ë¥´ì³ ì¤„ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì˜ ì¢…ë¥˜ë¥¼ ì •í•˜ëŠ” ì•¡ì…˜ì´ë‹¤.
+// PrepareShopê³¼ ë¹„ìŠ·í•˜ê²Œ AtFirst ì»¨ë””ì…˜ì„ ì´ìš©í•˜ì—¬ ì²˜ìŒ
+// í•œë²ˆë§Œ ì‹¤í–‰í•˜ê³  ë‹¤ì‹œëŠ” ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionPrepareTeach.h"
@@ -21,7 +21,7 @@ void ActionPrepareTeach::read(PropertyBuffer& propertyBuffer)
     __BEGIN_TRY
 
     try {
-        // ÀÌ NPC°¡ °¡¸£ÃÄ ÁÙ ¼ö ÀÖ´Â ¸Æ½º ·¹º§À» ÀĞ¾îµéÀÎ´Ù.
+        // ì´ NPCê°€ ê°€ë¥´ì³ ì¤„ ìˆ˜ ìˆëŠ” ë§¥ìŠ¤ ë ˆë²¨ì„ ì½ì–´ë“¤ì¸ë‹¤.
         m_MaxLevel = (SkillLevel_t)propertyBuffer.getPropertyInt("MaxLevel");
     } catch (NoSuchElementException& nsee) {
         throw Error(nsee.toString());
@@ -32,7 +32,7 @@ void ActionPrepareTeach::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPrepareTeach::execute(Creature* pCreature1, Creature* pCreature2)
 

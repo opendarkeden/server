@@ -11,7 +11,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ
+// ìŠ¬ë ˆì´ì–´ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void Eternity::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -64,7 +64,7 @@ void Eternity::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
 
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectEternity* pEffect = new EffectEternity(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setHPPenalty(output.Damage);
@@ -75,16 +75,16 @@ void Eternity::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             pZone->registerObject(pEffect);
             pZone->addEffect(pEffect);
 
-            pComa->setDeadline(output.Duration + 10); // 11ÃÊ. ½ºÅ³ ¹ßµ¿ Àü¿¡ ºÎÈ°À§Ä¡·Î Æ¨±â´Â°Å ¹æÁö
+            pComa->setDeadline(output.Duration + 10); // 11ì´ˆ. ìŠ¤í‚¬ ë°œë™ ì „ì— ë¶€í™œìœ„ì¹˜ë¡œ íŠ•ê¸°ëŠ”ê±° ë°©ì§€
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -100,7 +100,7 @@ void Eternity::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             executeSkillFailNormal(pSlayer, getSkillType(), NULL);
         }
 
-        pSkillSlot->setRunTime(20); // 2ÃÊ
+        pSkillSlot->setRunTime(20); // 2ì´ˆ
     } catch (Throwable& t) {
         executeSkillFailException(pSlayer, getSkillType());
         // cout << t.toString() << endl;

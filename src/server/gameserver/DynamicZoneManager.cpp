@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // DynamicZoneManager.cpp
-// ¼­¹ö¿¡¼­ »ý°å´Ù »ç¶óÁ³´ÙÇÏ´Â Á¸À» °ü¸®ÇÏ´Â ³Ñ
+// ì„œë²„ì—ì„œ ìƒê²¼ë‹¤ ì‚¬ë¼ì¡Œë‹¤í•˜ëŠ” ì¡´ì„ ê´€ë¦¬í•˜ëŠ” ë„˜
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -13,8 +13,8 @@
 // global variable
 DynamicZoneManager* g_pDynamicZoneManager = NULL;
 
-// »õ·Î ¸¸µé±â ½ÃÀÛÇÒ DynamicZoneID ½ÃÀÛ À§Ä¡
-// ¸¸µé¶§¸¶´Ù 1 ¾¿ Áõ°¡
+// ìƒˆë¡œ ë§Œë“¤ê¸° ì‹œìž‘í•  DynamicZoneID ì‹œìž‘ ìœ„ì¹˜
+// ë§Œë“¤ë•Œë§ˆë‹¤ 1 ì”© ì¦ê°€
 const ZoneID_t StartDynamicZoneID = 15001;
 
 // constructor
@@ -28,10 +28,10 @@ DynamicZoneManager::~DynamicZoneManager() {
 }
 
 void DynamicZoneManager::init() {
-    // DynamicZoneGroup Ãß°¡. ¼öµ¿
+    // DynamicZoneGroup ì¶”ê°€. ìˆ˜ë™
 
     {
-        // Á¦´Ü ÀÔ±¸
+        // ì œë‹¨ ìž…êµ¬
         DynamicZoneGroup* pDynamicZoneGroup = new DynamicZoneGroup();
         pDynamicZoneGroup->setDynamicZoneType(DYNAMIC_ZONE_GATE_OF_ALTER);
         pDynamicZoneGroup->setTemplateZoneID(
@@ -41,7 +41,7 @@ void DynamicZoneManager::init() {
     }
 
     {
-        // ÇÇÀÇ Á¦´Ü
+        // í”¼ì˜ ì œë‹¨
         DynamicZoneGroup* pDynamicZoneGroup = new DynamicZoneGroup();
         pDynamicZoneGroup->setDynamicZoneType(DYNAMIC_ZONE_ALTER_OF_BLOOD);
         pDynamicZoneGroup->setTemplateZoneID(
@@ -51,7 +51,7 @@ void DynamicZoneManager::init() {
     }
 
     {
-        // ½½·¹ÀÌ¾î ½É¿¬ÀÇ °Å¿ï
+        // ìŠ¬ë ˆì´ì–´ ì‹¬ì—°ì˜ ê±°ìš¸
         DynamicZoneGroup* pDynamicZoneGroup = new DynamicZoneGroup();
         pDynamicZoneGroup->setDynamicZoneType(DYNAMIC_ZONE_SLAYER_MIRROR_OF_ABYSS);
         pDynamicZoneGroup->setTemplateZoneID(
@@ -61,7 +61,7 @@ void DynamicZoneManager::init() {
     }
 
     {
-        // ¹ìÆÄÀÌ¾î ½É¿¬ÀÇ °Å¿ï
+        // ë±€íŒŒì´ì–´ ì‹¬ì—°ì˜ ê±°ìš¸
         DynamicZoneGroup* pDynamicZoneGroup = new DynamicZoneGroup();
         pDynamicZoneGroup->setDynamicZoneType(DYNAMIC_ZONE_VAMPIRE_MIRROR_OF_ABYSS);
         pDynamicZoneGroup->setTemplateZoneID(
@@ -71,7 +71,7 @@ void DynamicZoneManager::init() {
     }
 
     {
-        // ¾Æ¿ì½ºÅÍÁî ½É¿¬ÀÇ °Å¿ï
+        // ì•„ìš°ìŠ¤í„°ì¦ˆ ì‹¬ì—°ì˜ ê±°ìš¸
         DynamicZoneGroup* pDynamicZoneGroup = new DynamicZoneGroup();
         pDynamicZoneGroup->setDynamicZoneType(DYNAMIC_ZONE_OUSTERS_MIRROR_OF_ABYSS);
         pDynamicZoneGroup->setTemplateZoneID(

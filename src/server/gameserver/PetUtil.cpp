@@ -20,7 +20,7 @@ bool increasePetExp(PetInfo* pPetInfo, PetExp_t exp, ModifyInfo* pMI) {
     lastLevel = pPetInfo->getPetLevel();
     nextLevel = lastLevel + 1;
 
-    //	cout << pPetInfo->getPetType() << " Æê¿¡ °æÇèÄ¡¸¦ ÁÝ´Ï´Ù. : " << exp << endl;
+    //	cout << pPetInfo->getPetType() << " íŽ«ì— ê²½í—˜ì¹˜ë¥¼ ì¤ë‹ˆë‹¤. : " << exp << endl;
 
     if (pMI != NULL)
         pMI->addLongData(MODIFY_PET_EXP, petExp);
@@ -39,7 +39,7 @@ bool increasePetExp(PetInfo* pPetInfo, PetExp_t exp, ModifyInfo* pMI) {
                                          ->getPetTypeInfo(pPetInfo->getPetType())
                                          ->getPetCreatureType(pPetInfo->getPetLevel()));
 
-        //		cout << (int)pPetInfo->getPetLevel() << "·¹º§¾÷ÇÑ ÆêÀÇ Å©¸®ÃÄ Å¸ÀÔ " <<
+        //		cout << (int)pPetInfo->getPetLevel() << "ë ˆë²¨ì—…í•œ íŽ«ì˜ í¬ë¦¬ì³ íƒ€ìž… " <<
         //(int)pPetInfo->getPetCreatureType() << endl;
 
         if (pPetInfo->getPetAttr() != 0xff) {
@@ -98,32 +98,32 @@ PetExp_t computePetExp(Level_t myLevel, Level_t monsterLevel, PetInfo* pPetInfo,
 }
 
 void refreshHP(PetInfo* pPetInfo, uint Ratio) {
-    //	cout << "Æê ¸ÔÀÌ ºñÀ² : " << Ratio << endl;
+    //	cout << "íŽ« ë¨¹ì´ ë¹„ìœ¨ : " << Ratio << endl;
     VSDateTime current = VSDateTime::currentDateTime();
     int lastSec = pPetInfo->getLastFeedTime().secsTo(current);
-    //	cout << "¹ä¸ÔÀºÁö " << lastSec << "ÃÊ Áö³µ½À´Ï´Ù." << endl;
+    //	cout << "ë°¥ë¨¹ì€ì§€ " << lastSec << "ì´ˆ ì§€ë‚¬ìŠµë‹ˆë‹¤." << endl;
     if (lastSec <= 0)
         return;
 
     int lastMin = (lastSec / 60) + 1;
-    //	cout << "¹ä¸ÔÀºÁö " << lastMin << "ºÐ Áö³µ½À´Ï´Ù." << endl;
+    //	cout << "ë°¥ë¨¹ì€ì§€ " << lastMin << "ë¶„ ì§€ë‚¬ìŠµë‹ˆë‹¤." << endl;
     int spendFood = getPercentValue(lastMin, Ratio);
 
     //	if ( pPetInfo->getPetLevel() == 50 ) spendFood = max(1, spendFood/10);
     if (pPetInfo->getPetHP() < spendFood)
         spendFood = pPetInfo->getPetHP();
     if (spendFood == 0) {
-        //		cout << "Á×¾î¼­ ¹ä ¸ø¸Ô½À´Ï´Ù. -_-" << endl;
+        //		cout << "ì£½ì–´ì„œ ë°¥ ëª»ë¨¹ìŠµë‹ˆë‹¤. -_-" << endl;
         return;
     }
 
-    //	cout << spendFood << "¸¸Å­ ¹ä¸Ô½À´Ï´Ù." << endl;
+    //	cout << spendFood << "ë§Œí¼ ë°¥ë¨¹ìŠµë‹ˆë‹¤." << endl;
 
     pPetInfo->setPetHP(pPetInfo->getPetHP() - spendFood);
 
     if (pPetInfo->getPetHP() == 0) {
         spendFood /= (Ratio / 100.0);
-        //		cout << "¸ÔÀº ½Ã°£ : " << spendFood << endl;
+        //		cout << "ë¨¹ì€ ì‹œê°„ : " << spendFood << endl;
         pPetInfo->setFeedTime(pPetInfo->getLastFeedTime().addDays(spendFood / 1440).addSecs((spendFood % 1440) * 60));
     } else
         pPetInfo->setFeedTime(current);

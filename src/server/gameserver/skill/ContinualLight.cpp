@@ -16,7 +16,7 @@
 #include "GCSkillToTileOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot,
                              CEffectID_t CEffectID)
@@ -78,7 +78,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
 
             int oX = 0, oY = 0;
 
-            list<Creature*> cList; // ´çÇÏ´Â ºĞµé list
+            list<Creature*> cList; // ë‹¹í•˜ëŠ” ë¶„ë“¤ list
             for (oY = -output.Range; oY <= output.Range; oY++) {
                 for (oX = -output.Range; oX <= output.Range; oX++) {
                     int tileX = X + oX;
@@ -89,13 +89,13 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
                         EffectDarkness* pEffect = (EffectDarkness*)(tile.getEffect(Effect::EFFECT_CLASS_DARKNESS));
                         bool success = false;
 
-                        // ÀÌ Å¸ÀÏ¿¡ ´ÙÅ©´Ï½º°¡ Á¸ÀçÇÑ´Ù¸é...
+                        // ì´ íƒ€ì¼ì— ë‹¤í¬ë‹ˆìŠ¤ê°€ ì¡´ì¬í•œë‹¤ë©´...
                         if (pEffect != NULL) {
                             bool Remove = false;
 
-                            // ¼º°øÇÒ È®·ü
-                            // min(0) - max(150) ¿¡¼­
-                            // min(25) - max(75) ·Î Á¶Á¤  2002.7.9 ÀåÈ«Ã¢
+                            // ì„±ê³µí•  í™•ë¥ 
+                            // min(0) - max(150) ì—ì„œ
+                            // min(25) - max(75) ë¡œ ì¡°ì •  2002.7.9 ì¥í™ì°½
                             int ratio = min(max(25, SkillLevel - pEffect->getLevel() / 3), 75);
 
                             if (rand() % 100 < ratio)
@@ -118,13 +118,13 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
                         EffectGrayDarkness* pGrayEffect =
                             (EffectGrayDarkness*)(tile.getEffect(Effect::EFFECT_CLASS_GRAY_DARKNESS));
 
-                        // ÀÌ Å¸ÀÏ¿¡ ´ÙÅ©´Ï½º°¡ Á¸ÀçÇÑ´Ù¸é...
+                        // ì´ íƒ€ì¼ì— ë‹¤í¬ë‹ˆìŠ¤ê°€ ì¡´ì¬í•œë‹¤ë©´...
                         if (pGrayEffect != NULL) {
                             bool Remove = false;
 
-                            // ¼º°øÇÒ È®·ü
-                            // min(0) - max(150) ¿¡¼­
-                            // min(25) - max(75) ·Î Á¶Á¤  2002.7.9 ÀåÈ«Ã¢
+                            // ì„±ê³µí•  í™•ë¥ 
+                            // min(0) - max(150) ì—ì„œ
+                            // min(25) - max(75) ë¡œ ì¡°ì •  2002.7.9 ì¥í™ì°½
                             int ratio = min(max(20, SkillLevel - (int)(pGrayEffect->getLevel() / 2.8)), 70);
 
                             if (rand() % 100 < ratio)
@@ -134,7 +134,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
                                 ObjectID_t effectObjectID = pGrayEffect->getObjectID();
                                 pZone->deleteEffect(effectObjectID);
 
-                                // Å¸ÀÏ¿¡ °É¾î´Ù´Ï´Â Å©¸®ÃÄ°¡ Á¸ÀçÇÑ´Ù¸é Æ÷ÀÎÅÍ¸¦ ¹Ş¾Æ¿Â´Ù.
+                                // íƒ€ì¼ì— ê±¸ì–´ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ê°€ ì¡´ì¬í•œë‹¤ë©´ í¬ì¸í„°ë¥¼ ë°›ì•„ì˜¨ë‹¤.
                                 //								Creature* pTargetCreature = NULL;
                                 //								if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
                                 //									pTargetCreature =
@@ -155,7 +155,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
                         }
 
                         if (success) {
-                            // Å¸ÀÏ¿¡ °É¾î´Ù´Ï´Â Å©¸®ÃÄ°¡ Á¸ÀçÇÑ´Ù¸é Æ÷ÀÎÅÍ¸¦ ¹Ş¾Æ¿Â´Ù.
+                            // íƒ€ì¼ì— ê±¸ì–´ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ê°€ ì¡´ì¬í•œë‹¤ë©´ í¬ì¸í„°ë¥¼ ë°›ì•„ì˜¨ë‹¤.
                             Creature* pTargetCreature = NULL;
                             if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
                                 pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
@@ -168,7 +168,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
                 }
             }
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToTileOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);

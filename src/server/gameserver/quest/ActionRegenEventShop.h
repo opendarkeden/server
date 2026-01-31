@@ -2,7 +2,7 @@
 // Filename    : ActionRegenEventShop.h
 // Written By  : excel96
 // Description :
-// Å©¸®½º¸¶½º ÀÌº¥Æ®¿ë »óÁ¡À» °»½ÅÇÏ´Â ¾×¼Ç
+// í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ìš© ìƒì ì„ ê°±ì‹ í•˜ëŠ” ì•¡ì…˜
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_REGEN_EVENT_SHOP_H__
@@ -41,8 +41,8 @@ public:
 
 private:
     list<ShopTemplateID_t> m_List; // Shop template ID list
-    Timeval m_Period;              // »óÁ¡À» ¸®Á¨ÇÒ ÁÖ±â
-    Timeval m_NextRegen;           // ´ÙÀ½ »óÁ¡ ¸®Á¨ ½Ã°£
+    Timeval m_Period;              // ìƒì ì„ ë¦¬ì  í•  ì£¼ê¸°
+    Timeval m_NextRegen;           // ë‹¤ìŒ ìƒì  ë¦¬ì   ì‹œê°„
 };
 
 

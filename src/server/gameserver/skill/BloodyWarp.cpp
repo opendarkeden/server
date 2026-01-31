@@ -10,8 +10,8 @@
 #include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ý¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ìž
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 POINT
 BloodyWarp::getWarpPosition(int myX, int myY, int targetX, int targetY) throw() {
@@ -19,7 +19,7 @@ BloodyWarp::getWarpPosition(int myX, int myY, int targetX, int targetY) throw() 
 
     POINT pt;
 
-    // 10%ÀÇ È®·ü·Î randomÇÑ À§Ä¡·Î ¿öÇÁ
+    // 10%ì˜ í™•ë¥ ë¡œ randomí•œ ìœ„ì¹˜ë¡œ ì›Œí”„
     /*	if (rand()%10==0)
         {
             pt.x = myX + rand()%9 - 4;
@@ -45,7 +45,7 @@ BloodyWarp::getWarpPosition(int myX, int myY, int targetX, int targetY) throw() 
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWarp::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -65,7 +65,7 @@ void BloodyWarp::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pVampire, getSkillType());
 
@@ -84,7 +84,7 @@ void BloodyWarp::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWarp::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -120,7 +120,7 @@ void BloodyWarp::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWarp::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -140,7 +140,7 @@ void BloodyWarp::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
     POINT pt = getWarpPosition(myX, myY, X, Y);
 
-    // BLOODY_WALL¸¦ ÀûÀÇ À§Ä¡¿¡ »ç¿ëÇÑ´Ù.
+    // BLOODY_WALLë¥¼ ì ì˜ ìœ„ì¹˜ì— ì‚¬ìš©í•œë‹¤.
     SkillType_t SkillType = SKILL_BLOODY_WALL;
 
     if (pMonster->getMonsterType() >= 717)
@@ -153,7 +153,7 @@ void BloodyWarp::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 
     if (pZone->moveFastMonster(pMonster, myX, myY, pt.x, pt.y, getSkillType())) {
-        // BLOODY_WAVE¸¦ pMonsterÀÇ µµÂøÁöÁ¡¿¡ »ç¿ëÇÑ´Ù.
+        // BLOODY_WAVEë¥¼ pMonsterì˜ ë„ì°©ì§€ì ì— ì‚¬ìš©í•œë‹¤.
         SkillType = (pMonster->isMaster() ? SKILL_BLOODY_MASTER_WAVE : SKILL_BLOODY_WAVE);
 
         pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SkillType);

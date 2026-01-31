@@ -38,9 +38,9 @@ public:
     }
 
 private:
-    SpriteType_t m_TargetMonsterSpriteType; // Äù½ºÆ®¿¡¼­ ÀâÀ» ¸ó½ºÅÍÀÇ ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ
-    bool m_IsChief;                         // Äù½ºÆ®¿¡¼­ ÀâÀ» ¸ó½ºÅÍ°¡ chiefÀÌ¾î¾ß ÇÏ´Â°¡?
-    int m_GoalNum;                          // Äù½ºÆ®¿¡¼­ ÀâÀ» ¸ó½ºÅÍ ¼ö
+    SpriteType_t m_TargetMonsterSpriteType; // í€˜ìŠ¤íŠ¸ì—ì„œ ì¡ì„ ëª¬ìŠ¤í„°ì˜ ìŠ¤í”„ë¼ì´íŠ¸ íƒ€ì…
+    bool m_IsChief;                         // í€˜ìŠ¤íŠ¸ì—ì„œ ì¡ì„ ëª¬ìŠ¤í„°ê°€ chiefì´ì–´ì•¼ í•˜ëŠ”ê°€?
+    int m_GoalNum;                          // í€˜ìŠ¤íŠ¸ì—ì„œ ì¡ì„ ëª¬ìŠ¤í„° ìˆ˜
 };
 
 #endif

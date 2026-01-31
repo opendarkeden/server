@@ -27,8 +27,8 @@ bool ConditionCanEnterPayZone::isSatisfied(Creature* pCreature1, Creature* pCrea
 
     Assert(pGamePlayer != NULL);
 
-    // ÀÌ¹Ì À¯·áÁ¸¿¡ ÀÖ´Â °æ¿ì¶ó¸é... °ü°è¾ø°ÚÁö.
-    // ÆÐ¹Ð¸® ¿ä±Ý Àû¿ëÁßÀÎ °æ¿ì
+    // ì´ë¯¸ ìœ ë£Œì¡´ì— ìžˆëŠ” ê²½ìš°ë¼ë©´... ê´€ê³„ì—†ê² ì§€.
+    // íŒ¨ë°€ë¦¬ ìš”ê¸ˆ ì ìš©ì¤‘ì¸ ê²½ìš°
     if (pGamePlayer->isPayPlaying() || pGamePlayer->isFamilyFreePass()) {
         return true;
     }

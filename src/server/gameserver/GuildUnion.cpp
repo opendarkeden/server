@@ -62,7 +62,7 @@ bool GuildUnion::removeGuild(GuildID_t gID) {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         pStmt->executeQuery("DELETE FROM GuildUnionMember WHERE UnionID = %u and OwnerGuildID = %u", m_UnionID, gID);
         if (pStmt->getAffectedRowCount() < 1) {
-            filelog("GuildUnion.log", "[%u:%u] Å»ÅðÇÏ·Á´Âµ¥ ÇØ´ç ·¹ÄÚµå°¡ ¾ø½À´Ï´Ù.", m_UnionID, gID);
+            filelog("GuildUnion.log", "[%u:%u] íƒˆí‡´í•˜ë ¤ëŠ”ë° í•´ë‹¹ ë ˆì½”ë“œê°€ ì—†ìŠµë‹ˆë‹¤.", m_UnionID, gID);
         }
 
         SAFE_DELETE(pStmt);
@@ -145,7 +145,7 @@ void GuildUnionManager::sendModifyUnionInfo(uint gID) {
     ggCommand.setCommand(Msg);
 
 
-    // °¢ server·Î º¸³½´Ù.
+    // ê° serverë¡œ ë³´ë‚¸ë‹¤.
     HashMapGameServerInfo** pGameServerInfos = g_pGameServerInfoManager->getGameServerInfos();
 
 
@@ -166,7 +166,7 @@ void GuildUnionManager::sendModifyUnionInfo(uint gID) {
                     GameServerInfo* pGameServerInfo = itr->second;
 
                     if (pGameServerInfo->getWorldID() == myWorldID) {
-                        // ÇöÀç ¼­¹ö°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸..(À§¿¡¼­ Ã³¸®ÇßÀ¸¹Ç·Î)
+                        // í˜„ìž¬ ì„œë²„ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ..(ìœ„ì—ì„œ ì²˜ë¦¬í–ˆìœ¼ë¯€ë¡œ)
                         if (pGameServerInfo->getGroupID() == myServerID) {
                         } else {
                             g_pLoginServerManager->sendPacket(pGameServerInfo->getIP(), pGameServerInfo->getUDPPort(),
@@ -184,7 +184,7 @@ void GuildUnionManager::sendRefreshCommand() {
     ggCommand.setCommand("*refreshguildunion");
 
 
-    // °¢ server·Î º¸³½´Ù.
+    // ê° serverë¡œ ë³´ë‚¸ë‹¤.
     HashMapGameServerInfo** pGameServerInfos = g_pGameServerInfoManager->getGameServerInfos();
 
 
@@ -205,7 +205,7 @@ void GuildUnionManager::sendRefreshCommand() {
                     GameServerInfo* pGameServerInfo = itr->second;
 
                     if (pGameServerInfo->getWorldID() == myWorldID) {
-                        // ÇöÀç ¼­¹ö°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸..(À§¿¡¼­ Ã³¸®ÇßÀ¸¹Ç·Î)
+                        // í˜„ìž¬ ì„œë²„ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ..(ìœ„ì—ì„œ ì²˜ë¦¬í–ˆìœ¼ë¯€ë¡œ)
                         if (pGameServerInfo->getGroupID() == myServerID) {
                         } else {
                             g_pLoginServerManager->sendPacket(pGameServerInfo->getIP(), pGameServerInfo->getUDPPort(),
@@ -241,13 +241,13 @@ bool GuildUnionManager::addGuild(uint uID, GuildID_t gID) {
 bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
     __BEGIN_TRY
 
-    // ³»°¡ ±æµå¿¬ÇÕÀåÀÎµ¥..³»°¡ Å»ÅðÇÑ´Ù¸é..
-    // ³»°¡ ¼ÓÇÑ ±æµå¿¬ÇÕÀ» ±úº¸ÀÚ..
+    // ë‚´ê°€ ê¸¸ë“œì—°í•©ìž¥ì¸ë°..ë‚´ê°€ íƒˆí‡´í•œë‹¤ë©´..
+    // ë‚´ê°€ ì†í•œ ê¸¸ë“œì—°í•©ì„ ê¹¨ë³´ìž..
 
     GuildUnion* pUnion = m_GuildUnionMap[gID];
-    // ³»°¡ ¸¶½ºÅÍÀÎ ¿¬ÇÕÀÌ ÀÖ´Ù¸é -> ³» ¿¬ÇÕ¿¡ ¼Ò¼ÓµÈ ¸ðµç ±æµå¸¦ out½ÃÅ°°í ³» ¿¬ÇÕÀ» ±ú¹ö¸°´Ù.
+    // ë‚´ê°€ ë§ˆìŠ¤í„°ì¸ ì—°í•©ì´ ìžˆë‹¤ë©´ -> ë‚´ ì—°í•©ì— ì†Œì†ëœ ëª¨ë“  ê¸¸ë“œë¥¼ outì‹œí‚¤ê³  ë‚´ ì—°í•©ì„ ê¹¨ë²„ë¦°ë‹¤.
     if (pUnion != NULL) {
-        uint uID = pUnion->getUnionID(); // ¿¬ÇÕID
+        uint uID = pUnion->getUnionID(); // ì—°í•©ID
         Statement* pStmt = NULL;
 
         BEGIN_DB {
@@ -255,14 +255,14 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
             pResult = pStmt->executeQuery("SELECT OwnerGuildID FROM GuildUnionMember WHERE UnionID = %u", uID);
 
-            // ¾Æ¹«°Íµµ ¾ø´Ù¸é ÀÌ»óÇÑ°Å´Ù..
+            // ì•„ë¬´ê²ƒë„ ì—†ë‹¤ë©´ ì´ìƒí•œê±°ë‹¤..
             if (pResult->getRowCount() == 0) {
                 SAFE_DELETE(pStmt);
                 return false;
             }
 
             string unionMasterID = g_pGuildManager->getGuild(gID)->getMaster();
-            // °¢°¢ÀÇ ¸ðµç ±æµåµéÀ» ¿¬ÇÕ¿¡¼­ Å»Åð½ÃÅ²´Ù.	// ¸ðµÎ Áö¿öÁö¸é ¿¬ÇÕµµ ¾Ë¾Æ¼­ ±úÁø´Ù.
+            // ê°ê°ì˜ ëª¨ë“  ê¸¸ë“œë“¤ì„ ì—°í•©ì—ì„œ íƒˆí‡´ì‹œí‚¨ë‹¤.	// ëª¨ë‘ ì§€ì›Œì§€ë©´ ì—°í•©ë„ ì•Œì•„ì„œ ê¹¨ì§„ë‹¤.
             while (pResult->next()) {
                 if (pUnion->removeGuild(pResult->getInt(1))) {
                     m_GuildUnionMap[gID] = NULL;
@@ -281,7 +281,7 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
                     sendGCOtherModifyInfoGuildUnionByGuildID(pResult->getInt(1));
                 } // if
             } // while
-            // ¸ðµç ±æµå¸¦ ´Ù Á¦°ÅÇÑ´Ù. ¸¶Áö¸·¿¡ ³²Àº ±æµå±îÁö ±ú²ýÈ÷ Ã»¼ÒÇÏ°í ³ª¸é
+            // ëª¨ë“  ê¸¸ë“œë¥¼ ë‹¤ ì œê±°í•œë‹¤. ë§ˆì§€ë§‰ì— ë‚¨ì€ ê¸¸ë“œê¹Œì§€ ê¹¨ë—ížˆ ì²­ì†Œí•˜ê³  ë‚˜ë©´
 
             Creature* pTargetCreature = NULL;
             __ENTER_CRITICAL_SECTION((*g_pPCFinder))
@@ -294,13 +294,13 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
             }
             __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
-            // ¿¬ÇÕ¸¶½ºÅÍ ¹Ù²ïÁ¤º¸¸¦ º¸³»Áàº¸ÀÚ..
+            // ì—°í•©ë§ˆìŠ¤í„° ë°”ë€ì •ë³´ë¥¼ ë³´ë‚´ì¤˜ë³´ìž..
             sendGCOtherModifyInfoGuildUnionByGuildID(gID);
 
             sendRefreshCommand();
         }
         END_DB(pStmt);
-    } else // ³»°¡ ¸¶½ºÅÍÀÎ ¿¬ÇÕÀÌ ¾ø´Ù¸é, ³»°¡ ¾î´À¿¬ÇÕÀÇ ¸â¹öÀÎÁö¸¦ Ã£´Â´Ù. ¾î´À¿¬ÇÕÀÇ ¸â¹öÀÎÁö Ã£¾Æ¼­ ¿¬ÇÕ¿¡¼­ Á¦¿Ü
+    } else // ë‚´ê°€ ë§ˆìŠ¤í„°ì¸ ì—°í•©ì´ ì—†ë‹¤ë©´, ë‚´ê°€ ì–´ëŠì—°í•©ì˜ ë©¤ë²„ì¸ì§€ë¥¼ ì°¾ëŠ”ë‹¤. ì–´ëŠì—°í•©ì˜ ë©¤ë²„ì¸ì§€ ì°¾ì•„ì„œ ì—°í•©ì—ì„œ ì œì™¸
     {
         Statement* pStmt = NULL;
         Statement* pStmt2 = NULL;
@@ -315,13 +315,13 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
             pResult =
                 pStmt->executeQuery("SELECT UnionID, OwnerGuildID FROM GuildUnionMember WHERE OwnerGuildID = %u", gID);
 
-            // ¾îµð¿¡µµ ¼Ò¼ÓµÇÁö ¾Ê¾Ò´Ù¸é ±×³É ³ª°£´Ù.
+            // ì–´ë””ì—ë„ ì†Œì†ë˜ì§€ ì•Šì•˜ë‹¤ë©´ ê·¸ëƒ¥ ë‚˜ê°„ë‹¤.
             if (pResult->getRowCount() == 0) {
                 SAFE_DELETE(pStmt);
                 return false;
             }
 
-            // ¾îµò°¡¿¡ ¼ÓÇØÀÖ´Ù¸é..
+            // ì–´ë”˜ê°€ì— ì†í•´ìžˆë‹¤ë©´..
             pResult->next();
 
             BEGIN_DB {
@@ -330,7 +330,7 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
                 pResult2 = pStmt->executeQuery("SELECT MasterGuildID FROM GuildUnionInfo WHERE UnionID = %u",
                                                pResult->getInt(1));
 
-                // ¸¶½ºÅÍ±æµåÀÇ ID¸¦ Ã£À¸¸é..
+                // ë§ˆìŠ¤í„°ê¸¸ë“œì˜ IDë¥¼ ì°¾ìœ¼ë©´..
                 if (pResult2->getRowCount() != 0) {
                     pResult->next();
 
@@ -343,8 +343,8 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
             guildMasterID = g_pGuildManager->getGuild(gID)->getMaster();
 
             if (removeGuild(pResult->getInt(1), pResult->getInt(2))) {
-                Creature* pTargetCreature = NULL;  // ÇØ´ç±æµåÀÇ Àå
-                Creature* pTargetCreature2 = NULL; // ¿¬ÇÕ±æµåÀÇ Àå
+                Creature* pTargetCreature = NULL;  // í•´ë‹¹ê¸¸ë“œì˜ ìž¥
+                Creature* pTargetCreature2 = NULL; // ì—°í•©ê¸¸ë“œì˜ ìž¥
 
                 __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
@@ -364,12 +364,12 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) {
                 __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
 
-                // ±æµå¸¶½ºÅÍ ¹Ù²ïÁ¤º¸¸¦ º¸³»Áàº¸ÀÚ..
+                // ê¸¸ë“œë§ˆìŠ¤í„° ë°”ë€ì •ë³´ë¥¼ ë³´ë‚´ì¤˜ë³´ìž..
                 sendGCOtherModifyInfoGuildUnionByGuildID(gID);
-                // Æ¯Á¤±æµå°¡ ±úÁ®¼­ ¿¬ÇÕ¿¡¼­ removeµÇ¾ú´Ù¸é ¿¬ÇÕ¸¶½ºÅÍ¿¡°Ôµµ ¾Ë·Á¾ß ÇÏ°Ú´Ù.
+                // íŠ¹ì •ê¸¸ë“œê°€ ê¹¨ì ¸ì„œ ì—°í•©ì—ì„œ removeë˜ì—ˆë‹¤ë©´ ì—°í•©ë§ˆìŠ¤í„°ì—ê²Œë„ ì•Œë ¤ì•¼ í•˜ê² ë‹¤.
                 sendGCOtherModifyInfoGuildUnionByGuildID(unionMasterGuildID);
 
-                // ±æµå¸¦ Á¦°Å ÇÏ¿´À¸´Ï..´Ù¸¥ ¼­¹ö¿¡µµ ¾Ë·ÁÁà¾ß ÇÏ°Ú´Ù.
+                // ê¸¸ë“œë¥¼ ì œê±° í•˜ì˜€ìœ¼ë‹ˆ..ë‹¤ë¥¸ ì„œë²„ì—ë„ ì•Œë ¤ì¤˜ì•¼ í•˜ê² ë‹¤.
                 sendRefreshCommand();
             }
         }
@@ -512,14 +512,14 @@ uint GuildUnionOfferManager::offerJoin(GuildID_t gID, GuildID_t masterGID) {
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // °ú°Å 10ÀÏ ÀÌ³»¿¡¼­ °­Á¦ Å»ÅðÇÑ ÀÌ·ÂÀÌ ÀÖ´ÂÁö º»´Ù
+        // ê³¼ê±° 10ì¼ ì´ë‚´ì—ì„œ ê°•ì œ íƒˆí‡´í•œ ì´ë ¥ì´ ìžˆëŠ”ì§€ ë³¸ë‹¤
         Result* pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildUnionOffer WHERE OfferType='ESCAPE' and "
                                               "OwnerGuildID='%u' and OfferTime >= now() - interval 10 day",
                                               gID);
 
         pResult->next();
 
-        // ÀÌ·ÂÀÌ ÀÖÀ¸¸é ÆÐ»µ¸°´Ù.
+        // ì´ë ¥ì´ ìžˆìœ¼ë©´ íŒ¨ë»ë¦°ë‹¤.
         if (pResult->getInt(1) > 0) {
             SAFE_DELETE(pStmt);
             return YOU_HAVE_PENALTY;
@@ -534,7 +534,7 @@ uint GuildUnionOfferManager::offerJoin(GuildID_t gID, GuildID_t masterGID) {
             return NOT_ENOUGH_SLOT;
         }
 
-        // 10ÀÏÀÌ ³ÑÀº µ¥ÀÌÅ¸´Â Áö¿ö¹ö¸°´Ù.
+        // 10ì¼ì´ ë„˜ì€ ë°ì´íƒ€ëŠ” ì§€ì›Œë²„ë¦°ë‹¤.
         pStmt->executeQuery(
             "DELETE FROM GuildUnionOffer WHERE OwnerGuildID='%u' and OfferTime < now() - interval 10 day", gID);
         pStmt->executeQuery(
@@ -593,7 +593,7 @@ bool GuildUnionOfferManager::makeOfferList(uint uID, GCUnionOfferList& offerList
                                               uID);
 
 
-        // cout << "¿¬ÇÕ±æµå : " << uID << ", GuildUnionOffer return row : " << pResult->getRowCount() << endl;
+        // cout << "ì—°í•©ê¸¸ë“œ : " << uID << ", GuildUnionOffer return row : " << pResult->getRowCount() << endl;
 
         if (pResult->getRowCount() == 0) {
             return false;

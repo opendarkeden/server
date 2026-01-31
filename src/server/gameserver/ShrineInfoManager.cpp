@@ -280,9 +280,9 @@ void ShrineInfoManager::load()
             OustersGuardShrine.setShrineType(ShrineInfo::SHRINE_GUARD);
             HolyShrine.setShrineType(ShrineInfo::SHRINE_HOLY);
 
-            // ItemType°ú Shrine ID´Â °°¾Æ¾ß ÇÑ´Ù. °°Áö ¾ÊÀ» °æ¿ì DB¼³Á¤ ¿À·ù·Î ·Îµù°úÁ¤¿¡¼­ ¸·´Â´Ù.
+            // ItemTypeê³¼ Shrine IDëŠ” ê°™ì•„ì•¼ í•œë‹¤. ê°™ì§€ ì•Šì„ ê²½ìš° DBì„¤ì • ì˜¤ë¥˜ë¡œ ë¡œë”©ê³¼ì •ì—ì„œ ë§‰ëŠ”ë‹¤.
             if (pShrineSet->getBloodBibleItemType() != pShrineSet->getShrineID()) {
-                cout << "ShrineID ¿Í ItemTypeÀÌ ¸ÂÁö ¾Ê½À´Ï´Ù. DB¼³Á¤À» Á¡°ËÇÏ¼¼¿ä." << endl;
+                cout << "ShrineID ì™€ ItemTypeì´ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤. DBì„¤ì •ì„ ì ê²€í•˜ì„¸ìš”." << endl;
                 Assert(false);
             }
 
@@ -296,7 +296,7 @@ void ShrineInfoManager::load()
     __END_CATCH
 }
 
-// ÀÌ°Å´Â ClientManager thread¿¡¼­ ºÒ¸°´Ù. µıµ¥¼­ ºÎ¸£¸é ¾ÈµÈ´Ù~~
+// ì´ê±°ëŠ” ClientManager threadì—ì„œ ë¶ˆë¦°ë‹¤. ë”´ë°ì„œ ë¶€ë¥´ë©´ ì•ˆëœë‹¤~~
 void ShrineInfoManager::reloadOwner()
 
 {
@@ -373,11 +373,11 @@ void ShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_t itemT
 {
     __BEGIN_TRY
 
-    // Holy Shrine Àº Á¸¿¡ Ãß°¡ÇÏÁö ¾Ê´Â´Ù.
+    // Holy Shrine ì€ ì¡´ì— ì¶”ê°€í•˜ì§€ ì•ŠëŠ”ë‹¤.
     if (shrineInfo.getShrineType() == ShrineInfo::SHRINE_HOLY)
         return;
 
-    // ¼º´ÜÀ» ³ÖÀ» Á¸À» °¡Á®¿Â´Ù.
+    // ì„±ë‹¨ì„ ë„£ì„ ì¡´ì„ ê°€ì ¸ì˜¨ë‹¤.
     Zone* pZone = getZoneByZoneID(shrineInfo.getZoneID());
     Assert(pZone != NULL);
 
@@ -420,7 +420,7 @@ void ShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_t itemT
     Assert(tp.x != -1);
 
     if (shrineInfo.getShrineType() == ShrineInfo::SHRINE_GUARD) {
-        // ¸ğµç ¼öÈ£¼º´Ü¿¡ Shield Effect ºÙÀÎ´Ù
+        // ëª¨ë“  ìˆ˜í˜¸ì„±ë‹¨ì— Shield Effect ë¶™ì¸ë‹¤
         pShrine->setFlag(Effect::EFFECT_CLASS_SHRINE_SHIELD);
 
         EffectShrineShield* pEffect = new EffectShrineShield(pShrine);
@@ -432,7 +432,7 @@ void ShrineInfoManager::addShrineToZone(ShrineInfo& shrineInfo, ItemType_t itemT
 
     forbidDarkness(pZone, tp.x, tp.y, 2);
 
-    // ¼º´Ü ÁÂÇ¥¸¦ »õ·Î ¼¼ÆÃÇÑ´Ù.
+    // ì„±ë‹¨ ì¢Œí‘œë¥¼ ìƒˆë¡œ ì„¸íŒ…í•œë‹¤.
     shrineInfo.setX(tp.x);
     shrineInfo.setY(tp.y);
 
@@ -506,12 +506,12 @@ bool ShrineInfoManager::isMatchGuardShrine(Item* pItem, MonsterCorpse* pMonsterC
     ShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL) {
-        // ÀÌ ÇÇÀÇ ¼º¼­¿¡ ÇØ´çÇÏ´Â Shrine SetÀÌ ¾ø´Ù.
+        // ì´ í”¼ì˜ ì„±ì„œì— í•´ë‹¹í•˜ëŠ” Shrine Setì´ ì—†ë‹¤.
         return false;
     }
 
-    // ÀÌ ÇÇÀÇ ¼º¼­¿¡ ÇØ´çÇÏ´Â Shrine setÀÇ ¼ºÁö¼º´ÜÀÇ MonsterTypeÀÌ
-    // ³Ñ¾î¿Â MonsterCorpseÀÇ MonsterType°ú °°À¸¸é true
+    // ì´ í”¼ì˜ ì„±ì„œì— í•´ë‹¹í•˜ëŠ” Shrine setì˜ ì„±ì§€ì„±ë‹¨ì˜ MonsterTypeì´
+    // ë„˜ì–´ì˜¨ MonsterCorpseì˜ MonsterTypeê³¼ ê°™ìœ¼ë©´ true
     if (pPC->isSlayer()) {
         return pShrineSet->getSlayerGuardShrine().getMonsterType() == pMonsterCorpse->getMonsterType();
     } else if (pPC->isVampire()) {
@@ -540,12 +540,12 @@ bool ShrineInfoManager::isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCo
     ShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL) {
-        // ÀÌ ÇÇÀÇ ¼º¼­¿¡ ÇØ´çÇÏ´Â Shrine SetÀÌ ¾ø´Ù.
+        // ì´ í”¼ì˜ ì„±ì„œì— í•´ë‹¹í•˜ëŠ” Shrine Setì´ ì—†ë‹¤.
         return false;
     }
 
-    // ÀÌ ÇÇÀÇ ¼º¼­¿¡ ÇØ´çÇÏ´Â Shrine setÀÇ ¼ºÁö¼º´ÜÀÇ MonsterTypeÀÌ
-    // ³Ñ¾î¿Â MonsterCorpseÀÇ MonsterType°ú °°À¸¸é true
+    // ì´ í”¼ì˜ ì„±ì„œì— í•´ë‹¹í•˜ëŠ” Shrine setì˜ ì„±ì§€ì„±ë‹¨ì˜ MonsterTypeì´
+    // ë„˜ì–´ì˜¨ MonsterCorpseì˜ MonsterTypeê³¼ ê°™ìœ¼ë©´ true
     return pShrineSet->getHolyShrine().getMonsterType() == pMonsterCorpse->getMonsterType();
 
     __END_CATCH
@@ -559,7 +559,7 @@ bool ShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, MonsterCorp
     Zone* pZone = pShrine->getZone();
     Assert(pZone != NULL);
 
-    // ¼ºÀÌ ¾Æ´Ï¸é »à~
+    // ì„±ì´ ì•„ë‹ˆë©´ ì‚‘~
     if (!pZone->isCastle()) {
         return false;
     }
@@ -570,7 +570,7 @@ bool ShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, MonsterCorp
     if (pCastleInfo == NULL)
         return false;
 
-    // Á¾Á· ÀüÀï Áß¿¡´Â ¼ºÀÇ ¼ÒÀ¯ Á¾Á·°ú °°Àº Á¾Á·ÀÌ¸é defender ÀÌ´Ù.
+    // ì¢…ì¡± ì „ìŸ ì¤‘ì—ëŠ” ì„±ì˜ ì†Œìœ  ì¢…ì¡±ê³¼ ê°™ì€ ì¢…ì¡±ì´ë©´ defender ì´ë‹¤.
     if (pPC->getRace() == pCastleInfo->getRace())
         return true;
 
@@ -579,16 +579,16 @@ bool ShrineInfoManager::isDefenderOfGuardShrine(PlayerCreature* pPC, MonsterCorp
     __END_CATCH
 }
 
-// ÀÌ Á¾Á·ÀÌ ¼º¼­ Á¶°¢À» µé ¼ö ÀÖ´Â°¡?
+// ì´ ì¢…ì¡±ì´ ì„±ì„œ ì¡°ê°ì„ ë“¤ ìˆ˜ ìˆëŠ”ê°€?
 bool ShrineInfoManager::canPickupBloodBible(Race_t race, BloodBible* pBloodBible) const
 
 {
     __BEGIN_TRY
 
-    // ÇÇÀÇ ¼º¼­´Â Á¾Á·°£ ÀüÀï¿¡¸¸ »ç¿ëµÈ´Ù.
+    // í”¼ì˜ ì„±ì„œëŠ” ì¢…ì¡±ê°„ ì „ìŸì—ë§Œ ì‚¬ìš©ëœë‹¤.
     return true;
 
-    /*	// ÀÏ´Ü ÀÌ ¼º¼­ Á¶°¢ÀÌ ¾î´À ÀüÀï¿¡ ¼Ò¼ÓµÇ¾î ÀÖ´ÂÁö ¾Ë¾Æ¿Â´Ù.
+    /*	// ì¼ë‹¨ ì´ ì„±ì„œ ì¡°ê°ì´ ì–´ëŠ ì „ìŸì— ì†Œì†ë˜ì–´ ìˆëŠ”ì§€ ì•Œì•„ì˜¨ë‹¤.
         ShrineSet* pShrineSet = getShrineSet( pBloodBible->getItemType() );
 
         if ( pShrineSet == NULL )
@@ -602,14 +602,14 @@ bool ShrineInfoManager::canPickupBloodBible(Race_t race, BloodBible* pBloodBible
 
         if ( pWar == NULL )
         {
-            // ¾Æ½Î »à»ç¸®´Ù~
-            filelog( "WarError.log", "ÀüÀïµµ ¾ÈÇÏ´Âµ¥ ¼º¼­Á¶°¢À» ÁÖ¿ï·Á°í ÇÑ´Ù. ItemType: %u",
+            // ì•„ì‹¸ ì‚‘ì‚¬ë¦¬ë‹¤~
+            filelog( "WarError.log", "ì „ìŸë„ ì•ˆí•˜ëŠ”ë° ì„±ì„œì¡°ê°ì„ ì£¼ìš¸ë ¤ê³  í•œë‹¤. ItemType: %u",
        (int)pBloodBible->getItemType() ); return false;
         }
 
         if ( pWar->getWarType() == WAR_RACE )
         {
-            // Á¾Á· ÀüÀïÀÌ¸é Áö³ª°³³ª ´Ù ÁŞ´Â´Ù.
+            // ì¢…ì¡± ì „ìŸì´ë©´ ì§€ë‚˜ê°œë‚˜ ë‹¤ ì¤ëŠ”ë‹¤.
             return true;
         }
         else if ( pWar->getWarType() == WAR_GUILD )
@@ -618,16 +618,16 @@ bool ShrineInfoManager::canPickupBloodBible(Race_t race, BloodBible* pBloodBible
 
             if ( pCastleInfo == NULL )
             {
-                // ¾Æ½Î »à»ç¸®´Ù~
-                filelog( "WarError.log", "¼ºÀÌ ¾Æ´Ï´Ù. ItemType: %u, ZoneID : %u", (int)pBloodBible->getItemType(),
+                // ì•„ì‹¸ ì‚‘ì‚¬ë¦¬ë‹¤~
+                filelog( "WarError.log", "ì„±ì´ ì•„ë‹ˆë‹¤. ItemType: %u, ZoneID : %u", (int)pBloodBible->getItemType(),
        (int)castleZoneID ); return false;
             }
 
             return ( race == pCastleInfo->getRace() );
         }
 
-        // ¾Æ½Î »à»ç¸®´Ù~
-        filelog( "WarError.log", "ÀÌ»óÇÑ ÀüÀïÀÌ´Ù. WarType : %u", (int)pWar->getWarType() );
+        // ì•„ì‹¸ ì‚‘ì‚¬ë¦¬ë‹¤~
+        filelog( "WarError.log", "ì´ìƒí•œ ì „ìŸì´ë‹¤. WarType : %u", (int)pWar->getWarType() );
 
         return false;
         */
@@ -648,7 +648,7 @@ bool ShrineInfoManager::getMatchGuardShrinePosition(Item* pItem, ZoneItemPositio
     ShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL) {
-        // ÀÌ ÇÇÀÇ ¼º¼­¿¡ ÇØ´çÇÏ´Â Shrine SetÀÌ ¾ø´Ù.
+        // ì´ í”¼ì˜ ì„±ì„œì— í•´ë‹¹í•˜ëŠ” Shrine Setì´ ì—†ë‹¤.
         return false;
     }
 
@@ -663,17 +663,17 @@ bool ShrineInfoManager::getMatchGuardShrinePosition(Item* pItem, ZoneItemPositio
     __END_CATCH
 }
 
-// putBloodBible ( ´©±º°¡ ¼ºÁö¼º´Ü¿¡ ¼º¼­¸¦ ³õ¾ÒÀ»¶§ ) ÀÌ ºÒ·ÁÁö¸é bLock = false
-// returnAllBloodBible ( ½Ã°£ÀÌ ´Ù µÇ¾úÀ» ¶§ ) ÀÌ ºÒ·ÁÁö¸é bLock = true
-// trueÀÏ °æ¿ì ´Ù¸¥ ½º·¹µå (WarSystemÀÌ µ¹¾Æ°¡´Â ½º·¹µå)¿¡¼­ ºÒ·ÁÁö¹Ç·Î ³»ºÎ¿¡¼­ ¶ôÀ» °É¾îÁà¾ß ÇÏ°í
-// falseÀÏ °æ¿ì ¼ºÁö¼º´ÜÀÌ ÀÖ´Â Á¸°ú °°Àº Á¸±×·ì½º·¹µå¿¡¼­ µ¹¾Æ°¡¹Ç·Î ³»ºÎ¿¡¼­ ¶ôÀ» °É¾îÁÖÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+// putBloodBible ( ëˆ„êµ°ê°€ ì„±ì§€ì„±ë‹¨ì— ì„±ì„œë¥¼ ë†“ì•˜ì„ë•Œ ) ì´ ë¶ˆë ¤ì§€ë©´ bLock = false
+// returnAllBloodBible ( ì‹œê°„ì´ ë‹¤ ë˜ì—ˆì„ ë•Œ ) ì´ ë¶ˆë ¤ì§€ë©´ bLock = true
+// trueì¼ ê²½ìš° ë‹¤ë¥¸ ìŠ¤ë ˆë“œ (WarSystemì´ ëŒì•„ê°€ëŠ” ìŠ¤ë ˆë“œ)ì—ì„œ ë¶ˆë ¤ì§€ë¯€ë¡œ ë‚´ë¶€ì—ì„œ ë½ì„ ê±¸ì–´ì¤˜ì•¼ í•˜ê³ 
+// falseì¼ ê²½ìš° ì„±ì§€ì„±ë‹¨ì´ ìˆëŠ” ì¡´ê³¼ ê°™ì€ ì¡´ê·¸ë£¹ìŠ¤ë ˆë“œì—ì„œ ëŒì•„ê°€ë¯€ë¡œ ë‚´ë¶€ì—ì„œ ë½ì„ ê±¸ì–´ì£¼ì§€ ì•Šì•„ì•¼ í•œë‹¤.
 // 2003. 2. 5. by Sequoia
 bool ShrineInfoManager::returnBloodBible(ShrineID_t shrineID, bool bLock) const
 
 {
     __BEGIN_TRY
 
-    // shrineID¿Í °ü·ÃµÈ BloodBibleÀ» DBÁ¤º¸¸¦ ÀÌ¿ëÇØ¼­ Ã£´Â´Ù.
+    // shrineIDì™€ ê´€ë ¨ëœ BloodBibleì„ DBì •ë³´ë¥¼ ì´ìš©í•´ì„œ ì°¾ëŠ”ë‹¤.
     ShrineSet* pShrineSet = getShrineSet(shrineID);
 
     if (pShrineSet == NULL)
@@ -707,7 +707,7 @@ bool ShrineInfoManager::returnBloodBible(ShrineID_t shrineID, bool bLock) const
     __END_CATCH
 }
 
-// WarSystem¿¡¼­¸¸ ºÎ¸¥´Ù.
+// WarSystemì—ì„œë§Œ ë¶€ë¥¸ë‹¤.
 /*bool ShrineInfoManager::returnCastleBloodBible( ZoneID_t castleZoneID ) const
 
 {
@@ -722,7 +722,7 @@ bool ShrineInfoManager::returnBloodBible(ShrineID_t shrineID, bool bLock) const
 
     HashMapShrineSetConstItor itr = m_ShrineSets.begin();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr!=m_ShrineSets.end(); itr++)
     {
         ShrineSet* pShrineSet = itr->second;
@@ -740,7 +740,7 @@ bool ShrineInfoManager::returnBloodBible(ShrineID_t shrineID, bool bLock) const
     __END_CATCH
 }
 */
-// WarSystem¿¡¼­¸¸ ºÎ¸¥´Ù.
+// WarSystemì—ì„œë§Œ ë¶€ë¥¸ë‹¤.
 bool ShrineInfoManager::returnAllBloodBible() const
 
 {
@@ -750,7 +750,7 @@ bool ShrineInfoManager::returnAllBloodBible() const
 
     HashMapShrineSetConstItor itr = m_ShrineSets.begin();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr != m_ShrineSets.end(); itr++) {
         ShrineSet* pShrineSet = itr->second;
 
@@ -771,7 +771,7 @@ bool ShrineInfoManager::returnBloodBible(Zone* pZone, BloodBible* pBloodBible) c
     Assert(pZone != NULL);
     Assert(pBloodBible != NULL);
 
-    // TargetZone, ShrineÀ» Ã£´Â´Ù.
+    // TargetZone, Shrineì„ ì°¾ëŠ”ë‹¤.
     ShrineID_t shrineID = pBloodBible->getItemType();
     ShrineSet* pShrineSet = getShrineSet(shrineID);
 
@@ -789,10 +789,10 @@ bool ShrineInfoManager::returnBloodBible(Zone* pZone, BloodBible* pBloodBible) c
 
     /*
     StringStream msg;
-    msg << "ÇÇÀÇ ¼º¼­ Á¶°¢(" << GuardShrine.getName()
-        << ")ÀÌ " << (pShrineSet->getOwnerRace()==RACE_SLAYER? "½½·¹ÀÌ¾î":"¹ìÆÄÀÌ¾î")
-        << "ÀÇ ¼öÈ£¼º´Ü(" << GuardShrine.getName()
-        << ")À¸·Î µ¹¾Æ°¬½À´Ï´Ù.";
+    msg << "í”¼ì˜ ì„±ì„œ ì¡°ê°(" << GuardShrine.getName()
+        << ")ì´ " << (pShrineSet->getOwnerRace()==RACE_SLAYER? "ìŠ¬ë ˆì´ì–´":"ë±€íŒŒì´ì–´")
+        << "ì˜ ìˆ˜í˜¸ì„±ë‹¨(" << GuardShrine.getName()
+        << ")ìœ¼ë¡œ ëŒì•„ê°”ìŠµë‹ˆë‹¤.";
     */
 
     char msg[300];
@@ -831,13 +831,13 @@ bool ShrineInfoManager::putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterC
 
     ShrineID_t shrineID = pItem->getItemType();
 
-    filelog("WarLog.txt", "%s ´ÔÀÌ ÇÇÀÇ ¼º¼­[%u]¸¦ ¼ºÁö ¼º´Ü[%s]¿¡ ³Ö¾ú½À´Ï´Ù.", pPC->getName().c_str(), (uint)shrineID,
+    filelog("WarLog.txt", "%s ë‹˜ì´ í”¼ì˜ ì„±ì„œ[%u]ë¥¼ ì„±ì§€ ì„±ë‹¨[%s]ì— ë„£ì—ˆìŠµë‹ˆë‹¤.", pPC->getName().c_str(), (uint)shrineID,
             pCorpse->getName().c_str());
 
-    // ¼º¼­°¡ µé¾î°£ ¼º´ÜÀ¸·ÎºÎÅÍ ÇÇÀÇ ¼º¼­°¡ ³¯¾Æ¼­ µ¹¾Æ°¨À» ³ªÅ¸³»´Â ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+    // ì„±ì„œê°€ ë“¤ì–´ê°„ ì„±ë‹¨ìœ¼ë¡œë¶€í„° í”¼ì˜ ì„±ì„œê°€ ë‚ ì•„ì„œ ëŒì•„ê°ì„ ë‚˜íƒ€ë‚´ëŠ” ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
     //	sendBloodBibleEffect( pCorpse, Effect::EFFECT_CLASS_SHRINE_HOLY_WARP );
 
-    // PC¿¡°Ô¼­ ¼º¼­¸¦ »©¾Ñ¾Æ ¼º´Ü ¾È¿¡ ³Ö´Â´Ù.
+    // PCì—ê²Œì„œ ì„±ì„œë¥¼ ë¹¼ì•—ì•„ ì„±ë‹¨ ì•ˆì— ë„£ëŠ”ë‹¤.
     Assert(pItem->getObjectID() == pPC->getExtraInventorySlotItem()->getObjectID());
     pPC->deleteItemFromExtraInventorySlot();
 
@@ -856,20 +856,20 @@ bool ShrineInfoManager::putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterC
 
     // ZoneID_t castleZoneID = pShrineSet->getReturnGuardShrine().getZoneID();
 
-    // ¾Ë¸ÂÀº ¼º´Ü¿¡ ³ÖÀ¸¸é ÁÖÀÎÀÌ ¹Ù²ï µÚ ¼öÈ£¼º´ÜÀ¸·Î µ¹¾Æ°¡°í
+    // ì•Œë§ì€ ì„±ë‹¨ì— ë„£ìœ¼ë©´ ì£¼ì¸ì´ ë°”ë€ ë’¤ ìˆ˜í˜¸ì„±ë‹¨ìœ¼ë¡œ ëŒì•„ê°€ê³ 
     if (isMatchHolyShrine(pItem, pCorpse) // && g_pWarSystem->isModifyCastleOwner( castleZoneID, pPC ))
-                                          // ¼ºÀÇ Á¾Á·°ú ³Ö´Â »ç¶÷ÀÇ Á¾Á·ÀÌ °°Àº °æ¿ì¶ó¸é GuardShrine¿¡ ³Ö¾îµµ µÈ´Ù.
+                                          // ì„±ì˜ ì¢…ì¡±ê³¼ ë„£ëŠ” ì‚¬ëŒì˜ ì¢…ì¡±ì´ ê°™ì€ ê²½ìš°ë¼ë©´ GuardShrineì— ë„£ì–´ë„ ëœë‹¤.
         || isDefenderOfGuardShrine(pPC, pCorpse) && isMatchGuardShrine(pItem, pCorpse, pPC)) {
         pShrineSet->setOwnerRace(pPC->getRace());
         //        g_pWarSystem->endWar(pPC, castleZoneID);
 
-        // ÀüÀï ³¡³ª´Â War::executeEnd¿¡¼­ ¾Ë¾Æ¼­ µÇµ¹·ÁÁØ´Ù.
+        // ì „ìŸ ëë‚˜ëŠ” War::executeEndì—ì„œ ì•Œì•„ì„œ ë˜ëŒë ¤ì¤€ë‹¤.
         //        returnBloodBible( shrineID, false );
 
         // return true;
     }
 
-    // ´Ù¸¥ ¼º´Ü¿¡ ³Ö°Å³ª ÀüÀïÀÌ ³¡³¯ »óÈ²ÀÌ ¾Æ´Ï¸é ¼öÈ£¼º´ÜÀ¸·Î ±×³É µ¹¾Æ°£´Ù
+    // ë‹¤ë¥¸ ì„±ë‹¨ì— ë„£ê±°ë‚˜ ì „ìŸì´ ëë‚  ìƒí™©ì´ ì•„ë‹ˆë©´ ìˆ˜í˜¸ì„±ë‹¨ìœ¼ë¡œ ê·¸ëƒ¥ ëŒì•„ê°„ë‹¤
     returnBloodBible(shrineID, false);
 
     return false;
@@ -892,7 +892,7 @@ bool ShrineInfoManager::putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterC
 
     ZoneID_t castleZoneID = pZone->getZoneID();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr!=m_ShrineSets.end(); itr++)
     {
         ShrineSet* pShrineSet = itr->second;
@@ -937,7 +937,7 @@ bool ShrineInfoManager::removeAllShrineShield()
 
     HashMapShrineSetConstItor itr = m_ShrineSets.begin();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr != m_ShrineSets.end(); itr++) {
         ShrineSet* pShrineSet = itr->second;
 
@@ -979,7 +979,7 @@ bool ShrineInfoManager::removeShrineShield(ShrineInfo* pShrineInfo)
         gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SHRINE_SHIELD);
         pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
 
-        // ¼º´Ü¿¡ ÀÖ´Â ÇÇÀÇ ¼º¼­ À§Ä¡¸¦ ¾Ë·ÁÁØ´Ù.
+        // ì„±ë‹¨ì— ìˆëŠ” í”¼ì˜ ì„±ì„œ ìœ„ì¹˜ë¥¼ ì•Œë ¤ì¤€ë‹¤.
         if (pItem->isFlag(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE)) {
             Effect* pEffect = EM.findEffect(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE);
             Assert(pEffect != NULL);
@@ -1037,7 +1037,7 @@ bool ShrineInfoManager::removeShrineShield(ShrineInfo* pShrineInfo)
 
     ZoneID_t castleZoneID = pZone->getZoneID();
 
-    // castleZoneIDÀÇ shrineID¸¦ °Ë»öÇÒ¼ö°¡ ¾ø¾î¼­ ÇÏ³ªÇÏ³ª ºñ±³ÇÑ´Ù. -_-;
+    // castleZoneIDì˜ shrineIDë¥¼ ê²€ìƒ‰í• ìˆ˜ê°€ ì—†ì–´ì„œ í•˜ë‚˜í•˜ë‚˜ ë¹„êµí•œë‹¤. -_-;
     for (; itr!=m_ShrineSets.end(); itr++)
     {
         ShrineSet* pShrineSet = itr->second;

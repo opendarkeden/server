@@ -19,8 +19,8 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ðÆ®°¡ PC ÀÇ ¸®½ºÆ®¸¦ ´Þ¶ó°í ¿äÃ»ÇØ¿À¸é, ·Î±×ÀÎ ¼­¹ö´Â DB·ÎºÎÅÍ
-// PCµéÀÇ Á¤º¸¸¦ ·ÎµùÇØ¼­ LCPCList ÆÐÅ¶¿¡ ´ã¾Æ¼­ Àü¼ÛÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ PC ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹¬ë¼ê³  ìš”ì²­í•´ì˜¤ë©´, ë¡œê·¸ì¸ ì„œë²„ëŠ” DBë¡œë¶€í„°
+// PCë“¤ì˜ ì •ë³´ë¥¼ ë¡œë”©í•´ì„œ LCPCList íŒ¨í‚·ì— ë‹´ì•„ì„œ ì „ì†¡í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CLSelectServerHandler::execute(CLSelectServer* pPacket, Player* pPlayer)
 
@@ -65,13 +65,13 @@ void CLSelectServerHandler::execute(CLSelectServer* pPacket, Player* pPlayer)
     pLoginPlayer->setServerGroupID(CurrentServerGroupID);
 
     //----------------------------------------------------------------------
-    // ÀÌÁ¦ LCPCList ÆÐÅ¶À» ¸¸µé¾î º¸³»ÀÚ
+    // ì´ì œ LCPCList íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚´ìž
     //----------------------------------------------------------------------
     LCPCList lcPCList;
     pLoginPlayer->makePCList(lcPCList);
 
 #ifdef __NETMARBLE_SERVER__
-    // ³Ý¸¶ºí »ç¿ëÀÚ ¾à°ü µ¿ÀÇ ¿©ºÎ È®ÀÎ
+    // ë„·ë§ˆë¸” ì‚¬ìš©ìž ì•½ê´€ ë™ì˜ ì—¬ë¶€ í™•ì¸
     lcPCList.setAgree(pLoginPlayer->isAgree());
 #endif
 
@@ -85,14 +85,14 @@ void CLSelectServerHandler::execute(CLSelectServer* pPacket, Player* pPlayer)
             pStmt->executeQuery("UPDATE Player set CurrentServerGroupID = %d WHERE PlayerID = '%s'",
        (int)pPacket->getServerGroupID(), pLoginPlayer->getID().c_str());
 
-            // Äõ¸® °á°ú ¹× Äõ¸®¹® °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+            // ì¿¼ë¦¬ ê²°ê³¼ ë° ì¿¼ë¦¬ë¬¸ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
             SAFE_DELETE(pStmt);
         }
         catch (SQLQueryException & sce)
         {
             //cout << sce.toString() << endl;
 
-            // Äõ¸® °á°ú ¹× Äõ¸®¹® °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+            // ì¿¼ë¦¬ ê²°ê³¼ ë° ì¿¼ë¦¬ë¬¸ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
             SAFE_DELETE(pStmt);
 
             throw DisconnectException(sce.toString());

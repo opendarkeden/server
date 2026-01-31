@@ -161,7 +161,7 @@ public:
     //	void	setGrade(Grade_t Grade) { }
 
 public:
-    // ¾ÆÀÌÅÛÀÇ ¼Ó¼º¿¡ ¹ÌÄ¡´Â ¿µÇâ
+    // ì•„ì´í…œì˜ ì†ì„±ì— ë¯¸ì¹˜ëŠ” ì˜í–¥
     int getDurabilityOffset() const {
         return 0;
     }
@@ -190,7 +190,7 @@ public:
     //	void	setGrade(Grade_t Grade) { m_Grade = Grade; }
 
 public:
-    // ¾ÆÀÌÅÛÀÇ ¼Ó¼º¿¡ ¹ÌÄ¡´Â ¿µÇâ
+    // ì•„ì´í…œì˜ ì†ì„±ì— ë¯¸ì¹˜ëŠ” ì˜í–¥
     int getDurabilityOffset() const {
         return 0;
     }
@@ -216,7 +216,7 @@ private:
 
 class WeaponGrade : public HasGrade {
 public:
-    // ¾ÆÀÌÅÛÀÇ ¼Ó¼º¿¡ ¹ÌÄ¡´Â ¿µÇâ
+    // ì•„ì´í…œì˜ ì†ì„±ì— ë¯¸ì¹˜ëŠ” ì˜í–¥
     int getDurabilityOffset() const {
         return (getValue() - 4) * 1000;
     }
@@ -231,7 +231,7 @@ public:
 template <int DefensePitch, int DefenseGrade, int ProtectionPitch, int ProtectionGrade, int DurabilityPitch>
 class ArmorGrade : public HasGrade {
 public:
-    // ¾ÆÀÌÅÛÀÇ ¼Ó¼º¿¡ ¹ÌÄ¡´Â ¿µÇâ
+    // ì•„ì´í…œì˜ ì†ì„±ì— ë¯¸ì¹˜ëŠ” ì˜í–¥
     int getDurabilityOffset() const {
         return (getValue() - 4) * DurabilityPitch;
     }
@@ -248,7 +248,7 @@ typedef ArmorGrade<1, 1, 1, 2, 500> GroceryGrade;
 
 class AccessoryGrade : public HasGrade {
 public:
-    // ¾ÆÀÌÅÛÀÇ ¼Ó¼º¿¡ ¹ÌÄ¡´Â ¿µÇâ
+    // ì•„ì´í…œì˜ ì†ì„±ì— ë¯¸ì¹˜ëŠ” ì˜í–¥
     int getDurabilityOffset() const {
         return (getValue() - 4) * 1000;
     }

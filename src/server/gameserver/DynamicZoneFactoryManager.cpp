@@ -21,10 +21,10 @@
 DynamicZoneFactoryManager::DynamicZoneFactoryManager() : m_Factories(NULL), m_Size(DYNAMIC_ZONE_MAX) {
     Assert(m_Size > 0);
 
-    // ÄÁµð¼ÇÆÑÅä¸®¹è¿­À» »ý¼ºÇÑ´Ù.
+    // ì»¨ë””ì…˜íŒ©í† ë¦¬ë°°ì—´ì„ ìƒì„±í•œë‹¤.
     m_Factories = new DynamicZoneFactory*[m_Size];
 
-    // ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+    // íŒ©í† ë¦¬ì— ëŒ€í•œ í¬ì¸í„°ë“¤ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
     for (int i = 0; i < m_Size; i++)
         m_Factories[i] = NULL;
 }
@@ -36,7 +36,7 @@ DynamicZoneFactoryManager::DynamicZoneFactoryManager() : m_Factories(NULL), m_Si
 DynamicZoneFactoryManager::~DynamicZoneFactoryManager() {
     Assert(m_Factories != NULL);
 
-    // °¢°¢ÀÇ ÄÁµð¼ÇÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+    // ê°ê°ì˜ ì»¨ë””ì…˜íŒ©í† ë¦¬ë“¤ì„ ì‚­ì œí•œë‹¤.
     for (int i = 0; i < m_Size; i++) {
         if (m_Factories[i] != NULL) {
             delete m_Factories[i];
@@ -44,14 +44,14 @@ DynamicZoneFactoryManager::~DynamicZoneFactoryManager() {
         }
     }
 
-    // ÄÁµð¼ÇÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+    // ì»¨ë””ì…˜íŒ©í† ë¦¬ë°°ì—´ì„ ì‚­ì œí•œë‹¤.
     delete[] m_Factories;
     m_Factories = NULL;
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Á¤ÀÇµÈ ¸ðµç ÄÁµð¼ÇÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ì •ì˜ëœ ëª¨ë“  ì»¨ë””ì…˜íŒ©í† ë¦¬ë“¤ì„ ì—¬ê¸°ì— ì¶”ê°€í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void DynamicZoneFactoryManager::init() {
     addFactory(new DynamicZoneGateOfAlterFactory());
@@ -75,7 +75,7 @@ void DynamicZoneFactoryManager::addFactory(DynamicZoneFactory* pFactory) {
         Assert(false);
     }
 
-    // ÄÁµð¼ÇÆÑÅä¸®¸¦ µî·ÏÇÑ´Ù.
+    // ì»¨ë””ì…˜íŒ©í† ë¦¬ë¥¼ ë“±ë¡í•œë‹¤.
     m_Factories[pFactory->getDynamicZoneType()] = pFactory;
 }
 
@@ -99,8 +99,8 @@ DynamicZone* DynamicZoneFactoryManager::createDynamicZone(int dynamicZoneType) c
 // get dynamiczone name with dynamiczone type
 ////////////////////////////////////////////////////////////////////////////////
 string DynamicZoneFactoryManager::getDynamicZoneName(int dynamicZoneType) const {
-    // Å¸ÀÔÀÌ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-    // ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+    // íƒ€ìž…ì´ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+    // ì´ëŸ° ì‚¬ìš©ìžëŠ” ë‹¹ìž¥ ì§¤ë¼ì•¼ í•œë‹¤.
     if (dynamicZoneType >= m_Size || m_Factories[dynamicZoneType] == NULL) {
         StringStream msg;
         msg << "invalid dynamiczone type (" << dynamicZoneType << ")";

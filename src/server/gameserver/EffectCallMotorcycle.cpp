@@ -31,7 +31,7 @@ EffectCallMotorcycle::EffectCallMotorcycle(Zone* pZone, ZoneCoord_t x, ZoneCoord
     m_ObjectID = pItem->getObjectID();
     m_bDeleteFromDB = bDeleteFromDB;
 
-    // ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+    // ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
     m_bBroadcastingEffect = false;
 
     __END_CATCH
@@ -54,8 +54,8 @@ EffectCallMotorcycle::~EffectCallMotorcycle()
 
 //----------------------------------------------------------------------
 // affect to target
-// ÀÌ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ Á¾¼ÓµÇÁö ¾ÊÀ¸¹Ç·Î, affect()´Â È£ÃâµÇÁö ¾Ê´Â´Ù.
-// ¿Ö³ÄÇÏ¸é, targetÀº »ý¼ºÀÚ¿¡¼­ ÁöÁ¤µÇ¸ç, ¾Æ¹«·± ÀÏµµ ÇÏÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// ì´ ì´íŽ™íŠ¸ëŠ” íƒ€ì¼ì— ì¢…ì†ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ, affect()ëŠ” í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.
+// ì™œëƒí•˜ë©´, targetì€ ìƒì„±ìžì—ì„œ ì§€ì •ë˜ë©°, ì•„ë¬´ëŸ° ì¼ë„ í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
 
@@ -76,22 +76,22 @@ void EffectCallMotorcycle::unaffect(Motorcycle* pMotorcycle, Slayer* pSlayer)
 {
     __BEGIN_TRY
 
-    // SlayerÀÇ Á¤º¸(Zone, x, y)¸¦ ±¸ÇÑ´Ù.
+    // Slayerì˜ ì •ë³´(Zone, x, y)ë¥¼ êµ¬í•œë‹¤.
     Zone* pZone = pSlayer->getZone();
     Coord_t x = pSlayer->getX();
     Coord_t y = pSlayer->get();
 
-    // SlayerÀÇ Á¤º¸°¡ À¯È¿ÇÑÁö °Ë»çÇÑ´Ù.
+    // Slayerì˜ ì •ë³´ê°€ ìœ íš¨í•œì§€ ê²€ì‚¬í•œë‹¤.
 
-    // Á¸ÀÇ Å¸ÀÏ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+    // ì¡´ì˜ íƒ€ì¼ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Tile& tile = pZone->getTile(x, y);
 
-    // ¸¸¾à ÇØ´ç Á¸¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é??
+    // ë§Œì•½ í•´ë‹¹ ì¡´ì— ì•„ì´í…œì´ ìžˆë‹¤ë©´??
     if (tile.hasItem()) {
     } else {
         pZone->addItem(pMotorcycle, x, y);
 
-        // ¾ÆÀÌÅÛÀÌ ÀÌµ¿Çß´Ù´Â ÆÐÅ¶À» ³¯¸°´Ù.
+        // ì•„ì´í…œì´ ì´ë™í–ˆë‹¤ëŠ” íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
     }
 
     __END_CATCH

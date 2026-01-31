@@ -10,7 +10,7 @@
 #include "Types.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ╫╨еЁ ╟Э╥ц ╩С╪Ж╣И...
+// б╫б╨ц┘бЁ б╟ц╪б╥ц┐ б╩цЁб╪ц╤б╣ц╘...
 //////////////////////////////////////////////////////////////////////////////
 
 const int ATTR_SAVE_DIVIDER = 100;
@@ -31,31 +31,31 @@ const int MONSTER_DUSK_FACTOR = 75;
 const int MONSTER_NIGHT_FACTOR = 100;
 
 const int VampireTimebandFactor[4] = {
-    125, // ╩У╨╝
-    100, // Ё╥
-    125, // юЗЁА
-    150  // ╧Ц
+    125, // б╩ц╣б╨б╝
+    100, // бЁб╥
+    125, // ц─ц╨бЁц║
+    150  // б╧цё
 };
 
 const int MonsterTimebandFactor[4] = {
-    75, // ╩У╨╝
-    50, // Ё╥
-    75, // юЗЁА
-    100 // ╧Ц
+    75, // б╩ц╣б╨б╝
+    50, // бЁб╥
+    75, // ц─ц╨бЁц║
+    100 // б╧цё
 };
 
 const int AttrExpTimebandFactor[4] = {
-    100, // ╩У╨╝
-    100, // Ё╥
-    100, // юЗЁА
-    150  // ╧Ц
+    100, // б╩ц╣б╨б╝
+    100, // бЁб╥
+    100, // ц─ц╨бЁц║
+    150  // б╧цё
 };
 
 const int DomainExpTimebandFactor[4] = {
-    100, // ╩У╨╝
-    100, // Ё╥
-    100, // юЗЁА
-    150  // ╧Ц
+    100, // б╩ц╣б╨б╝
+    100, // бЁб╥
+    100, // ц─ц╨бЁц║
+    150  // б╧цё
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -239,7 +239,7 @@ enum SkillTypes {
     SKILL_BLOODY_STRIKE, // 149
     SKILL_BLOODY_STORM,  // 150
 
-    // юс╫ц╥н цъ╟║ 2002.2.22
+    // ц─ц⌠б╫ц┐б╥ц▌ ц┐ц÷б╟б║ 2002.2.22
     SKILL_SUMMON_BAT,  // 151
     SKILL_CHARM,       // 152
     SKILL_POLYMORPH,   // 153
@@ -441,7 +441,7 @@ enum SkillTypes {
     SKILL_FABULOUS_SOUL, // 305
     SKILL_WILL_OF_IRON,  // 306
 
-    // аЗ╣Е╥╧ ╫╨еЁ
+    // ц│ц╨б╣ц╔б╥б╧ б╫б╨ц┘бЁ
     SKILL_WIDE_ICE_FIELD, // 307
     SKILL_GLACIER_1,      // 308
     SKILL_GLACIER_2,      // 309
@@ -476,10 +476,10 @@ enum SkillTypes {
     SKILL_REACTIVE_ARMOR_MASTERY,    // 335
 
     SKILL_THROWING_AXE,       // 336
-    SKILL_CHOPPING_FIREWOOD,  // 337 юЕюшфп╠Б
-    SKILL_CHAIN_THROWING_AXE, // 338 ╣╣Ё╒ ╪╪╟Ё ╢ЬаЖ╠Б
-    SKILL_MULTI_THROWING_AXE, // 339 ╣╣Ё╒  ""
-    SKILL_PLAYING_WITH_FIRE,  // 340 ╨рюЕЁ╜
+    SKILL_CHOPPING_FIREWOOD,  // 337 ц─ц╔ц─ц⌡ц├ц░б╠ц╒
+    SKILL_CHAIN_THROWING_AXE, // 338 б╣б╣бЁб╒ б╪б╪б╟бЁ б╢ц╦ц│ц╤б╠ц╒
+    SKILL_MULTI_THROWING_AXE, // 339 б╣б╣бЁб╒  ""
+    SKILL_PLAYING_WITH_FIRE,  // 340 б╨ц▓ц─ц╔бЁб╜
 
     SKILL_INFINITY_THUNDERBOLT,   // 341
     SKILL_SPIT_STREAM,            // 342
@@ -490,17 +490,17 @@ enum SkillTypes {
     SKILL_NOOSE_OF_WRAITH,        // 347
 
     SKILL_SHARP_HAIL,         // 348
-    SKILL_SUMMON_MIGA,        // 349	// ╬ф©Л╫╨емаН╟║ ╬╡╢б ╫╨еЁ
-    SKILL_SUMMON_MIGA_ATTACK, // 350	// ╪рх╞╣хЁПюл ╬╡╢б ╫╨еЁ
+    SKILL_SUMMON_MIGA,        // 349	// б╬ц├б©ц╛б╫б╨ц┘ц█ц│ц╝б╟б║ б╬б╡б╢ц┌ б╫б╨ц┘бЁ
+    SKILL_SUMMON_MIGA_ATTACK, // 350	// б╪ц▓ц┬б╞б╣ц┬бЁц╟ц─ц▄ б╬б╡б╢ц┌ б╫б╨ц┘бЁ
     SKILL_ICE_HORIZON,        // 351
     SKILL_FURY_OF_GNOME,      // 352
 
-    SKILL_CANNONADE,        // 353	// фВ╟щ
-    SKILL_SELF_DESTRUCTION, // 354	// юзфЬ╟Ь╟щ
+    SKILL_CANNONADE,        // 353	// ц├ц╥б╟ц²
+    SKILL_SELF_DESTRUCTION, // 354	// ц─ц ц├ц╦б╟ц╦б╟ц²
 
-    SKILL_AR_ATTACK,      // 355	// ╦С╫╨ем©К
-    SKILL_SMG_ATTACK,     // 356	// ╦С╫╨ем©К
-    SKILL_GRENADE_ATTACK, // 357	// ╦С╫╨ем©К
+    SKILL_AR_ATTACK,      // 355	// б╦цЁб╫б╨ц┘ц█б©ц╚
+    SKILL_SMG_ATTACK,     // 356	// б╦цЁб╫б╨ц┘ц█б©ц╚
+    SKILL_GRENADE_ATTACK, // 357	// б╦цЁб╫б╨ц┘ц█б©ц╚
 
     SKILL_DRAGON_TORNADO,  // 358
     SKILL_BIKE_CRASH,      // 359
@@ -513,7 +513,7 @@ enum SkillTypes {
     SKILL_DESTINIES,       // 366
     SKILL_FIERCE_FLAME,    // 367
     SKILL_SHADOW_OF_STORM, // 368
-    SKILL_HEAL_PASS,       // 369 // ©е╟э╟║╢б хЗ
+    SKILL_HEAL_PASS,       // 369 // б©ц┘б╟ц°б╟б║б╢ц┌ ц┬ц╨
 
     SKILL_TRASLA_ATTACK,       // 370
     SKILL_PUSCA_ATTACK,        // 371
@@ -523,26 +523,26 @@ enum SkillTypes {
     SKILL_BLLODY_SCARIFY, // 374
     SKILL_BLOOD_CURSE,    // 375
     //////////////////////////////////////////////////////////////////////////
-    // хкюЮ╪╪дэ
-    SKILL_SHINE_SWORD,             // 376  иар╚ж╝╫ё
-    SKILL_BOMB_CRASH_WALK,         // 377  ╬чез╨Ду╗
-    SKILL_SATELLITE_BOMB,          // 378  нюпг╨Д╩В
-    SKILL_ILLUSION_INVERSION,      // 379  ©ж╡ю╩ц╬У
-    SKILL_HEAVEN_GROUND,           // 380  лЛиЯ╫╣аы
+    // ц┬ц▀ц─ц═б╪б╪ц└ц°
+    SKILL_SHINE_SWORD,             // 376  ц┴ц│ц▓б╚ц√б╝б╫бё
+    SKILL_BOMB_CRASH_WALK,         // 377  б╬ц·ц┘ц б╨ц╓ц∙б╗
+    SKILL_SATELLITE_BOMB,          // 378  ц▌ц─ц░ц┤б╨ц╓б╩ц╥
+    SKILL_ILLUSION_INVERSION,      // 379  б©ц√б╡ц─б╩ц┐б╬ц╣
+    SKILL_HEAVEN_GROUND,           // 380  ц▄ц╛ц┴ц╠б╫б╣ц│ц≥
     TEMP_SKILL_ILLUSION_INVERSION, // 381
     //////////////////////////////////////////////////////////////////////////
-    // д╖аИпб╪╪дэ
+    // ц└б╖ц│ц╘ц░ц┌б╪б╪ц└ц°
     // 2007-2-15 Coffee add end
-    SKILL_DUMMY_DRAKE,       // 382 ╣бюв©к©Чюэ(╩П)
-    SKILL_HYDRO_CONVERGENCE, // 383 ╦╢╨ок╝аф(к╝)
-    SKILL_SUMMON_CLAY,       // 384 уЁмауы╩╫(ма)
-    SKILL_HETER_CHAKRAM,     // 385 од╡╪юШ╩ЫрР(у╫й©)
-    SKILL_Sky_Fire,          // 386 лЛюв╩П╩╗ ADD BY RALLSER
+    SKILL_DUMMY_DRAKE,       // 382 б╣ц┌ц─ц≈б©ц▀б©ц╬ц─ц°(б╩ц╟)
+    SKILL_HYDRO_CONVERGENCE, // 383 б╦б╢б╨ц▐ц▀б╝ц│ц├(ц▀б╝)
+    SKILL_SUMMON_CLAY,       // 384 ц∙бЁц█ц│ц∙ц≥б╩б╫(ц█ц│)
+    SKILL_HETER_CHAKRAM,     // 385 ц▐ц└б╡б╪ц─ц╩б╩ц╧ц▓ц╡(ц∙б╫ц┼б©)
+    SKILL_Sky_Fire,          // 386 ц▄ц╛ц─ц≈б╩ц╟б╩б╗ ADD BY RALLSER
     SKILL_Cut_Storm,         // 387 ADD BY RALLSER
     SKILL_XRL_Missile,       // 388 ADD BY RALLSER
     SKILL_Sacred_Stamp,      // 389 ADD BY RALLSER
     SKILL_Bramble_Halo,      // 390 ADD BY RALLSER
-    SKILL_Deadly_Claw,       // 391жбикаяв╕ add by rallser
+    SKILL_Deadly_Claw,       // 391ц√ц┌ц┴ц▀ц│ц▒ц≈б╕ add by rallser
     SKILL_Voodoo_Ring,       // 392 ADD BY RALLSER
     SKILL_Penetrate_Wheel,   // 393 ADD BY RALLSER
     SKILL_Fire_Meteor,       // 394 ADD BY RALLSER
@@ -960,10 +960,10 @@ const string SkillTypes2String[] = {"SKILL_ATTACK_MELEE", // 0
                                     "SKILL_REACTIVE_ARMOR_MASTERY",    // 335
 
                                     "SKILL_THROWING_AXE",       // 336
-                                    "SKILL_CHOPPING_FIREWOOD",  // 337 юЕюшфп╠Б
+                                    "SKILL_CHOPPING_FIREWOOD",  // 337 ц─ц╔ц─ц⌡ц├ц░б╠ц╒
                                     "SKILL_CHAIN_THROWING_AXE", // 338
                                     "SKILL_MULTI_THROWING_AXE", // 339
-                                    "SKILL_PLAYING_WITH_FIRE",  // 340 ╨рюЕЁ╜
+                                    "SKILL_PLAYING_WITH_FIRE",  // 340 б╨ц▓ц─ц╔бЁб╜
 
                                     "SKILL_INFINITY_THUNDERBOLT",   // 341
                                     "SKILL_SPIT_STREAM",            // 342
@@ -974,17 +974,17 @@ const string SkillTypes2String[] = {"SKILL_ATTACK_MELEE", // 0
                                     "SKILL_NOOSE_OF_WRAITH",        // 347
 
                                     "SKILL_SHARP_HAIL",         // 348
-                                    "SKILL_SUMMON_MIGA",        // 349	// ╬ф©Л╫╨емаН╟║ ╬╡╢б ╫╨еЁ
-                                    "SKILL_SUMMON_MIGA_ATTACK", // 350	// ╪рх╞╣хЁПюл ╬╡╢б ╫╨еЁ
+                                    "SKILL_SUMMON_MIGA",        // 349	// б╬ц├б©ц╛б╫б╨ц┘ц█ц│ц╝б╟б║ б╬б╡б╢ц┌ б╫б╨ц┘бЁ
+                                    "SKILL_SUMMON_MIGA_ATTACK", // 350	// б╪ц▓ц┬б╞б╣ц┬бЁц╟ц─ц▄ б╬б╡б╢ц┌ б╫б╨ц┘бЁ
                                     "SKILL_ICE_HORIZON",        // 351
                                     "SKILL_FURY_OF_GNOME",      // 352
 
-                                    "SKILL_CANNONADE",        // 353	// фВ╟щ
-                                    "SKILL_SELF_DESTRUCTION", // 354	// юзфЬ╟Ь╟щ
+                                    "SKILL_CANNONADE",        // 353	// ц├ц╥б╟ц²
+                                    "SKILL_SELF_DESTRUCTION", // 354	// ц─ц ц├ц╦б╟ц╦б╟ц²
 
-                                    "SKILL_AR_ATTACK",      // 355	// ╦С╫╨ем©К
-                                    "SKILL_SMG_ATTACK",     // 356	// ╦С╫╨ем©К
-                                    "SKILL_GRENADE_ATTACK", // 357	// ╦С╫╨ем©К
+                                    "SKILL_AR_ATTACK",      // 355	// б╦цЁб╫б╨ц┘ц█б©ц╚
+                                    "SKILL_SMG_ATTACK",     // 356	// б╦цЁб╫б╨ц┘ц█б©ц╚
+                                    "SKILL_GRENADE_ATTACK", // 357	// б╦цЁб╫б╨ц┘ц█б©ц╚
 
                                     "SKILL_DRAGON_TORNADO",  // 358
                                     "SKILL_BIKE_CRASH",      // 359
@@ -997,36 +997,36 @@ const string SkillTypes2String[] = {"SKILL_ATTACK_MELEE", // 0
                                     "SKILL_DESTINIES",       // 366
                                     "SKILL_FIERCE_FLAME",    // 367
                                     "SKILL_SHADOW_OF_STORM", // 368
-                                    "SKILL_HEAL_PASS",       // 369 // ©е╟э╟║╢б хЗ
+                                    "SKILL_HEAL_PASS",       // 369 // б©ц┘б╟ц°б╟б║б╢ц┌ ц┬ц╨
 
                                     "SKILL_TRASLA_ATTACK",       // 370
                                     "SKILL_PUSCA_ATTACK",        // 371
                                     "SKILL_NOD_COPILA_ATTACK",   // 372
                                     "SKILL_NOD_COPILA_ATTACK_2", // 373
                                     // add by coffee 2007-2-17  start
-                                    "SKILL_BLLODY_SCARIFY", // 374  я╙ж╝юсс║
+                                    "SKILL_BLLODY_SCARIFY", // 374  ц▒б╙ц√б╝ц─ц⌠ц⌠б║
                                     "SKILL_BLOOD_CURSE",
                                     //////////////////////////////////////////////////////////////////////////
-                                    // хкюЮ╪╪дэ
-                                    "SKILL_SHINE_SWORD",             // 376  иар╚ж╝╫ё
-                                    "SKILL_BOMB_CRASH_WALK",         // 377  ╬чез╨Ду╗
-                                    "SKILL_SATELLITE_BOMB",          // 378  нюпг╨Д╩В
-                                    "SKILL_ILLUSION_INVERSION",      // 379  ©ж╡ю╩ц╬У
-                                    "SKILL_HEAVEN_GROUND",           // 380  лЛиЯ╫╣аы
+                                    // ц┬ц▀ц─ц═б╪б╪ц└ц°
+                                    "SKILL_SHINE_SWORD",             // 376  ц┴ц│ц▓б╚ц√б╝б╫бё
+                                    "SKILL_BOMB_CRASH_WALK",         // 377  б╬ц·ц┘ц б╨ц╓ц∙б╗
+                                    "SKILL_SATELLITE_BOMB",          // 378  ц▌ц─ц░ц┤б╨ц╓б╩ц╥
+                                    "SKILL_ILLUSION_INVERSION",      // 379  б©ц√б╡ц─б╩ц┐б╬ц╣
+                                    "SKILL_HEAVEN_GROUND",           // 380  ц▄ц╛ц┴ц╠б╫б╣ц│ц≥
                                     "TEMP_SKILL_ILLUSION_INVERSION", // 381
                                     //////////////////////////////////////////////////////////////////////////
-                                    // д╖аИпб╪╪дэ
+                                    // ц└б╖ц│ц╘ц░ц┌б╪б╪ц└ц°
 
-                                    "SKILL_DUMMY_DRAKE",       // 382 ╣бюв©к©Чюэ(╩П)
-                                    "SKILL_HYDRO_CONVERGENCE", // 383 ╦╢╨ок╝аф(к╝)
-                                    "SKILL_SUMMON_CLAY",       // 384 уЁмауы╩╫(ма)
-                                    "HETER_CHAKRAM",           // 385 од╡╪юШ╩ЫрР(у╫й©)
-                                    "SKILL_Sky_Fire",          // 386 лЛюв╩П╩╗ ADD BY RALLSER
+                                    "SKILL_DUMMY_DRAKE",       // 382 б╣ц┌ц─ц≈б©ц▀б©ц╬ц─ц°(б╩ц╟)
+                                    "SKILL_HYDRO_CONVERGENCE", // 383 б╦б╢б╨ц▐ц▀б╝ц│ц├(ц▀б╝)
+                                    "SKILL_SUMMON_CLAY",       // 384 ц∙бЁц█ц│ц∙ц≥б╩б╫(ц█ц│)
+                                    "HETER_CHAKRAM",           // 385 ц▐ц└б╡б╪ц─ц╩б╩ц╧ц▓ц╡(ц∙б╫ц┼б©)
+                                    "SKILL_Sky_Fire",          // 386 ц▄ц╛ц─ц≈б╩ц╟б╩б╗ ADD BY RALLSER
                                     "SKILL_Cut_Storm",         // 387 ADD BY RALLSER
                                     "SKILL_XRL_Missile",       // 388 ADD BY RALLSER
                                     "SKILL_Sacred_Stamp",      // 389 ADD BY RALLSER
                                     "SKILL_Bramble_Halo",      // 390 ADD BY RALLSER
-                                    "SKILL_Deadly_Claw",       // 391жбикаяв╕ add by rallser
+                                    "SKILL_Deadly_Claw",       // 391ц√ц┌ц┴ц▀ц│ц▒ц≈б╕ add by rallser
                                     "SKILL_Voodoo_Ring",       // 392 ADD BY RALLSER
                                     "SKILL_Penetrate_Wheel",   // 393 ADD BY RALLSER
                                     "SKILL_Fire_Meteor",       // 394 ADD BY RALLSER

@@ -35,7 +35,7 @@ public:
     void computeOutput(const SkillInput& input, SkillOutput& output);
 
 private:
-    POINT m_BloodyWallMask[8][5]; // 8¹æÇâ, 5°³¾¿
+    POINT m_BloodyWallMask[8][5]; // 8ë°©í–¥, 5ê°œì”©
 };
 
 // global variable declaration

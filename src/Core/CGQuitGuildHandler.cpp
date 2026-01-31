@@ -33,7 +33,7 @@ void CGQuitGuildHandler::execute(CGQuitGuild* pPacket, Player* pPlayer)
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pPlayer);
     Assert(pPlayerCreature != NULL);
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¼ÓÇÑ ±æµå¸¦ °¡Á®¿Â´Ù.
+    // í”Œë ˆì´ì–´ê°€ ì†í•œ ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     try {
         Assert(pGuild != NULL);
@@ -41,7 +41,7 @@ void CGQuitGuildHandler::execute(CGQuitGuild* pPacket, Player* pPlayer)
         return;
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ ±æµåÀÇ ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ê¸¸ë“œì˜ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPlayerCreature->getName());
     if (pGuildMember == NULL)
         return;

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGBuyStoreItemHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : Â±Ã¨Â¼ÂºÂ¹ÃŽ
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -29,8 +29,8 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î°¡ ¿øÇÏ´Â ¹°°ÇÀ» ÆÄ´Â NPC¿Í ±× ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö
-// È®ÀÎÇÏ°í, ÀÏ¹Ý ¾ÆÀÌÅÛ°ú ¸ðÅÍ »çÀÌÅ¬ Ã³¸®ºÎºÐÀ¸·Î ºÐ±âÇÑ´Ù.
+// Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã®Â°Â¡ Â¿Ã¸Ã‡ÃÂ´Ã‚ Â¹Â°Â°Ã‡Ã€Â» Ã†Ã„Â´Ã‚ NPCÂ¿Ã Â±Ã— Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€Ã–Â´Ã‚ÃÃ¶
+// ÃˆÂ®Ã€ÃŽÃ‡ÃÂ°Ã­, Ã€ÃÂ¹Ã Â¾Ã†Ã€ÃŒÃ…Ã›Â°Ãº Â¸Ã°Ã…Ã Â»Ã§Ã€ÃŒÃ…Â¬ ÃƒÂ³Â¸Â®ÂºÃŽÂºÃÃ€Â¸Â·ÃŽ ÂºÃÂ±Ã¢Ã‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
 
@@ -52,32 +52,32 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
     GCNoticeEvent errorNotice;
 
     if (pPacket->getIndex() > MAX_ITEM_NUM) {
-        filelog("Store.log", "[%s:%s] (%u) Àß¸øµÈ ÀÎµ¦½ºÀÔ´Ï´Ù.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
+        filelog("Store.log", "[%s:%s] (%u) Ã€ÃŸÂ¸Ã¸ÂµÃˆ Ã€ÃŽÂµÂ¦Â½ÂºÃ€Ã”Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
                 pPacket->getIndex());
         return;
     }
 
     PlayerCreature* pStorePC = dynamic_cast<PlayerCreature*>(pPC->getZone()->getCreature(pPacket->getOwnerObjectID()));
     if (pStorePC == NULL) {
-        filelog("Store.log", "[%s:%s] (%u) ±×·± À¯Àú°¡ ¾ø½À´Ï´Ù.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
+        filelog("Store.log", "[%s:%s] (%u) Â±Ã—Â·Â± Ã€Â¯Ã€ÃºÂ°Â¡ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(), pPC->getName().c_str(),
                 pPacket->getOwnerObjectID());
-        //		errorMsg.setMessage("ÇØ´ç ÆÇ¸ÅÀÚ¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+        //		errorMsg.setMessage("Ã‡Ã˜Â´Ã§ Ã†Ã‡Â¸Ã…Ã€ÃšÂ¸Â¦ ÃƒÂ£Ã€Â» Â¼Ã¶ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™.");
         errorNotice.setCode(NOTICE_EVENT_CANNOT_FIND_STORE);
         pGamePlayer->sendPacket(&errorNotice);
         return;
     }
 
     if (pStorePC->getRace() != pPC->getRace()) {
-        filelog("Store.log", "[%s:%s] (%s) ´Ù¸¥ Á¾Á·ÀÇ »óÁ¡À» ¿­·Á°í ½ÃµµÇß½À´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s) Â´Ã™Â¸Â¥ ÃÂ¾ÃÂ·Ã€Ã‡ Â»Ã³ÃÂ¡Ã€Â» Â¿Â­Â·ÃÂ°Ã­ Â½ÃƒÂµÂµÃ‡ÃŸÂ½Ã€Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str());
         return;
     }
 
     Store* pStore = pStorePC->getStore();
     if (pStore == NULL || !pStore->isOpen()) {
-        filelog("Store.log", "[%s:%s] (%s) »óÁ¡ÀÌ ¿­·ÁÀÖÁö ¾Ê½À´Ï´Ù..", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s) Â»Ã³ÃÂ¡Ã€ÃŒ Â¿Â­Â·ÃÃ€Ã–ÃÃ¶ Â¾ÃŠÂ½Ã€Â´ÃÂ´Ã™..", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str());
-        //		errorMsg.setMessage("»óÁ¡ÀÌ ÀÌ¹Ì ´ÝÇû½À´Ï´Ù.");
+        //		errorMsg.setMessage("Â»Ã³ÃÂ¡Ã€ÃŒ Ã€ÃŒÂ¹ÃŒ Â´ÃÃ‡Ã»Â½Ã€Â´ÃÂ´Ã™.");
         errorNotice.setCode(NOTICE_EVENT_STORE_CLOSED);
         pGamePlayer->sendPacket(&errorNotice);
         return;
@@ -85,9 +85,9 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
 
     StoreItem& storeItem = pStore->getStoreItem(pPacket->getIndex());
     if (!storeItem.isExists()) {
-        filelog("Store.log", "[%s:%s] (%s:%u) ÇØ´ç À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù..", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s:%u) Ã‡Ã˜Â´Ã§ Ã€Â§Ã„Â¡Â¿Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™..", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex());
-        //		errorMsg.setMessage("¾ÆÀÌÅÛÀÌ ÀÌ¹Ì ÆÇ¸ÅµÇ¾ú°Å³ª ÆÇ¸ÅÀÚ¿¡ ÀÇÇØ Ã¶È¸µÇ¾ú½À´Ï´Ù.");
+        //		errorMsg.setMessage("Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ Ã€ÃŒÂ¹ÃŒ Ã†Ã‡Â¸Ã…ÂµÃ‡Â¾ÃºÂ°Ã…Â³Âª Ã†Ã‡Â¸Ã…Ã€ÃšÂ¿Â¡ Ã€Ã‡Ã‡Ã˜ ÃƒÂ¶ÃˆÂ¸ÂµÃ‡Â¾ÃºÂ½Ã€Â´ÃÂ´Ã™.");
         errorNotice.setCode(NOTICE_EVENT_ITEM_NOT_FOUND);
         pGamePlayer->sendPacket(&errorNotice);
         return;
@@ -99,28 +99,28 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
     Assert(pItem != NULL);
 
     if (pPC->getGold() < price) {
-        filelog("Store.log", "[%s:%s] (%s:%u) (%u<%u) µ·ÀÌ ¸ðÀÚ¶ø´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s:%u) (%u<%u) ÂµÂ·Ã€ÃŒ Â¸Ã°Ã€ÃšÂ¶Ã¸Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pPC->getGold(), price);
-        //		errorMsg.setMessage("µ·ÀÌ ¸ðÀÚ¶ø´Ï´Ù.");
+        //		errorMsg.setMessage("ÂµÂ·Ã€ÃŒ Â¸Ã°Ã€ÃšÂ¶Ã¸Â´ÃÂ´Ã™.");
         errorNotice.setCode(NOTICE_EVENT_NOT_ENOUGH_MONEY);
         pGamePlayer->sendPacket(&errorNotice);
         return;
     }
 
     if (pStorePC->getGold() > MAX_MONEY - price) {
-        filelog("Store.log", "[%s:%s] (%s:%u) (%u,%u) µ·ÀÌ ³ÑÄ¨´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s:%u) (%u,%u) ÂµÂ·Ã€ÃŒ Â³Ã‘Ã„Â¨Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pStorePC->getGold(), price);
-        //		errorMsg.setMessage("ÆÇ¸ÅÀÚ°¡ ³Ê¹« ¸¹Àº µ·À» °¡Áö°í ÀÖ¾î¼­ ±¸ÀÔÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        //		errorMsg.setMessage("Ã†Ã‡Â¸Ã…Ã€ÃšÂ°Â¡ Â³ÃŠÂ¹Â« Â¸Â¹Ã€Âº ÂµÂ·Ã€Â» Â°Â¡ÃÃ¶Â°Ã­ Ã€Ã–Â¾Ã®Â¼Â­ Â±Â¸Ã€Ã”Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™.");
         errorNotice.setCode(NOTICE_EVENT_TOO_MUCH_MONEY);
         pGamePlayer->sendPacket(&errorNotice);
-        errorMsg.setMessage("ÉíÉÏ½ð±ÒÌ«¶à,ÎÞ·¨½øÐÐ½»Ò×.");
+        errorMsg.setMessage("Ã‰Ã­Ã‰ÃÂ½Ã°Â±Ã’ÃŒÂ«Â¶Ã ,ÃŽÃžÂ·Â¨Â½Ã¸ÃÃÂ½Â»Ã’Ã—.");
         pStorePC->getPlayer()->sendPacket(&errorMsg);
         pGamePlayer->sendPacket(&errorMsg);
         return;
     }
 
     if (pItem->isTimeLimitItem() || !canSell(pItem)) {
-        filelog("Store.log", "[%s:%s] (%s:%u) (%s) ÆÈ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÔ´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s:%u) (%s) Ã†Ãˆ Â¼Ã¶ Â¾Ã¸Â´Ã‚ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã”Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pItem->toString().c_str());
         return;
     }
@@ -130,10 +130,10 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
 
     Item* pStoreItem = pStoreInventory->findItemOID(pItem->getObjectID(), storeX, storeY);
     if (pStoreItem != pItem) {
-        filelog("Store.log", "[%s:%s] (%s:%u) (%p!=%p) ÆÇ¸ÅÀÚ°¡ ¾ÆÀÌÅÛÀ» ¾È°®°í ÀÖ°Å³ª ÀÌ»óÇÑ ¾ÆÀÌÅÛÀÔ´Ï´Ù.",
+        filelog("Store.log", "[%s:%s] (%s:%u) (%p!=%p) Ã†Ã‡Â¸Ã…Ã€ÃšÂ°Â¡ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Â» Â¾ÃˆÂ°Â®Â°Ã­ Ã€Ã–Â°Ã…Â³Âª Ã€ÃŒÂ»Ã³Ã‡Ã‘ Â¾Ã†Ã€ÃŒÃ…Ã›Ã€Ã”Â´ÃÂ´Ã™.",
                 pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(),
                 pStoreItem, pItem);
-        errorMsg.setMessage("µÀ¾ßÀ¸ÄÚÃ»ÓÐ¿É³öÊÛµÄµÀ¾ß.");
+        errorMsg.setMessage("ÂµÃ€Â¾ÃŸÃ€Â¸Ã„ÃšÃƒÂ»Ã“ÃÂ¿Ã‰Â³Ã¶ÃŠÃ›ÂµÃ„ÂµÃ€Â¾ÃŸ.");
         pStorePC->getPlayer()->sendPacket(&errorMsg);
         return;
     }
@@ -142,9 +142,9 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
     _TPOINT emptyPos;
 
     if (!pInventory->getEmptySlot(pItem, emptyPos)) {
-        filelog("Store.log", "[%s:%s] (%s:%u) »ì »ç¶÷ ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ¾ø½À´Ï´Ù.", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] (%s:%u) Â»Ã¬ Â»Ã§Â¶Ã· Ã€ÃŽÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡ Ã€ÃšÂ¸Â®Â°Â¡ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™.", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex());
-        //		errorMsg.setMessage("ÀÎº¥Åä¸®¿¡ ºó °÷ÀÌ ¾ø¾î¼­ ±¸ÀÔÇÒ ¼ö ¾ø½À´Ï´Ù.");
+        //		errorMsg.setMessage("Ã€ÃŽÂºÂ¥Ã…Ã¤Â¸Â®Â¿Â¡ ÂºÃ³ Â°Ã·Ã€ÃŒ Â¾Ã¸Â¾Ã®Â¼Â­ Â±Â¸Ã€Ã”Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â½Ã€Â´ÃÂ´Ã™.");
         errorNotice.setCode(NOTICE_EVENT_NO_INVENTORY_SPACE);
         pGamePlayer->sendPacket(&errorNotice);
         return;
@@ -155,7 +155,7 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
     pStoreInventory->deleteItem(storeX, storeY);
     pStorePC->increaseGoldEx(price);
 
-    filelog("StoreBought.log", "[%s:%u/%u] ¾ÆÀÌÅÛÀÌ Á¦°ÅµÇ¾ú½À´Ï´Ù.", pStorePC->getName().c_str(),
+    filelog("StoreBought.log", "[%s:%u/%u] Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ ÃÂ¦Â°Ã…ÂµÃ‡Â¾ÃºÂ½Ã€Â´ÃÂ´Ã™.", pStorePC->getName().c_str(),
             pItem->getItemClass(), pItem->getItemID());
 
     GCShopSellOK gcSellOK;
@@ -173,7 +173,7 @@ void CGBuyStoreItemHandler::execute(CGBuyStoreItem* pPacket, Player* pPlayer)
             emptyPos.y);
     pItem->tinysave(pField);
 
-    filelog("StoreBought.log", "[%s:%u/%u] ¾ÆÀÌÅÛÀÌ ÁÖ¾îÁ³½À´Ï´Ù.", pPC->getName().c_str(), pItem->getItemClass(),
+    filelog("StoreBought.log", "[%s:%u/%u] Â¾Ã†Ã€ÃŒÃ…Ã›Ã€ÃŒ ÃÃ–Â¾Ã®ÃÂ³Â½Ã€Â´ÃÂ´Ã™.", pPC->getName().c_str(), pItem->getItemClass(),
             pItem->getItemID());
 
     if (pItem->isTraceItem()) {

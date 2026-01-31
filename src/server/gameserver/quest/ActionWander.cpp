@@ -45,7 +45,7 @@ void ActionWander::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWander::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -57,7 +57,7 @@ void ActionWander::execute(Creature* pCreature1, Creature* pCreature2)
 
     Assert(pCreature1->isNPC() || pCreature1->isMonster());
 
-    // ÀÌ¹ø ÅÏ¿¡ ¿òÁ÷ÀÏ °ÍÀÎÁö Ã¼Å©ÇÑ´Ù.
+    // ì´ë²ˆ í„´ì— ì›€ì§ì¼ ê²ƒì¸ì§€ ì²´í¬í•œë‹¤.
     uint diceResult = Dice(1, 100);
 
     if (diceResult < m_MovePercentage) {
@@ -68,14 +68,14 @@ void ActionWander::execute(Creature* pCreature1, Creature* pCreature2)
         ZoneCoord_t nx = 0;
         ZoneCoord_t ny = 0;
 
-        // ¿òÁ÷ÀÌ±â·Î Çß´Ù¸é, ¾î´À ¹æÇâÀ¸·Î ¿òÁ÷ÀÏ °ÍÀÎÁö Ã¼Å©ÇÑ´Ù.
-        // ÀÏ´Ü °¥ ¼ö ÀÖ´Â ¹æÇâÀÇ ¸ñ·ÏºÎÅÍ ÀÛ¼ºÇÑ´Ù.
+        // ì›€ì§ì´ê¸°ë¡œ í–ˆë‹¤ë©´, ì–´ëŠ ë°©í–¥ìœ¼ë¡œ ì›€ì§ì¼ ê²ƒì¸ì§€ ì²´í¬í•œë‹¤.
+        // ì¼ë‹¨ ê°ˆ ìˆ˜ ìˆëŠ” ë°©í–¥ì˜ ëª©ë¡ë¶€í„° ì‘ì„±í•œë‹¤.
         for (uint i = 0; i < 8; i++) {
             nx = cx + d[i].x;
             ny = cy + d[i].y;
 
-            // ´ÙÀ½ µµÂø ÁöÁ¡Àº (x,y,r) ¿µ¿ª ¾È¿¡ Á¸ÀçÇÏ¸é¼­,
-            // NPC°¡ ¿òÁ÷ÀÏ ¼ö ÀÖ´Â - ºí¶ôµÇÁö ¾ÊÀº - Å¸ÀÏÀÌ¾î¾ß ÇÑ´Ù.
+            // ë‹¤ìŒ ë„ì°© ì§€ì ì€ (x,y,r) ì˜ì—­ ì•ˆì— ì¡´ì¬í•˜ë©´ì„œ,
+            // NPCê°€ ì›€ì§ì¼ ìˆ˜ ìˆëŠ” - ë¸”ë½ë˜ì§€ ì•Šì€ - íƒ€ì¼ì´ì–´ì•¼ í•œë‹¤.
             if (max(abs(m_X - nx), abs(m_Y - ny)) <= m_Radius && pCreature1->canMove(nx, ny)) {
                 movableDir[i] = true;
                 movableDirCount++;
@@ -84,8 +84,8 @@ void ActionWander::execute(Creature* pCreature1, Creature* pCreature2)
             }
         }
 
-        // ¸¸¾à ÇöÀç À§Ä¡¿¡¼­ ¿òÁ÷ÀÏ ¼ö ¾ø´Ù¸é, Á¤ÁöÇÑ´Ù.
-        // ¿òÁ÷ÀÏ ¼ö ÀÖ´Ù¸é.. ¿òÁ÷ÀÎ´Ù.
+        // ë§Œì•½ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ì›€ì§ì¼ ìˆ˜ ì—†ë‹¤ë©´, ì •ì§€í•œë‹¤.
+        // ì›€ì§ì¼ ìˆ˜ ìˆë‹¤ë©´.. ì›€ì§ì¸ë‹¤.
         if (movableDirCount > 0) {
             Dir_t nextDir = pCreature1->getDir();
             bool changeDir = false;
@@ -100,7 +100,7 @@ void ActionWander::execute(Creature* pCreature1, Creature* pCreature2)
             if (changeDir) {
                 uint j = rand() % movableDirCount + 1;
 
-                uint k = 0; // movableDir[l] == true ÀÎ ¹æÇâÀÇ ÀÎµ¦½º
+                uint k = 0; // movableDir[l] == true ì¸ ë°©í–¥ì˜ ì¸ë±ìŠ¤
                 for (uint l = 0; l < 8; l++) {
                     if (movableDir[l] && ++k == j) {
                         nextDir = l;

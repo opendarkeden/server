@@ -48,31 +48,31 @@ void CGTradeMoneyHandler::execute(CGTradeMoney* pPacket, Player* pPlayer)
     catch (NoSuchElementException) { pTargetPC = NULL; }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pTargetPC = pZone->getCreature(TargetOID);
 
-    // ±³È¯ »ó´ë°¡ ¾ø´Ù¸é ¿¡·¯´Ù.
+    // êµí™˜ ìƒëŒ€ê°€ ì—†ë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pTargetPC == NULL) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_TARGET_NOT_EXIST);
         return;
     }
 
-    // ±³È¯ »ó´ë°¡ »ç¶÷ÀÌ ¾Æ´Ï°Å³ª, °°Àº Á¾Á·ÀÌ ¿¡·¯´Ù.
+    // êµí™˜ ìƒëŒ€ê°€ ì‚¬ëžŒì´ ì•„ë‹ˆê±°ë‚˜, ê°™ì€ ì¢…ì¡±ì´ ì—ëŸ¬ë‹¤.
     if (!pTargetPC->isPC() || !isSameRace(pTargetPC, pPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_RACE_DIFFER);
         return;
     }
 
-    // µÑ ´Ù ¾ÈÀü Áö´ë¿¡ ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+    // ë‘˜ ë‹¤ ì•ˆì „ ì§€ëŒ€ì— ìžˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
     if (!isInSafeZone(pPC) || !isInSafeZone(pTargetPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_SAFE);
         return;
     }
 
-    // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Ù¸é ¿¡·¯´Ù.
+    // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìžˆë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pPC->isSlayer() && pTargetPC->isSlayer()) {
         Slayer* pSlayer1 = dynamic_cast<Slayer*>(pPC);
         Slayer* pSlayer2 = dynamic_cast<Slayer*>(pTargetPC);
@@ -96,7 +96,7 @@ void CGTradeMoneyHandler::execute(CGTradeMoney* pPacket, Player* pPlayer)
         }
     }
 
-    // µÑÀÌ¼­ ±³È¯À» ÇÏ°í ÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+    // ë‘˜ì´ì„œ êµí™˜ì„ í•˜ê³  ìžˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
     if (!pTradeManager->isTrading(pPC, pTargetPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_TRADING);
@@ -110,7 +110,7 @@ void CGTradeMoneyHandler::execute(CGTradeMoney* pPacket, Player* pPlayer)
     else if (pPC->isOusters())
         executeOusters(pPacket, pPlayer);
     else
-        throw ProtocolException("CGTradeMoney::execute() : ¾Ë ¼ö ¾ø´Â ÇÃ·¹ÀÌ¾î Å©¸®ÃÄ");
+        throw ProtocolException("CGTradeMoney::execute() : ì•Œ ìˆ˜ ì—†ëŠ” í”Œë ˆì´ì–´ í¬ë¦¬ì³");
 
 #endif
 
@@ -126,8 +126,8 @@ void CGTradeMoneyHandler::executeSlayer(CGTradeMoney* pPacket, Player* pPlayer)
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ °Ë»ç¸¦ Çß±â ¶§¹®¿¡,
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ê²€ì‚¬ë¥¼ í–ˆê¸° ë•Œë¬¸ì—,
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     Gold_t Amount = pPacket->getAmount();
     BYTE Code = pPacket->getCode();
@@ -136,7 +136,7 @@ void CGTradeMoneyHandler::executeSlayer(CGTradeMoney* pPacket, Player* pPlayer)
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -151,45 +151,45 @@ void CGTradeMoneyHandler::executeSlayer(CGTradeMoney* pPacket, Player* pPlayer)
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯ »óÅÂ°¡ ¸Â´ÂÁö Ã¼Å©¸¦ ÇØºÁ¾ßÇÑ´Ù.
+    // êµí™˜ ìƒíƒœê°€ ë§žëŠ”ì§€ ì²´í¬ë¥¼ í•´ë´ì•¼í•œë‹¤.
     TradeInfo* pInfo1 = pTradeManager->getTradeInfo(pSender->getName());
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pReceiver->getName());
 
-    // ÀÎº¥Åä¸®¿¡¼­ µ·À» ´ú¾î, ±³È¯Ã¢¿¡´Ù ´õÇÑ´Ù.
+    // ì¸ë²¤í† ë¦¬ì—ì„œ ëˆì„ ëœì–´, êµí™˜ì°½ì—ë‹¤ ë”í•œë‹¤.
     if (Code == CG_TRADE_MONEY_INCREASE) {
-        // ±³È¯Ã¢¿¡´Ù ´õÇÒ ¾×¼öº¸´Ù ¸¹Àº µ·À» °¡Áö°í ÀÖ¾î¾ß ÇÑ´Ù.
+        // êµí™˜ì°½ì—ë‹¤ ë”í•  ì•¡ìˆ˜ë³´ë‹¤ ë§Žì€ ëˆì„ ê°€ì§€ê³  ìžˆì–´ì•¼ í•œë‹¤.
         if (pSender->getGold() >= Amount) {
-            // µ·À» ¹Þ´Â ÂÊÀÌ ¸Æ½º¸¦ ÃÊ°úÇÏ°Ô µÈ´Ù¸é, ÀÏºÎ¸¸ ³Ö¾îÁà¾ß ÇÑ´Ù.
-            // ÇöÀç ±³È¯ ¿¹Á¤ÀÎ µ·µµ ´õÇØ¼­ °è»ê. by sigi. 2003.1.8
+            // ëˆì„ ë°›ëŠ” ìª½ì´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•˜ê²Œ ëœë‹¤ë©´, ì¼ë¶€ë§Œ ë„£ì–´ì¤˜ì•¼ í•œë‹¤.
+            // í˜„ìž¬ êµí™˜ ì˜ˆì •ì¸ ëˆë„ ë”í•´ì„œ ê³„ì‚°. by sigi. 2003.1.8
             Gold_t receiverGold = pReceiver->getGold() + pInfo1->getGold();
             if (receiverGold + Amount > MAX_MONEY) {
                 margin = receiverGold + Amount - MAX_MONEY;
                 finalAmount = finalAmount - margin;
             }
 
-            // ÀÎº¥Åä¸®¿¡¼­ µ·À» »©°í, ±³È¯Ã¢¿¡´Ù ´õÇÑ´Ù.
+            // ì¸ë²¤í† ë¦¬ì—ì„œ ëˆì„ ë¹¼ê³ , êµí™˜ì°½ì—ë‹¤ ë”í•œë‹¤.
             pSender->setGold(pSender->getGold() - finalAmount);
             pInfo1->setGold(pInfo1->getGold() + finalAmount);
 
-            // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             if (pInfo1->getStatus() == TRADE_FINISH) {
-                // ÀÎÁõ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_MONEY_INCREASE);
                 pPlayer->sendPacket(&gcTradeVerify);
             }
 
-            // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ¸¦ º¯È¯ÇØÁà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœë¥¼ ë³€í™˜í•´ì¤˜ì•¼ í•œë‹¤.
             pInfo1->setStatus(TRADE_TRADING);
             pInfo2->setStatus(TRADE_TRADING);
 
-            // µ·À» ¿Ã¸° ´ç»çÀÚ¿¡°Ô ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡¼­
-            // ºüÁø ±Ý¾×ÀÌ ¾ó¸¶ÀÎÁö º¸³»ÁØ´Ù.
+            // ëˆì„ ì˜¬ë¦° ë‹¹ì‚¬ìžì—ê²Œ ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ì„œ
+            // ë¹ ì§„ ê¸ˆì•¡ì´ ì–¼ë§ˆì¸ì§€ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(TargetOID);
             gcTradeMoney.setCode(GC_TRADE_MONEY_INCREASE_RESULT);
             gcTradeMoney.setAmount(finalAmount);
             pPlayer->sendPacket(&gcTradeMoney);
 
-            // »ó´ë¹æ¿¡°Ô ¹Ù²ï Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ìƒëŒ€ë°©ì—ê²Œ ë°”ë€ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(pSender->getObjectID());
             gcTradeMoney.setCode(GC_TRADE_MONEY_INCREASE);
             gcTradeMoney.setAmount(finalAmount);
@@ -200,40 +200,40 @@ void CGTradeMoneyHandler::executeSlayer(CGTradeMoney* pPacket, Player* pPlayer)
             return;
         }
     }
-    // ±³È¯Ã¢¿¡¼­ µ·À» ´ú¾î, ÀÎº¥Åä¸®¿¡´Ù°¡ ´õÇÑ´Ù.
+    // êµí™˜ì°½ì—ì„œ ëˆì„ ëœì–´, ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ë”í•œë‹¤.
     else if (Code == CG_TRADE_MONEY_DECREASE) {
-        // ÀÎº¥Åä¸®¿¡´Ù ´õÇÒ ¾×¼öº¸´Ù ±³È¯Ã¢¿¡ ÀÖ´Â µ·ÀÌ ¸¹¾Æ¾ß ÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ì—ë‹¤ ë”í•  ì•¡ìˆ˜ë³´ë‹¤ êµí™˜ì°½ì— ìžˆëŠ” ëˆì´ ë§Žì•„ì•¼ í•œë‹¤.
         if (pInfo1->getGold() >= Amount) {
-            // µ·ÀÌ ¸Æ½º¸¦ ÃÊ°úÇÏ°Ô µÈ´Ù¸é, ÀÏºÎ¸¸ »¬ ¼ö ÀÖ´Ù.
+            // ëˆì´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•˜ê²Œ ëœë‹¤ë©´, ì¼ë¶€ë§Œ ëº„ ìˆ˜ ìžˆë‹¤.
             Gold_t senderGold = pSender->getGold() + pInfo2->getGold();
             if (senderGold + Amount > MAX_MONEY) {
                 margin = senderGold + Amount - MAX_MONEY;
                 finalAmount = finalAmount - margin;
             }
 
-            // ÀÎº¥Åä¸®¿¡´Ù°¡ µ·À» ´õÇÏ°í, ±³È¯Ã¢¿¡¼­ µ·À» »«´Ù.
+            // ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ëˆì„ ë”í•˜ê³ , êµí™˜ì°½ì—ì„œ ëˆì„ ëº€ë‹¤.
             pSender->setGold(pSender->getGold() + finalAmount);
             pInfo1->setGold(pInfo1->getGold() - finalAmount);
 
-            // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             if (pInfo1->getStatus() == TRADE_FINISH) {
-                // ÀÎÁõ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_MONEY_DECREASE);
                 pPlayer->sendPacket(&gcTradeVerify);
             }
 
-            // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ¸¦ º¯È¯ÇØÁà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœë¥¼ ë³€í™˜í•´ì¤˜ì•¼ í•œë‹¤.
             pInfo1->setStatus(TRADE_TRADING);
             pInfo2->setStatus(TRADE_TRADING);
 
-            // µ·À» ¿Ã¸° ´ç»çÀÚ¿¡°Ô ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡´Ù
-            // ´õÇÑ ±Ý¾×ÀÌ ¾ó¸¶ÀÎÁö º¸³»ÁØ´Ù.
+            // ëˆì„ ì˜¬ë¦° ë‹¹ì‚¬ìžì—ê²Œ ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ë‹¤
+            // ë”í•œ ê¸ˆì•¡ì´ ì–¼ë§ˆì¸ì§€ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(TargetOID);
             gcTradeMoney.setCode(GC_TRADE_MONEY_DECREASE_RESULT);
             gcTradeMoney.setAmount(finalAmount);
             pPlayer->sendPacket(&gcTradeMoney);
 
-            // »ó´ë¹æ¿¡°Ô ¹Ù²ï Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ìƒëŒ€ë°©ì—ê²Œ ë°”ë€ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(pSender->getObjectID());
             gcTradeMoney.setCode(GC_TRADE_MONEY_DECREASE);
             gcTradeMoney.setAmount(finalAmount);
@@ -259,8 +259,8 @@ void CGTradeMoneyHandler::executeVampire(CGTradeMoney* pPacket, Player* pPlayer)
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ °Ë»ç¸¦ Çß±â ¶§¹®¿¡,
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ê²€ì‚¬ë¥¼ í–ˆê¸° ë•Œë¬¸ì—,
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     Gold_t Amount = pPacket->getAmount();
     BYTE Code = pPacket->getCode();
@@ -269,7 +269,7 @@ void CGTradeMoneyHandler::executeVampire(CGTradeMoney* pPacket, Player* pPlayer)
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -284,45 +284,45 @@ void CGTradeMoneyHandler::executeVampire(CGTradeMoney* pPacket, Player* pPlayer)
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯ »óÅÂ°¡ ¸Â´ÂÁö Ã¼Å©¸¦ ÇØºÁ¾ßÇÑ´Ù.
+    // êµí™˜ ìƒíƒœê°€ ë§žëŠ”ì§€ ì²´í¬ë¥¼ í•´ë´ì•¼í•œë‹¤.
     TradeInfo* pInfo1 = pTradeManager->getTradeInfo(pSender->getName());
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pReceiver->getName());
 
-    // ÀÎº¥Åä¸®¿¡¼­ µ·À» ´ú¾î, ±³È¯Ã¢¿¡´Ù ´õÇÑ´Ù.
+    // ì¸ë²¤í† ë¦¬ì—ì„œ ëˆì„ ëœì–´, êµí™˜ì°½ì—ë‹¤ ë”í•œë‹¤.
     if (Code == CG_TRADE_MONEY_INCREASE) {
-        // ±³È¯Ã¢¿¡´Ù ´õÇÒ ¾×¼öº¸´Ù ¸¹Àº µ·À» °¡Áö°í ÀÖ¾î¾ß ÇÑ´Ù.
+        // êµí™˜ì°½ì—ë‹¤ ë”í•  ì•¡ìˆ˜ë³´ë‹¤ ë§Žì€ ëˆì„ ê°€ì§€ê³  ìžˆì–´ì•¼ í•œë‹¤.
         if (pSender->getGold() >= Amount) {
-            // µ·À» ¹Þ´Â ÂÊÀÌ ¸Æ½º¸¦ ÃÊ°úÇÏ°Ô µÈ´Ù¸é, ÀÏºÎ¸¸ ³Ö¾îÁà¾ß ÇÑ´Ù.
-            // ÇöÀç ±³È¯ ¿¹Á¤ÀÎ µ·µµ ´õÇØ¼­ °è»ê. by sigi. 2003.1.8
+            // ëˆì„ ë°›ëŠ” ìª½ì´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•˜ê²Œ ëœë‹¤ë©´, ì¼ë¶€ë§Œ ë„£ì–´ì¤˜ì•¼ í•œë‹¤.
+            // í˜„ìž¬ êµí™˜ ì˜ˆì •ì¸ ëˆë„ ë”í•´ì„œ ê³„ì‚°. by sigi. 2003.1.8
             Gold_t receiverGold = pReceiver->getGold() + pInfo1->getGold();
             if (receiverGold + Amount > MAX_MONEY) {
                 margin = receiverGold + Amount - MAX_MONEY;
                 finalAmount = finalAmount - margin;
             }
 
-            // ÀÎº¥Åä¸®¿¡¼­ µ·À» »©°í, ±³È¯Ã¢¿¡´Ù ´õÇÑ´Ù.
+            // ì¸ë²¤í† ë¦¬ì—ì„œ ëˆì„ ë¹¼ê³ , êµí™˜ì°½ì—ë‹¤ ë”í•œë‹¤.
             pSender->setGold(pSender->getGold() - finalAmount);
             pInfo1->setGold(pInfo1->getGold() + finalAmount);
 
-            // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             if (pInfo1->getStatus() == TRADE_FINISH) {
-                // ÀÎÁõ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_MONEY_INCREASE);
                 pPlayer->sendPacket(&gcTradeVerify);
             }
 
-            // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ¸¦ º¯È¯ÇØÁà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœë¥¼ ë³€í™˜í•´ì¤˜ì•¼ í•œë‹¤.
             pInfo1->setStatus(TRADE_TRADING);
             pInfo2->setStatus(TRADE_TRADING);
 
-            // µ·À» ¿Ã¸° ´ç»çÀÚ¿¡°Ô ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡¼­
-            // ºüÁø ±Ý¾×ÀÌ ¾ó¸¶ÀÎÁö º¸³»ÁØ´Ù.
+            // ëˆì„ ì˜¬ë¦° ë‹¹ì‚¬ìžì—ê²Œ ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ì„œ
+            // ë¹ ì§„ ê¸ˆì•¡ì´ ì–¼ë§ˆì¸ì§€ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(TargetOID);
             gcTradeMoney.setCode(GC_TRADE_MONEY_INCREASE_RESULT);
             gcTradeMoney.setAmount(finalAmount);
             pPlayer->sendPacket(&gcTradeMoney);
 
-            // »ó´ë¹æ¿¡°Ô ¹Ù²ï Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ìƒëŒ€ë°©ì—ê²Œ ë°”ë€ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(pSender->getObjectID());
             gcTradeMoney.setCode(GC_TRADE_MONEY_INCREASE);
             gcTradeMoney.setAmount(finalAmount);
@@ -333,40 +333,40 @@ void CGTradeMoneyHandler::executeVampire(CGTradeMoney* pPacket, Player* pPlayer)
             return;
         }
     }
-    // ±³È¯Ã¢¿¡¼­ µ·À» ´ú¾î, ÀÎº¥Åä¸®¿¡´Ù°¡ ´õÇÑ´Ù.
+    // êµí™˜ì°½ì—ì„œ ëˆì„ ëœì–´, ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ë”í•œë‹¤.
     else if (Code == CG_TRADE_MONEY_DECREASE) {
-        // ÀÎº¥Åä¸®¿¡´Ù ´õÇÒ ¾×¼öº¸´Ù ±³È¯Ã¢¿¡ ÀÖ´Â µ·ÀÌ ¸¹¾Æ¾ß ÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ì—ë‹¤ ë”í•  ì•¡ìˆ˜ë³´ë‹¤ êµí™˜ì°½ì— ìžˆëŠ” ëˆì´ ë§Žì•„ì•¼ í•œë‹¤.
         if (pInfo1->getGold() >= Amount) {
-            // µ·ÀÌ ¸Æ½º¸¦ ÃÊ°úÇÏ°Ô µÈ´Ù¸é, ÀÏºÎ¸¸ »¬ ¼ö ÀÖ´Ù.
+            // ëˆì´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•˜ê²Œ ëœë‹¤ë©´, ì¼ë¶€ë§Œ ëº„ ìˆ˜ ìžˆë‹¤.
             Gold_t senderGold = pSender->getGold() + pInfo2->getGold();
             if (senderGold + Amount > MAX_MONEY) {
                 margin = senderGold + Amount - MAX_MONEY;
                 finalAmount = finalAmount - margin;
             }
 
-            // ÀÎº¥Åä¸®¿¡´Ù°¡ µ·À» ´õÇÏ°í, ±³È¯Ã¢¿¡¼­ µ·À» »«´Ù.
+            // ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ëˆì„ ë”í•˜ê³ , êµí™˜ì°½ì—ì„œ ëˆì„ ëº€ë‹¤.
             pSender->setGold(pSender->getGold() + finalAmount);
             pInfo1->setGold(pInfo1->getGold() - finalAmount);
 
-            // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             if (pInfo1->getStatus() == TRADE_FINISH) {
-                // ÀÎÁõ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_MONEY_DECREASE);
                 pPlayer->sendPacket(&gcTradeVerify);
             }
 
-            // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ¸¦ º¯È¯ÇØÁà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœë¥¼ ë³€í™˜í•´ì¤˜ì•¼ í•œë‹¤.
             pInfo1->setStatus(TRADE_TRADING);
             pInfo2->setStatus(TRADE_TRADING);
 
-            // µ·À» ¿Ã¸° ´ç»çÀÚ¿¡°Ô ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡´Ù
-            // ´õÇÑ ±Ý¾×ÀÌ ¾ó¸¶ÀÎÁö º¸³»ÁØ´Ù.
+            // ëˆì„ ì˜¬ë¦° ë‹¹ì‚¬ìžì—ê²Œ ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ë‹¤
+            // ë”í•œ ê¸ˆì•¡ì´ ì–¼ë§ˆì¸ì§€ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(TargetOID);
             gcTradeMoney.setCode(GC_TRADE_MONEY_DECREASE_RESULT);
             gcTradeMoney.setAmount(finalAmount);
             pPlayer->sendPacket(&gcTradeMoney);
 
-            // »ó´ë¹æ¿¡°Ô ¹Ù²ï Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ìƒëŒ€ë°©ì—ê²Œ ë°”ë€ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(pSender->getObjectID());
             gcTradeMoney.setCode(GC_TRADE_MONEY_DECREASE);
             gcTradeMoney.setAmount(finalAmount);
@@ -393,8 +393,8 @@ void CGTradeMoneyHandler::executeOusters(CGTradeMoney* pPacket, Player* pPlayer)
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ °Ë»ç¸¦ Çß±â ¶§¹®¿¡,
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ê²€ì‚¬ë¥¼ í–ˆê¸° ë•Œë¬¸ì—,
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     Gold_t Amount = pPacket->getAmount();
     BYTE Code = pPacket->getCode();
@@ -403,7 +403,7 @@ void CGTradeMoneyHandler::executeOusters(CGTradeMoney* pPacket, Player* pPlayer)
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -418,45 +418,45 @@ void CGTradeMoneyHandler::executeOusters(CGTradeMoney* pPacket, Player* pPlayer)
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯ »óÅÂ°¡ ¸Â´ÂÁö Ã¼Å©¸¦ ÇØºÁ¾ßÇÑ´Ù.
+    // êµí™˜ ìƒíƒœê°€ ë§žëŠ”ì§€ ì²´í¬ë¥¼ í•´ë´ì•¼í•œë‹¤.
     TradeInfo* pInfo1 = pTradeManager->getTradeInfo(pSender->getName());
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pReceiver->getName());
 
-    // ÀÎº¥Åä¸®¿¡¼­ µ·À» ´ú¾î, ±³È¯Ã¢¿¡´Ù ´õÇÑ´Ù.
+    // ì¸ë²¤í† ë¦¬ì—ì„œ ëˆì„ ëœì–´, êµí™˜ì°½ì—ë‹¤ ë”í•œë‹¤.
     if (Code == CG_TRADE_MONEY_INCREASE) {
-        // ±³È¯Ã¢¿¡´Ù ´õÇÒ ¾×¼öº¸´Ù ¸¹Àº µ·À» °¡Áö°í ÀÖ¾î¾ß ÇÑ´Ù.
+        // êµí™˜ì°½ì—ë‹¤ ë”í•  ì•¡ìˆ˜ë³´ë‹¤ ë§Žì€ ëˆì„ ê°€ì§€ê³  ìžˆì–´ì•¼ í•œë‹¤.
         if (pSender->getGold() >= Amount) {
-            // µ·À» ¹Þ´Â ÂÊÀÌ ¸Æ½º¸¦ ÃÊ°úÇÏ°Ô µÈ´Ù¸é, ÀÏºÎ¸¸ ³Ö¾îÁà¾ß ÇÑ´Ù.
-            // ÇöÀç ±³È¯ ¿¹Á¤ÀÎ µ·µµ ´õÇØ¼­ °è»ê. by sigi. 2003.1.8
+            // ëˆì„ ë°›ëŠ” ìª½ì´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•˜ê²Œ ëœë‹¤ë©´, ì¼ë¶€ë§Œ ë„£ì–´ì¤˜ì•¼ í•œë‹¤.
+            // í˜„ìž¬ êµí™˜ ì˜ˆì •ì¸ ëˆë„ ë”í•´ì„œ ê³„ì‚°. by sigi. 2003.1.8
             Gold_t receiverGold = pReceiver->getGold() + pInfo1->getGold();
             if (receiverGold + Amount > MAX_MONEY) {
                 margin = receiverGold + Amount - MAX_MONEY;
                 finalAmount = finalAmount - margin;
             }
 
-            // ÀÎº¥Åä¸®¿¡¼­ µ·À» »©°í, ±³È¯Ã¢¿¡´Ù ´õÇÑ´Ù.
+            // ì¸ë²¤í† ë¦¬ì—ì„œ ëˆì„ ë¹¼ê³ , êµí™˜ì°½ì—ë‹¤ ë”í•œë‹¤.
             pSender->setGold(pSender->getGold() - finalAmount);
             pInfo1->setGold(pInfo1->getGold() + finalAmount);
 
-            // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             if (pInfo1->getStatus() == TRADE_FINISH) {
-                // ÀÎÁõ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_MONEY_INCREASE);
                 pPlayer->sendPacket(&gcTradeVerify);
             }
 
-            // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ¸¦ º¯È¯ÇØÁà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœë¥¼ ë³€í™˜í•´ì¤˜ì•¼ í•œë‹¤.
             pInfo1->setStatus(TRADE_TRADING);
             pInfo2->setStatus(TRADE_TRADING);
 
-            // µ·À» ¿Ã¸° ´ç»çÀÚ¿¡°Ô ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡¼­
-            // ºüÁø ±Ý¾×ÀÌ ¾ó¸¶ÀÎÁö º¸³»ÁØ´Ù.
+            // ëˆì„ ì˜¬ë¦° ë‹¹ì‚¬ìžì—ê²Œ ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ì„œ
+            // ë¹ ì§„ ê¸ˆì•¡ì´ ì–¼ë§ˆì¸ì§€ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(TargetOID);
             gcTradeMoney.setCode(GC_TRADE_MONEY_INCREASE_RESULT);
             gcTradeMoney.setAmount(finalAmount);
             pPlayer->sendPacket(&gcTradeMoney);
 
-            // »ó´ë¹æ¿¡°Ô ¹Ù²ï Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ìƒëŒ€ë°©ì—ê²Œ ë°”ë€ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(pSender->getObjectID());
             gcTradeMoney.setCode(GC_TRADE_MONEY_INCREASE);
             gcTradeMoney.setAmount(finalAmount);
@@ -467,40 +467,40 @@ void CGTradeMoneyHandler::executeOusters(CGTradeMoney* pPacket, Player* pPlayer)
             return;
         }
     }
-    // ±³È¯Ã¢¿¡¼­ µ·À» ´ú¾î, ÀÎº¥Åä¸®¿¡´Ù°¡ ´õÇÑ´Ù.
+    // êµí™˜ì°½ì—ì„œ ëˆì„ ëœì–´, ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ë”í•œë‹¤.
     else if (Code == CG_TRADE_MONEY_DECREASE) {
-        // ÀÎº¥Åä¸®¿¡´Ù ´õÇÒ ¾×¼öº¸´Ù ±³È¯Ã¢¿¡ ÀÖ´Â µ·ÀÌ ¸¹¾Æ¾ß ÇÑ´Ù.
+        // ì¸ë²¤í† ë¦¬ì—ë‹¤ ë”í•  ì•¡ìˆ˜ë³´ë‹¤ êµí™˜ì°½ì— ìžˆëŠ” ëˆì´ ë§Žì•„ì•¼ í•œë‹¤.
         if (pInfo1->getGold() >= Amount) {
-            // µ·ÀÌ ¸Æ½º¸¦ ÃÊ°úÇÏ°Ô µÈ´Ù¸é, ÀÏºÎ¸¸ »¬ ¼ö ÀÖ´Ù.
+            // ëˆì´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•˜ê²Œ ëœë‹¤ë©´, ì¼ë¶€ë§Œ ëº„ ìˆ˜ ìžˆë‹¤.
             Gold_t senderGold = pSender->getGold() + pInfo2->getGold();
             if (senderGold + Amount > MAX_MONEY) {
                 margin = senderGold + Amount - MAX_MONEY;
                 finalAmount = finalAmount - margin;
             }
 
-            // ÀÎº¥Åä¸®¿¡´Ù°¡ µ·À» ´õÇÏ°í, ±³È¯Ã¢¿¡¼­ µ·À» »«´Ù.
+            // ì¸ë²¤í† ë¦¬ì—ë‹¤ê°€ ëˆì„ ë”í•˜ê³ , êµí™˜ì°½ì—ì„œ ëˆì„ ëº€ë‹¤.
             pSender->setGold(pSender->getGold() + finalAmount);
             pInfo1->setGold(pInfo1->getGold() - finalAmount);
 
-            // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             if (pInfo1->getStatus() == TRADE_FINISH) {
-                // ÀÎÁõ ÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_MONEY_DECREASE);
                 pPlayer->sendPacket(&gcTradeVerify);
             }
 
-            // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ¸¦ º¯È¯ÇØÁà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœë¥¼ ë³€í™˜í•´ì¤˜ì•¼ í•œë‹¤.
             pInfo1->setStatus(TRADE_TRADING);
             pInfo2->setStatus(TRADE_TRADING);
 
-            // µ·À» ¿Ã¸° ´ç»çÀÚ¿¡°Ô ½ÇÁ¦·Î ÀÎº¥Åä¸®¿¡´Ù
-            // ´õÇÑ ±Ý¾×ÀÌ ¾ó¸¶ÀÎÁö º¸³»ÁØ´Ù.
+            // ëˆì„ ì˜¬ë¦° ë‹¹ì‚¬ìžì—ê²Œ ì‹¤ì œë¡œ ì¸ë²¤í† ë¦¬ì—ë‹¤
+            // ë”í•œ ê¸ˆì•¡ì´ ì–¼ë§ˆì¸ì§€ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(TargetOID);
             gcTradeMoney.setCode(GC_TRADE_MONEY_DECREASE_RESULT);
             gcTradeMoney.setAmount(finalAmount);
             pPlayer->sendPacket(&gcTradeMoney);
 
-            // »ó´ë¹æ¿¡°Ô ¹Ù²ï Á¤º¸¸¦ º¸³»ÁØ´Ù.
+            // ìƒëŒ€ë°©ì—ê²Œ ë°”ë€ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             gcTradeMoney.setTargetObjectID(pSender->getObjectID());
             gcTradeMoney.setCode(GC_TRADE_MONEY_DECREASE);
             gcTradeMoney.setAmount(finalAmount);

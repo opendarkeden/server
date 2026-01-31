@@ -17,21 +17,21 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 DuplicateSelf::DuplicateSelf() throw() {
     __BEGIN_TRY
 
-    // ¸Ó.. ´ä´äÇÏ¹È Å×ÀÌºí·Î »©µçÁö.. -_-;
-    m_DuplicateMonsterTypes[432] = 435; // ¹ÙÅä¸® ºĞ½Å
-    m_DuplicateMonsterTypes[434] = 436; // Å×ÆäÁî ºĞ½Å
+    // ë¨¸.. ë‹µë‹µí•˜ë¯„ í…Œì´ë¸”ë¡œ ë¹¼ë“ ì§€.. -_-;
+    m_DuplicateMonsterTypes[432] = 435; // ë°”í† ë¦¬ ë¶„ì‹ 
+    m_DuplicateMonsterTypes[434] = 436; // í…Œí˜ì¦ˆ ë¶„ì‹ 
 
     __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 /*
 void DuplicateSelf::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
@@ -74,7 +74,7 @@ void DuplicateSelf::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEf
         {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ¹ìÆÄÀÌ¾î¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+            // ë±€íŒŒì´ì–´ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -86,12 +86,12 @@ void DuplicateSelf::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEf
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(x, y, &_GCSkillToSelfOK2, pVampire);
 
-            // ¶¥ À§¿¡ ³ª¿ÍÀÖ´Â ¹ìÆÄÀÌ¾î »èÁ¦ÇÏ¶ó°í ¾Ë¸°´Ù.
+            // ë•… ìœ„ì— ë‚˜ì™€ìˆëŠ” ë±€íŒŒì´ì–´ ì‚­ì œí•˜ë¼ê³  ì•Œë¦°ë‹¤.
             GCDeleteObject gcDO;
             gcDO.setObjectID(pVampire->getObjectID());
             pZone->broadcastPacket(x, y, &gcDO, pVampire);
 
-            // ¶¥ ¼Ó¿¡´Ù°¡ ¹ìÆÄÀÌ¾î¸¦ Ãß°¡ÇÑ´Ù.
+            // ë•… ì†ì—ë‹¤ê°€ ë±€íŒŒì´ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
             addBurrowingCreature(pZone, pVampire, x, y);
 
             pSkillSlot->setRunTime();
@@ -114,7 +114,7 @@ void DuplicateSelf::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEf
 */
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void DuplicateSelf::execute(Monster* pMonster)
 
@@ -128,7 +128,7 @@ void DuplicateSelf::execute(Monster* pMonster)
 
     unordered_map<MonsterType_t, MonsterType_t>::const_iterator itr = m_DuplicateMonsterTypes.find(MType);
 
-    // ºĞ½ÅÇÒ MonsterTypeÀÌ ¾øÀ¸¸é ºĞ½Å ¸ğÇÏÁö..
+    // ë¶„ì‹ í•  MonsterTypeì´ ì—†ìœ¼ë©´ ë¶„ì‹  ëª¨í•˜ì§€..
     if (itr == m_DuplicateMonsterTypes.end()) {
         // cout <<"DuplicateSelf::noMonsterType: " << (int)MType << endl;
         return;
@@ -172,12 +172,12 @@ void DuplicateSelf::execute(Monster* pMonster)
             pZone->broadcastPacket(x, y, &_GCSkillToTileOK5);
 
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§ëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             // SkillInput input(pMonster);
             // SkillOutput output;
             // computeOutput(input, output);
-            // ¸ó½ºÅÍ¸¦ Á¸¿¡ Ãß°¡ÇÑ´Ù.
+            // ëª¬ìŠ¤í„°ë¥¼ ì¡´ì— ì¶”ê°€í•œë‹¤.
             SUMMON_INFO summonInfo;
             summonInfo.scanEnemy = true;
             summonInfo.hasItem = false;
@@ -202,7 +202,7 @@ void DuplicateSelf::execute(Monster* pMonster)
                 }
             }
 
-            // ÀÜ»óÀ» º¸¿©ÁØ´Ù.
+            // ì”ìƒì„ ë³´ì—¬ì¤€ë‹¤.
             list<Monster*>::const_iterator iMonster = summonedMonsters.begin();
 
             for (; iMonster != summonedMonsters.end(); iMonster++) {
@@ -215,8 +215,8 @@ void DuplicateSelf::execute(Monster* pMonster)
                 pZone->broadcastPacket(x, y, &gcFakeMove);
             }
 
-            // ±¦È÷ ¸ó½ºÅÍµµ ¾îµò°¡·Î ÀÌµ¿ÇØº»´Ù.
-            // 50¹ø ½Ãµµ..
+            // ê´œíˆ ëª¬ìŠ¤í„°ë„ ì–´ë”˜ê°€ë¡œ ì´ë™í•´ë³¸ë‹¤.
+            // 50ë²ˆ ì‹œë„..
             for (int i = 0; i < 50; i++) {
                 int X = max(0, min((int)pZone->getWidth() - 1, (x - 8 + rand() % 11)));
                 int Y = max(0, min((int)pZone->getHeight() - 1, (y - 8 + rand() % 11)));

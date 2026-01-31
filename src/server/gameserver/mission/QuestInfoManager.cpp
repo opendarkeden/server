@@ -106,7 +106,7 @@ rewardClass, iClass, iType, Count ); addQuestInfo( pGatherItemQI );
             cout << "Loading Quest Info : " << pGatherItemQI->toString() << endl;
         }
 
-//		³ªÁß¿¡ ÇÏÀÚ
+//		ë‚˜ì¤‘ì— í•˜ìž
 //		pResult = pStmt->executeQuery(
 //				"SELECT QuestID, Race, MaxGrade, MinGrade, TimeLimitSec, RewardClass, TargetSType, IsChief, Goal FROM
 MonsterKillQuestInfo");
@@ -151,7 +151,7 @@ void QuestInfoManager::addQuestInfo(QuestInfo* pQI)
     QuestInfoHashMap::iterator itr = m_QuestInfos.find(pQI->getQuestID());
 
     if (itr != m_QuestInfos.end())
-        throw Error("QuestInfoManager::addQuestInfo : QuestID °¡ Áßº¹µË´Ï´Ù.");
+        throw Error("QuestInfoManager::addQuestInfo : QuestID ê°€ ì¤‘ë³µë©ë‹ˆë‹¤.");
 
     m_QuestInfos[pQI->getQuestID()] = pQI;
 
@@ -171,7 +171,7 @@ QuestMessage QuestInfoManager::canExecuteQuest(QuestID_t qID, PlayerCreature* pP
     QuestInfoHashMap::const_iterator itr = m_QuestInfos.find(qID);
     if (itr == m_QuestInfos.end()) {
         filelog("EventBug.txt",
-                "QuestInfoManager::canExcuteQuest : Å¬¶óÀÌ¾ðÆ®°¡ º¸³»ÁØ qID°¡ ÀÌ NPCÇÑÅ× ¾ø´Ù ¤Ì.¤Ð %s:%d",
+                "QuestInfoManager::canExcuteQuest : í´ë¼ì´ì–¸íŠ¸ê°€ ë³´ë‚´ì¤€ qIDê°€ ì´ NPCí•œí…Œ ì—†ë‹¤ ã…œ.ã…  %s:%d",
                 m_pOwnerNPC->getName().c_str(), qID);
         return FAIL_BUG;
     }
@@ -195,7 +195,7 @@ QuestMessage QuestInfoManager::startQuest(QuestID_t qID, PlayerCreature* pPC) {
     if (pQuestStatus->isEventQuest()) {
         if (!pPC->getQuestManager()->getEventQuestAdvanceManager()->start(pQuestStatus->getQuestLevel())) {
             filelog("EventBug.txt",
-                    "QuestInfoManager::startQuest : Äù½ºÆ® ½ÃÀÛÇØ¾ß µÇ´Âµ¥ Äù½ºÆ® ¾îµå¹ê½º ¸Å´ÏÀú°¡ INIT°¡ ¾Æ´Ï´Ù. "
+                    "QuestInfoManager::startQuest : í€˜ìŠ¤íŠ¸ ì‹œìž‘í•´ì•¼ ë˜ëŠ”ë° í€˜ìŠ¤íŠ¸ ì–´ë“œë°´ìŠ¤ ë§¤ë‹ˆì €ê°€ INITê°€ ì•„ë‹ˆë‹¤. "
                     "%s:%d (Level %d)",
                     pPC->getName().c_str(), qID, pQuestStatus->getQuestLevel());
         }

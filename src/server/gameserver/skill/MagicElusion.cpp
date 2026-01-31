@@ -21,7 +21,7 @@
 #include "Slayer.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -64,7 +64,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
         if (rect.ptInRect(X, Y))
             bTileCheck = true;
 
-        // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+        // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pSlayer, pSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -81,7 +81,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
 
-            // ÀÏ´Ü ÀÌ¹Ì sanctuary°¡ ÀÖ´ÂÁö °Ë»öÇÑ´Ù.
+            // ì¼ë‹¨ ì´ë¯¸ sanctuaryê°€ ìˆëŠ”ì§€ ê²€ìƒ‰í•œë‹¤.
             for (oY = -1; oY <= 1; oY++)
                 for (oX = -1; oX <= 1; oX++) {
                     int tileX = X + oX;
@@ -92,8 +92,8 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                         if (tile.canAddEffect()) {
                             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_MAGIC_ELUSION);
 
-                            // ÀÌ¹Ì ÀÖ´Ù¸é
-                            // ±â¼ú ½ÇÆĞ´Ù.
+                            // ì´ë¯¸ ìˆë‹¤ë©´
+                            // ê¸°ìˆ  ì‹¤íŒ¨ë‹¤.
                             if (pOldEffect != NULL) {
                                 executeSkillFailNormal(pSlayer, getSkillType(), NULL);
 
@@ -113,11 +113,11 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
                     if (rect.ptInRect(tileX, tileY)) {
                         Tile& tile = pZone->getTile(tileX, tileY);
 
-                        // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                        // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                         EffectMagicElusion* pEffect = new EffectMagicElusion(pZone, tileX, tileY);
                         pEffect->setDeadline(output.Duration);
 
-                        // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                        // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                         objectregister.registerObject(pEffect);
                         pZone->addEffect(pEffect);
                         tile.addEffect(pEffect);
@@ -132,7 +132,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
                             pZone->broadcastPacket(X, Y, &gcAddEffectToTile, pSlayer);
                         } else {
-                            // °¡¿îµ¥ ÀÌÆåÆ®°¡ ¾Æ´Ï¸é ºê·ÎµåÄ³½ºÆÃÇØÁÖÁö ¾Ê´Â´Ù.
+                            // ê°€ìš´ë° ì´í™íŠ¸ê°€ ì•„ë‹ˆë©´ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì£¼ì§€ ì•ŠëŠ”ë‹¤.
                             pEffect->setBroadcastingEffect(false);
                         }
 
@@ -213,8 +213,8 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pSlayer);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pSlayer)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pSlayer)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -223,7 +223,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pSlayer) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (pWatcher->isPC()) {
                         pWatcher->getPlayer()->sendPacket(&_GCSkillToTileOK4);
                         cList.push_back(*itr);
@@ -253,7 +253,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void MagicElusion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 

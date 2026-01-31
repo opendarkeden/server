@@ -9,11 +9,11 @@
 
 #include "SystemTypes.h"
 
-// ItemType : ¾ÆÀÌÅÛ Å¬·¡½º ÇÏÀ§ÀÇ ¼¼ºÎ ¾ÆÀÌÅÛ Å¸ÀÔµé
+// ItemType : ì•„ì´í…œ í´ë˜ìŠ¤ í•˜ìœ„ì˜ ì„¸ë¶€ ì•„ì´í…œ íƒ€ì…ë“¤
 typedef WORD ItemType_t;
 const uint szItemType = sizeof(ItemType_t);
 
-// ItemÀÇ OptionType
+// Itemì˜ OptionType
 typedef BYTE OptionType_t;
 const uint szOptionType = sizeof(OptionType_t);
 
@@ -21,19 +21,19 @@ const uint szOptionType = sizeof(OptionType_t);
 typedef BYTE DefaultOptionSetType_t;
 const uint szDefaultOptionSetType = sizeof(DefaultOptionSetType_t);
 
-// ItemÀÇ DB ¿ë ¾ÆÀÌµğ
+// Itemì˜ DB ìš© ì•„ì´ë””
 typedef DWORD ItemID_t;
 const uint szItemID_t = sizeof(ItemID_t);
 
-// StorageID : ¾ÆÀÌÅÛÀÌ ÀúÀåµÈ °÷À» ÁöÁ¤ÇÏ´Â º¯¼ö
+// StorageID : ì•„ì´í…œì´ ì €ì¥ëœ ê³³ì„ ì§€ì •í•˜ëŠ” ë³€ìˆ˜
 typedef DWORD StorageID_t;
 const uint szStorageID = sizeof(StorageID_t);
 
-// ItemClass : ¾ÆÀÌÅÛ class
+// ItemClass : ì•„ì´í…œ class
 typedef BYTE ItemClass_t;
 const uint szItemClass = sizeof(ItemClass_t);
 
-// ¾ÆÀÌÅÛÀÇ °¡°İ
+// ì•„ì´í…œì˜ ê°€ê²©
 typedef DWORD Price_t;
 const uint szPrice = sizeof(Price_t);
 
@@ -53,7 +53,7 @@ const string Volume2String[] = {"0x0", "1x1", "1x2", "1x3", "2x1", "2x2", "2x3"}
 typedef WORD Weight_t;
 const uint szWeight = sizeof(Weight_t);
 
-// Storage - ¾ÆÀÌÅÛÀÌ ÀúÀåµÇ´Â À§Ä¡¸¦ ³ªÅ¸³½´Ù.
+// Storage - ì•„ì´í…œì´ ì €ì¥ë˜ëŠ” ìœ„ì¹˜ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.
 enum Storage {
     STORAGE_INVENTORY,      //  0
     STORAGE_GEAR,           //  1
@@ -68,7 +68,7 @@ enum Storage {
     STORAGE_GARBAGE,        // 10
     STORAGE_TIMEOVER,       // 11
     STORAGE_GOODSINVENTORY, // 12
-    STORAGE_PET_STASH       // 13	// pet º¸°üÇÔ
+    STORAGE_PET_STASH       // 13	// pet ë³´ê´€í•¨
 };
 
 typedef BYTE Storage_t;
@@ -78,80 +78,80 @@ const uint szStorage = sizeof(Storage_t);
 typedef DWORD Durability_t;
 const uint szDurability = sizeof(Durability_t);
 
-// »çÁ¤°Å¸®
+// ì‚¬ì •ê±°ë¦¬
 typedef BYTE Range_t;
 const uint szRange = sizeof(Range_t);
 
-// Inventory ÁÂÇ¥
+// Inventory ì¢Œí‘œ
 typedef BYTE CoordInven_t;
 const uint szCoordInven = sizeof(CoordInven_t);
 
-// ¾ÆÀÌÅÛ »ı¼º È®·ü (»óÁ¡ ¹× ¸ó½ºÅÍ ÇØÄ¡¿üÀ» ¶§)
+// ì•„ì´í…œ ìƒì„± í™•ë¥  (ìƒì  ë° ëª¬ìŠ¤í„° í•´ì¹˜ì› ì„ ë•Œ)
 typedef uint Ratio_t;
 const uint szRatio = sizeof(Ratio_t);
 
-// ItemÀÇ FlagType
+// Itemì˜ FlagType
 typedef BYTE FlagType_t;
 const uint szFlagType = sizeof(FlagType_t);
 
-// InventoryÀÇ Item°¹¼ö
+// Inventoryì˜ Itemê°¯ìˆ˜
 typedef BYTE ItemNum_t;
 const uint szItemNum = sizeof(ItemNum_t);
 
-// ³»±¸¼º, À¯Áö½Ã°£
+// ë‚´êµ¬ì„±, ìœ ì§€ì‹œê°„
 typedef WORD Duration_t;
 const uint szDuration = sizeof(Duration_t);
 
-// ÅºÈ¯¼ö
+// íƒ„í™˜ìˆ˜
 typedef BYTE Bullet_t;
 const uint szBullet = sizeof(Bullet_t);
 
-// »çÁ¤°Å¸® ³ªÁß¿¡ Áö¿ï °ÍÀÓ.. ÇöÀç´Â ÀÌ°É·Î µÅ ÀÖ´Â°Ô ³Ñ ¸¹¾Æ¼­..
+// ì‚¬ì •ê±°ë¦¬ ë‚˜ì¤‘ì— ì§€ìš¸ ê²ƒì„.. í˜„ì¬ëŠ” ì´ê±¸ë¡œ ë¼ ìˆëŠ”ê²Œ ë„˜ ë§ì•„ì„œ..
 typedef BYTE Distance_t;
 const uint szDistance = sizeof(Distance_t);
 
-// »ó½ÂºÎÀ§
+// ìƒìŠ¹ë¶€ìœ„
 typedef BYTE AscentPart_t;
 const uint szAscentPart = sizeof(AscentPart_t);
 
-// º¯È­¼öÄ¡
+// ë³€í™”ìˆ˜ì¹˜
 typedef BYTE PlusValue_t;
 const uint szPlusValue = sizeof(PlusValue_t);
 
-// ½ºÇÇµå
+// ìŠ¤í”¼ë“œ
 typedef BYTE Speed_t;
 const uint szSpeed = sizeof(Speed_t);
 
-// º§Æ® Æ÷ÄÏ¼ıÀÚ
+// ë²¨íŠ¸ í¬ì¼“ìˆ«ì
 typedef BYTE PocketNum_t;
 const uint szPocketNum = sizeof(PocketNum_t);
 
-// ÆøÅº Àç·á ¼ıÀÚ
+// í­íƒ„ ì¬ë£Œ ìˆ«ì
 typedef BYTE MaterialNum_t;
 const uint szMaterialNum = sizeof(MaterialNum_t);
 
-// º¸°üÇÔ ·¢ÀÇ ÃÖ´ë ¼ıÀÚ
+// ë³´ê´€í•¨ ë™ì˜ ìµœëŒ€ ìˆ«ì
 const int STASH_RACK_MAX = 3;
 
-// º¸°üÇÔ ÇÑ ·¢¿¡ µé¾î°¥ ¼ö ÀÖ´Â ÃÖ´ë ¾ÆÀÌÅÛÀÇ ¼ıÀÚ
+// ë³´ê´€í•¨ í•œ ë™ì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ” ìµœëŒ€ ì•„ì´í…œì˜ ìˆ«ì
 const int STASH_INDEX_MAX = 20;
 
-// Àº ÄÚÆÃ Å¸ÀÔ
+// ì€ ì½”íŒ… íƒ€ì…
 typedef unsigned short Silver_t;
 const uint szSilver = sizeof(Silver_t);
 
-// ¾ÆÀÌÅÛ µî±Ş
+// ì•„ì´í…œ ë“±ê¸‰
 typedef int Grade_t;
 const uint szGrade = sizeof(Grade_t);
 
-// ÀÎÃ¾Æ® ·¹º§
+// ì¸ì²¸íŠ¸ ë ˆë²¨
 typedef char EnchantLevel_t;
 const uint szEnchantLevel = sizeof(EnchantLevel_t);
 
-// ¼ºº° °ü·Ã Á¦ÇÑ ¿ä¼Ò
+// ì„±ë³„ ê´€ë ¨ ì œí•œ ìš”ì†Œ
 enum GenderRestriction { GENDER_BOTH = 0, GENDER_MALE, GENDER_FEMALE, GENDER_MAX };
 
-// Å©¸®½º¸¶½º ÀÌº¥Æ® °ü·Ã Å¬·¡½º
+// í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ ê´€ë ¨ í´ë˜ìŠ¤
 enum {
     STAR_COLOR_BLACK = 0,
     STAR_COLOR_RED,

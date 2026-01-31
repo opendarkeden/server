@@ -21,15 +21,15 @@
 #endif
 
 const string DiffClanSpeech[] = {
-    "°æºñº´! °æºñº´! ¿©±â ¹ÙÅä¸®ÀÇ Á¾º¹µéÀÌ Ä§ÀÔÇØ¿Ô´Ù.",
-    "À¸Èì? ÀÌ°ÍÀº.. ¹ÙÅä¸®ÀÇ Ç÷Á·µéÀÇ ÇÇ³¿»õ! µåµð¾î ³×³ðµéÀÌ ºí¶óµå´ÔÀÇ ¾È½ÄÃ³±îÁö ´õ·´È÷·Á ¿Ô±¸³ª!!",
-    "³× ³ðÀº ´©±¸¾ß? °¨È÷ ¿©±â°¡ ¾îµð¶ó°í.. Abscede Hinc!!"};
+    "ê²½ë¹„ë³‘! ê²½ë¹„ë³‘! ì—¬ê¸° ë°”í† ë¦¬ì˜ ì¢…ë³µë“¤ì´ ì¹¨ìž…í•´ì™”ë‹¤.",
+    "ìœ¼í ? ì´ê²ƒì€.. ë°”í† ë¦¬ì˜ í˜ˆì¡±ë“¤ì˜ í”¼ëƒ„ìƒˆ! ë“œë””ì–´ ë„¤ë†ˆë“¤ì´ ë¸”ë¼ë“œë‹˜ì˜ ì•ˆì‹ì²˜ê¹Œì§€ ë”ëŸ½ížˆë ¤ ì™”êµ¬ë‚˜!!",
+    "ë„¤ ë†ˆì€ ëˆ„êµ¬ì•¼? ê°ížˆ ì—¬ê¸°ê°€ ì–´ë””ë¼ê³ .. Abscede Hinc!!"};
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î°¡ NPC¸¦ Å¬¸¯ÇÒ °æ¿ì, Å¬¶óÀÌ¾ðÆ®°¡ CGNPCTalk ÆÐÅ¶À» ¼­¹ö·Î
-// Àü¼ÛÇÑ´Ù. ¼­¹ö´Â ÀÌ ÆÐÅ¶À» ÇÚµé¸µÇÒ ¶§, NPC¿¡ CONDITION_TALKED_BY
-// ÄÁµð¼Ç ÇÃ·¡±×°¡ ÄÑÁ® ÀÖÀ¸¸é, Æ®¸®°Å¸¦ Å½»öÇÏ¸é¼­ ÀûÀýÇÑ Æ®¸®°Å¸¦ Ã£¾Æ¼­
-// ¿¬°üµÈ ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// í”Œë ˆì´ì–´ê°€ NPCë¥¼ í´ë¦­í•  ê²½ìš°, í´ë¼ì´ì–¸íŠ¸ê°€ CGNPCTalk íŒ¨í‚·ì„ ì„œë²„ë¡œ
+// ì „ì†¡í•œë‹¤. ì„œë²„ëŠ” ì´ íŒ¨í‚·ì„ í•¸ë“¤ë§í•  ë•Œ, NPCì— CONDITION_TALKED_BY
+// ì»¨ë””ì…˜ í”Œëž˜ê·¸ê°€ ì¼œì ¸ ìžˆìœ¼ë©´, íŠ¸ë¦¬ê±°ë¥¼ íƒìƒ‰í•˜ë©´ì„œ ì ì ˆí•œ íŠ¸ë¦¬ê±°ë¥¼ ì°¾ì•„ì„œ
+// ì—°ê´€ëœ ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
 
@@ -46,13 +46,13 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
         Assert(pPC != NULL);
         Zone* pZone = pPC->getZone();
 
-        // ÀÏ´Ü ¸»À» °Å´Â PC°¡ ÇöÀç »ì¾ÆÀÖ´Â »óÅÂ¿©¾ß ÇÑ´Ù.
-        // ÀÌ °Ë»ç¸¦ ÇÏ´Â ÀÌÀ¯´Â µ¶¿¡ Áßµ¶µÇ¾î ÀÖ´Â ½½·¹ÀÌ¾î°¡, ½Ã°£ Â÷·Î ÀÎÇØ¼­
-        // NPCÇÑÅ× HEALÀ» ¿äÃ»ÇÑ Á÷ÈÄ¿¡, µ¶¿¡ ÀÇÇØ¼­ Á×¾î¹ö¸®¸é,
-        // ÀÏ´Ü ¹Ù´Ú¿¡ ¾²·¯Áö°Ô µÇ´Âµ¥, °ðÀÌ¾î NPC¿¡ ÀÇÇØ¼­ Ä¡·á¸¦ ¹Þ°Ô µÈ´Ù.
-        // ÀÌ °æ¿ì, HP´Â Ç®ÀÎµ¥ ¹Ù´Ú¿¡ ¾²·¯Á®ÀÖ°Ô µÈ´Ù.
-        // ÀÌ ¸»Àº PCManager::heartbeat()¿¡¼­ killCreature·Î µé¾î°¡Áö ¾Ê°Ô µÈ´Ù´Â ¸»ÀÌ´Ù.
-        // À½. Àß ¼³¸íÀÌ µÇÁö ¾Ê´Âµ¥, ÇÏ¿¸Æ° NPC¿¡°Ô ¸»À» °É·Á¸é ÇÃ·¹ÀÌ¾î´Â »ì¾ÆÀÖ¾î¾ß ÇÑ´Ù.
+        // ì¼ë‹¨ ë§ì„ ê±°ëŠ” PCê°€ í˜„ìž¬ ì‚´ì•„ìžˆëŠ” ìƒíƒœì—¬ì•¼ í•œë‹¤.
+        // ì´ ê²€ì‚¬ë¥¼ í•˜ëŠ” ì´ìœ ëŠ” ë…ì— ì¤‘ë…ë˜ì–´ ìžˆëŠ” ìŠ¬ë ˆì´ì–´ê°€, ì‹œê°„ ì°¨ë¡œ ì¸í•´ì„œ
+        // NPCí•œí…Œ HEALì„ ìš”ì²­í•œ ì§í›„ì—, ë…ì— ì˜í•´ì„œ ì£½ì–´ë²„ë¦¬ë©´,
+        // ì¼ë‹¨ ë°”ë‹¥ì— ì“°ëŸ¬ì§€ê²Œ ë˜ëŠ”ë°, ê³§ì´ì–´ NPCì— ì˜í•´ì„œ ì¹˜ë£Œë¥¼ ë°›ê²Œ ëœë‹¤.
+        // ì´ ê²½ìš°, HPëŠ” í’€ì¸ë° ë°”ë‹¥ì— ì“°ëŸ¬ì ¸ìžˆê²Œ ëœë‹¤.
+        // ì´ ë§ì€ PCManager::heartbeat()ì—ì„œ killCreatureë¡œ ë“¤ì–´ê°€ì§€ ì•Šê²Œ ëœë‹¤ëŠ” ë§ì´ë‹¤.
+        // ìŒ. ìž˜ ì„¤ëª…ì´ ë˜ì§€ ì•ŠëŠ”ë°, í•˜ì˜‡íŠ¼ NPCì—ê²Œ ë§ì„ ê±¸ë ¤ë©´ í”Œë ˆì´ì–´ëŠ” ì‚´ì•„ìžˆì–´ì•¼ í•œë‹¤.
         if (pPC->isDead()) {
             return;
         }
@@ -66,12 +66,12 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
         }
         catch (NoSuchElementException)
         {
-            // ±×·± NPC°¡ ¾ø´Ù¸é ¸®ÅÏÇÑ´Ù.
+            // ê·¸ëŸ° NPCê°€ ì—†ë‹¤ë©´ ë¦¬í„´í•œë‹¤.
             return;
         }
         */
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         pNPCBase = pZone->getCreature(pPacket->getObjectID());
 
         if (pNPCBase == NULL) {
@@ -80,35 +80,35 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
 
         NPC* pNPC = dynamic_cast<NPC*>(pNPCBase);
 
-        // ObjectID°¡ NPC°¡ ¾Æ´Ò ¼öµµ ÀÖ¾ú´Ù. ¹»±î.. »ç±âÀÎ°¡? ÆÐÅ¶ ²¿ÀÎ°Ç°¡?
-        // ¾îÂ¶µç ¹«½ÃÇÏµµ·ÏÇÏÀÚ.
+        // ObjectIDê°€ NPCê°€ ì•„ë‹ ìˆ˜ë„ ìžˆì—ˆë‹¤. ë­˜ê¹Œ.. ì‚¬ê¸°ì¸ê°€? íŒ¨í‚· ê¼¬ì¸ê±´ê°€?
+        // ì–´ì¨‹ë“  ë¬´ì‹œí•˜ë„ë¡í•˜ìž.
         // by sigi. 2002.11.25
         if (pNPC == NULL) {
             return;
         }
 
-        // Äù½ºÆ®·Î ¸¸³­ ³ÑÀÏ¶§ ^^;
+        // í€˜ìŠ¤íŠ¸ë¡œ ë§Œë‚œ ë„˜ì¼ë•Œ ^^;
         if (pPC->getGQuestManager()->metNPC(pNPC)) {
-            // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+            // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
             GCNPCResponse gcNPCAskAnswer;
             pPlayer->sendPacket(&gcNPCAskAnswer);
 
             return;
         }
 
-        // ¾Æ´ãÀÇ ¼ºÁö¿¡¼­´Â NPC¿Í NPÀÇ Á¾Á·À» ¹«½ÃÇÑ´Ù.
-        // ¼º¿¡¼­´Â Á¾Á·º° NPC°¡ ´Ù¸£´Ù.
+        // ì•„ë‹´ì˜ ì„±ì§€ì—ì„œëŠ” NPCì™€ NPì˜ ì¢…ì¡±ì„ ë¬´ì‹œí•œë‹¤.
+        // ì„±ì—ì„œëŠ” ì¢…ì¡±ë³„ NPCê°€ ë‹¤ë¥´ë‹¤.
         if (!pZone->isHolyLand() || pZone->isCastle()) {
-            // ¹ìÆÄÀÌ¾î°¡ ½½·¹ÀÌ¾î NPC¿¡°Ô ¸»À» °É¾úÀ» °æ¿ì¿¡ ¹«½ÃÇÑ´Ù.
+            // ë±€íŒŒì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ì—ˆì„ ê²½ìš°ì— ë¬´ì‹œí•œë‹¤.
             if (pNPC->getRace() == NPC_RACE_SLAYER && pPC->isVampire()) {
-                // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+                // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
                 GCNPCResponse gcNPCAskAnswer;
                 pPlayer->sendPacket(&gcNPCAskAnswer);
 
-                // ¹ìÆÄÀÌ¾î°¡ ½½·¹ÀÌ¾î NPC¿¡°Ô ¸»À» °É¸é...
+                // ë±€íŒŒì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ë©´...
                 GCNPCSayDynamic saypkt;
                 saypkt.setObjectID(pNPC->getObjectID());
-                // Event ¿ë NPC ÀÎ °æ¿ì ´Ù¸¥ ¸»À» ÇÑ´Ù ;;
+                // Event ìš© NPC ì¸ ê²½ìš° ë‹¤ë¥¸ ë§ì„ í•œë‹¤ ;;
                 if (pNPC->getNPCID() == 639) {
                     saypkt.setMessage(g_pStringPool->c_str(STRID_EVENT_NPC_1));
                 } else {
@@ -117,29 +117,29 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
                 pPlayer->sendPacket(&saypkt);
                 return;
             }
-            // ¾Æ¿ì½ºÅÍ½º°¡ ½½·¹ÀÌ¾î NPC¿¡°Ô ¸»À» °É¾úÀ» °æ¿ì¿¡ ¹«½ÃÇÑ´Ù.
+            // ì•„ìš°ìŠ¤í„°ìŠ¤ê°€ ìŠ¬ë ˆì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ì—ˆì„ ê²½ìš°ì— ë¬´ì‹œí•œë‹¤.
             else if (pNPC->getRace() == NPC_RACE_SLAYER && pPC->isOusters()) {
-                // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+                // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
                 GCNPCResponse gcNPCAskAnswer;
                 pPlayer->sendPacket(&gcNPCAskAnswer);
 
-                // ¹ìÆÄÀÌ¾î°¡ ½½·¹ÀÌ¾î NPC¿¡°Ô ¸»À» °É¸é...
+                // ë±€íŒŒì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ë©´...
                 GCNPCSayDynamic saypkt;
                 saypkt.setObjectID(pNPC->getObjectID());
                 saypkt.setMessage(g_pStringPool->c_str(STRID_ALERT_OUSTERS_2));
                 pPlayer->sendPacket(&saypkt);
                 return;
             }
-            // ½½·¹ÀÌ¾î°¡ ¹ìÆÄÀÌ¾î NPC¿¡°Ô ¸»À» °É¾îµµ ¹«½ÃÇÑ´Ù.
+            // ìŠ¬ë ˆì´ì–´ê°€ ë±€íŒŒì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ì–´ë„ ë¬´ì‹œí•œë‹¤.
             else if (pNPC->getRace() == NPC_RACE_VAMPIRE && pPC->isSlayer()) {
-                // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+                // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
                 GCNPCResponse gcNPCAskAnswer;
                 pPlayer->sendPacket(&gcNPCAskAnswer);
 
-                // ½½·¹ÀÌ¾î°¡ ¹ìÆÄÀÌ¾î NPC¿¡°Ô ¸»À» °É¸é...
+                // ìŠ¬ë ˆì´ì–´ê°€ ë±€íŒŒì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ë©´...
                 GCNPCSayDynamic saypkt;
                 saypkt.setObjectID(pNPC->getObjectID());
-                // Event ¿ë NPC ÀÎ °æ¿ì ´Ù¸¥ ¸»À» ÇÑ´Ù ;;
+                // Event ìš© NPC ì¸ ê²½ìš° ë‹¤ë¥¸ ë§ì„ í•œë‹¤ ;;
                 if (pNPC->getNPCID() == 638) {
                     saypkt.setMessage(g_pStringPool->c_str(STRID_EVENT_NPC_2));
                 } else if (pNPC->getNPCID() == 636) {
@@ -152,9 +152,9 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
                 pPlayer->sendPacket(&saypkt);
                 return;
             }
-            // ¾Æ¿ì½ºÅÍ½º°¡ ¹ìÆÄÀÌ¾î NPC¿¡°Ô ¸»À» °É¾îµµ ¹«½ÃÇÑ´Ù.
+            // ì•„ìš°ìŠ¤í„°ìŠ¤ê°€ ë±€íŒŒì´ì–´ NPCì—ê²Œ ë§ì„ ê±¸ì–´ë„ ë¬´ì‹œí•œë‹¤.
             else if (pNPC->getRace() == NPC_RACE_VAMPIRE && pPC->isOusters()) {
-                // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+                // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
                 GCNPCResponse gcNPCAskAnswer;
                 pPlayer->sendPacket(&gcNPCAskAnswer);
 
@@ -164,9 +164,9 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
                 pPlayer->sendPacket(&saypkt);
                 return;
             }
-            // ½½·¹ÀÌ¾î°¡ ¾Æ¿ì½ºÅÍ½º NPC¿¡°Ô ¸»À» °É¾îµµ ¹«½ÃÇÑ´Ù.
+            // ìŠ¬ë ˆì´ì–´ê°€ ì•„ìš°ìŠ¤í„°ìŠ¤ NPCì—ê²Œ ë§ì„ ê±¸ì–´ë„ ë¬´ì‹œí•œë‹¤.
             else if (pNPC->getRace() == NPC_RACE_OUSTERS && pPC->isSlayer()) {
-                // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+                // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
                 GCNPCResponse gcNPCAskAnswer;
                 pPlayer->sendPacket(&gcNPCAskAnswer);
 
@@ -176,9 +176,9 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
                 pPlayer->sendPacket(&saypkt);
                 return;
             }
-            // ¹ìÆÄÀÌ¾î°¡ ¾Æ¿ì½ºÅÍ½º NPC¿¡°Ô ¸»À» °É¾îµµ ¹«½ÃÇÑ´Ù.
+            // ë±€íŒŒì´ì–´ê°€ ì•„ìš°ìŠ¤í„°ìŠ¤ NPCì—ê²Œ ë§ì„ ê±¸ì–´ë„ ë¬´ì‹œí•œë‹¤.
             else if (pNPC->getRace() == NPC_RACE_OUSTERS && pPC->isVampire()) {
-                // ÀÏ´Ü Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ OKÆÐÅ¶À» ÇÔ ³¯¸°´Ù.
+                // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ OKíŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
                 GCNPCResponse gcNPCAskAnswer;
                 pPlayer->sendPacket(&gcNPCAskAnswer);
 
@@ -190,11 +190,11 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
             }
         }
 
-        // °°Àº ¹ìÆÄÀÌ¾î³¢¸®µµ Å¬·£ÀÌ ´Ù¸¥ NPCÀÏ °æ¿ì ¹«½ÃÇÑ´Ù.
-        // ÀÌ ºÎºÐÀÇ ÄÚµå´Â ³ªÁß¿¡ ´Ù¸¥ ¹æ¹ýÀ¸·Î Ãâ·ÂÇØ¾ß ÇÒ °ÍÀÌ´Ù.
-        // ÇöÀç´Â Å¬·£ÀÌ ¿ÀÁ÷ µÎ °¡Áö »ÓÀÌ±â ¶§¹®¿¡...
+        // ê°™ì€ ë±€íŒŒì´ì–´ë¼ë¦¬ë„ í´ëžœì´ ë‹¤ë¥¸ NPCì¼ ê²½ìš° ë¬´ì‹œí•œë‹¤.
+        // ì´ ë¶€ë¶„ì˜ ì½”ë“œëŠ” ë‚˜ì¤‘ì— ë‹¤ë¥¸ ë°©ë²•ìœ¼ë¡œ ì¶œë ¥í•´ì•¼ í•  ê²ƒì´ë‹¤.
+        // í˜„ìž¬ëŠ” í´ëžœì´ ì˜¤ì§ ë‘ ê°€ì§€ ë¿ì´ê¸° ë•Œë¬¸ì—...
         // .....
-        // Å¬·£ ÇÑ°¡Áö ¹Û¿¡ ¾ö½á~~
+        // í´ëžœ í•œê°€ì§€ ë°–ì— ì—„ì¨~~
         /*		if (pPC->isVampire() && pNPC->getRace() == NPC_RACE_VAMPIRE)
                 {
                     if (pPC->getClanType() != pNPC->getClanType())
@@ -210,7 +210,7 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
                     }
                 }
         */
-        // ÇÃ·¹ÀÌ¾î°¡ ¸»À» °É¾úÀ» °æ¿ì¿¡ ¹ÝÀÀÇÏ´Â ¾×¼ÇÀÌ ÀÖ´Ù¸é...
+        // í”Œë ˆì´ì–´ê°€ ë§ì„ ê±¸ì—ˆì„ ê²½ìš°ì— ë°˜ì‘í•˜ëŠ” ì•¡ì…˜ì´ ìžˆë‹¤ë©´...
         const TriggerManager& triggerManager = pNPC->getTriggerManager();
         if (triggerManager.hasCondition(Condition::CONDITION_TALKED_BY)) {
             const list<Trigger*>& triggers = triggerManager.getTriggers();
@@ -221,22 +221,22 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
                 // check all condition after check main condition
                 if (pTrigger->hasCondition(Condition::CONDITION_TALKED_BY) &&
                     pTrigger->isAllSatisfied(Trigger::PASSIVE_TRIGGER, pNPC, pPC)) {
-                    // ÃÖÃÊ·Î ¹ß°ßµÈ Æ®¸®°Å¸¸ ½ÇÇàÇÑ ´ÙÀ½ break ÇÑ´Ù.
+                    // ìµœì´ˆë¡œ ë°œê²¬ëœ íŠ¸ë¦¬ê±°ë§Œ ì‹¤í–‰í•œ ë‹¤ìŒ break í•œë‹¤.
                     pTrigger->activate(pNPC, pPC);
                     break;
                 }
             }
         }
-        // Å¬¶óÀÌ¾ðÆ®´Â NPC¸¦ Å¬¸¯ÇßÀ» °æ¿ì, ¹«Á¶°Ç ¼­¹öÀÇ ÀÀ´äÀ» ±â´Ù¸®±â ¶§¹®¿¡,
-        // ±×·± ¾×¼ÇÀÌ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§ ¾Æ¹« °Íµµ ÇÏÁö ¾ÊÀ¸¸é, Å¬¶óÀÌ¾ðÆ®°¡ ÀÏÁ¾ÀÇ µ¥µå¶ô(?)
-        // »óÅÂ¿¡ ºüÁö°Ô µÈ´Ù. ±×°ÍÀ» ¹æÁöÇÏ±â À§ÇØ¼­ ´ëÈ­Ã¢À» ´ÝÀ¸¶ó´Â ¸Þ¼¼Áö¸¦ º¸³»ÁØ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ëŠ” NPCë¥¼ í´ë¦­í–ˆì„ ê²½ìš°, ë¬´ì¡°ê±´ ì„œë²„ì˜ ì‘ë‹µì„ ê¸°ë‹¤ë¦¬ê¸° ë•Œë¬¸ì—,
+        // ê·¸ëŸ° ì•¡ì…˜ì´ ì¡´ìž¬í•˜ì§€ ì•Šì„ ë•Œ ì•„ë¬´ ê²ƒë„ í•˜ì§€ ì•Šìœ¼ë©´, í´ë¼ì´ì–¸íŠ¸ê°€ ì¼ì¢…ì˜ ë°ë“œë½(?)
+        // ìƒíƒœì— ë¹ ì§€ê²Œ ëœë‹¤. ê·¸ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ ëŒ€í™”ì°½ì„ ë‹«ìœ¼ë¼ëŠ” ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
         else {
             GCNPCResponse gcNPCResponse;
             gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
             pPlayer->sendPacket(&gcNPCResponse);
         }
     } catch (Throwable& t) {
-        // cerr << "´©°¡ NPC ¿ÀºêÁ§Æ® ¾ÆÀÌµð¸¦ ÀÌ»óÇÏ°Ô º¸³»ÁÖ³×?" << endl;
+        // cerr << "ëˆ„ê°€ NPC ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ë¥¼ ì´ìƒí•˜ê²Œ ë³´ë‚´ì£¼ë„¤?" << endl;
         // cerr << t.toString() << endl;
     }
 

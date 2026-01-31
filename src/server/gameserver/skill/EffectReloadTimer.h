@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectReloadTimer.h
 // Written by  : crazydog
-// Description : ÅºÃ¢ reload dealy¸¦ À§ÇÑ effect
+// Description : íƒ„ì°½ reload dealyë¥¼ ìœ„í•œ effect
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_RELOAD_TIMER__
@@ -50,11 +50,11 @@ public:
     }
 
 private:
-    CoordInven_t m_invenX; // ÀÎº¥Åä¸®¿¡¼­ ¸®·ÎµåÇÒ ¶§ÀÇ ÁÂÇ¥
-    CoordInven_t m_invenY; // ÀÎº¥Åä¸®¿¡¼­ ¸®·ÎµåÇÒ ¶§ÀÇ ÁÂÇ¥
-    ObjectID_t m_ObjectID; // ÅºÃ¢ object id
-    SlotID_t m_SlotID;     // º§Æ®¿¡¼­ ¸®·ÎµåÇÒ ¶§ÀÇ º§Æ® slot id
-    bool m_bFromInventory; // ÀÎº¥Åä¸®¿¡¼­ Á÷Á¢ ¸®·ÎµåÇÏ´Â°¡?
+    CoordInven_t m_invenX; // ì¸ë²¤í† ë¦¬ì—ì„œ ë¦¬ë¡œë“œí•  ë•Œì˜ ì¢Œí‘œ
+    CoordInven_t m_invenY; // ì¸ë²¤í† ë¦¬ì—ì„œ ë¦¬ë¡œë“œí•  ë•Œì˜ ì¢Œí‘œ
+    ObjectID_t m_ObjectID; // íƒ„ì°½ object id
+    SlotID_t m_SlotID;     // ë²¨íŠ¸ì—ì„œ ë¦¬ë¡œë“œí•  ë•Œì˜ ë²¨íŠ¸ slot id
+    bool m_bFromInventory; // ì¸ë²¤í† ë¦¬ì—ì„œ ì§ì ‘ ë¦¬ë¡œë“œí•˜ëŠ”ê°€?
 };
 
 

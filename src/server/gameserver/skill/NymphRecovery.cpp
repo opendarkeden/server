@@ -14,7 +14,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                             CEffectID_t CEffectID)
@@ -51,7 +51,7 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !pTargetCreature->isOusters()) {
             executeSkillFailException(pOusters, getSkillType(), Grade);
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -78,10 +78,10 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
                         pTargetOusters->getMP(ATTR_MAX) > pTargetOusters->getMP();
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bSatisfyRequire && bHPCheck) {
-            // ¸¶³ª¸¦ ÁÙÀÎ´Ù.
+            // ë§ˆë‚˜ë¥¼ ì¤„ì¸ë‹¤.
             decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
-            // ÀÌÆåÆ®ÀÇ È¿°ú¿Í Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ì˜ íš¨ê³¼ì™€ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pOusters, pOustersSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_OTHER;
@@ -110,7 +110,7 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
                 }
             }
 
-            // ÆÐÅ¶À» ÁØºñÇØ¼­ º¸³½´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ì„œ ë³´ë‚¸ë‹¤.
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -155,7 +155,7 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
 
@@ -206,7 +206,7 @@ void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bSatisfyRequire && bHPCheck) {
             decreaseMana(pOusters, RequiredMP, _GCSkillToSelfOK1);
 
-            // ÀÌÆåÆ®ÀÇ È¿°ú¿Í Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ì˜ íš¨ê³¼ì™€ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pOusters, pOustersSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_SELF;
@@ -235,7 +235,7 @@ void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
                 }
             }
 
-            // ÆÐÅ¶À» ÁØºñÇØ¼­ º¸³½´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ì„œ ë³´ë‚¸ë‹¤.
             ZoneCoord_t myX = pOusters->getX();
             ZoneCoord_t myY = pOusters->getY();
 

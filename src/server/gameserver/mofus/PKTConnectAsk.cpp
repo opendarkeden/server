@@ -1,19 +1,19 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTConnectAsk.cpp
-// Desc		: ¿Â¶óÀÎ °ÔÀÓ ¼­¹ö°¡ ÆÄ¿öÂ¯ ¼­¹ö¿¡ ÀÚ»çÀÇ °ÔÀÓ ÄÚµå¿Í ÇÔ²²
-// 			  Á¢¼ÓÀ» ¿äÃ»ÇÑ´Ù.
+// Desc		: ì˜¨ë¼ì¸ ê²Œì„ ì„œë²„ê°€ íŒŒì›Œì§± ì„œë²„ì— ìì‚¬ì˜ ê²Œì„ ì½”ë“œì™€ í•¨ê»˜
+// 			  ì ‘ì†ì„ ìš”ì²­í•œë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
 #include "PKTConnectAsk.h"
 
-// »ı¼ºÀÚ
+// ìƒì„±ì
 PKTConnectAsk::PKTConnectAsk() {
     nSize = szPKTConnectAsk - szMPacketSize;
     nOnGameCode = 10;
 }
 
-// ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+// ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
 void PKTConnectAsk::read(SocketInputStream& iStream) {
     iStream.read((char*)this, szPKTConnectAsk);
 
@@ -23,7 +23,7 @@ void PKTConnectAsk::read(SocketInputStream& iStream) {
     //	nOnGameCode	= ntohl( nOnGameCode );
 }
 
-// Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 void PKTConnectAsk::write(SocketOutputStream& oStream) {
     nCode = getID();
 

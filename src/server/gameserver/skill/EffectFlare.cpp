@@ -46,8 +46,8 @@ void EffectFlare::affect(Creature* pCreature)
     __BEGIN_TRY
 
     Assert(pCreature != NULL);
-    Assert(!pCreature->isSlayer()); // ½½·¹ÀÌ¾î´Â °É¸®Áö ¾Ê´Â´Ù.
-    Assert(!pCreature->isNPC());    // NPCµµ °É¸®Áö ¾Ê´Â´Ù.
+    Assert(!pCreature->isSlayer()); // ìŠ¬ë ˆì´ì–´ëŠ” ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
+    Assert(!pCreature->isNPC());    // NPCë„ ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
 
     Sight_t OldSight = pCreature->getSight();
     pCreature->setSight(pCreature->getEffectedSight());
@@ -111,14 +111,14 @@ void EffectFlare::unaffect(Creature* pCreature)
     } else if (pCreature->isMonster()) {
         Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-        // ½Ã¾ß¸¦ »õ·Î ¼¼ÆÃÇØÁØ´Ù.
+        // ì‹œì•¼ë¥¼ ìƒˆë¡œ ì„¸íŒ…í•´ì¤€ë‹¤.
         const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMonster->getMonsterType());
         pMonster->setSight(pMonsterInfo->getSight());
 
-        // ½Ã¾ß¸¦ »õ·Î ¼¼ÆÃÇßÀ¸´Ï ÁÖÀ§ÀÇ ÀûÀ» °Ë»öÇØ¾ß ÇÏ´Âµ¥...
+        // ì‹œì•¼ë¥¼ ìƒˆë¡œ ì„¸íŒ…í–ˆìœ¼ë‹ˆ ì£¼ìœ„ì˜ ì ì„ ê²€ìƒ‰í•´ì•¼ í•˜ëŠ”ë°...
     }
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_FLARE);

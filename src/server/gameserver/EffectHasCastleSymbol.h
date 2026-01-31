@@ -35,7 +35,7 @@ public:
     void setPart(int part);
 
 private:
-    string m_PartName; // ¼ºÀÇ »óÂ¡ ÀÌ¸§
+    string m_PartName; // ì„±ì˜ ìƒì§• ì´ë¦„
     static const EffectClass EffectClasses[6];
 };
 

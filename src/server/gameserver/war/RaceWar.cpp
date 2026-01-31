@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ÀüÀï¿¡ ´ëÇÑ Àü¹ÝÀûÀÎ Á¤º¸ ¹× ÀüÀï ½ÃÀÛ ¹× Á¾·á½Ã Ã³¸®·çÆ¾ ±¸Çö
+// ì „ìŸì— ëŒ€í•œ ì „ë°˜ì ì¸ ì •ë³´ ë° ì „ìŸ ì‹œìž‘ ë° ì¢…ë£Œì‹œ ì²˜ë¦¬ë£¨í‹´ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "RaceWar.h"
@@ -46,10 +46,10 @@ RaceWar::~RaceWar() {}
 // executeStart
 //
 //--------------------------------------------------------------------------------
-// ÀüÀïÀÌ ½ÃÀÛÇÏ´Â ½ÃÁ¡¿¡¼­ Ã³¸®ÇØ¾ß µÉ °Íµé
+// ì „ìŸì´ ì‹œìž‘í•˜ëŠ” ì‹œì ì—ì„œ ì²˜ë¦¬í•´ì•¼ ë  ê²ƒë“¤
 //
-// (!) Zone¿¡ ºÙ¾îÀÖ´Â WarScheduler¿¡¼­ ½ÇÇàµÇ´Â ºÎºÐÀÌ¹Ç·Î
-//     ÀÚ½ÅÀÇ Zone(¼º)¿¡ ´ëÇÑ Ã³¸®´Â lockÀÌ ÇÊ¿ä¾ø´Ù.
+// (!) Zoneì— ë¶™ì–´ìžˆëŠ” WarSchedulerì—ì„œ ì‹¤í–‰ë˜ëŠ” ë¶€ë¶„ì´ë¯€ë¡œ
+//     ìžì‹ ì˜ Zone(ì„±)ì— ëŒ€í•œ ì²˜ë¦¬ëŠ” lockì´ í•„ìš”ì—†ë‹¤.
 //--------------------------------------------------------------------------------
 void RaceWar::executeStart()
 
@@ -58,24 +58,24 @@ void RaceWar::executeStart()
 
     sendWarStartMessage();
 
-    // Á¾Á·Àü¿¡¼­´Â º¸³Ê½º¸¦ ²ö´Ù.
+    // ì¢…ì¡±ì „ì—ì„œëŠ” ë³´ë„ˆìŠ¤ë¥¼ ëˆë‹¤.
     //	g_pHolyLandRaceBonus->clear();
 
-    // ÀüÀï Áß¿¡´Â NPC°¡ »ç¶óÁø´Ù.
+    // ì „ìŸ ì¤‘ì—ëŠ” NPCê°€ ì‚¬ë¼ì§„ë‹¤.
     // g_pCastleInfoManager->deleteAllNPCs();
 
-    // ÀüÀï Áß¿¡´Â ¼º ¾È¿¡¼­ ¸¶±¸ ½Î¿î´Ù~
+    // ì „ìŸ ì¤‘ì—ëŠ” ì„± ì•ˆì—ì„œ ë§ˆêµ¬ ì‹¸ìš´ë‹¤~
     g_pCastleInfoManager->releaseAllSafeZone();
 
-    // ¼öÈ£¼º´Ü º¸È£¸·ÀÌ ¸ðµÎ »ç¶óÁø´Ù.
+    // ìˆ˜í˜¸ì„±ë‹¨ ë³´í˜¸ë§‰ì´ ëª¨ë‘ ì‚¬ë¼ì§„ë‹¤.
     g_pShrineInfoManager->removeAllShrineShield();
 
-    // ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ ÇÇÀÇ ¼º¼­ À§Ä¡¸¦ º¸³»ÁØ´Ù.
-    // ÀÌ°Å ÀÌÁ¦ WarSystem::addWar ¾È¿¡¼­ ºÒ·¯ÁØ´Ù.
+    // ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— í”¼ì˜ ì„±ì„œ ìœ„ì¹˜ë¥¼ ë³´ë‚´ì¤€ë‹¤.
+    // ì´ê±° ì´ì œ WarSystem::addWar ì•ˆì—ì„œ ë¶ˆëŸ¬ì¤€ë‹¤.
     // g_pShrineInfoManager->broadcastBloodBibleStatus();
     //	g_pHolyLandManager->sendBloodBibleStatus();
 
-    // ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ ½Ã°£À» °íÁ¤ÇÑ´Ù.
+    // ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— ì‹œê°„ì„ ê³ ì •í•œë‹¤.
     g_pHolyLandManager->fixTimeband(g_pVariableManager->getVariable(RACE_WAR_TIMEBAND));
 
     g_pHolyLandManager->killAllMonsters();
@@ -83,15 +83,15 @@ void RaceWar::executeStart()
     RegenZoneManager::getInstance()->putTryingPosition();
     RegenZoneManager::getInstance()->broadcastStatus();
 
-    // µå·¡°ï ¾ÆÀÌ ¾ÆÀÌÅÛÀ» ÃÊ±â À§Ä¡¿¡ µÐ´Ù.
+    // ë“œëž˜ê³¤ ì•„ì´ ì•„ì´í…œì„ ì´ˆê¸° ìœ„ì¹˜ì— ë‘”ë‹¤.
     g_pDragonEyeManager->addAllDragonEyesToZone();
 
-    // hasActiveRaceWar()°¡ ¼³Á¤µÇ´Â Å¸ÀÌ¹Ö ¶§¹®¿¡..
-    // WarSystem::addWar()¿¡¼­ ½ÇÇàÇÑ´Ù.
-    // Á¾Á· ÀüÀï¿¡ Âü°¡ÇÏÁö ¾Ê´Â »ç¶÷µéÀ» ³»º¸³½´Ù.
+    // hasActiveRaceWar()ê°€ ì„¤ì •ë˜ëŠ” íƒ€ì´ë° ë•Œë¬¸ì—..
+    // WarSystem::addWar()ì—ì„œ ì‹¤í–‰í•œë‹¤.
+    // ì¢…ì¡± ì „ìŸì— ì°¸ê°€í•˜ì§€ ì•ŠëŠ” ì‚¬ëžŒë“¤ì„ ë‚´ë³´ë‚¸ë‹¤.
     // g_pHolyLandManager->remainRaceWarPlayers();
 
-    // RaceWarHistory Table ¿¡ ±â·Ï
+    // RaceWarHistory Table ì— ê¸°ë¡
     recordRaceWarStart();
 
     __END_CATCH
@@ -159,7 +159,7 @@ void RaceWar::recordRaceWarStart()
 // executeEnd
 //
 //--------------------------------------------------------------------------------
-// ÀüÀïÀÌ ³¡³ª´Â ½ÃÁ¡¿¡¼­ Ã³¸®ÇØ¾ß µÉ °Íµé
+// ì „ìŸì´ ëë‚˜ëŠ” ì‹œì ì—ì„œ ì²˜ë¦¬í•´ì•¼ ë  ê²ƒë“¤
 //--------------------------------------------------------------------------------
 void RaceWar::executeEnd()
 
@@ -167,19 +167,19 @@ void RaceWar::executeEnd()
     __BEGIN_TRY
 
     //----------------------------------------------------------------------------
-    // ÀüÀï ³¡³µ´Ù´Â °É ¾Ë¸°´Ù.
+    // ì „ìŸ ëë‚¬ë‹¤ëŠ” ê±¸ ì•Œë¦°ë‹¤.
     //----------------------------------------------------------------------------
     sendWarEndMessage();
 
     //----------------------------------------------------------------------------
-    // Á¾Á·ÀüÀÎ °æ¿ì Ã³¸®
+    // ì¢…ì¡±ì „ì¸ ê²½ìš° ì²˜ë¦¬
     //----------------------------------------------------------------------------
-    // ÀüÀï ½ÅÃ»±Ý ½×ÀÎ°Å´Â ¾î¶»°Ô ÇÒ±î? ¹«½Ã _-_;
-    // Á¾Á·Àü¿¡¼­´Â ²¨Áø º¸³Ê½º¸¦ ´Ù½Ã ÄÒ´Ù.
+    // ì „ìŸ ì‹ ì²­ê¸ˆ ìŒ“ì¸ê±°ëŠ” ì–´ë–»ê²Œ í• ê¹Œ? ë¬´ì‹œ _-_;
+    // ì¢…ì¡±ì „ì—ì„œëŠ” êº¼ì§„ ë³´ë„ˆìŠ¤ë¥¼ ë‹¤ì‹œ ì¼ ë‹¤.
     //	g_pHolyLandRaceBonus->refresh();
 
     //----------------------------------------------------------------------------
-    // ÇÇÀÇ ¼º¼­ Á¶°¢À» µÇµ¹·ÁÁØ´Ù.
+    // í”¼ì˜ ì„±ì„œ ì¡°ê°ì„ ë˜ëŒë ¤ì¤€ë‹¤.
     //----------------------------------------------------------------------------
     g_pShrineInfoManager->returnAllBloodBible();
 
@@ -191,30 +191,30 @@ void RaceWar::executeEnd()
 
     // g_pCastleInfoManager->loadAllNPCs();
 
-    // ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ ÇÇÀÇ ¼º¼­ À§Ä¡¸¦ º¸³»ÁØ´Ù.
+    // ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— í”¼ì˜ ì„±ì„œ ìœ„ì¹˜ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     // g_pHolyLandManager->sendBloodBibleStatus();
     g_pShrineInfoManager->broadcastBloodBibleStatus();
 
-    // ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ °íÁ¤Çß´ø ½Ã°£À» ´Ù½Ã µ¹¸°´Ù.
+    // ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— ê³ ì •í–ˆë˜ ì‹œê°„ì„ ë‹¤ì‹œ ëŒë¦°ë‹¤.
     g_pHolyLandManager->resumeTimeband();
 
-    // ÀüÀï Âü°¡ÀÚ ¸®½ºÆ®¸¦ ¸ðµÎ Á¦°ÅÇÑ´Ù.
+    // ì „ìŸ ì°¸ê°€ìž ë¦¬ìŠ¤íŠ¸ë¥¼ ëª¨ë‘ ì œê±°í•œë‹¤.
     RaceWarLimiter::clearPCList();
 
-    // Âü°¡ÀÚ ¼ýÀÚ¸¦ 0À¸·Î ¹Ù²Û´Ù.
+    // ì°¸ê°€ìž ìˆ«ìžë¥¼ 0ìœ¼ë¡œ ë°”ê¾¼ë‹¤.
     RaceWarLimiter::getInstance()->clearCurrent();
     RegenZoneManager::getInstance()->deleteTryingPosition();
     RegenZoneManager::getInstance()->reload();
 
-    // Ä³¸¯ÅÍµéÀÇ Flagµµ ¸ðµÎ Á¦°ÅÇÑ´Ù.
+    // ìºë¦­í„°ë“¤ì˜ Flagë„ ëª¨ë‘ ì œê±°í•œë‹¤.
     g_pZoneGroupManager->removeFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
 
     CGSayHandler::opworld(NULL, "*world *load blood_bible_owner", 0, true);
 
-    // µå·¡°ï ¾ÆÀÌ ¾ÆÀÌÅÛÀ» ¾ø¾Ø´Ù.
+    // ë“œëž˜ê³¤ ì•„ì´ ì•„ì´í…œì„ ì—†ì•¤ë‹¤.
     g_pDragonEyeManager->removeAllDragonEyes();
 
-    // RaceWarHistory Table ¿¡ ±â·Ï
+    // RaceWarHistory Table ì— ê¸°ë¡
     recordRaceWarEnd();
 
     __END_CATCH
@@ -256,7 +256,7 @@ void RaceWar::recordRaceWarEnd()
     }
     END_DB(pStmt)
 
-    // script µ¹¸®±â ¤Ñ.,¤Ñ system ÇÔ¼ö¸¦ ¾²°Ô µÉ ÁÙÀÌ¾ß !_!
+    // script ëŒë¦¬ê¸° ã…¡.,ã…¡ system í•¨ìˆ˜ë¥¼ ì“°ê²Œ ë  ì¤„ì´ì•¼ !_!
     char cmd[100];
     sprintf(cmd, "/home/darkeden/vs/bin/script/recordRaceWarHistory.py %s %d %d ",
             getWarStartTime().toStringforWeb().c_str(), g_pConfig->getPropertyInt("Dimension"),
@@ -273,13 +273,13 @@ string RaceWar::getWarName() const
 {
     __BEGIN_TRY
 
-    return "ÖÖ×å¼äÕ½Õù";
+    return "è˜†ç—¢ì‡Œæ¿«è½¢";
 
     __END_CATCH
 }
 
 //--------------------------------------------------------------------------------
-// ÀüÀï ³¡³¯ ¶§
+// ì „ìŸ ëë‚  ë•Œ
 //--------------------------------------------------------------------------------
 void RaceWar::sendWarEndMessage() const
 
@@ -288,7 +288,7 @@ void RaceWar::sendWarEndMessage() const
 
     War::sendWarEndMessage();
 
-    // ¾ÈÀüÁö´ë ÇØÁ¦ È®ÀÎ? ÆÐÅ¶
+    // ì•ˆì „ì§€ëŒ€ í•´ì œ í™•ì¸? íŒ¨í‚·
     GCNoticeEvent gcNoticeEvent;
     gcNoticeEvent.setCode(NOTICE_EVENT_RACE_WAR_OVER);
     g_pZoneGroupManager->broadcast(&gcNoticeEvent);

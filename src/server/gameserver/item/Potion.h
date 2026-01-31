@@ -57,7 +57,7 @@ public:
 
         bool    isStackable() const  { return true; }*/
 
-    // È¸º¹¾ç
+    // íšŒë³µì–‘
     int getHPAmount(void) const;
     int getMPAmount(void) const;
 
@@ -71,11 +71,11 @@ public:
     int getMPRecoveryUnit(void) const;
 
 private:
-    //	ItemType_t m_ItemType;			// ¾ÆÀÌÅÛ Å¸ÀÔ
-    //	ItemNum_t m_Num;				// °ãÃÄÀÖ´Â Æ÷¼ÇÀÇ °¹¼ö
+    //	ItemType_t m_ItemType;			// ì•„ì´í…œ íƒ€ì…
+    //	ItemNum_t m_Num;				// ê²¹ì³ìˆëŠ” í¬ì…˜ì˜ ê°¯ìˆ˜
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 

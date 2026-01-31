@@ -48,7 +48,7 @@ void CGSkillToSelfHandler::execute(CGSkillToSelf* pPacket, Player* pPlayer)
 
         SkillType_t SkillType = pPacket->getSkillType();
 
-        // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+        // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
         ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
         if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
             (pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||
@@ -93,7 +93,7 @@ void CGSkillToSelfHandler::execute(CGSkillToSelf* pPacket, Player* pPlayer)
                             g_Sniping.checkRevealRatio(pSlayer, 20, 10);
                         } */
 
-            // UN_TRANSFORM ÀÎ °æ¿ì -_- È¥ÀÚ µý ÇÚµé·¯ °¡Áö°í ³í´Ù ~_~
+            // UN_TRANSFORM ì¸ ê²½ìš° -_- í˜¼ìž ë”´ í•¸ë“¤ëŸ¬ ê°€ì§€ê³  ë…¼ë‹¤ ~_~
             if (SkillType == SKILL_UN_TRANSFORM) {
                 if (pSlayer->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET)) {
                     SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SKILL_UN_TRANSFORM);
@@ -127,7 +127,7 @@ void CGSkillToSelfHandler::execute(CGSkillToSelf* pPacket, Player* pPlayer)
             if ((SkillType == SKILL_TRANSFORM_TO_BAT || SkillType == SKILL_TRANSFORM_TO_WOLF) &&
                 (pVampire->hasRelicItem() || pVampire->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) ||
                  pVampire->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER))) {
-                // cout << "¼º¹°À» °¡Áø »óÅÂ¿¡¼­´Â º¯½ÅÇÒ ¼ö ¾ø½À´Ï´Ù" << endl;
+                // cout << "ì„±ë¬¼ì„ ê°€ì§„ ìƒíƒœì—ì„œëŠ” ë³€ì‹ í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤" << endl;
 
                 GCSkillFailed1 _GCSkillFailed1;
                 _GCSkillFailed1.setSkillType(SkillType);
@@ -207,7 +207,7 @@ void CGSkillToSelfHandler::execute(CGSkillToSelf* pPacket, Player* pPlayer)
             OustersSkillSlot* pOustersSkillSlot = ((Ousters*)pCreature)->hasSkill(SkillType);
             bool bSuccess = true;
 
-            // UN_TRANSFORM ÀÎ °æ¿ì -_- È¥ÀÚ µý ÇÚµé·¯ °¡Áö°í ³í´Ù ~_~
+            // UN_TRANSFORM ì¸ ê²½ìš° -_- í˜¼ìž ë”´ í•¸ë“¤ëŸ¬ ê°€ì§€ê³  ë…¼ë‹¤ ~_~
             if (SkillType == SKILL_UN_TRANSFORM) {
                 if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH)) {
                     SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SKILL_UN_TRANSFORM);

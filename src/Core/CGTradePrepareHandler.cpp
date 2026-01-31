@@ -45,25 +45,25 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯ »ó´ëÀÚ¸¦ Á¸¿¡¼­ Ã£¾Æº»´Ù.
+    // êµí™˜ ìƒëŒ€ìžë¥¼ ì¡´ì—ì„œ ì°¾ì•„ë³¸ë‹¤.
     Creature* pReceiver = NULL;
     /*
     try { pReceiver = pZone->getCreature(TargetOID); }
     catch (NoSuchElementException) { pReceiver = NULL; }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pReceiver = pZone->getCreature(TargetOID);
 
-    // ±³È¯À» ÇÒ ³ðÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ´ç¿¬È÷ ±³È¯ÇÒ ¼ö ¾ø´Ù.
+    // êµí™˜ì„ í•  ë†ˆì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ë‹¹ì—°ížˆ êµí™˜í•  ìˆ˜ ì—†ë‹¤.
     if (pReceiver == NULL) {
         pTradeManager->cancelTrade(pSender);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_TARGET_NOT_EXIST);
         return;
     }
 
-    // ±³È¯À» ÇÒ ³ð°ú ¹ÞÀ» ³ðÀÇ ÀÌ¸§ÀÌ °°´Ù¸é, Áï °°Àº Ä³¸¯ÀÌ¶ó¸é Á¢¼ÓÀ» Àß¶ó¹ö¸°´Ù.
-    // ½ÇÁ¦·Î ÀÌ·± °æ¿ì°¡ ¹ß»ýÇß´Ù. µà¾ó Á¢¼ÓÀÎ °Í °°Àºµ¥... 2002-03-04 ±è¼º¹Î
+    // êµí™˜ì„ í•  ë†ˆê³¼ ë°›ì„ ë†ˆì˜ ì´ë¦„ì´ ê°™ë‹¤ë©´, ì¦‰ ê°™ì€ ìºë¦­ì´ë¼ë©´ ì ‘ì†ì„ ìž˜ë¼ë²„ë¦°ë‹¤.
+    // ì‹¤ì œë¡œ ì´ëŸ° ê²½ìš°ê°€ ë°œìƒí–ˆë‹¤. ë“€ì–¼ ì ‘ì†ì¸ ê²ƒ ê°™ì€ë°... 2002-03-04 ê¹€ì„±ë¯¼
     if (pSender->getName() == pReceiver->getName()) {
         StringStream msg;
         msg << "CGTradePrepare : Error, Same Creature!!! Name[" << pSender->getName() << "]";
@@ -71,21 +71,21 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
         throw ProtocolException(msg.toString());
     }
 
-    // ±³È¯À» ÇÒ ³ðÀÌ PC°¡ ¾Æ´Ï°Å³ª, Á¾Á·ÀÌ ´Ù¸£´Ù¸é ±³È¯À» ÇÒ ¼ö°¡ ¾ø´Ù.
+    // êµí™˜ì„ í•  ë†ˆì´ PCê°€ ì•„ë‹ˆê±°ë‚˜, ì¢…ì¡±ì´ ë‹¤ë¥´ë‹¤ë©´ êµí™˜ì„ í•  ìˆ˜ê°€ ì—†ë‹¤.
     if (!pReceiver->isPC() || !isSameRace(pSender, pReceiver)) {
         pTradeManager->cancelTrade(pSender);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_RACE_DIFFER);
         return;
     }
 
-    // µÑ ´Ù ¾ÈÀü Áö´ë¿¡ ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+    // ë‘˜ ë‹¤ ì•ˆì „ ì§€ëŒ€ì— ìžˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
     if (!isInSafeZone(pSender) || !isInSafeZone(pReceiver)) {
         pTradeManager->cancelTrade(pSender);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_SAFE);
         return;
     }
 
-    // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Ù¸é ¿¡·¯´Ù.
+    // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìžˆë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pSender->isSlayer() && pReceiver->isSlayer()) {
         Slayer* pSlayer1 = dynamic_cast<Slayer*>(pSender);
         Slayer* pSlayer2 = dynamic_cast<Slayer*>(pReceiver);
@@ -113,22 +113,22 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pReceiver->getName());
     Player* pReceiverPlayer = pReceiver->getPlayer();
 
-    // A°¡ B¿¡°Ô ±³È¯À» Á¦ÀÏ Ã³À½ ¿ä±¸Çß´Ù...
+    // Aê°€ Bì—ê²Œ êµí™˜ì„ ì œì¼ ì²˜ìŒ ìš”êµ¬í–ˆë‹¤...
     switch (CODE) {
     ////////////////////////////////////////////////////////////
-    // A°¡ B¿¡°Ô ±³È¯À» ¿ä±¸ÇßÀ¸¹Ç·Î,
-    // B¿¡°Ô A°¡ ±³È¯À» ¿ä±¸ÇÏ°í ÀÖ´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+    // Aê°€ Bì—ê²Œ êµí™˜ì„ ìš”êµ¬í–ˆìœ¼ë¯€ë¡œ,
+    // Bì—ê²Œ Aê°€ êµí™˜ì„ ìš”êµ¬í•˜ê³  ìžˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
     ////////////////////////////////////////////////////////////
     case CG_TRADE_PREPARE_CODE_REQUEST:
-        // ±³È¯À» ¿ä±¸ÇÑ ³ðÀÌ ±³È¯ ÁßÀÌ¶ó¸é... -_-
+        // êµí™˜ì„ ìš”êµ¬í•œ ë†ˆì´ êµí™˜ ì¤‘ì´ë¼ë©´... -_-
         if (pInfo1 != NULL) {
             pTradeManager->cancelTrade(pSender);
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_ALREADY_TRADING);
             return;
         }
 
-        // ±³È¯À» ¿ä±¸¹ÞÀº ³ðÀÌ ±³È¯ ÁßÀÌ¶ó¸é,
-        // ¹Ù»Ú´Ï±î ±³È¯¿¡ ÀÀÇÒ ¼ö ¾ø´Ù.
+        // êµí™˜ì„ ìš”êµ¬ë°›ì€ ë†ˆì´ êµí™˜ ì¤‘ì´ë¼ë©´,
+        // ë°”ì˜ë‹ˆê¹Œ êµí™˜ì— ì‘í•  ìˆ˜ ì—†ë‹¤.
         if (pInfo2 != NULL) {
             gcTradePrepare.setTargetObjectID(pPacket->getTargetObjectID());
             gcTradePrepare.setCode(GC_TRADE_PREPARE_CODE_BUSY);
@@ -136,24 +136,24 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
             return;
         }
 
-        // ÆÐÅ¶À» º¸³»ÁØ´Ù.
+        // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
         gcTradePrepare.setTargetObjectID(pSender->getObjectID());
         gcTradePrepare.setCode(GC_TRADE_PREPARE_CODE_REQUEST);
         pReceiverPlayer->sendPacket(&gcTradePrepare);
 
-        // µÑ ´Ù ±³È¯ ¸ðµå·Î µé¾î°¬À¸¹Ç·Î, TradeInfo¸¦ »ý¼ºÇØ ÁØ´Ù.
+        // ë‘˜ ë‹¤ êµí™˜ ëª¨ë“œë¡œ ë“¤ì–´ê°”ìœ¼ë¯€ë¡œ, TradeInfoë¥¼ ìƒì„±í•´ ì¤€ë‹¤.
         pTradeManager->initTrade(pSender, pReceiver);
         break;
 
     ////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////
     case CG_TRADE_PREPARE_CODE_CANCEL:
-        // ±³È¯ ÁßÀÎÁö¸¦ Ã¼Å©ÇÑ´Ù.
+        // êµí™˜ ì¤‘ì¸ì§€ë¥¼ ì²´í¬í•œë‹¤.
         if (pTradeManager->isTrading(pSender, pReceiver)) {
             gcTradePrepare.setTargetObjectID(pSender->getObjectID());
             gcTradePrepare.setCode(GC_TRADE_PREPARE_CODE_CANCEL);
             pReceiverPlayer->sendPacket(&gcTradePrepare);
-            // ±³È¯À» °ÅºÎÇßÀ¸¹Ç·Î, TradeInfo¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // êµí™˜ì„ ê±°ë¶€í–ˆìœ¼ë¯€ë¡œ, TradeInfoë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
             pTradeManager->cancelTrade(pSender, pReceiver);
         } else {
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_TRADING);
@@ -162,10 +162,10 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
         break;
 
     ////////////////////////////////////////////////////////////
-    // B°¡ ±³È¯¿¡ ÀÀÇÑ´Ù´Â »ç½ÇÀ» A¿¡°Ô ¾Ë·ÁÁØ´Ù.
+    // Bê°€ êµí™˜ì— ì‘í•œë‹¤ëŠ” ì‚¬ì‹¤ì„ Aì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
     ////////////////////////////////////////////////////////////
     case CG_TRADE_PREPARE_CODE_ACCEPT:
-        // ±³È¯ ÁßÀÎÁö¸¦ Ã¼Å©ÇÑ´Ù.
+        // êµí™˜ ì¤‘ì¸ì§€ë¥¼ ì²´í¬í•œë‹¤.
         if (pTradeManager->isTrading(pSender, pReceiver)) {
             gcTradePrepare.setTargetObjectID(pSender->getObjectID());
             gcTradePrepare.setCode(GC_TRADE_PREPARE_CODE_ACCEPT);
@@ -177,15 +177,15 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
         break;
 
     ////////////////////////////////////////////////////////////
-    // B°¡ ±³È¯À» °ÅºÎÇÑ´Ù´Â »ç½ÇÀ» A¿¡°Ô ¾Ë·ÁÁØ´Ù.
+    // Bê°€ êµí™˜ì„ ê±°ë¶€í•œë‹¤ëŠ” ì‚¬ì‹¤ì„ Aì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
     ////////////////////////////////////////////////////////////
     case CG_TRADE_PREPARE_CODE_REJECT:
-        // ±³È¯ ÁßÀÎÁö¸¦ Ã¼Å©ÇÑ´Ù.
+        // êµí™˜ ì¤‘ì¸ì§€ë¥¼ ì²´í¬í•œë‹¤.
         if (pTradeManager->isTrading(pSender, pReceiver)) {
             gcTradePrepare.setTargetObjectID(pSender->getObjectID());
             gcTradePrepare.setCode(GC_TRADE_PREPARE_CODE_REJECT);
             pReceiverPlayer->sendPacket(&gcTradePrepare);
-            // ±³È¯À» °ÅºÎÇßÀ¸¹Ç·Î, TradeInfo¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // êµí™˜ì„ ê±°ë¶€í–ˆìœ¼ë¯€ë¡œ, TradeInfoë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
             pTradeManager->cancelTrade(pSender, pReceiver);
         } else {
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_TRADING);
@@ -194,16 +194,16 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
         break;
 
     ////////////////////////////////////////////////////////////
-    // B°¡ ÇöÀç ±³È¯¿¡ ÀÀÇÒ ¼ö ¾ø´Â »óÅÂ(»óÁ¡¿¡ ÀÖ´Â °æ¿ì)¶ó´Â
-    // °ÍÀ» A¿¡°Ô ¾Ë·ÁÁØ´Ù.
+    // Bê°€ í˜„ìž¬ êµí™˜ì— ì‘í•  ìˆ˜ ì—†ëŠ” ìƒíƒœ(ìƒì ì— ìžˆëŠ” ê²½ìš°)ë¼ëŠ”
+    // ê²ƒì„ Aì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
     ////////////////////////////////////////////////////////////
     case CG_TRADE_PREPARE_CODE_BUSY:
         if (pTradeManager->isTrading(pSender, pReceiver)) {
-            // ÆÐÅ¶À» º¸³»ÁØ´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
             gcTradePrepare.setTargetObjectID(pSender->getObjectID());
             gcTradePrepare.setCode(GC_TRADE_PREPARE_CODE_BUSY);
             pReceiverPlayer->sendPacket(&gcTradePrepare);
-            // ±³È¯À» °ÅºÎÇßÀ¸¹Ç·Î, TradeInfo¸¦ »èÁ¦ÇØÁØ´Ù.
+            // êµí™˜ì„ ê±°ë¶€í–ˆìœ¼ë¯€ë¡œ, TradeInfoë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
             pTradeManager->cancelTrade(pSender, pReceiver);
         } else {
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_TRADING);
@@ -211,9 +211,9 @@ void CGTradePrepareHandler::execute(CGTradePrepare* pPacket, Player* pPlayer)
         }
         break;
 
-    // ¾Ë¼ö ¾ø´Â ÄÚµå´Ù...
+    // ì•Œìˆ˜ ì—†ëŠ” ì½”ë“œë‹¤...
     default:
-        throw ProtocolException("CGTradePrepare::execute() : ¾Ë ¼ö ¾ø´Â ÄÚµå");
+        throw ProtocolException("CGTradePrepare::execute() : ì•Œ ìˆ˜ ì—†ëŠ” ì½”ë“œ");
     }
 
 

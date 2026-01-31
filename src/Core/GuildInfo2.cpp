@@ -38,7 +38,7 @@ GuildInfo2::~GuildInfo2() {
 void GuildInfo2::clearGuildMemberInfoList() {
     __BEGIN_TRY
 
-    // GuildInfoList¸¦ »èÁ¦ÇÑ´Ù.
+    // GuildInfoListë¥¼ ì‚­ì œí•œë‹¤.
     while (!m_GuildMemberInfoList.empty()) {
         GuildMemberInfo2* pGuildMemberInfo = m_GuildMemberInfoList.front();
         m_GuildMemberInfoList.pop_front();
@@ -50,7 +50,7 @@ void GuildInfo2::clearGuildMemberInfoList() {
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GuildInfo2::read(SocketInputStream& iStream) {
     __BEGIN_TRY
@@ -112,7 +112,7 @@ void GuildInfo2::read(SocketInputStream& iStream) {
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GuildInfo2::write(SocketOutputStream& oStream) const {
     __BEGIN_TRY
@@ -138,7 +138,7 @@ void GuildInfo2::write(SocketOutputStream& oStream) const {
     if (szIntro > 256)
         throw InvalidProtocolException("too long szIntro length");
 
-    // ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+    // ìµœì í™” ì‘ì—…ì‹œ ì‹¤ì œ í¬ê¸°ë¥¼ ëª…ì‹œí•˜ë„ë¡ í•œë‹¤.
     oStream.write(m_ID);
     oStream.write(szName);
     oStream.write(m_Name);

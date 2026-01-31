@@ -59,7 +59,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
     if (pCreature == NULL)
         return;
 
-    // ÄÚ¸¶ »óÅÂ¶ó¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ì½”ë§ˆ ìƒíƒœë¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
         GCCannotUse _GCCannotUse;
         _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -102,7 +102,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
         return;
     }
 
-    // ÀÎº¥Åä¸®¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Object¸¦ ¹Ş´Â´Ù.
+    // ì¸ë²¤í† ë¦¬ì— ìˆëŠ” ì•„ì´í…œì˜ Objectë¥¼ ë°›ëŠ”ë‹¤.
     ObjectID_t ItemObjectID = pItem->getObjectID();
 
     if (ItemObjectID != pPacket->getObjectID()) {
@@ -215,11 +215,11 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
         MP_t CurrentMP = pSlayer->getMP(ATTR_CURRENT);
         Potion* pPotion = dynamic_cast<Potion*>(pItem);
 
-        // ÇÑÅÏ¿¡ È¸º¹µÇ´Â ¾ç
+        // í•œí„´ì— íšŒë³µë˜ëŠ” ì–‘
         int HPQuantity = pPotion->getHPQuantity();
         int MPQuantity = pPotion->getMPQuantity();
 
-        // ÇÑÅÏÀÌ ¸îÃÊ ÀÎ°¡.
+        // í•œí„´ì´ ëª‡ì´ˆ ì¸ê°€.
         int HPDelayProvider = pPotion->getHPDelay();
         int MPDelayProvider = pPotion->getMPDelay();
 
@@ -235,10 +235,10 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
         bool notRecoverHP = false;
         bool notRecoverMP = false;
 
-        // Activation Effect°¡ °É·ÁÀÖ´Ù¸é È¸º¹¼Óµµ°¡ 2¹è°¡ µÈ´Ù.
+        // Activation Effectê°€ ê±¸ë ¤ìˆë‹¤ë©´ íšŒë³µì†ë„ê°€ 2ë°°ê°€ ëœë‹¤.
         if (pSlayer->isFlag(Effect::EFFECT_CLASS_ACTIVATION)) {
             if (pPotion->getItemType() >= 14 && pPotion->getItemType() <= 17) {
-                // ¾µ ¼ö´Â ÀÖ´Ù.
+                // ì“¸ ìˆ˜ëŠ” ìˆë‹¤.
             } else {
                 HPDelayProvider = (HPDelayProvider >> 1);
                 MPDelayProvider = (MPDelayProvider >> 1);
@@ -248,7 +248,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
             }
         }
 
-        // HP È¸º¹¾çÀÌ Á¸ÀçÇÑ´Ù¸é...
+        // HP íšŒë³µì–‘ì´ ì¡´ì¬í•œë‹¤ë©´...
         if (HPAmount != 0 && HPQuantity != 0) {
             if (CurrentHP < MaxHP) {
                 EffectManager* pEffectManager = pSlayer->getEffectManager();
@@ -261,27 +261,27 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
                     Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_HP_RECOVERY);
                     EffectHPRecovery* pEffectHPRecoveryEffect = dynamic_cast<EffectHPRecovery*>(pEffect);
 
-                    // ±âÁ¸ÀÇ ´ÜÀ§¾ç°ú È½¼ö·Î Ã¤¿ì´Â HP¾çÀ» °è»êÇÑ´Ù.
-                    // ±×°ÍÀ» ÇöÀç È¸º¹¾ç¿¡ ´õÇÑ´Ù.
+                    // ê¸°ì¡´ì˜ ë‹¨ìœ„ì–‘ê³¼ íšŸìˆ˜ë¡œ ì±„ìš°ëŠ” HPì–‘ì„ ê³„ì‚°í•œë‹¤.
+                    // ê·¸ê²ƒì„ í˜„ì¬ íšŒë³µì–‘ì— ë”í•œë‹¤.
                     int PrevHPAmount = pEffectHPRecoveryEffect->getHPQuantity() * pEffectHPRecoveryEffect->getPeriod();
                     HPAmount = min((int)(HPAmount + PrevHPAmount), MaxHP - CurrentHP);
 
-                    // µÑ Áß¿¡ Å« ´ÜÀ§È¸º¹¾ç°ú ÀÛÀº µô·¹ÀÌ¸¦ ¾ò¾î³½´Ù.
+                    // ë‘˜ ì¤‘ì— í° ë‹¨ìœ„íšŒë³µì–‘ê³¼ ì‘ì€ ë”œë ˆì´ë¥¼ ì–»ì–´ë‚¸ë‹¤.
                     HPQuantity = max(HPQuantity, (int)(pEffectHPRecoveryEffect->getHPQuantity()));
                     HPDelayProvider = min(HPDelayProvider, (int)(pEffectHPRecoveryEffect->getDelay()));
 
-                    // ÇöÀç È¸º¹¾çÀ» °¡Áö°í, ¾ó¸¶¾¿ ¸î¹ø¿¡ È¸º¹ÇÒ °ÍÀÎ°¡¸¦ °áÁ¤ÇÑ´Ù.
+                    // í˜„ì¬ íšŒë³µì–‘ì„ ê°€ì§€ê³ , ì–¼ë§ˆì”© ëª‡ë²ˆì— íšŒë³µí•  ê²ƒì¸ê°€ë¥¼ ê²°ì •í•œë‹¤.
                     temp = (double)((double)HPAmount / (double)HPQuantity);
                     Period = (uint)ceil(temp);
                     Deadline = Period * HPDelayProvider;
 
-                    // HP Recovery effect¸¦ °»½ÅÇÑ´Ù.
+                    // HP Recovery effectë¥¼ ê°±ì‹ í•œë‹¤.
                     pEffectHPRecoveryEffect->setDeadline(Deadline);
                     pEffectHPRecoveryEffect->setDelay(HPDelayProvider);
                     pEffectHPRecoveryEffect->setHPQuantity(HPQuantity);
                     pEffectHPRecoveryEffect->setPeriod(Period);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
                     gcHPRecoveryStartToSelf.setPeriod(pEffectHPRecoveryEffect->getPeriod());
                     gcHPRecoveryStartToSelf.setDelay(pEffectHPRecoveryEffect->getDelay());
@@ -289,8 +289,8 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pGamePlayer->sendPacket(&gcHPRecoveryStartToSelf);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ´Ù¸¥ÀÌµé¿¡°Ô º¸³½´Ù.
-                    // È¸º¹ °»½Å ÆĞÅ¶, ½ÃÀÛ°ú ¶È °°Àº ÆĞÅ¶À» º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‹¤ë¥¸ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
+                    // íšŒë³µ ê°±ì‹  íŒ¨í‚·, ì‹œì‘ê³¼ ë˜‘ ê°™ì€ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
                     gcHPRecoveryStartToOthers.setObjectID(pSlayer->getObjectID());
                     gcHPRecoveryStartToOthers.setPeriod(pEffectHPRecoveryEffect->getPeriod());
@@ -312,7 +312,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pEffectManager->addEffect(pEffectHPRecovery);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
                     gcHPRecoveryStartToSelf.setPeriod(Period);
                     gcHPRecoveryStartToSelf.setDelay(HPDelayProvider);
@@ -320,7 +320,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pGamePlayer->sendPacket(&gcHPRecoveryStartToSelf);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» º¸´ÂÀÌµé¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë³´ëŠ”ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
                     gcHPRecoveryStartToOthers.setObjectID(pSlayer->getObjectID());
                     gcHPRecoveryStartToOthers.setPeriod(Period);
@@ -341,7 +341,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
             notRecoverHP = true;
         }
 
-        // MP È¸º¹¾çÀÌ Á¸ÀçÇÑ´Ù¸é...
+        // MP íšŒë³µì–‘ì´ ì¡´ì¬í•œë‹¤ë©´...
         if (MPAmount != 0 && MPQuantity != 0) {
             if (CurrentMP < MaxMP) {
                 EffectManager* pEffectManager = pSlayer->getEffectManager();
@@ -354,27 +354,27 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
                     Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_MP_RECOVERY);
                     EffectMPRecovery* pEffectMPRecoveryEffect = dynamic_cast<EffectMPRecovery*>(pEffect);
 
-                    // ±âÁ¸ÀÇ ´ÜÀ§¾ç°ú È½¼ö·Î Ã¤¿ì´Â MP¾çÀ» °è»êÇÑ´Ù.
-                    // ±×°ÍÀ» ÇöÀç È¸º¹¾ç¿¡ ´õÇÑ´Ù.
+                    // ê¸°ì¡´ì˜ ë‹¨ìœ„ì–‘ê³¼ íšŸìˆ˜ë¡œ ì±„ìš°ëŠ” MPì–‘ì„ ê³„ì‚°í•œë‹¤.
+                    // ê·¸ê²ƒì„ í˜„ì¬ íšŒë³µì–‘ì— ë”í•œë‹¤.
                     int PrevMPAmount = pEffectMPRecoveryEffect->getMPQuantity() * pEffectMPRecoveryEffect->getPeriod();
                     MPAmount = min((int)(MPAmount + PrevMPAmount), MaxMP - CurrentMP);
 
-                    // µÑ Áß¿¡ Å« ´ÜÀ§È¸º¹¾ç°ú ÀÛÀº µô·¹ÀÌ¸¦ ¾ò¾î³½´Ù.
+                    // ë‘˜ ì¤‘ì— í° ë‹¨ìœ„íšŒë³µì–‘ê³¼ ì‘ì€ ë”œë ˆì´ë¥¼ ì–»ì–´ë‚¸ë‹¤.
                     MPQuantity = max(MPQuantity, (int)(pEffectMPRecoveryEffect->getMPQuantity()));
                     MPDelayProvider = min(MPDelayProvider, (int)(pEffectMPRecoveryEffect->getDelay()));
 
-                    // ÇöÀç È¸º¹¾çÀ» °¡Áö°í, ¾ó¸¶¾¿ ¸î¹ø¿¡ È¸º¹ÇÒ °ÍÀÎ°¡¸¦ °áÁ¤ÇÑ´Ù.
+                    // í˜„ì¬ íšŒë³µì–‘ì„ ê°€ì§€ê³ , ì–¼ë§ˆì”© ëª‡ë²ˆì— íšŒë³µí•  ê²ƒì¸ê°€ë¥¼ ê²°ì •í•œë‹¤.
                     temp = (double)((double)MPAmount / (double)MPQuantity);
                     Period = (uint)ceil(temp);
                     Deadline = Period * MPDelayProvider;
 
-                    // MP Recovery effect¸¦ °»½ÅÇÑ´Ù.
+                    // MP Recovery effectë¥¼ ê°±ì‹ í•œë‹¤.
                     pEffectMPRecoveryEffect->setDeadline(Deadline);
                     pEffectMPRecoveryEffect->setDelay(MPDelayProvider);
                     pEffectMPRecoveryEffect->setMPQuantity(MPQuantity);
                     pEffectMPRecoveryEffect->setPeriod(Period);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCMPRecoveryStart gcMPRecoveryStart;
                     gcMPRecoveryStart.setPeriod(pEffectMPRecoveryEffect->getPeriod());
                     gcMPRecoveryStart.setDelay(pEffectMPRecoveryEffect->getDelay());
@@ -396,7 +396,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pEffectManager->addEffect(pEffectMPRecovery);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCMPRecoveryStart gcMPRecoveryStart;
                     gcMPRecoveryStart.setPeriod(Period);
                     gcMPRecoveryStart.setDelay(MPDelayProvider);
@@ -429,7 +429,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
         Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
         if (pItem->getItemClass() != Item::ITEM_CLASS_SERUM
-            // Mephisto ÀÌÆåÆ®°¡ °É·ÁÀÖÀ¸¸é Ç÷Ã» ¸ø ¸Ô´Â´Ù.
+            // Mephisto ì´í™íŠ¸ê°€ ê±¸ë ¤ìˆìœ¼ë©´ í˜ˆì²­ ëª» ë¨¹ëŠ”ë‹¤.
             || pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO)) {
             GCCannotUse _GCCannotUse;
             _GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -445,41 +445,41 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
         RegenHP = pSerum->getHPAmount();
 
-        int RegenPeriod = pSerum->getPeriod(); // ´ÜÀ§ ½Ã°£ÀÇ ÁÖ±â
-        int RegenCount = pSerum->getCount();   // ¸î¹ø ´ÜÀ§ ½Ã°£À» ¹İº¹ÇÒ °ÍÀÎ°¡?
+        int RegenPeriod = pSerum->getPeriod(); // ë‹¨ìœ„ ì‹œê°„ì˜ ì£¼ê¸°
+        int RegenCount = pSerum->getCount();   // ëª‡ë²ˆ ë‹¨ìœ„ ì‹œê°„ì„ ë°˜ë³µí•  ê²ƒì¸ê°€?
 
-        // int    RegenHPUnit = (int)((float)MaxHP* (float)RegenHP*0.01); // ÇÑ¹ø¿¡ È¸º¹ÇÏ´Â HPÀÇ ¾ç
+        // int    RegenHPUnit = (int)((float)MaxHP* (float)RegenHP*0.01); // í•œë²ˆì— íšŒë³µí•˜ëŠ” HPì˜ ì–‘
         int RegenHPUnit = RegenHP;
         int HPAmount = min(MaxHP - CurrentHP, RegenHPUnit * RegenCount);
 
-        // HP È¸º¹¾çÀÌ Á¸ÀçÇÑ´Ù¸é...
+        // HP íšŒë³µì–‘ì´ ì¡´ì¬í•œë‹¤ë©´...
         if (HPAmount != 0) {
-            // ¾ó¸¶¾¿ ¸î¹ø ¸îÃÊ¸¶´Ù.
+            // ì–¼ë§ˆì”© ëª‡ë²ˆ ëª‡ì´ˆë§ˆë‹¤.
             if (CurrentHP < MaxHP) {
                 EffectManager* pEffectManager = pVampire->getEffectManager();
-                Turn_t Period = RegenCount;             // ¸î¹ø È¸º¹½ÃÅ°³ª?
-                Turn_t Deadline = RegenPeriod * Period; // ¾ğÁ¦ ³¡³ª³ª?
+                Turn_t Period = RegenCount;             // ëª‡ë²ˆ íšŒë³µì‹œí‚¤ë‚˜?
+                Turn_t Deadline = RegenPeriod * Period; // ì–¸ì œ ëë‚˜ë‚˜?
 
                 if (pVampire->isFlag(Effect::EFFECT_CLASS_HP_RECOVERY)) {
                     Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_HP_RECOVERY);
                     EffectHPRecovery* pEffectHPRecoveryEffect = dynamic_cast<EffectHPRecovery*>(pEffect);
 
-                    // ¸î¹ø ´õ ÇØ¾ß ÇÑ´Ù´Â °ÍÀ» °»½ÅÇØ ÁØ´Ù.
+                    // ëª‡ë²ˆ ë” í•´ì•¼ í•œë‹¤ëŠ” ê²ƒì„ ê°±ì‹ í•´ ì¤€ë‹¤.
                     Turn_t OldCount = pEffectHPRecoveryEffect->getPeriod();
                     Turn_t NewPeriod = OldCount + Period;
                     pEffectHPRecoveryEffect->setPeriod(NewPeriod);
                     pEffectHPRecoveryEffect->setDeadline(NewPeriod * RegenPeriod);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
-                    gcHPRecoveryStartToSelf.setPeriod(NewPeriod);     // ¸î¹ø È¸º¹ÇÏ³ª?
-                    gcHPRecoveryStartToSelf.setDelay(RegenPeriod);    // ¸î ÃÊ ´ÜÀ§·Î ÇÏ³ª?
-                    gcHPRecoveryStartToSelf.setQuantity(RegenHPUnit); // ÇÑ¹ø¿¡ ¾ó¸¶³ª È¸º¹ÇÏ³ª?
+                    gcHPRecoveryStartToSelf.setPeriod(NewPeriod);     // ëª‡ë²ˆ íšŒë³µí•˜ë‚˜?
+                    gcHPRecoveryStartToSelf.setDelay(RegenPeriod);    // ëª‡ ì´ˆ ë‹¨ìœ„ë¡œ í•˜ë‚˜?
+                    gcHPRecoveryStartToSelf.setQuantity(RegenHPUnit); // í•œë²ˆì— ì–¼ë§ˆë‚˜ íšŒë³µí•˜ë‚˜?
 
                     pGamePlayer->sendPacket(&gcHPRecoveryStartToSelf);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ´Ù¸¥ÀÌµé¿¡°Ô º¸³½´Ù.
-                    // È¸º¹ °»½Å ÆĞÅ¶, ½ÃÀÛ°ú ¶È °°Àº ÆĞÅ¶À» º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‹¤ë¥¸ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
+                    // íšŒë³µ ê°±ì‹  íŒ¨í‚·, ì‹œì‘ê³¼ ë˜‘ ê°™ì€ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
                     gcHPRecoveryStartToOthers.setObjectID(pVampire->getObjectID());
                     gcHPRecoveryStartToOthers.setPeriod(NewPeriod);
@@ -501,7 +501,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pEffectManager->addEffect(pEffectHPRecovery);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
                     gcHPRecoveryStartToSelf.setPeriod(Period);
                     gcHPRecoveryStartToSelf.setDelay(RegenPeriod);
@@ -509,7 +509,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pGamePlayer->sendPacket(&gcHPRecoveryStartToSelf);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» º¸´ÂÀÌµé¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë³´ëŠ”ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
                     gcHPRecoveryStartToOthers.setObjectID(pVampire->getObjectID());
                     gcHPRecoveryStartToOthers.setPeriod(Period);
@@ -554,10 +554,10 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
             Pupa* pPupa = dynamic_cast<Pupa*>(pItem);
 
-            // ÇÑÅÏ¿¡ È¸º¹µÇ´Â ¾ç
+            // í•œí„´ì— íšŒë³µë˜ëŠ” ì–‘
             HPQuantity = pPupa->getHPQuantity();
 
-            // ÇÑÅÏÀÌ ¸îÃÊ ÀÎ°¡.
+            // í•œí„´ì´ ëª‡ì´ˆ ì¸ê°€.
             HPDelayProvider = pPupa->getHPDelay();
 
             PupaHPAmount = pPupa->getHPAmount();
@@ -569,10 +569,10 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
             ComposMei* pComposMei = dynamic_cast<ComposMei*>(pItem);
 
-            // ÇÑÅÏ¿¡ È¸º¹µÇ´Â ¾ç
+            // í•œí„´ì— íšŒë³µë˜ëŠ” ì–‘
             HPQuantity = pComposMei->getHPQuantity();
 
-            // ÇÑÅÏÀÌ ¸îÃÊ ÀÎ°¡.
+            // í•œí„´ì´ ëª‡ì´ˆ ì¸ê°€.
             HPDelayProvider = pComposMei->getHPDelay();
 
             PupaHPAmount = pComposMei->getHPAmount();
@@ -580,7 +580,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
             HPAmount = min(MaxHP - CurrentHP, (int)PupaHPAmount);
         }
 
-        // HP È¸º¹¾çÀÌ Á¸ÀçÇÑ´Ù¸é...
+        // HP íšŒë³µì–‘ì´ ì¡´ì¬í•œë‹¤ë©´...
         if (HPAmount != 0 && HPQuantity != 0) {
             if (CurrentHP < MaxHP) {
                 EffectManager* pEffectManager = pOusters->getEffectManager();
@@ -593,27 +593,27 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
                     Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_HP_RECOVERY);
                     EffectHPRecovery* pEffectHPRecoveryEffect = dynamic_cast<EffectHPRecovery*>(pEffect);
 
-                    // ±âÁ¸ÀÇ ´ÜÀ§¾ç°ú È½¼ö·Î Ã¤¿ì´Â HP¾çÀ» °è»êÇÑ´Ù.
-                    // ±×°ÍÀ» ÇöÀç È¸º¹¾ç¿¡ ´õÇÑ´Ù.
+                    // ê¸°ì¡´ì˜ ë‹¨ìœ„ì–‘ê³¼ íšŸìˆ˜ë¡œ ì±„ìš°ëŠ” HPì–‘ì„ ê³„ì‚°í•œë‹¤.
+                    // ê·¸ê²ƒì„ í˜„ì¬ íšŒë³µì–‘ì— ë”í•œë‹¤.
                     int PrevHPAmount = pEffectHPRecoveryEffect->getHPQuantity() * pEffectHPRecoveryEffect->getPeriod();
                     HPAmount = min((int)(HPAmount + PrevHPAmount), MaxHP - CurrentHP);
 
-                    // µÑ Áß¿¡ Å« ´ÜÀ§È¸º¹¾ç°ú ÀÛÀº µô·¹ÀÌ¸¦ ¾ò¾î³½´Ù.
+                    // ë‘˜ ì¤‘ì— í° ë‹¨ìœ„íšŒë³µì–‘ê³¼ ì‘ì€ ë”œë ˆì´ë¥¼ ì–»ì–´ë‚¸ë‹¤.
                     HPQuantity = max(HPQuantity, (int)(pEffectHPRecoveryEffect->getHPQuantity()));
                     HPDelayProvider = min(HPDelayProvider, (int)(pEffectHPRecoveryEffect->getDelay()));
 
-                    // ÇöÀç È¸º¹¾çÀ» °¡Áö°í, ¾ó¸¶¾¿ ¸î¹ø¿¡ È¸º¹ÇÒ °ÍÀÎ°¡¸¦ °áÁ¤ÇÑ´Ù.
+                    // í˜„ì¬ íšŒë³µì–‘ì„ ê°€ì§€ê³ , ì–¼ë§ˆì”© ëª‡ë²ˆì— íšŒë³µí•  ê²ƒì¸ê°€ë¥¼ ê²°ì •í•œë‹¤.
                     temp = (double)((double)HPAmount / (double)HPQuantity);
                     Period = (uint)ceil(temp);
                     Deadline = Period * HPDelayProvider;
 
-                    // HP Recovery effect¸¦ °»½ÅÇÑ´Ù.
+                    // HP Recovery effectë¥¼ ê°±ì‹ í•œë‹¤.
                     pEffectHPRecoveryEffect->setDeadline(Deadline);
                     pEffectHPRecoveryEffect->setDelay(HPDelayProvider);
                     pEffectHPRecoveryEffect->setHPQuantity(HPQuantity);
                     pEffectHPRecoveryEffect->setPeriod(Period);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
                     gcHPRecoveryStartToSelf.setPeriod(pEffectHPRecoveryEffect->getPeriod());
                     gcHPRecoveryStartToSelf.setDelay(pEffectHPRecoveryEffect->getDelay());
@@ -621,8 +621,8 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pGamePlayer->sendPacket(&gcHPRecoveryStartToSelf);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ´Ù¸¥ÀÌµé¿¡°Ô º¸³½´Ù.
-                    // È¸º¹ °»½Å ÆĞÅ¶, ½ÃÀÛ°ú ¶È °°Àº ÆĞÅ¶À» º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‹¤ë¥¸ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
+                    // íšŒë³µ ê°±ì‹  íŒ¨í‚·, ì‹œì‘ê³¼ ë˜‘ ê°™ì€ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
                     gcHPRecoveryStartToOthers.setObjectID(pOusters->getObjectID());
                     gcHPRecoveryStartToOthers.setPeriod(pEffectHPRecoveryEffect->getPeriod());
@@ -644,7 +644,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pEffectManager->addEffect(pEffectHPRecovery);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToSelf gcHPRecoveryStartToSelf;
                     gcHPRecoveryStartToSelf.setPeriod(Period);
                     gcHPRecoveryStartToSelf.setDelay(HPDelayProvider);
@@ -652,7 +652,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pGamePlayer->sendPacket(&gcHPRecoveryStartToSelf);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» º¸´ÂÀÌµé¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë³´ëŠ”ì´ë“¤ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
                     gcHPRecoveryStartToOthers.setObjectID(pOusters->getObjectID());
                     gcHPRecoveryStartToOthers.setPeriod(Period);
@@ -682,10 +682,10 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
             CurrentMP = pOusters->getMP(ATTR_CURRENT);
             ComposMei* pComposMei = dynamic_cast<ComposMei*>(pItem);
 
-            // ÇÑÅÏ¿¡ È¸º¹µÇ´Â ¾ç
+            // í•œí„´ì— íšŒë³µë˜ëŠ” ì–‘
             MPQuantity = pComposMei->getMPQuantity();
 
-            // ÇÑÅÏÀÌ ¸îÃÊ ÀÎ°¡.
+            // í•œí„´ì´ ëª‡ì´ˆ ì¸ê°€.
             MPDelayProvider = pComposMei->getMPDelay();
 
             Attr_t INT = pOusters->getINT();
@@ -698,10 +698,10 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
             CurrentMP = pOusters->getMP(ATTR_CURRENT);
             Pupa* pPupa = dynamic_cast<Pupa*>(pItem);
 
-            // ÇÑÅÏ¿¡ È¸º¹µÇ´Â ¾ç
+            // í•œí„´ì— íšŒë³µë˜ëŠ” ì–‘
             MPQuantity = pPupa->getMPQuantity();
 
-            // ÇÑÅÏÀÌ ¸îÃÊ ÀÎ°¡.
+            // í•œí„´ì´ ëª‡ì´ˆ ì¸ê°€.
             MPDelayProvider = pPupa->getMPDelay();
 
             Attr_t INT = pOusters->getINT();
@@ -711,7 +711,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
             MPAmount = min(MaxMP - CurrentMP, (int)(ComposMeiMPAmount * (double)(1 + (double)((double)INT / 300.0))));
         }
 
-        // MP È¸º¹¾çÀÌ Á¸ÀçÇÑ´Ù¸é...
+        // MP íšŒë³µì–‘ì´ ì¡´ì¬í•œë‹¤ë©´...
         if (MPAmount != 0 && MPQuantity != 0) {
             if (CurrentMP < MaxMP) {
                 EffectManager* pEffectManager = pOusters->getEffectManager();
@@ -724,27 +724,27 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
                     Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_MP_RECOVERY);
                     EffectMPRecovery* pEffectMPRecoveryEffect = dynamic_cast<EffectMPRecovery*>(pEffect);
 
-                    // ±âÁ¸ÀÇ ´ÜÀ§¾ç°ú È½¼ö·Î Ã¤¿ì´Â MP¾çÀ» °è»êÇÑ´Ù.
-                    // ±×°ÍÀ» ÇöÀç È¸º¹¾ç¿¡ ´õÇÑ´Ù.
+                    // ê¸°ì¡´ì˜ ë‹¨ìœ„ì–‘ê³¼ íšŸìˆ˜ë¡œ ì±„ìš°ëŠ” MPì–‘ì„ ê³„ì‚°í•œë‹¤.
+                    // ê·¸ê²ƒì„ í˜„ì¬ íšŒë³µì–‘ì— ë”í•œë‹¤.
                     int PrevMPAmount = pEffectMPRecoveryEffect->getMPQuantity() * pEffectMPRecoveryEffect->getPeriod();
                     MPAmount = min((int)(MPAmount + PrevMPAmount), MaxMP - CurrentMP);
 
-                    // µÑ Áß¿¡ Å« ´ÜÀ§È¸º¹¾ç°ú ÀÛÀº µô·¹ÀÌ¸¦ ¾ò¾î³½´Ù.
+                    // ë‘˜ ì¤‘ì— í° ë‹¨ìœ„íšŒë³µì–‘ê³¼ ì‘ì€ ë”œë ˆì´ë¥¼ ì–»ì–´ë‚¸ë‹¤.
                     MPQuantity = max(MPQuantity, (int)(pEffectMPRecoveryEffect->getMPQuantity()));
                     MPDelayProvider = min(MPDelayProvider, (int)(pEffectMPRecoveryEffect->getDelay()));
 
-                    // ÇöÀç È¸º¹¾çÀ» °¡Áö°í, ¾ó¸¶¾¿ ¸î¹ø¿¡ È¸º¹ÇÒ °ÍÀÎ°¡¸¦ °áÁ¤ÇÑ´Ù.
+                    // í˜„ì¬ íšŒë³µì–‘ì„ ê°€ì§€ê³ , ì–¼ë§ˆì”© ëª‡ë²ˆì— íšŒë³µí•  ê²ƒì¸ê°€ë¥¼ ê²°ì •í•œë‹¤.
                     temp = (double)((double)MPAmount / (double)MPQuantity);
                     Period = (uint)ceil(temp);
                     Deadline = Period * MPDelayProvider;
 
-                    // MP Recovery effect¸¦ °»½ÅÇÑ´Ù.
+                    // MP Recovery effectë¥¼ ê°±ì‹ í•œë‹¤.
                     pEffectMPRecoveryEffect->setDeadline(Deadline);
                     pEffectMPRecoveryEffect->setDelay(MPDelayProvider);
                     pEffectMPRecoveryEffect->setMPQuantity(MPQuantity);
                     pEffectMPRecoveryEffect->setPeriod(Period);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCMPRecoveryStart gcMPRecoveryStart;
                     gcMPRecoveryStart.setPeriod(pEffectMPRecoveryEffect->getPeriod());
                     gcMPRecoveryStart.setDelay(pEffectMPRecoveryEffect->getDelay());
@@ -766,7 +766,7 @@ void CGUsePotionFromInventoryHandler::execute(CGUsePotionFromInventory* pPacket,
 
                     pEffectManager->addEffect(pEffectMPRecovery);
 
-                    // È¸º¹ ½ÃÀÛÇÏ¶ó´Â ÆĞÅ¶À» ÀÚ½Å¿¡°Ô º¸³½´Ù.
+                    // íšŒë³µ ì‹œì‘í•˜ë¼ëŠ” íŒ¨í‚·ì„ ìì‹ ì—ê²Œ ë³´ë‚¸ë‹¤.
                     GCMPRecoveryStart gcMPRecoveryStart;
                     gcMPRecoveryStart.setPeriod(Period);
                     gcMPRecoveryStart.setDelay(MPDelayProvider);

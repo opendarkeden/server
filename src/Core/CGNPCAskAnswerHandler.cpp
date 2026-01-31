@@ -19,10 +19,10 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î°¡ NPC¸¦ Å¬¸¯ÇÒ °æ¿ì, Å¬¶óÀÌ¾ðÆ®°¡ CGNPCAskAnswer ÆÐÅ¶À»
-// ¼­¹ö·Î Àü¼ÛÇÑ´Ù.  ¼­¹ö´Â ÀÌ ÆÐÅ¶À» ÇÚµé¸µÇÒ ¶§,
-// NPC¿¡ CONDITION_TALKED_BY ÄÁµð¼Ç ÇÃ·¡±×°¡ ÄÑÁ® ÀÖÀ¸¸é,
-// Æ®¸®°Å¸¦ Å½»öÇÏ¸é¼­ ÀûÀýÇÑ Æ®¸®°Å¸¦ Ã£¾Æ¼­ ¿¬°üµÈ ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// í”Œë ˆì´ì–´ê°€ NPCë¥¼ í´ë¦­í•  ê²½ìš°, í´ë¼ì´ì–¸íŠ¸ê°€ CGNPCAskAnswer íŒ¨í‚·ì„
+// ì„œë²„ë¡œ ì „ì†¡í•œë‹¤.  ì„œë²„ëŠ” ì´ íŒ¨í‚·ì„ í•¸ë“¤ë§í•  ë•Œ,
+// NPCì— CONDITION_TALKED_BY ì»¨ë””ì…˜ í”Œëž˜ê·¸ê°€ ì¼œì ¸ ìžˆìœ¼ë©´,
+// íŠ¸ë¦¬ê±°ë¥¼ íƒìƒ‰í•˜ë©´ì„œ ì ì ˆí•œ íŠ¸ë¦¬ê±°ë¥¼ ì°¾ì•„ì„œ ì—°ê´€ëœ ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGNPCAskAnswerHandler::execute(CGNPCAskAnswer* pPacket, Player* pPlayer)
 
@@ -53,13 +53,13 @@ void CGNPCAskAnswerHandler::execute(CGNPCAskAnswer* pPacket, Player* pPlayer)
     }
     catch (NoSuchElementException)
     {
-        //cout << "¿©±â NPC ¾ø´Ù~" << endl;
+        //cout << "ì—¬ê¸° NPC ì—†ë‹¤~" << endl;
         pCreature = NULL;
     }
     */
     // cout << pPacket->toString().c_str() << endl;
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pCreature = pZone->getCreature(pPacket->getObjectID());
 
     if (pCreature == NULL || !pCreature->isNPC()) {
@@ -93,7 +93,7 @@ void CGNPCAskAnswerHandler::execute(CGNPCAskAnswer* pPacket, Player* pPlayer)
             // check all condition after check main condition
             if (pTrigger->hasCondition(Condition::CONDITION_ANSWERED_BY) &&
                 pTrigger->isAllSatisfied(Trigger::PASSIVE_TRIGGER, pNPC, pPC, (void*)&cond)) {
-                // ÃÖÃÊ·Î ¹ß°ßµÈ Æ®¸®°Å¸¸ ½ÇÇàÇÑ ´ÙÀ½ break ÇÑ´Ù.
+                // ìµœì´ˆë¡œ ë°œê²¬ëœ íŠ¸ë¦¬ê±°ë§Œ ì‹¤í–‰í•œ ë‹¤ìŒ break í•œë‹¤.
                 pTrigger->activate(pNPC, pPC);
                 break;
             }

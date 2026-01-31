@@ -13,7 +13,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Destinies::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                         CEffectID_t CEffectID)
@@ -44,7 +44,7 @@ void Destinies::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSki
     g_SimpleMissileSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
 
     if (result.bSuccess) {
-        cout << "Destinies ¼º°ø" << endl;
+        cout << "Destinies ì„±ê³µ" << endl;
         if (result.pTargetCreature->isOusters())
             return;
 

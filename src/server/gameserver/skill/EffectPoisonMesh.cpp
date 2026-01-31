@@ -70,7 +70,7 @@ void EffectPoisonMesh::unaffect(Creature* pCreature) {
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(getSendEffectClass());

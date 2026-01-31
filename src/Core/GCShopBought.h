@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCShopBought.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// »óÁ¡ NPC°¡ ÇÃ·¹ÀÌ¾î·ÎºÎÅÍ ¹°°ÇÀ» »çµé¿´À» ¶§, °°Àº NPC¿Í
-// ÀÌ¾ß±âÇÏ°í ÀÖ´Â ÇÃ·¹ÀÌ¾î¿¡°Ô ¹°°ÇÀ» »çµé¿´´Ù´Â »ç½ÇÀ»
-// ¾Ë·ÁÁÖ±â À§ÇØ ÀÌ ÆĞÅ¶À» º¸³½´Ù.
-// Å¬¶óÀÌ¾ğÆ®´Â ÀÌ ÆĞÅ¶À» ¹ŞÀ¸¸é ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀ» ÇØ´çÇÏ´Â
-// NPCÀÇ »óÇ° ¸ñ·Ï¿¡ Ãß°¡ÇØ¾ß ÇÑ´Ù. »óÁ¡ ¹öÀüµµ ¾÷µ¥ÀÌÆ®~
+// ìƒì  NPCê°€ í”Œë ˆì´ì–´ë¡œë¶€í„° ë¬¼ê±´ì„ ì‚¬ë“¤ì˜€ì„ ë•Œ, ê°™ì€ NPCì™€
+// ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” í”Œë ˆì´ì–´ì—ê²Œ ë¬¼ê±´ì„ ì‚¬ë“¤ì˜€ë‹¤ëŠ” ì‚¬ì‹¤ì„
+// ì•Œë ¤ì£¼ê¸° ìœ„í•´ ì´ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
+// í´ë¼ì´ì–¸íŠ¸ëŠ” ì´ íŒ¨í‚·ì„ ë°›ìœ¼ë©´ í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì„ í•´ë‹¹í•˜ëŠ”
+// NPCì˜ ìƒí’ˆ ëª©ë¡ì— ì¶”ê°€í•´ì•¼ í•œë‹¤. ìƒì  ë²„ì „ë„ ì—…ë°ì´íŠ¸~
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SHOP_BOUGHT_H__
@@ -152,17 +152,17 @@ public:
 
 private:
     ObjectID_t m_ObjectID;           // NPC's object id
-    ShopVersion_t m_Version;         // »óÁ¡ ¹öÁ¯
-    ShopRackType_t m_ShopType;       // »óÁ¡ Á¾·ù
-    BYTE m_ShopIndex;                // »óÁ¡ ÀÎµ¦½º
-    ObjectID_t m_ItemObjectID;       // »çµéÀÎ ¾ÆÀÌÅÛÀÇ item OID
-    BYTE m_ItemClass;                // »çµéÀÎ ¾ÆÀÌÅÛÀÇ item class
-    ItemType_t m_ItemType;           // »çµéÀÎ ¾ÆÀÌÅÛÀÇ  item type
-    list<OptionType_t> m_OptionType; // »çµéÀÎ ¾ÆÀÌÅÛÀÇ option type
-    Durability_t m_Durability;       // »çµéÀÎ ¾ÆÀÌÅÛÀÇ durability
-    Silver_t m_Silver;               // »çµéÀÎ ¾ÆÀÌÅÛÀÇ silver coating amount
+    ShopVersion_t m_Version;         // ìƒì  ë²„ì ¼
+    ShopRackType_t m_ShopType;       // ìƒì  ì¢…ë¥˜
+    BYTE m_ShopIndex;                // ìƒì  ì¸ë±ìŠ¤
+    ObjectID_t m_ItemObjectID;       // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜ item OID
+    BYTE m_ItemClass;                // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜ item class
+    ItemType_t m_ItemType;           // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜  item type
+    list<OptionType_t> m_OptionType; // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜ option type
+    Durability_t m_Durability;       // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜ durability
+    Silver_t m_Silver;               // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜ silver coating amount
     Grade_t m_Grade;
-    EnchantLevel_t m_EnchantLevel; // »çµéÀÎ ¾ÆÀÌÅÛÀÇ enchant level
+    EnchantLevel_t m_EnchantLevel; // ì‚¬ë“¤ì¸ ì•„ì´í…œì˜ enchant level
 };
 
 

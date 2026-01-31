@@ -199,7 +199,7 @@ public:
         m_pTarget->setY(y);
     }
 
-    // PC¸¦ Æ¯Á¤ À§Ä¡·Î ÀÌµ¿½ÃÅ²´Ù.
+    // PCë¥¼ íŠ¹ì • ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
     bool activate(Creature* pCreature);
 
     // get debug string
@@ -252,7 +252,7 @@ public:
         m_pTarget->setY(y);
     }
 
-    // PC¸¦ Æ¯Á¤ À§Ä¡·Î ÀÌµ¿½ÃÅ²´Ù.
+    // PCë¥¼ íŠ¹ì • ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
     bool activate(Creature* pCreature);
 
     // get debug string
@@ -288,14 +288,14 @@ public:
     }
     void getPortalTargetInfo(ZoneID_t ZoneID);
 
-    // PC¸¦ Æ¯Á¤ À§Ä¡·Î ÀÌµ¿½ÃÅ²´Ù.
+    // PCë¥¼ íŠ¹ì • ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
     bool activate(Creature* pCreature, ZoneID_t ZoneID);
 
     // get debug string
     virtual string toString() const;
 
 private:
-    //  ¸ñÇ¥ ÁÂÇ¥ Info
+    //  ëª©í‘œ ì¢Œí‘œ Info
     list<PortalTargetInfo*> m_Targets;
 };
 

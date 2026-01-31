@@ -74,12 +74,12 @@ public:
     virtual Elemental_t getElemental() const;
 
 private:
-    //	ItemType_t			m_ItemType;			// ¾ÆÀÌÅÛ Å¸ÀÔ
-    //	list<OptionType_t>		m_OptionType;		// ¿É¼Ç Å¸ÀÔ
-    //	Durability_t		m_Durability;		// ³»±¸¼º
+    //	ItemType_t			m_ItemType;			// ì•„ì´í…œ íƒ€ì…
+    //	list<OptionType_t>		m_OptionType;		// ì˜µì…˜ íƒ€ì…
+    //	Durability_t		m_Durability;		// ë‚´êµ¬ì„±
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 
@@ -138,7 +138,7 @@ public:
     virtual string toString() const;
 
 private:
-    Durability_t m_Durability; // ³»±¸¼º
+    Durability_t m_Durability; // ë‚´êµ¬ì„±
     Defense_t m_DefenseBonus;
     Protection_t m_ProtectionBonus;
     uint m_ItemLevel;

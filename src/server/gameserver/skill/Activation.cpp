@@ -13,7 +13,7 @@
 #include "Party.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Activation::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -49,18 +49,18 @@ void Activation::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // ±â¼úÀÌ À¯ÁöµÇ´Â ½Ã°£Àº ¼÷·Ãµµ¿¡ µû¶ó¼­ ´Þ¶óÁø´Ù.
+            // ê¸°ìˆ ì´ ìœ ì§€ë˜ëŠ” ì‹œê°„ì€ ìˆ™ë ¨ë„ì— ë”°ë¼ì„œ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectActivation* pEffectActivation = new EffectActivation(pSlayer);
             pEffectActivation->setDeadline(output.Duration);
             pSlayer->addEffect(pEffectActivation);
             pSlayer->setFlag(Effect::EFFECT_CLASS_ACTIVATION);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1) * 2;
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
@@ -79,7 +79,7 @@ void Activation::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
 
             pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_ACTIVATION);

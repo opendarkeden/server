@@ -127,8 +127,8 @@ void EffectDragonTornado::affect(Creature* pCreature)
     if (pCastCreature == NULL)
         return;
 
-    // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù
-    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+    // ìì‹ ì€ ë§ì§€ ì•ŠëŠ”ë‹¤
+    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
     if (pCreature->getObjectID() == m_UserOID || !canAttack(pCastCreature, pCreature) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || !checkZoneLevelToHitTarget(pCreature) ||
         pCreature->isSlayer()) {
@@ -165,7 +165,7 @@ void EffectDragonTornado::affect(Creature* pCreature)
                 pPlayer->sendPacket(&gcMI);*/
 
     } else if (pCreature->isVampire()) {
-        // ¹ìÆÄÀÌ¾î°¡ »ç¿ëÇßÀ» °æ¿ì ¹ìÆÄÀÌ¾î´Â Áß½É Å¸ÀÏÀ» Á¦¿ÜÇÏ°í´Â ¸ÂÁö ¾Ê´Â´Ù.
+        // ë±€íŒŒì´ì–´ê°€ ì‚¬ìš©í–ˆì„ ê²½ìš° ë±€íŒŒì´ì–´ëŠ” ì¤‘ì‹¬ íƒ€ì¼ì„ ì œì™¸í•˜ê³ ëŠ” ë§ì§€ ì•ŠëŠ”ë‹¤.
         Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
         ::setDamage(pVampire, m_Damage, pCastCreature, SKILL_DRAGON_TORNADO, &gcSkillToObjectOK6, &gcAttackerMI);
@@ -189,7 +189,7 @@ void EffectDragonTornado::affect(Creature* pCreature)
         if (pCastCreature != NULL)
             pMonster->addEnemy(pCastCreature);
 
-        // delay¼³Á¤ ( + 1ÃÊ )
+        // delayì„¤ì • ( + 1ì´ˆ )
         if (!pMonster->isMaster() && isStun) {
             Timeval delay;
             delay.tv_sec = 1;
@@ -200,7 +200,7 @@ void EffectDragonTornado::affect(Creature* pCreature)
 
     SkillType_t skillType = (isStun) ? SKILL_DRAGON_TORNADO : SKILL_ATTACK_MELEE;
 
-    // userÇÑÅ×´Â ¸Â´Â ¸ğ½ÀÀ» º¸¿©ÁØ´Ù.
+    // userí•œí…ŒëŠ” ë§ëŠ” ëª¨ìŠµì„ ë³´ì—¬ì¤€ë‹¤.
     if (pCreature->isPC()) {
         gcSkillToObjectOK6.setSkillType(skillType);
         gcSkillToObjectOK6.setDuration(0);

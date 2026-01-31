@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonGoreGland::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                               CEffectID_t CEffectID)
@@ -37,8 +37,8 @@ void SummonGoreGland::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vamp
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -57,7 +57,7 @@ void SummonGoreGland::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vamp
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonGoreGland::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                               CEffectID_t CEffectID)
@@ -95,7 +95,7 @@ void SummonGoreGland::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, V
         if (!rect.ptInRect(X, Y)) {
             /*			Tile& tile = pZone->getTile(X, Y);
                         if (tile.canAddEffect()) bTileCheck = true;
-                        // ¸Ó½Ã ±×¶ó¿îµå ÀÖÀ½ Ãß°¡ ¸øÇÑ´ç.
+                        // ë¨¸ì‹œ ê·¸ë¼ìš´ë“œ ìˆìŒ ì¶”ê°€ ëª»í•œë‹¹.
                         if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
                         if ( tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) != NULL ) bTileCheck=false;*/
             bTileCheck = false;
@@ -105,9 +105,9 @@ void SummonGoreGland::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, V
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
             // Tile&   tile  = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);

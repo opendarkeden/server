@@ -10,7 +10,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CauseSeriousWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot,
                                  CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void CauseSeriousWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Ski
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Soul Smashing ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 10% Áõ°¡
+    // Soul Smashing ì´ ìžˆë‹¤ë©´ ë°ë¯¸ì§€ 10% ì¦ê°€
     if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING)) {
         RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING);
         Assert(pRankBonus != NULL);

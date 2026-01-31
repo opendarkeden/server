@@ -11,7 +11,7 @@ void CLRegisterPlayer::read(SocketInputStream& iStream)
 {
     __BEGIN_TRY
 
-    // ÇÃ·¹ÀÌ¾î ±âº» Á¤º¸ (ID - Password)
+    // í”Œë ˆì´ì–´ ê¸°ë³¸ ì •ë³´ (ID - Password)
     BYTE szID;
     iStream.read(szID);
     if (szID == 0)
@@ -32,7 +32,7 @@ void CLRegisterPlayer::read(SocketInputStream& iStream)
         throw InvalidProtocolException("too long Password length");
     iStream.read(m_Password, szPassword);
 
-    // ÇÃ·¹ÀÌ¾î °³ÀÎ Á¤º¸ (Name - Sex - SSN)
+    // í”Œë ˆì´ì–´ ê°œì¸ ì •ë³´ (Name - Sex - SSN)
     BYTE szName;
     iStream.read(szName);
     if (szName == 0)
@@ -53,7 +53,7 @@ void CLRegisterPlayer::read(SocketInputStream& iStream)
         throw InvalidProtocolException("too long SSN length");
     iStream.read(m_SSN, szSSN);
 
-    // ÇÃ·¹ÀÌ¾î ¿¬¶ôÃ³ (Telephone - Cellular - ZipCode - Address - Nation)
+    // í”Œë ˆì´ì–´ ì—°ë½ì²˜ (Telephone - Cellular - ZipCode - Address - Nation)
     BYTE szTelephone;
     iStream.read(szTelephone);
     if (szTelephone == 0)
@@ -90,7 +90,7 @@ void CLRegisterPlayer::read(SocketInputStream& iStream)
     iStream.read(nation);
     m_Nation = (Nation)nation;
 
-    // ÇÃ·¹ÀÌ¾î ÀüÀÚ Á¤º¸ (Email - Homepage)
+    // í”Œë ˆì´ì–´ ì „ì ì •ë³´ (Email - Homepage)
     BYTE szEmail;
     iStream.read(szEmail);
     if (szEmail == 0)
@@ -107,7 +107,7 @@ void CLRegisterPlayer::read(SocketInputStream& iStream)
         throw InvalidProtocolException("too long Homepage length");
     iStream.read(m_Homepage, szHomepage);
 
-    // ±âÅ¸ (Profile - Public)
+    // ê¸°íƒ€ (Profile - Public)
     BYTE szProfile;
     iStream.read(szProfile);
     if (szProfile == 0)
@@ -126,7 +126,7 @@ void CLRegisterPlayer::write(SocketOutputStream& oStream) const
 {
     __BEGIN_TRY
 
-    // ÇÃ·¹ÀÌ¾î ±âº» Á¤º¸ (ID - Password)
+    // í”Œë ˆì´ì–´ ê¸°ë³¸ ì •ë³´ (ID - Password)
     BYTE szID = m_ID.size();
     if (szID == 0)
         throw InvalidProtocolException("szID == 0");
@@ -147,7 +147,7 @@ void CLRegisterPlayer::write(SocketOutputStream& oStream) const
     oStream.write(szPassword);
     oStream.write(m_Password);
 
-    // ÇÃ·¹ÀÌ¾î °³ÀÎ Á¤º¸ (Name - Sex - SSN)
+    // í”Œë ˆì´ì–´ ê°œì¸ ì •ë³´ (Name - Sex - SSN)
     BYTE szName = m_Name.size();
     if (szName == 0)
         throw InvalidProtocolException("szName == 0");
@@ -166,7 +166,7 @@ void CLRegisterPlayer::write(SocketOutputStream& oStream) const
     oStream.write(szSSN);
     oStream.write(m_SSN);
 
-    // ÇÃ·¹ÀÌ¾î ¿¬¶ôÃ³ (Telephone - Cellular - ZipCode - Address - Nation)
+    // í”Œë ˆì´ì–´ ì—°ë½ì²˜ (Telephone - Cellular - ZipCode - Address - Nation)
     BYTE szTelephone = m_Telephone.size();
     if (szTelephone == 0)
         throw InvalidProtocolException("szTelephone == 0");
@@ -201,7 +201,7 @@ void CLRegisterPlayer::write(SocketOutputStream& oStream) const
 
     oStream.write((BYTE)m_Nation);
 
-    // ÇÃ·¹ÀÌ¾î ÀüÀÚ Á¤º¸ (Email - Homepage)
+    // í”Œë ˆì´ì–´ ì „ì ì •ë³´ (Email - Homepage)
     BYTE szEmail = m_Email.size();
     if (szEmail == 0)
         throw InvalidProtocolException("szEmail == 0");
@@ -218,7 +218,7 @@ void CLRegisterPlayer::write(SocketOutputStream& oStream) const
     oStream.write(szHomepage);
     oStream.write(m_Homepage);
 
-    // ±âÅ¸ (Profile - Public)
+    // ê¸°íƒ€ (Profile - Public)
     BYTE szProfile = m_Profile.size();
     if (szProfile == 0)
         throw InvalidProtocolException("szProfile == 0");

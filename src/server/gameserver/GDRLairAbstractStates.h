@@ -17,8 +17,8 @@ public:
         ACTION_SAY,
         ACTION_WALK,
         ACTION_EFFECT,
-        ACTION_HOLLYWOOD, // -_- ½Ã¹Ä·¹ÀÌ¼Ç ¾×¼Ç
-        ACTION_WARP,      // ¾Öµé ´Ù µ¥¸®°í ÁöÁ¤ À§Ä¡·Î ¿öÇÁÇÑ´Ù
+        ACTION_HOLLYWOOD, // -_- ì‹œë®¬ë ˆì´ì…˜ ì•¡ì…˜
+        ACTION_WARP,      // ì• ë“¤ ë‹¤ ë°ë¦¬ê³  ì§€ì • ìœ„ì¹˜ë¡œ ì›Œí”„í•œë‹¤
     };
 
     class Action {
@@ -32,7 +32,7 @@ public:
         Action(Monster* pTarget) : m_pTarget(pTarget) {}
         virtual ~Action() {}
         virtual ActionType getActionType() const = 0;
-        // ´Ù ÇßÀ¸¸é 0À» ¸®ÅÏ. ¾Æ´Ï¸é ´ÙÀ½¹ø executeÇÒ¶§±îÁö ½Ã°£À» ¸®ÅÏ
+        // ë‹¤ í–ˆìœ¼ë©´ 0ì„ ë¦¬í„´. ì•„ë‹ˆë©´ ë‹¤ìŒë²ˆ executeí• ë•Œê¹Œì§€ ì‹œê°„ì„ ë¦¬í„´
         virtual Turn_t execute() = 0;
     };
 
@@ -136,7 +136,7 @@ protected:
 
 public:
     GDRScene(DWORD nState) : m_NextState(nState) {}
-    // ÇÏÀ§ Å¬·¡½º¿¡¼­´Â ¹İµå½Ã ¼¼ÆÃÀ» ³¡³½ µÚ¿¡ ÀÌ start ¸¦ ºÒ·¯Áà¾ß µÈ´Ù.
+    // í•˜ìœ„ í´ë˜ìŠ¤ì—ì„œëŠ” ë°˜ë“œì‹œ ì„¸íŒ…ì„ ëë‚¸ ë’¤ì— ì´ start ë¥¼ ë¶ˆëŸ¬ì¤˜ì•¼ ëœë‹¤.
     void start();
     DWORD heartbeat(Timeval currentTime);
 };

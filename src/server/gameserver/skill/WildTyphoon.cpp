@@ -22,7 +22,7 @@ void WildTyphoon::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
     Creature* pTargetCreature = pZone->getCreature(targetObjectID);
     // Assert(pTargetCreature != NULL);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetCreature == NULL) {
         executeSkillFailException(pSlayer, getSkillType());
         return;
@@ -64,7 +64,7 @@ void WildTyphoon::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // ¸ñÇ¥À§Ä¡+4¹æÇâ
+    // ëª©í‘œìœ„ì¹˜+4ë°©í–¥
     param.addMask(0 + dir_advance[dir][0], 0 + dir_advance[dir][1], 100);
     param.addMask(-1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
     param.addMask(0 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
@@ -83,13 +83,13 @@ void WildTyphoon::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
     for (; itr != endItr; ++itr) {
         Creature* pCreature = *itr;
         if (pCreature != NULL) {
-            // ¸ó½ºÅÍÀÎ °æ¿ì¸¸ delay¸¦ Ãß°¡ÇÑ´Ù.
-            // playerµéÀº client¿¡¼­ Ã³¸®ÇÏ°Ô µÇ¾îÀÖ´Ù.
+            // ëª¬ìŠ¤í„°ì¸ ê²½ìš°ë§Œ delayë¥¼ ì¶”ê°€í•œë‹¤.
+            // playerë“¤ì€ clientì—ì„œ ì²˜ë¦¬í•˜ê²Œ ë˜ì–´ìˆë‹¤.
             int stunRatio = pSlayer->getSTR() / 5;
             if (pCreature->isMonster() && (rand() % 100) < stunRatio) {
                 Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-                // delay¼³Á¤ ( + 2ÃÊ )
+                // delayì„¤ì • ( + 2ì´ˆ )
                 if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
                     && !pMonster->isUnderworld() && pMonster->getMonsterType() != 599

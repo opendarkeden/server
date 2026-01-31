@@ -78,7 +78,7 @@ void SBillingPlayerManager::run() throw() {
             usleep(100);
 
             for (int i = 0; i < m_SBillingPlayers; ++i) {
-                // ¿¬°á µÇ¾î ÀÖÁö ¾Ê´Ù¸é ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+                // ì—°ê²° ë˜ì–´ ìžˆì§€ ì•Šë‹¤ë©´ ì—°ê²°ì„ ì‹œë„í•œë‹¤.
                 if (m_pSBillingPlayer[i] == NULL) {
                     Socket* pSocket = NULL;
 
@@ -106,7 +106,7 @@ void SBillingPlayerManager::run() throw() {
                         filelog(LOGFILE_CBILLING_PLAYER, "----- connection established(%s:%d) -----",
                                 SBillingServerIP.c_str(), SBillingServerPort);
 
-                        // interval validation packet À» º¸³½´Ù.
+                        // interval validation packet ì„ ë³´ë‚¸ë‹¤.
                         sendIntervalValidation(i);
                     } catch (Throwable& t) {
                         cout << "connect to china billing server fail - " << SBillingServerIP.c_str() << ":"
@@ -128,12 +128,12 @@ void SBillingPlayerManager::run() throw() {
                         }
                         __LEAVE_CRITICAL_SECTION(m_Mutex[i])
 
-                        // ´ÙÀ½ Á¢¼Ó ½Ãµµ ½Ã°£
-                        usleep(1000000); // 1ÃÊ
+                        // ë‹¤ìŒ ì ‘ì† ì‹œë„ ì‹œê°„
+                        usleep(1000000); // 1ì´ˆ
                     }
                 }
 
-                // ¼ÒÄÏÀÌ ¿¬°áµÇ¾î ÀÖ´Ù¸é ÀÔÃâ·ÂÀ» Ã³¸®ÇÑ´Ù.
+                // ì†Œì¼“ì´ ì—°ê²°ë˜ì–´ ìžˆë‹¤ë©´ ìž…ì¶œë ¥ì„ ì²˜ë¦¬í•œë‹¤.
                 __ENTER_CRITICAL_SECTION(m_Mutex[i])
 
                 if (m_pSBillingPlayer[i] != NULL) {
@@ -194,7 +194,7 @@ void SBillingPlayerManager::sendIntervalValidation(int i) throw(ProtocolExceptio
     if (m_pSBillingPlayer[i] != NULL) {
         m_pSBillingPlayer[i]->sendIntervalValidation();
 
-        // ¹Ù·Î º¸³»¹ö¸°´Ù.
+        // ë°”ë¡œ ë³´ë‚´ë²„ë¦°ë‹¤.
         m_pSBillingPlayer[i]->processOutput();
     }
 

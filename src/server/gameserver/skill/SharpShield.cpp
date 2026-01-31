@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SharpShield::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -31,7 +31,7 @@ void SharpShield::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, °ËÀÌ ¾Æ´Ï¶ó¸é ±â¼úÀ» ¾µ ¼ö ¾ø´Ù.
+        // ë¬´ìž¥í•˜ê³  ìžˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, ê²€ì´ ì•„ë‹ˆë¼ë©´ ê¸°ìˆ ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_SWORD) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -58,12 +58,12 @@ void SharpShield::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectSharpShield* pEffect = new EffectSharpShield(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setLevel(SkillLevel);
@@ -71,7 +71,7 @@ void SharpShield::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_SHARP_SHIELD_1);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             if (bIncreaseDomainExp) {

@@ -11,7 +11,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CutStorm::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -27,7 +27,7 @@ void CutStorm::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         Zone* pZone = pSlayer->getZone();
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -44,7 +44,7 @@ void CutStorm::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CutStorm::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -66,7 +66,7 @@ void CutStorm::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
     param.STRMultiplier = 8;
     param.DEXMultiplier = 1;
     param.INTMultiplier = 1;
-    //	param.Level			= 2;	// 2·Î ÇØ¾ß ÇÏ³ª?
+    //	param.Level			= 2;	// 2ë¡œ í•´ì•¼ í•˜ë‚˜?
     param.bMagicHitRoll = false;
     param.bMagicDamage = false;
     param.bAdd = true;

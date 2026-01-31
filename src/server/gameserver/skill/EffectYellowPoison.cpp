@@ -54,13 +54,13 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
 
     Assert(pTargetCreature != NULL);
 
-    // ½½·¹ÀÌ¾îµµ ¾Æ´Ï°í ¾Æ¿ì½ºÅÍÁîµµ ¾Æ´Ï¸é ¾È °É¸°´Ù.
+    // ìŠ¬ë ˆì´ì–´ë„ ì•„ë‹ˆê³  ì•„ìš°ìŠ¤í„°ì¦ˆë„ ì•„ë‹ˆë©´ ì•ˆ ê±¸ë¦°ë‹¤.
     if (!pTargetCreature->isSlayer() && !pTargetCreature->isOusters() && !isForce())
         return false;
     if (pTargetCreature->getCompetence() != 3)
         return false;
 
-    // ¾ÈÀüÁö´ëÀÎÁö Ã¼Å©ÇÑ´Ù.
+    // ì•ˆì „ì§€ëŒ€ì¸ì§€ ì²´í¬í•œë‹¤.
     // 2003.1.10 by bezz.Sequoia
     if (!checkZoneLevelToHitTarget(pTargetCreature)) {
         return false;
@@ -69,10 +69,10 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
     Player* pPlayer = pTargetCreature->getPlayer();
     Assert(pPlayer != NULL);
 
-    // »ó´ë¹æÀÇ poison ÀúÇ×·Â¿¡ µû¶ó °É¸± ¼öµµ ¾È °É¸± ¼öµµ ÀÖ´Ù...
+    // ìƒëŒ€ë°©ì˜ poison ì €í•­ë ¥ì— ë”°ë¼ ê±¸ë¦´ ìˆ˜ë„ ì•ˆ ê±¸ë¦´ ìˆ˜ë„ ìžˆë‹¤...
     Resist_t resist = pTargetCreature->getResist(MAGIC_DOMAIN_POISON);
 
-    // poison ÀúÇ×·Â¿¡ ÀÇÇØ¼­ °É¸®Áö ¾Ê¾Ò´Ù.
+    // poison ì €í•­ë ¥ì— ì˜í•´ì„œ ê±¸ë¦¬ì§€ ì•Šì•˜ë‹¤.
     if (m_bVampire) {
         if (!HitRoll::isSuccessVampireCurse(m_Level, resist))
             return false;
@@ -81,14 +81,14 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
             return false;
     }
 
-    // Áßº¹½ÃÅ°Áö ¾Ê´Â´Ù. ABCD 2001/03/21
-    // Áßº¹½ÃÅ³¶§  OldSightÀ» ¾ò´Â °úÁ¤¿¡¼­ ¹®Á¦°¡ »ý°Ü¼­ Sight°¡ 3À¸·Î °íÂøµÇ´Â ¹ö±×°¡ ÀÖ¾ú´ø
-    // °Í °°´Ù.
+    // ì¤‘ë³µì‹œí‚¤ì§€ ì•ŠëŠ”ë‹¤. ABCD 2001/03/21
+    // ì¤‘ë³µì‹œí‚¬ë•Œ  OldSightì„ ì–»ëŠ” ê³¼ì •ì—ì„œ ë¬¸ì œê°€ ìƒê²¨ì„œ Sightê°€ 3ìœ¼ë¡œ ê³ ì°©ë˜ëŠ” ë²„ê·¸ê°€ ìžˆì—ˆë˜
+    // ê²ƒ ê°™ë‹¤.
     if (!pTargetCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE)) {
         Zone* pZone = pTargetCreature->getZone();
 
-        // ÇÃ·¡±×°¡ ÄÑÁ®ÀÖÁö ¾ÊÀ¸¹Ç·Î, ÀÌÆåÆ®µµ ¾ø°ÚÁö¸¸, È¤½Ã³ª ÇØ¼­
-        // ÀÌ¹Ì °É·Á ÀÖ´Â °°Àº ÀÌÆåÆ®°¡ ÀÖ´Ù¸é ÀÌ¹Ì °É·Á ÀÖ´ø °ÍÀ» Áö¿öÁØ´Ù.
+        // í”Œëž˜ê·¸ê°€ ì¼œì ¸ìžˆì§€ ì•Šìœ¼ë¯€ë¡œ, ì´íŽ™íŠ¸ë„ ì—†ê² ì§€ë§Œ, í˜¹ì‹œë‚˜ í•´ì„œ
+        // ì´ë¯¸ ê±¸ë ¤ ìžˆëŠ” ê°™ì€ ì´íŽ™íŠ¸ê°€ ìžˆë‹¤ë©´ ì´ë¯¸ ê±¸ë ¤ ìžˆë˜ ê²ƒì„ ì§€ì›Œì¤€ë‹¤.
         if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE)) {
             pTargetCreature->deleteEffect(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE);
         }
@@ -96,22 +96,22 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
         Sight_t CurrentSight = pTargetCreature->getSight();
         Sight_t oldSight = CurrentSight;
 
-        // ÀÌÆåÆ®¸¦ »ý¼ºÇÏ°í, ÆÄ¶ó¹ÌÅÍ¸¦ ÁöÁ¤ÇØ ÁØ´Ù.
+        // ì´íŽ™íŠ¸ë¥¼ ìƒì„±í•˜ê³ , íŒŒë¼ë¯¸í„°ë¥¼ ì§€ì •í•´ ì¤€ë‹¤.
         EffectYellowPoisonToCreature* pEffect = new EffectYellowPoisonToCreature(pTargetCreature);
         pEffect->setDeadline(m_Duration);
         pEffect->setOldSight(CurrentSight);
         pEffect->setLevel(m_Level);
 
-        // Creature¿¡ Effect Flag¸¦ On ½ÃÅ²´Ù.
+        // Creatureì— Effect Flagë¥¼ On ì‹œí‚¨ë‹¤.
         pTargetCreature->setFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE);
         pTargetCreature->addEffect(pEffect);
 
-        // DB¿¡ Effect¸¦ »ý¼ºÇÑ´Ù.
+        // DBì— Effectë¥¼ ìƒì„±í•œë‹¤.
         // pEffect->create(pTargetCreature->getName());
 
-        // ¿ø·¡ ÀÌ ºÎºÐ¿¡ Á¸ ·¹º§À» Ã¼Å©ÇØ¼­, ¾ÈÀüÁö´ëÀÏ °æ¿ì,
-        // GCChangeDarkLight¿¡´Ù ´ÙÅ©·¹º§À» 0À¸·Î ÇØ¼­ º¸³»ÁÖ¾úÀ¸³ª,
-        // ÇÊ¿ä°¡ ¾ø´Â ÄÚµåÀÎ °Í °°¾Æ¼­ »©¹ö·È´Ù. -- ±è¼º¹Î
+        // ì›ëž˜ ì´ ë¶€ë¶„ì— ì¡´ ë ˆë²¨ì„ ì²´í¬í•´ì„œ, ì•ˆì „ì§€ëŒ€ì¼ ê²½ìš°,
+        // GCChangeDarkLightì—ë‹¤ ë‹¤í¬ë ˆë²¨ì„ 0ìœ¼ë¡œ í•´ì„œ ë³´ë‚´ì£¼ì—ˆìœ¼ë‚˜,
+        // í•„ìš”ê°€ ì—†ëŠ” ì½”ë“œì¸ ê²ƒ ê°™ì•„ì„œ ë¹¼ë²„ë ¸ë‹¤. -- ê¹€ì„±ë¯¼
         GCChangeDarkLight gcChangeDarkLight;
         gcChangeDarkLight.setDarkLevel(15);
         gcChangeDarkLight.setLightLevel(1);
@@ -120,7 +120,7 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
         pTargetCreature->setSight(pTargetCreature->getEffectedSight());
         GCModifyInformation gcMI;
 
-        // ½Ã¾ß°¡ º¯ÇßÀ¸¹Ç·Î.. ½Ã¾ß update..
+        // ì‹œì•¼ê°€ ë³€í–ˆìœ¼ë¯€ë¡œ.. ì‹œì•¼ update..
         if (oldSight != pTargetCreature->getSight()) {
             pZone->updateScan(pTargetCreature, oldSight, pTargetCreature->getSight());
             gcMI.addShortData(MODIFY_VISION, pTargetCreature->getSight());
@@ -233,7 +233,7 @@ void EffectYellowPoisonLoader::load(Zone* pZone)
                             pEffect->setDuration(value1);
                             pEffect->setLevel(100);
 
-                            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                             pZone->registerObject(pEffect);
                             pZone->addEffect(pEffect);
                             tile.addEffect(pEffect);

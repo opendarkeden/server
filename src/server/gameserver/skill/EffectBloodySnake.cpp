@@ -58,15 +58,15 @@ void EffectBloodySnake::affect()
 
     Assert(m_pZone != NULL);
 
-    // ½ºÅ³ »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ¶°³µÀ» ¼öµµ ÀÖÀ¸¹Ç·Î NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ìŠ¤í‚¬ ì‚¬ìš©ìë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë– ë‚¬ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ NULL ì´ ë  ìˆ˜ ìˆë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {
@@ -79,14 +79,14 @@ void EffectBloodySnake::affect()
             Creature* pCreature = dynamic_cast<Creature*>(pObject);
             Assert(pCreature != NULL);
 
-            // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
-            // »ê ¸é¿ª. by sigi. 2002.9.13
-            // ÀÚ±â ÀÚ½ÅÀÌ¸é ¾È ¸Â´Â´Ù.
+            // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
+            // ì‚° ë©´ì—­. by sigi. 2002.9.13
+            // ìê¸° ìì‹ ì´ë©´ ì•ˆ ë§ëŠ”ë‹¤.
             if (!canAttack(pCastCreature, pCreature) || pCreature->getObjectID() == m_CasterID) {
                 continue;
             }
 
-            // °°Àº Á¶Á÷(--;)ÀÌ¸é ¾È ¸Â´Â´Ù.
+            // ê°™ì€ ì¡°ì§(--;)ì´ë©´ ì•ˆ ë§ëŠ”ë‹¤.
             if (m_CreatureClass == pCreature->getCreatureClass()) {
                 if (m_CreatureClass == Creature::CREATURE_CLASS_MONSTER) {
                     Creature* pAttacker = m_pZone->getCreature(m_CasterID);
@@ -114,14 +114,14 @@ void EffectBloodySnake::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 20; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 20; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 } else if (pCreature->isVampire()) {
@@ -134,14 +134,14 @@ void EffectBloodySnake::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 20; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 20; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 } else if (pCreature->isOusters()) {
@@ -154,14 +154,14 @@ void EffectBloodySnake::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 20; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 20; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 } else if (pCreature->isMonster()) {
@@ -169,20 +169,20 @@ void EffectBloodySnake::affect()
 
                     ::setDamage(pMonster, Damage, pCastCreature, SKILL_BLOODY_SNAKE);
 
-                    // knockbackÃ¼Å©
-                    bool bKnockback = rand() % 100 < 20; // 20%ÀÇ È®·ü·Î knockback
+                    // knockbackì²´í¬
+                    bool bKnockback = rand() % 100 < 20; // 20%ì˜ í™•ë¥ ë¡œ knockback
                     if (bKnockback) {
                         int x = pCreature->getX() + rand() % 3 - 1;
                         int y = pCreature->getY() + rand() % 3 - 1;
                         knockbackCreature(m_pZone, pCreature, x, y);
-                        // TileÀÇ oList¸¦ ¹Ù²î°Ô ÇÏ¹Ç·Î ´õ Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
-                        // ÇÑ Å¸ÀÏ¿¡¼­ ÇÏ³ª°¡ knockbackµÇ¸é µÚ¿¡ Ã¼Å©ÇÒ ¾ÖµéÀº ¾È ¸Â¾Æµµ °ü°è¾øÁö~
+                        // Tileì˜ oListë¥¼ ë°”ë€Œê²Œ í•˜ë¯€ë¡œ ë” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+                        // í•œ íƒ€ì¼ì—ì„œ í•˜ë‚˜ê°€ knockbackë˜ë©´ ë’¤ì— ì²´í¬í•  ì• ë“¤ì€ ì•ˆ ë§ì•„ë„ ê´€ê³„ì—†ì§€~
                         break;
                     }
                 }
 
 
-                // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+                // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
                 // by sigi. 2002.8.31
                 /*				if (pCreature->isDead())
                                 {
@@ -197,7 +197,7 @@ void EffectBloodySnake::affect()
         }
     }
 
-    // ´ÙÀ½ ÀÌµ¿ ÁÂÇ¥ °è»ê
+    // ë‹¤ìŒ ì´ë™ ì¢Œí‘œ ê³„ì‚°
     POINT pt = getNextPosition();
 
     /*
@@ -207,23 +207,23 @@ void EffectBloodySnake::affect()
         << pt.x << ", " << pt.y << ")" << endl;
     */
 
-    // ´ÙÀ½ ÀÌµ¿ÇÒ Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù.
+    // ë‹¤ìŒ ì´ë™í•  íƒ€ì¼ì— ì¶”ê°€í•œë‹¤.
     VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1);
     if (rect.ptInRect(pt.x, pt.y)) {
         Tile& newTile = m_pZone->getTile(pt.x, pt.y);
         if ((!newTile.isGroundBlocked() || newTile.hasCreature(Creature::MOVE_MODE_WALKING)) &&
             newTile.canAddEffect()) {
-            // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+            // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
             Effect* pOldEffect = newTile.getEffect(Effect::EFFECT_CLASS_BLOODY_SNAKE);
             if (pOldEffect != NULL && pOldEffect != this) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 m_pZone->deleteEffect(effectID); // fix me
             }
 
-            // ±âÁ¸ Å¸ÀÏ¿¡¼­ Áö¿ì°í
+            // ê¸°ì¡´ íƒ€ì¼ì—ì„œ ì§€ìš°ê³ 
             tile.deleteEffect(m_ObjectID);
 
-            // »õ Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù.
+            // ìƒˆ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤.
             newTile.addEffect(this);
 
             m_X = pt.x;

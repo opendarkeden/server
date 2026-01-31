@@ -77,7 +77,7 @@ BloodyWall::BloodyWall() throw() {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -97,7 +97,7 @@ void BloodyWall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature)) {
             executeSkillFailException(pVampire, getSkillType());
             return;
@@ -114,7 +114,7 @@ void BloodyWall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                          CEffectID_t CEffectID)
@@ -147,7 +147,7 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
         ZoneCoord_t myX = pVampire->getX();
         ZoneCoord_t myY = pVampire->getY();
 
-        // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Blood ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -170,7 +170,7 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bTileCheck) {
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
-            // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
@@ -192,16 +192,16 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
                     if (tile.getEffect(Effect::EFFECT_CLASS_HEAVEN_GROUND) != NULL)
                         continue;
 
-                    // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
+                    // í˜„ì¬ íƒ€ì¼ì—ë‹¤ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë‹¤ë©´...
                     if (tile.canAddEffect()) {
-                        // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+                        // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
                         Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_BLOODY_WALL);
                         if (pOldEffect != NULL) {
                             ObjectID_t effectID = pOldEffect->getObjectID();
                             pZone->deleteEffect(effectID); // fix me
                         }
 
-                        // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                        // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                         EffectBloodyWall* pEffect = new EffectBloodyWall(pZone, tileX, tileY);
                         pEffect->setCasterName(pVampire->getName());
                         pEffect->setCasterID(pVampire->getObjectID());
@@ -212,7 +212,7 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
                         pEffect->setNextTime(0);
                         pEffect->setTick(output.Tick);
 
-                        // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                        // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                         ObjectRegistry& objectregister = pZone->getObjectRegistry();
                         objectregister.registerObject(pEffect);
                         pZone->addEffect(pEffect);
@@ -294,8 +294,8 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pVampire);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pVampire)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pVampire)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -304,9 +304,9 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pVampire) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (!pWatcher->isPC()) {
-                        // cout << "BloodyWall : ¿ÓÃ³ ¸®½ºÆ®°¡ PC°¡ ¾Æ´Õ´Ï´Ù." << endl;
+                        // cout << "BloodyWall : ì™“ì²˜ ë¦¬ìŠ¤íŠ¸ê°€ PCê°€ ì•„ë‹™ë‹ˆë‹¤." << endl;
                         GCSkillFailed1 _GCSkillFailed1;
                         _GCSkillFailed1.setSkillType(getSkillType());
                         pVampire->getPlayer()->sendPacket(&_GCSkillFailed1);
@@ -353,7 +353,7 @@ void BloodyWall::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -381,7 +381,7 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
         ZoneCoord_t myX = pMonster->getX();
         ZoneCoord_t myY = pMonster->getY();
 
-        // ¸¶½ºÅÍ´Â ¹«Á¶°Ç~~
+        // ë§ˆìŠ¤í„°ëŠ” ë¬´ì¡°ê±´~~
         bool bRangeCheck = pMonster->isMaster()
 #ifdef __UNDERWORLD__
                            || pMonster->isUnderworld() || pMonster->getMonsterType() == 599
@@ -400,7 +400,7 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             bTileCheck = true;
 
         if (bRangeCheck && bHitRoll && bTileCheck) {
-            // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
@@ -420,16 +420,16 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     Tile& tile = pZone->getTile(tileX, tileY);
                     if (tile.getEffect(Effect::EFFECT_CLASS_HEAVEN_GROUND) != NULL)
                         continue;
-                    // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
+                    // í˜„ì¬ íƒ€ì¼ì—ë‹¤ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë‹¤ë©´...
                     if (tile.canAddEffect()) {
-                        // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+                        // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
                         Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_BLOODY_WALL);
                         if (pOldEffect != NULL) {
                             ObjectID_t effectID = pOldEffect->getObjectID();
                             pZone->deleteEffect(effectID); // fix me
                         }
 
-                        // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                        // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                         EffectBloodyWall* pEffect = new EffectBloodyWall(pZone, tileX, tileY);
                         pEffect->setCasterName(pMonster->getName());
                         pEffect->setCasterID(pMonster->getObjectID());
@@ -440,7 +440,7 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                         pEffect->setNextTime(0);
                         pEffect->setTick(output.Tick);
 
-                        // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                        // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                         ObjectRegistry& objectregister = pZone->getObjectRegistry();
                         objectregister.registerObject(pEffect);
 
@@ -521,8 +521,8 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pMonster);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pMonster)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pMonster)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -531,7 +531,7 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pMonster) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (!pWatcher->isPC()) {
                         // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
                         return;

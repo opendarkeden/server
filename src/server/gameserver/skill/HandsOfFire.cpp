@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HandsOfFire::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
 
@@ -57,12 +57,12 @@ void HandsOfFire::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire) {
             decreaseMana(pOusters, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pOusters, pOustersSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectHandsOfFire* pEffect = new EffectHandsOfFire(pOusters);
             pEffect->setDeadline(output.Duration);
             pEffect->setBonus(output.Damage);

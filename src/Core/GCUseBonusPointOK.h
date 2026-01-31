@@ -2,7 +2,7 @@
 //
 // Filename    : GCUseBonusPointOK.h
 // Written By  : crazydog
-// Description : vamp°¡ bonus»ç¿ëÀ» Çã°¡ ¹Ş´Ù.
+// Description : vampê°€ bonusì‚¬ìš©ì„ í—ˆê°€ ë°›ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -29,10 +29,10 @@ public:
     // Desctructor
     ~GCUseBonusPointOK();
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -45,7 +45,7 @@ public:
 
     // get packet's body size
     // *OPTIMIZATION HINT*
-    // const static GCUseBonusPointOKPacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+    // const static GCUseBonusPointOKPacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketSize() const {
         return ModifyInfo::getPacketSize();
     }
@@ -87,7 +87,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCUseBonusPointOKPacketSize ¸¦ Á¤ÀÇÇØ¼­ ¸®ÅÏÇÏ¶ó.
+    // const static GCUseBonusPointOKPacketSize ë¥¼ ì •ì˜í•´ì„œ ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return ModifyInfo::getPacketMaxSize();
     }

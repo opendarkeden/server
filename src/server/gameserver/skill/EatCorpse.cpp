@@ -22,7 +22,7 @@
 #include "VampireCorpse.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                         CEffectID_t CEffectID)
@@ -68,9 +68,9 @@ void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
             MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
             Assert(pCorpse != NULL);
 
-            // ¼º¹°º¸°üÇÔÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-            // Å©¸®½º¸¶½º Æ®¸®°¡ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-            // ¼º´ÜÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
+            // ì„±ë¬¼ë³´ê´€í•¨ì´ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
+            // í¬ë¦¬ìŠ¤ë§ˆìŠ¤ íŠ¸ë¦¬ê°€ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
+            // ì„±ë‹¨ì´ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
             if (!pCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE) &&
                 !pCorpse->isFlag(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE) && pCorpse->getMonsterType() != 482 &&
                 pCorpse->getMonsterType() != 650 && pCorpse->getTreasureCount() < 200 && !pCorpse->isShrine()) {
@@ -82,14 +82,14 @@ void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
             Corpse* pCorpse = dynamic_cast<Corpse*>(pItem);
             Assert(pCorpse != NULL);
 
-            // ¹ìÆÄÀÌ¾î ½ÃÃ¼ÀÌ°í, ¼ºÇâÀÌ Evil ÀÌ¶ó¸é ½ÃÃ¼¸¦ ¸Ô´Â °ÍÀÌ ¾Æ´Ï¶ó, ¾ÆÀÌÅÛÀ» ·çÆÃ ÇÑ´Ù.
+            // ë±€íŒŒì´ì–´ ì‹œì²´ì´ê³ , ì„±í–¥ì´ Evil ì´ë¼ë©´ ì‹œì²´ë¥¼ ë¨¹ëŠ” ê²ƒì´ ì•„ë‹ˆë¼, ì•„ì´í…œì„ ë£¨íŒ… í•œë‹¤.
             if (pCorpse->getItemType() == VAMPIRE_CORPSE) {
                 PCVampireInfo3& rPCVampireInfo3 = dynamic_cast<VampireCorpse*>(pCorpse)->getVampireInfo();
 
                 if (g_pAlignmentManager->getAlignmentType(rPCVampireInfo3.getAlignment()) < NEUTRAL) {
                     ItemNum_t ItemCount = pCorpse->getTreasureCount();
 
-                    // ½ÃÃ¼ ¾È¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛÀ» ¸ğÁ¶¸® ´Ù »«´Ù.
+                    // ì‹œì²´ ì•ˆì— ë“¤ì–´ìˆëŠ” ì•„ì´í…œì„ ëª¨ì¡°ë¦¬ ë‹¤ ëº€ë‹¤.
                     for (int i = 0; i < ItemCount; i++) {
                         Item* pTreasure = pCorpse->getTreasure();
                         if (pTreasure != NULL) {
@@ -117,7 +117,7 @@ void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
             int RemainMP = max((int)pVampire->getHP(ATTR_MAX), (int)pVampire->getHP(ATTR_CURRENT) + 10);
             pVampire->setHP(RemainMP, ATTR_CURRENT);
 
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
             ZoneCoord_t myX = pVampire->getX();
             ZoneCoord_t myY = pVampire->getY();
@@ -160,14 +160,14 @@ void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // ¸ğµç Á¤¸®ÀÛ¾÷ÀÌ ³¡ÀÌ ³µÀ¸¸é ½ÃÃ¼¸¦ »èÁ¦ÇÑ´Ù.
-            // »ç¶óÁö´Â ÆĞÅ¶À» ³¯¸°´Ù.
+            // ëª¨ë“  ì •ë¦¬ì‘ì—…ì´ ëì´ ë‚¬ìœ¼ë©´ ì‹œì²´ë¥¼ ì‚­ì œí•œë‹¤.
+            // ì‚¬ë¼ì§€ëŠ” íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
             GCDeleteObject gcDO;
             gcDO.setObjectID(pCorpse->getObjectID());
             pZone->broadcastPacket(X, Y, &gcDO);
-            // Á¸¿¡¼­ Áö¿î´Ù.
+            // ì¡´ì—ì„œ ì§€ìš´ë‹¤.
             pZone->deleteItem(pCorpse, X, Y);
-            // Á¸¾È¿¡¼­ ½ÇÁ¦ÀûÀ¸·Î Æ÷ÀÎÅÍ¸¦ ¾ø¾ÖÁö´Â ¾ÊÀ¸¹Ç·Î Æ÷ÀÎÅÍ¸¦ »èÁ¦ ½ÃÄÑ Áà¾ß ÇÑ´Ù.
+            // ì¡´ì•ˆì—ì„œ ì‹¤ì œì ìœ¼ë¡œ í¬ì¸í„°ë¥¼ ì—†ì• ì§€ëŠ” ì•Šìœ¼ë¯€ë¡œ í¬ì¸í„°ë¥¼ ì‚­ì œ ì‹œì¼œ ì¤˜ì•¼ í•œë‹¤.
             SAFE_DELETE(pCorpse);
         } else {
             executeSkillFailException(pVampire, getSkillType());

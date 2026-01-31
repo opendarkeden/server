@@ -23,16 +23,16 @@ ZoneInfoManager::ZoneInfoManager() {}
 // destructor
 //----------------------------------------------------------------------
 ZoneInfoManager::~ZoneInfoManager() {
-    // hashmap ¾ÈÀÇ °¢ pair ÀÇ second, Áï ZoneInfo °´Ã¼¸¸À» »èÁ¦ÇÏ°í
-    // pair ÀÚÃ¼´Â ±×´ë·Î µÐ´Ù. (ZoneInfo°¡ Èü¿¡ »ý¼ºµÇ¾î ÀÖ´Ù´Â °Í¿¡
-    // À¯ÀÇÇÏ¶ó. Áï ÇÊ»ì»èÁ¦¸¦ ÇØ¾ß ÇÑ´Ù. ÇÏ±ä, ZIMÀÌ destruct µÈ´Ù´Â °ÍÀº
-    // ·Î±×ÀÎ ¼­¹ö°¡ ¼Ë´Ù¿îµÈ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÏ´Ï±ñ.. - -; )
+    // hashmap ì•ˆì˜ ê° pair ì˜ second, ì¦‰ ZoneInfo ê°ì²´ë§Œì„ ì‚­ì œí•˜ê³ 
+    // pair ìžì²´ëŠ” ê·¸ëŒ€ë¡œ ë‘”ë‹¤. (ZoneInfoê°€ íž™ì— ìƒì„±ë˜ì–´ ìžˆë‹¤ëŠ” ê²ƒì—
+    // ìœ ì˜í•˜ë¼. ì¦‰ í•„ì‚´ì‚­ì œë¥¼ í•´ì•¼ í•œë‹¤. í•˜ê¸´, ZIMì´ destruct ëœë‹¤ëŠ” ê²ƒì€
+    // ë¡œê·¸ì¸ ì„œë²„ê°€ ì…§ë‹¤ìš´ëœë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•˜ë‹ˆê¹.. - -; )
     for (HashMapZoneInfo::iterator itr = m_ZoneInfos.begin(); itr != m_ZoneInfos.end(); itr++) {
         delete itr->second;
         itr->second = NULL;
     }
 
-    // ÀÌÁ¦ ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+    // ì´ì œ í•´ì‰¬ë§µì•ˆì— ìžˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
     m_ZoneInfos.clear();
 }
 
@@ -72,13 +72,13 @@ void ZoneInfoManager::load() {
         }
 
     } catch (SQLQueryException& sqe) {
-        // ÇÊ»ì »èÁ¦!
+        // í•„ì‚´ ì‚­ì œ!
         delete pStmt;
 
         throw Error(sqe.toString());
     }
 
-    // ÇÊ»ì »èÁ¦!
+    // í•„ì‚´ ì‚­ì œ!
     delete pStmt;
 
     __END_CATCH
@@ -109,10 +109,10 @@ void ZoneInfoManager::deleteZoneInfo(ZoneID_t zoneID) {
     HashMapZoneInfo::iterator itr = m_ZoneInfos.find(zoneID);
 
     if (itr != m_ZoneInfos.end()) {
-        // ZoneInfo ¸¦ »èÁ¦ÇÑ´Ù.
+        // ZoneInfo ë¥¼ ì‚­ì œí•œë‹¤.
         delete itr->second;
 
-        // pair¸¦ »èÁ¦ÇÑ´Ù.
+        // pairë¥¼ ì‚­ì œí•œë‹¤.
         m_ZoneInfos.erase(itr);
 
     } else { // not found
@@ -167,7 +167,7 @@ string ZoneInfoManager::toString() const {
         //--------------------------------------------------
         // *OPTIMIZATION*
         //
-        // for_each()¸¦ »ç¿ëÇÒ °Í
+        // for_each()ë¥¼ ì‚¬ìš©í•  ê²ƒ
         //--------------------------------------------------
         for (HashMapZoneInfo::const_iterator itr = m_ZoneInfos.begin(); itr != m_ZoneInfos.end(); itr++)
             msg << itr->second->toString() << '\n';

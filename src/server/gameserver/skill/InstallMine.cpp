@@ -45,7 +45,7 @@ void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInve
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
         SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
-        // ¸íÁß·ü.
+        // ëª…ì¤‘ë¥ .
         // ToHit_t ToHit = pSlayer->getToHit();
 
         int RequiredMP = (int)pSkillInfo->getConsumeMP();
@@ -61,7 +61,7 @@ void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInve
         Assert(pInventory != NULL);
 
         if (bManaCheck && bTimeCheck && bRangeCheck) {
-            // mineÀ» Ã£´Â´Ù.
+            // mineì„ ì°¾ëŠ”ë‹¤.
             Item* pItem = pInventory->getItem(X, Y);
             if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_MINE) {
                 bInstallAction = true;
@@ -70,7 +70,7 @@ void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInve
         }
 
 
-        // ±â¼úÀÇ ¼ºÆĞ¸¦ µûÁø´Ù.
+        // ê¸°ìˆ ì˜ ì„±íŒ¨ë¥¼ ë”°ì§„ë‹¤.
         if (bInstallAction) {
             // Range_t Range = 1;
 
@@ -96,8 +96,8 @@ void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInve
             pInstallMine->setInstallerPartyID(pSlayer->getPartyID());
             pInstallMine->setFlag(Effect::EFFECT_CLASS_INSTALL);
 
-            // ¾ÆÀÌÅÛ »ç¶óÁö´Â°Ô 3ºĞÀÎ°Å ¶§¹®¿¡ Áö·Úµµ »ç¶óÁ³´Âµ¥..
-            // 10ºĞÀ¸·Î °íÁ¤. by sigi. 2002.11.3
+            // ì•„ì´í…œ ì‚¬ë¼ì§€ëŠ”ê²Œ 3ë¶„ì¸ê±° ë•Œë¬¸ì— ì§€ë¢°ë„ ì‚¬ë¼ì¡ŒëŠ”ë°..
+            // 10ë¶„ìœ¼ë¡œ ê³ ì •. by sigi. 2002.11.3
             TPOINT pt = pZone->addItem(pInstallMine, slayerX, slayerY, true, 6000);
 
             // EXP up
@@ -129,7 +129,7 @@ void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInve
 
             pPlayer->sendPacket(&_GCSkillToInventoryOK1);
 
-            // mineÀ» º¼ ¼ö ¾ø°Ô µÈ ÀÚµé¿¡°Ô´Â »èÁ¦
+            // mineì„ ë³¼ ìˆ˜ ì—†ê²Œ ëœ ìë“¤ì—ê²ŒëŠ” ì‚­ì œ
             addInstalledMine(pZone, pInstallMine, pt.x, pt.y);
 
             //			pZone->broadcastPacket( slayerX, slayerY, &_GCSkillToInventoryOK5, pSlayer);
@@ -173,7 +173,7 @@ void InstallMine::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
     SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo( SkillType );
     SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
-    // ¸íÁß·ü.
+    // ëª…ì¤‘ë¥ .
     ToHit_t ToHit = pSlayer->getToHit();
 
     int RemainMP = (int)pSlayer->getMP( ATTR_CURRENT) - (int)pSkillInfo->getConsumeMP();
@@ -186,7 +186,7 @@ void InstallMine::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 
     }
 
-    // Installed mineÀ» Ã£´Â´Ù.
+    // Installed mineì„ ì°¾ëŠ”ë‹¤.
     Mine* pMine = NULL;
     bool bInstallAction = false;	// install or disarm
     Item* pItem = pZone->getTile( X, Y).getItem();
@@ -194,9 +194,9 @@ void InstallMine::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
     {
         if( pItem->isFlag( Effect::EFFECT_CLASS_INSTALL))
         {
-            if( pSlayer->isFlag( Effect::EFFECT_CLASS_DETECT_MINE)) 	// ÇöÀç º¼ ¼ö ÀÖ´Â»óÅÂÀÎÁö È®ÀÎ.
+            if( pSlayer->isFlag( Effect::EFFECT_CLASS_DETECT_MINE)) 	// í˜„ì¬ ë³¼ ìˆ˜ ìˆëŠ”ìƒíƒœì¸ì§€ í™•ì¸.
             {
-                bInstallAction = false;// disarmÀÌ´å
+                bInstallAction = false;// disarmì´ë‹·
                 pMine = dynamic_cast<Mine*>(pItem);
             }
         }
@@ -209,7 +209,7 @@ void InstallMine::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 
     ZoneCoord_t slayerX = pSlayer->getX(), slayerY = pSlayer->getY();
 
-    // ±â¼úÀÇ ¼ºÆĞ¸¦ µûÁø´Ù.
+    // ê¸°ìˆ ì˜ ì„±íŒ¨ë¥¼ ë”°ì§„ë‹¤.
     if ( pMine && bModifyMP && (ToHit + SkillLevel) > Random(0, 100) )
     {
         Range_t Range = 1;
@@ -221,13 +221,13 @@ void InstallMine::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
         {
             pMine->setDir( calcDirection( slayerX, slayerY, X, Y));
             pMine->setFlag( Effect::EFFECT_CLASS_INSTALL);
-            // mineÀ» º¼ ¼ö ¾ø°Ô µÈ ÀÚµé¿¡°Ô´Â »èÁ¦
+            // mineì„ ë³¼ ìˆ˜ ì—†ê²Œ ëœ ìë“¤ì—ê²ŒëŠ” ì‚­ì œ
             addInstalledMine( pZone, pMine, X, Y);
 
         }
         else
         {
-            // »èÁ¦ÇÑ´Ù.
+            // ì‚­ì œí•œë‹¤.
             pZone->deleteItem( pMine, X, Y );
             GCDeleteObject gcDeleteObject;
             gcDeleteObject.setObjectID( pMine->getObjectID() );

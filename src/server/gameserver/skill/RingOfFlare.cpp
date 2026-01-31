@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RingOfFlare::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
 
@@ -65,14 +65,14 @@ void RingOfFlare::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire) {
             decreaseMana(pOusters, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pOusters, pOustersSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // cout << pOusters->getName() << "ÀÌ RingOfFlare¸¦ ½è°í µ¥¹ÌÁö´Â " << output.Damage << "ÀÔ´Ï´Ù." << endl;
+            // cout << pOusters->getName() << "ì´ RingOfFlareë¥¼ ì¼ê³  ë°ë¯¸ì§€ëŠ” " << output.Damage << "ì…ë‹ˆë‹¤." << endl;
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ë˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectRingOfFlare* pEffect = new EffectRingOfFlare(pOusters);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamage(output.Damage);

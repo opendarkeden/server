@@ -24,7 +24,7 @@ public:
         return EFFECT_CLASS_MP_RECOVERY;
     }
 
-    // OBJECT_PRIORITY_NONE ��� ����, Ÿ�Ͽ� ������ �ȵȴٴ� ���̴�.
+    // OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }
@@ -67,9 +67,9 @@ public:
     }
 
 private:
-    Turn_t m_Delay;    // �� �ʸ��� TICK�� �ߵ� �Ǵ°�.
-    MP_t m_MPQuantity; // �Ϸ�� ȸ����
-    Turn_t m_Period;   // ȸ���� �Ϸ�Ǵµ� �ɸ��� �ð�.
+    Turn_t m_Delay;    // 몇 초마다 TICK이 발동 되는가.
+    MP_t m_MPQuantity; // 완료시 회복량
+    Turn_t m_Period;   // 회복이 완료되는데 걸리는 시간.
 };
 
 #endif

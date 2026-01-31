@@ -37,27 +37,27 @@ public:
     Effect* findEffect(Effect::EffectClass EClass) const;
     Effect* findEffect(ObjectID_t ObjectID) const;
 
-    // Enemy Erase ÀÌÆåÆ®¸¦ °¡·Á³»±â À§ÇÑ ÇÔ¼öÀÌ´Ù.
+    // Enemy Erase ì´í™íŠ¸ë¥¼ ê°€ë ¤ë‚´ê¸° ìœ„í•œ í•¨ìˆ˜ì´ë‹¤.
     Effect* findEffect(Effect::EffectClass EClass, string EnemyName) const;
 
-    // priority_queue¿¡ µî·ÏÇÏ°í, affectÇÑ´Ù.
+    // priority_queueì— ë“±ë¡í•˜ê³ , affectí•œë‹¤.
     void addEffect(Effect* pEffect);
 
     Effect* getEffect() const {
         return m_Effects.front();
     }
 
-    // ÇöÀç ÀÖ´Â ¸ğµç ÀÌÆåÆ®ÀÇ deadline À» 0À¸·Î ¸¸µç´Ù.
+    // í˜„ì¬ ìˆëŠ” ëª¨ë“  ì´í™íŠ¸ì˜ deadline ì„ 0ìœ¼ë¡œ ë§Œë“ ë‹¤.
     void setTimeOutAllEffect();
 
-    // ÀÏÁ¤ ½Ã°£¸¶´Ù ½ÇÇàµÇ¾î¾ß ÇÏ´Â ÀÌÆåÆ®¸¦ Ã£¾Æ¼­ affect ½ÃÅ°°Å³ª,
-    // expire µÈ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+    // ì¼ì • ì‹œê°„ë§ˆë‹¤ ì‹¤í–‰ë˜ì–´ì•¼ í•˜ëŠ” ì´í™íŠ¸ë¥¼ ì°¾ì•„ì„œ affect ì‹œí‚¤ê±°ë‚˜,
+    // expire ëœ ì´í™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
     //	int heartbeat() ;
     int heartbeat(const Timeval& currentTime);
 
     void sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y);
 
-    // ÇöÀç ÀÌÆåÆ® °³¼ö ¹İÈ¯
+    // í˜„ì¬ ì´í™íŠ¸ ê°œìˆ˜ ë°˜í™˜
     uint getSize() const {
         return m_Effects.size();
     }

@@ -18,7 +18,7 @@ typedef unordered_map<string, ConnectionInfo*> HashMapConnectionInfo;
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConnectionInfoManager;
-// IP ½ºÆ®¸µÀ» Å°°ªÀ¸·Î ÇÏ´Â unordered_map À» ³»ºÎ¿¡ °¡Áö°í ÀÖ´Ù.
+// IP ìŠ¤íŠ¸ë§ì„ í‚¤ê°’ìœ¼ë¡œ í•˜ëŠ” unordered_map ì„ ë‚´ë¶€ì— ê°€ì§€ê³  ìˆë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class ConnectionInfoManager {
@@ -39,7 +39,7 @@ private:
     HashMapConnectionInfo m_ConnectionInfos;
 
     Timeval m_NextHeartbeat;
-    Timeval m_UpdateUserStatusTime; // ³İ¸¶ºí¿ë by sigi. 2002.11.4
+    Timeval m_UpdateUserStatusTime; // ë„·ë§ˆë¸”ìš© by sigi. 2002.11.4
 
     mutable Mutex m_Mutex;
 };

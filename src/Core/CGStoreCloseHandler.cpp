@@ -37,13 +37,13 @@ void CGStoreCloseHandler::execute(CGStoreClose* pPacket, Player* pPlayer)
     Assert(pStore != NULL);
 
     if (!pStore->isOpen()) {
-        filelog("Store.log", "[%s:%s] ÀÌ¹Ì »óÁ¡ÀÌ ´ÝÇôÀÖ½À´Ï´Ù..", pGamePlayer->getID().c_str(),
+        filelog("Store.log", "[%s:%s] ì´ë¯¸ ìƒì ì´ ë‹«í˜€ìžˆìŠµë‹ˆë‹¤..", pGamePlayer->getID().c_str(),
                 pPC->getName().c_str());
         return;
     }
 
     pStore->close();
-    cout << pPC->getName() << " ÀÇ »óÁ¡ÀÌ ´ÝÇû½À´Ï´Ùˆ•." << endl;
+    cout << pPC->getName() << " ì˜ ìƒì ì´ ë‹«í˜”ìŠµë‹ˆë‹¤ë‹." << endl;
 
     GCMyStoreInfo gcInfo;
     gcInfo.setStoreInfo(&(pStore->getStoreInfo()));

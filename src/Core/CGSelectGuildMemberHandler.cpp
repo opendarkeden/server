@@ -35,13 +35,13 @@ void CGSelectGuildMemberHandler::execute(CGSelectGuildMember* pPacket, Player* p
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
     Assert(pPlayerCreature != NULL);
 
-    // ¼±ÅÃÇÑ ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ì„ íƒí•œ ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPlayerCreature->getGuildID());
     // try { Assert( pGuild != NULL ); } catch ( Throwable& ) { return; }
     if (pGuild == NULL)
         return;
 
-    // ¼±ÅÃÇÑ ±æµå ¸â¹ö¸¦ °¡Á®¿Â´Ù.
+    // ì„ íƒí•œ ê¸¸ë“œ ë©¤ë²„ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     // try { Assert( pGuildMember != NULL ); } catch ( Throwable& ) { return; }
     if (pGuildMember == NULL)

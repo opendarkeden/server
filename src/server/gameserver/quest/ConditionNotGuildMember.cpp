@@ -19,7 +19,7 @@ bool ConditionNotGuildMember::isSatisfied(Creature* pCreature1, Creature* pCreat
 
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-    // ±æµå ÀÌ¸§À» °¡Á®¿Í¼­ ¾øÀ¸¸é ±æµå¿øÀÌ ¾Æ´Ï´Ù
+    // ê¸¸ë“œ ì´ë¦„ì„ ê°€ì ¸ì™€ì„œ ì—†ìœ¼ë©´ ê¸¸ë“œì›ì´ ì•„ë‹ˆë‹¤
     if (pPC->getGuildName().size() == 0)
         return true;
 

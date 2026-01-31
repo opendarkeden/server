@@ -73,8 +73,8 @@ private:
     //	list<OptionType_t>    m_OptionType;
     //	Durability_t    m_Durability;
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 

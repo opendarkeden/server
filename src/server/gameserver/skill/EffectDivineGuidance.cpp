@@ -65,7 +65,7 @@ void EffectDivineGuidance::affect(Creature* pCreature)
 
     if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) && !pCreature->isDead() &&
         !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
-        // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+        // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
         && canAttack(pAttacker, pCreature)) {
         GCModifyInformation gcMI, gcAttackerMI;
         setDamage(pCreature, m_Point, pAttacker, SKILL_DIVINE_GUIDANCE, &gcMI, &gcAttackerMI);

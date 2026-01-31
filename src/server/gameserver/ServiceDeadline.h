@@ -6,7 +6,7 @@
 #ifdef __ACTIVE_SERVICE_DEADLINE__
 
 const int DEADLINE_YEAR = 2003;
-const int DEADLINE_MONTH = 4 - 1; // 1 »©Áà¾ßÇÑ´Ù.
+const int DEADLINE_MONTH = 4 - 1; // 1 ë¹¼ì¤˜ì•¼í•œë‹¤.
 
 #endif
 

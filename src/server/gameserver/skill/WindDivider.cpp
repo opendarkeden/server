@@ -9,7 +9,7 @@
 #include "SimpleLinearMeleeSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void WindDivider::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -25,7 +25,7 @@ void WindDivider::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         Zone* pZone = pSlayer->getZone();
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -42,7 +42,7 @@ void WindDivider::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void WindDivider::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -63,8 +63,8 @@ void WindDivider::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
     param.STRMultiplier = 8;
     param.DEXMultiplier = 1;
     param.INTMultiplier = 1;
-    // °øÁß¿¡ ÀÖ´Â ¸ó½ºÅÍ¸¦ Ã¼Å©ÇÏ±â À§ÇÏ¿© ÀÓÀÇ·Î ³¯¸°´Ù.
-    // 1 ¹øÀº °øÁß °ø°İ °¡´É, 2 ¹øÀº ¶¥¼Ó °ø°İ °¡´É
+    // ê³µì¤‘ì— ìˆëŠ” ëª¬ìŠ¤í„°ë¥¼ ì²´í¬í•˜ê¸° ìœ„í•˜ì—¬ ì„ì˜ë¡œ ë‚ ë¦°ë‹¤.
+    // 1 ë²ˆì€ ê³µì¤‘ ê³µê²© ê°€ëŠ¥, 2 ë²ˆì€ ë•…ì† ê³µê²© ê°€ëŠ¥
     param.Level = 1;
     param.bMagicHitRoll = false;
     param.bMagicDamage = false;

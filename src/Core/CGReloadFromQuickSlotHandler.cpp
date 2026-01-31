@@ -81,10 +81,10 @@ void CGReloadFromQuickSlotHandler::execute(CGReloadFromQuickSlot* pPacket, Playe
                     return;
                 }
 
-                // ½½¶ù¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ Object¸¦ ¹Þ´Â´Ù.
+                // ìŠ¬ëžì— ìžˆëŠ” ì•„ì´í…œì˜ Objectë¥¼ ë°›ëŠ”ë‹¤.
                 ItemObjectID = pBeltItem->getObjectID();
 
-                // ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö ±× ¾ÆÀÌÅÛÀÇ ObjectID°¡ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+                // ì•„ì´í…œì´ ìžˆëŠ”ì§€ ê·¸ ì•„ì´í…œì˜ ObjectIDê°€ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
                 if (ItemObjectID == pPacket->getObjectID() && pBeltItem->getItemClass() == Item::ITEM_CLASS_MAGAZINE) {
                     SkillSlot* pVivid = pSlayer->getSkill(SKILL_VIVID_MAGAZINE);
                     bool hasVivid = (pVivid != NULL) && pVivid->canUse();
@@ -96,7 +96,7 @@ void CGReloadFromQuickSlotHandler::execute(CGReloadFromQuickSlot* pPacket, Playe
             }
         }
 
-        // °ËÁõ ÆÐÅ¶À» ³¯¸°´Ù.
+        // ê²€ì¦ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
         EffectManager* pEffectManager = pSlayer->getEffectManager();
         if (Success && !pSlayer->isFlag(Effect::EFFECT_CLASS_RELOAD_TIMER)) {
             EffectReloadTimer* pEffect = new EffectReloadTimer(pSlayer);
@@ -104,9 +104,9 @@ void CGReloadFromQuickSlotHandler::execute(CGReloadFromQuickSlot* pPacket, Playe
             pEffect->setObjectID(ItemObjectID);
             pEffect->setSlotID(SlotID);
             if (pSlayer->hasSkill(SKILL_FAST_RELOAD)) {
-                pEffect->setDeadline(7); // ºü¸¥ reload(0.7ÃÊ)
+                pEffect->setDeadline(7); // ë¹ ë¥¸ reload(0.7ì´ˆ)
             } else {
-                pEffect->setDeadline(2 * 10); // º¸Åë reload(2sec)
+                pEffect->setDeadline(2 * 10); // ë³´í†µ reload(2sec)
             }
 
             pSlayer->setFlag(Effect::EFFECT_CLASS_RELOAD_TIMER);

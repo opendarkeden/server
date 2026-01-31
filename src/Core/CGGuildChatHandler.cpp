@@ -49,7 +49,7 @@ void CGGuildChatHandler::execute(CGGuildChat* pPacket, Player* pPlayer)
     ggGuildChat.setColor(pPacket->getColor());
     ggGuildChat.setMessage(pPacket->getMessage());
 
-    // °¢ ¼­¹ö·Î º¸³½´Ù.
+    // ê° ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
     HashMapGameServerInfo** pGameServerInfos = g_pGameServerInfoManager->getGameServerInfos();
 
     static int myWorldID = g_pConfig->getPropertyInt("WorldID");

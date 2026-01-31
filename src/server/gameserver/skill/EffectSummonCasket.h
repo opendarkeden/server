@@ -42,7 +42,7 @@ public:
     }
 
 private:
-    int m_Type; // casket Á¾·ù
+    int m_Type; // casket ì¢…ë¥˜
 };
 
 #endif // __EFFECT_SUMMON_CASKET__

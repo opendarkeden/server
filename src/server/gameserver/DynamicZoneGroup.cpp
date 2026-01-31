@@ -45,7 +45,7 @@ void DynamicZoneGroup::addDynamicZone(DynamicZone* pDynamicZone) {
 }
 
 bool DynamicZoneGroup::canEnter() {
-    // ÇöÀç ÀÖ´Â DynamicZone Áß¿¡¼­ °¡´ÉÇÑ ³ÑÀ» Ã£´Â´Ù.
+    // í˜„ìž¬ ìžˆëŠ” DynamicZone ì¤‘ì—ì„œ ê°€ëŠ¥í•œ ë„˜ì„ ì°¾ëŠ”ë‹¤.
     HashMapDynamicZoneItor itr = m_DynamicZones.begin();
     HashMapDynamicZoneItor endItr = m_DynamicZones.end();
 
@@ -59,7 +59,7 @@ bool DynamicZoneGroup::canEnter() {
 }
 
 DynamicZone* DynamicZoneGroup::getAvailableDynamicZone() {
-    // ÇöÀç ÀÖ´Â DynamicZone Áß¿¡¼­ °¡´ÉÇÑ ³ÑÀ» Ã£´Â´Ù.
+    // í˜„ìž¬ ìžˆëŠ” DynamicZone ì¤‘ì—ì„œ ê°€ëŠ¥í•œ ë„˜ì„ ì°¾ëŠ”ë‹¤.
     HashMapDynamicZoneItor itr = m_DynamicZones.begin();
     HashMapDynamicZoneItor endItr = m_DynamicZones.end();
 
@@ -71,8 +71,8 @@ DynamicZone* DynamicZoneGroup::getAvailableDynamicZone() {
         }
     }
 
-    // ÇöÀç ÀÖ´Â DynamicZone Áß¿¡´Â °¡´ÉÇÑ ³ÑÀÌ ¾ø´Ù.
-    // »õ·Î DynamicZone À» ¸¸µç´Ù.
+    // í˜„ìž¬ ìžˆëŠ” DynamicZone ì¤‘ì—ëŠ” ê°€ëŠ¥í•œ ë„˜ì´ ì—†ë‹¤.
+    // ìƒˆë¡œ DynamicZone ì„ ë§Œë“ ë‹¤.
     DynamicZone* pDynamicZone = NULL;
 
     pDynamicZone = g_pDynamicZoneFactoryManager->createDynamicZone(m_DynamicZoneType);

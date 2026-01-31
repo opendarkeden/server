@@ -50,7 +50,7 @@ public:
     }
 
 protected:
-    int m_Part; // ÇÇÀÇ ¼º¼­ Á¶°¢ ¹øÈ£
+    int m_Part; // í”¼ì˜ ì„±ì„œ ì¡°ê° ë²ˆí˜¸
     Turn_t m_Tick;
 };
 

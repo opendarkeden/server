@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectHasPet.cpp
-// Written by  : ½­
+// Written by  : ì‰­
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -65,7 +65,7 @@ void EffectHasPet::affect(Creature* pCreature)
     PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPC != NULL);
 
-    // cout << pPC->getName() << " ÀÇ ÆêÀÌ ¹ä¸ÔÀ»¶§°¡ µÆ½À´Ï´Ù." << endl;
+    // cout << pPC->getName() << " ì˜ íŽ«ì´ ë°¥ë¨¹ì„ë•Œê°€ ëìŠµë‹ˆë‹¤." << endl;
 
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
     Assert(pGamePlayer != NULL);
@@ -80,11 +80,11 @@ void EffectHasPet::affect(Creature* pCreature)
 
         PetInfo* pPetInfo = pPetItem->getPetInfo();
 
-        // cout << pPC->getName() << " ÀÇ ÆêÀÎ " << pPetItem->getObjectID() << " ¹ø ÆêÀÌ ¹ä¸Ô½À´Ï´Ù." <<
+        // cout << pPC->getName() << " ì˜ íŽ«ì¸ " << pPetItem->getObjectID() << " ë²ˆ íŽ«ì´ ë°¥ë¨¹ìŠµë‹ˆë‹¤." <<
         // pPetInfo->getPetHP() << endl;
 
         if (pPetInfo == NULL) {
-            filelog("PetBug.log", "EffectHasPet µ¹¾Æ°¡´Âµ¥ ÆêÀÌ ¾ø´Ù : %s", pPC->getName().c_str());
+            filelog("PetBug.log", "EffectHasPet ëŒì•„ê°€ëŠ”ë° íŽ«ì´ ì—†ë‹¤ : %s", pPC->getName().c_str());
             continue;
         }
 
@@ -96,17 +96,17 @@ void EffectHasPet::affect(Creature* pCreature)
         int secsLast = pPetInfo->getLastFeedTime().secsTo(currentTime);
         //		if ( secsLast > 70 )
         //		{
-        //			filelog( "PetBug.log", "ÆêÀÌ ¹ä¸Ô´Âµ¥ 70ÃÊ ³Ñ°Ô °É·È´Ù. %dÃÊ : %s", secsLast, pPC->getName().c_str()
+        //			filelog( "PetBug.log", "íŽ«ì´ ë°¥ë¨¹ëŠ”ë° 70ì´ˆ ë„˜ê²Œ ê±¸ë ¸ë‹¤. %dì´ˆ : %s", secsLast, pPC->getName().c_str()
         //);
         //		}
 
-        // 50·¹º§ ÆêÀº 10ºÐ¿¡ ÇÑ¹ø¾¿ ¹ä¸Ô´Â´Ù.
+        // 50ë ˆë²¨ íŽ«ì€ 10ë¶„ì— í•œë²ˆì”© ë°¥ë¨¹ëŠ”ë‹¤.
         if (pPetInfo->getPetLevel() == 50 && secsLast < 600)
             continue;
 
         pPetInfo->setCurrentFeedTurn(pPetInfo->getCurrentFeedTurn() + 1);
 
-        // °¡²û ¹ä¸ÔÀÎ´Ù.
+        // ê°€ë” ë°¥ë¨¹ì¸ë‹¤.
         if (pPetInfo->getCurrentFeedTurn() >= pPetInfo->getFeedTurn()) {
             pPetInfo->setCurrentFeedTurn(0);
 
@@ -114,8 +114,8 @@ void EffectHasPet::affect(Creature* pCreature)
             pPetInfo->setFeedTime(currentTime);
 
             if (pPetInfo->getPetHP() == 0) {
-                filelog("Pet.log", "%sÀÇ ÆêÀÌ Á×¾ú´Ù.", pPC->getName().c_str());
-                // cout << pPC->getName() << "ÀÇ ÆêÀÌ Á×¾ú´Ù" << endl;
+                filelog("Pet.log", "%sì˜ íŽ«ì´ ì£½ì—ˆë‹¤.", pPC->getName().c_str());
+                // cout << pPC->getName() << "ì˜ íŽ«ì´ ì£½ì—ˆë‹¤" << endl;
                 if (pPC->getPetInfo() == pPetInfo) {
                     pPC->setPetInfo(NULL);
                     pPC->initAllStatAndSend();
@@ -177,10 +177,10 @@ void EffectHasPet::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // cout << "EffectHasPet Áö¿ó´Ï´Ù." << endl;
+    // cout << "EffectHasPet ì§€ì›ë‹ˆë‹¤." << endl;
 
-    // ´É·ÂÄ¡¸¦ Á¤»óÀûÀ¸·Î µÇµ¹¸®±â À§ÇØ¼­´Â ÇÃ·¡±×¸¦ ²ô°í,
-    // initAllStatÀ» ºÒ·¯¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì •ìƒì ìœ¼ë¡œ ë˜ëŒë¦¬ê¸° ìœ„í•´ì„œëŠ” í”Œëž˜ê·¸ë¥¼ ë„ê³ ,
+    // initAllStatì„ ë¶ˆëŸ¬ì•¼ í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_HAS_PET);
 
     Zone* pZone = pCreature->getZone();

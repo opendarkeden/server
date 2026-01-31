@@ -26,7 +26,7 @@ class GCGuildMemberList;
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildMember
-// ±æµå¸â¹ö¿¡ °üÇÑ Á¤º¸¸¦ °¡Áø´Ù.
+// ê¸¸ë“œë©¤ë²„ì— ê´€í•œ ì •ë³´ë¥¼ ê°€ì§„ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -152,12 +152,12 @@ public:
 
 public:
     enum GuildRank {
-        GUILDMEMBER_RANK_NORMAL = 0, // ÀÏ¹İ ¸â¹ö
-        GUILDMEMBER_RANK_MASTER,     // ±æµå ¸¶½ºÅÍ
-        GUILDMEMBER_RANK_SUBMASTER,  // ±æµå ¼­ºê ¸¶½ºÅÍ
-        GUILDMEMBER_RANK_WAIT,       // ±æµå °¡ÀÔ ´ë±â
-        GUILDMEMBER_RANK_DENY,       // Ãß¹æ/°ÅºÎ ´çÇÔ
-        GUILDMEMBER_RANK_LEAVE,      // ±æµå Å»Åğ(½º½º·Î)
+        GUILDMEMBER_RANK_NORMAL = 0, // ì¼ë°˜ ë©¤ë²„
+        GUILDMEMBER_RANK_MASTER,     // ê¸¸ë“œ ë§ˆìŠ¤í„°
+        GUILDMEMBER_RANK_SUBMASTER,  // ê¸¸ë“œ ì„œë¸Œ ë§ˆìŠ¤í„°
+        GUILDMEMBER_RANK_WAIT,       // ê¸¸ë“œ ê°€ì… ëŒ€ê¸°
+        GUILDMEMBER_RANK_DENY,       // ì¶”ë°©/ê±°ë¶€ ë‹¹í•¨
+        GUILDMEMBER_RANK_LEAVE,      // ê¸¸ë“œ íƒˆí‡´(ìŠ¤ìŠ¤ë¡œ)
 
         GUILDMEMBER_RANK_MAX
     };
@@ -193,7 +193,7 @@ public: // identity methods
     GuildMemberRank_t getRank() const {
         return m_Rank;
     }
-    void setRank(GuildMemberRank_t rank); // Guild class ¿¡¼­ Ã³¸®ÇÑ´Ù.
+    void setRank(GuildMemberRank_t rank); // Guild class ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 
     bool getLogOn() const {
         return m_bLogOn;
@@ -229,20 +229,20 @@ public:
     ///// Member data /////
 
 protected:
-    GuildID_t m_GuildID;          // ±æµå ID
-    string m_Name;                // ¸â¹ö ÀÌ¸§
-    GuildMemberRank_t m_Rank;     // ¸â¹öÀÇ °è±Ş
-    VSDateTime m_RequestDateTime; // °¡ÀÔ ½ÅÃ» ½Ã°£
-    bool m_bLogOn;                // Á¢¼Ó ¿©ºÎ
-    ServerID_t m_ServerID;        // ¼­¹ö À§Ä¡
+    GuildID_t m_GuildID;          // ê¸¸ë“œ ID
+    string m_Name;                // ë©¤ë²„ ì´ë¦„
+    GuildMemberRank_t m_Rank;     // ë©¤ë²„ì˜ ê³„ê¸‰
+    VSDateTime m_RequestDateTime; // ê°€ì… ì‹ ì²­ ì‹œê°„
+    bool m_bLogOn;                // ì ‘ì† ì—¬ë¶€
+    ServerID_t m_ServerID;        // ì„œë²„ ìœ„ì¹˜
 };
 
 
 //////////////////////////////////////////////////////////////////////////////
 // class Guild
-// ±æµå¿¡ °üÇÑ Á¤º¸¸¦ °¡Áø´Ù.
+// ê¸¸ë“œì— ê´€í•œ ì •ë³´ë¥¼ ê°€ì§„ë‹¤.
 //
-// GuildInfo Å×ÀÌºíÀÇ ±¸Á¶
+// GuildInfo í…Œì´ë¸”ì˜ êµ¬ì¡°
 // ----------------------------------------
 // GuildID            INT
 // GuildName          VARCHAR(20)
@@ -269,26 +269,26 @@ class Guild {
 
 public:
     enum GuildTypes {
-        GUILD_TYPE_NORMAL = 0, // ÀÏ¹İ ±æµå
-        GUILD_TYPE_JUDGE,      // ÆÇ°ü ±æµå
-        GUILD_TYPE_ASSASSIN,   // ¾Ï»ìÀÚ ±æµå
+        GUILD_TYPE_NORMAL = 0, // ì¼ë°˜ ê¸¸ë“œ
+        GUILD_TYPE_JUDGE,      // íŒê´€ ê¸¸ë“œ
+        GUILD_TYPE_ASSASSIN,   // ì•”ì‚´ì ê¸¸ë“œ
 
         GUILD_TYPE_MAX
     };
 
     enum GuildState {
-        GUILD_STATE_ACTIVE = 0, // È°µ¿ ÁßÀÎ ±æµå
-        GUILD_STATE_WAIT,       // µî·Ï ´ë±â ÁßÀÎ ±æµå
-        GUILD_STATE_CANCEL,     // Ãë¼ÒµÈ ±æµå
-        GUILD_STATE_BROKEN,     // ÇØÃ¼µÈ ±æµå
+        GUILD_STATE_ACTIVE = 0, // í™œë™ ì¤‘ì¸ ê¸¸ë“œ
+        GUILD_STATE_WAIT,       // ë“±ë¡ ëŒ€ê¸° ì¤‘ì¸ ê¸¸ë“œ
+        GUILD_STATE_CANCEL,     // ì·¨ì†Œëœ ê¸¸ë“œ
+        GUILD_STATE_BROKEN,     // í•´ì²´ëœ ê¸¸ë“œ
 
         GUILD_STATE_MAX
     };
 
     enum GuildRace {
-        GUILD_RACE_SLAYER = 0, // ½½·¹ÀÌ¾î ±æµå
-        GUILD_RACE_VAMPIRE,    // ¹ìÆÄÀÌ¾î ±æµå
-        GUILD_RACE_OUSTERS,    // ¾Æ¿ì½ºÅÍÁî ±æµå
+        GUILD_RACE_SLAYER = 0, // ìŠ¬ë ˆì´ì–´ ê¸¸ë“œ
+        GUILD_RACE_VAMPIRE,    // ë±€íŒŒì´ì–´ ê¸¸ë“œ
+        GUILD_RACE_OUSTERS,    // ì•„ìš°ìŠ¤í„°ì¦ˆ ê¸¸ë“œ
 
         GUILD_RACE_MAX
     };
@@ -458,30 +458,30 @@ public: // debug
     ///// Member data /////
 
 protected:
-    GuildID_t m_ID;                  // ±æµå ID
-    string m_Name;                   // ±æµå ÀÌ¸§
-    GuildType_t m_Type;              // ±æµå Å¸ÀÔ
-    GuildRace_t m_Race;              // ±æµå Á¾Á·
-    GuildState_t m_State;            // ±æµå »óÅÂ
-    ServerGroupID_t m_ServerGroupID; // ±æµå Á¸ÀÌ ÀÖ´Â ¼­¹ö ±×·ì ID
-    ZoneID_t m_ZoneID;               // ±æµå ZoneID
-    string m_Master;                 // ±æµå ¸¶½ºÅÍ
-    string m_Date;                   // ±æµå Expire, Regist Date
-    string m_Intro;                  // ±æµå ¼Ò°³
+    GuildID_t m_ID;                  // ê¸¸ë“œ ID
+    string m_Name;                   // ê¸¸ë“œ ì´ë¦„
+    GuildType_t m_Type;              // ê¸¸ë“œ íƒ€ì…
+    GuildRace_t m_Race;              // ê¸¸ë“œ ì¢…ì¡±
+    GuildState_t m_State;            // ê¸¸ë“œ ìƒíƒœ
+    ServerGroupID_t m_ServerGroupID; // ê¸¸ë“œ ì¡´ì´ ìˆëŠ” ì„œë²„ ê·¸ë£¹ ID
+    ZoneID_t m_ZoneID;               // ê¸¸ë“œ ZoneID
+    string m_Master;                 // ê¸¸ë“œ ë§ˆìŠ¤í„°
+    string m_Date;                   // ê¸¸ë“œ Expire, Regist Date
+    string m_Intro;                  // ê¸¸ë“œ ì†Œê°œ
 
-    HashMapGuildMember m_Members; // ±æµå ¸â¹ö Æ÷ÀÎÅÍ ¸Ê
+    HashMapGuildMember m_Members; // ê¸¸ë“œ ë©¤ë²„ í¬ì¸í„° ë§µ
     int m_ActiveMemberCount;      // Active Member Count
     int m_WaitMemberCount;        // Wait Member Count
 
-    static GuildID_t m_MaxGuildID;      // ±æµå ¾ÆÀÌµğ ÃÖ´ë°ª
-    static ZoneID_t m_MaxSlayerZoneID;  // ½½·¹ÀÌ¾î ±æµå Á¸ ID ÃÖ´ë°ª
-    static ZoneID_t m_MaxVampireZoneID; // ¹ìÆÄÀÌ¾î ±æµå Á¸ ID ÃÖ´ë°ª
-    static ZoneID_t m_MaxOustersZoneID; // ¾Æ¿ì½ºÅÍÁî ±æµå Á¸ ID ÃÖ´ë°ª
+    static GuildID_t m_MaxGuildID;      // ê¸¸ë“œ ì•„ì´ë”” ìµœëŒ€ê°’
+    static ZoneID_t m_MaxSlayerZoneID;  // ìŠ¬ë ˆì´ì–´ ê¸¸ë“œ ì¡´ ID ìµœëŒ€ê°’
+    static ZoneID_t m_MaxVampireZoneID; // ë±€íŒŒì´ì–´ ê¸¸ë“œ ì¡´ ID ìµœëŒ€ê°’
+    static ZoneID_t m_MaxOustersZoneID; // ì•„ìš°ìŠ¤í„°ì¦ˆ ê¸¸ë“œ ì¡´ ID ìµœëŒ€ê°’
 
     mutable Mutex m_Mutex; // Mutex for Guild
 
 #ifdef __GAME_SERVER__
-    list<string> m_CurrentMembers; // ÇöÀç Á¢¼Ó ÁßÀÎ ¸â¹ö
+    list<string> m_CurrentMembers; // í˜„ì¬ ì ‘ì† ì¤‘ì¸ ë©¤ë²„
 #endif
 };
 

@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectDecayCorpse;
-// ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é, ½ÃÃ¼¸¦ ½â¾î ¾ø¾îÁö°Ô ÇÏ°í, ³»ºÎÀÇ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÑ´Ù.
+// ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ë©´, ì‹œì²´ë¥¼ ì©ì–´ ì—†ì–´ì§€ê²Œ í•˜ê³ , ë‚´ë¶€ì˜ ì•„ì´í…œì„ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class Corpse;
@@ -26,7 +26,7 @@ public:
         return EFFECT_CLASS_DECAY_CORPSE;
     }
 
-    // OBJECT_PRIORITY_NONE ¶ó´Â ¶æÀº, Å¸ÀÏ¿¡ µé¾î°¡¼­´Â ¾ÈµÈ´Ù´Â ¶æÀÌ´Ù.
+    // OBJECT_PRIORITY_NONE ë¼ëŠ” ëœ»ì€, íƒ€ì¼ì— ë“¤ì–´ê°€ì„œëŠ” ì•ˆëœë‹¤ëŠ” ëœ»ì´ë‹¤.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }

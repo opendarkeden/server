@@ -30,20 +30,20 @@ void CGSelectPortalHandler::execute(CGSelectPortal* pPacket, Player* pPlayer)
     try {
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
-        // °ÔÀÓ ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ï¶ó¸é °Á ¸®ÅÏÇÑ´Ù.
+        // ê²Œì„ í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹ˆë¼ë©´ ê± ë¦¬í„´í•œë‹¤.
         if (pGamePlayer->getPlayerStatus() != GPS_NORMAL)
             return;
 
         Creature* pCreature = pGamePlayer->getCreature();
         Zone* pZone = pCreature->getZone();
 
-        // ÇöÀç Å©¸®ÃÄÀÇ ÁÂÇ¥°¡ ºñÁ¤»óÀûÀÌ¶ó¸é ¸®ÅÏÇÑ´Ù.
+        // í˜„ì¬ í¬ë¦¬ì³ì˜ ì¢Œí‘œê°€ ë¹„ì •ìƒì ì´ë¼ë©´ ë¦¬í„´í•œë‹¤.
         if (!isValidZoneCoord(pZone, pCreature->getX(), pCreature->getY()))
             return;
 
         Tile& rTile = pZone->getTile(pCreature->getX(), pCreature->getY());
 
-        // ¸¸¾à Æ÷Å»ÀÌ ÀÖÀ¸¸é¼­, Å©¸®Ã³°¡ PCÀÎ °æ¿ì.. (¸ó½ºÅÍ¿Í NPC´Â Æ÷Å» ÀÌµ¿À» ÇÏÁö ¾Ê´Â´Ù.)
+        // ë§Œì•½ í¬íƒˆì´ ìˆìœ¼ë©´ì„œ, í¬ë¦¬ì²˜ê°€ PCì¸ ê²½ìš°.. (ëª¬ìŠ¤í„°ì™€ NPCëŠ” í¬íƒˆ ì´ë™ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤.)
         if (rTile.hasPortal()) {
             Portal* pPortal = rTile.getPortal();
 

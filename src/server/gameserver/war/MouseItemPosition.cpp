@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// MouseItemPosition Å¬·¡½º ±¸Çö
+// MouseItemPosition í´ëž˜ìŠ¤ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "MouseItemPosition.h"
@@ -82,11 +82,11 @@ Zone* MouseItemPosition::getZone()
 {
     __BEGIN_TRY
 
-    // ±¸ÇØ³õÀº°Ô ÀÖÀ¸¸é ±×°É·Î ¸®ÅÏÇÑ´Ù.
+    // êµ¬í•´ë†“ì€ê²Œ ìžˆìœ¼ë©´ ê·¸ê±¸ë¡œ ë¦¬í„´í•œë‹¤.
     if (m_bSetZone)
         return m_pZone;
 
-    // ±¸ÇØ³õÀº°Ô ¾øÀ¸¸é »õ·Î ±¸ÇÑ´Ù.
+    // êµ¬í•´ë†“ì€ê²Œ ì—†ìœ¼ë©´ ìƒˆë¡œ êµ¬í•œë‹¤.
     Creature* pTargetCreature = findCreature();
 
     return getZoneByCreature(pTargetCreature);
@@ -102,7 +102,7 @@ Item* MouseItemPosition::popItem_CORE(PlayerCreature* pPC)
     Item* pItem;
 
     if (pPC->getExtraInventorySlotItem() == NULL) {
-        filelog("ItemError.log", "InventoryItemPosition:getItem() : ÇØ´çÇÏ´Â À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "InventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” ìœ„ì¹˜ì— ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
 
         return NULL;
     }
@@ -153,7 +153,7 @@ Creature* MouseItemPosition::findCreature()
 
     pTargetCreature = g_pPCFinder->getCreature_LOCKED(m_OwnerName);
     if (pTargetCreature == NULL) {
-        filelog("ItemError.log", "InventoryItemPosition:getItem() : ÇØ´çÇÏ´Â Creature°¡ ¾ø½À´Ï´Ù.");
+        filelog("ItemError.log", "InventoryItemPosition:getItem() : í•´ë‹¹í•˜ëŠ” Creatureê°€ ì—†ìŠµë‹ˆë‹¤.");
 
         g_pPCFinder->unlock();
         return NULL;

@@ -46,7 +46,7 @@ void ActionEnterSiege::read(PropertyBuffer& pb)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// 咀记阑 角青茄促.
+// 戮脳录脟脌禄 陆脟脟脿脟脩麓脵.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterSiege::execute(Creature* pNPC, Creature* pCreature)
 
@@ -60,7 +60,7 @@ void ActionEnterSiege::execute(Creature* pNPC, Creature* pCreature)
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
     if (!g_pWarSystem->hasCastleActiveWar(m_ZoneID)) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("只能在进行攻城战中进入.");
+        gcSM.setMessage("脰禄脛脺脭脷陆酶脨脨鹿楼鲁脟脮陆脰脨陆酶脠毛.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
@@ -87,7 +87,7 @@ void ActionEnterSiege::execute(Creature* pNPC, Creature* pCreature)
     SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(g_pWarSystem->getActiveWar(m_ZoneID));
     if (pSiegeWar == NULL) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("第1个服务器发生故障，请与运营商联系.");
+        gcSM.setMessage("碌脷1赂枚路镁脦帽脝梅路垄脡煤鹿脢脮脧拢卢脟毛脫毛脭脣脫陋脡脤脕陋脧碌.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
@@ -95,21 +95,21 @@ void ActionEnterSiege::execute(Creature* pNPC, Creature* pCreature)
     int side = pSiegeWar->getGuildSide(pPC->getGuildID());
     if (side == 0) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("不是申请战斗的行会.");
+        gcSM.setMessage("虏禄脢脟脡锚脟毛脮陆露路碌脛脨脨禄谩.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
 
     if (!g_pGuildManager->isGuildMaster(pPC->getGuildID(), pPC)) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("只有行会会长,才可以进行申请.");
+        gcSM.setMessage("脰禄脫脨脨脨禄谩禄谩鲁陇,虏脜驴脡脪脭陆酶脨脨脡锚脟毛.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
 
     static TPOINT targetPos[7] = {{172, 38}, {172, 38}, {20, 232}, {20, 232}, {20, 232}, {20, 232}, {20, 232}};
 
-    // 家券磊狼 粮苞 谅钎.
+    // 录脪脠炉脌脷脌脟 脕赂掳煤 脕脗脟楼.
     ZoneID_t ZoneNum = siegeZoneID;
     Coord_t ZoneX = targetPos[side - 1].x;
     Coord_t ZoneY = targetPos[side - 1].y;

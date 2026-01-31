@@ -28,12 +28,12 @@ int main() {
                  << ",Name:" << pResult->getString(3) << ",Password:" << pResult->getString(4) << ")" << endl;
         }
 
-        // Statement ¿¡¼­ ÀÌÀü Result ´Â ÀÚµ¿À¸·Î »èÁ¦ÇÑ´Ù.
-        // ±¦È÷ ¿ÜºÎ¿¡¼­ Áö¿ì°Ô µÇ¸é °ñÄ¡¾ÆÇÁ´Ù. - -;
+        // Statement ì—ì„œ ì´ì „ Result ëŠ” ìžë™ìœ¼ë¡œ ì‚­ì œí•œë‹¤.
+        // ê´œížˆ ì™¸ë¶€ì—ì„œ ì§€ìš°ê²Œ ë˜ë©´ ê³¨ì¹˜ì•„í”„ë‹¤. - -;
         pResult = pStmt->executeQuery("SELECT ID, Name, Passwd FROM Player WHERE id = 11");
         cout << "SELECT ID, Name, Passwd FROM Player WHERE id = 11" << endl;
 
-        // SELECT °á°ú Á¶°ÇÀ» ¸¸Á·ÇÏ´Â °ÍÀÌ ¾Æ¹«°Íµµ ¾ø´Ù¸é, RowCount °¡ 0 ÀÌ´Ù.
+        // SELECT ê²°ê³¼ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ê²ƒì´ ì•„ë¬´ê²ƒë„ ì—†ë‹¤ë©´, RowCount ê°€ 0 ì´ë‹¤.
         cout << "#Rows : " << pResult->getRowCount() << endl;
         cout << "#Cols : " << pResult->getFieldCount() << endl;
 

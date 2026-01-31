@@ -3,7 +3,7 @@
 // Written by  : Reiot
 // Description :
 //////////////////////////////////////////////////////////////////////////////
-// �̰� ������ Effect�� �ƴϴ�.
+// 이거 검증된 Effect가 아니다.
 
 #ifndef __EFFECT_TRANSPORT_CREATURE_H__
 #define __EFFECT_TRANSPORT_CREATURE_H__
@@ -26,7 +26,7 @@ public:
         return EFFECT_CLASS_TRANSPORT_CREATURE;
     }
 
-    // OBJECT_PRIORITY_NONE ��� ����, Ÿ�Ͽ� ������ �ȵȴٴ� ���̴�.
+    // OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }

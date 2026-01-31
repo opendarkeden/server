@@ -33,7 +33,7 @@ public:
     void computeOutput(const SkillInput& input, SkillOutput& output);
 
 protected:
-    POINT m_pSwordWaveMask[8][3]; // °¢ ¹æÇâ¿¡ µû¸¥ Å¸°İ ¸¶½ºÅ©
+    POINT m_pSwordWaveMask[8][3]; // ê° ë°©í–¥ì— ë”°ë¥¸ íƒ€ê²© ë§ˆìŠ¤í¬
 };
 
 // global variable declaration

@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTPowerPoint.cpp
-// Desc		: ¿Â¶óÀÎ °ÔÀÓÀ¸·ÎºÎÅÍ Àü¼ÛµÇ¾î¿Â µ¥ÀÌÅÍ¸¦ ÅëÇØ ÆÄ¿ö¸µ DB¿¡¼­
-// 			  ÃßÈÇÇÑ °ªÀ» ¿Â¶óÀÎ»ç·Î ³Ñ°ÜÁØ´Ù.
+// Desc		: ì˜¨ë¼ì¸ ê²Œì„ìœ¼ë¡œë¶€í„° ì „ì†¡ë˜ì–´ì˜¨ ë°ì´í„°ë¥¼ í†µí•´ íŒŒì›Œë§ DBì—ì„œ
+// 			  ì¶”í›Œí•œ ê°’ì„ ì˜¨ë¼ì¸ì‚¬ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -9,14 +9,14 @@
 
 #include "MPacketID.h"
 
-// »ı¼ºÀÚ
+// ìƒì„±ì
 PKTPowerPoint::PKTPowerPoint() {
     // memset( this, 0, szPKTPowerPoint );
 
     nSize = szPKTPowerPoint - szMPacketSize;
 }
 
-// ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+// ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
 void PKTPowerPoint::read(SocketInputStream& iStream) {
     iStream.read((char*)this, szPKTPowerPoint);
 
@@ -34,7 +34,7 @@ void PKTPowerPoint::read(SocketInputStream& iStream) {
     //	nIndex				= ntohl( nIndex );
 }
 
-// Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 void PKTPowerPoint::write(SocketOutputStream& oStream) {
     nCode = getID();
 

@@ -12,18 +12,18 @@
 
 struct MissionInfo {
     enum Status {
-        HIDE = 0, // º¸¿©ÁÖÁö ¾ÊÀ½
-        CURRENT,  // Áö±Ý ÇØ¾ß µÇ´Â ¹Ì¼Ç (¼öÇàÁß)
-        SUCCESS,  // ÀÌ¹Ì ¼º°øÇÑ ¹Ì¼Ç
-        FAIL,     // ½ÇÆÐ
+        HIDE = 0, // ë³´ì—¬ì£¼ì§€ ì•ŠìŒ
+        CURRENT,  // ì§€ê¸ˆ í•´ì•¼ ë˜ëŠ” ë¯¸ì…˜ (ìˆ˜í–‰ì¤‘)
+        SUCCESS,  // ì´ë¯¸ ì„±ê³µí•œ ë¯¸ì…˜
+        FAIL,     // ì‹¤íŒ¨
     };
 
-    BYTE m_Condition; // ¾î´À Á¶°Ç¿¡ ÀÖ´Â°¡ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
-    WORD m_Index;     // ÇØ´ç Á¶°ÇÀÇ ¸î¹øÂ° elementÀÎ°¡
-    BYTE m_Status;    // ÇöÀç »óÅÂ
+    BYTE m_Condition; // ì–´ëŠ ì¡°ê±´ì— ìžˆëŠ”ê°€ 0 : Happen, 1 : Complete, 2 : Fail, 3 : Reward
+    WORD m_Index;     // í•´ë‹¹ ì¡°ê±´ì˜ ëª‡ë²ˆì§¸ elementì¸ê°€
+    BYTE m_Status;    // í˜„ìž¬ ìƒíƒœ
 
-    string m_StrArg; // Âï¾îÁÙ ¹®ÀÚ¿­
-    DWORD m_NumArg;  // Âï¾îÁÙ ¼ýÀÚ
+    string m_StrArg; // ì°ì–´ì¤„ ë¬¸ìžì—´
+    DWORD m_NumArg;  // ì°ì–´ì¤„ ìˆ«ìž
 
     MissionInfo() : m_StrArg(""), m_NumArg(0) {}
 
@@ -66,13 +66,13 @@ struct MissionInfo {
 class QuestStatusInfo {
 public:
     enum Status {
-        CANNOT = 0, // ¾ÆÁ÷ ºÒ°¡´É
-        CAN_ACCEPT, // ¼öÇà°¡´É
-        DOING,      // ¼öÇàÁß
-        SUCCESS,    // ¼º°ø (¾ÆÁ÷ º¸»ó¹ÞÁö ¾ÊÀ½)
-        COMPLETE,   // ¿Ï·á (º¸»ó¹ÞÀ½, Àç¼öÇà ºÒ°¡´É)
-        FAIL,       // ½ÇÆÐ (Àç¼öÇà ºÒ°¡´É)
-        CAN_REPLAY, // Àç¼öÇà °¡´É
+        CANNOT = 0, // ì•„ì§ ë¶ˆê°€ëŠ¥
+        CAN_ACCEPT, // ìˆ˜í–‰ê°€ëŠ¥
+        DOING,      // ìˆ˜í–‰ì¤‘
+        SUCCESS,    // ì„±ê³µ (ì•„ì§ ë³´ìƒë°›ì§€ ì•ŠìŒ)
+        COMPLETE,   // ì™„ë£Œ (ë³´ìƒë°›ìŒ, ìž¬ìˆ˜í–‰ ë¶ˆê°€ëŠ¥)
+        FAIL,       // ì‹¤íŒ¨ (ìž¬ìˆ˜í–‰ ë¶ˆê°€ëŠ¥)
+        CAN_REPLAY, // ìž¬ìˆ˜í–‰ ê°€ëŠ¥
     };
 
     QuestStatusInfo(DWORD qID) : m_QuestID(qID), m_Status(CANNOT) {}
@@ -84,7 +84,7 @@ public:
 
 protected:
     DWORD m_QuestID;
-    BYTE m_Status; // À§ÀÇ enum ÂüÁ¶
+    BYTE m_Status; // ìœ„ì˜ enum ì°¸ì¡°
     list<MissionInfo*> m_Missions;
 };
 

@@ -30,7 +30,7 @@ void CGCastingSkillHandler::execute(CGCastingSkill* pPacket, Player* pPlayer)
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
         if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) {
-            // Creature�� �޾ƿ´�.
+            // Creature를 받아온다.
             Creature* pCreature = pGamePlayer->getCreature();
 
             Assert(pCreature != NULL);

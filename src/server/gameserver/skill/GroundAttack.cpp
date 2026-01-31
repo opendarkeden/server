@@ -16,7 +16,7 @@
 #include "GCSkillToTileOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GroundAttack::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -36,8 +36,8 @@ void GroundAttack::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -56,7 +56,7 @@ void GroundAttack::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GroundAttack::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -101,9 +101,9 @@ void GroundAttack::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GROUND_ATTACK);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
@@ -112,31 +112,31 @@ void GroundAttack::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
             checkMine(pZone, X, Y);
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectGroundAttack* pEffect = new EffectGroundAttack(pZone, X, Y);
             pEffect->setDamagePercent(output.Damage);
             pEffect->setDeadline(output.Duration);
             // pEffect->setNextTime(0);
             // pEffect->setTick(output.Tick);
 
-            // ¿ì¼±±Ç ½Ã½ºÅÛÀ» À§ÇÏ¿© ÀÌ¸§°ú ÆÄÆ¼ ¾ÆÀÌµğ¸¦ ³Ö´Â´Ù.
+            // ìš°ì„ ê¶Œ ì‹œìŠ¤í…œì„ ìœ„í•˜ì—¬ ì´ë¦„ê³¼ íŒŒí‹° ì•„ì´ë””ë¥¼ ë„£ëŠ”ë‹¤.
             // pEffect->setCasterName(pVampire->getName());
             pEffect->setUserObjectID(pVampire->getObjectID());
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 
@@ -241,7 +241,7 @@ void GroundAttack::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GroundAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -280,21 +280,21 @@ void GroundAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             }
 
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GROUND_ATTACK);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectGroundAttack* pEffect = new EffectGroundAttack(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             // pEffect->setNextTime(0);
@@ -302,15 +302,15 @@ void GroundAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             pEffect->setDamagePercent(output.Damage);
             // pEffect->setLevel(pSkillInfo->getLevel()/2);
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature = NULL;
 

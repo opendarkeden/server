@@ -12,8 +12,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class PCOustersInfo3;
-// ¹ìÆÄÀÌ¾îÀÇ ¿Ü¸ğ Á¤º¸¸¦ ´ã°í ÀÖ´Â °´Ã¼
-// GCAddOusters, GCAddOustersCorpse ¿¡ ´ã°Ü¼­ Àü¼ÛµÈ´Ù.
+// ë±€íŒŒì´ì–´ì˜ ì™¸ëª¨ ì •ë³´ë¥¼ ë‹´ê³  ìˆëŠ” ê°ì²´
+// GCAddOusters, GCAddOustersCorpse ì— ë‹´ê²¨ì„œ ì „ì†¡ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCOustersInfo3 : public PCInfo {
@@ -54,33 +54,33 @@ public:
 
     uint getSize() const {
         return szObjectID                    // ObjectID
-               + szBYTE + m_Name.size()      // ¹ìÆÄÀÌ¾î ÀÌ¸§
-               + szCoord + szCoord + szDir   // ÁÂÇ¥¿Í ¹æÇâ
-               + szSex                       // ¼ºº°
+               + szBYTE + m_Name.size()      // ë±€íŒŒì´ì–´ ì´ë¦„
+               + szCoord + szCoord + szDir   // ì¢Œí‘œì™€ ë°©í–¥
+               + szSex                       // ì„±ë³„
                + szBYTE                      // shape
-               + szColor * OUSTERS_COLOR_MAX // »ö»ó
-               + szBYTE + szHP * 2           // ÃÖ´ë Ã¼·Â
-               + szAlignment                 // ¼ºÇâ
-               + szSpeed                     // °ø°İ ¼Óµµ
-               + szGuildID                   // ±æµå ¾ÆÀÌµğ
-               + szRank                      // °è±Ş
-               + szBYTE                      // ±ÇÇÑ
+               + szColor * OUSTERS_COLOR_MAX // ìƒ‰ìƒ
+               + szBYTE + szHP * 2           // ìµœëŒ€ ì²´ë ¥
+               + szAlignment                 // ì„±í–¥
+               + szSpeed                     // ê³µê²© ì†ë„
+               + szGuildID                   // ê¸¸ë“œ ì•„ì´ë””
+               + szRank                      // ê³„ê¸‰
+               + szBYTE                      // ê¶Œí•œ
                + szuint + szLevel;
     }
 
     // get max size of object
     static uint getMaxSize() {
         return szObjectID                    // ObjectID
-               + szBYTE + 20                 // ¹ìÆÄÀÌ¾î ÀÌ¸§
-               + szCoord + szCoord + szDir   // ÁÂÇ¥¿Í ¹æÇâ
-               + szSex                       // ¼ºº°
+               + szBYTE + 20                 // ë±€íŒŒì´ì–´ ì´ë¦„
+               + szCoord + szCoord + szDir   // ì¢Œí‘œì™€ ë°©í–¥
+               + szSex                       // ì„±ë³„
                + szBYTE                      // shape
-               + szColor * OUSTERS_COLOR_MAX // »ö»ó
-               + szBYTE + szHP * 2           // ÃÖ´ë Ã¼·Â
-               + szSpeed                     // °ø°İ ¼Óµµ
-               + szGuildID                   // ±æµå ¾ÆÀÌµğ
-               + szRank                      // °è±Ş
-               + szBYTE                      // ±ÇÇÑ
+               + szColor * OUSTERS_COLOR_MAX // ìƒ‰ìƒ
+               + szBYTE + szHP * 2           // ìµœëŒ€ ì²´ë ¥
+               + szSpeed                     // ê³µê²© ì†ë„
+               + szGuildID                   // ê¸¸ë“œ ì•„ì´ë””
+               + szRank                      // ê³„ê¸‰
+               + szBYTE                      // ê¶Œí•œ
                + szuint + szLevel;
     }
 
@@ -316,7 +316,7 @@ private:
     // colors
     Color_t m_Colors[OUSTERS_COLOR_MAX];
 
-    // ¸¶½ºÅÍ ÀÌÆåÆ® »ö±ò
+    // ë§ˆìŠ¤í„° ì´í™íŠ¸ ìƒ‰ê¹”
     BYTE m_MasterEffectColor;
 
     // Current HP
@@ -328,18 +328,18 @@ private:
     // Attack Speed
     Speed_t m_AttackSpeed;
 
-    // ¼ºÇâ
+    // ì„±í–¥
     Alignment_t m_Alignment;
 
-    // ±ÇÇÑ
+    // ê¶Œí•œ
     BYTE m_Competence;
 
-    // ±æµå ¾ÆÀÌµğ
+    // ê¸¸ë“œ ì•„ì´ë””
     GuildID_t m_GuildID;
 
     uint m_UnionID;
 
-    // °è±Ş
+    // ê³„ê¸‰
     Rank_t m_Rank;
 
     Level_t m_AdvancementLevel;

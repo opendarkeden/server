@@ -67,7 +67,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
             string RecvItemDate = pResult->getString(1);
 
             if (RecvItemDate == "0000-00-00") {
-                // æ∆¿Ã≈€ ¡÷¿⁄~
+                // ÏïÑÏù¥ÌÖú Ï£ºÏûê~
                 Creature* pCreature = pGamePlayer->getCreature();
                 Assert(pCreature != NULL);
 
@@ -88,7 +88,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
                 Grade_t iGrade = 6;
                 list<OptionType_t> optionType;
 
-                // ø…º« ∞·¡§
+                // ÏòµÏÖò Í≤∞Ï†ï
                 i = i ^ 1;
                 if (i) {
                     optionType.push_back(50);  // DAM+3
@@ -98,7 +98,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
                     optionType.push_back(184); // ATTR+2
                 }
 
-                // ¡æ¡∑
+                // Ï¢ÖÏ°±
                 if (race == RACE_SLAYER) {
                     iClass = Item::ITEM_CLASS_RING;
                 } else if (race == RACE_VAMPIRE) {
@@ -109,7 +109,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
                     Assert(false);
                 }
 
-                // ∑π∫ß
+                // Î†àÎ≤®
                 if (level <= 30) {
                     iType = 3;
                 } else if (level <= 60) {
@@ -141,7 +141,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
 
                 pItem->setGrade(iGrade);
 
-                // ∫Û∞¯∞£ »Æ¿Œ
+                // ÎπàÍ≥µÍ∞Ñ ÌôïÏù∏
                 _TPOINT tp;
                 if (!pInventory->getEmptySlot(pItem, tp)) {
                     SAFE_DELETE(pItem);
@@ -181,17 +181,17 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
                 pPlayer->sendPacket(&gcCI);
 
 
-                // ∞°¡Æ∞¨¥Ÿ∞Ì DB ø° ±‚∑œ«—¥Ÿ.
+                // Í∞ÄÏ†∏Í∞îÎã§Í≥† DB Ïóê Í∏∞Î°ùÌïúÎã§.
                 pStmt->executeQuery("UPDATE Event200501Main SET RecvItemDate = now() WHERE PlayerID = '%s'",
                                     pGamePlayer->getID().c_str());
 
-                // ≈¨∂Û¿Ãæ∆Æø° ºˆ∑…«ﬂ¥Ÿ¥¬ ∏ﬁΩ√¡ˆ∏¶ ∫∏≥Ω¥Ÿ.
+                // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê ÏàòÎ†πÌñàÎã§Îäî Î©îÏãúÏßÄÎ•º Î≥¥ÎÇ∏Îã§.
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
                 response.setParameter(YOU_GET_EVENT_ITEM);
                 pPlayer->sendPacket(&response);
 
-                // ¥–≥◊¿”¿ª √ﬂ∞°«œ∞Ì ≈¨∂Û¿Ãæ∆Æø° ∆–≈∂¿ª ∫∏≥Ω¥Ÿ.
+                // ÎãâÎÑ§ÏûÑÏùÑ Ï∂îÍ∞ÄÌïòÍ≥† ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÇ∏Îã§.
                 NicknameBook* pNicknameBook = pPC->getNicknameBook();
                 Assert(pNicknameBook != NULL);
 
@@ -200,7 +200,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
                 pGamePlayer->sendPacket(pNicknamePacket);
                 SAFE_DELETE(pNicknamePacket);
             } else {
-                // ¿ÃπÃ æ∆¿Ã≈€¿ª πﬁæ∆∞¨¥Ÿ.
+                // Ïù¥ÎØ∏ ÏïÑÏù¥ÌÖúÏùÑ Î∞õÏïÑÍ∞îÎã§.
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
                 response.setParameter(ALEADY_GET_EVENT_ITEM);
@@ -208,7 +208,7 @@ void CGGetEventItemHandler::executeCombackItem(CGGetEventItem* pPacket, Player* 
                 return;
             }
         } else {
-            // ¥ÎªÛ ¿⁄∞° æ∆¥œ¥Ÿ.
+            // ÎåÄÏÉÅ ÏûêÍ∞Ä ÏïÑÎãàÎã§.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
             response.setParameter(YOU_ARE_NOT_EVENT_TARGET);
@@ -249,7 +249,7 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
             }
 
             if (RecvItemDate == "0000-00-00") {
-                // æ∆¿Ã≈€ ¡÷¿⁄~
+                // ÏïÑÏù¥ÌÖú Ï£ºÏûê~
                 Creature* pCreature = pGamePlayer->getCreature();
                 Assert(pCreature != NULL);
 
@@ -266,43 +266,43 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
 
                 Item* pItem[5] = {NULL, NULL, NULL, NULL, NULL};
 
-                // ø…º« DAM_3
+                // ÏòµÏÖò DAM_3
                 list<OptionType_t> optionType;
                 optionType.push_back(50); // DAM+3
 
                 if (race == RACE_SLAYER) {
                     pItem[0] =
-                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_NECKLACE, 8, optionType); // ∫Ì∑ØµÂ ≈©∑ŒΩ∫
+                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_NECKLACE, 8, optionType); // Î∏îÎü¨Îìú ÌÅ¨Î°úÏä§
                     pItem[1] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_BRACELET, 8,
-                                                                 optionType); // ≈©∑ŒΩ∫ ∫Í∑π¿ÃΩΩ∏¥
+                                                                 optionType); // ÌÅ¨Î°úÏä§ Î∏åÎ†àÏù¥Ïä¨Î¶ø
                     pItem[2] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_BRACELET, 8,
-                                                                 optionType); // ≈©∑ŒΩ∫ ∫Í∑π¿ÃΩΩ∏¥
+                                                                 optionType); // ÌÅ¨Î°úÏä§ Î∏åÎ†àÏù¥Ïä¨Î¶ø
                     pItem[3] =
-                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_RING, 8, optionType); // «√∑π∆º≥— Ω∫∆ƒ¿Ã∑≤
+                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_RING, 8, optionType); // ÌîåÎ†àÌã∞ÎÑò Ïä§ÌååÏù¥Îü¥
                     pItem[4] =
-                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_RING, 8, optionType); // «√∑π∆º≥— Ω∫∆ƒ¿Ã∑≤
+                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_RING, 8, optionType); // ÌîåÎ†àÌã∞ÎÑò Ïä§ÌååÏù¥Îü¥
                 } else if (race == RACE_VAMPIRE) {
                     pItem[0] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 8,
-                                                                 optionType); // ∫Ì∑¢ æﬁ≈©
+                                                                 optionType); // Î∏îÎûô ÏïµÌÅ¨
                     pItem[1] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_BRACELET, 7,
-                                                                 optionType); // πŸ¿Ã∆€ ∫Í∑π¿ÃΩΩ∏¥
+                                                                 optionType); // Î∞îÏù¥Ìçº Î∏åÎ†àÏù¥Ïä¨Î¶ø
                     pItem[2] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_RING, 8,
-                                                                 optionType); // ∏µ ø¿∫Í Ω∫ƒ√¡Ó
+                                                                 optionType); // ÎßÅ Ïò§Î∏å Ïä§Ïª¨Ï¶à
                     pItem[3] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_EARRING, 8,
-                                                                 optionType); // ¥ı ƒ≥√˜ æ∆¿Ã
+                                                                 optionType); // Îçî Ï∫êÏ∏† ÏïÑÏù¥
                     pItem[4] =
-                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_AMULET, 8, optionType); // ø¿¥ﬁ
+                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_AMULET, 8, optionType); // Ïò§Îã¨
                 } else if (race == RACE_OUSTERS) {
                     pItem[0] =
-                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_RING, 8, optionType); // ∏ﬁ≈©¿Ú¿« ∏µ
+                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_RING, 8, optionType); // Î©îÌÅ¨ÏüåÏùò ÎßÅ
                     pItem[1] =
-                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_RING, 8, optionType); // ∏ﬁ≈©¿Ú¿« ∏µ
+                        g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_RING, 8, optionType); // Î©îÌÅ¨ÏüåÏùò ÎßÅ
                     pItem[2] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_PENDENT, 8,
-                                                                 optionType); // ∏ﬁ≈©¿Ú¿« ∏µ
+                                                                 optionType); // Î©îÌÅ¨ÏüåÏùò ÎßÅ
                     pItem[3] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_PENDENT, 8,
-                                                                 optionType); // ««æÓ∏Æ ∆Ê¥¯∆Æ
+                                                                 optionType); // ÌîºÏñ¥Î¶¨ ÌéúÎçòÌä∏
                     pItem[4] = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_PENDENT, 8,
-                                                                 optionType); // ««æÓ∏Æ ∆Ê¥¯∆Æ
+                                                                 optionType); // ÌîºÏñ¥Î¶¨ ÌéúÎçòÌä∏
                 } else {
                     GCNPCResponse response;
                     response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
@@ -329,10 +329,10 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
 
                 _TPOINT tp[5];
                 for (int i = 0; i < 5; ++i) {
-                    // ∫Û∞¯∞£ »Æ¿Œ
+                    // ÎπàÍ≥µÍ∞Ñ ÌôïÏù∏
 
                     if (!pInventory->getEmptySlot(pItem[i], tp[i])) {
-                        // ≈¨∏ÆæÓ. ∑—πÈ
+                        // ÌÅ¥Î¶¨Ïñ¥. Î°§Î∞±
                         for (int j = 0; j < i; ++j) {
                             pInventory->deleteItem(pItem[j]->getObjectID());
                         }
@@ -356,7 +356,7 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
                     }
 
                     if (!pInventory->addItem(pItem[i], tp[i])) {
-                        // ≈¨∏ÆæÓ. ∑—πÈ
+                        // ÌÅ¥Î¶¨Ïñ¥. Î°§Î∞±
                         for (int j = 0; j < i; ++j) {
                             pInventory->deleteItem(pItem[j]->getObjectID());
                         }
@@ -373,8 +373,8 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
                     }
                 }
 
-                // DB ø° ª˝º∫ π◊ ∑Œ±◊ ≥≤±‚∞Ì ≈¨∂Û¿Ãæ∆Æø° ∫∏≥ª±‚
-                // Ω√∞£ ¡¶«— √ﬂ∞°
+                // DB Ïóê ÏÉùÏÑ± Î∞è Î°úÍ∑∏ ÎÇ®Í∏∞Í≥† ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê Î≥¥ÎÇ¥Í∏∞
+                // ÏãúÍ∞Ñ Ï†úÌïú Ï∂îÍ∞Ä
                 for (int i = 0; i < 5; ++i) {
                     pItem[i]->create(pPC->getName(), STORAGE_INVENTORY, 0, tp[i].x, tp[i].y);
 
@@ -386,23 +386,23 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
 
                     pPlayer->sendPacket(&gcCI);
 
-                    // Ω√∞£¡¶«—
+                    // ÏãúÍ∞ÑÏ†úÌïú
                     pPC->addTimeLimitItem(pItem[i], 7 * 24 * 60 * 60);
                 }
 
                 pPC->sendTimeLimitItemInfo();
 
-                // ∞°¡Æ∞¨¥Ÿ∞Ì DB ø° ±‚∑œ«—¥Ÿ.
+                // Í∞ÄÏ†∏Í∞îÎã§Í≥† DB Ïóê Í∏∞Î°ùÌïúÎã§.
                 pStmt->executeQuery("UPDATE Event200501Main SET RecvPremiumItemDate = now() WHERE PlayerID = '%s'",
                                     pGamePlayer->getID().c_str());
 
-                // ≈¨∂Û¿Ãæ∆Æø° ºˆ∑…«ﬂ¥Ÿ¥¬ ∏ﬁΩ√¡ˆ∏¶ ∫∏≥Ω¥Ÿ.
+                // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê ÏàòÎ†πÌñàÎã§Îäî Î©îÏãúÏßÄÎ•º Î≥¥ÎÇ∏Îã§.
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
                 response.setParameter(YOU_GET_EVENT_ITEM);
                 pPlayer->sendPacket(&response);
             } else {
-                // ¿ÃπÃ æ∆¿Ã≈€¿ª πﬁæ∆∞¨¥Ÿ.
+                // Ïù¥ÎØ∏ ÏïÑÏù¥ÌÖúÏùÑ Î∞õÏïÑÍ∞îÎã§.
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
                 response.setParameter(ALEADY_GET_EVENT_ITEM);
@@ -410,7 +410,7 @@ void CGGetEventItemHandler::executeCombackPremiumItem(CGGetEventItem* pPacket, P
                 return;
             }
         } else {
-            // ¥ÎªÛ ¿⁄∞° æ∆¥œ¥Ÿ.
+            // ÎåÄÏÉÅ ÏûêÍ∞Ä ÏïÑÎãàÎã§.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
             response.setParameter(YOU_ARE_NOT_EVENT_TARGET);
@@ -445,7 +445,7 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
             string RecvItemDate = pResult->getString(2);
 
             if (RecvItemDate == "0000-00-00") {
-                // æ∆¿Ã≈€ ¡÷¿⁄~
+                // ÏïÑÏù¥ÌÖú Ï£ºÏûê~
                 Creature* pCreature = pGamePlayer->getCreature();
                 Assert(pCreature != NULL);
 
@@ -466,7 +466,7 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
                 Grade_t iGrade = 6;
                 list<OptionType_t> optionType;
 
-                // ø…º« ∞·¡§
+                // ÏòµÏÖò Í≤∞Ï†ï
                 i = i ^ 1;
                 if (i) {
                     optionType.push_back(50);  // DAM+3
@@ -476,7 +476,7 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
                     optionType.push_back(184); // ATTR+2
                 }
 
-                // ¡æ¡∑
+                // Ï¢ÖÏ°±
                 if (race == RACE_SLAYER) {
                     iClass = Item::ITEM_CLASS_RING;
                 } else if (race == RACE_VAMPIRE) {
@@ -487,7 +487,7 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
                     Assert(false);
                 }
 
-                // ∑π∫ß
+                // Î†àÎ≤®
                 if (level <= 30) {
                     iType = 3;
                 } else if (level <= 60) {
@@ -519,7 +519,7 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
 
                 pItem->setGrade(iGrade);
 
-                // ∫Û∞¯∞£ »Æ¿Œ
+                // ÎπàÍ≥µÍ∞Ñ ÌôïÏù∏
                 _TPOINT tp;
                 if (!pInventory->getEmptySlot(pItem, tp)) {
                     SAFE_DELETE(pItem);
@@ -558,17 +558,17 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
 
                 pPlayer->sendPacket(&gcCI);
 
-                // ∞°¡Æ∞¨¥Ÿ∞Ì DB ø° ±‚∑œ«—¥Ÿ.
+                // Í∞ÄÏ†∏Í∞îÎã§Í≥† DB Ïóê Í∏∞Î°ùÌïúÎã§.
                 pStmt->executeQuery("UPDATE Event200501Recommend SET RecvItemDate = now() WHERE UniqueID = '%d'",
                                     UniqueID);
 
-                // ≈¨∂Û¿Ãæ∆Æø° ºˆ∑…«ﬂ¥Ÿ¥¬ ∏ﬁΩ√¡ˆ∏¶ ∫∏≥Ω¥Ÿ.
+                // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏Ïóê ÏàòÎ†πÌñàÎã§Îäî Î©îÏãúÏßÄÎ•º Î≥¥ÎÇ∏Îã§.
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
                 response.setParameter(YOU_GET_EVENT_ITEM);
                 pPlayer->sendPacket(&response);
             } else {
-                // ¿ÃπÃ æ∆¿Ã≈€¿ª πﬁæ∆∞¨¥Ÿ.
+                // Ïù¥ÎØ∏ ÏïÑÏù¥ÌÖúÏùÑ Î∞õÏïÑÍ∞îÎã§.
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
                 response.setParameter(ALEADY_GET_EVENT_ITEM);
@@ -576,7 +576,7 @@ void CGGetEventItemHandler::executeCombackRecommendItem(CGGetEventItem* pPacket,
                 return;
             }
         } else {
-            // ¥ÎªÛ ¿⁄∞° æ∆¥œ¥Ÿ.
+            // ÎåÄÏÉÅ ÏûêÍ∞Ä ÏïÑÎãàÎã§.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG);
             response.setParameter(YOU_ARE_NOT_EVENT_TARGET);

@@ -11,7 +11,7 @@
 #include "PKTConnectAccept.h"
 
 
-// ½ÇÇà ÇÔ¼ö
+// ì‹¤í–‰ í•¨ìˆ˜
 void PKTConnectAskHandler::execute(GameServerPlayer* pPlayer, MPacket* pPacket) {
     cout << "RECV ConnectAsk" << endl;
 

@@ -13,8 +13,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 IceWave::IceWave() throw() {
     __BEGIN_TRY
@@ -46,7 +46,7 @@ IceWave::IceWave() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void IceWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -90,7 +90,7 @@ void IceWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
         if (bRangeCheck && bMoveModeCheck) {
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§ëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             SkillInput input(pMonster);
             SkillOutput output;
@@ -130,7 +130,7 @@ void IceWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     param.addMask(m_pIceWaveMask[i].x, m_pIceWaveMask[i].y, 100);
             }
 
-            // °­Á¦·Î ¸Â´Â ¾ÖµéÀ» knockback ½ÃÅ²´Ù.
+            // ê°•ì œë¡œ ë§ëŠ” ì• ë“¤ì„ knockback ì‹œí‚¨ë‹¤.
             bool bForceKnockback = false;
             g_SimpleTileMeleeSkill.execute(pMonster, x, y, param, result, 0, bForceKnockback);
         } else {

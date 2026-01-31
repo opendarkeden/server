@@ -2,8 +2,8 @@
 // Filename    : EffectSoulChain.h
 // Written by  : elca@ewestsoft.com
 // Description :
-// ±ºÀÎ±â¼ú Sniping ¶Ç´Â ¹ìÆÄÀÌ¾î ±â¼ú Invisibility·Î ÀÎÇØ¼­
-// ÇöÀç Á¡Á¡ Èñ¹ÌÇØÁ®°¡°í ÀÖ´Â(»ç¶óÁö°í ÀÖ´Â) Å©¸®ÃÄ¿¡ ºÙ´Â ÀÌÆåÆ®ÀÌ´Ù.
+// êµ°ì¸ê¸°ìˆ  Sniping ë˜ëŠ” ë±€íŒŒì´ì–´ ê¸°ìˆ  Invisibilityë¡œ ì¸í•´ì„œ
+// í˜„ì¬ ì ì  í¬ë¯¸í•´ì ¸ê°€ê³  ìˆëŠ”(ì‚¬ë¼ì§€ê³  ìˆëŠ”) í¬ë¦¬ì³ì— ë¶™ëŠ” ì´í™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SOUL_CHAIN__
@@ -57,9 +57,9 @@ public:
     }
 
 private:
-    ObjectID_t m_OwnerOID; // ÀÌÆåÆ® °É¸° ³ğÀÇ OwnerID
+    ObjectID_t m_OwnerOID; // ì´í™íŠ¸ ê±¸ë¦° ë†ˆì˜ OwnerID
 
-    Zone* m_pZone; // Zone Æ÷ÀÎÅÍ
+    Zone* m_pZone; // Zone í¬ì¸í„°
 
     Duration_t m_Duration;
 

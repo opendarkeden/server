@@ -21,7 +21,7 @@ public:
     virtual ~ItemInfo();
 
 
-    // °øÅë Á¤º¸
+    // ê³µí†µ ì •ë³´
 public:
     virtual Item::ItemClass getItemClass() const = 0;
     string getItemClassName() const {
@@ -134,7 +134,7 @@ public:
     virtual string toString() const = 0;
 
 
-    // °³º° Á¤º¸. ÆíÀÇ»ó º£ÀÌ½º Å¬·¡½º¿¡ Á¤ÀÇÇØÁØ´Ù.
+    // ê°œë³„ ì •ë³´. í¸ì˜ìƒ ë² ì´ìŠ¤ í´ë˜ìŠ¤ì— ì •ì˜í•´ì¤€ë‹¤.
 public:
     virtual Durability_t getDurability() const {
         return 1;
@@ -203,7 +203,7 @@ public:
         return 0;
     }
 
-    // ItemType¿¡ µû¸¥ ±âº» ¿É¼Ç
+    // ItemTypeì— ë”°ë¥¸ ê¸°ë³¸ ì˜µì…˜
     virtual void setDefaultOptions(const string& options);
     void addDefaultOptions(OptionType_t optionType);
     void clearDefaultOptions();
@@ -260,31 +260,31 @@ public:
 
     // member data
 protected:
-    ItemType_t m_ItemType;     // ¾ÆÀÌÅÛ Å¸ÀÔ
-    string m_Name;             // ÀÌ¸§
-    string m_EName;            // ¿µ¹® ÀÌ¸§
-    Price_t m_Price;           // °¡°İ
-    VolumeType_t m_VolumeType; // ºÎÇÇ
-    Weight_t m_Weight;         // ¹«°Ô
-    Ratio_t m_Ratio;           // ¾ÆÀÌÅÛ µîÀå È®·ü(°·ºí È®·ü)
-    string m_Description;      // ¾ÆÀÌÅÛ ¼³¸í
-    Attr_t m_ReqSTR;           // ÇÊ¿äÇÑ STR
-    Attr_t m_ReqDEX;           // ÇÊ¿äÇÑ DEX
-    Attr_t m_ReqINT;           // ÇÊ¿äÇÑ INT
-    Attr_t m_ReqSum;           // ÇÊ¿äÇÑ ´É·ÂÄ¡ÀÇ ÇÕ
-    Level_t m_ReqLevel;        // ÇÊ¿äÇÑ ·¹º§
-    Level_t m_ReqAdvanceLevel; // ÇÊ¿äÇÑ ÀüÁ÷ ·¹º§
-    Attr_t m_ReqGender;        // ÇÊ¿äÇÑ ¼º
+    ItemType_t m_ItemType;     // ì•„ì´í…œ íƒ€ì…
+    string m_Name;             // ì´ë¦„
+    string m_EName;            // ì˜ë¬¸ ì´ë¦„
+    Price_t m_Price;           // ê°€ê²©
+    VolumeType_t m_VolumeType; // ë¶€í”¼
+    Weight_t m_Weight;         // ë¬´ê²Œ
+    Ratio_t m_Ratio;           // ì•„ì´í…œ ë“±ì¥ í™•ë¥ (ê°¬ë¸” í™•ë¥ )
+    string m_Description;      // ì•„ì´í…œ ì„¤ëª…
+    Attr_t m_ReqSTR;           // í•„ìš”í•œ STR
+    Attr_t m_ReqDEX;           // í•„ìš”í•œ DEX
+    Attr_t m_ReqINT;           // í•„ìš”í•œ INT
+    Attr_t m_ReqSum;           // í•„ìš”í•œ ëŠ¥ë ¥ì¹˜ì˜ í•©
+    Level_t m_ReqLevel;        // í•„ìš”í•œ ë ˆë²¨
+    Level_t m_ReqAdvanceLevel; // í•„ìš”í•œ ì „ì§ ë ˆë²¨
+    Attr_t m_ReqGender;        // í•„ìš”í•œ ì„±
 
-    bool m_bDefaultOptions;              // ±âº» ¿É¼ÇÀÌ ÀÖ³ª?
-    list<OptionType_t> m_DefaultOptions; // ±âº» ¿É¼Ç
+    bool m_bDefaultOptions;              // ê¸°ë³¸ ì˜µì…˜ì´ ìˆë‚˜?
+    list<OptionType_t> m_DefaultOptions; // ê¸°ë³¸ ì˜µì…˜
 
-    Ratio_t m_UpgradeRatio;    // enchantÇØ¼­ ¼º°øÇÒ È®·ü
-    int m_UpgradeCrashPercent; // upgrade°¡ ½ÇÆĞÇØ¼­ ºÎ¼­Áú È®·ü = m_UpgradeCrashPercent%
+    Ratio_t m_UpgradeRatio;    // enchantí•´ì„œ ì„±ê³µí•  í™•ë¥ 
+    int m_UpgradeCrashPercent; // upgradeê°€ ì‹¤íŒ¨í•´ì„œ ë¶€ì„œì§ˆ í™•ë¥  = m_UpgradeCrashPercent%
 
-    bool m_bUnique; // unique item ÀÎ°¡?
+    bool m_bUnique; // unique item ì¸ê°€?
 
-    Ratio_t m_NextOptionRatio; // ´Ù¸¥ ¿É¼ÇÀÌ ºÙÀ» È®·ü
+    Ratio_t m_NextOptionRatio; // ë‹¤ë¥¸ ì˜µì…˜ì´ ë¶™ì„ í™•ë¥ 
 
     ItemType_t m_NextItemType;
     Ratio_t m_DowngradeRatio;

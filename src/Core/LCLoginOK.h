@@ -17,7 +17,7 @@
 //
 // class LCLoginOK;
 //
-// ·Î±×ÀÎ¼­¹ö°¡ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ·Î±×ÀÎ ¼º°øÀ» ¾Ë·ÁÁÖ´Â ÆĞÅ¶ÀÌ´Ù.
+// ë¡œê·¸ì¸ì„œë²„ê°€ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë¡œê·¸ì¸ ì„±ê³µì„ ì•Œë ¤ì£¼ëŠ” íŒ¨í‚·ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -26,10 +26,10 @@ public:
     LCLoginOK() : m_LastDays(0xffff) {}
     ~LCLoginOK() {};
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -42,7 +42,7 @@ public:
 
     // get packet body size
     // *OPTIMIZATION HINT*
-    // const static LCLoginOKPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static LCLoginOKPacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketSize() const {
         return szBYTE + szBYTE + szBYTE + szWORD;
     }
@@ -87,15 +87,15 @@ public:
     }
 
 private:
-    // °í¾î ·¹º§ : ÇöÀç ÇÃ·¹ÀÌ¾î°¡ ¹Ì¼º³âÀÚ ÀÎ°¡?
-    // trueÀÏ °æ¿ì ¼ºÀÎ
-    // false ÀÏ °æ¿ì ¹Ì¼º³âÀÚ
+    // ê³ ì–´ ë ˆë²¨ : í˜„ì¬ í”Œë ˆì´ì–´ê°€ ë¯¸ì„±ë…„ì ì¸ê°€?
+    // trueì¼ ê²½ìš° ì„±ì¸
+    // false ì¼ ê²½ìš° ë¯¸ì„±ë…„ì
     bool m_isAdult;
 
-    // Family »ç¿ëÀÚÀÎ°¡
+    // Family ì‚¬ìš©ìì¸ê°€
     bool m_bFamily;
 
-    // ¼­¹öÀÇ »óÅÂ
+    // ì„œë²„ì˜ ìƒíƒœ
     BYTE m_Stat;
 
     WORD m_LastDays;

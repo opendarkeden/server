@@ -2,8 +2,8 @@
 // Filename    : ActionShowGuildDialog.h
 // Written By  :
 // Description :
-// Creature°¡ ÁÖ¾îÁø ´ë»ç¸¦ ¸»ÇÑ´Ù. ÀÌ ´ë»ç´Â Å©¸®Ã³ÀÇ ¸Ó¸® À§ÀÇ ¸»Ç³¼±À¸·Î
-// Ãâ·ÂµÈ´Ù.
+// Creatureê°€ ì£¼ì–´ì§„ ëŒ€ì‚¬ë¥¼ ë§í•œë‹¤. ì´ ëŒ€ì‚¬ëŠ” í¬ë¦¬ì²˜ì˜ ë¨¸ë¦¬ ìœ„ì˜ ë§í’ì„ ìœ¼ë¡œ
+// ì¶œë ¥ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_SHOW_GUILD_DIALOG_H__
@@ -32,10 +32,10 @@ public:
     virtual string toString() const;
 
     enum GUILDDIALOG {
-        GUILD_DIALOG_REGIST = 0, // ±æµå µî·Ï Ã¢
-        GUILD_DIALOG_WAIT_LIST,  // ±æµå µî·Ï ´ë±â ¸®½ºÆ®
-        GUILD_DIALOG_LIST,       // ±æµå ¸®½ºÆ®
-        GUILD_DIALOG_QUIT,       // ±æµå Å»Åð Ã¢
+        GUILD_DIALOG_REGIST = 0, // ê¸¸ë“œ ë“±ë¡ ì°½
+        GUILD_DIALOG_WAIT_LIST,  // ê¸¸ë“œ ë“±ë¡ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸
+        GUILD_DIALOG_LIST,       // ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸
+        GUILD_DIALOG_QUIT,       // ê¸¸ë“œ íƒˆí‡´ ì°½
 
         GUILD_DIALOG_MAX
     };

@@ -18,12 +18,12 @@
 #include "VariableManager.h"
 #include "ZoneGroupManager.h"
 
-// ÀüÀï ÇÏ´Â ³¯Â¥
+// ì „ìŸ í•˜ëŠ” ë‚ ì§œ
 int LevelWarTime[4][3] = {
-    {2, 20, 0}, // È­¿äÀÏ 8½Ã
-    {4, 20, 0}, // ¸ñ¿äÀÏ 8½Ã
-    {2, 21, 0}, // È­¿äÀÏ 9½Ã
-    {4, 21, 0}, // ¸ñ¿äÀÏ 9½Ã
+    {2, 20, 0}, // í™”ìš”ì¼ 8ì‹œ
+    {4, 20, 0}, // ëª©ìš”ì¼ 8ì‹œ
+    {2, 21, 0}, // í™”ìš”ì¼ 9ì‹œ
+    {4, 21, 0}, // ëª©ìš”ì¼ 9ì‹œ
 };
 
 void LevelWarManager::init() {
@@ -34,7 +34,7 @@ void LevelWarManager::init() {
     VSDateTime warStartTime = getNextLevelWarTime();
     m_pLevelWarSchedule = new Schedule(new LevelWar(this), warStartTime);
 
-    filelog("WarLog.txt", "[Level=%d, Time=%s] ·¹º§º° ÀüÀïÀ» Ãß°¡ÇÕ´Ï´Ù.", m_Level, warStartTime.toString().c_str());
+    filelog("WarLog.txt", "[Level=%d, Time=%s] ë ˆë²¨ë³„ ì „ìŸì„ ì¶”ê°€í•©ë‹ˆë‹¤.", m_Level, warStartTime.toString().c_str());
 
     addSchedule(m_pLevelWarSchedule);
 }
@@ -50,7 +50,7 @@ Work* LevelWarManager::heartbeat()
     }
 
     if (m_bHasWar) {
-        // ÀüÀïÀÌ ÀÖÀ¸¸é GCWarList ¸¦ °»½ÅÇØÁØ´Ù
+        // ì „ìŸì´ ìžˆìœ¼ë©´ GCWarList ë¥¼ ê°±ì‹ í•´ì¤€ë‹¤
         makeGCWarList();
     }
 
@@ -60,8 +60,8 @@ Work* LevelWarManager::heartbeat()
 void LevelWarManager::startWar() {
     m_bHasWar = true;
 
-    // ÇöÀç ½Ã°£À» start time À¸·Î ±â·ÏÇØµÐ´Ù.
-    // startTime °ú Level ÀÌ ±â·ÏÀ» ³²±æ ¶§ ²À ÇÊ¿äÇÏ´Ù.
+    // í˜„ìž¬ ì‹œê°„ì„ start time ìœ¼ë¡œ ê¸°ë¡í•´ë‘”ë‹¤.
+    // startTime ê³¼ Level ì´ ê¸°ë¡ì„ ë‚¨ê¸¸ ë•Œ ê¼­ í•„ìš”í•˜ë‹¤.
     setLevelWarStartTime(VSDateTime::currentDateTime());
 
     int year = VSDate::currentDate().year() - 2000;
@@ -93,7 +93,7 @@ void LevelWarManager::startWar() {
     g_pSweeperBonusManager->makeVoidSweeperBonusInfo(gcSweeperBonusInfo);
     g_pLevelWarZoneInfoManager->broadcast(m_pZone->getZoneID(), &gcSweeperBonusInfo);
 
-    // ±â·Ï ³²±ä´Ù.
+    // ê¸°ë¡ ë‚¨ê¸´ë‹¤.
     recordLevelWarStart();
 }
 
@@ -159,14 +159,14 @@ void LevelWarManager::endWar() {
     VSDateTime warStartTime = getNextLevelWarTime();
     m_pLevelWarSchedule = new Schedule(new LevelWar(this), warStartTime);
 
-    filelog("WarLog.txt", "[Level=%d, Time=%s] ·¹º§º° ÀüÀïÀ» Ãß°¡ÇÕ´Ï´Ù.", m_Level, warStartTime.toString().c_str());
+    filelog("WarLog.txt", "[Level=%d, Time=%s] ë ˆë²¨ë³„ ì „ìŸì„ ì¶”ê°€í•©ë‹ˆë‹¤.", m_Level, warStartTime.toString().c_str());
     addSchedule(m_pLevelWarSchedule);
 
     char sLoad[100];
     sprintf(sLoad, "*world *load sweeper_owner %d", m_Level);
     CGSayHandler::opworld(NULL, sLoad, 0, true);
 
-    // ±â·Ï ³²±ä´Ù
+    // ê¸°ë¡ ë‚¨ê¸´ë‹¤
     recordLevelWarEnd();
 }
 
@@ -205,7 +205,7 @@ void LevelWarManager::recordLevelWarEnd() {
     }
     END_DB(pStmt)
 
-    // script µ¹¸®±â ¤Ñ.,¤Ñ system ÇÔ¼ö¸¦ ¾²°Ô µÉ ÁÙÀÌ¾ß !_!
+    // script ëŒë¦¬ê¸° ã…¡.,ã…¡ system í•¨ìˆ˜ë¥¼ ì“°ê²Œ ë  ì¤„ì´ì•¼ !_!
     char cmd[100];
     sprintf(cmd, "/home/darkeden/vs/bin/script/recordLevelWarHistory.py %d %s %d %d ", m_Level,
             getLevelWarStartTime().toStringforWeb().c_str(), g_pConfig->getPropertyInt("Dimension"),
@@ -396,7 +396,7 @@ void LevelWarManager::freeUserTimeCheck()
     if (m_bCanEnterFreeUser && hour != LevelWarTime[m_Level - 1][1]) {
         m_bCanEnterFreeUser = false;
 
-        // Zone ¿¡ ÀÖ´Â »ç¶÷ ´Ù Æ¨°ÜÁÖÀÚ.
+        // Zone ì— ìžˆëŠ” ì‚¬ëžŒ ë‹¤ íŠ•ê²¨ì£¼ìž.
         m_pZone->remainPayPlayer();
     } else if (!m_bCanEnterFreeUser && hour == LevelWarTime[m_Level - 1][1]) {
         m_bCanEnterFreeUser = true;

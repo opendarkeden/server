@@ -57,7 +57,7 @@ void CombatInfoManager::computeModify() {
     m_VampireToHitModify = 0;
 
     for (int i = 0; i < maxRelic; i++) {
-        // bonus, penalty °è»ê
+        // bonus, penalty ê³„ì‚°
     }
 
     GCSystemMessage gcSystemMessage;
@@ -67,33 +67,33 @@ void CombatInfoManager::computeModify() {
 
     bool bVampireBonus = m_RelicOwner[0] == RELIC_OWNER_VAMPIRE && m_RelicOwner[1] == RELIC_OWNER_VAMPIRE;
 
-    // ½½·¹ÀÌ¾î ½Â¸®
+    // ìŠ¬ë ˆì´ì–´ ìŠ¹ë¦¬
     if (bSlayerBonus) {
         // m_SlayerHPModify = g_pVariableManager->getCombatSlayerHPBonusRatio();
-        //		gcSystemMessage.setMessage("½½·¹ÀÌ¾î¿¡°Ô º¸³Ê½º¸¦ ¹¹ÁÙ±î?");
+        //		gcSystemMessage.setMessage("ìŠ¬ë ˆì´ì–´ì—ê²Œ ë³´ë„ˆìŠ¤ë¥¼ ë­ì¤„ê¹Œ?");
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_APPLICATE_COMBAT_SLAYER_BONUS));
         bSendMessage = true;
     }
-    // ¹ìÆÄÀÌ¾î ½Â¸®
+    // ë±€íŒŒì´ì–´ ìŠ¹ë¦¬
     else if (bVampireBonus) {
         // m_VampireHPModify = g_pVariableManager->getCombatVampireHPBonusRatio();
-        //		gcSystemMessage.setMessage("¹ìÆÄÀÌ¾î¿¡°Ô º¸³Ê½º¸¦ ¹¹ÁÙ±î?");
+        //		gcSystemMessage.setMessage("ë±€íŒŒì´ì–´ì—ê²Œ ë³´ë„ˆìŠ¤ë¥¼ ë­ì¤„ê¹Œ?");
         gcSystemMessage.setMessage(g_pStringPool->getString(STRID_APPLICATE_COMBAT_VAMPIRE_BONUS));
         bSendMessage = true;
     }
 
     else if (!bSlayerBonus && !bVampireBonus) {
-        // Àû¿ëµÇ°í ÀÖ´Ù°¡ Àû¿ë¾ÈµÇ´Â °æ¿ì
+        // ì ìš©ë˜ê³  ìžˆë‹¤ê°€ ì ìš©ì•ˆë˜ëŠ” ê²½ìš°
         if (m_bSlayerBonus && m_bVampireBonus) {
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_MORE_COMBAT_BONUS));
             bSendMessage = true;
         }
-        // ½½·¹ÀÌ¾î º¸³Ê½º°¡ »ç¶óÁö´Â °æ¿ì
+        // ìŠ¬ë ˆì´ì–´ ë³´ë„ˆìŠ¤ê°€ ì‚¬ë¼ì§€ëŠ” ê²½ìš°
         else if (m_bSlayerBonus) {
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_MORE_COMBAT_SLAYER_BONUS));
             bSendMessage = true;
         }
-        // ¹ìÆÄÀÌ¾î º¸³Ê½º°¡ »ç¶óÁö´Â °æ¿ì
+        // ë±€íŒŒì´ì–´ ë³´ë„ˆìŠ¤ê°€ ì‚¬ë¼ì§€ëŠ” ê²½ìš°
         else if (m_bVampireBonus) {
             gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_MORE_COMBAT_VAMPIRE_BONUS));
             bSendMessage = true;

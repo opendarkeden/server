@@ -11,13 +11,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 CriticalGround::CriticalGround() throw() {
     __BEGIN_TRY
 
-    // ÁÖÀ§ 8Å¸ÀÏ
+    // ì£¼ìœ„ 8íƒ€ì¼
     m_pCriticalGroundMask[0].set(1, 1);
     m_pCriticalGroundMask[1].set(-1, -1);
     m_pCriticalGroundMask[2].set(0, -1);
@@ -31,7 +31,7 @@ CriticalGround::CriticalGround() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 /*
 void CriticalGround::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
@@ -74,7 +74,7 @@ void CriticalGround::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
         {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ¹ìÆÄÀÌ¾î¸¦ ¶¥ À§¿¡¼­ »èÁ¦ÇÏ±â ÀÌÀü¿¡ ±â¼ú ÆĞÅ¶µéÀ» ³¯¸°´Ù.
+            // ë±€íŒŒì´ì–´ë¥¼ ë•… ìœ„ì—ì„œ ì‚­ì œí•˜ê¸° ì´ì „ì— ê¸°ìˆ  íŒ¨í‚·ë“¤ì„ ë‚ ë¦°ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -86,12 +86,12 @@ void CriticalGround::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(x, y, &_GCSkillToSelfOK2, pVampire);
 
-            // ¶¥ À§¿¡ ³ª¿ÍÀÖ´Â ¹ìÆÄÀÌ¾î »èÁ¦ÇÏ¶ó°í ¾Ë¸°´Ù.
+            // ë•… ìœ„ì— ë‚˜ì™€ìˆëŠ” ë±€íŒŒì´ì–´ ì‚­ì œí•˜ë¼ê³  ì•Œë¦°ë‹¤.
             GCDeleteObject gcDO;
             gcDO.setObjectID(pVampire->getObjectID());
             pZone->broadcastPacket(x, y, &gcDO, pVampire);
 
-            // ¶¥ ¼Ó¿¡´Ù°¡ ¹ìÆÄÀÌ¾î¸¦ Ãß°¡ÇÑ´Ù.
+            // ë•… ì†ì—ë‹¤ê°€ ë±€íŒŒì´ì–´ë¥¼ ì¶”ê°€í•œë‹¤.
             addBurrowingCreature(pZone, pVampire, x, y);
 
             pSkillSlot->setRunTime();
@@ -114,7 +114,7 @@ void CriticalGround::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
 */
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CriticalGround::execute(Monster* pMonster)
 
@@ -147,7 +147,7 @@ void CriticalGround::execute(Monster* pMonster)
 
         if (bRangeCheck && bMoveModeCheck) {
             //--------------------------------------------------------
-            // Critical Ground ±â¼úÀ» º¸ÀÌ°Ô ÇÑ´Ù.
+            // Critical Ground ê¸°ìˆ ì„ ë³´ì´ê²Œ í•œë‹¤.
             //--------------------------------------------------------
             //_GCSkillToSelfOK2.setObjectID(pMonster->getObjectID());
             //_GCSkillToSelfOK2.setDuration(0);
@@ -156,7 +156,7 @@ void CriticalGround::execute(Monster* pMonster)
 
 
             //--------------------------------------------------------
-            // ÁÖÀ§¿¡ knockbackµÇ´Â¸Â´Â ¾ÖµéÀ» Ã¼Å©ÇØÁØ´Ù.
+            // ì£¼ìœ„ì— knockbackë˜ëŠ”ë§ëŠ” ì• ë“¤ì„ ì²´í¬í•´ì¤€ë‹¤.
             //--------------------------------------------------------
             SkillInput input(pMonster);
             SkillOutput output;
@@ -180,7 +180,7 @@ void CriticalGround::execute(Monster* pMonster)
                 param.addMask(m_pCriticalGroundMask[i].x, m_pCriticalGroundMask[i].y, 100);
             }
 
-            // °­Á¦·Î ¸Â´Â ¾ÖµéÀ» knockback ½ÃÅ²´Ù.
+            // ê°•ì œë¡œ ë§ëŠ” ì• ë“¤ì„ knockback ì‹œí‚¨ë‹¤.
             bool bForceKnockback = true;
             g_SimpleTileMeleeSkill.execute(pMonster, x, y, param, result, 0, bForceKnockback);
         } else {

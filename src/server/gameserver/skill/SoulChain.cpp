@@ -17,7 +17,7 @@
 #include "war/WarSystem.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -50,8 +50,8 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
         SkillType_t SkillType = pSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // ÀÌ ½ºÅ³Àº ¸ğµç ½½·¹ÀÌ¾î ±×·£µå ¸¶½ºÅÍ¶ó¸é ¾µ ¼ö ÀÖ´Ù.
-        // µµ¸ŞÀÎµ¥ Á¾¼ÓµÈ ½ºÅ³ÀÌ ¾Æ´Ï¹Ç·Î µµ¸ŞÀÎ Áß ÃÖ°í ·¹º§À» ÇöÀç µµ¸ŞÀÎÀ¸·Î ÇÑ´Ù.
+        // ì´ ìŠ¤í‚¬ì€ ëª¨ë“  ìŠ¬ë ˆì´ì–´ ê·¸ëœë“œ ë§ˆìŠ¤í„°ë¼ë©´ ì“¸ ìˆ˜ ìˆë‹¤.
+        // ë„ë©”ì¸ë° ì¢…ì†ëœ ìŠ¤í‚¬ì´ ì•„ë‹ˆë¯€ë¡œ ë„ë©”ì¸ ì¤‘ ìµœê³  ë ˆë²¨ì„ í˜„ì¬ ë„ë©”ì¸ìœ¼ë¡œ í•œë‹¤.
         SkillDomainType_t DomainType = pSlayer->getHighestSkillDomain();
 
         ZoneCoord_t x = pSlayer->getX();
@@ -64,30 +64,30 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
         if (pTarget != NULL) {
             Zone* pTargetZone = pTarget->getZone();
             if (pTargetZone != NULL) {
-                // Target Ã¼Å©
-                // °°Àº Á¾Á·ÀÌ¾î¾ß ÇÑ´Ù.
+                // Target ì²´í¬
+                // ê°™ì€ ì¢…ì¡±ì´ì–´ì•¼ í•œë‹¤.
                 bool bSlayer = pTarget->isSlayer();
-                // ÀÏ¹İ À¯ÀúÀÌ¿©¾ß µÈ´Ù.
+                // ì¼ë°˜ ìœ ì €ì´ì—¬ì•¼ ëœë‹¤.
                 bool bPLAYER = pTarget->getCompetence() == PLAYER;
                 bool bMasterLair =
                     pTargetZone->isMasterLair() || GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID());
-                // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                 bool bValidPay = pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID()) ||
                                  pGamePlayer->isFamilyFreePass() ||
                                  !g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID())->isPayPlay();
 
-                // ¾ßÀü»ç·ÉºÎ, ½Ã¿Ü°ûÁö¿ª, ÀÌº¥Æ®°æ±âÀå, ÀÌº¥Æ®OX, Å×¸Ş¸®¿¡·Î´Â °¥ ¼ö ¾ø´Ù.
+                // ì•¼ì „ì‚¬ë ¹ë¶€, ì‹œì™¸ê³½ì§€ì—­, ì´ë²¤íŠ¸ê²½ê¸°ì¥, ì´ë²¤íŠ¸OX, í…Œë©”ë¦¬ì—ë¡œëŠ” ê°ˆ ìˆ˜ ì—†ë‹¤.
                 bool bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
                                   pTargetZone->getZoneID() != 1005 && pTargetZone->getZoneID() != 1006 &&
                                   pTargetZone->getZoneID() != 1122 && pTargetZone->getZoneID() != 1131 &&
                                   pTargetZone->getZoneID() != 1132 && pTargetZone->getZoneID() != 1133 &&
                                   pTargetZone->getZoneID() != 1134 && !pTargetZone->isCastleZone() &&
-                                  // ¼ºÀÌ³ª ¸¶½ºÅÍ ·¹¾î·Îµµ ÂÑ¾Æ°¥ ¼ö ¾ø´Ù. 2003. 1.20. by bezz, Sequoia
-                                  // ¾Æ´ãÀÇ ¼ºÁö ³»·Îµµ ÂÑ¾Æ°¥ ¼ö ¾ø´Ù. 2003. 2. 8. by Sequoia
+                                  // ì„±ì´ë‚˜ ë§ˆìŠ¤í„° ë ˆì–´ë¡œë„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤. 2003. 1.20. by bezz, Sequoia
+                                  // ì•„ë‹´ì˜ ì„±ì§€ ë‚´ë¡œë„ ì«“ì•„ê°ˆ ìˆ˜ ì—†ë‹¤. 2003. 2. 8. by Sequoia
                                   (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) &&
                                   !pTargetZone->isCastle() && !pTargetZone->isMasterLair() &&
                                   !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID()) &&
-                                  // ´ÙÀÌ³ª¹Í Á¸À¸·Îµµ °¥ ¼ö ¾ø´Ù.
+                                  // ë‹¤ì´ë‚˜ë¯¹ ì¡´ìœ¼ë¡œë„ ê°ˆ ìˆ˜ ì—†ë‹¤.
                                   !pTargetZone->isDynamicZone();
 
                 bValidTarget = bSlayer && bPLAYER && !bMasterLair && bValidPay && bValidZone;
@@ -112,7 +112,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
             SkillOutput output;
             computeOutput(input, output);
 
-            // 10 ÃÊ µ¿¾È ¿òÁ÷ÀÏ ¼ö ¾øµµ·Ï ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+            // 10 ì´ˆ ë™ì•ˆ ì›€ì§ì¼ ìˆ˜ ì—†ë„ë¡ ì´í™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
             EffectSoulChain* pEffect = new EffectSoulChain(pSlayer);
             pEffect->setDuration(output.Duration);
             pEffect->setDeadline(100);
@@ -125,7 +125,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
             pZone->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_SOUL_CHAIN);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
 
@@ -155,7 +155,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ÆĞÅ¶À» º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -185,7 +185,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ
+// ë±€íŒŒì´ì–´ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkillSlot* pSkillSlot,
                         CEffectID_t CEffectID)
@@ -229,20 +229,20 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
         if (pTarget != NULL) {
             Zone* pTargetZone = pTarget->getZone();
             if (pTargetZone != NULL) {
-                // Target Ã¼Å©
-                // °°Àº Á¾Á·ÀÌ¾î¾ß ÇÑ´Ù.
+                // Target ì²´í¬
+                // ê°™ì€ ì¢…ì¡±ì´ì–´ì•¼ í•œë‹¤.
                 bool bVampire = pTarget->isVampire();
-                // ÀÏ¹İ À¯ÀúÀÌ¿©¾ß µÈ´Ù.
+                // ì¼ë°˜ ìœ ì €ì´ì—¬ì•¼ ëœë‹¤.
                 bool bPLAYER = pTarget->getCompetence() == PLAYER;
-                // ¸¶½ºÅÍ ·¹¾î·Î´Â ÀÌµ¿ÇÒ ¼ö ¾ø´Ù.
+                // ë§ˆìŠ¤í„° ë ˆì–´ë¡œëŠ” ì´ë™í•  ìˆ˜ ì—†ë‹¤.
                 bool bMasterLair =
                     pTargetZone->isMasterLair() || GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID());
-                // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                 bool bValidPay = pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID()) ||
                                  pGamePlayer->isFamilyFreePass() ||
                                  !g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID())->isPayPlay();
 
-                // ¾ßÀü»ç·ÉºÎ, ½Ã¿Ü°ûÁö¿ª, ÀÌº¥Æ®°æ±âÀå, ÀÌº¥Æ®OX, Å×¸Ş¸®¿¡·Î´Â °¥ ¼ö ¾ø´Ù.
+                // ì•¼ì „ì‚¬ë ¹ë¶€, ì‹œì™¸ê³½ì§€ì—­, ì´ë²¤íŠ¸ê²½ê¸°ì¥, ì´ë²¤íŠ¸OX, í…Œë©”ë¦¬ì—ë¡œëŠ” ê°ˆ ìˆ˜ ì—†ë‹¤.
                 bool bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
                                   pTargetZone->getZoneID() != 1005 && pTargetZone->getZoneID() != 1006 &&
                                   pTargetZone->getZoneID() != 1122 && pTargetZone->getZoneID() != 1131 &&
@@ -251,7 +251,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
                                   (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) &&
                                   !pTargetZone->isCastle() && !pTargetZone->isMasterLair() &&
                                   !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID()) &&
-                                  // ´ÙÀÌ³ª¹Í Á¸À¸·Îµµ °¥ ¼ö ¾ø´Ù.
+                                  // ë‹¤ì´ë‚˜ë¯¹ ì¡´ìœ¼ë¡œë„ ê°ˆ ìˆ˜ ì—†ë‹¤.
                                   !pTargetZone->isDynamicZone();
 
                 bValidTarget = bVampire && bPLAYER && !bMasterLair && bValidPay && bValidZone;
@@ -276,7 +276,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
             SkillOutput output;
             computeOutput(input, output);
 
-            // 10 ÃÊ µ¿¾È ¿òÁ÷ÀÏ ¼ö ¾øµµ·Ï ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+            // 10 ì´ˆ ë™ì•ˆ ì›€ì§ì¼ ìˆ˜ ì—†ë„ë¡ ì´í™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
             EffectSoulChain* pEffect = new EffectSoulChain(pVampire);
             pEffect->setDuration(output.Duration);
             pEffect->setDeadline(100);
@@ -317,7 +317,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¼¿ÇÁ
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkillSlot* pSkillSlot,
                         CEffectID_t CEffectID)
@@ -361,20 +361,20 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
         if (pTarget != NULL) {
             Zone* pTargetZone = pTarget->getZone();
             if (pTargetZone != NULL) {
-                // Target Ã¼Å©
-                // °°Àº Á¾Á·ÀÌ¾î¾ß ÇÑ´Ù.
+                // Target ì²´í¬
+                // ê°™ì€ ì¢…ì¡±ì´ì–´ì•¼ í•œë‹¤.
                 bool bOusters = pTarget->isOusters();
-                // ÀÏ¹İ À¯ÀúÀÌ¿©¾ß µÈ´Ù.
+                // ì¼ë°˜ ìœ ì €ì´ì—¬ì•¼ ëœë‹¤.
                 bool bPLAYER = pTarget->getCompetence() == PLAYER;
-                // ¸¶½ºÅÍ ·¹¾î·Î´Â ÀÌµ¿ÇÒ ¼ö ¾ø´Ù.
+                // ë§ˆìŠ¤í„° ë ˆì–´ë¡œëŠ” ì´ë™í•  ìˆ˜ ì—†ë‹¤.
                 bool bMasterLair =
                     pTargetZone->isMasterLair() || GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID());
-                // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                 bool bValidPay = pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID()) ||
                                  pGamePlayer->isFamilyFreePass() ||
                                  !g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID())->isPayPlay();
 
-                // ¾ßÀü»ç·ÉºÎ, ½Ã¿Ü°ûÁö¿ª, ÀÌº¥Æ®°æ±âÀå, ÀÌº¥Æ®OX, Å×¸Ş¸®¿¡·Î´Â °¥ ¼ö ¾ø´Ù.
+                // ì•¼ì „ì‚¬ë ¹ë¶€, ì‹œì™¸ê³½ì§€ì—­, ì´ë²¤íŠ¸ê²½ê¸°ì¥, ì´ë²¤íŠ¸OX, í…Œë©”ë¦¬ì—ë¡œëŠ” ê°ˆ ìˆ˜ ì—†ë‹¤.
                 bool bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
                                   pTargetZone->getZoneID() != 1005 && pTargetZone->getZoneID() != 1006 &&
                                   pTargetZone->getZoneID() != 1122 && pTargetZone->getZoneID() != 1131 &&
@@ -383,7 +383,7 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
                                   (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) &&
                                   !pTargetZone->isCastle() && !pTargetZone->isMasterLair() &&
                                   !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID()) &&
-                                  // ´ÙÀÌ³ª¹Í Á¸À¸·Îµµ °¥ ¼ö ¾ø´Ù.
+                                  // ë‹¤ì´ë‚˜ë¯¹ ì¡´ìœ¼ë¡œë„ ê°ˆ ìˆ˜ ì—†ë‹¤.
                                   !pTargetZone->isDynamicZone();
 
                 bValidTarget = bOusters && bPLAYER && !bMasterLair && bValidPay && bValidZone;
@@ -408,7 +408,7 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
             SkillOutput output;
             computeOutput(input, output);
 
-            // 10 ÃÊ µ¿¾È ¿òÁ÷ÀÏ ¼ö ¾øµµ·Ï ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+            // 10 ì´ˆ ë™ì•ˆ ì›€ì§ì¼ ìˆ˜ ì—†ë„ë¡ ì´í™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
             EffectSoulChain* pEffect = new EffectSoulChain(pOusters);
             pEffect->setDuration(output.Duration);
             pEffect->setDeadline(100);

@@ -17,7 +17,7 @@
 #include "SkillHandlerManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void CrossCounter::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -36,7 +36,7 @@ void CrossCounter::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, °ËÀÌ ¾Æ´Ï¶ó¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ìž¥í•˜ê³  ìžˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, ê²€ì´ ì•„ë‹ˆë¼ë©´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_SWORD) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -67,13 +67,13 @@ void CrossCounter::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectCrossCounter* pEffect = new EffectCrossCounter(pSlayer);
             pEffect->setDeadline(output.Duration);
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_CROSS_COUNTER);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             if (bIncreaseDomainExp) {
@@ -82,7 +82,7 @@ void CrossCounter::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
             }
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -95,7 +95,7 @@ void CrossCounter::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
 
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_CROSS_COUNTER);
@@ -116,8 +116,8 @@ void CrossCounter::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©·Î½º Ä«¿îÅÍ Ã¼Å© ÇÔ¼ö
-// Å©·Î½º Ä«¿îÅÍ°¡ ¹ßµ¿µÇ¸é true¸¦ ¸®ÅÏÇÑ´Ù.
+// í¬ë¡œìŠ¤ ì¹´ìš´í„° ì²´í¬ í•¨ìˆ˜
+// í¬ë¡œìŠ¤ ì¹´ìš´í„°ê°€ ë°œë™ë˜ë©´ trueë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t damage, Range_t range) {
     __BEGIN_TRY
@@ -127,7 +127,7 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
     Assert(pAttacker != NULL);
     Assert(pTargetCreature != NULL);
 
-    // ½½·¹ÀÌ¾î¸¸ÀÌ ÀÌ ±â¼úÀ» ¾µ ¼ö ÀÖ°í, ±× °Å¸®´Â 1ÀÌ¾î¾ß¸¸ ÇÑ´Ù.
+    // ìŠ¬ë ˆì´ì–´ë§Œì´ ì´ ê¸°ìˆ ì„ ì“¸ ìˆ˜ ìžˆê³ , ê·¸ ê±°ë¦¬ëŠ” 1ì´ì–´ì•¼ë§Œ í•œë‹¤.
     if (pTargetCreature->isSlayer() == false || range != 1) {
         // cout << "CheckCrossCounter End" << endl;
         return false;
@@ -135,7 +135,7 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
 
     bool bSuccess = false;
 
-    // ±â¼úÀÌ °É·ÁÀÖ°í, ÇöÀç ¸¶ºñ »óÅÂ°¡ ¾Æ´Ï¶ó¸é...
+    // ê¸°ìˆ ì´ ê±¸ë ¤ìžˆê³ , í˜„ìž¬ ë§ˆë¹„ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´...
     if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_CROSS_COUNTER) &&
         !pTargetCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) {
         Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
@@ -152,15 +152,15 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
         Item* pWeapon = pTargetSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
 
         if (!verifyDistance(pAttacker, pTargetCreature, 1) ||
-            // °ËÀ» µé°í ÀÖÁö ¾ÊÀ¸¸é ¹ßµ¿µÇÁö ¾Ê´Â´Ù. by Sequoia 2003.3.25
+            // ê²€ì„ ë“¤ê³  ìžˆì§€ ì•Šìœ¼ë©´ ë°œë™ë˜ì§€ ì•ŠëŠ”ë‹¤. by Sequoia 2003.3.25
             pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_SWORD) {
             return false;
         }
 
-        // hitrollÀÌ ¼º°øÇß´Ù¸é...
+        // hitrollì´ ì„±ê³µí–ˆë‹¤ë©´...
         if (HitRoll::isSuccess(pTargetSlayer, pAttacker) && canHit(pTargetSlayer, pAttacker, SKILL_CROSS_COUNTER)) {
-            // counter¿¡¼­´Â
-            // pTargetSlayer°¡ °ø°ÝÀÚ, pAttacker°¡ °ø°Ý´çÇÏ´Â ÀÚ°¡ µÈ´Ù.
+            // counterì—ì„œëŠ”
+            // pTargetSlayerê°€ ê³µê²©ìž, pAttackerê°€ ê³µê²©ë‹¹í•˜ëŠ” ìžê°€ ëœë‹¤.
             ObjectID_t targetID = pTargetSlayer->getObjectID();
             ObjectID_t attackerID = pAttacker->getObjectID();
 
@@ -172,7 +172,7 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(SkillLevel);
 
             ////////////////////////////////////////////////////////////
-            // ½ºÅ³ ±×·¹ÀÌµå¿¡ µû¶ó¼­ ´Ù¸¥ ±â¼úÀÌ ³ª°£´Ù.
+            // ìŠ¤í‚¬ ê·¸ë ˆì´ë“œì— ë”°ë¼ì„œ ë‹¤ë¥¸ ê¸°ìˆ ì´ ë‚˜ê°„ë‹¤.
             // SKILL_GRADE_APPRENTICE
             // SKILL_GRADE_ADEPT
             // SKILL_GRADE_EXPERT
@@ -183,7 +183,7 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
 
             bool bCriticalHit;
 
-            // ±âº» µ¥¹ÌÁö¿¡ ½ºÅ³ µ¥¹ÌÁö¸¦ ´õÇÑ´Ù.
+            // ê¸°ë³¸ ë°ë¯¸ì§€ì— ìŠ¤í‚¬ ë°ë¯¸ì§€ë¥¼ ë”í•œë‹¤.
             Damage_t Damage = computeDamage(pTargetSlayer, pAttacker, SkillLevel / 5, bCriticalHit);
 
             if (Grade == SKILL_GRADE_APPRENTICE) {
@@ -241,11 +241,11 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
             } else if (pAttacker->isMonster()) {
                 Monster* pMonster = dynamic_cast<Monster*>(pAttacker);
 
-                // Å©·Î½ºÄ«¿îÅÍ°¡ ¹ßµ¿µÇ¾ú´Ù´Â °ÍÀº ¸ó½ºÅÍ°¡ ÀÌ¹Ì ÀÌ ½½·¹ÀÌ¾î¸¦ ÀûÀ¸·Î ÀÎ½ÄÇÏ°í
-                // °ø°ÝÀ» Çß´Ù´Â ¸»ÀÌ¹Ç·Î, addEnemy¸¦ ÇØ ÁÙ ÇÊ¿ä´Â ¾ø´Ù.
+                // í¬ë¡œìŠ¤ì¹´ìš´í„°ê°€ ë°œë™ë˜ì—ˆë‹¤ëŠ” ê²ƒì€ ëª¬ìŠ¤í„°ê°€ ì´ë¯¸ ì´ ìŠ¬ë ˆì´ì–´ë¥¼ ì ìœ¼ë¡œ ì¸ì‹í•˜ê³ 
+                // ê³µê²©ì„ í–ˆë‹¤ëŠ” ë§ì´ë¯€ë¡œ, addEnemyë¥¼ í•´ ì¤„ í•„ìš”ëŠ” ì—†ë‹¤.
                 // pMonster->addEnemy(pTargetSlayer);
 
-                // ¸¶½ºÅÍ´Â µô·¹ÀÌ¾ø´Ù.
+                // ë§ˆìŠ¤í„°ëŠ” ë”œë ˆì´ì—†ë‹¤.
                 if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
                     && !pMonster->isUnderworld() && pMonster->getMonsterType() != 599
@@ -267,7 +267,7 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
 
             bSuccess = true;
         } else {
-            // CrossCounter½ÇÆÐÇÏ¸é ½ÇÆÐÆÐÅ¶ º¸³»³ª??
+            // CrossCounterì‹¤íŒ¨í•˜ë©´ ì‹¤íŒ¨íŒ¨í‚· ë³´ë‚´ë‚˜??
         }
     }
 

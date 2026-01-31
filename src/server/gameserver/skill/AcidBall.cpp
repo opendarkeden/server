@@ -10,7 +10,7 @@
 #include "SimpleMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                        CEffectID_t CEffectID)
@@ -38,7 +38,7 @@ void AcidBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // Knowledge of Acid °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Acid ê°€ ìžˆë‹¤ë©´ hit bonus 10
     int HitBonus = 0;
     if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID)) {
         RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
@@ -55,7 +55,7 @@ void AcidBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void AcidBall::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -82,13 +82,13 @@ void AcidBall::execute(Monster* pMonster, Creature* pEnemy)
 
     SIMPLE_SKILL_OUTPUT result;
 
-    // ¸¶½ºÅÍ´Â ¿©·¯¸¶¸® °ø°ÝÇÑ´Ù.
+    // ë§ˆìŠ¤í„°ëŠ” ì—¬ëŸ¬ë§ˆë¦¬ ê³µê²©í•œë‹¤.
     if (0) // pMonster->isMaster())
     {
         int x = pMonster->getX();
         int y = pMonster->getY();
 
-        int Splash = 3 + rand() % 5; // 3~7 ¸¶¸®
+        int Splash = 3 + rand() % 5; // 3~7 ë§ˆë¦¬
         int range = 2;               // 5x5
         list<Creature*> creatureList;
         getSplashVictims(pMonster->getZone(), x, y, Creature::CREATURE_CLASS_MAX, creatureList, Splash, range);

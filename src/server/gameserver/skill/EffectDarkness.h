@@ -73,7 +73,7 @@ public:
 private:
     Attr_t m_Level;
     Duration_t m_Duration;
-    Timeval m_StartTime; // ±â¼úÀÌ ½ÃÀÛµÈ ½Ã°£.
+    Timeval m_StartTime; // ê¸°ìˆ ì´ ì‹œì‘ëœ ì‹œê°„.
 };
 
 class EffectDarknessLoader : public EffectLoader {

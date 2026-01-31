@@ -24,7 +24,7 @@
 //
 // class GCMorph1;
 //
-//	slayerµîÀÌ vampire·Î º¯½ÅÇÒ¶§, º¯½ÅÇÏ½Ã´Â ºĞ¿¡°Ô º¸³»´Â ÆĞÅ¶.
+//	slayerë“±ì´ vampireë¡œ ë³€ì‹ í• ë•Œ, ë³€ì‹ í•˜ì‹œëŠ” ë¶„ì—ê²Œ ë³´ë‚´ëŠ” íŒ¨í‚·.
 //--------------------------------------------------------------------------------
 
 class GCMorph1 : public Packet {
@@ -35,10 +35,10 @@ public:
     // destructor
     ~GCMorph1();
 
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -110,7 +110,7 @@ private:
     //--------------------------------------------------------------------------------
     // PC Information
     //--------------------------------------------------------------------------------
-    // PCSlayerInfo2 ¶Ç´Â PCVampireInfo2 ¸¦ »ç¿ëÇÑ´Ù.
+    // PCSlayerInfo2 ë˜ëŠ” PCVampireInfo2 ë¥¼ ì‚¬ìš©í•œë‹¤.
     PCInfo* m_pPCInfo;
 
     //--------------------------------------------------------------------------------
@@ -132,10 +132,10 @@ private:
     // quick item slot
     // gear
 
-    // Àú³Î(PDA)
-    // ¼öÇà Äù½ºÆ® Á¤º¸
-    // °øÁö»çÇ×, ÀÌº¥Æ® Á¤º¸
-    // ÈåÈì.. ¾êµéÀº Ã³À½ PDS¸¦ ÄÓ ¶§ ´Ù¿î¹ŞÀ»±î³ª.. - -;
+    // ì €ë„(PDA)
+    // ìˆ˜í–‰ í€˜ìŠ¤íŠ¸ ì •ë³´
+    // ê³µì§€ì‚¬í•­, ì´ë²¤íŠ¸ ì •ë³´
+    // íí .. ì–˜ë“¤ì€ ì²˜ìŒ PDSë¥¼ ì¼¤ ë•Œ ë‹¤ìš´ë°›ì„ê¹Œë‚˜.. - -;
 };
 
 
@@ -166,7 +166,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCMorph1PacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCMorph1PacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + PCSlayerInfo2::getMaxSize() + InventoryInfo::getMaxSize() + GearInfo::getMaxSize() +
                ExtraInfo::getMaxSize();

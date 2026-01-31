@@ -32,7 +32,7 @@ public:
     void setPart(int part);
 
 private:
-    string m_PartName; // ÇÇÀÇ ¼º¼­ Á¶°¢ ÀÌ¸§
+    string m_PartName; // í”¼ì˜ ì„±ì„œ ì¡°ê° ì´ë¦„
 };
 
 #endif

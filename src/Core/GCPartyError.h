@@ -11,31 +11,31 @@
 #include "PacketFactory.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÆÄÆ¼ °¡ÀÔ °ü·Ã ÄÚµå
+// íŒŒí‹° ê°€ìž… ê´€ë ¨ ì½”ë“œ
 //////////////////////////////////////////////////////////////////////////////
 enum {
-    // ÆÄÆ¼¿¡ °¡ÀÔ½ÃÅ°°Å³ª Å»Åð½ÃÅ³ ´ë»óÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+    // íŒŒí‹°ì— ê°€ìž…ì‹œí‚¤ê±°ë‚˜ íƒˆí‡´ì‹œí‚¬ ëŒ€ìƒì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
     GC_PARTY_ERROR_TARGET_NOT_EXIST = 0,
 
-    // ÆÄÆ¼¿¡ °¡ÀÔ½ÃÅ°°Å³ª Å»Åð½ÃÅ³ ´ë»óÀÌ ´Ù¸¥ Á¾Á·ÀÌ´Ù.
+    // íŒŒí‹°ì— ê°€ìž…ì‹œí‚¤ê±°ë‚˜ íƒˆí‡´ì‹œí‚¬ ëŒ€ìƒì´ ë‹¤ë¥¸ ì¢…ì¡±ì´ë‹¤.
     GC_PARTY_ERROR_RACE_DIFFER,
 
-    // ¾ÈÀüÁö´ë°¡ ¾Æ´Ï´Ù.
+    // ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë‹¤.
     GC_PARTY_ERROR_NOT_SAFE,
 
-    // ´Á´ë³ª ¹ÚÁã »óÅÂ¿¡¼­´Â ÇÒ ¼ö ¾ø´Ù.
+    // ëŠ‘ëŒ€ë‚˜ ë°•ì¥ ìƒíƒœì—ì„œëŠ” í•  ìˆ˜ ì—†ë‹¤.
     GC_PARTY_ERROR_NOT_NORMAL_FORM,
 
-    // ÃÊ´ë ÁßÀÌ¸é¼­ ¶Ç ÃÊ´ë¸¦ ÇÏ·Á°í ÇÑ´Ù.
+    // ì´ˆëŒ€ ì¤‘ì´ë©´ì„œ ë˜ ì´ˆëŒ€ë¥¼ í•˜ë ¤ê³  í•œë‹¤.
     GC_TRADE_ERROR_ALREADY_INVITING,
 
-    // ÃÊ´ë ÁßÀÌ ¾Æ´Ï¸é¼­ ÃÊ´ë¿¡ ´ëÇÑ ÀÀ´äÀ» º¸³»¿Ô´Ù.
+    // ì´ˆëŒ€ ì¤‘ì´ ì•„ë‹ˆë©´ì„œ ì´ˆëŒ€ì— ëŒ€í•œ ì‘ë‹µì„ ë³´ë‚´ì™”ë‹¤.
     GC_PARTY_ERROR_NOT_INVITING,
 
-    // ÆÄÆ¼¿øÀ» Ãß¹æÇÒ ¼ö ÀÖ´Â ±ÇÇÑÀÌ ¾ø´Ù.
+    // íŒŒí‹°ì›ì„ ì¶”ë°©í•  ìˆ˜ ìžˆëŠ” ê¶Œí•œì´ ì—†ë‹¤.
     GC_PARTY_ERROR_NO_AUTHORITY,
 
-    // ¾Ë ¼ö ¾ø´Â ¿¡·¯´Ù
+    // ì•Œ ìˆ˜ ì—†ëŠ” ì—ëŸ¬ë‹¤
     GC_TRADE_ERROR_UNKNOWN,
 
     GC_PARTY_ERROR_MAX
@@ -80,7 +80,7 @@ public:
 
 private:
     ObjectID_t m_TargetObjectID;
-    BYTE m_Code; // ÄÚµå
+    BYTE m_Code; // ì½”ë“œ
 };
 
 

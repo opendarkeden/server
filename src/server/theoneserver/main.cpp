@@ -2,7 +2,7 @@
 //
 // Filename    : main.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : Àı´ë ¼­¹ö¿ë ¸ŞÀÎ ÇÔ¼ö
+// Description : ì ˆëŒ€ ì„œë²„ìš© ë©”ì¸ í•¨ìˆ˜
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -34,34 +34,34 @@ void memoryError() {
 //
 //////////////////////////////////////////////////////////////////////
 int main(int argc, char* argv[]) {
-    // ¸Ş¸ğ¸® ¾ø´Ù.. ÇÔ¼ö¸¦ ¼³Á¤ÇÑ´Ù.
+    // ë©”ëª¨ë¦¬ ì—†ë‹¤.. í•¨ìˆ˜ë¥¼ ì„¤ì •í•œë‹¤.
     set_new_handler(memoryError);
     cerr << "Processing Arguments..." << endl;
 
     if (argc < 3) {
-        cout << "Usage : theoneserver -f È¯°æÆÄÀÏ [-p port]" << endl;
+        cout << "Usage : theoneserver -f í™˜ê²½íŒŒì¼ [-p port]" << endl;
         exit(1);
     }
 
-    // command-line parameter¸¦ string À¸·Î º¯È¯ÇÑ´Ù. ^^;
+    // command-line parameterë¥¼ string ìœ¼ë¡œ ë³€í™˜í•œë‹¤. ^^;
     vector<string> Argv;
     Argv.reserve(argc);
 
     for (int i = 0; i < argc; i++)
         Argv.push_back(argv[i]);
 
-    // È¯°æ ÆÄÀÏÀ» ÀĞ¾îµéÀÎ´Ù.
-    // ´Ü ½ÇÇà ÆÄÀÏÀº $VSHOME/bin¿¡, È¯°æ ÆÄÀÏÀº $VSHOME/conf ¿¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.
-    // command line ¿¡¼­ È¯°æ ÆÄÀÏÀ» ÁöÁ¤ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
+    // í™˜ê²½ íŒŒì¼ì„ ì½ì–´ë“¤ì¸ë‹¤.
+    // ë‹¨ ì‹¤í–‰ íŒŒì¼ì€ $VSHOME/binì—, í™˜ê²½ íŒŒì¼ì€ $VSHOME/conf ì— ì¡´ì¬í•´ì•¼ í•œë‹¤.
+    // command line ì—ì„œ í™˜ê²½ íŒŒì¼ì„ ì§€ì •í•  ìˆ˜ ìˆë„ë¡ í•œë‹¤.
 
     try {
         if (Argv[1] != "-f") {
-            throw Error("Usage : loginserver -f È¯°æÆÄÀÏ [-p port]");
+            throw Error("Usage : loginserver -f í™˜ê²½íŒŒì¼ [-p port]");
         }
 
         cerr << "Making Properties.." << endl;
 
-        // Ã¹¹øÂ° ÆÄ¶ó¹ÌÅÍ°¡ -f ÀÏ °æ¿ì, µÎ¹øÂ° ÆÄ¶ó¹ÌÅÍ´Â È¯°æÆÄÀÏÀÇ À§Ä¡°¡ µÈ´Ù.
+        // ì²«ë²ˆì§¸ íŒŒë¼ë¯¸í„°ê°€ -f ì¼ ê²½ìš°, ë‘ë²ˆì§¸ íŒŒë¼ë¯¸í„°ëŠ” í™˜ê²½íŒŒì¼ì˜ ìœ„ì¹˜ê°€ ëœë‹¤.
         g_pConfig = new Properties();
         g_pConfig->load(Argv[2]);
 
@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
     try {
         if (argc > 3) {
             if (argc < 5 || Argv[3] != "-p")
-                throw Error("Usage : theoneserver -f È¯°æÆÄÀÏ [-p port]");
+                throw Error("Usage : theoneserver -f í™˜ê²½íŒŒì¼ [-p port]");
 
             g_pConfig->setProperty("TheOneServerUDPPort", Argv[4]);
             cout << "TheOneServerUDPPort : " << g_pConfig->getProperty("TheOneServerUDPPort") << endl;
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
     cerr << "Processing Arguments Complete!" << endl;
 
     //
-    // Àı´ë ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÑ ÈÄ È°¼ºÈ­½ÃÅ²´Ù.
+    // ì ˆëŒ€ ì„œë²„ ê°ì²´ë¥¼ ìƒì„±í•˜ê³  ì´ˆê¸°í™”í•œ í›„ í™œì„±í™”ì‹œí‚¨ë‹¤.
     //
     try {
         struct rlimit rl;
@@ -100,19 +100,19 @@ int main(int argc, char* argv[]) {
         rl.rlim_max = RLIM_INFINITY;
         setrlimit(RLIMIT_CORE, &rl);
 
-        // Àı´ë ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+        // ì ˆëŒ€ ì„œë²„ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
         g_pTheOneServer = new TheOneServer();
 
-        // Àı´ë ¼­¹ö °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+        // ì ˆëŒ€ ì„œë²„ ê°ì²´ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
         g_pTheOneServer->init();
 
-        // Àı´ë ¼­¹ö °´Ã¼¸¦ È°¼ºÈ­½ÃÅ²´Ù.
+        // ì ˆëŒ€ ì„œë²„ ê°ì²´ë¥¼ í™œì„±í™”ì‹œí‚¨ë‹¤.
         g_pTheOneServer->start();
     } catch (Throwable& e) {
         cerr << e.toString() << endl;
 
-        // Àı´ë ¼­¹ö¸¦ Áß´Ü½ÃÅ²´Ù.
-        // ÀÌ ³»ºÎ¿¡¼­ ÇÏÀ§ ¸Å´ÏÀú ¿ª½Ã Áß´ÜµÇ¾î¾ß ÇÑ´Ù.
+        // ì ˆëŒ€ ì„œë²„ë¥¼ ì¤‘ë‹¨ì‹œí‚¨ë‹¤.
+        // ì´ ë‚´ë¶€ì—ì„œ í•˜ìœ„ ë§¤ë‹ˆì € ì—­ì‹œ ì¤‘ë‹¨ë˜ì–´ì•¼ í•œë‹¤.
         g_pTheOneServer->stop();
     }
 }

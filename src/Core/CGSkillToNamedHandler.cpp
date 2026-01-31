@@ -41,7 +41,7 @@ void CGSkillToNamedHandler::execute(CGSkillToNamed* pPacket, Player* pPlayer)
 
         SkillType_t SkillType = pPacket->getSkillType();
 
-        // ¿ÏÀü ¾ÈÀüÁö´ë¶ó¸é ±â¼ú »ç¿ë ºÒ°¡. by sigi. 2002.11.14
+        // ì™„ì „ ì•ˆì „ì§€ëŒ€ë¼ë©´ ê¸°ìˆ  ì‚¬ìš© ë¶ˆê°€. by sigi. 2002.11.14
         ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
         if ((ZoneLevel & COMPLETE_SAFE_ZONE) || (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
             (pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||

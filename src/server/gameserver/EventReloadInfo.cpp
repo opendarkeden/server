@@ -51,7 +51,7 @@ void EventReloadInfo::activate()
     __BEGIN_TRY
     __BEGIN_DEBUG
 
-    //(m_pGamePlayer != NULL);//NULLÀÏ ¼ö ÀÖ´Ù.
+    //(m_pGamePlayer != NULL);//NULLì¼ ìˆ˜ ìˆë‹¤.
 
     switch (m_InfoType) {
     case MASTER_LAIR_INFO:
@@ -59,12 +59,12 @@ void EventReloadInfo::activate()
         break;
 
     case MONSTER_INFO: {
-        // m_InfoValue´Â loadingÇÒ MonsterÀÇ SpriteTypeÀÌ´Ù.
+        // m_InfoValueëŠ” loadingí•  Monsterì˜ SpriteTypeì´ë‹¤.
         if (m_InfoValue == 0) {
-            // ÀüºÎ ´Ù loading
+            // ì „ë¶€ ë‹¤ loading
             g_pMonsterInfoManager->reload(0);
         } else {
-            // SpriteType°ú °ü·ÃµÈ ¸ó½ºÅÍµéÀ» ¾Ë¾Æ³½´Ù.
+            // SpriteTypeê³¼ ê´€ë ¨ëœ ëª¬ìŠ¤í„°ë“¤ì„ ì•Œì•„ë‚¸ë‹¤.
             const vector<MonsterType_t>& monsters = g_pMonsterInfoManager->getMonsterTypeBySprite(m_InfoValue);
 
             vector<MonsterType_t>::const_iterator itr = monsters.begin();
@@ -87,7 +87,7 @@ void EventReloadInfo::activate()
         break;
 
     case ITEM_INFO: {
-        // m_InfoValue´Â loadingÇÒ ItemInfoÀÇ ClassÀÌ´Ù
+        // m_InfoValueëŠ” loadingí•  ItemInfoì˜ Classì´ë‹¤
         g_pItemInfoManager->getInfoManager((Item::ItemClass)m_InfoValue)->reload();
     } break;
 
@@ -122,8 +122,8 @@ void EventReloadInfo::activate()
                     pWarScheduler->load();
 
                     //						StringStream msg;
-                    //						msg << "[" << (int)zoneID << "] ¼º¿¡´Â " << pWarScheduler->getSize() << "
-                    // °³ÀÇ ÀüÀïÀÌ ÁØºñÁßÀÔ´Ï´Ù.";
+                    //						msg << "[" << (int)zoneID << "] ì„±ì—ëŠ” " << pWarScheduler->getSize() << "
+                    // ê°œì˜ ì „ìŸì´ ì¤€ë¹„ì¤‘ì…ë‹ˆë‹¤.";
 
                     char msg[100];
                     sprintf(msg, g_pStringPool->c_str(STRID_WAR_SCHEDULE_INFO), (int)zoneID, pWarScheduler->getSize());

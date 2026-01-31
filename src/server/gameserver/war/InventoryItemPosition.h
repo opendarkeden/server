@@ -59,7 +59,7 @@ private:
     CoordInven_t m_InvenX;
     CoordInven_t m_InvenY;
 
-    // getZone À» À§ÇÑ......
+    // getZone ì„ ìœ„í•œ......
     Zone* m_pZone;
     bool m_bSetZone;
 };

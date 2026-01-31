@@ -27,11 +27,11 @@ public:
     virtual ~DynamicZone();
 
 public:
-    virtual void init() {}      // ´ÙÀÌ³ª¹Í Á¸ ÃÊ±âÈ­
-    virtual void heartbeat() {} // ´ÙÀÌ³ª¹Í Á¸ ÇÏÆ®ºñÆ®
+    virtual void init() {}      // ë‹¤ì´ë‚˜ë¯¹ ì¡´ ì´ˆê¸°í™”
+    virtual void heartbeat() {} // ë‹¤ì´ë‚˜ë¯¹ ì¡´ í•˜íŠ¸ë¹„íŠ¸
 
 public:
-    // »õ·Î DynamicZoneÀ» ¸¸µé¾î¼­ ZoneGroup ¿¡ Ãß°¡ÇÑ´Ù.
+    // ìƒˆë¡œ DynamicZoneì„ ë§Œë“¤ì–´ì„œ ZoneGroup ì— ì¶”ê°€í•œë‹¤.
     void makeDynamicZone();
 
     ZoneID_t getTemplateZoneID() const {

@@ -18,9 +18,9 @@
 //
 // class GCWhisper;
 //
-// °ÔÀÓ ¼­¹ö°¡ Æ¯Á¤ ÇÃ·¹ÀÌ¾îÀÇ Whisper ¸¦ ´Ù¸¥ ÇÃ·¹ÀÌ¾îµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®
-// ÇÒ ¶§ Àü¼ÛÇÏ´Â ÆĞÅ¶ÀÌ´Ù. ³»ºÎ¿¡ Ä³¸¯ÅÍ¸í°ú Whisper ½ºÆ®¸µÀ» µ¥ÀÌÅ¸
-// ÇÊµå·Î °¡Áö°í ÀÖ´Ù.
+// ê²Œì„ ì„œë²„ê°€ íŠ¹ì • í”Œë ˆì´ì–´ì˜ Whisper ë¥¼ ë‹¤ë¥¸ í”Œë ˆì´ì–´ë“¤ì—ê²Œ ë¸Œë¡œë“œìºìŠ¤íŠ¸
+// í•  ë•Œ ì „ì†¡í•˜ëŠ” íŒ¨í‚·ì´ë‹¤. ë‚´ë¶€ì— ìºë¦­í„°ëª…ê³¼ Whisper ìŠ¤íŠ¸ë§ì„ ë°ì´íƒ€
+// í•„ë“œë¡œ ê°€ì§€ê³  ìˆë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,10 +28,10 @@ class GCWhisper : public Packet {
 public:
     GCWhisper() {};
     ~GCWhisper() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -129,7 +129,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCWhisperPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCWhisperPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + 10 + szuint + szBYTE + 128 + szBYTE;
     }

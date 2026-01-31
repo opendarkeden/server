@@ -21,11 +21,11 @@
 // constants
 //////////////////////////////////////////////////////////////////////////////
 
-#define DEFAULT_SIGHT 13      // ¿ø·¡½Ã¾ß
-#define DARKNESS_SIGHT 0      // Darkness¿¡ ÀÇÇÑ ½Ã¾ß
-#define YELLOW_POISON_SIGHT 3 // Yellow Poison¿¡ ÀÇÇÑ ½Ã¾ß
-#define LIGHTNESS_SIGHT 13    // Lightness¿¡ ÀÇÇÑ ½Ã¾ß
-#define FLARE_SIGHT 3         // Flare¿¡ ÀÇÇÑ ½Ã¾ß
+#define DEFAULT_SIGHT 13      // ì›ë˜ì‹œì•¼
+#define DARKNESS_SIGHT 0      // Darknessì— ì˜í•œ ì‹œì•¼
+#define YELLOW_POISON_SIGHT 3 // Yellow Poisonì— ì˜í•œ ì‹œì•¼
+#define LIGHTNESS_SIGHT 13    // Lightnessì— ì˜í•œ ì‹œì•¼
+#define FLARE_SIGHT 3         // Flareì— ì˜í•œ ì‹œì•¼
 
 
 const string MoveMode2String[] = {"MOVE_MODE_WALKING", "MOVE_MODE_FLYING", "MOVE_MODE_BURROWING"};
@@ -47,7 +47,7 @@ class LocalPartyManager;
 
 class Creature : public Object {
 public:
-    // Creature¸¦ ¹Ù·Î »ó¼Ó¹Ş´Â Å¬·¡½ºµéÀ» ¿©±â¿¡ Á¤ÀÇÇÑ´Ù.
+    // Creatureë¥¼ ë°”ë¡œ ìƒì†ë°›ëŠ” í´ë˜ìŠ¤ë“¤ì„ ì—¬ê¸°ì— ì •ì˜í•œë‹¤.
     enum CreatureClass {
         CREATURE_CLASS_SLAYER = 0, // PC Slayer
         CREATURE_CLASS_VAMPIRE,    // PC Vampire
@@ -76,8 +76,8 @@ public:
     virtual void save() const = 0; // save to DB
 
 public:
-    // Å©¸®Ã³¿¡¼­ ÇÃ·¹ÀÌ¾î·Î Á¢±ÙÇÑ´Ù.
-    // ÇöÀç Å©¸®Ã³¿¡ ´ëÇØ¼­ isPC()¸¦ Ã¼Å©ÇØº¸°í true ÀÎ °æ¿ì¿¡¸¸ È£ÃâÇØ¾ß ÇÑ´Ù.
+    // í¬ë¦¬ì²˜ì—ì„œ í”Œë ˆì´ì–´ë¡œ ì ‘ê·¼í•œë‹¤.
+    // í˜„ì¬ í¬ë¦¬ì²˜ì— ëŒ€í•´ì„œ isPC()ë¥¼ ì²´í¬í•´ë³´ê³  true ì¸ ê²½ìš°ì—ë§Œ í˜¸ì¶œí•´ì•¼ í•œë‹¤.
     Player* getPlayer() const {
         Assert(m_pPlayer != NULL);
         return m_pPlayer;
@@ -163,16 +163,16 @@ public:
 
 public:
     ////////////////////////////////////////////////////////////
-    // Creature°¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛµé ¿ª½Ã Zone¿¡ µî·ÏµÇ¾î¾ß ÇÑ´Ù.
-    // ÀÌ¸¦ À§ÇØ¼­´Â ¼ÒÀ¯ ¾ÆÀÌÅÛµéÀÌ Zone·¹º§¿¡¼­ visibleÇØ¾ß ÇÏ´Âµ¥,
-    // ±×·¸Áö ¸øÇÏ´Ù. ±×·¸´Ù°í, Zone¿¡¼­ CreatureÀÇ ¼ÒÀ¯ ¾ÆÀÌÅÛµéÀ»
-    // iteration ÇÏ´Â ¸Ş½îµå¸¦ Á¦°øÇÏ´Â °Íµµ ¾î»öÇÏ´Ù.
-    // µû¶ó¼­, Creature¿¡ µî·Ï ¸Ş½îµå¸¦ µÎ°í ¿©±â¼­ Zone¿¡ Á¢±ÙÇØ¼­
-    // ½º½º·Î¸¦ µî·ÏÇÏµµ·Ï ÇÑ °ÍÀÌ´Ù.
+    // Creatureê°€ ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œë“¤ ì—­ì‹œ Zoneì— ë“±ë¡ë˜ì–´ì•¼ í•œë‹¤.
+    // ì´ë¥¼ ìœ„í•´ì„œëŠ” ì†Œìœ  ì•„ì´í…œë“¤ì´ Zoneë ˆë²¨ì—ì„œ visibleí•´ì•¼ í•˜ëŠ”ë°,
+    // ê·¸ë ‡ì§€ ëª»í•˜ë‹¤. ê·¸ë ‡ë‹¤ê³ , Zoneì—ì„œ Creatureì˜ ì†Œìœ  ì•„ì´í…œë“¤ì„
+    // iteration í•˜ëŠ” ë©”ì˜ë“œë¥¼ ì œê³µí•˜ëŠ” ê²ƒë„ ì–´ìƒ‰í•˜ë‹¤.
+    // ë”°ë¼ì„œ, Creatureì— ë“±ë¡ ë©”ì˜ë“œë¥¼ ë‘ê³  ì—¬ê¸°ì„œ Zoneì— ì ‘ê·¼í•´ì„œ
+    // ìŠ¤ìŠ¤ë¡œë¥¼ ë“±ë¡í•˜ë„ë¡ í•œ ê²ƒì´ë‹¤.
     ////////////////////////////////////////////////////////////
     virtual void registerObject() = 0;
 
-    // Å©¸®Ã³¿¡ ´ëÇÑ Æ¯Á¤ ÁÂÇ¥ÀÇ ½Ã¾ß »óÅÂ¸¦ ¸®ÅÏÇÑ´Ù.
+    // í¬ë¦¬ì²˜ì— ëŒ€í•œ íŠ¹ì • ì¢Œí‘œì˜ ì‹œì•¼ ìƒíƒœë¥¼ ë¦¬í„´í•œë‹¤.
     VisionState getVisionState(ZoneCoord_t x, ZoneCoord_t y);
     VisionState getVisionState(Coord_t x, Coord_t y, Sight_t sight);
 
@@ -222,10 +222,10 @@ public:
 
     ////////////////////////////////////////////////////////////
     // *CAUTION*
-    // Äõ¸® °á°ú¸¦ ÀúÀåÇÒ ¶§, 2°³ ÀÌ»óÀÇ °ªÀ» µ¿½Ã¿¡ ÁöÁ¤ÇÏ´Â set ¸Ş½îµå´Â »ç¿ëÇÏÁö ¸» °Í!
-    //(ÇÔ¼ö È£ÃâÀÌ µÚ¿¡¼­ ºÎÅÍ ÀÌ·ç¾îÁø´Ù´Â »ç½ÇÀ» À¯³äÇÒ °Í!)
-    //  ex> setXY(pResult->getInt(++i), pResult->getInt(++i)); ´Â ½ÇÁ¦·Î setXY(y,x)
-    //      ¸¦ ½ÇÇàÇÏ°Ô µÈ´ç... -_-;
+    // ì¿¼ë¦¬ ê²°ê³¼ë¥¼ ì €ì¥í•  ë•Œ, 2ê°œ ì´ìƒì˜ ê°’ì„ ë™ì‹œì— ì§€ì •í•˜ëŠ” set ë©”ì˜ë“œëŠ” ì‚¬ìš©í•˜ì§€ ë§ ê²ƒ!
+    //(í•¨ìˆ˜ í˜¸ì¶œì´ ë’¤ì—ì„œ ë¶€í„° ì´ë£¨ì–´ì§„ë‹¤ëŠ” ì‚¬ì‹¤ì„ ìœ ë…í•  ê²ƒ!)
+    //  ex> setXY(pResult->getInt(++i), pResult->getInt(++i)); ëŠ” ì‹¤ì œë¡œ setXY(y,x)
+    //      ë¥¼ ì‹¤í–‰í•˜ê²Œ ëœë‹¹... -_-;
     ////////////////////////////////////////////////////////////
     void setXY(ZoneCoord_t x, ZoneCoord_t y) {
         m_X = x;
@@ -237,7 +237,7 @@ public:
         m_Dir = dir;
     }
 
-    //(nx,ny)·Î ¿òÁ÷ÀÏ ¼ö ÀÖ´Â°¡?
+    //(nx,ny)ë¡œ ì›€ì§ì¼ ìˆ˜ ìˆëŠ”ê°€?
     bool canMove(ZoneCoord_t nx, ZoneCoord_t ny) const;
     bool isBlockedByCreature(ZoneCoord_t nx, ZoneCoord_t ny) const;
 
@@ -273,7 +273,7 @@ public:
     // get distance
     Distance_t getDistance(ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2) const;
 
-    // P(x1,y1)°ú ³ªÀÇ À§Ä¡»çÀÌÀÇ °Å¸®¸¦ ÃøÁ¤ÇÑ´Ù.
+    // P(x1,y1)ê³¼ ë‚˜ì˜ ìœ„ì¹˜ì‚¬ì´ì˜ ê±°ë¦¬ë¥¼ ì¸¡ì •í•œë‹¤.
     Distance_t getDistance(ZoneCoord_t x1, ZoneCoord_t y1) const;
 
     // get/set EffectInfo
@@ -391,27 +391,27 @@ public:
     }
 
 protected:
-    Player* m_pPlayer;                       // Player ¿¡ ´ëÇÑ Æ÷ÀÎÅÍ(Mob °ú NPC ÀÏ °æ¿ì NULL)
+    Player* m_pPlayer;                       // Player ì— ëŒ€í•œ í¬ì¸í„°(Mob ê³¼ NPC ì¼ ê²½ìš° NULL)
     MoveMode m_MoveMode;                     // Move Mode
-    Zone* m_pZone;                           // ÇöÀç Á¸¿¡ ´ëÇÑ Æ÷ÀÎÅÍ
-    ZoneCoord_t m_X;                         // Á¸ x ÁÂÇ¥
-    ZoneCoord_t m_Y;                         // Á¸ y ÁÂÇ¥
-    Dir_t m_Dir;                             // ÇöÀç ¹æÇâ
-    ZoneCoord_t m_ViewportWidth;             // ºä Æ÷Æ®
-    ZoneCoord_t m_ViewportUpperHeight;       // ºä Æ÷Æ®
-    ZoneCoord_t m_ViewportLowerHeight;       // ºä Æ÷Æ®
+    Zone* m_pZone;                           // í˜„ì¬ ì¡´ì— ëŒ€í•œ í¬ì¸í„°
+    ZoneCoord_t m_X;                         // ì¡´ x ì¢Œí‘œ
+    ZoneCoord_t m_Y;                         // ì¡´ y ì¢Œí‘œ
+    Dir_t m_Dir;                             // í˜„ì¬ ë°©í–¥
+    ZoneCoord_t m_ViewportWidth;             // ë·° í¬íŠ¸
+    ZoneCoord_t m_ViewportUpperHeight;       // ë·° í¬íŠ¸
+    ZoneCoord_t m_ViewportLowerHeight;       // ë·° í¬íŠ¸
     EffectManager* m_pEffectManager;         // effect manager point
     bitset<Effect::EFFECT_CLASS_MAX> m_Flag; // effect flag
     Sight_t m_Sight;                         // current sight
     int m_PartyID;                           // partyid
-    Resist_t m_Resist[MAGIC_DOMAIN_MAX];     // ¸¶¹ı ÀúÇ×·Â
+    Resist_t m_Resist[MAGIC_DOMAIN_MAX];     // ë§ˆë²• ì €í•­ë ¥
 
-    // »õ·Î µé¾î°¥ Á¸, ºÎÈ°ÇÒ Á¸. by sigi. 2002.5.11
-    Zone* m_pNewZone;   // ÇöÀç Á¸¿¡ ´ëÇÑ Æ÷ÀÎÅÍ
-    ZoneCoord_t m_NewX; // Á¸ x ÁÂÇ¥
-    ZoneCoord_t m_NewY; // Á¸ y ÁÂÇ¥
+    // ìƒˆë¡œ ë“¤ì–´ê°ˆ ì¡´, ë¶€í™œí•  ì¡´. by sigi. 2002.5.11
+    Zone* m_pNewZone;   // í˜„ì¬ ì¡´ì— ëŒ€í•œ í¬ì¸í„°
+    ZoneCoord_t m_NewX; // ì¡´ x ì¢Œí‘œ
+    ZoneCoord_t m_NewY; // ì¡´ y ì¢Œí‘œ
 
-    // µğ¹ö±×¿ë
+    // ë””ë²„ê·¸ìš©
     CreatureClass m_CClass;
     string m_Owner;
     bool m_bDeriveDestructed;

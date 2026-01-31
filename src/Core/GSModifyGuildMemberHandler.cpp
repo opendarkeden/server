@@ -39,19 +39,19 @@ void GSModifyGuildMemberHandler::execute(GSModifyGuildMember* pPacket, Player* p
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     // try { Assert(pGuild != NULL); } catch (Throwable& ) { return; }
     if (pGuild == NULL)
         return;
 
-    // ±æµåÀÇ ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // ê¸¸ë“œì˜ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     // try { Assert(pGuildMember != NULL); } catch (Throwable& ) { return; }
     if (pGuildMember == NULL)
         return;
 
-    // º¸³½»ç¶÷ÀÌ ±æµå ¸¶½ºÅÍÀÎÁö È®ÀÎÇÑ´Ù. (±æµå ¸¶½ºÅÍ¸¦ ¹Ù²Ü¶§´Â ¿¹¿Ü )
+    // ë³´ë‚¸ì‚¬ëžŒì´ ê¸¸ë“œ ë§ˆìŠ¤í„°ì¸ì§€ í™•ì¸í•œë‹¤. (ê¸¸ë“œ ë§ˆìŠ¤í„°ë¥¼ ë°”ê¿€ë•ŒëŠ” ì˜ˆì™¸ )
     if (pGuild->getMaster() != pPacket->getSender() &&
         pPacket->getGuildMemberRank() != GuildMember::GUILDMEMBER_RANK_MASTER)
         return;
@@ -59,7 +59,7 @@ void GSModifyGuildMemberHandler::execute(GSModifyGuildMember* pPacket, Player* p
     if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT &&
         pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_NORMAL) {
         ///////////////////////////////////////////////////////////////////////////////////////
-        // ±æµå ¸â¹ö °¡ÀÔÀ» ½ÂÀÎÇÑ °æ¿ì, DB¿¡ Slayer, Vampire, Ousters Å×ÀÌºíÀÇ GuildID ¸¦ ¹Ù²Û´Ù.
+        // ê¸¸ë“œ ë©¤ë²„ ê°€ìž…ì„ ìŠ¹ì¸í•œ ê²½ìš°, DBì— Slayer, Vampire, Ousters í…Œì´ë¸”ì˜ GuildID ë¥¼ ë°”ê¾¼ë‹¤.
         ///////////////////////////////////////////////////////////////////////////////////////
         Statement* pStmt = NULL;
 
@@ -87,37 +87,37 @@ void GSModifyGuildMemberHandler::execute(GSModifyGuildMember* pPacket, Player* p
         }
         END_DB(pStmt)
 
-        // Guild Member Á¤º¸¸¦ º¯°æÇÑ´Ù.
+        // Guild Member ì •ë³´ë¥¼ ë³€ê²½í•œë‹¤.
         pGuild->modifyMemberRank(pGuildMember->getName(), pPacket->getGuildMemberRank());
     } else if (pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_MASTER &&
                pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_MASTER) {
-        // ±æµå¸¶½ºÅÍÀÇ ·©Å©¸¦ »õ·Î ±æµå¸¶½ºÅÍ°¡ µÇ´Â ¸â¹öÀÇ ¿ø·¡ ·©Å©·Î ¹Ù²ãÁØ´Ù.
+        // ê¸¸ë“œë§ˆìŠ¤í„°ì˜ ëž­í¬ë¥¼ ìƒˆë¡œ ê¸¸ë“œë§ˆìŠ¤í„°ê°€ ë˜ëŠ” ë©¤ë²„ì˜ ì›ëž˜ ëž­í¬ë¡œ ë°”ê¿”ì¤€ë‹¤.
         pGuild->modifyMemberRank(pGuild->getMaster(), pGuildMember->getRank());
-        // »õ ±æµå¸¶½ºÅÍÀÇ ·©Å©¸¦ ¼¼ÆÃÇÑ´Ù.
+        // ìƒˆ ê¸¸ë“œë§ˆìŠ¤í„°ì˜ ëž­í¬ë¥¼ ì„¸íŒ…í•œë‹¤.
         pGuild->modifyMemberRank(pGuildMember->getName(), pPacket->getGuildMemberRank());
-        // ±æµå ¿ÀºêÁ§Æ®¿¡ »õ ±æµå ¸¶½ºÆ®·Î ¼¼ÆÃÇÑ´Ù.
+        // ê¸¸ë“œ ì˜¤ë¸Œì íŠ¸ì— ìƒˆ ê¸¸ë“œ ë§ˆìŠ¤íŠ¸ë¡œ ì„¸íŒ…í•œë‹¤.
         pGuild->setMaster(pGuildMember->getName());
 
-        // DB¿¡ ÀúÀåÇÑ´Ù.
+        // DBì— ì €ìž¥í•œë‹¤.
         char field[30];
         sprintf(field, "Master='%s'", pGuildMember->getName().c_str());
         pGuild->tinysave(field);
     } else if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_NORMAL &&
                pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER) {
-        // »õ ºÎ±æµå¸¶½ºÅÍÀÇ ·©Å©¸¦ ¼¼ÆÃÇÑ´Ù.
+        // ìƒˆ ë¶€ê¸¸ë“œë§ˆìŠ¤í„°ì˜ ëž­í¬ë¥¼ ì„¸íŒ…í•œë‹¤.
         pGuild->modifyMemberRank(pGuildMember->getName(), pPacket->getGuildMemberRank());
     } else {
         return;
     }
 
-    // °ÔÀÓ ¼­¹ö·Î º¸³¾ ÆÐÅ¶À» ¸¸µç´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ ë³´ë‚¼ íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     SGModifyGuildMemberOK sgModifyGuildMemberOK;
     sgModifyGuildMemberOK.setGuildID(pGuild->getID());
     sgModifyGuildMemberOK.setName(pPacket->getName());
     sgModifyGuildMemberOK.setGuildMemberRank(pGuildMember->getRank());
     sgModifyGuildMemberOK.setSender(pPacket->getSender());
 
-    // °ÔÀÓ ¼­¹ö·Î ÆÐÅ¶À» º¸³½´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgModifyGuildMemberOK);
 
 #endif

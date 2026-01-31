@@ -2,10 +2,10 @@
 // Filename    : ActionTeachSkill.cpp
 // Written By  :
 // Description :
-// NPC°¡ ÇÃ·¹ÀÌ¾î¿¡°Ô ±â¼úÀ» °¡¸£ÃÄ ÁÙ ¶§ ¾²ÀÌ´Â ¾×¼ÇÀÌ´Ù.
-// ½ÇÁ¦ÀûÀ¸·Î´Â NPC°¡ °¡¸£ÃÄ ÁÙ ¼ö ÀÖ´Â ±â¼úÀ» ÆĞÅ¶À¸·Î
-// Àü¼ÛÇØ ÁÙ »ÓÀÌ°í, ³ª¸ÓÁö ÀÛ¾÷µéÀº ÆĞÅ¶ÀÌ ¿Õº¹ÇÏ´Â »çÀÌ¿¡
-// Ã³¸®µÈ´Ù.
+// NPCê°€ í”Œë ˆì´ì–´ì—ê²Œ ê¸°ìˆ ì„ ê°€ë¥´ì³ ì¤„ ë•Œ ì“°ì´ëŠ” ì•¡ì…˜ì´ë‹¤.
+// ì‹¤ì œì ìœ¼ë¡œëŠ” NPCê°€ ê°€ë¥´ì³ ì¤„ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì„ íŒ¨í‚·ìœ¼ë¡œ
+// ì „ì†¡í•´ ì¤„ ë¿ì´ê³ , ë‚˜ë¨¸ì§€ ì‘ì—…ë“¤ì€ íŒ¨í‚·ì´ ì™•ë³µí•˜ëŠ” ì‚¬ì´ì—
+// ì²˜ë¦¬ëœë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionTeachSkill.h"
@@ -28,7 +28,7 @@ void ActionTeachSkill::read(PropertyBuffer& propertyBuffer)
     __BEGIN_TRY
 
     try {
-        // µµ¸ŞÀÎ Å¸ÀÔÀ» ÀĞ¾îµéÀÎ´Ù.
+        // ë„ë©”ì¸ íƒ€ì…ì„ ì½ì–´ë“¤ì¸ë‹¤.
         string domainType = propertyBuffer.getProperty("DomainType");
 
         if (domainType == "BLADE")
@@ -47,7 +47,7 @@ void ActionTeachSkill::read(PropertyBuffer& propertyBuffer)
         else if (domainType == "VAMPIRE")
             m_DomainType = SKILL_DOMAIN_VAMPIRE;
         else
-            throw Error("TeachSkill::read() : Àß¸øµÈ ±â¼ú Å¸ÀÔÀÔ´Ï´Ù.");
+            throw Error("TeachSkill::read() : ì˜ëª»ëœ ê¸°ìˆ  íƒ€ì…ì…ë‹ˆë‹¤.");
     } catch (NoSuchElementException& nsee) {
         throw Error(nsee.toString());
     }
@@ -57,7 +57,7 @@ void ActionTeachSkill::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -69,7 +69,7 @@ void ActionTeachSkill::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pCreature1->isNPC());
     Assert(pCreature2->isPC());
 
-    // ÀÏ´Ü Å¬¶óÀÌ¾ğÆ®¸¦ À§ÇØ¼­ OK ÆĞÅ¶À» ÇÔ ³¯¸°´Ù.
+    // ì¼ë‹¨ í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ì„œ OK íŒ¨í‚·ì„ í•¨ ë‚ ë¦°ë‹¤.
     GCNPCResponse okpkt;
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);
@@ -80,13 +80,13 @@ void ActionTeachSkill::execute(Creature* pCreature1, Creature* pCreature2)
     else if (pCreature2->isVampire())
         executeVampire(pCreature1, pCreature2);
     else
-        throw("ActionTeachSkill::execute() : ¾Ë ¼ö ¾ø´Â ÇÃ·¹ÀÌ¾î Å©¸®ÃÄÀÔ´Ï´Ù!");
+        throw("ActionTeachSkill::execute() : ì•Œ ìˆ˜ ì—†ëŠ” í”Œë ˆì´ì–´ í¬ë¦¬ì³ì…ë‹ˆë‹¤!");
 
     __END_CATCH
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::executeSlayer(Creature* pCreature1, Creature* pCreature2)
 
@@ -99,9 +99,9 @@ void ActionTeachSkill::executeSlayer(Creature* pCreature1, Creature* pCreature2)
 
     Assert(pPlayer != NULL);
 
-    // ÀÏ´Ü ±â¼úÀ» ¹è¿ï ¼ö ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+    // ì¼ë‹¨ ê¸°ìˆ ì„ ë°°ìš¸ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
     if (pSlayer->getGoalExp(m_DomainType) != 0) {
-        // ÆĞÅ¶À» ¸¸µé¾î °¡Áö°í...
+        // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ê°€ì§€ê³ ...
         teachinfo.setDomainType(m_DomainType);
         teachinfo.setTargetLevel(0);
         pPlayer->sendPacket(&teachinfo);
@@ -113,11 +113,11 @@ void ActionTeachSkill::executeSlayer(Creature* pCreature1, Creature* pCreature2)
 
     /*
 
-    // Å©¸®ÃÄ°¡ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÇ ·¹º§À» È®ÀÎÇÑ´Ù.
+    // í¬ë¦¬ì³ê°€ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì˜ ë ˆë²¨ì„ í™•ì¸í•œë‹¤.
     LastLearnSkillType = pSlayer->findLastSkill();
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹è¿î ±â¼úÀÌ ÇÏ³ªµµ ¾ø´Ù¸é ´ÙÀ½ ¹è¿ï ±â¼úÀº 1·¹º§ÀÌ´Ù.
-    // ÇÃ·¹ÀÌ¾î°¡ ¸ğµç ±â¼úÀ» ¹è¿ü´Ù¸é Á¤ÇØ³õÀº »ó¼ö¸¦ º¸³»ÁØ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ë°°ìš´ ê¸°ìˆ ì´ í•˜ë‚˜ë„ ì—†ë‹¤ë©´ ë‹¤ìŒ ë°°ìš¸ ê¸°ìˆ ì€ 1ë ˆë²¨ì´ë‹¤.
+    // í”Œë ˆì´ì–´ê°€ ëª¨ë“  ê¸°ìˆ ì„ ë°°ì› ë‹¤ë©´ ì •í•´ë†“ì€ ìƒìˆ˜ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     if (LastLearnSkillType == 0)
     {
         targetLevel = 1;
@@ -133,7 +133,7 @@ void ActionTeachSkill::executeSlayer(Creature* pCreature1, Creature* pCreature2)
     }
     */
 
-    // ÆĞÅ¶À» ¸¸µé¾î °¡Áö°í...
+    // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ê°€ì§€ê³ ...
     teachinfo.setDomainType(m_DomainType);
     teachinfo.setTargetLevel(SkillType);
 
@@ -144,7 +144,7 @@ void ActionTeachSkill::executeSlayer(Creature* pCreature1, Creature* pCreature2)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::executeVampire(Creature* pCreature1, Creature* pCreature2)
 
@@ -154,13 +154,13 @@ void ActionTeachSkill::executeVampire(Creature* pCreature1, Creature* pCreature2
     Vampire* pVampire = dynamic_cast<Vampire*>(pCreature2);
 
     /*
-    // Å©¸®ÃÄ°¡ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÇ ·¹º§À» È®ÀÎÇÑ´Ù.
+    // í¬ë¦¬ì³ê°€ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì˜ ë ˆë²¨ì„ í™•ì¸í•œë‹¤.
     SkillType_t  LastLearnSkillType = pVampire->findLastSkill();
     SkillInfo*   pSkillInfo         = NULL;
     SkillLevel_t targetLevel        = 0;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ¹è¿î ±â¼úÀÌ ÇÏ³ªµµ ¾ø´Ù¸é ´ÙÀ½ ¹è¿ï ±â¼úÀº 1·¹º§ÀÌ´Ù.
-    // ÇÃ·¹ÀÌ¾î°¡ ¸ğµç ±â¼úÀ» ¹è¿ü´Ù¸é Á¤ÇØ³õÀº »ó¼ö¸¦ º¸³»ÁØ´Ù.
+    // í”Œë ˆì´ì–´ê°€ ë°°ìš´ ê¸°ìˆ ì´ í•˜ë‚˜ë„ ì—†ë‹¤ë©´ ë‹¤ìŒ ë°°ìš¸ ê¸°ìˆ ì€ 1ë ˆë²¨ì´ë‹¤.
+    // í”Œë ˆì´ì–´ê°€ ëª¨ë“  ê¸°ìˆ ì„ ë°°ì› ë‹¤ë©´ ì •í•´ë†“ì€ ìƒìˆ˜ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     if (LastLearnSkillType == 0)
     {
         targetLevel = 1;
@@ -181,12 +181,12 @@ void ActionTeachSkill::executeVampire(Creature* pCreature1, Creature* pCreature2
     SkillType_t SkillType = g_pSkillInfoManager->getSkillTypeByLevel(m_DomainType, DomainLevel);
 
 
-    // ÆĞÅ¶À» ¸¸µé¾î °¡Áö°í...
+    // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ê°€ì§€ê³ ...
     GCTeachSkillInfo teachinfo;
     teachinfo.setDomainType(m_DomainType);
     teachinfo.setTargetLevel(SkillType);
 
-    // Àü¼ÛÇÑ´Ù.
+    // ì „ì†¡í•œë‹¤.
     Player* pPlayer = pCreature2->getPlayer();
     Assert(pPlayer != NULL);
     pPlayer->sendPacket(&teachinfo);

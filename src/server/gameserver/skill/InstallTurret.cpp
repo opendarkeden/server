@@ -16,7 +16,7 @@
 #include "Zone.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ
+// ìŠ¬ë ˆì´ì–´ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void InstallTurret::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -93,7 +93,7 @@ void InstallTurret::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t 
             pSlayer->sendRealWearingInfo();
             pSlayer->addModifyInfo(prev, _GCSkillToSelfOK1);
 
-            // ÆĞÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);

@@ -12,7 +12,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
                        CEffectID_t CEffectID)
@@ -40,8 +40,8 @@ void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
         SkillType_t SkillType = pOustersSkillSlot->getSkillType();
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
+        // NoSuchì œê±°. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
         //		bool bIncreaseDomainExp = pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND);
 
         GCSkillToTileOK1 _GCSkillToTileOK1;
@@ -66,7 +66,7 @@ void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
                          pOusters->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER);
 
         if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected) {
-            // ºü¸£°Ô PC¸¦ ¿òÁ÷¿©ÁØ´Ù.
+            // ë¹ ë¥´ê²Œ PCë¥¼ ì›€ì§ì—¬ì¤€ë‹¤.
             if (pZone->moveFastPC(pOusters, pOusters->getX(), pOusters->getY(), X, Y, getSkillType())) {
                 decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
@@ -84,7 +84,7 @@ void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
                 _GCSkillToTileOK5.setRange(0);
                 _GCSkillToTileOK5.setDuration(0);
 
-                // ÀÚ½Å¿¡°Ô ¹Ù²ï MP¸¦ ¾Ë·ÁÁØ´Ù.
+                // ìžì‹ ì—ê²Œ ë°”ë€ MPë¥¼ ì•Œë ¤ì¤€ë‹¤.
                 pPlayer->sendPacket(&_GCSkillToTileOK1);
                 pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &_GCSkillToTileOK5, pOusters);
 
@@ -105,7 +105,7 @@ void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
     __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Teleport::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                        CEffectID_t CEffectID)
@@ -128,8 +128,8 @@ void Teleport::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
         // SkillType_t       SkillType  = pOustersSkillSlot->getSkillType();
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
+        // NoSuchì œê±°. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pTargetCreature == NULL) {
             executeSkillFailException(pOusters, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -155,7 +155,7 @@ void Teleport::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
                 if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected )
                 {
 
-                    // ºü¸£°Ô PC¸¦ ¿òÁ÷¿©ÁØ´Ù.
+                    // ë¹ ë¥´ê²Œ PCë¥¼ ì›€ì§ì—¬ì¤€ë‹¤.
                     if (pZone->moveFastPC(pOusters, pOusters->getX(), pOusters->getY(), pTargetCreature->getX(),
            pTargetCreature->getY()))
                     {
@@ -163,10 +163,10 @@ void Teleport::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 
                         decreaseMana(pOusters, RequiredMP, gcMI);
 
-                        // ÀÚ½Å¿¡°Ô ¹Ù²ï HP¸¦ ¾Ë·ÁÁØ´Ù.
+                        // ìžì‹ ì—ê²Œ ë°”ë€ HPë¥¼ ì•Œë ¤ì¤€ë‹¤.
                         pPlayer->sendPacket( &gcMI );
 
-                        // ÁÖÀ§¿¡ HP°¡ ¹Ù²¼´Ù°í ¾Ë¸°´Ù.
+                        // ì£¼ìœ„ì— HPê°€ ë°”ê¼ˆë‹¤ê³  ì•Œë¦°ë‹¤.
                         GCStatusCurrentHP gcStatusCurrentHP;
                         gcStatusCurrentHP.setObjectID(pOusters->getObjectID());
                         gcStatusCurrentHP.setCurrentHP(pOusters->getHP());

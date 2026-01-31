@@ -73,12 +73,12 @@ void sendBloodBibleEffect(Object* pObject, Effect::EffectClass EClass)
 }
 
 
-// 	Æ¼¸ğ¸£³²µ¿
-// 			½½·¹ÀÌ¾î ( 37, 163 )
-//			¹ìÆÄÀÌ¾î ( 193, 46 )
+// 	í‹°ëª¨ë¥´ë‚¨ë™
+// 			ìŠ¬ë ˆì´ì–´ ( 37, 163 )
+//			ë±€íŒŒì´ì–´ ( 193, 46 )
 //
-//	¾Æ´ãÀÇ ¼ºÁö µ¿<¹ìÆÄÀÌ¾î> ( 239, 134)
-//	¾Æ´ãÀÇ ¼ºÁö ¼­<½½·¹ÀÌ¾î> ( 27, 133 )
+//	ì•„ë‹´ì˜ ì„±ì§€ ë™<ë±€íŒŒì´ì–´> ( 239, 134)
+//	ì•„ë‹´ì˜ ì„±ì§€ ì„œ<ìŠ¬ë ˆì´ì–´> ( 27, 133 )
 void sendHolyLandWarpEffect(Creature* pCreature)
 
 {
@@ -97,8 +97,8 @@ void sendHolyLandWarpEffect(Creature* pCreature)
     if (pCreature->isSlayer()) {
         const int maxHolyLandWarpSlayer = 1;
         static ZONE_COORD HolyLandWarpSlayer[maxHolyLandWarpSlayer] = {
-            ZONE_COORD(53, 37, 163), // Æ¼¸ğ¸£ ³²µ¿
-                                     //			ZONE_COORD( 73, 27, 133 )	// ¾Æ´ãÀÇ ¼ºÁö ¼­ÂÊ
+            ZONE_COORD(53, 37, 163), // í‹°ëª¨ë¥´ ë‚¨ë™
+                                     //			ZONE_COORD( 73, 27, 133 )	// ì•„ë‹´ì˜ ì„±ì§€ ì„œìª½
         };
 
         for (int i = 0; i < maxHolyLandWarpSlayer; i++) {
@@ -116,8 +116,8 @@ void sendHolyLandWarpEffect(Creature* pCreature)
     } else if (pCreature->isVampire()) {
         const int maxHolyLandWarpVampire = 1;
         static ZONE_COORD HolyLandWarpVampire[maxHolyLandWarpVampire] = {
-            ZONE_COORD(53, 193, 46), // Æ¼¸ğ¸£ ³²µ¿
-                                     //			ZONE_COORD( 71, 239, 134 )	// ¾Æ´ãÀÇ ¼ºÁö µ¿ÂÊ
+            ZONE_COORD(53, 193, 46), // í‹°ëª¨ë¥´ ë‚¨ë™
+                                     //			ZONE_COORD( 71, 239, 134 )	// ì•„ë‹´ì˜ ì„±ì§€ ë™ìª½
         };
 
         for (int i = 0; i < maxHolyLandWarpVampire; i++) {
@@ -133,12 +133,12 @@ void sendHolyLandWarpEffect(Creature* pCreature)
 
         EClass = Effect::EFFECT_CLASS_WARP_HOLY_LAND_VAMPIRE;
     } else if (pCreature->isOusters()) {
-        // À½³Ä ¾ğÁ¨°¡ ÇØÁà¾ß ÇÔ ~_~
-        // ¾Æ¿ì½ºÅÍÁî´Â ¾Æ´ãÀÇ ¼ºÁö ¾îµğ¿¡ ¶³±¸Áö ¤Ñ.,¤Ñ
+        // ìŒëƒ ì–¸ì  ê°€ í•´ì¤˜ì•¼ í•¨ ~_~
+        // ì•„ìš°ìŠ¤í„°ì¦ˆëŠ” ì•„ë‹´ì˜ ì„±ì§€ ì–´ë””ì— ë–¨êµ¬ì§€ ã…¡.,ã…¡
         const int maxHolyLandWarpOusters = 1;
         static ZONE_COORD HolyLandWarpOusters[maxHolyLandWarpOusters] = {
-            ZONE_COORD(53, 160, 170), // Æ¼¸ğ¸£ ³²µ¿
-                                      //			ZONE_COORD( 72, 129, 112 )	// ¾Æ´ãÀÇ ¼ºÁö Áß¾Ó
+            ZONE_COORD(53, 160, 170), // í‹°ëª¨ë¥´ ë‚¨ë™
+                                      //			ZONE_COORD( 72, 129, 112 )	// ì•„ë‹´ì˜ ì„±ì§€ ì¤‘ì•™
         };
 
         for (int i = 0; i < maxHolyLandWarpOusters; i++) {
@@ -175,8 +175,8 @@ bool addEffectRelicPosition(Item* pItem, ZoneID_t zoneID, TPOINT pt)
 
     if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_POSITION)) {
         EffectRelicPosition* pPosition = new EffectRelicPosition(pItem);
-        // pPosition->setNextTime(10);     // 1ÃÊ ÈÄ ¸Ş¼¼Áö »Ñ¸°´Ù.
-        pPosition->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ÇÑ¹ø¾¿ ¾Ë¸°´Ù.
+        // pPosition->setNextTime(10);     // 1ì´ˆ í›„ ë©”ì„¸ì§€ ë¿Œë¦°ë‹¤.
+        pPosition->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ í•œë²ˆì”© ì•Œë¦°ë‹¤.
         pPosition->setZoneID(zoneID);
         pPosition->setX(pt.x);
         pPosition->setY(pt.y);
@@ -200,8 +200,8 @@ bool deleteEffectRelicPosition(Item* pItem)
 
     Assert(pItem != NULL);
 
-    // EffectRelicPosition Á¦°ÅÇÑ´Ù.
-    // ¼º¹° º¸°ü´ë¿¡ ºÙ¾îÀÖ´ø Effect¸¦ Á¦°ÅÇÑ´Ù.
+    // EffectRelicPosition ì œê±°í•œë‹¤.
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— ë¶™ì–´ìˆë˜ Effectë¥¼ ì œê±°í•œë‹¤.
     if (pItem->isFlag(Effect::EFFECT_CLASS_RELIC_POSITION)) {
         Effect* pPositionEffect = pItem->getEffectManager().findEffect(Effect::EFFECT_CLASS_RELIC_POSITION);
         Assert(pPositionEffect != NULL);
@@ -218,7 +218,7 @@ bool deleteEffectRelicPosition(Item* pItem)
     __END_CATCH
 }
 
-// CorpseºÙÀº pItem°ú °ü·ÃµÈ Effect¸¦ ¾ø¾ÖÁØ´Ù.
+// Corpseë¶™ì€ pItemê³¼ ê´€ë ¨ëœ Effectë¥¼ ì—†ì• ì¤€ë‹¤.
 bool deleteRelicEffect(Corpse* pCorpse, Item* pItem)
 
 {
@@ -239,7 +239,7 @@ bool deleteRelicEffect(Corpse* pCorpse, Item* pItem)
         else if (pRelicInfo->relicType == RELIC_TYPE_VAMPIRE)
             EClass = Effect::EFFECT_CLASS_HAS_VAMPIRE_RELIC;
         else
-            throw Error("Àß¸øµÈ Relic Item Type ÀÔ´Ï´Ù.");
+            throw Error("ì˜ëª»ëœ Relic Item Type ì…ë‹ˆë‹¤.");
     } break;
 
     case Item::ITEM_CLASS_BLOOD_BIBLE:
@@ -317,7 +317,7 @@ bool isRelicItem(Item::ItemClass IClass) {
     return false;
 }
 
-// Zone¿¡ ÀÖ´Â pCorpse°¡ pItemÀ» °¡Áö°í ÀÖ´Ù.
+// Zoneì— ìˆëŠ” pCorpseê°€ pItemì„ ê°€ì§€ê³  ìˆë‹¤.
 bool addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem)
 
 {
@@ -331,7 +331,7 @@ bool addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem)
 
     EffectHasRelic* pRelicEffect = NULL;
 
-    // ¼º´ÜÀÌ ¼º¼­¸¦ °¡Áö°í ÀÖ´Ù´Â Ç¥½Ã
+    // ì„±ë‹¨ì´ ì„±ì„œë¥¼ ê°€ì§€ê³  ìˆë‹¤ëŠ” í‘œì‹œ
     switch (pItem->getItemClass()) {
     case Item::ITEM_CLASS_BLOOD_BIBLE: {
         pRelicEffect = new EffectHasBloodBible(pCorpse);
@@ -347,8 +347,8 @@ bool addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem)
 
     pRelicEffect->setZone(pZone);
     pRelicEffect->setXY(pCorpse->getX(), pCorpse->getY());
-    // pRelicEffect->setNextTime( 1*10 );   // 1ÃÊ ÈÄ
-    pRelicEffect->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ¸Ş¼¼Áö Ãâ·Â
+    // pRelicEffect->setNextTime( 1*10 );   // 1ì´ˆ í›„
+    pRelicEffect->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ ë©”ì„¸ì§€ ì¶œë ¥
     pRelicEffect->setPart(pItem->getItemType());
 
     pRelicEffect->affect();
@@ -357,7 +357,7 @@ bool addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem)
     pCorpse->setFlag(pRelicEffect->getEffectClass());
     effectManager.addEffect(pRelicEffect);
 
-    // ÀÌÆåÆ®¸¦ ºÙ¿©ÁÖ¶ó°í ÇÑ´Ù.
+    // ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì£¼ë¼ê³  í•œë‹¤.
     GCAddEffect gcAddEffect;
     gcAddEffect.setObjectID(pCorpse->getObjectID());
     gcAddEffect.setEffectID(pRelicEffect->getSendEffectClass());
@@ -389,7 +389,7 @@ bool deleteRelicEffect(Creature* pCreature, Item* pItem)
         else if (pRelicInfo->relicType == RELIC_TYPE_VAMPIRE)
             effectClass = Effect::EFFECT_CLASS_HAS_VAMPIRE_RELIC;
         else
-            throw Error("Àß¸øµÈ Relic Item Type ÀÔ´Ï´Ù.");
+            throw Error("ì˜ëª»ëœ Relic Item Type ì…ë‹ˆë‹¤.");
     } else if (pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE) {
         effectClass = Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE;
     } else if (pItem->getItemClass() == Item::ITEM_CLASS_CASTLE_SYMBOL) {
@@ -400,7 +400,7 @@ bool deleteRelicEffect(Creature* pCreature, Item* pItem)
         return false;
     }
 
-    // has relic ÀÌÆåÆ®¸¦ Ã£¾Æ¼­ ÀÌÆåÆ®¸¦ Áö¿öÁØ´Ù.
+    // has relic ì´í™íŠ¸ë¥¼ ì°¾ì•„ì„œ ì´í™íŠ¸ë¥¼ ì§€ì›Œì¤€ë‹¤.
     Effect* pEffect = pCreature->findEffect(effectClass);
     if (pEffect != NULL) {
         pCreature->removeFlag(effectClass);
@@ -423,7 +423,7 @@ bool addRelicEffect(Creature* pCreature, Item* pItem)
     Assert(pCreature != NULL);
     Assert(pItem != NULL);
 
-    // ¼º¹°À» °¡Á³´Ù´Â ÀÌÆåÆ®¸¦ ºÙÀÎ´Ù.
+    // ì„±ë¬¼ì„ ê°€ì¡Œë‹¤ëŠ” ì´í™íŠ¸ë¥¼ ë¶™ì¸ë‹¤.
     Effect::EffectClass effectClass;
     Effect::EffectClass effectClassSend;
 
@@ -436,15 +436,15 @@ bool addRelicEffect(Creature* pCreature, Item* pItem)
         if (pRelicInfo->relicType == RELIC_TYPE_SLAYER) {
             effectClassSend = effectClass = Effect::EFFECT_CLASS_HAS_SLAYER_RELIC;
             EffectHasRelic* pEffect = new EffectHasSlayerRelic(pCreature);
-            // pEffect->setNextTime( 1*10 );	// 10ÃÊ ÈÄ
-            pEffect->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ¸Ş¼¼Áö Ãâ·Â
+            // pEffect->setNextTime( 1*10 );	// 10ì´ˆ í›„
+            pEffect->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ ë©”ì„¸ì§€ ì¶œë ¥
             pCreature->addEffect(pEffect);
             pEffect->affect();
         } else {
             effectClassSend = effectClass = Effect::EFFECT_CLASS_HAS_VAMPIRE_RELIC;
             EffectHasRelic* pEffect = new EffectHasVampireRelic(pCreature);
-            // pEffect->setNextTime( 1*10 );	// 10ÃÊ ÈÄ
-            pEffect->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ¸Ş¼¼Áö Ãâ·Â
+            // pEffect->setNextTime( 1*10 );	// 10ì´ˆ í›„
+            pEffect->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ ë©”ì„¸ì§€ ì¶œë ¥
             pCreature->addEffect(pEffect);
             pEffect->affect();
         }
@@ -452,8 +452,8 @@ bool addRelicEffect(Creature* pCreature, Item* pItem)
         effectClass = Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE;
         effectClassSend = (Effect::EffectClass)((int)Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE + itemtype);
         EffectHasRelic* pEffect = new EffectHasBloodBible(pCreature);
-        // pEffect->setNextTime( 1*10 );	// 10ÃÊ ÈÄ
-        pEffect->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ¸Ş¼¼Áö Ãâ·Â
+        // pEffect->setNextTime( 1*10 );	// 10ì´ˆ í›„
+        pEffect->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ ë©”ì„¸ì§€ ì¶œë ¥
         pEffect->setPart(itemtype);
         pCreature->addEffect(pEffect);
         pEffect->affect();
@@ -461,8 +461,8 @@ bool addRelicEffect(Creature* pCreature, Item* pItem)
         effectClass = Effect::EFFECT_CLASS_HAS_CASTLE_SYMBOL;
         effectClassSend = (Effect::EffectClass)((int)Effect::EFFECT_CLASS_HAS_CASTLE_SYMBOL + itemtype);
         EffectHasRelic* pEffect = new EffectHasCastleSymbol(pCreature);
-        // pEffect->setNextTime( 1*10 );	// 10ÃÊ ÈÄ
-        pEffect->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ¸Ş¼¼Áö Ãâ·Â
+        // pEffect->setNextTime( 1*10 );	// 10ì´ˆ í›„
+        pEffect->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ ë©”ì„¸ì§€ ì¶œë ¥
         pEffect->setPart(itemtype);
         pCreature->addEffect(pEffect);
         pEffect->affect();
@@ -483,7 +483,7 @@ bool addRelicEffect(Creature* pCreature, Item* pItem)
 
     pCreature->setFlag(effectClass);
 
-    // EffectºÙ¿´´Ù°í ¾Ë·ÁÁØ´Ù.
+    // Effectë¶™ì˜€ë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCAddEffect gcAddEffect;
     gcAddEffect.setObjectID(pCreature->getObjectID());
     gcAddEffect.setEffectID(effectClassSend);
@@ -502,27 +502,27 @@ bool dropRelicToZone(PlayerCreature* pPC, Item* pItem)
     Zone* pZone = pPC->getZone();
     Assert(pZone != NULL);
 
-    // ÀÏ´Ü ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
-    // ½ÃÃ¼¿Í °ãÄ¥ ¼öµµ ÀÖÀ¸¹Ç·Î.. Ä³¸¯ÅÍ°¡ ¾ø´Â °÷¿¡ ¶³¾î¶ß¸°´Ù.
+    // ì¼ë‹¨ ì•„ì´í…œì„ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
+    // ì‹œì²´ì™€ ê²¹ì¹  ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ.. ìºë¦­í„°ê°€ ì—†ëŠ” ê³³ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
     TPOINT pt = pZone->addItem(pItem, pPC->getX(), pPC->getY(), false);
 
-    if (pt.x != -1) // ¶³¾î¶ß¸®´Âµ¥ ¼º°øÇß´Ù¸é
+    if (pt.x != -1) // ë–¨ì–´ëœ¨ë¦¬ëŠ”ë° ì„±ê³µí–ˆë‹¤ë©´
     {
         char pField[80];
         sprintf(pField, "OwnerID='', Storage=%d, StorageID=%u, X=%d, Y=%d", STORAGE_ZONE, pZone->getZoneID(), pt.x,
                 pt.y);
         pItem->tinysave(pField);
 
-        // ÀÎº¥Åä¸®¿¡¼­ »«´Ù.
+        // ì¸ë²¤í† ë¦¬ì—ì„œ ëº€ë‹¤.
         // pInventory->deleteItem( pItem->getObjectID() );
         deleteRelicEffect(pPC, pItem);
 
-        // RelicÀÌ ¶³¾îÁø °÷ÀÇ Á¤º¸¸¦ Æ´Æ´È÷ ¾Ë·ÁÁÖµµ·Ï ÇÑ´Ù.
+        // Relicì´ ë–¨ì–´ì§„ ê³³ì˜ ì •ë³´ë¥¼ í‹ˆí‹ˆíˆ ì•Œë ¤ì£¼ë„ë¡ í•œë‹¤.
         /*		if (!pItem->isFlag( Effect::EFFECT_CLASS_RELIC_POSITION))
                 {
                     EffectRelicPosition* pPosition = new EffectRelicPosition(pItem);
-                    //pPosition->setNextTime(10);     // 1ÃÊ ÈÄ ¸Ş¼¼Áö »Ñ¸°´Ù.
-                    pPosition->setTick( 1*60*10 );  // 1ºĞ¸¶´Ù ÇÑ¹ø¾¿ ¾Ë¸°´Ù.
+                    //pPosition->setNextTime(10);     // 1ì´ˆ í›„ ë©”ì„¸ì§€ ë¿Œë¦°ë‹¤.
+                    pPosition->setTick( 1*60*10 );  // 1ë¶„ë§ˆë‹¤ í•œë²ˆì”© ì•Œë¦°ë‹¤.
                     pPosition->setZoneID( pZone->getZoneID() );
                     pPosition->setX( pt.x );
                     pPosition->setY( pt.y );
@@ -533,14 +533,14 @@ bool dropRelicToZone(PlayerCreature* pPC, Item* pItem)
                 }*/
 
 
-        // ÀüÃ¼ »ç¿ëÀÚ¿¡°Ô Relic ÀÌ ¶³¾îÁ³´Ù´Â ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+        // ì „ì²´ ì‚¬ìš©ìì—ê²Œ Relic ì´ ë–¨ì–´ì¡Œë‹¤ëŠ” ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
         /*
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( pZone->getZoneID() );
         Assert( pZoneInfo != NULL );
 
         StringStream msg;
-        msg << pRelicInfo->getName() << " ¼º¹°ÀÌ " << pZoneInfo->getFullName() << " ( " << pt.x << " , " << pt.y << " )
-        ¿¡ ¶³¾îÁ³½À´Ï´Ù.";
+        msg << pRelicInfo->getName() << " ì„±ë¬¼ì´ " << pZoneInfo->getFullName() << " ( " << pt.x << " , " << pt.y << " )
+        ì— ë–¨ì–´ì¡ŒìŠµë‹ˆë‹¤.";
 
         GCSystemMessage message;
         message.setMessage( msg.toString() );
@@ -548,12 +548,12 @@ bool dropRelicToZone(PlayerCreature* pPC, Item* pItem)
         */
         if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)) {
             EffectRelicLock* pLock = new EffectRelicLock(pItem);
-            pLock->setDeadline(10 * 10); // 10ÃÊ
+            pLock->setDeadline(10 * 10); // 10ì´ˆ
             pItem->setFlag(Effect::EFFECT_CLASS_RELIC_LOCK);
             pItem->getEffectManager().addEffect(pLock);
         }
     } else {
-        throw Error("LogoutÇÏ´Âµ¥ ¼º¹° ¶³¾î¶ß¸± ÀÚ¸®°¡ ¾ø´Ù");
+        throw Error("Logoutí•˜ëŠ”ë° ì„±ë¬¼ ë–¨ì–´ëœ¨ë¦´ ìë¦¬ê°€ ì—†ë‹¤");
         // return false;
     }
 
@@ -569,7 +569,7 @@ bool dropRelicToZone(Creature* pCreature, bool bSendPacket)
     bool bDrop = false;
 
     ///////////////////////////////////////////////////////////////////
-    // Á×À» ¶§ DragonEye ¸¦ °¡Áö°í ÀÖ´Ù¸é ¿ø·¡ À§Ä¡·Î »ª~
+    // ì£½ì„ ë•Œ DragonEye ë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´ ì›ë˜ ìœ„ì¹˜ë¡œ ë¹½~
     ///////////////////////////////////////////////////////////////////
     if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE)) {
         g_pDragonEyeManager->warpToDefaultPosition(pCreature);
@@ -584,22 +584,22 @@ bool dropRelicToZone(Creature* pCreature, bool bSendPacket)
     }
 
     ///////////////////////////////////////////////////////////////////
-    // Á×À» ¶§ Relic ItemÀ» °¡Áö°í ÀÖ´Ù¸é ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+    // ì£½ì„ ë•Œ Relic Itemì„ ê°€ì§€ê³  ìˆë‹¤ë©´ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
     ///////////////////////////////////////////////////////////////////
     if (pCreature->hasRelicItem()) {
         PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
         Assert(pPC != NULL);
 
-        // mouse¿¡ relicÀÌ ÀÖ´ÂÁö Ã¼Å©
+        // mouseì— relicì´ ìˆëŠ”ì§€ ì²´í¬
         Item* pSlotItem = pPC->getExtraInventorySlotItem();
 
         if (pSlotItem != NULL && isRelicItem(pSlotItem)) {
             if (dropRelicToZone(pPC, pSlotItem)) {
                 pPC->deleteItemFromExtraInventorySlot();
 
-                // playerÀÇ mouse¿¡¼­ Á¦°ÅÇÑ´Ù.
-                // client¿¡¼­ ÀÌ ÆĞÅ¶À» ¹ŞÀ¸¸é
-                // mouse¿¡¼­µµ ÇÔ Ã¼Å©ÇØÁÖ°Ô Çß´Ù.
+                // playerì˜ mouseì—ì„œ ì œê±°í•œë‹¤.
+                // clientì—ì„œ ì´ íŒ¨í‚·ì„ ë°›ìœ¼ë©´
+                // mouseì—ì„œë„ í•¨ ì²´í¬í•´ì£¼ê²Œ í–ˆë‹¤.
 
                 if (bSendPacket) {
                     GCDeleteInventoryItem gcDeleteInventoryItem;
@@ -621,17 +621,17 @@ bool dropRelicToZone(Creature* pCreature, bool bSendPacket)
         ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pZone->getZoneID());
         Assert(pZoneInfo != NULL);
 
-        // ÀÎº¥Åä¸®¿¡¼­ Relic ItemÀ» Ã£¾Æº»´Ù.
+        // ì¸ë²¤í† ë¦¬ì—ì„œ Relic Itemì„ ì°¾ì•„ë³¸ë‹¤.
         for (CoordInven_t y = 0; y < pInventory->getHeight(); y++) {
             for (CoordInven_t x = 0; x < pInventory->getWidth(); x++) {
                 Item* pItem = pInventory->getItem(x, y);
                 if (pItem != NULL && isRelicItem(pItem)) {
-                    // ÀÏ´Ü ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                    // ì¼ë‹¨ ì•„ì´í…œì„ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     if (dropRelicToZone(pPC, pItem)) {
-                        // ÀÎº¥Åä¸®¿¡¼­ »«´Ù.
+                        // ì¸ë²¤í† ë¦¬ì—ì„œ ëº€ë‹¤.
                         pInventory->deleteItem(pItem->getObjectID());
 
-                        // playerÀÇ inventory¿¡¼­ Á¦°ÅÇÑ´Ù.
+                        // playerì˜ inventoryì—ì„œ ì œê±°í•œë‹¤.
                         if (bSendPacket) {
                             GCDeleteInventoryItem gcDeleteInventoryItem;
                             gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
@@ -652,7 +652,7 @@ bool dropRelicToZone(Creature* pCreature, bool bSendPacket)
 }
 
 
-// ½ÃÃ¼¿¡¼­ RelicItemÀÌ ³ª¿À´Â°Í Ã³¸®
+// ì‹œì²´ì—ì„œ RelicItemì´ ë‚˜ì˜¤ëŠ”ê²ƒ ì²˜ë¦¬
 bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
 
 {
@@ -668,7 +668,7 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
     //
     //----------------------------------------------------------------------
     case Item::ITEM_CLASS_RELIC: {
-        // ¸¸¾à ¾ÆÀÌÅÛÀÌ ÇÏ³ªµµ ³²Áö ¾Ê¾Ò´Ù¸é(¸¶Áö¸· ¾ÆÀÌÅÛÀÌ¾ú´Ù¸é, EffectRelicÀ» »èÁ¦ÇØ ÁØ´Ù)
+        // ë§Œì•½ ì•„ì´í…œì´ í•˜ë‚˜ë„ ë‚¨ì§€ ì•Šì•˜ë‹¤ë©´(ë§ˆì§€ë§‰ ì•„ì´í…œì´ì—ˆë‹¤ë©´, EffectRelicì„ ì‚­ì œí•´ ì¤€ë‹¤)
         try {
             int relicIndex = pItem->getItemType();
             const RelicInfo* pRelicInfo =
@@ -682,16 +682,16 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
             sprintf(msg, g_pStringPool->c_str(STRID_RELIC_FROM_RELIC_TABLE), pRelicInfo->getName().c_str());
 
             //				StringStream msg;
-            //				msg << "¼º¹° º¸°ü´ë¿¡¼­ "
-            //					<< "¼º¹°(" << pRelicInfo->getName() << ")ÀÌ ³ª¿Ô½À´Ï´Ù.";
+            //				msg << "ì„±ë¬¼ ë³´ê´€ëŒ€ì—ì„œ "
+            //					<< "ì„±ë¬¼(" << pRelicInfo->getName() << ")ì´ ë‚˜ì™”ìŠµë‹ˆë‹¤.";
 
             GCSystemMessage gcSystemMessage;
             gcSystemMessage.setMessage(msg);
             g_pZoneGroupManager->broadcast(&gcSystemMessage);
 
 
-            // relicÀÌ ¼º¹°º¸°ü´ë¿¡¼­ ºüÁ®³ª¿Ô±â ¶§¹®¿¡
-            // º¸³Ê½º/ÆĞ³ÎÆ¼¸¦ ´Ù½Ã Á¶Á¤ÇØÁØ´Ù.
+            // relicì´ ì„±ë¬¼ë³´ê´€ëŒ€ì—ì„œ ë¹ ì ¸ë‚˜ì™”ê¸° ë•Œë¬¸ì—
+            // ë³´ë„ˆìŠ¤/íŒ¨ë„í‹°ë¥¼ ë‹¤ì‹œ ì¡°ì •í•´ì¤€ë‹¤.
             g_pCombatInfoManager->computeModify();
         } catch (Throwable& t) {
             cout << t.toString().c_str() << endl;
@@ -712,7 +712,7 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
             dynamic_cast<BloodBibleInfo*>(g_pBloodBibleInfoManager->getItemInfo(pItem->getItemType()));
 
         //			StringStream msg;
-        //			msg << "ÇÇÀÇ ¼º¼­ Á¶°¢(" << pBloodBibleInfo->getName() << ")ÀÌ ³ª¿Ô½À´Ï´Ù.";
+        //			msg << "í”¼ì˜ ì„±ì„œ ì¡°ê°(" << pBloodBibleInfo->getName() << ")ì´ ë‚˜ì™”ìŠµë‹ˆë‹¤.";
 
         char msg[200];
         sprintf(msg, g_pStringPool->c_str(STRID_BLOOD_BIBLE_FROM_SHRINE), pBloodBibleInfo->getName().c_str());
@@ -722,11 +722,11 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
         // g_pZoneGroupManager->broadcast( &gcSystemMessage );
         g_pHolyLandManager->broadcast(&gcSystemMessage);
 
-        // ¼º¼­ Á¶°¢ ¾ÆÀÌÅÛ À§Ä¡ º¯°æ
+        // ì„±ì„œ ì¡°ê° ì•„ì´í…œ ìœ„ì¹˜ ë³€ê²½
         if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_POSITION)) {
             EffectRelicPosition* pPosition = new EffectRelicPosition(pItem);
-            // pPosition->setNextTime(10);     // 1ÃÊ ÈÄ ¸Ş¼¼Áö »Ñ¸°´Ù.
-            pPosition->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ÇÑ¹ø¾¿ ¾Ë¸°´Ù.
+            // pPosition->setNextTime(10);     // 1ì´ˆ í›„ ë©”ì„¸ì§€ ë¿Œë¦°ë‹¤.
+            pPosition->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ í•œë²ˆì”© ì•Œë¦°ë‹¤.
             pPosition->setZoneID(pCorpse->getZone()->getZoneID());
             pPosition->setX(pt.x);
             pPosition->setY(pt.y);
@@ -751,7 +751,7 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
 
         if (pCastleSymbolInfo != NULL) {
             //				StringStream msg;
-            //				msg << "¼º »óÂ¡¹°(" << pCastleSymbolInfo->getName() << ")ÀÌ ³ª¿Ô½À´Ï´Ù.";
+            //				msg << "ì„± ìƒì§•ë¬¼(" << pCastleSymbolInfo->getName() << ")ì´ ë‚˜ì™”ìŠµë‹ˆë‹¤.";
 
             char msg[200];
             sprintf(msg, g_pStringPool->c_str(STRID_CASTLE_SYMBOL_FROM_SHRINE), pCastleSymbolInfo->getName().c_str());
@@ -761,11 +761,11 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
             g_pCastleInfoManager->broadcastShrinePacket(pItem->getItemType(), &gcSystemMessage);
 
 
-            // ¼º¼­ Á¶°¢ ¾ÆÀÌÅÛ À§Ä¡ º¯°æ
+            // ì„±ì„œ ì¡°ê° ì•„ì´í…œ ìœ„ì¹˜ ë³€ê²½
             if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_POSITION)) {
                 EffectRelicPosition* pPosition = new EffectRelicPosition(pItem);
-                // pPosition->setNextTime(10);     // 1ÃÊ ÈÄ ¸Ş¼¼Áö »Ñ¸°´Ù.
-                pPosition->setTick(1 * 60 * 10); // 1ºĞ¸¶´Ù ÇÑ¹ø¾¿ ¾Ë¸°´Ù.
+                // pPosition->setNextTime(10);     // 1ì´ˆ í›„ ë©”ì„¸ì§€ ë¿Œë¦°ë‹¤.
+                pPosition->setTick(1 * 60 * 10); // 1ë¶„ë§ˆë‹¤ í•œë²ˆì”© ì•Œë¦°ë‹¤.
                 pPosition->setZoneID(pCorpse->getZone()->getZoneID());
                 pPosition->setX(pt.x);
                 pPosition->setY(pt.y);
@@ -788,8 +788,8 @@ bool dissectionRelicItem(Corpse* pCorpse, Item* pItem, const TPOINT& pt)
     __END_CATCH
 }
 
-// RelicÀÌ pCorpse¿¡¼­ ¾îµò°¡·Î warpµÇ¾ú´Ù°í ÇÒ¶§
-// pCorpse¿¡ Effect¸¦ ºÙ¿©ÁØ´Ù.
+// Relicì´ pCorpseì—ì„œ ì–´ë”˜ê°€ë¡œ warpë˜ì—ˆë‹¤ê³  í• ë•Œ
+// pCorpseì— Effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
 void sendRelicWarpEffect(Corpse* pCorpse)
 
 {

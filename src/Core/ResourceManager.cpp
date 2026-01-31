@@ -103,13 +103,13 @@ void ResourceManager::save(const string& filename) const {
 
 
 //--------------------------------------------------------------------------------
-// ´Ù¿î¹Ş´Â ÆÄÀÏÀÇ Áßº¹ ¿©ºÎ µîÀ» Ã¼Å©ÇØ¼­ ´Ù¿î·Îµå ½Ã°£°ú ¿ë·®À» ÃÖÀûÈ­ÇÏµµ·Ï ÇÑ´Ù.
-// ÀÏ´ÜÀº ½ÇÇà ÆÄÀÏÀÇ Áßº¹ ¿©ºÎ¸¸À» Ã¼Å©ÇÑ´Ù.
+// ë‹¤ìš´ë°›ëŠ” íŒŒì¼ì˜ ì¤‘ë³µ ì—¬ë¶€ ë“±ì„ ì²´í¬í•´ì„œ ë‹¤ìš´ë¡œë“œ ì‹œê°„ê³¼ ìš©ëŸ‰ì„ ìµœì í™”í•˜ë„ë¡ í•œë‹¤.
+// ì¼ë‹¨ì€ ì‹¤í–‰ íŒŒì¼ì˜ ì¤‘ë³µ ì—¬ë¶€ë§Œì„ ì²´í¬í•œë‹¤.
 //--------------------------------------------------------------------------------
 void ResourceManager::optimize(){__BEGIN_TRY
 
                                      /*
-                                           // µÚ¿¡¼­ºÎÅÍ Ã¼Å©ÇÑ´Ù.
+                                           // ë’¤ì—ì„œë¶€í„° ì²´í¬í•œë‹¤.
                                            bool exefileFound = false;
 
                                            list< Resource * >::reverse_iterator before = m_Resources.rend();
@@ -117,19 +117,19 @@ void ResourceManager::optimize(){__BEGIN_TRY
 
                                            while ( current != m_Resources.rend() ) {
 
-                                               // ÆÄÀÏ¸íÀ» ¹Ş¾Æ¿Â´Ù.
+                                               // íŒŒì¼ëª…ì„ ë°›ì•„ì˜¨ë‹¤.
                                                string filename = (*current)->getFilename();
 
-                                               // ÆÄÀÏ »çÀÌÁî¸¦ Àß¶ó³»°í ¼ø¼öÇÏ°Ô ÆÄÀÏ¸í¸¸À» ÀúÀåÇØµĞ´Ù.
+                                               // íŒŒì¼ ì‚¬ì´ì¦ˆë¥¼ ì˜ë¼ë‚´ê³  ìˆœìˆ˜í•˜ê²Œ íŒŒì¼ëª…ë§Œì„ ì €ì¥í•´ë‘”ë‹¤.
                                                size_t i = filename.find_first_of(' ');
                                                filename = filename.substr(0,i);
 
-                                               // ÀÌ ÆÄÀÏ¸í¾È¿¡ darkeden.exe °¡ Æ÷ÇÔµÉ °æ¿ì, Áßº¹ Ã¼Å©¿¡ µé¾î°£´Ù.
+                                               // ì´ íŒŒì¼ëª…ì•ˆì— darkeden.exe ê°€ í¬í•¨ë  ê²½ìš°, ì¤‘ë³µ ì²´í¬ì— ë“¤ì–´ê°„ë‹¤.
                                                if ( filename == "DarkEden.exe" ) {
                                                    if ( exefileFound == false ) {
                                                        exefileFound = true;
                                                    } else {
-                                                       // ³ëµå¸¦ »èÁ¦ÇÑ´Ù.
+                                                       // ë…¸ë“œë¥¼ ì‚­ì œí•œë‹¤.
                                                        if ( before == m_Resources.rend() ) {
                                                            m_Resources.erase( current );
                                                            current = m_Resources.rbegin();

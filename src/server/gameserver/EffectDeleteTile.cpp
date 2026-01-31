@@ -31,7 +31,7 @@ void EffectDeleteTile::affect()
 {
     __BEGIN_TRY
 
-    // ÁÖÀ§¿¡ »Ñ·ÁÁØ´Ù. -> ¾ø¾îµµ µÉ µí
+    // ì£¼ìœ„ì— ë¿Œë ¤ì¤€ë‹¤. -> ì—†ì–´ë„ ë  ë“¯
     /*	GCAddEffectToTile gcAddEffectToTile;
         gcAddEffectToTile.setEffectID( getEffectClass() );
         gcAddEffectToTile.setObjectID( getObjectID() );
@@ -72,7 +72,7 @@ void EffectDeleteTile::unaffect()
     Tile& EffectedTile = m_pZone->getTile(m_X, m_Y);
     EffectedTile.deleteEffect(m_ObjectID);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´í™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCDeleteEffectFromTile gcDeleteEffectFromTile;
     gcDeleteEffectFromTile.setEffectID(Effect::EFFECT_CLASS_DELETE_TILE);
     gcDeleteEffectFromTile.setObjectID(m_ObjectID);

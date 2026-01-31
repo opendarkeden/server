@@ -29,7 +29,7 @@ bool ConditionEnterCastle::isSatisfied(Creature* pCreature1, Creature* pCreature
     {
         return false;
     }*/
-    // ³ªÁß¿¡ ÀüÀïÁßÀÎÁö Ã¼Å©ÇØ¾ß µÈ´Ù
+    // ë‚˜ì¤‘ì— ì „ìŸì¤‘ì¸ì§€ ì²´í¬í•´ì•¼ ëœë‹¤
 
     Assert(pCreature2 != NULL);
     Assert(pCreature2->isPC());
@@ -42,12 +42,12 @@ bool ConditionEnterCastle::isSatisfied(Creature* pCreature1, Creature* pCreature
     Assert(pGamePlayer != NULL);
 
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
-    // ÀÌ¹Ì À¯·áÁ¸¿¡ ÀÖ´Â °æ¿ì¶ó¸é... °ü°è¾ø°ÚÁö.
-    // ÆÐ¹Ð¸® ¿ä±Ý Àû¿ëÁßÀÏ °æ¿ì
+    // ì´ë¯¸ ìœ ë£Œì¡´ì— ìžˆëŠ” ê²½ìš°ë¼ë©´... ê´€ê³„ì—†ê² ì§€.
+    // íŒ¨ë°€ë¦¬ ìš”ê¸ˆ ì ìš©ì¤‘ì¼ ê²½ìš°
     if (pGamePlayer->isPayPlaying() || pGamePlayer->isFamilyFreePass()) {
         bPayPlay = true;
     } else {
-        // ÀÏ´Ü zone ¿ä±Ý Ã¼Å©
+        // ì¼ë‹¨ zone ìš”ê¸ˆ ì²´í¬
         string connectIP = pGamePlayer->getSocket()->getHost();
 
         if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID())) {
@@ -59,21 +59,21 @@ bool ConditionEnterCastle::isSatisfied(Creature* pCreature1, Creature* pCreature
     bPayPlay = true;
 #endif
 
-    // µ· ³½ »ç¶÷¸¸ castle ¿¡ µé¾î°¥ ¼ö ÀÖ´Ù.
+    // ëˆ ë‚¸ ì‚¬ëžŒë§Œ castle ì— ë“¤ì–´ê°ˆ ìˆ˜ ìžˆë‹¤.
     if (bPayPlay) {
-        // Á¸À» Ã£´Â´Ù.
+        // ì¡´ì„ ì°¾ëŠ”ë‹¤.
         Zone* pZone = getZoneByZoneID(m_TargetZoneID);
         Assert(pZone != NULL);
 
-        // castle ÀÌ ¾Æ´Ï¸é Ã¼Å©ÇÒ ÇÊ¿ä°¡ ¾ø´Â°Å´Ù.
+        // castle ì´ ì•„ë‹ˆë©´ ì²´í¬í•  í•„ìš”ê°€ ì—†ëŠ”ê±°ë‹¤.
         if (!pZone->isCastle()) {
             return true;
         }
 
-        // Á¾Á·°£ ÀüÀïÁß¿¡´Â Á¾Á·¿¡ »ó°ü¾øÀÌ ´©±¸³ª Åë°ú½ÃÄÑ¾ß ÇÑ´Ù.
-        // µ¿Á·°£ ÀüÀïÁß¿¡´Â Å¸Á¾Á·À» Åë°ú½ÃÄÑ¼­´Â ¾È µÈ´Ù.
-        // Æò½Ã¿¡´Â NPC¸¦ ÅëÇØ¾ß ÇÏ¹Ç·Î ´©±¸µµ Åë°ú½ÃÅ³ ¼ö ¾ø´Ù.
-        // ÀüÀï½Ã½ºÅÛ ¸¸µé¶§ ÀÌ°Å ´Ù Ãß°¡½ÃÄÑ¾ß µÈ´Ù. 2003. 1.20.
+        // ì¢…ì¡±ê°„ ì „ìŸì¤‘ì—ëŠ” ì¢…ì¡±ì— ìƒê´€ì—†ì´ ëˆ„êµ¬ë‚˜ í†µê³¼ì‹œì¼œì•¼ í•œë‹¤.
+        // ë™ì¡±ê°„ ì „ìŸì¤‘ì—ëŠ” íƒ€ì¢…ì¡±ì„ í†µê³¼ì‹œì¼œì„œëŠ” ì•ˆ ëœë‹¤.
+        // í‰ì‹œì—ëŠ” NPCë¥¼ í†µí•´ì•¼ í•˜ë¯€ë¡œ ëˆ„êµ¬ë„ í†µê³¼ì‹œí‚¬ ìˆ˜ ì—†ë‹¤.
+        // ì „ìŸì‹œìŠ¤í…œ ë§Œë“¤ë•Œ ì´ê±° ë‹¤ ì¶”ê°€ì‹œì¼œì•¼ ëœë‹¤. 2003. 1.20.
         PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
         return g_pCastleInfoManager->canPortalActivate(m_TargetZoneID, pPC);

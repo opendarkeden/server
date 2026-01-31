@@ -26,7 +26,7 @@
 DarkBluePoison g_DarkBluePoison;
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                              CEffectID_t CEffectID)
@@ -48,8 +48,8 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -66,7 +66,7 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Poison ÀÌ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Poison ì´ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
@@ -98,11 +98,11 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 
             Damage_t Damage = computeMagicDamage(pTargetCreature, output.Damage, SkillType, true, pVampire);
 
-            // ¾Æ¿ì½ºÅÍÁî´Â Àý¹ÝÀÇ ½Ã°£¸¸ ¹Þ´Â´Ù.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆëŠ” ì ˆë°˜ì˜ ì‹œê°„ë§Œ ë°›ëŠ”ë‹¤.
             if (pTargetCreature->isOusters())
                 output.Duration /= 2;
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectDarkBluePoison* pEffectDarkBluePoison = new EffectDarkBluePoison(pTargetCreature);
             pEffectDarkBluePoison->setDamage(Damage);
             pEffectDarkBluePoison->setLevel(pSkillInfo->getLevel() / 2);
@@ -112,7 +112,7 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
             pTargetCreature->addEffect(pEffectDarkBluePoison);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_DARKBLUE_POISON);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾úÀ¸´Ï, ºÙ¾ú´Ù°í ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆìœ¼ë‹ˆ, ë¶™ì—ˆë‹¤ê³  ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_DARKBLUE_POISON);
@@ -188,7 +188,7 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void DarkBluePoison::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -231,7 +231,7 @@ void DarkBluePoison::execute(Monster* pMonster, Creature* pEnemy)
 
             Damage_t Damage = computeMagicDamage(pEnemy, output.Damage, SkillType);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectDarkBluePoison* pEffectDarkBluePoison = new EffectDarkBluePoison(pEnemy);
             pEffectDarkBluePoison->setDamage(Damage);
             pEffectDarkBluePoison->setLevel(pSkillInfo->getLevel() / 2);
@@ -241,7 +241,7 @@ void DarkBluePoison::execute(Monster* pMonster, Creature* pEnemy)
             pEnemy->addEffect(pEffectDarkBluePoison);
             pEnemy->setFlag(Effect::EFFECT_CLASS_DARKBLUE_POISON);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾úÀ¸´Ï, ºÙ¾ú´Ù°í ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆìœ¼ë‹ˆ, ë¶™ì—ˆë‹¤ê³  ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pEnemy->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_DARKBLUE_POISON);

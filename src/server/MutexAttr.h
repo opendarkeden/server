@@ -8,10 +8,10 @@
 //
 // Mutex-Attribute Class
 //
-// Mutex-Attribute Å¬·¡½º´Â µ¿ÀÏÇÑ ¼Ó¼º(attribute)ÀÇ Mutex Å¬·¡½º¸¦
-// ¿©·¯ °³ »ı¼ºÇÒ ÇÊ¿ä°¡ ÀÖÀ» ¶§ pthread_mutex_init()ÀÇ ÆÄ¶ó¹ÌÅÍ·Î
-// »ç¿ëµÈ´Ù. Áï ÇÏ³ªÀÇ Mutex-Attribute °´Ã¼¸¸ »ı¼ºÇØ³õÀ¸¸é µÈ´Ù´Â
-// ¶æÀÌ´Ù.
+// Mutex-Attribute í´ë˜ìŠ¤ëŠ” ë™ì¼í•œ ì†ì„±(attribute)ì˜ Mutex í´ë˜ìŠ¤ë¥¼
+// ì—¬ëŸ¬ ê°œ ìƒì„±í•  í•„ìš”ê°€ ìˆì„ ë•Œ pthread_mutex_init()ì˜ íŒŒë¼ë¯¸í„°ë¡œ
+// ì‚¬ìš©ëœë‹¤. ì¦‰ í•˜ë‚˜ì˜ Mutex-Attribute ê°ì²´ë§Œ ìƒì„±í•´ë†“ìœ¼ë©´ ëœë‹¤ëŠ”
+// ëœ»ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -69,8 +69,8 @@ public:
     //
     // do not return pthread_mutexattr_t value !!
     // use pthread_mutexattr_t pointer instead.
-    // (pthread_mutexattr_t ¿¡ ´ëÇØ assignment °¡ Áö¿øµÇÁö ¾ÊÀ»
-    // °¡´É¼º ÀÖÀ½)
+    // (pthread_mutexattr_t ì— ëŒ€í•´ assignment ê°€ ì§€ì›ë˜ì§€ ì•Šì„
+    // ê°€ëŠ¥ì„± ìˆìŒ)
     //
     pthread_mutexattr_t* getAttr() {
         return &m_Attr;

@@ -2,16 +2,16 @@
 // Project     : DARKEDEN
 // Module      : Skill - Effect
 // File Name   : EffectVigorDrop.h
-// Writer      : ÀåÈ«Ã¢
+// Writer      : ì¥í™ì°½
 // Date        : 2002.3.28
 // Description :
-//               ÇØ´ç Effect´Â Vigor DropÀÌ ¶¥À¸·Î ¶³¾îÁú¶§ÀÇ Effect¸¦ ±¸ÇöÇÏ±â
-//               À§ÇÑ EffectÀÌ´Ù.
+//               í•´ë‹¹ EffectëŠ” Vigor Dropì´ ë•…ìœ¼ë¡œ ë–¨ì–´ì§ˆë•Œì˜ Effectë¥¼ êµ¬í˜„í•˜ê¸°
+//               ìœ„í•œ Effectì´ë‹¤.
 //
 // History
 //     DATE      WRITER         DESCRIPTION
 // =========== =========== =====================================================
-// 2002.3.28    ÀåÈ«Ã¢      header file ÀÛ¼º
+// 2002.3.28    ì¥í™ì°½      header file ì‘ì„±
 //
 //
 
@@ -85,7 +85,7 @@ private:
     Turn_t m_Tick;              // EffectVigorDrop turn;
     int m_Level;                // EffectVigorDrop level;
     Duration_t m_Duration;      // EffectVigorDrop Duration;
-    Duration_t m_StormDuration; // VigorDrop Effect Áö¼Ó ½Ã°£
+    Duration_t m_StormDuration; // VigorDrop Effect ì§€ì† ì‹œê°„
 };
 
 class EffectVigorDropLoader : public EffectLoader {

@@ -47,7 +47,7 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("¾ÆÁ÷ Áö¿øµÇÁö ¾Ê´Â ±â´ÉÀÔ´Ï´Ù.");
+    gcSM.setMessage("ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ëŠ¥ì…ë‹ˆë‹¤.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -62,11 +62,11 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
         return;
     }
 
-    // ¿äÃ»ÇÑ³ğÀÌ Áö°¡ ¼ÓÇÑ ±æµåÀÇ ¸¶½ºÅÍÀÎ°¡? || ¿¬ÇÕÀÇ ¸¶½ºÅÍ±æµå°¡ ³» ±æµå°¡ ¸Â³ª?
+    // ìš”ì²­í•œë†ˆì´ ì§€ê°€ ì†í•œ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ê°€? || ì—°í•©ì˜ ë§ˆìŠ¤í„°ê¸¸ë“œê°€ ë‚´ ê¸¸ë“œê°€ ë§ë‚˜?
     if (!g_pGuildManager->isGuildMaster(pPlayerCreature->getGuildID(), pPlayerCreature) ||
         pUnion->getMasterGuildID() != pPlayerCreature->getGuildID()) {
-        // GC_GUILD_RESPONSE ³¯·ÁÁØ´Ù.
-        // ³»¿ë : ±æµå ¸¶½ºÅÍ°¡ ¾Æ´ÏÀÚ³à -.-+
+        // GC_GUILD_RESPONSE ë‚ ë ¤ì¤€ë‹¤.
+        // ë‚´ìš© : ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆìë…€ -.-+
 
         gcGuildResponse.setCode(GuildUnionOfferManager::SOURCE_IS_NOT_MASTER);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -74,7 +74,7 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
         return;
     }
 
-    // ³»°¡ ³ª¸¦ Ãß¹æÇÏ·Á°í ÇÏ¸é? :
+    // ë‚´ê°€ ë‚˜ë¥¼ ì¶”ë°©í•˜ë ¤ê³  í•˜ë©´? :
     if (pUnion->getMasterGuildID() == pPacket->getGuildID()) {
         gcGuildResponse.setCode(GuildUnionOfferManager::MASTER_CANNOT_QUIT);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -94,7 +94,7 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
         }
         string TargetGuildMaster = pGuild->getMaster();
 
-        // cout << "¿¬ÇÕ¿¡¼­ ±æµå¸¦ Ãß¹æ½ÃÅ²´Ù. Åëº¸¹ŞÀ» À¯Àú´Â : " << TargetGuildMaster.c_str() << endl;
+        // cout << "ì—°í•©ì—ì„œ ê¸¸ë“œë¥¼ ì¶”ë°©ì‹œí‚¨ë‹¤. í†µë³´ë°›ì„ ìœ ì €ëŠ” : " << TargetGuildMaster.c_str() << endl;
 
 
         Statement* pStmt = NULL;
@@ -109,7 +109,7 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
             pResult->next();
 
             if (pResult->getInt(1) == 0) {
-                // cout << "Ãß¹æÇÏ°í ³ª¼­..¸â¹ö°¡ ÇÏ³ªµµ ³²Áö ¾ÊÀ¸¸é ¿¬ÇÕÁ¤º¸¸¦ ¾ø¾Ö¹ö¸°´Ù." << endl;
+                // cout << "ì¶”ë°©í•˜ê³  ë‚˜ì„œ..ë©¤ë²„ê°€ í•˜ë‚˜ë„ ë‚¨ì§€ ì•Šìœ¼ë©´ ì—°í•©ì •ë³´ë¥¼ ì—†ì• ë²„ë¦°ë‹¤." << endl;
                 pStmt->executeQuery("DELETE FROM `GuildUnionInfo` WHERE `UnionID`='%u'", pUnion->getUnionID());
                 GuildUnionManager::Instance().reload();
             }
@@ -129,7 +129,7 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
 
         pPlayer->sendPacket(&gcModifyInformation);
 
-        // Åëº¸¹ŞÀ» À¯Àú¿¡°Ô ±æµåUnionÁ¤º¸¸¦ ´Ù½Ã º¸³½´Ù
+        // í†µë³´ë°›ì„ ìœ ì €ì—ê²Œ ê¸¸ë“œUnionì •ë³´ë¥¼ ë‹¤ì‹œ ë³´ë‚¸ë‹¤
 
         Creature* pTargetCreature = NULL;
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
@@ -148,7 +148,7 @@ void CGExpelGuildHandler::execute(CGExpelGuild* pPacket, Player* pPlayer)
         sendGCOtherModifyInfoGuildUnion(pTargetCreature);
         sendGCOtherModifyInfoGuildUnion(pCreature);
 
-        // ´Ù¸¥ ¼­¹ö¿¡ ÀÖ´Â ³ğµé¿¡°Ô º¯°æ»çÇ×À» ¾Ë¸°´Ù.
+        // ë‹¤ë¥¸ ì„œë²„ì— ìˆëŠ” ë†ˆë“¤ì—ê²Œ ë³€ê²½ì‚¬í•­ì„ ì•Œë¦°ë‹¤.
         GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pTargetCreature)->getGuildID());
         GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pCreature)->getGuildID());
 

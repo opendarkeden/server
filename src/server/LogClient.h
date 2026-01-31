@@ -11,66 +11,66 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // LogType
-// ·Î±×ÀÇ Á¾·ù´Â Áß¿äµµ¿¡ µû¶ó ÀÏÁ¤ ±×·ìÀ¸·Î ±¸ºÐÇÒ ¼ö ÀÖ´Ù.
-// ÇöÀç´Â 1000 ´ÜÀ§·Î ±× ·Î±× ±×·ìÀ» ±¸ºÐÇÑ´Ù.
-// LogClient ³»ºÎÀÇ LogLevelÀ» 1000 ´ÜÀ§·Î ÁöÁ¤ÇÏ¸é,
-// ÀÏÁ¤ ±×·ìÀÇ ·Î±×´Â ·Î±×ÇÏ°í, ³ª¸ÓÁö´Â ·Î±×ÇÏÁö ¾Ê´Â ÀÏÀÌ °¡´ÉÇÏ´Ù.
+// ë¡œê·¸ì˜ ì¢…ë¥˜ëŠ” ì¤‘ìš”ë„ì— ë”°ë¼ ì¼ì • ê·¸ë£¹ìœ¼ë¡œ êµ¬ë¶„í•  ìˆ˜ ìžˆë‹¤.
+// í˜„ìž¬ëŠ” 1000 ë‹¨ìœ„ë¡œ ê·¸ ë¡œê·¸ ê·¸ë£¹ì„ êµ¬ë¶„í•œë‹¤.
+// LogClient ë‚´ë¶€ì˜ LogLevelì„ 1000 ë‹¨ìœ„ë¡œ ì§€ì •í•˜ë©´,
+// ì¼ì • ê·¸ë£¹ì˜ ë¡œê·¸ëŠ” ë¡œê·¸í•˜ê³ , ë‚˜ë¨¸ì§€ëŠ” ë¡œê·¸í•˜ì§€ ì•ŠëŠ” ì¼ì´ ê°€ëŠ¥í•˜ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 enum LogType {
-    LOG_SYSTEM = 0,        // ½Ã½ºÅÛ ·Î±×
-    LOG_SYSTEM_ERROR = 10, // ½Ã½ºÅÛ ¿¡·¯ ·Î±×
+    LOG_SYSTEM = 0,        // ì‹œìŠ¤í…œ ë¡œê·¸
+    LOG_SYSTEM_ERROR = 10, // ì‹œìŠ¤í…œ ì—ëŸ¬ ë¡œê·¸
 
-    LOG_GAMESERVER = 20,       // °ÔÀÓ ¼­¹ö ¸Þ½ÃÁö
-    LOG_GAMESERVER_ERROR = 30, // °ÔÀÓ ¼­¹ö ¿¡·¯ ¸Þ½ÃÁö
+    LOG_GAMESERVER = 20,       // ê²Œìž„ ì„œë²„ ë©”ì‹œì§€
+    LOG_GAMESERVER_ERROR = 30, // ê²Œìž„ ì„œë²„ ì—ëŸ¬ ë©”ì‹œì§€
 
-    LOG_LOGINSERVER = 40,       // ·Î±×ÀÎ ¼­¹ö ¸Þ½ÃÁö
-    LOG_LOGINSERVER_ERROR = 50, // ·Î±×ÀÎ ¼­¹ö ¿¡·¯ ¸Þ½ÃÁö
+    LOG_LOGINSERVER = 40,       // ë¡œê·¸ì¸ ì„œë²„ ë©”ì‹œì§€
+    LOG_LOGINSERVER_ERROR = 50, // ë¡œê·¸ì¸ ì„œë²„ ì—ëŸ¬ ë©”ì‹œì§€
 
-    LOG_SHAREDSERVER = 60,       // ·Î±×ÀÎ ¼­¹ö ¸Þ½ÃÁö
-    LOG_SHAREDSERVER_ERROR = 70, // ·Î±×ÀÎ ¼­¹ö ¿¡·¯ ¸Þ½ÃÁö
+    LOG_SHAREDSERVER = 60,       // ë¡œê·¸ì¸ ì„œë²„ ë©”ì‹œì§€
+    LOG_SHAREDSERVER_ERROR = 70, // ë¡œê·¸ì¸ ì„œë²„ ì—ëŸ¬ ë©”ì‹œì§€
 
-    LOG_CGCONNECT = 80, // °ÔÀÓ ¼­¹ö¿¡ ·Î±×ÀÎ
+    LOG_CGCONNECT = 80, // ê²Œìž„ ì„œë²„ì— ë¡œê·¸ì¸
 
-    LOG_PICKUP_ITEM = 1010, // ¾ÆÀÌÅÛ ÁÝ±â
-    LOG_DROP_ITEM = 1020,   // ¾ÆÀÌÅÛ ¶³¾î¶ß¸®±â
+    LOG_PICKUP_ITEM = 1010, // ì•„ì´í…œ ì¤ê¸°
+    LOG_DROP_ITEM = 1020,   // ì•„ì´í…œ ë–¨ì–´ëœ¨ë¦¬ê¸°
 
-    LOG_PICKUP_MONEY = 1030, // µ· ÁÝ±â
-    LOG_DROP_MONEY = 1040,   // µ· ¶³¾î¶ß¸®±â
+    LOG_PICKUP_MONEY = 1030, // ëˆ ì¤ê¸°
+    LOG_DROP_MONEY = 1040,   // ëˆ ë–¨ì–´ëœ¨ë¦¬ê¸°
 
-    LOG_USE_ITEM = 1050,     // ¾ÆÀÌÅÛ »ç¿ëÇÏ±â
-    LOG_CREATE_ITEM = 1060,  // ¾ÆÀÌÅÛ »ý¼ºÇÏ±â (¼º¼ö³ª ÆøÅº)
-    LOG_REPAIR_ITEM = 1065,  // ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÔ
-    LOG_DESTROY_ITEM = 1070, // ¾ÆÀÌÅÛ ³»±¸·ÂÀÌ ´Ù µÇ¾î ºÎ¼­Áü
+    LOG_USE_ITEM = 1050,     // ì•„ì´í…œ ì‚¬ìš©í•˜ê¸°
+    LOG_CREATE_ITEM = 1060,  // ì•„ì´í…œ ìƒì„±í•˜ê¸° (ì„±ìˆ˜ë‚˜ í­íƒ„)
+    LOG_REPAIR_ITEM = 1065,  // ì•„ì´í…œì„ ìˆ˜ë¦¬í•¨
+    LOG_DESTROY_ITEM = 1070, // ì•„ì´í…œ ë‚´êµ¬ë ¥ì´ ë‹¤ ë˜ì–´ ë¶€ì„œì§
 
-    LOG_BUY_ITEM = 1080,          // »óÁ¡¿¡¼­ ¾ÆÀÌÅÛ »ç±â
-    LOG_SELL_ITEM = 1090,         // »óÁ¡¿¡¼­ ¾ÆÀÌÅÛ ÆÈ±â
-    LOG_SHOP_CREATE_ITEM = 1100,  // »óÁ¡¿¡¼­ ¾ÆÀÌÅÛÀÌ »ý¼º
-    LOG_SHOP_DESTROY_ITEM = 1110, // »óÁ¡¿¡¼­ ¾ÆÀÌÅÛÀÌ »ç¶óÁü
+    LOG_BUY_ITEM = 1080,          // ìƒì ì—ì„œ ì•„ì´í…œ ì‚¬ê¸°
+    LOG_SELL_ITEM = 1090,         // ìƒì ì—ì„œ ì•„ì´í…œ íŒ”ê¸°
+    LOG_SHOP_CREATE_ITEM = 1100,  // ìƒì ì—ì„œ ì•„ì´í…œì´ ìƒì„±
+    LOG_SHOP_DESTROY_ITEM = 1110, // ìƒì ì—ì„œ ì•„ì´í…œì´ ì‚¬ë¼ì§
 
-    LOG_DROP_ITEM_DIE = 1120,   // Á×À¸¸é¼­ ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸²
-    LOG_DROP_ITEM_MORPH = 1130, // º¯½ÅÇÏ¸é¼­ ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸²
-    LOG_LOOT_CORPSE = 1140,     // ½ÃÃ¼¿¡¼­ ¾ÆÀÌÅÛÀ» ²¨³¿
+    LOG_DROP_ITEM_DIE = 1120,   // ì£½ìœ¼ë©´ì„œ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦¼
+    LOG_DROP_ITEM_MORPH = 1130, // ë³€ì‹ í•˜ë©´ì„œ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦¼
+    LOG_LOOT_CORPSE = 1140,     // ì‹œì²´ì—ì„œ ì•„ì´í…œì„ êº¼ëƒ„
 
-    LOG_STASH_ADD_ITEM = 1150,     // º¸°üÇÔ¿¡ ¾ÆÀÌÅÛÀ» ³ÖÀ½
-    LOG_STASH_REMOVE_ITEM = 1160,  // º¸°üÇÔ¿¡¼­ ¾ÆÀÌÅÛÀ» »­
-    LOG_STASH_ADD_MONEY = 1170,    // º¸°üÇÔ¿¡ µ·À» ³ÖÀ½
-    LOG_STASH_REMOVE_MONEY = 1180, // º¸°üÇÔ¿¡¼­ µ·À» »­
+    LOG_STASH_ADD_ITEM = 1150,     // ë³´ê´€í•¨ì— ì•„ì´í…œì„ ë„£ìŒ
+    LOG_STASH_REMOVE_ITEM = 1160,  // ë³´ê´€í•¨ì—ì„œ ì•„ì´í…œì„ ëºŒ
+    LOG_STASH_ADD_MONEY = 1170,    // ë³´ê´€í•¨ì— ëˆì„ ë„£ìŒ
+    LOG_STASH_REMOVE_MONEY = 1180, // ë³´ê´€í•¨ì—ì„œ ëˆì„ ëºŒ
 
-    LOG_USE_BONUS_POINT = 1190, // º¸³Ê½º Æ÷ÀÎÆ®¸¦ »ç¿ë
+    LOG_USE_BONUS_POINT = 1190, // ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸ë¥¼ ì‚¬ìš©
 
-    LOG_TRADE = 1200, // ±³È¯
+    LOG_TRADE = 1200, // êµí™˜
 
-    LOG_KILL_PLAYER = 2000, // ÇÃ·¹ÀÌ¾î°¡ ÇÃ·¹ÀÌ¾î¸¦ Á×ÀÓ
+    LOG_KILL_PLAYER = 2000, // í”Œë ˆì´ì–´ê°€ í”Œë ˆì´ì–´ë¥¼ ì£½ìž„
 
-    LOG_BLOODDRAIN = 2010,   // ÇÇ¸¦ »£
-    LOG_BLOODDRAINED = 2020, // ÇÇ¸¦ »¡¸²
+    LOG_BLOODDRAIN = 2010,   // í”¼ë¥¼ ë¹°
+    LOG_BLOODDRAINED = 2020, // í”¼ë¥¼ ë¹¨ë¦¼
 
-    LOG_SLAYER_TO_VAMPIRE = 2030, // ½½·¹ÀÌ¾î¿¡¼­ ¹ìÆÄÀÌ¾î·Î
-    LOG_VAMPIRE_TO_SLAYER = 2040, // ¹ìÆÄÀÌ¾î¿¡¼­ ½½·¹ÀÌ¾î·Î
-    LOG_HEAL = 2050,              // Ä¡·á¸¦ ¹Þ´Ù
+    LOG_SLAYER_TO_VAMPIRE = 2030, // ìŠ¬ë ˆì´ì–´ì—ì„œ ë±€íŒŒì´ì–´ë¡œ
+    LOG_VAMPIRE_TO_SLAYER = 2040, // ë±€íŒŒì´ì–´ì—ì„œ ìŠ¬ë ˆì´ì–´ë¡œ
+    LOG_HEAL = 2050,              // ì¹˜ë£Œë¥¼ ë°›ë‹¤
 
-    LOG_DEBUG_MSG = 3000, // µð¹ö±ë °ü·Ã ¸Þ½ÃÁö
+    LOG_DEBUG_MSG = 3000, // ë””ë²„ê¹… ê´€ë ¨ ë©”ì‹œì§€
 
     LOGTYPE_MAX
 };
@@ -78,14 +78,14 @@ enum LogType {
 
 //////////////////////////////////////////////////////////////////////////////
 // class LogClient
-// ·Î±×¸¦ À§ÇÑ Å¬¶óÀÌ¾ðÆ® Å¬·¡½ºÀÌ´Ù. SIGNAL¿¡ °üÇÑ Ã³¸®´Â ÀÏºÎ·¯
-// ÇÏÁö ¾Ê¾ÒÀ¸¹Ç·Î, Å¬·¡½º ¿ÜºÎ¿¡¼­ SIGNAL Ã³¸®¸¦ ÇØÁà¾ß ÇÑ´Ù. ±×·¸Áö ¾ÊÀ¸¸é
-// ·Î±× ¼­¹ö°¡ Á×À¸¸é °°ÀÌ Á×¾î¹ö¸°´Ù.
+// ë¡œê·¸ë¥¼ ìœ„í•œ í´ë¼ì´ì–¸íŠ¸ í´ëž˜ìŠ¤ì´ë‹¤. SIGNALì— ê´€í•œ ì²˜ë¦¬ëŠ” ì¼ë¶€ëŸ¬
+// í•˜ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ, í´ëž˜ìŠ¤ ì™¸ë¶€ì—ì„œ SIGNAL ì²˜ë¦¬ë¥¼ í•´ì¤˜ì•¼ í•œë‹¤. ê·¸ë ‡ì§€ ì•Šìœ¼ë©´
+// ë¡œê·¸ ì„œë²„ê°€ ì£½ìœ¼ë©´ ê°™ì´ ì£½ì–´ë²„ë¦°ë‹¤.
 //
-// ·Î±× ·¹º§ (Å« ·Î±×·¹º§Àº ÇÏÀ§ ·¹º§ÀÇ ·Î±×¸¦ Æ÷ÇÔÇÑ´Ù.)
-// 0    : ¼­¹ö ½Ã½ºÅÛ °ü·Ã ³»¿ë¸¸ ·Î±×ÇÑ´Ù.
-// 1000 : °ÔÀÓ ³»¿¡¼­ Á¦ÀÏ Áß¿äÇÑ ºÎºÐÀ» ·Î±×ÇÑ´Ù.
-// 2000 : °ÔÀÓ ³»¿¡¼­ º°·Î Áß¿äÇÏÁö ¾ÊÀº ºÎºÐµµ ·Î±×ÇÑ´Ù.
+// ë¡œê·¸ ë ˆë²¨ (í° ë¡œê·¸ë ˆë²¨ì€ í•˜ìœ„ ë ˆë²¨ì˜ ë¡œê·¸ë¥¼ í¬í•¨í•œë‹¤.)
+// 0    : ì„œë²„ ì‹œìŠ¤í…œ ê´€ë ¨ ë‚´ìš©ë§Œ ë¡œê·¸í•œë‹¤.
+// 1000 : ê²Œìž„ ë‚´ì—ì„œ ì œì¼ ì¤‘ìš”í•œ ë¶€ë¶„ì„ ë¡œê·¸í•œë‹¤.
+// 2000 : ê²Œìž„ ë‚´ì—ì„œ ë³„ë¡œ ì¤‘ìš”í•˜ì§€ ì•Šì€ ë¶€ë¶„ë„ ë¡œê·¸í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class LogClient {

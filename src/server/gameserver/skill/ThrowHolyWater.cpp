@@ -53,8 +53,8 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
         ObjectID_t ObjectID = pItem->getObjectID();
         Creature* pTargetCreature = NULL;
 
-        // ÆÐÅ¶¿¡ ¿Â °Å¶û, ¾ÆÀÌÅÛ ¾ÆÀÌµð°¡ Æ²¸®°Å³ª,
-        // ¼º¼ö°¡ ¾Æ´Ï¶ó¸é ½ÇÆÐÇß´Ù°í º¸³»ÁØ´Ù.
+        // íŒ¨í‚·ì— ì˜¨ ê±°ëž‘, ì•„ì´í…œ ì•„ì´ë””ê°€ í‹€ë¦¬ê±°ë‚˜,
+        // ì„±ìˆ˜ê°€ ì•„ë‹ˆë¼ë©´ ì‹¤íŒ¨í–ˆë‹¤ê³  ë³´ë‚´ì¤€ë‹¤.
         if (ObjectID != ItemObjectID || pItem->getItemClass() != Item::ITEM_CLASS_HOLYWATER) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -65,7 +65,7 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
         GCThrowItemOK2 _GCThrowItemOK2;
         GCModifyInformation gcAttackerMI;
 
-        // Á¸¿¡¼­ Å¸°Ù Å©¸®ÃÄ¸¦ Ã£´Â´Ù.
+        // ì¡´ì—ì„œ íƒ€ê²Ÿ í¬ë¦¬ì³ë¥¼ ì°¾ëŠ”ë‹¤.
         /*
         try
         {
@@ -79,12 +79,12 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
 
         pTargetCreature = pZone->getCreature(TargetObjectID);
 
-        // Å¬¶óÀÌ¾ðÆ®¿ÍÀÇ µ¿±âÈ­ ¹®Á¦·Î ÀÎÇØ, Æ÷ÀÎÅÍ°¡ ³ÎÀÏ ¼ö ÀÖ´Ù.
-        // ¼º¼öº´ µÎ°³¸¦ ¿¬¼ÓÀ¸·Î ´øÁ³´Âµ¥, ¸ÕÀú ´øÁø ¼º¼öº´À¸·Î ÀÎÇØ,
-        // Å¸°ÙÀÌ Á×°í ³­ µÚ, Å¬¶óÀÌ¾ðÆ®°¡ ¹ÌÃ³ ±× ÆÐÅ¶À» ¹ÞÁö ¸øÇÏ°í,
-        // ´Ù½Ã ÇÑ¹ø ¼º¼ö¸¦ ´øÁú °æ¿ì, °Á ¸®ÅÏÇÏ¸é °ï¶õÇÏ´Ù.
+        // í´ë¼ì´ì–¸íŠ¸ì™€ì˜ ë™ê¸°í™” ë¬¸ì œë¡œ ì¸í•´, í¬ì¸í„°ê°€ ë„ì¼ ìˆ˜ ìžˆë‹¤.
+        // ì„±ìˆ˜ë³‘ ë‘ê°œë¥¼ ì—°ì†ìœ¼ë¡œ ë˜ì¡ŒëŠ”ë°, ë¨¼ì € ë˜ì§„ ì„±ìˆ˜ë³‘ìœ¼ë¡œ ì¸í•´,
+        // íƒ€ê²Ÿì´ ì£½ê³  ë‚œ ë’¤, í´ë¼ì´ì–¸íŠ¸ê°€ ë¯¸ì²˜ ê·¸ íŒ¨í‚·ì„ ë°›ì§€ ëª»í•˜ê³ ,
+        // ë‹¤ì‹œ í•œë²ˆ ì„±ìˆ˜ë¥¼ ë˜ì§ˆ ê²½ìš°, ê± ë¦¬í„´í•˜ë©´ ê³¤ëž€í•˜ë‹¤.
         if (pTargetCreature == NULL) {
-            // ¸ÕÀú ¾ÆÀÌÅÛ ¼ýÀÚ¸¦ ÁÙ¿©ÁÖ¾î¾ß ÇÑ´Ù.
+            // ë¨¼ì € ì•„ì´í…œ ìˆ«ìžë¥¼ ì¤„ì—¬ì£¼ì–´ì•¼ í•œë‹¤.
             decreaseItemNum(pItem, pInventory, pSlayer->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -96,10 +96,10 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
             Damage_t MaxDamage = pHolyWater->getMaxDamage();
             Damage_t Damage = max(1, Random(MinDamage, MaxDamage));
 
-            // ÀÏ¹Ý Áö¿ªÀÌ ¾Æ´Ï¶ó¸é µ¥¹ÌÁö¸¦ 0À¸·Î ¼¼ÆÃÇØ ÁØ´Ù.
-            // ¹Ø ºÎºÐ¿¡¼­ checkZoneLevelToHitTarget ÇÔ¼ö¸¦ ºÎ¸£±â ¶§¹®¿¡
-            // ¿©±â¼­ ¾ÈÀüÁö´ë °ü·Ã °Ë»ç¸¦ ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
-            // -- 2002-01-31 ±è¼º¹Î
+            // ì¼ë°˜ ì§€ì—­ì´ ì•„ë‹ˆë¼ë©´ ë°ë¯¸ì§€ë¥¼ 0ìœ¼ë¡œ ì„¸íŒ…í•´ ì¤€ë‹¤.
+            // ë°‘ ë¶€ë¶„ì—ì„œ checkZoneLevelToHitTarget í•¨ìˆ˜ë¥¼ ë¶€ë¥´ê¸° ë•Œë¬¸ì—
+            // ì—¬ê¸°ì„œ ì•ˆì „ì§€ëŒ€ ê´€ë ¨ ê²€ì‚¬ë¥¼ í•  í•„ìš”ê°€ ì—†ë‹¤.
+            // -- 2002-01-31 ê¹€ì„±ë¯¼
             // if (!(pZone->getZoneLevel() & NO_SAFE_ZONE)) Damage = 0;
 
             list<Creature*> cList;
@@ -110,17 +110,17 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
             bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, 10);
             bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature) && canAttack(pSlayer, pTargetCreature);
 
-            // ¸íÁß µÇ¾ú´Ù¸é, µ¥¹ÌÁö¸¦ ÁØ´Ù..
-            // ¸íÁßÀÌ µÇÁö ¾Ê¾Æµµ ¼º¼ö´Â ÇÑ¹ø ´øÁö¸é ³¡ÀÌ´Ù.
+            // ëª…ì¤‘ ë˜ì—ˆë‹¤ë©´, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤..
+            // ëª…ì¤‘ì´ ë˜ì§€ ì•Šì•„ë„ ì„±ìˆ˜ëŠ” í•œë²ˆ ë˜ì§€ë©´ ëì´ë‹¤.
             if (bHitRoll && bPK && bRangeCheck && bZoneLevelCheck) {
-                // »ó´ë¹æÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // ìƒëŒ€ë°©ì´ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 if (!pTargetCreature->isSlayer()) {
                     shareAttrExp(pSlayer, Damage, 1, 1, 8, gcAttackerMI);
 
-                    // ÀÎÃ¾ µµ¸ÞÀºµµ ¿Ã·ÁÁØ´Ù.
+                    // ì¸ì²¸ ë„ë©”ì€ë„ ì˜¬ë ¤ì¤€ë‹¤.
                     // 2003. 1. 12 by bezz
-                    // Throw Holy Water ÀÇ SkillInfo °¡ ¾ø´Ù.
-                    // ±×·¡¼­ Create Holy Water ÀÇ Point ¸¦ ¾´´Ù.
+                    // Throw Holy Water ì˜ SkillInfo ê°€ ì—†ë‹¤.
+                    // ê·¸ëž˜ì„œ Create Holy Water ì˜ Point ë¥¼ ì“´ë‹¤.
                     SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SKILL_CREATE_HOLY_WATER);
                     increaseDomainExp(pSlayer, SKILL_DOMAIN_ENCHANT, pSkillInfo->getPoint(), gcAttackerMI,
                                       pTargetCreature->getLevel());
@@ -142,7 +142,7 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
 
                     setDamage(pTargetVampire, Damage, NULL, 0, &_GCThrowItemOK2);
 
-                    // ¹ÞÀº µ¥¹ÌÁö¸¸Å­ÀÇ È¦¸® µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                    // ë°›ì€ ë°ë¯¸ì§€ë§Œí¼ì˜ í™€ë¦¬ ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                     Silver_t silverDamage = max(1, getPercentValue(Damage, 10));
                     Silver_t newSilverDamage = pTargetVampire->getSilverDamage() + silverDamage;
                     pTargetVampire->saveSilverDamage(newSilverDamage);
@@ -158,7 +158,7 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
 
                     setDamage(pTargetOusters, Damage, NULL, 0, &_GCThrowItemOK2);
 
-                    // ¹ÞÀº µ¥¹ÌÁö¸¸Å­ÀÇ È¦¸® µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                    // ë°›ì€ ë°ë¯¸ì§€ë§Œí¼ì˜ í™€ë¦¬ ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                     Silver_t silverDamage = max(1, getPercentValue(Damage, 10));
                     Silver_t newSilverDamage = pTargetOusters->getSilverDamage() + silverDamage;
                     pTargetOusters->saveSilverDamage(newSilverDamage);
@@ -180,24 +180,24 @@ void ThrowHolyWater::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectI
 
                 cList.push_back(pTargetCreature);
 
-                // ÁÖº¯ »ç¶÷µé¿¡°Ô OK3 PacketÀ» º¸³½´Ù.
+                // ì£¼ë³€ ì‚¬ëžŒë“¤ì—ê²Œ OK3 Packetì„ ë³´ë‚¸ë‹¤.
                 GCThrowItemOK3 _GCThrowItemOK3;
                 _GCThrowItemOK3.setObjectID(pSlayer->getObjectID());
                 _GCThrowItemOK3.setTargetObjectID(TargetObjectID);
                 pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCThrowItemOK3, cList);
 
-                // ´øÁø »ç¶÷¿¡°Ô OK PacketÀ» º¸³½´Ù.
+                // ë˜ì§„ ì‚¬ëžŒì—ê²Œ OK Packetì„ ë³´ë‚¸ë‹¤.
                 GCThrowItemOK1 _GCThrowItemOK1;
                 _GCThrowItemOK1.setObjectID(TargetObjectID);
 
                 pPlayer->sendPacket(&_GCThrowItemOK1);
                 pPlayer->sendPacket(&gcAttackerMI);
-            } else // ¼º¼ö ´øÁö±â¿¡ ½ÇÆÐÇßÀ» °æ¿ì...
+            } else // ì„±ìˆ˜ ë˜ì§€ê¸°ì— ì‹¤íŒ¨í–ˆì„ ê²½ìš°...
             {
                 executeSkillFailNormal(pSlayer, getSkillType(), pTargetCreature);
             }
 
-            // ¸Âµç ¸ÂÁö ¾Ê¾Òµç ¼º¼öÀÇ ¼ýÀÚ´Â ÁÙ¿©ÁÖ¾î¾ß ÇÑ´Ù.
+            // ë§žë“  ë§žì§€ ì•Šì•˜ë“  ì„±ìˆ˜ì˜ ìˆ«ìžëŠ” ì¤„ì—¬ì£¼ì–´ì•¼ í•œë‹¤.
             decreaseItemNum(pItem, pInventory, pSlayer->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
         }
     } catch (Throwable& t) {

@@ -10,7 +10,7 @@
 #include "MPacketID.h"
 #include "Mofus.h"
 
-// send ÆĞÅ¶
+// send íŒ¨í‚·
 #include "PKTConnectAsk.h"
 #include "PKTLogout.h"
 #include "PKTReceiveOK.h"
@@ -18,7 +18,7 @@
 #include "PKTSError.h"
 #include "PKTUserInfo.h"
 
-// receive ÆĞÅ¶
+// receive íŒ¨í‚·
 #include "PKTConnectAccept.h"
 #include "PKTConnectAcceptHandler.h"
 #include "PKTError.h"
@@ -27,13 +27,13 @@
 #include "PKTPowerPointHandler.h"
 
 
-// ÆĞÅ¶ ID µî·ÏÀ» °£´ÜÈ÷ ÇÏ±â À§ÇÑ ¸ÅÅ©·Î
+// íŒ¨í‚· ID ë“±ë¡ì„ ê°„ë‹¨íˆ í•˜ê¸° ìœ„í•œ ë§¤í¬ë¡œ
 #define REGISTER_SEND_PACKET_ID(PACKET, PACKET_ID) \
     MPacketID_t PACKET::getID() const {            \
         return PACKET_ID;                          \
     }
 
-// ÆĞÅ¶ ÇÚµé·¯ ID µî·ÏÀ» °£´ÜÈ÷ ÇÏ±â À§ÇÑ ¸ÅÅ©·Î
+// íŒ¨í‚· í•¸ë“¤ëŸ¬ ID ë“±ë¡ì„ ê°„ë‹¨íˆ í•˜ê¸° ìœ„í•œ ë§¤í¬ë¡œ
 #define REGISTER_RECV_PACKET_ID(PACKET, PACKET_ID) \
     MPacketID_t PACKET::getID() const {            \
         return PACKET_ID;                          \
@@ -42,7 +42,7 @@
         return PACKET_ID;                          \
     }
 
-// º¸³»±â¿ë ÆĞÅ¶ID µî·Ï
+// ë³´ë‚´ê¸°ìš© íŒ¨í‚·ID ë“±ë¡
 REGISTER_SEND_PACKET_ID(PKTConnectAsk, PTC_CONNECT_ASK)
 REGISTER_SEND_PACKET_ID(PKTLogout, PTC_LOGOUT)
 REGISTER_SEND_PACKET_ID(PKTUserInfo, PTC_USERINFO)
@@ -50,13 +50,13 @@ REGISTER_SEND_PACKET_ID(PKTReceiveOK, PTC_RECEIVE_OK)
 REGISTER_SEND_PACKET_ID(PKTResult, PTC_RESULT)
 REGISTER_SEND_PACKET_ID(PKTSError, PTC_ERROR)
 
-// ¹Ş±â¿ë ÆĞÅ¶ ID µî·Ï ¹× ÇÚµé·¯ ID µî·Ï
+// ë°›ê¸°ìš© íŒ¨í‚· ID ë“±ë¡ ë° í•¸ë“¤ëŸ¬ ID ë“±ë¡
 REGISTER_RECV_PACKET_ID(PKTConnectAccept, PTS_CONNECT_ACCEPT)
 REGISTER_RECV_PACKET_ID(PKTPowerPoint, PTS_POWERPOINT)
 REGISTER_RECV_PACKET_ID(PKTError, PTS_ERROR)
 
 
-// ³»ºÎ ±¸Çö µ¥ÀÌÅÍ
+// ë‚´ë¶€ êµ¬í˜„ ë°ì´í„°
 struct MPacketManager::IMPL {
     MPacket* pCreators[PTC_MAX];
     MPacketHandler* pHandlers[PTC_MAX];
@@ -64,27 +64,27 @@ struct MPacketManager::IMPL {
     IMPL();
     ~IMPL();
 
-    // ÆĞÅ¶ »ı¼ºÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+    // íŒ¨í‚· ìƒì„±ìë¥¼ ì¶”ê°€í•œë‹¤.
     void addCreator(MPacket* pPacket);
 
-    // ÆĞÅ¶ ÇÚµé·¯¸¦ Ãß°¡ÇÑ´Ù.
+    // íŒ¨í‚· í•¸ë“¤ëŸ¬ë¥¼ ì¶”ê°€í•œë‹¤.
     void addHandler(MPacketHandler* pHandler);
 };
 
 
-// »ı¼ºÀÚ
+// ìƒì„±ì
 MPacketManager::MPacketManager() : m_pImpl(new IMPL) {
     Assert(m_pImpl != NULL);
 }
 
-// ¼Ò¸êÀÚ
+// ì†Œë©¸ì
 MPacketManager::~MPacketManager() {
     SAFE_DELETE(m_pImpl);
 }
 
-// ÃÊ±âÈ­
+// ì´ˆê¸°í™”
 void MPacketManager::init() {
-    // ÇÚµé·¯ ¹× Å©¸®¿¡ÀÌÅÍ Ãß°¡
+    // í•¸ë“¤ëŸ¬ ë° í¬ë¦¬ì—ì´í„° ì¶”ê°€
     m_pImpl->addCreator(new PKTConnectAccept);
     m_pImpl->addHandler(new PKTConnectAcceptHandler);
     m_pImpl->addCreator(new PKTPowerPoint);
@@ -93,19 +93,19 @@ void MPacketManager::init() {
     m_pImpl->addHandler(new PKTErrorHandler);
 }
 
-// ÆĞÅ¶ »ı¼ºÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+// íŒ¨í‚· ìƒì„±ìë¥¼ ì¶”ê°€í•œë‹¤.
 void MPacketManager::addCreator(MPacket* pPacket) {
     Assert(pPacket != NULL);
     m_pImpl->addCreator(pPacket);
 }
 
-// ÆĞÅ¶ ÇÚµé·¯¸¦ Ãß°¡ÇÑ´Ù.
+// íŒ¨í‚· í•¸ë“¤ëŸ¬ë¥¼ ì¶”ê°€í•œë‹¤.
 void MPacketManager::addHandler(MPacketHandler* pHandler) {
     Assert(pHandler != NULL);
     m_pImpl->addHandler(pHandler);
 }
 
-// »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯ÇÑ´Ù.
+// ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜í•œë‹¤.
 MPacket* MPacketManager::createPacket(MPacketID_t ID) const {
     if (ID < 0 || ID >= PTC_MAX) {
         filelog(MOFUS_ERROR_FILE, "MPacketManager::createPacket() out of ID");
@@ -115,7 +115,7 @@ MPacket* MPacketManager::createPacket(MPacketID_t ID) const {
     return m_pImpl->pCreators[ID]->create();
 }
 
-// ÆĞÅ¶À» ½ÇÇàÇÑ´Ù.
+// íŒ¨í‚·ì„ ì‹¤í–‰í•œë‹¤.
 void MPacketManager::execute(MPlayer* pPlayer, MPacket* pPacket) {
     Assert(pPlayer != NULL);
     Assert(pPacket != NULL);
@@ -135,14 +135,14 @@ void MPacketManager::execute(MPlayer* pPlayer, MPacket* pPacket) {
     m_pImpl->pHandlers[ID]->execute(pPlayer, pPacket);
 }
 
-// ÆĞÅ¶À» ½ÇÇàÇÑ´Ù.
+// íŒ¨í‚·ì„ ì‹¤í–‰í•œë‹¤.
 bool MPacketManager::hasHandler(MPacketID_t ID) const {
-    // ÀÏ´Ü ¹üÀ§ È®ÀÎ
+    // ì¼ë‹¨ ë²”ìœ„ í™•ì¸
     if (ID < 0 || ID >= PTC_MAX) {
         return false;
     }
 
-    // ÇÚµé·¯°¡ ÀÖ´ÂÁö È®ÀÎ
+    // í•¸ë“¤ëŸ¬ê°€ ìˆëŠ”ì§€ í™•ì¸
     if (m_pImpl->pHandlers[ID] == NULL) {
         return false;
     }
@@ -150,7 +150,7 @@ bool MPacketManager::hasHandler(MPacketID_t ID) const {
     return true;
 }
 
-// ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+// íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
 MPacketSize_t MPacketManager::getPacketSize(MPacketID_t ID) const {
     if (ID < 0 || ID >= PTC_MAX) {
         filelog(MOFUS_ERROR_FILE, "MPacketManager::createPacket() out of ID");
@@ -160,49 +160,49 @@ MPacketSize_t MPacketManager::getPacketSize(MPacketID_t ID) const {
     return m_pImpl->pCreators[ID]->getSize();
 }
 
-// »ı¼ºÀÚ
+// ìƒì„±ì
 MPacketManager::IMPL::IMPL() {
-    // °¢ ¹è¿­À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ê° ë°°ì—´ì„ ì´ˆê¸°í™”í•œë‹¤.
     for (MPacketID_t i = 0; i < PTC_MAX; ++i) {
         pCreators[i] = NULL;
         pHandlers[i] = NULL;
     }
 }
 
-// ¼Ò¸êÀÚ
+// ì†Œë©¸ì
 MPacketManager::IMPL::~IMPL() {
-    // ÆĞÅ¶ »ı¼ºÀÚ ¹× ÇÚµé·¯¸¦ Áö¿î´Ù.
+    // íŒ¨í‚· ìƒì„±ì ë° í•¸ë“¤ëŸ¬ë¥¼ ì§€ìš´ë‹¤.
     for (MPacketID_t i = 0; i < PTC_MAX; ++i) {
         SAFE_DELETE(pCreators[i]);
         SAFE_DELETE(pHandlers[i]);
     }
 }
 
-// ÆĞÅ¶ »ı¼ºÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+// íŒ¨í‚· ìƒì„±ìë¥¼ ì¶”ê°€í•œë‹¤.
 void MPacketManager::IMPL::addCreator(MPacket* pPacket) {
     Assert(pPacket != NULL);
 
-    // Áßº¹ °Ë»ç
+    // ì¤‘ë³µ ê²€ì‚¬
     if (pCreators[pPacket->getID()] != NULL) {
         filelog(MOFUS_ERROR_FILE, "MPacketManager::IMPL::addCreator() dup creator");
         Assert(false);
     }
 
-    // »ı¼ºÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+    // ìƒì„±ìë¥¼ ì¶”ê°€í•œë‹¤.
     pCreators[pPacket->getID()] = pPacket;
 }
 
-// ÆĞÅ¶ ÇÚµé·¯¸¦ Ãß°¡ÇÑ´Ù.
+// íŒ¨í‚· í•¸ë“¤ëŸ¬ë¥¼ ì¶”ê°€í•œë‹¤.
 void MPacketManager::IMPL::addHandler(MPacketHandler* pHandler) {
     Assert(pHandler != NULL);
 
-    // Áßº¹ °Ë»ç
+    // ì¤‘ë³µ ê²€ì‚¬
     if (pHandlers[pHandler->getID()] != NULL) {
         filelog(MOFUS_ERROR_FILE, "MPacketManager::IMPL::addHandler() dup handler");
         Assert(false);
     }
 
-    // ÇÚµé·¯¸¦ Ãß°¡ÇÑ´Ù.
+    // í•¸ë“¤ëŸ¬ë¥¼ ì¶”ê°€í•œë‹¤.
     pHandlers[pHandler->getID()] = pHandler;
 }
 

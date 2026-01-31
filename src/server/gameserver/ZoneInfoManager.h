@@ -16,7 +16,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class ZoneInfoManager;
-// ZoneID ¸¦ Å°°ªÀ¸·Î ÇØ¼­ Á¸ Á¤º¸¸¦ °Ë»öÇÒ ¼ö ÀÖ´Â ±â´ÉÀ» Á¦°øÇÑ´Ù.
+// ZoneID ë¥¼ í‚¤ê°’ìœ¼ë¡œ í•´ì„œ ì¡´ ì •ë³´ë¥¼ ê²€ìƒ‰í•  ìˆ˜ ìˆëŠ” ê¸°ëŠ¥ì„ ì œê³µí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class ZoneInfoManager {
@@ -41,7 +41,7 @@ public:
     string toString() const;
 
 private:
-    unordered_map<ZoneID_t, ZoneInfo*> m_ZoneInfos; // zone info ÀÇ ÇØ½¬¸Ê
+    unordered_map<ZoneID_t, ZoneInfo*> m_ZoneInfos; // zone info ì˜ í•´ì‰¬ë§µ
     unordered_map<string, ZoneInfo*> m_FullNameMap;
     unordered_map<string, ZoneInfo*> m_ShortNameMap;
 };

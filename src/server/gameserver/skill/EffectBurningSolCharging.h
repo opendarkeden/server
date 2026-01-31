@@ -42,7 +42,7 @@ public:
     }
 
 private:
-    Level_t m_Level; // ½ºÅ³ ·¹º§
+    Level_t m_Level; // ìŠ¤í‚¬ ë ˆë²¨
 };
 
 #endif // __EFFECT_BURNING_SOL_CHARGE__

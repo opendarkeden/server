@@ -27,10 +27,10 @@ void UniqueItemManager::init()
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // DB¿¡¼­ ÇöÀçÀÇ °ªÀ» ÀÐ¾î¿Â´Ù.
+        // DBì—ì„œ í˜„ìž¬ì˜ ê°’ì„ ì½ì–´ì˜¨ë‹¤.
         Result* pResult = pStmt->executeQuery("SELECT ItemClass, ItemType FROM UniqueItemInfo");
 
-        // ÁöÁ¤µÈ itemClas, itemTypeÀ» Unique ItemÀ¸·Î ¼³Á¤ÇÑ´Ù.
+        // ì§€ì •ëœ itemClas, itemTypeì„ Unique Itemìœ¼ë¡œ ì„¤ì •í•œë‹¤.
         while (pResult->next()) {
             Item::ItemClass itemClass = (Item::ItemClass)pResult->getInt(1);
             int itemType = pResult->getInt(2);
@@ -63,7 +63,7 @@ bool UniqueItemManager::isPossibleCreate(Item::ItemClass itemClass, ItemType_t i
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // DB¿¡¼­ ÇöÀçÀÇ °ªÀ» ÀÐ¾î¿Â´Ù.
+        // DBì—ì„œ í˜„ìž¬ì˜ ê°’ì„ ì½ì–´ì˜¨ë‹¤.
         Result* pResult = pStmt->executeQuery(
             "SELECT LimitNumber, CurrentNumber FROM UniqueItemInfo WHERE ItemClass=%d AND ItemType=%d", (int)itemClass,
             (int)itemType);
@@ -88,7 +88,7 @@ bool UniqueItemManager::isPossibleCreate(Item::ItemClass itemClass, ItemType_t i
 //----------------------------------------------------------------------
 // createItem
 //----------------------------------------------------------------------
-// DB¿¡¼­ °³¼ö Áõ°¡
+// DBì—ì„œ ê°œìˆ˜ ì¦ê°€
 //----------------------------------------------------------------------
 void UniqueItemManager::createItem(Item::ItemClass itemClass, ItemType_t itemType)
 
@@ -101,7 +101,7 @@ void UniqueItemManager::createItem(Item::ItemClass itemClass, ItemType_t itemTyp
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // DB¿¡¼­ ÇöÀçÀÇ °ªÀ» ÀÐ¾î¿Â´Ù.
+        // DBì—ì„œ í˜„ìž¬ì˜ ê°’ì„ ì½ì–´ì˜¨ë‹¤.
         pStmt->executeQuery(
             "UPDATE UniqueItemInfo SET CurrentNumber=CurrentNumber+1 WHERE ItemClass=%d AND ItemType=%d",
             (int)itemClass, (int)itemType);
@@ -117,7 +117,7 @@ void UniqueItemManager::createItem(Item::ItemClass itemClass, ItemType_t itemTyp
 //----------------------------------------------------------------------
 // deleteItem
 //----------------------------------------------------------------------
-// DB¿¡¼­ °³¼ö Áõ°¡
+// DBì—ì„œ ê°œìˆ˜ ì¦ê°€
 //----------------------------------------------------------------------
 void UniqueItemManager::deleteItem(Item::ItemClass itemClass, ItemType_t itemType)
 
@@ -130,7 +130,7 @@ void UniqueItemManager::deleteItem(Item::ItemClass itemClass, ItemType_t itemTyp
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // DB¿¡¼­ ÇöÀçÀÇ °ªÀ» ÀÐ¾î¿Â´Ù.
+        // DBì—ì„œ í˜„ìž¬ì˜ ê°’ì„ ì½ì–´ì˜¨ë‹¤.
         pStmt->executeQuery(
             "UPDATE UniqueItemInfo SET CurrentNumber=CurrentNumber-1 WHERE ItemClass=%d AND ItemType=%d",
             (int)itemClass, (int)itemType);

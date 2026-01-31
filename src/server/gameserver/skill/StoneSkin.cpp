@@ -18,7 +18,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void StoneSkin::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
 
@@ -43,7 +43,7 @@ void StoneSkin::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, 
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Curse °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Curse ê°€ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -62,28 +62,28 @@ void StoneSkin::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ½ºÅ³ ·¹º§¿¡ µû¶ó µ¥¹ÌÁö º¸³Ê½º°¡ ´Þ¶óÁø´Ù.
+            // ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ê°€ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
             input.DomainLevel = pVampire->getLevel();
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectStoneSkin* pEffect = new EffectStoneSkin(pVampire);
             pEffect->setDeadline(output.Duration);
             pEffect->setBonus(output.Damage);
             pVampire->addEffect(pEffect);
             pVampire->setFlag(Effect::EFFECT_CLASS_STONE_SKIN);
 
-            // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+            // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
             VAMPIRE_RECORD prev;
             pVampire->getVampireRecord(prev);
             pVampire->initAllStat();
             pVampire->sendRealWearingInfo();
             pVampire->sendModifyInfo(prev);
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -96,7 +96,7 @@ void StoneSkin::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, 
 
             pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &_GCSkillToSelfOK2, pVampire);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pVampire->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_STONE_SKIN);

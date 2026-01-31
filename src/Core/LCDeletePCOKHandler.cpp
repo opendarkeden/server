@@ -16,7 +16,7 @@
 
 //--------------------------------------------------------------------------------
 //
-// PC ¸¦ ¼º°øÀûÀ¸·Î »èÁ¦Çß´Ù´Â ¶æÀÌ´Ù.
+// PC ë¥¼ ì„±ê³µì ìœ¼ë¡œ ì‚­ì œí–ˆë‹¤ëŠ” ëœ»ì´ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void LCDeletePCOKHandler::execute(LCDeletePCOK* pPacket, Player* pPlayer)
@@ -36,7 +36,7 @@ void LCDeletePCOKHandler::execute(LCDeletePCOK* pPacket, Player* pPlayer)
     cout << "+--------------------------+" << endl;
     cout << "                            " << endl;
 
-    // ´Ù½Ã PC LIST ¸¦ ¹Ş¾Æ¿Í¾ß ÇÑ´Ù.
+    // ë‹¤ì‹œ PC LIST ë¥¼ ë°›ì•„ì™€ì•¼ í•œë‹¤.
     CLGetPCList clGetPCList;
     pClientPlayer->sendPacket(&clGetPCList);
 

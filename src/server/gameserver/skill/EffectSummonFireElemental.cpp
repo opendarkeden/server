@@ -55,7 +55,7 @@ void EffectSummonFireElemental::affect()
     Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
     if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET ||
         !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND)) {
-        // Áß°£¿¡ ¸®½ºÆ²¸´À» »©¹ö¸®¸é ÀÌÆåÆ®µµ »ç¶óÁø´Ù.
+        // ì¤‘ê°„ì— ë¦¬ìŠ¤í‹€ë¦¿ì„ ë¹¼ë²„ë¦¬ë©´ ì´íŽ™íŠ¸ë„ ì‚¬ë¼ì§„ë‹¤.
         setDeadline(0);
         return;
     }
@@ -138,7 +138,7 @@ void EffectSummonFireElemental::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isOusters());
 
-    // ÇÃ·¡±×¸¦ ²ö´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ëˆë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_FIRE_ELEMENTAL);
 
     Zone* pZone = pCreature->getZone();
@@ -147,7 +147,7 @@ void EffectSummonFireElemental::unaffect(Creature* pCreature)
     Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
     Assert(pTargetOusters != NULL);
 
-    // ÀÌÆåÆ®¸¦ »èÁ¦ÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_FIRE_ELEMENTAL);

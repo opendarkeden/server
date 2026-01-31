@@ -74,9 +74,9 @@ void CGSelectQuestHandler::execute(CGSelectQuest* pPacket, Player* pPlayer)
     if (code == START_SUCCESS) {
         pPC->sendCurrentQuestInfo();
 
-        // cout << "Quest ½ÃÀÛ " << pPC->getName() << " " << pPacket->getQuestID() << endl;
+        // cout << "Quest ì‹œìž‘ " << pPC->getName() << " " << pPacket->getQuestID() << endl;
     } else {
-        // cout << "Quest ½ÃÀÛ ½ÇÆÐ " << pPC->getName() << " " << (int)code << endl;
+        // cout << "Quest ì‹œìž‘ ì‹¤íŒ¨ " << pPC->getName() << " " << (int)code << endl;
     }
 
 #endif // __GAME_SERVER__

@@ -41,7 +41,7 @@ void CGQuitUnionDenyHandler::execute(CGQuitUnionDeny* pPacket, Player* pPlayer)
 
 #ifdef __OLD_GUILD_WAR__
     GCSystemMessage gcSM;
-    gcSM.setMessage("»¹Ã»ÓĞ¿ª·Å´Ë¹¦ÄÜ.");
+    gcSM.setMessage("ë»˜ì²­å”ì—­ë ´ëŠªë¬˜ì½˜.");
     pGamePlayer->sendPacket(&gcSM);
     return;
 #endif
@@ -58,11 +58,11 @@ void CGQuitUnionDenyHandler::execute(CGQuitUnionDeny* pPacket, Player* pPlayer)
         return;
     }
 
-    // ¿äÃ»ÇÑ³ğÀÌ Áö°¡ ¼ÓÇÑ ±æµåÀÇ ¸¶½ºÅÍÀÎ°¡? || ¿¬ÇÕÀÇ ¸¶½ºÅÍ±æµå°¡ ³» ±æµå°¡ ¸Â³ª?
+    // ìš”ì²­í•œë†ˆì´ ì§€ê°€ ì†í•œ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ì¸ê°€? || ì—°í•©ì˜ ë§ˆìŠ¤í„°ê¸¸ë“œê°€ ë‚´ ê¸¸ë“œê°€ ë§ë‚˜?
     if (!g_pGuildManager->isGuildMaster(pPlayerCreature->getGuildID(), pPlayerCreature) ||
         pUnion->getMasterGuildID() != pPlayerCreature->getGuildID()) {
-        // GC_GUILD_RESPONSE ³¯·ÁÁØ´Ù.
-        // ³»¿ë : ±æµå ¸¶½ºÅÍ°¡ ¾Æ´ÏÀÚ³à -.-+
+        // GC_GUILD_RESPONSE ë‚ ë ¤ì¤€ë‹¤.
+        // ë‚´ìš© : ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆìë…€ -.-+
 
         gcGuildResponse.setCode(GuildUnionOfferManager::SOURCE_IS_NOT_MASTER);
         pPlayer->sendPacket(&gcGuildResponse);
@@ -84,7 +84,7 @@ void CGQuitUnionDenyHandler::execute(CGQuitUnionDeny* pPacket, Player* pPlayer)
     }
     string TargetGuildMaster = pGuild->getMaster();
 
-    // cout << "Å»Åğ°¡ °ÅºÎµÇ¾ú´Ù. Åëº¸¹ŞÀ» À¯Àú´Â : " << TargetGuildMaster.c_str() << endl;
+    // cout << "íƒˆí‡´ê°€ ê±°ë¶€ë˜ì—ˆë‹¤. í†µë³´ë°›ì„ ìœ ì €ëŠ” : " << TargetGuildMaster.c_str() << endl;
 
 
     Statement* pStmt = NULL;

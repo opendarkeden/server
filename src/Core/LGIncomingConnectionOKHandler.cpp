@@ -25,9 +25,9 @@
 //
 // LGIncomingConnectionOKHander::execute()
 //
-// ∑Œ±◊¿Œ º≠πˆ∑Œ∫Œ≈Õ LGIncomingConnectionOK ∆–≈∂¿Ã ≥Øæ∆ø¿∏È, ∞‘¿” º≠πˆ¥¬ ¿Ã «„∞°∞°
-// æÓ¥¿ «√∑π¿ÃæÓø° ¥Î«— «„∞°¿Œ¡ˆ √£æ∆≥ªæﬂ «—¥Ÿ. ±◊ »ƒ, ¿Ã «√∑π¿ÃæÓø°∞‘ LCReconnectLogin
-// ∆–≈∂¿ª ¥¯¡Æ¡‡æﬂ «—¥Ÿ.
+// Î°úÍ∑∏Ïù∏ ÏÑúÎ≤ÑÎ°úÎ∂ÄÌÑ∞ LGIncomingConnectionOK Ìå®ÌÇ∑Ïù¥ ÎÇ†ÏïÑÏò§Î©¥, Í≤åÏûÑ ÏÑúÎ≤ÑÎäî Ïù¥ ÌóàÍ∞ÄÍ∞Ä
+// Ïñ¥Îäê ÌîåÎ†àÏù¥Ïñ¥Ïóê ÎåÄÌïú ÌóàÍ∞ÄÏù∏ÏßÄ Ï∞æÏïÑÎÇ¥Ïïº ÌïúÎã§. Í∑∏ ÌõÑ, Ïù¥ ÌîåÎ†àÏù¥Ïñ¥ÏóêÍ≤å LCReconnectLogin
+// Ìå®ÌÇ∑ÏùÑ ÎçòÏ†∏Ï§òÏïº ÌïúÎã§.
 //
 //--------------------------------------------------------------------------------
 void LGIncomingConnectionOKHandler::execute(LGIncomingConnectionOK* pPacket) {
@@ -36,7 +36,7 @@ void LGIncomingConnectionOKHandler::execute(LGIncomingConnectionOK* pPacket) {
 
         try {
 
-        // «√∑π¿ÃæÓ æ∆¿Ãµ∏¶ ªÁøÎ«ÿº≠ «√∑π¿ÃæÓ ∞¥√ºø° ¡¢±Ÿ«—¥Ÿ.
+        // ÌîåÎ†àÏù¥Ïñ¥ ÏïÑÏù¥ÎîîÎ•º ÏÇ¨Ïö©Ìï¥ÏÑú ÌîåÎ†àÏù¥Ïñ¥ Í∞ùÏ≤¥Ïóê Ï†ëÍ∑ºÌïúÎã§.
         //		__ENTER_CRITICAL_SECTION((*g_pIncomingPlayerManager))
         GamePlayer* pGamePlayer = NULL;
 
@@ -58,24 +58,24 @@ void LGIncomingConnectionOKHandler::execute(LGIncomingConnectionOK* pPacket) {
                                         (pSocket == NULL ? "NULL" : pSocket->getHost().c_str()));
 
             /*
-            // ≈¨∂Û¿Ãæ∆Æø°∞‘ ∞‘¿” º≠πˆ∑Œ ¿Á¡¢º”«œ∂Û∞Ì æÀ∑¡¡ÿ¥Ÿ.
+            // ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏ÏóêÍ≤å Í≤åÏûÑ ÏÑúÎ≤ÑÎ°ú Ïû¨Ï†ëÏÜçÌïòÎùºÍ≥† ÏïåÎ†§Ï§ÄÎã§.
             GCReconnectLogin gcReconnectLogin;
             gcReconnectLogin.setLoginServerIP(pPacket->getHost());
             gcReconnectLogin.setLoginServerPort(pPacket->getTCPPort());
             gcReconnectLogin.setKey(pPacket->getKey());
 
-            // LCReconnectLogin ∆–≈∂¿ª ¿¸º€«—¥Ÿ.
+            // LCReconnectLogin Ìå®ÌÇ∑ÏùÑ Ï†ÑÏÜ°ÌïúÎã§.
             pGamePlayer->sendPacket(&gcReconnectLogin);
 
             cout << "LGIncomingConnectionOKHandler Send Packet to Client Required Reconnect ServerIP : " <<
             pPacket->getHost() << endl;
             */
 
-            // ø¯∑°¥¬ ±◊≥… ¿Ã ≈∏¿Ãπ÷ø° ∆–≈∂¿ª ∫∏≥¬¥¬µ•..
-            // ≈∏¿Ãπ÷ πÆ¡¶∑Œ ¡¢º”«ÿ¡¶∞° ¡¶¥Î∑Œ æ»µ∆¥¬µ• clientø°º≠ ¡¢º”ø‰√ª¿ª «ÿø¿±‚ ∂ßπÆø°
-            // ¬©∑¡º≠..
-            // GamePlayerø° ¿˙¿Â«ÿµŒ∞Ì.. IncomingPlayerManagerø°º≠ disconnect()µ…∂ß
-            // ¿˙¿Â«ÿµ– packet¿ª client∑Œ ∫∏≥Ω¥Ÿ.
+            // ÏõêÎûòÎäî Í∑∏ÎÉ• Ïù¥ ÌÉÄÏù¥Î∞çÏóê Ìå®ÌÇ∑ÏùÑ Î≥¥ÎÉàÎäîÎç∞..
+            // ÌÉÄÏù¥Î∞ç Î¨∏Ï†úÎ°ú Ï†ëÏÜçÌï¥Ï†úÍ∞Ä Ï†úÎåÄÎ°ú ÏïàÎêêÎäîÎç∞ clientÏóêÏÑú Ï†ëÏÜçÏöîÏ≤≠ÏùÑ Ìï¥Ïò§Í∏∞ ÎïåÎ¨∏Ïóê
+            // Ïß§Î†§ÏÑú..
+            // GamePlayerÏóê Ï†ÄÏû•Ìï¥ÎëêÍ≥†.. IncomingPlayerManagerÏóêÏÑú disconnect()Îê†Îïå
+            // Ï†ÄÏû•Ìï¥Îëî packetÏùÑ clientÎ°ú Î≥¥ÎÇ∏Îã§.
             GCReconnectLogin* gcReconnectLogin = new GCReconnectLogin;
             gcReconnectLogin->setLoginServerIP(pPacket->getHost());
             gcReconnectLogin->setLoginServerPort(pPacket->getTCPPort());
@@ -97,19 +97,19 @@ void LGIncomingConnectionOKHandler::execute(LGIncomingConnectionOK* pPacket) {
         }
 
 
-        // ¿Ã∑∏∞‘ «ÿ µŒ∏È,
-        // GamePlayer->processCommand()ø°º≠ isPenaltyFlag()√º≈©ø°º≠ ∞…∑¡º≠
-        // ¥Ÿ¿Ω ≈œ¿« IncomingPlayer->processCommands()ø°º≠ ¿ﬂ∏Æ∞‘ µ»¥Ÿ.
+        // Ïù¥Î†áÍ≤å Ìï¥ ÎëêÎ©¥,
+        // GamePlayer->processCommand()ÏóêÏÑú isPenaltyFlag()Ï≤¥ÌÅ¨ÏóêÏÑú Í±∏Î†§ÏÑú
+        // Îã§Ïùå ÌÑ¥Ïùò IncomingPlayer->processCommands()ÏóêÏÑú ÏûòÎ¶¨Í≤å ÎêúÎã§.
         pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
         pGamePlayer->setItemRatioBonusPoint(3);
 
-        // ø¨∞·¿ª ¡æ∑·«—¥Ÿ.
+        // Ïó∞Í≤∞ÏùÑ Ï¢ÖÎ£åÌïúÎã§.
         // pGamePlayer->disconnect(UNDISCONNECTED);
 
-        // LPMø°º≠ ªË¡¶«—¥Ÿ.
+        // LPMÏóêÏÑú ÏÇ≠Ï†úÌïúÎã§.
         // g_pIncomingPlayerManager->deletePlayer_NOBLOCKED(pGamePlayer->getSocket()->getSOCKET());
 
-        // GamePlayer ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+        // GamePlayer Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
         // SAFE_DELETE(pGamePlayer);
 
         //__LEAVE_CRITICAL_SECTION((*g_pIncomingPlayerManager))

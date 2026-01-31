@@ -32,12 +32,12 @@ void Cannonade::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) {
         ZoneCoord_t myX = pMonster->getX();
         ZoneCoord_t myY = pMonster->getY();
 
-        // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+        // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pMonster);
         SkillOutput output;
         computeOutput(input, output);
 
-        // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+        // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
         EffectCannonade* pEffect = new EffectCannonade(pMonster, pZone, X, Y);
         pEffect->setDeadline(output.Duration);
         pEffect->setDamage(output.Damage);

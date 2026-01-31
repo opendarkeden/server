@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCShopListMysterious.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ÇÃ·¹ÀÌ¾î°¡ °¡Áø »óÁ¡ ¹öÀüÀÌ ¼­¹ö¿¡ ÀÖ´Â °Í°ú ´Ù¸¦ °æ¿ì,
-// ÇÃ·¹ÀÌ¾î´Â ¼­¹ö¿¡ »óÁ¡¿¡ ÀÖ´Â »óÇ° ¸ñ·ÏÀ» ¿ä±¸ÇÏ°Ô µÈ´Ù.
-// ÀÌ ÆĞÅ¶Àº ±× ¶§ ÇÃ·¹ÀÌ¾î¿¡°Ô Àü´ŞÇÏ°Ô µÇ´Â ÆĞÅ¶ÀÌ´Ù.
+// í”Œë ˆì´ì–´ê°€ ê°€ì§„ ìƒì  ë²„ì „ì´ ì„œë²„ì— ìˆëŠ” ê²ƒê³¼ ë‹¤ë¥¼ ê²½ìš°,
+// í”Œë ˆì´ì–´ëŠ” ì„œë²„ì— ìƒì ì— ìˆëŠ” ìƒí’ˆ ëª©ë¡ì„ ìš”êµ¬í•˜ê²Œ ëœë‹¤.
+// ì´ íŒ¨í‚·ì€ ê·¸ ë•Œ í”Œë ˆì´ì–´ì—ê²Œ ì „ë‹¬í•˜ê²Œ ë˜ëŠ” íŒ¨í‚·ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SHOP_LIST_MYSTERIOUS_H__
@@ -91,7 +91,7 @@ private:
     ShopVersion_t m_Version;                                // Shop version
     ShopRackType_t m_RackType;                              // rack type
     SHOPLISTITEM_MYSTERIOUS m_pBuffer[SHOP_RACK_INDEX_MAX]; // buffer for i/o
-    MarketCond_t m_MarketCondBuy;                           // ½ÃÀå ½Ã¼¼
+    MarketCond_t m_MarketCondBuy;                           // ì‹œì¥ ì‹œì„¸
     MarketCond_t m_MarketCondSell;
 };
 

@@ -35,7 +35,7 @@ void PacketIDSet::addPacketID(PacketID_t packetID) {
 
     pair<PACKET_ID_SET::iterator, bool> p = m_PacketIDSet.insert(packetID);
 
-    // ÀÌ¹Ì °°Àº Å°°¡ Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù.
+    // ì´ë¯¸ ê°™ì€ í‚¤ê°€ ì¡´ì¬í•œë‹¤ëŠ” ì†Œë¦¬ë‹¤.
     if (!p.second)
         throw DuplicatedException();
 
@@ -65,18 +65,18 @@ bool PacketIDSet::hasPacketID(PacketID_t packetID) const {
     __BEGIN_TRY
 
     if (m_PacketIDSetType == PIST_NORMAL) {
-        // ÀÏ¹İÀûÀÎ °æ¿ì, Á¸ÀçÇÒ ¶§¿¡¸¸ true ¸¦ ¸®ÅÏÇÑ´Ù.
+        // ì¼ë°˜ì ì¸ ê²½ìš°, ì¡´ì¬í•  ë•Œì—ë§Œ true ë¥¼ ë¦¬í„´í•œë‹¤.
         PACKET_ID_SET::const_iterator itr = m_PacketIDSet.find(packetID);
 
         return itr != m_PacketIDSet.end();
 
     } else if (m_PacketIDSetType == PIST_ANY) {
-        // ±× ¾î¶² ÆĞÅ¶µµ Çã¿ëµÈ´Ù.
+        // ê·¸ ì–´ë–¤ íŒ¨í‚·ë„ í—ˆìš©ëœë‹¤.
         return true;
 
     } else if (m_PacketIDSetType == PIST_IGNORE_EXCEPT) {
-        // ÆĞÅ¶ÀÌ Á¸ÀçÇÒ °æ¿ì, true ¸¦ ¸®ÅÏÇÑ´Ù.
-        // ÆĞÅ¶ÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é, ¹«½ÃÇØ¾ß ÇÑ´Ù.
+        // íŒ¨í‚·ì´ ì¡´ì¬í•  ê²½ìš°, true ë¥¼ ë¦¬í„´í•œë‹¤.
+        // íŒ¨í‚·ì´ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´, ë¬´ì‹œí•´ì•¼ í•œë‹¤.
         PACKET_ID_SET::const_iterator itr = m_PacketIDSet.find(packetID);
 
         if (itr != m_PacketIDSet.end()) {

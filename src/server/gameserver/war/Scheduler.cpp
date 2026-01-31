@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ½ºÄÉÁÙ¸µµÈ ÀÛ¾÷À» À§ÇÑ Scheduler Å¬·¡½º ±¸Çö
+// ìŠ¤ì¼€ì¤„ë§ëœ ì‘ì—…ì„ ìœ„í•œ Scheduler í´ë˜ìŠ¤ êµ¬í˜„
 ///////////////////////////////////////////////////////////////////
 
 #include "Scheduler.h"
@@ -35,7 +35,7 @@ void Scheduler::clear()
 // addSchedule( Schedule* )
 //
 //--------------------------------------------------------------------------------
-// ScheduleÀº RecentSchedules¿Í Schedules¿¡ µ¿½Ã¿¡ µî·ÏµÇ¾î ÀÖ´Ù.
+// Scheduleì€ RecentSchedulesì™€ Schedulesì— ë™ì‹œì— ë“±ë¡ë˜ì–´ ìˆë‹¤.
 //--------------------------------------------------------------------------------
 void Scheduler::addSchedule(Schedule* pSchedule)
 
@@ -53,8 +53,8 @@ void Scheduler::addSchedule(Schedule* pSchedule)
 // popRecentWork( Schedule* pSchedule )
 //
 //--------------------------------------------------------------------------------
-// m_RecentSchedules, m_Schedules¿¡¼­ Á¦°Å
-// pRecentScheduleÀÇ Work´Â returnÇÏ°í pRecentScheduleÀº Áö¿î´Ù
+// m_RecentSchedules, m_Schedulesì—ì„œ ì œê±°
+// pRecentScheduleì˜ WorkëŠ” returní•˜ê³  pRecentScheduleì€ ì§€ìš´ë‹¤
 //--------------------------------------------------------------------------------
 Work* Scheduler::popRecentWork()
 
@@ -78,8 +78,8 @@ Work* Scheduler::popRecentWork()
 // Work* heartbeat()
 //
 //--------------------------------------------------------------------------------
-// °¡Àå ±Ù·¡?¿¡ ½ÇÇàµÉ ¼ö ÀÖ´Â ScheduleÀ» Ã¼Å©ÇØº¸°í ½ÇÇàµÆ´Ù¸é,
-// ScheduleÀÇ Work¸¦ returnÇÑ´Ù. ÀÌ ¶§, ScheduleÀº Áö¿î´Ù.
+// ê°€ì¥ ê·¼ë˜?ì— ì‹¤í–‰ë  ìˆ˜ ìˆëŠ” Scheduleì„ ì²´í¬í•´ë³´ê³  ì‹¤í–‰ëë‹¤ë©´,
+// Scheduleì˜ Workë¥¼ returní•œë‹¤. ì´ ë•Œ, Scheduleì€ ì§€ìš´ë‹¤.
 //--------------------------------------------------------------------------------
 Work* Scheduler::heartbeat()
 
@@ -89,10 +89,10 @@ Work* Scheduler::heartbeat()
     if (m_RecentSchedules.empty())
         return NULL;
 
-    // priority queue ÀÇ top()Àº °¡Àå ÀÛÀº (À§ÀÇ Former ¿¡ ÀÇÇØ¼­) ¿ø¼Ò¸¦ ¸®ÅÏÇÑ´Ù.
-    // ¾ÈÅ¸±õ°Ôµµ Áö±İÀº °¡Àå ºü¸¥ °Ô ³ª¿ÃÁö ´ÊÀº°Ô ³ª¿ÃÁö ¸ğ¸£°Ú´Ù. -.-;;;
+    // priority queue ì˜ top()ì€ ê°€ì¥ ì‘ì€ (ìœ„ì˜ Former ì— ì˜í•´ì„œ) ì›ì†Œë¥¼ ë¦¬í„´í•œë‹¤.
+    // ì•ˆíƒ€ê¹ê²Œë„ ì§€ê¸ˆì€ ê°€ì¥ ë¹ ë¥¸ ê²Œ ë‚˜ì˜¬ì§€ ëŠ¦ì€ê²Œ ë‚˜ì˜¬ì§€ ëª¨ë¥´ê² ë‹¤. -.-;;;
     // 2003. 1.23. by Sequoia
-    // Former Å¬·¡½º¸¦ Latter Å¬·¡½º·Î ¹Ù²ã¼­ Áö±İÀº °¡Àå ºü¸¥ °Ô ³ª¿Â´Ù.
+    // Former í´ë˜ìŠ¤ë¥¼ Latter í´ë˜ìŠ¤ë¡œ ë°”ê¿”ì„œ ì§€ê¸ˆì€ ê°€ì¥ ë¹ ë¥¸ ê²Œ ë‚˜ì˜¨ë‹¤.
     Schedule* pRecentSchedule = m_RecentSchedules.top();
 
     if (pRecentSchedule->heartbeat()) {

@@ -18,7 +18,7 @@ EffectRediance::EffectRediance(Creature* pCreature)
     __BEGIN_TRY
 
     setTarget(pCreature);
-    // ÇÑ¹ø ºÎ¸¦¶§¸¶´Ù ¹ÝÀüµÇ´Â°Å. ÀÇ¹Ì¾ø´Ù.
+    // í•œë²ˆ ë¶€ë¥¼ë•Œë§ˆë‹¤ ë°˜ì „ë˜ëŠ”ê±°. ì˜ë¯¸ì—†ë‹¤.
     m_GiveExp = true;
 
     __END_CATCH
@@ -70,7 +70,7 @@ void EffectRediance::unaffect(Creature* pCreature)
     Zone* pZone = pSlayer->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pSlayer->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_REDIANCE);

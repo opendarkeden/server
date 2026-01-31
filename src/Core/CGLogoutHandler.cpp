@@ -34,8 +34,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ğÆ®°¡ CGLogout ÆĞÅ¶À» º¸³»¸é, °ÔÀÓ ¼­¹ö´Â Å©¸®Ã³¸¦ Á¸¿¡¼­ »èÁ¦ÇÏ°í,
-// Å©¸®Ã³¿Í ¾ÆÀÌÅÛ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÑ ÈÄ, Á¢¼ÓÀ» Á¾·áÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ CGLogout íŒ¨í‚·ì„ ë³´ë‚´ë©´, ê²Œì„ ì„œë²„ëŠ” í¬ë¦¬ì²˜ë¥¼ ì¡´ì—ì„œ ì‚­ì œí•˜ê³ ,
+// í¬ë¦¬ì²˜ì™€ ì•„ì´í…œ ì •ë³´ë¥¼ DBì— ì €ì¥í•œ í›„, ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
 
@@ -47,8 +47,8 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
         //	Assert(pPacket != NULL);
         Assert(pPlayer != NULL);
 
-    // »õ·Î±×ÀÎ ±¸Á¶¿¡¼­´Â LogoutÀ» ÇÏ¸é ´ë±â »óÅÂ·Î ³ª°¡¾ß ÇÑ´Ù.
-    // Logout ÆĞÅ¶À» ¹ŞÀ¸¸é ÇÃ·¹ÀÌ¾î¸¦ IncomingPlayerManager·Î º¸³½´Ù.
+    // ìƒˆë¡œê·¸ì¸ êµ¬ì¡°ì—ì„œëŠ” Logoutì„ í•˜ë©´ ëŒ€ê¸° ìƒíƒœë¡œ ë‚˜ê°€ì•¼ í•œë‹¤.
+    // Logout íŒ¨í‚·ì„ ë°›ìœ¼ë©´ í”Œë ˆì´ì–´ë¥¼ IncomingPlayerManagerë¡œ ë³´ë‚¸ë‹¤.
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
     // cout << "CGLogoutHandler: " << pGamePlayer->getID() << endl;
@@ -62,11 +62,11 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
     Assert(pZone != NULL);
 
 
-    // ³ª´Â ³ª°£´Ù ¶ó°í ·Î±×¸¦ ³²±ä´Ù.
+    // ë‚˜ëŠ” ë‚˜ê°„ë‹¤ ë¼ê³  ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
     pGamePlayer->logLoginoutDateTime();
 
     try {
-        // ·Î±×¾Æ¿ôÇÒ¶§ ¼º¹°, ÇÇÀÇ ¼º¼­ Á¶°¢À» ¶³¾î¶ß¸°´Ù.
+        // ë¡œê·¸ì•„ì›ƒí• ë•Œ ì„±ë¬¼, í”¼ì˜ ì„±ì„œ ì¡°ê°ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         //		bool bSendPacket = false;
         //		dropRelicToZone( pCreature, bSendPacket );
 
@@ -76,7 +76,7 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
 
         if (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore") != 0 && pPacket == NULL) {
         } else {
-            // Å©¸®Ã³ÀÇ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+            // í¬ë¦¬ì²˜ì˜ ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
             pCreature->save();
 
             if (pCreature->isSlayer()) {
@@ -91,16 +91,16 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
             }
 
             //////////////////////////////////////////////////////////////
-            // ÇÃ·¹ÀÌ¾î°¡ COMA»óÅÂ(ÇöÀç Á×Àº »óÅÂ)¶ó¸é ·Î±×¾Æ¿ô½Ã ÀÚµ¿À¸·Î
-            // ºÎÈ°À§Ä¡·Î Ä³¸¯ÅÍ¸¦ ÀÌµ¿½ÃÅ²´Ù.
-            // Login/LogoutÀÇ ¹İº¹À¸·Î ºÎÈ°±â¼úÀ» »ç¿ëÇÏÁö ¸øÇÏ°Ô ÇÔ
+            // í”Œë ˆì´ì–´ê°€ COMAìƒíƒœ(í˜„ì¬ ì£½ì€ ìƒíƒœ)ë¼ë©´ ë¡œê·¸ì•„ì›ƒì‹œ ìë™ìœ¼ë¡œ
+            // ë¶€í™œìœ„ì¹˜ë¡œ ìºë¦­í„°ë¥¼ ì´ë™ì‹œí‚¨ë‹¤.
+            // Login/Logoutì˜ ë°˜ë³µìœ¼ë¡œ ë¶€í™œê¸°ìˆ ì„ ì‚¬ìš©í•˜ì§€ ëª»í•˜ê²Œ í•¨
             //
-            // CreatureÀÇ Á¤º¸¸¦ ¸ÕÀú DB¿¡ ¾÷µ¥ÀÌÆ®ÇÑ ÈÄ »õ·Î ¾÷µ¥ÀÌÆ®¸¦ ÇÑ´Ù.
+            // Creatureì˜ ì •ë³´ë¥¼ ë¨¼ì € DBì— ì—…ë°ì´íŠ¸í•œ í›„ ìƒˆë¡œ ì—…ë°ì´íŠ¸ë¥¼ í•œë‹¤.
             //////////////////////////////////////////////////////////////
 
-            // ÀÌÅÍ´ÏÆ¼¸¦ ÇÑ¹ø ¾´ »óÅÂ·Î ·Î±×¾Æ¿ôÇÏ¸é ºÎÈ° À§Ä¡·Î ³¯¶ó°£´Ù.
+            // ì´í„°ë‹ˆí‹°ë¥¼ í•œë²ˆ ì“´ ìƒíƒœë¡œ ë¡œê·¸ì•„ì›ƒí•˜ë©´ ë¶€í™œ ìœ„ì¹˜ë¡œ ë‚ ë¼ê°„ë‹¤.
             if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isFlag(Effect::EFFECT_CLASS_ETERNITY)) {
-                // cout << "COMA »óÅÂ¿¡¼­ ·Î±×¾Æ¿ôÇßÀ½" << endl;
+                // cout << "COMA ìƒíƒœì—ì„œ ë¡œê·¸ì•„ì›ƒí–ˆìŒ" << endl;
 
                 ZoneID_t ZoneID = 0;
                 ZoneCoord_t ZoneX = 0;
@@ -189,7 +189,7 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
                                     throw Error("Critical Error: ResurrectInfo is not established");
                                 }
                             }
-                            // ÀÌÁ¦ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+                            // ì´ì œ ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
                             char pField[80];
                             sprintf(pField, "ZoneID=%d, XCoord=%d, YCoord=%d, CurrentHP=HP", ZoneID, ZoneX, ZoneY);
                             pVampire->tinysave(pField);
@@ -199,26 +199,26 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
 
 
         //
-        // ÀÌÁ¦, Á¸¿¡¼­ PC¸¦ »èÁ¦ÇÑ´Ù.
+        // ì´ì œ, ì¡´ì—ì„œ PCë¥¼ ì‚­ì œí•œë‹¤.
         //
         // *CAUTION*
         //
-        // pCreatureÀÇ ÁÂÇ¥°¡ ½ÇÁ¦·Î pCreature°¡ Á¸ÀçÇÏ´Â Å¸ÀÏÀÇ ÁÂÇ¥¿Í °°¾Æ¾ß ÇÑ´Ù.
-        // µû¶ó¼­, ÀÌ ¸Ş½îµå¸¦ È£ÃâÇÏ±â Àü¿¡ ÁÂÇ¥¸¦ Àß ¹Ù²ã³ö¾ß ÇÑ´ç..
+        // pCreatureì˜ ì¢Œí‘œê°€ ì‹¤ì œë¡œ pCreatureê°€ ì¡´ì¬í•˜ëŠ” íƒ€ì¼ì˜ ì¢Œí‘œì™€ ê°™ì•„ì•¼ í•œë‹¤.
+        // ë”°ë¼ì„œ, ì´ ë©”ì˜ë“œë¥¼ í˜¸ì¶œí•˜ê¸° ì „ì— ì¢Œí‘œë¥¼ ì˜ ë°”ê¿”ë†”ì•¼ í•œë‹¹..
         //
         pZone->deleteCreature(pCreature, pCreature->getX(), pCreature->getY());
 
         ////cout << "PC deleted from Zone >> ";
 
-        // Á¸±×·ìÀÇ ZPM¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
-        // ZonePlayerManagerÀÇ ProcessCommand ¾È¿¡¼­ Áö¿ì´Â °ÍÀÌ¹Ç·Î ¹İµå½Ã NoBlocked À¸·Î Áö¿ö¾ß ÇÑ´Ù.
+        // ì¡´ê·¸ë£¹ì˜ ZPMì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
+        // ZonePlayerManagerì˜ ProcessCommand ì•ˆì—ì„œ ì§€ìš°ëŠ” ê²ƒì´ë¯€ë¡œ ë°˜ë“œì‹œ NoBlocked ìœ¼ë¡œ ì§€ì›Œì•¼ í•œë‹¤.
         pZone->getZoneGroup()->getZonePlayerManager()->deletePlayer(pGamePlayer->getSocket()->getSOCKET());
 
-        // IPMÀ¸·Î ÇÃ·¹ÀÌ¾î¸¦ ¿Å±ä´Ù.
+        // IPMìœ¼ë¡œ í”Œë ˆì´ì–´ë¥¼ ì˜®ê¸´ë‹¤.
         // g_pIncomingPlayerManager->pushPlayer(pGamePlayer);
 
-        // CoreÀÇ ±¸Á¶¸¦ ¹Ù²Ù¸é¼­ ¾²·¹µå·Î ºÎÅÍ µ¶¸³ÀûÀ¸·Î ÇàÇÏ±â À§ÇÏ¿© µÚ¿¡ ÇÑ²¨¹ø¿¡ Ã³¸®ÇÏ±â À§ÇØ¼­
-        // OutList·Î ³Ö´Â´Ù.
+        // Coreì˜ êµ¬ì¡°ë¥¼ ë°”ê¾¸ë©´ì„œ ì“°ë ˆë“œë¡œ ë¶€í„° ë…ë¦½ì ìœ¼ë¡œ í–‰í•˜ê¸° ìœ„í•˜ì—¬ ë’¤ì— í•œêº¼ë²ˆì— ì²˜ë¦¬í•˜ê¸° ìœ„í•´ì„œ
+        // OutListë¡œ ë„£ëŠ”ë‹¤.
         pZone->getZoneGroup()->getZonePlayerManager()->pushOutPlayer(pGamePlayer);
 
         ////cout << "Move PC to IPM >> ";
@@ -226,8 +226,8 @@ void CGLogoutHandler::execute(CGLogout* pPacket, Player* pPlayer)
         throw DisconnectException();
     }
 
-    // ·Î±×ÀÎ ¼­¹ö·Î GLIncomingConnectionÀ» º¸³½´Ù.
-    // PlayerName°ú ClientIP¸¦ °°ÀÌ ½Ç¾î¼­ º¸³½´Ù.
+    // ë¡œê·¸ì¸ ì„œë²„ë¡œ GLIncomingConnectionì„ ë³´ë‚¸ë‹¤.
+    // PlayerNameê³¼ ClientIPë¥¼ ê°™ì´ ì‹¤ì–´ì„œ ë³´ë‚¸ë‹¤.
     // add by zdj
     GLIncomingConnection glIncomingConnection;
     glIncomingConnection.setPlayerID(pGamePlayer->getID());

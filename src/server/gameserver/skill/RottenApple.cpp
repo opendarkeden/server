@@ -16,7 +16,7 @@
 #include "PacketUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// Â½Â½Â·Â¹Ã€ÃŒÂ¾Ã® Â¿Ã€ÂºÃªÃÂ§Ã†Â® Ã‡ÃšÂµÃ©Â·Â¯
 //////////////////////////////////////////////////////////////////////////////
 void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -37,7 +37,7 @@ void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        if (pTargetCreature == NULL || pTargetCreature->isSlayer()) // NoSuch Á¦°Å. by sigi. 2002.5.2
+        if (pTargetCreature == NULL || pTargetCreature->isSlayer()) // NoSuch ÃÂ¦Â°Ã…. by sigi. 2002.5.2
         {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerobject)" << endl;
@@ -93,7 +93,7 @@ void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanUse) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-            // ±â¼úÀÇ È¿°úÄ¡ ¹× Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // Â±Ã¢Â¼ÃºÃ€Ã‡ ÃˆÂ¿Â°ÃºÃ„Â¡ Â¹Ã— ÃÃ¶Â¼Ã“Â½ÃƒÂ°Â£Ã€Â» Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
             SkillInput input(pSlayer, pSkillSlot);
             if (pTargetCreature->getCreatureClass() == Creature::CREATURE_CLASS_SLAYER)
                 input.TargetType = SkillInput::TARGET_SELF;
@@ -102,7 +102,7 @@ void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
             SkillOutput output;
             computeOutput(input, output);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // Â°Ã¦Ã‡Ã¨Ã„Â¡Â¸Â¦ Â¿ÃƒÂ·ÃÃÃ˜Â´Ã™.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToTileOK1);
@@ -144,7 +144,7 @@ void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
                             currentHP = pOusters->getHP(ATTR_CURRENT);
                         } else if (pCreature->isMonster()) {
                             Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-                            // edit by sonic 2006.11.1  ĞŞÕıÈËÀà×£¸£ÃëÉ±BOSS¼¼ÄÜ(ÀÃÆ»¹û)
+                            // edit by sonic 2006.11.1  ÃÃÃ•Ã½ÃˆÃ‹Ã€Ã Ã—Â£Â¸Â£ÃƒÃ«Ã‰Â±BOSSÂ¼Â¼Ã„Ãœ(Ã€ÃƒÃ†Â»Â¹Ã»)
                             if (pMonster->getMonsterType() == 764 || pMonster->getMonsterType() == 765 ||
                                 pMonster->getMonsterType() == 717 ||
                                 // pMonster->getMonsterType() == 599 ||

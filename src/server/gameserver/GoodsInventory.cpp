@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////
 // Filename			: GoodsInventory.cpp
 // Written By		: bezz
-// Description		: È¨ÆäÀÌÁö¿¡¼­ ±¸¸ÅÇÑ ¾ÆÀÌÅÛÀÌ ´ã°Ü ÀÖ´Â Inventory
+// Description		: í™ˆí˜ì´ì§€ì—ì„œ êµ¬ë§¤í•œ ì•„ì´í…œì´ ë‹´ê²¨ ìˆëŠ” Inventory
 //////////////////////////////////////////////////////////////////////////
 
 #include "GoodsInventory.h"
@@ -84,7 +84,7 @@ Item* GoodsInventory::popItem(ObjectID_t oid)
         if ((*itr).m_pItem->getObjectID() == oid) {
             pItem = (*itr).m_pItem;
 
-            filelog("Goods.log", "¾ÆÀÌÅÛÀ» Ã£¾Æ°¬½À´Ï´Ù. : [%s:%s]", (*itr).m_ID.c_str(),
+            filelog("Goods.log", "ì•„ì´í…œì„ ì°¾ì•„ê°”ìŠµë‹ˆë‹¤. : [%s:%s]", (*itr).m_ID.c_str(),
                     (*itr).m_pItem->toString().c_str());
 
             Statement* pStmt = NULL;
@@ -95,10 +95,10 @@ Item* GoodsInventory::popItem(ObjectID_t oid)
                     "UPDATE GoodsListObject SET Num = Num - 1, Status = IF( NUM < 1, 'GET', 'NOT' ) WHERE ID=%s",
                     (*itr).m_ID.c_str());
 
-                // UPDATEÀÎ °æ¿ì´Â Result* ´ë½Å¿¡.. pStmt->getAffectedRowCount()
+                // UPDATEì¸ ê²½ìš°ëŠ” Result* ëŒ€ì‹ ì—.. pStmt->getAffectedRowCount()
 
                 if (pStmt->getAffectedRowCount() == 0) {
-                    filelog("Goods.log", "±Ùµ¥ DB¿¡ ¾÷µ¥ÀÌÆ®°¡ ¾ÈµÆ½À´Ï´Ù. : %s", (*itr).m_ID.c_str());
+                    filelog("Goods.log", "ê·¼ë° DBì— ì—…ë°ì´íŠ¸ê°€ ì•ˆëìŠµë‹ˆë‹¤. : %s", (*itr).m_ID.c_str());
                 }
 
                 SAFE_DELETE(pStmt);

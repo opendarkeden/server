@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ÀüÀï¿¡ ´ëÇÑ Àü¹İÀûÀÎ Á¤º¸ ¹× ÀüÀï ½ÃÀÛ ¹× Á¾·á½Ã Ã³¸®·çÆ¾.
+// ì „ìŸì— ëŒ€í•œ ì „ë°˜ì ì¸ ì •ë³´ ë° ì „ìŸ ì‹œì‘ ë° ì¢…ë£Œì‹œ ì²˜ë¦¬ë£¨í‹´.
 ///////////////////////////////////////////////////////////////////
 
 #ifndef __GUILD_WAR_H__
@@ -63,11 +63,11 @@ public:
     virtual string toString() const;
 
 private:
-    ZoneID_t m_CastleZoneID;       // ÀüÀï°ú °ü·ÃµÈ ¼ºÀÇ ZoneID
-    GuildID_t m_ChallangerGuildID; // WAR_GUILD ÀÏ¶§ ÀüÀïÀ» ½ÅÃ»ÇÑ ±æµåÀÇ ID
-    Gold_t m_RegistrationFee;      // Áö±ŞµÈ ÀüÀï ½ÅÃ»±İ
+    ZoneID_t m_CastleZoneID;       // ì „ìŸê³¼ ê´€ë ¨ëœ ì„±ì˜ ZoneID
+    GuildID_t m_ChallangerGuildID; // WAR_GUILD ì¼ë•Œ ì „ìŸì„ ì‹ ì²­í•œ ê¸¸ë“œì˜ ID
+    Gold_t m_RegistrationFee;      // ì§€ê¸‰ëœ ì „ìŸ ì‹ ì²­ê¸ˆ
 
-    // ÀüÀï °á°ú
+    // ì „ìŸ ê²°ê³¼
     Race_t m_WinnerRace;
     GuildID_t m_WinnerGuildID;
     bool m_bModifyCastleOwner;

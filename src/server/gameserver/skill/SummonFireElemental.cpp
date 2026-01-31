@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonFireElemental::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
 
@@ -58,12 +58,12 @@ void SummonFireElemental::execute(Ousters* pOusters, OustersSkillSlot* pOustersS
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire) {
             decreaseMana(pOusters, RequiredMP, _GCSkillToSelfOK1);
 
-            // Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pOusters, pOustersSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // cout << pOusters->getName() << "ÀÌ SummonFireElemental¸¦ ½è°í µ¥¹ÌÁö´Â " << output.Damage << "ÀÔ´Ï´Ù." <<
+            // cout << pOusters->getName() << "ì´ SummonFireElementalë¥¼ ì¼ê³  ë°ë¯¸ì§€ëŠ” " << output.Damage << "ì…ë‹ˆë‹¤." <<
             // endl;
 
             Damage_t Damage = output.Damage;
@@ -71,7 +71,7 @@ void SummonFireElemental::execute(Ousters* pOusters, OustersSkillSlot* pOustersS
             bool dummy;
             computeCriticalBonus(pOusters, getSkillType(), Damage, dummy);
 
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ë˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectSummonFireElemental* pEffect = new EffectSummonFireElemental(pOusters);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamage(Damage);

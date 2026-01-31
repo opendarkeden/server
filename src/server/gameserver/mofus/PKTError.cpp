@@ -1,8 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTError.cpp
-// Desc		: ÆÄ¿öÂ¯ ¼­¹ö¿¡¼­ ¿¡·¯¿¡ ´ëÇÑ °á°ú¸¦ º¸³»±â À§ÇØ¼­ »ç¿ëµÈ´Ù.
-// 			  ¿Â¶óÀÎ ¼­¹ö¿¡¼­´Â ¼­¹ö ¿À·ù·Î ÀÏ°ü Ã³¸®ÇÏ°í ´ëºÎºÐ
-// 			  µð¹ö±×¿ëÀ¸·Î »ç¿ë
+// Desc		: íŒŒì›Œì§± ì„œë²„ì—ì„œ ì—ëŸ¬ì— ëŒ€í•œ ê²°ê³¼ë¥¼ ë³´ë‚´ê¸° ìœ„í•´ì„œ ì‚¬ìš©ëœë‹¤.
+// 			  ì˜¨ë¼ì¸ ì„œë²„ì—ì„œëŠ” ì„œë²„ ì˜¤ë¥˜ë¡œ ì¼ê´€ ì²˜ë¦¬í•˜ê³  ëŒ€ë¶€ë¶„
+// 			  ë””ë²„ê·¸ìš©ìœ¼ë¡œ ì‚¬ìš©
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -10,12 +10,12 @@
 
 #include "MPacketID.h"
 
-// »ý¼ºÀÚ
+// ìƒì„±ìž
 PKTError::PKTError() {
     nSize = szPKTError - szMPacketSize;
 }
 
-// ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+// ìž…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
 void PKTError::read(SocketInputStream& iStream) {
     iStream.read((char*)this, szPKTError);
 
@@ -25,7 +25,7 @@ void PKTError::read(SocketInputStream& iStream) {
     //	nError		= ntohl( nError );
 }
 
-// Ãâ·Â ½ºÆ®¸²À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 void PKTError::write(SocketOutputStream& oStream) {
     nCode = getID();
 

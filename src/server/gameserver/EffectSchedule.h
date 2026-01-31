@@ -55,8 +55,8 @@ public:
     }
 
 private:
-    int m_Code;    // ÀÌÆåÆ®¿¡ ´ëÇÑ ÀÛ¾÷ ÄÚµå
-    void* m_pData; // ÀÌÆåÆ® ÀÛ¾÷ ÄÚµå¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ
+    int m_Code;    // ì´í™íŠ¸ì— ëŒ€í•œ ì‘ì—… ì½”ë“œ
+    void* m_pData; // ì´í™íŠ¸ ì‘ì—… ì½”ë“œì— í•„ìš”í•œ ë°ì´í„°
 };
 
 
@@ -70,7 +70,7 @@ public:
     ~EffectSchedule();
 
 public:
-    // ÀÛ¾÷ ´ë»óÀÎ ÀÌÆåÆ®¸¦ ´õÇÑ´Ù.
+    // ì‘ì—… ëŒ€ìƒì¸ ì´í™íŠ¸ë¥¼ ë”í•œë‹¤.
     Effect* getEffect(void) const {
         return m_pEffect;
     }
@@ -78,10 +78,10 @@ public:
         m_pEffect = pEffect;
     }
 
-    // ÀÛ¾÷À» ´õÇÑ´Ù.
+    // ì‘ì—…ì„ ë”í•œë‹¤.
     void addWork(int WorkCode, void* pData);
 
-    // ÀÛ¾÷ Áß¿¡ Á¦ÀÏ ¾Õ¿¡ ÀÖ´Â ÀÛ¾÷ÀÇ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+    // ì‘ì—… ì¤‘ì— ì œì¼ ì•ì— ìˆëŠ” ì‘ì—…ì˜ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
     EffectScheduleWork* getFrontWork(void);
 
 private:
@@ -100,10 +100,10 @@ public:
     ~EffectScheduleManager();
 
 public:
-    // ÀÌÆåÆ® ½ºÄÉÁìÀ» ´õÇÑ´Ù.
+    // ì´í™íŠ¸ ìŠ¤ì¼€ì¥´ì„ ë”í•œë‹¤.
     void addEffectSchedule(EffectSchedule* pEffectSchedule);
 
-    // ÀÌÆåÆ® ½ºÄÉÁìÀ» ½ÇÇàÇÑ´Ù.
+    // ì´í™íŠ¸ ìŠ¤ì¼€ì¥´ì„ ì‹¤í–‰í•œë‹¤.
     void heartbeat(void);
 
 protected:

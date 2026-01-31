@@ -24,7 +24,7 @@ int normalizeCoord_GRAY_DARKNESS(int x, int y, int edge) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GrayDarkness::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -44,7 +44,7 @@ void GrayDarkness::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pVampire, getSkillType());
             return;
@@ -61,7 +61,7 @@ void GrayDarkness::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -94,7 +94,7 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
         ZoneCoord_t myX = pVampire->getX();
         ZoneCoord_t myY = pVampire->getY();
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -131,12 +131,12 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bTileCheck && !bSlayerSafeZone) {
             decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
-            // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             computeOutput(input, output);
 
-            /*			// Wisdom of GrayDarkness ÀÌ ÀÖ´Ù¸é Áö¼Ó½Ã°£ 30% Áõ°¡
+            /*			// Wisdom of GrayDarkness ì´ ìˆë‹¤ë©´ ì§€ì†ì‹œê°„ 30% ì¦ê°€
                         if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WISDOM_OF_GRAY_DARKNESS ) )
                         {
                             RankBonus* pRankBonus = pVampire->getRankBonus(
@@ -153,7 +153,7 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
             int edge = 1;
 
-            // Wide GrayDarkness ÀÌ ÀÖ´Ù¸é ¹üÀ§°¡ 5*5 ·Î ¼öÁ¤. skill type À» ¼öÁ¤ÇÑ´Ù.
+            // Wide GrayDarkness ì´ ìˆë‹¤ë©´ ë²”ìœ„ê°€ 5*5 ë¡œ ìˆ˜ì •. skill type ì„ ìˆ˜ì •í•œë‹¤.
             /*			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WIDE_GRAY_DARKNESS ) )
                         {
                             RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_WIDE_GRAY_DARKNESS );
@@ -196,27 +196,27 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
                         if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) != NULL)
                             continue;
 
-                        // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
+                        // í˜„ì¬ íƒ€ì¼ì—ë‹¤ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë‹¤ë©´...
                         if (tile.canAddEffect()) {
-                            // ¸Ó½Ã ±×¶ó¿îµå ÀÖÀ½ Ãß°¡ ¸øÇÑ´ç.
+                            // ë¨¸ì‹œ ê·¸ë¼ìš´ë“œ ìˆìŒ ì¶”ê°€ ëª»í•œë‹¹.
                             if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL)
                                 continue;
 
-                            // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+                            // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
                             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GRAY_DARKNESS);
                             if (pOldEffect != NULL) {
                                 ObjectID_t effectID = pOldEffect->getObjectID();
                                 pZone->deleteEffect(effectID); // fix me
                             }
 
-                            // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                            // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                             EffectGrayDarkness* pEffect = new EffectGrayDarkness(pZone, tileX, tileY);
                             pEffect->setDeadline(output.Duration);
                             pEffect->setLevel(pVampire->getINT());
                             pEffect->setDuration(output.Duration);
                             //						pEffect->setStartTime();
 
-                            // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                            // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                             ObjectRegistry& objectregister = pZone->getObjectRegistry();
                             objectregister.registerObject(pEffect);
                             pZone->addEffect(pEffect);
@@ -296,8 +296,8 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pVampire);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pVampire)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pVampire)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -306,9 +306,9 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pVampire) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (!pWatcher->isPC()) {
-                        // cout << "GrayDarkness : ¿ÓÃ³ ¸®½ºÆ®°¡ PC°¡ ¾Æ´Õ´Ï´Ù." << endl;
+                        // cout << "GrayDarkness : ì™“ì²˜ ë¦¬ìŠ¤íŠ¸ê°€ PCê°€ ì•„ë‹™ë‹ˆë‹¤." << endl;
                         GCSkillFailed1 _GCSkillFailed1;
                         _GCSkillFailed1.setSkillType(getSkillType());
                         pVampire->getPlayer()->sendPacket(&_GCSkillFailed1);
@@ -355,7 +355,7 @@ void GrayDarkness::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GrayDarkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -392,7 +392,7 @@ void GrayDarkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             bTileCheck = true;
 
         if (bRangeCheck && bHitRoll && bTileCheck) {
-            // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
@@ -420,27 +420,27 @@ void GrayDarkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                             }
                         }
 
-                        // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
+                        // í˜„ì¬ íƒ€ì¼ì—ë‹¤ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë‹¤ë©´...
                         if (tile.canAddEffect()) {
-                            // ¸Ó½Ã ±×¶ó¿îµå ÀÖÀ½ Ãß°¡ ¸øÇÑ´ç.
+                            // ë¨¸ì‹œ ê·¸ë¼ìš´ë“œ ìˆìŒ ì¶”ê°€ ëª»í•œë‹¹.
                             if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL)
                                 continue;
 
-                            // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+                            // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
                             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GRAY_DARKNESS);
                             if (pOldEffect != NULL) {
                                 ObjectID_t effectID = pOldEffect->getObjectID();
                                 pZone->deleteEffect(effectID); // fix me
                             }
 
-                            // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                            // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                             EffectGrayDarkness* pEffect = new EffectGrayDarkness(pZone, tileX, tileY);
                             pEffect->setDeadline(output.Duration);
                             pEffect->setLevel(pMonster->getINT());
                             pEffect->setDuration(output.Duration);
                             //						pEffect->setStartTime();
 
-                            // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                            // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                             ObjectRegistry& objectregister = pZone->getObjectRegistry();
                             objectregister.registerObject(pEffect);
 
@@ -512,8 +512,8 @@ void GrayDarkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pMonster);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pMonster)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pMonster)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -522,7 +522,7 @@ void GrayDarkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pMonster) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (!pWatcher->isPC()) {
                         // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
                         return;

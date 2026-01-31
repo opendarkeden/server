@@ -69,8 +69,8 @@ bool QuestInfo::canExecute(PlayerCreature* pPC) const
 
         curGrade = (QuestGrade_t)pOusters->getLevel();
     } else {
-        //	cout << "¾Æ¿ì½ºÅÍÁî³Ä? -_-; QuestInfo::canExecute()" << endl;
-        cout << "³Í´ëÃ¼¸Ó³Ä-_-; QuestInfo::canExecute()" << endl;
+        //	cout << "ì•„ìš°ìŠ¤í„°ì¦ˆëƒ? -_-; QuestInfo::canExecute()" << endl;
+        cout << "ë„ŒëŒ€ì²´ë¨¸ëƒ-_-; QuestInfo::canExecute()" << endl;
         return false;
     }
 

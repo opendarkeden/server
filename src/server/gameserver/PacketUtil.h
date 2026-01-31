@@ -2,8 +2,8 @@
 // Filename    : PacketUtil.h
 // Written by  : excel96
 // Description :
-// ÀÚÁÖ º¸³»°í, ¸¸µé±â°¡ º¹ÀâÇÑ ÆĞÅ¶Àº ¸¸µå´Â °÷À» ¿©±â ÇÏ³ª·Î ÅëÀÏÇÔÀ¸·Î½á,
-// À¯Áöº¸¼ö°¡ ½¬¿öÁø´Ù.
+// ìì£¼ ë³´ë‚´ê³ , ë§Œë“¤ê¸°ê°€ ë³µì¡í•œ íŒ¨í‚·ì€ ë§Œë“œëŠ” ê³³ì„ ì—¬ê¸° í•˜ë‚˜ë¡œ í†µì¼í•¨ìœ¼ë¡œì¨,
+// ìœ ì§€ë³´ìˆ˜ê°€ ì‰¬ì›Œì§„ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PACKETUTIL_H__
@@ -58,69 +58,69 @@ class GCModifyInformation;
 // function headers
 //////////////////////////////////////////////////////////////////////////////
 
-// MOdifyInformation ¿¡ ±æµå¿¬ÇÕÁ¤º¸¸¦ ¸¸µé¾î ³Ö´Â´Ù.
+// MOdifyInformation ì— ê¸¸ë“œì—°í•©ì •ë³´ë¥¼ ë§Œë“¤ì–´ ë„£ëŠ”ë‹¤.
 void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creature* pCreature);
 void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Creature* pCreature);
 void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature);
 void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID);
 
 
-// Æ÷Å»ÀÌ³ª, Á×¾î¼­ ¸Ê »çÀÌ¸¦ ÀÌµ¿ÇÒ ¶§ ¾²´Â, GCUpdateInfo Á¤º¸¸¦ ±¸¼ºÇÑ´Ù.
+// í¬íƒˆì´ë‚˜, ì£½ì–´ì„œ ë§µ ì‚¬ì´ë¥¼ ì´ë™í•  ë•Œ ì“°ëŠ”, GCUpdateInfo ì •ë³´ë¥¼ êµ¬ì„±í•œë‹¤.
 void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature);
 
-// ½½·¹ÀÌ¾î Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddSlayer(GCAddSlayer* pAddSlayer, Slayer* pSlayer);
 
-// ¹ìÆÄÀÌ¾î Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ë±€íŒŒì´ì–´ ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddVampire(GCAddVampire* pAddVampire, Vampire* pVampire);
 
-// ¾Æ¿ì½ºÅÍ½º Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddOusters(GCAddOusters* pAddOusters, Ousters* pOusters);
 
-// ¸ó½ºÅÍ Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ëª¬ìŠ¤í„° ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddMonster(GCAddMonster* pAddMonster, Monster* pMonster);
 
-// NPc Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// NPc ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddNPC(GCAddNPC* pAddNPC, NPC* pNPC);
 
-// »õ·Î¿î ¾ÆÀÌÅÛÀ» Á¸¿¡´Ù Ãß°¡ÇÒ ¶§ º¸³»´Â GCAddNewItemToZoneÀ» ±¸¼ºÇÑ´Ù.
+// ìƒˆë¡œìš´ ì•„ì´í…œì„ ì¡´ì—ë‹¤ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” GCAddNewItemToZoneì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddItem, Item* pItem, int X, int Y);
 
-// »õ·Î¿î ¾ÆÀÌÅÛÀ» Á¸¿¡´Ù Ãß°¡ÇÒ ¶§ º¸³»´Â GCAddNewItemToZoneÀ» ±¸¼ºÇÑ´Ù.
+// ìƒˆë¡œìš´ ì•„ì´í…œì„ ì¡´ì—ë‹¤ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” GCAddNewItemToZoneì„ êµ¬ì„±í•œë‹¤.
 void makeGCDropItemToZone(GCDropItemToZone* pAddItem, Item* pItem, int X, int Y);
 
-// Á¸¿¡´Ù ½½·¹ÀÌ¾î ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ìŠ¬ë ˆì´ì–´ ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddSlayerCorpse(GCAddSlayerCorpse* pAddSlayerCorpse, SlayerCorpse* pSlayerCorpse);
 
-// Á¸¿¡´Ù ¹ìÆÄÀÌ¾î ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ë±€íŒŒì´ì–´ ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddVampireCorpse(GCAddVampireCorpse* pAddVampireCorpse, VampireCorpse* pVampireCorpse);
 
-// Á¸¿¡´Ù ¸ó½ºÅÍ ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ëª¬ìŠ¤í„° ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddMonsterCorpse(GCAddMonsterCorpse* pAddMonsterCorpse, MonsterCorpse* pMonsterCorpse, int X, int Y);
 
-// Á¸¿¡´Ù ¾Æ¿ì½ºÅÍÁî ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ì•„ìš°ìŠ¤í„°ì¦ˆ ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void makeGCAddOustersCorpse(GCAddOustersCorpse* pAddOustersCorpse, OustersCorpse* pOustersCorpse);
 
-// ´Ù¸¥ »ç¶÷ÀÇ ÃÖ´ë Ã¼·Â °°Àº °ÍÀÌ º¯°æµÇ¾úÀ» °æ¿ì¿¡ ³¯¾Æ°¡´Â GCOtherModifyInfo¸¦ ±¸¼ºÇÑ´Ù.
+// ë‹¤ë¥¸ ì‚¬ëŒì˜ ìµœëŒ€ ì²´ë ¥ ê°™ì€ ê²ƒì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°ì— ë‚ ì•„ê°€ëŠ” GCOtherModifyInfoë¥¼ êµ¬ì„±í•œë‹¤.
 void makeGCOtherModifyInfo(GCOtherModifyInfo* pInfo, Slayer* pSlayer, const SLAYER_RECORD* prev);
 void makeGCOtherModifyInfo(GCOtherModifyInfo* pInfo, Vampire* pVampire, const VAMPIRE_RECORD* prev);
 void makeGCOtherModifyInfo(GCOtherModifyInfo* pInfo, Ousters* pOusters, const OUSTERS_RECORD* prev);
 
-// ¿ä±İ ÁöºÒ °ü·Ã Á¤º¸¸¦ º¸¿©ÁØ´Ù.
+// ìš”ê¸ˆ ì§€ë¶ˆ ê´€ë ¨ ì •ë³´ë¥¼ ë³´ì—¬ì¤€ë‹¤.
 void sendPayInfo(GamePlayer* pGamePlayer);
 
-// ¾ÆÀÌÅÛ »ı¼º
+// ì•„ì´í…œ ìƒì„±
 void makeGCCreateItem(GCCreateItem* pGCCreateItem, Item* pItem, CoordInven_t x, CoordInven_t y);
 
-// ·¹º§ ¾÷ ÀÌÆåÆ®¸¦ º¸¿©ÁØ´Ù.
+// ë ˆë²¨ ì—… ì´í™íŠ¸ë¥¼ ë³´ì—¬ì¤€ë‹¤.
 void sendEffectLevelUp(Creature* pCreature);
 
-// GamePlayer¿¡°Ô GCSystemMessage(msg)¸¦ º¸³½´Ù. incoming¿¡ ÀÖ´Â °æ¿ì´Â zone¿¡ °¡¸é »Ñ·ÁÁØ´Ù.
+// GamePlayerì—ê²Œ GCSystemMessage(msg)ë¥¼ ë³´ë‚¸ë‹¤. incomingì— ìˆëŠ” ê²½ìš°ëŠ” zoneì— ê°€ë©´ ë¿Œë ¤ì¤€ë‹¤.
 void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg);
 
 bool makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList, ZoneID_t zoneID);
 
-// ÀÌ¸§ÀÌ ºÙ´Â ¾ÆÀÌÅÛ Á¤º¸¸¦ º¸³»ÁÖ´Â ÆĞÅ¶
+// ì´ë¦„ì´ ë¶™ëŠ” ì•„ì´í…œ ì •ë³´ë¥¼ ë³´ë‚´ì£¼ëŠ” íŒ¨í‚·
 // void makeGCItemNameInfoList(GCItemNameInfoList* pInfo, PlayerCreature* pPC) ;
 
 void sendGCMiniGameScores(PlayerCreature* pPC, BYTE gameType, BYTE Level);

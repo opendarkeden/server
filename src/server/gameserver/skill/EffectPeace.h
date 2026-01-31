@@ -16,7 +16,7 @@
 
 class EffectPeace : public Effect {
 public:
-    // pCreature(³ª)°¡ pPeaceCreatureÇÑÅ× peace»óÅÂ¸¦ À¯ÁöÇÑ´Ù.
+    // pCreature(ë‚˜)ê°€ pPeaceCreatureí•œí…Œ peaceìƒíƒœë¥¼ ìœ ì§€í•œë‹¤.
     EffectPeace(Creature* pCreature, ObjectID_t PeaceCreatureID);
 
 public:

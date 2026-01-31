@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectAddItemToCorpse;
-// �������� ��ü�� �߰��Ѵ�.
+// 아이템을 시체에 추가한다.
 //////////////////////////////////////////////////////////////////////////////
 
 class Item;
@@ -26,7 +26,7 @@ public:
         return EFFECT_CLASS_ADD_ITEM_TO_CORPSE;
     }
 
-    // OBJECT_PRIORITY_NONE ��� ����, Ÿ�Ͽ� ������ �ȵȴٴ� ���̴�.
+    // OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }

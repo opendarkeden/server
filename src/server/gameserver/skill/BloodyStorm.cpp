@@ -18,7 +18,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Â¿Ã€ÂºÃªÃÂ§Ã†Â® Ã‡ÃšÂµÃ©Â·Â¯
 //////////////////////////////////////////////////////////////////////////////
 void BloodyStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -39,7 +39,7 @@ void BloodyStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchÃÂ¦Â°Ã…. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
 
@@ -58,7 +58,7 @@ void BloodyStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã® Ã…Â¸Ã€Ã Ã‡ÃšÂµÃ©Â·Â¯
 //////////////////////////////////////////////////////////////////////////////
 void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                           CEffectID_t CEffectID)
@@ -88,7 +88,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
         ZoneCoord_t myX = pVampire->getX();
         ZoneCoord_t myY = pVampire->getY();
 
-        // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Blood Â°Â¡ Ã€Ã–Â´Ã™Â¸Ã© hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -121,7 +121,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             SkillOutput output;
             computeOutput(input, output);
 
-            // Disruption Storm ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 20% Áõ°¡
+            // Disruption Storm Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© ÂµÂ¥Â¹ÃŒÃÃ¶ 20% ÃÃµÂ°Â¡
             if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM)) {
                 RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM);
                 Assert(pRankBonus != NULL);
@@ -131,7 +131,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // Â±Ã¢ÃÂ¸Â¿Â¡ Â°Â°Ã€Âº Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Ã…Â¸Ã€ÃÂ¿Â¡ Ã€Ã–Â´Ã™Â¸Ã© ÃÃ¶Â¿Ã¬Â°Ã­ Â»ÃµÂ·Ã Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_BLOODY_STORM);
             if (pOldEffect != NULL) {
@@ -139,7 +139,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // Ã€ÃŒÃ†Ã¥Ã†Â® Â¿Ã€ÂºÃªÃÂ§Ã†Â®Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã˜Â¼Â­ Ã…Â¸Ã€ÃÂ¿Â¡ ÂºÃ™Ã€ÃÂ´Ã™.
             EffectBloodyStorm* pEffect = new EffectBloodyStorm(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setNextTime(0);
@@ -159,9 +159,9 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             tile.addEffect(pEffect);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ğµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Vampire°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Vampire¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // Ã€ÃŒÃ†Ã¥Ã†Â® Â¹Ã¼Ã€Â§Â³Â»Ã€Ã‡ Â¸Ã°ÂµÃ§ CreatureÂ¿Â¡Â°Ã” effectÂ¸Â¦ ÂºÃ™Â¿Â©ÃÃ˜Â´Ã™.
+            // VampireÂ°Â¡ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬ Â°Â°Ã€Âº VampireÂ¿Â¡Â°Ã”Â´Ã‚
+            // Ã‡Ã˜Â´Ã§Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
             // bool bEffected = false;
             Creature* pTargetCreature;
 
@@ -176,13 +176,13 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                     int tileX = X + oX;
                     int tileY = Y + oY;
 
-                    // ¸¸¾à ÀÌÆåÆ®¸¦ Ãß°¡ÇÏ·Á´Â °÷ÀÌ Zone¿¡ ¼ÓÇØ ÀÖÁö ¾Ê´Ù¸é ³Ñ¾î°£´
+                    // Â¸Â¸Â¾Ã  Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡ÃÂ·ÃÂ´Ã‚ Â°Ã·Ã€ÃŒ ZoneÂ¿Â¡ Â¼Ã“Ã‡Ã˜ Ã€Ã–ÃÃ¶ Â¾ÃŠÂ´Ã™Â¸Ã© Â³Ã‘Â¾Ã®Â°Â£Â´
                     if (!rect.ptInRect(tileX, tileY))
                         continue;
 
                     Tile& tile = pZone->getTile(tileX, tileY);
 
-                    // ÇØ´ç Å¸ÀÏ¿¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ¾ø´Ù¸é ³Ñ¾î°£´Ù.
+                    // Ã‡Ã˜Â´Ã§ Ã…Â¸Ã€ÃÂ¿Â¡ Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã’ Â¼Ã¶ Â¾Ã¸Â´Ã™Â¸Ã© Â³Ã‘Â¾Ã®Â°Â£Â´Ã™.
                     if (!tile.canAddEffect())
                         continue;
 
@@ -209,7 +209,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°İÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // Â°Ã¸Â°ÃÃ€Â» Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Â¿Â¡Â°Ã”
                                     _GCSkillToTileOK2.setObjectID(pVampire->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -228,7 +228,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
                     } // if(pTargetCreature!= NULL)
                 }
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK1.setSkillType(SkillType);
             _GCSkillToTileOK1.setCEffectID(CEffectID);
             _GCSkillToTileOK1.setX(X);
@@ -236,19 +236,19 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             _GCSkillToTileOK1.setDuration(output.Duration);
             _GCSkillToTileOK1.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Â´ Â»Ã§Â¶Ã·Â¸Â¸ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(X);
             _GCSkillToTileOK3.setY(Y);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Â¸Â¸ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Â´ Â»Ã§Â¶Ã·Â°Ãº Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Â» Â¸Ã°ÂµÃ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK5.setObjectID(pVampire->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -256,19 +256,19 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷¿¡°Ô packet Àü´Ş
+            // Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â»Ã§Â¶Ã·Â¿Â¡Â°Ã” packet Ã€Ã¼Â´Ã
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Âµ Â»Ã§Â¶Ã·Â°Ãº Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Â» Â¸Ã°ÂµÃ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã” broadcasing
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Â´ Â»Ã§Â¶Ã·Ã€Â» ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã” broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Â» ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã” broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // ±â¼ú delay setting
+            // Â±Ã¢Â¼Ãº delay setting
             pVampireSkillSlot->setRunTime(output.Delay);
         } else {
             executeSkillFailNormal(pVampire, getSkillType(), NULL);
@@ -283,7 +283,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// Â¸Ã³Â½ÂºÃ…Ã Ã…Â¸Ã€Ã Ã‡ÃšÂµÃ©Â·Â¯
 //////////////////////////////////////////////////////////////////////////////
 void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -332,7 +332,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // Â±Ã¢ÃÂ¸Â¿Â¡ Â°Â°Ã€Âº Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Ã…Â¸Ã€ÃÂ¿Â¡ Ã€Ã–Â´Ã™Â¸Ã© ÃÃ¶Â¿Ã¬Â°Ã­ Â»ÃµÂ·Ã Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_BLOODY_STORM);
             if (pOldEffect != NULL) {
@@ -340,7 +340,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // Ã€ÃŒÃ†Ã¥Ã†Â® Â¿Ã€ÂºÃªÃÂ§Ã†Â®Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã˜Â¼Â­ Ã…Â¸Ã€ÃÂ¿Â¡ ÂºÃ™Ã€ÃÂ´Ã™.
             EffectBloodyStorm* pEffect = new EffectBloodyStorm(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setNextTime(0);
@@ -359,9 +359,9 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             tile.addEffect(pEffect);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ğµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Vampire°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Vampire¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // Ã€ÃŒÃ†Ã¥Ã†Â® Â¹Ã¼Ã€Â§Â³Â»Ã€Ã‡ Â¸Ã°ÂµÃ§ CreatureÂ¿Â¡Â°Ã” effectÂ¸Â¦ ÂºÃ™Â¿Â©ÃÃ˜Â´Ã™.
+            // VampireÂ°Â¡ Â±Ã¢Â¼ÃºÃ€Â» Â»Ã§Â¿Ã«Ã‡Ã‘ Â°Ã¦Â¿Ã¬ Â°Â°Ã€Âº VampireÂ¿Â¡Â°Ã”Â´Ã‚
+            // Ã‡Ã˜Â´Ã§Ã‡ÃÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
             // bool bEffected = false;
             Creature* pTargetCreature;
 
@@ -382,7 +382,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     int tileX = X + oX;
                     int tileY = Y + oY;
 
-                    // °Å¸®¸¦ ¹ş¾î³ª¸é Damage/2¸¸ Àû¿ëÇÑ´Ù.
+                    // Â°Ã…Â¸Â®Â¸Â¦ Â¹Ã¾Â¾Ã®Â³ÂªÂ¸Ã© Damage/2Â¸Â¸ Ã€Ã»Â¿Ã«Ã‡Ã‘Â´Ã™.
                     if (oX <= -2 || oY <= -2 || oX >= 2 || oY >= 2)
                         pEffect->setDamage(output.Damage / 2);
                     else
@@ -401,7 +401,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                         pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
                     if (pTargetCreature != NULL
-                        // °ø°İ ´ë»óÀÌ ¸Â´ÂÁö È®ÀÎÇÑ´Ù.
+                        // Â°Ã¸Â°Ã Â´Ã«Â»Ã³Ã€ÃŒ Â¸Ã‚Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã‘Â´Ã™.
                         && pMonster->isEnemyToAttack(pTargetCreature)) {
                         // 2003. 1. 10. Sequoia
                         if (!checkZoneLevelToHitTarget(pTargetCreature))
@@ -421,7 +421,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°İÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // Â°Ã¸Â°ÃÃ€Â» Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Â¿Â¡Â°Ã”
                                     _GCSkillToTileOK2.setObjectID(pMonster->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -440,19 +440,19 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     } // if(pTargetCreature!= NULL)
                 }
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Â´ Â»Ã§Â¶Ã·Â¸Â¸ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(myX);
             _GCSkillToTileOK3.setY(myY);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Â¸Â¸ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Â´ Â»Ã§Â¶Ã·Â°Ãº Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Â» Â¸Ã°ÂµÃ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã”
             _GCSkillToTileOK5.setObjectID(pMonster->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -460,13 +460,13 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Âµ Â»Ã§Â¶Ã·Â°Ãº Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Â» Â¸Ã°ÂµÃ ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã” broadcasing
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // Â±Ã¢Â¼ÃºÃ€Â» Â¾Â´ Â»Ã§Â¶Ã·Ã€Â» ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã” broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // Â±Ã¢Â¼ÃºÃ€Â» Â´Ã§Ã‡Ã‘ Â»Ã§Â¶Ã·Ã€Â» ÂºÂ¼ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â»Ã§Â¶Ã·ÂµÃ©Â¿Â¡Â°Ã” broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
         } else {

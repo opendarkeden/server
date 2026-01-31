@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : CGShopRequestBuy.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// ÇÃ·¹ÀÌ¾î°¡ »óÁ¡ NPCÀÇ Áø¿­Ã¢À» º¸°í, ¹°°ÇÀ» ±¸ÀÔÇÏ°íÀÚ ÇÒ ¶§
-// º¸³»´Â ÆÐÅ¶ÀÌ´Ù. ¼­¹ö´Â ÇÃ·¹ÀÌ¾î¿¡°Ô ÃæºÐÇÑ µ·°ú ÀÎº¥Åä¸®¿¡
-// ÀÚ¸®°¡ ÀÖ´ÂÁö °ËÁõÇÑ ÈÄ, ÇÃ·¹ÀÌ¾î¿¡°Ô ¾ÆÀÌÅÛÀ» ³Ñ±ä´Ù.
+// í”Œë ˆì´ì–´ê°€ ìƒì  NPCì˜ ì§„ì—´ì°½ì„ ë³´ê³ , ë¬¼ê±´ì„ êµ¬ìž…í•˜ê³ ìž í•  ë•Œ
+// ë³´ë‚´ëŠ” íŒ¨í‚·ì´ë‹¤. ì„œë²„ëŠ” í”Œë ˆì´ì–´ì—ê²Œ ì¶©ë¶„í•œ ëˆê³¼ ì¸ë²¤í† ë¦¬ì—
+// ìžë¦¬ê°€ ìžˆëŠ”ì§€ ê²€ì¦í•œ í›„, í”Œë ˆì´ì–´ì—ê²Œ ì•„ì´í…œì„ ë„˜ê¸´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SHOP_REQUEST_BUY_H__
@@ -85,7 +85,7 @@ private:
     ShopRackType_t m_RackType; // Rack type
     BYTE m_RackIndex;          // Rack index
     ItemNum_t m_Num;           // Number of item
-    Coord_t m_X;               // ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸® ³»ÀÇ ÁÂÇ¥°ª
+    Coord_t m_X;               // í”Œë ˆì´ì–´ ì¸ë²¤í† ë¦¬ ë‚´ì˜ ì¢Œí‘œê°’
     Coord_t m_Y;
 };
 

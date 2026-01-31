@@ -25,7 +25,7 @@ void CGPetGambleHandler::execute(CGPetGamble* pPacket, Player* pPlayer)
 
 #ifdef __GAME_SERVER__
 
-        // cout << "Æê °·ºíÇÔ´Ï´ç" << endl;
+        // cout << "íŽ« ê°¬ë¸”í•¨ë‹ˆë‹¹" << endl;
 
         GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     Assert(pGamePlayer != NULL);
@@ -52,7 +52,7 @@ void CGPetGambleHandler::execute(CGPetGamble* pPacket, Player* pPlayer)
         } else if (pPetInfo->getPetType() > 2) {
             pPetInfo->setAttack(1);
         }
-        //		cout << "°·ºí ¼º°ø!" << endl;
+        //		cout << "ê°¬ë¸” ì„±ê³µ!" << endl;
     }
 
     pPetInfo->getPetItem()->savePetInfo();

@@ -19,10 +19,10 @@
 //
 // class PCInfo;
 //
-// LCPCList ÆÐÅ¶¿¡ ´ã°Ü¼­ ³¯¾Æ¿À´Â SlayerPCInfo, VampirePCInfo Å¬·¡½ºÀÇ º£ÀÌ½º
-// Å¬·¡½ºÀÌ´Ù. LCPCList ÆÐÅ¶¿¡´Â PCInfo* [3] ÀÌ ÀúÀåµÇ¸ç, DB »óÀÇ Ä³¸¯ÅÍÀÇ
-// ¼ýÀÚ¿¡ µû¶ó¼­, ¿©±â¿¡ ½ÇÁ¦ SlayerPCInfo, VampirePCInfo ¶Ç´Â NULL ÀÌ ÀúÀå
-// µÈ´Ù.
+// LCPCList íŒ¨í‚·ì— ë‹´ê²¨ì„œ ë‚ ì•„ì˜¤ëŠ” SlayerPCInfo, VampirePCInfo í´ëž˜ìŠ¤ì˜ ë² ì´ìŠ¤
+// í´ëž˜ìŠ¤ì´ë‹¤. LCPCList íŒ¨í‚·ì—ëŠ” PCInfo* [3] ì´ ì €ìž¥ë˜ë©°, DB ìƒì˜ ìºë¦­í„°ì˜
+// ìˆ«ìžì— ë”°ë¼ì„œ, ì—¬ê¸°ì— ì‹¤ì œ SlayerPCInfo, VampirePCInfo ë˜ëŠ” NULL ì´ ì €ìž¥
+// ëœë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -31,11 +31,11 @@ public:
     // destructor
     virtual ~PCInfo() {}
 
-    // ÇöÀç ÀÎ½ºÅÏ½º°¡ ½½·¹ÀÌ¾îÀÎÁö ¹ìÆÄÀÌ¾îÀÎÁö..
+    // í˜„ìž¬ ì¸ìŠ¤í„´ìŠ¤ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ë±€íŒŒì´ì–´ì¸ì§€..
     virtual PCType getPCType() const = 0;
 
     //----------------------------------------------------------------------
-    // ÆÐÅ¶¿¡ embedding µÇ·Á´Â °´Ã¼´Â ¾Æ·¡¿Í °°Àº µ¥ÀÌÅ¸¸¦ ¸í½ÃÇØ¾ß ÇÑ´Ù.
+    // íŒ¨í‚·ì— embedding ë˜ë ¤ëŠ” ê°ì²´ëŠ” ì•„ëž˜ì™€ ê°™ì€ ë°ì´íƒ€ë¥¼ ëª…ì‹œí•´ì•¼ í•œë‹¤.
     //----------------------------------------------------------------------
 
     // read data from socket input stream

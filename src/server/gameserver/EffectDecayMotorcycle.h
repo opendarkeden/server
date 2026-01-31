@@ -2,18 +2,18 @@
 // Filename    : EffectDecayMotorcycle.h
 // Written by  : Reiot
 // Description :
-//               ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» »ç¶óÁö°Ô ÇÏ´Â
-//               EffectDecayItemÀÇ º°Á¾À¸·Î,
-//               Motorcycle¿¡¸¸ Àû¿ëµÈ´Ù.
-//               ±âÁ¸¿¡ MotorcycleÀ» ´Ù¸¥ Zone¿¡ °¡Áö°í ÀÖ´Â »ç¿ëÀÚ°¡
-//               MotorcycleÀ» callÇÏ°Ô µÇ¸é, ±âÁ¸ÀÇ motorcycleÀ» ¾ø¾Ö°í
-//               »õ·Î¿î MotorcycleÀ» ¸¸µé¾î ÁÖ¾î¾ß ÇÑ´Ù.
-//               ÀÌ °úÁ¤¿¡¼­
-//                 1. ¸ðÅÍ»çÀÌÅ¬À» ¾ø¾Ö´Â °úÁ¤
-//                 2. »õ·Î »ý¼ºÈ­´Â °úÁ¤ÀÌ ¼øÂ÷ÀûÀ¸·Î ÀÏ¾î³ª¾ß ÇÏ¸ç
-//               ´Ù¸¥ Á¸¿¡ ¿µÇâÀ» ³¢ÃÄ¼­´Â ¾È µÈ´Ù. ±×·¯¹Ç·Î ÀÌ·± ¹æ½ÄÀ¸·Î
-//               Effect¸¦ ÅëÇØ¼­ heartbeat½Ã¿¡ motorcycleÀ» ¾ø¾Ö°í
-//               »õ·Î¿î Effect¸¦ ÅëÇØ¼­ ´ÙÀ½ heartbeat½Ã¿¡ motorcycleÀ» ¸¸µç´Ù.
+//               ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ë©´ ë°”ë‹¥ì— ìžˆëŠ” ì•„ì´í…œì„ ì‚¬ë¼ì§€ê²Œ í•˜ëŠ”
+//               EffectDecayItemì˜ ë³„ì¢…ìœ¼ë¡œ,
+//               Motorcycleì—ë§Œ ì ìš©ëœë‹¤.
+//               ê¸°ì¡´ì— Motorcycleì„ ë‹¤ë¥¸ Zoneì— ê°€ì§€ê³  ìžˆëŠ” ì‚¬ìš©ìžê°€
+//               Motorcycleì„ callí•˜ê²Œ ë˜ë©´, ê¸°ì¡´ì˜ motorcycleì„ ì—†ì• ê³ 
+//               ìƒˆë¡œìš´ Motorcycleì„ ë§Œë“¤ì–´ ì£¼ì–´ì•¼ í•œë‹¤.
+//               ì´ ê³¼ì •ì—ì„œ
+//                 1. ëª¨í„°ì‚¬ì´í´ì„ ì—†ì• ëŠ” ê³¼ì •
+//                 2. ìƒˆë¡œ ìƒì„±í™”ëŠ” ê³¼ì •ì´ ìˆœì°¨ì ìœ¼ë¡œ ì¼ì–´ë‚˜ì•¼ í•˜ë©°
+//               ë‹¤ë¥¸ ì¡´ì— ì˜í–¥ì„ ë¼ì³ì„œëŠ” ì•ˆ ëœë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ì´ëŸ° ë°©ì‹ìœ¼ë¡œ
+//               Effectë¥¼ í†µí•´ì„œ heartbeatì‹œì— motorcycleì„ ì—†ì• ê³ 
+//               ìƒˆë¡œìš´ Effectë¥¼ í†µí•´ì„œ ë‹¤ìŒ heartbeatì‹œì— motorcycleì„ ë§Œë“ ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_DECAY_MOTORCYCLE_H__
@@ -36,7 +36,7 @@ public:
         return EFFECT_CLASS_DECAY_ITEM;
     }
 
-    // OBJECT_PRIORITY_NONE ¶ó´Â ¶æÀº, Å¸ÀÏ¿¡ µé¾î°¡¼­´Â ¾ÈµÈ´Ù´Â ¶æÀÌ´Ù.
+    // OBJECT_PRIORITY_NONE ë¼ëŠ” ëœ»ì€, íƒ€ì¼ì— ë“¤ì–´ê°€ì„œëŠ” ì•ˆëœë‹¤ëŠ” ëœ»ì´ë‹¤.
     virtual ObjectPriority getObjectPriority() const {
         return OBJECT_PRIORITY_NONE;
     }

@@ -59,11 +59,11 @@ void EffectVampirePortal::unaffect()
 
     // cout << "EffectVampirePortal::unaffect() begin" << endl;
 
-    // Å¸ÀÏ¿¡¼­ ÀÌÆåÆ®¸¦ »èÁ¦ÇÏ°í...
+    // íƒ€ì¼ì—ì„œ ì´í™íŠ¸ë¥¼ ì‚­ì œí•˜ê³ ...
     Tile& tile = m_pZone->getTile(m_X, m_Y);
     tile.deleteEffect(m_ObjectID);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´í™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCDeleteEffectFromTile gcDeleteEffectFromTile;
     gcDeleteEffectFromTile.setEffectID(Effect::EFFECT_CLASS_VAMPIRE_PORTAL);
     gcDeleteEffectFromTile.setObjectID(m_ObjectID);

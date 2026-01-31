@@ -16,7 +16,7 @@
 #define MAX_WAR_NUM 20
 
 struct WarScheduleInfo {
-    BYTE warType; // 0 : µø¡∑∞£ 1 : ¡æ¡∑∞£
+    BYTE warType; // 0 : ÎèôÏ°±Í∞Ñ 1 : Ï¢ÖÏ°±Í∞Ñ
     WORD year;
     BYTE month;
     BYTE day;

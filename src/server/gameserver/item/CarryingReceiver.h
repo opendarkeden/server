@@ -39,8 +39,8 @@ public:
     static void initItemIDRegistry(void);
 
 private:
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 
@@ -78,7 +78,7 @@ public:
     virtual string toString() const;
 
 private:
-    Defense_t m_DefenseBonus; // ¸íÁß·ü º¸³Ê½º
+    Defense_t m_DefenseBonus; // ëª…ì¤‘ë¥  ë³´ë„ˆìŠ¤
     Protection_t m_ProtectionBonus;
     uint m_ItemLevel;
 };

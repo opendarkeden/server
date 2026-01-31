@@ -19,7 +19,7 @@ GQuestNOTElement* GQuestNOTElement::makeElement(XMLTree* pTree) {
         if (pElement != NULL) {
             pRet->m_Elements.push_back(pElement);
         } else {
-            cout << "¿¤¸®¸ÕÆ®¸¦ ¸ø ¸¸µé°ÚÀ½ : " << pChild->GetName() << endl;
+            cout << "ì—˜ë¦¬ë¨¼íŠ¸ë¥¼ ëª» ë§Œë“¤ê² ìŒ : " << pChild->GetName() << endl;
             Assert(false);
         }
     }

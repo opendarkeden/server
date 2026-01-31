@@ -14,7 +14,7 @@
 #include "Exception.h"
 #include "Types.h"
 
-// ¸¶½ºÅÍ Á×¿´À»¶§ °³ÀÎÀÌ ¹Ş´Â °è±Ş °æÇèÄ¡
+// ë§ˆìŠ¤í„° ì£½ì˜€ì„ë•Œ ê°œì¸ì´ ë°›ëŠ” ê³„ê¸‰ ê²½í—˜ì¹˜
 const int MASTER_KILL_RANK_EXP = 23300;
 
 //                            0x00bbggrr
@@ -194,47 +194,47 @@ public:
     string toString() const;
 
 private:
-    ZoneID_t m_ZoneID;                         // Á¸ ¾ÆÀÌµğ
-    MonsterType_t m_MasterNotReadyMonsterType; // ¸¶½ºÅÍÀÇ NotReady »óÅÂ¿¡¼­ÀÇ MonsterType
-    MonsterType_t m_MasterMonsterType;         // ¸¶½ºÅÍÀÇ MonsterType
-    bool m_MasterRemainNotReady;               // NotReady»óÅÂÀÇ Master¸¦ ½ÃÃ¼·Î ¹Ù²Ù±â
-    ZoneCoord_t m_MasterX;                     // ¸¶½ºÅÍÀÇ XÁÂÇ¥
-    ZoneCoord_t m_MasterY;                     // ¸¶½ºÅÍÀÇ YÁÂÇ¥
-    Dir_t m_MasterDir;                         // ¸¶½ºÅÍÀÇ ¹æÇâ
-    int m_MaxPassPlayer;                       // ÃÖ´ë »ç¿ëÀÚ ¼ö
-    // int            m_MaxSummonMonster;          // ÃÖ´ë ¸ó½ºÅÍ ¼ÒÈ¯ ¼ıÀÚ
-    ZoneCoord_t m_SummonX; // ¸ó½ºÅÍ ¼ÒÈ¯ ÁÂÇ¥
-    ZoneCoord_t m_SummonY; // ¸ó½ºÅÍ ¼ÒÈ¯ ÁÂÇ¥
-    int m_FirstRegenDelay; // ÃÖÃÊÀÇ ¸¶½ºÅÍ ·¹¾î ¸®Á¨ ÁÖ±â(ºĞ)
-    int m_RegenDelay;      // ¸¶½ºÅÍ ·¹¾î ¸®Á¨ ÁÖ±â(ºĞ)
-    int m_StartDelay;      // ÀÔÀå ±İÁö, ¸¶½ºÅÍ ºÎÈ° ½Ã°£
-    int m_EndDelay;        // ¸¶½ºÅÍ¸¦ Á×ÀÏ ¼ö ÀÖ´Â ½Ã°£, ÀÌ ½Ã°£ ÀÌÈÄ¿¡´Â °­Á¦ Ãß¹æ
-    int m_KickOutDelay;    // ¸¶½ºÅÍ¸¦ Á×ÀÎ ÈÄ, °­Á¦Ãß¹æ±îÁöÀÇ ½Ã°£
+    ZoneID_t m_ZoneID;                         // ì¡´ ì•„ì´ë””
+    MonsterType_t m_MasterNotReadyMonsterType; // ë§ˆìŠ¤í„°ì˜ NotReady ìƒíƒœì—ì„œì˜ MonsterType
+    MonsterType_t m_MasterMonsterType;         // ë§ˆìŠ¤í„°ì˜ MonsterType
+    bool m_MasterRemainNotReady;               // NotReadyìƒíƒœì˜ Masterë¥¼ ì‹œì²´ë¡œ ë°”ê¾¸ê¸°
+    ZoneCoord_t m_MasterX;                     // ë§ˆìŠ¤í„°ì˜ Xì¢Œí‘œ
+    ZoneCoord_t m_MasterY;                     // ë§ˆìŠ¤í„°ì˜ Yì¢Œí‘œ
+    Dir_t m_MasterDir;                         // ë§ˆìŠ¤í„°ì˜ ë°©í–¥
+    int m_MaxPassPlayer;                       // ìµœëŒ€ ì‚¬ìš©ì ìˆ˜
+    // int            m_MaxSummonMonster;          // ìµœëŒ€ ëª¬ìŠ¤í„° ì†Œí™˜ ìˆ«ì
+    ZoneCoord_t m_SummonX; // ëª¬ìŠ¤í„° ì†Œí™˜ ì¢Œí‘œ
+    ZoneCoord_t m_SummonY; // ëª¬ìŠ¤í„° ì†Œí™˜ ì¢Œí‘œ
+    int m_FirstRegenDelay; // ìµœì´ˆì˜ ë§ˆìŠ¤í„° ë ˆì–´ ë¦¬ì   ì£¼ê¸°(ë¶„)
+    int m_RegenDelay;      // ë§ˆìŠ¤í„° ë ˆì–´ ë¦¬ì   ì£¼ê¸°(ë¶„)
+    int m_StartDelay;      // ì…ì¥ ê¸ˆì§€, ë§ˆìŠ¤í„° ë¶€í™œ ì‹œê°„
+    int m_EndDelay;        // ë§ˆìŠ¤í„°ë¥¼ ì£½ì¼ ìˆ˜ ìˆëŠ” ì‹œê°„, ì´ ì‹œê°„ ì´í›„ì—ëŠ” ê°•ì œ ì¶”ë°©
+    int m_KickOutDelay;    // ë§ˆìŠ¤í„°ë¥¼ ì£½ì¸ í›„, ê°•ì œì¶”ë°©ê¹Œì§€ì˜ ì‹œê°„
 
-    // °­Á¦Ãß¹æ½ÃÅ³ Á¸
+    // ê°•ì œì¶”ë°©ì‹œí‚¬ ì¡´
     ZoneID_t m_KickZoneID;
     ZoneCoord_t m_KickZoneX;
     ZoneCoord_t m_KickZoneY;
 
-    // Lair ÀüÃ¼ °ø°İ
+    // Lair ì „ì²´ ê³µê²©
     int m_LairAttackTick;
     int m_LairAttackMinNumber;
     int m_LairAttackMaxNumber;
 
-    // ¸÷ ¼ÒÈ¯ÇÒ¶§ ÇÏ´Â ¸»
+    // ëª¹ ì†Œí™˜í• ë•Œ í•˜ëŠ” ë§
     vector<string> m_MasterSummonSay;
 
-    // ¸¶½ºÅÍ°¡ Á×À» ¶§ ÇÏ´Â ¸»
+    // ë§ˆìŠ¤í„°ê°€ ì£½ì„ ë•Œ í•˜ëŠ” ë§
     vector<string> m_MasterDeadSlayerSay;
     vector<string> m_MasterDeadVampireSay;
 
-    // ¸¶½ºÅÍ°¡ ¾È Á×¾úÀ»¶§ ÇÏ´Â ¸»
+    // ë§ˆìŠ¤í„°ê°€ ì•ˆ ì£½ì—ˆì„ë•Œ í•˜ëŠ” ë§
     vector<string> m_MasterNotDeadSay;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // class MasterLairInfoManager;
-// ZoneID ¸¦ Å°°ªÀ¸·Î ÇØ¼­ Á¸ Á¤º¸¸¦ °Ë»öÇÒ ¼ö ÀÖ´Â ±â´ÉÀ» Á¦°øÇÑ´Ù.
+// ZoneID ë¥¼ í‚¤ê°’ìœ¼ë¡œ í•´ì„œ ì¡´ ì •ë³´ë¥¼ ê²€ìƒ‰í•  ìˆ˜ ìˆëŠ” ê¸°ëŠ¥ì„ ì œê³µí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class MasterLairInfoManager {
@@ -257,7 +257,7 @@ public:
     string toString() const;
 
 private:
-    unordered_map<ZoneID_t, MasterLairInfo*> m_MasterLairInfos; // zone info ÀÇ ÇØ½¬¸Ê
+    unordered_map<ZoneID_t, MasterLairInfo*> m_MasterLairInfos; // zone info ì˜ í•´ì‰¬ë§µ
 };
 
 extern MasterLairInfoManager* g_pMasterLairInfoManager;

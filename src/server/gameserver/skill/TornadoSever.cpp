@@ -9,8 +9,8 @@
 #include "SimpleTileMeleeSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// »ý¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ìž
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 TornadoSever::TornadoSever() throw() {
     __BEGIN_TRY
@@ -29,7 +29,7 @@ TornadoSever::TornadoSever() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TornadoSever::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -48,7 +48,7 @@ void TornadoSever::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pSlayer, getSkillType());
             return;

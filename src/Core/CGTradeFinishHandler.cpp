@@ -42,7 +42,7 @@ void CGTradeFinishHandler::execute(CGTradeFinish* pPacket, Player* pPlayer)
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯À» ¿øÇÏ´Â »ó´ë¹æÀ» Á¸¿¡¼­ Ã£¾Æº»´Ù.
+    // êµí™˜ì„ ì›í•˜ëŠ” ìƒëŒ€ë°©ì„ ì¡´ì—ì„œ ì°¾ì•„ë³¸ë‹¤.
     Creature* pTargetPC = NULL;
     /*
     try
@@ -55,31 +55,31 @@ void CGTradeFinishHandler::execute(CGTradeFinish* pPacket, Player* pPlayer)
     }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pTargetPC = pZone->getCreature(TargetOID);
 
-    // ±³È¯ »ó´ë°¡ ¾ø´Ù¸é ¿¡·¯´Ù
+    // êµí™˜ ìƒëŒ€ê°€ ì—†ë‹¤ë©´ ì—ëŸ¬ë‹¤
     if (pTargetPC == NULL) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_TARGET_NOT_EXIST);
         return;
     }
 
-    // ±³È¯ »ó´ë°¡ »ç¶÷ÀÌ ¾Æ´Ï°Å³ª, °°Àº Á¾Á·ÀÌ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+    // êµí™˜ ìƒëŒ€ê°€ ì‚¬ëŒì´ ì•„ë‹ˆê±°ë‚˜, ê°™ì€ ì¢…ì¡±ì´ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
     if (!pTargetPC->isPC() || !isSameRace(pTargetPC, pPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_RACE_DIFFER);
         return;
     }
 
-    // µÑ ´Ù ¾ÈÀü Áö´ë¿¡ ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+    // ë‘˜ ë‹¤ ì•ˆì „ ì§€ëŒ€ì— ìˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
     if (!isInSafeZone(pPC) || !isInSafeZone(pTargetPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_SAFE);
         return;
     }
 
-    // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Ù¸é ¿¡·¯´Ù.
+    // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pPC->isSlayer() && pTargetPC->isSlayer()) {
         Slayer* pSlayer1 = dynamic_cast<Slayer*>(pPC);
         Slayer* pSlayer2 = dynamic_cast<Slayer*>(pTargetPC);
@@ -103,7 +103,7 @@ void CGTradeFinishHandler::execute(CGTradeFinish* pPacket, Player* pPlayer)
         }
     }
 
-    // µÑÀÌ¼­ ±³È¯À» ÇÏ°í ÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+    // ë‘˜ì´ì„œ êµí™˜ì„ í•˜ê³  ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
     if (!pTradeManager->isTrading(pPC, pTargetPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_TRADING);
@@ -117,7 +117,7 @@ void CGTradeFinishHandler::execute(CGTradeFinish* pPacket, Player* pPlayer)
     else if (pPC->isOusters())
         executeOusters(pPacket, pPlayer);
     else
-        throw ProtocolException("CGTradeFinishHanderl::execuete() : ¾Ë ¼ö ¾ø´Â ÇÃ·¹ÀÌ¾î Å©¸®ÃÄÀÔ´Ï´Ù.");
+        throw ProtocolException("CGTradeFinishHanderl::execuete() : ì•Œ ìˆ˜ ì—†ëŠ” í”Œë ˆì´ì–´ í¬ë¦¬ì³ì…ë‹ˆë‹¤.");
 
 #endif
 
@@ -133,8 +133,8 @@ void CGTradeFinishHandler::executeSlayer(CGTradeFinish* pPacket, Player* pPlayer
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯¸¦ °Ë»çÇß±â ¶§¹®¿¡,
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ë¥¼ ê²€ì‚¬í–ˆê¸° ë•Œë¬¸ì—,
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     BYTE CODE = pPacket->getCode();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -142,7 +142,7 @@ void CGTradeFinishHandler::executeSlayer(CGTradeFinish* pPacket, Player* pPlayer
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -157,37 +157,37 @@ void CGTradeFinishHandler::executeSlayer(CGTradeFinish* pPacket, Player* pPlayer
     Player* pTargetPlayer = pTargetPC->getPlayer();
     GCTradeFinish gcTradeFinish;
 
-    // ÇöÀç ½Ã°£À» ¾ò¾î¿Â´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ì˜¨ë‹¤.
     Timeval currentTime;
     getCurrentTime(currentTime);
 
-    // ±³È¯À» ½Â³«ÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ìŠ¹ë‚™í•˜ëŠ” ì½”ë“œë‹¤.
     if (CODE == CG_TRADE_FINISH_ACCEPT) {
-        // OK°¡ ³¯¾Æ¿Ã ½Ã°£ÀÌ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+        // OKê°€ ë‚ ì•„ì˜¬ ì‹œê°„ì´ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
         if (pInfo1->isValidOKTime(currentTime) == false) {
             pTradeManager->cancelTrade(pPC);
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_UNKNOWN);
             return;
         }
 
-        // ±³È¯À» ½Â³«Çß´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì„ ìŠ¹ë‚™í–ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_ACCEPT);
         pTargetPlayer->sendPacket(&gcTradeFinish);
 
-        // ±³È¯ »óÅÂ¸¦ º¯È¯ÇÑ´Ù.
+        // êµí™˜ ìƒíƒœë¥¼ ë³€í™˜í•œë‹¤.
         pInfo1->setStatus(TRADE_FINISH);
 
-        // cout << "CGTradeFinish [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISH·Î ¹Ù²î¾ú´Ù." << endl;
+        // cout << "CGTradeFinish [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHë¡œ ë°”ë€Œì—ˆë‹¤." << endl;
 
-        // »ó´ë¹æµµ ±³È¯À» Çã¶ôÇÏ°í ÀÖ´Ù¸é, ½ÇÁ¦·Î ±³È¯À» ÇÏµµ·Ï ÇÑ´Ù.
+        // ìƒëŒ€ë°©ë„ êµí™˜ì„ í—ˆë½í•˜ê³  ìˆë‹¤ë©´, ì‹¤ì œë¡œ êµí™˜ì„ í•˜ë„ë¡ í•œë‹¤.
         if (pInfo2->getStatus() == TRADE_FINISH) {
-            // cout << "CGTradeFinish [" << pReceiver->getName() << "]ÀÇ »óÅÂµµ TRADE_FINISHÀÌ¹Ç·Î, ±³È¯À» ¼öÇàÇÑ´Ù." <<
+            // cout << "CGTradeFinish [" << pReceiver->getName() << "]ì˜ ìƒíƒœë„ TRADE_FINISHì´ë¯€ë¡œ, êµí™˜ì„ ìˆ˜í–‰í•œë‹¤." <<
             // endl;
 
-            // È®½ÇÈ÷ ±³È¯À» ÇÒ ¼ö ÀÖ´Ù¸é ±³È¯À» ÇÑ´Ù.
+            // í™•ì‹¤íˆ êµí™˜ì„ í•  ìˆ˜ ìˆë‹¤ë©´ êµí™˜ì„ í•œë‹¤.
             if (pTradeManager->canTrade(pSender, pReceiver) == 1) {
-                // ¾ç Ãø¿¡ ±³È¯À» ¼öÇàÇÏ¶ó´Â ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì–‘ ì¸¡ì— êµí™˜ì„ ìˆ˜í–‰í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeFinish.setTargetObjectID(pSender->getObjectID());
                 gcTradeFinish.setCode(GC_TRADE_FINISH_EXECUTE);
                 pTargetPlayer->sendPacket(&gcTradeFinish);
@@ -196,7 +196,7 @@ void CGTradeFinishHandler::executeSlayer(CGTradeFinish* pPacket, Player* pPlayer
                 gcTradeFinish.setCode(GC_TRADE_FINISH_EXECUTE);
                 pPlayer->sendPacket(&gcTradeFinish);
 
-                // ½ÇÁ¦·Î ±³È¯À» ¼öÇàÇÑ´Ù.
+                // ì‹¤ì œë¡œ êµí™˜ì„ ìˆ˜í–‰í•œë‹¤.
                 pTradeManager->processTrade(pSender, pReceiver);
             } else if (pTradeManager->canTrade(pSender, pReceiver) == 2) {
                 pTradeManager->cancelTrade(pPC);
@@ -209,49 +209,49 @@ void CGTradeFinishHandler::executeSlayer(CGTradeFinish* pPacket, Player* pPlayer
             }
         }
     }
-    // ±³È¯À» °ÅºÎÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ê±°ë¶€í•˜ëŠ” ì½”ë“œë‹¤.
     else if (CODE == CG_TRADE_FINISH_REJECT) {
-        // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ÀÎÁõ ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+        // í˜„ì¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
         if (pInfo1->getStatus() == TRADE_FINISH) {
-            // ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+            // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
             GCTradeVerify gcTradeVerify;
             gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_FINISH_REJECT);
             pPlayer->sendPacket(&gcTradeVerify);
         }
 
-        // ±³È¯À» Ãë¼Ò½ÃÅ²´Ù.
+        // êµí™˜ì„ ì·¨ì†Œì‹œí‚¨ë‹¤.
         pTradeManager->cancelTrade(pSender, pReceiver);
 
-        // ±³È¯ÀÌ Ãë¼ÒµÇ¾ú´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì´ ì·¨ì†Œë˜ì—ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_REJECT);
         pTargetPlayer->sendPacket(&gcTradeFinish);
     }
-    // ±³È¯À» Àç°í·ÁÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ì¬ê³ ë ¤í•˜ëŠ” ì½”ë“œë‹¤.
     else if (CODE == CG_TRADE_FINISH_RECONSIDER) {
-        // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ÀÎÁõ ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+        // í˜„ì¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
         if (pInfo1->getStatus() == TRADE_FINISH) {
-            // ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+            // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
             GCTradeVerify gcTradeVerify;
             gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_FINISH_RECONSIDER);
             pPlayer->sendPacket(&gcTradeVerify);
         }
 
-        // ±³È¯ »óÅÂ¸¦ º¯È¯ÇÑ´Ù.
+        // êµí™˜ ìƒíƒœë¥¼ ë³€í™˜í•œë‹¤.
         pInfo1->setStatus(TRADE_TRADING);
 
-        // OK¸¦ ´­·¶´Ù°¡ cancelÀ» ´©¸£¸é, ´ÙÀ½ 4ÃÊ µ¿¾ÈÀº OK°¡ ´Ù½Ã ³¯¾Æ¿Í¼­´Â
-        // ¾È µÈ´Ù. ±×·¯¹Ç·Î ¿©±â¼­ ½Ã°£À» ¼¼ÆÃÇØ ÁØ´Ù.
+        // OKë¥¼ ëˆŒë €ë‹¤ê°€ cancelì„ ëˆ„ë¥´ë©´, ë‹¤ìŒ 4ì´ˆ ë™ì•ˆì€ OKê°€ ë‹¤ì‹œ ë‚ ì•„ì™€ì„œëŠ”
+        // ì•ˆ ëœë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ì—¬ê¸°ì„œ ì‹œê°„ì„ ì„¸íŒ…í•´ ì¤€ë‹¤.
         pInfo1->setNextTime(currentTime);
 
-        // ±³È¯ÀÌ Àç°í·ÁµÇ¾ú´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì´ ì¬ê³ ë ¤ë˜ì—ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_RECONSIDER);
         pTargetPlayer->sendPacket(&gcTradeFinish);
     }
-    // ¾Ë¼ö ¾ø´Â ÄÚµå´Ù. »ç»ÓÇÏ°Ô Â©¶óÁØ´Ù.
+    // ì•Œìˆ˜ ì—†ëŠ” ì½”ë“œë‹¤. ì‚¬ë¿í•˜ê²Œ ì§¤ë¼ì¤€ë‹¤.
     else
-        throw ProtocolException("CGTradeFinish::executeSlayer() : ¾Ë ¼ö ¾ø´Â ÄÚµå");
+        throw ProtocolException("CGTradeFinish::executeSlayer() : ì•Œ ìˆ˜ ì—†ëŠ” ì½”ë“œ");
 
 #endif
 
@@ -267,8 +267,8 @@ void CGTradeFinishHandler::executeVampire(CGTradeFinish* pPacket, Player* pPlaye
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯¸¦ °Ë»çÇß±â ¶§¹®¿¡,
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ë¥¼ ê²€ì‚¬í–ˆê¸° ë•Œë¬¸ì—,
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     BYTE CODE = pPacket->getCode();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -276,7 +276,7 @@ void CGTradeFinishHandler::executeVampire(CGTradeFinish* pPacket, Player* pPlaye
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -291,34 +291,34 @@ void CGTradeFinishHandler::executeVampire(CGTradeFinish* pPacket, Player* pPlaye
     Player* pTargetPlayer = pTargetPC->getPlayer();
     GCTradeFinish gcTradeFinish;
 
-    // ÇöÀç ½Ã°£À» ¾ò¾î¿Â´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ì˜¨ë‹¤.
     Timeval currentTime;
     getCurrentTime(currentTime);
 
-    // ±³È¯À» ½Â³«ÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ìŠ¹ë‚™í•˜ëŠ” ì½”ë“œë‹¤.
     if (CODE == CG_TRADE_FINISH_ACCEPT) {
-        // OK°¡ ³¯¾Æ¿Ã ½Ã°£ÀÌ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+        // OKê°€ ë‚ ì•„ì˜¬ ì‹œê°„ì´ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
         if (pInfo1->isValidOKTime(currentTime) == false) {
             pTradeManager->cancelTrade(pPC);
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_UNKNOWN);
             return;
         }
 
-        // ±³È¯À» ½Â³«Çß´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì„ ìŠ¹ë‚™í–ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_ACCEPT);
         pTargetPlayer->sendPacket(&gcTradeFinish);
 
-        // ±³È¯ »óÅÂ¸¦ º¯È¯ÇÑ´Ù.
+        // êµí™˜ ìƒíƒœë¥¼ ë³€í™˜í•œë‹¤.
         pInfo1->setStatus(TRADE_FINISH);
 
-        // »ó´ë¹æµµ ±³È¯À» Çã¶ôÇÏ°í ÀÖ´Ù¸é, ½ÇÁ¦·Î ±³È¯À» ÇÏµµ·Ï ÇÑ´Ù.
+        // ìƒëŒ€ë°©ë„ êµí™˜ì„ í—ˆë½í•˜ê³  ìˆë‹¤ë©´, ì‹¤ì œë¡œ êµí™˜ì„ í•˜ë„ë¡ í•œë‹¤.
         if (pInfo2->getStatus() == TRADE_FINISH) {
-            // È®½ÇÈ÷ ±³È¯À» ÇÒ ¼ö ÀÖ´Ù¸é ±³È¯À» ÇÑ´Ù.
-            // cout << "CGTradeFinish [" << pReceiver->getName() << "]ÀÇ »óÅÂµµ TRADE_FINISHÀÌ¹Ç·Î, ±³È¯À» ¼öÇàÇÑ´Ù." <<
+            // í™•ì‹¤íˆ êµí™˜ì„ í•  ìˆ˜ ìˆë‹¤ë©´ êµí™˜ì„ í•œë‹¤.
+            // cout << "CGTradeFinish [" << pReceiver->getName() << "]ì˜ ìƒíƒœë„ TRADE_FINISHì´ë¯€ë¡œ, êµí™˜ì„ ìˆ˜í–‰í•œë‹¤." <<
             // endl;
             if (pTradeManager->canTrade(pSender, pReceiver) == 1) {
-                // ¾ç Ãø¿¡ ±³È¯À» ¼öÇàÇÏ¶ó´Â ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì–‘ ì¸¡ì— êµí™˜ì„ ìˆ˜í–‰í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeFinish.setTargetObjectID(pSender->getObjectID());
                 gcTradeFinish.setCode(GC_TRADE_FINISH_EXECUTE);
                 pTargetPlayer->sendPacket(&gcTradeFinish);
@@ -327,7 +327,7 @@ void CGTradeFinishHandler::executeVampire(CGTradeFinish* pPacket, Player* pPlaye
                 gcTradeFinish.setCode(GC_TRADE_FINISH_EXECUTE);
                 pPlayer->sendPacket(&gcTradeFinish);
 
-                // ½ÇÁ¦·Î ±³È¯À» ¼öÇàÇÑ´Ù.
+                // ì‹¤ì œë¡œ êµí™˜ì„ ìˆ˜í–‰í•œë‹¤.
                 pTradeManager->processTrade(pSender, pReceiver);
             } else if (pTradeManager->canTrade(pSender, pReceiver) == 2) {
                 pTradeManager->cancelTrade(pPC);
@@ -340,49 +340,49 @@ void CGTradeFinishHandler::executeVampire(CGTradeFinish* pPacket, Player* pPlaye
             }
         }
     }
-    // ±³È¯À» °ÅºÎÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ê±°ë¶€í•˜ëŠ” ì½”ë“œë‹¤.
     else if (CODE == CG_TRADE_FINISH_REJECT) {
-        // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ÀÎÁõ ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+        // í˜„ì¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
         if (pInfo1->getStatus() == TRADE_FINISH) {
-            // ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+            // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
             GCTradeVerify gcTradeVerify;
             gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_FINISH_REJECT);
             pPlayer->sendPacket(&gcTradeVerify);
         }
 
-        // ±³È¯À» Ãë¼Ò½ÃÅ²´Ù.
+        // êµí™˜ì„ ì·¨ì†Œì‹œí‚¨ë‹¤.
         pTradeManager->cancelTrade(pSender, pReceiver);
 
-        // ±³È¯ÀÌ Ãë¼ÒµÇ¾ú´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì´ ì·¨ì†Œë˜ì—ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_REJECT);
         pTargetPlayer->sendPacket(&gcTradeFinish);
     }
-    // ±³È¯À» Àç°í·ÁÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ì¬ê³ ë ¤í•˜ëŠ” ì½”ë“œë‹¤.
     else if (CODE == CG_TRADE_FINISH_RECONSIDER) {
-        // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ÀÎÁõ ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+        // í˜„ì¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
         if (pInfo1->getStatus() == TRADE_FINISH) {
-            // ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+            // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
             GCTradeVerify gcTradeVerify;
             gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_FINISH_RECONSIDER);
             pPlayer->sendPacket(&gcTradeVerify);
         }
 
-        // ±³È¯ »óÅÂ¸¦ º¯È¯ÇÑ´Ù.
+        // êµí™˜ ìƒíƒœë¥¼ ë³€í™˜í•œë‹¤.
         pInfo1->setStatus(TRADE_TRADING);
 
-        // OK¸¦ ´­·¶´Ù°¡ cancelÀ» ´©¸£¸é, ´ÙÀ½ 4ÃÊ µ¿¾ÈÀº OK°¡ ´Ù½Ã ³¯¾Æ¿Í¼­´Â
-        // ¾È µÈ´Ù. ±×·¯¹Ç·Î ¿©±â¼­ ½Ã°£À» ¼¼ÆÃÇØ ÁØ´Ù.
+        // OKë¥¼ ëˆŒë €ë‹¤ê°€ cancelì„ ëˆ„ë¥´ë©´, ë‹¤ìŒ 4ì´ˆ ë™ì•ˆì€ OKê°€ ë‹¤ì‹œ ë‚ ì•„ì™€ì„œëŠ”
+        // ì•ˆ ëœë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ì—¬ê¸°ì„œ ì‹œê°„ì„ ì„¸íŒ…í•´ ì¤€ë‹¤.
         pInfo1->setNextTime(currentTime);
 
-        // ±³È¯ÀÌ Àç°í·ÁµÇ¾ú´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì´ ì¬ê³ ë ¤ë˜ì—ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_RECONSIDER);
         pTargetPlayer->sendPacket(&gcTradeFinish);
     }
-    // ¾Ë¼ö ¾ø´Â ÄÚµå´Ù. »ç»ÓÇÏ°Ô Â©¶óÁØ´Ù.
+    // ì•Œìˆ˜ ì—†ëŠ” ì½”ë“œë‹¤. ì‚¬ë¿í•˜ê²Œ ì§¤ë¼ì¤€ë‹¤.
     else
-        throw ProtocolException("CGTradeFinish::executeVampire() : ¾Ë ¼ö ¾ø´Â ÄÚµå");
+        throw ProtocolException("CGTradeFinish::executeVampire() : ì•Œ ìˆ˜ ì—†ëŠ” ì½”ë“œ");
 
 #endif
 
@@ -398,8 +398,8 @@ void CGTradeFinishHandler::executeOusters(CGTradeFinish* pPacket, Player* pPlaye
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯¸¦ °Ë»çÇß±â ¶§¹®¿¡,
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ë¥¼ ê²€ì‚¬í–ˆê¸° ë•Œë¬¸ì—,
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     BYTE CODE = pPacket->getCode();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -407,7 +407,7 @@ void CGTradeFinishHandler::executeOusters(CGTradeFinish* pPacket, Player* pPlaye
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -422,34 +422,34 @@ void CGTradeFinishHandler::executeOusters(CGTradeFinish* pPacket, Player* pPlaye
     Player* pTargetPlayer = pTargetPC->getPlayer();
     GCTradeFinish gcTradeFinish;
 
-    // ÇöÀç ½Ã°£À» ¾ò¾î¿Â´Ù.
+    // í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ì˜¨ë‹¤.
     Timeval currentTime;
     getCurrentTime(currentTime);
 
-    // ±³È¯À» ½Â³«ÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ìŠ¹ë‚™í•˜ëŠ” ì½”ë“œë‹¤.
     if (CODE == CG_TRADE_FINISH_ACCEPT) {
-        // OK°¡ ³¯¾Æ¿Ã ½Ã°£ÀÌ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+        // OKê°€ ë‚ ì•„ì˜¬ ì‹œê°„ì´ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
         if (pInfo1->isValidOKTime(currentTime) == false) {
             pTradeManager->cancelTrade(pPC);
             executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_UNKNOWN);
             return;
         }
 
-        // ±³È¯À» ½Â³«Çß´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì„ ìŠ¹ë‚™í–ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_ACCEPT);
         pTargetPlayer->sendPacket(&gcTradeFinish);
 
-        // ±³È¯ »óÅÂ¸¦ º¯È¯ÇÑ´Ù.
+        // êµí™˜ ìƒíƒœë¥¼ ë³€í™˜í•œë‹¤.
         pInfo1->setStatus(TRADE_FINISH);
 
-        // »ó´ë¹æµµ ±³È¯À» Çã¶ôÇÏ°í ÀÖ´Ù¸é, ½ÇÁ¦·Î ±³È¯À» ÇÏµµ·Ï ÇÑ´Ù.
+        // ìƒëŒ€ë°©ë„ êµí™˜ì„ í—ˆë½í•˜ê³  ìˆë‹¤ë©´, ì‹¤ì œë¡œ êµí™˜ì„ í•˜ë„ë¡ í•œë‹¤.
         if (pInfo2->getStatus() == TRADE_FINISH) {
-            // È®½ÇÈ÷ ±³È¯À» ÇÒ ¼ö ÀÖ´Ù¸é ±³È¯À» ÇÑ´Ù.
-            // cout << "CGTradeFinish [" << pReceiver->getName() << "]ÀÇ »óÅÂµµ TRADE_FINISHÀÌ¹Ç·Î, ±³È¯À» ¼öÇàÇÑ´Ù." <<
+            // í™•ì‹¤íˆ êµí™˜ì„ í•  ìˆ˜ ìˆë‹¤ë©´ êµí™˜ì„ í•œë‹¤.
+            // cout << "CGTradeFinish [" << pReceiver->getName() << "]ì˜ ìƒíƒœë„ TRADE_FINISHì´ë¯€ë¡œ, êµí™˜ì„ ìˆ˜í–‰í•œë‹¤." <<
             // endl;
             if (pTradeManager->canTrade(pSender, pReceiver) == 1) {
-                // ¾ç Ãø¿¡ ±³È¯À» ¼öÇàÇÏ¶ó´Â ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+                // ì–‘ ì¸¡ì— êµí™˜ì„ ìˆ˜í–‰í•˜ë¼ëŠ” íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
                 gcTradeFinish.setTargetObjectID(pSender->getObjectID());
                 gcTradeFinish.setCode(GC_TRADE_FINISH_EXECUTE);
                 pTargetPlayer->sendPacket(&gcTradeFinish);
@@ -458,7 +458,7 @@ void CGTradeFinishHandler::executeOusters(CGTradeFinish* pPacket, Player* pPlaye
                 gcTradeFinish.setCode(GC_TRADE_FINISH_EXECUTE);
                 pPlayer->sendPacket(&gcTradeFinish);
 
-                // ½ÇÁ¦·Î ±³È¯À» ¼öÇàÇÑ´Ù.
+                // ì‹¤ì œë¡œ êµí™˜ì„ ìˆ˜í–‰í•œë‹¤.
                 pTradeManager->processTrade(pSender, pReceiver);
             } else if (pTradeManager->canTrade(pSender, pReceiver) == 2) {
                 pTradeManager->cancelTrade(pPC);
@@ -471,49 +471,49 @@ void CGTradeFinishHandler::executeOusters(CGTradeFinish* pPacket, Player* pPlaye
             }
         }
     }
-    // ±³È¯À» °ÅºÎÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ê±°ë¶€í•˜ëŠ” ì½”ë“œë‹¤.
     else if (CODE == CG_TRADE_FINISH_REJECT) {
-        // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ÀÎÁõ ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+        // í˜„ì¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
         if (pInfo1->getStatus() == TRADE_FINISH) {
-            // ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+            // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
             GCTradeVerify gcTradeVerify;
             gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_FINISH_REJECT);
             pPlayer->sendPacket(&gcTradeVerify);
         }
 
-        // ±³È¯À» Ãë¼Ò½ÃÅ²´Ù.
+        // êµí™˜ì„ ì·¨ì†Œì‹œí‚¨ë‹¤.
         pTradeManager->cancelTrade(pSender, pReceiver);
 
-        // ±³È¯ÀÌ Ãë¼ÒµÇ¾ú´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì´ ì·¨ì†Œë˜ì—ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_REJECT);
         pTargetPlayer->sendPacket(&gcTradeFinish);
     }
-    // ±³È¯À» Àç°í·ÁÇÏ´Â ÄÚµå´Ù.
+    // êµí™˜ì„ ì¬ê³ ë ¤í•˜ëŠ” ì½”ë“œë‹¤.
     else if (CODE == CG_TRADE_FINISH_RECONSIDER) {
-        // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ÀÎÁõ ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+        // í˜„ì¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
         if (pInfo1->getStatus() == TRADE_FINISH) {
-            // ÀÎÁõ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+            // ì¸ì¦ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
             GCTradeVerify gcTradeVerify;
             gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_FINISH_RECONSIDER);
             pPlayer->sendPacket(&gcTradeVerify);
         }
 
-        // ±³È¯ »óÅÂ¸¦ º¯È¯ÇÑ´Ù.
+        // êµí™˜ ìƒíƒœë¥¼ ë³€í™˜í•œë‹¤.
         pInfo1->setStatus(TRADE_TRADING);
 
-        // OK¸¦ ´­·¶´Ù°¡ cancelÀ» ´©¸£¸é, ´ÙÀ½ 4ÃÊ µ¿¾ÈÀº OK°¡ ´Ù½Ã ³¯¾Æ¿Í¼­´Â
-        // ¾È µÈ´Ù. ±×·¯¹Ç·Î ¿©±â¼­ ½Ã°£À» ¼¼ÆÃÇØ ÁØ´Ù.
+        // OKë¥¼ ëˆŒë €ë‹¤ê°€ cancelì„ ëˆ„ë¥´ë©´, ë‹¤ìŒ 4ì´ˆ ë™ì•ˆì€ OKê°€ ë‹¤ì‹œ ë‚ ì•„ì™€ì„œëŠ”
+        // ì•ˆ ëœë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ì—¬ê¸°ì„œ ì‹œê°„ì„ ì„¸íŒ…í•´ ì¤€ë‹¤.
         pInfo1->setNextTime(currentTime);
 
-        // ±³È¯ÀÌ Àç°í·ÁµÇ¾ú´Ù´Â °ÍÀ» »ó´ë¹æ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+        // êµí™˜ì´ ì¬ê³ ë ¤ë˜ì—ˆë‹¤ëŠ” ê²ƒì„ ìƒëŒ€ë°©ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
         gcTradeFinish.setTargetObjectID(pSender->getObjectID());
         gcTradeFinish.setCode(GC_TRADE_FINISH_RECONSIDER);
         pTargetPlayer->sendPacket(&gcTradeFinish);
     }
-    // ¾Ë¼ö ¾ø´Â ÄÚµå´Ù. »ç»ÓÇÏ°Ô Â©¶óÁØ´Ù.
+    // ì•Œìˆ˜ ì—†ëŠ” ì½”ë“œë‹¤. ì‚¬ë¿í•˜ê²Œ ì§¤ë¼ì¤€ë‹¤.
     else
-        throw ProtocolException("CGTradeFinish::executeOusters() : ¾Ë ¼ö ¾ø´Â ÄÚµå");
+        throw ProtocolException("CGTradeFinish::executeOusters() : ì•Œ ìˆ˜ ì—†ëŠ” ì½”ë“œ");
 
 #endif
 

@@ -2,7 +2,7 @@
 // Filename    : ActionSwapAdvancementItem.h
 // Written By  : excel96
 // Description :
-// Creature°¡ PC¿¡°Ô Áú¹®À» ´øÁø´Ù. ÀÌ ´ë»ç´Â NPC ´ëÈ­Ã¢¿¡ Ãâ·ÂµÈ´Ù.
+// Creatureê°€ PCì—ê²Œ ì§ˆë¬¸ì„ ë˜ì§„ë‹¤. ì´ ëŒ€ì‚¬ëŠ” NPC ëŒ€í™”ì°½ì— ì¶œë ¥ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __ACTION_SWAP_ADVANCEMENT_ITEM_H__

@@ -21,21 +21,21 @@ class Zone;
 //
 // class WeatherManager;
 //
-// ���� ������ �����ϴ� ��ü�μ�, �� ���� �ϳ��� WeatherManager�� ������ �־�� �Ѵ�.
+// Á¸ÀÇ ³¯¾¾¸¦ °ü¸®ÇÏ´Â °´Ã¼·Î¼­, °¢ Á¸Àº ÇÏ³ªÀÇ WeatherManager¸¦ °¡Áö°í ÀÖ¾î¾ß ÇÑ´Ù.
 //
-// ���� ������ �Ϸ翡 �ѹ� ������ �ȴ�. �켱, GameTime ���� ������ ���������
-// �˾Ƴ� ����, WeatherInfoManager ���� �ش�Ǵ� WeatherInfo �� �����´�.
-// ���� dice �� ������, ������ ������ �������´�. CLEAR-RAIN-SNOW �� �ϳ��� ����
-// ��������, ���� �Ϸ��� �������� ������ �������´�.
+// Á¸ÀÇ ³¯¾¾´Â ÇÏ·ç¿¡ ÇÑ¹ø °áÁ¤ÀÌ µÈ´Ù. ¿ì¼±, GameTime ¿¡¼­ ¿À´ÃÀÌ ¸î¿ùÀÎÁö¸¦
+// ¾Ë¾Æ³½ ´ÙÀ½, WeatherInfoManager ¿¡¼­ ÇØ´çµÇ´Â WeatherInfo ¸¦ °¡Á®¿Â´Ù.
+// ÀÌÁ¦ dice ¸¦ ±¼·Á¼­, ¿À´ÃÀÇ ³¯¾¾¸¦ °áÁ¤Áþ´Â´Ù. CLEAR-RAIN-SNOW Áß ÇÏ³ª¸¦ °áÁ¤
+// Áö¾úÀ¸¸é, ÀÌÁ¦ ÇÏ·çÀÇ ¼¼ºÎÀûÀÎ ³¯¾¾¸¦ °áÁ¤Áþ´Â´Ù.
 //
-// ������ �⺻ ������ ���� �ð� 1 �ð��̴�.
+// ³¯¾¾ÀÇ ±âº» ´ÜÀ§´Â °ÔÀÓ ½Ã°£ 1 ½Ã°£ÀÌ´Ù.
 //
-// WEATHER_CLEAR : �� ���, �� ���� ������ �ʴ´�.
-// WEATHER_RAINY, WEATHER_SNOWY : �Ϸ翡 �� ���� Ȯ���� �������� �� �ð�����
-// ���̽��� ������ �� ������ �Ѵ�. �̶�, �� ��ĥ �ð��� ���̽��� ������ش�.
-//(�� ������ �ð� ���ú ���� �ð� �ѽð��� ������ �Ѵ�.)
+// WEATHER_CLEAR : ÀÌ °æ¿ì, ºñ³ª ´«ÀÌ ³»¸®Áö ¾Ê´Â´Ù.
+// WEATHER_RAINY, WEATHER_SNOWY : ÇÏ·ç¿¡ ºñ°¡ ³»¸± È®·üÀ» ¹ÙÅÁÀ¸·Î ¸Å ½Ã°£¸¶´Ù
+// ´ÙÀÌ½º¸¦ ±¼·Á¼­ ºñ¸¦ ³»¸®°Ô ÇÑ´Ù. ÀÌ¶§, ºñ°¡ ±×Ä¥ ½Ã°£µµ ´ÙÀÌ½º·Î °è»êÇØÁØ´Ù.
+//(ºñ°¡ ³»¸®´Â ½Ã°£ ¿ª½Ãº °ÔÀÓ ½Ã°£ ÇÑ½Ã°£À» ´ÜÀ§·Î ÇÑ´Ù.)
 //
-// ������ ġ�� �⺻ ������ �ǽð� 1���̸�, Ȯ����(���� ����* 5 - 30) %�̴�.
+// ¹ø°³°¡ Ä¡´Â ±âº» ´ÜÀ§´Â ½Ç½Ã°£ 1ºÐÀÌ¸ç, È®·üÀº(ºñÀÇ ·¹º§* 5 - 30) %ÀÌ´Ù.
 //
 //--------------------------------------------------------------------------------
 class WeatherManager {
@@ -51,25 +51,25 @@ public:
     // initialize
     void init();
 
-    // ���� �ð��� �Ǹ� ������ �˾Ƽ� �ٲ��ش�. ���� heartbeat ���� ȣ��Ǿ�� �Ѵ�.
+    // ÁöÁ¤ ½Ã°£ÀÌ µÇ¸é ³¯¾¾¸¦ ¾Ë¾Æ¼­ ¹Ù²ãÁØ´Ù. Á¸ÀÇ heartbeat ¿¡¼­ È£ÃâµÇ¾î¾ß ÇÑ´Ù.
     void heartbeat();
 
-    // ������ ������ �����Ѵ�.
+    // ¿À´ÃÀÇ ³¯¾¾¸¦ ¸®ÅÏÇÑ´Ù.
     Weather getTodayWeather() const {
         return m_TodayWeather;
     }
 
-    // ���� �� ���� �� Ȯ���� �����Ѵ�.
+    // ¿À´Ã ºñ³ª ´«ÀÌ ¿Ã È®·üÀ» ¸®ÅÏÇÑ´Ù.
     uint getProbability() const {
         return m_Probability;
     }
 
-    // ������ ������ �����Ѵ�.
+    // ÇöÀçÀÇ ³¯¾¾¸¦ ¸®ÅÏÇÑ´Ù.
     Weather getCurrentWeather() const {
         return m_CurrentWeather;
     }
 
-    // ������ ���� ������ �����Ѵ�.
+    // ÇöÀçÀÇ ³¯¾¾ ·¹º§À» ¸®ÅÏÇÑ´Ù.
     WeatherLevel_t getWeatherLevel() const {
         return m_WeatherLevel;
     }
@@ -82,36 +82,36 @@ public:
     string toString() const;
 
 private:
-    // ���� �����Ǿ� �ִ� ��
+    // ÇöÀç ¿¬°üµÇ¾î ÀÖ´Â Á¸
     Zone* m_pZone;
 
-    // ������ ����(CLEAR/RAINY/SNOWY)
+    // ¿À´ÃÀÇ ³¯¾¾(CLEAR/RAINY/SNOWY)
     Weather m_TodayWeather;
 
-    // �� ���� �� Ȯ��(0 - 100)
+    // ºñ³ª ´«ÀÌ ¿Ã È®·ü(0 - 100)
     uint m_Probability;
 
-    // ������ ����
+    // ÇöÀçÀÇ ³¯¾¾
     Weather m_CurrentWeather;
 
-    // ���� ����(1 - 20)
+    // ³¯¾¾ ·¹º§(1 - 20)
     WeatherLevel_t m_WeatherLevel;
 
 
     //--------------------------------------------------
-    // ���� XXX �� �ð�(�ʴ����� ����ϴ�)
+    // ´ÙÀ½ XXX ÇÒ ½Ã°£(ÃÊ´ÜÀ§µµ ÃæºÐÇÏ´Ù)
     //--------------------------------------------------
 private:
-    // ����
+    // ³»ÀÏ
     time_t m_Tomorrow;
 
-    // ���� ���� ���� �ð�
+    // ´ÙÀ½ ³¯¾¾ º¯°æ ½Ã°£
     time_t m_NextWeatherChangingTime;
 
-    // ���� ���� �ð�
+    // ´ÙÀ½ ¹ø°³ ½Ã°£
     time_t m_NextLightning;
 
-    // ���� 10�д�
+    // ´ÙÀ½ 10ºÐ´ë
     time_t m_Next10Min;
 };
 

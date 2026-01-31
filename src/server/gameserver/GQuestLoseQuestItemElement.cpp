@@ -16,7 +16,7 @@ GQuestElement::ResultType GQuestLoseQuestItemElement::checkCondition(PlayerCreat
     pPC->getPlayer()->sendPacket(inventory.getInventoryPacket());
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("获得任务道具.");
+    gcSM.setMessage("靷侩彜頉ㄨ洘霃涭暭.");
     pPC->getPlayer()->sendPacket(&gcSM);
 
     return OK;

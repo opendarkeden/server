@@ -47,8 +47,8 @@ void EffectPeace::affect(Creature* pCreature)
     __BEGIN_TRY
 
     Assert(pCreature != NULL);
-    Assert(!pCreature->isSlayer()); // ½½·¹ÀÌ¾î´Â °É¸®Áö ¾Ê´Â´Ù.
-    Assert(!pCreature->isNPC());    // NPCµµ °É¸®Áö ¾Ê´Â´Ù.
+    Assert(!pCreature->isSlayer()); // ìŠ¬ë ˆì´ì–´ëŠ” ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
+    Assert(!pCreature->isNPC());    // NPCë„ ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
 
     if (pCreature->isMonster()) {
         Monster* pMonster = dynamic_cast<Monster*>(pCreature);
@@ -74,7 +74,7 @@ void EffectPeace::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_PEACE);

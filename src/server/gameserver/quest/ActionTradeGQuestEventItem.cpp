@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionTradeGQuestEventItem.cpp
-// Written By  : ÀåÈ«Ã¢
+// Written By  : ìž¥í™ì°½
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 #include "ActionTradeGQuestEventItem.h"
@@ -47,7 +47,7 @@ void ActionTradeGQuestEventItem::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -67,7 +67,7 @@ void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreatu
 
     GQuestInventory& inven = pPC->getGQuestManager()->getGQuestInventory();
 
-    // ¸ÕÀú Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ GCNPCResponse¸¦ º¸³»ÁØ´Ù.
+    // ë¨¼ì € í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ GCNPCResponseë¥¼ ë³´ë‚´ì¤€ë‹¤.
     GCNPCResponse okpkt;
     pPlayer->sendPacket(&okpkt);
 
@@ -85,7 +85,7 @@ void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreatu
 
     if (count[0] < 5 || count[1] < 5 || count[2] < 5) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("ÐèÒª15¸öÈÎÎñµÀ¾ß.");
+        gcSM.setMessage("çŸœï¤«15ëª¸í›¨è›Ÿë›ì•¼.");
         pPC->getPlayer()->sendPacket(&gcSM);
         return;
     }
@@ -93,7 +93,7 @@ void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreatu
     _TPOINT tp;
     if (!pPC->getInventory()->getEmptySlot(1, 1, tp)) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("µÀ¾ßÀ¸¿Õ¼ä²»×ã.");
+        gcSM.setMessage("ë›ì•¼ìœ¼ì™•ì‡Œê¼‡ç’ƒ.");
         pPC->getPlayer()->sendPacket(&gcSM);
         return;
     }
@@ -153,7 +153,7 @@ void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreatu
 
     makeOptionList(option, optionList);
     if (optionList.size() != 2) {
-        filelog("GQuestEventBug.log", "¿É¼ÇÀÌ Æ²·È½À´Ï´Ù. : %d/%s", value, option.c_str());
+        filelog("GQuestEventBug.log", "ì˜µì…˜ì´ í‹€ë ¸ìŠµë‹ˆë‹¤. : %d/%s", value, option.c_str());
     }
 
     Item* pItem = g_pItemFactoryManager->createItem(iClass, iType, optionList);
@@ -169,7 +169,7 @@ void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreatu
     makeGCCreateItem(&gcCI, pItem, tp.x, tp.y);
     pPC->getPlayer()->sendPacket(&gcCI);
 
-    filelog("GQuestEvent.log", "ÀÌº¥Æ® Äù½ºÆ® ¾ÆÀÌÅÛÀ» Áá½À´Ï´Ù. : [%s]%u/%s/%u", pPC->getName().c_str(), iType,
+    filelog("GQuestEvent.log", "ì´ë²¤íŠ¸ í€˜ìŠ¤íŠ¸ ì•„ì´í…œì„ ì¤¬ìŠµë‹ˆë‹¤. : [%s]%u/%s/%u", pPC->getName().c_str(), iType,
             option.c_str(), pItem->getItemID());
 
     GCNPCResponse response;
@@ -177,7 +177,7 @@ void ActionTradeGQuestEventItem::execute(Creature* pCreature1, Creature* pCreatu
     pPlayer->sendPacket(&response);
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("½±Æ·ÒÑ·¢·Å.");
+    gcSM.setMessage("ì‰½í‹”ï¤½ëž™ë ´.");
     pPC->getPlayer()->sendPacket(&gcSM);
 
     __END_CATCH

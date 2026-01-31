@@ -46,7 +46,7 @@ void CGSelectBloodBibleHandler::execute(CGSelectBloodBible* pPacket, Player* pPl
 
     if (pPC->getRace() != pBonus->getRace()) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("ÎÞ·¨Ê¹ÓÃµÄÊ¥Êé.");
+        gcSM.setMessage("è½Ÿëž¬è³ˆç—°ë¨åŠ èŽ.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
@@ -54,20 +54,20 @@ void CGSelectBloodBibleHandler::execute(CGSelectBloodBible* pPacket, Player* pPl
     BloodBibleSignInfo* pInfo = pPC->getBloodBibleSign();
     if (pInfo->getOpenNum() <= pInfo->getList().size()) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("Ã»ÓÐ¿ÕÓà²Û.");
+        gcSM.setMessage("ì²­å”ì™•å²±ê¾¼.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
 
     if (find(pInfo->getList().begin(), pInfo->getList().end(), pPacket->getBloodBibleID()) != pInfo->getList().end()) {
         GCSystemMessage gcSM;
-        gcSM.setMessage("ÒÑ×°±¸µÄÊ¥Êé.");
+        gcSM.setMessage("ï¤½é™‹êµ¬ë¨åŠ èŽ.");
         pGamePlayer->sendPacket(&gcSM);
         return;
     }
 
     GCSystemMessage gcSM;
-    gcSM.setMessage("ÒÑ×°±¸ÑªÖ®Ê¥Êé.");
+    gcSM.setMessage("ï¤½é™‹êµ¬æ²‚è£‚åŠ èŽ.");
     pGamePlayer->sendPacket(&gcSM);
 
     pInfo->getList().push_back(pPacket->getBloodBibleID());

@@ -19,8 +19,8 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
-// ¸¶½ºÅ©¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ìƒì„±ì
+// ë§ˆìŠ¤í¬ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 DuckingWallop::DuckingWallop() throw() {
     __BEGIN_TRY
@@ -81,7 +81,7 @@ DuckingWallop::DuckingWallop() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void DuckingWallop::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                             CEffectID_t CEffectID)
@@ -101,7 +101,7 @@ void DuckingWallop::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pOusters, getSkillType());
 
@@ -120,7 +120,7 @@ void DuckingWallop::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
                             CEffectID_t CEffectID)
@@ -131,7 +131,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
     // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << "begin " << endl;
     SkillType_t SkillType = getSkillType();
 
-    // Knowledge of Blood °¡ ÀÖ´Ù¸é hit bonus 10
+    // Knowledge of Blood ê°€ ìˆë‹¤ë©´ hit bonus 10
     // int HitBonus = 0;
     if (pOusters->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD)) {
         RankBonus* pRankBonus = pOusters->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
@@ -147,7 +147,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 
         Dir_t dir = getDirectionToPosition(pOusters->getX(), pOusters->getY(), X, Y);
 
-        // °­Á¦·Î knockback½ÃÅ³ È®·ü
+        // ê°•ì œë¡œ knockbackì‹œí‚¬ í™•ë¥ 
         //		bool bForceKnockback = rand()%100 < output.ToHit;
 
         Player* pPlayer = pOusters->getPlayer();
@@ -184,23 +184,23 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bPassLine &&
             pZone->moveFastPC(pOusters, myX, myY, TargetX, TargetY, getSkillType())) {
-            // ¸¶³ª¸¦ ¶³¾î¶ß¸°´Ù.
+            // ë§ˆë‚˜ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
-            // ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+            // ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
             //			Dir_t       dir          = calcDirection(myX, myY, X, Y);
 
             list<Creature*> cList;
 
-            // knockback ¶§¹®¿¡ recursive ÇÏ°Ô µ¥¹ÌÁö¸¦ ¸Ô´Â °æ¿ì°¡ ÀÖ´Ù.
-            // ±×·¡¼­ Á¦ÀÏ ¸ÕÂÊ¿¡ ÀÖ´Â ¸¶½ºÅ©ºÎÅÍ Ã¼Å©ÇÑ´Ù.
+            // knockback ë•Œë¬¸ì— recursive í•˜ê²Œ ë°ë¯¸ì§€ë¥¼ ë¨¹ëŠ” ê²½ìš°ê°€ ìˆë‹¤.
+            // ê·¸ë˜ì„œ ì œì¼ ë¨¼ìª½ì— ìˆëŠ” ë§ˆìŠ¤í¬ë¶€í„° ì²´í¬í•œë‹¤.
             for (int i = 17; i >= 0; i--) {
                 int tileX = myX + m_pDuckingWallopMask[dir][i].x;
                 int tileY = myY + m_pDuckingWallopMask[dir][i].y;
 
-                // ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é ¸ÂÀ» °¡´É¼ºÀÌ ÀÖ´Ù.
+                // í˜„ì¬ íƒ€ì¼ì´ ì¡´ ë‚´ë¶€ì´ê³ , ì•ˆì „ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´ ë§ì„ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
                 if (rect.ptInRect(tileX, tileY)) {
-                    // Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+                    // íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
                     Tile& tile = pZone->getTile(tileX, tileY);
 
                     list<Creature*> targetList;
@@ -246,7 +246,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
                                 _GCSkillToTileOK2.addCListElement(targetObjectID);
                                 _GCSkillToTileOK5.addCListElement(targetObjectID);
 
-                                // ÀÏ´Ü ¸Â´Â ³ğÀÌ ¹ŞÀ» ÆĞÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+                                // ì¼ë‹¨ ë§ëŠ” ë†ˆì´ ë°›ì„ íŒ¨í‚·ì€ ë„ ìƒíƒœë¡œ í•œ ì±„ë¡œ, ë°ë¯¸ì§€ë¥¼ ì¤€ë‹¤.
                                 setDamage(pTargetCreature, Damage, pOusters, SkillType, NULL, &_GCSkillToTileOK1);
                                 computeAlignmentChange(pTargetCreature, Damage, pOusters, NULL, &_GCSkillToTileOK1);
 
@@ -263,7 +263,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
             }
 
 
-            // °ø°İÀÚÀÇ ¾ÆÀÌÅÛ ³»±¸¼ºÀ» ¶³¾î¶ß¸°´Ù.
+            // ê³µê²©ìì˜ ì•„ì´í…œ ë‚´êµ¬ì„±ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             decreaseDurability(pOusters, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 
             _GCSkillToTileOK1.setSkillType(SkillType);
@@ -289,7 +289,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+            // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                 Creature* pTargetCreature = *itr;
                 Assert(pTargetCreature != NULL);
@@ -297,7 +297,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
                 if (pTargetCreature->isPC()) {
                     _GCSkillToTileOK2.clearList();
 
-                    // HPÀÇ º¯°æ»çÇ×À» ÆĞÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+                    // HPì˜ ë³€ê²½ì‚¬í•­ì„ íŒ¨í‚·ì—ë‹¤ ê¸°ë¡í•œë‹¤.
                     HP_t targetHP = 0;
                     if (pTargetCreature->isSlayer()) {
                         targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -309,13 +309,13 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 
                     _GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-                    // ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                    // ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-                    // ÆĞÅ¶À» º¸³»ÁØ´Ù.
+                    // íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
                     pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
                 } else if (pTargetCreature->isMonster()) {
-                    // ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+                    // ë‹¹ê·¼ ì ìœ¼ë¡œ ì¸ì‹í•œë‹¤.
                     Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                     pMonster->addEnemy(pOusters);
                 }

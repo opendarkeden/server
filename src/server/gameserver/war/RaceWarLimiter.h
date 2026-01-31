@@ -8,7 +8,7 @@
 // 					PCWarLimiter
 //
 //--------------------------------------------------------------------------------
-// ¿¡ ´ëÇÑ ÃâÀÔ Ã¼Å©
+// ì— ëŒ€í•œ ì¶œì… ì²´í¬
 //--------------------------------------------------------------------------------
 class PCWarLimiter : public PCLimiter<LevelLimitInfo> {
 public:
@@ -111,7 +111,7 @@ public:
 
     LevelLimitInfo* getLimitInfo(Race_t race, int index);
 
-    // ÀüÀï Âü°¡ÀÚ ¸®½ºÆ®
+    // ì „ìŸ ì°¸ê°€ì ë¦¬ìŠ¤íŠ¸
     static void clearPCList();
     static void addPCList(PlayerCreature* pPC);
     static bool isInPCList(PlayerCreature* pPC);

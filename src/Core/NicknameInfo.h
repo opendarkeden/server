@@ -13,12 +13,12 @@
 class NicknameInfo {
 public:
     enum {
-        NICK_NONE = 0,      // ´Ð³×ÀÓ ¾øÀ½
-        NICK_BUILT_IN,      // ÀÏ¹ÝÀûÀ¸·Î ÀÚµ¿À¸·Î ÁÖ¾îÁö´Â ´Ð³×ÀÓ (ÀÎµ¦½º)
-        NICK_QUEST,         // Äù½ºÆ® Å¬¸®¾îÇÑ µÚ ¹Þ´Â ´Ð³×ÀÓ (ÀÎµ¦½º)
-        NICK_FORCED,        // °­Á¦·Î ºÙ¿©Áø ´Ð³×ÀÓ (ÀÎµ¦½º)
-        NICK_CUSTOM_FORCED, // °­Á¦·Î ºÙ¿©Áø ´Ð³×ÀÓ (½ºÆ®¸µ)
-        NICK_CUSTOM,        // À¯Àú°¡ ÀÚÀ¯·Ó°Ô ³ÖÀº ´Ð³×ÀÓ (½ºÆ®¸µ)
+        NICK_NONE = 0,      // ë‹‰ë„¤ìž„ ì—†ìŒ
+        NICK_BUILT_IN,      // ì¼ë°˜ì ìœ¼ë¡œ ìžë™ìœ¼ë¡œ ì£¼ì–´ì§€ëŠ” ë‹‰ë„¤ìž„ (ì¸ë±ìŠ¤)
+        NICK_QUEST,         // í€˜ìŠ¤íŠ¸ í´ë¦¬ì–´í•œ ë’¤ ë°›ëŠ” ë‹‰ë„¤ìž„ (ì¸ë±ìŠ¤)
+        NICK_FORCED,        // ê°•ì œë¡œ ë¶™ì—¬ì§„ ë‹‰ë„¤ìž„ (ì¸ë±ìŠ¤)
+        NICK_CUSTOM_FORCED, // ê°•ì œë¡œ ë¶™ì—¬ì§„ ë‹‰ë„¤ìž„ (ìŠ¤íŠ¸ë§)
+        NICK_CUSTOM,        // ìœ ì €ê°€ ìžìœ ë¡­ê²Œ ë„£ì€ ë‹‰ë„¤ìž„ (ìŠ¤íŠ¸ë§)
     };
 
     PacketSize_t getSize() const;
@@ -59,7 +59,7 @@ private:
     WORD m_NicknameID;
     BYTE m_NicknameType;
     string m_Nickname;
-    WORD m_NicknameIndex; // ½ºÆ®¸µ ¶Ç´Â ÀÎµ¦½º ÇÏ³ª¸¸ »ç¿ëµÈ´Ù.
+    WORD m_NicknameIndex; // ìŠ¤íŠ¸ë§ ë˜ëŠ” ì¸ë±ìŠ¤ í•˜ë‚˜ë§Œ ì‚¬ìš©ëœë‹¤.
 };
 
 #endif

@@ -72,7 +72,7 @@ void EffectEternity::unaffect(Creature* pCreature)
     if (!pSlayer->isFlag(Effect::EFFECT_CLASS_COMA))
         return;
 
-    // Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+    // íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
     GCAddEffectToTile gcAddEffect;
     gcAddEffect.setEffectID(Effect::EFFECT_CLASS_ETERNITY);
     gcAddEffect.setXY(pSlayer->getX(), pSlayer->getY());
@@ -88,7 +88,7 @@ void EffectEternity::unaffect(Creature* pCreature)
 
     pSlayer->setHP(NewHP);
 
-    // ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¬´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì½”ë§ˆ ì´íŽ™íŠ¸ê°€ ë‚ ì•„ê°”ë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pSlayer->getObjectID());
     gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_COMA);
@@ -99,7 +99,7 @@ void EffectEternity::unaffect(Creature* pCreature)
     gcHP.setCurrentHP(pSlayer->getHP());
     pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcHP);
 
-    // ÀÌÆåÆ®µéÀ» ´Ù½Ã º¸³»ÁØ´Ù.
+    // ì´íŽ™íŠ¸ë“¤ì„ ë‹¤ì‹œ ë³´ë‚´ì¤€ë‹¤.
     pSlayer->getEffectManager()->sendEffectInfo(pSlayer, pZone, pSlayer->getX(), pSlayer->getY());
 
     addSimpleCreatureEffect(pSlayer, Effect::EFFECT_CLASS_NO_DAMAGE, 30, false);

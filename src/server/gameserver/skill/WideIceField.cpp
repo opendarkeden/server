@@ -17,7 +17,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -46,7 +46,7 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
         ZoneCoord_t myY = pMonster->getY();
 
         if (bHitRoll) {
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
@@ -62,7 +62,7 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                         Tile& tile = pZone->getTile(tX, tY);
                         if (tile.canAddEffect())
                             bTileCheck = true;
-                        // ¸Ó½Ã ±×¶ó¿îµå ÀÖÀ½ Ãß°¡ ¸øÇÑ´ç.
+                        // ë¨¸ì‹œ ê·¸ë¼ìš´ë“œ ìžˆìŒ ì¶”ê°€ ëª»í•œë‹¹.
                         if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL)
                             bTileCheck = false;
                     }
@@ -72,14 +72,14 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
                     Tile& tile = pZone->getTile(tX, tY);
 
-                    // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+                    // ê°™ì€ ì´íŽ™íŠ¸ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
                     Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_ICE_FIELD);
                     if (pOldEffect != NULL) {
                         ObjectID_t effectID = pOldEffect->getObjectID();
                         pZone->deleteEffect(effectID);
                     }
 
-                    // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+                    // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
                     EffectIceField* pEffect = new EffectIceField(pZone, tX, tY);
                     pEffect->setCasterName(pMonster->getName());
                     pEffect->setCasterID(pMonster->getObjectID());
@@ -89,11 +89,11 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     pEffect->setTick(output.Tick);
                     pEffect->setForce(true);
 
-                    // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Þ¾Æ¾ß ÇÑ´Ù.
+                    // íƒ€ì¼ì— ë¶™ì€ ì´íŽ™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
                     ObjectRegistry& objectregister = pZone->getObjectRegistry();
                     objectregister.registerObject(pEffect);
 
-                    // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                    // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                     pZone->addEffect(pEffect);
                     tile.addEffect(pEffect);
                 }

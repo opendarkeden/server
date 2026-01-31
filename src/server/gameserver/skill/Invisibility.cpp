@@ -14,7 +14,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¼¿ÇÁ
+// ë±€íŒŒì´ì–´ ì…€í”„
 //////////////////////////////////////////////////////////////////////////////
 void Invisibility::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -42,7 +42,7 @@ void Invisibility::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
         ZoneCoord_t x = pVampire->getX();
         ZoneCoord_t y = pVampire->getY();
 
-        // Knowledge of Innate °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Innate ê°€ ìˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
@@ -71,9 +71,9 @@ void Invisibility::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
             SkillOutput output;
             computeOutput(input, output);
 
-            // Á¡Á¡ »ç¶óÁö´Â ÀÌÆåÆ®¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù.
-            // ½ÇÁ¦·Î »ç¶óÁö´Â °ÍÀº ÀÌ ÀÌÆåÆ® ³»ºÎ¿¡¼­´Ù.
-            // (ÇÑ¹ø¿¡ 'ÆÅ'ÇÏ°í »ç¶óÁö´Â °Ô ¾Æ´Ï¶ó¼­ ºÙÀÌ´Â ÀÌÆåÆ®´Ù.)
+            // ì ì  ì‚¬ë¼ì§€ëŠ” ì´í™íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
+            // ì‹¤ì œë¡œ ì‚¬ë¼ì§€ëŠ” ê²ƒì€ ì´ ì´í™íŠ¸ ë‚´ë¶€ì—ì„œë‹¤.
+            // (í•œë²ˆì— 'íŒ'í•˜ê³  ì‚¬ë¼ì§€ëŠ” ê²Œ ì•„ë‹ˆë¼ì„œ ë¶™ì´ëŠ” ì´í™íŠ¸ë‹¤.)
             EffectFadeOut* pEffect = new EffectFadeOut(pVampire);
             pEffect->setDuration(output.Duration);
             pEffect->setDeadline(40);
@@ -108,7 +108,7 @@ void Invisibility::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Invisibility::execute(Monster* pMonster)
 
@@ -147,9 +147,9 @@ void Invisibility::execute(Monster* pMonster)
             SkillOutput output;
             computeOutput(input, output);
 
-            // Á¡Á¡ »ç¶óÁö´Â ÀÌÆåÆ®¸¦ »ı¼ºÇØ¼­ ºÙÀÎ´Ù.
-            // ½ÇÁ¦·Î »ç¶óÁö´Â °ÍÀº ÀÌ ÀÌÆåÆ® ³»ºÎ¿¡¼­´Ù.
-            // (ÇÑ¹ø¿¡ 'ÆÅ'ÇÏ°í »ç¶óÁö´Â °Ô ¾Æ´Ï¶ó¼­ ºÙÀÌ´Â ÀÌÆåÆ®´Ù.)
+            // ì ì  ì‚¬ë¼ì§€ëŠ” ì´í™íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
+            // ì‹¤ì œë¡œ ì‚¬ë¼ì§€ëŠ” ê²ƒì€ ì´ ì´í™íŠ¸ ë‚´ë¶€ì—ì„œë‹¤.
+            // (í•œë²ˆì— 'íŒ'í•˜ê³  ì‚¬ë¼ì§€ëŠ” ê²Œ ì•„ë‹ˆë¼ì„œ ë¶™ì´ëŠ” ì´í™íŠ¸ë‹¤.)
             EffectFadeOut* pEffect = new EffectFadeOut(pMonster);
             pEffect->setDuration(output.Duration);
             pEffect->setDeadline(40);

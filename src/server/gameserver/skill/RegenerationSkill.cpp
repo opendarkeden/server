@@ -34,10 +34,10 @@ void RegenerationSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectI
 
       try
       {
-          // Player¸¦ ¹Þ¾Æ¿Â´Ù.
+          // Playerë¥¼ ë°›ì•„ì˜¨ë‹¤.
           Player * pPlayer = pSlayer->getPlayer();
 
-          // ZoneÀ» ¹Þ¾Æ¿Â´Ù.
+          // Zoneì„ ë°›ì•„ì˜¨ë‹¤.
           Zone * pZone = pSlayer->getZone();
           Assert(pZone);
           Assert(pSkillSlot);
@@ -53,7 +53,7 @@ void RegenerationSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectI
 
           SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
-          // ¸íÁß·üÀ» ¹Þ¾Æ¿Â´Ù.
+          // ëª…ì¤‘ë¥ ì„ ë°›ì•„ì˜¨ë‹¤.
           ToHit_t ToHit = pSlayer->getINT(ATTR_CURRENT);
 
           bool bTargetEffected = false;
@@ -71,24 +71,24 @@ void RegenerationSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectI
               bModifyMP = true;
           }
 
-          // ±â¼ú¼º°ø·ü °ËÁõ.
+          // ê¸°ìˆ ì„±ê³µë¥  ê²€ì¦.
           if (bModifyMP && (ToHit + SkillLevel > Random(0, 100)))
           {
 
-              // Effect Object¸¦ »ý¼ºÇÑ´Ù.
+              // Effect Objectë¥¼ ìƒì„±í•œë‹¤.
               EffectRegeneration * pEffectRegeneration = new EffectRegeneration (pSlayer);
 
-              HP_t generationHP = computeSkillDamage(pSkillSlot, pSkillInfo);	// Àç»ýµÇ´Â HPÀÇ ÃÑ ¾ç.
+              HP_t generationHP = computeSkillDamage(pSkillSlot, pSkillInfo);	// ìž¬ìƒë˜ëŠ” HPì˜ ì´ ì–‘.
               Duration_t Duration = max(1, (int)10);
               pEffectRegeneration->setDelay(REGENERATION_DELAY);
               pEffectRegeneration->setDeadline(Duration * 10);
               pEffectRegeneration->setPoint(generationHP / (Duration*10 / REGENERATION_DELAY));
               pEffectRegeneration->affect(pSlayer);
 
-              // Creature¿¡ Effect Flag¸¦ On ½ÃÅ²´Ù.
+              // Creatureì— Effect Flagë¥¼ On ì‹œí‚¨ë‹¤.
               pSlayer->setFlag(Effect::EFFECT_CLASS_REGENERATION);
 
-              // CreatureÀÇ effectManager¿¡ ÀÌ Effect¸¦ Ãß°¡½ÃÅ²´Ù.
+              // Creatureì˜ effectManagerì— ì´ Effectë¥¼ ì¶”ê°€ì‹œí‚¨ë‹¤.
               pSlayer->addEffect(pEffectRegeneration);
 
               _GCSkillToSelfOK1.addShortData(MODIFY_CURRENT_MP , RemainMP);

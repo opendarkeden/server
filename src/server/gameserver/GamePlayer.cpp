@@ -47,10 +47,10 @@
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ğµç packetµé¿¡ ´ëÇØ¼­ profilingÇÑ´Ù. by sigi. 2002.5.6
+// Â¸Ã°ÂµÃ§ packetÂµÃ©Â¿Â¡ Â´Ã«Ã‡Ã˜Â¼Â­ profilingÃ‡Ã‘Â´Ã™. by sigi. 2002.5.6
 //
-// ´Ü, ÀÌ°É »ç¿ëÇÏ±â À§ÇØ¼­´Â
-// Profile.h¿¡ MAX_PROFILE_SAMPLES += 300À» ÇØÁà¾ß ÇÑ´Ù.
+// Â´Ãœ, Ã€ÃŒÂ°Ã‰ Â»Ã§Â¿Ã«Ã‡ÃÂ±Ã¢ Ã€Â§Ã‡Ã˜Â¼Â­Â´Ã‚
+// Profile.hÂ¿Â¡ MAX_PROFILE_SAMPLES += 300Ã€Â» Ã‡Ã˜ÃÃ Â¾ÃŸ Ã‡Ã‘Â´Ã™.
 //////////////////////////////////////////////////////////////////////////////
 // #define __PROFILE_PACKETS__
 
@@ -62,15 +62,15 @@
 const int defaultGamePlayerInputStreamSize = 1024;
 const int defaultGamePlayerOutputStreamSize = 20480;
 
-static int maxIdleSec = 60 * 5; // ÎŞ¶¯×÷Ê±¼ä×î´ó±£³ÖÁ¬½ÓÊ±¼ä 60 * 5 = 300Ãë(5·Ö)
-// static int maxSpeedVerifyTime = 2;  		// 0.3 ÃÊ
-static int maxVerifyCount = 3;   // ×î´ó´íÎóĞ£Ñé´ÎÊı 3´Î
-static int maxTimeGap = 5;       // Ê±¼äĞ£ÑéÆ«²îÃëÊı º«·şÎª5´Î ĞŞ¸ÄÎª8´Î
-static int SpeedCheckDelay = 60; // Ê±¼äĞ£Ñé¼ä¸ô60ÃëÒ»´Î
+static int maxIdleSec = 60 * 5; // ÃÃÂ¶Â¯Ã—Ã·ÃŠÂ±Â¼Ã¤Ã—Ã®Â´Ã³Â±Â£Â³Ã–ÃÂ¬Â½Ã“ÃŠÂ±Â¼Ã¤ 60 * 5 = 300ÃƒÃ«(5Â·Ã–)
+// static int maxSpeedVerifyTime = 2;  		// 0.3 ÃƒÃŠ
+static int maxVerifyCount = 3;   // Ã—Ã®Â´Ã³Â´Ã­ÃÃ³ÃÂ£Ã‘Ã©Â´ÃÃŠÃ½ 3Â´Ã
+static int maxTimeGap = 5;       // ÃŠÂ±Â¼Ã¤ÃÂ£Ã‘Ã©Ã†Â«Â²Ã®ÃƒÃ«ÃŠÃ½ ÂºÂ«Â·Ã¾ÃÂª5Â´Ã ÃÃÂ¸Ã„ÃÂª8Â´Ã
+static int SpeedCheckDelay = 60; // ÃŠÂ±Â¼Ã¤ÃÂ£Ã‘Ã©Â¼Ã¤Â¸Ã´60ÃƒÃ«Ã’Â»Â´Ã
 
-const int PCRoomLottoSec = 3600;    // 3600 ÃÊ. 1½Ã°£
-const int PCRoomLottoMaxAmount = 3; // ÇÑ¹ø¿¡ ½×ÀÏ ¼ö ÀÖ´Â ÃÖ´ë º¹±Ç¼ö
-// CLLoginHandler.cpp¿¡ ÀÖ´Â ÇÔ¼ö´Ù.
+const int PCRoomLottoSec = 3600;    // 3600 ÃƒÃŠ. 1Â½ÃƒÂ°Â£
+const int PCRoomLottoMaxAmount = 3; // Ã‡Ã‘Â¹Ã¸Â¿Â¡ Â½Ã—Ã€Ã Â¼Ã¶ Ã€Ã–Â´Ã‚ ÃƒÃ–Â´Ã« ÂºÂ¹Â±Ã‡Â¼Ã¶
+// CLLoginHandler.cppÂ¿Â¡ Ã€Ã–Â´Ã‚ Ã‡Ã”Â¼Ã¶Â´Ã™.
 void addLogoutPlayerData(Player* pPlayer);
 
 
@@ -109,7 +109,7 @@ GamePlayer::GamePlayer(Socket* pSocket)
     getCurrentTime(m_ExpireTime);
     m_ExpireTime.tv_sec += maxIdleSec;
 
-    // ÇöÀç ½Ã°£À» ¹Ş¾Æ¿Â´Ù
+    // Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â£Ã€Â» Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™
     // getCurrentTime(m_SpeedVerify);
     m_SpeedVerify.tv_sec = 0;
     ;
@@ -139,7 +139,7 @@ GamePlayer::GamePlayer(Socket* pSocket)
 
     m_bPacketLog = false;
 
-    // °´Ã¼°¡ »ı¼ºµÈ ½ÃÁ¡À» ·Î±×ÀÎÇÑ ½Ã°£À¸·Î º»´Ù.
+    // Â°Â´ÃƒÂ¼Â°Â¡ Â»Ã½Â¼ÂºÂµÃˆ Â½ÃƒÃÂ¡Ã€Â» Â·ÃÂ±Ã—Ã€ÃÃ‡Ã‘ Â½ÃƒÂ°Â£Ã€Â¸Â·Ã ÂºÂ»Â´Ã™.
     m_LoginDateTime = VSDateTime::currentDateTime();
 
 #ifdef __THAILAND_SERVER__
@@ -161,14 +161,14 @@ GamePlayer::~GamePlayer() {
 
     //__ENTER_CRITICAL_SECTION(m_Mutex)
 
-    // ±× ¾î¶² ÇÃ·¹ÀÌ¾î °´Ã¼°¡ »èÁ¦µÉ ¶§¿¡µµ, ±× »óÅÂ´Â ·Î±×¾Æ¿ôÀÌ¾î¾ß ÇÑ´Ù.
-    // Áï ¾î¶² ÇÃ·¹ÀÌ¾î¸¦ Á¢¼Ó Á¾·á ½ÃÅ°·Á¸é, ±× »óÅÂ¸¦ ·Î±×¾Æ¿ôÀ¸·Î ¸¸µé¾î¾ß ÇÑ´Ù.
+    // Â±Ã— Â¾Ã®Â¶Â² Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã® Â°Â´ÃƒÂ¼Â°Â¡ Â»Ã¨ÃÂ¦ÂµÃ‰ Â¶Â§Â¿Â¡ÂµÂµ, Â±Ã— Â»Ã³Ã…Ã‚Â´Ã‚ Â·ÃÂ±Ã—Â¾Ã†Â¿Ã´Ã€ÃŒÂ¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
+    // ÃÃ¯ Â¾Ã®Â¶Â² Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã®Â¸Â¦ ÃÂ¢Â¼Ã“ ÃÂ¾Â·Ã¡ Â½ÃƒÃ…Â°Â·ÃÂ¸Ã©, Â±Ã— Â»Ã³Ã…Ã‚Â¸Â¦ Â·ÃÂ±Ã—Â¾Ã†Â¿Ã´Ã€Â¸Â·Ã Â¸Â¸ÂµÃ©Â¾Ã®Â¾ÃŸ Ã‡Ã‘Â´Ã™.
     Assert(m_PlayerStatus == GPS_END_SESSION);
 
     try {
         // Delete creature
         if (m_pCreature != NULL) {
-            // ¼º¼­ ¶³¾î¶ß¸®±â
+            // Â¼ÂºÂ¼Â­ Â¶Â³Â¾Ã®Â¶ÃŸÂ¸Â®Â±Ã¢
             if (m_pCreature->hasRelicItem()) {
                 dropRelicToZone(m_pCreature, false);
             }
@@ -178,7 +178,7 @@ GamePlayer::~GamePlayer() {
 
             // try
             //{
-            //  NoSuchÁ¦°Å. by sigi. 2002.5.2
+            //  NoSuchÃÂ¦Â°Ã…. by sigi. 2002.5.2
             g_pPCFinder->deleteCreature(m_pCreature->getName());
             //}
             // catch (NoSuchElementException & t)
@@ -186,19 +186,19 @@ GamePlayer::~GamePlayer() {
             //}
 
 #ifdef __CONNECT_BILLING_SYSTEM__
-            // Pay Á¾·áÇÑ´Ù°í ¾Ë·ÁÁØ´Ù. by sigi. 2002.11.18
+            // Pay ÃÂ¾Â·Ã¡Ã‡Ã‘Â´Ã™Â°Ã­ Â¾Ã‹Â·ÃÃÃ˜Â´Ã™. by sigi. 2002.11.18
             if (isBillingPlayAvaiable() && !m_bMetroFreePlayer) // by sigi. 2002.11.23
             {
                 g_pBillingPlayerManager->sendPayLogout(this);
             }
 #elif defined(__CONNECT_CBILLING_SYSTEM__)
-            // Áß±¹ ºô¸µ ¼­¹ö¿¡ logout ÆĞÅ¶À» º¸³½´Ù.
+            // ÃÃŸÂ±Â¹ ÂºÃ´Â¸Âµ Â¼Â­Â¹Ã¶Â¿Â¡ logout Ã†ÃÃ…Â¶Ã€Â» ÂºÂ¸Â³Â½Â´Ã™.
             g_pCBillingPlayerManager->sendLogout(this);
 #endif
 
             Statement* pStmt = NULL;
 
-            // ±æµå ÇöÀç Á¢¼Ó ¸â¹ö ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // Â±Ã¦ÂµÃ¥ Ã‡Ã¶Ã€Ã§ ÃÂ¢Â¼Ã“ Â¸Ã¢Â¹Ã¶ Â¸Â®Â½ÂºÃ†Â®Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
             if (m_pCreature->isSlayer()) {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(m_pCreature);
                 if (pSlayer->getGuildID() != 99) {
@@ -213,7 +213,7 @@ GamePlayer::~GamePlayer() {
 
                         g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
 
-                        // µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+                        // ÂµÃ°ÂºÃ±Â¿Â¡ Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Ã‡Ã‘Â´Ã™.
                         BEGIN_DB {
                             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
                             pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'",
@@ -238,7 +238,7 @@ GamePlayer::~GamePlayer() {
 
                         g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
 
-                        // µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+                        // ÂµÃ°ÂºÃ±Â¿Â¡ Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Ã‡Ã‘Â´Ã™.
                         BEGIN_DB {
                             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
                             pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'",
@@ -263,7 +263,7 @@ GamePlayer::~GamePlayer() {
 
                         g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
 
-                        // µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+                        // ÂµÃ°ÂºÃ±Â¿Â¡ Â¾Ã·ÂµÂ¥Ã€ÃŒÃ†Â® Ã‡Ã‘Â´Ã™.
                         BEGIN_DB {
                             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
                             pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'",
@@ -297,7 +297,7 @@ GamePlayer::~GamePlayer() {
         throw;
     }
 
-    // ÆĞÅ¶À» »èÁ¦ÇÑ´Ù.
+    // Ã†ÃÃ…Â¶Ã€Â» Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
     while (!m_PacketHistory.empty()) {
         Packet* pPacket = m_PacketHistory.front();
         SAFE_DELETE(pPacket);
@@ -312,7 +312,7 @@ GamePlayer::~GamePlayer() {
 }
 //////////////////////////////////////////////////////////////////////////
 //
-// Á½¸ötimeval½á¹¹Ïà¼õ
+// ÃÂ½Â¸Ã¶timevalÂ½Ã¡Â¹Â¹ÃÃ Â¼Ãµ
 //
 //////////////////////////////////////////////////////////////////////////
 void GamePlayer::tv_sub(struct timeval* out, struct timeval* in) {
@@ -331,19 +331,19 @@ void GamePlayer::tv_sub(struct timeval* out, struct timeval* in) {
 void GamePlayer::processCommand(bool Option) {
     __BEGIN_TRY
 
-    // Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ı¼º
+    // Ã‡Ã¬Â´ÃµÂ¸Â¦ Ã€Ã“Â½ÃƒÃ€ÃºÃ€Ã¥Ã‡Ã’ Â¹Ã¶Ã†Ã› Â»Ã½Â¼Âº
     char header[szPacketHeader];
     PacketID_t packetID;
     PacketSize_t packetSize;
-    // add by Coffee Ôö¼Ó·â°üĞòÁĞ
+    // add by Coffee Ã”Ã¶Â¼Ã“Â·Ã¢Â°Ã¼ÃÃ²ÃÃ
     SequenceSize_t packetSequence;
 
     Packet* pPacket = NULL;
 
     try {
-        // ÆĞ³ÎÆ¼¸¦ ¹Ş°í ÀÖ´Â »ç¿ëÀÚ ÀÏ °æ¿ì ÀÌ ºÎºĞ¿¡¼­ Ã³¸® ÇØÁØ´Ù.
-        // ÆĞ³ÎÆ¼¸¦ ¹Ş´Â °æ¿ì ¾î¶² ¿¹¿Ü »óÈ²ÀÌ ¹ß»ıÇÒÁö ¸ğ¸£¹Ç·Î,
-        // ¾ö¶ÏÊÇ·ñĞèÒª¶Ï¿ªµ±Ç°IDÁ¬½Ó
+        // Ã†ÃÂ³ÃÃ†Â¼Â¸Â¦ Â¹ÃÂ°Ã­ Ã€Ã–Â´Ã‚ Â»Ã§Â¿Ã«Ã€Ãš Ã€Ã Â°Ã¦Â¿Ã¬ Ã€ÃŒ ÂºÃÂºÃÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â® Ã‡Ã˜ÃÃ˜Â´Ã™.
+        // Ã†ÃÂ³ÃÃ†Â¼Â¸Â¦ Â¹ÃÂ´Ã‚ Â°Ã¦Â¿Ã¬ Â¾Ã®Â¶Â² Â¿Â¹Â¿Ãœ Â»Ã³ÃˆÂ²Ã€ÃŒ Â¹ÃŸÂ»Ã½Ã‡Ã’ÃÃ¶ Â¸Ã°Â¸Â£Â¹Ã‡Â·Ã,
+        // Â¾Ã¶Â¶ÃÃŠÃ‡Â·Ã±ÃÃ¨Ã’ÂªÂ¶ÃÂ¿ÂªÂµÂ±Ã‡Â°IDÃÂ¬Â½Ã“
         if (isPenaltyFlag(PENALTY_TYPE_KICKED)) {
             filelog("GamePlayer.txt", "Penalty Kicked. Name[%s],Host[%s],Type[%d]",
                     ((getCreature() == NULL) ? "NULL" : getCreature()->getName().c_str()),
@@ -356,12 +356,12 @@ void GamePlayer::processCommand(bool Option) {
             m_EventManager.heartbeat();
         }
 
-        // ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆĞÅ¶µéÀ» ¸ğÁ¶¸® Ã³¸®ÇÑ´Ù.
+        // Ã€Ã”Â·Ã‚Â¹Ã¶Ã†Ã›Â¿Â¡ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ Â¿ÃÃ€Ã¼Ã‡Ã‘ Ã†ÃÃ…Â¶ÂµÃ©Ã€Â» Â¸Ã°ÃÂ¶Â¸Â® ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
         while (true) {
-            // ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆĞÅ¶Çì´õÅ©±â¸¸Å­ ÀĞ¾îº»´Ù.
-            // ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀĞÀ» ¼ö ¾ø´Ù¸é,
-            // Insufficient ¿¹¿Ü°¡ ¹ß»ıÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
-            // NoSuchÁ¦°Å. by sigi. 2002.5.4
+            // Ã€Ã”Â·Ã‚Â½ÂºÃ†Â®Â¸Â²Â¿Â¡Â¼Â­ Ã†ÃÃ…Â¶Ã‡Ã¬Â´ÃµÃ…Â©Â±Ã¢Â¸Â¸Ã…Â­ Ã€ÃÂ¾Ã®ÂºÂ»Â´Ã™.
+            // Â¸Â¸Â¾Ã  ÃÃ¶ÃÂ¤Ã‡Ã‘ Ã…Â©Â±Ã¢Â¸Â¸Ã…Â­ Â½ÂºÃ†Â®Â¸Â²Â¿Â¡Â¼Â­ Ã€ÃÃ€Â» Â¼Ã¶ Â¾Ã¸Â´Ã™Â¸Ã©,
+            // Insufficient Â¿Â¹Â¿ÃœÂ°Â¡ Â¹ÃŸÂ»Ã½Ã‡ÃÂ°Ã­, Â·Ã§Ã‡ÃÂ¸Â¦ ÂºÃ¼ÃÂ®Â³ÂªÂ°Â£Â´Ã™.
+            // NoSuchÃÂ¦Â°Ã…. by sigi. 2002.5.4
             if (!m_pInputStream->peek(&header[0], szPacketHeader)) {
                 Timeval currentTime;
                 getCurrentTime(currentTime);
@@ -370,29 +370,29 @@ void GamePlayer::processCommand(bool Option) {
                             ((getCreature() == NULL) ? "NULL" : getCreature()->getName().c_str()),
                             ((getSocket() == NULL) ? "NULL" : getSocket()->getHost().c_str()));
 
-                    throw DisconnectException("ÀÏÁ¤ ½Ã°£µ¿¾È ÀÔ·ÂÇÏÁö ¾ÊÀ» °æ¿ì, ¿¬°áÀ» Á¾·áÇÕ´Ï´Ù.");
+                    throw DisconnectException("Ã€ÃÃÂ¤ Â½ÃƒÂ°Â£ÂµÂ¿Â¾Ãˆ Ã€Ã”Â·Ã‚Ã‡ÃÃÃ¶ Â¾ÃŠÃ€Â» Â°Ã¦Â¿Ã¬, Â¿Â¬Â°Ã¡Ã€Â» ÃÂ¾Â·Ã¡Ã‡Ã•Â´ÃÂ´Ã™.");
                 }
 
                 break;
             }
 
-            // ÆĞÅ¶¾ÆÀÌµğ ¹× ÆĞÅ¶Å©±â¸¦ ¾Ë¾Æ³½´Ù.
-            // ÀÌ¶§ ÆĞÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
+            // Ã†ÃÃ…Â¶Â¾Ã†Ã€ÃŒÂµÃ° Â¹Ã— Ã†ÃÃ…Â¶Ã…Â©Â±Ã¢Â¸Â¦ Â¾Ã‹Â¾Ã†Â³Â½Â´Ã™.
+            // Ã€ÃŒÂ¶Â§ Ã†ÃÃ…Â¶Ã…Â©Â±Ã¢Â´Ã‚ Ã‡Ã¬Â´ÃµÂ¸Â¦ Ã†Ã·Ã‡Ã”Ã‡Ã‘Â´Ã™.
             memcpy(&packetID, &header[0], szPacketID);
             memcpy(&packetSize, &header[szPacketID], szPacketSize);
-            // ¶ÁÈ¡·â°üĞòÁĞ
+            // Â¶ÃÃˆÂ¡Â·Ã¢Â°Ã¼ÃÃ²ÃÃ
 
             memcpy(&packetSequence, &header[szPacketID + szPacketSize], szSequenceSize);
-            // ÅĞ¶Ï·â°üĞòÁĞÊÇ·ñºÏ·¨
+            // Ã…ÃÂ¶ÃÂ·Ã¢Â°Ã¼ÃÃ²ÃÃÃŠÃ‡Â·Ã±ÂºÃÂ·Â¨
             if (packetSequence != m_Sequence) {
                 filelog("SequenceError.txt", "Timeout Disconnect1. Name[%s],Host[%s]",
                         ((getCreature() == NULL) ? "NULL" : getCreature()->getName().c_str()),
                         ((getSocket() == NULL) ? "NULL" : getSocket()->getHost().c_str()));
-                throw DisconnectException("·â°üĞòÁĞ´íÎó");
+                throw DisconnectException("Â·Ã¢Â°Ã¼ÃÃ²ÃÃÂ´Ã­ÃÃ³");
             }
             m_Sequence++;
 
-            // ÅĞ¶Ï·â°üIDÊÇ·ñºÏ·¨
+            // Ã…ÃÂ¶ÃÂ·Ã¢Â°Ã¼IDÃŠÃ‡Â·Ã±ÂºÃÂ·Â¨
             if (packetID >= (int)Packet::PACKET_MAX) {
                 filelog("GamePlayer.txt", "Packet ID exceed MAX, RECV [%d/%d],ID[%s],Host[%s]", packetID,
                         Packet::PACKET_MAX, m_ID.c_str(),
@@ -403,7 +403,7 @@ void GamePlayer::processCommand(bool Option) {
             }
 
             try {
-                // ÆĞÅ¶ ¼ø¼­°¡ ¿Ã¹Ù¸¥Áö °ËÁõÇÑ´Ù.
+                // Ã†ÃÃ…Â¶ Â¼Ã¸Â¼Â­Â°Â¡ Â¿ÃƒÂ¹Ã™Â¸Â¥ÃÃ¶ Â°Ã‹ÃÃµÃ‡Ã‘Â´Ã™.
                 if (!g_pPacketValidator->isValidPacketID(getPlayerStatus(), packetID)) {
                     filelog("GamePlayer.txt", "Not Valid Packet, RECV [%d],ID[%s],Host[%s]", packetID, m_ID.c_str(),
                             //						getCreature()->getName().c_str(),
@@ -411,7 +411,7 @@ void GamePlayer::processCommand(bool Option) {
                     throw InvalidProtocolException("invalid packet order");
                 }
 
-                // Ìø¹ıµ¼ÖÂµ±»úµÄ·Ç·¨±¨ÎÄ
+                // ÃŒÃ¸Â¹Ã½ÂµÂ¼Ã–Ã‚ÂµÂ±Â»ÃºÂµÃ„Â·Ã‡Â·Â¨Â±Â¨ÃÃ„
                 if (packetID == Packet::PACKET_GC_OTHER_STORE_INFO || packetID == Packet::PACKET_GC_MY_STORE_INFO) {
                     filelog("GamePlayer.txt", "Not Valid Packet, RECV [%d],ID[%s],Host[%s]", packetID, m_ID.c_str(),
                             //						getCreature()->getName().c_str(),
@@ -419,7 +419,7 @@ void GamePlayer::processCommand(bool Option) {
                     throw InvalidProtocolException("invalid packet order");
                 }
 
-                // ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+                // Ã†ÃÃ…Â¶ Ã…Â©Â±Ã¢Â°Â¡ Â³ÃŠÂ¹Â« Ã…Â©Â¸Ã© Ã‡ÃÂ·ÃÃ…Ã¤Ã„Ã Â¿Â¡Â·Â¯Â·Ã Â°Â£ÃÃ–Ã‡Ã‘Â´Ã™.
                 if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID)) {
                     filelog("GamePlayer.txt", "Too Larget Packet Size, RECV [%d],PacketSize[%d/%d],ID[%s],Host[%s]",
                             packetID, packetSize, g_pPacketFactoryManager->getPacketMaxSize(packetID), m_ID.c_str(),
@@ -428,29 +428,29 @@ void GamePlayer::processCommand(bool Option) {
                     throw InvalidProtocolException("too large packet size");
                 }
 
-                // ÅĞ¶Ï·â°üÊı¾İÊÇ·ñ½ÓÊÕÍê±Ï
+                // Ã…ÃÂ¶ÃÂ·Ã¢Â°Ã¼ÃŠÃ½Â¾ÃÃŠÃ‡Â·Ã±Â½Ã“ÃŠÃ•ÃÃªÂ±Ã
                 if (m_pInputStream->length() < szPacketHeader + packetSize)
                     // throw InsufficientDataException();
                     break;
 
-                // µ±Ç°Ê±¼ä
+                // ÂµÂ±Ã‡Â°ÃŠÂ±Â¼Ã¤
                 getCurrentTime(m_ExpireTime);
                 m_ExpireTime.tv_sec += maxIdleSec;
 
-                // ¿©±â±îÁö ¿Ô´Ù¸é ÀÔ·Â¹öÆÛ¿¡´Â ¿ÏÀüÇÑ ÆĞÅ¶ ÇÏ³ª ÀÌ»óÀÌ µé¾îÀÖ´Ù´Â ¶æÀÌ´Ù.
-                // ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú·ÎºÎÅÍ ÆĞÅ¶¾ÆÀÌµğ¸¦ »ç¿ëÇØ¼­ ÆĞÅ¶ ½ºÆ®·°Ã³¸¦ »ı¼ºÇÏ¸é µÈ´Ù.
-                // ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+                // Â¿Â©Â±Ã¢Â±Ã®ÃÃ¶ Â¿Ã”Â´Ã™Â¸Ã© Ã€Ã”Â·Ã‚Â¹Ã¶Ã†Ã›Â¿Â¡Â´Ã‚ Â¿ÃÃ€Ã¼Ã‡Ã‘ Ã†ÃÃ…Â¶ Ã‡ÃÂ³Âª Ã€ÃŒÂ»Ã³Ã€ÃŒ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã™Â´Ã‚ Â¶Ã¦Ã€ÃŒÂ´Ã™.
+                // Ã†ÃÃ…Â¶Ã†Ã‘Ã…Ã¤Â¸Â®Â¸Ã…Â´ÃÃ€ÃºÂ·ÃÂºÃÃ…Ã Ã†ÃÃ…Â¶Â¾Ã†Ã€ÃŒÂµÃ°Â¸Â¦ Â»Ã§Â¿Ã«Ã‡Ã˜Â¼Â­ Ã†ÃÃ…Â¶ Â½ÂºÃ†Â®Â·Â°ÃƒÂ³Â¸Â¦ Â»Ã½Â¼ÂºÃ‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
+                // Ã†ÃÃ…Â¶Â¾Ã†Ã€ÃŒÂµÃ°Â°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃ‰ Â°Ã¦Â¿Ã¬Â´Ã‚ Ã†ÃÃ…Â¶Ã†Ã‘Ã…Ã¤Â¸Â®Â¸Ã…Â´ÃÃ€ÃºÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
                 pPacket = g_pPacketFactoryManager->createPacket(packetID);
 
-                // ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-                // ÆĞÅ¶ÇÏÀ§Å¬·¡½º¿¡ Á¤ÀÇµÈ read()°¡ virtual ¸ŞÄ¿´ÏÁò¿¡ ÀÇÇØ¼­ È£ÃâµÇ¾î
-                // ÀÚµ¿ÀûÀ¸·Î ÃÊ±âÈ­µÈ´Ù.
+                // Ã€ÃŒÃÂ¦ Ã€ÃŒ Ã†ÃÃ…Â¶Â½ÂºÃ†Â®Â·Â°ÃƒÂ³Â¸Â¦ ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
+                // Ã†ÃÃ…Â¶Ã‡ÃÃ€Â§Ã…Â¬Â·Â¡Â½ÂºÂ¿Â¡ ÃÂ¤Ã€Ã‡ÂµÃˆ read()Â°Â¡ virtual Â¸ÃÃ„Â¿Â´ÃÃÃ²Â¿Â¡ Ã€Ã‡Ã‡Ã˜Â¼Â­ ÃˆÂ£ÃƒÃ¢ÂµÃ‡Â¾Ã®
+                // Ã€ÃšÂµÂ¿Ã€Ã»Ã€Â¸Â·Ã ÃƒÃŠÂ±Ã¢ÃˆÂ­ÂµÃˆÂ´Ã™.
                 m_pInputStream->readPacket(pPacket);
 
-                // ÇöÀç ÆĞÅ¶À» ÆĞÅ¶ È÷½ºÅä¸®ÀÇ ¸Ç µÚ¿¡ ³Ö´Â´Ù.
+                // Ã‡Ã¶Ã€Ã§ Ã†ÃÃ…Â¶Ã€Â» Ã†ÃÃ…Â¶ ÃˆÃ·Â½ÂºÃ…Ã¤Â¸Â®Ã€Ã‡ Â¸Ã‡ ÂµÃšÂ¿Â¡ Â³Ã–Â´Ã‚Â´Ã™.
                 m_PacketHistory.push_back(pPacket);
 
-                // packet file log¸¦ ³²±ä´Ù.
+                // packet file logÂ¸Â¦ Â³Â²Â±Ã¤Â´Ã™.
                 if (m_bPacketLog) {
                     Timeval currentTime;
                     getCurrentTime(currentTime);
@@ -465,8 +465,8 @@ void GamePlayer::processCommand(bool Option) {
                 // cout << "[" << (int)Thread::self() << "] execute before : " << pPacket->getPacketName().c_str() <<
                 // endl;
 
-                // ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆĞÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
-                // ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+                // Ã€ÃŒÃÂ¦ Ã€ÃŒ Ã†ÃÃ…Â¶Â½ÂºÃ†Â®Â·Â°ÃƒÂ³Â¸Â¦ Â°Â¡ÃÃ¶Â°Ã­ Ã†ÃÃ…Â¶Ã‡ÃšÂµÃ©Â·Â¯Â¸Â¦ Â¼Ã¶Ã‡Ã Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™.
+                // Ã†ÃÃ…Â¶Â¾Ã†Ã€ÃŒÂµÃ°Â°Â¡ Ã€ÃŸÂ¸Ã¸ÂµÃ‰ Â°Ã¦Â¿Ã¬Â´Ã‚ Ã†ÃÃ…Â¶Ã‡ÃšÂµÃ©Â·Â¯Â¸Ã…Â´ÃÃ€ÃºÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡Ã‘Â´Ã™.
                 try {
 #ifdef __PROFILE_PACKETS__
 
@@ -493,17 +493,17 @@ void GamePlayer::processCommand(bool Option) {
                 // cout << "[" << (int)Thread::self() << "] execute after : " << pPacket->getPacketName().c_str() <<
                 // endl;
 
-                // ÆĞÅ¶À» nPacketHistorySize °³¸¸Å­¸¸ ÀúÀåÇÑ´Ù.
+                // Ã†ÃÃ…Â¶Ã€Â» nPacketHistorySize Â°Â³Â¸Â¸Ã…Â­Â¸Â¸ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                 while (m_PacketHistory.size() > nPacketHistorySize) {
                     Packet* oldPacket = m_PacketHistory.front();
                     SAFE_DELETE(oldPacket);
                     m_PacketHistory.pop_front();
                 }
             } catch (IgnorePacketException& igpe) {
-                // PacketValidator ¿¡¼­ ÆĞÅ¶À» ¹«½ÃÇÏ¶ó°í ÇßÀ¸´Ï,
-                // ÀÔ·Â½ºÆ®¸²¿¡¼­ ¸ğµÎ Áö¿ö¹ö¸®°í ½ÇÇàÇÏÁö ¾Êµµ·Ï ÇÑ´Ù.
+                // PacketValidator Â¿Â¡Â¼Â­ Ã†ÃÃ…Â¶Ã€Â» Â¹Â«Â½ÃƒÃ‡ÃÂ¶Ã³Â°Ã­ Ã‡ÃŸÃ€Â¸Â´Ã,
+                // Ã€Ã”Â·Ã‚Â½ÂºÃ†Â®Â¸Â²Â¿Â¡Â¼Â­ Â¸Ã°ÂµÃ ÃÃ¶Â¿Ã¶Â¹Ã¶Â¸Â®Â°Ã­ Â½Ã‡Ã‡Ã Ã‡ÃÃÃ¶ Â¾ÃŠÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
 
-                // ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+                // Ã†ÃÃ…Â¶ Ã…Â©Â±Ã¢Â°Â¡ Â³ÃŠÂ¹Â« Ã…Â©Â¸Ã© Ã‡ÃÂ·ÃÃ…Ã¤Ã„Ã Â¿Â¡Â·Â¯Â·Ã Â°Â£ÃÃ–Ã‡Ã‘Â´Ã™.
                 if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID)) {
                     filelog("GamePlayer.txt",
                             "Too Larget Packet Size[Ignore], RECV [%d],PacketSize[%d],Name[%s],Host[%s]", packetID,
@@ -512,22 +512,22 @@ void GamePlayer::processCommand(bool Option) {
                     throw InvalidProtocolException("too large packet sizeIgnore");
                 }
 
-                // ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-                // ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+                // Ã€Ã”Â·Ã‚Â¹Ã¶Ã†Ã›Â³Â»Â¿Â¡ Ã†ÃÃ…Â¶Ã…Â©Â±Ã¢Â¸Â¸Ã…Â­Ã€Ã‡ ÂµÂ¥Ã€ÃŒÃ…Â¸Â°Â¡ ÂµÃ©Â¾Ã®Ã€Ã–Â´Ã‚ÃÃ¶ ÃˆÂ®Ã€ÃÃ‡Ã‘Â´Ã™.
+                // ÃƒÃ–Ã€Ã»ÃˆÂ­Â½Ãƒ break Â¸Â¦ Â»Ã§Â¿Ã«Ã‡ÃÂ¸Ã© ÂµÃˆÂ´Ã™. (Â¿Â©Â±Ã¢Â¼Â­Â´Ã‚ Ã€ÃÂ´Ãœ exceptionÃ€Â» Â¾Âµ Â°ÃÃ€ÃŒÂ´Ã™.)
                 if (m_pInputStream->length() < szPacketHeader + packetSize)
                     throw InsufficientDataException();
 
-                // µ¥ÀÌÅ¸°¡ ¸ğµÎ µµÂøÇßÀ¸¸é, ±× Å©±â¸¸Å­ ¹«½ÃÇÏ°í,
-                // ´Ù¸¥ ÆĞÅ¶À» Ã³¸®ÇÏµµ·Ï ÇÑ´Ù....
+                // ÂµÂ¥Ã€ÃŒÃ…Â¸Â°Â¡ Â¸Ã°ÂµÃ ÂµÂµÃ‚Ã¸Ã‡ÃŸÃ€Â¸Â¸Ã©, Â±Ã— Ã…Â©Â±Ã¢Â¸Â¸Ã…Â­ Â¹Â«Â½ÃƒÃ‡ÃÂ°Ã­,
+                // Â´Ã™Â¸Â¥ Ã†ÃÃ…Â¶Ã€Â» ÃƒÂ³Â¸Â®Ã‡ÃÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™....
                 m_pInputStream->skip(szPacketHeader + packetSize);
 
-                // ¹«½ÃµÈ ÆĞÅ¶Àº, expire ¿¡ ¿µÇâÀ» ÁÖÁö ¾Ê°Ô µÈ´Ù.
-                // Áï À¯È¿ÇÑ ÆĞÅ¶¸¸ÀÌ Â©¸®Áö ¾Ê°Ô ÇØÁØ´Ù.
-                // ¶ÇÇÑ È÷½ºÅä¸®¿¡µµ µé¾î°¡Áö ¾Ê´Â´Ù.
+                // Â¹Â«Â½ÃƒÂµÃˆ Ã†ÃÃ…Â¶Ã€Âº, expire Â¿Â¡ Â¿ÂµÃ‡Ã¢Ã€Â» ÃÃ–ÃÃ¶ Â¾ÃŠÂ°Ã” ÂµÃˆÂ´Ã™.
+                // ÃÃ¯ Ã€Â¯ÃˆÂ¿Ã‡Ã‘ Ã†ÃÃ…Â¶Â¸Â¸Ã€ÃŒ Ã‚Â©Â¸Â®ÃÃ¶ Â¾ÃŠÂ°Ã” Ã‡Ã˜ÃÃ˜Â´Ã™.
+                // Â¶Ã‡Ã‡Ã‘ ÃˆÃ·Â½ÂºÃ…Ã¤Â¸Â®Â¿Â¡ÂµÂµ ÂµÃ©Â¾Ã®Â°Â¡ÃÃ¶ Â¾ÃŠÂ´Ã‚Â´Ã™.
             }
         }
     } catch (InsufficientDataException& ide) {
-        // expire time À» ÃÊ°úÇßÀ» °æ¿ì ¿¬°áÀ» Á¾·áÇÑ´Ù.
+        // expire time Ã€Â» ÃƒÃŠÂ°ÃºÃ‡ÃŸÃ€Â» Â°Ã¦Â¿Ã¬ Â¿Â¬Â°Ã¡Ã€Â» ÃÂ¾Â·Ã¡Ã‡Ã‘Â´Ã™.
         Timeval currentTime;
         getCurrentTime(currentTime);
         if (currentTime >= m_ExpireTime) {
@@ -535,14 +535,14 @@ void GamePlayer::processCommand(bool Option) {
                     ((getCreature() == NULL) ? "NULL" : getCreature()->getName().c_str()),
                     ((getSocket() == NULL) ? "NULL" : getSocket()->getHost().c_str()));
 
-            throw DisconnectException("ÀÏÁ¤ ½Ã°£µ¿¾È ÀÔ·ÂÇÏÁö ¾ÊÀ» °æ¿ì, ¿¬°áÀ» Á¾·áÇÕ´Ï´Ù.");
+            throw DisconnectException("Ã€ÃÃÂ¤ Â½ÃƒÂ°Â£ÂµÂ¿Â¾Ãˆ Ã€Ã”Â·Ã‚Ã‡ÃÃÃ¶ Â¾ÃŠÃ€Â» Â°Ã¦Â¿Ã¬, Â¿Â¬Â°Ã¡Ã€Â» ÃÂ¾Â·Ã¡Ã‡Ã•Â´ÃÂ´Ã™.");
         }
     }
-    // ÁÖ¼®Ã³¸® by sigi. 2002.5.14
+    // ÃÃ–Â¼Â®ÃƒÂ³Â¸Â® by sigi. 2002.5.14
     /*
     catch (InvalidProtocolException & ipe)
     {
-        // Á¢¼ÓÀ» °­Á¦Á¾·á½ÃÄÑ¾ß ÇÑ´Ù. ¹«½¼ ¹æ¹ıÀ¸·Î??
+        // ÃÂ¢Â¼Ã“Ã€Â» Â°Â­ÃÂ¦ÃÂ¾Â·Ã¡Â½ÃƒÃ„Ã‘Â¾ÃŸ Ã‡Ã‘Â´Ã™. Â¹Â«Â½Â¼ Â¹Ã¦Â¹Ã½Ã€Â¸Â·Ã??
         throw;
     }
     catch (Throwable & t)
@@ -561,8 +561,8 @@ void GamePlayer::processCommand(bool Option) {
 //
 // flush output buffer to socket's send buffer
 //
-// flushÇÒ µ¿¾È ´Ù¸¥ ¾²·¹µå¿¡¼­ Ãâ·Â ¹öÆÛ¿¡ sendPacketÀ» È£ÃâÇØ¼­´Â ¾ÈµÈ´Ù.
-// (ÀÌ·² °æ¿ì´Â ¼­¹ö°£ Åë½ÅÀ¸·Î say°¡ ³¯¾Æ¿À´Â °Í¹Û¿¡ ¾ø´Ù.)
+// flushÃ‡Ã’ ÂµÂ¿Â¾Ãˆ Â´Ã™Â¸Â¥ Â¾Â²Â·Â¹ÂµÃ¥Â¿Â¡Â¼Â­ ÃƒÃ¢Â·Ã‚ Â¹Ã¶Ã†Ã›Â¿Â¡ sendPacketÃ€Â» ÃˆÂ£ÃƒÃ¢Ã‡Ã˜Â¼Â­Â´Ã‚ Â¾ÃˆÂµÃˆÂ´Ã™.
+// (Ã€ÃŒÂ·Â² Â°Ã¦Â¿Ã¬Â´Ã‚ Â¼Â­Â¹Ã¶Â°Â£ Ã…Ã«Â½Ã…Ã€Â¸Â·Ã sayÂ°Â¡ Â³Â¯Â¾Ã†Â¿Ã€Â´Ã‚ Â°ÃÂ¹Ã›Â¿Â¡ Â¾Ã¸Â´Ã™.)
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::processOutput() {
@@ -579,8 +579,8 @@ void GamePlayer::processOutput() {
     } catch (InvalidProtocolException& It) {
         // cerr << "GamePlayer::processOutput Exception Check!!" << endl;
         // cerr << It.toString() << endl;
-        // cerr << "ÀÍ¼Á¼Ç ³µ´Âµ¥...... ¾ÆÀÌ´Â ¸îÀÎ°í?" << (int)i << endl;
-        throw DisconnectException("Pipe ¿¬°áÀÇ ÆÄ±«·Î Á¢¼ÓÀ» Â¥¸¥´Ù");
+        // cerr << "Ã€ÃÂ¼ÃÂ¼Ã‡ Â³ÂµÂ´Ã‚ÂµÂ¥...... Â¾Ã†Ã€ÃŒÂ´Ã‚ Â¸Ã®Ã€ÃÂ°Ã­?" << (int)i << endl;
+        throw DisconnectException("Pipe Â¿Â¬Â°Ã¡Ã€Ã‡ Ã†Ã„Â±Â«Â·Ã ÃÂ¢Â¼Ã“Ã€Â» Ã‚Â¥Â¸Â¥Â´Ã™");
     }
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -600,7 +600,7 @@ void GamePlayer::sendPacket(Packet* pPacket) {
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
     try {
-        // packet file log¸¦ ³²±ä´Ù.
+        // packet file logÂ¸Â¦ Â³Â²Â±Ã¤Â´Ã™.
         if (m_bPacketLog) {
             Timeval currentTime;
             getCurrentTime(currentTime);
@@ -655,7 +655,7 @@ void GamePlayer::sendPacket(Packet* pPacket) {
     } catch (InvalidProtocolException& It) {
         // cout << "GamePlayer::sendPacket Exception Check!!" << endl;
         // cout << It.toString() << endl;
-        // throw DisconnectException("Pipe ¿¬°áÀÇ ÆÄ±«·Î Á¢¼ÓÀ» Â¥¸¥´Ù");
+        // throw DisconnectException("Pipe Â¿Â¬Â°Ã¡Ã€Ã‡ Ã†Ã„Â±Â«Â·Ã ÃÂ¢Â¼Ã“Ã€Â» Ã‚Â¥Â¸Â¥Â´Ã™");
     }
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -668,8 +668,8 @@ void GamePlayer::sendPacket(Packet* pPacket) {
 //
 // disconnect player
 //
-// (1) Å©¸®Ã³°¡ Á¸ÀçÇÒ °æ¿ì, Á¸¿¡¼­ »èÁ¦ÇÏ°í ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
-// (2) Å©¸®Ã³¸¦ ÀúÀåÇÑ´Ù.
+// (1) Ã…Â©Â¸Â®ÃƒÂ³Â°Â¡ ÃÂ¸Ã€Ã§Ã‡Ã’ Â°Ã¦Â¿Ã¬, ÃÂ¸Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡ÃÂ°Ã­ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡Ã‘Â´Ã™.
+// (2) Ã…Â©Â¸Â®ÃƒÂ³Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::disconnect(bool bDisconnected) {
@@ -678,30 +678,30 @@ void GamePlayer::disconnect(bool bDisconnected) {
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
     //--------------------------------------------------------------------------------
-    // Å©¸®Ã³¸¦ Á¸¿¡¼­ »èÁ¦ÇÑ ÈÄ, ÁÖº¯ÀÇ PCµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®ÇØÁØ´Ù.
-    // ±×´ÙÀ½ Å©¸®Ã³¸¦ DB¿¡ ÀúÀåÇÑ´Ù.
+    // Ã…Â©Â¸Â®ÃƒÂ³Â¸Â¦ ÃÂ¸Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡Ã‘ ÃˆÃ„, ÃÃ–ÂºÂ¯Ã€Ã‡ PCÂµÃ©Â¿Â¡Â°Ã” ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡Ã˜ÃÃ˜Â´Ã™.
+    // Â±Ã—Â´Ã™Ã€Â½ Ã…Â©Â¸Â®ÃƒÂ³Â¸Â¦ DBÂ¿Â¡ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
     //--------------------------------------------------------------------------------
     string CreatureName = "";
     if (m_pCreature != NULL) {
         CreatureName = m_pCreature->getName();
 
         try {
-            // GPS_NORMAL ÀÎ °æ¿ì¿¡¸¸, Á¸¿¡ Å©¸®Ã³°¡ µé¾î°¡ ÀÖ°Ô µÈ´Ù.
+            // GPS_NORMAL Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â¡Â¸Â¸, ÃÂ¸Â¿Â¡ Ã…Â©Â¸Â®ÃƒÂ³Â°Â¡ ÂµÃ©Â¾Ã®Â°Â¡ Ã€Ã–Â°Ã” ÂµÃˆÂ´Ã™.
             // *CAUTION*
-            // È¤½Ã pushPC()°¡ È£ÃâµÈ ÈÄ¿¡ ¿¬°áÀÌ Á¾·áµÇ¸é ¾î¶»°Ô ÇÏ³ª.. ¶ó°í °ÆÁ¤ÇÒ °¡´É¼ºµµ ÀÖ´Ù.
-            // ±×·¯³ª, Ã³¸® ·çÆ¾ÀÇ ¼ø¼­¸¦ Àß »ìÆìº¸¸é ±×·± °ÆÁ¤À» ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
-            // ¾îÂ÷ÇÇ ¿¬°áÀÌ ²÷±â´õ¶óµµ, Á¸ÀÌ Ã³¸®µÈ ÈÄ Å©¸®Ã³°¡ ½ÇÁ¦ Å¸ÀÏ·Î ¿Ã¶ó°£ ´ÙÀ½,
-            // ´Ù½Ã ÇÃ·¹ÀÌ¾îÀÇ Ã³¸®·çÇÁ°¡ µ¹¾Æ¿À±â ¶§¹®ÀÌ´Ù.
+            // ÃˆÂ¤Â½Ãƒ pushPC()Â°Â¡ ÃˆÂ£ÃƒÃ¢ÂµÃˆ ÃˆÃ„Â¿Â¡ Â¿Â¬Â°Ã¡Ã€ÃŒ ÃÂ¾Â·Ã¡ÂµÃ‡Â¸Ã© Â¾Ã®Â¶Â»Â°Ã” Ã‡ÃÂ³Âª.. Â¶Ã³Â°Ã­ Â°Ã†ÃÂ¤Ã‡Ã’ Â°Â¡Â´Ã‰Â¼ÂºÂµÂµ Ã€Ã–Â´Ã™.
+            // Â±Ã—Â·Â¯Â³Âª, ÃƒÂ³Â¸Â® Â·Ã§Ã†Â¾Ã€Ã‡ Â¼Ã¸Â¼Â­Â¸Â¦ Ã€ÃŸ Â»Ã¬Ã†Ã¬ÂºÂ¸Â¸Ã© Â±Ã—Â·Â± Â°Ã†ÃÂ¤Ã€Â» Ã‡Ã’ Ã‡ÃŠÂ¿Ã¤Â°Â¡ Â¾Ã¸Â´Ã™.
+            // Â¾Ã®Ã‚Ã·Ã‡Ã‡ Â¿Â¬Â°Ã¡Ã€ÃŒ Â²Ã·Â±Ã¢Â´ÃµÂ¶Ã³ÂµÂµ, ÃÂ¸Ã€ÃŒ ÃƒÂ³Â¸Â®ÂµÃˆ ÃˆÃ„ Ã…Â©Â¸Â®ÃƒÂ³Â°Â¡ Â½Ã‡ÃÂ¦ Ã…Â¸Ã€ÃÂ·Ã Â¿ÃƒÂ¶Ã³Â°Â£ Â´Ã™Ã€Â½,
+            // Â´Ã™Â½Ãƒ Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã®Ã€Ã‡ ÃƒÂ³Â¸Â®Â·Ã§Ã‡ÃÂ°Â¡ ÂµÂ¹Â¾Ã†Â¿Ã€Â±Ã¢ Â¶Â§Â¹Â®Ã€ÃŒÂ´Ã™.
             if (getPlayerStatus() == GPS_NORMAL) {
                 //----------------------------------
-                // Á¸¿¡¼­ »èÁ¦ÇÏ°í ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+                // ÃÂ¸Â¿Â¡Â¼Â­ Â»Ã¨ÃÂ¦Ã‡ÃÂ°Ã­ ÂºÃªÂ·ÃÂµÃ¥Ã„Â³Â½ÂºÃ†Â®Ã‡Ã‘Â´Ã™.
                 //----------------------------------
                 Zone* pZone = m_pCreature->getZone();
                 Assert(pZone != NULL);
                 pZone->deleteQueuePC(m_pCreature);
                 pZone->deleteCreature(m_pCreature, m_pCreature->getX(), m_pCreature->getY());
                 //--------------------------------------------------------------------------------
-                // Å©¸®Ã³¸¦ ÀúÀåÇÑ´Ù.
+                // Ã…Â©Â¸Â®ÃƒÂ³Â¸Â¦ Ã€ÃºÃ€Ã¥Ã‡Ã‘Â´Ã™.
                 //--------------------------------------------------------------------------------
                 m_pCreature->save();
             }
@@ -712,7 +712,7 @@ void GamePlayer::disconnect(bool bDisconnected) {
     setPlayerStatus(GPS_END_SESSION);
 
     //--------------------------------------------------------------------------------
-    // ¾ÆÀÌµğ°¡ ¼³Á¤µÇ¾ú´Ù´Â ¶æÀº, ·Î±×ÀÎÀÌ ÀÌ·ç¾îÁ³´Ù´Â ¶æÀÌ´Ù.
+    // Â¾Ã†Ã€ÃŒÂµÃ°Â°Â¡ Â¼Â³ÃÂ¤ÂµÃ‡Â¾ÃºÂ´Ã™Â´Ã‚ Â¶Ã¦Ã€Âº, Â·ÃÂ±Ã—Ã€ÃÃ€ÃŒ Ã€ÃŒÂ·Ã§Â¾Ã®ÃÂ³Â´Ã™Â´Ã‚ Â¶Ã¦Ã€ÃŒÂ´Ã™.
     //--------------------------------------------------------------------------------
     if (m_ID != "") {
         Statement* pStmt1 = NULL;
@@ -720,25 +720,25 @@ void GamePlayer::disconnect(bool bDisconnected) {
 
         BEGIN_DB {
             //            pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-            // ·Î±×¿ÀÇÁ·Î º¯°æÇÑ´Ù.
+            // Â·ÃÂ±Ã—Â¿Ã€Ã‡ÃÂ·Ã ÂºÂ¯Â°Ã¦Ã‡Ã‘Â´Ã™.
             // pStmt1 = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
             pStmt1 = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
-            // LogOnÀÌ GAME»óÅÂÀÎ °æ¿ì¸¸ LOGOFF·Î ¹Ù²Û´Ù. by sigi. 2002.5.15
+            // LogOnÃ€ÃŒ GAMEÂ»Ã³Ã…Ã‚Ã€Ã Â°Ã¦Â¿Ã¬Â¸Â¸ LOGOFFÂ·Ã Â¹Ã™Â²Ã›Â´Ã™. by sigi. 2002.5.15
             pStmt1->executeQuery(
                 "UPDATE Player SET LogOn='LOGOFF', LastLogoutDate=now() WHERE PlayerID = '%s' AND LogOn='GAME'",
                 m_ID.c_str());
 
-            // LogoutPlayerData ¿¡ Ãß°¡ÇÑ´Ù.
+            // LogoutPlayerData Â¿Â¡ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
             //	addLogoutPlayerData(this);
 
             if (pStmt1->getAffectedRowCount() == 0) {
-                // ÀÌ¹Ì LOGOFF°Å³ª
-                // LOGON»óÅÂÀÎ°¡?
-                // ÀÌ·² ¼ö ÀÖÀ»±î? -_-;
+                // Ã€ÃŒÂ¹ÃŒ LOGOFFÂ°Ã…Â³Âª
+                // LOGONÂ»Ã³Ã…Ã‚Ã€ÃÂ°Â¡?
+                // Ã€ÃŒÂ·Â² Â¼Ã¶ Ã€Ã–Ã€Â»Â±Ã®? -_-;
             }
 
-            // ºô¸µ by sigi. 2002.5.31
+            // ÂºÃ´Â¸Âµ by sigi. 2002.5.31
 #if defined(__PAY_SYSTEM_LOGIN__) || defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
             if (isPayPlaying() || isPremiumPlay()) {
                 logoutPayPlay(m_ID);
@@ -750,7 +750,7 @@ void GamePlayer::disconnect(bool bDisconnected) {
         }
         END_DB(pStmt1)
         BEGIN_DB {
-            // IP Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // IP ÃÂ¤ÂºÂ¸Â¸Â¦ Â»Ã¨ÃÂ¦Ã‡Ã˜ ÃÃ˜Â´Ã™.
             pStmt2 = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
             pStmt2->executeQuery("DELETE FROM UserIPInfo WHERE Name = '%s'", CreatureName.c_str());
 
@@ -759,33 +759,33 @@ void GamePlayer::disconnect(bool bDisconnected) {
         END_DB(pStmt2)
     }
 
-    // login¼­¹ö·Î °¡¶ó°í client¿¡°Ô º¸³½´Ù.
-    // ¿ø·¡´Â LGIncomingConnectionOKHandler¿¡¼­ Ã³¸®Çß´Ù. by sigi. 2002.6.19
+    // loginÂ¼Â­Â¹Ã¶Â·Ã Â°Â¡Â¶Ã³Â°Ã­ clientÂ¿Â¡Â°Ã” ÂºÂ¸Â³Â½Â´Ã™.
+    // Â¿Ã¸Â·Â¡Â´Ã‚ LGIncomingConnectionOKHandlerÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡ÃŸÂ´Ã™. by sigi. 2002.6.19
     if (m_pReconnectPacket != NULL) {
         // cout << "[SendReconnect] " << m_pReconnectPacket->toString().c_str() << endl;
 
         try {
             // sendPacket( m_pReconnectPacket );
             Player::sendPacket(m_pReconnectPacket);
-            // Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
+            // ÃƒÃ¢Â·Ã‚ Â¹Ã¶Ã†Ã›Â¿Â¡ Â³Â²Â¾Ã†Ã€Ã–Â´Ã‚ ÂµÂ¥Ã€ÃŒÃ…Â¸Â¸Â¦ Ã€Ã¼Â¼Ã›Ã‡Ã‘Â´Ã™.
             m_pOutputStream->flush();
         } catch (Throwable& t) {
-            // ¹«½Ã
+            // Â¹Â«Â½Ãƒ
         }
 
         SAFE_DELETE(m_pReconnectPacket);
     }
 
 
-    // ÇÔ¼ö À­ºÎºĞ¿¡¼­ Ã³¸®Çß´Âµ¥.. Å¸ÀÌ¹Ö ¹®Á¦(LogOnÀÌ³ª UserIPInfo µî)·Î
-    // ¿©±â¼­ ²÷¾îÁÖ°í.. ÀçÁ¢ÆĞÅ¶~À» º¸³»µµ·Ï ÇÑ´Ù.
+    // Ã‡Ã”Â¼Ã¶ Ã€Â­ÂºÃÂºÃÂ¿Â¡Â¼Â­ ÃƒÂ³Â¸Â®Ã‡ÃŸÂ´Ã‚ÂµÂ¥.. Ã…Â¸Ã€ÃŒÂ¹Ã– Â¹Â®ÃÂ¦(LogOnÃ€ÃŒÂ³Âª UserIPInfo ÂµÃ®)Â·Ã
+    // Â¿Â©Â±Ã¢Â¼Â­ Â²Ã·Â¾Ã®ÃÃ–Â°Ã­.. Ã€Ã§ÃÂ¢Ã†ÃÃ…Â¶~Ã€Â» ÂºÂ¸Â³Â»ÂµÂµÂ·Ã Ã‡Ã‘Â´Ã™.
     if (bDisconnected == UNDISCONNECTED) {
         try {
-            // Å¬¶óÀÌ¾ğÆ®¿¡°Ô GCDisconnect ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+            // Ã…Â¬Â¶Ã³Ã€ÃŒÂ¾Ã°Ã†Â®Â¿Â¡Â°Ã” GCDisconnect Ã†ÃÃ…Â¶Ã€Â» Ã€Ã¼Â¼Ã›Ã‡Ã‘Â´Ã™.
             // GCDisconnect gcDisconnect;
             // sendPacket(gcDisconnect);
 
-            // Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
+            // ÃƒÃ¢Â·Ã‚ Â¹Ã¶Ã†Ã›Â¿Â¡ Â³Â²Â¾Ã†Ã€Ã–Â´Ã‚ ÂµÂ¥Ã€ÃŒÃ…Â¸Â¸Â¦ Ã€Ã¼Â¼Ã›Ã‡Ã‘Â´Ã™.
             m_pOutputStream->flush();
         } catch (Throwable& t) {
             // cerr << "GamePlayer::disconnect() : GamePlayer::disconnect Exception Check!!" << endl;
@@ -793,7 +793,7 @@ void GamePlayer::disconnect(bool bDisconnected) {
         }
     }
 
-    // ¼ÒÄÏ ¿¬°áÀ» ´İ´Â´Ù.
+    // Â¼Ã’Ã„Ã Â¿Â¬Â°Ã¡Ã€Â» Â´ÃÂ´Ã‚Â´Ã™.
     m_pSocket->close();
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -804,11 +804,11 @@ void GamePlayer::disconnect(bool bDisconnected) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÃÖ±Ù N ¹øÂ°ÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+// ÃƒÃ–Â±Ã™ N Â¹Ã¸Ã‚Â°Ã€Ã‡ Ã†ÃÃ…Â¶Ã€Â» Â¸Â®Ã…ÃÃ‡Ã‘Â´Ã™.
 //
-// N == 0 ÀÏ °æ¿ì, °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÏ°Ô µÈ´Ù.
+// N == 0 Ã€Ã Â°Ã¦Â¿Ã¬, Â°Â¡Ã€Ã¥ ÃƒÃ–Â±Ã™Ã€Ã‡ Ã†ÃÃ…Â¶Ã€Â» Â¸Â®Ã…ÃÃ‡ÃÂ°Ã” ÂµÃˆÂ´Ã™.
 //
-// ÃÖ´ë nPacketHistorySize - 1 ±îÁö ÁöÁ¤ÇÒ ¼ö ÀÖ´Ù.
+// ÃƒÃ–Â´Ã« nPacketHistorySize - 1 Â±Ã®ÃÃ¶ ÃÃ¶ÃÂ¤Ã‡Ã’ Â¼Ã¶ Ã€Ã–Â´Ã™.
 //
 //////////////////////////////////////////////////////////////////////
 Packet* GamePlayer::getOldPacket(uint prev) {
@@ -832,7 +832,7 @@ Packet* GamePlayer::getOldPacket(uint prev) {
 
 //////////////////////////////////////////////////////////////////////
 //
-// Æ¯Á¤ ÆĞÅ¶¾ÆÀÌµğ¸¦ °¡Áø °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+// Ã†Â¯ÃÂ¤ Ã†ÃÃ…Â¶Â¾Ã†Ã€ÃŒÂµÃ°Â¸Â¦ Â°Â¡ÃÃ¸ Â°Â¡Ã€Ã¥ ÃƒÃ–Â±Ã™Ã€Ã‡ Ã†ÃÃ…Â¶Ã€Â» Â¸Â®Ã…ÃÃ‡Ã‘Â´Ã™.
 //
 //////////////////////////////////////////////////////////////////////
 Packet* GamePlayer::getOldPacket(PacketID_t packetID) {
@@ -931,28 +931,28 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
     getCurrentTime(CurrentTime);
 
     //////////////////////////////////////////////////////////////////////////
-    // ·â°üĞÄÌø¼ì²â
-    // ¿§·È 2007-6-25  kf_168@hotmail.com
+    // Â·Ã¢Â°Ã¼ÃÃ„ÃŒÃ¸Â¼Ã¬Â²Ã¢
+    // Â¿Â§Â·Ãˆ 2007-6-25  kf_168@hotmail.com
     //
 
     if (PacketID == Packet::PACKET_CG_VERIFY_TIME) {
         if (m_SpeedVerify.tv_sec == 0) {
-            // Èç¹ûÎ´»ñÈ¡ĞÄÌø¼ì²â³õÊ¼»¯Öµ,ÔòÈ¡µ±Ç°Ê±¼ä+SpeedCheckDelya×÷Îª³õÊ¼Öµ
-            // ÉèÖÃ¼ì²âÍ¨¹ı SpeedCheck = true;
+            // ÃˆÃ§Â¹Ã»ÃÂ´Â»Ã±ÃˆÂ¡ÃÃ„ÃŒÃ¸Â¼Ã¬Â²Ã¢Â³ÃµÃŠÂ¼Â»Â¯Ã–Âµ,Ã”Ã²ÃˆÂ¡ÂµÂ±Ã‡Â°ÃŠÂ±Â¼Ã¤+SpeedCheckDelyaÃ—Ã·ÃÂªÂ³ÃµÃŠÂ¼Ã–Âµ
+            // Ã‰Ã¨Ã–ÃƒÂ¼Ã¬Â²Ã¢ÃÂ¨Â¹Ã½ SpeedCheck = true;
             m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
 
             SpeedCheck = true;
         } else {
-            // ÒÔÏÂ¿ªÊ¼¼ì²â
-            // Èç¹ûµ±Ç°Ê±¼ä´óÓÚÉÏ´Î¼ì²âÊ±¼ä+ÉÏÆ«ÒÆÖµ,Ôò¼ì²âÍ¨¹ı
+            // Ã’Ã”ÃÃ‚Â¿ÂªÃŠÂ¼Â¼Ã¬Â²Ã¢
+            // ÃˆÃ§Â¹Ã»ÂµÂ±Ã‡Â°ÃŠÂ±Â¼Ã¤Â´Ã³Ã“ÃšÃ‰ÃÂ´ÃÂ¼Ã¬Â²Ã¢ÃŠÂ±Â¼Ã¤+Ã‰ÃÃ†Â«Ã’Ã†Ã–Âµ,Ã”Ã²Â¼Ã¬Â²Ã¢ÃÂ¨Â¹Ã½
             if (CurrentTime.tv_sec > m_SpeedVerify.tv_sec - maxTimeGap) {
                 m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
 
                 SpeedCheck = true;
-                // ×î´ó´íÎóĞ£Ñé-1,Èç¹ûµ±Ç°´íÎóĞ£Ñé³¬¹ıÔ¤ÉèÖµ,Ôò·µ»Ø¼Ù
+                // Ã—Ã®Â´Ã³Â´Ã­ÃÃ³ÃÂ£Ã‘Ã©-1,ÃˆÃ§Â¹Ã»ÂµÂ±Ã‡Â°Â´Ã­ÃÃ³ÃÂ£Ã‘Ã©Â³Â¬Â¹Ã½Ã”Â¤Ã‰Ã¨Ã–Âµ,Ã”Ã²Â·ÂµÂ»Ã˜Â¼Ã™
                 m_VerifyCount = max(0, m_VerifyCount - 1);
             } else {
-                // ¸üĞÂÏÂ´ÎĞ£ÑéÊ±¼ä,×¢ÒâÕâÀïÊÇÈ¡Ç°Ê±¼ä+ÏÂ´ÎĞ£ÑéÊ±¼ä.
+                // Â¸Ã¼ÃÃ‚ÃÃ‚Â´ÃÃÂ£Ã‘Ã©ÃŠÂ±Â¼Ã¤,Ã—Â¢Ã’Ã¢Ã•Ã¢Ã€Ã¯ÃŠÃ‡ÃˆÂ¡Ã‡Â°ÃŠÂ±Â¼Ã¤+ÃÃ‚Â´ÃÃÂ£Ã‘Ã©ÃŠÂ±Â¼Ã¤.
                 m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
 
                 if (m_VerifyCount > maxVerifyCount) {
@@ -965,22 +965,22 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
         }
     }
     //
-    // ¼ì²â·â°ü·¢ËÍ¿ÉÄÜĞÔ½áÊø
+    // Â¼Ã¬Â²Ã¢Â·Ã¢Â°Ã¼Â·Â¢Ã‹ÃÂ¿Ã‰Ã„ÃœÃÃ”Â½Ã¡ÃŠÃ¸
     // Add by Coffee 2007-6-25 kf_168@hotmail.com
     //////////////////////////////////////////////////////////////////////////
 
 
     //////////////////////////////////////////////////////////////////////////
-    // Ôö¼ÓÒÆ¶¯¼ì²â·â°ü¼ì²â
+    // Ã”Ã¶Â¼Ã“Ã’Ã†Â¶Â¯Â¼Ã¬Â²Ã¢Â·Ã¢Â°Ã¼Â¼Ã¬Â²Ã¢
     // Add by Coffee 2007-6-25 E-mail: kf_168@hotmail.com
     if (PacketID == Packet::PACKET_CG_MOVE) {
         if (CurrentTime <= m_MoveSpeedVerify) {
-            // Ê¹ÓÃ¼ÓËÙ
+            // ÃŠÂ¹Ã“ÃƒÂ¼Ã“Ã‹Ã™
         }
         // Timeval UseTimer=CurrentTime-m_MoveSpeedVerify;
         tv_sub(&CurrentTime, &m_MoveSpeedVerify);
         double rtt;
-        // ÒÔºÁÃëÎªµ¥Î»¼ÆËãrtt
+        // Ã’Ã”ÂºÃÃƒÃ«ÃÂªÂµÂ¥ÃÂ»Â¼Ã†Ã‹Ã£rtt
         rtt = CurrentTime.tv_sec * 1000 + CurrentTime.tv_usec / 1000;
 
         getCurrentTime(m_MoveSpeedVerify);
@@ -993,12 +993,12 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
     //////////////////////////////////////////////////////////////////////////
 
     /*
-    // Å©¸®Ã³ÀÇ ½ºÇÇµå¸¦ ¹Ş¾Æ¿Â´Ù.
+    // Ã…Â©Â¸Â®ÃƒÂ³Ã€Ã‡ Â½ÂºÃ‡Ã‡ÂµÃ¥Â¸Â¦ Â¹ÃÂ¾Ã†Â¿Ã‚Â´Ã™.
     if (m_pCreature == NULL || pPacket == NULL) {
         return true;
     }
 
-    // ±ÔÁ¤ ½Ã°£ ÀÌÀü¿¡ ¶È °°Àº ÆĞÅ¶ÀÌ ¼ö½Ê¹ø ³¯¾Æ¿À¸é Á¢¼ÓÀ» Â¥¸¥´Ù.
+    // Â±Ã”ÃÂ¤ Â½ÃƒÂ°Â£ Ã€ÃŒÃ€Ã¼Â¿Â¡ Â¶Ãˆ Â°Â°Ã€Âº Ã†ÃÃ…Â¶Ã€ÃŒ Â¼Ã¶Â½ÃŠÂ¹Ã¸ Â³Â¯Â¾Ã†Â¿Ã€Â¸Ã© ÃÂ¢Â¼Ã“Ã€Â» Ã‚Â¥Â¸Â¥Â´Ã™.
     Timeval VerifyTime;
     getCurrentTime(VerifyTime);
 
@@ -1020,7 +1020,7 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
         }
 
         if (PacketID == Packet::PACKET_CG_MOVE) {
-            // ÀÌÀü ½Ã°£ÀÌ¶û ÇöÀç ½Ã°£ÀÌ¶û Ã¼Å©ÇØ¼­ ´õ ºü¸¥ ½Ã°£¿¡ ÆĞÅ¶ÀÌ ³¯¾Æ¿ÔÀ¸¸é ÀÌ°Ç Ä¡ÅÍ´Ù.
+            // Ã€ÃŒÃ€Ã¼ Â½ÃƒÂ°Â£Ã€ÃŒÂ¶Ã» Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â£Ã€ÃŒÂ¶Ã» ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ Â´Ãµ ÂºÃ¼Â¸Â¥ Â½ÃƒÂ°Â£Â¿Â¡ Ã†ÃÃ…Â¶Ã€ÃŒ Â³Â¯Â¾Ã†Â¿Ã”Ã€Â¸Â¸Ã© Ã€ÃŒÂ°Ã‡ Ã„Â¡Ã…ÃÂ´Ã™.
             if (VerifyTime <= m_MoveSpeedVerify) {
                 SpeedCheck = false;
             }
@@ -1028,8 +1028,8 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
             getCurrentTime(m_MoveSpeedVerify);
             getCurrentTime(m_AttackSpeedVerify);
 
-            // ´ÙÀ½¿¡ ¹«ºê°¡ °¡Àå »¡¸® ³¯¾Æ¿Ã ¼ö ÀÖ´Â °¡´ÉÇÑ ½Ã°£À» ÀúÀåÇØ µĞ´Ù.
-            // ¸ğÅä »çÀÌÅ¬À» Å¸°í ÀÖ´Ù¸é ÀÌµ¿¼Óµµ°¡ ÁÙ¾îµç´Ù.
+            // Â´Ã™Ã€Â½Â¿Â¡ Â¹Â«ÂºÃªÂ°Â¡ Â°Â¡Ã€Ã¥ Â»Â¡Â¸Â® Â³Â¯Â¾Ã†Â¿Ãƒ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Â¡Â´Ã‰Ã‡Ã‘ Â½ÃƒÂ°Â£Ã€Â» Ã€ÃºÃ€Ã¥Ã‡Ã˜ ÂµÃÂ´Ã™.
+            // Â¸Ã°Ã…Ã¤ Â»Ã§Ã€ÃŒÃ…Â¬Ã€Â» Ã…Â¸Â°Ã­ Ã€Ã–Â´Ã™Â¸Ã© Ã€ÃŒÂµÂ¿Â¼Ã“ÂµÂµÂ°Â¡ ÃÃ™Â¾Ã®ÂµÃ§Â´Ã™.
 
             BYTE RealSpeed = 0;
             if (pSlayer->hasRideMotorcycle())
@@ -1037,13 +1037,13 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
                 //RealSpeed = 2;
                 RealSpeed = 1;
             }
-            else // ¸ğÅä»çÀÌÅ¬ÀÌ ¾Æ´Ï´Ù.
+            else // Â¸Ã°Ã…Ã¤Â»Ã§Ã€ÃŒÃ…Â¬Ã€ÃŒ Â¾Ã†Â´ÃÂ´Ã™.
             {
                 //RealSpeed = 4;
                 RealSpeed = 2;
             }
 
-            // ´ÙÀ½ ¾µ ¼ö ÀÖ´Â ½Ã°£À» ¼ÂÆÃÇÑ´Ù.
+            // Â´Ã™Ã€Â½ Â¾Âµ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â½ÃƒÂ°Â£Ã€Â» Â¼Ã‚Ã†ÃƒÃ‡Ã‘Â´Ã™.
             m_MoveSpeedVerify.tv_sec += RealSpeed / 10;
             m_MoveSpeedVerify.tv_usec += RealSpeed* 100000;
 
@@ -1056,7 +1056,7 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
             {
                 SpeedCheck = false;
             }
-            // ¹«±â¸¦ ¹«¾ùÀ» µé°í ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+            // Â¹Â«Â±Ã¢Â¸Â¦ Â¹Â«Â¾Ã¹Ã€Â» ÂµÃ©Â°Ã­ Ã€Ã–Â´Ã‚ÃÃ¶ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
             Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
             Item::ItemClass IClass = Item::ITEM_CLASS_SKULL;
             if (pItem != NULL) {
@@ -1067,7 +1067,7 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
             getCurrentTime(m_MoveSpeedVerify);
 
             BYTE RealSpeed = 0;
-            // ½½·Î¿ì ½ºÇÇµå
+            // Â½Â½Â·ÃÂ¿Ã¬ Â½ÂºÃ‡Ã‡ÂµÃ¥
             if (Speed == 0)
             {
                 switch (IClass)
@@ -1098,13 +1098,13 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
                     case Item::ITEM_CLASS_SMG :
                         RealSpeed = 10;
                         break;
-                    // ±âº» °ø°İ 875
+                    // Â±Ã¢ÂºÂ» Â°Ã¸Â°Ã 875
                     default :
                         RealSpeed = 8;
                         break;
                 }
             }
-            else if (Speed == 1) // ³ë¸Ö ½ºÇÇµå
+            else if (Speed == 1) // Â³Ã«Â¸Ã– Â½ÂºÃ‡Ã‡ÂµÃ¥
             {
                 switch (IClass)
                 {
@@ -1134,14 +1134,14 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
                     case Item::ITEM_CLASS_SMG :
                         RealSpeed = 8;
                         break;
-                    // ±âº» °ø°İ 875
+                    // Â±Ã¢ÂºÂ» Â°Ã¸Â°Ã 875
                     default :
                         RealSpeed = 8;
                         break;
 
                 }
             }
-            else // ÆĞ½ºÆ® ½ºÇÇµå
+            else // Ã†ÃÂ½ÂºÃ†Â® Â½ÂºÃ‡Ã‡ÂµÃ¥
             {
                 switch (IClass)
                 {
@@ -1178,7 +1178,7 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
                 }
             }
 
-            // ½ºÇÇµå ¿ÏÈ­ Á¤Ã¥
+            // Â½ÂºÃ‡Ã‡ÂµÃ¥ Â¿ÃÃˆÂ­ ÃÂ¤ÃƒÂ¥
             RealSpeed -= 2;
 
             m_AttackSpeedVerify.tv_sec += RealSpeed / 10;
@@ -1215,7 +1215,7 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
 
         if (PacketID == Packet::PACKET_CG_MOVE)
         {
-            // ÀÌÀü ½Ã°£ÀÌ¶û ÇöÀç ½Ã°£ÀÌ¶û Ã¼Å©ÇØ¼­ ´õ ºü¸¥ ½Ã°£¿¡ ÆĞÅ¶ÀÌ ³¯¾Æ¿ÔÀ¸¸é ÀÌ°Ç Ä¡ÅÍ´Ù.
+            // Ã€ÃŒÃ€Ã¼ Â½ÃƒÂ°Â£Ã€ÃŒÂ¶Ã» Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â£Ã€ÃŒÂ¶Ã» ÃƒÂ¼Ã…Â©Ã‡Ã˜Â¼Â­ Â´Ãµ ÂºÃ¼Â¸Â¥ Â½ÃƒÂ°Â£Â¿Â¡ Ã†ÃÃ…Â¶Ã€ÃŒ Â³Â¯Â¾Ã†Â¿Ã”Ã€Â¸Â¸Ã© Ã€ÃŒÂ°Ã‡ Ã„Â¡Ã…ÃÂ´Ã™.
             if (VerifyTime <= m_MoveSpeedVerify)
             {
                 SpeedCheck = false;
@@ -1225,14 +1225,14 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
             getCurrentTime(m_AttackSpeedVerify);
 
             BYTE RealSpeed = 0;
-            // ´ÙÀ½¿¡ ¹«ºê°¡ °¡Àå »¡¸® ³¯¾Æ¿Ã ¼ö ÀÖ´Â °¡´ÉÇÑ ½Ã°£À» ÀúÀåÇØ µĞ´Ù.
-            // ¹ÚÁã º¯½ÅÀ» ÇÏ°í ÀÖ´Ù¸é ¼Óµµ°¡ »¡¶óÁø´Ù. ÃÊ´ç ³× Å¸ÀÏÀ» ÀÌµ¿ ÇÑ´Ù.
+            // Â´Ã™Ã€Â½Â¿Â¡ Â¹Â«ÂºÃªÂ°Â¡ Â°Â¡Ã€Ã¥ Â»Â¡Â¸Â® Â³Â¯Â¾Ã†Â¿Ãƒ Â¼Ã¶ Ã€Ã–Â´Ã‚ Â°Â¡Â´Ã‰Ã‡Ã‘ Â½ÃƒÂ°Â£Ã€Â» Ã€ÃºÃ€Ã¥Ã‡Ã˜ ÂµÃÂ´Ã™.
+            // Â¹ÃšÃÃ£ ÂºÂ¯Â½Ã…Ã€Â» Ã‡ÃÂ°Ã­ Ã€Ã–Â´Ã™Â¸Ã© Â¼Ã“ÂµÂµÂ°Â¡ Â»Â¡Â¶Ã³ÃÃ¸Â´Ã™. ÃƒÃŠÂ´Ã§ Â³Ã— Ã…Â¸Ã€ÃÃ€Â» Ã€ÃŒÂµÂ¿ Ã‡Ã‘Â´Ã™.
             if (pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT))
             {
                 //RealSpeed = 2;
                 RealSpeed = 1;
             }
-            else // ³ë¸Ö »óÅÂ¿¡¼± ÃÊ´ç µÎÅ¸ÀÏÀ» ÀÌµ¿ÇÑ´Ù.
+            else // Â³Ã«Â¸Ã– Â»Ã³Ã…Ã‚Â¿Â¡Â¼Â± ÃƒÃŠÂ´Ã§ ÂµÃÃ…Â¸Ã€ÃÃ€Â» Ã€ÃŒÂµÂ¿Ã‡Ã‘Â´Ã™.
             {
                 //RealSpeed = 4;
                 RealSpeed = 2;
@@ -1255,20 +1255,20 @@ bool GamePlayer::verifySpeed(Packet* pPacket) {
             getCurrentTime(m_MoveSpeedVerify);
 
             BYTE RealSpeed = 0;
-            if (Speed == 0) // ½½·Î¿ì ½ºÇÇµå 875
+            if (Speed == 0) // Â½Â½Â·ÃÂ¿Ã¬ Â½ÂºÃ‡Ã‡ÂµÃ¥ 875
             {
                 RealSpeed = 8;
             }
-            else if (Speed == 1) // ³ë¸Ö ½ºÇÇµå 875
+            else if (Speed == 1) // Â³Ã«Â¸Ã– Â½ÂºÃ‡Ã‡ÂµÃ¥ 875
             {
                 RealSpeed = 8;
             }
-            else // ÆĞ½ºÆ® ½ºÇÇµå 812
+            else // Ã†ÃÂ½ÂºÃ†Â® Â½ÂºÃ‡Ã‡ÂµÃ¥ 812
             {
                 RealSpeed = 8;
             }
 
-            // ½ºÇÇµå ¿ÏÈ­ Á¤Ã¥
+            // Â½ÂºÃ‡Ã‡ÂµÃ¥ Â¿ÃÃˆÂ­ ÃÂ¤ÃƒÂ¥
             RealSpeed -= 2;
 
             m_AttackSpeedVerify.tv_sec += RealSpeed / 10;
@@ -1356,16 +1356,16 @@ bool GamePlayer::sendBillingLogin() {
             Timeval afterTime;
             getCurrentTime(afterTime);
 
-            // 1ÃÊ ÀÌ»ó °É¸®¸é ·Î±× ³²±ä´Ù.
+            // 1ÃƒÃŠ Ã€ÃŒÂ»Ã³ Â°Ã‰Â¸Â®Â¸Ã© Â·ÃÂ±Ã— Â³Â²Â±Ã¤Â´Ã™.
             if (afterTime.tv_sec > currentTime.tv_sec + 1) {
                 filelog("billingLoginTime.txt", "PlayerID : %s, CallTime : %d sec, Try : %d", m_ID.c_str(),
                         (int)(afterTime.tv_sec - currentTime.tv_sec), m_BillingLoginRequestCount);
             }
 
-            // PayLogin ¿äÃ»ÇÑ È¸¼ö ±â¾ï
+            // PayLogin Â¿Ã¤ÃƒÂ»Ã‡Ã‘ ÃˆÂ¸Â¼Ã¶ Â±Ã¢Â¾Ã¯
             m_BillingLoginRequestCount++;
 
-            // 60ÃÊ ÈÄ ´Ù½Ã Ã¼Å©ÇÑ´Ù.
+            // 60ÃƒÃŠ ÃˆÃ„ Â´Ã™Â½Ãƒ ÃƒÂ¼Ã…Â©Ã‡Ã‘Â´Ã™.
             m_BillingNextLoginRequestTime.tv_sec = currentTime.tv_sec + 60;
         }
 
@@ -1405,17 +1405,17 @@ void GamePlayer::sendCBillingPayInfo() {
     __END_CATCH
 }
 
-// ¾ÏÈ£È­ ÄÚµå¸¦ ¼³Á¤ÇÑ´Ù.
+// Â¾ÃÃˆÂ£ÃˆÂ­ Ã„ÃšÂµÃ¥Â¸Â¦ Â¼Â³ÃÂ¤Ã‡Ã‘Â´Ã™.
 void GamePlayer::setEncryptCode() {
     __BEGIN_TRY
 
 #ifdef __USE_ENCRYPTER__
     Assert(m_pCreature != NULL);
 
-    // ÀÏ´ÜÀº ObjectID¸¦ ÀÌ¿ëÇÑ´Ù.
+    // Ã€ÃÂ´ÃœÃ€Âº ObjectIDÂ¸Â¦ Ã€ÃŒÂ¿Ã«Ã‡Ã‘Â´Ã™.
     // ObjectID_t 	objectID 	= m_pCreature->getObjectID();
 
-    // Á¸º°·Î °ü¸®¸¦ ÇÏµµ·Ï ¼öÁ¤ÇÑ´Ù.
+    // ÃÂ¸ÂºÂ°Â·Ã Â°Ã¼Â¸Â®Â¸Â¦ Ã‡ÃÂµÂµÂ·Ã Â¼Ã¶ÃÂ¤Ã‡Ã‘Â´Ã™.
     //	ZoneID_t 	zoneID 		= m_pCreature->getZone()->getZoneID();
     //	static int	serverID	= g_pConfig->getPropertyInt("ServerID");
 
@@ -1426,9 +1426,9 @@ void GamePlayer::setEncryptCode() {
     uchar code = m_pCreature->getZone()->getEncryptCode();
 
 #ifdef __ACTIVE_SERVICE_DEADLINE__
-    // ¼­¹ö ¹Ùº¸ ¸¸µé±â ÄÚµå
+    // Â¼Â­Â¹Ã¶ Â¹Ã™ÂºÂ¸ Â¸Â¸ÂµÃ©Â±Ã¢ Ã„ÃšÂµÃ¥
     VSDate date = VSDate::currentDate();
-    // 2003³â 1¿ù ÀÌ»óÀÎ °æ¿ì: 2003, 0
+    // 2003Â³Ã¢ 1Â¿Ã¹ Ã€ÃŒÂ»Ã³Ã€Ã Â°Ã¦Â¿Ã¬: 2003, 0
     if (date.year() >= DEADLINE_YEAR && date.month() > DEADLINE_MONTH)
         code += (date.year() + date.month()) / 11;
 #endif
@@ -1450,7 +1450,7 @@ void GamePlayer::setEncryptCode() {
 void GamePlayer::kickPlayer(uint nSeconds, uint KickMessageType) {
     __BEGIN_TRY
 
-    // ÀÌ¹Ì EventKick ÀÌ ÀÖ´Ù¸é ¹«½ÃÇÑ´Ù.
+    // Ã€ÃŒÂ¹ÃŒ EventKick Ã€ÃŒ Ã€Ã–Â´Ã™Â¸Ã© Â¹Â«Â½ÃƒÃ‡Ã‘Â´Ã™.
     if (m_EventManager.getEvent(Event::EVENT_CLASS_KICK) != NULL)
         return;
 
@@ -1458,7 +1458,7 @@ void GamePlayer::kickPlayer(uint nSeconds, uint KickMessageType) {
     pEventKick->setDeadline(nSeconds * 10);
     addEvent(pEventKick);
 
-    // ¸î ÃÊÈÄ¿¡ Â©¸°´Ù..°í º¸³»ÁØ´Ù.
+    // Â¸Ã® ÃƒÃŠÃˆÃ„Â¿Â¡ Ã‚Â©Â¸Â°Â´Ã™..Â°Ã­ ÂºÂ¸Â³Â»ÃÃ˜Â´Ã™.
     GCKickMessage gcKickMessage;
     gcKickMessage.setType(KickMessageType);
     gcKickMessage.setSeconds(nSeconds);
@@ -1468,7 +1468,7 @@ void GamePlayer::kickPlayer(uint nSeconds, uint KickMessageType) {
 }
 
 //////////////////////////////////////////////////////////////////
-// PaySystem °ü·Ã
+// PaySystem Â°Ã¼Â·Ãƒ
 //////////////////////////////////////////////////////////////////
 bool GamePlayer::loginPayPlay(PayType payType, const string& PayPlayDate, int PayPlayHours, uint payPlayFlag,
                               const string& ip, const string& playerID) {
@@ -1539,8 +1539,8 @@ bool GamePlayer::isPayPlaying() const {
 //
 // add LogoutPlayerdata
 //
-// Á¢¼ÓÀÚ Åë°è¸¦ À§ÇØ¼­
-// UserInfo DBÀÇ LogoutPlayerData¿¡ LogoutÇÑ »ç¿ëÀÚ¸¦ Ãß°¡ÇÑ´Ù.
+// ÃÂ¢Â¼Ã“Ã€Ãš Ã…Ã«Â°Ã¨Â¸Â¦ Ã€Â§Ã‡Ã˜Â¼Â­
+// UserInfo DBÃ€Ã‡ LogoutPlayerDataÂ¿Â¡ LogoutÃ‡Ã‘ Â»Ã§Â¿Ã«Ã€ÃšÂ¸Â¦ ÃƒÃŸÂ°Â¡Ã‡Ã‘Â´Ã™.
 //
 //////////////////////////////////////////////////////////////////////////////
 void addLogoutPlayerData(Player* pPlayer) {
@@ -1548,12 +1548,12 @@ void addLogoutPlayerData(Player* pPlayer) {
 
     pStmt = g_pDatabaseManager->getUserInfoConnection()->createStatement();
 
-    // À¯Àú Åë°è °ü·Ã Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù.
+    // Ã€Â¯Ã€Ãº Ã…Ã«Â°Ã¨ Â°Ã¼Â·Ãƒ ÃÂ¤ÂºÂ¸Â¸Â¦ Ã€Ã”Â·Ã‚Ã‡Ã‘Â´Ã™.
     BEGIN_DB {
         string ID = pPlayer->getID();
         string ip = pPlayer->getSocket()->getHost();
 
-        // ¸ÕÀú ÇöÀç ½Ã°£À» ¾ò¾î³½´Ù.
+        // Â¸Ã•Ã€Ãº Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â£Ã€Â» Â¾Ã²Â¾Ã®Â³Â½Â´Ã™.
         int year, month, day, hour, minute, second;
         getCurrentTimeEx(year, month, day, hour, minute, second);
         string currentDT = VSDateTime::currentDateTime().toDateTime();
@@ -1609,7 +1609,7 @@ void GamePlayer::checkPCRoomLotto(const Timeval& currentTime) {
     if (time >= PCRoomLottoSec) {
         giveLotto();
 
-        // ´Ù½Ã ½Ã°£À» ÃÊ±âÈ­ÇÑ´Ù.
+        // Â´Ã™Â½Ãƒ Â½ÃƒÂ°Â£Ã€Â» ÃƒÃŠÂ±Ã¢ÃˆÂ­Ã‡Ã‘Â´Ã™.
         m_PCRoomLottoStartTime.tv_sec = currentTime.tv_sec;
         m_PCRoomLottoSumTime = 0;
     }
@@ -1643,7 +1643,7 @@ void GamePlayer::giveLotto() {
                                     Amount + 1, PlayerID.c_str(), Name.c_str(), DimensionID, WorldID);
             }
         } else {
-            // º¹±ÇÀÌ ¾ø¾ú´Ù. »õ·Î ³Ö¾îÁØ´Ù.
+            // ÂºÂ¹Â±Ã‡Ã€ÃŒ Â¾Ã¸Â¾ÃºÂ´Ã™. Â»ÃµÂ·Ã Â³Ã–Â¾Ã®ÃÃ˜Â´Ã™.
             pStmt->executeQuery("INSERT INTO PCRoomLottoObject VALUES ( 0, %u, '%s', %u, %u, '%s', %u, 1 )", m_PCRoomID,
                                 PlayerID.c_str(), DimensionID, WorldID, Name.c_str(), Race);
         }
@@ -1684,17 +1684,17 @@ void GamePlayer::logLoginoutDateTime() {
     if (m_pCreature == NULL)
         return;
 
-    // DimensionID ±¸ÇÏ±â
+    // DimensionID Â±Â¸Ã‡ÃÂ±Ã¢
     uint dimensionID = g_pConfig->getPropertyInt("Dimension");
     if (g_pConfig->getPropertyInt("IsNetMarble") == 0) {
-        // ³İ¸¶ºí ÀÏ °æ¿ì¿£ 2
+        // Â³ÃÂ¸Â¶ÂºÃ­ Ã€Ã Â°Ã¦Â¿Ã¬Â¿Â£ 2
         dimensionID = 2;
     }
 
     // WorldID
     uint worldID = g_pConfig->getPropertyInt("WorldID");
 
-    // Á¾Á· ÄÚµå
+    // ÃÂ¾ÃÂ· Ã„ÃšÂµÃ¥
     uint racecode;
     uint str, dex, inte;
     if (m_pCreature->isSlayer()) {
@@ -1707,7 +1707,7 @@ void GamePlayer::logLoginoutDateTime() {
         dex = pSlayer->getDEX();
         inte = pSlayer->getINT();
     } else if (m_pCreature->isVampire()) {
-        // ¹ìÆÄÀÌ¾î´Â  10
+        // Â¹Ã¬Ã†Ã„Ã€ÃŒÂ¾Ã®Â´Ã‚  10
         racecode = 10;
 
         Vampire* pVampire = dynamic_cast<Vampire*>(m_pCreature);
@@ -1717,7 +1717,7 @@ void GamePlayer::logLoginoutDateTime() {
         dex = pVampire->getDEX();
         inte = pVampire->getINT();
     } else if (m_pCreature->isOusters()) {
-        // ¾Æ¿ì½ºÅÍÁî´Â 20
+        // Â¾Ã†Â¿Ã¬Â½ÂºÃ…ÃÃÃ®Â´Ã‚ 20
         racecode = 20;
 
         Ousters* pOusters = dynamic_cast<Ousters*>(m_pCreature);
@@ -1730,10 +1730,10 @@ void GamePlayer::logLoginoutDateTime() {
         return;
     }
 
-    // ·¹º§
+    // Â·Â¹ÂºÂ§
     uint level = (uint)m_pCreature->getLevel();
 
-    // ·Î±×¾Æ¿ô ½Ã°£. ÇöÀç ½Ã°£
+    // Â·ÃÂ±Ã—Â¾Ã†Â¿Ã´ Â½ÃƒÂ°Â£. Ã‡Ã¶Ã€Ã§ Â½ÃƒÂ°Â£
     VSDateTime logoutDateTime = VSDateTime::currentDateTime();
 
     // filename

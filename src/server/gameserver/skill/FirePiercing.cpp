@@ -15,7 +15,7 @@
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                            CEffectID_t CEffectID)
@@ -44,8 +44,8 @@ void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
         // Assert(pTargetCreature != NULL);
 
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pOusters, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType(), Grade);
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -64,7 +64,7 @@ void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî Å¸ÀÏ ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, OustersSkillSlot* pOustersSkillSlot,
                            CEffectID_t CEffectID)
@@ -118,7 +118,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
         SkillType_t SkillType = pOustersSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+        // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pOusters, pOustersSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -156,7 +156,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 
                     Tile& tile = pZone->getTile(oX, oY);
 
-                    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+                    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
                     const forward_list<Object*>& oList = tile.getObjectList();
                     forward_list<Object*>::const_iterator itr = oList.begin();
                     for (; itr != oList.end(); itr++) {
@@ -169,8 +169,8 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
                             Creature* pCreature = dynamic_cast<Creature*>(pObject);
                             Assert(pCreature != NULL);
 
-                            // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
-                            // »ê ¸é¿ª. by sigi. 2002.9.13
+                            // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
+                            // ì‚° ë©´ì—­. by sigi. 2002.9.13
                             if (pCreature->getObjectID() == pOusters->getObjectID() ||
                                 !canAttack(pOusters, pCreature) || pCreature->isFlag(Effect::EFFECT_CLASS_COMA) ||
                                 !canHit(pOusters, pCreature, SKILL_FIRE_PIERCING, pOustersSkillSlot->getExpLevel())) {
@@ -178,7 +178,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
                             }
 
                             // 2003.1.10 by Sequoia
-                            // ¾ÈÀüÁö´ë Ã¼Å©
+                            // ì•ˆì „ì§€ëŒ€ ì²´í¬
                             if (!checkZoneLevelToHitTarget(pCreature))
                                 continue;
 
@@ -207,9 +207,9 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
                                     ::setDamage(pMonster, Damage, pOusters, SKILL_FIRE_PIERCING, NULL,
                                                 &_GCSkillToTileOK1);
                                 } else
-                                    continue; // ¾Æ¿ì½ºÅÍÁî³ª NPC »ó´ë·Î... -_-
+                                    continue; // ì•„ìš°ìŠ¤í„°ì¦ˆë‚˜ NPC ìƒëŒ€ë¡œ... -_-
 
-                                // Á×¾úÀ¸¸é °æÇèÄ¡ÁØ´Ù. À½.....
+                                // ì£½ì—ˆìœ¼ë©´ ê²½í—˜ì¹˜ì¤€ë‹¤. ìŒ.....
                                 if (pOusters != NULL) {
                                     if (pCreature->isDead() && pOusters->isOusters()) {
                                         Ousters* pCastOusters = dynamic_cast<Ousters*>(pOusters);
@@ -238,7 +238,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
                 }
 
             if (bCritical) {
-                cout << "Å©¸®Æ¼ÄÃ ¹ßµ¿" << endl;
+                cout << "í¬ë¦¬í‹°ì»¬ ë°œë™" << endl;
 
                 list<Creature*>::iterator itr = cList.begin();
                 list<Creature*>::iterator endItr = cList.end();
@@ -246,7 +246,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
                 for (; itr != endItr; ++itr) {
                     Creature* pTargetCreature = *itr;
                     if (pTargetCreature != NULL) {
-                        cout << pTargetCreature->getName() << " ³«¹é~" << endl;
+                        cout << pTargetCreature->getName() << " ë‚™ë°±~" << endl;
                         knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
                     }
                 }

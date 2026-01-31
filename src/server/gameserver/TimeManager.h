@@ -23,10 +23,10 @@
 #define NIGHT_END_HOUR 4
 
 enum Timeband {
-    TIME_DAWN = 0, // »õº®
-    TIME_DAY,      // ³·
-    TIME_DUSK,     // Àú³á
-    TIME_NIGHT,    // ¹ã
+    TIME_DAWN = 0, // ìƒˆë²½
+    TIME_DAY,      // ë‚®
+    TIME_DUSK,     // ì €ë…
+    TIME_NIGHT,    // ë°¤
 
     TIME_MAX
 };
@@ -34,8 +34,8 @@ enum Timeband {
 //////////////////////////////////////////////////////////////////////////////
 // class TimeManager;
 //
-// ÇöÀç °ÔÀÓ ½Ã°£À» °è»êÇØÁÖ´Â ¸Å´ÏÀú Å¬·¡½ºÀÌ´Ù.(»ç½Ç ¸Å´ÏÀú¶ó°í ÇÒ °Íµµ ¾ø´Ù.
-// ÀÌ ¿Ü¿¡µµ ¹º°¡ ´Ù¸¥ ¿ªÇÒÀ» ÇÒ °Íµµ °°´Ù...
+// í˜„ìž¬ ê²Œìž„ ì‹œê°„ì„ ê³„ì‚°í•´ì£¼ëŠ” ë§¤ë‹ˆì € í´ëž˜ìŠ¤ì´ë‹¤.(ì‚¬ì‹¤ ë§¤ë‹ˆì €ë¼ê³  í•  ê²ƒë„ ì—†ë‹¤.
+// ì´ ì™¸ì—ë„ ë­”ê°€ ë‹¤ë¥¸ ì—­í• ì„ í•  ê²ƒë„ ê°™ë‹¤...
 //////////////////////////////////////////////////////////////////////////////
 
 class TimeManager {

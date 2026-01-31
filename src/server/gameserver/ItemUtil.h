@@ -25,54 +25,54 @@ class Corpse;
 struct ITEM_TEMPLATE;
 
 enum ItemTraceLogType {
-    ITEM_LOG_CREATE = 0, // ¾ÆÀÌÅÛ »ı¼º¿¡ ´ëÇÑ ·Î±×
-    ITEM_LOG_TRADE,      // ¾ÆÀÌÅÛ TRADE ¿¡ ´ëÇÑ ·Î±×
-    ITEM_LOG_MOVE,       // ¾ÆÀÌÅÛ ÀÌµ¿¿¡ ´ëÇÑ ·Î±×
-    ITEM_LOG_DELETE,     // ¾ÆÀÌÅÛ »èÁ¦¿¡ ´ëÇÑ ·Î±×
+    ITEM_LOG_CREATE = 0, // ì•„ì´í…œ ìƒì„±ì— ëŒ€í•œ ë¡œê·¸
+    ITEM_LOG_TRADE,      // ì•„ì´í…œ TRADE ì— ëŒ€í•œ ë¡œê·¸
+    ITEM_LOG_MOVE,       // ì•„ì´í…œ ì´ë™ì— ëŒ€í•œ ë¡œê·¸
+    ITEM_LOG_DELETE,     // ì•„ì´í…œ ì‚­ì œì— ëŒ€í•œ ë¡œê·¸
 
     ITEM_LOG_MAX
 };
 
 enum ItemTraceDetailType {
-    DETAIL_COMMAND = 0, // command ¸í·É¾î·Î »ı¼º						: ITEM_LOG_CREATE
-    DETAIL_SHOPBUY,     // »óÁ¡¿¡¼­ »ê °æ¿ì								: ITEM_LOG_CREATE
-    DETAIL_PICKUP,      // ¹Ù´Ú¿¡¼­ ¹°°Ç ÁÖ¿üÀ» °æ¿ì					: ITEM_LOG_MOVE
-    DETAIL_DROP,        // ¹Ù´Ú¿¡ ¹ö¸° °æ¿ì								: ITEM_LOG_MOVE
-    DETAIL_EVENTNPC,    // ÀÌº¥Æ®·Î »ı±ä ¾ÆÀÌÅÛ							: ITEM_LOG_CREATE
-    DETAIL_SHOPSELL,    // »óÁ¡¿¡ ¹°°Ç ÆÇ °æ¿ì							: ITEM_LOG_DELETE
-    DETAIL_TIMEOUT,     // ¹Ù´Ú¿¡ ¶³¾îÁø ÈÄ timeout À¸·Î »ç¶óÁø °æ¿ì	: ITEM_LOG_DELETE
-    DETAIL_ENCHANT,     // ÀÎÃ¾Æ®·Î º¯°æµÈ °æ¿ì							: ITEM_LOG_DELETE
-    DETAIL_OPCLEAR,     // commnad ·Î »èÁ¦								: ITEM_LOG_DELETE
-    DETAIL_TRADE,       // ¾ÆÀÌÅÛ TRADE									: ITEM_LOG_TRADE
-    DETAIL_MALLBUY,     // À¥¿¡¼­ »ê ¾ÆÀÌÅÛ								: ITEM_LOG_CREATE
+    DETAIL_COMMAND = 0, // command ëª…ë ¹ì–´ë¡œ ìƒì„±						: ITEM_LOG_CREATE
+    DETAIL_SHOPBUY,     // ìƒì ì—ì„œ ì‚° ê²½ìš°								: ITEM_LOG_CREATE
+    DETAIL_PICKUP,      // ë°”ë‹¥ì—ì„œ ë¬¼ê±´ ì£¼ì› ì„ ê²½ìš°					: ITEM_LOG_MOVE
+    DETAIL_DROP,        // ë°”ë‹¥ì— ë²„ë¦° ê²½ìš°								: ITEM_LOG_MOVE
+    DETAIL_EVENTNPC,    // ì´ë²¤íŠ¸ë¡œ ìƒê¸´ ì•„ì´í…œ							: ITEM_LOG_CREATE
+    DETAIL_SHOPSELL,    // ìƒì ì— ë¬¼ê±´ íŒ ê²½ìš°							: ITEM_LOG_DELETE
+    DETAIL_TIMEOUT,     // ë°”ë‹¥ì— ë–¨ì–´ì§„ í›„ timeout ìœ¼ë¡œ ì‚¬ë¼ì§„ ê²½ìš°	: ITEM_LOG_DELETE
+    DETAIL_ENCHANT,     // ì¸ì²¸íŠ¸ë¡œ ë³€ê²½ëœ ê²½ìš°							: ITEM_LOG_DELETE
+    DETAIL_OPCLEAR,     // commnad ë¡œ ì‚­ì œ								: ITEM_LOG_DELETE
+    DETAIL_TRADE,       // ì•„ì´í…œ TRADE									: ITEM_LOG_TRADE
+    DETAIL_MALLBUY,     // ì›¹ì—ì„œ ì‚° ì•„ì´í…œ								: ITEM_LOG_CREATE
 
     DETAIL_MAX
 };
 
 enum ITLType {
-    ITL_GET = 0, // ¾ÆÀÌÅÛ GET
-    ITL_DROP,    // ¾ÆÀÌÅÛ DROP
-    ITL_ETC,     // ¾ÆÀÌÅÛ ETC
+    ITL_GET = 0, // ì•„ì´í…œ GET
+    ITL_DROP,    // ì•„ì´í…œ DROP
+    ITL_ETC,     // ì•„ì´í…œ ETC
 
     ITL_MAX
 };
 
 enum ITLDType {
-    ITLD_PICKUP = 0, // ¾ÆÀÌÅÛ PICKUP		GET
-    ITLD_TRADE,      // ¾ÆÀÌÅÛ TRADE			GET/DROP
-    ITLD_EVENTNPC,   // ÀÌº¥Æ®¸¦ clearÇÏ°í NPC¿¡°Ô ¹Ş´Â ¾ÆÀÌÅÛ 		GET
+    ITLD_PICKUP = 0, // ì•„ì´í…œ PICKUP		GET
+    ITLD_TRADE,      // ì•„ì´í…œ TRADE			GET/DROP
+    ITLD_EVENTNPC,   // ì´ë²¤íŠ¸ë¥¼ clearí•˜ê³  NPCì—ê²Œ ë°›ëŠ” ì•„ì´í…œ 		GET
     ITLD_PETITEM,    // GET
     ITLD_ENCHANT,    // GET/DROP
     ITLD_MIXING,     // GET/DROP
     ITLD_OPTION,     // GET/DROP/ETC
 
-    ITLD_NPCSHOP,     // NPC¼¥¿¡¼­ °Å·¡	GET/DROP
-    ITLD_WEBSHOP,     // À¥¸¶ÄÏ¿¡¼­ÀÇ °Å·¡ GET
-    ITLD_PRIVATESHOP, // °³ÀÎ»óÁ¡¿¡¼­ GET/DROP
+    ITLD_NPCSHOP,     // NPCìƒµì—ì„œ ê±°ë˜	GET/DROP
+    ITLD_WEBSHOP,     // ì›¹ë§ˆì¼“ì—ì„œì˜ ê±°ë˜ GET
+    ITLD_PRIVATESHOP, // ê°œì¸ìƒì ì—ì„œ GET/DROP
 
-    ITLD_GM,      // °ÔÀÓ¸¶½ºÅÍÀÇ ACTION GET/DROP/MOVE/ETC
-    ITLD_TIMEOUT, // Time¾Æ¿ô	DROP
-    ITLD_DELETE,  // Delete		// ETC+DELETE ÀÇ °æ¿ì´Â ¾øÀ»Å×´Ù.
+    ITLD_GM,      // ê²Œì„ë§ˆìŠ¤í„°ì˜ ACTION GET/DROP/MOVE/ETC
+    ITLD_TIMEOUT, // Timeì•„ì›ƒ	DROP
+    ITLD_DELETE,  // Delete		// ETC+DELETE ì˜ ê²½ìš°ëŠ” ì—†ì„í…Œë‹¤.
     ITLD_MOVE,    // Mode 		GET/DROP/ETC
 
     ITLD_MAX
@@ -126,26 +126,26 @@ const string ITLDType2String[] = {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// ½×ÀÏ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
+// ìŒ“ì¼ ìˆ˜ ìˆëŠ” ì•„ì´í…œì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isStackable(Item::ItemClass IClass);
 bool isStackable(const Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// °°Àº Å¬·¡½º, Å¸ÀÔÀÇ ¾ÆÀÌÅÛÀÎ°¡?
+// ê°™ì€ í´ë˜ìŠ¤, íƒ€ì…ì˜ ì•„ì´í…œì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isSameItem(Item::ItemClass IClass1, Item::ItemClass IClass2, ItemType_t type1, ItemType_t type2);
 bool isSameItem(const Item* pItem1, const Item* pItem2);
 
 //////////////////////////////////////////////////////////////////////////////
-// µÎ ¾ÆÀÌÅÛÀ» ½×À» ¼ö ÀÖ´Â°¡?
+// ë‘ ì•„ì´í…œì„ ìŒ“ì„ ìˆ˜ ìˆëŠ”ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool canStack(const Item* pItem1, const Item* pItem2);
 
 //////////////////////////////////////////////////////////////////////////////
-// µÎ ¼Õ ¹«±âÀÎ°¡?
-// Á¢±ÙÀü ¹«±âÀÎ°¡?
-// Àü»ç,±ºÀÎ, ¼ºÁ÷ÀÚ ¹«±âÀÎ°¡?
+// ë‘ ì† ë¬´ê¸°ì¸ê°€?
+// ì ‘ê·¼ì „ ë¬´ê¸°ì¸ê°€?
+// ì „ì‚¬,êµ°ì¸, ì„±ì§ì ë¬´ê¸°ì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isTwohandWeapon(const Item* pItem);
 bool isMeleeWeapon(const Item* pItem);
@@ -154,12 +154,12 @@ bool isArmsWeapon(const Item* pItem);
 bool isClericWeapon(const Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// ÃÑ¿¡ ¸Â´Â ÅºÃ¢ÀÎ°¡?
+// ì´ì— ë§ëŠ” íƒ„ì°½ì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isSuitableMagazine(const Item* pGun, const Item* pMagazine, bool hasVivid);
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î¿ë ¹«±âÀÎ°¡?
+// ìŠ¬ë ˆì´ì–´ìš© ë¬´ê¸°ì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isSlayerWeapon(Item::ItemClass IClass);
 bool isAdvancedSlayerWeapon(Item::ItemClass IClass);
@@ -167,97 +167,97 @@ bool isVampireWeapon(Item::ItemClass IClass);
 bool isOustersWeapon(Item::ItemClass IClass);
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î¿ë ¹æ¾î±¸ÀÎ°¡?
+// ìŠ¬ë ˆì´ì–´ìš© ë°©ì–´êµ¬ì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isSlayerArmor(Item::ItemClass IClass);
 bool isVampireArmor(Item::ItemClass IClass);
 bool isOustersArmor(Item::ItemClass IClass);
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î¿ë ¾Ç¼¼»ç¸®ÀÎ°¡?
+// ìŠ¬ë ˆì´ì–´ìš© ì•…ì„¸ì‚¬ë¦¬ì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isSlayerAccessory(Item::ItemClass IClass);
 bool isVampireAccessory(Item::ItemClass IClass);
 bool isOustersAccessory(Item::ItemClass IClass);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¼ö¸®ÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
+// ìˆ˜ë¦¬í•  ìˆ˜ ìˆëŠ” ì•„ì´í…œì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isRepairableItem(const Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÑ´Ù.
+// ì•„ì´í…œì„ ìˆ˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void repairItem(Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀÇ ÃÖ´ë ³»±¸µµ¸¦ ¾ò¾î³½´Ù.
+// ì•„ì´í…œì˜ ìµœëŒ€ ë‚´êµ¬ë„ë¥¼ ì–»ì–´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Durability_t computeMaxDurability(Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// ÅºÃ¢À» °¥¾Æ³¢¿öÁØ´Ù.
+// íƒ„ì°½ì„ ê°ˆì•„ë¼ì›Œì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Bullet_t reloadArmsItem(Item* pWeapon, Item* pMagazine);
 
 //////////////////////////////////////////////////////////////////////////////
-// ÃÑ¾ËÀ» »©ÁØ´Ù.
+// ì´ì•Œì„ ë¹¼ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Bullet_t decreaseBullet(Item* pWeapon);
 
 //////////////////////////////////////////////////////////////////////////////
-// ³²Àº ÃÑ¾ËÀÇ °¹¼ö¸¦ ¸®ÅÏ
+// ë‚¨ì€ ì´ì•Œì˜ ê°¯ìˆ˜ë¥¼ ë¦¬í„´
 //////////////////////////////////////////////////////////////////////////////
 Bullet_t getRemainBullet(Item* pWeapon);
 
 //////////////////////////////////////////////////////////////////////////////
-// ÁÖÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
+// ì£¼ì„ ìˆ˜ ìˆëŠ” ì•„ì´í…œì¸ê°€?
 //////////////////////////////////////////////////////////////////////////////
 bool isPortableItem(Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
-// ¿©±â¼­ÀÇ »ç¿ëÀÌ¶õ, »ç¿ëÇØ¼­ »ç¶óÁö´Â ¼Ò¸ğ¼º ¾ÆÀÌÅÛÀ» ¸»ÇÑ´Ù.
+// ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´í…œì¸ê°€?
+// ì—¬ê¸°ì„œì˜ ì‚¬ìš©ì´ë€, ì‚¬ìš©í•´ì„œ ì‚¬ë¼ì§€ëŠ” ì†Œëª¨ì„± ì•„ì´í…œì„ ë§í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 bool isUsableItem(Item* pItem, Creature* pUser);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀÇ ¼ıÀÚ¸¦ ÁÙÀÎ´Ù.
+// ì•„ì´í…œì˜ ìˆ«ìë¥¼ ì¤„ì¸ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 ItemNum_t decreaseItemNum(Item* pItem, Inventory* pInventory, const string& OwnerID, Storage storage,
                           StorageID_t storageID, BYTE x, BYTE y);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀÌ °ãÄ¡´Â ¹ö±×¸¦ ·Î±×ÇÏ´Â ÇÔ¼ö´Ù.
+// ì•„ì´í…œì´ ê²¹ì¹˜ëŠ” ë²„ê·¸ë¥¼ ë¡œê·¸í•˜ëŠ” í•¨ìˆ˜ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void processItemBug(Creature* pCreature, Item* pItem);
 void processItemBugEx(Creature* pCreature, Item* pItem);
 
 //////////////////////////////////////////////////////////////////////////////
-// Mysterious item »ı¼º
+// Mysterious item ìƒì„±
 //////////////////////////////////////////////////////////////////////////////
 Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, int maxLevel = 0);
 
 //////////////////////////////////////////////////////////////////////////////
-// Option¿¡ °ü·ÃµÈ ¤¾¸¶¼öµé
+// Optionì— ê´€ë ¨ëœ ã…ë§ˆìˆ˜ë“¤
 //////////////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ÇÑ OptionTypeÀÌ ºÙ¾îÀÖ´Â°¡?
+// íŠ¹ì •í•œ OptionTypeì´ ë¶™ì–´ìˆëŠ”ê°€?
 bool hasOptionType(const list<OptionType_t>& optionTypes, OptionType_t optionType);
 
-// Æ¯Á¤ÇÑ OptionClass(STR, DEX...)°¡ ºÙ¾îÀÖ´Â°¡?
+// íŠ¹ì •í•œ OptionClass(STR, DEX...)ê°€ ë¶™ì–´ìˆëŠ”ê°€?
 bool hasOptionClass(const list<OptionType_t>& optionTypes, OptionType_t optionType);
 
-// DB¿¡¼­ ÀĞ¾î¿Ã¶§
+// DBì—ì„œ ì½ì–´ì˜¬ë•Œ
 void setOptionTypeFromField(list<OptionType_t>& optionTypes, const string& optionField);
 
-// DB¿¡ ÀúÀåÇÒ ¶§
+// DBì— ì €ì¥í•  ë•Œ
 void setOptionTypeToField(const list<OptionType_t>& optionTypes, string& optionField);
 
-// cout¿¡ »ç¿ë
+// coutì— ì‚¬ìš©
 string getOptionTypeToString(const list<OptionType_t>& optionTypes);
 
 //////////////////////////////////////////////////////////////////////////////
-// ´ÙÀ½ ¿É¼ÇÀÌ ºÙÀ» È®·ü Ã¼Å© : ·¹¾î ¾ÆÀÌÅÛ »ı¼º ¿©ºÎ
+// ë‹¤ìŒ ì˜µì…˜ì´ ë¶™ì„ í™•ë¥  ì²´í¬ : ë ˆì–´ ì•„ì´í…œ ìƒì„± ì—¬ë¶€
 //////////////////////////////////////////////////////////////////////////////
 bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate);
 
@@ -266,19 +266,19 @@ ItemType_t getDowngradeItemType(Item::ItemClass IClass, ItemType_t itemType);
 bool isPossibleUpgradeItemType(Item::ItemClass IClass);
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®½º¸¶½º Æ®¸® ÀÌº¥Æ®¿ë
+// í¬ë¦¬ìŠ¤ë§ˆìŠ¤ íŠ¸ë¦¬ ì´ë²¤íŠ¸ìš©
 //////////////////////////////////////////////////////////////////////////////
-// Æ®¸® Á¶°¢À» °Ë»ö
+// íŠ¸ë¦¬ ì¡°ê°ì„ ê²€ìƒ‰
 // TPOINT checkEventTree( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY );
 // TPOINT checkEventDocument( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY );
 // TPOINT checkEventDoll( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY );
 TPOINT checkEventPuzzle(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, int start);
 
-// ÀÎº¥Åä¸®ÀÇ (X0, Y0) - (X1, y1) ¹üÀ§ÀÇ ¾ÆÀÌÅÛÀ» Áö¿î´Ù.
+// ì¸ë²¤í† ë¦¬ì˜ (X0, Y0) - (X1, y1) ë²”ìœ„ì˜ ì•„ì´í…œì„ ì§€ìš´ë‹¤.
 void deleteInventoryItem(Inventory* pInventory, CoordInven_t invenX0, CoordInven_t invenY0, CoordInven_t invenX1,
                          CoordInven_t invenY1);
 
-// ÀÎº¥Åä¸®¿¡ ÃÊº¸ÀÚ¿ë ¾ÆÀÌÅÛÀ» ³Ö¾îÁØ´Ù.
+// ì¸ë²¤í† ë¦¬ì— ì´ˆë³´ììš© ì•„ì´í…œì„ ë„£ì–´ì¤€ë‹¤.
 bool addNewbieItemToInventory(Slayer* pSlayer, bool sendPacket = false);
 bool addNewbieGoldToInventory(Slayer* pSlayer, bool sendPacket = false);
 bool addNewbieItemToGear(Slayer* pSlayer, bool sendPacket = false);
@@ -289,7 +289,7 @@ bool addNewbieItemToGear(Ousters* pOusters, bool sendPacket = false);
 
 Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer);
 
-// ¿É¼Ç stringÀ¸·ÎºÎÅÍ ¿É¼Ç list¸¦ ¸¸µç´Ù.
+// ì˜µì…˜ stringìœ¼ë¡œë¶€í„° ì˜µì…˜ listë¥¼ ë§Œë“ ë‹¤.
 void makeOptionList(const string& options, list<OptionType_t>& optionList);
 
 void saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y);
@@ -303,27 +303,27 @@ bool isCoupleRing(Item* pItem);
 
 bool suitableItemClass(Item::ItemClass iClass, SkillDomainType_t domainType);
 
-// ¾ÆÀÌÅÛÀ» ¼ºº°¿¡ ¸Â´Â µ¿±ŞÀÇ ¾ÆÀÌÅÛÀ¸·Î ¹Ù²ãÁØ´Ù. ¾ÆÀÌÅÛ Å¸ÀÔÀÌ ³²ÀÚ¿ë ´ÙÀ½¿¡ ¹Ù·Î °°Àº ±ŞÀÇ ¿©ÀÚ¿ëÀÌ ¿Â´Ù°í °¡Á¤
-// ÀÌ°É ºÒ·¯ÁØ µÚ¿£ ¹İµå½Ã ¾ÆÀÌÅÛ Å¸ÀÔÀ» ¼¼ÀÌºêÇØÁÖ´ø°¡ pItem->save() ¸¦ ºÒ·¯Áà¾ß µÈ´Ù.
+// ì•„ì´í…œì„ ì„±ë³„ì— ë§ëŠ” ë™ê¸‰ì˜ ì•„ì´í…œìœ¼ë¡œ ë°”ê¿”ì¤€ë‹¤. ì•„ì´í…œ íƒ€ì…ì´ ë‚¨ììš© ë‹¤ìŒì— ë°”ë¡œ ê°™ì€ ê¸‰ì˜ ì—¬ììš©ì´ ì˜¨ë‹¤ê³  ê°€ì •
+// ì´ê±¸ ë¶ˆëŸ¬ì¤€ ë’¤ì—” ë°˜ë“œì‹œ ì•„ì´í…œ íƒ€ì…ì„ ì„¸ì´ë¸Œí•´ì£¼ë˜ê°€ pItem->save() ë¥¼ ë¶ˆëŸ¬ì¤˜ì•¼ ëœë‹¤.
 void setItemGender(Item* pItem, GenderRestriction gender);
 
-// Item Trace Log ¸¦ ³²±æ ¾ÆÀÌÅÛÀÎ°¡?
+// Item Trace Log ë¥¼ ë‚¨ê¸¸ ì•„ì´í…œì¸ê°€?
 bool bTraceLog(Item* pItem);
 
-// Item Trace Log ³²±â´Â ÇÔ¼ö
+// Item Trace Log ë‚¨ê¸°ëŠ” í•¨ìˆ˜
 void remainTraceLog(Item* pItem, const string& preOwner, const string& owner, ItemTraceLogType logType,
                     ItemTraceDetailType detailType);
 void remainTraceLogNew(Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid = 0,
                        int x = 0, int y = 0);
 
-// Meney Trace Log ³²±â´Â ÇÔ¼ö
+// Meney Trace Log ë‚¨ê¸°ëŠ” í•¨ìˆ˜
 void remainMoneyTraceLog(const string& preOwner, const string& owner, ItemTraceLogType logType,
                          ItemTraceDetailType detailType, int amount);
 
-// Web ¿¡¼­ »ê ¾ÆÀÌÅÛÀ» ¸¸µå´Â ÇÔ¼ö
+// Web ì—ì„œ ì‚° ì•„ì´í…œì„ ë§Œë“œëŠ” í•¨ìˆ˜
 Item* createItemByGoodsID(DWORD goodsID);
 
-// º¹±Ç´çÃ·¿¡ °ü·Ã µÈ ÇÔ¼ö (Æ¯º°È÷ µÑ °÷ÀÌ ¾ø¾î¼­ ¿©±â µĞ´Ù --;) 2003.04.29 by DEW
+// ë³µê¶Œë‹¹ì²¨ì— ê´€ë ¨ ëœ í•¨ìˆ˜ (íŠ¹ë³„íˆ ë‘˜ ê³³ì´ ì—†ì–´ì„œ ì—¬ê¸° ë‘”ë‹¤ --;) 2003.04.29 by DEW
 bool bWinPrize(DWORD rewardID, DWORD questLevel);
 
 void deleteFlagEffect(Corpse* pFlagPole, Item* pFlag);

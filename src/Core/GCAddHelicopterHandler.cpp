@@ -2,7 +2,7 @@
 // Filename    : GCAddHelicopterHandler.cpp
 // Written By  : excel96
 // Description :
-// �����̾ �����⸦ �����, ��⸦ ȣ������ ��쿡 ���ư��� ��Ŷ
+// 슬레이어가 무전기를 사용해, 헬기를 호출했을 경우에 날아가는 패킷
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddHelicopter.h"

@@ -49,8 +49,8 @@ bool Item::destroy()
 
         pStmt->executeQuery("DELETE FROM %s WHERE ItemID = %lu", getObjectTableName().c_str(), m_ItemID);
 
-        // DB¿¡¼­ Áö¿ì´Â°Çµ¥..
-        // DB¿¡ ÀÌ¹Ì ¾ÆÀÌÅÛÀÌ ¾ø´Â °æ¿ì
+        // DBì—ì„œ ì§€ìš°ëŠ”ê±´ë°..
+        // DBì— ì´ë¯¸ ì•„ì´í…œì´ ì—†ëŠ” ê²½ìš°
         if (pStmt->getAffectedRowCount() == 0) {
             SAFE_DELETE(pStmt);
             return false;
@@ -65,7 +65,7 @@ bool Item::destroy()
     __END_CATCH
 }
 
-// ¾ÆÀÌÅÛÀ» ¹ö¸°´Ù. ±âº»Àº °¡ºñÁö·Î, Æ¯º°ÇÑ °æ¿ì¿£ Timeover ³ª ±×¿Ü ¾È ¾²´Â storage·Î..
+// ì•„ì´í…œì„ ë²„ë¦°ë‹¤. ê¸°ë³¸ì€ ê°€ë¹„ì§€ë¡œ, íŠ¹ë³„í•œ ê²½ìš°ì—” Timeover ë‚˜ ê·¸ì™¸ ì•ˆ ì“°ëŠ” storageë¡œ..
 void Item::waste(Storage storage) const
 
 {
@@ -88,7 +88,7 @@ const list<OptionType_t>& Item::getDefaultOptions(void) const
 
     } catch (NoSuchElementException&) {
         StringStream msg;
-        msg << "±×·± ¾ÆÀÌÅÛ Á¤º¸°¡ ¾ø½À´Ï´Ù.(" << (int)getItemClass() << ", " << (int)getItemType() << ")";
+        msg << "ê·¸ëŸ° ì•„ì´í…œ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.(" << (int)getItemClass() << ", " << (int)getItemType() << ")";
 
         filelog("itemError.txt", "%s", msg.toString().c_str());
         // throw Error(msg.toString());
@@ -109,7 +109,7 @@ bool Item::isQuestItem() const {
 
 void Item::makePCItemInfo(PCItemInfo& result) const {
     if (m_ObjectID == 0) {
-        filelog("ItemError.log", "¾ÆÀÌÅÛ oid°¡ 0ÀÔ´Ï´Ù. : %s", toString().c_str());
+        filelog("ItemError.log", "ì•„ì´í…œ oidê°€ 0ì…ë‹ˆë‹¤. : %s", toString().c_str());
         result.setObjectID(0);
     } else {
         result.setObjectID(getObjectID());

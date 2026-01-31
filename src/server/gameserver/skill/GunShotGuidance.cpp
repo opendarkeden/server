@@ -19,7 +19,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GunShotGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -36,8 +36,8 @@ void GunShotGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             return;
@@ -55,7 +55,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot,
                               CEffectID_t CEffectID)
@@ -70,7 +70,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ÃÑÀ» µé°í ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ì´ì„ ë“¤ê³  ìžˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || isArmsWeapon(pItem) == false) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -104,21 +104,21 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
         if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected && bTileCheck) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
-            SkillInput input(pSlayer, pSkillSlot); // pSkillSlot Ãß°¡ by Sequoia 2002.12.28
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
+            SkillInput input(pSlayer, pSkillSlot); // pSkillSlot ì¶”ê°€ by Sequoia 2002.12.28
             SkillOutput output;
             computeOutput(input, output);
 
             Tile& tile = pZone->getTile(X, Y);
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´íŽ™íŠ¸ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_POINT);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectGunShotGuidanceAim* pEffect = new EffectGunShotGuidanceAim(pSlayer, pZone, X, Y);
             pEffect->setDamage(output.Damage);
             pEffect->setDeadline(output.Duration);
@@ -164,7 +164,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // GunShotGuidanceAim ÀÌÆåÆ®¸¦ ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+            // GunShotGuidanceAim ì´íŽ™íŠ¸ë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ… í•œë‹¤.
             GCAddEffect gcAddAimEffect;
             gcAddAimEffect.setObjectID(pSlayer->getObjectID());
             gcAddAimEffect.setEffectID(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);
@@ -172,7 +172,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
             pZone->broadcastPacket(myX, myY, &gcAddAimEffect);
 
             ///////////////////////////////////////////////////////////////////
-            // GunShotGuidancePoint ÀÌÆåÆ®¸¦ ¸¸µé¾î¼­ ºÙÀÌ°í ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+            // GunShotGuidancePoint ì´íŽ™íŠ¸ë¥¼ ë§Œë“¤ì–´ì„œ ë¶™ì´ê³  ë¸Œë¡œë“œìºìŠ¤íŒ… í•œë‹¤.
             ///////////////////////////////////////////////////////////////////
             EffectGunShotGuidancePoint* pPointEffect = new EffectGunShotGuidancePoint(pZone, X, Y);
             pPointEffect->setDeadline(output.Duration);
@@ -231,19 +231,19 @@ void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) {
             ZoneCoord_t myX = pMonster->getX();
             ZoneCoord_t myY = pMonster->getY();
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // ê°™ì€ ì´íŽ™íŠ¸ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_POINT);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectGunShotGuidanceAim* pEffect = new EffectGunShotGuidanceAim(pMonster, pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamage(output.Damage);
@@ -277,7 +277,7 @@ void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) {
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // GunShotGuidanceAim ÀÌÆåÆ®¸¦ ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+            // GunShotGuidanceAim ì´íŽ™íŠ¸ë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ… í•œë‹¤.
             GCAddEffect gcAddAimEffect;
             gcAddAimEffect.setObjectID(pMonster->getObjectID());
             gcAddAimEffect.setEffectID(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);

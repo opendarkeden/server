@@ -16,7 +16,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -37,14 +37,14 @@ void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature)) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
             return;
         }
 
-        // ÀÌÆåÆ®ÀÇ È¿°ú¿Í Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+        // ì´íŽ™íŠ¸ì˜ íš¨ê³¼ì™€ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pSlayer, pSkillSlot);
         SkillOutput output;
         input.Range = getDistance(pSlayer->getX(), pSlayer->getY(), pTargetCreature->getX(), pTargetCreature->getY());
@@ -64,7 +64,7 @@ void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
         SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 
-        // Æä³ÎÆ¼ °ªÀ» °è»êÇÑ´Ù.
+        // íŽ˜ë„í‹° ê°’ì„ ê³„ì‚°í•œë‹¤.
         int ToHitPenalty = getPercentValue(pSlayer->getToHit(), output.ToHit);
 
         bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
@@ -84,18 +84,18 @@ void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bPK && bBulletCheck) {
             printf("check OK\n");
-            // ¸¶³ª¸¦ ÁÙÀÎ´Ù.
+            // ë§ˆë‚˜ë¥¼ ì¤„ì¸ë‹¤.
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
             Bullet_t RemainBullet = 0;
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ìž¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
 
 
             if (!pTargetCreature->isSlayer()) {
-                // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 // SkillGrade Grade =
                 // g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType)); Exp_t ExpUp =
                 // 10* (Grade + 1); shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
@@ -108,7 +108,7 @@ void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToObjectOK1);
             }
 
-            // ÀÌÆåÆ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectXRLMissile* pEffect = new EffectXRLMissile(pTargetCreature);
             Assert(pEffect != NULL);
             pEffect->setNextTime(output.Duration);
@@ -118,7 +118,7 @@ void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
             pTargetCreature->addEffect(pEffect);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_XRL_Missile);
 
-            // ÆÐÅ¶À» ÁØºñÇØ¼­ º¸³½´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ì„œ ë³´ë‚¸ë‹¤.
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -152,7 +152,7 @@ void XRLMissile::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 
             pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToObjectOK5, cList);
 
-            //			// ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            //			// ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             //			GCAddEffect gcAddEffect;
             //			gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             //			gcAddEffect.setEffectID(Effect::EFFECT_CLASS_);

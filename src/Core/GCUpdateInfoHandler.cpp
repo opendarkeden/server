@@ -19,9 +19,9 @@
 #endif
 
 //----------------------------------------------------------------------
-// Å¬¶óÀÌ¾ðÆ®°¡ °ÔÀÓ ¼­¹ö·ÎºÎÅÍ GCUpdateInfo ÆÐÅ¶À» ¹Þ°Ô µÇ¸é,
-// ÆÐÅ¶ ¾ÈÀÇ µ¥ÀÌÅÍµéÀ» Å¬¶óÀÌ¾ðÆ®¿¡ ÀúÀåÇÑ ÈÄ, µ¥ÀÌÅÍ ·ÎµùÀÌ
-// ³¡ÀÌ ³ª¸é °ÔÀÓ ¼­¹ö·Î CGReady ÆÐÅ¶À» º¸³»¸é µÈ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ê°€ ê²Œìž„ ì„œë²„ë¡œë¶€í„° GCUpdateInfo íŒ¨í‚·ì„ ë°›ê²Œ ë˜ë©´,
+// íŒ¨í‚· ì•ˆì˜ ë°ì´í„°ë“¤ì„ í´ë¼ì´ì–¸íŠ¸ì— ì €ìž¥í•œ í›„, ë°ì´í„° ë¡œë”©ì´
+// ëì´ ë‚˜ë©´ ê²Œìž„ ì„œë²„ë¡œ CGReady íŒ¨í‚·ì„ ë³´ë‚´ë©´ ëœë‹¤.
 //----------------------------------------------------------------------
 void GCUpdateInfoHandler::execute(GCUpdateInfo* pPacket, Player* pPlayer)
 
@@ -35,14 +35,14 @@ void GCUpdateInfoHandler::execute(GCUpdateInfo* pPacket, Player* pPlayer)
     // cout << pPacket->toString() << endl;
 
     //--------------------------------------------------
-    // µ¥ÀÌÅÍ ·ÎµùÀ» ½ÃÀÛÇÑ´Ù.
+    // ë°ì´í„° ë¡œë”©ì„ ì‹œìž‘í•œë‹¤.
     //--------------------------------------------------
     pClientPlayer->setPlayerStatus(CPS_WAITING_FOR_LOADING);
 
-    // ... ·Îµù ·Îµù ...
+    // ... ë¡œë”© ë¡œë”© ...
 
     //--------------------------------------------------
-    // °ÔÀÓ ¼­¹ö·Î CGReady ÆÐÅ¶À» º¸³½´Ù.
+    // ê²Œìž„ ì„œë²„ë¡œ CGReady íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     //--------------------------------------------------
     CGReady cgReady;
     pClientPlayer->sendPacket(&cgReady);

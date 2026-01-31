@@ -16,7 +16,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void GrenadeAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -51,30 +51,30 @@ void GrenadeAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
         if (bRangeCheck && bHitRoll && bTileCheck) {
             Tile& tile = pZone->getTile(X, Y);
-            Range_t Range = 1; // Ç×»ó 1ÀÌ´Ù.
+            Range_t Range = 1; // í•­ìƒ 1ì´ë‹¤.
 
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pMonster);
             input.SkillLevel = pMonster->getLevel();
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
             EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, X, Y);
             pEffect->setNextTime(output.Duration);
             pEffect->setUserObjectID(pMonster->getObjectID());
             pEffect->setDamage(output.Damage);
 
-            // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+            // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
             ObjectRegistry& objectregister = pZone->getObjectRegistry();
             objectregister.registerObject(pEffect);
 
-            // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+            // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
             pZone->addEffect(pEffect);
             tile.addEffect(pEffect);
 
-            // Å¸ÀÏ À§¿¡ Å©¸®ÃÄ°¡ ÀÖ´Ù¸é ¹Ù·Î ¿µÇâÀ» ÁÖµµ·Ï ÇÑ´Ù.
+            // íƒ€ì¼ ìœ„ì— í¬ë¦¬ì³ê°€ ìˆë‹¤ë©´ ë°”ë¡œ ì˜í–¥ì„ ì£¼ë„ë¡ í•œë‹¤.
             // Creature* pTargetCreature = NULL;
 
             // if (tile.hasCreature(Creature::MOVE_MODE_WALKING))

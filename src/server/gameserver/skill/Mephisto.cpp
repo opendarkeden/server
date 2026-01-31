@@ -18,7 +18,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
 
@@ -43,7 +43,7 @@ void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, C
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Curse °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Curse ê°€ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
@@ -62,28 +62,28 @@ void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, C
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            // ½ºÅ³ ·¹º§¿¡ µû¶ó µ¥¹ÌÁö º¸³Ê½º°¡ ´Þ¶óÁø´Ù.
+            // ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ê°€ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
             input.DomainLevel = pVampire->getLevel();
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectMephisto* pEffect = new EffectMephisto(pVampire);
             pEffect->setDeadline(output.Duration);
             pEffect->setBonus(output.Damage);
             pVampire->addEffect(pEffect);
             pVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-            // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+            // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
             VAMPIRE_RECORD prev;
             pVampire->getVampireRecord(prev);
             pVampire->initAllStat();
             pVampire->sendRealWearingInfo();
             pVampire->sendModifyInfo(prev);
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -96,7 +96,7 @@ void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, C
 
             pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &_GCSkillToSelfOK2, pVampire);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pVampire->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
@@ -138,7 +138,7 @@ void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pVampire, getSkillType());
             return;
@@ -169,28 +169,28 @@ void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
             decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
 
-            // ½ºÅ³ ·¹º§¿¡ µû¶ó µ¥¹ÌÁö º¸³Ê½º°¡ ´Þ¶óÁø´Ù.
+            // ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ê°€ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pVampire);
             SkillOutput output;
             input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
             input.DomainLevel = pVampire->getLevel();
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectMephisto* pEffect = new EffectMephisto(pTargetVampire);
             pEffect->setDeadline(output.Duration);
             pEffect->setBonus(output.Damage);
             pTargetVampire->addEffect(pEffect);
             pTargetVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-            // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+            // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
             VAMPIRE_RECORD prev;
             pTargetVampire->getVampireRecord(prev);
             pTargetVampire->initAllStat();
             pTargetVampire->sendRealWearingInfo();
             pTargetVampire->sendModifyInfo(prev);
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setDuration(output.Duration);
@@ -221,7 +221,7 @@ void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
             cList.push_back(pVampire);
             pZone->broadcastPacket(myX, myY, &_GCSkillToObjectOK3, cList);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetVampire->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);
@@ -279,7 +279,7 @@ void Mephisto::execute(Vampire* pVampire)
                 if (!rect.ptInRect(tileX, tileY))
                     continue;
 
-                // Å¸ÀÏ À§¿¡! ¹ìÆÄÀÌ¾î°¡ ÀÖ´ÂÁö º»´Ù!
+                // íƒ€ì¼ ìœ„ì—! ë±€íŒŒì´ì–´ê°€ ìžˆëŠ”ì§€ ë³¸ë‹¤!
                 Tile& tile = pZone->getTile(tileX, tileY);
                 Creature* pTargetCreature = NULL;
                 if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
@@ -293,21 +293,21 @@ void Mephisto::execute(Vampire* pVampire)
 
                     Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
 
-                    // ½ºÅ³ ·¹º§¿¡ µû¶ó µ¥¹ÌÁö º¸³Ê½º°¡ ´Þ¶óÁø´Ù.
+                    // ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ê°€ ë‹¬ë¼ì§„ë‹¤.
                     SkillInput input(pVampire);
                     SkillOutput output;
                     input.SkillLevel = pVampire->getSTR() + pVampire->getDEX() + pVampire->getINT();
                     input.DomainLevel = pVampire->getLevel();
                     computeOutput(input, output);
 
-                    // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+                    // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
                     EffectMephisto* pEffect = new EffectMephisto(pTargetVampire);
                     pEffect->setDeadline(output.Duration);
                     pEffect->setBonus(output.Damage);
                     pTargetVampire->addEffect(pEffect);
                     pTargetVampire->setFlag(Effect::EFFECT_CLASS_MEPHISTO);
 
-                    // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+                    // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
                     VAMPIRE_RECORD prev;
                     pTargetVampire->getVampireRecord(prev);
                     pTargetVampire->initAllStat();
@@ -323,7 +323,7 @@ void Mephisto::execute(Vampire* pVampire)
                         Assert(false);
                     }
 
-                    // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+                    // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
                     GCAddEffect gcAddEffect;
                     gcAddEffect.setObjectID(pTargetVampire->getObjectID());
                     gcAddEffect.setEffectID(Effect::EFFECT_CLASS_MEPHISTO);

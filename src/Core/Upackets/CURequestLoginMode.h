@@ -16,20 +16,20 @@
 //
 // class CURequestLoginMode;
 //
-// �α��� ��带 �˾Ƴ��� ���� ��Ŷ�̴�
+// 로그인 모드를 알아내기 위한 패킷이다
 //
 //
 //--------------------------------------------------------------------------------
 
 class CURequestLoginMode : public Packet {
 public:
-    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
     void read(SocketInputStream& iStream) throw(ProtocolException, Error);
 
-    // �������κ��� ���� �����͸� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+    // 소켓으로부터 직접 데이터를 읽어서 패킷을 초기화한다.
     void read(Socket* pSocket) throw(ProtocolException, Error);
 
-    // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
     void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
 
     // execute packet's handler

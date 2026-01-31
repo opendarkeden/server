@@ -33,12 +33,12 @@ void ActionGiveChildrenItem::read(PropertyBuffer& propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
-// 5¿ù 5ÀÏ ÀÌº¥Æ®·Î
-// ¿¬º¯·çµ¹ÇÁ, ¿¬º¯»êÅ¸ ¸ó½ºÅÍ¸¦ Á×¿´À»´ë ³ª¿À´Â ¾ÆÀÌÅÛÀ» ¸ğ¾Æ¿À¸é
-// ±×¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀ» ÁÖµµ·Ï ÇÑ´Ù.
-// ¸ó½ºÅÍ ¾ÆÀÌÅÛÀº º°·Î Á¤ÇØÁú ¿¹Á¤ÀÌ°í..
-// ³ª¿À´Â ¾ÆÀÌÅÛÀº ¾ÆÁ÷Àº ¹ÌÁ¤ÀÌ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
+// 5ì›” 5ì¼ ì´ë²¤íŠ¸ë¡œ
+// ì—°ë³€ë£¨ëŒí”„, ì—°ë³€ì‚°íƒ€ ëª¬ìŠ¤í„°ë¥¼ ì£½ì˜€ì„ëŒ€ ë‚˜ì˜¤ëŠ” ì•„ì´í…œì„ ëª¨ì•„ì˜¤ë©´
+// ê·¸ì— í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì„ ì£¼ë„ë¡ í•œë‹¤.
+// ëª¬ìŠ¤í„° ì•„ì´í…œì€ ë³„ë¡œ ì •í•´ì§ˆ ì˜ˆì •ì´ê³ ..
+// ë‚˜ì˜¤ëŠ” ì•„ì´í…œì€ ì•„ì§ì€ ë¯¸ì •ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveChildrenItem::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -56,7 +56,7 @@ void ActionGiveChildrenItem::execute(Creature* pCreature1, Creature* pCreature2)
     Player* pPlayer = pPC->getPlayer();
     Assert(pPlayer != NULL);
 
-    // ¸ÕÀú Å¬¶óÀÌ¾ğÆ®¸¦ À§ÇØ GCNPCResponse¸¦ º¸³»ÁØ´Ù.
+    // ë¨¼ì € í´ë¼ì´ì–¸íŠ¸ë¥¼ ìœ„í•´ GCNPCResponseë¥¼ ë³´ë‚´ì¤€ë‹¤.
     GCNPCResponse okpkt;
     pPlayer->sendPacket(&okpkt);
 
@@ -75,17 +75,17 @@ void ActionGiveChildrenItem::execute(Creature* pCreature1, Creature* pCreature2)
     msg << "PlayerID[" << pPlayer->getID() << "], " << "CreatureName[" << pPC->getName() << "]\n";
 
     if (pPC->isSlayer()) {
-        // ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+        // ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
         Item* pItem = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_BRACELET, 3, 50);
 
-        // OID¸¦ µî·Ï¹Ş´Â´Ù.
+        // OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
         OR.registerObject(pItem);
 
         if (pInventory->addItem(pItem, pt)) {
-            // ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®¿¡ ¸¸µç´Ù.
+            // ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì— ë§Œë“ ë‹¤.
             pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
 
-            // ¾ÆÀÌÅÛÀ» ¹Ş¾Ò´Ù´Â °ÍÀ» ¾Ë·ÁÁØ´Ù.
+            // ì•„ì´í…œì„ ë°›ì•˜ë‹¤ëŠ” ê²ƒì„ ì•Œë ¤ì¤€ë‹¤.
             gcCreateItem.setObjectID(pItem->getObjectID());
             gcCreateItem.setItemClass(pItem->getItemClass());
             gcCreateItem.setItemType(pItem->getItemType());
@@ -100,14 +100,14 @@ void ActionGiveChildrenItem::execute(Creature* pCreature1, Creature* pCreature2)
 
             msg << "Inventory Adding Success : " << pItem->toString() << "\n";
 
-            // ItemTraceLog ¸¦ ³²±ä´Ù
+            // ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
             if (pItem != NULL && pItem->isTraceItem()) {
                 remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
                 remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC,
                                   pCreature1->getZone()->getZoneID(), pCreature1->getX(), pCreature1->getY());
             }
         } else {
-            // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ¾ø´Ù¸é ¸Ş½ÃÁö¸¦ º¸³»°í ±×¸¸µĞ´Ù.
+            // ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ì—†ë‹¤ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ê³  ê·¸ë§Œë‘”ë‹¤.
             StringStream buf;
             buf << pPlayer->getID() << g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE);
 
@@ -121,7 +121,7 @@ void ActionGiveChildrenItem::execute(Creature* pCreature1, Creature* pCreature2)
     } else {
         Item* pItem = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_BRACELET, 3, 50);
 
-        // OID¸¦ µî·Ï¹Ş´Â´Ù.
+        // OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
         OR.registerObject(pItem);
 
         if (pInventory->addItem(pItem, pt)) {
@@ -142,14 +142,14 @@ void ActionGiveChildrenItem::execute(Creature* pCreature1, Creature* pCreature2)
 
             msg << "Inventory Adding Succeeded : " << pItem->toString() << "\n";
 
-            // ItemTraceLog ¸¦ ³²±ä´Ù
+            // ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
             if (pItem != NULL && pItem->isTraceItem()) {
                 remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
                 remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC,
                                   pCreature1->getZone()->getZoneID(), pCreature1->getX(), pCreature1->getY());
             }
         } else {
-            // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ¾ø´Ù¸é ¸Ş½ÃÁö¸¦ º¸³»°í ±×¸¸µĞ´Ù.
+            // ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ì—†ë‹¤ë©´ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ê³  ê·¸ë§Œë‘”ë‹¤.
             StringStream buf;
             buf << pPlayer->getID() << g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE);
 

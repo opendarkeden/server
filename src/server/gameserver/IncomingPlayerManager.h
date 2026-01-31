@@ -19,13 +19,13 @@
 //////////////////////////////////////////////////////////////////////////////
 // class IncomingPlayerManager;
 //
-// PlayerManager´Â °ÔÀÓ ¼­¹ö¿¡ Á¢¼ÓÇÑ ÀüÃ¼ ÇÃ·¹ÀÌ¾î¸¦ ´ã´çÇÏ¸ç,
-// ZonePlayerManager´Â °¢ Á¸±×·ì¿¡ Á¾¼ÓµÈ ÇÃ·¹ÀÌ¾îµéÀ» ´ã´çÇÏ´Â ¹Ý¸é,
-// IncomingPlayerManager´Â °ÔÀÓ ¼­¹ö¿Í ¿¬°áÀº ÀÌ·ç¾îÁ³À¸³ª ¾ÆÁ÷ Å©¸®Ã³¸¦
-// ·ÎµùÇÏÁö ¾ÊÀº ÀÓ½ÃÀûÀÎ »óÅÂÀÇ ÇÃ·¹ÀÌ¾îµéÀ» °ü¸®ÇÑ´Ù.
+// PlayerManagerëŠ” ê²Œìž„ ì„œë²„ì— ì ‘ì†í•œ ì „ì²´ í”Œë ˆì´ì–´ë¥¼ ë‹´ë‹¹í•˜ë©°,
+// ZonePlayerManagerëŠ” ê° ì¡´ê·¸ë£¹ì— ì¢…ì†ëœ í”Œë ˆì´ì–´ë“¤ì„ ë‹´ë‹¹í•˜ëŠ” ë°˜ë©´,
+// IncomingPlayerManagerëŠ” ê²Œìž„ ì„œë²„ì™€ ì—°ê²°ì€ ì´ë£¨ì–´ì¡Œìœ¼ë‚˜ ì•„ì§ í¬ë¦¬ì²˜ë¥¼
+// ë¡œë”©í•˜ì§€ ì•Šì€ ìž„ì‹œì ì¸ ìƒíƒœì˜ í”Œë ˆì´ì–´ë“¤ì„ ê´€ë¦¬í•œë‹¤.
 //
-// »õ·Î¿î Á¢¼ÓÀ» ÀÎÁõÇÑ ÈÄ, Å©¸®Ã³¸¦ ·ÎµùÇØ¼­ ÇÃ·¹ÀÌ¾î¿Í ¿¬°ü½ÃÅ²´Ù.
-// Å©¸®Ã³°¡ ·ÎµùµÇ¸é ÇÃ·¹ÀÌ¾î ¹× Å©¸®Ã³¸¦ ´Ù¸¥ Á¸±×·ìÀ¸·Î ³Ñ°ÜÁØ´Ù.
+// ìƒˆë¡œìš´ ì ‘ì†ì„ ì¸ì¦í•œ í›„, í¬ë¦¬ì²˜ë¥¼ ë¡œë”©í•´ì„œ í”Œë ˆì´ì–´ì™€ ì—°ê´€ì‹œí‚¨ë‹¤.
+// í¬ë¦¬ì²˜ê°€ ë¡œë”©ë˜ë©´ í”Œë ˆì´ì–´ ë° í¬ë¦¬ì²˜ë¥¼ ë‹¤ë¥¸ ì¡´ê·¸ë£¹ìœ¼ë¡œ ë„˜ê²¨ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 class IncomingPlayerManager : public PlayerManager {
@@ -40,7 +40,7 @@ public:
     // broadcast packet to all players
     void broadcast(Packet* pPacket);
 
-    // ´ÙÀ½ÀÇ ¸Þ½îµåµéÀº ZoneThread¿¡ ÀÇÇØ¼­ È£ÃâµÈ´Ù.
+    // ë‹¤ìŒì˜ ë©”ì˜ë“œë“¤ì€ ZoneThreadì— ì˜í•´ì„œ í˜¸ì¶œëœë‹¤.
 
     // select
     void select();
@@ -91,27 +91,27 @@ public:
 
     void deleteQueuePlayer(GamePlayer* pGamePlayer);
 
-    // ¸ðµç ÇÃ·¹ÀÌ¾î¸¦ Á¤¸®ÇÑ´Ù.
+    // ëª¨ë“  í”Œë ˆì´ì–´ë¥¼ ì •ë¦¬í•œë‹¤.
     void clearPlayers();
 
 private:
-    // TCP ¼­¹ö ¼ÒÄÏ°ú ¼ÒÄÏ µð½ºÅ©¸³ÅÍ
+    // TCP ì„œë²„ ì†Œì¼“ê³¼ ì†Œì¼“ ë””ìŠ¤í¬ë¦½í„°
     ServerSocket* m_pServerSocket;
     SOCKET m_SocketID;
 
-    // ¼Ò¼ÓµÈ ÇÃ·¹ÀÌ¾îµéÀÇ ¼ÒÄÏ µð½ºÅ©¸³ÅÍÀÇ ÁýÇÕÀÌ´Ù.
-    // m_XXXXFDs[0]Àº ÀúÀå¿ëÀÌ¸ç, m_XXXFDs[1]ÀÌ ½ÇÁ¦·Î select()ÀÇ ÆÄ¶ó¹ÌÅÍ·Î »ç¿ëµÈ´Ù.
-    // Áï select()ÇÏ±â Àü¿¡ [0] -> [1] ·Î º¹»ç°¡ ÀÌ·ç¾îÁ®¾ß ÇÑ´Ù.
+    // ì†Œì†ëœ í”Œë ˆì´ì–´ë“¤ì˜ ì†Œì¼“ ë””ìŠ¤í¬ë¦½í„°ì˜ ì§‘í•©ì´ë‹¤.
+    // m_XXXXFDs[0]ì€ ì €ìž¥ìš©ì´ë©°, m_XXXFDs[1]ì´ ì‹¤ì œë¡œ select()ì˜ íŒŒë¼ë¯¸í„°ë¡œ ì‚¬ìš©ëœë‹¤.
+    // ì¦‰ select()í•˜ê¸° ì „ì— [0] -> [1] ë¡œ ë³µì‚¬ê°€ ì´ë£¨ì–´ì ¸ì•¼ í•œë‹¤.
     fd_set m_ReadFDs[2];
     fd_set m_WriteFDs[2];
     fd_set m_ExceptFDs[2];
 
-    // select¿¡ »ç¿ëµÇ´Â ½Ã°£
+    // selectì— ì‚¬ìš©ë˜ëŠ” ì‹œê°„
     Timeval m_Timeout[2];
 
     // min_fd, max_fd
-    // select()ÈÄ iterating ÇÒ ¶§ ¼Óµµ Áõ°¡¸¦ À§ÇØ¼­ »ç¿ëÇÑ´Ù.
-    // ¶ÇÇÑ select()ÀÇ Ã¹¹øÂ° ÆÄ¶ó¹ÌÅÍ¸¦ °è»êÇÏ±â À§ÇØ¼­ »ç¿ëÇÑ´Ù.
+    // select()í›„ iterating í•  ë•Œ ì†ë„ ì¦ê°€ë¥¼ ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
+    // ë˜í•œ select()ì˜ ì²«ë²ˆì§¸ íŒŒë¼ë¯¸í„°ë¥¼ ê³„ì‚°í•˜ê¸° ìœ„í•´ì„œ ì‚¬ìš©í•œë‹¤.
     SOCKET m_MinFD;
     SOCKET m_MaxFD;
 

@@ -59,7 +59,7 @@ public:
         return m_pMotorcycle->getItemID();
     }
 
-    // ´Ù¸¥ zoneÀ¸·Î ÀÌµ¿ÁßÀÎ ¿ÀÅä¹ÙÀÌ
+    // ë‹¤ë¥¸ zoneìœ¼ë¡œ ì´ë™ì¤‘ì¸ ì˜¤í† ë°”ì´
     bool isTransport() const {
         return m_bTransport;
     }
@@ -68,15 +68,15 @@ public:
     }
 
 private:
-    // ¸ğÅä»çÀÌÅ¬ º»Ã¼
+    // ëª¨í† ì‚¬ì´í´ ë³¸ì²´
     Motorcycle* m_pMotorcycle;
 
-    // ÇöÀç ¸ğÅä»çÀÌÅ¬ÀÌ ÀÖ´Â À§Ä¡
+    // í˜„ì¬ ëª¨í† ì‚¬ì´í´ì´ ìˆëŠ” ìœ„ì¹˜
     Zone* m_pZone;
     ZoneCoord_t m_X;
     ZoneCoord_t m_Y;
 
-    // ´Ù¸¥ zoneÀ¸·Î ÀÌµ¿ Áß. by sigi. 2002.5.23
+    // ë‹¤ë¥¸ zoneìœ¼ë¡œ ì´ë™ ì¤‘. by sigi. 2002.5.23
     bool m_bTransport;
 };
 
@@ -92,20 +92,20 @@ public:
 public:
     void addMotorcycleBox(MotorcycleBox* pMotorcycleBox);
 
-    // ¿©±â¼­ keyID´Â ¿­¼èÀÇ TargetID¸¦ ¶æÇÑ´Ù. ¶ÇÇÑ MotorcycleÀÇ ItemIDÀÌ±âµµ ÇÏ´Ù.
+    // ì—¬ê¸°ì„œ keyIDëŠ” ì—´ì‡ ì˜ TargetIDë¥¼ ëœ»í•œë‹¤. ë˜í•œ Motorcycleì˜ ItemIDì´ê¸°ë„ í•˜ë‹¤.
     void deleteMotorcycleBox(ItemID_t keyTargetID);
 
-    // ¿©±â¼­ keyID´Â ¿­¼èÀÇ TargetID¸¦ ¶æÇÑ´Ù. ¶ÇÇÑ MotorcycleÀÇ ItemIDÀÌ±âµµ ÇÏ´Ù.
+    // ì—¬ê¸°ì„œ keyIDëŠ” ì—´ì‡ ì˜ TargetIDë¥¼ ëœ»í•œë‹¤. ë˜í•œ Motorcycleì˜ ItemIDì´ê¸°ë„ í•˜ë‹¤.
     bool hasMotorcycleBox(ItemID_t keyTargetID);
 
-    // ¿©±â¼­ keyID´Â ¿­¼èÀÇ TargetID¸¦ ¶æÇÑ´Ù. ¶ÇÇÑ MotorcycleÀÇ ItemIDÀÌ±âµµ ÇÏ´Ù.
+    // ì—¬ê¸°ì„œ keyIDëŠ” ì—´ì‡ ì˜ TargetIDë¥¼ ëœ»í•œë‹¤. ë˜í•œ Motorcycleì˜ ItemIDì´ê¸°ë„ í•˜ë‹¤.
     MotorcycleBox* getMotorcycleBox(ItemID_t keyTargetID) const;
 
-    // ÁÖ·Î RemoveMotorcycles¸¦ Ã³¸®ÇØÁØ´Ù. by sigi. 2003.2.26
+    // ì£¼ë¡œ RemoveMotorcyclesë¥¼ ì²˜ë¦¬í•´ì¤€ë‹¤. by sigi. 2003.2.26
     void heartbeat();
 
 private:
-    // ¿©±â¼­ ItemID_t´Â ¿ÀÅä¹ÙÀÌÀÇ ItemID¸¦ ¸»ÇÑ´Ù.
+    // ì—¬ê¸°ì„œ ItemID_tëŠ” ì˜¤í† ë°”ì´ì˜ ItemIDë¥¼ ë§í•œë‹¤.
     unordered_map<ItemID_t, MotorcycleBox*> m_Motorcycles;
     list<MotorcycleBox*> m_RemoveMotorcycles;
 

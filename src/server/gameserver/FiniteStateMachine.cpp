@@ -8,14 +8,14 @@ void FiniteStateMachine::heartbeat(Timeval currentTime) {
     } else
         nextState = m_pCurrentState->heartbeat(currentTime);
 
-    // »óÅÂ°¡ ¹Ù²î´Â °æ¿ì
+    // ìƒíƒœê°€ ë°”ë€ŒëŠ” ê²½ìš°
     if (nextState != 0) {
-        // ÇöÀç »óÅÂ¸¦ ³¡³»°í
+        // í˜„ì¬ ìƒíƒœë¥¼ ëë‚´ê³ 
         cout << "End state " << m_pCurrentState->toString() << endl;
         m_pCurrentState->end();
         m_pStateFactory->wasteState(m_pCurrentState);
 
-        // ´ÙÀ½ »óÅÂ·Î °£´Ù.
+        // ë‹¤ìŒ ìƒíƒœë¡œ ê°„ë‹¤.
         State* pNextState = m_pStateFactory->makeState(nextState);
         m_pCurrentState = pNextState;
         cout << "Start state " << m_pCurrentState->toString() << endl;

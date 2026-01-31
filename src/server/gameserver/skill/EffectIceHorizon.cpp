@@ -44,15 +44,15 @@ void EffectIceHorizon::affect()
 
     Assert(m_pZone != NULL);
 
-    // ÀÌÆåÆ®¸¦ »ç¿ëÇÑ Å©¸®ÃÄ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼öµµ ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´í™íŠ¸ë¥¼ ì‚¬ìš©í•œ í¬ë¦¬ì³ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ NULLì´ ë  ìˆ˜ ìˆë‹¤.
     // by bezz. 2003.1.4
     // Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {

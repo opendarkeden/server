@@ -144,7 +144,7 @@ void UpdateManager::write(Socket* pSocket) const {
     WORD nUpdates = m_Updates.size();
 
     // cout << "============================================"<< endl;
-    // cout << "¾÷µ¥ÀÌÆ®ÇÒ Ç×¸ñÀÇ °¹¼ö´Â ¾ó¸¶ ÀÏ±î¿ä? : " << (int)nUpdates << endl;
+    // cout << "ì—…ë°ì´íŠ¸í•  í•­ëª©ì˜ ê°¯ìˆ˜ëŠ” ì–¼ë§ˆ ì¼ê¹Œìš”? : " << (int)nUpdates << endl;
     // cout << "============================================"<< endl;
 
     if (nUpdates > maxUpdates)
@@ -169,18 +169,18 @@ void UpdateManager::write(Socket* pSocket) const {
 ResourceManager* UpdateManager::getResourceManager() {
     __BEGIN_TRY
 
-    // ¾ÆÁ÷ ¸®¼Ò½º¸Å´ÏÀú¸¦ »ı¼ºÇÏÁö ¾Ê¾ÒÀ¸¸ç, ¾÷µ¥ÀÌÆ® ¸®½ºÆ®°¡ empty °¡ ¾Æ´Ò °æ¿ì
+    // ì•„ì§ ë¦¬ì†ŒìŠ¤ë§¤ë‹ˆì €ë¥¼ ìƒì„±í•˜ì§€ ì•Šì•˜ìœ¼ë©°, ì—…ë°ì´íŠ¸ ë¦¬ìŠ¤íŠ¸ê°€ empty ê°€ ì•„ë‹ ê²½ìš°
     if (m_pResourceManager == NULL && !m_Updates.empty()) {
-        // ¸®¼Ò½º ¸Å´ÏÀú¸¦ »ı¼ºÇÏÀÚ.
+        // ë¦¬ì†ŒìŠ¤ ë§¤ë‹ˆì €ë¥¼ ìƒì„±í•˜ì.
         m_pResourceManager = new ResourceManager();
 
         Resource* pResource;
 
         for (list<Update*>::const_iterator itr = m_Updates.begin(); itr != m_Updates.end(); itr++) {
-            // ¾î¶² ¾÷µ¥ÀÌÆ® ¸í·ÉÀÇ Æ¯Á¤ ÆÄ¶ó¹ÌÅÍ´Â ¸®¼Ò½º¸¦ ³ªÅ¸³½´Ù.
-            // ±×·± ÆÄ¶ó¹ÌÅÍ¸¦ ¸®¼Ò½º °´Ã¼·Î ¸¸µé¾î¼­ ¸®¼Ò½º ¸Å´ÏÀú¿¡ µî·Ï½ÃÅ°ÀÚ.
+            // ì–´ë–¤ ì—…ë°ì´íŠ¸ ëª…ë ¹ì˜ íŠ¹ì • íŒŒë¼ë¯¸í„°ëŠ” ë¦¬ì†ŒìŠ¤ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.
+            // ê·¸ëŸ° íŒŒë¼ë¯¸í„°ë¥¼ ë¦¬ì†ŒìŠ¤ ê°ì²´ë¡œ ë§Œë“¤ì–´ì„œ ë¦¬ì†ŒìŠ¤ ë§¤ë‹ˆì €ì— ë“±ë¡ì‹œí‚¤ì.
             switch ((*itr)->getUpdateType()) {
-            // ´ÙÀ½ ¸í·Éµé¿¡´Â ¸®¼Ò½º°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+            // ë‹¤ìŒ ëª…ë ¹ë“¤ì—ëŠ” ë¦¬ì†ŒìŠ¤ê°€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
             case UPDATETYPE_CREATE_DIRECTORY:
             case UPDATETYPE_DELETE_DIRECTORY:
             case UPDATETYPE_RENAME_DIRECTORY:

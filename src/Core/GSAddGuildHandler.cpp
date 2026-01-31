@@ -35,7 +35,7 @@ void GSAddGuildHandler::execute(GSAddGuild* pPacket, Player* pPlayer)
 
         Assert(pPacket != NULL);
 
-    // ÇöÀç ±æµåÀÇ ¸Æ½º ID + 1 À» ±æµå ID ·Î ÇÏ°í ¸Æ½º ID ¸¦ Áõ°¡ ½ÃÅ²´Ù
+    // í˜„ì¬ ê¸¸ë“œì˜ ë§¥ìŠ¤ ID + 1 ì„ ê¸¸ë“œ ID ë¡œ í•˜ê³  ë§¥ìŠ¤ ID ë¥¼ ì¦ê°€ ì‹œí‚¨ë‹¤
     GuildID_t GuildID = Guild::getMaxGuildID() + 1;
     Guild::setMaxGuildID(GuildID);
 
@@ -43,7 +43,7 @@ void GSAddGuildHandler::execute(GSAddGuild* pPacket, Player* pPlayer)
 
     // cout << pPacket->toString().c_str() << endl;
 
-    // ¸Æ½º Á¸ ID ¸¦ ±¸ÇÑ´Ù.
+    // ë§¥ìŠ¤ ì¡´ ID ë¥¼ êµ¬í•œë‹¤.
     if (pPacket->getGuildRace() == Guild::GUILD_RACE_SLAYER) {
         zoneID = Guild::getMaxSlayerZoneID();
         Guild::setMaxSlayerZoneID(zoneID + 1);
@@ -57,7 +57,7 @@ void GSAddGuildHandler::execute(GSAddGuild* pPacket, Player* pPlayer)
         return;
     }
 
-    // Guild Object ¸¦ ¸¸µç´Ù
+    // Guild Object ë¥¼ ë§Œë“ ë‹¤
     Guild* pGuild = new Guild();
     pGuild->setID(GuildID);
     pGuild->setName(pPacket->getGuildName());
@@ -68,25 +68,25 @@ void GSAddGuildHandler::execute(GSAddGuild* pPacket, Player* pPlayer)
     pGuild->setMaster(pPacket->getGuildMaster());
     pGuild->setIntro(pPacket->getGuildIntro());
 
-    // ¸¸µç ±æµå¸¦ µğºñ¿¡ ³Ö´Â´Ù
+    // ë§Œë“  ê¸¸ë“œë¥¼ ë””ë¹„ì— ë„£ëŠ”ë‹¤
     pGuild->create();
 
-    // ±æµå ¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+    // ê¸¸ë“œ ë§¤ë‹ˆì €ì— ì¶”ê°€í•œë‹¤.
     g_pGuildManager->addGuild(pGuild);
 
-    // ¸¶½ºÅÍ¸¦ ±æµå ¸â¹ö·Î Ãß°¡ÇÑ´Ù.
+    // ë§ˆìŠ¤í„°ë¥¼ ê¸¸ë“œ ë©¤ë²„ë¡œ ì¶”ê°€í•œë‹¤.
     GuildMember* pGuildMember = new GuildMember();
     pGuildMember->setGuildID(pGuild->getID());
     pGuildMember->setName(pGuild->getMaster());
     pGuildMember->setRank(GuildMember::GUILDMEMBER_RANK_MASTER);
 
-    // DB ¿¡ Guild Member ¸¦ ÀúÀåÇÑ´Ù.
+    // DB ì— Guild Member ë¥¼ ì €ì¥í•œë‹¤.
     pGuildMember->create();
 
-    // ±æµå¿¡ Ãß°¡ÇÑ´Ù.
+    // ê¸¸ë“œì— ì¶”ê°€í•œë‹¤.
     pGuild->addMember(pGuildMember);
 
-    // °ÔÀÓ ¼­¹ö·Î º¸³¾ ÆĞÅ¶À» ¸¸µç´Ù.
+    // ê²Œì„ ì„œë²„ë¡œ ë³´ë‚¼ íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
     SGAddGuildOK sgAddGuildOK;
     sgAddGuildOK.setGuildID(pGuild->getID());
     sgAddGuildOK.setGuildName(pGuild->getName());
@@ -97,7 +97,7 @@ void GSAddGuildHandler::execute(GSAddGuild* pPacket, Player* pPlayer)
     sgAddGuildOK.setGuildMaster(pGuild->getMaster());
     sgAddGuildOK.setGuildIntro(pGuild->getIntro());
 
-    // °ÔÀÓ ¼­¹ö·Î ÆĞÅ¶À» º¸³½´Ù.
+    // ê²Œì„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgAddGuildOK);
 
     SGAddGuildMemberOK sgAddGuildMemberOK;
@@ -106,7 +106,7 @@ void GSAddGuildHandler::execute(GSAddGuild* pPacket, Player* pPlayer)
     sgAddGuildMemberOK.setGuildMemberRank(pGuildMember->getRank());
     sgAddGuildMemberOK.setServerGroupID(pPacket->getServerGroupID());
 
-    // °ÔÀÓ ¼­¹ö·Î ÆĞÅ¶À» º¸³½´Ù.
+    // ê²Œì„ ì„œë²„ë¡œ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
     g_pGameServerManager->broadcast(&sgAddGuildMemberOK);
 
 #endif

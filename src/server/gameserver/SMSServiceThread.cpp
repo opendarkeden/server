@@ -155,12 +155,12 @@ void SMSServiceThread::run() {
         if (dummyQueryTime < currentTime) {
             g_pDatabaseManager->executeDummyQuery(m_pConnection);
 
-            // 1½Ã°£ ~ 1½Ã°£ 30ºĞ »çÀÌ¿¡¼­ dummy query ½Ã°£À» ¼³Á¤ÇÑ´Ù.
-            // timeoutÀÌ µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+            // 1ì‹œê°„ ~ 1ì‹œê°„ 30ë¶„ ì‚¬ì´ì—ì„œ dummy query ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
+            // timeoutì´ ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
             dummyQueryTime.tv_sec += (60 + rand() % 30) * 60;
         }
 
-        sleep(1); // 1ÃÊ¿¡ ÇÑ¹ø¾¿ Å¥¸¦ Ã¼Å©ÇÑ´Ù.
+        sleep(1); // 1ì´ˆì— í•œë²ˆì”© íë¥¼ ì²´í¬í•œë‹¤.
     }
 
     __END_CATCH

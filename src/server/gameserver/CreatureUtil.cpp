@@ -1,11 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename : CreatureUtil.cpp
-// Written by : ±è¼º¹Î
+// Written by : ê¹€ì„±ë¯¼
 // Description :
-// Vampire¿Í Vampire ÆÄÀÏÀÇ Å©±â¸¦ µÉ ¼ö ÀÖ´Â ÇÑ ÁÙÀÌ±â À§ÇØ¼­ µÑÀÇ °øÅëµÇ´Â
-// ºÎºĞÀ» °¡´ÉÇÑ ÇÑ »©³õÀº ÆÄÀÏÀÌ´Ù.
-// ³ªÁß¿¡ PlayerCreature Å¬·¡½º°¡ ³ª¿À¸é, ÀÌ ÆÄÀÏÀÇ ³»¿ëÀ» ±× ¾È¿¡´Ù°¡
-// Æ÷ÇÔ½ÃÅ°´Â °ÍÀÌ ÁÁÀ» °ÍÀÌ´Ù.
+// Vampireì™€ Vampire íŒŒì¼ì˜ í¬ê¸°ë¥¼ ë  ìˆ˜ ìˆëŠ” í•œ ì¤„ì´ê¸° ìœ„í•´ì„œ ë‘˜ì˜ ê³µí†µë˜ëŠ”
+// ë¶€ë¶„ì„ ê°€ëŠ¥í•œ í•œ ë¹¼ë†“ì€ íŒŒì¼ì´ë‹¤.
+// ë‚˜ì¤‘ì— PlayerCreature í´ë˜ìŠ¤ê°€ ë‚˜ì˜¤ë©´, ì´ íŒŒì¼ì˜ ë‚´ìš©ì„ ê·¸ ì•ˆì—ë‹¤ê°€
+// í¬í•¨ì‹œí‚¤ëŠ” ê²ƒì´ ì¢‹ì„ ê²ƒì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "CreatureUtil.h"
@@ -67,7 +67,7 @@
 #include "skill/SummonGroundElemental.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// °°Àº Å©¸®ÃÄ Å¬·¡½ºÀÎ°¡?
+// ê°™ì€ í¬ë¦¬ì³ í´ë˜ìŠ¤ì¸ê°€?
 ////////////////////////////////////////////////////////////////////////////////
 bool isSameRace(Creature* pCreature1, Creature* pCreature2)
 
@@ -84,7 +84,7 @@ bool isSameRace(Creature* pCreature1, Creature* pCreature2)
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ObjectID·Î ¾ÆÀÌÅÛ Ã£±â
+// ObjectIDë¡œ ì•„ì´í…œ ì°¾ê¸°
 //
 ////////////////////////////////////////////////////////////////////////////////
 Item* findItemOID(Creature* pCreature, ObjectID_t id)
@@ -124,7 +124,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, int& storage, int& x, int&
     CoordInven_t tx = 0;
     CoordInven_t ty = 0;
 
-    // ÀÎº¥Åä¸® °Ë»ö
+    // ì¸ë²¤í† ë¦¬ ê²€ìƒ‰
     pItem = pInventory->findItemOID(id, tx, ty);
     if (pItem != NULL) {
         storage = STORAGE_INVENTORY;
@@ -133,7 +133,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, int& storage, int& x, int&
         return pItem;
     }
 
-    // ±â¾îÃ¢ °Ë»ö
+    // ê¸°ì–´ì°½ ê²€ìƒ‰
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
@@ -169,14 +169,14 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, int& storage, int& x, int&
         }
     }
 
-    // ¸¶¿ì½º °Ë»ö
+    // ë§ˆìš°ìŠ¤ ê²€ìƒ‰
     pItem = pPC->getExtraInventorySlotItem();
     if (pItem != NULL && pItem->getObjectID() == id) {
         storage = STORAGE_EXTRASLOT;
         return pItem;
     }
 
-    // º¸°üÇÔ °Ë»ö
+    // ë³´ê´€í•¨ ê²€ìƒ‰
     for (int r = 0; r < STASH_RACK_MAX; r++) {
         for (int i = 0; i < STASH_INDEX_MAX; i++) {
             pItem = pStash->get(r, i);
@@ -209,7 +209,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, in
     CoordInven_t tx = 0;
     CoordInven_t ty = 0;
 
-    // ÀÎº¥Åä¸® °Ë»ö
+    // ì¸ë²¤í† ë¦¬ ê²€ìƒ‰
     pItem = pInventory->findItemOID(id, IClass, tx, ty);
     if (pItem != NULL) {
         storage = STORAGE_INVENTORY;
@@ -218,7 +218,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, in
         return pItem;
     }
 
-    // ±â¾îÃ¢ °Ë»ö
+    // ê¸°ì–´ì°½ ê²€ìƒ‰
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
@@ -254,14 +254,14 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, in
         }
     }
 
-    // ¸¶¿ì½º °Ë»ö
+    // ë§ˆìš°ìŠ¤ ê²€ìƒ‰
     pItem = pPC->getExtraInventorySlotItem();
     if (pItem != NULL && pItem->getObjectID() == id && pItem->getItemClass() == IClass) {
         storage = STORAGE_EXTRASLOT;
         return pItem;
     }
 
-    // º¸°üÇÔ °Ë»ö
+    // ë³´ê´€í•¨ ê²€ìƒ‰
     for (int r = 0; r < STASH_RACK_MAX; r++) {
         for (int i = 0; i < STASH_INDEX_MAX; i++) {
             pItem = pStash->get(r, i);
@@ -281,7 +281,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, in
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// ItemID·Î ¾ÆÀÌÅÛ Ã£±â
+// ItemIDë¡œ ì•„ì´í…œ ì°¾ê¸°
 //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -322,7 +322,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, int& storage, int& x, int& y
     CoordInven_t tx = 0;
     CoordInven_t ty = 0;
 
-    // ÀÎº¥Åä¸® °Ë»ö
+    // ì¸ë²¤í† ë¦¬ ê²€ìƒ‰
     pItem = pInventory->findItemIID(id, tx, ty);
     if (pItem != NULL) {
         storage = STORAGE_INVENTORY;
@@ -331,7 +331,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, int& storage, int& x, int& y
         return pItem;
     }
 
-    // ±â¾îÃ¢ °Ë»ö
+    // ê¸°ì–´ì°½ ê²€ìƒ‰
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
@@ -367,14 +367,14 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, int& storage, int& x, int& y
         }
     }
 
-    // ¸¶¿ì½º °Ë»ö
+    // ë§ˆìš°ìŠ¤ ê²€ìƒ‰
     pItem = pPC->getExtraInventorySlotItem();
     if (pItem != NULL && pItem->getItemID() == id) {
         storage = STORAGE_EXTRASLOT;
         return pItem;
     }
 
-    // º¸°üÇÔ °Ë»ö
+    // ë³´ê´€í•¨ ê²€ìƒ‰
     for (int r = 0; r < STASH_RACK_MAX; r++) {
         for (int i = 0; i < STASH_INDEX_MAX; i++) {
             pItem = pStash->get(r, i);
@@ -407,7 +407,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int&
     CoordInven_t tx = 0;
     CoordInven_t ty = 0;
 
-    // ÀÎº¥Åä¸® °Ë»ö
+    // ì¸ë²¤í† ë¦¬ ê²€ìƒ‰
     pItem = pInventory->findItemIID(id, IClass, tx, ty);
     if (pItem != NULL) {
         storage = STORAGE_INVENTORY;
@@ -416,7 +416,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int&
         return pItem;
     }
 
-    // ±â¾îÃ¢ °Ë»ö
+    // ê¸°ì–´ì°½ ê²€ìƒ‰
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
@@ -452,14 +452,14 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int&
         }
     }
 
-    // ¸¶¿ì½º °Ë»ö
+    // ë§ˆìš°ìŠ¤ ê²€ìƒ‰
     pItem = pPC->getExtraInventorySlotItem();
     if (pItem != NULL && pItem->getItemID() == id && pItem->getItemClass() == IClass) {
         storage = STORAGE_EXTRASLOT;
         return pItem;
     }
 
-    // º¸°üÇÔ °Ë»ö
+    // ë³´ê´€í•¨ ê²€ìƒ‰
     for (int r = 0; r < STASH_RACK_MAX; r++) {
         for (int i = 0; i < STASH_INDEX_MAX; i++) {
             pItem = pStash->get(r, i);
@@ -478,9 +478,9 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int&
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// °æÇèÄ¡ °è»êÇÏ±â
-// ¹ìÆÄÀÌ¾î°¡ ¾î¶² Å©¸®ÃÄ¸¦ ÈíÇ÷ÇÏ°Å³ª, Á×¿´À» °æ¿ì¿¡ ¿Ã¶ó°¡´Â °æÇèÄ¡¸¦
-// °è»êÇÏ´Â ÇÔ¼ö
+// ê²½í—˜ì¹˜ ê³„ì‚°í•˜ê¸°
+// ë±€íŒŒì´ì–´ê°€ ì–´ë–¤ í¬ë¦¬ì³ë¥¼ í¡í˜ˆí•˜ê±°ë‚˜, ì£½ì˜€ì„ ê²½ìš°ì— ì˜¬ë¼ê°€ëŠ” ê²½í—˜ì¹˜ë¥¼
+// ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 
@@ -493,8 +493,8 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
     int exp = 0;
 
     if (pCreature->isSlayer()) {
-        // ¸¸¾à KILL_AFTERMATH°¡ ºÙÀº »óÅÂ¿¡¼­ ´Ù½Ã Á×´Â´Ù°Å³ª,
-        // AFTERMATH°¡ ºÙÀº »óÈ²¿¡¼­ ´Ù½Ã ÈíÇ÷ÀÌ µÇ´Â °æ¿ì¿¡´Â °æÇèÄ¡¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+        // ë§Œì•½ KILL_AFTERMATHê°€ ë¶™ì€ ìƒíƒœì—ì„œ ë‹¤ì‹œ ì£½ëŠ”ë‹¤ê±°ë‚˜,
+        // AFTERMATHê°€ ë¶™ì€ ìƒí™©ì—ì„œ ë‹¤ì‹œ í¡í˜ˆì´ ë˜ëŠ” ê²½ìš°ì—ëŠ” ê²½í—˜ì¹˜ë¥¼ ë°›ì§€ ì•ŠëŠ”ë‹¤.
         if ((pCreature->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH) == true && percent != BLOODDRAIN_EXP) ||
             (pCreature->isFlag(Effect::EFFECT_CLASS_AFTERMATH) == true && percent == BLOODDRAIN_EXP)) {
             exp = 0;
@@ -507,7 +507,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
             exp = 1;
         }
 
-        // ¸¸¾à ½½·¹ÀÌ¾î¸¦ ÈíÇ÷ÇÑ °æ¿ì¿¡´Â BLOODDRAIN°ú KILLÀÇ exp¸¦ ±³È¯ÇÑ´Ù.
+        // ë§Œì•½ ìŠ¬ë ˆì´ì–´ë¥¼ í¡í˜ˆí•œ ê²½ìš°ì—ëŠ” BLOODDRAINê³¼ KILLì˜ expë¥¼ êµí™˜í•œë‹¤.
         if (g_pCombatInfoManager->isCombat()) {
             if (percent == BLOODDRAIN_EXP)
                 percent = KILL_EXP;
@@ -526,8 +526,8 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
             exp = 1;
         }
     } else if (pCreature->isOusters()) {
-        // ¸¸¾à KILL_AFTERMATH°¡ ºÙÀº »óÅÂ¿¡¼­ ´Ù½Ã Á×´Â´Ù°Å³ª,
-        // AFTERMATH°¡ ºÙÀº »óÈ²¿¡¼­ ´Ù½Ã ÈíÇ÷ÀÌ µÇ´Â °æ¿ì¿¡´Â °æÇèÄ¡¸¦ ¹ŞÁö ¾Ê´Â´Ù.
+        // ë§Œì•½ KILL_AFTERMATHê°€ ë¶™ì€ ìƒíƒœì—ì„œ ë‹¤ì‹œ ì£½ëŠ”ë‹¤ê±°ë‚˜,
+        // AFTERMATHê°€ ë¶™ì€ ìƒí™©ì—ì„œ ë‹¤ì‹œ í¡í˜ˆì´ ë˜ëŠ” ê²½ìš°ì—ëŠ” ê²½í—˜ì¹˜ë¥¼ ë°›ì§€ ì•ŠëŠ”ë‹¤.
         if ((pCreature->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH) == true && percent == KILL_EXP) ||
             (pCreature->isFlag(Effect::EFFECT_CLASS_AFTERMATH) == true && percent == BLOODDRAIN_EXP) ||
             pOusters != NULL) {
@@ -542,7 +542,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
         }
     } else if (pCreature->isMonster()) {
         Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-        // ĞŞ¸Ä753Ñª¹ÜÀàĞÍ¹ÖÎïÎªÎŞ¾­Ñé edit by coffee 2007-7-7
+        // éŒ¦ë§£753æ²‚ë°—ìšè¬¹ë°è† æ§¨è½Ÿì’”ï¤š edit by coffee 2007-7-7
         if (pMonster->getMonsterType() == 753) {
             return 0;
         }
@@ -550,7 +550,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
             return 0;
         }
 
-        // ¾Æ¿ì½ºÅÍ½º´Â µû·Î Ã³¸®ÇØÁØ´Ù. ¿ìÇÏÇÏ..¤Ñ¤Ñ;
+        // ì•„ìš°ìŠ¤í„°ìŠ¤ëŠ” ë”°ë¡œ ì²˜ë¦¬í•´ì¤€ë‹¤. ìš°í•˜í•˜..ã…¡ã…¡;
         if (pOusters != NULL) {
             return getPercentValue(getPercentValue((int)(pMonster->getOustersExp(pOusters)),
                                                    g_pVariableManager->getVariable(MONSTER_EXP_RATIO)),
@@ -562,7 +562,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
         exp += pMonster->getINT();
         exp = (int)(exp * (0.75 + (double)(pMonster->getLevel() / 200.0)));
 
-        // 5¿ù 15ÀÏ ÀÌº¥Æ® ¸ó½ºÅÍ´Â ÈíÇ÷À» ´çÇÏÁö ¾ÊÀ¸¹Ç·Î Á×¾úÀ»¶§ ÀüºÎ º¸»óÇÑ´Ù.
+        // 5ì›” 15ì¼ ì´ë²¤íŠ¸ ëª¬ìŠ¤í„°ëŠ” í¡í˜ˆì„ ë‹¹í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì£½ì—ˆì„ë•Œ ì „ë¶€ ë³´ìƒí•œë‹¤.
         MonsterType_t MonsterType = pMonster->getMonsterType();
         if (MonsterType == 358 || MonsterType == 359)
             exp = 1144;
@@ -570,7 +570,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
             exp = 1076;
 
         // cout << pMonster->getName() << " exp = " << exp << "  percent=" << percent << endl;
-        //  Enhance ÇÊµå¿¡ ÀÇÇÑ º¯È­ °æÇèÄ¡¸¦ °è»êÇØ ÁØ´Ù.
+        //  Enhance í•„ë“œì— ì˜í•œ ë³€í™” ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.
         /*
         const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMonster->getMonsterType());
         int HPBoost = pMonsterInfo->getEnhanceHP();
@@ -584,7 +584,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
     } else
         Assert(false);
 
-    // ´É·ÂÄ¡ º¸»óÀ» À§ÇÑ ÄÚµå...
+    // ëŠ¥ë ¥ì¹˜ ë³´ìƒì„ ìœ„í•œ ì½”ë“œ...
     // exp = (int)((float)exp * 1.5);
     exp = getPercentValue(exp, percent);
     exp = getPercentValue(exp, g_pVariableManager->getVariable(MONSTER_EXP_RATIO));
@@ -595,8 +595,8 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// computeCreatureExp¿Í °°Àºµ¥ AFTERMATH ¶§¹®¿¡
-// ÈíÇ÷ÇÒ¶§ HP ¿Ã¶ó°¡´Â°Å¸¸ µû·Î °è»êÇÑ´Ù. Áßº¹ ÄÚµå.. -_-; by sigi. 2002.11.19
+// computeCreatureExpì™€ ê°™ì€ë° AFTERMATH ë•Œë¬¸ì—
+// í¡í˜ˆí• ë•Œ HP ì˜¬ë¼ê°€ëŠ”ê±°ë§Œ ë”°ë¡œ ê³„ì‚°í•œë‹¤. ì¤‘ë³µ ì½”ë“œ.. -_-; by sigi. 2002.11.19
 ////////////////////////////////////////////////////////////////////////////////
 int computeBloodDrainHealPoint(Creature* pCreature, int percent)
 
@@ -616,7 +616,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
         exp += pSlayer->getINT(ATTR_BASIC);*/
         exp = 1;
 
-        // ¸¸¾à ½½·¹ÀÌ¾î¸¦ ÈíÇ÷ÇÑ °æ¿ì¿¡´Â BLOODDRAIN°ú KILLÀÇ exp¸¦ ±³È¯ÇÑ´Ù.
+        // ë§Œì•½ ìŠ¬ë ˆì´ì–´ë¥¼ í¡í˜ˆí•œ ê²½ìš°ì—ëŠ” BLOODDRAINê³¼ KILLì˜ expë¥¼ êµí™˜í•œë‹¤.
         if (g_pCombatInfoManager->isCombat()) {
             if (percent == BLOODDRAIN_EXP)
                 percent = KILL_EXP;
@@ -640,7 +640,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
     } else if (pCreature->isMonster()) {
         Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-        // ĞŞ¸Ä753Ñª¹ÜÀàĞÍ¹ÖÎïÎªÎŞ¾­Ñé edit by coffee 2007-7-7
+        // éŒ¦ë§£753æ²‚ë°—ìšè¬¹ë°è† æ§¨è½Ÿì’”ï¤š edit by coffee 2007-7-7
         if (pMonster->getMonsterType() == 753) {
             return 0;
         }
@@ -650,7 +650,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
         exp += pMonster->getINT();
         exp = (int)(exp * (0.75 + (double)(pMonster->getLevel() / 200.0)));
 
-        // 5¿ù 15ÀÏ ÀÌº¥Æ® ¸ó½ºÅÍ´Â ÈíÇ÷À» ´çÇÏÁö ¾ÊÀ¸¹Ç·Î Á×¾úÀ»¶§ ÀüºÎ º¸»óÇÑ´Ù.
+        // 5ì›” 15ì¼ ì´ë²¤íŠ¸ ëª¬ìŠ¤í„°ëŠ” í¡í˜ˆì„ ë‹¹í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì£½ì—ˆì„ë•Œ ì „ë¶€ ë³´ìƒí•œë‹¤.
         MonsterType_t MonsterType = pMonster->getMonsterType();
         if (MonsterType == 358 || MonsterType == 359)
             exp = 1144;
@@ -658,7 +658,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
             exp = 1076;
 
         // cout << pMonster->getName() << " exp = " << exp << "  percent=" << percent << endl;
-        //  Enhance ÇÊµå¿¡ ÀÇÇÑ º¯È­ °æÇèÄ¡¸¦ °è»êÇØ ÁØ´Ù.
+        //  Enhance í•„ë“œì— ì˜í•œ ë³€í™” ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.
         /*
         const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMonster->getMonsterType());
         int HPBoost = pMonsterInfo->getEnhanceHP();
@@ -672,7 +672,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
     } else
         Assert(false);
 
-    // ´É·ÂÄ¡ º¸»óÀ» À§ÇÑ ÄÚµå...
+    // ëŠ¥ë ¥ì¹˜ ë³´ìƒì„ ìœ„í•œ ì½”ë“œ...
     // exp = (int)((float)exp * 1.5);
     exp = getPercentValue(exp, percent);
 
@@ -682,7 +682,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÌº¥Æ®¿ë ¸÷ÀÎÁö °Ë»çÇÏ±â...
+// ì´ë²¤íŠ¸ìš© ëª¹ì¸ì§€ ê²€ì‚¬í•˜ê¸°...
 ////////////////////////////////////////////////////////////////////////////////
 bool isEventMonster(Creature* pCreature)
 
@@ -712,32 +712,32 @@ bool isEventMonster(Creature* pCreature)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÓÀÇÀÇ Å©¸®ÃÄ°¡ ÇöÀç ¿òÁ÷ÀÏ ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÏ´Â ÇÔ¼ö
+// ì„ì˜ì˜ í¬ë¦¬ì³ê°€ í˜„ì¬ ì›€ì§ì¼ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ê°€ë¥¼ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToMove(Creature* pCreature) {
     Assert(pCreature != NULL);
 
-    // ÇÏÀÌµå °É¸° »óÅÂ¶ó¸é...
+    // í•˜ì´ë“œ ê±¸ë¦° ìƒíƒœë¼ë©´...
     if (pCreature->isFlag(Effect::EFFECT_CLASS_HIDE)) {
         if (pCreature->isVampire())
             return false;
 
-        // ¸ó½ºÅÍ´Â ÇÏÀÌµå »óÅÂ¿¡¼­µµ ¿òÁ÷ÀÌ´Â °ÍÀÌ °¡´ÉÇÏ±â ¶§¹®¿¡...
+        // ëª¬ìŠ¤í„°ëŠ” í•˜ì´ë“œ ìƒíƒœì—ì„œë„ ì›€ì§ì´ëŠ” ê²ƒì´ ê°€ëŠ¥í•˜ê¸° ë•Œë¬¸ì—...
         // if (pCreature->isMonster()) return false;
 
         if (pCreature->isSlayer())
             return false;
     }
 
-    // ÇöÀç Á×¾îÀÖ´Â »óÅÂ¶ó¸é...
+    // í˜„ì¬ ì£½ì–´ìˆëŠ” ìƒíƒœë¼ë©´...
     if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA) ||
         pCreature->isDead()
-        // ÇöÀç ¸¶ºñ¿¡ °É·ÁÀÖ´Ù¸é...
+        // í˜„ì¬ ë§ˆë¹„ì— ê±¸ë ¤ìˆë‹¤ë©´...
         || pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_ETERNITY_PAUSE)
         //		|| pCreature->isFlag(Effect::EFFECT_CLASS_SANCTUARY)
         || pCreature->isFlag(Effect::EFFECT_CLASS_CASKET)
-        // ÇöÀç Cause Critical Wounds¿¡ °É·ÁÀÖ´Ù¸é
+        // í˜„ì¬ Cause Critical Woundsì— ê±¸ë ¤ìˆë‹¤ë©´
         || pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_SOUL_CHAIN) || pCreature->isFlag(Effect::EFFECT_CLASS_LOVE_CHAIN) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM) ||
@@ -759,23 +759,23 @@ bool isAbleToMove(Creature* pCreature) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÓÀÇÀÇ Å©¸®ÃÄ°¡ ÇöÀç ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÏ´Â ÇÔ¼ö
+// ì„ì˜ì˜ í¬ë¦¬ì³ê°€ í˜„ì¬ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ìƒíƒœì¸ê°€ë¥¼ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType) {
     Assert(pCreature != NULL);
     if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
         return false;
 
-    // ÇÏÀÌµå °É¸° »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Á×Àº »óÅÂ¿¡¼­´Â Eternity ¿ÜÀÇ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ÇöÀç Åõ¸íÈ­µÇ°í ÀÖ´Â »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¸¶ºñ »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¹ÚÁã »óÅ×¾Ö¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Cause Critical Wounds¿¡ °É·ÁÀÖ´Ù¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // í•˜ì´ë“œ ê±¸ë¦° ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ì£½ì€ ìƒíƒœì—ì„œëŠ” Eternity ì™¸ì˜ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // í˜„ì¬ íˆ¬ëª…í™”ë˜ê³  ìˆëŠ” ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë§ˆë¹„ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë°•ì¥ ìƒí…Œì• ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // Cause Critical Woundsì— ê±¸ë ¤ìˆë‹¤ë©´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if ((pCreature->isDead() || pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) && SkillType != SKILL_ETERNITY)
         return false;
 
-    // Dragon Eye »óÅÂ´Â ½ºÅ³À» ¾µ ¼ö ¾ø´Ù.
+    // Dragon Eye ìƒíƒœëŠ” ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE))
         return false;
 
@@ -796,9 +796,9 @@ bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType) {
         return false;
     }
 
-    // ´Á´ë »óÅ×¾Ö¼­´Â ¿ï±â³ª ½ÃÃ¼ ¸Ô±â ¿Ü¿¡´Â ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëŠ‘ëŒ€ ìƒí…Œì• ì„œëŠ” ìš¸ê¸°ë‚˜ ì‹œì²´ ë¨¹ê¸° ì™¸ì—ëŠ” ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF)) {
-        // edit by coffee 2006-12-29  ĞŞÕı³¬ÀÇµôÏßÎÊÌâ
+        // edit by coffee 2006-12-29  éŒ¦æ”£ë‚šì˜ë”œçªŸç‹‚ç—™
         if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE || SkillType != SKILL_UN_TRANSFORM)
         // end  edit
         // if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE && SkillType != SKILL_UN_TRANSFORM)
@@ -813,13 +813,13 @@ bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType) {
         }
     }
 
-    // ½ÇÇÁ Å¸°í ÀÖÀ»¶© ¾ğÆ®·£½ºÆû¹Û¿¡ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ì‹¤í”„ íƒ€ê³  ìˆì„ë• ì–¸íŠ¸ëœìŠ¤í¼ë°–ì— ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH)) {
         if (SkillType != SKILL_UN_TRANSFORM)
             return false;
     }
 
-    // ¸ğÅÍ»çÀÌÅ¬À» Åº »óÅ×¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì„ íƒ„ ìƒí…Œì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         if (pSlayer->hasRideMotorcycle()) {
@@ -845,16 +845,16 @@ bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType) {
     if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
         return false;
 
-    // Dragon Eye »óÅÂ´Â ½ºÅ³À» ¾µ ¼ö ¾ø´Ù.
+    // Dragon Eye ìƒíƒœëŠ” ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE))
         return false;
 
-    // ÇÏÀÌµå °É¸° »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Á×Àº »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ÇöÀç Åõ¸íÈ­µÇ°í ÀÖ´Â »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¸¶ºñ »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¹ÚÁã »óÅ×¾Ö¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Cause Critical Wounds¿¡ °É·ÁÀÖ´Ù¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù
+    // í•˜ì´ë“œ ê±¸ë¦° ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ì£½ì€ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // í˜„ì¬ íˆ¬ëª…í™”ë˜ê³  ìˆëŠ” ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë§ˆë¹„ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë°•ì¥ ìƒí…Œì• ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // Cause Critical Woundsì— ê±¸ë ¤ìˆë‹¤ë©´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤
     if (pCreature->isFlag(Effect::EFFECT_CLASS_HIDE) || pCreature->isFlag(Effect::EFFECT_CLASS_CASKET) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isDead() ||
         pCreature->isFlag(Effect::EFFECT_CLASS_FADE_OUT) || pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE) ||
@@ -869,9 +869,9 @@ bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType) {
         pCreature->isFlag(Effect::EFFECT_CLASS_TRAPPED) || pCreature->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER))
         return false;
 
-    // ´Á´ë »óÅ×¾Ö¼­´Â ¿ï±â³ª ½ÃÃ¼ ¸Ô±â ¿Ü¿¡´Â ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëŠ‘ëŒ€ ìƒí…Œì• ì„œëŠ” ìš¸ê¸°ë‚˜ ì‹œì²´ ë¨¹ê¸° ì™¸ì—ëŠ” ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF)) {
-        // edit by coffee 2006-12-29  ĞŞÕı³¬ÀÇµôÏßÎÊÌâ
+        // edit by coffee 2006-12-29  éŒ¦æ”£ë‚šì˜ë”œçªŸç‹‚ç—™
         if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE || SkillType != SKILL_ATTACK_MELEE)
         // end  edit
         // if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE && SkillType != SKILL_ATTACK_MELEE)
@@ -887,7 +887,7 @@ bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType) {
         }
     }
 
-    // ¸ğÅÍ»çÀÌÅ¬À» Åº »óÅ×¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì„ íƒ„ ìƒí…Œì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         if (pSlayer->hasRideMotorcycle())
@@ -907,16 +907,16 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType) {
     if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
         return false;
 
-    // Dragon Eye »óÅÂ´Â ½ºÅ³À» ¾µ ¼ö ¾ø´Ù.
+    // Dragon Eye ìƒíƒœëŠ” ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE))
         return false;
 
-    // ÇÏÀÌµå °É¸° »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Á×Àº »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ÇöÀç Åõ¸íÈ­µÇ°í ÀÖ´Â »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¸¶ºñ »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¹ÚÁã »óÅ×¾Ö¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Cause Critical Wounds¿¡ °É·ÁÀÖ´Ù¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù
+    // í•˜ì´ë“œ ê±¸ë¦° ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ì£½ì€ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // í˜„ì¬ íˆ¬ëª…í™”ë˜ê³  ìˆëŠ” ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë§ˆë¹„ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë°•ì¥ ìƒí…Œì• ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // Cause Critical Woundsì— ê±¸ë ¤ìˆë‹¤ë©´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤
     if (pCreature->isFlag(Effect::EFFECT_CLASS_HIDE) || pCreature->isFlag(Effect::EFFECT_CLASS_CASKET) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isDead() ||
         pCreature->isFlag(Effect::EFFECT_CLASS_FADE_OUT) || pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE) ||
@@ -931,9 +931,9 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType) {
         pCreature->isFlag(Effect::EFFECT_CLASS_TRAPPED) || pCreature->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER))
         return false;
 
-    // ´Á´ë »óÅ×¾Ö¼­´Â ¿ï±â³ª ½ÃÃ¼ ¸Ô±â ¿Ü¿¡´Â ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëŠ‘ëŒ€ ìƒí…Œì• ì„œëŠ” ìš¸ê¸°ë‚˜ ì‹œì²´ ë¨¹ê¸° ì™¸ì—ëŠ” ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF)) {
-        // edit by coffee 2006-12-29  ĞŞÕı³¬ÀÇµôÏßÎÊÌâ
+        // edit by coffee 2006-12-29  éŒ¦æ”£ë‚šì˜ë”œçªŸç‹‚ç—™
         // if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE)
         if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE)
         // end  edit
@@ -949,7 +949,7 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType) {
         }
     }
 
-    // ¸ğÅÍ»çÀÌÅ¬À» Åº »óÅ×¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì„ íƒ„ ìƒí…Œì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         if (pSlayer->hasRideMotorcycle())
@@ -969,17 +969,17 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
     if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
         return false;
 
-    // Dragon Eye »óÅÂ´Â ½ºÅ³À» ¾µ ¼ö ¾ø´Ù.
+    // Dragon Eye ìƒíƒœëŠ” ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE))
         return false;
 
-    // ÀÎº¥Åä¸® ÁÂÇ¥°¡ ³Ñ¾î°¡´Â °æ¿ì¿¡´Â »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ÇÏÀÌµå °É¸° »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Á×Àº »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ÇöÀç Åõ¸íÈ­µÇ°í ÀÖ´Â »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¸¶ºñ »óÅÂ¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // ¹ÚÁã »óÅ×¾Ö¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    // Cause Critical Wounds¿¡ °É·È´Ù¸é ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù
+    // ì¸ë²¤í† ë¦¬ ì¢Œí‘œê°€ ë„˜ì–´ê°€ëŠ” ê²½ìš°ì—ëŠ” ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // í•˜ì´ë“œ ê±¸ë¦° ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ì£½ì€ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // í˜„ì¬ íˆ¬ëª…í™”ë˜ê³  ìˆëŠ” ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë§ˆë¹„ ìƒíƒœì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // ë°•ì¥ ìƒí…Œì• ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    // Cause Critical Woundsì— ê±¸ë ¸ë‹¤ë©´ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤
     // if (X >= 10 || Y >= 6 || TX >= 10 || TY >= 6) return false;
     if (X >= 10 || Y >= 6)
         return false;
@@ -997,9 +997,9 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
         pCreature->isFlag(Effect::EFFECT_CLASS_TRAPPED) || pCreature->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER))
         return false;
 
-    // ´Á´ë »óÅ×¾Ö¼­´Â ¿ï±â³ª ½ÃÃ¼ ¸Ô±â ¿Ü¿¡´Â ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëŠ‘ëŒ€ ìƒí…Œì• ì„œëŠ” ìš¸ê¸°ë‚˜ ì‹œì²´ ë¨¹ê¸° ì™¸ì—ëŠ” ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF)) {
-        // edit by coffee 2006-12-29  ĞŞÕı³¬ÀÇµôÏßÎÊÌâ
+        // edit by coffee 2006-12-29  éŒ¦æ”£ë‚šì˜ë”œçªŸç‹‚ç—™
         // if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE)
         if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE)
         // end  edit
@@ -1015,7 +1015,7 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
         }
     }
 
-    // ¸ğÅÍ»çÀÌÅ¬À» Åº »óÅ×¿¡¼­´Â ±â¼úÀ» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì„ íƒ„ ìƒí…Œì—ì„œëŠ” ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         if (pSlayer->hasRideMotorcycle())
@@ -1031,16 +1031,16 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÓÀÇÀÇ Å©¸®ÃÄ°¡ ¾ÆÀÌÅÛÀ» ÁÖÀ» ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÏ´Â ÇÔ¼ö
+// ì„ì˜ì˜ í¬ë¦¬ì³ê°€ ì•„ì´í…œì„ ì£¼ì„ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ê°€ë¥¼ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
     Assert(pCreature != NULL);
 
-    // Á×Àº »óÅÂ¿¡¼­´Â ¾ÆÀÌÅÛÀ» ÁÖÀ» ¼ö ¾ø´Ù.
-    // ¹ÚÁã »óÅÂ¿¡¼­´Â ¾ÆÀÌÅÛÀ» ÁÖÀ» ¼ö ¾ø´Ù.
+    // ì£½ì€ ìƒíƒœì—ì„œëŠ” ì•„ì´í…œì„ ì£¼ì„ ìˆ˜ ì—†ë‹¤.
+    // ë°•ì¥ ìƒíƒœì—ì„œëŠ” ì•„ì´í…œì„ ì£¼ì„ ìˆ˜ ì—†ë‹¤.
     if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 
-        // ÇöÀç ¸¶ºñ¿¡ °É·ÁÀÖ´Ù¸é.... by sigi. 2002.12.10
+        // í˜„ì¬ ë§ˆë¹„ì— ê±¸ë ¤ìˆë‹¤ë©´.... by sigi. 2002.12.10
         || pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE) ||
         pCreature->isFlag(Effect::EFFECT_CLASS_ETERNITY_PAUSE)
         //		|| pCreature->isFlag(Effect::EFFECT_CLASS_SANCTUARY)
@@ -1053,7 +1053,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         pCreature->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET))
         return false;
 
-    // »ıÃß¾î¸® ¾È¿¡ ÀÖÀ¸¸é ¸ø Áı´Â´Ù.
+    // ìƒì¶”ì–´ë¦¬ ì•ˆì— ìˆìœ¼ë©´ ëª» ì§‘ëŠ”ë‹¤.
     Zone* pZone = pCreature->getZone();
     if (pZone != NULL) {
         Tile& rTile = pZone->getTile(pCreature->getX(), pCreature->getY());
@@ -1062,15 +1062,15 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         }
     }
 
-    // ¸ğÅÍ»çÀÌÅ¬À» Åº »óÅÂ¿¡¼­´Â ¾ÆÀÌÅÛÀ» ÁÖÀ» ¼ö ¾ø´Ù.
+    // ëª¨í„°ì‚¬ì´í´ì„ íƒ„ ìƒíƒœì—ì„œëŠ” ì•„ì´í…œì„ ì£¼ì„ ìˆ˜ ì—†ë‹¤.
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
         if (pSlayer->hasRideMotorcycle())
             return false;
     }
 
-    // QuestItemÀÎ °æ¿ì´Â ÇÏ³ª¹Û¿¡ ÁÖ¿ï ¼ö ¾ø´Ù.
-    // ³ªÁß¿¡ ¶Ç ¹Ù²î°ÚÁö. À¸Èì. - -; by sigi. 2002.9.4
+    // QuestItemì¸ ê²½ìš°ëŠ” í•˜ë‚˜ë°–ì— ì£¼ìš¸ ìˆ˜ ì—†ë‹¤.
+    // ë‚˜ì¤‘ì— ë˜ ë°”ë€Œê² ì§€. ìœ¼í . - -; by sigi. 2002.9.4
     Item::ItemClass itemClass = pItem->getItemClass();
     ItemType_t itemtype = pItem->getItemType();
 
@@ -1078,14 +1078,14 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
         Inventory* pInventory = pPC->getInventory();
 
-        // ¸¶¿ì½º¿¡ °®°í ÀÖ°Å³ª
+        // ë§ˆìš°ìŠ¤ì— ê°–ê³  ìˆê±°ë‚˜
         Item* pMouseItem = pPC->getExtraInventorySlotItem();
 
         if (pMouseItem != NULL && pMouseItem->getItemClass() == Item::ITEM_CLASS_QUEST_ITEM &&
             pMouseItem->getItemType() < 4)
             return false;
 
-        // ÀÎº¥Åä¸®¿¡ ÀÖ´Â °æ¿ì
+        // ì¸ë²¤í† ë¦¬ì— ìˆëŠ” ê²½ìš°
         Item* pInvenItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM);
 
         if (pInvenItem != NULL && pInvenItem->getItemClass() == Item::ITEM_CLASS_QUEST_ITEM &&
@@ -1107,14 +1107,14 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
             return false;
     }
 
-    // Äù½ºÆ® ¾ÆÀÌÅÛ (½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ) Àº ÁÖ¿ï ¼ö ¾ø´Ù.
+    // í€˜ìŠ¤íŠ¸ ì•„ì´í…œ (ì‹œê°„ì œí•œ ì•„ì´í…œ) ì€ ì£¼ìš¸ ìˆ˜ ì—†ë‹¤.
     if (pItem->isTimeLimitItem())
         return false;
 
-    // ¼º¹°, ÇÇÀÇ ¼º¼­, ¼ºÀÇ »óÂ¡..µîÀÇ ¾ÆÀÌÅÛÀÎ °æ¿ì
+    // ì„±ë¬¼, í”¼ì˜ ì„±ì„œ, ì„±ì˜ ìƒì§•..ë“±ì˜ ì•„ì´í…œì¸ ê²½ìš°
     if (isRelicItem(itemClass)) {
-        // RelicÀ» ÁÖ¿ï ¼ö ¾ø´Ù´Â Effect°¡ °É·ÁÀÖ´Â °æ¿ìÀÌ°Å³ª
-        // Æ¯Á¤ ±â¼ú »ç¿ëÁß¿¡´Â RelicÀ» ÁÖ¿ï ¼ö ¾ø´Ù.
+        // Relicì„ ì£¼ìš¸ ìˆ˜ ì—†ë‹¤ëŠ” Effectê°€ ê±¸ë ¤ìˆëŠ” ê²½ìš°ì´ê±°ë‚˜
+        // íŠ¹ì • ê¸°ìˆ  ì‚¬ìš©ì¤‘ì—ëŠ” Relicì„ ì£¼ìš¸ ìˆ˜ ì—†ë‹¤.
         if (pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK) || pCreature->isFlag(Effect::EFFECT_CLASS_HIDE) ||
             pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY) || pCreature->isFlag(Effect::EFFECT_CLASS_FADE_OUT) ||
             pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF) ||
@@ -1127,7 +1127,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         }
 
         switch (itemClass) {
-        // ¾ÆÁ÷ ¾ø´Â Relic¸¸ ÁÖ¿ï ¼ö ÀÖ´Ù.
+        // ì•„ì§ ì—†ëŠ” Relicë§Œ ì£¼ìš¸ ìˆ˜ ìˆë‹¤.
         case Item::ITEM_CLASS_RELIC: {
             const RelicInfo* pRelicInfo = dynamic_cast<RelicInfo*>(g_pRelicInfoManager->getItemInfo(itemtype));
 
@@ -1152,7 +1152,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
                 return false;
             }
 
-            // ÁŞ´Â ³ÑÀÌ ¾ÈÀüÁö´ë¿¡ ÀÖÀ¸¸é ÁÖ¿ï ¼ö ¾ø´Ù.
+            // ì¤ëŠ” ë„˜ì´ ì•ˆì „ì§€ëŒ€ì— ìˆìœ¼ë©´ ì£¼ìš¸ ìˆ˜ ì—†ë‹¤.
             ZoneLevel_t zoneLevel = pCreature->getZone()->getZoneLevel(pCreature->getX(), pCreature->getY());
             if (zoneLevel & SAFE_ZONE) {
                 return false;
@@ -1178,7 +1178,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         } break;
 
         case Item::ITEM_CLASS_WAR_ITEM: {
-            // 150 ·¹º§ ÀÌ»ó¸¸ µé ¼ö ÀÖ´Ù.
+            // 150 ë ˆë²¨ ì´ìƒë§Œ ë“¤ ìˆ˜ ìˆë‹¤.
             Level_t level = pCreature->getLevel();
             if (level < 150)
                 return false;
@@ -1208,7 +1208,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
             return false;
     }
 
-    // ±ê¹ß°®°í ÀÖÀ¸¸é ±ê¹ß ¸ø Áı´Â´Ù.
+    // ê¹ƒë°œê°–ê³  ìˆìœ¼ë©´ ê¹ƒë°œ ëª» ì§‘ëŠ”ë‹¤.
     if (pItem->isFlagItem()) {
         if (!g_pFlagManager->hasFlagWar())
             return false;
@@ -1230,8 +1230,8 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         if (pItem->isFlag(Effect::EFFECT_CLASS_OUSTERS_ONLY))
             return false;
 
-        // SlayerÀÎ °æ¿ì´Â vampire ¾ÆÀÌÅÛ¸¸ ¸ø Áİ´Â´Ù.
-        // Ousters ¾ÆÀÌÅÛµµ ¸ø Áİ´Â´Ù
+        // Slayerì¸ ê²½ìš°ëŠ” vampire ì•„ì´í…œë§Œ ëª» ì¤ëŠ”ë‹¤.
+        // Ousters ì•„ì´í…œë„ ëª» ì¤ëŠ”ë‹¤
         switch (itemClass) {
         case Item::ITEM_CLASS_VAMPIRE_RING:
         case Item::ITEM_CLASS_VAMPIRE_BRACELET:
@@ -1259,7 +1259,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         case Item::ITEM_CLASS_FASCIA:
         case Item::ITEM_CLASS_MITTEN:
             // case Item::ITEM_CLASS_MONEY :
-            //  vampire µ·ÀÌ¸é ¸ø Áİ´Â´Ù.
+            //  vampire ëˆì´ë©´ ëª» ì¤ëŠ”ë‹¤.
             //  edit by sonic 2006.10.31
             // if (pItem->getItemType()==1) return false;
             return false;
@@ -1278,8 +1278,8 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         if (pItem->isFlag(Effect::EFFECT_CLASS_OUSTERS_ONLY))
             return false;
 
-        // VampireÀÎ °æ¿ì´Â Vampire ¾ÆÀÌÅÛ°ú
-        // event ¾ÆÀÌÅÛ¸¸ ÁÖ¿ï ¼ö ÀÖ´Ù.
+        // Vampireì¸ ê²½ìš°ëŠ” Vampire ì•„ì´í…œê³¼
+        // event ì•„ì´í…œë§Œ ì£¼ìš¸ ìˆ˜ ìˆë‹¤.
         switch (pItem->getItemClass()) {
         case Item::ITEM_CLASS_VAMPIRE_RING:
         case Item::ITEM_CLASS_VAMPIRE_BRACELET:
@@ -1319,7 +1319,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         case Item::ITEM_CLASS_DERMIS:
         case Item::ITEM_CLASS_PERSONA:
         case Item::ITEM_CLASS_MONEY:
-            // vampire µ·ÀÌ¸é Áİ´Â´Ù.
+            // vampire ëˆì´ë©´ ì¤ëŠ”ë‹¤.
             // edit by sonic 2006.10.31
             // if (pItem->getItemType()==1) return true;
             return true;
@@ -1339,8 +1339,8 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         if (pItem->isFlag(Effect::EFFECT_CLASS_VAMPIRE_ONLY))
             return false;
 
-        // OustersÀÎ °æ¿ì´Â Ousters ¾ÆÀÌÅÛ°ú
-        // event ¾ÆÀÌÅÛ¸¸ ÁÖ¿ï ¼ö ÀÖ´Ù.
+        // Oustersì¸ ê²½ìš°ëŠ” Ousters ì•„ì´í…œê³¼
+        // event ì•„ì´í…œë§Œ ì£¼ìš¸ ìˆ˜ ìˆë‹¤.
         switch (pItem->getItemClass()) {
         case Item::ITEM_CLASS_OUSTERS_ARMSBAND:
         case Item::ITEM_CLASS_OUSTERS_BOOTS:
@@ -1382,7 +1382,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
         case Item::ITEM_CLASS_FASCIA:
         case Item::ITEM_CLASS_MITTEN:
         case Item::ITEM_CLASS_MONEY:
-            // Ousters µ·ÀÌ¸é Áİ´Â´Ù.
+            // Ousters ëˆì´ë©´ ì¤ëŠ”ë‹¤.
             // edit by sonic 2006.10.31
             // if (pItem->getItemType()==1) return true;
             return true;
@@ -1407,7 +1407,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem) {
 }
 
 bool canDropToZone(Creature* pCreature, Item* pItem) {
-    // Äù½ºÆ® ¾ÆÀÌÅÛ (½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ) ¶³±¼ ¼ö ¾ø´Ù.
+    // í€˜ìŠ¤íŠ¸ ì•„ì´í…œ (ì‹œê°„ì œí•œ ì•„ì´í…œ) ë–¨êµ´ ìˆ˜ ì—†ë‹¤.
     if (pItem->isTimeLimitItem())
         return false;
 
@@ -1429,7 +1429,7 @@ bool canDropToZone(Creature* pCreature, Item* pItem) {
     } break;
 
     case Item::ITEM_CLASS_MOON_CARD:
-        // ¹İ´Ş Ä«µå´Â ¹Ù´Ú¿¡ ¹ö¸± ¼ö ¾ø´Ù.
+        // ë°˜ë‹¬ ì¹´ë“œëŠ” ë°”ë‹¥ì— ë²„ë¦´ ìˆ˜ ì—†ë‹¤.
         {
             if (pItem->getItemType() == 0)
                 return false;
@@ -1463,9 +1463,9 @@ bool canDropToZone(Creature* pCreature, Item* pItem) {
     return true;
 }
 
-// ±×·£µå ¸¶½ºÅÍÀÎµ¥ ±×·£µå ¸¶½ºÅÍ ÀÌÆåÆ®¸¦ Å¬¶óÀÌ¾ğÆ®¿¡°Ô º¸³»ÁÖ±â °ï¶õÇÒ °æ¿ì ºÒ·¯ÁØ´Ù.
+// ê·¸ëœë“œ ë§ˆìŠ¤í„°ì¸ë° ê·¸ëœë“œ ë§ˆìŠ¤í„° ì´í™íŠ¸ë¥¼ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚´ì£¼ê¸° ê³¤ë€í•  ê²½ìš° ë¶ˆëŸ¬ì¤€ë‹¤.
 // 2002. 1. 13. Sequoia
-// »ç¿ëµÇÁö ¾ÊÀ½. -.-
+// ì‚¬ìš©ë˜ì§€ ì•ŠìŒ. -.-
 /*void confirmGrandMaster(Creature* pCreature)
 {
     if( pCreature == NULL ) return;
@@ -1571,34 +1571,34 @@ bool getGuildIDFromDB(const string& Name, Race_t race, GuildID_t& guildID)
 
 bool canSee(const Creature* pSource, Creature* pTarget, EffectObservingEye* pEffectObservingEye,
             EffectGnomesWhisper* pEffectGnomesWhisper) {
-    // TargetÀÌ Ghost ÀÌ¸é ¹«Á¶°Ç º¼ ¼ö ¾ø´Ù.
+    // Targetì´ Ghost ì´ë©´ ë¬´ì¡°ê±´ ë³¼ ìˆ˜ ì—†ë‹¤.
     if (pTarget->isFlag(Effect::EFFECT_CLASS_GHOST))
         return false;
 
     // ZoneCoord_t targetX = pTarget->getX(), targetY = pTarget->getY();
 
-    // ObservingEye ÀÌÆåÆ®¸¦ °¡Á®¿Â´Ù.
+    // ObservingEye ì´í™íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     if (pEffectObservingEye == NULL && pSource->isFlag(Effect::EFFECT_CLASS_OBSERVING_EYE)) {
         pEffectObservingEye =
             dynamic_cast<EffectObservingEye*>(pSource->findEffect(Effect::EFFECT_CLASS_OBSERVING_EYE));
     }
 
-    // GnomesWhisper ÀÌÆåÆ®¸¦ °¡Á®¿Â´Ù.
+    // GnomesWhisper ì´í™íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     if (pEffectGnomesWhisper == NULL && pSource->isFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER)) {
         pEffectGnomesWhisper =
             dynamic_cast<EffectGnomesWhisper*>(pSource->findEffect(Effect::EFFECT_CLASS_GNOMES_WHISPER));
     }
 
-    // ÀÏ´Ü ½Ã¾ß¾È¿¡ ÀÖ¾î¾ß º¸µçµ¿ ÇÏÁö.
+    // ì¼ë‹¨ ì‹œì•¼ì•ˆì— ìˆì–´ì•¼ ë³´ë“ ë™ í•˜ì§€.
     // if (pSource->getVisionState(targetX, targetY) >= IN_SIGHT)
     //{
-    // ¹ìÆÄÀÌ¾î ³¢¸®´Â ¹«Á¶°Ç º»´Ù.
+    // ë±€íŒŒì´ì–´ ë¼ë¦¬ëŠ” ë¬´ì¡°ê±´ ë³¸ë‹¤.
     if (pSource->isVampire() && pTarget->isVampire())
         return true;
 
     if ((!pTarget->isFlag(Effect::EFFECT_CLASS_HIDE) ||
          pSource->isFlag(Effect::EFFECT_CLASS_DETECT_HIDDEN)
-         // ÀÌÁ¦ Revealerµµ ÇÏÀÌµå ÇÑ³ğ º¼ ¼ö ÀÖ´Ù.
+         // ì´ì œ Revealerë„ í•˜ì´ë“œ í•œë†ˆ ë³¼ ìˆ˜ ìˆë‹¤.
          || pSource->isFlag(Effect::EFFECT_CLASS_REVEALER) ||
          (pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeHide())) &&
         (!pTarget->isFlag(Effect::EFFECT_CLASS_INVISIBILITY) ||
@@ -1656,8 +1656,8 @@ int changeSexEx(PlayerCreature* pPC) {
     } else
         return 3;
 
-    // ¿©±â±îÁö ¿Ô´Ù´Â°Ç ¼ºÀüÈ¯ ¼º°øÀÌ´Ù. DB¾÷µ¥ÀÌÆ®
-    // ¼ºÀüÈ¯ ¼º°øÀÌ¸é ¾Æ¿ì½ºÅÍÁîÀÏ¸®´Â Àı´ë ¾øÀ¸¹Ç·Î ½½·¹ÀÌ¾î¿Í ¹ìÆÄÀÌ¾î Å×ÀÌºí ¸ğµÎ Á¤º¸°¡ ÀÖ´Ù.
+    // ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ëŠ”ê±´ ì„±ì „í™˜ ì„±ê³µì´ë‹¤. DBì—…ë°ì´íŠ¸
+    // ì„±ì „í™˜ ì„±ê³µì´ë©´ ì•„ìš°ìŠ¤í„°ì¦ˆì¼ë¦¬ëŠ” ì ˆëŒ€ ì—†ìœ¼ë¯€ë¡œ ìŠ¬ë ˆì´ì–´ì™€ ë±€íŒŒì´ì–´ í…Œì´ë¸” ëª¨ë‘ ì •ë³´ê°€ ìˆë‹¤.
     Statement* pStmt = NULL;
 
     BEGIN_DB {
@@ -1749,10 +1749,10 @@ bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
     Zone* pZone = pPC->getZone();
     Assert(pZone != NULL);
 
-    // cout << "±ê¹ß Ã£¾Ò´Ù" << endl;
+    // cout << "ê¹ƒë°œ ì°¾ì•˜ë‹¤" << endl;
 
-    // ÀÏ´Ü ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
-    // ½ÃÃ¼¿Í °ãÄ¥ ¼öµµ ÀÖÀ¸¹Ç·Î.. Ä³¸¯ÅÍ°¡ ¾ø´Â °÷¿¡ ¶³¾î¶ß¸°´Ù.
+    // ì¼ë‹¨ ì•„ì´í…œì„ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
+    // ì‹œì²´ì™€ ê²¹ì¹  ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ.. ìºë¦­í„°ê°€ ì—†ëŠ” ê³³ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
     //	TPOINT pt = pZone->addItem( pItem, pPC->getX(), pPC->getY(), false );
     pZone->addItemDelayed(pItem, pPC->getX(), pPC->getY(), false);
 
@@ -1762,12 +1762,12 @@ bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
 
     if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)) {
         EffectRelicLock* pLock = new EffectRelicLock(pItem);
-        pLock->setDeadline(10 * 10); // 10ÃÊ
+        pLock->setDeadline(10 * 10); // 10ì´ˆ
         pItem->setFlag(Effect::EFFECT_CLASS_RELIC_LOCK);
         pItem->getEffectManager().addEffect(pLock);
     }
 
-    /*	if ( pt.x != -1 )           // ¶³¾î¶ß¸®´Âµ¥ ¼º°øÇß´Ù¸é
+    /*	if ( pt.x != -1 )           // ë–¨ì–´ëœ¨ë¦¬ëŠ”ë° ì„±ê³µí–ˆë‹¤ë©´
         {
             char pField[80];
             sprintf(pField, "OwnerID='', Storage=%d, StorageID=%u, X=%d, Y=%d", STORAGE_ZONE, pZone->getZoneID(), pt.x,
@@ -1779,7 +1779,7 @@ bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
             if (!pItem->isFlag( Effect::EFFECT_CLASS_RELIC_LOCK ))
             {
                 EffectRelicLock* pLock = new EffectRelicLock(pItem);
-                pLock->setDeadline( 10*10 ); // 10ÃÊ
+                pLock->setDeadline( 10*10 ); // 10ì´ˆ
                 pItem->setFlag( Effect::EFFECT_CLASS_RELIC_LOCK );
                 pItem->getEffectManager().addEffect( pLock );
             }
@@ -1799,9 +1799,9 @@ bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
             pt = pZone->addItem( pItem, pPC->getX(), pPC->getY(), false );
             if ( pt.x == -1 )
             {
-                filelog("FlagWar.log", "-_- ±×·¡µµ ±ê¹ß ¶³¾î¶ß¸± ÀÚ¸®°¡ ¾ø´Ù.... XµÆ´Ù.");
-                //throw Error("±ê¹ß ¶³¾î¶ß¸± ÀÚ¸®°¡ ¾ø´Ù.");
-                // ´ëÃ¼ ¿Ö ¸ø ¶³¾î¶ß¸®´Â°Å³Ä -_-
+                filelog("FlagWar.log", "-_- ê·¸ë˜ë„ ê¹ƒë°œ ë–¨ì–´ëœ¨ë¦´ ìë¦¬ê°€ ì—†ë‹¤.... Xëë‹¤.");
+                //throw Error("ê¹ƒë°œ ë–¨ì–´ëœ¨ë¦´ ìë¦¬ê°€ ì—†ë‹¤.");
+                // ëŒ€ì²´ ì™œ ëª» ë–¨ì–´ëœ¨ë¦¬ëŠ”ê±°ëƒ -_-
                 return false;
             }
         }*/
@@ -1816,16 +1816,16 @@ bool dropFlagToZone(Creature* pCreature, bool bSendPacket) {
 
     bool bDrop = false;
 
-    // mouse¿¡ relicÀÌ ÀÖ´ÂÁö Ã¼Å©
+    // mouseì— relicì´ ìˆëŠ”ì§€ ì²´í¬
     Item* pSlotItem = pPC->getExtraInventorySlotItem();
 
     if (pSlotItem != NULL && pSlotItem->isFlagItem()) {
         if (dropFlagToZone(pPC, pSlotItem)) {
             pPC->deleteItemFromExtraInventorySlot();
 
-            // playerÀÇ mouse¿¡¼­ Á¦°ÅÇÑ´Ù.
-            // client¿¡¼­ ÀÌ ÆĞÅ¶À» ¹ŞÀ¸¸é
-            // mouse¿¡¼­µµ ÇÔ Ã¼Å©ÇØÁÖ°Ô Çß´Ù.
+            // playerì˜ mouseì—ì„œ ì œê±°í•œë‹¤.
+            // clientì—ì„œ ì´ íŒ¨í‚·ì„ ë°›ìœ¼ë©´
+            // mouseì—ì„œë„ í•¨ ì²´í¬í•´ì£¼ê²Œ í–ˆë‹¤.
 
             if (bSendPacket) {
                 GCDeleteInventoryItem gcDeleteInventoryItem;
@@ -1844,17 +1844,17 @@ bool dropFlagToZone(Creature* pCreature, bool bSendPacket) {
     Inventory* pInventory = pPC->getInventory();
     Assert(pInventory != NULL);
 
-    // ÀÎº¥Åä¸®¿¡¼­ Relic ItemÀ» Ã£¾Æº»´Ù.
+    // ì¸ë²¤í† ë¦¬ì—ì„œ Relic Itemì„ ì°¾ì•„ë³¸ë‹¤.
     for (CoordInven_t y = 0; y < pInventory->getHeight(); y++) {
         for (CoordInven_t x = 0; x < pInventory->getWidth(); x++) {
             Item* pItem = pInventory->getItem(x, y);
             if (pItem != NULL && pItem->isFlagItem()) {
-                // ÀÏ´Ü ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                // ì¼ë‹¨ ì•„ì´í…œì„ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 if (dropFlagToZone(pPC, pItem)) {
-                    // ÀÎº¥Åä¸®¿¡¼­ »«´Ù.
+                    // ì¸ë²¤í† ë¦¬ì—ì„œ ëº€ë‹¤.
                     pInventory->deleteItem(pItem->getObjectID());
 
-                    // playerÀÇ inventory¿¡¼­ Á¦°ÅÇÑ´Ù.
+                    // playerì˜ inventoryì—ì„œ ì œê±°í•œë‹¤.
                     if (bSendPacket) {
                         GCDeleteInventoryItem gcDeleteInventoryItem;
                         gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
@@ -1950,7 +1950,7 @@ void giveUnderworldGift(Creature* pCreature) {
 
     Statement* pStmt = NULL;
 
-    filelog("Underworld.log", "[%s:%s] ¾ğ´õ¿ùµå ¿¹¸Å±Ç¿¡ ´çÃ·µÇ¾ú½À´Ï´Ù.", PlayerID.c_str(), PlayerName.c_str());
+    filelog("Underworld.log", "[%s:%s] ì–¸ë”ì›”ë“œ ì˜ˆë§¤ê¶Œì— ë‹¹ì²¨ë˜ì—ˆìŠµë‹ˆë‹¤.", PlayerID.c_str(), PlayerName.c_str());
 
     try {
         BEGIN_DB {
@@ -1962,7 +1962,7 @@ void giveUnderworldGift(Creature* pCreature) {
         }
         END_DB(pStmt)
     } catch (Throwable& t) {
-        filelog("Underworld.log", "DB¿¡ ¾÷µ¥ÀÌÆ®¸¦ ½ÇÆĞÇß½À´Ï´Ù. : %s", t.toString().c_str());
+        filelog("Underworld.log", "DBì— ì—…ë°ì´íŠ¸ë¥¼ ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. : %s", t.toString().c_str());
     }
 
     GCNotifyWin gcNW;
@@ -1992,7 +1992,7 @@ bool dropSweeperToZone(PlayerCreature* pPC, Item* pItem)
 
     if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)) {
         EffectRelicLock* pLock = new EffectRelicLock(pItem);
-        pLock->setDeadline(10 * 10); // 10ÃÊ
+        pLock->setDeadline(10 * 10); // 10ì´ˆ
         pItem->setFlag(Effect::EFFECT_CLASS_RELIC_LOCK);
         pItem->getEffectManager().addEffect(pLock);
     }
@@ -2007,16 +2007,16 @@ bool dropSweeperToZone(Creature* pCreature, bool bSendPacket) {
 
     bool bDrop = false;
 
-    // mouse¿¡ relicÀÌ ÀÖ´ÂÁö Ã¼Å©
+    // mouseì— relicì´ ìˆëŠ”ì§€ ì²´í¬
     Item* pSlotItem = pPC->getExtraInventorySlotItem();
 
     if (pSlotItem != NULL && pSlotItem->getItemClass() == Item::ITEM_CLASS_SWEEPER) {
         if (dropSweeperToZone(pPC, pSlotItem)) {
             pPC->deleteItemFromExtraInventorySlot();
 
-            // playerÀÇ mouse¿¡¼­ Á¦°ÅÇÑ´Ù.
-            // client¿¡¼­ ÀÌ ÆĞÅ¶À» ¹ŞÀ¸¸é
-            // mouse¿¡¼­µµ ÇÔ Ã¼Å©ÇØÁÖ°Ô Çß´Ù.
+            // playerì˜ mouseì—ì„œ ì œê±°í•œë‹¤.
+            // clientì—ì„œ ì´ íŒ¨í‚·ì„ ë°›ìœ¼ë©´
+            // mouseì—ì„œë„ í•¨ ì²´í¬í•´ì£¼ê²Œ í–ˆë‹¤.
 
             if (bSendPacket) {
                 GCDeleteInventoryItem gcDeleteInventoryItem;
@@ -2035,17 +2035,17 @@ bool dropSweeperToZone(Creature* pCreature, bool bSendPacket) {
     Inventory* pInventory = pPC->getInventory();
     Assert(pInventory != NULL);
 
-    // ÀÎº¥Åä¸®¿¡¼­ Relic ItemÀ» Ã£¾Æº»´Ù.
+    // ì¸ë²¤í† ë¦¬ì—ì„œ Relic Itemì„ ì°¾ì•„ë³¸ë‹¤.
     for (CoordInven_t y = 0; y < pInventory->getHeight(); y++) {
         for (CoordInven_t x = 0; x < pInventory->getWidth(); x++) {
             Item* pItem = pInventory->getItem(x, y);
             if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER) {
-                // ÀÏ´Ü ¾ÆÀÌÅÛÀ» ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                // ì¼ë‹¨ ì•„ì´í…œì„ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 if (dropSweeperToZone(pPC, pItem)) {
-                    // ÀÎº¥Åä¸®¿¡¼­ »«´Ù.
+                    // ì¸ë²¤í† ë¦¬ì—ì„œ ëº€ë‹¤.
                     pInventory->deleteItem(pItem->getObjectID());
 
-                    // playerÀÇ inventory¿¡¼­ Á¦°ÅÇÑ´Ù.
+                    // playerì˜ inventoryì—ì„œ ì œê±°í•œë‹¤.
                     if (bSendPacket) {
                         GCDeleteInventoryItem gcDeleteInventoryItem;
                         gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
@@ -2113,7 +2113,7 @@ void giveGoldMedal(PlayerCreature* pPC) {
         addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_GOLD_MEDAL, 10, true);
 
         GCSystemMessage gcSM;
-        gcSM.setMessage("»ñµÃÑÅµä½ğÅÆÒ»Ã¶.");
+        gcSM.setMessage("ì‚¿ë¤éŒ¤ë“•ìœíƒ¬å¯§ì² .");
         pGamePlayer->sendPacket(&gcSM);
         /*		pStmt->executeQuery("UPDATE GoldMedalCount SET GoldMedalCount=GoldMedalCount+1 WHERE PlayerID='%s'",
                         pGamePlayer->getID().c_str());
@@ -2157,7 +2157,7 @@ void giveLotto(PlayerCreature* pPC, BYTE type, uint num) {
                 addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_GOLD_MEDAL, 10);
 
                 GCSystemMessage gcSM;
-                gcSM.setMessage( "¾ÆÅ×³× ±İ¸Ş´ŞÀ» 1°³ È¹µæÇß½À´Ï´Ù. ³İ¸¶ºí ÀÌº¥Æ® ÆäÀÌÁö¿¡¼­ »óÇ°À» È®ÀÎÇÏ¼¼¿ä." );
+                gcSM.setMessage( "ì•„í…Œë„¤ ê¸ˆë©”ë‹¬ì„ 1ê°œ íšë“í–ˆìŠµë‹ˆë‹¤. ë„·ë§ˆë¸” ì´ë²¤íŠ¸ í˜ì´ì§€ì—ì„œ ìƒí’ˆì„ í™•ì¸í•˜ì„¸ìš”." );
                 pGamePlayer->sendPacket( &gcSM );*/
         pStmt->executeQuery("UPDATE EventLotto SET count=count+%u WHERE PlayerID='%s' AND Type=%u", num,
                             pGamePlayer->getID().c_str(), type);
@@ -2172,7 +2172,7 @@ void giveLotto(PlayerCreature* pPC, BYTE type, uint num) {
 
         if (pResult->next()) {
             char buffer[256];
-            sprintf(buffer, "»î¶¯²ÊÆ±ÊıÒÑ´ïµ½%d¸ö.ÏêÏ¸ÄÚÈİÇë²Î¿¼¹Ù·½Ö÷Ò³.", pResult->getInt(1));
+            sprintf(buffer, "ì‚¶ë•¡ê½ˆíŠ¿é‘’ï¤½ëŒë•%dëª¸.åœˆç–ì½”íœ­í—ê½ì˜˜ë°”ë ˜å¯®å¥³.", pResult->getInt(1));
             GCSystemMessage gcSM;
             gcSM.setMessage(buffer);
             pGamePlayer->sendPacket(&gcSM);
@@ -2216,7 +2216,7 @@ void addOlympicStat(PlayerCreature* pPC, BYTE type, uint num) {
             if ( pResult->next() )
             {
                 char buffer[256];
-                sprintf(buffer, "%u´Ü°è º¹±ÇÀÌ %d°³°¡ µÇ¾ú½À´Ï´Ù. ÀÚ¼¼ÇÑ ³»¿ëÀº È¨ÆäÀÌÁö¸¦ ÂüÁ¶ÇÏ¼¼¿ä.",
+                sprintf(buffer, "%uë‹¨ê³„ ë³µê¶Œì´ %dê°œê°€ ë˜ì—ˆìŠµë‹ˆë‹¤. ìì„¸í•œ ë‚´ìš©ì€ í™ˆí˜ì´ì§€ë¥¼ ì°¸ì¡°í•˜ì„¸ìš”.",
                         type, pResult->getInt(1));
                 GCSystemMessage gcSM;
                 gcSM.setMessage( buffer );
@@ -2239,45 +2239,45 @@ void deletePC(PlayerCreature* pPC) {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
         ////////////////////////////////////////////////////////////
-        // ÀÏ´Ü ½½·¹ÀÌ¾î Å×ÀÌºí¿¡´Â È®½ÇÈ÷ Á¸ÀçÇÑ´Ù.
+        // ì¼ë‹¨ ìŠ¬ë ˆì´ì–´ í…Œì´ë¸”ì—ëŠ” í™•ì‹¤íˆ ì¡´ì¬í•œë‹¤.
         ////////////////////////////////////////////////////////////
         //		pStmt->executeQuery("DELETE FROM Slayer WHERE Name = '%s'", pPC->getName().c_str());
         pStmt->executeQuery("UPDATE Slayer SET Active='INACTIVE' WHERE Name = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¹ìÆÄÀÌ¾î Å×ÀÌºíÀ» Áö¿î´Ù.
+        // ë±€íŒŒì´ì–´ í…Œì´ë¸”ì„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         //		pStmt->executeQuery("DELETE FROM Vampire WHERE Name = '%s'", pPC->getName().c_str());
         pStmt->executeQuery("UPDATE Vampire SET Active='INACTIVE' WHERE Name = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¾Æ¿ì½ºÅÍ½º Å×ÀÌºíÀ» Áö¿î´Ù.
+        // ì•„ìš°ìŠ¤í„°ìŠ¤ í…Œì´ë¸”ì„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         //		pStmt->executeQuery("DELETE FROM Ousters WHERE Name = '%s'", pPC->getName().c_str());
         pStmt->executeQuery("UPDATE Ousters SET Active='INACTIVE' WHERE Name = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ½½·¹ÀÌ¾î ½ºÅ³À» Áö¿î´Ù.
+        // ìŠ¬ë ˆì´ì–´ ìŠ¤í‚¬ì„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM SkillSave WHERE OwnerID = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¹ìÆÄÀÌ¾î ½ºÅ³À» Áö¿öÁØ´Ù.
+        // ë±€íŒŒì´ì–´ ìŠ¤í‚¬ì„ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM VampireSkillSave WHERE OwnerID = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¾Æ¿ì½ºÅÍÁî ½ºÅ³À» Áö¿öÁØ´Ù.
+        // ì•„ìš°ìŠ¤í„°ì¦ˆ ìŠ¤í‚¬ì„ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM OustersSkillSave WHERE OwnerID = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // °è±Ş º¸³Ê½º¸¦ Áö¿öÁØ´Ù.
+        // ê³„ê¸‰ ë³´ë„ˆìŠ¤ë¥¼ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ¾ÆÀÌÅÛÀ» ±ø±×¸® Áö¿î´Ù.
+        // ì•„ì´í…œì„ ê¹¡ê·¸ë¦¬ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         string ownerID = pPC->getName();
         pStmt->executeQueryString("DELETE FROM ARObject WHERE OwnerID = '" + ownerID + "'");
@@ -2364,13 +2364,13 @@ void deletePC(PlayerCreature* pPC) {
         pStmt->executeQueryString("DELETE FROM TrapItemObject WHERE OwnerID = '" + ownerID + "'");
 
         ////////////////////////////////////////////////////////////
-        // Ä¿ÇÃÀÏ °æ¿ì Ä¿ÇÃ ¸ñ·Ï¿¡¼­ Áö¿öÁØ´Ù.
+        // ì»¤í”Œì¼ ê²½ìš° ì»¤í”Œ ëª©ë¡ì—ì„œ ì§€ì›Œì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM CoupleInfo WHERE FemalePartnerName='%s'", ownerID.c_str());
         pStmt->executeQuery("DELETE FROM CoupleInfo WHERE MalePartnerName='%s'", ownerID.c_str());
 
         ////////////////////////////////////////////////////////////
-        // ³²¾Æ ÀÖ´Â ÀÌÆåÆ®µéµµ Áö¿î´Ù.
+        // ë‚¨ì•„ ìˆëŠ” ì´í™íŠ¸ë“¤ë„ ì§€ìš´ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM EffectAcidTouch where OwnerID='%s'", pPC->getName().c_str());
         pStmt->executeQuery("DELETE FROM EffectAftermath where OwnerID='%s'", pPC->getName().c_str());
@@ -2389,17 +2389,17 @@ void deletePC(PlayerCreature* pPC) {
         pStmt->executeQuery("DELETE FROM EnemyErase where OwnerID='%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ÇÃ·¡±× ¼Âµµ »èÁ¦ÇØ ÁØ´Ù.
+        // í”Œë˜ê·¸ ì…‹ë„ ì‚­ì œí•´ ì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM FlagSet WHERE OwnerID='%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛµµ »èÁ¦ÇØ ÁØ´Ù.
+        // ì‹œê°„ì œí•œ ì•„ì´í…œë„ ì‚­ì œí•´ ì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM TimeLimitItems WHERE OwnerID='%s'", pPC->getName().c_str());
 
         ////////////////////////////////////////////////////////////
-        // ÀÌº¥Æ® Á¤º¸µµ »èÁ¦ÇØ ÁØ´Ù.
+        // ì´ë²¤íŠ¸ ì •ë³´ë„ ì‚­ì œí•´ ì¤€ë‹¤.
         ////////////////////////////////////////////////////////////
         pStmt->executeQuery("DELETE FROM EventQuestAdvance WHERE OwnerID='%s'", pPC->getName().c_str());
     }

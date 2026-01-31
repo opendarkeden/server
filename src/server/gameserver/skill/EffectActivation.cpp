@@ -16,7 +16,7 @@ EffectActivation::EffectActivation(Creature* pCreature)
 {
     __BEGIN_TRY
 
-    // µðÅØÆ® È÷µçÀº ½½·¹ÀÌ¾î¸¸ÀÌ ¾µ ¼ö ÀÖ´Ù.
+    // ë””í…íŠ¸ ížˆë“ ì€ ìŠ¬ë ˆì´ì–´ë§Œì´ ì“¸ ìˆ˜ ìžˆë‹¤.
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
@@ -55,13 +55,13 @@ void EffectActivation::unaffect(Creature* pCreature)
     Assert(pCreature != NULL);
     Assert(pCreature->isSlayer());
 
-    // ÇÃ·¡±×¸¦ Á¦°ÅÇÑ´Ù.
+    // í”Œëž˜ê·¸ë¥¼ ì œê±°í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_ACTIVATION);
 
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_ACTIVATION);

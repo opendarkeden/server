@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGStashListHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@ void CGStashListHandler::execute(CGStashList* pPacket, Player* pPlayer)
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     Creature* pPC = pGamePlayer->getCreature();
 
-    // ÆÐÅ¶¿¡¼­ÀÇ object id¿Í PCÀÇ object id°¡ ´Ù¸£¸é ¾È µÇÁö.
+    // íŒ¨í‚·ì—ì„œì˜ object idì™€ PCì˜ object idê°€ ë‹¤ë¥´ë©´ ì•ˆ ë˜ì§€.
     if (PlayerOID != pPC->getObjectID())
         return;
 

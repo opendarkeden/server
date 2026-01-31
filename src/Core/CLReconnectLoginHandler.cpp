@@ -22,16 +22,16 @@
 //////////////////////////////////////////////////////////////////////////////
 // CLReconnectLoginHandler::execute()
 //
-// ÀÌ ÆĞÅ¶Àº ·Î±×ÀÎ¼­¹ö¿¡¼­ ÃÖÃÊ·Î °ÔÀÓ ¼­¹ö·Î ¿¬°áÇÒ ¶§, ¶Ç´Â °ÔÀÓ ¼­¹ö¿¡¼­
-// ´Ù¸¥ °ÔÀÓ ¼­¹ö·Î ÀÌµ¿ÇÒ ¶§, Å¬¶óÀÌ¾ğÆ®°¡ ¼­¹ö·Î Àü¼ÛÇÏ´Â ÃÖÃÊÀÇ ÆĞÅ¶ÀÌ´Ù.
-// ÀÌ¶§ ÇÃ·¹ÀÌ¾î °´Ã¼´Â »õ·Î »ı°Ü³­ »óÅÂÀÌ°í, ÀÌ ÇÃ·¹ÀÌ¾î °´Ã¼´Â IPM ¿¡¼­
-// °ü¸®µÇ´Â »óÅÂÀÌ´Ù.
+// ì´ íŒ¨í‚·ì€ ë¡œê·¸ì¸ì„œë²„ì—ì„œ ìµœì´ˆë¡œ ê²Œì„ ì„œë²„ë¡œ ì—°ê²°í•  ë•Œ, ë˜ëŠ” ê²Œì„ ì„œë²„ì—ì„œ
+// ë‹¤ë¥¸ ê²Œì„ ì„œë²„ë¡œ ì´ë™í•  ë•Œ, í´ë¼ì´ì–¸íŠ¸ê°€ ì„œë²„ë¡œ ì „ì†¡í•˜ëŠ” ìµœì´ˆì˜ íŒ¨í‚·ì´ë‹¤.
+// ì´ë•Œ í”Œë ˆì´ì–´ ê°ì²´ëŠ” ìƒˆë¡œ ìƒê²¨ë‚œ ìƒíƒœì´ê³ , ì´ í”Œë ˆì´ì–´ ê°ì²´ëŠ” IPM ì—ì„œ
+// ê´€ë¦¬ë˜ëŠ” ìƒíƒœì´ë‹¤.
 //
-// ´ç¿¬È÷ ÃÖÃÊÀÇ ÆĞÅ¶À¸·Î ´Ù¸¥ ÆĞÅ¶ÀÌ ³Ñ¾î¿À´Â °æ¿ì¶ó¸é, ÀÌ°ÍÀº ÇØÅ· ½Ãµµ¶ó°í
-// ºÁµµ ¹«¹æÇÏ¹Ç·Î ÀÌ ÆĞÅ¶ÀÌ ÃÖÃÊÀÎÁö °Ë»çÇØ¾ß ÇÑ´Ù. ÀÌ¸¦ À§ÇØ¼­ ÇÃ·¹ÀÌ¾î °´Ã¼¿¡
-// ÀÌÀü ÆĞÅ¶À» ÀúÀåÇÏ°í ÀÖÀ¸¹Ç·Î, ÀÌ °ªÀÌ NULL ÀÎÁö¸¸ º¸¸é µÇ°Ú´Ù.
+// ë‹¹ì—°íˆ ìµœì´ˆì˜ íŒ¨í‚·ìœ¼ë¡œ ë‹¤ë¥¸ íŒ¨í‚·ì´ ë„˜ì–´ì˜¤ëŠ” ê²½ìš°ë¼ë©´, ì´ê²ƒì€ í•´í‚¹ ì‹œë„ë¼ê³ 
+// ë´ë„ ë¬´ë°©í•˜ë¯€ë¡œ ì´ íŒ¨í‚·ì´ ìµœì´ˆì¸ì§€ ê²€ì‚¬í•´ì•¼ í•œë‹¤. ì´ë¥¼ ìœ„í•´ì„œ í”Œë ˆì´ì–´ ê°ì²´ì—
+// ì´ì „ íŒ¨í‚·ì„ ì €ì¥í•˜ê³  ìˆìœ¼ë¯€ë¡œ, ì´ ê°’ì´ NULL ì¸ì§€ë§Œ ë³´ë©´ ë˜ê² ë‹¤.
 //
-// Àß¸øµÈ ÆĞÅ¶ÀÌ¶ó¸é, ban ¿¡ µî·ÏÇÏ°í Á¢¼ÓÀ» Á¾·áÇÑ´Ù.
+// ì˜ëª»ëœ íŒ¨í‚·ì´ë¼ë©´, ban ì— ë“±ë¡í•˜ê³  ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer)
 
@@ -52,8 +52,8 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
     string PlayerID;
 
     //----------------------------------------------------------------------
-    // ÀÌ ÆĞÅ¶À» ReconnectLoginInfo °´Ã¼¸¦ °®°í ¿Â´Ù.
-    // Å©·¡Ä¿´Â Å°°ª°ú Ä³¸¯ÅÍ ÀÌ¸§À» ÀÏÁ¤ ½Ã°£¾È¿¡ ¸ÂÃç¾ß¸¸ Á¢¼ÓÀÌ °¡´ÉÇÏ´Ù.
+    // ì´ íŒ¨í‚·ì„ ReconnectLoginInfo ê°ì²´ë¥¼ ê°–ê³  ì˜¨ë‹¤.
+    // í¬ë˜ì»¤ëŠ” í‚¤ê°’ê³¼ ìºë¦­í„° ì´ë¦„ì„ ì¼ì • ì‹œê°„ì•ˆì— ë§ì¶°ì•¼ë§Œ ì ‘ì†ì´ ê°€ëŠ¥í•˜ë‹¤.
     //----------------------------------------------------------------------
     try {
         ReconnectLoginInfo* pReconnectLoginInfo =
@@ -61,37 +61,37 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
 
         PlayerID = pReconnectLoginInfo->getPlayerID();
 
-        // ÇÃ·¹ÀÌ¾î ÀÌ¸§À» ÀúÀåÇÑ´Ù.
+        // í”Œë ˆì´ì–´ ì´ë¦„ì„ ì €ì¥í•œë‹¤.
         pLoginPlayer->setID(PlayerID);
 
-        // Å°°ªÀ» ÀÎÁõÇÑ´Ù.
+        // í‚¤ê°’ì„ ì¸ì¦í•œë‹¤.
         if (pPacket->getKey() != pReconnectLoginInfo->getKey())
             throw InvalidProtocolException("invalid key");
 
-        // µû¶ó¼­, ÇöÀç ½Ã°£°ú expire time À» ºñ±³ÇÑ´Ù.
+        // ë”°ë¼ì„œ, í˜„ì¬ ì‹œê°„ê³¼ expire time ì„ ë¹„êµí•œë‹¤.
         Timeval currentTime;
         getCurrentTime(currentTime);
         if (pReconnectLoginInfo->getExpireTime() < currentTime) {
-            // ÀÏ´Ü »èÁ¦ÇÑ´Ù.
+            // ì¼ë‹¨ ì‚­ì œí•œë‹¤.
             g_pReconnectLoginInfoManager->deleteReconnectLoginInfo(pReconnectLoginInfo->getClientIP());
             throw InvalidProtocolException("session already expired");
         }
 
-        // ÀÎÁõµÇ¾úÀ¸´Ï, ReconnectLoginInfo ¸¦ »èÁ¦ÇÑ´Ù.
+        // ì¸ì¦ë˜ì—ˆìœ¼ë‹ˆ, ReconnectLoginInfo ë¥¼ ì‚­ì œí•œë‹¤.
         g_pReconnectLoginInfoManager->deleteReconnectLoginInfo(pReconnectLoginInfo->getClientIP());
 
-    } catch (NoSuchElementException& nsee) // ±×·± IP¸¦ °¡Áø CI °¡ ¾øÀ» °æ¿ì
+    } catch (NoSuchElementException& nsee) // ê·¸ëŸ° IPë¥¼ ê°€ì§„ CI ê°€ ì—†ì„ ê²½ìš°
     {
-        // Èì.. ¿¬°á ÀÌÈÄ CLReconnectLogin ÆĞÅ¶À» º¸³»´Â µô·¹ÀÌ°¡ ³Ê¹« ±æ °æ¿ì
-        // session ÀÌ expire µÈ´Ù. ÀÌ·² °æ¿ì¿¡µµ Â¥¸£ÀÚ!
-        // (¿¹¸¦ µé¾î¼­, ÃÖÃÊ ¿¬°á¿¡¼­´Â ¼º°øÇßÀ¸³ª ±×´ÙÀ½¿¡ µğ¹ö±ë »óÅÂ·Î
-        // µé¾î°¥ °æ¿ì, CLReconnectLogin ÆĞÅ¶À» º¸³¾ ¶§Âë¿¡´Â expire µÈ´Ù.)
+        // í .. ì—°ê²° ì´í›„ CLReconnectLogin íŒ¨í‚·ì„ ë³´ë‚´ëŠ” ë”œë ˆì´ê°€ ë„ˆë¬´ ê¸¸ ê²½ìš°
+        // session ì´ expire ëœë‹¤. ì´ëŸ´ ê²½ìš°ì—ë„ ì§œë¥´ì!
+        // (ì˜ˆë¥¼ ë“¤ì–´ì„œ, ìµœì´ˆ ì—°ê²°ì—ì„œëŠ” ì„±ê³µí–ˆìœ¼ë‚˜ ê·¸ë‹¤ìŒì— ë””ë²„ê¹… ìƒíƒœë¡œ
+        // ë“¤ì–´ê°ˆ ê²½ìš°, CLReconnectLogin íŒ¨í‚·ì„ ë³´ë‚¼ ë•Œì¯¤ì—ëŠ” expire ëœë‹¤.)
         GCDisconnect gcDisconnect;
         gcDisconnect.setMessage(nsee.toString());
 
         pLoginPlayer->sendPacket(&gcDisconnect);
 
-        // ÀÌ·¸°Ô ´øÁö¸é »óÀ§ IPM::processCommands()¿¡¼­ disconnect Ã³¸®ÇÑ´Ù.
+        // ì´ë ‡ê²Œ ë˜ì§€ë©´ ìƒìœ„ IPM::processCommands()ì—ì„œ disconnect ì²˜ë¦¬í•œë‹¤.
         throw InvalidProtocolException("fuck");
     } catch (InvalidProtocolException& ipe) {
         cout << endl
@@ -105,7 +105,7 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
 
         pLoginPlayer->sendPacket(&gcDisconnect);
 
-        // ÀÌ·¸°Ô ´øÁö¸é »óÀ§ IPM::processCommands()¿¡¼­ disconnect Ã³¸®ÇÑ´Ù.
+        // ì´ë ‡ê²Œ ë˜ì§€ë©´ ìƒìœ„ IPM::processCommands()ì—ì„œ disconnect ì²˜ë¦¬í•œë‹¤.
         throw;
     }
 
@@ -114,7 +114,7 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
     Statement* pGStmt = NULL;
     Result* pGResult = NULL;
 
-    // ºô¸µ~ by sigi. 2002.5.31
+    // ë¹Œë§~ by sigi. 2002.5.31
     PayType payType;
     string payPlayDate;
     uint payPlayHours;
@@ -127,7 +127,7 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
                                         "PayPlayDate, PayPlayHours, PayPlayFlag FROM Player WHERE PlayerID = '%s'",
                                         PlayerID.c_str());
 
-        // ·Î±×ÀÎ ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù.
+        // ë¡œê·¸ì¸ ì—¬ë¶€ë¥¼ ì²´í¬í•œë‹¤.
         pGResult->next();
 
         WorldID_t CurrentWorldID = pGResult->getInt(1);
@@ -158,13 +158,13 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
             try {
                 pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-                /// LogOnÀÌ 'LOGOFF'ÀÎ °æ¿ì¸¸ LOGONÀ¸·Î ¼³Á¤ÇÑ´Ù. by sigi. 2002.5.15
+                /// LogOnì´ 'LOGOFF'ì¸ ê²½ìš°ë§Œ LOGONìœ¼ë¡œ ì„¤ì •í•œë‹¤. by sigi. 2002.5.15
                 pStmt->executeQuery(
                     "UPDATE Player SET LogOn='LOGON', CurrentLoginServerID=%d WHERE PlayerID='%s' AND LogOn='LOGOFF'",
                     g_pConfig->getPropertyInt("LoginServerID"), PlayerID.c_str());
 
-                // ÀÌ¹Ì 'LOGON'ÀÌ¾ú´ø °æ¿ì
-                // PlayerID°¡ ¾ø´Â °æ¿ì..
+                // ì´ë¯¸ 'LOGON'ì´ì—ˆë˜ ê²½ìš°
+                // PlayerIDê°€ ì—†ëŠ” ê²½ìš°..
                 if (pStmt->getAffectedRowCount() == 0) {
                     // cout << endl << "+-----------------------+" << endl << "|    Deny Multi Login   |" << endl <<
                     // "+-----------------------+" << endl << endl;
@@ -196,29 +196,29 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
 
 #ifdef __PAY_SYSTEM_LOGIN__
         string connectIP = pLoginPlayer->getSocket()->getHost();
-        // ºô¸µ by sigi. 2002.5.31
+        // ë¹Œë§ by sigi. 2002.5.31
         if (!pLoginPlayer->loginPayPlay(payType, payPlayDate, payPlayHours, payPlayFlag, connectIP, PlayerID)) {
             SAFE_DELETE(pGStmt);
             throw InvalidProtocolException("Pay First!");
         }
 #elif defined(__PAY_SYSTEM_FREE_LIMIT__)
         string connectIP = pLoginPlayer->getSocket()->getHost();
-        // ºô¸µ by sigi. 2002.5.31
+        // ë¹Œë§ by sigi. 2002.5.31
         if (pLoginPlayer->loginPayPlay(payType, payPlayDate, payPlayHours, payPlayFlag, connectIP, PlayerID)) {
-            // ReconnectÇß´Âµ¥ PayPlay°¡ °¡´ÉÇÏ´Ù´Â °ÍÀº..
-            // BillingPlay°¡ ¾Æ´Ï°í PayPlay·Î °ÔÀÓÀ» Çß´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+            // Reconnectí–ˆëŠ”ë° PayPlayê°€ ê°€ëŠ¥í•˜ë‹¤ëŠ” ê²ƒì€..
+            // BillingPlayê°€ ì•„ë‹ˆê³  PayPlayë¡œ ê²Œì„ì„ í–ˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
             // by sigi. 2002.11.22
-            // ·Î±×ÀÎ ¼­¹ö¿¡¼­ billing ¿¬°á ºÎºĞ »©±â·Î Çß´Ù.
-            // ¾Öµåºô ¿äÃ» »çÇ×. by bezz 2003.04.22
+            // ë¡œê·¸ì¸ ì„œë²„ì—ì„œ billing ì—°ê²° ë¶€ë¶„ ë¹¼ê¸°ë¡œ í–ˆë‹¤.
+            // ì• ë“œë¹Œ ìš”ì²­ ì‚¬í•­. by bezz 2003.04.22
             // #ifdef __CONNECT_BILLING_SYSTEM__
             // pLoginPlayer->setBillingLoginVerified();
             // pLoginPlayer->setBillingUserStatus("XX");
             // #endif
         } else {
-            //// BillingPlay·Î °ÔÀÓÀ» Çß¾ú´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+            //// BillingPlayë¡œ ê²Œì„ì„ í–ˆì—ˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
             // by sigi. 2002.11.22
-            // ·Î±×ÀÎ ¼­¹ö¿¡¼­ billing ¿¬°á ºÎºĞ »©±â·Î Çß´Ù.
-            // ¾Öµåºô ¿äÃ» »çÇ×. by bezz 2003.04.22
+            // ë¡œê·¸ì¸ ì„œë²„ì—ì„œ billing ì—°ê²° ë¶€ë¶„ ë¹¼ê¸°ë¡œ í–ˆë‹¤.
+            // ì• ë“œë¹Œ ìš”ì²­ ì‚¬í•­. by bezz 2003.04.22
             // #ifdef __CONNECT_BILLING_SYSTEM__
             // pLoginPlayer->setBillingLoginVerified();
             // pLoginPlayer->setBillingUserStatus("HO");
@@ -232,7 +232,7 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
         SAFE_DELETE(pGStmt);
     } catch (SQLQueryException& sce) {
         // cout << sce.toString() << endl;
-        //  Äõ¸® °á°ú ¹× Äõ¸®¹® °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+        //  ì¿¼ë¦¬ ê²°ê³¼ ë° ì¿¼ë¦¬ë¬¸ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
         SAFE_DELETE(pGStmt);
         throw DisconnectException(sce.toString());
     }
@@ -245,7 +245,7 @@ void CLReconnectLoginHandler::execute(CLReconnectLogin* pPacket, Player* pPlayer
 
 
     //----------------------------------------------------------------------
-    // ÀÌÁ¦ LCPCList ÆĞÅ¶À» ¸¸µé¾î¼­ Àü¼ÛÇÏÀÚ
+    // ì´ì œ LCPCList íŒ¨í‚·ì„ ë§Œë“¤ì–´ì„œ ì „ì†¡í•˜ì
     //----------------------------------------------------------------------
     LCPCList lcPCList;
 

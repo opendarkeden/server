@@ -18,7 +18,7 @@
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot,
                         CEffectID_t CEffectID)
@@ -40,9 +40,9 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°ÝÇÒ ¼ö ¾ø´Ù.
-        // ÀúÁÖ ¸é¿ª. by sigi. 2002.9.13
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // ì €ì£¼ ë©´ì—­. by sigi. 2002.9.13
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE) ||
             !canAttack(pVampire, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pVampire, getSkillType());
@@ -60,7 +60,7 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
         SkillType_t SkillType = pSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // Knowledge of Curse °¡ ÀÖ´Ù¸é hit bonus 10
+        // Knowledge of Curse ê°€ ìžˆë‹¤ë©´ hit bonus 10
         int HitBonus = 0;
         if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE)) {
             RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
@@ -94,14 +94,14 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
             SkillOutput output;
             computeOutput(input, output);
 
-            // pTargetCreature°¡ ÀúÁÖ¸¶¹ýÀ» ¹Ý»çÇÏ´Â °æ¿ì
+            // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
             if (CheckReflection(pVampire, pTargetCreature, getSkillType())) {
                 pTargetCreature = (Creature*)pVampire;
                 TargetObjectID = pVampire->getObjectID();
             }
 
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             EffectSeduction* pEffect = new EffectSeduction(pTargetCreature);
             pEffect->setDeadline(output.Duration);
             pEffect->setLevel(pSkillInfo->getLevel() / 2);
@@ -110,7 +110,7 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_SEDUCTION);
             pTargetCreature->addEffect(pEffect);
 
-            // ´É·ÂÄ¡¸¦ °è»êÇØ¼­ º¸³»ÁØ´Ù.
+            // ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
             if (pTargetCreature->isSlayer()) {
                 Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
@@ -171,10 +171,10 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pVampire, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }
@@ -227,7 +227,7 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ëª¬ìŠ¤í„° ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Seduction::execute(Monster* pMonster, Creature* pEnemy)
 
@@ -254,7 +254,7 @@ void Seduction::execute(Monster* pMonster, Creature* pEnemy)
         if (pMonster->isMaster()) {
             int x = pMonster->getX();
             int y = pMonster->getY();
-            int Splash = 3 + rand() % 5; // 3~7 ¸¶¸®
+            int Splash = 3 + rand() % 5; // 3~7 ë§ˆë¦¬
             int range = 2;               // 5x5
             list<Creature*> creatureList;
             getSplashVictims(pMonster->getZone(), x, y, Creature::CREATURE_CLASS_MAX, creatureList, Splash, range);
@@ -316,13 +316,13 @@ void Seduction::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         SkillOutput output;
         computeOutput(input, output);
 
-        // pTargetCreature°¡ ÀúÁÖ¸¶¹ýÀ» ¹Ý»çÇÏ´Â °æ¿ì
+        // pTargetCreatureê°€ ì €ì£¼ë§ˆë²•ì„ ë°˜ì‚¬í•˜ëŠ” ê²½ìš°
         if (CheckReflection(pMonster, pEnemy, getSkillType())) {
             pEnemy = (Creature*)pMonster;
         }
 
 
-        // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇØ ºÙÀÎ´Ù.
+        // ì´íŽ™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
         EffectSeduction* pEffect = new EffectSeduction(pEnemy);
         pEffect->setDeadline(output.Duration);
         pEffect->setLevel(pSkillInfo->getLevel() / 2);
@@ -331,7 +331,7 @@ void Seduction::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
         pEnemy->setFlag(Effect::EFFECT_CLASS_SEDUCTION);
         pEnemy->addEffect(pEffect);
 
-        // ´É·ÂÄ¡¸¦ °è»êÇØ¼­ º¸³»ÁØ´Ù.
+        // ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
         if (pEnemy->isSlayer()) {
             Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pEnemy);
 

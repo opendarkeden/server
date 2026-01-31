@@ -86,7 +86,7 @@ void GameServerPlayer::processOutput() throw(IOException, Error) {
     try {
         m_pOutputStream->flush();
     } catch (InvalidProtocolException&) {
-        throw DisconnectException("ÀÌ»óÇÑ ÆÐÅ¶ÀÓ");
+        throw DisconnectException("ì´ìƒí•œ íŒ¨í‚·ìž„");
     }
 
     __END_CATCH
@@ -102,9 +102,9 @@ void GameServerPlayer::processCommand() throw(IOException, Error) {
     __BEGIN_TRY
 
     try {
-        // ÀÔ·Â ¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆÐÅ¶µéÀ» ¸ðÁ¶¸® Ã³¸®ÇÑ´Ù.
+        // ìž…ë ¥ ë²„í¼ì— ë“¤ì–´ìžˆëŠ” ì™„ì „í•œ íŒ¨í‚·ë“¤ì„ ëª¨ì¡°ë¦¬ ì²˜ë¦¬í•œë‹¤.
         while (true) {
-            // ÀÏ´Ü ÆÐÅ¶ÀÇ »çÀÌÁî¿Í ID ¸¦ ÀÐ¾î¿Â´Ù.
+            // ì¼ë‹¨ íŒ¨í‚·ì˜ ì‚¬ì´ì¦ˆì™€ ID ë¥¼ ì½ì–´ì˜¨ë‹¤.
             char header[szMPacketHeader];
             MPacketSize_t packetSize;
             MPacketID_t packetID;
@@ -118,34 +118,34 @@ void GameServerPlayer::processCommand() throw(IOException, Error) {
             // packetSize = ntohl( packetSize );
             // packetID = ntohl( packetID );
 
-            // ÆÐÅ¶ ¾ÆÀÌµð°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄÝ ¿¡·¯
+            // íŒ¨í‚· ì•„ì´ë””ê°€ ì´ìƒí•˜ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬
             if (!g_pMPacketManager->hasHandler(packetID)) {
                 filelog(MOFUS_ERROR_FILE, "Invalid PacketID : %d", packetID);
                 throw ProtocolException("Invalid PacketID");
             }
 
-            // ÆÐÅ¶ »çÀÌÁî È®ÀÎ
+            // íŒ¨í‚· ì‚¬ì´ì¦ˆ í™•ì¸
             if (g_pMPacketManager->getPacketSize(packetID) != packetSize) {
                 filelog(MOFUS_ERROR_FILE, "Invalid PacketSize : %d, expected size : %d", packetSize,
                         g_pMPacketManager->getPacketSize(packetID));
                 throw ProtocolException("Invalid PacketSize");
             }
 
-            // ¿ÏÀüÇÑ ÇÏ³ªÀÇ ÆÐÅ¶ÀÌ µé¾îÀÖ´ÂÁö È®ÀÎ
+            // ì™„ì „í•œ í•˜ë‚˜ì˜ íŒ¨í‚·ì´ ë“¤ì–´ìžˆëŠ”ì§€ í™•ì¸
             if (m_pInputStream->length() < (unsigned int)(packetSize + szMPacketSize))
                 return;
 
-            // ÆÐÅ¶À» »ý¼º
+            // íŒ¨í‚·ì„ ìƒì„±
             MPacket* pPacket = g_pMPacketManager->createPacket(packetID);
 
-            // ÆÐÅ¶ °´Ã¼¿¡ ÀÐÀº ³»¿ëÀ» Ã¤¿î´Ù.
+            // íŒ¨í‚· ê°ì²´ì— ì½ì€ ë‚´ìš©ì„ ì±„ìš´ë‹¤.
             pPacket->read(*m_pInputStream);
 
-            // ÆÐÅ¶ÀÇ ÇØ´ç ÇÚµé·¯¸¦ ½ÇÇàÇÑ´Ù.
+            // íŒ¨í‚·ì˜ í•´ë‹¹ í•¸ë“¤ëŸ¬ë¥¼ ì‹¤í–‰í•œë‹¤.
             g_pMPacketManager->execute(this, pPacket);
         }
     } catch (InsufficientDataException) {
-        // ¹«½Ã
+        // ë¬´ì‹œ
     }
 
     __END_CATCH
@@ -177,9 +177,9 @@ void GameServerPlayer::disconnect(bool bDisconnected) throw(InvalidProtocolExcep
     __BEGIN_TRY
 
     try {
-        // Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÇÑ °æ¿ì¿¡´Â Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÒ ¼ö ÀÖ´Ù.
-        // ±×·¯³ª, ºÒ¹ýÀûÀÎ µð½º¸¦ °É¾ú´Ù¸é ¼ÒÄÏÀÌ ´Ý°åÀ¸¹Ç·Î
-        // ÇÃ·¯½ÃÇÒ °æ¿ì SIG_PIPE À» ¹Þ°Ô µÈ´Ù.
+        // ì •ë‹¹í•˜ê²Œ ë¡œê·¸ì•„ì›ƒí•œ ê²½ìš°ì—ëŠ” ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•  ìˆ˜ ìžˆë‹¤.
+        // ê·¸ëŸ¬ë‚˜, ë¶ˆë²•ì ì¸ ë””ìŠ¤ë¥¼ ê±¸ì—ˆë‹¤ë©´ ì†Œì¼“ì´ ë‹«ê²¼ìœ¼ë¯€ë¡œ
+        // í”ŒëŸ¬ì‹œí•  ê²½ìš° SIG_PIPE ì„ ë°›ê²Œ ëœë‹¤.
         if (bDisconnected == UNDISCONNECTED) {
             m_pOutputStream->flush();
         }
@@ -189,7 +189,7 @@ void GameServerPlayer::disconnect(bool bDisconnected) throw(InvalidProtocolExcep
         cerr << "GameServerPlayer::disconnect Exception Check!!" << endl;
         cerr << t.toString() << endl;
         m_pSocket->close();
-        // throw Error("¾¾¹Ù...");
+        // throw Error("ì”¨ë°”...");
     }
 
     __END_CATCH

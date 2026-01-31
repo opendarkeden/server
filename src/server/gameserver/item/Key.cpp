@@ -149,7 +149,7 @@ ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) {
 
     ItemID_t targetID = 0;
 
-    // Å¸°ÙÀÌ 0ÀÌ ¾Æ´Ï¶óµµ Å¸°ÙÀÌ ¾øÀ¸¸é »õ ¸ğÅÍ»çÀÌÅ¬À» ³Ö¾î¾ß µÈ´Ù.
+    // íƒ€ê²Ÿì´ 0ì´ ì•„ë‹ˆë¼ë„ íƒ€ê²Ÿì´ ì—†ìœ¼ë©´ ìƒˆ ëª¨í„°ì‚¬ì´í´ì„ ë„£ì–´ì•¼ ëœë‹¤.
     //	Assert( getTarget() == 0 );
     Assert(pSlayer != NULL);
     Zone* pZone = pSlayer->getZone();
@@ -176,7 +176,7 @@ ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) {
     Statement* pStmt = NULL;
     Result* pResult = NULL;
 
-    // targetID¸¦ DB¿¡µµ update½ÃÄÑ¾ß ÇÑ´Ù.
+    // targetIDë¥¼ DBì—ë„ updateì‹œì¼œì•¼ í•œë‹¤.
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         pResult = pStmt->executeQuery("UPDATE KeyObject SET Target=%lu WHERE ItemID=%lu", targetID, getItemID());
@@ -189,7 +189,7 @@ ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) {
     filelog("motorcycle.txt", "[SetTargetID] Owner = %s, KeyID = %lu, Key's targetID = %lu, MotorcycleID = %lu",
             pSlayer->getName().c_str(), getItemID(), getTarget(), pMotorcycle->getItemID());
 
-    // ¹Ø¿¡¼­ pMotorcycleÀ» »ç¿ëÇØµµ µÇ°ÚÁö¸¸, ±âÁ¸ ÄÚµå ¾È °Çµå¸±·Á°í ¿©±â¼­ Áö¿î´Ù.
+    // ë°‘ì—ì„œ pMotorcycleì„ ì‚¬ìš©í•´ë„ ë˜ê² ì§€ë§Œ, ê¸°ì¡´ ì½”ë“œ ì•ˆ ê±´ë“œë¦´ë ¤ê³  ì—¬ê¸°ì„œ ì§€ìš´ë‹¤.
     SAFE_DELETE(pMotorcycle);
 
     return targetID;
@@ -398,7 +398,7 @@ void KeyLoader::load(Creature* pCreature)
                     pInventory = pVampire->getInventory();
                     pStash = pVampire->getStash();
                 } else
-                    throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                    throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
                 switch (storage) {
                 case STORAGE_INVENTORY:
@@ -521,7 +521,7 @@ void KeyLoader::load(Zone* pZone)
 
             case STORAGE_STASH:
             case STORAGE_CORPSE:
-                throw UnsupportedError("»óÀÚ ¹× ½ÃÃ¼¾ÈÀÇ ¾ÆÀÌÅÛÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+                throw UnsupportedError("ìƒì ë° ì‹œì²´ì•ˆì˜ ì•„ì´í…œì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
             default:
                 throw Error("Storage must be STORAGE_ZONE");

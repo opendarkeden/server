@@ -2,8 +2,8 @@
 // Filename    : GCShopBuyFail.h
 // Written By  : excel96
 // Description :
-// ÇÃ·¹ÀÌ¾î°¡ »óÁ¡¿¡¼­ ¾ÆÀÌÅÛÀ» ±¸ÀÔÇÏ·Á°í Çß´Âµ¥,
-// Á¤»óÀûÀÎ ±¸¸Å°¡ ½ÇÆÐÇßÀ» °æ¿ì¿¡ ÇÃ·¹ÀÌ¾î¿¡°Ô º¸³»´Â ÆÐÅ¶.
+// í”Œë ˆì´ì–´ê°€ ìƒì ì—ì„œ ì•„ì´í…œì„ êµ¬ìž…í•˜ë ¤ê³  í–ˆëŠ”ë°,
+// ì •ìƒì ì¸ êµ¬ë§¤ê°€ ì‹¤íŒ¨í–ˆì„ ê²½ìš°ì— í”Œë ˆì´ì–´ì—ê²Œ ë³´ë‚´ëŠ” íŒ¨í‚·.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_SHOP_BUY_FAIL_H__
@@ -13,19 +13,19 @@
 #include "PacketFactory.h"
 
 enum GCShopBuyFailCode {
-    // µ·ÀÌ ¸ðÀÚ¶õ´Ù.
+    // ëˆì´ ëª¨ìžëž€ë‹¤.
     GC_SHOP_BUY_FAIL_NOT_ENOUGH_MONEY = 0,
 
-    // ÀÚ¸®°¡ ¸ðÀÚ¶õ´Ù.
+    // ìžë¦¬ê°€ ëª¨ìžëž€ë‹¤.
     GC_SHOP_BUY_FAIL_NOT_ENOUGH_SPACE,
 
-    // NPC°¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+    // NPCê°€ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
     GC_SHOP_BUY_FAIL_NPC_NOT_EXIST,
 
-    // NPC¶ó°í º¸³»¿Â ³ðÀÌ NPC°¡ ¾Æ´Ï´Ù.
+    // NPCë¼ê³  ë³´ë‚´ì˜¨ ë†ˆì´ NPCê°€ ì•„ë‹ˆë‹¤.
     GC_SHOP_BUY_FAIL_NOT_NPC,
 
-    // ÁöÁ¤ÇÑ À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
+    // ì§€ì •í•œ ìœ„ì¹˜ì— ì•„ì´í…œì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
     GC_SHOP_BUY_FAIL_ITEM_NOT_EXIST,
 
     GC_SHOP_BUY_FAIL_NOT_ENOUGH_BLACK_STAR,

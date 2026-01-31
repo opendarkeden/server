@@ -30,10 +30,10 @@ GameServerInfoManager::~GameServerInfoManager()
 void GameServerInfoManager::clear()
 
 {
-    // hashmap ¾ÈÀÇ °¢ pair ÀÇ second, Áï GameServerInfo °´Ã¼¸¸À» »èÁ¦ÇÏ°í
-    // pair ÀÚÃ¼´Â ±×´ë·Î µĞ´Ù. (GameServerInfo°¡ Èü¿¡ »ı¼ºµÇ¾î ÀÖ´Ù´Â °Í¿¡
-    // À¯ÀÇÇÏ¶ó. Áï ÇÊ»ì»èÁ¦¸¦ ÇØ¾ß ÇÑ´Ù. ÇÏ±ä, GSIMÀÌ destruct µÈ´Ù´Â °ÍÀº
-    // ·Î±×ÀÎ ¼­¹ö°¡ ¼Ë´Ù¿îµÈ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÏ´Ï±ñ.. - -;)
+    // hashmap ì•ˆì˜ ê° pair ì˜ second, ì¦‰ GameServerInfo ê°ì²´ë§Œì„ ì‚­ì œí•˜ê³ 
+    // pair ìì²´ëŠ” ê·¸ëŒ€ë¡œ ë‘”ë‹¤. (GameServerInfoê°€ í™ì— ìƒì„±ë˜ì–´ ìˆë‹¤ëŠ” ê²ƒì—
+    // ìœ ì˜í•˜ë¼. ì¦‰ í•„ì‚´ì‚­ì œë¥¼ í•´ì•¼ í•œë‹¤. í•˜ê¸´, GSIMì´ destruct ëœë‹¤ëŠ” ê²ƒì€
+    // ë¡œê·¸ì¸ ì„œë²„ê°€ ì…§ë‹¤ìš´ëœë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•˜ë‹ˆê¹.. - -;)
     for (int j = 1; j < m_MaxWorldID; j++) {
         for (int i = 0; i < m_MaxServerGroupID; i++) {
             HashMapGameServerInfo::iterator itr = m_pGameServerInfos[j][i].begin();
@@ -41,7 +41,7 @@ void GameServerInfoManager::clear()
                 SAFE_DELETE(itr->second);
             }
 
-            // ÀÌÁ¦ ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ğµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+            // ì´ì œ í•´ì‰¬ë§µì•ˆì— ìˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
             m_pGameServerInfos[j][i].clear();
         }
     }
@@ -78,7 +78,7 @@ void GameServerInfoManager::load()
 
     Statement* pStmt = NULL;
 
-    // ¸ÕÀú MAX SERVER GROUP ID¸¦ ÀĞ¾îµé¿©¾ß ÇÑ´Ù.
+    // ë¨¼ì € MAX SERVER GROUP IDë¥¼ ì½ì–´ë“¤ì—¬ì•¼ í•œë‹¤.
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
         Result* pResult = pStmt->executeQuery("SELECT MAX(GroupID) FROM GameServerInfo");
@@ -152,12 +152,12 @@ for (uint i = 0 ; i < m_Width ; i++) m_pTiles[i] = new Tile [m_Height];
     END_DB(pStmt)
 
     ///////////////////////////////////////////////////////////////////////////////
-    // PK Server ¼¼ÆÃÇÏ±â
-    // DBÀÇ PKServerList Å×ÀÌºí¿¡¼­ ÀĞ¾î¼­ ¼¼ÆÃÇÑ´Ù.
-    // PKServerList ´Â ÇÃ·¹ÀÌ¾î(login) DB ¿¡ ÀÖ´Ù.
+    // PK Server ì„¸íŒ…í•˜ê¸°
+    // DBì˜ PKServerList í…Œì´ë¸”ì—ì„œ ì½ì–´ì„œ ì„¸íŒ…í•œë‹¤.
+    // PKServerList ëŠ” í”Œë ˆì´ì–´(login) DB ì— ìˆë‹¤.
     ///////////////////////////////////////////////////////////////////////////////
     BEGIN_DB {
-        // PKServerList ´Â ÇÃ·¹ÀÌ¾î(login) DB ¿¡ ÀÖ´Ù.
+        // PKServerList ëŠ” í”Œë ˆì´ì–´(login) DB ì— ìˆë‹¤.
         pStmt = g_pDatabaseManager->getDistConnection("DARKEDEN")->createStatement();
         Result* pResult = pStmt->executeQuery("SELECT WorldID, ServerGroupID FROM NonPKServerList");
 
@@ -177,11 +177,11 @@ for (uint i = 0 ; i < m_Width ; i++) m_pTiles[i] = new Tile [m_Height];
     END_DB(pStmt)
 
     ///////////////////////////////////////////////////////////////////////////////
-    // Castle Stat ·Îµù
-    // ÀÌ ¼­¹ö¿¡¼­ ¾î¶² ¼­¹öÀÇ ÀüÀï °á°ú¿¡ µû¶ó ¹Ù²î´ÂÁö
+    // Castle Stat ë¡œë”©
+    // ì´ ì„œë²„ì—ì„œ ì–´ë–¤ ì„œë²„ì˜ ì „ìŸ ê²°ê³¼ì— ë”°ë¼ ë°”ë€ŒëŠ”ì§€
     ///////////////////////////////////////////////////////////////////////////////
     BEGIN_DB {
-        // ÇÃ·¹ÀÌ¾î(login) DB ¿¡ ÀÖ´Ù.
+        // í”Œë ˆì´ì–´(login) DB ì— ìˆë‹¤.
         pStmt = g_pDatabaseManager->getDistConnection("DARKEDEN")->createStatement();
         Result* pResult = pStmt->executeQuery("SELECT WorldID, ServerGroupID, FollowServerID FROM CastleStatInfo");
 
@@ -243,13 +243,13 @@ void GameServerInfoManager::deleteGameServerInfo(const ServerID_t ServerID, cons
     HashMapGameServerInfo::iterator itr = m_pGameServerInfos[WorldID][ServerGroupID].find(ServerID);
 
     if (itr != m_pGameServerInfos[WorldID][ServerGroupID].end()) {
-        // GameServerInfo ¸¦ »èÁ¦ÇÑ´Ù.
+        // GameServerInfo ë¥¼ ì‚­ì œí•œë‹¤.
         delete itr->second;
 
-        // pair¸¦ »èÁ¦ÇÑ´Ù.
+        // pairë¥¼ ì‚­ì œí•œë‹¤.
         m_pGameServerInfos[WorldID][ServerGroupID].erase(itr);
     } else {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾øÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -274,7 +274,7 @@ GameServerInfo * GameServerInfoManager::getGameServerInfo (const string & nickna
 
     } else {
 
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
         throw NoSuchElementException(nickname);
 
     }
@@ -292,7 +292,7 @@ GameServerInfo* GameServerInfoManager::getGameServerInfo(const ServerID_t Server
     GameServerInfo* pGameServerInfo = NULL;
 
     if (WorldID >= m_MaxWorldID || ServerGroupID >= m_MaxServerGroupID) {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
         throw NoSuchElementException();
     }
 
@@ -301,7 +301,7 @@ GameServerInfo* GameServerInfoManager::getGameServerInfo(const ServerID_t Server
     if (itr != m_pGameServerInfos[WorldID][ServerGroupID].end()) {
         pGameServerInfo = itr->second;
     } else {
-        // ±×·± °ÔÀÓ¼­¹öÀÎÆ÷ °´Ã¼¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+        // ê·¸ëŸ° ê²Œì„ì„œë²„ì¸í¬ ê°ì²´ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
         throw NoSuchElementException();
     }
 

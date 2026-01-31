@@ -21,9 +21,9 @@
 //
 // class UpdateServerPlayer
 //
-// ¾÷µ¥ÀÌÆ® ¼­¹ö¿ë ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// ì—…ë°ì´íŠ¸ ì„œë²„ìš© í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
-// ÀÔ·ÂÀº ¹öÆÛ¸µÀ» ÇÏÁö¸¸, Ãâ·ÂÀº ¹öÆÛ¸µÀ» ÇÏÁö ¾Ê´Â´Ù.
+// ì…ë ¥ì€ ë²„í¼ë§ì„ í•˜ì§€ë§Œ, ì¶œë ¥ì€ ë²„í¼ë§ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 //
 //--------------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ public:
     virtual void sendPacket(Packet* packet) throw(ProtocolException, Error);
 
     // disconnect
-    // Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(UNDISCONNECTED)
+    // ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(UNDISCONNECTED)
     virtual void disconnect(bool bDisconnected = DISCONNECTED) throw(Error);
 
     // get debug string

@@ -15,7 +15,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void Liberty::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                       CEffectID_t CEffectID)
@@ -44,7 +44,7 @@ void Liberty::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !pTargetCreature->isOusters()) {
             executeSkillFailException(pOusters, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -86,10 +86,10 @@ void Liberty::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
         bool bHitRoll2 = (rand() % 100) < Ratio;
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bHitRoll2 && bSatisfyRequire && bHPCheck) {
-            // ∏∂≥™∏¶ ¡Ÿ¿Œ¥Ÿ.
+            // ÎßàÎÇòÎ•º Ï§ÑÏù∏Îã§.
             decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
-            // ¿Ã∆Â∆Æ¿« »ø∞˙øÕ ¡ˆº”Ω√∞£¿ª ∞ËªÍ«—¥Ÿ.
+            // Ïù¥ÌéôÌä∏Ïùò Ìö®Í≥ºÏôÄ ÏßÄÏÜçÏãúÍ∞ÑÏùÑ Í≥ÑÏÇ∞ÌïúÎã§.
             SkillInput input(pOusters, pOustersSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_OTHER;
@@ -97,7 +97,7 @@ void Liberty::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
 
             pEffect->setDeadline(0);
 
-            // ∆–≈∂¿ª ¡ÿ∫Ò«ÿº≠ ∫∏≥Ω¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ Ï§ÄÎπÑÌï¥ÏÑú Î≥¥ÎÇ∏Îã§.
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);

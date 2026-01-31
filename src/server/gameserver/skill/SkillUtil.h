@@ -13,12 +13,12 @@
 #include "Vampire.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ÅÅ©·Î, »ó¼ö
+// ë§¤í¬ë¡œ, ìƒìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 
-// decreaseMana¸¦ È£ÃâÇßÀ» °æ¿ì,
-// MP¸¸ ´â¾ÒÀ¸¸é CONSUME_MP¸¦, HP¸¸ ´â¾ÒÀ» °æ¿ì¿¡´Â CONSUME_HP¸¦,
-// µÑ ´Ù ¼Ò¸ğµÇ¾úÀ» °æ¿ì¿¡´Â, BOTH¸¦ ¸®ÅÏÇÑ´Ù.
+// decreaseManaë¥¼ í˜¸ì¶œí–ˆì„ ê²½ìš°,
+// MPë§Œ ë‹³ì•˜ìœ¼ë©´ CONSUME_MPë¥¼, HPë§Œ ë‹³ì•˜ì„ ê²½ìš°ì—ëŠ” CONSUME_HPë¥¼,
+// ë‘˜ ë‹¤ ì†Œëª¨ë˜ì—ˆì„ ê²½ìš°ì—ëŠ”, BOTHë¥¼ ë¦¬í„´í•œë‹¤.
 #define CONSUME_MP 0
 #define CONSUME_HP 1
 #define CONSUME_BOTH 2
@@ -40,208 +40,208 @@ class Item;
 class Zone;
 
 //////////////////////////////////////////////////////////////////////////////
-// µ¥¹ÌÁö °è»ê ÇÔ¼ö
+// ë°ë¯¸ì§€ ê³„ì‚° í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 
-// °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ ÆÄ¶ó¹ÌÅÍ¸¦ °è»êÇØ ÃÖÁ¾ µ¥¹ÌÁö¸¦ »êÃâÇÑ´Ù.
+// ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ íŒŒë¼ë¯¸í„°ë¥¼ ê³„ì‚°í•´ ìµœì¢… ë°ë¯¸ì§€ë¥¼ ì‚°ì¶œí•œë‹¤.
 Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature);
 
-// °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ê³µê²©ìì˜ ìˆœìˆ˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computePureDamage(Creature* pCreature);
 
-// °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ ÆÄ¶ó¹ÌÅÍ¸¦ °è»êÇØ ÃÖÁ¾ µ¥¹ÌÁö¸¦ »êÃâÇÑ´Ù.
-// À§ÀÇ ÇÔ¼ö¿Í °°À¸³ª, ÀÌ ÇÔ¼ö¸¦ ºÎ¸¦ °æ¿ì¿¡´Â ³»ºÎÀûÀ¸·Î Å©¸®Æ¼ÄÃ È÷Æ®¿Í °ü·ÃµÈ ºÎºĞÀÌ Ã³¸®µÈ´Ù.
+// ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ íŒŒë¼ë¯¸í„°ë¥¼ ê³„ì‚°í•´ ìµœì¢… ë°ë¯¸ì§€ë¥¼ ì‚°ì¶œí•œë‹¤.
+// ìœ„ì˜ í•¨ìˆ˜ì™€ ê°™ìœ¼ë‚˜, ì´ í•¨ìˆ˜ë¥¼ ë¶€ë¥¼ ê²½ìš°ì—ëŠ” ë‚´ë¶€ì ìœ¼ë¡œ í¬ë¦¬í‹°ì»¬ íˆíŠ¸ì™€ ê´€ë ¨ëœ ë¶€ë¶„ì´ ì²˜ë¦¬ëœë‹¤.
 Damage_t computeDamage(Creature* pCreature, Creature* pTargetCreature, int CriticalBonus, bool& bCritical);
 
-// ¿ø·¡ µ¥¹ÌÁö¿¡¼­ ÇÁ·ÎÅØ¼ÇÀ» Á¦¿ÜÇÑ ÃÖÁ¾ µ¥¹ÌÁö¸¦ ¸®ÅÏÇÑ´Ù.
+// ì›ë˜ ë°ë¯¸ì§€ì—ì„œ í”„ë¡œí…ì…˜ì„ ì œì™¸í•œ ìµœì¢… ë°ë¯¸ì§€ë¥¼ ë¦¬í„´í•œë‹¤.
 double computeFinalDamage(Damage_t minDamage, Damage_t maxDamage, Damage_t realDamage, Protection_t Protection,
                           bool bCritical);
 
-// ½½·¹ÀÌ¾î °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeSlayerDamage(Slayer* pSlayer, Creature* pTargetCreature, bool bCritical);
 
-// ¹ìÆÄÀÌ¾î °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ë±€íŒŒì´ì–´ ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeVampireDamage(Vampire* pVampire, Creature* pTargetCreature, bool bCritical);
 
-// ¾Æ¿ì½ºÅÍ½º °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeOustersDamage(Ousters* pOusters, Creature* pTargetCreature, bool bCritical);
 
-// ¸ó½ºÅÍ °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ëª¬ìŠ¤í„° ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeMonsterDamage(Monster* pMonster, Creature* pTargetCreature, bool bCritical);
 
-// ½½·¹ÀÌ¾î °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ê³µê²©ìì˜ ìˆœìˆ˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computePureSlayerDamage(Slayer* pSlayer);
 
-// ¹ìÆÄÀÌ¾î °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ë±€íŒŒì´ì–´ ê³µê²©ìì˜ ìˆœìˆ˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computePureVampireDamage(Vampire* pVampire);
 
-// ¾Æ¿ì½ºÅÍ½º °ø°İÀÚÀÇ ¼ø¼ö µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ê³µê²©ìì˜ ìˆœìˆ˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computePureOustersDamage(Ousters* pOusters);
 
-// ¸ó½ºÅÍ °ø°İÀÚ¿Í ÇÇ°ø°İÀÚ »çÀÌÀÇ µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ëª¬ìŠ¤í„° ê³µê²©ìì™€ í”¼ê³µê²©ì ì‚¬ì´ì˜ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computePureMonsterDamage(Monster* pMonster);
 
-// resistance¸¦ °í·ÁÇÑ ¸¶¹ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// resistanceë¥¼ ê³ ë ¤í•œ ë§ˆë²• ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeMagicDamage(Creature* pTargetCreature, int Damage, SkillType_t SkillType, bool bVampire = false,
                             Creature* pAttacker = NULL);
 
-// ¸®½ºÆ²¸´À» °í·ÁÇÑ ¾Æ¿ì½ºÅÍÁî ¸¶¹ı µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// ë¦¬ìŠ¤í‹€ë¦¿ì„ ê³ ë ¤í•œ ì•„ìš°ìŠ¤í„°ì¦ˆ ë§ˆë²• ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeOustersMagicDamage(Ousters* pOusters, Creature* pTargetCreature, int Damage, SkillType_t SkillType);
 
-// Å¸°Ù¿¡°Ô ¹ÌÄ¡´Â Àº µ¥¹ÌÁö¸¦ °è»êÇÑ´Ù.
+// íƒ€ê²Ÿì—ê²Œ ë¯¸ì¹˜ëŠ” ì€ ë°ë¯¸ì§€ë¥¼ ê³„ì‚°í•œë‹¤.
 Damage_t computeSlayerSilverDamage(Creature* pCreature, int Damage, ModifyInfo* pMI);
 
-// Critical Magic °ú °°Àº ÆĞ½Ãºê ½ºÅ³·Î ÀÎÇÑ µ¥¹ÌÁö º¯È­¿Í Å©¸®Æ¼ÄÃ º¯È­¸¦ °è»êÇÑ´Ù.
+// Critical Magic ê³¼ ê°™ì€ íŒ¨ì‹œë¸Œ ìŠ¤í‚¬ë¡œ ì¸í•œ ë°ë¯¸ì§€ ë³€í™”ì™€ í¬ë¦¬í‹°ì»¬ ë³€í™”ë¥¼ ê³„ì‚°í•œë‹¤.
 void computeCriticalBonus(Ousters* pOusters, SkillType_t skillType, Damage_t& Damage, bool& bCriticalHit);
 
 //////////////////////////////////////////////////////////////////////////////
-// µ¥¹ÌÁö ¼¼ÆÃ, ³»±¸µµ ¶³¾î¶ß¸®±â µîµî...
+// ë°ë¯¸ì§€ ì„¸íŒ…, ë‚´êµ¬ë„ ë–¨ì–´ëœ¨ë¦¬ê¸° ë“±ë“±...
 //////////////////////////////////////////////////////////////////////////////
 
-// Á÷Á¢ÀûÀ¸·Î µ¥¹ÌÁö¸¦ ¼¼ÆÃÇÑ´Ù.
+// ì§ì ‘ì ìœ¼ë¡œ ë°ë¯¸ì§€ë¥¼ ì„¸íŒ…í•œë‹¤.
 HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, SkillType_t SkillType = 0,
                ModifyInfo* pMI = NULL, ModifyInfo* pAttackerMI = NULL, bool canKillTarget = true, bool canSteal = true);
 
-// ¾ÆÀÌÅÛ ³»±¸µµ¸¦ ¶³¾î¶ß¸°´Ù.
+// ì•„ì´í…œ ë‚´êµ¬ë„ë¥¼ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInfo* pSkillInfo, ModifyInfo*,
                         ModifyInfo*);
 
-// Å¸°ÙÀ» ¸ÂÃâ °¡´É¼ºÀÌ ÀÖ´Â°¡?
+// íƒ€ê²Ÿì„ ë§ì¶œ ê°€ëŠ¥ì„±ì´ ìˆëŠ”ê°€?
 bool canHit(Creature* pAttacker, Creature* pDefender, SkillType_t SkillType, SkillLevel_t SkillLevel = 0);
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸¶³ª °ü·Ã ÇÔ¼öµé...
+// ë§ˆë‚˜ ê´€ë ¨ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////////
 
-// ÀÎÆ®¿¡ µû¶ó ¸¶³ª ¼Ò¸ğ·®ÀÌ º¯ÇÏ´Â ¹ìÆÄÀÌ¾î ¸¶¹ıÀÇ ¸¶³ª ¼Ò¸ğ·®À» °è»êÇÑ´Ù.
+// ì¸íŠ¸ì— ë”°ë¼ ë§ˆë‚˜ ì†Œëª¨ëŸ‰ì´ ë³€í•˜ëŠ” ë±€íŒŒì´ì–´ ë§ˆë²•ì˜ ë§ˆë‚˜ ì†Œëª¨ëŸ‰ì„ ê³„ì‚°í•œë‹¤.
 MP_t decreaseConsumeMP(Vampire* pVampire, SkillInfo* pSkillInfo);
 
-// ±â¼úÀ» »ç¿ëÇÏ±â À§ÇÑ ÃæºĞÇÑ ¸¶³ª¸¦ °¡Áö°í ÀÖ´Â°¡?
+// ê¸°ìˆ ì„ ì‚¬ìš©í•˜ê¸° ìœ„í•œ ì¶©ë¶„í•œ ë§ˆë‚˜ë¥¼ ê°€ì§€ê³  ìˆëŠ”ê°€?
 bool hasEnoughMana(Creature* pCaster, int RequiredMP);
 
-// ¸¶³ª¸¦ ÁÙÀÎ´Ù.
+// ë§ˆë‚˜ë¥¼ ì¤„ì¸ë‹¤.
 int decreaseMana(Creature* pCaster, int MP, ModifyInfo& modifyinfo);
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »çÁ¤°Å¸®, Áö¼Ó½Ã°£, ½Ã°£Ã¼Å© µîÀÇ °ËÁõ ÇÔ¼öµé...
+// ì‚¬ì •ê±°ë¦¬, ì§€ì†ì‹œê°„, ì‹œê°„ì²´í¬ ë“±ì˜ ê²€ì¦ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////////
 
-// ½½·¹ÀÌ¾î¿ë ½ºÅ³ÀÇ »çÁ¤°Å¸®¸¦ ±¸ÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ìš© ìŠ¤í‚¬ì˜ ì‚¬ì •ê±°ë¦¬ë¥¼ êµ¬í•œë‹¤.
 Range_t computeSkillRange(SkillSlot* pSkillSlot, SkillInfo* pSkillInfo);
 
-//(OX,OY)¿Í(TX,TY) »çÀÌÀÇ °Å¸®¸¦ ±¸ÇÑ´Ù.
+//(OX,OY)ì™€(TX,TY) ì‚¬ì´ì˜ ê±°ë¦¬ë¥¼ êµ¬í•œë‹¤.
 Range_t getDistance(ZoneCoord_t OX, ZoneCoord_t OY, ZoneCoord_t TX, ZoneCoord_t TY);
 
-// ½ºÅ³À» ¾µ ¼ö ÀÖ´Â Àû´çÇÑ °Å¸®ÀÎ°¡¸¦ °ËÁõ
+// ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ìˆëŠ” ì ë‹¹í•œ ê±°ë¦¬ì¸ê°€ë¥¼ ê²€ì¦
 bool verifyDistance(Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y, Range_t Distance);
 
-// ½ºÅ³À» ¾µ ¼ö ÀÖ´Â Àû´çÇÑ °Å¸®ÀÎ°¡¸¦ °ËÁõ
+// ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ìˆëŠ” ì ë‹¹í•œ ê±°ë¦¬ì¸ê°€ë¥¼ ê²€ì¦
 bool verifyDistance(Creature* pCreature, Creature* pTargetCreature, Range_t Distance);
 
-// ½½·¹ÀÌ¾î¿ë ½ºÅ³ÀÇ ½ÇÇà ½Ã°£À» °ËÁõÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ìš© ìŠ¤í‚¬ì˜ ì‹¤í–‰ ì‹œê°„ì„ ê²€ì¦í•œë‹¤.
 bool verifyRunTime(SkillSlot* pSkillSlot);
 
-// ¹ìÆÄÀÌ¾î¿ë ½ºÅ³ÀÇ ½ÇÇà ½Ã°£À» °ËÁõÇÑ´Ù.
+// ë±€íŒŒì´ì–´ìš© ìŠ¤í‚¬ì˜ ì‹¤í–‰ ì‹œê°„ì„ ê²€ì¦í•œë‹¤.
 bool verifyRunTime(VampireSkillSlot* pSkillSlot);
 
-// ¾Æ¿ì½ºÅÍ½º¿ë ½ºÅ³ÀÇ ½ÇÇà ½Ã°£À» °ËÁõÇÑ´Ù.
+// ì•„ìš°ìŠ¤í„°ìŠ¤ìš© ìŠ¤í‚¬ì˜ ì‹¤í–‰ ì‹œê°„ì„ ê²€ì¦í•œë‹¤.
 bool verifyRunTime(OustersSkillSlot* pSkillSlot);
 
-// °¢ Á¸ÀÇ PK Á¤Ã¥¿¡ µû¶ó, PK°¡ µÇ´À³Ä ¾È µÇ´À³Ä¸¦ Á¤ÇÑ´Ù.
+// ê° ì¡´ì˜ PK ì •ì±…ì— ë”°ë¼, PKê°€ ë˜ëŠëƒ ì•ˆ ë˜ëŠëƒë¥¼ ì •í•œë‹¤.
 bool verifyPK(Creature* pAttacker, Creature* pDefender);
 
-// ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â Á¸ÀÎ°¡?
-// (¼¿ÇÁ ±â¼úÀÏ °æ¿ì, Á¸ ·¹º§À» Ã¼Å©ÇÏ´Â ÇÔ¼ö´Ù...)
+// ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì¡´ì¸ê°€?
+// (ì…€í”„ ê¸°ìˆ ì¼ ê²½ìš°, ì¡´ ë ˆë²¨ì„ ì²´í¬í•˜ëŠ” í•¨ìˆ˜ë‹¤...)
 bool checkZoneLevelToUseSkill(Creature* pCaster);
 
-// X, Y¿¡ ¼­ ÀÖ´Â Å©¸®ÃÄ°¡ ÀÓÀÇÀÇ ±â¼ú¿¡ ¿µÇâÀ» ¹Ş´ÂÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö´Ù.
+// X, Yì— ì„œ ìˆëŠ” í¬ë¦¬ì³ê°€ ì„ì˜ì˜ ê¸°ìˆ ì— ì˜í–¥ì„ ë°›ëŠ”ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜ë‹¤.
 bool checkZoneLevelToHitTarget(Creature* pTargetCreature);
 
-// ±â¼úÀÌ ¹Ğ¸® °ø°İÀÎ°¡? - 2003. 1. 1. Sequoia
+// ê¸°ìˆ ì´ ë°€ë¦¬ ê³µê²©ì¸ê°€? - 2003. 1. 1. Sequoia
 // bool isMeleeSkill(SkillType_t SkillType);
 
-// Magic ±â¼úÀÎ°¡?
+// Magic ê¸°ìˆ ì¸ê°€?
 // bool isMagicSkill(SkillType_t SkillType);
-// Physic ±â¼úÀÎ°¡?
+// Physic ê¸°ìˆ ì¸ê°€?
 // bool isPhysicSkill(SkillType_t SkillType);
 
 //////////////////////////////////////////////////////////////////////////////
-// ¼ºÇâ °ü·Ã ÇÔ¼öµé...
+// ì„±í–¥ ê´€ë ¨ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////////
 
-// ¼ºÇâÀ» º¯°æÇÑ´Ù.
-// ±â¼úÀ» »ç¿ëÇÏ°Å³ª, PK¸¦ ÇÒ ¶§ »ı±â´Â ¼ºÇâ º¯È­¸¦ °è»êÇÏ´Â ÇÔ¼ö´Ù.
+// ì„±í–¥ì„ ë³€ê²½í•œë‹¤.
+// ê¸°ìˆ ì„ ì‚¬ìš©í•˜ê±°ë‚˜, PKë¥¼ í•  ë•Œ ìƒê¸°ëŠ” ì„±í–¥ ë³€í™”ë¥¼ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜ë‹¤.
 void computeAlignmentChange(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, ModifyInfo* pMI = NULL,
                             ModifyInfo* pAttackerMI = NULL);
 
-// ½½·¹ÀÌ¾î ¹× ¹ìÆÄÀÌ¾î°¡ ¸÷À» Á×ÀÏ ¶§ ¼ºÇâÀ» ¾à°£¾¿ È¸º¹½ÃÅ²´Ù.
-// Á¤´ç ¹æÀ§ ½Ã½ºÅÛ °°Àº °Í°ú´Â °ü·Ã ¾øÀÌ, ±×³É Å¸Á¾Á·À» °ø°İÇÒ ¶§
-// ¾à°£¾¿ ¼ºÇâÀ» È¸º¹½ÃÄÑÁÖ´Â ÇÔ¼öÀÌ´Ù.
+// ìŠ¬ë ˆì´ì–´ ë° ë±€íŒŒì´ì–´ê°€ ëª¹ì„ ì£½ì¼ ë•Œ ì„±í–¥ì„ ì•½ê°„ì”© íšŒë³µì‹œí‚¨ë‹¤.
+// ì •ë‹¹ ë°©ìœ„ ì‹œìŠ¤í…œ ê°™ì€ ê²ƒê³¼ëŠ” ê´€ë ¨ ì—†ì´, ê·¸ëƒ¥ íƒ€ì¢…ì¡±ì„ ê³µê²©í•  ë•Œ
+// ì•½ê°„ì”© ì„±í–¥ì„ íšŒë³µì‹œì¼œì£¼ëŠ” í•¨ìˆ˜ì´ë‹¤.
 void increaseAlignment(Creature* pCreature, Creature* pEnemy, ModifyInfo& mi);
 
 //////////////////////////////////////////////////////////////////////////////
-// °æÇèÄ¡ °ü·Ã ÇÔ¼öµé...
+// ê²½í—˜ì¹˜ ê´€ë ¨ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////////
 
-// ÆÄÆ¼ °ü·Ã ½½·¹ÀÌ¾î °æÇèÄ¡ °è»ê ÇÔ¼ö
+// íŒŒí‹° ê´€ë ¨ ìŠ¬ë ˆì´ì–´ ê²½í—˜ì¹˜ ê³„ì‚° í•¨ìˆ˜
 void shareAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier,
                   ModifyInfo&);
 
-// ÆÄÆ¼ °ü·Ã ¹ìÆÄÀÌ¾î °æÇèÄ¡ °è»ê ÇÔ¼ö
+// íŒŒí‹° ê´€ë ¨ ë±€íŒŒì´ì–´ ê²½í—˜ì¹˜ ê³„ì‚° í•¨ìˆ˜
 void shareVampExp(Vampire*, Exp_t, ModifyInfo&);
 
-// ÆÄÆ¼ °ü·Ã ¾Æ¿ì½ºÅÍ½º °æÇèÄ¡ °è»ê ÇÔ¼ö
+// íŒŒí‹° ê´€ë ¨ ì•„ìš°ìŠ¤í„°ìŠ¤ ê²½í—˜ì¹˜ ê³„ì‚° í•¨ìˆ˜
 void shareOustersExp(Ousters*, Exp_t, ModifyInfo&);
 
-// ½½·¹ÀÌ¾î ´É·ÂÄ¡(STR,DEX,INT) °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜(STR,DEX,INT) ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 void divideAttrExp(Slayer* pSlayer, Damage_t Damage, BYTE STRMultiplier, BYTE DEXMultiplier, BYTE INTMultiplier,
                    ModifyInfo&, int numPartyMember = -1);
 
-// ½½·¹ÀÌ¾î ±â¼ú °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ê¸°ìˆ  ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 void increaseSkillExp(Slayer* pSlayer, SkillDomainType_t DomainType, SkillSlot* pSkillSlot, SkillInfo* pSkillInfo,
                       ModifyInfo&);
 
-// ½½·¹ÀÌ¾î °è¿­ °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ê³„ì—´ ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 bool increaseDomainExp(Slayer* pSlayer, SkillDomainType_t Domain, Exp_t Exp, ModifyInfo&, Level_t EnemyLevel = 0,
                        int TargetNum = -1);
 
-// ¹ìÆÄÀÌ¾î °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// ë±€íŒŒì´ì–´ ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 void increaseVampExp(Vampire*, Exp_t, ModifyInfo&);
 
-// ¾Æ¿ì½ºÅÍ½º °æÇèÄ¡¸¦ °è»êÇÑ´Ù.
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ê²½í—˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 void increaseOustersExp(Ousters*, Exp_t, ModifyInfo&);
 
-// ½½·¹ÀÌ¾î ¹× ¹ìÆÄÀÌ¾î ¸í¼ºÀ» °è»êÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ë° ë±€íŒŒì´ì–´ ëª…ì„±ì„ ê³„ì‚°í•œë‹¤.
 void increaseFame(Creature* pAttackee, uint amount);
 
-// Á×¿´À»¶§ÀÇ Ã³¸®
+// ì£½ì˜€ì„ë•Œì˜ ì²˜ë¦¬
 RankExp_t computeRankExp(int myLevel, int otherLevel);
 void affectKillCount(Creature* pAttacker, Creature* pDeadCreature);
 
 //////////////////////////////////////////////////////////////////////////////
-// ±âÅ¸ ÇÔ¼öµé...
+// ê¸°íƒ€ í•¨ìˆ˜ë“¤...
 //////////////////////////////////////////////////////////////////////////////
 
-// °Å¸®¿¡ µû¸¥ SG, SRÀÇ º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+// ê±°ë¦¬ì— ë”°ë¥¸ SG, SRì˜ ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
 int computeArmsWeaponSplashSize(Item* pWeapon, int ox, int oy, int tx, int ty);
 int computeArmsWeaponDamageBonus(Item* pWeapon, int ox, int oy, int tx, int ty);
 int computeArmsWeaponToHitBonus(Item* pWeapon, int ox, int oy, int tx, int ty);
 
-// ÁöÁ¤µÈ ÁÂÇ¥ ÁÖÀ§ÀÇ ½ºÇÃ·¡½¬ µ¥¹ÌÁö¸¦ ¸ÂÀ» Å©¸®ÃÄ¸¦ »Ì¾Æ¿Â´Ù.
+// ì§€ì •ëœ ì¢Œí‘œ ì£¼ìœ„ì˜ ìŠ¤í”Œë˜ì‰¬ ë°ë¯¸ì§€ë¥¼ ë§ì„ í¬ë¦¬ì³ë¥¼ ë½‘ì•„ì˜¨ë‹¤.
 int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList,
                      int splash);
 int getSplashVictims(Zone* pZone, int cx, int cy, Creature::CreatureClass CClass, list<Creature*>& creatureList,
                      int splash, int range);
 int getSplashVictims(Zone* pZone, int cx, int cy, list<Creature*>& creatureList, int splash);
 
-// ·¹º§¾÷ ½Ã HP¿Í MP¸¦ ²Ë Ã¤¿öÁØ´Ù.
+// ë ˆë²¨ì—… ì‹œ HPì™€ MPë¥¼ ê½‰ ì±„ì›Œì¤€ë‹¤.
 void healCreatureForLevelUp(Slayer* pSlayer, ModifyInfo& _ModifyInfo, SLAYER_RECORD* prev);
 void healCreatureForLevelUp(Vampire* pVampire, ModifyInfo& _ModifyInfo, VAMPIRE_RECORD* prev);
 void healCreatureForLevelUp(Ousters* pOusters, ModifyInfo& _ModifyInfo, OUSTERS_RECORD* prev);
 
-// ±â¼ú ½ÇÆĞ½Ã ÆĞÅ¶À» ³¯¸°´Ù.
+// ê¸°ìˆ  ì‹¤íŒ¨ì‹œ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
 void executeSkillFailNormal(Creature* pCreature, SkillType_t SkillType, Creature* pTargetCreature, BYTE Grade = 0);
 void executeAbsorbSoulSkillFail(Creature* pCreature, SkillType_t SkillType, ObjectID_t TargetObjectID, bool bBroadcast,
                                 bool bSendTwice);
@@ -256,11 +256,11 @@ Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY);
 Exp_t computeSkillPointBonus(SkillDomainType_t Domain, SkillLevel_t DomainLevel, Item* pWeapon, Exp_t Point);
 
 
-// Á¡°ú Á¡»çÀÌ¸¦ °É¾î¼­ °¥ ¼ö ÀÖ´Â°¡? ( Å©¸®ÃÄ·Î ¸·Èù °æ¿ì´Â Á¦¿Ü )
+// ì ê³¼ ì ì‚¬ì´ë¥¼ ê±¸ì–´ì„œ ê°ˆ ìˆ˜ ìˆëŠ”ê°€? ( í¬ë¦¬ì³ë¡œ ë§‰íŒ ê²½ìš°ëŠ” ì œì™¸ )
 bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY,
                 bool blockByCreature = false);
 
-// µÎ Á¡»çÀÌÀÇ Áø¼±À» ÀÌ·ç´Â Á¡µéÀ» ±¸ÇÑ´Ù.
+// ë‘ ì ì‚¬ì´ì˜ ì§„ì„ ì„ ì´ë£¨ëŠ” ì ë“¤ì„ êµ¬í•œë‹¤.
 void getLinePoint(ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, list<TPOINT>& tpList);
 
 ElementalType getElementalTypeFromString(const string& type);
@@ -268,14 +268,14 @@ ElementalType getElementalTypeFromString(const string& type);
 Damage_t computeElementalCombatSkill(Ousters* pOusters, Creature* pTargetCreature, ModifyInfo& AttackerMI);
 
 //////////////////////////////////////////////////////////////////////////////
-// °ø°İÇÒ ¼ö ÀÖ´Â°¡?
-// ¹«Àû »óÅÂ³ª non PK ¸¦ À§ÇØ¼­ °ø°İÇÒ ¼ö ÀÖ´ÂÁö¸¦ Ã¼Å©ÇÑ´Ù.
+// ê³µê²©í•  ìˆ˜ ìˆëŠ”ê°€?
+// ë¬´ì  ìƒíƒœë‚˜ non PK ë¥¼ ìœ„í•´ì„œ ê³µê²©í•  ìˆ˜ ìˆëŠ”ì§€ë¥¼ ì²´í¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 bool canAttack(Creature* pAttacker, Creature* pDefender);
 
 //////////////////////////////////////////////////////////////////////////
 // add by Coffee 2007-6-9
-// Ôö¼ÓĞÂ¼¼ÄÜÈı×åÊ¹ÓÃĞÂ¼¼ÄÜ ¿Û³ı¼¼ÄÜ¿¨ÑéÖ¤
+// è—¤ì†åŠ¤ì„¸ì½˜í›ç—¢è³ˆç—°åŠ¤ì„¸ì½˜ ì™±ë‡œì„¸ì½˜ì—¥ï¤šè¯
 //////////////////////////////////////////////////////////////////////////
 bool useSkillCrad(Creature* pCreature);
 

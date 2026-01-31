@@ -34,7 +34,7 @@ public:
     }
 
 private:
-    int m_GoalAmount; // ¹ŞÀ» Ãà±¸°øÀÇ ¼ö
+    int m_GoalAmount; // ë°›ì„ ì¶•êµ¬ê³µì˜ ìˆ˜
 };
 
 

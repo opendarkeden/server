@@ -23,7 +23,7 @@ IceHorizon::IceHorizon() throw() {
 };
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void IceHorizon::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -43,7 +43,7 @@ void IceHorizon::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pOusters, pTargetCreature)) {
             executeSkillFailException(pOusters, getSkillType());
             return;
@@ -60,7 +60,7 @@ void IceHorizon::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -100,7 +100,7 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
         ZoneCoord_t myX = pOusters->getX();
         ZoneCoord_t myY = pOusters->getY();
 
-        // ÀÌÆåÆ®ÀÇ Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+        // ì´í™íŠ¸ì˜ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pOusters, pOustersSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -133,16 +133,16 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
                         if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))
                             continue;
 
-                        // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
+                        // í˜„ì¬ íƒ€ì¼ì—ë‹¤ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìˆë‹¤ë©´...
                         if (tile.canAddEffect()) {
-                            // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+                            // ê°™ì€ effectê°€ ìˆìœ¼ë©´ ì§€ìš´ë‹¤.
                             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_ICE_HORIZON);
                             if (pOldEffect != NULL) {
                                 ObjectID_t effectID = pOldEffect->getObjectID();
                                 pZone->deleteEffect(effectID); // fix me
                             }
 
-                            // ÀÌÆåÆ® Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+                            // ì´í™íŠ¸ í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                             EffectIceHorizon* pEffect = new EffectIceHorizon(pZone, tileX, tileY);
                             pEffect->setCasterName(pOusters->getName());
                             pEffect->setCasterID(pOusters->getObjectID());
@@ -154,7 +154,7 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
                             if (i != 0 || j != 0)
                                 pEffect->setBroadcastingEffect(false);
 
-                            // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Ş¾Æ¾ß ÇÑ´Ù.
+                            // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                             ObjectRegistry& objectregister = pZone->getObjectRegistry();
                             objectregister.registerObject(pEffect);
                             pZone->addEffect(pEffect);
@@ -231,8 +231,8 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 
             list<Creature*> watcherList = pZone->getWatcherList(myX, myY, pOusters);
 
-            // watcherList¿¡¼­ cList¿¡ ¼ÓÇÏÁö ¾Ê°í, caster(pOusters)¸¦ º¼ ¼ö ¾ø´Â °æ¿ì´Â
-            // OK4¸¦ º¸³»°í.. cList¿¡ Ãß°¡ÇÑ´Ù.
+            // watcherListì—ì„œ cListì— ì†í•˜ì§€ ì•Šê³ , caster(pOusters)ë¥¼ ë³¼ ìˆ˜ ì—†ëŠ” ê²½ìš°ëŠ”
+            // OK4ë¥¼ ë³´ë‚´ê³ .. cListì— ì¶”ê°€í•œë‹¤.
             for (list<Creature*>::const_iterator itr = watcherList.begin(); itr != watcherList.end(); itr++) {
                 bool bBelong = false;
                 for (list<Creature*>::const_iterator tItr = cList.begin(); tItr != cList.end(); tItr++)
@@ -241,9 +241,9 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 
                 Creature* pWatcher = (*itr);
                 if (bBelong == false && canSee(pWatcher, pOusters) == false) {
-                    // Assert(pWatcher->isPC());	// ´ç¿¬ PC´Ù.. Zone::getWatcherList´Â PC¸¸ returnÇÑ´Ù
+                    // Assert(pWatcher->isPC());	// ë‹¹ì—° PCë‹¤.. Zone::getWatcherListëŠ” PCë§Œ returní•œë‹¤
                     if (!pWatcher->isPC()) {
-                        // cout << "IceHorizon : ¿ÓÃ³ ¸®½ºÆ®°¡ PC°¡ ¾Æ´Õ´Ï´Ù." << endl;
+                        // cout << "IceHorizon : ì™“ì²˜ ë¦¬ìŠ¤íŠ¸ê°€ PCê°€ ì•„ë‹™ë‹ˆë‹¤." << endl;
                         //						GCSkillFailed1 _GCSkillFailed1;
                         //						_GCSkillFailed1.setSkillType(getSkillType());
                         //						pOusters->getPlayer()->sendPacket(&_GCSkillFailed1);

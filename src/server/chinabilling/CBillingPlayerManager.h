@@ -26,7 +26,7 @@ class CBillingPlayer;
 /////////////////////////////////////////////////////
 // class CBillingPlayerManager
 //
-// Áß±¹ ºô¸µ ¼­¹ö¿Í Åë½ÅÀ» Àü´ãÇÏ´Â ¾²·¹µå
+// ì¤‘êµ­ ë¹Œë§ ì„œë²„ì™€ í†µì‹ ì„ ì „ë‹´í•˜ëŠ” ì“°ë ˆë“œ
 /////////////////////////////////////////////////////
 class CBillingPlayerManager : public Thread {
 public:
@@ -38,7 +38,7 @@ public:
     void stop();
     void run();
 
-    // ºô¸µ °ü·Ã ÆĞÅ¶ º¸³»±â ÇÔ¼ö
+    // ë¹Œë§ ê´€ë ¨ íŒ¨í‚· ë³´ë‚´ê¸° í•¨ìˆ˜
 #ifdef __LOGIN_SERVER__
     void sendLogin(LoginPlayer* pLoginPlayer);
 #elif defined(__GAME_SERVER__)

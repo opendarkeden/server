@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // File Name 	: Statement.cpp
 // Written by	: Gday29@ewestsoft.com
-// Description	: SQL ¹®À» ¸¸µç´Ù..
+// Description	: SQL ë¬¸ì„ ë§Œë“ ë‹¤..
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Statement.h"
@@ -41,14 +41,14 @@ Statement::Statement(char* fmt, ...) throw(Error) {
 
     int nchars = vsnprintf(buffer, 2048, fmt, valist);
 
-    // ¸¸¾à ¹öÆÛ Å©±â°¡ ºÎÁ·ÇÏ°Ô µÇ¸é, ¿¡·¯¸¦ ´øÁ®¼­ ¼öµ¿À¸·Î °ªÀ» Áõ°¡½ÃÄÑ¾ß ÇÑ´Ù.
+    // ë§Œì•½ ë²„í¼ í¬ê¸°ê°€ ë¶€ì¡±í•˜ê²Œ ë˜ë©´, ì—ëŸ¬ë¥¼ ë˜ì ¸ì„œ ìˆ˜ë™ìœ¼ë¡œ ê°’ì„ ì¦ê°€ì‹œì¼œì•¼ í•œë‹¤.
     if (nchars == -1 || nchars > 2048)
         throw Error("more buffer size needed for SQL statement buffer...");
 
     va_end(valist);
 
-    // string ÀÌ¹Ç·Î ´ëÀÔÇØµµ ¾ÈÀüÇÏ´Ù.
-    // ¸¸¾à char * ¿´´Ù¸é, local variableÀ» Æ÷ÀÎÆÃÇÏ´Â °ÍÀº À§ÇèÇÏ´Ù.
+    // string ì´ë¯€ë¡œ ëŒ€ìž…í•´ë„ ì•ˆì „í•˜ë‹¤.
+    // ë§Œì•½ char * ì˜€ë‹¤ë©´, local variableì„ í¬ì¸íŒ…í•˜ëŠ” ê²ƒì€ ìœ„í—˜í•˜ë‹¤.
     m_Statement = buffer;
 
     __END_CATCH
@@ -58,7 +58,7 @@ Statement::Statement(char* fmt, ...) throw(Error) {
 //
 // destructor
 //
-// Äõ¸®¹®¿¡¼­ ¸¸µç °á°ú¸¦ ¸Þ¸ð¸®¿¡¼­ ÇØÁ¦ÇÑ´Ù.
+// ì¿¼ë¦¬ë¬¸ì—ì„œ ë§Œë“  ê²°ê³¼ë¥¼ ë©”ëª¨ë¦¬ì—ì„œ í•´ì œí•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -78,7 +78,7 @@ Statement::~Statement() throw() {
 //
 // executeQuery()
 //
-// Connection, SQL¹®À» ½ºÆ®¸µÀ¸·Î ¹Þ¾Æ¼­ °á°ú°ªÀ» Result *·Î ¸®ÅÏÇÑ´Ù.
+// Connection, SQLë¬¸ì„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë°›ì•„ì„œ ê²°ê³¼ê°’ì„ Result *ë¡œ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -88,7 +88,7 @@ Result* Statement::executeQuery() throw(SQLQueryException, Error) {
     Assert(m_pConnection != NULL);
 
     if (m_pResult != NULL) {
-        // ¾îÇÃ¸®ÄÉÀÌ¼Ç¿¡¼­ Result ¸¦ »èÁ¦ÇÏÁö ¾ÊÀº °æ¿ì,
+        // ì–´í”Œë¦¬ì¼€ì´ì…˜ì—ì„œ Result ë¥¼ ì‚­ì œí•˜ì§€ ì•Šì€ ê²½ìš°,
         delete m_pResult;
         m_pResult = NULL;
     }
@@ -105,7 +105,7 @@ Result* Statement::executeQuery() throw(SQLQueryException, Error) {
 
     MYSQL_RES* pResult = mysql_store_result(m_pConnection->getMYSQL());
 
-    // Äõ¸® °á°ú°ªÀÌ NULLÀÏ °æ¿ì´Â update¹®ÀÌ°Å³ª ¿¡·¯ÀÌ´Ù.
+    // ì¿¼ë¦¬ ê²°ê³¼ê°’ì´ NULLì¼ ê²½ìš°ëŠ” updateë¬¸ì´ê±°ë‚˜ ì—ëŸ¬ì´ë‹¤.
     if (pResult != NULL) {
         m_pResult = new Result(pResult, m_Statement);
     } else {
@@ -130,7 +130,7 @@ Result* Statement::executeQuery() throw(SQLQueryException, Error) {
 //
 // executeQuery ()
 //
-// Connection, SQL¹®À» ½ºÆ®¸µÀ¸·Î ¹Þ¾Æ¼­ °á°ú°ªÀ» Result *·Î ¸®ÅÏÇÑ´Ù.
+// Connection, SQLë¬¸ì„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë°›ì•„ì„œ ê²°ê³¼ê°’ì„ Result *ë¡œ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -148,14 +148,14 @@ Result* Statement::executeQuery(const string& sqlStatement) throw(SQLQueryExcept
 //
 // executeQuery ()
 //
-// Connection, SQL¹®À» ½ºÆ®¸µÀ¸·Î ¹Þ¾Æ¼­ °á°ú°ªÀ» Result *·Î ¸®ÅÏÇÑ´Ù.
+// Connection, SQLë¬¸ì„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë°›ì•„ì„œ ê²°ê³¼ê°’ì„ Result *ë¡œ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
 Result* Statement::executeQuery(char* fmt, ...) throw(SQLQueryException, Error) {
     __BEGIN_TRY
 
-    // SQL Statement ¸¦ ¸¸µé¾î³½´Ù.
+    // SQL Statement ë¥¼ ë§Œë“¤ì–´ë‚¸ë‹¤.
     va_list valist;
 
     va_start(valist, fmt);
@@ -164,7 +164,7 @@ Result* Statement::executeQuery(char* fmt, ...) throw(SQLQueryException, Error) 
 
     int nchars = vsnprintf(buffer, 2048, fmt, valist);
 
-    // ¸¸¾à ¹öÆÛ Å©±â°¡ ºÎÁ·ÇÏ°Ô µÇ¸é, ¿¹¿Ü¸¦ ´øÁ®¼­ °ªÀ» Áõ°¡½ÃÄÑ¾ß ÇÑ´Ù.
+    // ë§Œì•½ ë²„í¼ í¬ê¸°ê°€ ë¶€ì¡±í•˜ê²Œ ë˜ë©´, ì˜ˆì™¸ë¥¼ ë˜ì ¸ì„œ ê°’ì„ ì¦ê°€ì‹œì¼œì•¼ í•œë‹¤.
     if (nchars == -1 || nchars > 2048)
         throw Error("more buffer size needed for SQL statement buffer...");
 
@@ -181,7 +181,7 @@ Result* Statement::executeQuery(char* fmt, ...) throw(SQLQueryException, Error) 
 //
 //	setStatement()
 //
-//	Äõ¸®¹®À» ´Ù½Ã ¸¸µç´Ù.
+//	ì¿¼ë¦¬ë¬¸ì„ ë‹¤ì‹œ ë§Œë“ ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -198,7 +198,7 @@ void Statement::setStatement(char* fmt, ...) throw(Error) {
 
     int nchars = vsnprintf(buffer, 2048, fmt, valist);
 
-    // ¸¸¾à ¹öÆÛ Å©±â°¡ ºÎÁ·ÇÏ°Ô µÇ¸é, ¿¹¿Ü¸¦ ´øÁ®¼­ °ªÀ» Áõ°¡½ÃÄÑ¾ß ÇÑ´Ù.
+    // ë§Œì•½ ë²„í¼ í¬ê¸°ê°€ ë¶€ì¡±í•˜ê²Œ ë˜ë©´, ì˜ˆì™¸ë¥¼ ë˜ì ¸ì„œ ê°’ì„ ì¦ê°€ì‹œì¼œì•¼ í•œë‹¤.
     if (nchars == -1 || nchars > 2048)
         throw Error("more buffer size needed for SQL statement buffer...");
 

@@ -32,7 +32,7 @@ void ActionShowGuildDialog::read(PropertyBuffer& propertyBuffer)
     __BEGIN_TRY
 
     try {
-        // ´ÙÀÌ¾ó·Î±×ÀÇ Á¾·ù
+        // ë‹¤ì´ì–¼ë¡œê·¸ì˜ ì¢…ë¥˜
         m_Type = (GuildDialog_t)propertyBuffer.getPropertyInt("Type");
     } catch (NoSuchElementException& nsee) {
         throw Error(nsee.toString());
@@ -43,7 +43,7 @@ void ActionShowGuildDialog::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -67,39 +67,39 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
     Assert(pCreature != NULL);
 
     if (m_Type == GUILD_DIALOG_REGIST) {
-        // cout << "±æµå µî·Ï" << endl;
+        // cout << "ê¸¸ë“œ ë“±ë¡" << endl;
         ////////////////////////////////////////////////////////////////////////////////
-        // ±æµå µî·ÏÀ» ¼±ÅÃÇßÀ» °æ¿ì
+        // ê¸¸ë“œ ë“±ë¡ì„ ì„ íƒí–ˆì„ ê²½ìš°
         ////////////////////////////////////////////////////////////////////////////////
         Statement* pStmt;
         Result* pResult;
 
         BEGIN_DB {
-            // ´Ù¸¥ ±æµå ¼Ò¼ÓÀÎÁö Ã¼Å©
+            // ë‹¤ë¥¸ ê¸¸ë“œ ì†Œì†ì¸ì§€ ì²´í¬
             pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
             pResult = pStmt->executeQuery("SELECT `Rank`, ExpireDate FROM GuildMember WHERE Name = '%s'",
                                           pCreature->getName().c_str());
 
             if (pResult->next()) {
-                // ±æµå µî·Ï Á¤º¸°¡ ÀÖ´Ù. expire date¸¦ º¸°í °áÁ¤ÇÑ´Ù.
+                // ê¸¸ë“œ ë“±ë¡ ì •ë³´ê°€ ìˆë‹¤. expire dateë¥¼ ë³´ê³  ê²°ì •í•œë‹¤.
                 int Rank = pResult->getInt(1);
                 string ExpireDate = pResult->getString(2);
 
                 if (ExpireDate.size() == 7) {
-                    // ´Ù¸¥ ±æµå¿¡¼­ Å»ÅğÇÑ °æ¿ì¿¡´Â ÀÏÁÖÀÏ µ¿¾È ±æµå¸¦ ¸¸µé ¼ö ¾ø´Ù.
+                    // ë‹¤ë¥¸ ê¸¸ë“œì—ì„œ íƒˆí‡´í•œ ê²½ìš°ì—ëŠ” ì¼ì£¼ì¼ ë™ì•ˆ ê¸¸ë“œë¥¼ ë§Œë“¤ ìˆ˜ ì—†ë‹¤.
                     if (Rank == GuildMember::GUILDMEMBER_RANK_LEAVE) {
-                        // ÇöÀç´Â ±æµå ¼Ò¼Ó »óÅÂ°¡ ¾Æ´Ï´Ù. ÇÏÁö¸¸ expire date ¿¡¼­ 7ÀÏÀÌ Áö³ª¾ß ÇÑ´Ù.
+                        // í˜„ì¬ëŠ” ê¸¸ë“œ ì†Œì† ìƒíƒœê°€ ì•„ë‹ˆë‹¤. í•˜ì§€ë§Œ expire date ì—ì„œ 7ì¼ì´ ì§€ë‚˜ì•¼ í•œë‹¤.
                         time_t daytime = time(0);
                         tm Time;
                         Time.tm_year = atoi(ExpireDate.substr(0, 3).c_str());
                         Time.tm_mon = atoi(ExpireDate.substr(3, 2).c_str());
                         Time.tm_mday = atoi(ExpireDate.substr(5, 2).c_str());
 
-                        if (difftime(daytime, mktime(&Time)) < 604800) // ½Ç½Ã°£ 7ÀÏÀÌ Áö³µ´Â°¡?
+                        if (difftime(daytime, mktime(&Time)) < 604800) // ì‹¤ì‹œê°„ 7ì¼ì´ ì§€ë‚¬ëŠ”ê°€?
                         {
                             SAFE_DELETE(pStmt);
 
-                            // ½Ã°£ÀÌ ÀÏÁÖÀÏ ...¾îÂ¼°í
+                            // ì‹œê°„ì´ ì¼ì£¼ì¼ ...ì–´ì©Œê³ 
                             if (pCreature->isSlayer()) {
                                 GCNPCResponse response;
                                 response.setCode(NPC_RESPONSE_TEAM_REGIST_FAIL_QUIT_TIMEOUT);
@@ -120,7 +120,7 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
                 } else {
                     SAFE_DELETE(pStmt);
 
-                    // ´Ù¸¥ ±æµå¿¡ °¡ÀÔµÇ¾îÀÖ´Â °æ¿ì
+                    // ë‹¤ë¥¸ ê¸¸ë“œì— ê°€ì…ë˜ì–´ìˆëŠ” ê²½ìš°
                     if (pCreature->isSlayer()) {
                         GCNPCResponse response;
                         response.setCode(NPC_RESPONSE_TEAM_REGIST_FAIL_ALREADY_JOIN);
@@ -148,34 +148,34 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
 
             SkillDomainType_t highest = pSlayer->getHighestSkillDomain();
 
-            if (pSlayer->getSkillDomainLevel(highest) < REQUIRE_SLAYER_MASTER_SKILL_DOMAIN_LEVEL) // ·¹º§ 50 ÀÌ»ó
+            if (pSlayer->getSkillDomainLevel(highest) < REQUIRE_SLAYER_MASTER_SKILL_DOMAIN_LEVEL) // ë ˆë²¨ 50 ì´ìƒ
             {
-                // ·¹º§ÀÌ ³·À½
+                // ë ˆë²¨ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_TEAM_REGIST_FAIL_LEVEL);
                 pPlayer->sendPacket(&response);
 
                 return;
             }
-            if (pSlayer->getGold() < REQUIRE_SLAYER_MASTER_GOLD) // µî·Ïºñ 1¾ï
+            if (pSlayer->getGold() < REQUIRE_SLAYER_MASTER_GOLD) // ë“±ë¡ë¹„ 1ì–µ
             {
-                // µî·Ïºñ°¡ ¸ğÀÚ¶÷
+                // ë“±ë¡ë¹„ê°€ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_TEAM_REGIST_FAIL_MONEY);
                 pPlayer->sendPacket(&response);
 
                 return;
             }
-            if (pSlayer->getFame() < REQUIRE_SLAYER_MASTER_FAME[highest]) // ¸í¼º
+            if (pSlayer->getFame() < REQUIRE_SLAYER_MASTER_FAME[highest]) // ëª…ì„±
             {
-                // ¸í¼ºÀÌ ¸ğÀÚ¶÷
+                // ëª…ì„±ì´ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_TEAM_REGIST_FAIL_FAME);
                 pPlayer->sendPacket(&response);
 
                 return;
             }
-            // ±æµå µî·Ï Ã¢À» ¶ç¿ìµµ·Ï ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+            // ê¸¸ë“œ ë“±ë¡ ì°½ì„ ë„ìš°ë„ë¡ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_GUILD_SHOW_REGIST);
             response.setParameter(REQUIRE_SLAYER_MASTER_GOLD);
@@ -184,59 +184,59 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
             Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
             Assert(pVampire != NULL);
 
-            // µî·Ï °¡´É ¿©ºÎ Ã¼Å©
-            if (pVampire->getLevel() < REQUIRE_VAMPIRE_MASTER_LEVEL) // ·¹º§ 50ÀÌ»ó
+            // ë“±ë¡ ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
+            if (pVampire->getLevel() < REQUIRE_VAMPIRE_MASTER_LEVEL) // ë ˆë²¨ 50ì´ìƒ
             {
-                // ·¹º§ÀÌ ³·À½
+                // ë ˆë²¨ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_CLAN_REGIST_FAIL_LEVEL);
                 pPlayer->sendPacket(&response);
 
                 return;
             }
-            if (pVampire->getGold() < REQUIRE_VAMPIRE_MASTER_GOLD) // µî·Ïºñ 1¾ï
+            if (pVampire->getGold() < REQUIRE_VAMPIRE_MASTER_GOLD) // ë“±ë¡ë¹„ 1ì–µ
             {
-                // µî·Ïºñ°¡ ¸ğÀÚ¶÷
+                // ë“±ë¡ë¹„ê°€ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_CLAN_REGIST_FAIL_MONEY);
                 pPlayer->sendPacket(&response);
 
                 return;
             }
-            //			if ( pVampire->getFame() < 500000 )				// ¸í¼º 50¸¸
+            //			if ( pVampire->getFame() < 500000 )				// ëª…ì„± 50ë§Œ
             //			{
-            //				// ¸í¼ºÀÌ ¸ğÀÚ¶÷
+            //				// ëª…ì„±ì´ ëª¨ìëŒ
             //				GCNPCResponse response;
             //				response.setCode( NPC_RESPONSE_CLAN_REGIST_FAIL_FAME );
             //				pPlayer->sendPacket( &response );
             //
             //				return;
             //			}
-            // ±æµå µî·Ï Ã¢À» ¶ç¿ìµµ·Ï ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+            // ê¸¸ë“œ ë“±ë¡ ì°½ì„ ë„ìš°ë„ë¡ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_GUILD_SHOW_REGIST);
 
-            // cout << "±æµå°¡ÀÔºñ : " << REQUIRE_VAMPIRE_MASTER_GOLD << endl;
+            // cout << "ê¸¸ë“œê°€ì…ë¹„ : " << REQUIRE_VAMPIRE_MASTER_GOLD << endl;
             response.setParameter(REQUIRE_VAMPIRE_MASTER_GOLD);
-            // cout << "±æµå°¡ÀÔºñ(param) : " << response.getParameter() << endl;
+            // cout << "ê¸¸ë“œê°€ì…ë¹„(param) : " << response.getParameter() << endl;
             pPlayer->sendPacket(&response);
         } else if (pCreature->isOusters()) {
             Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
             Assert(pOusters != NULL);
 
-            // µî·Ï °¡´É ¿©ºÎ Ã¼Å©
-            if (pOusters->getLevel() < REQUIRE_OUSTERS_MASTER_LEVEL) // ·¹º§ 50ÀÌ»ó
+            // ë“±ë¡ ê°€ëŠ¥ ì—¬ë¶€ ì²´í¬
+            if (pOusters->getLevel() < REQUIRE_OUSTERS_MASTER_LEVEL) // ë ˆë²¨ 50ì´ìƒ
             {
-                // ·¹º§ÀÌ ³·À½
+                // ë ˆë²¨ì´ ë‚®ìŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_GUILD_REGIST_FAIL_LEVEL);
                 pPlayer->sendPacket(&response);
 
                 return;
             }
-            if (pOusters->getGold() < REQUIRE_OUSTERS_MASTER_GOLD) // µî·Ïºñ 1¾ï
+            if (pOusters->getGold() < REQUIRE_OUSTERS_MASTER_GOLD) // ë“±ë¡ë¹„ 1ì–µ
             {
-                // µî·Ïºñ°¡ ¸ğÀÚ¶÷
+                // ë“±ë¡ë¹„ê°€ ëª¨ìëŒ
                 GCNPCResponse response;
                 response.setCode(NPC_RESPONSE_GUILD_REGIST_FAIL_MONEY);
                 pPlayer->sendPacket(&response);
@@ -244,17 +244,17 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
                 return;
             }
 
-            // ±æµå µî·Ï Ã¢À» ¶ç¿ìµµ·Ï ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+            // ê¸¸ë“œ ë“±ë¡ ì°½ì„ ë„ìš°ë„ë¡ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
             GCNPCResponse response;
             response.setCode(NPC_RESPONSE_GUILD_SHOW_REGIST);
 
-            // cout << "±æµå°¡ÀÔºñ : " << REQUIRE_VAMPIRE_MASTER_GOLD << endl;
+            // cout << "ê¸¸ë“œê°€ì…ë¹„ : " << REQUIRE_VAMPIRE_MASTER_GOLD << endl;
             response.setParameter(REQUIRE_OUSTERS_MASTER_GOLD);
-            // cout << "±æµå°¡ÀÔºñ(param) : " << response.getParameter() << endl;
+            // cout << "ê¸¸ë“œê°€ì…ë¹„(param) : " << response.getParameter() << endl;
             pPlayer->sendPacket(&response);
         }
     } else if (m_Type == GUILD_DIALOG_WAIT_LIST) {
-        // cout << "±æµå ´ë±â ¸®½ºÆ®" << endl;
+        // cout << "ê¸¸ë“œ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸" << endl;
         GCWaitGuildList gcWaitGuildList;
 
         //		const HashMapGuild& Guilds = g_pGuildManager->getGuilds_const();
@@ -274,7 +274,7 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
 
         pPlayer->sendPacket(&gcWaitGuildList);
     } else if (m_Type == GUILD_DIALOG_LIST) {
-        // cout << "±æµå ¸®½ºÆ®" << endl;
+        // cout << "ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸" << endl;
         GCActiveGuildList gcActiveGuildList;
 
         GuildRace_t race;
@@ -291,7 +291,7 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
 
         pPlayer->sendPacket(&gcActiveGuildList);
     } else if (m_Type == GUILD_DIALOG_QUIT) {
-        // ±æµå Å»Åğ Ã¢À» ¶ç¿ìÁö ¾Ê°í ±æµå Å»Åğ¸¦ È®Á¤ÇÑ °ÍÀ¸·Î °£ÁÖÇÑ´Ù.
+        // ê¸¸ë“œ íƒˆí‡´ ì°½ì„ ë„ìš°ì§€ ì•Šê³  ê¸¸ë“œ íƒˆí‡´ë¥¼ í™•ì •í•œ ê²ƒìœ¼ë¡œ ê°„ì£¼í•œë‹¤.
         Guild* pGuild = NULL;
 
         Statement* pStmt = NULL;
@@ -310,7 +310,7 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
         }
         END_DB(pStmt)
 
-        // ±æµå »óÅÂ°¡ È°µ¿ÁßÀÌ°Å³ª ´ë±âÁßÀÌ¾î¾ß ÇÑ´Ù.
+        // ê¸¸ë“œ ìƒíƒœê°€ í™œë™ì¤‘ì´ê±°ë‚˜ ëŒ€ê¸°ì¤‘ì´ì–´ì•¼ í•œë‹¤.
         if (pGuild == NULL ||
             (pGuild->getState() != Guild::GUILD_STATE_ACTIVE && pGuild->getState() != Guild::GUILD_STATE_WAIT)) {
             GCNPCResponse response;
@@ -320,7 +320,7 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
             return;
         }
 
-        // ÇÃ·¹ÀÌ¾î°¡ ±æµåÀÇ ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ê¸¸ë“œì˜ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
         GuildMember* pGuildMember = pGuild->getMember(pCreature->getName());
         if (pGuildMember == NULL) {
             GCNPCResponse response;
@@ -330,7 +330,7 @@ void ActionShowGuildDialog::execute(Creature* pCreature1, Creature* pCreature2)
             return;
         }
 
-        // È°µ¿ ÁßÀÎ ±æµåÀÇ ¸¶½ºÅÍ¶ó¸é Å»Åğ¸¦ ¹«½ÃÇÑ´Ù.
+        // í™œë™ ì¤‘ì¸ ê¸¸ë“œì˜ ë§ˆìŠ¤í„°ë¼ë©´ íƒˆí‡´ë¥¼ ë¬´ì‹œí•œë‹¤.
         if (pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_MASTER &&
             pGuild->getState() == Guild::GUILD_STATE_ACTIVE) {
             GCNPCResponse response;

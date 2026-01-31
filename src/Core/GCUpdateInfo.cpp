@@ -43,13 +43,13 @@ GCUpdateInfo::~GCUpdateInfo()
     SAFE_DELETE(m_pEffectInfo);
     SAFE_DELETE(m_pRideMotorcycleInfo);
 
-    // ¼­¹ö ÂÊ¿¡¼­´Â Á¸ ³»ºÎ¿¡¼­ NPCInfoÀÇ ¸®½ºÆ®°¡ Á¸ÀçÇÑ´Ù.
-    // ÀÌ ¸®½ºÆ®´Â ÇöÀç·Î¼­´Â ºÒº¯ÀÌ´Ù. ±×·¯¹Ç·Î ¸Å¹ø NPCInfo¸¦
-    // new·Î »ý¼ºÇÏ¿©, GCUpdateInfo¿¡´Ù ³Ö¾îÁÖ°í, ´Ù½Ã deleteÇÏ´Â °ÍÀº
-    // ¼Óµµ ¸é¿¡¼­ ºÃÀ» ¶§ »ó´çÈ÷ ¼ÕÇØ´Ù. ±×·¡¼­ GCUpdateInfo ¾È¿¡
-    // ÀÖ´Â NPCInfoList¿¡´Â ZoneÀÇ NPCInfoListÀÇ Æ÷ÀÎÅÍ¸¦ ±×³É
-    // Àü´ÞÇØ ÁØ´Ù. ±×·¯¹Ç·Î ¼­¹ö Ãø¿¡¼­´Â ÀÌ¸¦ »èÁ¦ÇÏ¸é ¾È µÈ´Ù.
-    // ±×·¯³ª Å¬¶óÀÌ¾ðÆ®¿¡¼­´Â ÀÌ¸¦ »èÁ¦ÇØ Áà¾ß ÇÑ´Ù.
+    // ì„œë²„ ìª½ì—ì„œëŠ” ì¡´ ë‚´ë¶€ì—ì„œ NPCInfoì˜ ë¦¬ìŠ¤íŠ¸ê°€ ì¡´ìž¬í•œë‹¤.
+    // ì´ ë¦¬ìŠ¤íŠ¸ëŠ” í˜„ìž¬ë¡œì„œëŠ” ë¶ˆë³€ì´ë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ë§¤ë²ˆ NPCInfoë¥¼
+    // newë¡œ ìƒì„±í•˜ì—¬, GCUpdateInfoì—ë‹¤ ë„£ì–´ì£¼ê³ , ë‹¤ì‹œ deleteí•˜ëŠ” ê²ƒì€
+    // ì†ë„ ë©´ì—ì„œ ë´¤ì„ ë•Œ ìƒë‹¹ížˆ ì†í•´ë‹¤. ê·¸ëž˜ì„œ GCUpdateInfo ì•ˆì—
+    // ìžˆëŠ” NPCInfoListì—ëŠ” Zoneì˜ NPCInfoListì˜ í¬ì¸í„°ë¥¼ ê·¸ëƒ¥
+    // ì „ë‹¬í•´ ì¤€ë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ì„œë²„ ì¸¡ì—ì„œëŠ” ì´ë¥¼ ì‚­ì œí•˜ë©´ ì•ˆ ëœë‹¤.
+    // ê·¸ëŸ¬ë‚˜ í´ë¼ì´ì–¸íŠ¸ì—ì„œëŠ” ì´ë¥¼ ì‚­ì œí•´ ì¤˜ì•¼ í•œë‹¤.
 
 #ifdef __GAME_CLIENT__
     list<NPCInfo*>::iterator itr = m_NPCInfos.begin();
@@ -65,7 +65,7 @@ GCUpdateInfo::~GCUpdateInfo()
 }
 
 //--------------------------------------------------------------------------------
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //--------------------------------------------------------------------------------
 void GCUpdateInfo::read(SocketInputStream& iStream)
 
@@ -173,10 +173,10 @@ void GCUpdateInfo::read(SocketInputStream& iStream)
         addNPCInfo(pInfo);
     }
 
-    // ¼­¹ö »óÅÂ
+    // ì„œë²„ ìƒíƒœ
     iStream.read(m_ServerStat);
 
-    // ÇÁ¸®¹Ì¾ö
+    // í”„ë¦¬ë¯¸ì—„
     iStream.read(m_fPremium);
 
     iStream.read(m_SMSCharge);
@@ -192,7 +192,7 @@ void GCUpdateInfo::read(SocketInputStream& iStream)
 
     m_pBloodBibleSign->read(iStream);
 
-    // ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // íŒŒì›Œì§± í¬ì¸íŠ¸
     iStream.read(m_PowerPoint);
 
     __END_CATCH
@@ -200,7 +200,7 @@ void GCUpdateInfo::read(SocketInputStream& iStream)
 
 
 //--------------------------------------------------------------------------------
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //--------------------------------------------------------------------------------
 void GCUpdateInfo::write(SocketOutputStream& oStream) const
 
@@ -299,10 +299,10 @@ void GCUpdateInfo::write(SocketOutputStream& oStream) const
         pInfo->write(oStream);
     }
 
-    // ¼­¹ö »óÅÂ
+    // ì„œë²„ ìƒíƒœ
     oStream.write(m_ServerStat);
 
-    // ÇÁ¸®¹Ì¾ö
+    // í”„ë¦¬ë¯¸ì—„
     oStream.write(m_fPremium);
 
     oStream.write(m_SMSCharge);
@@ -323,7 +323,7 @@ void GCUpdateInfo::write(SocketOutputStream& oStream) const
 
     m_pBloodBibleSign->write(oStream);
 
-    // ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // íŒŒì›Œì§± í¬ì¸íŠ¸
     oStream.write(m_PowerPoint);
 
     __END_CATCH

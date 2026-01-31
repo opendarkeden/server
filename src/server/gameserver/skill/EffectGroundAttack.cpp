@@ -78,8 +78,8 @@ void EffectGroundAttack::unaffect()
     // cout << "EffectGroundAttack" << "unaffect BEGIN" << endl;
     Assert(m_pZone != NULL);
 
-    // ½ÃÀüÀÚ¸¦ °¡Á®¿Â´Ù.
-    // !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼ö ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÕ´Ù.
+    // ì‹œì „ìë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì´ë¯¸ ì¡´ì„ ë‚˜ê°”ì„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ NULLì´ ë  ìˆ˜ ì‡ë‹¤.
     // by bezz. 2003.1.4
     Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
 
@@ -90,8 +90,8 @@ void EffectGroundAttack::unaffect()
 
     VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1);
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
-    // Áß½ÉÅ¸ÀÏ + ½ºÇÃ·¡½¬ Å¸ÀÏ
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
+    // ì¤‘ì‹¬íƒ€ì¼ + ìŠ¤í”Œë˜ì‰¬ íƒ€ì¼
     for (int x = -1; x <= 1; x++) {
         for (int y = -1; y <= 1; y++) {
             int X = m_X + x;
@@ -101,12 +101,12 @@ void EffectGroundAttack::unaffect()
                 continue;
             Tile& tile = m_pZone->getTile(X, Y);
 
-            // °¡¿îµ¥´Â 100%
-            // ÁÖÀ§¿¡´Â 50% damage
+            // ê°€ìš´ë°ëŠ” 100%
+            // ì£¼ìœ„ì—ëŠ” 50% damage
             bool bCenterEffect = (x == 0 && y == 0);
             int DamagePercent = (bCenterEffect ? m_DamagePercent : (m_DamagePercent >> 1));
 
-            // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+            // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
             const forward_list<Object*>& oList = tile.getObjectList();
             forward_list<Object*>::const_iterator itr = oList.begin();
             for (; itr != oList.end(); itr++) {
@@ -119,7 +119,7 @@ void EffectGroundAttack::unaffect()
                     Creature* pCreature = dynamic_cast<Creature*>(pObject);
                     Assert(pCreature != NULL);
 
-                    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+                    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
                     if (!canAttack(pCastCreature, pCreature)) {
                         continue;
                     }
@@ -169,10 +169,10 @@ void EffectGroundAttack::unaffect()
                         ::setDamage(pMonster, Damage, pCastCreature, SKILL_GROUND_ATTACK);
                     }
 
-                    // userÇÑÅ×´Â ¸Â´Â ¸ğ½ÀÀ» º¸¿©ÁØ´Ù.
+                    // userí•œí…ŒëŠ” ë§ëŠ” ëª¨ìŠµì„ ë³´ì—¬ì¤€ë‹¤.
                     if (pCreature->isPC()) {
                         GCSkillToObjectOK2 gcSkillToObjectOK2;
-                        gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                        gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                         gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                         gcSkillToObjectOK2.setDuration(0);
                         pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
@@ -184,7 +184,7 @@ void EffectGroundAttack::unaffect()
                     gcSkillToObjectOK4.setDuration(0);
                     m_pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcSkillToObjectOK4, pCreature);
 
-                    // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+                    // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
                     // by sigi. 2002.8.31
                     /*					if (pCreature->isDead())
                                         {

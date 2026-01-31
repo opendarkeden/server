@@ -62,7 +62,7 @@ void increaseVampExpEx(Vampire* pVampire, Exp_t Point) {
     Exp_t OldGoalExp = pVampire->getGoalExp();
     Exp_t NewGoalExp = max(0, (int)(OldGoalExp - Point));
 
-    // ´©Àû °æÇèÄ¡¿¡´Â ¸ñÇ¥ °æÇèÄ¡°¡ ÁÙ¾îµç ¸¸Å­ ÇÃ·¯½º ÇÏ¿©¾ß ÇÑ´Ù.
+    // ëˆ„ì  ê²½í—˜ì¹˜ì—ëŠ” ëª©í‘œ ê²½í—˜ì¹˜ê°€ ì¤„ì–´ë“  ë§Œí¼ í”ŒëŸ¬ìŠ¤ í•˜ì—¬ì•¼ í•œë‹¤.
     Exp_t DiffGoalExp = max(0, (int)(OldGoalExp - NewGoalExp));
 
     Exp_t NewExp = OldExp + DiffGoalExp;
@@ -82,7 +82,7 @@ void increaseVampExpEx(Vampire* pVampire, Exp_t Point) {
     pVampire->setExp(NewExp);
     pVampire->setGoalExp(NewGoalExp);
 
-    // ¸ñÇ¥ °æÇèÄ¡°¡ 0 ÀÌ¶ó¸é ·¹º§ ¾÷ÀÌ´Ù.
+    // ëª©í‘œ ê²½í—˜ì¹˜ê°€ 0 ì´ë¼ë©´ ë ˆë²¨ ì—…ì´ë‹¤.
     if (NewGoalExp == 0 && curLevel < 115) {
         VAMPIRE_RECORD prev;
         pVampire->getVampireRecord(prev);
@@ -96,8 +96,8 @@ void increaseVampExpEx(Vampire* pVampire, Exp_t Point) {
 
         if ((pVampire->getSTR(ATTR_BASIC) + pVampire->getDEX(ATTR_BASIC) + pVampire->getINT(ATTR_BASIC) +
              pVampire->getBonus() - 60) < ((pVampire->getLevel() - 1) * 3)) {
-            // ·¹º§¿¡ »ó°üÄ¡ ¾Ê°í, ¹«Á¶°Ç 3À¸·Î º¯°æµÇ¾ú´Ù.
-            // 2001.12.12 ±è¼º¹Î
+            // ë ˆë²¨ì— ìƒê´€ì¹˜ ì•Šê³ , ë¬´ì¡°ê±´ 3ìœ¼ë¡œ ë³€ê²½ë˜ì—ˆë‹¤.
+            // 2001.12.12 ê¹€ì„±ë¯¼
             bonus += 3;
         }
 
@@ -132,7 +132,7 @@ Vampire::Vampire()
 
     m_Mutex.setName("Vampire");
 
-    // AttackMelee °°Àº ±âº» °ø°İÀ» Áı¾î³Ö¾îÁØ´Ù.
+    // AttackMelee ê°™ì€ ê¸°ë³¸ ê³µê²©ì„ ì§‘ì–´ë„£ì–´ì¤€ë‹¤.
     for (int i = 0; i < SKILL_DOUBLE_IMPACT; i++) {
         VampireSkillSlot* pVampireSkillSlot = new VampireSkillSlot;
         // pVampireSkillSlot = new VampireSkillSlot;	// 2002.1.16 by sigi
@@ -147,7 +147,7 @@ Vampire::Vampire()
     for (int i = 0; i < VAMPIRE_WEAR_MAX; i++)
         m_pWearItem[i] = NULL;
 
-    // ÇÖ Å°¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+    // í•« í‚¤ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
     for (int i = 0; i < 8; i++) {
         m_HotKey[i] = 0;
     }
@@ -155,10 +155,10 @@ Vampire::Vampire()
     m_SilverDamage = 0;
     m_ClanType = 0;
 
-    // HP ¸®Á¨ ½Ã°£ ÃÊ±âÈ­
+    // HP ë¦¬ì   ì‹œê°„ ì´ˆê¸°í™”
     getCurrentTime(m_HPRegenTime);
 
-    // °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ® ÃÊ±âÈ­
+    // ê²½í—˜ì¹˜ ì„¸ì´ë¸Œ ì¹´ìš´íŠ¸ ì´ˆê¸°í™”
     m_ExpSaveCount = 0;
     m_FameSaveCount = 0;
     m_AlignmentSaveCount = 0;
@@ -171,7 +171,7 @@ Vampire::~Vampire()
 {
     __BEGIN_TRY
 
-    // º¹Àå Á¤º¸¸¦ »ı¼ºÇØµĞ´Ù. by sigi. 2002.6.18
+    // ë³µì¥ ì •ë³´ë¥¼ ìƒì„±í•´ë‘”ë‹¤. by sigi. 2002.6.18
     DWORD flag;
     Color_t color[PCVampireInfo::VAMPIRE_COLOR_MAX];
     getShapeInfo(flag, color);
@@ -184,32 +184,32 @@ Vampire::~Vampire()
     tinysave(pField);
 
 
-    // ¶³¾îÁø ¾ÆÀÌÅÛÀÇ ³»±¸¼º°ú °æÇèÄ¡, ¼ºÇâ µîÀ» ÀúÀåÇÑ´Ù.
+    // ë–¨ì–´ì§„ ì•„ì´í…œì˜ ë‚´êµ¬ì„±ê³¼ ê²½í—˜ì¹˜, ì„±í–¥ ë“±ì„ ì €ì¥í•œë‹¤.
     saveGears();
     saveExps();
     saveSkills();
 
-    // ÀÔ°í ÀÖ´Â ¾ÆÀÌÅÛÀ» ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù.
+    // ì…ê³  ìˆëŠ” ì•„ì´í…œì„ ë©”ëª¨ë¦¬ì—ì„œ ì‚­ì œí•œë‹¤.
     destroyGears();
 
-    // Å¬·¡½º°¡ »èÁ¦µÉ °æ¿ì, ÇØ´çÇÏ´Â ±³È¯ Á¤º¸¸¦ »èÁ¦ÇØ¾ß ÇÔÀº ¹°·Ğ,
-    // ±³È¯ »ó´ë¿¡°Ôµµ ÀÌ »ç½ÇÀ» ¾Ë·ÁÁà¾ß ÇÑ´Ù.
+    // í´ë˜ìŠ¤ê°€ ì‚­ì œë  ê²½ìš°, í•´ë‹¹í•˜ëŠ” êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•´ì•¼ í•¨ì€ ë¬¼ë¡ ,
+    // êµí™˜ ìƒëŒ€ì—ê²Œë„ ì´ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤˜ì•¼ í•œë‹¤.
     TradeManager* pTradeManager = m_pZone->getTradeManager();
     TradeInfo* pInfo = pTradeManager->getTradeInfo(getName());
     if (pInfo != NULL) {
-        // ±³È¯ Á¤º¸¸¦ »èÁ¦
+        // êµí™˜ ì •ë³´ë¥¼ ì‚­ì œ
         pTradeManager->cancelTrade(this);
     }
 
-    // ±Û·Î¹ú ÆÄÆ¼ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
-    // ÀÏ¹İÀûÀÎ ·Î±×¾Æ¿ôÀÇ °æ¿ì¿¡´Â
-    // CGLogoutHandler¿¡¼­ Zone::deleteCreature() ÇÔ¼ö¸¦ ºÎ¸£°Ô µÇ°í,
-    // ºñÁ¤»óÀûÀÎ °æ¿ì¶ó°í ÇØµµ,
-    // GamePlayer::disconnect()¿¡¼­ Zone::deleteCreature() ÇÔ¼ö¸¦ ºÎ¸£°Ô µÇ¹Ç·Î,
-    // ·ÎÄÃ ÆÄÆ¼ ¹× ÆÄÆ¼ ÃÊ´ë, Æ®·¹ÀÌµå Á¤º¸¸¦ °ÆÁ¤ÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+    // ê¸€ë¡œë²Œ íŒŒí‹° ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
+    // ì¼ë°˜ì ì¸ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš°ì—ëŠ”
+    // CGLogoutHandlerì—ì„œ Zone::deleteCreature() í•¨ìˆ˜ë¥¼ ë¶€ë¥´ê²Œ ë˜ê³ ,
+    // ë¹„ì •ìƒì ì¸ ê²½ìš°ë¼ê³  í•´ë„,
+    // GamePlayer::disconnect()ì—ì„œ Zone::deleteCreature() í•¨ìˆ˜ë¥¼ ë¶€ë¥´ê²Œ ë˜ë¯€ë¡œ,
+    // ë¡œì»¬ íŒŒí‹° ë° íŒŒí‹° ì´ˆëŒ€, íŠ¸ë ˆì´ë“œ ì •ë³´ë¥¼ ê±±ì •í•  í•„ìš”ëŠ” ì—†ë‹¤.
     deleteAllPartyInfo(this);
 
-    // ±â¼úµéÀ» »èÁ¦
+    // ê¸°ìˆ ë“¤ì„ ì‚­ì œ
     unordered_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
     for (; itr != m_SkillSlot.end(); itr++) {
         VampireSkillSlot* pVampireSkillSlot = itr->second;
@@ -220,8 +220,8 @@ Vampire::~Vampire()
 }
 
 // registerObject
-// Zone¿¡ Á¾¼ÓµÈ ObjectRegistry¸¦ »ç¿ëÇØ¼­, Vampire ¿Í ¼ÒÀ¯¾ÆÀÌÅÛµéÀÇ
-// ObjectID¸¦ ÇÒ´ç¹Ş´Â´Ù.
+// Zoneì— ì¢…ì†ëœ ObjectRegistryë¥¼ ì‚¬ìš©í•´ì„œ, Vampire ì™€ ì†Œìœ ì•„ì´í…œë“¤ì˜
+// ObjectIDë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤.
 void Vampire::registerObject()
 
 {
@@ -229,25 +229,25 @@ void Vampire::registerObject()
 
     Assert(getZone() != NULL);
 
-    // zone ÀÇ object registery ¿¡ Á¢±ÙÇÑ´Ù.
+    // zone ì˜ object registery ì— ì ‘ê·¼í•œë‹¤.
     ObjectRegistry& OR = getZone()->getObjectRegistry();
 
     __ENTER_CRITICAL_SECTION(OR)
 
-    // ¿ì¼± ¹ìÆÄÀÌ¾îÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+    // ìš°ì„  ë±€íŒŒì´ì–´ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
     OR.registerObject_NOLOCKED(this);
 
-    // ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+    // ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
     registerInventory(OR);
 
-    // ÀåÂøÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+    // ì¥ì°©í•˜ê³  ìˆëŠ” ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
     for (int i = 0; i < VAMPIRE_WEAR_MAX; i++) {
         Item* pItem = m_pWearItem[i];
         if (pItem != NULL)
             registerItem(pItem, OR);
     }
 
-    // ¸¶¿ì½º¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÇ OID¸¦ µî·Ï ¹Ş´Â´Ù.
+    // ë§ˆìš°ìŠ¤ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œì˜ OIDë¥¼ ë“±ë¡ ë°›ëŠ”ë‹¤.
     Item* pSlotItem = m_pExtraInventorySlot->getItem();
     if (pSlotItem != NULL)
         registerItem(pSlotItem, OR);
@@ -262,26 +262,26 @@ void Vampire::registerObject()
 }
 
 ///////////////////////////////////////////
-//	Vampire¿Í Slayer»çÀÌÀÇ º¯½ÅÀ» À§ÇØ¼­
-//	¾ÆÅÛ ·ÎµùÀº µû·Î Ã³¸®ÇÑ´Ù.
+//	Vampireì™€ Slayerì‚¬ì´ì˜ ë³€ì‹ ì„ ìœ„í•´ì„œ
+//	ì•„í…œ ë¡œë”©ì€ ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.
 //
 void Vampire::loadItem()
 
 {
     __BEGIN_TRY
 
-    // ÀÎº¥Åä¸®¸¦ »ı¼ºÇÑ´Ù.
+    // ì¸ë²¤í† ë¦¬ë¥¼ ìƒì„±í•œë‹¤.
     SAFE_DELETE(m_pInventory);
     m_pInventory = new Inventory(10, 6);
     m_pInventory->setOwner(getName());
 
-    // ¾ÆÀÌÅÛÀ» ·ÎµåÇÑ´Ù.
+    // ì•„ì´í…œì„ ë¡œë“œí•œë‹¤.
     g_pItemLoaderManager->load(this);
 
-    // ·ÎµåÇÑ ¾ÆÀÌÅÛµéÀ» µî·Ï½ÃÅ°°í
+    // ë¡œë“œí•œ ì•„ì´í…œë“¤ì„ ë“±ë¡ì‹œí‚¤ê³ 
     registerObject();
 
-    // ÀÔ°í ÀÖ´Â ¿Ê¿¡ µû¶ó ´É·ÂÄ¡¸¦ °è»êÇØÁØ´Ù.
+    // ì…ê³  ìˆëŠ” ì˜·ì— ë”°ë¼ ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì¤€ë‹¤.
     initAllStat();
 
     __END_CATCH
@@ -312,8 +312,8 @@ bool Vampire::load()
                                                                                    m_Name.c_str());
 
         if (pResult->getRowCount() == 0) {
-            // throw Error("Critical Error : data intergrity broken. (·Î±×ÀÎ ¼­¹ö¿¡¼­ °ÔÀÓ ¼­¹ö·Î ³Ñ¾î¿À´Â µ¿¾È¿¡
-            // Ä³¸¯ÅÍ°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.)");
+            // throw Error("Critical Error : data intergrity broken. (ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ê²Œì„ ì„œë²„ë¡œ ë„˜ì–´ì˜¤ëŠ” ë™ì•ˆì—
+            // ìºë¦­í„°ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.)");
             SAFE_DELETE(pStmt);
             return false;
         }
@@ -380,9 +380,9 @@ bool Vampire::load()
         reward = pResult->getInt(++i);
 
 
-        // maxHP¸¦ ´Ù½Ã °è»êÇØ¼­ ¼³Á¤ÇØÁØ´Ù.
+        // maxHPë¥¼ ë‹¤ì‹œ ê³„ì‚°í•´ì„œ ì„¤ì •í•´ì¤€ë‹¤.
         // 2002.7.15 by sigi
-        // °ø½Ä ¹Ù²î¸é AbilityBalance.cppÀÇ computeHPµµ ¼öÁ¤ÇØ¾ßÇÑ´Ù.
+        // ê³µì‹ ë°”ë€Œë©´ AbilityBalance.cppì˜ computeHPë„ ìˆ˜ì •í•´ì•¼í•œë‹¤.
         int maxHP = m_STR[ATTR_CURRENT] * 2 + m_INT[ATTR_CURRENT] + m_DEX[ATTR_CURRENT] / 2 + m_Level;
         maxHP = min((int)maxHP, VAMPIRE_MAX_HP);
         setHP(maxHP, ATTR_MAX);
@@ -390,9 +390,9 @@ bool Vampire::load()
         try {
             setZoneID(zoneID);
         } catch (Error& e) {
-            // ±æµå ¾ÆÁöÆ® ¹®Á¦·Î º»´Ù.
-            // ±æµå ¾ÆÁöÆ®°¡ ÇÑ °ÔÀÓ ¼­¹ö¿¡¸¸ Á¸ÀçÇÏ¹Ç·Î ´Ù¸¥ °ÔÀÓ¼­¹ö·Î Á¢¼ÓÇÒ ¶§ ±× ¾ÆÁöÆ®·Î µé¾î°¡Áö ¸øÇÑ´Ù.
-            // ±æµå ¾ÆÁöÆ® ÀÔ±¸·Î ¿Å±ä´Ù.
+            // ê¸¸ë“œ ì•„ì§€íŠ¸ ë¬¸ì œë¡œ ë³¸ë‹¤.
+            // ê¸¸ë“œ ì•„ì§€íŠ¸ê°€ í•œ ê²Œì„ ì„œë²„ì—ë§Œ ì¡´ì¬í•˜ë¯€ë¡œ ë‹¤ë¥¸ ê²Œì„ì„œë²„ë¡œ ì ‘ì†í•  ë•Œ ê·¸ ì•„ì§€íŠ¸ë¡œ ë“¤ì–´ê°€ì§€ ëª»í•œë‹¤.
+            // ê¸¸ë“œ ì•„ì§€íŠ¸ ì…êµ¬ë¡œ ì˜®ê¸´ë‹¤.
             setZoneID(1003);
             setX(30);
             setY(30);
@@ -432,9 +432,9 @@ bool Vampire::load()
     }
 
     //----------------------------------------------------------------------
-    // Vampire Outlook Information À» ±¸¼ºÇÑ´Ù.
+    // Vampire Outlook Information ì„ êµ¬ì„±í•œë‹¤.
     //----------------------------------------------------------------------
-    // ¹ìÆÄÀÌ¾î´Â ·ÎµùÇÒ¶§ ObjectID¸¦ ¼¼ÆÃ ÇÏµµ·Ï ÇÑ´Ù. ±Ùµ¥ Á¢¼Ó ÇÒ¶©? -_-
+    // ë±€íŒŒì´ì–´ëŠ” ë¡œë”©í• ë•Œ ObjectIDë¥¼ ì„¸íŒ… í•˜ë„ë¡ í•œë‹¤. ê·¼ë° ì ‘ì† í• ë•? -_-
     m_VampireInfo.setObjectID(m_ObjectID);
     m_VampireInfo.setName(m_Name);
     m_VampireInfo.setSex(m_Sex);
@@ -444,7 +444,7 @@ bool Vampire::load()
     m_VampireInfo.setCompetence(m_CompetenceShape);
 
     //----------------------------------------------------------------------
-    // ½ºÅ³À» ·ÎµùÇÑ´Ù.
+    // ìŠ¤í‚¬ì„ ë¡œë”©í•œë‹¤.
     //----------------------------------------------------------------------
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -475,17 +475,17 @@ bool Vampire::load()
     END_DB(pStmt)
 
     //----------------------------------------------------------------------
-    // ÀÌÆåÆ®¸¦ ·ÎµùÇÑ´Ù.
+    // ì´í™íŠ¸ë¥¼ ë¡œë”©í•œë‹¤.
     //----------------------------------------------------------------------
     g_pEffectLoaderManager->load(this);
 
     //----------------------------------------------------------------------
-    // ÇÃ·¡±× ¼ÂÀ» ·ÎµåÇÑ´Ù.
+    // í”Œë˜ê·¸ ì…‹ì„ ë¡œë“œí•œë‹¤.
     //----------------------------------------------------------------------
     m_pFlagSet->load(getName());
 
     //----------------------------------------------------------------------
-    // Vampire Outlook Information À» ÃÊ±âÈ­ÇÑ´Ù.
+    // Vampire Outlook Information ì„ ì´ˆê¸°í™”í•œë‹¤.
     //----------------------------------------------------------------------
     /*
     ItemType_t coatType = 0;
@@ -501,24 +501,24 @@ bool Vampire::load()
     m_VampireInfo.setCoatColor(377);
     // m_VampireInfo.setCoatColor(2 , SUB_COLOR);
 
-    // Àß¸øµÈ °æÇèÄ¡¸¦ ÀçÁ¶Á¤ ÇØÁØ´Ù.
+    // ì˜ëª»ëœ ê²½í—˜ì¹˜ë¥¼ ì¬ì¡°ì • í•´ì¤€ë‹¤.
     VampEXPInfo* pVampEXPInfo = g_pVampEXPInfoManager->getVampEXPInfo(m_Level);
 
     if ((pVampEXPInfo->getAccumExp() != m_Exp + m_GoalExp) && m_Level > 1) {
-        // ofstream file("¹ìÇÁ´É·ÂÄ¡Á¶Á¤.txt", ios::out | ios::app);
+        // ofstream file("ë±€í”„ëŠ¥ë ¥ì¹˜ì¡°ì •.txt", ios::out | ios::app);
         // file << "NAME:" << m_Name << endl;
         // file << "==VampEXP==" << endl;
-        // file << "ÇöÀç·¹º§ÀÇÃÑ°æÇèÄ¡ : " << (int)pVampEXPInfo->getAccumExp() << endl;
-        // file << "ÇöÀç ´©Àû °æÇèÄ¡ : " << (int)m_Exp << endl;
-        // file << "ÇöÀç ¸ñÇ¥ °æÇèÄ¡ : " << (int)m_GoalExp << endl;
+        // file << "í˜„ì¬ë ˆë²¨ì˜ì´ê²½í—˜ì¹˜ : " << (int)pVampEXPInfo->getAccumExp() << endl;
+        // file << "í˜„ì¬ ëˆ„ì  ê²½í—˜ì¹˜ : " << (int)m_Exp << endl;
+        // file << "í˜„ì¬ ëª©í‘œ ê²½í—˜ì¹˜ : " << (int)m_GoalExp << endl;
 
-        // ÀÌÀü ·¹º§ÀÇ ÀÎÆ÷¸¦ ¹Ş¾Æ¿Â´Ù.
+        // ì´ì „ ë ˆë²¨ì˜ ì¸í¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
         VampEXPInfo* pBeforeVampEXPInfo = g_pVampEXPInfoManager->getVampEXPInfo(m_Level - 1);
-        // ÀÌÀü ·¹º§ÀÇ ÃÑ °æÇèÄ¡ + ¸ñÇ¥ °æÇèÄ¡ º¯È­·® = ÇöÀç ´©Àû °æÇèÄ¡
+        // ì´ì „ ë ˆë²¨ì˜ ì´ ê²½í—˜ì¹˜ + ëª©í‘œ ê²½í—˜ì¹˜ ë³€í™”ëŸ‰ = í˜„ì¬ ëˆ„ì  ê²½í—˜ì¹˜
         m_Exp = pBeforeVampEXPInfo->getAccumExp() + (pVampEXPInfo->getGoalExp() - m_GoalExp);
 
-        // file << "¼öÁ¤µÈ ´©Àû °æÇèÄ¡ : " << (int)m_Exp << endl;
-        // file << "¼öÁ¤µÈ ¸ñÇ¥ °æÇèÄ¡ : " << (int)m_GoalExp << endl;
+        // file << "ìˆ˜ì •ëœ ëˆ„ì  ê²½í—˜ì¹˜ : " << (int)m_Exp << endl;
+        // file << "ìˆ˜ì •ëœ ëª©í‘œ ê²½í—˜ì¹˜ : " << (int)m_GoalExp << endl;
         // file << endl;
         // file.close();
 
@@ -553,7 +553,7 @@ void Vampire::save() const
     Statement* pStmt;
 
     //--------------------------------------------------------------------------------
-    // ¹ìÆÄÀÌ¾î Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+    // ë±€íŒŒì´ì–´ ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
     //--------------------------------------------------------------------------------
     BEGIN_DB {
         StringStream sql;
@@ -591,17 +591,17 @@ void Vampire::save() const
 
     /*
     //----------------------------------------------------------------------
-    // ¾ÆÀÌÅÛÀ» ¼¼ÀÌºêÇÑ´Ù.
+    // ì•„ì´í…œì„ ì„¸ì´ë¸Œí•œë‹¤.
     //----------------------------------------------------------------------
     //--------------------------------------------------
-    // ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛµéÀ» ¼¼ÀÌºê ÇÑ´Ù.
+    // ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œë“¤ì„ ì„¸ì´ë¸Œ í•œë‹¤.
     //--------------------------------------------------
     m_pInventory->save(m_Name);
     */
 
 
     //--------------------------------------------------
-    // ÀÌÆåÆ®¸¦ ¼¼ÀÌºê ÇÑ´Ù.
+    // ì´í™íŠ¸ë¥¼ ì„¸ì´ë¸Œ í•œë‹¤.
     //--------------------------------------------------
     m_pEffectManager->save(m_Name);
 
@@ -632,12 +632,12 @@ void Vampire::tinysave(const char* field) // by sigi. 2002.5.15
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-// ½ºÅ³ °ü·Ã ÇÔ¼ö
+// ìŠ¤í‚¬ ê´€ë ¨ í•¨ìˆ˜
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// Æ¯Á¤ SkillÀ» ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • Skillì„ ë¦¬í„´í•œë‹¤.
 VampireSkillSlot* Vampire::getSkill(SkillType_t SkillType) const
 
 {
@@ -653,7 +653,7 @@ VampireSkillSlot* Vampire::getSkill(SkillType_t SkillType) const
     __END_CATCH
 }
 
-// Æ¯Á¤ SkillÀ» add ÇÑ´Ù
+// íŠ¹ì • Skillì„ add í•œë‹¤
 void Vampire::addSkill(SkillType_t SkillType)
 
 {
@@ -693,7 +693,7 @@ void Vampire::addSkill(SkillType_t SkillType)
     __END_CATCH
 }
 
-// Æ¯Á¤ SkillSlotÀ» ÀÚµ¿À¸·Î ºó ½½¶ùÀ» Ã£¾Æ ³Ö´Â´Ù.
+// íŠ¹ì • SkillSlotì„ ìë™ìœ¼ë¡œ ë¹ˆ ìŠ¬ëì„ ì°¾ì•„ ë„£ëŠ”ë‹¤.
 void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
 
 {
@@ -731,7 +731,7 @@ void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-// ¾ÆÀÌÅÛ Âø/Å» °ü·Ã ÇÔ¼ö
+// ì•„ì´í…œ ì°©/íƒˆ ê´€ë ¨ í•¨ìˆ˜
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -740,7 +740,7 @@ void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
 //
 // Vampire::WearItem()
 //
-// ItemÀ» ÀåÂøÃ¢¿¡ ÀåÂø½ÃÅ°°í ´É·ÂÄ¡¸¦ °è»êÇÑ´Ù.
+// Itemì„ ì¥ì°©ì°½ì— ì¥ì°©ì‹œí‚¤ê³  ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 //
 //----------------------------------------------------------------------
 void Vampire::wearItem(WearPart Part, Item* pItem)
@@ -752,9 +752,9 @@ void Vampire::wearItem(WearPart Part, Item* pItem)
 
     Item* pPrevItem = NULL;
 
-    // ÇöÀç ±âÈ¹¿¡¼­´Â...´É·ÂÄ¡°¡ ¸ğÀÚ¶ó´õ¶óµµ ¾ÆÀÌÅÛÀ» ¹«Á¶°Ç »ç¿ëÇÒ ¼ö´Â
-    // ÀÖ´Ù. ÇÏÁö¸¸ ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ ´É·ÂÄ¡°¡ Àû¿ëÀÌ µÇÁö ¾Ê´Â´Ù.
-    // ±×·¯¹Ç·Î ÀÏ´Ü ¾ÆÀÌÅÛÀ» ÇØ´çÇÏ´Â ÀåÂøÃ¢¿¡´Ù Áı¾î³Ö´Â´Ù.
+    // í˜„ì¬ ê¸°íšì—ì„œëŠ”...ëŠ¥ë ¥ì¹˜ê°€ ëª¨ìë¼ë”ë¼ë„ ì•„ì´í…œì„ ë¬´ì¡°ê±´ ì‚¬ìš©í•  ìˆ˜ëŠ”
+    // ìˆë‹¤. í•˜ì§€ë§Œ ì•„ì´í…œì— ì˜í•œ ëŠ¥ë ¥ì¹˜ê°€ ì ìš©ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
+    // ê·¸ëŸ¬ë¯€ë¡œ ì¼ë‹¨ ì•„ì´í…œì„ í•´ë‹¹í•˜ëŠ” ì¥ì°©ì°½ì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
     if (isWear(Part)) {
         pPrevItem = getWearItem(Part);
         m_pWearItem[Part] = pItem;
@@ -770,7 +770,7 @@ void Vampire::wearItem(WearPart Part, Item* pItem)
         sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
         pPrevItem->tinysave(pField);
     } else {
-        // ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+        // ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
         m_pWearItem[Part] = pItem;
 
         // by sigi. 2002.5.15
@@ -780,23 +780,23 @@ void Vampire::wearItem(WearPart Part, Item* pItem)
         pItem->tinysave(pField);
     }
 
-    // ¿ÊÀÌ¶ó¸é ¿Ê¿¡ µû¸¥ »ö±òÀ» Á¤ÇØÁØ´Ù.
-    // ³ªÁß¿¡¶óµµ ¿Ê Å¸ÀÔÀÌ ¿©·¯ °¡Áö°¡ µÉ ¼ö ÀÖÀ¸¸®¶ó »ı°¢ÇÏ´Âµ¥,
-    // ÇöÀç·Î¼­´Â ¿Ê Å¸ÀÔÀÌ ÇÏ³ªÀÌ¹Ç·Î, »ö±ò¸¸ ¼¼ÆÃÇØÁØ´Ù.
+    // ì˜·ì´ë¼ë©´ ì˜·ì— ë”°ë¥¸ ìƒ‰ê¹”ì„ ì •í•´ì¤€ë‹¤.
+    // ë‚˜ì¤‘ì—ë¼ë„ ì˜· íƒ€ì…ì´ ì—¬ëŸ¬ ê°€ì§€ê°€ ë  ìˆ˜ ìˆìœ¼ë¦¬ë¼ ìƒê°í•˜ëŠ”ë°,
+    // í˜„ì¬ë¡œì„œëŠ” ì˜· íƒ€ì…ì´ í•˜ë‚˜ì´ë¯€ë¡œ, ìƒ‰ê¹”ë§Œ ì„¸íŒ…í•´ì¤€ë‹¤.
     if (pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT) {
         OptionInfo* pOptionInfo = NULL;
 
-        // ¿É¼ÇÀÌ ÀÖ´Â ¿ÊÀÌ¶ó¸é ¿É¼Ç »ö±òÀ»...
+        // ì˜µì…˜ì´ ìˆëŠ” ì˜·ì´ë¼ë©´ ì˜µì…˜ ìƒ‰ê¹”ì„...
         if (pItem->getOptionType() != 0) {
             pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getOptionType());
             m_VampireInfo.setCoatColor(pOptionInfo->getColor());
         }
-        // ¿É¼ÇÀÌ ¾ø´Â ¿ÊÀÌ¶ó¸é ¿É¼ÇÀÌ ¾ø´Â »ö±òÀ»...
+        // ì˜µì…˜ì´ ì—†ëŠ” ì˜·ì´ë¼ë©´ ì˜µì…˜ì´ ì—†ëŠ” ìƒ‰ê¹”ì„...
         else {
             m_VampireInfo.setCoatColor(377);
         }
 
-        // item typeÀ» ¼³Á¤ÇØÁØ´Ù.
+        // item typeì„ ì„¤ì •í•´ì¤€ë‹¤.
         ItemType_t IType = pItem->getItemType();
         m_VampireInfo.setCoatType(IType);
     }
@@ -807,27 +807,27 @@ void Vampire::wearItem(WearPart Part, Item* pItem)
 
 //----------------------------------------------------------------------
 // Vampire::WearItem()
-// ItemÀ» ÀåÂøÃ¢¿¡ ÀåÂø½ÃÅ°°í ´É·ÂÄ¡¸¦ °è»êÇÑ´Ù.
+// Itemì„ ì¥ì°©ì°½ì— ì¥ì°©ì‹œí‚¤ê³  ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 //----------------------------------------------------------------------
 void Vampire::wearItem(WearPart Part)
 
 {
     __BEGIN_TRY
 
-    // ÀåÂø ÁØºñÁßÀÎ ¾ÆÀÌÅÛÀ» ¹Ş¾Æ¿Â´Ù.
+    // ì¥ì°© ì¤€ë¹„ì¤‘ì¸ ì•„ì´í…œì„ ë°›ì•„ì˜¨ë‹¤.
     Item* pItem = getExtraInventorySlotItem();
     Assert(pItem != NULL);
 
     Item* pPrevItem = NULL;
 
-    // ¸ÕÀú ¿ÊÀ» ÀÔÈ÷°Å³ª, ¹ş±â±â Àü¿¡ ÇöÀçÀÇ ´É·ÂÄ¡¸¦ ¹öÆÛ¿¡´Ù ÀúÀåÇØ µĞ´Ù.
-    // ÀÌ´Â ³ªÁß¿¡ º¯ÇÑ ´É·ÂÄ¡¸¸À» Àü¼ÛÇÏ±â À§ÇÑ °ÍÀÌ´Ù.
+    // ë¨¼ì € ì˜·ì„ ì…íˆê±°ë‚˜, ë²—ê¸°ê¸° ì „ì— í˜„ì¬ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ë²„í¼ì—ë‹¤ ì €ì¥í•´ ë‘”ë‹¤.
+    // ì´ëŠ” ë‚˜ì¤‘ì— ë³€í•œ ëŠ¥ë ¥ì¹˜ë§Œì„ ì „ì†¡í•˜ê¸° ìœ„í•œ ê²ƒì´ë‹¤.
     VAMPIRE_RECORD prev;
     getVampireRecord(prev);
 
-    // ÇöÀç ±âÈ¹¿¡¼­´Â...´É·ÂÄ¡°¡ ¸ğÀÚ¶ó´õ¶óµµ ¾ÆÀÌÅÛÀ» ¹«Á¶°Ç »ç¿ëÇÒ ¼ö´Â
-    // ÀÖ´Ù. ÇÏÁö¸¸ ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ ´É·ÂÄ¡°¡ Àû¿ëÀÌ µÇÁö ¾Ê´Â´Ù.
-    // ±×·¯¹Ç·Î ÀÏ´Ü ¾ÆÀÌÅÛÀ» ÇØ´çÇÏ´Â ÀåÂøÃ¢¿¡´Ù Áı¾î³Ö´Â´Ù.
+    // í˜„ì¬ ê¸°íšì—ì„œëŠ”...ëŠ¥ë ¥ì¹˜ê°€ ëª¨ìë¼ë”ë¼ë„ ì•„ì´í…œì„ ë¬´ì¡°ê±´ ì‚¬ìš©í•  ìˆ˜ëŠ”
+    // ìˆë‹¤. í•˜ì§€ë§Œ ì•„ì´í…œì— ì˜í•œ ëŠ¥ë ¥ì¹˜ê°€ ì ìš©ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
+    // ê·¸ëŸ¬ë¯€ë¡œ ì¼ë‹¨ ì•„ì´í…œì„ í•´ë‹¹í•˜ëŠ” ì¥ì°©ì°½ì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
     char pField[80];
 
     if (isWear(Part)) {
@@ -860,25 +860,25 @@ void Vampire::wearItem(WearPart Part)
     sendRealWearingInfo();
     sendModifyInfo(prev);
 
-    // ¿ÊÀÌ¶ó¸é ¿Ê¿¡ µû¸¥ »ö±òÀ» Á¤ÇØÁØ´Ù.
-    // ³ªÁß¿¡¶óµµ ¿Ê Å¸ÀÔÀÌ ¿©·¯ °¡Áö°¡ µÉ ¼ö ÀÖÀ¸¸®¶ó »ı°¢ÇÏ´Âµ¥,
-    // ÇöÀç·Î¼­´Â ¿Ê Å¸ÀÔÀÌ ÇÏ³ªÀÌ¹Ç·Î, »ö±ò¸¸ ¼¼ÆÃÇØÁØ´Ù.
+    // ì˜·ì´ë¼ë©´ ì˜·ì— ë”°ë¥¸ ìƒ‰ê¹”ì„ ì •í•´ì¤€ë‹¤.
+    // ë‚˜ì¤‘ì—ë¼ë„ ì˜· íƒ€ì…ì´ ì—¬ëŸ¬ ê°€ì§€ê°€ ë  ìˆ˜ ìˆìœ¼ë¦¬ë¼ ìƒê°í•˜ëŠ”ë°,
+    // í˜„ì¬ë¡œì„œëŠ” ì˜· íƒ€ì…ì´ í•˜ë‚˜ì´ë¯€ë¡œ, ìƒ‰ê¹”ë§Œ ì„¸íŒ…í•´ì¤€ë‹¤.
     if (pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT) {
         OptionInfo* pOptionInfo = NULL;
 
-        // ¿É¼ÇÀÌ ÀÖ´Â ¿ÊÀÌ¶ó¸é ¿É¼Ç »ö±òÀ»...
+        // ì˜µì…˜ì´ ìˆëŠ” ì˜·ì´ë¼ë©´ ì˜µì…˜ ìƒ‰ê¹”ì„...
         if (pItem->getOptionType() != 0) {
             pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getOptionType());
             m_VampireInfo.setCoatColor(pOptionInfo->getColor());
         }
-        // ¿É¼ÇÀÌ ¾ø´Â ¿ÊÀÌ¶ó¸é ¿É¼ÇÀÌ ¾ø´Â »ö±òÀ»...
+        // ì˜µì…˜ì´ ì—†ëŠ” ì˜·ì´ë¼ë©´ ì˜µì…˜ì´ ì—†ëŠ” ìƒ‰ê¹”ì„...
         else {
             m_VampireInfo.setCoatColor(377);
         }
 
         m_VampireInfo.setCoatType(pItem->getItemType());
 
-        // ¿ÊÀ» °¥¾ÆÀÔ¾úÀ¸´Ï, ÁÖÀ§¿¡´Ù°¡ ¿Ê °¥¾ÆÀÔ¾ú´Ù°í Á¤º¸¸¦ ³¯¸°´Ù.
+        // ì˜·ì„ ê°ˆì•„ì…ì—ˆìœ¼ë‹ˆ, ì£¼ìœ„ì—ë‹¤ê°€ ì˜· ê°ˆì•„ì…ì—ˆë‹¤ê³  ì •ë³´ë¥¼ ë‚ ë¦°ë‹¤.
         GCChangeShape pkt;
         pkt.setObjectID(getObjectID());
         pkt.setItemClass(Item::ITEM_CLASS_VAMPIRE_COAT);
@@ -915,16 +915,16 @@ void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 
     VAMPIRE_RECORD prev;
 
-    // ÀåÂøÃ¢¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» ¹Ş¾Æ¿Â´Ù.
+    // ì¥ì°©ì°½ì— ìˆëŠ” ì•„ì´í…œì„ ë°›ì•„ì˜¨ë‹¤.
     Item* pItem = m_pWearItem[Part];
     Assert(pItem != NULL);
 
     m_pWearItem[Part] = NULL;
 
-    // wearItem¿¡¼­ ÁöÁ¤µÈ ½½¶ù¿¡ ¿ÊÀ» ÀÌ¹Ì ÀÔ°í ÀÖ´Â °æ¿ì¿¡, ±×°ÍÀ» ¹ş±â°í
-    // ´Ù½Ã ¿ÊÀ» ÀÔÈ÷´Âµ¥, ±×·¯¸é ¹ş±æ ¶§ ÆĞÅ¶À» ÇÑ¹ø, ÀÔ¾úÀ» ¶§ ´Ù½Ã ÆĞÅ¶À»
-    // ÇÑ¹ø, ÃÑ µÎ ¹øÀÇ ÆĞÅ¶À» º¸³»°Ô µÈ´Ù. ±×°ÍÀ» ¹æÁöÇÏ±â À§ÇØ¼­
-    // bool º¯¼ö¸¦ ÇÏ³ª Áı¾î³Ö¾ú´Ù. -- 2002.01.24 ±è¼º¹Î
+    // wearItemì—ì„œ ì§€ì •ëœ ìŠ¬ëì— ì˜·ì„ ì´ë¯¸ ì…ê³  ìˆëŠ” ê²½ìš°ì—, ê·¸ê²ƒì„ ë²—ê¸°ê³ 
+    // ë‹¤ì‹œ ì˜·ì„ ì…íˆëŠ”ë°, ê·¸ëŸ¬ë©´ ë²—ê¸¸ ë•Œ íŒ¨í‚·ì„ í•œë²ˆ, ì…ì—ˆì„ ë•Œ ë‹¤ì‹œ íŒ¨í‚·ì„
+    // í•œë²ˆ, ì´ ë‘ ë²ˆì˜ íŒ¨í‚·ì„ ë³´ë‚´ê²Œ ëœë‹¤. ê·¸ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ
+    // bool ë³€ìˆ˜ë¥¼ í•˜ë‚˜ ì§‘ì–´ë„£ì—ˆë‹¤. -- 2002.01.24 ê¹€ì„±ë¯¼
     if (bSendModifyInfo) {
         getVampireRecord(prev);
         initAllStat();
@@ -935,13 +935,13 @@ void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
     }
 
     //---------------------------------------------
-    // ÀÖ¾î¼± ¾ÈµÉ Ã¼Å© -_-; ÀÓ½Ã ¶«»§
-    // ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Ä¿¼­¿¡´Ù ´Ş¾ÆÁØ´ç.
+    // ìˆì–´ì„  ì•ˆë  ì²´í¬ -_-; ì„ì‹œ ë•œë¹µ
+    // ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ ì»¤ì„œì—ë‹¤ ë‹¬ì•„ì¤€ë‹¹.
     //---------------------------------------------
     if (bAddOnMouse) {
         addItemToExtraInventorySlot(pItem);
         // pItem->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
-        //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+        //  itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
         char pField[80];
         sprintf(pField, "Storage=%d, Durability=%d", STORAGE_EXTRASLOT, pItem->getDurability());
         pItem->tinysave(pField);
@@ -972,7 +972,7 @@ void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 
 //----------------------------------------------------------------------
 // destroyGears
-// ÀåÂø ¾ÆÀÌÅÛÀ» Delete ÇÑ´Ù.
+// ì¥ì°© ì•„ì´í…œì„ Delete í•œë‹¤.
 //----------------------------------------------------------------------
 void Vampire::destroyGears()
 
@@ -986,7 +986,7 @@ void Vampire::destroyGears()
             Item::ItemClass IClass = pItem->getItemClass();
 
             //-------------------------------------------------------------
-            // ½½·¹ÀÌ¾î¿ë ¾ÆÀÌÅÛÀ» ÀÔ°í ÀÖ´Â ÀÌ»óÇÑ ÀÚ½ÄÀÌ ÀÖÀ¸¸é ´Ù ¾î¼­Æ®
+            // ìŠ¬ë ˆì´ì–´ìš© ì•„ì´í…œì„ ì…ê³  ìˆëŠ” ì´ìƒí•œ ìì‹ì´ ìˆìœ¼ë©´ ë‹¤ ì–´ì„œíŠ¸
             //-------------------------------------------------------------
             Assert(IClass != Item::ITEM_CLASS_AR);
             Assert(IClass != Item::ITEM_CLASS_SR);
@@ -1044,15 +1044,15 @@ bool Vampire::isRealWearing(Item* pItem) const
     Level_t ReqLevel = pItemInfo->getReqLevel();
     Attr_t ReqGender = pItemInfo->getReqGender();
 
-    // ¾ÆÀÌÅÛÀÌ ¿É¼ÇÀ» °¡Áö°í ÀÖ´Ù¸é,
-    // ¿É¼ÇÀÇ Á¾·ù¿¡ µû¶ó¼­ ´É·ÂÄ¡ Á¦ÇÑÀ» ¿Ã·ÁÁØ´Ù.
+    // ì•„ì´í…œì´ ì˜µì…˜ì„ ê°€ì§€ê³  ìˆë‹¤ë©´,
+    // ì˜µì…˜ì˜ ì¢…ë¥˜ì— ë”°ë¼ì„œ ëŠ¥ë ¥ì¹˜ ì œí•œì„ ì˜¬ë ¤ì¤€ë‹¤.
     if (pItem->getOptionType() != 0) {
         OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getOptionType());
         ReqLevel += pOptionInfo->getReqLevel();
     }
 
-    // ´É·ÂÄ¡ Á¦ÇÑÀÌ ÇÏ³ª¶óµµ ÀÖ´Ù¸é,
-    // ±× ´É·ÂÀ» ¸¸Á·½ÃÅ°´ÂÁö °Ë»çÇØ¾ß ÇÑ´Ù.
+    // ëŠ¥ë ¥ì¹˜ ì œí•œì´ í•˜ë‚˜ë¼ë„ ìˆë‹¤ë©´,
+    // ê·¸ ëŠ¥ë ¥ì„ ë§Œì¡±ì‹œí‚¤ëŠ”ì§€ ê²€ì‚¬í•´ì•¼ í•œë‹¤.
     if (ReqLevel > 0 || ReqGender != GENDER_BOTH) {
         if (ReqLevel > 0 && m_Level < ReqLevel)
             return false;
@@ -1101,7 +1101,7 @@ DWORD Vampire::sendRealWearingInfo(void) const
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-// ÀÎÆ÷ °ü·Ã ÇÔ¼ö
+// ì¸í¬ ê´€ë ¨ í•¨ìˆ˜
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -1121,10 +1121,10 @@ PCVampireInfo2* Vampire::getVampireInfo2()
     pInfo->setHairColor(m_HairColor);
     pInfo->setSkinColor(m_SkinColor);
 
-    // ¼ºÇâ
+    // ì„±í–¥
     pInfo->setAlignment(m_Alignment);
 
-    // ´É·ÂÄ¡
+    // ëŠ¥ë ¥ì¹˜
     pInfo->setSTR(m_STR[ATTR_CURRENT], ATTR_CURRENT);
     pInfo->setSTR(m_STR[ATTR_MAX], ATTR_MAX);
     pInfo->setSTR(m_STR[ATTR_BASIC], ATTR_BASIC);
@@ -1249,13 +1249,13 @@ ExtraInfo* Vampire::getExtraInfo() const
             pExtraSlotInfo->setItemNum(pItem->getNum());
         }
 
-        // º§Æ®¶ó¸é Sub ¾ÆÀÌÅÛÀÇ Ãß°¡ Á¤º¸°¡ ÇÊ¿äÇÏ´Ù.
+        // ë²¨íŠ¸ë¼ë©´ Sub ì•„ì´í…œì˜ ì¶”ê°€ ì •ë³´ê°€ í•„ìš”í•˜ë‹¤.
         if (IClass == Item::ITEM_CLASS_BELT) {
             Belt* pBelt = dynamic_cast<Belt*>(pItem);
             Inventory* pBeltInventory = ((Belt*)pItem)->getInventory();
             BYTE SubItemCount = 0;
 
-            // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+            // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
             for (int i = 0; i < pBelt->getPocketCount(); i++) {
                 Item* pBeltItem = pBeltInventory->getItem(i, 0);
 
@@ -1276,7 +1276,7 @@ ExtraInfo* Vampire::getExtraInfo() const
             pExtraSlotInfo->setListNum(SubItemCount);
         }
 
-        // »óÀÇ ÇÏÀÇ Main Color Áö±İÀº ±×³É 0 À¸·Î ¼ÂÆÃ ÇØµĞ´Ù.
+        // ìƒì˜ í•˜ì˜ Main Color ì§€ê¸ˆì€ ê·¸ëƒ¥ 0 ìœ¼ë¡œ ì…‹íŒ… í•´ë‘”ë‹¤.
         pExtraSlotInfo->setMainColor(0);
 
         pExtraInfo->addListElement(pExtraSlotInfo);
@@ -1323,21 +1323,21 @@ GearInfo* Vampire::getGearInfo() const
             pGearSlotInfo->setEnchantLevel(pItem->getEnchantLevel());
 
             /*
-            // º§Æ®¶ó¸é Sub ¾ÆÀÌÅÛÀÇ Ãß°¡ Á¤º¸°¡ ÇÊ¿äÇÏ´Ù.
+            // ë²¨íŠ¸ë¼ë©´ Sub ì•„ì´í…œì˜ ì¶”ê°€ ì •ë³´ê°€ í•„ìš”í•˜ë‹¤.
             if (IClass == Item::ITEM_CLASS_BELT) {
 
-                // ¾ÆÀÌÅÛ ÀÎÆ÷¸¦ ¹Ş¾Æ¿Â´Ù.
+                // ì•„ì´í…œ ì¸í¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
                 ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 
-                // Æ÷ÄÏÀÇ ¼ıÀÚ¸¦ ¹Ş¾Æ¿Â´Ù.
+                // í¬ì¼“ì˜ ìˆ«ìë¥¼ ë°›ì•„ì˜¨ë‹¤.
                 BYTE PocketNum = ((BeltInfo*)pItemInfo)->getPocketCount();
 
-                // º§Æ®ÀÇ ÀÎº¥Åä¸®¸¦ ¹Ş¾Æ¿Â´Ù.
+                // ë²¨íŠ¸ì˜ ì¸ë²¤í† ë¦¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
                 Inventory* pBeltInventory = ((Belt*)pItem)->getInventory();
 
                 BYTE SubItemCount = 0;
 
-                // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+                // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
                 for (int i = 0; i < PocketNum ; i++) {
 
                     Item* pBeltItem = pBeltInventory->getItem(i, 0);
@@ -1363,7 +1363,7 @@ GearInfo* Vampire::getGearInfo() const
 
             pGearSlotInfo->setSlotID(i);
 
-            // »óÀÇ ÇÏÀÇ Main Color Áö±İÀº ±×³É 0 À¸·Î ¼ÂÆÃ ÇØµĞ´Ù.
+            // ìƒì˜ í•˜ì˜ Main Color ì§€ê¸ˆì€ ê·¸ëƒ¥ 0 ìœ¼ë¡œ ì…‹íŒ… í•´ë‘”ë‹¤.
             pGearSlotInfo->setMainColor(0);
 
             pGearInfo->addListElement(pGearSlotInfo);
@@ -1407,7 +1407,7 @@ InventoryInfo* Vampire::getInventoryInfo() const
                 if (itr == ItemList.end()) {
                     ItemList.push_back(pItem);
 
-                    // InventorySlotInfo¸¦ ±¸¼º
+                    // InventorySlotInfoë¥¼ êµ¬ì„±
                     InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
                     pInventorySlotInfo->setObjectID(pItem->getObjectID());
                     pInventorySlotInfo->setItemClass(pItem->getItemClass());
@@ -1434,14 +1434,14 @@ InventoryInfo* Vampire::getInventoryInfo() const
                         pInventorySlotInfo->setItemNum(pSR->getBulletCount());
                     }
 
-                    // º§Æ®¶ó¸é Sub ¾ÆÀÌÅÛÀÇ Ãß°¡ Á¤º¸°¡ ÇÊ¿äÇÏ´Ù.
+                    // ë²¨íŠ¸ë¼ë©´ Sub ì•„ì´í…œì˜ ì¶”ê°€ ì •ë³´ê°€ í•„ìš”í•˜ë‹¤.
                     if (IClass == Item::ITEM_CLASS_BELT) {
                         Belt* pBelt = dynamic_cast<Belt*>(pItem);
                         Inventory* pBeltInventory = ((Belt*)pItem)->getInventory();
 
                         BYTE SubItemCount = 0;
 
-                        // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+                        // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
                         for (int i = 0; i < pBelt->getPocketCount(); i++) {
                             Item* pBeltItem = pBeltInventory->getItem(i, 0);
                             if (pBeltItem != NULL) {
@@ -1497,7 +1497,7 @@ void Vampire::sendVampireSkillInfo()
         VampireSkillSlot* pVampireSkillSlot = itr->second;
         Assert(pVampireSkillSlot != NULL);
 
-        // AttackMelee µîÀÇ ±âº» °ø°İ ±â¼ú Á¤º¸´Â º¸³»ÁÖÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+        // AttackMelee ë“±ì˜ ê¸°ë³¸ ê³µê²© ê¸°ìˆ  ì •ë³´ëŠ” ë³´ë‚´ì£¼ì§€ ì•Šì•„ì•¼ í•œë‹¤.
         if (pVampireSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT) {
             SubVampireSkillInfo* pSubVampireSkillInfo = new SubVampireSkillInfo();
             pSubVampireSkillInfo->setSkillType(pVampireSkillSlot->getSkillType());
@@ -1514,9 +1514,9 @@ void Vampire::sendVampireSkillInfo()
     gcSkillInfo.setPCType(PC_VAMPIRE);
     SkillType_t LearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(SKILL_DOMAIN_VAMPIRE, m_Level);
 
-    // ÇöÀç ·¹º§¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ´ÂÁö º»´Ù.
+    // í˜„ì¬ ë ˆë²¨ì—ì„œ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì´ ìˆëŠ”ì§€ ë³¸ë‹¤.
     if (LearnSkillType != 0) {
-        // ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ°í ¹è¿ìÁö ¾ÊÀº »óÅÂ¶ó¸é ¹è¿ì¶ó°í ¾Ë·ÁÁØ´Ù.
+        // ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì´ ìˆê³  ë°°ìš°ì§€ ì•Šì€ ìƒíƒœë¼ë©´ ë°°ìš°ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
         if (hasSkill(LearnSkillType) == NULL) {
             pVampireSkillInfo->setLearnNewSkill(true);
         }
@@ -1536,7 +1536,7 @@ void Vampire::sendVampireSkillInfo()
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-// ±âÅ¸ ÇÔ¼ö
+// ê¸°íƒ€ í•¨ìˆ˜
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -1585,7 +1585,7 @@ void Vampire::saveSilverDamage(Silver_t damage)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¼ÒÀ¯ ¾ÆÀÌÅÛ hearbeat
+// ì†Œìœ  ì•„ì´í…œ hearbeat
 //////////////////////////////////////////////////////////////////////////////
 void Vampire::heartbeat(const Timeval& currentTime)
 
@@ -1593,14 +1593,14 @@ void Vampire::heartbeat(const Timeval& currentTime)
     __BEGIN_TRY
     __BEGIN_DEBUG
 
-    // ÁÖ±âÀûÀ¸·Î HP¸¦ È¸º¹½ÃÄÑÁØ´Ù.
+    // ì£¼ê¸°ì ìœ¼ë¡œ HPë¥¼ íšŒë³µì‹œì¼œì¤€ë‹¤.
     if (m_HPRegenTime < currentTime) {
         Timeval diffTime = timediff(currentTime, m_HPRegenTime);
 
         if (diffTime.tv_sec > 0) {
-            // 1. »ì¾ÆÀÖ´Â »óÅÂÀÌ°í (ÇöÀç HP°¡ 0 ÃÊ°ú)
-            // 2. ÄÚ¸¶ ÀÌÆåÆ®°¡ ºÙ¾îÀÖÁö ¾Ê´Ù¸é.
-            // 3. Mephisto ÀÌÆåÆ®°¡ ºÙ¾îÀÖÁö ¾Ê´Ù¸é.
+            // 1. ì‚´ì•„ìˆëŠ” ìƒíƒœì´ê³  (í˜„ì¬ HPê°€ 0 ì´ˆê³¼)
+            // 2. ì½”ë§ˆ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆì§€ ì•Šë‹¤ë©´.
+            // 3. Mephisto ì´í™íŠ¸ê°€ ë¶™ì–´ìˆì§€ ì•Šë‹¤ë©´.
             if (isAlive() && !isFlag(Effect::EFFECT_CLASS_COMA) && !isFlag(Effect::EFFECT_CLASS_MEPHISTO)) {
                 // by sigi. 2002.6.19
                 bool bInCasket = isFlag(Effect::EFFECT_CLASS_CASKET);
@@ -1608,14 +1608,14 @@ void Vampire::heartbeat(const Timeval& currentTime)
                 HP_t CurHP = m_HP[ATTR_CURRENT];
                 HP_t NewHP = 0;
 
-                // °ü ¼Ó¿¡ ÀÖ´Â °æ¿ì´Â
-                // SilverDamage¸¦ ¸ÕÀú Ä¡·áÇÑ´Ù.
+                // ê´€ ì†ì— ìˆëŠ” ê²½ìš°ëŠ”
+                // SilverDamageë¥¼ ë¨¼ì € ì¹˜ë£Œí•œë‹¤.
                 if (bInCasket && m_SilverDamage > 0) {
                     NewHP = 4 * diffTime.tv_sec;
 
                     int remainSilver = (int)m_SilverDamage - (int)NewHP;
 
-                    // SilverDamage¸¦ ´Ù Ä¡·áÇÏ°í HPµµ Ä¡·áÇÏ´Â °æ¿ì
+                    // SilverDamageë¥¼ ë‹¤ ì¹˜ë£Œí•˜ê³  HPë„ ì¹˜ë£Œí•˜ëŠ” ê²½ìš°
                     if (remainSilver < 0) {
                         m_SilverDamage = 0;
                         NewHP = -remainSilver;
@@ -1623,7 +1623,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
                         HP_t MaxHP = m_HP[ATTR_MAX];
                         m_HP[ATTR_CURRENT] = min((int)MaxHP, (int)(CurHP + NewHP));
                     }
-                    // SilverDamage¸¸ °¨¼Ò½ÃÅ°´Â °æ¿ì
+                    // SilverDamageë§Œ ê°ì†Œì‹œí‚¤ëŠ” ê²½ìš°
                     else {
                         m_SilverDamage = remainSilver;
                     }
@@ -1633,7 +1633,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
                     // Normal       : 2
                     // Burrow(Hide) : 4
                     // Casket       : 6
-                    // Wolf         : 2 (ÀÏ¹İ »óÅÂ·Î °£ÁÖ)
+                    // Wolf         : 2 (ì¼ë°˜ ìƒíƒœë¡œ ê°„ì£¼)
                     // Bat          : 0
                     if (isFlag(Effect::EFFECT_CLASS_HIDE)) {
                         NewHP = 4 * diffTime.tv_sec;
@@ -1676,7 +1676,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
                 if (itr == ItemList.end())
                 {
                     ItemList.push_back(pItem);
-                    //¾ÆÀÌÅÛ Å©±âÀÇ ´ÙÀ½ À§Ä¡ ºÎÅÍ °Ë»öÇÏ±â À§ÇÔ.
+                    //ì•„ì´í…œ í¬ê¸°ì˜ ë‹¤ìŒ ìœ„ì¹˜ ë¶€í„° ê²€ìƒ‰í•˜ê¸° ìœ„í•¨.
                     i = i + ItemWidth - 1;
                 }
             }
@@ -1820,7 +1820,7 @@ void Vampire::saveSkills(void) const
         VampireSkillSlot* pVampireSkillSlot = itr->second;
         Assert(pVampireSkillSlot != NULL);
 
-        // ±âº» °ø°İ ½ºÅ³ÀÌ ¾Æ´Ï¶ó¸é...
+        // ê¸°ë³¸ ê³µê²© ìŠ¤í‚¬ì´ ì•„ë‹ˆë¼ë©´...
         if (pVampireSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT) {
             pVampireSkillSlot->save(m_Name);
         }
@@ -1841,7 +1841,7 @@ void Vampire::saveGears(void) const
 {
     __BEGIN_TRY
 
-    // ÀåÂøÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀ» ÀúÀåÇÑ´Ù.
+    // ì¥ì°©í•˜ê³  ìˆëŠ” ì•„ì´í…œë“¤ì„ ì €ì¥í•œë‹¤.
     char pField[80];
 
     for (int i = 0; i < Vampire::VAMPIRE_WEAR_MAX; i++) {
@@ -1850,7 +1850,7 @@ void Vampire::saveGears(void) const
             Durability_t maxDurability = computeMaxDurability(pItem);
             if (pItem->getDurability() < maxDurability) {
                 // pItem->save(m_Name, STORAGE_GEAR, 0, i, 0);
-                //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                //  itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
                 sprintf(pField, "Durability=%d", pItem->getDurability());
                 pItem->tinysave(pField);
             }
@@ -1866,10 +1866,10 @@ void Vampire::saveExps(void) const
 {
     __BEGIN_TRY
 
-    // ½ºÅ³ ÇÚµé·¯¿¡¼­ Äõ¸® ¼ıÀÚ¸¦ ÁÙÀÌ±â À§ÇØ¼­ 10À¸·Î ³ª´©´Â ºÎºĞµéÀº,
-    // ¼­¹ö ´Ù¿îÀÌ µÇÁö ¾Ê°í, Á¤»óÀûÀ¸·Î ·Î±×¾Æ¿ôÇÏ´Â °æ¿ì¿¡
-    // ¼¼ÀÌºê¸¦ ¸í½ÃÀûÀ¸·Î ÇØÁÖÁö ¾ÊÀ¸¸é 10 ÀÌÇÏ ¿Ã¶ó°£ ºÎºĞÀº ³¯¾Æ°¡ ¹ö¸®°Ô µÈ´Ù.
-    // ±×·¯¹Ç·Î ¿©±â¼­ ¼¼ÀÌºê¸¦ ÇØ ÁØ´Ù.
+    // ìŠ¤í‚¬ í•¸ë“¤ëŸ¬ì—ì„œ ì¿¼ë¦¬ ìˆ«ìë¥¼ ì¤„ì´ê¸° ìœ„í•´ì„œ 10ìœ¼ë¡œ ë‚˜ëˆ„ëŠ” ë¶€ë¶„ë“¤ì€,
+    // ì„œë²„ ë‹¤ìš´ì´ ë˜ì§€ ì•Šê³ , ì •ìƒì ìœ¼ë¡œ ë¡œê·¸ì•„ì›ƒí•˜ëŠ” ê²½ìš°ì—
+    // ì„¸ì´ë¸Œë¥¼ ëª…ì‹œì ìœ¼ë¡œ í•´ì£¼ì§€ ì•Šìœ¼ë©´ 10 ì´í•˜ ì˜¬ë¼ê°„ ë¶€ë¶„ì€ ë‚ ì•„ê°€ ë²„ë¦¬ê²Œ ëœë‹¤.
+    // ê·¸ëŸ¬ë¯€ë¡œ ì—¬ê¸°ì„œ ì„¸ì´ë¸Œë¥¼ í•´ ì¤€ë‹¤.
     StringStream sql;
     sql << "UPDATE Vampire SET "
         << "Alignment = " << m_Alignment << ",Fame = " << m_Fame << ",Exp = " << m_Exp << ",GoalExp = " << m_GoalExp;
@@ -1896,15 +1896,15 @@ void Vampire::saveExps(void) const
 //----------------------------------------------------------------------
 // getShapeInfo
 //----------------------------------------------------------------------
-// loginÇÒ¶§ Ã³¸®¸¦ »¡¸®ÇÏ±â À§ÇØ¼­´Ù.
+// loginí• ë•Œ ì²˜ë¦¬ë¥¼ ë¹¨ë¦¬í•˜ê¸° ìœ„í•´ì„œë‹¤.
 //----------------------------------------------------------------------
-// ÀÏ´Ü 32bit·Î 32°¡Áö¸¦ Ç¥ÇöÇÏ´Â°É·Îµµ ÃæºĞÇÏ´Ù°í º»´Ù.
-// ¾ğÁ¨°¡? overµÇ¸é bitsetÀ» ½á¾ß°ÚÁö..
+// ì¼ë‹¨ 32bitë¡œ 32ê°€ì§€ë¥¼ í‘œí˜„í•˜ëŠ”ê±¸ë¡œë„ ì¶©ë¶„í•˜ë‹¤ê³  ë³¸ë‹¤.
+// ì–¸ì  ê°€? overë˜ë©´ bitsetì„ ì¨ì•¼ê² ì§€..
 //
-// (!) »ö±òÀº index»ö°ªÀÌ ¾Æ´Ï°í optionTypeÀ» ³Ö¾î¼­ »ç¿ëÇÑ´Ù.
-//     Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¿É¼ÇÀ¸·Î »ö°ªÀ» Ã£¾Æ¼­ ¾´´Ù.
+// (!) ìƒ‰ê¹”ì€ indexìƒ‰ê°’ì´ ì•„ë‹ˆê³  optionTypeì„ ë„£ì–´ì„œ ì‚¬ìš©í•œë‹¤.
+//     í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì˜µì…˜ìœ¼ë¡œ ìƒ‰ê°’ì„ ì°¾ì•„ì„œ ì“´ë‹¤.
 //
-// colors[1]Àº coatColor¸¸ ÀÖ±â ¶§¹®ÀÌ´Ù.
+// colors[1]ì€ coatColorë§Œ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void Vampire::getShapeInfo(DWORD& flag, Color_t colors[PCVampireInfo::VAMPIRE_COLOR_MAX]) const
 //
@@ -1916,11 +1916,11 @@ void Vampire::getShapeInfo(DWORD& flag, Color_t colors[PCVampireInfo::VAMPIRE_CO
     int vampireBit;
     int vampireColor;
 
-    // ÃÊ±âÈ­
+    // ì´ˆê¸°í™”
     flag = 0;
 
     //-----------------------------------------------------------------
-    // º¹Àå
+    // ë³µì¥
     //-----------------------------------------------------------------
     pItem = m_pWearItem[WEAR_BODY];
     vampireBit = 0;
@@ -1937,12 +1937,12 @@ void Vampire::getShapeInfo(DWORD& flag, Color_t colors[PCVampireInfo::VAMPIRE_CO
         // colors[vampireColor] = pItem->getOptionType();
         // flag |= (getVampireCoatType(IType) << vampireBit);
 
-        // itemTypeÀ» ³Ö¾îÁØ´Ù.
+        // itemTypeì„ ë„£ì–´ì¤€ë‹¤.
         flag = IType;
     } else {
         colors[vampireColor] = 377;
         // flag |= (VAMPIRE_COAT_BASIC << vampireBit);
-        //  ±âº» ¿Ê :  ³²ÀÚ´Â 0, ¿©ÀÚ´Â 1
+        //  ê¸°ë³¸ ì˜· :  ë‚¨ìëŠ” 0, ì—¬ìëŠ” 1
         flag = (m_Sex ? 0 : 1);
     }
 

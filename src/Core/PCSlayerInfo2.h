@@ -10,8 +10,8 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// Slayer�� ��� ����(�ɷ�ġ,�ɷ��ִ¸��� ��)�� ��� �ִ� ��ü.
-// GCUpdateInfo ��Ŷ�� ��ܼ� Ŭ���̾�Ʈ���� ���۵ȴ�.
+// Slayer의 모든 정보(능력치,걸려있는마법 등)를 담고 있는 객체.
+// GCUpdateInfo 패킷에 담겨서 클라이언트에게 전송된다.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCSlayerInfo2 : public PCInfo {
@@ -335,7 +335,7 @@ private:
     Exp_t m_DEXExp;
     Exp_t m_INTExp;
 
-    // ���
+    // 계급
     Rank_t m_Rank;
     RankExp_t m_RankExp;
 
@@ -354,9 +354,9 @@ private:
     // sight
     Sight_t m_Sight;
 
-    // ��� ����
+    // 길드 정보
 
-    // �� Ű
+    // 핫 키
     SkillType_t m_HotKey[4];
 
     BYTE m_Competence;

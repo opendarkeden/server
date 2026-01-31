@@ -34,7 +34,7 @@ void ActionSimpleQuestList::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestList::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -48,12 +48,12 @@ void ActionSimpleQuestList::execute(Creature* pCreature1, Creature* pCreature2)
 
               NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
 
-              // m_ScriptID¿Í °ü·ÃµÈ Á¤º¸¸¦ PublicScriptManager¿¡ »ı¼º
+              // m_ScriptIDì™€ ê´€ë ¨ëœ ì •ë³´ë¥¼ PublicScriptManagerì— ìƒì„±
               Script* pScript = g_pPublicScriptManager->getScript(m_ScriptID);
 
               pNPC->setSimpleQuestListScript( pScript );
 
-              // ÆĞÅ¶ º¸³¿
+              // íŒ¨í‚· ë³´ëƒ„
               GCNPCAskDynamic gcNPCAskDynamic;
               gcNPCAskDynamic.setObjectID(pCreature1->getObjectID());
               gcNPCAskDynamic.setScriptID(m_ScriptID);

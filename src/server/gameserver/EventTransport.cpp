@@ -52,7 +52,7 @@ void EventTransport::sendMessage()
     Turn_t RemainTime = max(0, (int)(m_Deadline.tv_sec - currentTime.tv_sec));
 
     //	StringStream msg;
-    //	msg << (int)RemainTime << "ÃÊ ÈÄ¿¡ " << m_ZoneName << "·Î ÀÌµ¿µË´Ï´Ù.";
+    //	msg << (int)RemainTime << "ì´ˆ í›„ì— " << m_ZoneName << "ë¡œ ì´ë™ë©ë‹ˆë‹¤.";
 
     char msg[50];
     sprintf(msg, g_pStringPool->c_str(STRID_TRANSPORT_CREATURE), (int)RemainTime, m_ZoneName.c_str());
@@ -91,28 +91,28 @@ void EventTransport::activate()
     dropFlagToZone(pPC, bSendPacket);
     dropSweeperToZone(pPC, bSendPacket);
 
-    // Zone¿¡¼­ Á¦°ÅÇÑ´Ù.
+    // Zoneì—ì„œ ì œê±°í•œë‹¤.
     pOldZone->deleteCreature(pCreature, pCreature->getX(), pCreature->getY());
 
-    // ÀÌµ¿ÇØ¾ßÇÒ ZoneÀ» ¼³Á¤ÇÑ´Ù.
+    // ì´ë™í•´ì•¼í•  Zoneì„ ì„¤ì •í•œë‹¤.
     pCreature->setNewZone(getZoneByZoneID(m_ZoneID));
     pCreature->setNewXY(m_X, m_Y);
 
     try {
-        // Á¸±×·ìÀÇ ZPM¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+        // ì¡´ê·¸ë£¹ì˜ ZPMì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
         pOldZone->getZoneGroup()->getZonePlayerManager()->deletePlayer(m_pGamePlayer->getSocket()->getSOCKET());
 
-        // ¿©±â¼­ ¼³Á¤ÇØÁà¾ßÁö¸¸ Save ÀÌº¥Æ®°¡ IPM¿¡¼­ µ¿ÀÛÇÏÁö ¾Ê´Â´Ù.
+        // ì—¬ê¸°ì„œ ì„¤ì •í•´ì¤˜ì•¼ì§€ë§Œ Save ì´ë²¤íŠ¸ê°€ IPMì—ì„œ ë™ìž‘í•˜ì§€ ì•ŠëŠ”ë‹¤.
         m_pGamePlayer->setPlayerStatus(GPS_WAITING_FOR_CG_READY);
 
-        // IPMÀ¸·Î ÇÃ·¹ÀÌ¾î¸¦ ¿Å±ä´Ù.
+        // IPMìœ¼ë¡œ í”Œë ˆì´ì–´ë¥¼ ì˜®ê¸´ë‹¤.
         // g_pIncomingPlayerManager->pushPlayer(m_pGamePlayer);
         pOldZone->getZoneGroup()->getZonePlayerManager()->pushOutPlayer(m_pGamePlayer);
 
     } catch (NoSuchElementException& t) {
         filelog("eventTransport.txt", "%s", t.toString().c_str());
         cerr << "EventTransport::activate() : NoSuchElementException" << endl;
-        throw Error("Á¸¿¡ ÇÃ·¹ÀÌ¾î°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+        throw Error("ì¡´ì— í”Œë ˆì´ì–´ê°€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
     }
 
 

@@ -2,23 +2,23 @@
 // Project     : DARKEDEN
 // Module      : Skill - Effect
 // File Name   : EffectEnergyDrop.h
-// Writer      : ÀåÈ«Ã¢
+// Writer      : ì¥í™ì°½
 // Date        : 2002.3.28
 // Description :
-//               Energy DropÀº --storm·ùÀÇ ±â¼ú°ú µ¿ÀÏÇÑ ¹æ½ÄÀ¸·Î ±¸ÇöµÇ´Â
-//               SlayerÀÇ ±â¼úÀÌ´Ù.
-//               ±â¼úÀ» »ç¿ëÇÏ°Ô µÇ¸é, ±â¼ú ½ÃÀü Áö¿ªÀ» Áß½ÉÀ¸·Î 3x3ÀÇ ¿µ¿ª¿¡
-//               EffectEnergyDrop Effect°¡ ºÙ°Ô µÈ´Ù. EffectEnergyDrop Effect
-//               ´Â µ¶ÀÚÀûÀ¸·Î µ¥¹ÌÁö¸¦ °¡ÇÏ´Â ±â¼úÀÌ ¾Æ´Ï¶ó.
-//               ÇØ´ç Áö¿ªÀÇ Creature¿¡°Ô EffectEnergyDropToCreature Effect¸¦
-//               ºÙÀÌ°í »ç¶óÁø´Ù. EffectEnergyDropToCreature´Â EnergyDropÀÇ
-//               ÀüÃ¼ µ¥¹ÌÁöÀÇ 1/3¿¡ ÇØ´çÇÏ´Â Damage¸¦ 3¹ø ¿¬¼ÓÀ¸·Î ÇØ´ç
-//               Creature¿¡°Ô °¡ÇÏ°í »ç¶óÁø´Ù.
+//               Energy Dropì€ --stormë¥˜ì˜ ê¸°ìˆ ê³¼ ë™ì¼í•œ ë°©ì‹ìœ¼ë¡œ êµ¬í˜„ë˜ëŠ”
+//               Slayerì˜ ê¸°ìˆ ì´ë‹¤.
+//               ê¸°ìˆ ì„ ì‚¬ìš©í•˜ê²Œ ë˜ë©´, ê¸°ìˆ  ì‹œì „ ì§€ì—­ì„ ì¤‘ì‹¬ìœ¼ë¡œ 3x3ì˜ ì˜ì—­ì—
+//               EffectEnergyDrop Effectê°€ ë¶™ê²Œ ëœë‹¤. EffectEnergyDrop Effect
+//               ëŠ” ë…ìì ìœ¼ë¡œ ë°ë¯¸ì§€ë¥¼ ê°€í•˜ëŠ” ê¸°ìˆ ì´ ì•„ë‹ˆë¼.
+//               í•´ë‹¹ ì§€ì—­ì˜ Creatureì—ê²Œ EffectEnergyDropToCreature Effectë¥¼
+//               ë¶™ì´ê³  ì‚¬ë¼ì§„ë‹¤. EffectEnergyDropToCreatureëŠ” EnergyDropì˜
+//               ì „ì²´ ë°ë¯¸ì§€ì˜ 1/3ì— í•´ë‹¹í•˜ëŠ” Damageë¥¼ 3ë²ˆ ì—°ì†ìœ¼ë¡œ í•´ë‹¹
+//               Creatureì—ê²Œ ê°€í•˜ê³  ì‚¬ë¼ì§„ë‹¤.
 //
 // History
 //     DATE      WRITER         DESCRIPTION
 // =========== =========== =====================================================
-// 2002.3.28    ÀåÈ«Ã¢      header file ÀÛ¼º
+// 2002.3.28    ì¥í™ì°½      header file ì‘ì„±
 //
 //
 ////////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void EnergyDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -57,7 +57,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
 
@@ -76,8 +76,8 @@ void EnergyDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
-//  ¹ìÆÄÀÌ¾î°¡ Energy Drop SkillÀ» Tile¿¡ »ç¿ëÇßÀ»¶§ »ç¿ëÇÏ´Â Handler
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
+//  ë±€íŒŒì´ì–´ê°€ Energy Drop Skillì„ Tileì— ì‚¬ìš©í–ˆì„ë•Œ ì‚¬ìš©í•˜ëŠ” Handler
 //////////////////////////////////////////////////////////////////////////////
 void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -136,7 +136,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
             SkillOutput output;
             computeOutput(input, output);
 
-            // Holy Smashing ÀÌ ÀÖ´Ù¸é µ¥¹ÌÁö 10% Áõ°¡
+            // Holy Smashing ì´ ìˆë‹¤ë©´ ë°ë¯¸ì§€ 10% ì¦ê°€
             if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING)) {
                 RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING);
                 Assert(pRankBonus != NULL);
@@ -146,7 +146,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // ê¸°ì¡´ì— ê°™ì€ ì´í™íŠ¸ê°€ íƒ€ì¼ì— ìˆë‹¤ë©´ ì§€ìš°ê³  ìƒˆë¡œ ì„¤ì •í•œë‹¤.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_ENERGY_DROP);
             if (pOldEffect != NULL) {
@@ -154,7 +154,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             // cout << "make EffectObject to Tile" << X << " " << Y << endl;
             pEffect = new EffectEnergyDrop(pZone, X, Y);
 
@@ -175,7 +175,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
             //
             // pZone->addEffect(pEffect);
             // tile.addEffect(pEffect);
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             pEffect2 = new EffectEnergyDrop(pZone, X, Y);
             pEffect2->setUserObjectID(pSlayer->getObjectID());
             pEffect2->setDeadline(output.Duration);
@@ -184,9 +184,9 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
             pEffect2->setDamage(output.Damage * 30 / 100);
             pEffect2->setLevel(pSkillInfo->getLevel() / 2);
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ğµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Slayer°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Slayer¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // ì´í™íŠ¸ ë²”ìœ„ë‚´ì˜ ëª¨ë“  Creatureì—ê²Œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+            // Slayerê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•œ ê²½ìš° ê°™ì€ Slayerì—ê²ŒëŠ”
+            // í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤.
             bool bEffected = false;
             bool bHit = false;
 
@@ -244,7 +244,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°İÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // ê³µê²©ì„ ë‹¹í•œ ì‚¬ëŒì—ê²Œ
                                     _GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -268,7 +268,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
                                 Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
                                 pMonster->addEnemy(pSlayer);
 
-                                // ¸¶Áö¸· ¶§¸° ¾Ö°¡ ½½·¹ÀÌ¾î¶ó°í ¼³Á¤ÇÑ´Ù. by sigi. 2002.6.21
+                                // ë§ˆì§€ë§‰ ë•Œë¦° ì• ê°€ ìŠ¬ë ˆì´ì–´ë¼ê³  ì„¤ì •í•œë‹¤. by sigi. 2002.6.21
                                 pMonster->setLastHitCreatureClass(Creature::CREATURE_CLASS_SLAYER);
                             } else {
                                 // cout << "EnergyDrop to Monster Falis" << endl;
@@ -285,7 +285,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
             }
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK1.setSkillType(SkillType);
             _GCSkillToTileOK1.setCEffectID(CEffectID);
             _GCSkillToTileOK1.setX(X);
@@ -293,21 +293,21 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
             _GCSkillToTileOK1.setDuration(output.Duration);
             _GCSkillToTileOK1.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(X);
             _GCSkillToTileOK3.setY(Y);
             //_GCSkillToTileOK3.setDuration(output.Duration);
             //_GCSkillToTileOK3.setRange(Range);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -315,21 +315,21 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷¿¡°Ô packet Àü´Ş
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëŒì—ê²Œ packet ì „ë‹¬
             pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
-            // broadcastingÈÄ 5¹øOK¸¦ ¹ŞÀº »ç¶÷À» ±â·ÏÇÑ´Ù.
-            // ¿©±â¿¡ ±â·ÏµÈ »ç¶÷Àº Â÷ÈÄ broadcasting¿¡¼­ Á¦¿ÜµÈ´Ù.
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasing
+            // broadcastingí›„ 5ë²ˆOKë¥¼ ë°›ì€ ì‚¬ëŒì„ ê¸°ë¡í•œë‹¤.
+            // ì—¬ê¸°ì— ê¸°ë¡ëœ ì‚¬ëŒì€ ì°¨í›„ broadcastingì—ì„œ ì œì™¸ëœë‹¤.
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // ±â¼ú delay setting
+            // ê¸°ìˆ  delay setting
             pSkillSlot->setRunTime(output.Delay);
 
         } else {
@@ -350,7 +350,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Å¸ÀÏ ÇÚµé·¯
+// ëª¬ìŠ¤í„° íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
@@ -401,7 +401,7 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
             Range_t Range = 3;
 
-            // ±âÁ¸¿¡ °°Àº ÀÌÆåÆ®°¡ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Áö¿ì°í »õ·Î ¼³Á¤ÇÑ´Ù.
+            // ê¸°ì¡´ì— ê°™ì€ ì´í™íŠ¸ê°€ íƒ€ì¼ì— ìˆë‹¤ë©´ ì§€ìš°ê³  ìƒˆë¡œ ì„¤ì •í•œë‹¤.
             Tile& tile = pZone->getTile(X, Y);
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_ENERGY_DROP);
             if (pOldEffect != NULL) {
@@ -409,7 +409,7 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                 pZone->deleteEffect(effectID);
             }
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             pEffect = new EffectEnergyDrop(pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setNextTime(0);
@@ -426,7 +426,7 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             // pZone->addEffect(pEffect);
             // tile.addEffect(pEffect);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ¼­ Å¸ÀÏ¿¡ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ì„œ íƒ€ì¼ì— ë¶™ì¸ë‹¤.
             pEffect2 = new EffectEnergyDrop(pZone, X, Y);
             pEffect2->setDeadline(output.Duration);
             pEffect2->setNextTime(0);
@@ -435,9 +435,9 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             pEffect2->setLevel(pSkillInfo->getLevel() / 2);
 
 
-            // ÀÌÆåÆ® ¹üÀ§³»ÀÇ ¸ğµç Creature¿¡°Ô effect¸¦ ºÙ¿©ÁØ´Ù.
-            // Slayer°¡ ±â¼úÀ» »ç¿ëÇÑ °æ¿ì °°Àº Slayer¿¡°Ô´Â
-            // ÇØ´çÇÏÁö ¾Ê´Â´Ù.
+            // ì´í™íŠ¸ ë²”ìœ„ë‚´ì˜ ëª¨ë“  Creatureì—ê²Œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+            // Slayerê°€ ê¸°ìˆ ì„ ì‚¬ìš©í•œ ê²½ìš° ê°™ì€ Slayerì—ê²ŒëŠ”
+            // í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤.
             bool bEffected = false;
             Creature* pTargetCreature;
 
@@ -486,7 +486,7 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                                 cList.push_back(pTargetCreature);
 
                                 if (bCanSee) {
-                                    // °ø°İÀ» ´çÇÑ »ç¶÷¿¡°Ô
+                                    // ê³µê²©ì„ ë‹¹í•œ ì‚¬ëŒì—ê²Œ
                                     _GCSkillToTileOK2.setObjectID(pMonster->getObjectID());
                                     _GCSkillToTileOK2.setSkillType(SkillType);
                                     _GCSkillToTileOK2.setX(X);
@@ -500,21 +500,21 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
                     } // if(pTargetCreature!= NULL)
                 }
 
-            // ±â¼úÀ» ¾´ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK3.setSkillType(SkillType);
             _GCSkillToTileOK3.setX(myX);
             _GCSkillToTileOK3.setY(myY);
             //_GCSkillToTileOK3.setDuration(output.Duration);
             //_GCSkillToTileOK3.setRange(Range);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷¸¸ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒë§Œ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK4.setSkillType(SkillType);
             _GCSkillToTileOK4.setX(X);
             _GCSkillToTileOK4.setY(Y);
             _GCSkillToTileOK4.setDuration(output.Duration);
             _GCSkillToTileOK4.setRange(Range);
 
-            // ±â¼úÀ» ¾´ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ
             _GCSkillToTileOK5.setObjectID(pMonster->getObjectID());
             _GCSkillToTileOK5.setSkillType(SkillType);
             _GCSkillToTileOK5.setX(X);
@@ -522,13 +522,13 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
             _GCSkillToTileOK5.setDuration(output.Duration);
             _GCSkillToTileOK5.setRange(Range);
 
-            // ±â¼úÀ» ¾µ »ç¶÷°ú ´çÇÑ »ç¶÷À» ¸ğµÎ º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasing
+            // ê¸°ìˆ ì„ ì“¸ ì‚¬ëŒê³¼ ë‹¹í•œ ì‚¬ëŒì„ ëª¨ë‘ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasing
             cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-            // ±â¼úÀ» ¾´ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ì“´ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
 
-            // ±â¼úÀ» ´çÇÑ »ç¶÷À» º¼ ¼ö ÀÖ´Â »ç¶÷µé¿¡°Ô broadcasting
+            // ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒì„ ë³¼ ìˆ˜ ìˆëŠ” ì‚¬ëŒë“¤ì—ê²Œ broadcasting
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
 

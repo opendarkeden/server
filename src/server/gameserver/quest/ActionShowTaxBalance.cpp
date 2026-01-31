@@ -28,7 +28,7 @@ void ActionShowTaxBalance::read(PropertyBuffer& propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowTaxBalance::execute(Creature* pCreature1, Creature* pCreature2)
 
@@ -52,21 +52,21 @@ void ActionShowTaxBalance::execute(Creature* pCreature1, Creature* pCreature2)
 
     Guild* pGuild = g_pGuildManager->getGuild(guildID);
     if (bSuccess && pGuild == NULL) {
-        // ±æµå°¡ ¾ø´Ù.
+        // ê¸¸ë“œê°€ ì—†ë‹¤.
         bSuccess = false;
         deny.setCode(NPC_RESPONSE_NO_GUILD);
     }
 
     if (bSuccess && pGuild->getMaster() != pPC->getName()) {
-        // ±æµå ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.
+        // ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.
         bSuccess = false;
         deny.setCode(NPC_RESPONSE_NOT_GUILD_MASTER);
     }
 
-    // ±æµå ¸¶½ºÅÍÀÌ´Ù.
+    // ê¸¸ë“œ ë§ˆìŠ¤í„°ì´ë‹¤.
     list<CastleInfo*> pCastleInfoList = g_pCastleInfoManager->getGuildCastleInfos(guildID);
     if (bSuccess && pCastleInfoList.empty()) {
-        // ±æµå°¡ ¼ÒÀ¯ÇÑ ¼ºÀÌ ¾ø´Ù.
+        // ê¸¸ë“œê°€ ì†Œìœ í•œ ì„±ì´ ì—†ë‹¤.
         bSuccess = false;
         deny.setCode(NPC_RESPONSE_HAS_NO_CASTLE);
     }

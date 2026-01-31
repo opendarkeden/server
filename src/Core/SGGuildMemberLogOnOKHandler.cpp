@@ -32,7 +32,7 @@ void SGGuildMemberLogOnOKHandler::execute(SGGuildMemberLogOnOK* pPacket)
 
         Assert(pPacket != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
     try {
         Assert(pGuild != NULL);
@@ -40,7 +40,7 @@ void SGGuildMemberLogOnOKHandler::execute(SGGuildMemberLogOnOK* pPacket)
         return;
     }
 
-    // ±æµå ¸â¹öÀÎÁö È®ÀÎÇÑ´Ù.
+    // ê¸¸ë“œ ë©¤ë²„ì¸ì§€ í™•ì¸í•œë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPacket->getName());
     try {
         Assert(pGuildMember != NULL);

@@ -59,7 +59,7 @@ void MonsterNameManager::init()
     BEGIN_DB {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-        // First NameÀ» ·ÎµåÇÑ´Ù.
+        // First Nameì„ ë¡œë“œí•œë‹¤.
         pResult = pStmt->executeQuery("SELECT * FROM FirstNameInfo");
         nCount = pResult->getRowCount();
         if (nCount == 0) {
@@ -76,7 +76,7 @@ void MonsterNameManager::init()
             nCount++;
         }
 
-        // Middle NameÀ» ·ÎµåÇÑ´Ù.
+        // Middle Nameì„ ë¡œë“œí•œë‹¤.
         pResult = pStmt->executeQuery("SELECT * FROM MiddleNameInfo");
         nCount = pResult->getRowCount();
         if (nCount == 0) {
@@ -93,7 +93,7 @@ void MonsterNameManager::init()
             nCount++;
         }
 
-        // Last NameÀ» ·ÎµåÇÑ´Ù.
+        // Last Nameì„ ë¡œë“œí•œë‹¤.
         pResult = pStmt->executeQuery("SELECT * FROM LastNameInfo");
         nCount = pResult->getRowCount();
         if (nCount == 0) {
@@ -142,21 +142,21 @@ string MonsterNameManager::getRandomName(Monster* pMonster)
         /*
         if (0 < MonsterLevel && MonsterLevel <= 33)
         {
-            // ÇÏ±Þ ¹ìÆÄ´Â ¶ó½ºÆ® ³×ÀÓ¸¸ ºÙ´Â´Ù.
+            // í•˜ê¸‰ ë±€íŒŒëŠ” ë¼ìŠ¤íŠ¸ ë„¤ìž„ë§Œ ë¶™ëŠ”ë‹¤.
             nFirstNameIndex  = -1;
             nMiddleNameIndex = -1;
             nLastNameIndex   = rand()%m_nLastNameCount;
         }
         else if (33 < MonsterLevel && MonsterLevel <= 66)
         {
-            // Áß±Þ ¹ìÆÄ´Â ÆÛ½ºÆ®¿Í ¶ó½ºÆ® ³×ÀÓ¸¸ ºÙ´Â´Ù.
+            // ì¤‘ê¸‰ ë±€íŒŒëŠ” í¼ìŠ¤íŠ¸ì™€ ë¼ìŠ¤íŠ¸ ë„¤ìž„ë§Œ ë¶™ëŠ”ë‹¤.
             nFirstNameIndex  = rand()%m_nFirstNameCount;
             nMiddleNameIndex = -1;
             nLastNameIndex   = rand()%m_nLastNameCount;
         }
         else
         {
-            // °í±Þ ¹ìÆÄ´Â ¸ðµç ÀÌ¸§ÀÌ ´Ù ºÙ´Â´Ù.
+            // ê³ ê¸‰ ë±€íŒŒëŠ” ëª¨ë“  ì´ë¦„ì´ ë‹¤ ë¶™ëŠ”ë‹¤.
             nFirstNameIndex  = rand()%m_nFirstNameCount;
             nMiddleNameIndex = rand()%m_nMiddleNameCount;
             nLastNameIndex   = rand()%m_nLastNameCount;
@@ -164,7 +164,7 @@ string MonsterNameManager::getRandomName(Monster* pMonster)
         */
 
         /*
-         * Á¸¸¶´Ù À¯´ÏÅ©ÇÑ ÀÌ¸§Àº ³ªÁß¿¡´Ù ºÙ´Â´Ù³×...
+         * ì¡´ë§ˆë‹¤ ìœ ë‹ˆí¬í•œ ì´ë¦„ì€ ë‚˜ì¤‘ì—ë‹¤ ë¶™ëŠ”ë‹¤ë„¤...
          *
         ulonglong NameKey = 0;
 
@@ -194,10 +194,10 @@ string MonsterNameManager::getRandomName(Monster* pMonster)
         return Name;
     }
 
-    // trialÀÌ 300¹øÀ» ÃÊ°úÇÏ¸é, Á¦´ë·Î µÈ ÀÌ¸§À» Ã£Áö ¸øÇß´Ù´Â
-    // ¸»ÀÌ´Ï±î, ¾Æ¹« ÀÌ¸§ÀÌ³ª ºÙ¿©ÁØ´Ù.
+    // trialì´ 300ë²ˆì„ ì´ˆê³¼í•˜ë©´, ì œëŒ€ë¡œ ëœ ì´ë¦„ì„ ì°¾ì§€ ëª»í–ˆë‹¤ëŠ”
+    // ë§ì´ë‹ˆê¹Œ, ì•„ë¬´ ì´ë¦„ì´ë‚˜ ë¶™ì—¬ì¤€ë‹¤.
     if (Name == "")
-        Name == "¹«¸í¾¾";
+        Name == "ë¬´ëª…ì”¨";
 
     return Name;
 

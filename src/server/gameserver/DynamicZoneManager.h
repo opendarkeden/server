@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // DynamicZoneManager.h
-// ¼­¹ö¿¡¼­ »ı°å´Ù »ç¶óÁ³´ÙÇÏ´Â Á¸À» °ü¸®ÇÏ´Â ³Ñ
+// ì„œë²„ì—ì„œ ìƒê²¼ë‹¤ ì‚¬ë¼ì¡Œë‹¤í•˜ëŠ” ì¡´ì„ ê´€ë¦¬í•˜ëŠ” ë„˜
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __DYNAMIC_ZONE_MANAGER_H__
@@ -30,10 +30,10 @@ public:
     void init();
     void clear();
 
-    // »õ·Î DynamicZoneGroup À» Ãß°¡ÇÑ´Ù.
+    // ìƒˆë¡œ DynamicZoneGroup ì„ ì¶”ê°€í•œë‹¤.
     void addDynamicZoneGroup(DynamicZoneGroup* pDynamicZoneGroup);
 
-    // DynamicZoneGroup À» Ã£¾Æ¼­ ¹İÈ¯ÇÑ´Ù.
+    // DynamicZoneGroup ì„ ì°¾ì•„ì„œ ë°˜í™˜í•œë‹¤.
     DynamicZoneGroup* getDynamicZoneGroup(int dynamicZoneType);
 
     // get new dynamic zone id

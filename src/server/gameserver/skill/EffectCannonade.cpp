@@ -54,7 +54,7 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
 
     Assert(pCastCreature != NULL);
 
-    VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1); // -1 Ãß°¡ by sigi. 2003.1.10
+    VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1); // -1 ì¶”ê°€ by sigi. 2003.1.10
 
     bool bHit = false;
 
@@ -69,7 +69,7 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
             if (!rect.ptInRect(X, Y))
                 continue;
 
-            // Å¸ÀÏ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®¸¦ °¡Á®¿Â´Ù.
+            // íƒ€ì¼ì•ˆì— ì¡´ìž¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
             Tile& tile = m_pZone->getTile(X, Y);
             const forward_list<Object*>& oList = tile.getObjectList();
             forward_list<Object*>::const_iterator itr = oList.begin();
@@ -84,7 +84,7 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
                     Creature* pCreature = dynamic_cast<Creature*>(pObject);
                     Assert(pCreature != NULL);
 
-                    // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù. ¹«Àûµµ ¾È ¸Â´Â´Ù. ½½·¹ÀÌ¾î´Â ¸ÂÁö ¾Ê´Â´Ù.
+                    // ìžì‹ ì€ ë§žì§€ ì•ŠëŠ”ë‹¤. ë¬´ì ë„ ì•ˆ ë§žëŠ”ë‹¤. ìŠ¬ë ˆì´ì–´ëŠ” ë§žì§€ ì•ŠëŠ”ë‹¤.
                     if (pCreature == m_pTarget || !canAttack(pCastCreature, pCreature) ||
                         pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
                         continue;
@@ -102,7 +102,7 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
                     bool bHitRoll = HitRoll::isSuccess(pCastCreature, pCreature);
 
                     if (bPK && bZoneLevelCheck && bHitRoll) {
-                        // ¿ø·¡ µ¥¹ÌÁö¿Í ½ºÅ³ µ¥¹ÌÁö º¸³Ê½º¸¦ ´õÇÑ ÃÖÁ¾ µ¥¹ÌÁö¸¦ ±¸ÇÑ´Ù.
+                        // ì›ëž˜ ë°ë¯¸ì§€ì™€ ìŠ¤í‚¬ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ë¥¼ ë”í•œ ìµœì¢… ë°ë¯¸ì§€ë¥¼ êµ¬í•œë‹¤.
                         Damage_t FinalDamage = 0;
                         FinalDamage = computeDamage(pCastCreature, pCreature);
                         FinalDamage += Damage;
@@ -112,12 +112,12 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
 
                             GCModifyInformation gcMI;
                             ::setDamage(pCreature, FinalDamage, pCastCreature, SKILL_CANNONADE,
-                                        &gcMI); // ::Ãß°¡ by Sequoia
+                                        &gcMI); // ::ì¶”ê°€ by Sequoia
 
                             pCreature->getPlayer()->sendPacket(&gcMI);
 
-                            // ¸Â´Â µ¿ÀÛÀ» º¸¿©ÁØ´Ù.
-                            gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                            // ë§žëŠ” ë™ìž‘ì„ ë³´ì—¬ì¤€ë‹¤.
+                            gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                             gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                             gcSkillToObjectOK2.setDuration(0);
                             pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
@@ -126,7 +126,7 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
                         } else if (pCreature->isMonster()) {
                             Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-                            ::setDamage(pMonster, FinalDamage, pCastCreature, SKILL_CANNONADE); // ::Ãß°¡ by Sequoia
+                            ::setDamage(pMonster, FinalDamage, pCastCreature, SKILL_CANNONADE); // ::ì¶”ê°€ by Sequoia
 
                             pMonster->addEnemy(pCastCreature);
                             bHit = true;

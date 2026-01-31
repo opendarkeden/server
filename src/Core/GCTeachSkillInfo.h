@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTeachSkillInfo.h
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
-// NPC°¡ ÇÃ·¹ÀÌ¾î¿¡°Ô ½ºÅ³À» °¡¸£ÃÄ ÁÙ ¶§ Á¦ÀÏ ¸ÕÀú ÇÃ·¹ÀÌ¾î¿¡°Ô
-// Àü¼ÛµÇ´Â ÆÐÅ¶ÀÌ´Ù. NPC°¡ °¡¸£ÃÄ ÁÙ ¼ö ÀÖ´Â ±â¼úÀÇ ¹üÀ§¸¦ ±â¼úÇÏ´Â
-// µ¥ ¾²ÀÌ´Â ÆÐÅ¶ÀÌ´Ù.
+// NPCê°€ í”Œë ˆì´ì–´ì—ê²Œ ìŠ¤í‚¬ì„ ê°€ë¥´ì³ ì¤„ ë•Œ ì œì¼ ë¨¼ì € í”Œë ˆì´ì–´ì—ê²Œ
+// ì „ì†¡ë˜ëŠ” íŒ¨í‚·ì´ë‹¤. NPCê°€ ê°€ë¥´ì³ ì¤„ ìˆ˜ ìžˆëŠ” ê¸°ìˆ ì˜ ë²”ìœ„ë¥¼ ê¸°ìˆ í•˜ëŠ”
+// ë° ì“°ì´ëŠ” íŒ¨í‚·ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_TEACH_SKILL_INFO_H__
@@ -51,8 +51,8 @@ public:
     }
 
 private:
-    SkillDomainType_t m_DomainType; // NPC°¡ °¡¸£ÃÄÁÖ´Â ±â¼úÀÇ µµ¸ÞÀÎ Å¸ÀÔ
-    SkillLevel_t m_TargetLevel;     // ÇÃ·¹ÀÌ¾î°¡ ÀÌÁ¦ ¹è¿ï ±â¼ú ·¹º§
+    SkillDomainType_t m_DomainType; // NPCê°€ ê°€ë¥´ì³ì£¼ëŠ” ê¸°ìˆ ì˜ ë„ë©”ì¸ íƒ€ìž…
+    SkillLevel_t m_TargetLevel;     // í”Œë ˆì´ì–´ê°€ ì´ì œ ë°°ìš¸ ê¸°ìˆ  ë ˆë²¨
 };
 
 //////////////////////////////////////////////////////////////////////////////

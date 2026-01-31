@@ -18,7 +18,7 @@
 #include "GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Hymn::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -39,8 +39,8 @@ void Hymn::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkill
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -82,7 +82,7 @@ void Hymn::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkill
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇØ ºÙÀÎ´Ù.
+            // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•´ ë¶™ì¸ë‹¤.
             EffectHymn* pEffect = new EffectHymn(pTargetCreature);
             pEffect->setDeadline(output.Duration);
             pEffect->setLevel(pSkillInfo->getLevel() / 2);
@@ -91,7 +91,7 @@ void Hymn::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkill
             pTargetCreature->addEffect(pEffect);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_HYMN);
 
-            // ´É·ÂÄ¡¸¦ °è»êÇØ¼­ º¸³»ÁØ´Ù.
+            // ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
             if (pTargetCreature->isVampire()) {
                 Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
                 VAMPIRE_RECORD prev;
@@ -163,10 +163,10 @@ void Hymn::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkill
             _GCSkillToObjectOK6.setSkillType(SkillType);
             _GCSkillToObjectOK6.setDuration(output.Duration);
 
-            if (bCanSeeCaster) // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            if (bCanSeeCaster) // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-            } else // 10Àº ¶«»§ ¼öÄ¡´Ù.
+            } else // 10ì€ ë•œë¹µ ìˆ˜ì¹˜ë‹¤.
             {
                 computeAlignmentChange(pTargetCreature, 10, pSlayer, &_GCSkillToObjectOK6, &_GCSkillToObjectOK1);
             }

@@ -49,7 +49,7 @@ public:
     }
 
 private:
-    ZONE_COORD m_ZoneCoord; // Æ÷Å»ÀÇ ¸ñÇ¥ Á¸ ID ¹× ÁÂÇ¥
+    ZONE_COORD m_ZoneCoord; // í¬íƒˆì˜ ëª©í‘œ ì¡´ ID ë° ì¢Œí‘œ
 };
 
 #endif // __EFFECT_TILE_PORTAL__

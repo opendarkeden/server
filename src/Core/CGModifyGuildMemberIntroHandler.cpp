@@ -37,12 +37,12 @@ void CGModifyGuildMemberIntroHandler::execute(CGModifyGuildMemberIntro* pPacket,
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPlayerCreature != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPlayerCreature->getGuildID());
     if (pGuild == NULL)
         return;
 
-    // ±æµå ¸â¹ö Á¤º¸¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œ ë©¤ë²„ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPlayerCreature->getName());
     if (pGuildMember == NULL)
         return;

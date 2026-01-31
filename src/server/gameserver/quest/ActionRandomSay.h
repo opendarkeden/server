@@ -41,8 +41,8 @@ public:
     }
 
 private:
-    ScriptID_t m_StartScriptID; // ¸»ÇÒ ´ë»ç ¾ÆÀÌµğ ½ÃÀÛ ID
-    ScriptID_t m_EndScriptID;   // ¸»ÇÒ ´ë»ç ¾ÆÀÌµğ ³¡ ID
+    ScriptID_t m_StartScriptID; // ë§í•  ëŒ€ì‚¬ ì•„ì´ë”” ì‹œì‘ ID
+    ScriptID_t m_EndScriptID;   // ë§í•  ëŒ€ì‚¬ ì•„ì´ë”” ë ID
 };
 
 

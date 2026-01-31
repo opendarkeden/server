@@ -16,7 +16,7 @@
 #include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void FuryOfGnome::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                           CEffectID_t CEffectID)
@@ -34,7 +34,7 @@ void FuryOfGnome::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             executeSkillFailException(pOusters, getSkillType());
 
@@ -148,20 +148,20 @@ void FuryOfGnome::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
                     if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))
                         continue;
 
-                    // ÇöÀç Å¸ÀÏ¿¡´Ù ÀÌÆåÆ®¸¦ Ãß°¡ÇÒ ¼ö ÀÖ´Ù¸é...
+                    // í˜„ìž¬ íƒ€ì¼ì—ë‹¤ ì´íŽ™íŠ¸ë¥¼ ì¶”ê°€í•  ìˆ˜ ìžˆë‹¤ë©´...
                     if (tile.canAddEffect()) {
-                        // °°Àº effect°¡ ÀÖÀ¸¸é Áö¿î´Ù.
+                        // ê°™ì€ effectê°€ ìžˆìœ¼ë©´ ì§€ìš´ë‹¤.
                         Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_FURY_OF_GNOME);
                         if (pOldEffect != NULL) {
                             ObjectID_t effectID = pOldEffect->getObjectID();
                             pZone->deleteEffect(effectID); // fix me
                         }
 
-                        // ÀÌÆåÆ® Å¬·¡½º¸¦ »ý¼ºÇÑ´Ù.
+                        // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
                         EffectFuryOfGnome* pEffect = new EffectFuryOfGnome(pZone, targetX, targetY);
                         pEffect->setDeadline(output.Duration);
 
-                        // Tile¿¡ ºÙÀÌ´Â Effect´Â ObjectID¸¦ µî·Ï¹Þ¾Æ¾ß ÇÑ´Ù.
+                        // Tileì— ë¶™ì´ëŠ” EffectëŠ” ObjectIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ í•œë‹¤.
                         ObjectRegistry& objectregister = pZone->getObjectRegistry();
                         objectregister.registerObject(pEffect);
                         pZone->addEffect(pEffect);

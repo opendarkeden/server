@@ -79,7 +79,7 @@ SummonClay::SummonClay() throw() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonClay::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -110,8 +110,8 @@ void SummonClay::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
         // Assert(pTargetCreature != NULL);
 
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        if (pTargetCreature == NULL // NoSuchÁ¦°Å ¶§¹®¿¡.. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        if (pTargetCreature == NULL // NoSuchì œê±° ë•Œë¬¸ì—.. by sigi. 2002.5.2
             || pTargetCreature->isNPC()) {
             executeSkillFailException(pOusters, getSkillType(), Grade);
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -130,7 +130,7 @@ void SummonClay::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî Å¸ÀÏ ÇÚµé·¯
+// ì•„ìš°ìŠ¤í„°ì¦ˆ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void SummonClay::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID)
@@ -175,7 +175,7 @@ void SummonClay::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
         SkillType_t SkillType = pOustersSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+        // ë°ë¯¸ì§€ì™€ ì§€ì† ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
         SkillInput input(pOusters, pOustersSkillSlot);
         SkillOutput output;
         computeOutput(input, output);
@@ -206,7 +206,7 @@ void SummonClay::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
                 for (int oY = pt.y - 2; oY <= pt.y + 2; ++oY) {
                     if (!rect.ptInRect(oX, oY))
                         continue;
-                    // check Ğ§¹û
+                    // check æ§»ë²
                     if (pZone->getTile(oX, oY).getEffect(Effect::EFFECT_CLASS_DARKNESS) != NULL ||
                         pZone->getTile(oX, oY).getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ||
                         pZone->getTile(oX, oY).getEffect(Effect::EFFECT_CLASS_PROMINENCE) != NULL ||
@@ -255,7 +255,7 @@ void SummonClay::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
                     if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))
                         continue;
 
-                    // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+                    // ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ì‚­ì œí•œë‹¤.
                     Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY);
                     if (pOldEffect != NULL) {
                         ObjectID_t effectID = pOldEffect->getObjectID();
@@ -264,7 +264,7 @@ void SummonClay::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
                     //////////////////////////////////////////////////////////////////////////
                     // edit by Coffee 2007-5-8
 
-                    // ¼ì²âÊÇ·ñÓĞ»Æ¶¾
+                    // ì‡±ê¿è§’ë¤ å”ë¼ë—€
                     pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_YELLOW_POISON);
                     if (pOldEffect != NULL) {
                         //
@@ -276,15 +276,15 @@ void SummonClay::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
                     //////////////////////////////////////////////////////////////////////////
 
 
-                    // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+                    // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
                     EffectSummonClay* pEffect = new EffectSummonClay(pZone, oX, oY);
                     pEffect->setDeadline(output.Duration);
 
-                    // Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+                    // íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
                     ObjectRegistry& objectregister = pZone->getObjectRegistry();
                     objectregister.registerObject(pEffect);
 
-                    // Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+                    // ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
                     pZone->addEffect(pEffect);
                     tile.addEffect(pEffect);
 

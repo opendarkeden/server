@@ -2,7 +2,7 @@
 // Filename    : EffectProtectionFromPoison.h
 // Written by  : excel96
 // Description :
-// ProtectionFromPoison¿¡ ÀÇÇØ¼­ »ý¼ºµÇ´Â µ¶µ¥¹ÌÁö ¾àÈ­ ÀÌÆåÆ®ÀÌ´Ù.
+// ProtectionFromPoisonì— ì˜í•´ì„œ ìƒì„±ë˜ëŠ” ë…ë°ë¯¸ì§€ ì•½í™” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_PROTECTION_FROM_POISON__

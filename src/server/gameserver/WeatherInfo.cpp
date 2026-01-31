@@ -94,7 +94,7 @@ string WeatherInfoManager::toString() const
     msg << "WeatherInfoManager(";
 
     for (int i = 0; i < 12; i++) {
-        msg << (int)(i + 1) << " ¿ù : " << m_WeatherInfos[i].toString();
+        msg << (int)(i + 1) << " ì›” : " << m_WeatherInfos[i].toString();
     }
 
     msg << ")";

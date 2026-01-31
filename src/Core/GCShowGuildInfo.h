@@ -17,7 +17,7 @@
 //
 // class GCShowGuildInfo;
 //
-// Å¬¶óÀÌ¾ğÆ®¿¡ ±æµå µî·Ï Ã¢À» ¶ç¿ìµµ·Ï ÇÑ´Ù.
+// í´ë¼ì´ì–¸íŠ¸ì— ê¸¸ë“œ ë“±ë¡ ì°½ì„ ë„ìš°ë„ë¡ í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,10 +25,10 @@ class GCShowGuildInfo : public Packet {
 public:
     GCShowGuildInfo() {};
     ~GCShowGuildInfo() {};
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -169,7 +169,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCSystemMessagePacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCSystemMessagePacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szGuildID +    // Guild ID
                szBYTE +       // Guild Name length

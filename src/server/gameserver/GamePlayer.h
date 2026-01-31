@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GamePlayer.h
 // Written by  : reiot@ewestsoft.com
-// Description : °ÔÀÓ ¼­¹ö¿ë ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// Description : ê²Œì„ ì„œë²„ìš© í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GAME_PLAYER_H__
@@ -31,23 +31,23 @@
 //////////////////////////////////////////////////////////////////////////////
 // class GamePlayer
 //
-// °ÔÀÓ ¼­¹ö¿ë ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// ê²Œì„ ì„œë²„ìš© í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
-// Player Å¬·¡½º¸¦ »ó¼Ó¹Ş¾Æ¼­, °ÔÀÓ ¼­¹ö¿¡¼­¸¸ »ç¿ëµÇ´Â Mutex ¹×
-// Creature °ü·Ã µ¥ÀÌÅÍ ¹× ¸Ş½îµå, PreviousPacket °ü·Ã µ¥ÀÌÅÍ ¹×
-// ¸Ş¼ÒµåµéÀ» Ãß°¡Çß´Ù.
+// Player í´ë˜ìŠ¤ë¥¼ ìƒì†ë°›ì•„ì„œ, ê²Œì„ ì„œë²„ì—ì„œë§Œ ì‚¬ìš©ë˜ëŠ” Mutex ë°
+// Creature ê´€ë ¨ ë°ì´í„° ë° ë©”ì˜ë“œ, PreviousPacket ê´€ë ¨ ë°ì´í„° ë°
+// ë©”ì†Œë“œë“¤ì„ ì¶”ê°€í–ˆë‹¤.
 //
-// Æ¯È÷ processOutput() ¹× sendPacket()Àº Race Condition ÀÌ ¹ß»ıµÉ ¼ö
-// ÀÖÀ¸¹Ç·Î, Mutex ·Î º¸È£µÇ¾î¾ß ÇÑ´Ù.(MODE-IVÀÇ °æ¿ìÀÌ¸ç, MODE-I, II
-// ÀÇ °æ¿ì¿¡´Â processInput(), processCommand() ¸ğµÎ Mutex ·Î º¸È£ÇØ¾ß
-// ÇÑ´Ù.)
+// íŠ¹íˆ processOutput() ë° sendPacket()ì€ Race Condition ì´ ë°œìƒë  ìˆ˜
+// ìˆìœ¼ë¯€ë¡œ, Mutex ë¡œ ë³´í˜¸ë˜ì–´ì•¼ í•œë‹¤.(MODE-IVì˜ ê²½ìš°ì´ë©°, MODE-I, II
+// ì˜ ê²½ìš°ì—ëŠ” processInput(), processCommand() ëª¨ë‘ Mutex ë¡œ ë³´í˜¸í•´ì•¼
+// í•œë‹¤.)
 //////////////////////////////////////////////////////////////////////////////
 
 class Creature;
 
 class GamePlayer : public Player, public PaySystem, public BillingPlayerInfo, public CBillingPlayerInfo {
 public:
-    // ÀúÀåÇØ ³õÀ» ÀÌÀü ÆĞÅ¶ÀÇ °³¼ö
+    // ì €ì¥í•´ ë†“ì„ ì´ì „ íŒ¨í‚·ì˜ ê°œìˆ˜
     const static BYTE nPacketHistorySize = 10;
 
 public:
@@ -68,13 +68,13 @@ public:
     virtual void sendPacket(Packet* packet);
 
     // disconnect
-    // Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(LOGOUT)
+    // ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(LOGOUT)
     virtual void disconnect(bool bDisconnected = DISCONNECTED);
 
     // get debug string
     virtual string toString() const;
 
-    // ½ºÇÇµå Ã¼Å©
+    // ìŠ¤í”¼ë“œ ì²´í¬
     virtual bool verifySpeed(Packet* pPacket);
 
     // get creature pointer
@@ -91,11 +91,11 @@ public:
     }
 
     // return recent N-th packet
-    // ÃÖ±Ù Àü¼ÛµÈ N ¹øÂ° ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+    // ìµœê·¼ ì „ì†¡ëœ N ë²ˆì§¸ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
     Packet* getOldPacket(uint prev = 0);
 
     // return recent packet which has packetID
-    // Æ¯Á¤ ID¸¦ °¡Áø ÆĞÅ¶ Áß °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+    // íŠ¹ì • IDë¥¼ ê°€ì§„ íŒ¨í‚· ì¤‘ ê°€ì¥ ìµœê·¼ì˜ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
     Packet* getOldPacket(PacketID_t packetID);
 
     // get player's status
@@ -113,7 +113,7 @@ public:
     Event* getEvent(Event::EventClass EClass);
     void deleteEvent(Event::EventClass EClass);
 
-    // ÆĞ³ÎÆ¼ Status °ü·Ã ÇÔ¼ö
+    // íŒ¨ë„í‹° Status ê´€ë ¨ í•¨ìˆ˜
     // Set Flag
     void setPenaltyFlag(PenaltyType PenaltyFlag) {
         m_PenaltyFlag.set(PenaltyFlag);
@@ -139,7 +139,7 @@ public:
     void loadSpecialEventCount(void);
     void saveSpecialEventCount(void);
 
-public: // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì. °­Á¦ Á¾·á¸¦ À§ÇØ¼­. by sigi.
+public: // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš°. ê°•ì œ ì¢…ë£Œë¥¼ ìœ„í•´ì„œ. by sigi.
     bool isKickForLogin() const {
         return m_bKickForLogin;
     }
@@ -162,7 +162,7 @@ public: // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì. °­Á¦ Á¾·á¸¦ À§ÇØ¼­. by sigi.
     }
 
 public:
-    // ÂÁ.
+    // ì©.
     void setReconnectPacket(GCReconnectLogin* pPacket) {
         SAFE_DELETE(m_pReconnectPacket);
         m_pReconnectPacket = pPacket;
@@ -195,7 +195,7 @@ public:
 
     void sendCBillingPayInfo();
 
-    // ÆĞÅ¶ ¾ÏÈ£È­ °ü·Ã
+    // íŒ¨í‚· ì•”í˜¸í™” ê´€ë ¨
     // by sigi. 2002.11.27
     void setEncryptCode();
 
@@ -203,7 +203,7 @@ public:
     void kickPlayer(uint nSeconds, uint KickMessageType);
 
     //////////////////////////////////////////////////
-    // PaySystem °ü·Ã
+    // PaySystem ê´€ë ¨
     //////////////////////////////////////////////////
 public:
     bool loginPayPlay(PayType payType, const string& PayPlayDate, int PayPlayHours, uint payPlayFlag, const string& ip,
@@ -272,7 +272,7 @@ private:
 
     BYTE m_VerifyCount;
 
-    // ½Ã°£ °ËÁõ Å¸ÀÓ.
+    // ì‹œê°„ ê²€ì¦ íƒ€ì„.
     Timeval m_SpeedVerify;
     Timeval m_MoveSpeedVerify;
     Timeval m_AttackSpeedVerify;
@@ -283,28 +283,28 @@ private:
 
     EventManager m_EventManager;
 
-    // ½ºÆä¼È ÀÌº¥Æ® °ü·Ã Ä«¿îÅÍ
-    // ÇØ°ñ ¸¹ÀÌ Áİ±â³ª, ¹¹ ±×·± Á¾·ùÀÇ ÀÌº¥Æ®¿¡ »ç¿ëµÉ ¼ö ÀÖ´Â Ä«¿îÅÍ
+    // ìŠ¤í˜ì…œ ì´ë²¤íŠ¸ ê´€ë ¨ ì¹´ìš´í„°
+    // í•´ê³¨ ë§ì´ ì¤ê¸°ë‚˜, ë­ ê·¸ëŸ° ì¢…ë¥˜ì˜ ì´ë²¤íŠ¸ì— ì‚¬ìš©ë  ìˆ˜ ìˆëŠ” ì¹´ìš´í„°
     uint m_SpecialEventCount;
 
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'¿¡¼­ °­Á¦ Á¾·á ½ÃÅ°´Â °æ¿ì
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì—ì„œ ê°•ì œ ì¢…ë£Œ ì‹œí‚¤ëŠ” ê²½ìš°
     bool m_bKickForLogin;
     string m_KickRequestHost;
     uint m_KickRequestPort;
 
-    // GameServer --> LoginServer·Î °¥¶§ »ç¿ëÇÑ´Ù. À¸ÇìÇì. by sigi. 2002.6.19
+    // GameServer --> LoginServerë¡œ ê°ˆë•Œ ì‚¬ìš©í•œë‹¤. ìœ¼í—¤í—¤. by sigi. 2002.6.19
     GCReconnectLogin* m_pReconnectPacket;
 
     bool m_bFreePass;
 
-    // ºô¸µ ½Ã½ºÅÛ¿¡ ¿¬°áÇÏÁö ¾Ê°í À¯·á ÇÃ·¹ÀÌ ÇÏ±â
+    // ë¹Œë§ ì‹œìŠ¤í…œì— ì—°ê²°í•˜ì§€ ì•Šê³  ìœ ë£Œ í”Œë ˆì´ í•˜ê¸°
     bool m_bMetroFreePlayer;
 
-    // °¢ »ç¿ëÀÚº° ¾ÆÀÌÅÛ È¹µæ º¸³Ê½º È®·ü
+    // ê° ì‚¬ìš©ìë³„ ì•„ì´í…œ íšë“ ë³´ë„ˆìŠ¤ í™•ë¥ 
     int m_ItemRatioBonusPoint;
 
-    Timeval m_PCRoomLottoStartTime; // PC ¹æ º¹±Ç °è»ê¿ë. Àû¿ë½ÃÀÛ ½Ã°£
-    uint m_PCRoomLottoSumTime;      // PC ¹æ º¹±Ç °è»ê¿ë. ´©Àû½Ã°£. logoutPayPlay½Ã ÀúÀå¿ë
+    Timeval m_PCRoomLottoStartTime; // PC ë°© ë³µê¶Œ ê³„ì‚°ìš©. ì ìš©ì‹œì‘ ì‹œê°„
+    uint m_PCRoomLottoSumTime;      // PC ë°© ë³µê¶Œ ê³„ì‚°ìš©. ëˆ„ì ì‹œê°„. logoutPayPlayì‹œ ì €ì¥ìš©
 
     string m_PacketLogFileName;
     bool m_bPacketLog;
@@ -318,7 +318,7 @@ private:
 #ifdef __THAILAND_SERVER__
     bool m_bPermission;
 #endif
-    // add by Coffee 2007-7-15 Ôö¼Ó·â°ü³äÁĞ¼ì²â
+    // add by Coffee 2007-7-15 è—¤ì†ë£ê´€ë…ì£—ì‡±ê¿
 private:
     BYTE m_Sequence;
 };

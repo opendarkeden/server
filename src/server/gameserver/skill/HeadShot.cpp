@@ -19,7 +19,7 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -42,8 +42,8 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NPC´Â °ø°İÇÒ ¼ö°¡ ¾ø´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -58,10 +58,10 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         GCSkillToObjectOK4 _GCSkillToObjectOK4;
         GCSkillToObjectOK5 _GCSkillToObjectOK5;
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, ÃÑÀÌ ¾Æ´Ï°Å³ª, SRÀÌ¶ó¸é ÀÌ ±â¼úÀ» ¾µ ¼ö ¾ø´Ù.
+        // ë¬´ì¥í•˜ê³  ìˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, ì´ì´ ì•„ë‹ˆê±°ë‚˜, SRì´ë¼ë©´ ì´ ê¸°ìˆ ì„ ì“¸ ìˆ˜ ì—†ë‹¤.
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pWeapon == NULL || !isArmsWeapon(pWeapon))
-        // SRµµ »ç¿ë°¡´ÉÇÏ°Ô ÇÑ´Ù. by sigi. 2002.12.3
+        // SRë„ ì‚¬ìš©ê°€ëŠ¥í•˜ê²Œ í•œë‹¤. by sigi. 2002.12.3
         //|| pWeapon->getItemClass() == Item::ITEM_CLASS_SR)
         {
             executeSkillFailException(pSlayer, getSkillType());
@@ -77,19 +77,19 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         int RequiredMP = (int)pSkillInfo->getConsumeMP();
         bool bManaCheck = hasEnoughMana(pSlayer, RequiredMP);
         bool bTimeCheck = verifyRunTime(pSkillSlot);
-        bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange()); // »çÁ¤°Å¸® 3À¸·Î °íÁ¤
+        bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange()); // ì‚¬ì •ê±°ë¦¬ 3ìœ¼ë¡œ ê³ ì •
         bool bBulletCheck = (getRemainBullet(pWeapon) > 0) ? true : false;
 
-        // ÃÑ¾Ë ¼ıÀÚ´Â ¹«Á¶°Ç ¶³¾î¶ß¸°´Ù.
+        // ì´ì•Œ ìˆ«ìëŠ” ë¬´ì¡°ê±´ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         Bullet_t RemainBullet = 0;
         if (bBulletCheck) {
             decreaseBullet(pWeapon);
-            // ÇÑ¹ß¾µ¶§¸¶´Ù ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù. by sigi. 2002.5.9
+            // í•œë°œì“¸ë•Œë§ˆë‹¤ ì €ì¥í•  í•„ìš” ì—†ë‹¤. by sigi. 2002.5.9
             // pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
             RemainBullet = getRemainBullet(pWeapon);
         }
 
-        // µ¥¹ÌÁö, ÅõÈı º¸³Ê½º, ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+        // ë°ë¯¸ì§€, íˆ¬í› ë³´ë„ˆìŠ¤, ì¢Œí‘œì™€ ë°©í–¥ì„ êµ¬í•œë‹¤.
         int ToHitBonus = 0;
         int DamageBonus = 0;
         ZoneCoord_t myX = pSlayer->getX();
@@ -100,14 +100,14 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 
         int Splash = computeArmsWeaponSplashSize(pWeapon, myX, myY, targetX, targetY);
 
-        // °Å¸®¿¡ µû¸¥ µ¥¹ÌÁö º¸³Ê½º¸¦ °è»êÇÑ´Ù.
+        // ê±°ë¦¬ì— ë”°ë¥¸ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ë¥¼ ê³„ì‚°í•œë‹¤.
         SkillInput input(pSlayer, pSkillSlot);
         SkillOutput output;
         input.Range = getDistance(pSlayer->getX(), pSlayer->getY(), pTargetCreature->getX(), pTargetCreature->getY());
         computeOutput(input, output);
 
         ////////////////////////////////////////////////////////////////////////////////
-        // SG°¡ ¾Æ´Ñ ´Ù¸¥ ÃÑÀÏ °æ¿ì
+        // SGê°€ ì•„ë‹Œ ë‹¤ë¥¸ ì´ì¼ ê²½ìš°
         ////////////////////////////////////////////////////////////////////////////////
         if (Splash == 0) {
             ToHitBonus = computeArmsWeaponToHitBonus(pWeapon, myX, myY, targetX, targetY);
@@ -126,13 +126,13 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
                 setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
                 computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
 
-                // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                 if (bCriticalHit) {
                     knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
                 }
 
                 if (!pTargetCreature->isSlayer()) {
-                    // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                    // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                     if (bIncreaseDomainExp) {
                         shareAttrExp(pSlayer, Damage, 1, 8, 1, _GCSkillToObjectOK1);
                         increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1,
@@ -142,10 +142,10 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
                     increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
                 }
 
-                // ÃÑ¾Ë ¼ö¸¦ ¶³¾î¶ß¸®°í, ¼¼ÀÌºêÇÏ°í, ³²Àº ÃÑ¾ËÀ» ¹Ş°í, ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                // ì´ì•Œ ìˆ˜ë¥¼ ë–¨ì–´ëœ¨ë¦¬ê³ , ì„¸ì´ë¸Œí•˜ê³ , ë‚¨ì€ ì´ì•Œì„ ë°›ê³ , ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
 
-                // ÃÑÀÌ ¾ÆÁ÷±îÁö ³²¾ÆÀÖ´Ù¸é, ÃÑ¾Ë ¼ıÀÚ¸¦ ¶³¾î¶ß¸®¶ó°í, Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¾Ë·ÁÁØ´Ù.
+                // ì´ì´ ì•„ì§ê¹Œì§€ ë‚¨ì•„ìˆë‹¤ë©´, ì´ì•Œ ìˆ«ìë¥¼ ë–¨ì–´ëœ¨ë¦¬ë¼ê³ , í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
                 if (pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND) != NULL)
                     _GCSkillToObjectOK1.addShortData(MODIFY_BULLET, RemainBullet);
 
@@ -201,7 +201,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
             }
         }
         ////////////////////////////////////////////////////////////////////////////////
-        // SGÀÏ °æ¿ì Çìµå¼¦ ¸»°íµµ µ¥¹ÌÁö°¡...
+        // SGì¼ ê²½ìš° í—¤ë“œìƒ· ë§ê³ ë„ ë°ë¯¸ì§€ê°€...
         ////////////////////////////////////////////////////////////////////////////////
         else {
             if (bManaCheck && bTimeCheck && bRangeCheck && bBulletCheck) {
@@ -213,8 +213,8 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 
                 decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-                Damage_t Damage = 0; // ¸¶Áö¸·À¸·Î ÀÔÈù µ¥¹ÌÁö¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö
-                bool bHit = false;   // ÇÑ ¸íÀÌ¶óµµ ¸Â¾Ò´Â°¡¸¦ ÀúÀåÇÏ±â À§ÇÑ º¯¼ö
+                Damage_t Damage = 0; // ë§ˆì§€ë§‰ìœ¼ë¡œ ì…íŒ ë°ë¯¸ì§€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
+                bool bHit = false;   // í•œ ëª…ì´ë¼ë„ ë§ì•˜ëŠ”ê°€ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 
                 Level_t maxEnemyLevel = 0;
                 uint EnemyNum = 0;
@@ -242,8 +242,8 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
                         Damage =
                             computeDamage(pSlayer, pEnemy, SkillLevel / 5, bCriticalHit) + output.Damage + DamageBonus;
 
-                        // ¸ŞÀÎ Å¸°ÙÀ» Á¦¿ÜÇÏ°í´Â, ½ºÇÃ·¡½Ã µ¥¹ÌÁö¸¦ ÀÔ´Âµ¥,
-                        // ½ºÇÃ·¡½Ã µ¥¹ÌÁö´Â ÀÏ¹İ µ¥¹ÌÁöÀÇ 50%ÀÌ´Ù.
+                        // ë©”ì¸ íƒ€ê²Ÿì„ ì œì™¸í•˜ê³ ëŠ”, ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ë¥¼ ì…ëŠ”ë°,
+                        // ìŠ¤í”Œë˜ì‹œ ë°ë¯¸ì§€ëŠ” ì¼ë°˜ ë°ë¯¸ì§€ì˜ 50%ì´ë‹¤.
                         if (pTargetCreature != pEnemy) {
                             Damage = Damage / 2;
                         }
@@ -259,12 +259,12 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 
                         increaseAlignment(pSlayer, pEnemy, _GCSkillToTileOK1);
 
-                        // Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+                        // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ë¼ë©´ ìƒëŒ€ë°©ì„ ë’¤ë¡œ ë¬¼ëŸ¬ë‚˜ê²Œ í•œë‹¤.
                         if (bCriticalHit) {
                             knockbackCreature(pZone, pEnemy, myX, myY);
                         }
 
-                        // ½½·¹ÀÌ¾î°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸ hitÇÑ °É·Î °£ÁÖÇÑ´Ù.
+                        // ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹Œ ê²½ìš°ì—ë§Œ hití•œ ê±¸ë¡œ ê°„ì£¼í•œë‹¤.
                         if (!pEnemy->isSlayer()) {
                             bHit = true;
                             if (maxEnemyLevel < pEnemy->getLevel())
@@ -274,7 +274,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
                     }
                 }
 
-                // ÇÏ³ª¶óµµ ¸Â¾ÒÀ» °æ¿ì¿¡¸¸ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                // í•˜ë‚˜ë¼ë„ ë§ì•˜ì„ ê²½ìš°ì—ë§Œ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                 if (bHit) {
                     shareAttrExp(pSlayer, Damage, 1, 8, 1, _GCSkillToTileOK1);
                     increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1, maxEnemyLevel,
@@ -283,7 +283,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
                     increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
                 }
 
-                // ÃÑ¾Ë ¼ıÀÚ¸¦ ÁÙÀÌ°í, ÃÑ¾Ë ¼ıÀÚ¸¦ ÀúÀåÇÏ°í, ³²Àº ÃÑ¾Ë ¼ıÀÚ¸¦ ¹ŞÀº ´ÙÀ½¿¡ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+                // ì´ì•Œ ìˆ«ìë¥¼ ì¤„ì´ê³ , ì´ì•Œ ìˆ«ìë¥¼ ì €ì¥í•˜ê³ , ë‚¨ì€ ì´ì•Œ ìˆ«ìë¥¼ ë°›ì€ ë‹¤ìŒì— ë‚´êµ¬ë ¥ì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 _GCSkillToTileOK1.addShortData(MODIFY_BULLET, RemainBullet);
 
                 decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
@@ -322,7 +322,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 
                 pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-                // ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+                // ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
                 for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
                     Creature* pVictim = *itr;
                     Assert(pVictim != NULL);

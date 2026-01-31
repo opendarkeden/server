@@ -2,8 +2,8 @@
 // Filename    : BloodBibleSignInfo.h
 // Written By  : elca@ewestsoft.com
 // Description :
-// ÀÔ°í ÀÖ´Â ±â¾î ¾ÆÀÌÅÛµéÀÇ Á¤º¸ ¸®½ºÆ®ÀÌ´Ù.
-// °¢°¢ÀÇ ±â¾î ¾ÆÀÌÅÛ¿¡ ´ëÇÑ Á¤º¸´Â BloodBibleSignSlotInfo¸¦ ÂüÁ¶ÇÏ¸é µÈ´Ù.
+// ìž…ê³  ìžˆëŠ” ê¸°ì–´ ì•„ì´í…œë“¤ì˜ ì •ë³´ ë¦¬ìŠ¤íŠ¸ì´ë‹¤.
+// ê°ê°ì˜ ê¸°ì–´ ì•„ì´í…œì— ëŒ€í•œ ì •ë³´ëŠ” BloodBibleSignSlotInfoë¥¼ ì°¸ì¡°í•˜ë©´ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __BLOOD_BIBLE_SIGN_INFO_H__

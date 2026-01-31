@@ -2,8 +2,8 @@
 // Filename    : PacketUtil.cpp
 // Written by  : excel96
 // Description :
-// ÀÚÁÖ º¸³»°í, ¸¸µé±â°¡ º¹ÀâÇÑ ÆĞÅ¶Àº ¸¸µå´Â °÷À» ¿©±â ÇÏ³ª·Î ÅëÀÏÇÔÀ¸·Î½á
-// À¯Áöº¸¼ö°¡ ½¬¿öÁø´Ù.
+// ìì£¼ ë³´ë‚´ê³ , ë§Œë“¤ê¸°ê°€ ë³µì¡í•œ íŒ¨í‚·ì€ ë§Œë“œëŠ” ê³³ì„ ì—¬ê¸° í•˜ë‚˜ë¡œ í†µì¼í•¨ìœ¼ë¡œì¨
+// ìœ ì§€ë³´ìˆ˜ê°€ ì‰¬ì›Œì§„ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PacketUtil.h"
@@ -94,7 +94,7 @@ void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID)
 {
     __BEGIN_TRY
 
-    // °¡ÀÔÇÑ³ğ¿¡°Ô¿¡ º¸³½´Ù.
+    // ê°€ì…í•œë†ˆì—ê²Œì— ë³´ë‚¸ë‹¤.
     list<Creature*> cList = g_pPCFinder->getGuildCreatures(gID, 300);
     for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
         Creature* pOtherCreature = *itr;
@@ -119,7 +119,7 @@ void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID)
 
     __END_CATCH
 }
-// ÇØ´çÅ©¸®ÃÄ°¡ ¼Ò¼ÓµÈ ±æµåÀÇ ¸ğµç ³ğ¿¡°Ô GCOtherModifyInfo ¸¦ ³¯¸°´Ù.
+// í•´ë‹¹í¬ë¦¬ì³ê°€ ì†Œì†ëœ ê¸¸ë“œì˜ ëª¨ë“  ë†ˆì—ê²Œ GCOtherModifyInfo ë¥¼ ë‚ ë¦°ë‹¤.
 void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature)
 
 {
@@ -131,7 +131,7 @@ void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature)
     PlayerCreature* pTargetPlayerCreature = dynamic_cast<PlayerCreature*>(pTargetGamePlayer->getCreature());
     Assert(pTargetPlayerCreature != NULL);
 
-    // °¡ÀÔÇÑ³ğ¿¡°Ô¿¡ º¸³½´Ù.
+    // ê°€ì…í•œë†ˆì—ê²Œì— ë³´ë‚¸ë‹¤.
     list<Creature*> cList = g_pPCFinder->getGuildCreatures(pTargetPlayerCreature->getGuildID(), 300);
     for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++) {
         Creature* pOtherCreature = *itr;
@@ -179,14 +179,14 @@ void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Crea
     GuildUnion* pUnion = NULL;
     pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
 
-    // ¼Ò¼ÓµÈ ¿¬ÇÕÀÌ ¾øÀ¸¸é
+    // ì†Œì†ëœ ì—°í•©ì´ ì—†ìœ¼ë©´
     if (pUnion == NULL) {
         pModifyInformation->addShortData(MODIFY_UNIONID, 0);
         pModifyInformation->addShortData(MODIFY_UNIONGRADE, GCUpdateInfo::UNION_NOTHING);
 
         // cout << "GCModifyInfo->GuildInformation - NOT FOUND UNION / UNION_NOTHING" << endl;
     } else {
-        // ¼Ò¼ÓµÈ ¿¬ÇÕÀÌ ÀÖ´Ù.
+        // ì†Œì†ëœ ì—°í•©ì´ ìˆë‹¤.
         bool isGuildMaster = false;
         bool isGuildUnionMaster = false;
 
@@ -221,7 +221,7 @@ void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Crea
 //////////////////////////////////////////////////////////////////////////////
 // void makeGCModifyInformation for GuildUnion Info()
 //
-// ±æµå Union Á¤º¸¸¦ GCModifyInformation ¿¡ ½É´Â´Ù.
+// ê¸¸ë“œ Union ì •ë³´ë¥¼ GCModifyInformation ì— ì‹¬ëŠ”ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 
@@ -239,14 +239,14 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
     GuildUnion* pUnion = NULL;
     pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
 
-    // ¼Ò¼ÓµÈ ¿¬ÇÕÀÌ ¾øÀ¸¸é
+    // ì†Œì†ëœ ì—°í•©ì´ ì—†ìœ¼ë©´
     if (pUnion == NULL) {
         pModifyInformation->addShortData(MODIFY_UNIONID, 0);
         pModifyInformation->addShortData(MODIFY_UNIONGRADE, GCUpdateInfo::UNION_NOTHING);
 
         //		cout << "GCModifyInfo->GuildInformation - NOT FOUND UNION / UNION_NOTHING" << endl;
     } else {
-        // ¼Ò¼ÓµÈ ¿¬ÇÕÀÌ ÀÖ´Ù.
+        // ì†Œì†ëœ ì—°í•©ì´ ìˆë‹¤.
         bool isGuildMaster = false;
         bool isGuildUnionMaster = false;
 
@@ -283,7 +283,7 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
 //////////////////////////////////////////////////////////////////////////////
 // void makeGCUpdateInfo()
 //
-// Æ÷Å»ÀÌ³ª, Á×¾î¼­ ¸Ê »çÀÌ¸¦ ÀÌµ¿ÇÒ ¶§ ¾²´Â, GCUpdateInfo Á¤º¸¸¦ ±¸¼ºÇÑ´Ù.
+// í¬íƒˆì´ë‚˜, ì£½ì–´ì„œ ë§µ ì‚¬ì´ë¥¼ ì´ë™í•  ë•Œ ì“°ëŠ”, GCUpdateInfo ì •ë³´ë¥¼ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 
@@ -291,7 +291,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     __BEGIN_TRY
 
     ////////////////////////////////////////////////////////////
-    // Á¸ À§Ä¡ Á¤º¸ ±¸¼º
+    // ì¡´ ìœ„ì¹˜ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
@@ -308,7 +308,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     pUpdateInfo->setZoneX(x);
     pUpdateInfo->setZoneY(y);
 
-    // DynamicZone Ã³¸®
+    // DynamicZone ì²˜ë¦¬
     if (pZone->isDynamicZone()) {
         DynamicZone* pDynamicZone = pZone->getDynamicZone();
         Assert(pDynamicZone != NULL);
@@ -317,7 +317,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     }
 
     ////////////////////////////////////////////////////////////
-    // ÀÎº¥Åä¸® ¹× ±â¾î Á¤º¸ ±¸¼º
+    // ì¸ë²¤í† ë¦¬ ë° ê¸°ì–´ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     if (pCreature->isSlayer()) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -325,7 +325,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 
         pUpdateInfo->setPCInfo(pSlayer->getSlayerInfo2());
 
-        // Inventory, Gear Á¤º¸ ±¸¼º
+        // Inventory, Gear ì •ë³´ êµ¬ì„±
         pUpdateInfo->setInventoryInfo(pSlayer->getInventoryInfo());
         pUpdateInfo->setGearInfo(pSlayer->getGearInfo());
         pUpdateInfo->setExtraInfo(pSlayer->getExtraInfo());
@@ -341,7 +341,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 
         pUpdateInfo->setPCInfo(pVampire->getVampireInfo2());
 
-        // Inventory, Gear Á¤º¸ ±¸¼º
+        // Inventory, Gear ì •ë³´ êµ¬ì„±
         pUpdateInfo->setInventoryInfo(pVampire->getInventoryInfo());
         pUpdateInfo->setGearInfo(pVampire->getGearInfo());
         pUpdateInfo->setExtraInfo(pVampire->getExtraInfo());
@@ -354,7 +354,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 
         pUpdateInfo->setPCInfo(pOusters->getOustersInfo2());
 
-        // Inventory, Gear Á¤º¸ ±¸¼º
+        // Inventory, Gear ì •ë³´ êµ¬ì„±
         pUpdateInfo->setInventoryInfo(pOusters->getInventoryInfo());
         pUpdateInfo->setGearInfo(pOusters->getGearInfo());
         pUpdateInfo->setExtraInfo(pOusters->getExtraInfo());
@@ -364,12 +364,12 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     }
 
     ////////////////////////////////////////////////////////////
-    // ÀÌÆåÆ® ÀÎÆ÷ ±¸¼º
+    // ì´í™íŠ¸ ì¸í¬ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     pUpdateInfo->setEffectInfo(pCreature->getEffectInfo());
 
     ////////////////////////////////////////////////////////////
-    // ½Ã¾ß Á¤º¸ ±¸¼º
+    // ì‹œì•¼ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     if (pZone->getZoneType() == ZONE_CASTLE) {
         pUpdateInfo->setDarkLevel(pZone->getDarkLevel());
@@ -408,51 +408,51 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     }
 
     ////////////////////////////////////////////////////////////
-    // ³¯¾¾ Á¤º¸ ±¸¼º
+    // ë‚ ì”¨ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     pUpdateInfo->setWeather(pZone->getWeatherManager()->getCurrentWeather());
     pUpdateInfo->setWeatherLevel(pZone->getWeatherManager()->getWeatherLevel());
 
     ////////////////////////////////////////////////////////////
-    // NPC ½ºÇÁ¶óÀÌÆ® Á¤º¸ ±¸¼º
+    // NPC ìŠ¤í”„ë¼ì´íŠ¸ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     pUpdateInfo->setNPCCount(pZone->getNPCCount());
     for (uint i = 0; i < pZone->getNPCCount(); i++)
         pUpdateInfo->setNPCType(i, pZone->getNPCType(i));
 
     ////////////////////////////////////////////////////////////
-    // ¸ó½ºÅÍ ½ºÇÁ¶óÀÌÆ® Á¤º¸ ±¸¼º
+    // ëª¬ìŠ¤í„° ìŠ¤í”„ë¼ì´íŠ¸ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
-    // ¸¶½ºÅÍ ·¹¾î¿¡¼­ ¼ÒÈ¯µÇ´Â ¸ó½ºÅÍ¸¦ ¹Ì¸® ·ÎµùÇÑ´Ù.
+    // ë§ˆìŠ¤í„° ë ˆì–´ì—ì„œ ì†Œí™˜ë˜ëŠ” ëª¬ìŠ¤í„°ë¥¼ ë¯¸ë¦¬ ë¡œë”©í•œë‹¤.
     if (pZone->isMasterLair()) {
-        // »ç½ÇÀº SpriteTypeÀÌ´Ù. -_-; by sigi. 2002.10.8
+        // ì‚¬ì‹¤ì€ SpriteTypeì´ë‹¤. -_-; by sigi. 2002.10.8
         const int num = 25;
         const MonsterType_t mtypes[num] = {
-            27,  // ºí·¯µå¿ö·Ï
-            40,  // °ñ·¹¸Ó
-            41,  // ´õÆ¼½ºÆ®¶óÀÌ´õ
-            47,  // Ä«¿À½º°¡µğ¾ğ
-            48,  // È£ºí
-            57,  // ½¦µµ¿ìÀ®
-            61,  // À§µµ¿ìÁî
-            62,  // ¿¡½ºÆ®·ÎÀÌ´õ
-            64,  // ¸ğµ¥¶ó½º
-            68,  // ºòÆØ
-            70,  // ´ÙÅ©½ºÅ©¸®¸Ó
-            71,  // Ä«¿À½º³ªÀÌÆ®
-            72,  // Å©¸²½¼½½·ÎÅÍ
-            73,  // ·Îµå´ÙÅ©´Ï½º
-            74,  // ¸®ÆÛ
-            75,  // Çï°¡µğ¾ğ
-            76,  // ÇïÀ§ÀÚµå
-            88,  // ´ÙÅ©°¡µğ¾ğ
-            89,  // ·ÎµåÄ«¿À½º
-            90,  // Ä«¿À½º±×¸®µå
-            91,  // ÇïÇÉµå
-            92,  // ´ÙÅ©ÇìÀÌÁî
-            101, // ´ø¿ïÇÁ¾ÆÅ©
-            102, // ¸Ø¸°¸ó
-            103  // »ş¸Õ¿ÀÇÁ
+            27,  // ë¸”ëŸ¬ë“œì›Œë¡
+            40,  // ê³¨ë ˆë¨¸
+            41,  // ë”í‹°ìŠ¤íŠ¸ë¼ì´ë”
+            47,  // ì¹´ì˜¤ìŠ¤ê°€ë””ì–¸
+            48,  // í˜¸ë¸”
+            57,  // ì‰ë„ìš°ìœ™
+            61,  // ìœ„ë„ìš°ì¦ˆ
+            62,  // ì—ìŠ¤íŠ¸ë¡œì´ë”
+            64,  // ëª¨ë°ë¼ìŠ¤
+            68,  // ë¹…íŒ½
+            70,  // ë‹¤í¬ìŠ¤í¬ë¦¬ë¨¸
+            71,  // ì¹´ì˜¤ìŠ¤ë‚˜ì´íŠ¸
+            72,  // í¬ë¦¼ìŠ¨ìŠ¬ë¡œí„°
+            73,  // ë¡œë“œë‹¤í¬ë‹ˆìŠ¤
+            74,  // ë¦¬í¼
+            75,  // í—¬ê°€ë””ì–¸
+            76,  // í—¬ìœ„ìë“œ
+            88,  // ë‹¤í¬ê°€ë””ì–¸
+            89,  // ë¡œë“œì¹´ì˜¤ìŠ¤
+            90,  // ì¹´ì˜¤ìŠ¤ê·¸ë¦¬ë“œ
+            91,  // í—¬í•€ë“œ
+            92,  // ë‹¤í¬í—¤ì´ì¦ˆ
+            101, // ë˜ìš¸í”„ì•„í¬
+            102, // ë©ˆë¦°ëª¬
+            103  // ìƒ¤ë¨¼ì˜¤í”„
 
             // 27, 48, 40, 41, 57,
             // 61, 62, 64, 68, 71,
@@ -470,7 +470,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     }
 
     ////////////////////////////////////////////////////////////
-    // NPC ÁÂÇ¥ Á¤º¸ ±¸¼º
+    // NPC ì¢Œí‘œ ì •ë³´ êµ¬ì„±
     ////////////////////////////////////////////////////////////
     list<NPCInfo*>* pNPCInfos = pZone->getNPCInfos();
     list<NPCInfo*>::const_iterator itr = pNPCInfos->begin();
@@ -479,7 +479,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
         pUpdateInfo->addNPCInfo(pInfo);
     }
     ////////////////////////////////////////////////////////////
-    // ¼­¹öÀÇ »óÅÂ Á¤º¸
+    // ì„œë²„ì˜ ìƒíƒœ ì •ë³´
     ////////////////////////////////////////////////////////////
     ServerGroupID_t ZoneGroupCount = g_pZoneGroupManager->size();
     UserNum_t ZoneUserNum = 0;
@@ -490,7 +490,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
         try {
             pZoneGroup = g_pZoneGroupManager->getZoneGroup(i);
         } catch (NoSuchElementException&) {
-            throw Error("Critical Error : ZoneInfoManager¿¡ ÇØ´ç Á¸±×·ìÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            throw Error("Critical Error : ZoneInfoManagerì— í•´ë‹¹ ì¡´ê·¸ë£¹ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
 
         ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
@@ -525,7 +525,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
         pUpdateInfo->setServerStat(SERVER_DOWN);
     }
 
-    // ÇÁ¸®¹Ì¾ö Á¤º¸ ¼³Á¤
+    // í”„ë¦¬ë¯¸ì—„ ì •ë³´ ì„¤ì •
     if (pZone->isPremiumZone())
         pUpdateInfo->setPremiumZone();
 
@@ -542,10 +542,10 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 
     if (bNonPK) {
         pUpdateInfo->setNonPK(1);
-        //		cout << "PKºÒ°¡´É" << endl;
+        //		cout << "PKë¶ˆê°€ëŠ¥" << endl;
     } else {
         pUpdateInfo->setNonPK(0);
-        //		cout << "PK°¡´É" << endl;
+        //		cout << "PKê°€ëŠ¥" << endl;
     }
 
     // GuildUnion Information
@@ -555,13 +555,13 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
     GuildUnion* pUnion = NULL;
     pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
 
-    // ¼Ò¼ÓµÈ ¿¬ÇÕÀÌ ¾øÀ¸¸é
+    // ì†Œì†ëœ ì—°í•©ì´ ì—†ìœ¼ë©´
     if (pUnion == NULL) {
         pUpdateInfo->setGuildUnionID(0);
         pUpdateInfo->setGuildUnionUserType(GCUpdateInfo::UNION_NOTHING);
         //		cout << "GCUpdateInfo->getGuildUnionUserType() : UNION_NOTHING (NOT UNION)" << endl;
     } else {
-        // ¼Ò¼ÓµÈ ¿¬ÇÕÀÌ ÀÖ´Ù.
+        // ì†Œì†ëœ ì—°í•©ì´ ìˆë‹¤.
         bool isGuildMaster = false;
         bool isGuildUnionMaster = false;
 
@@ -589,14 +589,14 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 
     pUpdateInfo->setBloodBibleSignInfo(pPlayerCreature->getBloodBibleSign());
 
-    // ÆÄ¿ö Æ÷ÀÎÆ®
+    // íŒŒì›Œ í¬ì¸íŠ¸
     pUpdateInfo->setPowerPoint(pPlayerCreature->getPowerPoint());
 
     __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddSlayer(GCAddSlayer* pAddSlayer, Slayer* pSlayer)
 
@@ -613,7 +613,7 @@ void makeGCAddSlayer(GCAddSlayer* pAddSlayer, Slayer* pSlayer)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ë±€íŒŒì´ì–´ ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddVampire(GCAddVampire* pAddVampire, Vampire* pVampire)
 
@@ -628,7 +628,7 @@ void makeGCAddVampire(GCAddVampire* pAddVampire, Vampire* pVampire)
 
     // cout << "makeGCAddVampire: CoatType=" << (int)(pAddVampire->getVampireInfo().getCoatType()) << endl;
 
-    // °³ÀÎ¿ë Æ÷Å»À» ÀÌ¿ëÇØ¼­ ÀÌµ¿ÇÑ °ÍÀÌ¶ó¸é...
+    // ê°œì¸ìš© í¬íƒˆì„ ì´ìš©í•´ì„œ ì´ë™í•œ ê²ƒì´ë¼ë©´...
     if (pVampire->isFlag(Effect::EFFECT_CLASS_VAMPIRE_PORTAL))
         pAddVampire->setFromFlag(1);
 
@@ -636,7 +636,7 @@ void makeGCAddVampire(GCAddVampire* pAddVampire, Vampire* pVampire)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍ½º Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddOusters(GCAddOusters* pAddOusters, Ousters* pOusters)
 
@@ -653,7 +653,7 @@ void makeGCAddOusters(GCAddOusters* pAddOusters, Ousters* pOusters)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ëª¬ìŠ¤í„° ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddMonster(GCAddMonster* pAddMonster, Monster* pMonster)
 
@@ -670,7 +670,7 @@ void makeGCAddMonster(GCAddMonster* pAddMonster, Monster* pMonster)
     pAddMonster->setCurrentHP(pMonster->getHP());
     pAddMonster->setMaxHP(pMonster->getHP(ATTR_MAX));
 
-    // °³ÀÎ¿ë Æ÷Å»À» ÀÌ¿ëÇØ¼­ ÀÌµ¿ÇÑ °ÍÀÌ¶ó¸é...
+    // ê°œì¸ìš© í¬íƒˆì„ ì´ìš©í•´ì„œ ì´ë™í•œ ê²ƒì´ë¼ë©´...
     if (pMonster->isFlag(Effect::EFFECT_CLASS_VAMPIRE_PORTAL))
         pAddMonster->setFromFlag(1);
 
@@ -678,7 +678,7 @@ void makeGCAddMonster(GCAddMonster* pAddMonster, Monster* pMonster)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// NPC Ãß°¡ ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// NPC ì¶”ê°€ íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddNPC(GCAddNPC* pAddNPC, NPC* pNPC)
 
@@ -699,7 +699,7 @@ void makeGCAddNPC(GCAddNPC* pAddNPC, NPC* pNPC)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// »õ·Î¿î ¾ÆÀÌÅÛÀ» Á¸¿¡´Ù Ãß°¡ÇÒ ¶§ º¸³»´Â GCAddNewItemToZoneÀ» ±¸¼ºÇÑ´Ù.
+// ìƒˆë¡œìš´ ì•„ì´í…œì„ ì¡´ì—ë‹¤ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” GCAddNewItemToZoneì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, int X, int Y)
 
@@ -720,7 +720,7 @@ void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, 
     pAddNewItemToZone->setEnchantLevel(pItem->getEnchantLevel());
     pAddNewItemToZone->setItemNum(pItem->getNum());
 
-    // ÃÑ °è¿­ÀÇ ¹«±â´Â ÃÑ¾Ë ¼ıÀÚ¸¦ ¾ÆÀÌÅÛ ¼ıÀÚ¿¡ ½Ç¾î¼­ º¸³½´Ù.
+    // ì´ ê³„ì—´ì˜ ë¬´ê¸°ëŠ” ì´ì•Œ ìˆ«ìë¥¼ ì•„ì´í…œ ìˆ«ìì— ì‹¤ì–´ì„œ ë³´ë‚¸ë‹¤.
     if (IClass == Item::ITEM_CLASS_AR) {
         AR* pAR = dynamic_cast<AR*>(pItem);
         pAddNewItemToZone->setItemNum(pAR->getBulletCount());
@@ -734,13 +734,13 @@ void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, 
         SR* pSR = dynamic_cast<SR*>(pItem);
         pAddNewItemToZone->setItemNum(pSR->getBulletCount());
     }
-    // º§Æ®¶ó¸é ¾È¿¡ µé¾îÀÖ´Â Æ÷¼ÇÀÌ³ª ÅºÃ¢¿¡ ´ëÇÑ Á¤º¸µµ ³¯·ÁÁà¾ß ÇÑ´Ù.
+    // ë²¨íŠ¸ë¼ë©´ ì•ˆì— ë“¤ì–´ìˆëŠ” í¬ì…˜ì´ë‚˜ íƒ„ì°½ì— ëŒ€í•œ ì •ë³´ë„ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
     else if (IClass == Item::ITEM_CLASS_BELT) {
         Belt* pBelt = dynamic_cast<Belt*>(pItem);
         Inventory* pBeltInventory = pBelt->getInventory();
         BYTE SubItemCount = 0;
 
-        // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+        // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
         for (int i = 0; i < pBelt->getPocketCount(); i++) {
             Item* pBeltItem = pBeltInventory->getItem(i, 0);
             if (pBeltItem != NULL) {
@@ -759,13 +759,13 @@ void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, 
 
         pAddNewItemToZone->setListNum(SubItemCount);
     }
-    // ¾Ï½º¹êµå¶ó¸é ¾È¿¡ µé¾îÀÖ´Â Æ÷¼ÇÀÌ³ª ÅºÃ¢¿¡ ´ëÇÑ Á¤º¸µµ ³¯·ÁÁà¾ß ÇÑ´Ù.
+    // ì•”ìŠ¤ë°´ë“œë¼ë©´ ì•ˆì— ë“¤ì–´ìˆëŠ” í¬ì…˜ì´ë‚˜ íƒ„ì°½ì— ëŒ€í•œ ì •ë³´ë„ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
     else if (IClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND) {
         OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
         Inventory* pOustersArmsbandInventory = pOustersArmsband->getInventory();
         BYTE SubItemCount = 0;
 
-        // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+        // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
         for (int i = 0; i < pOustersArmsband->getPocketCount(); i++) {
             Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
             if (pOustersArmsbandItem != NULL) {
@@ -789,7 +789,7 @@ void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, 
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// »õ·Î¿î ¾ÆÀÌÅÛÀ» Á¸¿¡´Ù Ãß°¡ÇÒ ¶§ º¸³»´Â GCDropItemToZoneÀ» ±¸¼ºÇÑ´Ù.
+// ìƒˆë¡œìš´ ì•„ì´í…œì„ ì¡´ì—ë‹¤ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” GCDropItemToZoneì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X, int Y)
 
@@ -810,7 +810,7 @@ void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X,
     pDropItemToZone->setEnchantLevel(pItem->getEnchantLevel());
     pDropItemToZone->setItemNum(pItem->getNum());
 
-    // ÃÑ °è¿­ÀÇ ¹«±â´Â ÃÑ¾Ë ¼ıÀÚ¸¦ ¾ÆÀÌÅÛ ¼ıÀÚ¿¡ ½Ç¾î¼­ º¸³½´Ù.
+    // ì´ ê³„ì—´ì˜ ë¬´ê¸°ëŠ” ì´ì•Œ ìˆ«ìë¥¼ ì•„ì´í…œ ìˆ«ìì— ì‹¤ì–´ì„œ ë³´ë‚¸ë‹¤.
     if (IClass == Item::ITEM_CLASS_AR) {
         AR* pAR = dynamic_cast<AR*>(pItem);
         pDropItemToZone->setItemNum(pAR->getBulletCount());
@@ -824,13 +824,13 @@ void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X,
         SR* pSR = dynamic_cast<SR*>(pItem);
         pDropItemToZone->setItemNum(pSR->getBulletCount());
     }
-    // º§Æ®¶ó¸é ¾È¿¡ µé¾îÀÖ´Â Æ÷¼ÇÀÌ³ª ÅºÃ¢¿¡ ´ëÇÑ Á¤º¸µµ ³¯·ÁÁà¾ß ÇÑ´Ù.
+    // ë²¨íŠ¸ë¼ë©´ ì•ˆì— ë“¤ì–´ìˆëŠ” í¬ì…˜ì´ë‚˜ íƒ„ì°½ì— ëŒ€í•œ ì •ë³´ë„ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
     else if (IClass == Item::ITEM_CLASS_BELT) {
         Belt* pBelt = dynamic_cast<Belt*>(pItem);
         Inventory* pBeltInventory = pBelt->getInventory();
         BYTE SubItemCount = 0;
 
-        // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+        // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
         for (int i = 0; i < pBelt->getPocketCount(); i++) {
             Item* pBeltItem = pBeltInventory->getItem(i, 0);
             if (pBeltItem != NULL) {
@@ -849,13 +849,13 @@ void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X,
 
         pDropItemToZone->setListNum(SubItemCount);
     }
-    // ¾Ï½º¹êµå¶ó¸é ¾È¿¡ µé¾îÀÖ´Â Æ÷¼ÇÀÌ³ª ÅºÃ¢¿¡ ´ëÇÑ Á¤º¸µµ ³¯·ÁÁà¾ß ÇÑ´Ù.
+    // ì•”ìŠ¤ë°´ë“œë¼ë©´ ì•ˆì— ë“¤ì–´ìˆëŠ” í¬ì…˜ì´ë‚˜ íƒ„ì°½ì— ëŒ€í•œ ì •ë³´ë„ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
     else if (IClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND) {
         OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
         Inventory* pOustersArmsbandInventory = pOustersArmsband->getInventory();
         BYTE SubItemCount = 0;
 
-        // Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+        // í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
         for (int i = 0; i < pOustersArmsband->getPocketCount(); i++) {
             Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(i, 0);
             if (pOustersArmsbandItem != NULL) {
@@ -879,7 +879,7 @@ void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X,
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸¿¡´Ù ½½·¹ÀÌ¾î ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ìŠ¬ë ˆì´ì–´ ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddSlayerCorpse(GCAddSlayerCorpse* pAddSlayerCorpse, SlayerCorpse* pSlayerCorpse)
 
@@ -893,7 +893,7 @@ void makeGCAddSlayerCorpse(GCAddSlayerCorpse* pAddSlayerCorpse, SlayerCorpse* pS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸¿¡´Ù ¹ìÆÄÀÌ¾î ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ë±€íŒŒì´ì–´ ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddVampireCorpse(GCAddVampireCorpse* pAddVampireCorpse, VampireCorpse* pVampireCorpse)
 
@@ -907,7 +907,7 @@ void makeGCAddVampireCorpse(GCAddVampireCorpse* pAddVampireCorpse, VampireCorpse
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸¿¡´Ù ¸ó½ºÅÍ ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ëª¬ìŠ¤í„° ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddMonsterCorpse(GCAddMonsterCorpse* pAddMonsterCorpse, MonsterCorpse* pMonsterCorpse, int X, int Y)
 
@@ -928,7 +928,7 @@ void makeGCAddMonsterCorpse(GCAddMonsterCorpse* pAddMonsterCorpse, MonsterCorpse
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸¿¡´Ù ¾Æ¿ì½ºÅÍÁî ½ÃÃ¼¸¦ Ãß°¡ÇÒ ¶§ º¸³»´Â ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ì¡´ì—ë‹¤ ì•„ìš°ìŠ¤í„°ì¦ˆ ì‹œì²´ë¥¼ ì¶”ê°€í•  ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddOustersCorpse(GCAddOustersCorpse* pAddOustersCorpse, OustersCorpse* pOustersCorpse)
 
@@ -941,8 +941,8 @@ void makeGCAddOustersCorpse(GCAddOustersCorpse* pAddOustersCorpse, OustersCorpse
     __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////////////
-// ´Ù¸¥ »ç¶÷ÀÇ ÃÖ´ë Ã¼·Â °°Àº °ÍÀÌ º¯°æµÇ¾úÀ» °æ¿ì¿¡ ³¯¾Æ°¡´Â
-// GCOtherModifyInfo¸¦ ±¸¼ºÇÑ´Ù.
+// ë‹¤ë¥¸ ì‚¬ëŒì˜ ìµœëŒ€ ì²´ë ¥ ê°™ì€ ê²ƒì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°ì— ë‚ ì•„ê°€ëŠ”
+// GCOtherModifyInfoë¥¼ êµ¬ì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCOtherModifyInfo(GCOtherModifyInfo* pInfo, Slayer* pSlayer, const SLAYER_RECORD* prev) {
     SLAYER_RECORD cur;
@@ -1028,30 +1028,30 @@ void sendPayInfo(GamePlayer* pGamePlayer)
 
         if (pGamePlayer->getPayPlayType()==PAY_PLAY_TYPE_PERSON)
         {
-            strcpy(str, "[°³ÀÎ] ");
+            strcpy(str, "[ê°œì¸] ");
         }
         else
         {
-            strcpy(str, "[PC¹æ] ");
+            strcpy(str, "[PCë°©] ");
         }
 
         if (pGamePlayer->getPayType()==PAY_TYPE_FREE)
         {
-            strcat(str, "À¯·á¼­ºñ½ºÁö¸¸ ¹«·á °èÁ¤ÀÔ´Ï´Ù.");
+            strcat(str, "ìœ ë£Œì„œë¹„ìŠ¤ì§€ë§Œ ë¬´ë£Œ ê³„ì •ì…ë‹ˆë‹¤.");
         }
         else if (pGamePlayer->getPayType()==PAY_TYPE_PERIOD)
         {
-            sprintf(str, "%s%s ±îÁö »ç¿ë°¡´ÉÇÕ´Ï´Ù.", str,
+            sprintf(str, "%s%s ê¹Œì§€ ì‚¬ìš©ê°€ëŠ¥í•©ë‹ˆë‹¤.", str,
     pGamePlayer->getPayPlayAvailableDateTime().toString().c_str());
         }
         else
         {
-            sprintf(str, "%s»ç¿ë½Ã°£ : %d / %d ºĞ", str, (payTime.tv_sec/60), pGamePlayer->getPayPlayAvailableHours());
+            sprintf(str, "%sì‚¬ìš©ì‹œê°„ : %d / %d ë¶„", str, (payTime.tv_sec/60), pGamePlayer->getPayPlayAvailableHours());
         }
     }
     else
     {
-        strcpy(str, "¹«·á °ÔÀÓ ÁßÀÔ´Ï´Ù.");
+        strcpy(str, "ë¬´ë£Œ ê²Œì„ ì¤‘ì…ë‹ˆë‹¤.");
     }
 
     GCSystemMessage gcSystemMessage;
@@ -1062,7 +1062,7 @@ void sendPayInfo(GamePlayer* pGamePlayer)
     __END_CATCH
 }
 
-// ÁÖÀ§¿¡ LevelUp effect¸¦ »Ñ·ÁÁØ´Ù.
+// ì£¼ìœ„ì— LevelUp effectë¥¼ ë¿Œë ¤ì¤€ë‹¤.
 void sendEffectLevelUp(Creature* pCreature)
 
 {
@@ -1071,10 +1071,10 @@ void sendEffectLevelUp(Creature* pCreature)
     Assert(pCreature != NULL);
     // Assert(pCreature->isPC());
 
-    // ÁÖÀ§¿¡ »Ñ·ÁÁØ´Ù.
+    // ì£¼ìœ„ì— ë¿Œë ¤ì¤€ë‹¤.
     GCAddEffect gcAddEffect;
     gcAddEffect.setObjectID(pCreature->getObjectID());
-    gcAddEffect.setDuration(10); // º°·Î ÀÇ¹Ì¾øÁö¸¸ 1ÃÊ·Î ¼³Á¤
+    gcAddEffect.setDuration(10); // ë³„ë¡œ ì˜ë¯¸ì—†ì§€ë§Œ 1ì´ˆë¡œ ì„¤ì •
 
     if (pCreature->isSlayer()) {
         gcAddEffect.setEffectID(Effect::EFFECT_CLASS_LEVELUP_SLAYER);
@@ -1098,7 +1098,7 @@ void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
 
     Assert(pGamePlayer != NULL);
 
-    // Á¸¿¡ ÀÖ´Ù¸é ¹Ù·Î º¸³»ÁØ´Ù.
+    // ì¡´ì— ìˆë‹¤ë©´ ë°”ë¡œ ë³´ë‚´ì¤€ë‹¤.
     if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) {
         GCSystemMessage gcSystemMessage;
 
@@ -1106,14 +1106,14 @@ void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
 
         pGamePlayer->sendPacket(&gcSystemMessage);
     }
-    // Á¸¿¡ ¾ø´Ù¸é.. GamePlayer¿¡ Ãß°¡ÇØµÎ°í ³ªÁß¿¡ º¸³»ÁØ´Ù.
+    // ì¡´ì— ì—†ë‹¤ë©´.. GamePlayerì— ì¶”ê°€í•´ë‘ê³  ë‚˜ì¤‘ì— ë³´ë‚´ì¤€ë‹¤.
     else {
         Event* pEvent = pGamePlayer->getEvent(Event::EVENT_CLASS_SYSTEM_MESSAGE);
         EventSystemMessage* pEventSystemMessage = NULL;
 
         if (pEvent == NULL) {
             pEvent = pEventSystemMessage = new EventSystemMessage(pGamePlayer);
-            // Á¸¿¡ µé¾î°¡ÀÚ ¸¶ÀÚ Ã³¸®µÈ´Ù.
+            // ì¡´ì— ë“¤ì–´ê°€ì ë§ˆì ì²˜ë¦¬ëœë‹¤.
             pEvent->setDeadline(0);
             pGamePlayer->addEvent(pEvent);
         } else {
@@ -1176,7 +1176,7 @@ void sendGCMiniGameScores(PlayerCreature* pPC, BYTE gameType, BYTE Level) {
         Result* pResult = pStmt->executeQuery(
             "SELECT Name, Score FROM MiniGameScores WHERE Type=%u AND Level=%u LIMIT 1", gameType, Level);
 
-        // UPDATEÀÎ °æ¿ì´Â Result* ´ë½Å¿¡.. pStmt->getAffectedRowCount()
+        // UPDATEì¸ ê²½ìš°ëŠ” Result* ëŒ€ì‹ ì—.. pStmt->getAffectedRowCount()
         if (pResult->next()) {
             gcMGS.addScore(pResult->getString(1), pResult->getInt(2));
         }

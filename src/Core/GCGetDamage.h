@@ -2,9 +2,9 @@
 //
 // Filename    :  GCGetDamage.h
 // Written By  :  elca@ewestsoft.com
-// Description :  Å¬¶óÀÌ¾ðÆ®·Î ºÎÅÍ CGMove ÆÐÅ¶ÀÌ ³¯¶ó ¿ÔÀ»¶§
-//                ³¯¸° Å¬¶óÀÌ¾ðÆ®¿¡°Ô ¹«ºêÇØµµ ÁÁ´Ù´Â Çã°¡¸¦ ³¾¶§
-//                º¸³»ÁÖ´Â ÆÐÅ¶ Å¬·¡½ºÀÌ´Ù.
+// Description :  í´ë¼ì´ì–¸íŠ¸ë¡œ ë¶€í„° CGMove íŒ¨í‚·ì´ ë‚ ë¼ ì™”ì„ë•Œ
+//                ë‚ ë¦° í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë¬´ë¸Œí•´ë„ ì¢‹ë‹¤ëŠ” í—ˆê°€ë¥¼ ë‚¼ë•Œ
+//                ë³´ë‚´ì£¼ëŠ” íŒ¨í‚· í´ëž˜ìŠ¤ì´ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,8 +21,8 @@
 //
 // class  GCGetDamage;
 //
-// °ÔÀÓ ¼­¹ö¿¡¼­ Æ¯Á¤ »ç¿ëÀÚ°¡ ¿òÁ÷¿´´Ù´Â Á¤º¸¸¦ Å¬¶óÀÌ¾ðÆ®·Î º¸³»ÁÙ
-// ¶§ »ç¿ëÇÏ´Â ÆÐÅ¶ °´Ã¼ÀÌ´Ù.(CreatureID,X,Y,DIR) À» Æ÷ÇÔÇÑ´Ù.
+// ê²Œìž„ ì„œë²„ì—ì„œ íŠ¹ì • ì‚¬ìš©ìžê°€ ì›€ì§ì˜€ë‹¤ëŠ” ì •ë³´ë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤„
+// ë•Œ ì‚¬ìš©í•˜ëŠ” íŒ¨í‚· ê°ì²´ì´ë‹¤.(CreatureID,X,Y,DIR) ì„ í¬í•¨í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -36,10 +36,10 @@ public:
 
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler

@@ -2,7 +2,7 @@
 // Filename    : GCAddHelicopter.cpp
 // Written By  : excel96
 // Description :
-// ½½·¹ÀÌ¾î°¡ ¹«Àü±â¸¦ »ç¿ëÇØ, Çï±â¸¦ È£ÃâÇßÀ» ¶§ ³¯¾Æ°¡´Â ÆÐÅ¶
+// ìŠ¬ë ˆì´ì–´ê°€ ë¬´ì „ê¸°ë¥¼ ì‚¬ìš©í•´, í—¬ê¸°ë¥¼ í˜¸ì¶œí–ˆì„ ë•Œ ë‚ ì•„ê°€ëŠ” íŒ¨í‚·
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddHelicopter.h"

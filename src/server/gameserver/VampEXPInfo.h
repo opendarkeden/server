@@ -44,9 +44,9 @@ public:
     string toString() const;
 
 private:
-    Level_t m_Level;  // ·¹º§
-    Exp_t m_GoalExp;  // ¸ñÇ¥ °æÇèÄ¡
-    Exp_t m_AccumExp; // ´©Àû °æÇèÄ¡
+    Level_t m_Level;  // ë ˆë²¨
+    Exp_t m_GoalExp;  // ëª©í‘œ ê²½í—˜ì¹˜
+    Exp_t m_AccumExp; // ëˆ„ì  ê²½í—˜ì¹˜
 };
 
 

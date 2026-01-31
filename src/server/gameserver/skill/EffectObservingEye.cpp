@@ -76,7 +76,7 @@ void EffectObservingEye::unaffect(Creature* pCreature)
     // cout << "EffectObservingEye" << "unaffect BEGIN" << endl;
 
     Assert(pCreature != NULL);
-    Assert(pCreature->isSlayer()); // ½½·¹ÀÌ¾î¸»°í´Â °É¸®Áö ¾Ê´Â´Ù.
+    Assert(pCreature->isSlayer()); // ìŠ¬ë ˆì´ì–´ë§ê³ ëŠ” ê±¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
 
     pCreature->removeFlag(Effect::EFFECT_CLASS_OBSERVING_EYE);
 
@@ -96,7 +96,7 @@ void EffectObservingEye::unaffect(Creature* pCreature)
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_OBSERVING_EYE);
     pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-    // ÀÌ ÀÌÆåÆ®·Î º¸°í ÀÖ¾ú´ø Å©¸®ÃÄµéÀ» »èÁ¦ÇÑ´Ù.
+    // ì´ ì´í™íŠ¸ë¡œ ë³´ê³  ìˆì—ˆë˜ í¬ë¦¬ì³ë“¤ì„ ì‚­ì œí•œë‹¤.
     pZone->updateInvisibleScan(pCreature);
 
     GCOtherModifyInfo gcOtherModifyInfo;
@@ -138,7 +138,7 @@ bool EffectObservingEye::canSeeInvisibility(Creature* pTarget) const
 
         level = pMonster->getLevel();
     } else {
-        // ¹ìÆÄÀÌ¾î³ª ¸ó½ºÅÍ°¡ ¾Æ´Ï¸é ¸øº»°É·Î ÇÑ´Ù.
+        // ë±€íŒŒì´ì–´ë‚˜ ëª¬ìŠ¤í„°ê°€ ì•„ë‹ˆë©´ ëª»ë³¸ê±¸ë¡œ í•œë‹¤.
         return false;
     }
 

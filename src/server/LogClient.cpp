@@ -36,9 +36,9 @@ int LogClient::m_LogLevel = 0;
 
 void log(short type, const string& source, const string& target) {
     /*
-    // ·Î±× Å¸ÀÔÀ» °Ë»çÇÏ´Â ÀÏÀº LogClient::log() ÇÔ¼ö ³»¿¡¼­
-    // Ã¼Å©ÇØ¾ß ±ò²ûÇÒ °Í °°Áö¸¸, µÉ ¼ö ÀÖ´Â ÇÑ ÇÔ¼ö È£ÃâÀ» ÁÙÀÌ±â À§ÇØ¼­
-    // Àü¿ª ÇÔ¼ö ³»¿¡¼­ Çß´Ù.
+    // ë¡œê·¸ íƒ€ì…ì„ ê²€ì‚¬í•˜ëŠ” ì¼ì€ LogClient::log() í•¨ìˆ˜ ë‚´ì—ì„œ
+    // ì²´í¬í•´ì•¼ ê¹”ë”í•  ê²ƒ ê°™ì§€ë§Œ, ë  ìˆ˜ ìˆëŠ” í•œ í•¨ìˆ˜ í˜¸ì¶œì„ ì¤„ì´ê¸° ìœ„í•´ì„œ
+    // ì „ì—­ í•¨ìˆ˜ ë‚´ì—ì„œ í–ˆë‹¤.
     if (type < LogClient::getLogLevel())
     {
         g_pLogClient->_log(type, source, target);
@@ -49,9 +49,9 @@ void log(short type, const string& source, const string& target) {
 
 void log(short type, const string& source, const string& target, const string& content) {
     /*
-    // ·Î±× Å¸ÀÔÀ» °Ë»çÇÏ´Â ÀÏÀº LogClient::log() ÇÔ¼ö ³»¿¡¼­
-    // Ã¼Å©ÇØ¾ß ±ò²ûÇÒ °Í °°Áö¸¸, µÉ ¼ö ÀÖ´Â ÇÑ ÇÔ¼ö È£ÃâÀ» ÁÙÀÌ±â À§ÇØ¼­
-    // Àü¿ª ÇÔ¼ö ³»¿¡¼­ Çß´Ù.
+    // ë¡œê·¸ íƒ€ì…ì„ ê²€ì‚¬í•˜ëŠ” ì¼ì€ LogClient::log() í•¨ìˆ˜ ë‚´ì—ì„œ
+    // ì²´í¬í•´ì•¼ ê¹”ë”í•  ê²ƒ ê°™ì§€ë§Œ, ë  ìˆ˜ ìˆëŠ” í•œ í•¨ìˆ˜ í˜¸ì¶œì„ ì¤„ì´ê¸° ìœ„í•´ì„œ
+    // ì „ì—­ í•¨ìˆ˜ ë‚´ì—ì„œ í–ˆë‹¤.
     if (type < LogClient::getLogLevel())
     {
         g_pLogClient->_log(type, source, target, content);
@@ -62,9 +62,9 @@ void log(short type, const string& source, const string& target, const string& c
 
 void log(short type, const string& source, const string& target, const string& content, short zoneid) {
     /*
-    // ·Î±× Å¸ÀÔÀ» °Ë»çÇÏ´Â ÀÏÀº LogClient::log() ÇÔ¼ö ³»¿¡¼­
-    // Ã¼Å©ÇØ¾ß ±ò²ûÇÒ °Í °°Áö¸¸, µÉ ¼ö ÀÖ´Â ÇÑ ÇÔ¼ö È£ÃâÀ» ÁÙÀÌ±â À§ÇØ¼­
-    // Àü¿ª ÇÔ¼ö ³»¿¡¼­ Çß´Ù.
+    // ë¡œê·¸ íƒ€ì…ì„ ê²€ì‚¬í•˜ëŠ” ì¼ì€ LogClient::log() í•¨ìˆ˜ ë‚´ì—ì„œ
+    // ì²´í¬í•´ì•¼ ê¹”ë”í•  ê²ƒ ê°™ì§€ë§Œ, ë  ìˆ˜ ìˆëŠ” í•œ í•¨ìˆ˜ í˜¸ì¶œì„ ì¤„ì´ê¸° ìœ„í•´ì„œ
+    // ì „ì—­ í•¨ìˆ˜ ë‚´ì—ì„œ í–ˆë‹¤.
     if (type < LogClient::getLogLevel())
     {
         g_pLogClient->_log(type, source, target, content, zoneid);

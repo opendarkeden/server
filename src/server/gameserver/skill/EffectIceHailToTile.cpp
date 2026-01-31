@@ -15,7 +15,7 @@ void EffectIceHailToTile::affect() {
     forward_list<Object*>::const_iterator itr = rList.begin();
     forward_list<Object*>::const_iterator endItr = rList.end();
 
-    //	cout << "¾ÆÇÁ³Ä?" << endl;
+    //	cout << "ì•„í”„ëƒ?" << endl;
 
     for (; itr != endItr; ++itr) {
         Object* pObject = *itr;
@@ -59,7 +59,7 @@ void EffectIceHailToTile::affect() {
         gcHP.setCurrentHP(finalHP);
         m_pZone->broadcastPacket(m_X, m_Y, &gcHP);
 
-        //		cout << "¾ÆÇÁ´Ù" << endl;
+        //		cout << "ì•„í”„ë‹¤" << endl;
     }
 
     EffectWithWarning::affect();

@@ -48,7 +48,7 @@ enum VariableType {
     RANK_EXP_GAIN_PERCENT,         // 37
     ITEM_LUCK_PERCENT,             // 38
 
-    // ´ë¹Ú ÀÌº¥Æ® ¿ë ( code name : lotto event )
+    // ëŒ€ë°• ì´ë²¤íŠ¸ ìš© ( code name : lotto event )
     // 2003. 1. 12 by bezz. Sequoia. dew
     LOTTO_ITEM_RATIO,     // 39
     LOTTO_ITEM_BONUS_NUM, // 40
@@ -102,7 +102,7 @@ enum VariableType {
 
     MONEY_TRACE_LOG_LIMIT, // 67
 
-    // ÇÇ½Ã¹æ º¹±Ç ÀÌº¥Æ®
+    // í”¼ì‹œë°© ë³µê¶Œ ì´ë²¤íŠ¸
     PC_ROOM_LOTTO_EVENT, // 68
     ACTIVE_FLAG_WAR,     // 69
 
@@ -132,7 +132,7 @@ enum VariableType {
     GOLD_LUCKY_BAG_RATIO,  // 85
     RED_LUCKY_BAG_RATIO,   // 86
 
-    // À§ÀÇ CHRISTMAS_GIFT_BOX ¶ûÀº °ü·ÃÀÌ ¾ø´Ù
+    // ìœ„ì˜ CHRISTMAS_GIFT_BOX ë‘ì€ ê´€ë ¨ì´ ì—†ë‹¤
     EVENT_GIFT_BOX,        // 87
     RED_GIFT_BOX_RATIO,    // 88
     BLUE_GIFT_BOX_RATIO,   // 89
@@ -249,7 +249,7 @@ const string VariableType2String[VARIABLE_MAX] = {
     "RANK_EXP_GAIN_PERCENT",         // 37
     "ITEM_LUCK_PERCENT",             // 38
 
-    // ´ë¹Ú ÀÌº¥Æ® ¿ë ( code name : lotto event )
+    // ëŒ€ë°• ì´ë²¤íŠ¸ ìš© ( code name : lotto event )
     // 2003. 1. 12 by bezz. Sequoia. dew
     "LOTTO_ITEM_RATIO",     // 39
     "LOTTO_ITEM_BONUS_NUM", // 40
@@ -326,7 +326,7 @@ const string VariableType2String[VARIABLE_MAX] = {
     "GOLD_LUCKY_BAG_RATIO",  // 85
     "RED_LUCKY_BAG_RATIO",   // 86
 
-    // À§ÀÇ CHRISTMAS_GIFT_BOX ¶ûÀº °ü·ÃÀÌ ¾ø´Ù
+    // ìœ„ì˜ CHRISTMAS_GIFT_BOX ë‘ì€ ê´€ë ¨ì´ ì—†ë‹¤
     "EVENT_GIFT_BOX",        // 87
     "RED_GIFT_BOX_RATIO",    // 88
     "BLUE_GIFT_BOX_RATIO",   // 89
@@ -433,7 +433,7 @@ public:
         return m_Variables[STAR_RATIO];
     }
 
-    // ÀÌº¥Æ®°¡ È°¼ºÈ­µÇ°í ²÷´Â ÇÔ¼ö
+    // ì´ë²¤íŠ¸ê°€ í™œì„±í™”ë˜ê³  ëŠëŠ” í•¨ìˆ˜
     void setEventActivate(int value) {
         setVariable(EVENT_ACTIVE, value);
     }

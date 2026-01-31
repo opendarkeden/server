@@ -52,19 +52,19 @@ void EventRegeneration::activate()
             if (pCreature->isSlayer()) {
                 Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-                HP_t oldHP = pSlayer->getHP(ATTR_CURRENT); // ÇöÀç HP
-                MP_t oldMP = pSlayer->getMP(ATTR_CURRENT); // ÇöÀç MP
+                HP_t oldHP = pSlayer->getHP(ATTR_CURRENT); // í˜„ì¬ HP
+                MP_t oldMP = pSlayer->getMP(ATTR_CURRENT); // í˜„ì¬ MP
 
-                HP_t maxHP = pSlayer->getHP(ATTR_MAX); // ÇöÀç ¸Æ½º HP
-                MP_t maxMP = pSlayer->getMP(ATTR_MAX); // ÇöÀç ¸Æ½º MP
+                HP_t maxHP = pSlayer->getHP(ATTR_MAX); // í˜„ì¬ ë§¥ìŠ¤ HP
+                MP_t maxMP = pSlayer->getMP(ATTR_MAX); // í˜„ì¬ ë§¥ìŠ¤ MP
 
-                // ¸®Á¨À²¿¡ µû¶ó È¸º¹½ÃÅ³ HP¿Í MPÀÇ ¾çÀ» °è»êÇÑ´Ù.
+                // ë¦¬ì  ìœ¨ì— ë”°ë¼ íšŒë³µì‹œí‚¬ HPì™€ MPì˜ ì–‘ì„ ê³„ì‚°í•œë‹¤.
                 // HP_t regenHP = getPercentValue(maxHP, pSlayer->getHPRegen());
                 // MP_t regenMP = getPercentValue(maxMP, pSlayer->getMPRegen());
                 HP_t regenHP = pSlayer->getHPRegen() * 2;
                 MP_t regenMP = pSlayer->getMPRegen() * 2;
 
-                // MAX¸¦ ³Ñ¾î°¡¸é °ï¶õÇÏ´Ù.
+                // MAXë¥¼ ë„˜ì–´ê°€ë©´ ê³¤ë€í•˜ë‹¤.
                 HP_t newHP = min((int)(oldHP + regenHP), (int)maxHP);
                 MP_t newMP = min((int)(oldMP + regenMP), (int)maxMP);
 
@@ -73,7 +73,7 @@ void EventRegeneration::activate()
 
                 GCModifyInformation GCMI;
 
-                // HP°¡ º¯°æµÇ¾úÀ¸´Ï ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // HPê°€ ë³€ê²½ë˜ì—ˆìœ¼ë‹ˆ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 if (oldHP != newHP) {
                     GCMI.addShortData(MODIFY_CURRENT_HP, newHP);
 
@@ -87,7 +87,7 @@ void EventRegeneration::activate()
                     GCMI.addShortData(MODIFY_CURRENT_MP, newMP);
                 }
 
-                // HP³ª MP°¡ º¯°æµÇ¾ú´Ù¸é, º¯°æµÇ¾ú´Ù´Â »ç½ÇÀ» º»ÀÎ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+                // HPë‚˜ MPê°€ ë³€ê²½ë˜ì—ˆë‹¤ë©´, ë³€ê²½ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ë³¸ì¸ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
                 if (GCMI.getShortCount() != 0 || GCMI.getLongCount() != 0)
                     m_pGamePlayer->sendPacket(&GCMI);
             } else if (pCreature->isVampire()) {
@@ -100,26 +100,26 @@ void EventRegeneration::activate()
                 /*
                 if (pVampire->isFlag(Effect::EFFECT_CLASS_HIDE))
                 {
-                    // ÇÏÀÌµåÇÏ°í ÀÖÀ» ¶§´Â Æò»ó½Ãº¸´Ù HP°¡ »¡¸® Â÷°Ô µÈ´Ù.
+                    // í•˜ì´ë“œí•˜ê³  ìˆì„ ë•ŒëŠ” í‰ìƒì‹œë³´ë‹¤ HPê°€ ë¹¨ë¦¬ ì°¨ê²Œ ëœë‹¤.
                     regenHP = getPercentValue(maxHP, 15 + pVampire->getHPRegen() + pVampire->getINT(ATTR_CURRENT)/60);
                     newHP   = min((int)(oldHP + regenHP), (int)maxHP);
                 }
                 else
                 {
-                    // Æò»ó½Ã¿¡´Â...
+                    // í‰ìƒì‹œì—ëŠ”...
                     regenHP = getPercentValue(maxHP, 10 + pVampire->getHPRegen() + pVampire->getINT(ATTR_CURRENT)/60);
                     newHP   = min((int)(oldHP + regenHP), (int)maxHP);
                 }
                 */
 
-                // ¹ÚÁã »óÅÂÀÎ°¡ ¾Æ´Ñ°¡¸¸À» °Ë»çÇÑ´Ù.
-                // ÇÏÀÌµå³ª °ü¿¡ µé¾î°¡ ÀÖ´Â »óÅÂ °Ë»ç°¡ ¾ø´Â ÀÌÀ¯´Â,
-                // ÀÌµé »óÅÂ¿¡ ÀÇÇÑ HP È¸º¹ ·çÆ¾Àº Vampire::heartbeat()¿¡ µé¾î°¡ ÀÖ±â ¶§¹®ÀÌ´Ù.
+                // ë°•ì¥ ìƒíƒœì¸ê°€ ì•„ë‹Œê°€ë§Œì„ ê²€ì‚¬í•œë‹¤.
+                // í•˜ì´ë“œë‚˜ ê´€ì— ë“¤ì–´ê°€ ìˆëŠ” ìƒíƒœ ê²€ì‚¬ê°€ ì—†ëŠ” ì´ìœ ëŠ”,
+                // ì´ë“¤ ìƒíƒœì— ì˜í•œ HP íšŒë³µ ë£¨í‹´ì€ Vampire::heartbeat()ì— ë“¤ì–´ê°€ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
                 if (pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT)) {
-                    // ¹ÚÁã »óÅÂ¿¡¼­´Â HP°¡ È¸º¹µÇÁö ¾Ê´Â´Ù.
+                    // ë°•ì¥ ìƒíƒœì—ì„œëŠ” HPê°€ íšŒë³µë˜ì§€ ì•ŠëŠ”ë‹¤.
                     regenHP = 0;
                 } else {
-                    // Æò»ó½Ã¿¡´Â...
+                    // í‰ìƒì‹œì—ëŠ”...
                     regenHP = pVampire->getHPRegen() * 2;
                 }
 
@@ -129,7 +129,7 @@ void EventRegeneration::activate()
 
                 GCModifyInformation GCMI;
 
-                // HP°¡ º¯°æµÇ¾úÀ¸´Ï ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // HPê°€ ë³€ê²½ë˜ì—ˆìœ¼ë‹ˆ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 if (oldHP != newHP) {
                     GCMI.addShortData(MODIFY_CURRENT_HP, newHP);
 
@@ -139,25 +139,25 @@ void EventRegeneration::activate()
                     pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcStatusCurrentHP, pVampire);
                 }
 
-                // HP°¡ º¯°æµÇ¾ú´Ù´Â »ç½ÇÀ» º»ÀÎ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+                // HPê°€ ë³€ê²½ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ë³¸ì¸ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
                 if (GCMI.getShortCount() != 0 || GCMI.getLongCount() != 0)
                     m_pGamePlayer->sendPacket(&GCMI);
             } else if (pCreature->isOusters()) {
                 Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-                HP_t oldHP = pOusters->getHP(ATTR_CURRENT); // ÇöÀç HP
-                MP_t oldMP = pOusters->getMP(ATTR_CURRENT); // ÇöÀç MP
+                HP_t oldHP = pOusters->getHP(ATTR_CURRENT); // í˜„ì¬ HP
+                MP_t oldMP = pOusters->getMP(ATTR_CURRENT); // í˜„ì¬ MP
 
-                HP_t maxHP = pOusters->getHP(ATTR_MAX); // ÇöÀç ¸Æ½º HP
-                MP_t maxMP = pOusters->getMP(ATTR_MAX); // ÇöÀç ¸Æ½º MP
+                HP_t maxHP = pOusters->getHP(ATTR_MAX); // í˜„ì¬ ë§¥ìŠ¤ HP
+                MP_t maxMP = pOusters->getMP(ATTR_MAX); // í˜„ì¬ ë§¥ìŠ¤ MP
 
-                // ¸®Á¨À²¿¡ µû¶ó È¸º¹½ÃÅ³ HP¿Í MPÀÇ ¾çÀ» °è»êÇÑ´Ù.
+                // ë¦¬ì  ìœ¨ì— ë”°ë¼ íšŒë³µì‹œí‚¬ HPì™€ MPì˜ ì–‘ì„ ê³„ì‚°í•œë‹¤.
                 // HP_t regenHP = getPercentValue(maxHP, pOusters->getHPRegen());
                 // MP_t regenMP = getPercentValue(maxMP, pOusters->getMPRegen());
                 HP_t regenHP = pOusters->getHPRegen() * 2;
                 MP_t regenMP = pOusters->getMPRegen() * 2;
 
-                // MAX¸¦ ³Ñ¾î°¡¸é °ï¶õÇÏ´Ù.
+                // MAXë¥¼ ë„˜ì–´ê°€ë©´ ê³¤ë€í•˜ë‹¤.
                 HP_t newHP = min((int)(oldHP + regenHP), (int)maxHP);
                 MP_t newMP = min((int)(oldMP + regenMP), (int)maxMP);
 
@@ -169,7 +169,7 @@ void EventRegeneration::activate()
 
                 GCModifyInformation GCMI;
 
-                // HP°¡ º¯°æµÇ¾úÀ¸´Ï ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                // HPê°€ ë³€ê²½ë˜ì—ˆìœ¼ë‹ˆ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                 if (oldHP != newHP) {
                     GCMI.addShortData(MODIFY_CURRENT_HP, newHP);
 
@@ -183,13 +183,13 @@ void EventRegeneration::activate()
                     GCMI.addShortData(MODIFY_CURRENT_MP, newMP);
                 }
 
-                // HP³ª MP°¡ º¯°æµÇ¾ú´Ù¸é, º¯°æµÇ¾ú´Ù´Â »ç½ÇÀ» º»ÀÎ¿¡°Ô ¾Ë·ÁÁØ´Ù.
+                // HPë‚˜ MPê°€ ë³€ê²½ë˜ì—ˆë‹¤ë©´, ë³€ê²½ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ë³¸ì¸ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
                 if (GCMI.getShortCount() != 0 || GCMI.getLongCount() != 0)
                     m_pGamePlayer->sendPacket(&GCMI);
             }
         }
 
-        // 10 ÃÊ¸¶´Ù È¸º¹½ÃÄÑ ÁÖ±â À§ÇØ¼­´Â deadline À» Áõ°¡½ÃÄÑ Áà¾ß ÇÑ´Ù.
+        // 10 ì´ˆë§ˆë‹¤ íšŒë³µì‹œì¼œ ì£¼ê¸° ìœ„í•´ì„œëŠ” deadline ì„ ì¦ê°€ì‹œì¼œ ì¤˜ì•¼ í•œë‹¤.
         Timeval delay;
         delay.tv_sec = 10;
         delay.tv_usec = 0;

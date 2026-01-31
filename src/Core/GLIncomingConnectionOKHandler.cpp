@@ -22,9 +22,9 @@
 //
 // GLIncomingConnectionOKHander::execute()
 //
-// ∞‘¿” º≠πˆ∑Œ∫Œ≈Õ GLIncomingConnectionOK ∆–≈∂¿Ã ≥Øæ∆ø¿∏È, ∑Œ±◊¿Œ º≠πˆ¥¬ ¿Ã «„∞°∞°
-// æÓ¥¿ «√∑π¿ÃæÓø° ¥Î«— «„∞°¿Œ¡ˆ √£æ∆≥ªæﬂ «—¥Ÿ. ±◊ »ƒ, ¿Ã «√∑π¿ÃæÓø°∞‘ LCReconnect
-// ∆–≈∂¿ª ¥¯¡Æ¡‡æﬂ «—¥Ÿ.
+// Í≤åÏûÑ ÏÑúÎ≤ÑÎ°úÎ∂ÄÌÑ∞ GLIncomingConnectionOK Ìå®ÌÇ∑Ïù¥ ÎÇ†ÏïÑÏò§Î©¥, Î°úÍ∑∏Ïù∏ ÏÑúÎ≤ÑÎäî Ïù¥ ÌóàÍ∞ÄÍ∞Ä
+// Ïñ¥Îäê ÌîåÎ†àÏù¥Ïñ¥Ïóê ÎåÄÌïú ÌóàÍ∞ÄÏù∏ÏßÄ Ï∞æÏïÑÎÇ¥Ïïº ÌïúÎã§. Í∑∏ ÌõÑ, Ïù¥ ÌîåÎ†àÏù¥Ïñ¥ÏóêÍ≤å LCReconnect
+// Ìå®ÌÇ∑ÏùÑ ÎçòÏ†∏Ï§òÏïº ÌïúÎã§.
 //
 //--------------------------------------------------------------------------------
 void GLIncomingConnectionOKHandler::execute(GLIncomingConnectionOK* pPacket)
@@ -35,7 +35,7 @@ void GLIncomingConnectionOKHandler::execute(GLIncomingConnectionOK* pPacket)
 
         try {
 
-        // «√∑π¿ÃæÓ æ∆¿Ãµ∏¶ ªÁøÎ«ÿº≠ «√∑π¿ÃæÓ ∞¥√ºø° ¡¢±Ÿ«—¥Ÿ.
+        // ÌîåÎ†àÏù¥Ïñ¥ ÏïÑÏù¥ÎîîÎ•º ÏÇ¨Ïö©Ìï¥ÏÑú ÌîåÎ†àÏù¥Ïñ¥ Í∞ùÏ≤¥Ïóê Ï†ëÍ∑ºÌïúÎã§.
         __ENTER_CRITICAL_SECTION((*g_pLoginPlayerManager))
 
         LoginPlayer* pLoginPlayer = g_pLoginPlayerManager->getPlayer_NOLOCKED(pPacket->getPlayerID());
@@ -52,7 +52,7 @@ void GLIncomingConnectionOKHandler::execute(GLIncomingConnectionOK* pPacket)
             lcReconnect.setGameServerPort(pPacket->getTCPPort());
             lcReconnect.setKey(pPacket->getKey());
 
-            // LCReconnect ∆–≈∂¿ª ¿¸º€«—¥Ÿ.
+            // LCReconnect Ìå®ÌÇ∑ÏùÑ Ï†ÑÏÜ°ÌïúÎã§.
             pLoginPlayer->sendPacket(&lcReconnect);
 
             // cout << "GLIncomingConnectionOKHandler Send to Client Required Reconnect ServerIP : " <<
@@ -61,14 +61,14 @@ void GLIncomingConnectionOKHandler::execute(GLIncomingConnectionOK* pPacket)
             // cout << "Invalid Player Status.. must be AFTER_SENDING_LG_INCOMING_CONNECTION" << endl;
         }
 
-        // ø¨∞·¿ª ¡æ∑·«—¥Ÿ.
+        // Ïó∞Í≤∞ÏùÑ Ï¢ÖÎ£åÌïúÎã§.
         // pLoginPlayer->disconnect(UNDISCONNECTED);
         pLoginPlayer->disconnect_nolog(UNDISCONNECTED);
 
-        // LPMø°º≠ ªË¡¶«—¥Ÿ.
+        // LPMÏóêÏÑú ÏÇ≠Ï†úÌïúÎã§.
         g_pLoginPlayerManager->deletePlayer_NOLOCKED(pLoginPlayer->getSocket()->getSOCKET());
 
-        // LoginPlayer ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+        // LoginPlayer Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
         SAFE_DELETE(pLoginPlayer);
 
         __LEAVE_CRITICAL_SECTION((*g_pLoginPlayerManager))

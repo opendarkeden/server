@@ -12,7 +12,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void ChargingPower::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -31,7 +31,7 @@ void ChargingPower::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t 
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¹«ÀåÇÏ°í ÀÖ´Â ¹«±â°¡ ³ÎÀÌ°Å³ª, µµ°¡ ¾Æ´Ï¶ó¸é »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë¬´ìž¥í•˜ê³  ìžˆëŠ” ë¬´ê¸°ê°€ ë„ì´ê±°ë‚˜, ë„ê°€ ì•„ë‹ˆë¼ë©´ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_BLADE) {
             executeSkillFailException(pSlayer, getSkillType());
@@ -53,33 +53,33 @@ void ChargingPower::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t 
         bool bTimeCheck = verifyRunTime(pSkillSlot);
         bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
         bool bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
-        // ¹ö¼­Ä¿¶û µ¿½Ã¿¡ »ç¿ëÇÒ ¼ö ¾ø´Ù.
+        // ë²„ì„œì»¤ëž‘ ë™ì‹œì— ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
         bool bEffected =
             pSlayer->isFlag(Effect::EFFECT_CLASS_CHARGING_POWER) || pSlayer->isFlag(Effect::EFFECT_CLASS_BERSERKER);
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // ½ºÅ³ ·¹º§¿¡ µû¶ó µ¥¹ÌÁö º¸³Ê½º°¡ ´Þ¶óÁø´Ù.
+            // ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ ë°ë¯¸ì§€ ë³´ë„ˆìŠ¤ê°€ ë‹¬ë¼ì§„ë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ í´ëž˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
             EffectChargingPower* pEffect = new EffectChargingPower(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamageBonus(output.Damage);
             pSlayer->addEffect(pEffect);
             pSlayer->setFlag(Effect::EFFECT_CLASS_CHARGING_POWER);
 
-            // ÀÌ·Î ÀÎÇÏ¿© ¹Ù²î´Â ´É·ÂÄ¡¸¦ º¸³½´Ù.
+            // ì´ë¡œ ì¸í•˜ì—¬ ë°”ë€ŒëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ë³´ë‚¸ë‹¤.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->sendModifyInfo(prev);
 
-            // °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             if (bIncreaseExp) {
@@ -88,7 +88,7 @@ void ChargingPower::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t 
                 //				increaseSkillExp(pSlayer, DomainType,  pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
             }
 
-            // ÆÐÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(output.Duration);
@@ -101,7 +101,7 @@ void ChargingPower::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t 
 
             pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_CHARGING_POWER);

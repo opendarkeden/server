@@ -46,8 +46,8 @@ void EffectBloodCurse::affect()
 
     Assert(m_pZone != NULL);
 
-    // ÀÌÆåÆ®¸¦ °Ç Å©¸®ÃÄ¸¦ °¡Á®¿Â´Ù.
-    // !! Á¸À» ¶°³µÀ» ¼öµµ ÀÖÀ¸¹Ç·Î NULL ÀÌ µÉ ¼ö ÀÖ´Ù.
+    // ì´í™íŠ¸ë¥¼ ê±´ í¬ë¦¬ì³ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+    // !! ì¡´ì„ ë– ë‚¬ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ NULL ì´ ë  ìˆ˜ ìˆë‹¤.
     Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
     if (m_bPlayer) {
         //		pCastCreature = m_pZone->getCreature( m_UserObjectID );
@@ -61,8 +61,8 @@ void EffectBloodCurse::affect()
 
     VSRect rect(0, 0, m_pZone->getWidth() - 1, m_pZone->getHeight() - 1);
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
-    // Áß½ÉÅ¸ÀÏ + ½ºÇÃ·¡½¬ Å¸ÀÏ
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
+    // ì¤‘ì‹¬íƒ€ì¼ + ìŠ¤í”Œë˜ì‰¬ íƒ€ì¼
     for (int x = -2; x <= 2; x++) {
         for (int y = -2; y <= 2; y++) {
             int X = m_X + x;
@@ -75,7 +75,7 @@ void EffectBloodCurse::affect()
             int Damage = 0;
             int splash = max(abs(x), abs(y));
 
-            // °¡¿îµ¥´Â 100%
+            // ê°€ìš´ë°ëŠ” 100%
             //			if ( m_bPlayer )
             //			{
             /*				if ( splash == 0 )
@@ -97,12 +97,12 @@ void EffectBloodCurse::affect()
             //			}
             //			else
             //			{
-            //				// ÁÖÀ§¿¡´Â 50% damage
+            //				// ì£¼ìœ„ì—ëŠ” 50% damage
             //				if ( splash != 0 ) Damage = m_Damage >> splash;
             //				else Damage = m_Damage;
             //			}
 
-            // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+            // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
             const forward_list<Object*>& oList = tile.getObjectList();
             forward_list<Object*>::const_iterator itr = oList.begin();
             for (; itr != oList.end(); itr++) {
@@ -115,8 +115,8 @@ void EffectBloodCurse::affect()
                     Creature* pCreature = dynamic_cast<Creature*>(pObject);
                     Assert(pCreature != NULL);
 
-                    // ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù
-                    // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
+                    // ìì‹ ì€ ë§ì§€ ì•ŠëŠ”ë‹¤
+                    // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
                     if (pCreature->getObjectID() == m_UserObjectID || !canAttack(pCastCreature, pCreature) ||
                         pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || !checkZoneLevelToHitTarget(pCreature)) {
                         continue;
@@ -143,7 +143,7 @@ void EffectBloodCurse::affect()
                                                 pPlayer->sendPacket(&gcMI);*/
 
                     } else if (pCreature->isVampire()) {
-                        // ¹ìÆÄÀÌ¾î°¡ »ç¿ëÇßÀ» °æ¿ì ¹ìÆÄÀÌ¾î´Â Áß½É Å¸ÀÏÀ» Á¦¿ÜÇÏ°í´Â ¸ÂÁö ¾Ê´Â´Ù.
+                        // ë±€íŒŒì´ì–´ê°€ ì‚¬ìš©í–ˆì„ ê²½ìš° ë±€íŒŒì´ì–´ëŠ” ì¤‘ì‹¬ íƒ€ì¼ì„ ì œì™¸í•˜ê³ ëŠ” ë§ì§€ ì•ŠëŠ”ë‹¤.
                         if (m_bPlayer) // && splash != 0 )
                             continue;
 
@@ -173,7 +173,7 @@ void EffectBloodCurse::affect()
                             pMonster->addEnemy(pCastCreature);
                     }
 
-                    // »ó´ë°¡ Á×¾ú´Ù¸é °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+                    // ìƒëŒ€ê°€ ì£½ì—ˆë‹¤ë©´ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
                     if (pCreature->isDead()) {
                         if (pCastCreature != NULL && pCastCreature->isVampire()) {
                             Vampire* pVampire = dynamic_cast<Vampire*>(pCastCreature);
@@ -188,9 +188,9 @@ void EffectBloodCurse::affect()
                         }
                     }
 
-                    // userÇÑÅ×´Â ¸Â´Â ¸ğ½ÀÀ» º¸¿©ÁØ´Ù.
+                    // userí•œí…ŒëŠ” ë§ëŠ” ëª¨ìŠµì„ ë³´ì—¬ì¤€ë‹¤.
                     if (pCreature->isPC()) {
-                        gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                        gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                         gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                         gcSkillToObjectOK2.setDuration(0);
                         pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);

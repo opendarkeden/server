@@ -23,7 +23,7 @@
 ThreadManager::ThreadManager() throw(Error) : m_pZoneGroupThreadPool(NULL) {
     __BEGIN_TRY
 
-    // Á¸¾²·¹µåÇ®À» »ı¼ºÇÑ´Ù.
+    // ì¡´ì“°ë ˆë“œí’€ì„ ìƒì„±í•œë‹¤.
     m_pZoneGroupThreadPool = new ThreadPool();
 
     __END_CATCH
@@ -34,7 +34,7 @@ ThreadManager::ThreadManager() throw(Error) : m_pZoneGroupThreadPool(NULL) {
 //
 // destructor
 //
-// Stop()ÀÌ µÇÁö ¾Ê¾ÒÀ» °æ¿ì ½ÇÇà½ÃÄÑ¾ß ÇÑ´Ù. State °³³äÀ» µµÀÔÇÒ±î?
+// Stop()ì´ ë˜ì§€ ì•Šì•˜ì„ ê²½ìš° ì‹¤í–‰ì‹œì¼œì•¼ í•œë‹¤. State ê°œë…ì„ ë„ì…í• ê¹Œ?
 //
 //--------------------------------------------------------------------------------
 ThreadManager::~ThreadManager() throw(Error) {
@@ -48,19 +48,19 @@ ThreadManager::~ThreadManager() throw(Error) {
 
 //--------------------------------------------------------------------------------
 //
-// ¾²·¹µå ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+// ì“°ë ˆë“œ ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 //
-// ÇÏÀ§ ¾²·¹µåÇ®¿¡ ¾²·¹µåµéÀ» »ı¼º, µî·Ï½ÃÅ²´Ù.
+// í•˜ìœ„ ì“°ë ˆë“œí’€ì— ì“°ë ˆë“œë“¤ì„ ìƒì„±, ë“±ë¡ì‹œí‚¨ë‹¤.
 //
 // *CAUTION*
 //
-// ´ç¿¬È÷, ¾²·¹µå ¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÏ±â Àü¿¡, Á¸±×·ì¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇØ¾ß ÇÑ´Ù.
+// ë‹¹ì—°íˆ, ì“°ë ˆë“œ ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•˜ê¸° ì „ì—, ì¡´ê·¸ë£¹ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•´ì•¼ í•œë‹¤.
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::init() throw(Error) {
     __BEGIN_TRY
 
-    // Á¸ ¾²·¹µå¸¦ µî·ÏÇÑ´Ù.
+    // ì¡´ ì“°ë ˆë“œë¥¼ ë“±ë¡í•œë‹¤.
     Statement* pStmt = NULL;
     Result* pResult = NULL;
 
@@ -86,13 +86,13 @@ void ThreadManager::init() throw(Error) {
 //
 // activate sub thread pools
 //
-// ÇÏÀ§ ¾²·¹µå Ç®À» È°¼ºÈ­½ÃÅ²´Ù.
+// í•˜ìœ„ ì“°ë ˆë“œ í’€ì„ í™œì„±í™”ì‹œí‚¨ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::start() throw(Error) {
     __BEGIN_TRY
 
-    // Zone Thread Pool À» È°¼ºÈ­½ÃÅ²´Ù.
+    // Zone Thread Pool ì„ í™œì„±í™”ì‹œí‚¨ë‹¤.
     m_pZoneGroupThreadPool->start();
 
     __END_CATCH
@@ -103,7 +103,7 @@ void ThreadManager::start() throw(Error) {
 //
 // deactivate sub thread pools
 //
-// ÇÏÀ§ ¾²·¹µå Ç®À» Á¾·á½ÃÅ²´Ù.
+// í•˜ìœ„ ì“°ë ˆë“œ í’€ì„ ì¢…ë£Œì‹œí‚¨ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::stop() throw(Error) {

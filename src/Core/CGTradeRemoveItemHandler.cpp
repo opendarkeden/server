@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGTradeRemoveItemHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -44,38 +44,38 @@ void CGTradeRemoveItemHandler::execute(CGTradeRemoveItem* pPacket, Player* pPlay
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯À» ¿øÇÏ´Â »ó´ë¹æÀ» Á¸¿¡¼­ Ã£¾Æº»´Ù.
+    // êµí™˜ì„ ì›í•˜ëŠ” ìƒëŒ€ë°©ì„ ì¡´ì—ì„œ ì°¾ì•„ë³¸ë‹¤.
     Creature* pTargetPC = NULL;
     /*
     try { pTargetPC = pZone->getCreature(TargetOID); }
     catch (NoSuchElementException) { pTargetPC = NULL; }
     */
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     pTargetPC = pZone->getCreature(TargetOID);
 
-    // ±³È¯ »ó´ë°¡ ¾ø°Å³ª, °°Àº Á¾Á·ÀÌ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù
+    // êµí™˜ ìƒëŒ€ê°€ ì—†ê±°ë‚˜, ê°™ì€ ì¢…ì¡±ì´ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤
     if (pTargetPC == NULL) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_TARGET_NOT_EXIST);
         return;
     }
 
-    // ±³È¯ »ó´ë°¡ »ç¶÷ÀÌ ¾Æ´Ï°Å³ª, °°Àº Á¾Á·ÀÌ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+    // êµí™˜ ìƒëŒ€ê°€ ì‚¬ëžŒì´ ì•„ë‹ˆê±°ë‚˜, ê°™ì€ ì¢…ì¡±ì´ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
     if (!pTargetPC->isPC() || !isSameRace(pTargetPC, pPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_RACE_DIFFER);
         return;
     }
 
-    // µÑ ´Ù ¾ÈÀü Áö´ë¿¡ ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+    // ë‘˜ ë‹¤ ì•ˆì „ ì§€ëŒ€ì— ìžˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
     if (!isInSafeZone(pPC) || !isInSafeZone(pTargetPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_SAFE);
         return;
     }
 
-    // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖ´Ù¸é ¿¡·¯´Ù.
+    // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìžˆë‹¤ë©´ ì—ëŸ¬ë‹¤.
     if (pPC->isSlayer() && pTargetPC->isSlayer()) {
         Slayer* pSlayer1 = dynamic_cast<Slayer*>(pPC);
         Slayer* pSlayer2 = dynamic_cast<Slayer*>(pTargetPC);
@@ -99,7 +99,7 @@ void CGTradeRemoveItemHandler::execute(CGTradeRemoveItem* pPacket, Player* pPlay
         }
     }
 
-    // µÑÀÌ¼­ ±³È¯À» ÇÏ°í ÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¶ó¸é ¿¡·¯´Ù.
+    // ë‘˜ì´ì„œ êµí™˜ì„ í•˜ê³  ìžˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì—ëŸ¬ë‹¤.
     if (!pTradeManager->isTrading(pPC, pTargetPC)) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_NOT_TRADING);
@@ -113,7 +113,7 @@ void CGTradeRemoveItemHandler::execute(CGTradeRemoveItem* pPacket, Player* pPlay
     else if (pPC->isOusters())
         executeOusters(pPacket, pPlayer);
     else
-        throw ProtocolException("CGTradeRemoveItem::execute() : ¾Ë ¼ö ¾ø´Â ÇÃ·¹ÀÌ¾î Å©¸®ÃÄ");
+        throw ProtocolException("CGTradeRemoveItem::execute() : ì•Œ ìˆ˜ ì—†ëŠ” í”Œë ˆì´ì–´ í¬ë¦¬ì³");
 
 #endif
 
@@ -129,8 +129,8 @@ void CGTradeRemoveItemHandler::executeSlayer(CGTradeRemoveItem* pPacket, Player*
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯¸¦ °Ë»çÇß±â ¶§¹®¿¡
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ë¥¼ ê²€ì‚¬í–ˆê¸° ë•Œë¬¸ì—
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     ObjectID_t ItemOID = pPacket->getItemObjectID();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -138,13 +138,13 @@ void CGTradeRemoveItemHandler::executeSlayer(CGTradeRemoveItem* pPacket, Player*
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
     Slayer* pSender = dynamic_cast<Slayer*>(pPC);
 
-    // ±³È¯ ´ë»ó¿¡ Ãß°¡ÇÒ ¾ÆÀÌÅÛÀÇ Æ÷ÀÎÅÍ¸¦ ¾ò¾î³½´Ù.
+    // êµí™˜ ëŒ€ìƒì— ì¶”ê°€í•  ì•„ì´í…œì˜ í¬ì¸í„°ë¥¼ ì–»ì–´ë‚¸ë‹¤.
     CoordInven_t X, Y;
     Inventory* pInventory = pSender->getInventory();
     Item* pItem = pInventory->findItemOID(ItemOID, X, Y);
@@ -152,7 +152,7 @@ void CGTradeRemoveItemHandler::executeSlayer(CGTradeRemoveItem* pPacket, Player*
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // »©¾ßÇÒ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ´õ ÀÌ»ó Ã³¸®°¡ ºÒ°¡´ÉÇÏ´Ù.
+    // ë¹¼ì•¼í•  ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë‹¹ì—°ížˆ ë” ì´ìƒ ì²˜ë¦¬ê°€ ë¶ˆê°€ëŠ¥í•˜ë‹¤.
     if (pItem == NULL) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_REMOVE_ITEM);
@@ -162,7 +162,7 @@ void CGTradeRemoveItemHandler::executeSlayer(CGTradeRemoveItem* pPacket, Player*
     TradeInfo* pInfo1 = pTradeManager->getTradeInfo(pSender->getName());
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pTargetPC->getName());
 
-    // TradeManager¿¡¼­ ±³È¯ ´ë»óÀ¸·Î µé¾î°¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+    // TradeManagerì—ì„œ êµí™˜ ëŒ€ìƒìœ¼ë¡œ ë“¤ì–´ê°€ ìžˆë˜ ì•„ì´í…œì„ ì œê±°í•œë‹¤.
     // Assert(pInfo1->removeItem(pItem));
     pInfo1->removeItem(pItem);
 
@@ -170,31 +170,31 @@ void CGTradeRemoveItemHandler::executeSlayer(CGTradeRemoveItem* pPacket, Player*
     getCurrentTime(currentTime);
     pInfo1->setNextTime(currentTime);
 
-    // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+    // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
     if (pInfo1->getStatus() == TRADE_FINISH) {
-        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISHÀÌ¹Ç·Î, ÀÎÁõ ÆÐÅ¶À» º¸³»ÁØ´Ù."
+        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHì´ë¯€ë¡œ, ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤."
         // << endl;
 
-        // ÀÎÁõÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+        // ì¸ì¦íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
         GCTradeVerify gcTradeVerify;
         gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_REMOVE_ITEM);
         pPlayer->sendPacket(&gcTradeVerify);
     } else {
-        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISH°¡ ¾Æ´Ï¹Ç·Î, ÀÎÁõ ÆÐÅ¶ ³¯¸®Áö
-        // ¾Ê´Â´Ù." << endl;
+        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHê°€ ì•„ë‹ˆë¯€ë¡œ, ì¸ì¦ íŒ¨í‚· ë‚ ë¦¬ì§€
+        // ì•ŠëŠ”ë‹¤." << endl;
     }
 
-    // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ°¡ TRADE_FINISH¶ó¸é
-    // TRADE_TRADINGÀ¸·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.
+    // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœê°€ TRADE_FINISHë¼ë©´
+    // TRADE_TRADINGìœ¼ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
     pInfo1->setStatus(TRADE_TRADING);
     pInfo2->setStatus(TRADE_TRADING);
 
-    // »ó´ë¹æ¿¡°Ô¼­ ³¯·ÁÁÙ ¾ÆÀÌÅÛ Á¤º¸¸¦ ±¸¼ºÇÑ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œì„œ ë‚ ë ¤ì¤„ ì•„ì´í…œ ì •ë³´ë¥¼ êµ¬ì„±í•œë‹¤.
     GCTradeRemoveItem gcTradeRemoveItem;
     gcTradeRemoveItem.setTargetObjectID(pSender->getObjectID());
     gcTradeRemoveItem.setItemObjectID(pItem->getObjectID());
 
-    // »ó´ë¹æ¿¡°Ô »©¾ßÇÒ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ³¯·ÁÁØ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œ ë¹¼ì•¼í•  ì•„ì´í…œì˜ ì •ë³´ë¥¼ ë‚ ë ¤ì¤€ë‹¤.
     Player* pTargetPlayer = pTargetPC->getPlayer();
     pTargetPlayer->sendPacket(&gcTradeRemoveItem);
 
@@ -212,8 +212,8 @@ void CGTradeRemoveItemHandler::executeVampire(CGTradeRemoveItem* pPacket, Player
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯¸¦ °Ë»çÇß±â ¶§¹®¿¡
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ë¥¼ ê²€ì‚¬í–ˆê¸° ë•Œë¬¸ì—
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     ObjectID_t ItemOID = pPacket->getItemObjectID();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -221,7 +221,7 @@ void CGTradeRemoveItemHandler::executeVampire(CGTradeRemoveItem* pPacket, Player
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -230,12 +230,12 @@ void CGTradeRemoveItemHandler::executeVampire(CGTradeRemoveItem* pPacket, Player
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯ ´ë»ó¿¡ Ãß°¡ÇÒ ¾ÆÀÌÅÛÀÇ Æ÷ÀÎÅÍ¸¦ ¾ò¾î³½´Ù.
+    // êµí™˜ ëŒ€ìƒì— ì¶”ê°€í•  ì•„ì´í…œì˜ í¬ì¸í„°ë¥¼ ì–»ì–´ë‚¸ë‹¤.
     CoordInven_t X, Y;
     Inventory* pInventory = pSender->getInventory();
     Item* pItem = pInventory->findItemOID(ItemOID, X, Y);
 
-    // »©¾ßÇÒ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ´õ ÀÌ»ó Ã³¸®°¡ ºÒ°¡´ÉÇÏ´Ù.
+    // ë¹¼ì•¼í•  ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë‹¹ì—°ížˆ ë” ì´ìƒ ì²˜ë¦¬ê°€ ë¶ˆê°€ëŠ¥í•˜ë‹¤.
     if (pItem == NULL) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_REMOVE_ITEM);
@@ -245,35 +245,35 @@ void CGTradeRemoveItemHandler::executeVampire(CGTradeRemoveItem* pPacket, Player
     TradeInfo* pInfo1 = pTradeManager->getTradeInfo(pSender->getName());
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pTargetPC->getName());
 
-    // TradeManager¿¡¼­ ±³È¯ ´ë»óÀ¸·Î µé¾î°¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+    // TradeManagerì—ì„œ êµí™˜ ëŒ€ìƒìœ¼ë¡œ ë“¤ì–´ê°€ ìžˆë˜ ì•„ì´í…œì„ ì œê±°í•œë‹¤.
     // Assert(pInfo1->removeItem(pItem));
     pInfo1->removeItem(pItem);
 
-    // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+    // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
     if (pInfo1->getStatus() == TRADE_FINISH) {
-        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISHÀÌ¹Ç·Î, ÀÎÁõ ÆÐÅ¶À» º¸³»ÁØ´Ù."
+        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHì´ë¯€ë¡œ, ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤."
         // << endl;
 
-        // ÀÎÁõÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+        // ì¸ì¦íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
         GCTradeVerify gcTradeVerify;
         gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_REMOVE_ITEM);
         pPlayer->sendPacket(&gcTradeVerify);
     } else {
-        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISH°¡ ¾Æ´Ï¹Ç·Î, ÀÎÁõ ÆÐÅ¶ ³¯¸®Áö
-        // ¾Ê´Â´Ù." << endl;
+        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHê°€ ì•„ë‹ˆë¯€ë¡œ, ì¸ì¦ íŒ¨í‚· ë‚ ë¦¬ì§€
+        // ì•ŠëŠ”ë‹¤." << endl;
     }
 
-    // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ°¡ TRADE_FINISH¶ó¸é
-    // TRADE_TRADINGÀ¸·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.
+    // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœê°€ TRADE_FINISHë¼ë©´
+    // TRADE_TRADINGìœ¼ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
     pInfo1->setStatus(TRADE_TRADING);
     pInfo2->setStatus(TRADE_TRADING);
 
-    // »ó´ë¹æ¿¡°Ô¼­ ³¯·ÁÁÙ ¾ÆÀÌÅÛ Á¤º¸¸¦ ±¸¼ºÇÑ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œì„œ ë‚ ë ¤ì¤„ ì•„ì´í…œ ì •ë³´ë¥¼ êµ¬ì„±í•œë‹¤.
     GCTradeRemoveItem gcTradeRemoveItem;
     gcTradeRemoveItem.setTargetObjectID(pSender->getObjectID());
     gcTradeRemoveItem.setItemObjectID(pItem->getObjectID());
 
-    // »ó´ë¹æ¿¡°Ô »©¾ßÇÒ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ³¯·ÁÁØ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œ ë¹¼ì•¼í•  ì•„ì´í…œì˜ ì •ë³´ë¥¼ ë‚ ë ¤ì¤€ë‹¤.
     Player* pTargetPlayer = pTargetPC->getPlayer();
     pTargetPlayer->sendPacket(&gcTradeRemoveItem);
 
@@ -292,8 +292,8 @@ void CGTradeRemoveItemHandler::executeOusters(CGTradeRemoveItem* pPacket, Player
 
 #ifdef __GAME_SERVER__
 
-        // »óÀ§ ÇÔ¼ö¿¡¼­ ¿¡·¯¸¦ °Ë»çÇß±â ¶§¹®¿¡
-        // ¿©±â¼­´Â Æ÷ÀÎÅÍ°¡ ³ÎÀÎÁö¸¦ °Ë»çÇÏÁö ¾Ê´Â´Ù.
+        // ìƒìœ„ í•¨ìˆ˜ì—ì„œ ì—ëŸ¬ë¥¼ ê²€ì‚¬í–ˆê¸° ë•Œë¬¸ì—
+        // ì—¬ê¸°ì„œëŠ” í¬ì¸í„°ê°€ ë„ì¸ì§€ë¥¼ ê²€ì‚¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
         ObjectID_t TargetOID = pPacket->getTargetObjectID();
     ObjectID_t ItemOID = pPacket->getItemObjectID();
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
@@ -301,7 +301,7 @@ void CGTradeRemoveItemHandler::executeOusters(CGTradeRemoveItem* pPacket, Player
     Zone* pZone = pPC->getZone();
     Creature* pTargetPC = pZone->getCreature(TargetOID);
 
-    // NoSuchÁ¦°Å. by sigi. 2002.5.2
+    // NoSuchì œê±°. by sigi. 2002.5.2
     if (pTargetPC == NULL)
         return;
 
@@ -310,12 +310,12 @@ void CGTradeRemoveItemHandler::executeOusters(CGTradeRemoveItem* pPacket, Player
     TradeManager* pTradeManager = pZone->getTradeManager();
     Assert(pTradeManager != NULL);
 
-    // ±³È¯ ´ë»ó¿¡ Ãß°¡ÇÒ ¾ÆÀÌÅÛÀÇ Æ÷ÀÎÅÍ¸¦ ¾ò¾î³½´Ù.
+    // êµí™˜ ëŒ€ìƒì— ì¶”ê°€í•  ì•„ì´í…œì˜ í¬ì¸í„°ë¥¼ ì–»ì–´ë‚¸ë‹¤.
     CoordInven_t X, Y;
     Inventory* pInventory = pSender->getInventory();
     Item* pItem = pInventory->findItemOID(ItemOID, X, Y);
 
-    // »©¾ßÇÒ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ´õ ÀÌ»ó Ã³¸®°¡ ºÒ°¡´ÉÇÏ´Ù.
+    // ë¹¼ì•¼í•  ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë‹¹ì—°ížˆ ë” ì´ìƒ ì²˜ë¦¬ê°€ ë¶ˆê°€ëŠ¥í•˜ë‹¤.
     if (pItem == NULL) {
         pTradeManager->cancelTrade(pPC);
         executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_REMOVE_ITEM);
@@ -325,35 +325,35 @@ void CGTradeRemoveItemHandler::executeOusters(CGTradeRemoveItem* pPacket, Player
     TradeInfo* pInfo1 = pTradeManager->getTradeInfo(pSender->getName());
     TradeInfo* pInfo2 = pTradeManager->getTradeInfo(pTargetPC->getName());
 
-    // TradeManager¿¡¼­ ±³È¯ ´ë»óÀ¸·Î µé¾î°¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+    // TradeManagerì—ì„œ êµí™˜ ëŒ€ìƒìœ¼ë¡œ ë“¤ì–´ê°€ ìžˆë˜ ì•„ì´í…œì„ ì œê±°í•œë‹¤.
     // Assert(pInfo1->removeItem(pItem));
     pInfo1->removeItem(pItem);
 
-    // ÇöÀç OK¸¦ ´©¸¥ »óÅÂ¶ó¸é, Å¬¶óÀÌ¾ðÆ®¿¡°Ô ÀÎÁõ ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+    // í˜„ìž¬ OKë¥¼ ëˆ„ë¥¸ ìƒíƒœë¼ë©´, í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
     if (pInfo1->getStatus() == TRADE_FINISH) {
-        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISHÀÌ¹Ç·Î, ÀÎÁõ ÆÐÅ¶À» º¸³»ÁØ´Ù."
+        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHì´ë¯€ë¡œ, ì¸ì¦ íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤."
         // << endl;
 
-        // ÀÎÁõÆÐÅ¶À» ³¯·ÁÁØ´Ù.
+        // ì¸ì¦íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
         GCTradeVerify gcTradeVerify;
         gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_REMOVE_ITEM);
         pPlayer->sendPacket(&gcTradeVerify);
     } else {
-        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ÀÇ »óÅÂ°¡ TRADE_FINISH°¡ ¾Æ´Ï¹Ç·Î, ÀÎÁõ ÆÐÅ¶ ³¯¸®Áö
-        // ¾Ê´Â´Ù." << endl;
+        // cout << "CGTradeRemoveItem [" << pSender->getName() << "]ì˜ ìƒíƒœê°€ TRADE_FINISHê°€ ì•„ë‹ˆë¯€ë¡œ, ì¸ì¦ íŒ¨í‚· ë‚ ë¦¬ì§€
+        // ì•ŠëŠ”ë‹¤." << endl;
     }
 
-    // ¾ÆÀÌÅÛÀ» ´õÇÏ°Å³ª »¬ °æ¿ì, »óÅÂ°¡ TRADE_FINISH¶ó¸é
-    // TRADE_TRADINGÀ¸·Î ¹Ù²ãÁà¾ß ÇÑ´Ù.
+    // ì•„ì´í…œì„ ë”í•˜ê±°ë‚˜ ëº„ ê²½ìš°, ìƒíƒœê°€ TRADE_FINISHë¼ë©´
+    // TRADE_TRADINGìœ¼ë¡œ ë°”ê¿”ì¤˜ì•¼ í•œë‹¤.
     pInfo1->setStatus(TRADE_TRADING);
     pInfo2->setStatus(TRADE_TRADING);
 
-    // »ó´ë¹æ¿¡°Ô¼­ ³¯·ÁÁÙ ¾ÆÀÌÅÛ Á¤º¸¸¦ ±¸¼ºÇÑ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œì„œ ë‚ ë ¤ì¤„ ì•„ì´í…œ ì •ë³´ë¥¼ êµ¬ì„±í•œë‹¤.
     GCTradeRemoveItem gcTradeRemoveItem;
     gcTradeRemoveItem.setTargetObjectID(pSender->getObjectID());
     gcTradeRemoveItem.setItemObjectID(pItem->getObjectID());
 
-    // »ó´ë¹æ¿¡°Ô »©¾ßÇÒ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ³¯·ÁÁØ´Ù.
+    // ìƒëŒ€ë°©ì—ê²Œ ë¹¼ì•¼í•  ì•„ì´í…œì˜ ì •ë³´ë¥¼ ë‚ ë ¤ì¤€ë‹¤.
     Player* pTargetPlayer = pTargetPC->getPlayer();
     pTargetPlayer->sendPacket(&gcTradeRemoveItem);
 

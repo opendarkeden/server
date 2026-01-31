@@ -58,47 +58,47 @@ void CGRelicToObjectHandler::execute(CGRelicToObject* pPacket, Player* pPlayer)
 #ifdef __GAME_SERVER__
 
         //	cout << "CGRelicToObject start" << endl;
-        //	cout << "¹ŞÀº ÆĞÅ¶(¾ÆÀÌÅÛ ¿ÀºêÁ§Æ®)" << pPacket->getItemObjectID()
-        //		 << "¹ŞÀº ÆĞÅ¶(¼º¹° º¸°üÇÔ)"  << pPacket->getObjectID() << endl;
+        //	cout << "ë°›ì€ íŒ¨í‚·(ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸)" << pPacket->getItemObjectID()
+        //		 << "ë°›ì€ íŒ¨í‚·(ì„±ë¬¼ ë³´ê´€í•¨)"  << pPacket->getObjectID() << endl;
 
         Assert(pPacket != NULL);
     Assert(pPlayer != NULL);
 
-    // ·¼¸¯À» ÇØ´ç ¼º¹°º¸°üÇÔ¿¡ ³ÖÀ»¶§..
+    // ë ë¦­ì„ í•´ë‹¹ ì„±ë¬¼ë³´ê´€í•¨ì— ë„£ì„ë•Œ..
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     Creature* pCreature = pGamePlayer->getCreature();
 
-    // ¼º¹° º¸°ü´ë¿¡ ÀÌ¹Ì µÑ ´Ù ÀÖ´Â °æ¿ì
-    // ¼º¹° º¸°ü´ë¿¡ Slayer¼º¹°ÀÌ ÀÖ°í pItemÀÌ Slayer¼º¹°ÀÎ °æ¿ì
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì´ë¯¸ ë‘˜ ë‹¤ ìˆëŠ” ê²½ìš°
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— Slayerì„±ë¬¼ì´ ìˆê³  pItemì´ Slayerì„±ë¬¼ì¸ ê²½ìš°
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
     if (pPlayerCreature == NULL) {
-        throw DisconnectException("CGRelicToObject : ÀÌ»óÇØ¿ä");
+        throw DisconnectException("CGRelicToObject : ì´ìƒí•´ìš”");
         return;
     }
 
-    // ÇöÀç µé°í ÀÖ´Â ¾ÆÀÌÅÛ == Relic ?
+    // í˜„ì¬ ë“¤ê³  ìˆëŠ” ì•„ì´í…œ == Relic ?
     InventorySlot* pExtraInventorySlot = pPlayerCreature->getExtraInventorySlot();
     Item* pItem = pExtraInventorySlot->getItem();
 
     if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 31) {
         static map<string, string> scripts;
         if (scripts.empty()) {
-            // cout << "½ºÅ©¸³Æ® ÃÊ±âÈ­" << endl;
-            scripts["Á¸½¼"] = "°í¸¿¼Ò. ÀÌ ÀºÇı ÀØÁö¾Ê°Ú¼Ò";
-            scripts["ºô¸®"] = "¾ó¸¥ ´Ù¸¥ µ¿·áµéµµ ±¸ÇØÁÖ¼¼¿ä. ºÎÅ¹ÀÔ´Ï´Ù.";
-            scripts["¸®"] = "¿ì¿ô¡¦. °Ü¿ì »ì¾Ò±º.";
-            scripts["¿¡ÁîÄ«Åº"] = "³­ ¸ÕÀú °¡ÀÖµµ·Ï ÇÒ°Ô¿ä.";
-            scripts["·çÀÌ½º"] = "ÈåÈæ. ³Ê¹« Èûµé¾ú¼Ò. ³Ê¹« °í¸¿¼Ò.";
-            scripts["Á¨Áö"] = "ÀÌÁ¦ »ì¾Ò±º. ¸¶À»¿¡¼­ º¾½Ã´Ù";
-            scripts["ÄÉ½ºÀÌ"] = "¾ó¸¥ ´Ù¸¥ µ¿Áöµéµµ¡¦.";
-            scripts["ÆÄÀÌ"] = "¿ì¿ô¡¦. ¸ö¿¡ ÈûÀÌ ³²¾ÆÀÖÁö ¾Ê¾Æ.";
-            scripts["´Ï³ªÀÌ·ç"] = "³­ ¸ÕÀú °¡ÀÖµµ·Ï ÇÒ°Ô¿ä.";
-            scripts["·á"] = "ÈŞ¡¦ »ì¾Ò´Ù.";
-            scripts["ÆäÀÌÆ®"] = "°í¸¿½À´Ï´Ù. ¸ÕÀú°¡¼­ ±â´Ù¸®°Ú¾î¿ä.";
-            scripts["¼Ö"] = "¾ó¸¥ ´Ù¸¥ µ¿·áµéµµ ±¸ÇØÁÖ¼¼¿ä. ºÎÅ¹ÀÔ´Ï´Ù.";
-            scripts["ÀÌ·çÀÌ"] = "¿ì¿ô¡¦. Áöµ¶Çß¾î¿ä. °Ü¿ì »ì¾Ò±º¿ä.";
-            scripts["Á¯Å°"] = "³­ ¸ÕÀú °¡ÀÖµµ·Ï ÇÒ°Ô¿ä.";
-            scripts["±×´©"] = "´ç½ÅÀÌ ¿Ã ÁÙ ¾Ë¾Ò½À´Ï´Ù.";
+            // cout << "ìŠ¤í¬ë¦½íŠ¸ ì´ˆê¸°í™”" << endl;
+            scripts["ì¡´ìŠ¨"] = "ê³ ë§™ì†Œ. ì´ ì€í˜œ ìŠì§€ì•Šê² ì†Œ";
+            scripts["ë¹Œë¦¬"] = "ì–¼ë¥¸ ë‹¤ë¥¸ ë™ë£Œë“¤ë„ êµ¬í•´ì£¼ì„¸ìš”. ë¶€íƒì…ë‹ˆë‹¤.";
+            scripts["ë¦¬"] = "ìš°ì›ƒâ€¦. ê²¨ìš° ì‚´ì•˜êµ°.";
+            scripts["ì—ì¦ˆì¹´íƒ„"] = "ë‚œ ë¨¼ì € ê°€ìˆë„ë¡ í• ê²Œìš”.";
+            scripts["ë£¨ì´ìŠ¤"] = "íí‘. ë„ˆë¬´ í˜ë“¤ì—ˆì†Œ. ë„ˆë¬´ ê³ ë§™ì†Œ.";
+            scripts["ì  ì§€"] = "ì´ì œ ì‚´ì•˜êµ°. ë§ˆì„ì—ì„œ ë´…ì‹œë‹¤";
+            scripts["ì¼€ìŠ¤ì´"] = "ì–¼ë¥¸ ë‹¤ë¥¸ ë™ì§€ë“¤ë„â€¦.";
+            scripts["íŒŒì´"] = "ìš°ì›ƒâ€¦. ëª¸ì— í˜ì´ ë‚¨ì•„ìˆì§€ ì•Šì•„.";
+            scripts["ë‹ˆë‚˜ì´ë£¨"] = "ë‚œ ë¨¼ì € ê°€ìˆë„ë¡ í• ê²Œìš”.";
+            scripts["ë£Œ"] = "íœ´â€¦ ì‚´ì•˜ë‹¤.";
+            scripts["í˜ì´íŠ¸"] = "ê³ ë§™ìŠµë‹ˆë‹¤. ë¨¼ì €ê°€ì„œ ê¸°ë‹¤ë¦¬ê² ì–´ìš”.";
+            scripts["ì†”"] = "ì–¼ë¥¸ ë‹¤ë¥¸ ë™ë£Œë“¤ë„ êµ¬í•´ì£¼ì„¸ìš”. ë¶€íƒì…ë‹ˆë‹¤.";
+            scripts["ì´ë£¨ì´"] = "ìš°ì›ƒâ€¦. ì§€ë…í–ˆì–´ìš”. ê²¨ìš° ì‚´ì•˜êµ°ìš”.";
+            scripts["ì ¼í‚¤"] = "ë‚œ ë¨¼ì € ê°€ìˆë„ë¡ í• ê²Œìš”.";
+            scripts["ê·¸ëˆ„"] = "ë‹¹ì‹ ì´ ì˜¬ ì¤„ ì•Œì•˜ìŠµë‹ˆë‹¤.";
         }
 
         Zone* pZone = pPlayerCreature->getZone();
@@ -107,7 +107,7 @@ void CGRelicToObjectHandler::execute(CGRelicToObject* pPacket, Player* pPlayer)
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
             pPlayer->sendPacket(&_GCCannotAdd);
-            // cout << "¸ó½ºÅÍ°¡ ¾ø½À´Ï´Ù." << endl;
+            // cout << "ëª¬ìŠ¤í„°ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
 
             return;
         }
@@ -120,7 +120,7 @@ void CGRelicToObjectHandler::execute(CGRelicToObject* pPacket, Player* pPlayer)
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
             pPlayer->sendPacket(&_GCCannotAdd);
 
-            // cout << "ÀÌ»óÇÑ ¸ó½ºÅÍÀÌ°Å³ª ¸ó½ºÅÍ ÀÌ¸§ÀÌ Æ²¸³´Ï´Ù. : " << (int)pMonster->getMonsterType() << "," <<
+            // cout << "ì´ìƒí•œ ëª¬ìŠ¤í„°ì´ê±°ë‚˜ ëª¬ìŠ¤í„° ì´ë¦„ì´ í‹€ë¦½ë‹ˆë‹¤. : " << (int)pMonster->getMonsterType() << "," <<
             // pMonster->getName() << endl;
 
             return;
@@ -164,12 +164,12 @@ void CGRelicToObjectHandler::execute(CGRelicToObject* pPacket, Player* pPlayer)
     } else if (pItem->getItemClass() == Item::ITEM_CLASS_CASTLE_SYMBOL) {
         executeCastleSymbol(pPacket, pPlayer);
     } else if (pItem->isFlagItem()) {
-        // cout << "±ê¹ß ²Å±â!" << endl;
+        // cout << "ê¹ƒë°œ ê¼½ê¸°!" << endl;
         executeFlag(pPacket, pPlayer);
     } else if (pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER) {
         executeSweeper(pPacket, pPlayer);
     } else {
-        throw DisconnectException("¾û¶×ÇÑ°Å µé°í RelicToObjectº¸³»Áö¸¶");
+        throw DisconnectException("ì—‰ëš±í•œê±° ë“¤ê³  RelicToObjectë³´ë‚´ì§€ë§ˆ");
     }
 
 #endif
@@ -184,15 +184,15 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
 
 #ifdef __GAME_SERVER__
 
-    // ·¼¸¯À» ÇØ´ç ¼º¹°º¸°üÇÔ¿¡ ³ÖÀ»¶§..
+    // ë ë¦­ì„ í•´ë‹¹ ì„±ë¬¼ë³´ê´€í•¨ì— ë„£ì„ë•Œ..
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
     Creature* pCreature = pGamePlayer->getCreature();
 
-    // ¼º¹° º¸°ü´ë¿¡ ÀÌ¹Ì µÑ ´Ù ÀÖ´Â °æ¿ì
-    // ¼º¹° º¸°ü´ë¿¡ Slayer¼º¹°ÀÌ ÀÖ°í pItemÀÌ Slayer¼º¹°ÀÎ °æ¿ì
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì´ë¯¸ ë‘˜ ë‹¤ ìˆëŠ” ê²½ìš°
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— Slayerì„±ë¬¼ì´ ìˆê³  pItemì´ Slayerì„±ë¬¼ì¸ ê²½ìš°
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
 
-    // ÇöÀç µé°í ÀÖ´Â ¾ÆÀÌÅÛ == Relic ?
+    // í˜„ì¬ ë“¤ê³  ìˆëŠ” ì•„ì´í…œ == Relic ?
     InventorySlot* pExtraInventorySlot = pPlayerCreature->getExtraInventorySlot();
     Item* pItem = pExtraInventorySlot->getItem();
 
@@ -204,9 +204,9 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
 
     Item* pTableItem = pZone->getItem(pPacket->getObjectID());
 
-    // ±×·± itemÀÌ ¾ø°Å³ª
-    // ½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // Monster½ÃÃ¼°¡ ¾Æ´Ï¸é ¼º¹°º¸°ü´ë°¡ ¾Æ´Ï´Ù.
+    // ê·¸ëŸ° itemì´ ì—†ê±°ë‚˜
+    // ì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // Monsterì‹œì²´ê°€ ì•„ë‹ˆë©´ ì„±ë¬¼ë³´ê´€ëŒ€ê°€ ì•„ë‹ˆë‹¤.
     if (pTableItem == NULL || pTableItem->getItemClass() != Item::ITEM_CLASS_CORPSE ||
         pTableItem->getItemType() != MONSTER_CORPSE) {
         GCCannotAdd _GCCannotAdd;
@@ -217,11 +217,11 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         return;
     }
 
-    // ¼º¹° º¸°ü´ë
+    // ì„±ë¬¼ ë³´ê´€ëŒ€
     MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);
     Assert(pCorpse != NULL);
 
-    // 2Å¸ÀÏ ¾È¿¡ ÀÖ¾î¾ß µÈ´Ù.
+    // 2íƒ€ì¼ ì•ˆì— ìˆì–´ì•¼ ëœë‹¤.
     if (!verifyDistance(pCreature, pCorpse->getX(), pCorpse->getY(), 2)) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -231,7 +231,7 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         return;
     }
 
-    // Relic ¼ÒÀ¯ ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù.
+    // Relic ì†Œìœ  ì—¬ë¶€ë¥¼ ì²´í¬í•œë‹¤.
     bool bPlayerHasSlayerRelic = pCreature->isFlag(Effect::EFFECT_CLASS_HAS_SLAYER_RELIC);
     bool bPlayerHasVampireRelic = pCreature->isFlag(Effect::EFFECT_CLASS_HAS_VAMPIRE_RELIC);
     bool bTableHasSlayerRelic = pCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC);
@@ -239,10 +239,10 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
     bool bSlayerRelicTable = pCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE);
     bool bVampireRelicTable = pCorpse->isFlag(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE);
 
-    // ÀÌ¹Ì µÎ ¼º¹°ÀÌ ´Ù ÀÖ°Å³ª
-    // Player°¡ µÎ ¼º¹°ÀÌ ´Ù ¾ø°Å³ª
-    // itemÀÌ ¾ø´Â °æ¿ì?
-    // ¼º¹°ÀÌ ¾Æ´Ï°Å³ª
+    // ì´ë¯¸ ë‘ ì„±ë¬¼ì´ ë‹¤ ìˆê±°ë‚˜
+    // Playerê°€ ë‘ ì„±ë¬¼ì´ ë‹¤ ì—†ê±°ë‚˜
+    // itemì´ ì—†ëŠ” ê²½ìš°?
+    // ì„±ë¬¼ì´ ì•„ë‹ˆê±°ë‚˜
     if ((bTableHasSlayerRelic && bTableHasVampireRelic) || (!bPlayerHasSlayerRelic && !bPlayerHasVampireRelic) ||
         pItem == NULL || pItem->getItemClass() != Item::ITEM_CLASS_RELIC) {
         GCCannotAdd _GCCannotAdd;
@@ -255,7 +255,7 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
 
     ItemType_t relicIndex = pItem->getItemType();
 
-    // RelicInfo¸¦ ¾ò´Â´Ù.
+    // RelicInfoë¥¼ ì–»ëŠ”ë‹¤.
     const RelicInfo* pRelicInfo = dynamic_cast<RelicInfo*>(g_pRelicInfoManager->getItemInfo(relicIndex));
 
     if (pRelicInfo == NULL) {
@@ -271,10 +271,10 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
     bool bSlayer = pCreature->isSlayer();
     bool bVampire = pCreature->isVampire();
 
-    // itemObjectID°¡ Àß¸øµÇ¾ú°Å³ª
-    // µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª
-    // ³²ÀÇ º¸°ü´ëÀÌ°Å³ª
-    // ÀÌ¹Ì °°Àº Á¾Á·ÀÇ ¼º¹°ÀÌ ÀÖ´Ù¸é ³ÖÀ» ¼ö ¾ø´Ù.
+    // itemObjectIDê°€ ì˜ëª»ë˜ì—ˆê±°ë‚˜
+    // ë“¤ê³  ìˆëŠ” ì•„ì´í…œì´ ì—†ê±°ë‚˜
+    // ë‚¨ì˜ ë³´ê´€ëŒ€ì´ê±°ë‚˜
+    // ì´ë¯¸ ê°™ì€ ì¢…ì¡±ì˜ ì„±ë¬¼ì´ ìˆë‹¤ë©´ ë„£ì„ ìˆ˜ ì—†ë‹¤.
     if (pItem->getObjectID() != pPacket->getItemObjectID() || (bSlayer && bVampireRelicTable) ||
         (bVampire && bSlayerRelicTable) || (bTableHasSlayerRelic && pRelicInfo->relicType == RELIC_TYPE_SLAYER) ||
         (bTableHasVampireRelic && pRelicInfo->relicType == RELIC_TYPE_VAMPIRE)) {
@@ -286,14 +286,14 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         return;
     }
 
-    // ½½·¹ÀÌ¾îÀÎ °æ¿ì´Â ¿ÀÅä¹ÙÀÌ, ½º³ªÀÌÇÎ»óÅÂ ÀÌ¸é ¾ÈµÇ°í
-    // ¹ìÆÄÀÌ¾îÀÎ °æ¿ì´Â º¯½Å»óÅÂ, Åõ¸í»óÅÂÀÌ¸é ¾ÈµÈ´Ù.
+    // ìŠ¬ë ˆì´ì–´ì¸ ê²½ìš°ëŠ” ì˜¤í† ë°”ì´, ìŠ¤ë‚˜ì´í•‘ìƒíƒœ ì´ë©´ ì•ˆë˜ê³ 
+    // ë±€íŒŒì´ì–´ì¸ ê²½ìš°ëŠ” ë³€ì‹ ìƒíƒœ, íˆ¬ëª…ìƒíƒœì´ë©´ ì•ˆëœë‹¤.
     if (bSlayer) {
         Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-        // ¿ÀÅä¹ÙÀÌ¸¦ Å¸°í ÀÖÀ¸¸é ºÒ°¡´ÉÇÏ´Ù.
+        // ì˜¤í† ë°”ì´ë¥¼ íƒ€ê³  ìˆìœ¼ë©´ ë¶ˆê°€ëŠ¥í•˜ë‹¤.
         if (!pSlayer->hasRideMotorcycle() && !pSlayer->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE)) {
-            // Effect¸¦ ºÙÀÎ´Ù.
+            // Effectë¥¼ ë¶™ì¸ë‹¤.
             Success = true;
         }
     } else if (bVampire) {
@@ -305,17 +305,17 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         }
     }
 
-    // ¼º¹°º¸°ü´ë¿¡ ¼º¹°À» ³ÖÀ» ¼ö ÀÖ´Â °æ¿ì
+    // ì„±ë¬¼ë³´ê´€ëŒ€ì— ì„±ë¬¼ì„ ë„£ì„ ìˆ˜ ìˆëŠ” ê²½ìš°
     if (Success) {
-        // Mouse¿¡¼­ ¾ÆÀÌÅÛÀ» Áö¿ì°í
+        // Mouseì—ì„œ ì•„ì´í…œì„ ì§€ìš°ê³ 
         pPlayerCreature->deleteItemFromExtraInventorySlot();
 
-        // ¼º¹°À» ¼º¹° º¸°ü´ë¿¡ Ãß°¡ÇÑ´Ù.
+        // ì„±ë¬¼ì„ ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì¶”ê°€í•œë‹¤.
         pCorpse->addTreasure(pItem);
 
         /*		StringStream msg;
-                msg << pPlayerCreature->getName() << " ´ÔÀÌ ¼º¹° º¸°ü´ë¿¡ "
-                    << "¼º¹°(" << pRelicInfo->getName() << ")À» ³Ö¾ú½À´Ï´Ù."; */
+                msg << pPlayerCreature->getName() << " ë‹˜ì´ ì„±ë¬¼ ë³´ê´€ëŒ€ì— "
+                    << "ì„±ë¬¼(" << pRelicInfo->getName() << ")ì„ ë„£ì—ˆìŠµë‹ˆë‹¤."; */
 
         char msg[100];
         sprintf(msg, g_pStringPool->c_str(STRID_PUT_RELIC_TO_RELIC_TABLE), pPlayerCreature->getName().c_str(),
@@ -328,7 +328,7 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         Effect::EffectClass effectClass;
         Effect::EffectClass effectClassTable;
 
-        // Creature¿¡¼­ Effect¸¦ Á¦°ÅÇÏ°í
+        // Creatureì—ì„œ Effectë¥¼ ì œê±°í•˜ê³ 
         if (pRelicInfo->relicType == RELIC_TYPE_SLAYER) {
             effectClass = Effect::EFFECT_CLASS_HAS_SLAYER_RELIC;
             effectClassTable = Effect::EFFECT_CLASS_SLAYER_RELIC;
@@ -340,12 +340,12 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         Effect* pEffect = pCreature->findEffect(effectClass);
         Assert(pEffect != NULL);
 
-        // CreatureÀÇ flag¸¦ ²ô°í
-        // GCRemoveEffect¸¦ º¸³»°Ô µÈ´Ù.
+        // Creatureì˜ flagë¥¼ ë„ê³ 
+        // GCRemoveEffectë¥¼ ë³´ë‚´ê²Œ ëœë‹¤.
         pEffect->unaffect();
         pCreature->deleteEffect(effectClass);
 
-        // ¼º¹° º¸°ü´ë°¡ RelicÀ» °¡Á³´Ù´Â Effect¸¦ ºÙ¿©ÁØ´Ù.
+        // ì„±ë¬¼ ë³´ê´€ëŒ€ê°€ Relicì„ ê°€ì¡Œë‹¤ëŠ” Effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
         if (pRelicInfo->relicType == RELIC_TYPE_SLAYER) {
             EffectSlayerRelic* pEffect = new EffectSlayerRelic(pCorpse);
 
@@ -360,14 +360,14 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
             pEffect->affect(pCorpse);
         }
 
-        // ¼º¹°º¸°ü´ë¿¡ Effect¸¦ ºÙÀÎ°É client¿¡ ¾Ë¸°´Ù.
+        // ì„±ë¬¼ë³´ê´€ëŒ€ì— Effectë¥¼ ë¶™ì¸ê±¸ clientì— ì•Œë¦°ë‹¤.
         GCAddEffect gcAddEffect;
         gcAddEffect.setObjectID(pCorpse->getObjectID());
         gcAddEffect.setEffectID(effectClassTable);
         gcAddEffect.setDuration(65000);
         pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcAddEffect);
 
-        // ¼º¹° ³õ¾Ò´Ù°í º¸³»ÁØ´Ù.
+        // ì„±ë¬¼ ë†“ì•˜ë‹¤ê³  ë³´ë‚´ì¤€ë‹¤.
         GCDeleteObject gcDeleteObject;
         gcDeleteObject.setObjectID(pItem->getObjectID());
         pPlayer->sendPacket(&gcDeleteObject);
@@ -375,20 +375,20 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
         // RelicTable
         EffectRelicTable* pTableEffect = NULL;
         if (bSlayer) {
-            // ¼º¹°ÀÇ ¼ÒÀ¯¸¦ ¼³Á¤ÇÑ´Ù.
+            // ì„±ë¬¼ì˜ ì†Œìœ ë¥¼ ì„¤ì •í•œë‹¤.
             g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_SLAYER);
 
-            // ÀÌÆåÆ®¸¦ Ã£´Â´Ù.
+            // ì´í™íŠ¸ë¥¼ ì°¾ëŠ”ë‹¤.
             Effect* pEffect = pCorpse->getEffectManager().findEffect(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE);
             Assert(pEffect != NULL);
 
             pTableEffect = dynamic_cast<EffectSlayerRelicTable*>(pEffect);
             Assert(pTableEffect != NULL);
         } else {
-            // ¼º¹°ÀÇ ¼ÒÀ¯¸¦ ¼³Á¤ÇÑ´Ù.
+            // ì„±ë¬¼ì˜ ì†Œìœ ë¥¼ ì„¤ì •í•œë‹¤.
             g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_VAMPIRE);
 
-            // ÀÌÆåÆ®¸¦ Ã£´Â´Ù.
+            // ì´í™íŠ¸ë¥¼ ì°¾ëŠ”ë‹¤.
             Effect* pEffect = pCorpse->getEffectManager().findEffect(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE);
             Assert(pEffect != NULL);
 
@@ -396,25 +396,25 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
             Assert(pTableEffect != NULL);
         }
 
-        // ¼º¹°ÀÌ ÇÏ³ª µé¾î°¡¸é
-        // ÇÑ µ¿¾È(10ÃÊ)Àº ¼º¹°À» »©³¾ ¼ö ¾ø´Ù.
+        // ì„±ë¬¼ì´ í•˜ë‚˜ ë“¤ì–´ê°€ë©´
+        // í•œ ë™ì•ˆ(10ì´ˆ)ì€ ì„±ë¬¼ì„ ë¹¼ë‚¼ ìˆ˜ ì—†ë‹¤.
         Timeval lockTime;
         getCurrentTime(lockTime);
         lockTime.tv_sec += 10;
         pTableEffect->setLockTime(lockTime);
 
 
-        // µÎ ¼º¹°À» ¸ğµÎ °®°Ô µÇ´Â °æ¿ì
+        // ë‘ ì„±ë¬¼ì„ ëª¨ë‘ ê°–ê²Œ ë˜ëŠ” ê²½ìš°
         if ((bTableHasSlayerRelic && pRelicInfo->relicType == RELIC_TYPE_VAMPIRE) ||
             (bTableHasVampireRelic && pRelicInfo->relicType == RELIC_TYPE_SLAYER))
 
         {
-            // ¼º¹° º¸°ü´ë°¡ ¾ÈÀüÇÑ ½Ã°£ ¼³Á¤
+            // ì„±ë¬¼ ë³´ê´€ëŒ€ê°€ ì•ˆì „í•œ ì‹œê°„ ì„¤ì •
             Timeval safeTime;
             getCurrentTime(safeTime);
             safeTime.tv_sec += g_pVariableManager->getCombatBonusTime() * 60;
 
-            // ½Â¸® message ¸¦ º¸³»ÁØ´Ù.
+            // ìŠ¹ë¦¬ message ë¥¼ ë³´ë‚´ì¤€ë‹¤.
             GCSystemMessage gcSystemMessage;
 
             pTableEffect->setSafeTime(safeTime);
@@ -427,10 +427,10 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket, Player* pPla
                 g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_VAMPIRE);
             }
 
-            // ÀüÀïÀÌ Á¾·áµÇ¾ú´Ù.
+            // ì „ìŸì´ ì¢…ë£Œë˜ì—ˆë‹¤.
             g_pCombatInfoManager->setCombat(false);
 
-            // ÀüÃ¼ »ç¿ëÀÚ¿¡°Ô message¸¦ º¸³½´Ù.
+            // ì „ì²´ ì‚¬ìš©ìì—ê²Œ messageë¥¼ ë³´ë‚¸ë‹¤.
             g_pZoneGroupManager->broadcast(&gcSystemMessage);
 
             g_pCombatInfoManager->computeModify();
@@ -459,20 +459,20 @@ void CGRelicToObjectHandler::executeBloodBible(CGRelicToObject* pPacket, Player*
     Assert(pZone != NULL);
 
 
-    // ¼º¹° º¸°ü´ë¿¡ ÀÌ¹Ì µÑ ´Ù ÀÖ´Â °æ¿ì
-    // ¼º¹° º¸°ü´ë¿¡ Slayer¼º¹°ÀÌ ÀÖ°í pItemÀÌ Slayer¼º¹°ÀÎ °æ¿ì
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì´ë¯¸ ë‘˜ ë‹¤ ìˆëŠ” ê²½ìš°
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— Slayerì„±ë¬¼ì´ ìˆê³  pItemì´ Slayerì„±ë¬¼ì¸ ê²½ìš°
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
 
-    // ÇöÀç µé°í ÀÖ´Â ¾ÆÀÌÅÛ == Relic ?
+    // í˜„ì¬ ë“¤ê³  ìˆëŠ” ì•„ì´í…œ == Relic ?
     InventorySlot* pExtraInventorySlot = pPlayerCreature->getExtraInventorySlot();
     Item* pItem = pExtraInventorySlot->getItem();
 
     Item* pTableItem = pZone->getItem(pPacket->getObjectID());
 
-    // ±×·± itemÀÌ ¾ø°Å³ª
-    // ½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // Monster½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // ShrineGuardµµ ShrineHolyµµ ¾Æ´Ï¸é.. ¼º´ÜÀÌ ¾Æ´ÏÁö.
+    // ê·¸ëŸ° itemì´ ì—†ê±°ë‚˜
+    // ì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // Monsterì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // ShrineGuardë„ ShrineHolyë„ ì•„ë‹ˆë©´.. ì„±ë‹¨ì´ ì•„ë‹ˆì§€.
     if (pTableItem == NULL || pTableItem->getItemClass() != Item::ITEM_CLASS_CORPSE ||
         pTableItem->getItemType() != MONSTER_CORPSE ||
         (!pTableItem->isFlag(Effect::EFFECT_CLASS_SHRINE_GUARD) &&
@@ -485,12 +485,12 @@ void CGRelicToObjectHandler::executeBloodBible(CGRelicToObject* pPacket, Player*
         return;
     }
 
-    // ¼º´Ü
+    // ì„±ë‹¨
     MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);
     Assert(pCorpse != NULL);
 
-    // 2Å¸ÀÏ ¾È¿¡ ÀÖÁö ¾Ê°Å³ª
-    // shrineÀ¸·Î ¼³Á¤ÀÌ ¾ÈµÇ¾î ÀÖÀ¸¸é
+    // 2íƒ€ì¼ ì•ˆì— ìˆì§€ ì•Šê±°ë‚˜
+    // shrineìœ¼ë¡œ ì„¤ì •ì´ ì•ˆë˜ì–´ ìˆìœ¼ë©´
     if (!verifyDistance(pCreature, pCorpse->getX(), pCorpse->getY(), 2) || !pCorpse->isShrine()) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -501,7 +501,7 @@ void CGRelicToObjectHandler::executeBloodBible(CGRelicToObject* pPacket, Player*
     }
 
     if (g_pShrineInfoManager->putBloodBible(pPlayerCreature, pItem, pCorpse)) {
-        // putBloodBible ¾È¿¡¼­ Ã³¸®ÇÑ´Ù.
+        // putBloodBible ì•ˆì—ì„œ ì²˜ë¦¬í•œë‹¤.
     }
 
 #endif
@@ -521,11 +521,11 @@ void CGRelicToObjectHandler::executeCastleSymbol(CGRelicToObject* pPacket, Playe
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ¼º¹° º¸°ü´ë¿¡ ÀÌ¹Ì µÑ ´Ù ÀÖ´Â °æ¿ì
-    // ¼º¹° º¸°ü´ë¿¡ Slayer¼º¹°ÀÌ ÀÖ°í pItemÀÌ Slayer¼º¹°ÀÎ °æ¿ì
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì´ë¯¸ ë‘˜ ë‹¤ ìˆëŠ” ê²½ìš°
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— Slayerì„±ë¬¼ì´ ìˆê³  pItemì´ Slayerì„±ë¬¼ì¸ ê²½ìš°
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
 
-    // ÇöÀç µé°í ÀÖ´Â ¾ÆÀÌÅÛ == Relic ?
+    // í˜„ì¬ ë“¤ê³  ìˆëŠ” ì•„ì´í…œ == Relic ?
     InventorySlot* pExtraInventorySlot = pPlayerCreature->getExtraInventorySlot();
     Item* pItem = pExtraInventorySlot->getItem();
 
@@ -534,10 +534,10 @@ void CGRelicToObjectHandler::executeCastleSymbol(CGRelicToObject* pPacket, Playe
 
     //	cout << "executeCastleSymbol" << endl;
 
-    // ±×·± itemÀÌ ¾ø°Å³ª
-    // ½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // Monster½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // ShrineGuardµµ ShrineHolyµµ ¾Æ´Ï¸é.. ¼º´ÜÀÌ ¾Æ´ÏÁö.
+    // ê·¸ëŸ° itemì´ ì—†ê±°ë‚˜
+    // ì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // Monsterì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // ShrineGuardë„ ShrineHolyë„ ì•„ë‹ˆë©´.. ì„±ë‹¨ì´ ì•„ë‹ˆì§€.
     if (pTableItem == NULL || pTableItem->getItemClass() != Item::ITEM_CLASS_CORPSE ||
         pTableItem->getItemType() != MONSTER_CORPSE ||
         (!pTableItem->isFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_GUARD) &&
@@ -550,12 +550,12 @@ void CGRelicToObjectHandler::executeCastleSymbol(CGRelicToObject* pPacket, Playe
         return;
     }
 
-    // ¼º´Ü
+    // ì„±ë‹¨
     MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);
     Assert(pCorpse != NULL);
 
-    // 2Å¸ÀÏ ¾È¿¡ ÀÖÁö ¾Ê°Å³ª
-    // shrineÀ¸·Î ¼³Á¤ÀÌ ¾ÈµÇ¾î ÀÖÀ¸¸é
+    // 2íƒ€ì¼ ì•ˆì— ìˆì§€ ì•Šê±°ë‚˜
+    // shrineìœ¼ë¡œ ì„¤ì •ì´ ì•ˆë˜ì–´ ìˆìœ¼ë©´
     if (!verifyDistance(pCreature, pCorpse->getX(), pCorpse->getY(), 2) || !pCorpse->isShrine()) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -574,7 +574,7 @@ void CGRelicToObjectHandler::executeCastleSymbol(CGRelicToObject* pPacket, Playe
 //	}
 #else
     if (g_pCastleShrineInfoManager->putCastleSymbol(pPlayerCreature, pItem, pCorpse)) {
-        // putCastleSymbol ¾È¿¡¼­ Ã³¸®ÇÑ´Ù.
+        // putCastleSymbol ì•ˆì—ì„œ ì²˜ë¦¬í•œë‹¤.
     }
 #endif
 
@@ -598,20 +598,20 @@ void CGRelicToObjectHandler::executeFlag(CGRelicToObject* pPacket, Player* pPlay
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ¼º¹° º¸°ü´ë¿¡ ÀÌ¹Ì µÑ ´Ù ÀÖ´Â °æ¿ì
-    // ¼º¹° º¸°ü´ë¿¡ Slayer¼º¹°ÀÌ ÀÖ°í pItemÀÌ Slayer¼º¹°ÀÎ °æ¿ì
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— ì´ë¯¸ ë‘˜ ë‹¤ ìˆëŠ” ê²½ìš°
+    // ì„±ë¬¼ ë³´ê´€ëŒ€ì— Slayerì„±ë¬¼ì´ ìˆê³  pItemì´ Slayerì„±ë¬¼ì¸ ê²½ìš°
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
 
-    // ÇöÀç µé°í ÀÖ´Â ¾ÆÀÌÅÛ == Flag ?
+    // í˜„ì¬ ë“¤ê³  ìˆëŠ” ì•„ì´í…œ == Flag ?
     InventorySlot* pExtraInventorySlot = pPlayerCreature->getExtraInventorySlot();
     Item* pItem = pExtraInventorySlot->getItem();
 
     Item* pTableItem = pZone->getItem(pPacket->getObjectID());
 
-    // ±×·± itemÀÌ ¾ø°Å³ª
-    // ½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // Monster½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // ±ê´ë°¡ ¾Æ´Ï¸é
+    // ê·¸ëŸ° itemì´ ì—†ê±°ë‚˜
+    // ì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // Monsterì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // ê¹ƒëŒ€ê°€ ì•„ë‹ˆë©´
     if (pTableItem == NULL || pTableItem->getItemClass() != Item::ITEM_CLASS_CORPSE ||
         pTableItem->getItemType() != MONSTER_CORPSE ||
         !g_pFlagManager->isFlagPole(dynamic_cast<MonsterCorpse*>(pTableItem))) {
@@ -623,12 +623,12 @@ void CGRelicToObjectHandler::executeFlag(CGRelicToObject* pPacket, Player* pPlay
         return;
     }
 
-    // ¼º´Ü
+    // ì„±ë‹¨
     MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);
     Assert(pCorpse != NULL);
 
-    // 2Å¸ÀÏ ¾È¿¡ ÀÖÁö ¾Ê°Å³ª
-    // shrineÀ¸·Î ¼³Á¤ÀÌ ¾ÈµÇ¾î ÀÖÀ¸¸é
+    // 2íƒ€ì¼ ì•ˆì— ìˆì§€ ì•Šê±°ë‚˜
+    // shrineìœ¼ë¡œ ì„¤ì •ì´ ì•ˆë˜ì–´ ìˆìœ¼ë©´
     if (!verifyDistance(pCreature, pCorpse->getX(), pCorpse->getY(), 2) || !pCorpse->isShrine()) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -639,8 +639,8 @@ void CGRelicToObjectHandler::executeFlag(CGRelicToObject* pPacket, Player* pPlay
     }
 
     if (g_pFlagManager->putFlag(pPlayerCreature, pItem, pCorpse)) {
-        // putCastleSymbol ¾È¿¡¼­ Ã³¸®ÇÑ´Ù.
-        // cout << "±ê¹ß ²È¾ÒÁö·Õ~" << endl;
+        // putCastleSymbol ì•ˆì—ì„œ ì²˜ë¦¬í•œë‹¤.
+        // cout << "ê¹ƒë°œ ê½‚ì•˜ì§€ë¡±~" << endl;
     } else {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -683,10 +683,10 @@ void CGRelicToObjectHandler::executeSweeper(CGRelicToObject* pPacket, Player* pP
     const SweeperInfo* pSweeperInfo =
         dynamic_cast<SweeperInfo*>(g_pSweeperInfoManager->getItemInfo(pItem->getItemType()));
 
-    // ±×·± itemÀÌ ¾ø°Å³ª
-    // ½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // Monster½ÃÃ¼°¡ ¾Æ´Ï°Å³ª
-    // ±ê´ë°¡ ¾Æ´Ï¸é
+    // ê·¸ëŸ° itemì´ ì—†ê±°ë‚˜
+    // ì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // Monsterì‹œì²´ê°€ ì•„ë‹ˆê±°ë‚˜
+    // ê¹ƒëŒ€ê°€ ì•„ë‹ˆë©´
     if (pTableItem == NULL || pTableItem->getItemClass() != Item::ITEM_CLASS_CORPSE ||
         pTableItem->getItemType() != MONSTER_CORPSE ||
         !pLevelWarManager->isSafe(dynamic_cast<MonsterCorpse*>(pTableItem))) {
@@ -698,12 +698,12 @@ void CGRelicToObjectHandler::executeSweeper(CGRelicToObject* pPacket, Player* pP
         return;
     }
 
-    // ¼º´Ü
+    // ì„±ë‹¨
     MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);
     Assert(pCorpse != NULL);
 
-    // 2Å¸ÀÏ ¾È¿¡ ÀÖÁö ¾Ê°Å³ª
-    // shrineÀ¸·Î ¼³Á¤ÀÌ ¾ÈµÇ¾î ÀÖÀ¸¸é
+    // 2íƒ€ì¼ ì•ˆì— ìˆì§€ ì•Šê±°ë‚˜
+    // shrineìœ¼ë¡œ ì„¤ì •ì´ ì•ˆë˜ì–´ ìˆìœ¼ë©´
     if (!verifyDistance(pCreature, pCorpse->getX(), pCorpse->getY(), 2)) {
         GCCannotAdd _GCCannotAdd;
         _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -714,7 +714,7 @@ void CGRelicToObjectHandler::executeSweeper(CGRelicToObject* pPacket, Player* pP
     }
 
     if (pLevelWarManager->putSweeper(pPlayerCreature, pItem, pCorpse)) {
-        // Sweeper ¸¦ ²È¾ÒÀ¸¸é °¡Áö°í ÀÖ´ø °Ç Áö¿öÁØ´Ù
+        // Sweeper ë¥¼ ê½‚ì•˜ìœ¼ë©´ ê°€ì§€ê³  ìˆë˜ ê±´ ì§€ì›Œì¤€ë‹¤
         pPlayerCreature->deleteItemFromExtraInventorySlot();
         GCDeleteInventoryItem gcDeleteInventoryItem;
         gcDeleteInventoryItem.setObjectID(pPacket->getItemObjectID());
@@ -725,7 +725,7 @@ void CGRelicToObjectHandler::executeSweeper(CGRelicToObject* pPacket, Player* pP
             pEffect->setDeadline(0);
         }
 
-        // ²È¾ÒÀ» ¶§ Á¸¿¡ ½Ã½ºÅÛ ¸Ş¼¼Áö¸¦ »Ñ·ÁÁØ´Ù
+        // ê½‚ì•˜ì„ ë•Œ ì¡´ì— ì‹œìŠ¤í…œ ë©”ì„¸ì§€ë¥¼ ë¿Œë ¤ì¤€ë‹¤
         char race[15];
         if (pCreature->isSlayer()) {
             sprintf(race, g_pStringPool->c_str(STRID_SLAYER));

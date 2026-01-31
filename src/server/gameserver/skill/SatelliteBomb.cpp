@@ -19,44 +19,44 @@
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ÈËÀà ÎÀÐÇºä»÷¼¼ÄÜ 180¼¶
+// ÃˆÃ‹Ã€Ã  ÃŽÃ€ÃÃ‡ÂºÃ¤Â»Ã·Â¼Â¼Ã„Ãœ 180Â¼Â¶
 //////////////////////////////////////////////////////////////////////////////
 void SatelliteBomb::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
 {
     __BEGIN_TRY
 
-    // Êý¾Ý°²È«ÑéÖ¤
+    // ÃŠÃ½Â¾ÃÂ°Â²ÃˆÂ«Ã‘Ã©Ã–Â¤
     Assert(pSlayer != NULL);
     Assert(pSkillSlot != NULL);
 
     try {
-        // »ñÈ¡µ±Ç°µØÍ¼,²¢½øÐÐ°²È«ÑéÖ¤.¸ù¾ÝÄ¿±êIDÈ¡µÃ¶ÔÏó
+        // Â»Ã±ÃˆÂ¡ÂµÂ±Ã‡Â°ÂµÃ˜ÃÂ¼,Â²Â¢Â½Ã¸ÃÃÂ°Â²ÃˆÂ«Ã‘Ã©Ã–Â¤.Â¸Ã¹Â¾ÃÃ„Â¿Â±ÃªIDÃˆÂ¡ÂµÃƒÂ¶Ã”ÃÃ³
         Zone* pZone = pSlayer->getZone();
         Assert(pZone != NULL);
 
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 
 
-        // ¼ì²âÄ¿±ê¹¥»÷¿ÉÄÜÐÔ
+        // Â¼Ã¬Â²Ã¢Ã„Â¿Â±ÃªÂ¹Â¥Â»Ã·Â¿Ã‰Ã„ÃœÃÃ”
         if (pTargetCreature == NULL || !canAttack(pSlayer, pTargetCreature) || pTargetCreature->isNPC()) {
-            // Í¨Öª¿Í»§¶ËÊ¹ÓÃ¼¼ÄÜÊ§°Ü
+            // ÃÂ¨Ã–ÂªÂ¿ÃÂ»Â§Â¶Ã‹ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÃŠÂ§Â°Ãœ
             executeSkillFailException(pSlayer, getSkillType());
             return;
         }
-        // Ê¹ÓÃ¼¼ÄÜ
+        // ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„Ãœ
         execute(pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID);
     }
-    // ´íÎó´¦Àí
+    // Â´Ã­ÃŽÃ³Â´Â¦Ã€Ã­
     catch (Throwable& t) {
-        // Í¨Öª¿Í»§¶ËÊ¹ÓÃ¼¼ÄÜÊ§°Ü
+        // ÃÂ¨Ã–ÂªÂ¿ÃÂ»Â§Â¶Ã‹ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÃŠÂ§Â°Ãœ
         executeSkillFailException(pSlayer, getSkillType());
     }
     __END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¼¼ÄÜÔËÐÐº¯Êý pSlayer->Ê¹ÓÃ¼¼ÄÜ¶ÔÏó  X,Y->×ø±ê pSkillSlot->¼¼ÄÜÐÅÏ¢  CEffectID->Ð§¹ûID
+// Â¼Â¼Ã„ÃœÃ”Ã‹ÃÃÂºÂ¯ÃŠÃ½ pSlayer->ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÂ¶Ã”ÃÃ³  X,Y->Ã—Ã¸Â±Ãª pSkillSlot->Â¼Â¼Ã„ÃœÃÃ…ÃÂ¢  CEffectID->ÃÂ§Â¹Ã»ID
 //////////////////////////////////////////////////////////////////////////////
 void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -64,18 +64,18 @@ void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
     __BEGIN_TRY
 
     try {
-        // ¸ù¾ÝSlayer È¡µÃPlayer¶ÔÏóÖ¸Õë
+        // Â¸Ã¹Â¾ÃSlayer ÃˆÂ¡ÂµÃƒPlayerÂ¶Ã”ÃÃ³Ã–Â¸Ã•Ã«
         Player* pPlayer = pSlayer->getPlayer();
-        // ¸ù¾ÝSlayer È¡µÃµ±Ç°µØÍ¼Ö¸Õë
+        // Â¸Ã¹Â¾ÃSlayer ÃˆÂ¡ÂµÃƒÂµÂ±Ã‡Â°ÂµÃ˜ÃÂ¼Ã–Â¸Ã•Ã«
         Zone* pZone = pSlayer->getZone();
-        // ´íÎó´¦Àí
+        // Â´Ã­ÃŽÃ³Â´Â¦Ã€Ã­
         Assert(pPlayer != NULL);
         Assert(pZone != NULL);
 
-        // ¼ì²âÊÇ·ñÓÐ×°±¸ÎäÆ÷
+        // Â¼Ã¬Â²Ã¢ÃŠÃ‡Â·Ã±Ã“ÃÃ—Â°Â±Â¸ÃŽÃ¤Ã†Ã·
         Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
         if (pItem == NULL || isArmsWeapon(pItem) == false) {
-            // Í¨Öª¿Í»§¶ËÊ¹ÓÃ¼¼ÄÜÊ§°Ü
+            // ÃÂ¨Ã–ÂªÂ¿ÃÂ»Â§Â¶Ã‹ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÃŠÂ§Â°Ãœ
             executeSkillFailException(pSlayer, getSkillType());
             return;
         }
@@ -85,17 +85,17 @@ void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
         GCSkillToTileOK4 _GCSkillToTileOK4;
         GCSkillToTileOK5 _GCSkillToTileOK5;
         GCSkillToTileOK6 _GCSkillToTileOK6;
-        // »ñÈ¡µ±Ç°Ê¹ÓÃ¼¼ÄÜÀàÐÍ
+        // Â»Ã±ÃˆÂ¡ÂµÂ±Ã‡Â°ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÃ€Ã ÃÃ
         SkillType_t SkillType = pSkillSlot->getSkillType();
-        // »ñÈ¡Êý¾Ý¿âµ±Ç°Ê¹ÓÃ¼¼ÄÜÐÅÏ¢
+        // Â»Ã±ÃˆÂ¡ÃŠÃ½Â¾ÃÂ¿Ã¢ÂµÂ±Ã‡Â°ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÃÃ…ÃÂ¢
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
-        // RequiredMP  »ñÈ¡¼¼ÄÜÐèÒªÏûºÄµÄMPÖµ.
-        // bManaCheck  ¼ì²âµ±Ç°Ê¹ÓÃ¶ÔÏóÊÇ·ñÓÐ×ã¹»µÄMPÖµÏûºÄ.
-        // bTimeCheck  ¼ì²âµ±Ç°¼¼ÄÜÊ¹ÓÃÊ±¼ä¼ä¸ôÊÇ·ñ³¬³ö.
-        // bRangeCheck ¼ì²â¼¼ÄÜÊ¹ÓÃ¾àÀë.
-        // bEffected   ¼ì²âµ±Ç°¼¼ÄÜÊÇ·ñÔÚÊ¹ÓÃÖÐ.
-        // bTileCheck  ¼ì²âµ±Ç°µØÍ¼Ê¹ÓÃ¿ÉÄÜÐÔ
+        // RequiredMP  Â»Ã±ÃˆÂ¡Â¼Â¼Ã„ÃœÃÃ¨Ã’ÂªÃÃ»ÂºÃ„ÂµÃ„MPÃ–Âµ.
+        // bManaCheck  Â¼Ã¬Â²Ã¢ÂµÂ±Ã‡Â°ÃŠÂ¹Ã“ÃƒÂ¶Ã”ÃÃ³ÃŠÃ‡Â·Ã±Ã“ÃÃ—Ã£Â¹Â»ÂµÃ„MPÃ–ÂµÃÃ»ÂºÃ„.
+        // bTimeCheck  Â¼Ã¬Â²Ã¢ÂµÂ±Ã‡Â°Â¼Â¼Ã„ÃœÃŠÂ¹Ã“ÃƒÃŠÂ±Â¼Ã¤Â¼Ã¤Â¸Ã´ÃŠÃ‡Â·Ã±Â³Â¬Â³Ã¶.
+        // bRangeCheck Â¼Ã¬Â²Ã¢Â¼Â¼Ã„ÃœÃŠÂ¹Ã“ÃƒÂ¾Ã Ã€Ã«.
+        // bEffected   Â¼Ã¬Â²Ã¢ÂµÂ±Ã‡Â°Â¼Â¼Ã„ÃœÃŠÃ‡Â·Ã±Ã”ÃšÃŠÂ¹Ã“ÃƒÃ–Ã.
+        // bTileCheck  Â¼Ã¬Â²Ã¢ÂµÂ±Ã‡Â°ÂµÃ˜ÃÂ¼ÃŠÂ¹Ã“ÃƒÂ¿Ã‰Ã„ÃœÃÃ”
         int RequiredMP = pSkillInfo->getConsumeMP();
         bool bManaCheck = hasEnoughMana(pSlayer, RequiredMP);
         bool bTimeCheck = verifyRunTime(pSkillSlot);
@@ -111,9 +111,9 @@ void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
         }
         bool bUseSkill = false;
         /*
-        // È¡³öµ±Ç°Ê¹ÓÃ¼¼ÄÜ½ÇÉ«ËùÊ¹ÓÃµÄÎäÆ÷
+        // ÃˆÂ¡Â³Ã¶ÂµÂ±Ã‡Â°ÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„ÃœÂ½Ã‡Ã‰Â«Ã‹Ã¹ÃŠÂ¹Ã“ÃƒÂµÃ„ÃŽÃ¤Ã†Ã·
         Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
-        //Ã»ÓÐÎäÆ÷²»ÄÜÊ¹ÓÃ¼¼ÄÜ
+        //ÃƒÂ»Ã“ÃÃŽÃ¤Ã†Ã·Â²Â»Ã„ÃœÃŠÂ¹Ã“ÃƒÂ¼Â¼Ã„Ãœ
         if (pWeapon != NULL)
         {
             Silver_t silverDamage= pWeapon->getSilver();
@@ -126,30 +126,30 @@ void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
         }
         */
         bUseSkill = true;
-        // Èç¹ûÈ«²¿¼ì²âÍ¨¹ý,ÔòÖ´ÐÐ¼¼ÄÜº¯Êý.
+        // ÃˆÃ§Â¹Ã»ÃˆÂ«Â²Â¿Â¼Ã¬Â²Ã¢ÃÂ¨Â¹Ã½,Ã”Ã²Ã–Â´ÃÃÂ¼Â¼Ã„ÃœÂºÂ¯ÃŠÃ½.
         if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected && bTileCheck && bUseSkill) {
-            // ÉèÖÃÊ¹ÓÃ½ÇÉ«MP¼õÉÙ
+            // Ã‰Ã¨Ã–ÃƒÃŠÂ¹Ã“ÃƒÂ½Ã‡Ã‰Â«MPÂ¼ÃµÃ‰Ã™
             decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-            // ´´½¨¼¼ÄÜÊäÈëÊä³ö±äÁ¿,²¢¼ÆËã¼¼ÄÜÉËº¦µÈÐÅÏ¢.
+            // Â´Â´Â½Â¨Â¼Â¼Ã„ÃœÃŠÃ¤ÃˆÃ«ÃŠÃ¤Â³Ã¶Â±Ã¤ÃÂ¿,Â²Â¢Â¼Ã†Ã‹Ã£Â¼Â¼Ã„ÃœÃ‰Ã‹ÂºÂ¦ÂµÃˆÃÃ…ÃÂ¢.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             computeOutput(input, output);
 
             Tile& tile = pZone->getTile(X, Y);
 
-            // Èç¹ûEFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT¼¼ÄÜÐ§¹ûÔÚÊ¹ÓÃÖÐ,ÒÆ³ýÐ§¹û.
+            // ÃˆÃ§Â¹Ã»EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINTÂ¼Â¼Ã„ÃœÃÂ§Â¹Ã»Ã”ÃšÃŠÂ¹Ã“ÃƒÃ–Ã,Ã’Ã†Â³Ã½ÃÂ§Â¹Ã».
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // ´´½¨Ê¹ÓÃ½ÇÉ«Ð§¹û
+            // Â´Â´Â½Â¨ÃŠÂ¹Ã“ÃƒÂ½Ã‡Ã‰Â«ÃÂ§Â¹Ã»
             EffectSatelliteBombAim* pEffect = new EffectSatelliteBombAim(pSlayer, pZone, X, Y);
-            // ÉèÖÃÐ§¹ûÉËº¦
+            // Ã‰Ã¨Ã–ÃƒÃÂ§Â¹Ã»Ã‰Ã‹ÂºÂ¦
             pEffect->setDamage(output.Damage);
-            // ÉèÖÃÐ§¹ûÊ¹ÓÃÊ±¼ä
+            // Ã‰Ã¨Ã–ÃƒÃÂ§Â¹Ã»ÃŠÂ¹Ã“ÃƒÃŠÂ±Â¼Ã¤
             pEffect->setDeadline(output.Duration);
 
             pSlayer->addEffect(pEffect);
@@ -193,7 +193,7 @@ void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // SatelliteBombAim ÀÌÆåÆ®¸¦ ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+            // SatelliteBombAim Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÂºÃªÂ·ÃŽÂµÃ¥Ã„Â³Â½ÂºÃ†Ãƒ Ã‡Ã‘Â´Ã™.
             GCAddEffect gcAddAimEffect;
             gcAddAimEffect.setObjectID(pSlayer->getObjectID());
             gcAddAimEffect.setEffectID(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM);
@@ -201,7 +201,7 @@ void SatelliteBomb::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
             pZone->broadcastPacket(myX, myY, &gcAddAimEffect);
 
             ///////////////////////////////////////////////////////////////////
-            // SatelliteBombPoint ÀÌÆåÆ®¸¦ ¸¸µé¾î¼­ ºÙÀÌ°í ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+            // SatelliteBombPoint Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ Â¸Â¸ÂµÃ©Â¾Ã®Â¼Â­ ÂºÃ™Ã€ÃŒÂ°Ã­ ÂºÃªÂ·ÃŽÂµÃ¥Ã„Â³Â½ÂºÃ†Ãƒ Ã‡Ã‘Â´Ã™.
             ///////////////////////////////////////////////////////////////////
             EffectSatelliteBombPoint* pPointEffect = new EffectSatelliteBombPoint(pZone, X, Y);
             pPointEffect->setDeadline(output.Duration);
@@ -260,19 +260,19 @@ void SatelliteBomb::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) {
             ZoneCoord_t myX = pMonster->getX();
             ZoneCoord_t myY = pMonster->getY();
 
-            // °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é »èÁ¦ÇÑ´Ù.
+            // Â°Â°Ã€Âº Ã€ÃŒÃ†Ã¥Ã†Â®Â°Â¡ Ã€ÃŒÂ¹ÃŒ ÃÂ¸Ã€Ã§Ã‡Ã‘Â´Ã™Â¸Ã© Â»Ã¨ÃÂ¦Ã‡Ã‘Â´Ã™.
             Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT);
             if (pOldEffect != NULL) {
                 ObjectID_t effectID = pOldEffect->getObjectID();
                 pZone->deleteEffect(effectID);
             }
 
-            // µ¥¹ÌÁö¿Í Áö¼Ó ½Ã°£À» °è»êÇÑ´Ù.
+            // ÂµÂ¥Â¹ÃŒÃÃ¶Â¿Ã ÃÃ¶Â¼Ã“ Â½ÃƒÂ°Â£Ã€Â» Â°Ã¨Â»ÃªÃ‡Ã‘Â´Ã™.
             SkillInput input(pMonster);
             SkillOutput output;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù.
+            // Ã€ÃŒÃ†Ã¥Ã†Â® Â¿Ã€ÂºÃªÃÂ§Ã†Â®Â¸Â¦ Â»Ã½Â¼ÂºÃ‡Ã‘Â´Ã™.
             EffectSatelliteBombAim* pEffect = new EffectSatelliteBombAim(pMonster, pZone, X, Y);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamage(output.Damage);
@@ -306,7 +306,7 @@ void SatelliteBomb::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) {
             pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK3, cList);
             pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
 
-            // SatelliteBombAim ÀÌÆåÆ®¸¦ ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+            // SatelliteBombAim Ã€ÃŒÃ†Ã¥Ã†Â®Â¸Â¦ ÂºÃªÂ·ÃŽÂµÃ¥Ã„Â³Â½ÂºÃ†Ãƒ Ã‡Ã‘Â´Ã™.
             GCAddEffect gcAddAimEffect;
             gcAddAimEffect.setObjectID(pMonster->getObjectID());
             gcAddAimEffect.setEffectID(Effect::EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM);

@@ -56,7 +56,7 @@ void EffectDarkBluePoison::affect(Creature* pCreature)
     Assert(pCreature != NULL);
 
     if (canAttack(NULL, pCreature)) {
-        // ½½·¹ÀÌ¾îÀÏ °æ¿ì¿¡¸¸ µ¶ µ¥¹ÌÁö°¡ Á¸ÀçÇÑ´Ù.
+        // ìŠ¬ë ˆì´ì–´ì¼ ê²½ìš°ì—ë§Œ ë… ë°ë¯¸ì§€ê°€ ì¡´ìž¬í•œë‹¤.
         if (pCreature->isSlayer()) {
             Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
             Assert(pSlayer != NULL);
@@ -80,7 +80,7 @@ void EffectDarkBluePoison::affect(Creature* pCreature)
 
             // int PoisonDamage = computeMagicDamage(pOusters, m_Damage, SKILL_DARKBLUE_POISON);
 
-            // ¾Æ¿ì½ºÅÍÁî´Â 1/2¸¸ ±ðÀÎ´Ù.
+            // ì•„ìš°ìŠ¤í„°ì¦ˆëŠ” 1/2ë§Œ ê¹Žì¸ë‹¤.
             MP_t CurrentMP = pOusters->getMP(ATTR_CURRENT);
             MP_t RemainMP = max(0, (int)CurrentMP - (m_Damage / 2));
 
@@ -123,7 +123,7 @@ void EffectDarkBluePoison::unaffect(Creature* pCreature)
 
     Assert(pCreature != NULL);
 
-    // Å©¸®ÃÄ¿¡°Ô¼­ ÇÃ·¡±×¸¦ Á¦°ÅÇÑ´Ù.
+    // í¬ë¦¬ì³ì—ê²Œì„œ í”Œëž˜ê·¸ë¥¼ ì œê±°í•œë‹¤.
     pCreature->removeFlag(Effect::EFFECT_CLASS_DARKBLUE_POISON);
 
     Zone* pZone = pCreature->getZone();

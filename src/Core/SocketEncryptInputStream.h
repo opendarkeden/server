@@ -38,10 +38,10 @@ public:
 public:
     // read data to stream (output buffer)
     // *CAUTION*
-    // string À» ¹öÆÛ¿¡ writing ÇÒ ¶§, ÀÚµ¿À¸·Î size ¸¦ ¾Õ¿¡ ºÙÀÏ ¼öµµ ÀÖ´Ù.
-    // ±×·¯³ª, string ÀÇ Å©±â¸¦ BYTE/WORD Áß ¾î´À °ÍÀ¸·Î ÇÒ °ÇÁö´Â ÀÇ¹®ÀÌ´Ù.
-    // ÆÐÅ¶ÀÇ Å©±â´Â ÀÛÀ» ¼ö·Ï ÁÁ´Ù´Â Á¤Ã¥ÇÏ¿¡¼­ ÇÊ¿ä¿¡ µû¶ó¼­ string size °ªÀ»
-    // BYTE ¶Ç´Â WORD ¸¦ ¼öµ¿À¸·Î »ç¿ëÇÏµµ·Ï ÇÑ´Ù.
+    // string ì„ ë²„í¼ì— writing í•  ë•Œ, ìžë™ìœ¼ë¡œ size ë¥¼ ì•žì— ë¶™ì¼ ìˆ˜ë„ ìžˆë‹¤.
+    // ê·¸ëŸ¬ë‚˜, string ì˜ í¬ê¸°ë¥¼ BYTE/WORD ì¤‘ ì–´ëŠ ê²ƒìœ¼ë¡œ í•  ê±´ì§€ëŠ” ì˜ë¬¸ì´ë‹¤.
+    // íŒ¨í‚·ì˜ í¬ê¸°ëŠ” ìž‘ì„ ìˆ˜ë¡ ì¢‹ë‹¤ëŠ” ì •ì±…í•˜ì—ì„œ í•„ìš”ì— ë”°ë¼ì„œ string size ê°’ì„
+    // BYTE ë˜ëŠ” WORD ë¥¼ ìˆ˜ë™ìœ¼ë¡œ ì‚¬ìš©í•˜ë„ë¡ í•œë‹¤.
     uint readEncrypt(bool& buf) {
         uint n = read(buf);
         buf = m_Encrypter.convert(buf);

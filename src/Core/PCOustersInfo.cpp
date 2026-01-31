@@ -63,9 +63,9 @@ void PCOustersInfo::read(SocketInputStream& iStream) {
     BYTE shapeType;
     iStream.read(shapeType);
 
-    // 1,2,3 bit Àº CoatType ÀÌ´Ù
+    // 1,2,3 bit ì€ CoatType ì´ë‹¤
     m_CoatType = (OustersCoatType)(shapeType & 7);
-    // 4 bit Àº ArmType ÀÌ´Ù
+    // 4 bit ì€ ArmType ì´ë‹¤
     m_ArmType = (OustersArmType)((shapeType >> 3) & 1);
 
     //--------------------------------------------------
@@ -156,8 +156,8 @@ void PCOustersInfo::write(SocketOutputStream& oStream) const {
     //--------------------------------------------------
     // write Shape
     //--------------------------------------------------
-    // 1,2,3 bit Àº CoatType ÀÌ´Ù
-    // 4 bit Àº ArmType ÀÌ´Ù
+    // 1,2,3 bit ì€ CoatType ì´ë‹¤
+    // 4 bit ì€ ArmType ì´ë‹¤
     BYTE shapeType = 0;
     shapeType = (m_ArmType << 3) | m_CoatType;
     oStream.write(shapeType);

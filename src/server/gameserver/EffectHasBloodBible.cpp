@@ -69,7 +69,7 @@ else
     msg << pVampire->getName();
 }
 
-msg << " ´ÔÀÌ ½½·¹ÀÌ¾î ¼º¹°À» °¡Á³½À´Ï´Ù.";
+msg << " ë‹˜ì´ ìŠ¬ë ˆì´ì–´ ì„±ë¬¼ì„ ê°€ì¡ŒìŠµë‹ˆë‹¤.";
 
 GCSystemMessage gcSystemMessage;
 gcSystemMessage.setMessage(msg.toString());
@@ -77,7 +77,7 @@ gcSystemMessage.setMessage(msg.toString());
 g_pZoneGroupManager->broadcast( &gcSystemMessage );
 */
 
-    // Á¸ Á¤º¸¸¦ ¾ò´Â´Ù.
+    // ì¡´ ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤.
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
@@ -85,11 +85,11 @@ g_pZoneGroupManager->broadcast( &gcSystemMessage );
     ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( pZone->getZoneID() );
     Assert( pZoneInfo != NULL );
 
-    // À§Ä¡¸¦ ¾Ë¸°´Ù.
+    // ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
     StringStream msg;
-    msg << pCreature->getName() << " ´Ô(" << ( pCreature->isSlayer() ? "½½·¹ÀÌ¾î" : "¹ìÆÄÀÌ¾î" ) << ")ÀÌ "
+    msg << pCreature->getName() << " ë‹˜(" << ( pCreature->isSlayer() ? "ìŠ¬ë ˆì´ì–´" : "ë±€íŒŒì´ì–´" ) << ")ì´ "
         << pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
-        << ")¿¡¼­ ÇÇÀÇ ¼º¼­ Á¶°¢(" << m_PartName << ")À» °¡Áö°í ÀÖ½À´Ï´Ù.";
+        << ")ì—ì„œ í”¼ì˜ ì„±ì„œ ì¡°ê°(" << m_PartName << ")ì„ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤.";
 
     GCSystemMessage gcSystemMessage;
     gcSystemMessage.setMessage(msg.toString());
@@ -134,10 +134,10 @@ void EffectHasBloodBible::affect(Item* pItem)
     ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
     Assert( pZoneInfo != NULL );
 
-    // À§Ä¡¸¦ ¾Ë¸°´Ù.
+    // ìœ„ì¹˜ë¥¼ ì•Œë¦°ë‹¤.
     StringStream msg;
     msg << pZoneInfo->getFullName() << "(" << (int)m_X << ", " << (int)m_Y
-        << ")ÀÇ ¼º´Ü¿¡ ÇÇÀÇ ¼º¼­ Á¶°¢(" << m_PartName << ")ÀÌ ÀÖ½À´Ï´Ù.";
+        << ")ì˜ ì„±ë‹¨ì— í”¼ì˜ ì„±ì„œ ì¡°ê°(" << m_PartName << ")ì´ ìˆìŠµë‹ˆë‹¤.";
 
     GCSystemMessage gcSystemMessage;
     gcSystemMessage.setMessage(msg.toString());
@@ -158,7 +158,7 @@ void EffectHasBloodBible::affect(Item* pItem)
     pGCBBS->setX(m_X);
     pGCBBS->setY(m_Y);
 
-    // ¼º¿¡ ÀüÀïÀÌ ÁøÇàÁßÀÎ °æ¿ì¸¸ ¸Ş¼¼Áö¸¦ º¸³»ÁØ´Ù.
+    // ì„±ì— ì „ìŸì´ ì§„í–‰ì¤‘ì¸ ê²½ìš°ë§Œ ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
     if (g_pWarSystem->hasActiveRaceWar()) {
         g_pHolyLandManager->broadcast(pGCBBS);
     }

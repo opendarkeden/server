@@ -39,9 +39,9 @@ public:
     virtual void processCommand() throw(IOException, Error);
 
     // disconnect
-    // ÇÃ·¹ÀÌ¾îÀÇ ¿¬°áÀ» Á¾·áÇÒ ¶§, »ó´ëÆíÀÌ ÀûÀýÇÏ°Ô ·Î±×¾Æ¿ôÇÏÁö ¾ÊÀ» °æ¿ì ¼ÒÄÏÀÇ ¿¬°áÀÌ
-    // ÀÌ¹Ì ²÷°Ü ÀÖÀ¸¹Ç·Î disconnect(DISCONNECTED) ¸¦ »ç¿ëÇØ¼­ ¿¬°áÀ» Á¾·áÇØ¾ß ÇÑ´Ù. ¹Ý¸é,
-    // Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÀ» ÇÑ °æ¿ì¿¡´Â disconnect(UNDISCONNECTED) ¸¦ »ç¿ëÇØ¾ß ÇÑ´Ù.
+    // í”Œë ˆì´ì–´ì˜ ì—°ê²°ì„ ì¢…ë£Œí•  ë•Œ, ìƒëŒ€íŽ¸ì´ ì ì ˆí•˜ê²Œ ë¡œê·¸ì•„ì›ƒí•˜ì§€ ì•Šì„ ê²½ìš° ì†Œì¼“ì˜ ì—°ê²°ì´
+    // ì´ë¯¸ ëŠê²¨ ìžˆìœ¼ë¯€ë¡œ disconnect(DISCONNECTED) ë¥¼ ì‚¬ìš©í•´ì„œ ì—°ê²°ì„ ì¢…ë£Œí•´ì•¼ í•œë‹¤. ë°˜ë©´,
+    // ì •ë‹¹í•˜ê²Œ ë¡œê·¸ì•„ì›ƒì„ í•œ ê²½ìš°ì—ëŠ” disconnect(UNDISCONNECTED) ë¥¼ ì‚¬ìš©í•´ì•¼ í•œë‹¤.
     virtual void disconnect(bool bDisconnected = DISCONNECTED) throw(InvalidProtocolException, Error);
 
     void sendPacket(MPacket* pPacket) throw(ProtocolException, Error);

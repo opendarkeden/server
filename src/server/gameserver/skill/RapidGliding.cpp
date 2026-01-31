@@ -12,7 +12,7 @@
 #include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î Å¸ÀÏ ÇÚµé·¯
+// ë±€íŒŒì´ì–´ íƒ€ì¼ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -32,8 +32,8 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
         SkillType_t SkillType = pVampireSkillSlot->getSkillType();
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
+        // NoSuchì œê±°. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
         //		bool bIncreaseDomainExp = pVampire->isRealWearingEx(Vampire::WEAR_RIGHTHAND);
 
         GCSkillToTileOK1 _GCSkillToTileOK1;
@@ -59,7 +59,7 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
         bool bPassLine = isPassLine(pZone, pVampire->getX(), pVampire->getY(), X, Y);
 
         if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected && bPassLine) {
-            // ºü¸£°Ô PC¸¦ ¿òÁ÷¿©ÁØ´Ù.
+            // ë¹ ë¥´ê²Œ PCë¥¼ ì›€ì§ì—¬ì¤€ë‹¤.
             if (pZone->moveFastPC(pVampire, pVampire->getX(), pVampire->getY(), X, Y, getSkillType())) {
                 decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
@@ -77,10 +77,10 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
                 _GCSkillToTileOK5.setRange(0);
                 _GCSkillToTileOK5.setDuration(0);
 
-                // ÀÚ½Å¿¡°Ô ¹Ù²ï HP¸¦ ¾Ë·ÁÁØ´Ù.
+                // ìžì‹ ì—ê²Œ ë°”ë€ HPë¥¼ ì•Œë ¤ì¤€ë‹¤.
                 pPlayer->sendPacket(&_GCSkillToTileOK1);
 
-                // ÁÖÀ§¿¡ HP°¡ ¹Ù²¼´Ù°í ¾Ë¸°´Ù.
+                // ì£¼ìœ„ì— HPê°€ ë°”ê¼ˆë‹¤ê³  ì•Œë¦°ë‹¤.
                 GCStatusCurrentHP gcStatusCurrentHP;
                 gcStatusCurrentHP.setObjectID(pVampire->getObjectID());
                 gcStatusCurrentHP.setCurrentHP(pVampire->getHP());
@@ -104,7 +104,7 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
     __END_CATCH
 }
 //////////////////////////////////////////////////////////////////////////////
-// ¹ìÆÄÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ë±€íŒŒì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void RapidGliding::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
                            CEffectID_t CEffectID)
@@ -127,8 +127,8 @@ void RapidGliding::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
         // SkillType_t       SkillType  = pVampireSkillSlot->getSkillType();
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
-        // NPC´Â °ø°ÝÇÒ ¼ö°¡ ¾ø´Ù.
+        // NoSuchì œê±°. by sigi. 2002.5.2
+        // NPCëŠ” ê³µê²©í•  ìˆ˜ê°€ ì—†ë‹¤.
         if (pTargetCreature == NULL) {
             executeSkillFailException(pVampire, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -154,7 +154,7 @@ void RapidGliding::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
                 if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected )
                 {
 
-                    // ºü¸£°Ô PC¸¦ ¿òÁ÷¿©ÁØ´Ù.
+                    // ë¹ ë¥´ê²Œ PCë¥¼ ì›€ì§ì—¬ì¤€ë‹¤.
                     if (pZone->moveFastPC(pVampire, pVampire->getX(), pVampire->getY(), pTargetCreature->getX(),
            pTargetCreature->getY()))
                     {
@@ -162,10 +162,10 @@ void RapidGliding::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
                         decreaseMana(pVampire, RequiredMP, gcMI);
 
-                        // ÀÚ½Å¿¡°Ô ¹Ù²ï HP¸¦ ¾Ë·ÁÁØ´Ù.
+                        // ìžì‹ ì—ê²Œ ë°”ë€ HPë¥¼ ì•Œë ¤ì¤€ë‹¤.
                         pPlayer->sendPacket( &gcMI );
 
-                        // ÁÖÀ§¿¡ HP°¡ ¹Ù²¼´Ù°í ¾Ë¸°´Ù.
+                        // ì£¼ìœ„ì— HPê°€ ë°”ê¼ˆë‹¤ê³  ì•Œë¦°ë‹¤.
                         GCStatusCurrentHP gcStatusCurrentHP;
                         gcStatusCurrentHP.setObjectID(pVampire->getObjectID());
                         gcStatusCurrentHP.setCurrentHP(pVampire->getHP());

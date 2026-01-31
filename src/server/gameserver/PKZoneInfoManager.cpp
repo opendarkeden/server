@@ -36,7 +36,7 @@ void PKZoneInfoManager::load()
         Result* pResult =
             pStmt->executeQuery("SELECT ZoneID, Race, EnterX, EnterY, ResurrectX, ResurrectY, PCLimit FROM PKZoneInfo");
 
-        // UPDATEÀÎ °æ¿ì´Â Result* ´ë½Å¿¡.. pStmt->getAffectedRowCount()
+        // UPDATEì¸ ê²½ìš°ëŠ” Result* ëŒ€ì‹ ì—.. pStmt->getAffectedRowCount()
 
         while (pResult->next()) {
             int count = 0;

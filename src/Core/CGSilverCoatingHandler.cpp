@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGSilverCoatingHandler.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -47,13 +47,13 @@ void CGSilverCoatingHandler::execute(CGSilverCoating* pPacket, Player* pPlayer)
     int Y = 0;
     GCNPCResponse response;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ½½·¹ÀÌ¾îÀÎÁö ¹ìÆÄÀÌ¾îÀÎÁö ±¸ºĞ.
+    // í”Œë ˆì´ì–´ê°€ ìŠ¬ë ˆì´ì–´ì¸ì§€ ë±€íŒŒì´ì–´ì¸ì§€ êµ¬ë¶„.
     if (pPC->isSlayer())
         bSlayer = true;
     else if (pPC->isVampire())
         bSlayer = false;
 
-    // ÇÃ·¹ÀÌ¾î°¡ ÄÚÆÃÇÏ·Á°í ÇÏ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö °Ë»ç
+    // í”Œë ˆì´ì–´ê°€ ì½”íŒ…í•˜ë ¤ê³  í•˜ëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬
     if (bSlayer) {
         pSlayer = dynamic_cast<Slayer*>(pPC);
         playerMoney = pSlayer->getGold();
@@ -64,14 +64,14 @@ void CGSilverCoatingHandler::execute(CGSilverCoating* pPacket, Player* pPlayer)
         pItem = pVampire->findItemOID(ITEMOID, storage, X, Y);
     }
 
-    // ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ÄÚÆÃÇÒ ¼ö ¾ø´Ù.
+    // ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë‹¹ì—°íˆ ì½”íŒ…í•  ìˆ˜ ì—†ë‹¤.
     if (pItem == NULL) {
         response.setCode(NPC_RESPONSE_SILVER_COATING_FAIL_ITEM_NOT_EXIST);
         pPlayer->sendPacket(&response);
         return;
     }
 
-    // ÄÚÆÃÇÏ·Á´Â ¾ÆÀÌÅÛÀÌ ÄÚÆÃµÉ ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ¶ó¸é...
+    // ì½”íŒ…í•˜ë ¤ëŠ” ì•„ì´í…œì´ ì½”íŒ…ë  ìˆ˜ ì—†ëŠ” ì•„ì´í…œì´ë¼ë©´...
     switch (pItem->getItemClass()) {
     case Item::ITEM_CLASS_BLADE:
     case Item::ITEM_CLASS_SWORD:
@@ -91,11 +91,11 @@ void CGSilverCoatingHandler::execute(CGSilverCoating* pPacket, Player* pPlayer)
         return;
     }
 
-    // ÃÖ´ë Àº µµ±İ·®À» ¾ò¾î¿Í¼­... µµ±İÇÑ´Ù.
+    // ìµœëŒ€ ì€ ë„ê¸ˆëŸ‰ì„ ì–»ì–´ì™€ì„œ... ë„ê¸ˆí•œë‹¤.
     ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
     pItem->setSilver(pItemInfo->getMaxSilver());
 
-    // µ·À» ÁÙÀÎ´Ù.
+    // ëˆì„ ì¤„ì¸ë‹¤.
     if (bSlayer) {
         // pSlayer->setGoldEx(playerMoney - coatingPrice);
 
@@ -110,16 +110,16 @@ void CGSilverCoatingHandler::execute(CGSilverCoating* pPacket, Player* pPlayer)
         // log(LOG_REPAIR_ITEM, pVampire->getName(), "", pItem->toString());
     }
 
-    // silver¸¸ ÀúÀåÇÏ¸é µÈ´Ù.
-    // ¾ÆÀÌÅÛ ÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+    // silverë§Œ ì €ì¥í•˜ë©´ ëœë‹¤.
+    // ì•„ì´í…œ ì €ì¥ ìµœì í™”. by sigi. 2002.5.13
     char pField[80];
     sprintf(pField, "Silver=%d", pItem->getSilver());
     pItem->tinysave(pField);
 
-    // ¾ÆÀÌÅÛÀ» ÀºÀ¸·Î ÄÚÆÃÇß´Ù´Â Á¤º¸¸¦ DB¿¡´Ù°¡ ÀúÀåÇØÁØ´Ù.
-    // ´Ü ºĞ¸íÈ÷ STORAGE_STASH°¡ µ¹¾Æ¿Ã ¼ö ÀÖÁö¸¸,
-    // º¸°üÇÔ¿¡ ÀÖ´Â °ÍÀ» ¼ö¸®ÇÑ´Ù´Â °ÍÀº ¸»ÀÌ ¾È µÇ¹Ç·Î,
-    // ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+    // ì•„ì´í…œì„ ì€ìœ¼ë¡œ ì½”íŒ…í–ˆë‹¤ëŠ” ì •ë³´ë¥¼ DBì—ë‹¤ê°€ ì €ì¥í•´ì¤€ë‹¤.
+    // ë‹¨ ë¶„ëª…íˆ STORAGE_STASHê°€ ëŒì•„ì˜¬ ìˆ˜ ìˆì§€ë§Œ,
+    // ë³´ê´€í•¨ì— ìˆëŠ” ê²ƒì„ ìˆ˜ë¦¬í•œë‹¤ëŠ” ê²ƒì€ ë§ì´ ì•ˆ ë˜ë¯€ë¡œ,
+    // ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
     /*
     switch (storage)
     {
@@ -135,7 +135,7 @@ void CGSilverCoatingHandler::execute(CGSilverCoating* pPacket, Player* pPlayer)
     }
     */
 
-    // OK ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+    // OK íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
     response.setCode(NPC_RESPONSE_SILVER_COATING_OK);
     response.setParameter(playerMoney - coatingPrice);
     pPlayer->sendPacket(&response);

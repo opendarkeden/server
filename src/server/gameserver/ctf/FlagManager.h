@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////
 // FlagManager.h
 //
-// GlobalÇÏ°Ô 1°³¸¸ µ¹¾Æ°¡¾ß ÇÑ´Ù.
+// Globalí•˜ê²Œ 1ê°œë§Œ ëŒì•„ê°€ì•¼ í•œë‹¤.
 ///////////////////////////////////////////////////////////////////
 
 #ifndef __FLAG_MANAGER_H__
@@ -130,7 +130,7 @@ private:
     map<RACEINDEX, uint> m_FlagCount;
     mutable Mutex m_Mutex;
 
-    // Á¾Á· Ãß°¡ÇÒ ÀÏ ¾ø°ÚÁö? -_-;
+    // ì¢…ì¡± ì¶”ê°€í•  ì¼ ì—†ê² ì§€? -_-;
     map<MonsterCorpse*, Race_t> m_FlagPoles;
     GCFlagWarStatus m_StatusPacket;
 

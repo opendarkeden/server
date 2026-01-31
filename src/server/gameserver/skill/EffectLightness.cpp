@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectLightness.cpp
 // Written by  : excel96
-// Description : Lightness¿¡ ÀÇÇØ¼­ »ý¼ºµÇ´Â »ê¼º µ¥¹ÌÁö ¾àÈ­ ÀÌÆåÆ®ÀÌ´Ù.
+// Description : Lightnessì— ì˜í•´ì„œ ìƒì„±ë˜ëŠ” ì‚°ì„± ë°ë¯¸ì§€ ì•½í™” ì´íŽ™íŠ¸ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectLightness.h"
@@ -49,7 +49,7 @@ void EffectLightness::unaffect()
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ÀÌÆåÆ®°¡ »ç¶óÁ³´Ù°í ¾Ë·ÁÁØ´Ù.
+    // ì´íŽ™íŠ¸ê°€ ì‚¬ë¼ì¡Œë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
     GCRemoveEffect gcRemoveEffect;
     gcRemoveEffect.setObjectID(pCreature->getObjectID());
     gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_LIGHTNESS);

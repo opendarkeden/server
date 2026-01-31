@@ -27,14 +27,14 @@ GCGuildMemberList::~GCGuildMemberList()
 {
     __BEGIN_TRY
 
-    // ±æµå ¸®½ºÆ®ÀÇ ¸ğµç °´Ã¼¸¦ »èÁ¦
+    // ê¸¸ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ëª¨ë“  ê°ì²´ë¥¼ ì‚­ì œ
     clearGuildMemberInfoList();
 
     __END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCGuildMemberList::read(SocketInputStream& iStream)
 
@@ -57,7 +57,7 @@ void GCGuildMemberList::read(SocketInputStream& iStream)
 
 
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void GCGuildMemberList::write(SocketOutputStream& oStream) const
 
@@ -85,7 +85,7 @@ void GCGuildMemberList::clearGuildMemberInfoList()
 {
     __BEGIN_TRY
 
-    // GuildMemberInfoList ¸¦ »èÁ¦ÇÑ´Ù
+    // GuildMemberInfoList ë¥¼ ì‚­ì œí•œë‹¤
     while (!m_GuildMemberInfoList.empty()) {
         GuildMemberInfo* pGuildMemberInfo = m_GuildMemberInfoList.front();
         m_GuildMemberInfoList.pop_front();

@@ -15,13 +15,13 @@ void QuestPricePenalty::affect(Creature* pCreature) throw(Error) {
     if (pCreature == NULL)
         return;
 
-    // pCreatureÀÇ gold°¨¼Ò
-    // pCreatureÀÇ rankExp°¨¼Ò
-    // pCreatureÀÇ fame°¨¼Ò
+    // pCreatureì˜ goldê°ì†Œ
+    // pCreatureì˜ rankExpê°ì†Œ
+    // pCreatureì˜ fameê°ì†Œ
     cout << "[Penalty to " << pCreature->getName().c_str() << "] "
          << "Gold=" << (int)getGold() << ", RankExp=" << (int)getRankExp() << ", Fame=" << (int)getFame() << endl;
 
-    // º¯È­µÈ °ªµéÀ» DB¿¡ ÀúÀå
+    // ë³€í™”ëœ ê°’ë“¤ì„ DBì— ì €ì¥
 
     __END_CATCH
 }

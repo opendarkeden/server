@@ -29,16 +29,16 @@
 class SkillInfo;
 
 #define OUSTERS_MAX_LEVEL 150 // abcd
-#define OUSTERS_MAX_RANK 50   // °è±Ş max
+#define OUSTERS_MAX_RANK 50   // ê³„ê¸‰ max
 #define OUSTERS_MAX_SUM 492
 #define OUSTERS_MAX_ATTR 472
-#define BONUS_POINTS_PER_LEVEL1 3 // ·¹º§¾÷½Ã ÁÖ¾îÁö´Â ´É·ÂÄ¡ point
-#define BONUS_POINTS_PER_LEVEL2 2 // ·¹º§¾÷½Ã ÁÖ¾îÁö´Â ´É·ÂÄ¡ point
-#define BONUS_POINTS_PER_LEVEL3 1 // ·¹º§¾÷½Ã ÁÖ¾îÁö´Â ´É·ÂÄ¡ point
+#define BONUS_POINTS_PER_LEVEL1 3 // ë ˆë²¨ì—…ì‹œ ì£¼ì–´ì§€ëŠ” ëŠ¥ë ¥ì¹˜ point
+#define BONUS_POINTS_PER_LEVEL2 2 // ë ˆë²¨ì—…ì‹œ ì£¼ì–´ì§€ëŠ” ëŠ¥ë ¥ì¹˜ point
+#define BONUS_POINTS_PER_LEVEL3 1 // ë ˆë²¨ì—…ì‹œ ì£¼ì–´ì§€ëŠ” ëŠ¥ë ¥ì¹˜ point
 
 ////////////////////////////////////////////////////////////////////////////////
-// Àåºñ¸¦ ÀÔ°í ¹şÀ» ¶§ Àåºñ ÀÔ°í ¹ş±â ÀüÀÇ ´É·ÂÄ¡¸¦
-// ÀúÀåÇØ µÎ±â À§ÇÑ ¹öÆÛ(?) Å¬·¡½º
+// ì¥ë¹„ë¥¼ ì…ê³  ë²—ì„ ë•Œ ì¥ë¹„ ì…ê³  ë²—ê¸° ì „ì˜ ëŠ¥ë ¥ì¹˜ë¥¼
+// ì €ì¥í•´ ë‘ê¸° ìœ„í•œ ë²„í¼(?) í´ë˜ìŠ¤
 ////////////////////////////////////////////////////////////////////////////////
 
 class OUSTERS_RECORD {
@@ -65,10 +65,10 @@ public:
 
 class Ousters : public PlayerCreature {
     ////////////////////////////////////////////////////
-    // Å¬·¡½º ³»ºÎ »ó¼ö ¼±¾ğ
+    // í´ë˜ìŠ¤ ë‚´ë¶€ ìƒìˆ˜ ì„ ì–¸
     ////////////////////////////////////////////////////
 public:
-    // ÀåÂø ºÎÀ§
+    // ì¥ì°© ë¶€ìœ„
     enum WearPart {
         WEAR_CIRCLET,
         WEAR_COAT,
@@ -96,14 +96,14 @@ public:
     };
 
     ////////////////////////////////////////////////////
-    // »ı¼ºÀÚ/¼Ò¸êÀÚ
+    // ìƒì„±ì/ì†Œë©¸ì
     ////////////////////////////////////////////////////
 public:
     Ousters();
     virtual ~Ousters();
 
     ////////////////////////////////////////////////////
-    // ÇÏÀ§ Å¬·¡½º(Creature) »ó¼Ó ÇÔ¼ö
+    // í•˜ìœ„ í´ë˜ìŠ¤(Creature) ìƒì† í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     virtual CreatureClass getCreatureClass() const {
@@ -138,14 +138,14 @@ public:
     }
 
     //////////////////////////////////////////////////////////////
-    // ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ °ü·Ã ÇÔ¼ö
+    // ì‹œê°„ì œí•œ ì•„ì´í…œ ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     void checkItemTimeLimit();
     void updateEventItemTime(DWORD time);
 
     ////////////////////////////////////////////////////
-    // »óÅÂ °ü·Ã ÇÔ¼ö(Dead or Alive!)
+    // ìƒíƒœ ê´€ë ¨ í•¨ìˆ˜(Dead or Alive!)
     ////////////////////////////////////////////////////
 public:
     bool isAlive() const {
@@ -157,7 +157,7 @@ public:
 
 
     ////////////////////////////////////////////////////
-    // °Ñ¸ğ½À °ü·Ã ÇÔ¼ö(ÀÌ¸§, ±ÇÇÑ, ¼ºº°, ¸Ó¸®, ÇÇºÎ)
+    // ê²‰ëª¨ìŠµ ê´€ë ¨ í•¨ìˆ˜(ì´ë¦„, ê¶Œí•œ, ì„±ë³„, ë¨¸ë¦¬, í”¼ë¶€)
     ////////////////////////////////////////////////////
 public:
     const string& getName() const {
@@ -205,7 +205,7 @@ public:
     }
 
     ////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °ü·Ã ÇÔ¼ö(STR, DEX, INT)
+    // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ í•¨ìˆ˜(STR, DEX, INT)
     ////////////////////////////////////////////////////
 public:
     Alignment_t getAlignment() const {
@@ -238,7 +238,7 @@ public:
     }
 
     ////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °ü·Ã ÇÔ¼ö(HP)
+    // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ í•¨ìˆ˜(HP)
     ////////////////////////////////////////////////////
 public:
     HP_t getHP(AttrType attrType = ATTR_CURRENT) const {
@@ -264,7 +264,7 @@ public:
     }
 
     ////////////////////////////////////////////////////
-    // ´É·ÂÄ¡ °ü·Ã ÇÔ¼ö(Damage, Protect, Defense, ToHit)
+    // ëŠ¥ë ¥ì¹˜ ê´€ë ¨ í•¨ìˆ˜(Damage, Protect, Defense, ToHit)
     ////////////////////////////////////////////////////
 public:
     Damage_t getDamage(AttrType attrType = ATTR_CURRENT) const {
@@ -284,7 +284,7 @@ public:
     }
 
     ////////////////////////////////////////////////////
-    // °æÇèÄ¡ °ü·Ã ÇÔ¼ö
+    // ê²½í—˜ì¹˜ ê´€ë ¨ í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     //	Exp_t getExp() const  { return m_Exp; }
@@ -313,7 +313,7 @@ public:
         return getLevel();
     }
 
-    // °è±Ş. by sigi. 2002.8.30
+    // ê³„ê¸‰. by sigi. 2002.8.30
     /*	Rank_t  getRank() const  { return m_Rank; }
         void    setRank(Rank_t rank)  { m_Rank = rank; }
         RankExp_t   getRankExp() const  { return m_RankExp; }
@@ -339,7 +339,7 @@ public:
     SkillBonus_t getSumOfUsedSkillBonus() const;
 
     ////////////////////////////////////////////////////
-    // ½ºÅ³ °ü·Ã ÇÔ¼ö
+    // ìŠ¤í‚¬ ê´€ë ¨ í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     void addSkill(SkillType_t SkillType);
@@ -354,7 +354,7 @@ public:
 
 
     ////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ Âø/Å» °ü·Ã ÇÔ¼ö
+    // ì•„ì´í…œ ì°©/íƒˆ ê´€ë ¨ í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     bool isWear(WearPart Part) {
@@ -389,7 +389,7 @@ public:
     void getShapeInfo(DWORD& flag, Color_t color[PCOustersInfo::OUSTERS_COLOR_MAX]) const;
 
     ////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ Âø/Å»½Ã ´É·ÂÄ¡ ¼öÁ¤ °ü·Ã ÇÔ¼ö
+    // ì•„ì´í…œ ì°©/íƒˆì‹œ ëŠ¥ë ¥ì¹˜ ìˆ˜ì • ê´€ë ¨ í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     void initAllStat(int numPartyMember = -1);
@@ -407,7 +407,7 @@ private:
 
 
     //////////////////////////////////////////////////////////////
-    // ¾ÆÀÌÅÛ °Ë»ö ÇÔ¼ö
+    // ì•„ì´í…œ ê²€ìƒ‰ í•¨ìˆ˜
     //////////////////////////////////////////////////////////////
 public:
     virtual Item* findItemOID(ObjectID_t id) {
@@ -439,7 +439,7 @@ public:
     }
 
     ////////////////////////////////////////////////////
-    // ÀÎÆ÷ °ü·Ã ÇÔ¼ö
+    // ì¸í¬ ê´€ë ¨ í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     PCOustersInfo2* getOustersInfo2();
@@ -451,7 +451,7 @@ public:
 
 
     ////////////////////////////////////////////////////
-    // ±âÅ¸ ÇÔ¼ö
+    // ê¸°íƒ€ í•¨ìˆ˜
     ////////////////////////////////////////////////////
 public:
     virtual Gold_t getGold() const {
@@ -582,7 +582,7 @@ public:
     void saveInitialRank(void);
 
     //////////////////////////////
-    // Á¤·É ¼Ó¼º °ü·Ã ÇÔ¼ö
+    // ì •ë ¹ ì†ì„± ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////
     Elemental_t getElementalFire() const {
         return m_ElementalFire;
@@ -601,7 +601,7 @@ public:
     }
 
     //////////////////////////////
-    // Á¤·É °ø°İ º¸³Ê½º
+    // ì •ë ¹ ê³µê²© ë³´ë„ˆìŠ¤
     //////////////////////////////
     Damage_t getFireDamage() const {
         return m_FireDamage;
@@ -620,7 +620,7 @@ public:
     bool satisfySkillRequire(SkillInfo* pSkillInfo);
 
     //////////////////////////////
-    // Á¤·É ¼Ó¼º °ü·Ã ÇÔ¼ö
+    // ì •ë ¹ ì†ì„± ê´€ë ¨ í•¨ìˆ˜
     //////////////////////////////
     bool isPassiveAvailable(SkillType_t type) {
         return m_PassiveSkillMap.find(type) != m_PassiveSkillMap.end() && m_PassiveSkillMap[type].first;
@@ -650,7 +650,7 @@ private:
     // PC Name
     string m_Name;
 
-    // ±ÇÇÑ
+    // ê¶Œí•œ
     BYTE m_Competence;
     BYTE m_CompetenceShape;
 
@@ -689,7 +689,7 @@ private:
     // level
     Level_t m_Level;
 
-    // °è±Ş. by sigi. 2002.8.30
+    // ê³„ê¸‰. by sigi. 2002.8.30
     //	Rank_t 		m_Rank;
     //	RankExp_t 	m_RankExp;
     //	RankExp_t 	m_RankGoalExp;
@@ -722,44 +722,44 @@ private:
     // mutable Thread Mutex
     mutable Mutex m_Mutex;
 
-    // ºÎÈ°Á¸ °ü·Ã
+    // ë¶€í™œì¡´ ê´€ë ¨
     ZoneID_t m_ResurrectZoneID;
 
-    // Àº µµ±İ µ¥¹ÌÁö °ü·Ã
+    // ì€ ë„ê¸ˆ ë°ë¯¸ì§€ ê´€ë ¨
     Silver_t m_SilverDamage;
 
-    // HP ½ºÆ¿
+    // HP ìŠ¤í‹¸
     Steal_t m_HPStealAmount;
     Steal_t m_HPStealRatio;
 
-    // MP ½ºÆ¿
+    // MP ìŠ¤í‹¸
     Steal_t m_MPStealAmount;
     Steal_t m_MPStealRatio;
 
-    // HP, MP Àç»ı
+    // HP, MP ì¬ìƒ
     Regen_t m_HPRegen;
     Regen_t m_MPRegen;
 
     Luck_t m_Luck;
 
-    // Á¤·É ¼Ó¼º
+    // ì •ë ¹ ì†ì„±
     Elemental_t m_ElementalFire;
     Elemental_t m_ElementalWater;
     Elemental_t m_ElementalEarth;
     Elemental_t m_ElementalWind;
 
-    // Á¤·Â °ø°İ º¸³Ê½º Æ÷ÀÎÆ®
+    // ì •ë ¥ ê³µê²© ë³´ë„ˆìŠ¤ í¬ì¸íŠ¸
     Damage_t m_FireDamage;
     Damage_t m_WaterDamage;
     Damage_t m_EarthDamage;
 
-    // Àº ÀúÇ×
+    // ì€ ì €í•­
     Resist_t m_SilverResist;
 
     unordered_map<SkillType_t, pair<bool, uint>> m_PassiveSkillMap;
     int m_PassiveRatio;
 
-    // °¢Á¾ °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ®
+    // ê°ì¢… ê²½í—˜ì¹˜ ì„¸ì´ë¸Œ ì¹´ìš´íŠ¸
     //	WORD m_RankExpSaveCount;
     WORD m_ExpSaveCount;
     WORD m_FameSaveCount;

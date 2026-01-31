@@ -41,13 +41,13 @@ void EffectBloodyWallBlocked::affect()
 
     Assert(m_pZone != NULL);
 
-    // ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Ş¾Æ¿Â´Ù.
+    // í˜„ì¬ ì´í™íŠ¸ê°€ ë¶™ì–´ìˆëŠ” íƒ€ì¼ì„ ë°›ì•„ì˜¨ë‹¤.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
     HP_t CurrentHP = 0;
     HP_t RemainHP = 0;
 
-    // Å¸ÀÏ ¾È¿¡ Á¸ÀçÇÏ´Â ¿ÀºêÁ§Æ®µéÀ» °Ë»öÇÑ´Ù.
+    // íƒ€ì¼ ì•ˆì— ì¡´ì¬í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ë“¤ì„ ê²€ìƒ‰í•œë‹¤.
     const forward_list<Object*>& oList = tile.getObjectList();
     forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) {
@@ -60,8 +60,8 @@ void EffectBloodyWallBlocked::affect()
             Creature* pCreature = dynamic_cast<Creature*>(pObject);
             Assert(pCreature != NULL);
 
-            // ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
-            // »ê ¸é¿ª. by sigi. 2002.9.13
+            // ë¬´ì ìƒíƒœ ì²´í¬. by sigi. 2002.9.5
+            // ì‚° ë©´ì—­. by sigi. 2002.9.13
             if (!canAttack(NULL, pCreature) || pCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN) ||
                 pCreature->isFlag(Effect::EFFECT_CLASS_COMA) || pCreature->isDead()) {
                 continue;
@@ -85,7 +85,7 @@ void EffectBloodyWallBlocked::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                    // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                     GCStatusCurrentHP pkt;
                     pkt.setObjectID(pSlayer->getObjectID());
                     pkt.setCurrentHP(RemainHP);
@@ -107,7 +107,7 @@ void EffectBloodyWallBlocked::affect()
                                     Assert(pPlayer != NULL);
                                     pPlayer->sendPacket(&gcMI);
 
-                                    // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                                    // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                                     GCStatusCurrentHP pkt;
                                     pkt.setObjectID(pVampire->getObjectID());
                                     pkt.setCurrentHP(RemainHP);
@@ -129,7 +129,7 @@ void EffectBloodyWallBlocked::affect()
                     Assert(pPlayer != NULL);
                     pPlayer->sendPacket(&gcMI);
 
-                    // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                    // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                     GCStatusCurrentHP pkt;
                     pkt.setObjectID(pOusters->getObjectID());
                     pkt.setCurrentHP(RemainHP);
@@ -143,14 +143,14 @@ void EffectBloodyWallBlocked::affect()
                     pMonster->setHP(RemainHP, ATTR_CURRENT);
 
                     if (m_CasterName != "") {
-                        // ½ÃÀüÀÚÀÇ µ¥¹ÌÁö¸¦ Ãß°¡ÇØ ÁØ´Ù.
-                        // ¸Â´Â ³ğÀÌ ¸ó½ºÅÍÀÌ°í, °ø°İÀÚ°¡ »ç¶÷ÀÌ¶ó¸é,
-                        // µ¥¹ÌÁö¿¡ µû¶ó¼­ º¯ÇÏ´Â ¿ì¼±±Ç Å×ÀÌºíÀ» °»½ÅÇØ ÁÖ¾î¾ß ÇÑ´Ù.
+                        // ì‹œì „ìì˜ ë°ë¯¸ì§€ë¥¼ ì¶”ê°€í•´ ì¤€ë‹¤.
+                        // ë§ëŠ” ë†ˆì´ ëª¬ìŠ¤í„°ì´ê³ , ê³µê²©ìê°€ ì‚¬ëŒì´ë¼ë©´,
+                        // ë°ë¯¸ì§€ì— ë”°ë¼ì„œ ë³€í•˜ëŠ” ìš°ì„ ê¶Œ í…Œì´ë¸”ì„ ê°±ì‹ í•´ ì£¼ì–´ì•¼ í•œë‹¤.
                         pMonster->addPrecedence(m_CasterName, m_PartyID, AcidDamage);
                         pMonster->setLastHitCreatureClass(Creature::CREATURE_CLASS_VAMPIRE);
                     }
 
-                    // º¯ÇÑ HP¸¦ ºê·ÎµåÄ³½ºÆÃÇØÁØ´Ù.
+                    // ë³€í•œ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•´ì¤€ë‹¤.
                     GCStatusCurrentHP pkt;
                     pkt.setObjectID(pMonster->getObjectID());
                     pkt.setCurrentHP(RemainHP);
@@ -158,7 +158,7 @@ void EffectBloodyWallBlocked::affect()
                 }
 
 
-                // m_CasterNameÀÌ pCreature¸¦ Á×ÀÎ °æ¿ìÀÇ KillCount Ã³¸®
+                // m_CasterNameì´ pCreatureë¥¼ ì£½ì¸ ê²½ìš°ì˜ KillCount ì²˜ë¦¬
                 // by sigi. 2002.8.31
                 if (pCreature->isDead()) {
                     Creature* pAttacker = m_pZone->getCreature(m_CasterName);
@@ -171,7 +171,7 @@ void EffectBloodyWallBlocked::affect()
         }
     }
 
-    // ÇÑ¹ø¸¸..
+    // í•œë²ˆë§Œ..
     // setNextTime(m_Tick);
 
     // cout << "EffectBloodyWallBlocked" << "affect END" << endl;

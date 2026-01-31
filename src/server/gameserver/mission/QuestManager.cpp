@@ -41,7 +41,7 @@ QuestManager::~QuestManager() {
 void QuestManager::load() {
     __BEGIN_TRY
 
-    // ¾ÆÁ÷ Äù½ºÆ® ÀÌ¾î¼­ ÇÏ±â´Â Áö¿øÇÏÁö ¾Ê´Â´Ù.
+    // ì•„ì§ í€˜ìŠ¤íŠ¸ ì´ì–´ì„œ í•˜ê¸°ëŠ” ì§€ì›í•˜ì§€ ì•ŠëŠ”ë‹¤.
     m_pEventQuestAdvanceManager->load();
 
     __END_CATCH
@@ -133,7 +133,7 @@ void QuestManager::sendQuestInfo() {
 
     for (; itr != endItr; ++itr) {
         if (itr->second == NULL) {
-            filelog("Quest.log", "QuestManager::sendQuestInfo : QuestStatus¿¡ NULL ÀÌ µé¾î°¡ÀÖ½À´Ï´Ù.");
+            filelog("Quest.log", "QuestManager::sendQuestInfo : QuestStatusì— NULL ì´ ë“¤ì–´ê°€ìˆìŠµë‹ˆë‹¤.");
             continue;
         }
 

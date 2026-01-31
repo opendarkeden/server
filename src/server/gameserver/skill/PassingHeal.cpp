@@ -15,7 +15,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PassingHeal::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -36,7 +36,7 @@ void PassingHeal::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !pTargetCreature->isSlayer()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -59,20 +59,20 @@ void PassingHeal::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
         bool bEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_PASSING_HEAL);
 
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
-            // ¸¶³ª¸¦ ÁÙÀÎ´Ù.
+            // ë§ˆë‚˜ë¥¼ ì¤„ì¸ë‹¤.
             decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
 
-            // ÀÌÆåÆ®ÀÇ È¿°ú¿Í Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ì˜ íš¨ê³¼ì™€ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_OTHER;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù.
+            // ì´íŽ™íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤.
             EffectPassingHeal* pPassingHeal = new EffectPassingHeal(pTargetCreature);
             Assert(pPassingHeal != NULL);
             pPassingHeal->setNextTime(output.Duration);
@@ -82,7 +82,7 @@ void PassingHeal::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
             pTargetCreature->addEffect(pPassingHeal);
             pTargetCreature->setFlag(Effect::EFFECT_CLASS_PASSING_HEAL);
 
-            // ÆÐÅ¶À» ÁØºñÇØ¼­ º¸³½´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ì„œ ë³´ë‚¸ë‹¤.
             _GCSkillToObjectOK1.setSkillType(SkillType);
             _GCSkillToObjectOK1.setCEffectID(CEffectID);
             _GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
@@ -112,7 +112,7 @@ void PassingHeal::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 
             pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCSkillToObjectOK5, cList);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pTargetCreature->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_PASSING_HEAL);
@@ -133,7 +133,7 @@ void PassingHeal::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¼¿ÇÁ ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì…€í”„ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void PassingHeal::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -166,18 +166,18 @@ void PassingHeal::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
         if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected) {
             decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            // °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+            // ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
 
-            // ÀÌÆåÆ®ÀÇ È¿°ú¿Í Áö¼Ó½Ã°£À» °è»êÇÑ´Ù.
+            // ì´íŽ™íŠ¸ì˜ íš¨ê³¼ì™€ ì§€ì†ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
             SkillInput input(pSlayer, pSkillSlot);
             SkillOutput output;
             input.TargetType = SkillInput::TARGET_SELF;
             computeOutput(input, output);
 
-            // ÀÌÆåÆ®¸¦ »ý¼ºÇØ¼­ ºÙÀÎ´Ù
+            // ì´íŽ™íŠ¸ë¥¼ ìƒì„±í•´ì„œ ë¶™ì¸ë‹¤
             EffectPassingHeal* pPassingHeal = new EffectPassingHeal(pSlayer);
             pPassingHeal->setBroadcastingEffect(false);
             pPassingHeal->setNextTime(5);
@@ -187,7 +187,7 @@ void PassingHeal::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pSlayer->addEffect(pPassingHeal);
             pSlayer->setFlag(Effect::EFFECT_CLASS_PASSING_HEAL);
 
-            // ÆÐÅ¶À» ÁØºñÇØ¼­ º¸³½´Ù.
+            // íŒ¨í‚·ì„ ì¤€ë¹„í•´ì„œ ë³´ë‚¸ë‹¤.
             ZoneCoord_t myX = pSlayer->getX();
             ZoneCoord_t myY = pSlayer->getY();
 
@@ -202,7 +202,7 @@ void PassingHeal::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(myX, myY, &_GCSkillToSelfOK2, pSlayer);
 
-            // ÀÌÆåÆ®°¡ ºÙ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+            // ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
             GCAddEffect gcAddEffect;
             gcAddEffect.setObjectID(pSlayer->getObjectID());
             gcAddEffect.setEffectID(Effect::EFFECT_CLASS_PASSING_HEAL);

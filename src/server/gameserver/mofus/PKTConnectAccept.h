@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTConnectAccept.h
-// Desc		: Á¤»óÀûÀ¸·Î Á¢¼ÓµÇ¾úÀ½À» ÆĞÅ¶À¸·Î ¾Ë·ÁÁØ´Ù.
+// Desc		: ì •ìƒì ìœ¼ë¡œ ì ‘ì†ë˜ì—ˆìŒì„ íŒ¨í‚·ìœ¼ë¡œ ì•Œë ¤ì¤€ë‹¤.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PKT_CONNECT_ACCEPT_H__
@@ -10,10 +10,10 @@
 #include "Assert.h"
 #include "MPacket.h"
 
-// ÆĞÅ¶ ±¸Á¶
+// íŒ¨í‚· êµ¬ì¡°
 struct _PKT_CONNECT_ACCEPT {
-    int nSize; // ÆĞÅ¶ ÀüÃ¼ÀÇ Å©¸®
-    int nCode; // ÆĞÅ¶ ÄÚµå
+    int nSize; // íŒ¨í‚· ì „ì²´ì˜ í¬ë¦¬
+    int nCode; // íŒ¨í‚· ì½”ë“œ
 };
 
 const int szPKTConnectAccept = sizeof(_PKT_CONNECT_ACCEPT);
@@ -21,29 +21,29 @@ const int szPKTConnectAccept = sizeof(_PKT_CONNECT_ACCEPT);
 // class PKTConnectAccept
 class PKTConnectAccept : public _PKT_CONNECT_ACCEPT, public MPacket {
 public:
-    // »ı¼ºÀÚ
+    // ìƒì„±ì
     PKTConnectAccept();
 
 public:
-    // ÆĞÅ¶ ¾ÆÀÌµğ¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚· ì•„ì´ë””ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketID_t getID() const;
 
-    // ÆĞÅ¶ÀÇ Å©±â¸¦ ¹İÈ¯ÇÑ´Ù.
+    // íŒ¨í‚·ì˜ í¬ê¸°ë¥¼ ë°˜í™˜í•œë‹¤.
     MPacketSize_t getSize() const {
         return szPKTConnectAccept - szMPacketSize;
     }
 
-    // »õ·Î¿î ÆĞÅ¶À» »ı¼ºÇØ¼­ ¹İÈ¯ÇÑ´Ù.
+    // ìƒˆë¡œìš´ íŒ¨í‚·ì„ ìƒì„±í•´ì„œ ë°˜í™˜í•œë‹¤.
     MPacket* create() {
         MPacket* pPacket = new PKTConnectAccept;
         Assert(pPacket != NULL);
         return pPacket;
     }
 
-    // ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+    // ì…ë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œë¶€í„° ë°ì´í„°ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™” í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â ½ºÆ®¸²À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream);
 
     // debug message

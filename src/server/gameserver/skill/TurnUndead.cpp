@@ -15,7 +15,7 @@
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void TurnUndead::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -80,7 +80,7 @@ void TurnUndead::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
 
                     Tile& tile = pZone->getTile(tileX, tileY);
 
-                    // Å¸ÀÏ¿¡ ÀÖ´Â Å©¸®Ã³µéÀ» ¸®½ºÆ®·Î ¸¸µç´Ù.
+                    // íƒ€ì¼ì— ìˆëŠ” í¬ë¦¬ì²˜ë“¤ì„ ë¦¬ìŠ¤íŠ¸ë¡œ ë§Œë“ ë‹¤.
                     list<Creature*> targetList;
                     if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) {
                         Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
@@ -108,15 +108,15 @@ void TurnUndead::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
 
                                 bHit = true;
 
-                                // µ¥¹ÌÁö¸¦ Àû¿ë½ÃÅ²´Ù.
+                                // ë°ë¯¸ì§€ë¥¼ ì ìš©ì‹œí‚¨ë‹¤.
                                 GCModifyInformation gcMI;
                                 ::setDamage(pTargetCreature, output.Damage, pSlayer, pSkillSlot->getSkillType(), &gcMI);
 
-                                // HP °¡ º¯Çß´Ù°í ´ç»çÀÚ¿¡°Ô º¸³½´Ù.
+                                // HP ê°€ ë³€í–ˆë‹¤ê³  ë‹¹ì‚¬ìì—ê²Œ ë³´ë‚¸ë‹¤.
                                 pTargetPlayer->sendPacket(&gcMI);
 
                                 GCSkillToObjectOK2 gcSkillToObjectOK2;
-                                gcSkillToObjectOK2.setObjectID(1); // ÀÇ¹Ì ¾ø´Ù.
+                                gcSkillToObjectOK2.setObjectID(1); // ì˜ë¯¸ ì—†ë‹¤.
                                 gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
                                 gcSkillToObjectOK2.setDuration(0);
                             } else if (pTargetCreature->isMonster()) {
@@ -140,7 +140,7 @@ void TurnUndead::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
                             pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(),
                                                    &gcSkillToObjectOK4);
 
-                            // ¼ºÇâÀ» ¿Ã¸°´Ù.
+                            // ì„±í–¥ì„ ì˜¬ë¦°ë‹¤.
                             increaseAlignment(pSlayer, pTargetCreature, _GCSkillToSelfOK1);
                         }
                     }
@@ -154,7 +154,7 @@ void TurnUndead::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
                 increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
             }
 
-            // ÆĞÅ¶À» ¸¸µé¾î º¸³½´Ù.
+            // íŒ¨í‚·ì„ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);
@@ -163,11 +163,11 @@ void TurnUndead::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEf
             _GCSkillToSelfOK2.setSkillType(SkillType);
             _GCSkillToSelfOK2.setDuration(0);
 
-            // ±â¼úÀ» »ç¿ëÇÑ »ç¶÷¿¡°Ô packet Àü´Ş
+            // ê¸°ìˆ ì„ ì‚¬ìš©í•œ ì‚¬ëŒì—ê²Œ packet ì „ë‹¬
             pPlayer->sendPacket(&_GCSkillToSelfOK1);
             pZone->broadcastPacket(X, Y, &_GCSkillToSelfOK2, pSlayer);
 
-            // ±â¼ú delay setting
+            // ê¸°ìˆ  delay setting
             pSkillSlot->setRunTime(output.Delay);
 
         } else {

@@ -62,11 +62,11 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
             pOusters = dynamic_cast<Ousters*>(pCreature);
             pZone = pOusters->getZone();
         } else
-            throw ProtocolException("CGDropMoneyHandler::execute() : ¾Ë ¼ö ¾ø´Â ÇÃ·¹ÀÌ¾î Å©¸®ÃÄ.");
+            throw ProtocolException("CGDropMoneyHandler::execute() : ì•Œ ìˆ˜ ì—†ëŠ” í”Œë ˆì´ì–´ í¬ë¦¬ì³.");
 
         Assert(pZone != NULL);
 
-        // ¹Ù¿îµå¸¦ ³Ñ¾î°¡¸é ¾È µÈ´Ù.
+        // ë°”ìš´ë“œë¥¼ ë„˜ì–´ê°€ë©´ ì•ˆ ëœë‹¤.
         if (!isValidZoneCoord(pZone, ZoneX, ZoneY)) {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -74,7 +74,7 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
             return;
         }
 
-        // Å¸ÀÏ¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é ¸®ÅÏÀÌ´Ù.
+        // íƒ€ì¼ì— ì•„ì´í…œì´ ì—†ë‹¤ë©´ ë¦¬í„´ì´ë‹¤.
         Tile& _Tile = pZone->getTile(ZoneX, ZoneY);
         if (!_Tile.hasItem()) {
             GCCannotAdd _GCCannotAdd;
@@ -88,7 +88,7 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
         Item::ItemClass IClass = pItem->getItemClass();
         ObjectID_t ObjectID = pItem->getObjectID();
 
-        // ¾ÆÀÌÅÛÀÌ µ·ÀÌ ¸Â´ÂÁö, ±×¸®°í ¿ÀºêÁ§Æ® ID°¡ ¸Â´ÂÁö Ã¼Å©ÇÑ´Ù.
+        // ì•„ì´í…œì´ ëˆì´ ë§ëŠ”ì§€, ê·¸ë¦¬ê³  ì˜¤ë¸Œì íŠ¸ IDê°€ ë§ëŠ”ì§€ ì²´í¬í•œë‹¤.
         if ((IClass == Item::ITEM_CLASS_MONEY) && (ObjectID == pPacket->getObjectID())) {
             Money* pMoney = dynamic_cast<Money*>(pItem);
             itemGold = pMoney->getAmount();
@@ -101,7 +101,7 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
             else if (pCreature->isOusters())
                 currentGold = pOusters->getGold();
 
-            // »ó´ë¹æÀÇ µ·Àº µéÁö ¸øÇÑ´Ù.
+            // ìƒëŒ€ë°©ì˜ ëˆì€ ë“¤ì§€ ëª»í•œë‹¤.
 
             if ((pCreature->isSlayer() && pItem->getItemType() != 0) ||
                 (pCreature->isVampire() && pItem->getItemType() != 1) ||
@@ -114,8 +114,8 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
 
 
             if (currentGold + itemGold > MAX_MONEY) {
-                // ÇöÀç ¼ÒÀ¯ÇÑ µ·¿¡´Ù ¹Ù´Ú¿¡ ÀÖ´Â µ·À» ´õÇÏ¸é ¸Æ½º¸¦ ÃÊ°úÇÒ °æ¿ì
-                // ¹Ù´Ú¿¡ ÀÖ´Â µ·ÀÇ ÀÏºÎ¸¸À» ÁÖ¿ö¾ß ÇÑ´Ù.
+                // í˜„ì¬ ì†Œìœ í•œ ëˆì—ë‹¤ ë°”ë‹¥ì— ìˆëŠ” ëˆì„ ë”í•˜ë©´ ë§¥ìŠ¤ë¥¼ ì´ˆê³¼í•  ê²½ìš°
+                // ë°”ë‹¥ì— ìˆëŠ” ëˆì˜ ì¼ë¶€ë§Œì„ ì£¼ì›Œì•¼ í•œë‹¤.
                 Gold_t pickupMoney = MAX_MONEY - currentGold;
                 marginGold = currentGold + itemGold - MAX_MONEY;
                 pMoney->setAmount(marginGold);
@@ -146,7 +146,7 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
                 bSuccess = true;
                 bMargin = false;
             }
-        } else // µ·ÀÌ ¾Æ´Ò °æ¿ì¿¡´Â ±×³É
+        } else // ëˆì´ ì•„ë‹ ê²½ìš°ì—ëŠ” ê·¸ëƒ¥
         {
             GCCannotAdd _GCCannotAdd;
             _GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -157,7 +157,7 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
         if (bSuccess) {
             // log(LOG_PICKUP_MONEY, pCreature->getName(), "", pItem->toString());
 
-            // ÀÏ´ÜÀº Á¸À¸·ÎºÎÅÍ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÑ´Ù.
+            // ì¼ë‹¨ì€ ì¡´ìœ¼ë¡œë¶€í„° ì•„ì´í…œì„ ì‚­ì œí•œë‹¤.
             pZone->deleteItem(pItem, ZoneX, ZoneY);
 
             GCDeleteandPickUpOK _GCDeleteandPickUpOK;
@@ -165,35 +165,35 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
             pPlayer->sendPacket(&_GCDeleteandPickUpOK);
 
             if (pCreature->isSlayer()) {
-                // ±ÙÃ³¿¡ ÀÖ´Â ´Ù¸¥ »ç¶÷µé¿¡°Õ ¾ÆÀÌÅÛ¿¡ »ç¶óÁ³´Ù´Â °ÍÀ» º¸³»ÁØ´Ù.
+                // ê·¼ì²˜ì— ìˆëŠ” ë‹¤ë¥¸ ì‚¬ëŒë“¤ì—ê² ì•„ì´í…œì— ì‚¬ë¼ì¡Œë‹¤ëŠ” ê²ƒì„ ë³´ë‚´ì¤€ë‹¤.
                 GCDeleteObject _GCDeleteObject;
                 _GCDeleteObject.setObjectID(pItem->getObjectID());
                 pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCDeleteObject, pSlayer);
             } else if (pCreature->isVampire()) {
-                // ±ÙÃ³¿¡ ÀÖ´Â ´Ù¸¥ »ç¶÷µé¿¡°Õ ¾ÆÀÌÅÛ¿¡ »ç¶óÁ³´Ù´Â °ÍÀ» º¸³»ÁØ´Ù.
+                // ê·¼ì²˜ì— ìˆëŠ” ë‹¤ë¥¸ ì‚¬ëŒë“¤ì—ê² ì•„ì´í…œì— ì‚¬ë¼ì¡Œë‹¤ëŠ” ê²ƒì„ ë³´ë‚´ì¤€ë‹¤.
                 GCDeleteObject _GCDeleteObject;
                 _GCDeleteObject.setObjectID(pItem->getObjectID());
                 pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &_GCDeleteObject, pVampire);
             } else if (pCreature->isOusters()) {
-                // ±ÙÃ³¿¡ ÀÖ´Â ´Ù¸¥ »ç¶÷µé¿¡°Õ ¾ÆÀÌÅÛ¿¡ »ç¶óÁ³´Ù´Â °ÍÀ» º¸³»ÁØ´Ù.
+                // ê·¼ì²˜ì— ìˆëŠ” ë‹¤ë¥¸ ì‚¬ëŒë“¤ì—ê² ì•„ì´í…œì— ì‚¬ë¼ì¡Œë‹¤ëŠ” ê²ƒì„ ë³´ë‚´ì¤€ë‹¤.
                 GCDeleteObject _GCDeleteObject;
                 _GCDeleteObject.setObjectID(pItem->getObjectID());
                 pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &_GCDeleteObject, pOusters);
             }
 
-            // µ·ÀÌ ³²¾ÆÀÖ´Ù¸é ³²¾ÆÀÖ´Â ¾×¼ö¸¸Å­ÀÇ µ·À» ´Ù½Ã »ı¼ºÇØ¼­ ¶³¾î¶ß¸°´Ù.
+            // ëˆì´ ë‚¨ì•„ìˆë‹¤ë©´ ë‚¨ì•„ìˆëŠ” ì•¡ìˆ˜ë§Œí¼ì˜ ëˆì„ ë‹¤ì‹œ ìƒì„±í•´ì„œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
             if (bMargin) {
                 TPOINT pt = pZone->addItem(pItem, ZoneX, ZoneY);
                 if (pt.x != -1) {
                     // pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
-                    //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+                    //  itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
                     char pField[80];
                     sprintf(pField, "Storage=%d, StorageID=%lu, X=%d, Y=%d", STORAGE_ZONE, pZone->getZoneID(), pt.x,
                             pt.y);
                     pItem->tinysave(pField);
 
                 } else {
-                    // µ·À» ¶³¾î¶ß¸®Áö ¸øÇß´Ù¸é ±×³É »èÁ¦ÇÑ´Ù.
+                    // ëˆì„ ë–¨ì–´ëœ¨ë¦¬ì§€ ëª»í–ˆë‹¤ë©´ ê·¸ëƒ¥ ì‚­ì œí•œë‹¤.
                     // cout << "#############################################" << endl;
                     // cout << "# CRITICAL ERROR! CANNOT ADD MONEY TO ZONE! #" << endl;
                     // cout << "#############################################" << endl;
@@ -205,7 +205,7 @@ void CGPickupMoneyHandler::execute(CGPickupMoney* pPacket, Player* pPlayer)
                 SAFE_DELETE(pItem);
             }
 
-            // µ··Î±× ³²±æ ¾×¼ö¸é µ··Î±× ³²±ä´Ù
+            // ëˆë¡œê·¸ ë‚¨ê¸¸ ì•¡ìˆ˜ë©´ ëˆë¡œê·¸ ë‚¨ê¸´ë‹¤
             if ((itemGold - marginGold) >= g_pVariableManager->getMoneyTraceLogLimit()) {
                 char zoneName[15];
                 sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), ZoneX, ZoneY);

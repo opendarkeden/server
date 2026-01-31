@@ -42,57 +42,57 @@ void CGPartyLeaveHandler::execute(CGPartyLeave* pPacket, Player* pPlayer)
 
     int PartyID = pCreature->getPartyID();
     if (PartyID == 0) {
-        // filelog("PARTY_EXCEPTION.log", "CGPartyLeaveHandler::execute() : ÆÄÆ¼ID°¡ 0ÀÔ´Ï´Ù. [%s]",
+        // filelog("PARTY_EXCEPTION.log", "CGPartyLeaveHandler::execute() : íŒŒí‹°IDê°€ 0ì…ë‹ˆë‹¤. [%s]",
         // pCreature->toString().c_str());
         throw ProtocolException();
     }
 
     GCPartyError gcPartyError;
 
-    // Å¸°Ù ÀÌ¸§ÀÌ NULLÀÌ¶ó¸é ½º½º·Î ÆÄÆ¼¸¦ ¶°³ª°íÀÚ ÇÏ´Â °ÍÀÌ´Ù.
+    // íƒ€ê²Ÿ ì´ë¦„ì´ NULLì´ë¼ë©´ ìŠ¤ìŠ¤ë¡œ íŒŒí‹°ë¥¼ ë– ë‚˜ê³ ì í•˜ëŠ” ê²ƒì´ë‹¤.
     if (TargetName == "") {
-        // ±Û·Î¹ú ÆÄÆ¼¿¡¼­ »èÁ¦ÇØ ÁØ´Ù.
-        // 2¸íÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ÇÏ³ª¸¦ Ãß¹æÇß´Ù¸é,
-        // ÀÌ ³»ºÎ¿¡¼­ ±Û·Î¹ú ÆÄÆ¼´Â »èÁ¦µÈ´Ù.
-        // ³²Àº ÆÄÆ¼¿øµéÀÇ ID´Â 0À¸·Î ¹Ù²ï´Ù.
-        // cout << "===== ÆÄÆ¼¸¦ ¶°³ª±â ÀüÀÇ ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú »óÅÂ" << endl;
+        // ê¸€ë¡œë²Œ íŒŒí‹°ì—ì„œ ì‚­ì œí•´ ì¤€ë‹¤.
+        // 2ëª…ì¸ ìƒíƒœì—ì„œ ë‹¤ë¥¸ í•˜ë‚˜ë¥¼ ì¶”ë°©í–ˆë‹¤ë©´,
+        // ì´ ë‚´ë¶€ì—ì„œ ê¸€ë¡œë²Œ íŒŒí‹°ëŠ” ì‚­ì œëœë‹¤.
+        // ë‚¨ì€ íŒŒí‹°ì›ë“¤ì˜ IDëŠ” 0ìœ¼ë¡œ ë°”ë€ë‹¤.
+        // cout << "===== íŒŒí‹°ë¥¼ ë– ë‚˜ê¸° ì „ì˜ ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì € ìƒíƒœ" << endl;
         // cout << g_pGlobalPartyManager->toString() << endl;
         // cout << "================================================" << endl;
 
         g_pGlobalPartyManager->deletePartyMember(PartyID, pCreature);
 
-        // cout << "===== ÆÄÆ¼¸¦ ¶°³­ ÈÄÀÇ ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú »óÅÂ" << endl;
+        // cout << "===== íŒŒí‹°ë¥¼ ë– ë‚œ í›„ì˜ ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì € ìƒíƒœ" << endl;
         // cout << g_pGlobalPartyManager->toString() << endl;
         // cout << "================================================" << endl;
 
-        // ·ÎÄÃ ÆÄÆ¼¿¡¼­ »èÁ¦ÇØÁØ´Ù.
+        // ë¡œì»¬ íŒŒí‹°ì—ì„œ ì‚­ì œí•´ì¤€ë‹¤.
         LocalPartyManager* pLocalPartyManager = pZone->getLocalPartyManager();
         Assert(pLocalPartyManager != NULL);
         pLocalPartyManager->deletePartyMember(PartyID, pCreature);
     }
-    // ÀÌ¸§ÀÌ ´Ù¸£´Ù¸é ÆÄÆ¼ ³»¿¡ Á¸ÀçÇÏ´Â ´Ù¸¥ ÆÄÆ¼¿øÀ» Ãß¹æÇÏ°íÀÚ ÇÏ´Â °ÍÀÌ´Ù.
+    // ì´ë¦„ì´ ë‹¤ë¥´ë‹¤ë©´ íŒŒí‹° ë‚´ì— ì¡´ì¬í•˜ëŠ” ë‹¤ë¥¸ íŒŒí‹°ì›ì„ ì¶”ë°©í•˜ê³ ì í•˜ëŠ” ê²ƒì´ë‹¤.
     else {
-        // cout << "===== Ãß¹æÀüÀÇ ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú »óÅÂ" << endl;
+        // cout << "===== ì¶”ë°©ì „ì˜ ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì € ìƒíƒœ" << endl;
         // cout << g_pGlobalPartyManager->toString() << endl;
         // cout << "=======================================" << endl;
 
-        // ±Û·Î¹ú ÆÄÆ¼¿¡¼­ »èÁ¦ÇØÁØ´Ù.
-        // 2¸íÀÎ »óÅÂ¿¡¼­ ´Ù¸¥ ÇÏ³ª¸¦ Ãß¹æÇß´Ù¸é,
-        // ÀÌ ³»ºÎ¿¡¼­ ±Û·Î¹ú ÆÄÆ¼´Â »èÁ¦µÈ´Ù.
-        // ³²Àº ÆÄÆ¼¿øµéÀÇ ID´Â 0À¸·Î ¹Ù²ï´Ù.
+        // ê¸€ë¡œë²Œ íŒŒí‹°ì—ì„œ ì‚­ì œí•´ì¤€ë‹¤.
+        // 2ëª…ì¸ ìƒíƒœì—ì„œ ë‹¤ë¥¸ í•˜ë‚˜ë¥¼ ì¶”ë°©í–ˆë‹¤ë©´,
+        // ì´ ë‚´ë¶€ì—ì„œ ê¸€ë¡œë²Œ íŒŒí‹°ëŠ” ì‚­ì œëœë‹¤.
+        // ë‚¨ì€ íŒŒí‹°ì›ë“¤ì˜ IDëŠ” 0ìœ¼ë¡œ ë°”ë€ë‹¤.
         g_pGlobalPartyManager->expelPartyMember(PartyID, pCreature, TargetName);
 
-        // cout << "===== Ãß¹æÈÄÀÇ ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú »óÅÂ" << endl;
+        // cout << "===== ì¶”ë°©í›„ì˜ ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì € ìƒíƒœ" << endl;
         // cout << g_pGlobalPartyManager->toString() << endl;
         // cout << "=======================================" << endl;
 
-        // Â÷ÀÎ ³ğÀ» ·ÎÄÃ ÆÄÆ¼¿¡¼­ »èÁ¦ÇØÁØ´Ù.
+        // ì°¨ì¸ ë†ˆì„ ë¡œì»¬ íŒŒí‹°ì—ì„œ ì‚­ì œí•´ì¤€ë‹¤.
         __ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
         Creature* pTargetCreature = g_pPCFinder->getCreature_LOCKED(TargetName);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pTargetCreature == NULL) {
             g_pPCFinder->unlock();
             return;
@@ -103,12 +103,12 @@ void CGPartyLeaveHandler::execute(CGPartyLeave* pPacket, Player* pPlayer)
         LocalPartyManager* pLocalPartyManager = pTargetZone->getLocalPartyManager();
         Assert(pLocalPartyManager != NULL);
 
-        // cout << "===== Ãß¹æ ÀüÀÇ ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú »óÅÂ" << endl;
+        // cout << "===== ì¶”ë°© ì „ì˜ ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì € ìƒíƒœ" << endl;
         // cout << pLocalPartyManager->toString() << endl;
         // cout << "=======================================" << endl;
 
         pLocalPartyManager->deletePartyMember(PartyID, pTargetCreature);
-        // cout << "·ÎÄÃ ÆÄÆ¼¿¡¼­ Ãß¹æ´çÇÑ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦Çß½À´Ï´Ù." << endl;
+        // cout << "ë¡œì»¬ íŒŒí‹°ì—ì„œ ì¶”ë°©ë‹¹í•œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí–ˆìŠµë‹ˆë‹¤." << endl;
 
         __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
     }

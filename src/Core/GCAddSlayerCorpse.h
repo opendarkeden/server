@@ -17,7 +17,7 @@
 //
 // class GCAddSlayerCorpse;
 //
-// ½½·¹ÀÌ¾îÀÇ ½ÃÃ¼ Á¤º¸¸¦ ´ã¾Æ¼­ Å¬¶óÀÌ¾ğÆ®¿¡ Àü¼ÛÇÑ´Ù.
+// ìŠ¬ë ˆì´ì–´ì˜ ì‹œì²´ ì •ë³´ë¥¼ ë‹´ì•„ì„œ í´ë¼ì´ì–¸íŠ¸ì— ì „ì†¡í•œë‹¤.
 //
 //----------------------------------------------------------------------
 
@@ -32,10 +32,10 @@ public:
 
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀĞ¾î¼­ ÆĞÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ì…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆĞÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -81,10 +81,10 @@ public:
     }
 
 private:
-    // ½½·¹ÀÌ¾îÀÇ ¿Ü¸ğ Á¤º¸
+    // ìŠ¬ë ˆì´ì–´ì˜ ì™¸ëª¨ ì •ë³´
     PCSlayerInfo3 m_SlayerInfo;
 
-    // º¸¹° ¼ıÀÚ
+    // ë³´ë¬¼ ìˆ«ì
     BYTE m_TreasureCount;
 };
 
@@ -116,7 +116,7 @@ public:
 
     // get packet's body size
     // *OPTIMIZATION HINT*
-    // const static GCAddSlayerCorpsePacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCAddSlayerCorpsePacketSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return PCSlayerInfo3::getMaxSize() + szBYTE;
     }

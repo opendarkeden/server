@@ -36,8 +36,8 @@ protected:
     void ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID);
 
 protected:
-    POINT m_pSGMask[8];    // SG ¸¶½ºÅ©´Â ¹æÇâ°ú´Â °ü°è°¡ ¾ø´Ù.
-    POINT m_pARMask[8][3]; // AR, SMG¸¶½ºÅ©´Â ¹æÇâ°ú °ü°è°¡ ÀÖ´Ù.
+    POINT m_pSGMask[8];    // SG ë§ˆìŠ¤í¬ëŠ” ë°©í–¥ê³¼ëŠ” ê´€ê³„ê°€ ì—†ë‹¤.
+    POINT m_pARMask[8][3]; // AR, SMGë§ˆìŠ¤í¬ëŠ” ë°©í–¥ê³¼ ê´€ê³„ê°€ ìˆë‹¤.
 };
 
 // global variable declaration

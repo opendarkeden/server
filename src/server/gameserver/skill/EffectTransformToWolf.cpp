@@ -87,11 +87,11 @@ void EffectTransformToWolf::unaffect(Creature* pCreature)
     Zone* pZone = pCreature->getZone();
     Assert(pZone != NULL);
 
-    // ¿ø·¡ ¸ð½ÀÀ¸·Î µÇµ¹¸®°í, ÇÃ·¡±×¸¦ Á¦°ÅÇÑ´Ù.
+    // ì›ëž˜ ëª¨ìŠµìœ¼ë¡œ ë˜ëŒë¦¬ê³ , í”Œëž˜ê·¸ë¥¼ ì œê±°í•œë‹¤.
     addUntransformCreature(pZone, pCreature, false);
     pCreature->removeFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF);
 
-    // ´É·ÂÄ¡¸¦ ¿ø·¡´ë·Î µÇµ¹¸°´Ù.
+    // ëŠ¥ë ¥ì¹˜ë¥¼ ì›ëž˜ëŒ€ë¡œ ë˜ëŒë¦°ë‹¤.
     if (pCreature->isVampire()) {
         Vampire* pTargetVampire = dynamic_cast<Vampire*>(pCreature);
         VAMPIRE_RECORD prev;

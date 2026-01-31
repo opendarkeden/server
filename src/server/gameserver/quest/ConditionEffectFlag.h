@@ -38,7 +38,7 @@ public:
     }
 
 private:
-    Effect::EffectClass m_Index; // ÇÃ·¡±×ÀÇ °ª
+    Effect::EffectClass m_Index; // í”Œë˜ê·¸ì˜ ê°’
 };
 
 //////////////////////////////////////////////////////////////////////////////

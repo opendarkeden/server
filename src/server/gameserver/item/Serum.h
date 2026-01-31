@@ -70,11 +70,11 @@ public:
     }
 
 private:
-    ItemType_t m_ItemType; // ¾ÆÀÌÅÛ Å¸ÀÔ
-    ItemNum_t m_Num;       // °ãÃÄÀÖ´Â Ç÷Ã»ÀÇ °¹¼ö
+    ItemType_t m_ItemType; // ì•„ì´í…œ íƒ€ì…
+    ItemNum_t m_Num;       // ê²¹ì³ìˆëŠ” í˜ˆì²­ì˜ ê°¯ìˆ˜
 
-    static Mutex m_Mutex;             // ¾ÆÀÌÅÛ ID °ü·Ã ¶ô
-    static ItemID_t m_ItemIDRegistry; // Å¬·¡½ºº° °íÀ¯ ¾ÆÀÌÅÛ ¾ÆÀÌµğ ¹ß±Ş±â
+    static Mutex m_Mutex;             // ì•„ì´í…œ ID ê´€ë ¨ ë½
+    static ItemID_t m_ItemIDRegistry; // í´ë˜ìŠ¤ë³„ ê³ ìœ  ì•„ì´í…œ ì•„ì´ë”” ë°œê¸‰ê¸°
 };
 
 
@@ -114,9 +114,9 @@ public:
     virtual string toString() const;
 
 private:
-    int m_HPAmount; // ´ÜÀ§ ½Ã°£´ç HP È¸º¹·®
-    int m_Period;   // ´ÜÀ§ ½Ã°£(ÃÊ ´ÜÀ§)
-    int m_Count;    // ´ÜÀ§ ½Ã°£À» ¸î ¹ø ¹İº¹ÇÒ °ÍÀÎ°¡?
+    int m_HPAmount; // ë‹¨ìœ„ ì‹œê°„ë‹¹ HP íšŒë³µëŸ‰
+    int m_Period;   // ë‹¨ìœ„ ì‹œê°„(ì´ˆ ë‹¨ìœ„)
+    int m_Count;    // ë‹¨ìœ„ ì‹œê°„ì„ ëª‡ ë²ˆ ë°˜ë³µí•  ê²ƒì¸ê°€?
 };
 
 

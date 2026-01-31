@@ -2,7 +2,7 @@
 //
 // Filename    : GCAttackMeleeOK3.h
 // Written By  : elca@ewestsoft.com
-// Description : ±â¼úÀÌ ¼º°øÇßÀ»¶§ º¸³»´Â ÆÐÅ¶À» À§ÇÑ Å¬·¡½º Á¤ÀÇ
+// Description : ê¸°ìˆ ì´ ì„±ê³µí–ˆì„ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚·ì„ ìœ„í•œ í´ëž˜ìŠ¤ ì •ì˜
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@
 //
 // class GCAttackMeleeOK3;
 //
-// °ÔÀÓ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î ÀÚ½ÅÀÇ ±â¼úÀÌ ¼º°øÀ» ¾Ë·ÁÁÖ±â À§ÇÑ Å¬·¡½º
+// ê²Œìž„ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ìžì‹ ì˜ ê¸°ìˆ ì´ ì„±ê³µì„ ì•Œë ¤ì£¼ê¸° ìœ„í•œ í´ëž˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -33,10 +33,10 @@ public:
 
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -48,7 +48,7 @@ public:
     }
 
     // get packet's body size
-    // ÃÖÀûÈ­½Ã, ¹Ì¸® °è»êµÈ Á¤¼ö¸¦ »ç¿ëÇÑ´Ù.
+    // ìµœì í™”ì‹œ, ë¯¸ë¦¬ ê³„ì‚°ëœ ì •ìˆ˜ë¥¼ ì‚¬ìš©í•œë‹¤.
     PacketSize_t getPacketSize() const {
         return szObjectID + szObjectID;
     }

@@ -44,13 +44,13 @@ void CGModifyGuildMemberHandler::execute(CGModifyGuildMember* pPacket, Player* p
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
     Assert(pPlayerCreature != NULL);
 
-    // ±æµå¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     Guild* pGuild = g_pGuildManager->getGuild(pPlayerCreature->getGuildID());
     // try { Assert(pGuild != NULL); } catch (Throwable& t ) { return; }
     if (pGuild == NULL)
         return;
 
-    // ±æµå ¸â¹ö Á¤º¸¸¦ °¡Á®¿Â´Ù.
+    // ê¸¸ë“œ ë©¤ë²„ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
     GuildMember* pGuildMember = pGuild->getMember(pPlayerCreature->getName());
     // try { Assert(pGuild != NULL); } catch (Throwable& t ) { return; }
     if (pGuildMember == NULL)
@@ -60,10 +60,10 @@ void CGModifyGuildMemberHandler::execute(CGModifyGuildMember* pPacket, Player* p
 
     if (pPacket->getGuildMemberRank() == GuildMember::GUILDMEMBER_RANK_DENY) {
         ////////////////////////////////////////////////////////
-        // ±æµå ¸â¹ö¸¦ Ãß¹æÇÑ´Ù.
+        // ê¸¸ë“œ ë©¤ë²„ë¥¼ ì¶”ë°©í•œë‹¤.
         ////////////////////////////////////////////////////////
 
-        // ¸¶½ºÅÍ°¡ ¾Æ´Ï¸é Ãß¹æÇÒ ¼ö ¾ø´Ù.
+        // ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë©´ ì¶”ë°©í•  ìˆ˜ ì—†ë‹¤.
         if (pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_MASTER)
             return;
 
@@ -91,10 +91,10 @@ void CGModifyGuildMemberHandler::execute(CGModifyGuildMember* pPacket, Player* p
             return;
         }
         ///////////////////////////////////////////////////////
-        // ±æµå °¡ÀÔÀ» ½ÂÀÎÇÑ´Ù.
+        // ê¸¸ë“œ ê°€ìž…ì„ ìŠ¹ì¸í•œë‹¤.
         ///////////////////////////////////////////////////////
 
-        // ¸¶½ºÅÍ³ª ¼­ºê¸¶½ºÅÍ ÀÌ¾î¾ß ÇÑ´Ù.
+        // ë§ˆìŠ¤í„°ë‚˜ ì„œë¸Œë§ˆìŠ¤í„° ì´ì–´ì•¼ í•œë‹¤.
         if (pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_MASTER &&
             pGuildMember->getRank() != GuildMember::GUILDMEMBER_RANK_SUBMASTER)
             return;

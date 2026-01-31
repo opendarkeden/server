@@ -36,8 +36,8 @@ void ScheduleTest::tearDown() {}
 void ScheduleTest::testSchedule() {
     __BEGIN_TEST_CASE
 
-    VSDateTime::setCurrentDateTime(0); // Ã³À½¿¡
-    VSDateTime dt(100);                // 100ÃÊ µÚ¿¡ ½ÇÇàÇÏµµ·Ï ¿¹¾àÇØµĞ´Ù.
+    VSDateTime::setCurrentDateTime(0); // ì²˜ìŒì—
+    VSDateTime dt(100);                // 100ì´ˆ ë’¤ì— ì‹¤í–‰í•˜ë„ë¡ ì˜ˆì•½í•´ë‘”ë‹¤.
 
     TestWork* pWork = new TestWork();
     Schedule* pSchedule = new Schedule(pWork, dt);
@@ -48,14 +48,14 @@ void ScheduleTest::testSchedule() {
     CPPUNIT_ASSERT(!pSchedule->heartbeat());
     CPPUNIT_ASSERT(!pWork->test);
 
-    VSDateTime::setCurrentDateTime(50); // 50 (50ºĞ? 50½Ã°£?) µÚ¿¡
+    VSDateTime::setCurrentDateTime(50); // 50 (50ë¶„? 50ì‹œê°„?) ë’¤ì—
 
-    CPPUNIT_ASSERT(!pSchedule->heartbeat()); // ¾ÆÁ÷ ½ÇÇàµÇ¾î¼± ¾È µÈ´Ù.
+    CPPUNIT_ASSERT(!pSchedule->heartbeat()); // ì•„ì§ ì‹¤í–‰ë˜ì–´ì„  ì•ˆ ëœë‹¤.
     CPPUNIT_ASSERT(!pWork->test);
 
-    VSDateTime::setCurrentDateTime(101); // 100ÃÊ (100ºĞ? 100½Ã°£?) µÚ¿¡
+    VSDateTime::setCurrentDateTime(101); // 100ì´ˆ (100ë¶„? 100ì‹œê°„?) ë’¤ì—
 
-    CPPUNIT_ASSERT(pSchedule->heartbeat()); // ½ÇÇàµÇ¾î¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(pSchedule->heartbeat()); // ì‹¤í–‰ë˜ì–´ì•¼ í•œë‹¤.
     CPPUNIT_ASSERT(pWork->test);
 
     SAFE_DELETE(pSchedule);
@@ -70,7 +70,7 @@ void ScheduleTest::testScheduler() {
     Scheduler* pScheduler = new Scheduler();
 
     TestWork* pWork1 = new TestWork();
-    Schedule* pSchedule1 = new Schedule(pWork1, VSDateTime(100)); // 100ÃÊ µÚ¿¡ ½ÇÇàÇÏµµ·Ï ¿¹¾àÇØµĞ´Ù.
+    Schedule* pSchedule1 = new Schedule(pWork1, VSDateTime(100)); // 100ì´ˆ ë’¤ì— ì‹¤í–‰í•˜ë„ë¡ ì˜ˆì•½í•´ë‘”ë‹¤.
 
     pScheduler->addSchedule(pSchedule1);
 
@@ -81,44 +81,44 @@ void ScheduleTest::testScheduler() {
 
     pScheduler->addSchedule(pSchedule2);
 
-    CPPUNIT_ASSERT(pScheduler->getSize() == 2); // µÎ°³ ´Ù Àß µé¾î°¡¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(pScheduler->getSize() == 2); // ë‘ê°œ ë‹¤ ì˜ ë“¤ì–´ê°€ì•¼ í•œë‹¤.
 
     pScheduler->heartbeat();
 
     CPPUNIT_ASSERT(!pWork1->test);
     CPPUNIT_ASSERT(!pWork2->test);
 
-    VSDateTime::setCurrentDateTime(50); // 50ÃÊ µÚ¿¡
+    VSDateTime::setCurrentDateTime(50); // 50ì´ˆ ë’¤ì—
 
     pScheduler->heartbeat();
     CPPUNIT_ASSERT(pScheduler->getSize() == 2);
 
-    CPPUNIT_ASSERT(!pWork1->test); // ¾Æ¹«°Íµµ ½ÇÇàµÇÁö ¾Ê¾Ò¾î¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(!pWork1->test); // ì•„ë¬´ê²ƒë„ ì‹¤í–‰ë˜ì§€ ì•Šì•˜ì–´ì•¼ í•œë‹¤.
     CPPUNIT_ASSERT(!pWork2->test);
 
-    VSDateTime::setCurrentDateTime(101); // 100ÃÊ µÚ¿¡
+    VSDateTime::setCurrentDateTime(101); // 100ì´ˆ ë’¤ì—
 
     pWork = dynamic_cast<TestWork*>(pScheduler->heartbeat());
     CPPUNIT_ASSERT(pWork1 == pWork);
-    CPPUNIT_ASSERT(pScheduler->getSize() == 1); // ÇÑ°³´Â Áö¿öÁ³¾î¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(pScheduler->getSize() == 1); // í•œê°œëŠ” ì§€ì›Œì¡Œì–´ì•¼ í•œë‹¤.
 
-    CPPUNIT_ASSERT(pWork1->test); // 1¹ø ½ºÄÉÁÙ¸¸ ½ÇÇàµÇ¾ú¾î¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(pWork1->test); // 1ë²ˆ ìŠ¤ì¼€ì¤„ë§Œ ì‹¤í–‰ë˜ì—ˆì–´ì•¼ í•œë‹¤.
     CPPUNIT_ASSERT(!pWork2->test);
 
-    VSDateTime::setCurrentDateTime(151); // 150ÃÊ µÚ¿¡
+    VSDateTime::setCurrentDateTime(151); // 150ì´ˆ ë’¤ì—
 
     pScheduler->heartbeat();
-    CPPUNIT_ASSERT(pScheduler->getSize() == 1); // ÇÑ°³´Â Áö¿öÁ³¾î¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(pScheduler->getSize() == 1); // í•œê°œëŠ” ì§€ì›Œì¡Œì–´ì•¼ í•œë‹¤.
 
     CPPUNIT_ASSERT(pWork1->test);
     CPPUNIT_ASSERT(!pWork2->test);
 
-    VSDateTime::setCurrentDateTime(201); // 200ÃÊ µÚ¿¡
+    VSDateTime::setCurrentDateTime(201); // 200ì´ˆ ë’¤ì—
 
     pWork = dynamic_cast<TestWork*>(pScheduler->heartbeat());
 
     CPPUNIT_ASSERT(pWork2 == pWork);
-    CPPUNIT_ASSERT(pScheduler->getSize() == 0); // µÎ°³ ´Ù Áö¿öÁ³¾î¾ß ÇÑ´Ù.
+    CPPUNIT_ASSERT(pScheduler->getSize() == 0); // ë‘ê°œ ë‹¤ ì§€ì›Œì¡Œì–´ì•¼ í•œë‹¤.
 
     CPPUNIT_ASSERT(pWork1->test);
     CPPUNIT_ASSERT(pWork2->test);

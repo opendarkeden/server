@@ -19,7 +19,7 @@
 #include "TradeManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ½½·¹ÀÌ¾î ¿ÀºêÁ§Æ® ÇÚµé·¯
+// ìŠ¬ë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot,
                       CEffectID_t CEffectID) throw(Error) {
@@ -39,17 +39,17 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
         Creature* pFromCreature = pZone->getCreature(TargetObjectID);
 
-        // ¹ìÆÄÀÌ¾î¸¸ °Çµå¸± ¼ö°¡ ÀÖ´Ù.
-        // NoSuchÁ¦°Å. by sigi. 2002.5.2
+        // ë±€íŒŒì´ì–´ë§Œ ê±´ë“œë¦´ ìˆ˜ê°€ ìˆë‹¤.
+        // NoSuchì œê±°. by sigi. 2002.5.2
         if (pFromCreature == NULL || !pFromCreature->isVampire()) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
             return;
         }
 
-        GCSkillToObjectOK1 _GCSkillToObjectOK1; // ½ºÅ³ ¾´ ³Ñ¿¡°Ô...
-        GCMorph1 _GCMorph1;                     // º¯½Å ´ç»çÀÚ¿¡°Ô..
-        GCMorphSlayer2 _GCMorphSlayer2;         // º¯½Å ±¸°æ²Ûµé¿¡°Ô..
+        GCSkillToObjectOK1 _GCSkillToObjectOK1; // ìŠ¤í‚¬ ì“´ ë„˜ì—ê²Œ...
+        GCMorph1 _GCMorph1;                     // ë³€ì‹  ë‹¹ì‚¬ìì—ê²Œ..
+        GCMorphSlayer2 _GCMorphSlayer2;         // ë³€ì‹  êµ¬ê²½ê¾¼ë“¤ì—ê²Œ..
 
         SkillType_t SkillType = pSkillSlot->getSkillType();
         SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
@@ -59,27 +59,27 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
         if (bRangeCheck && bHitRoll) {
             //////////////////////////////////////////////////////////////////////
-            // °¢Á¾ Á¸ ·¹º§ Á¤º¸¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+            // ê°ì¢… ì¡´ ë ˆë²¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
             //////////////////////////////////////////////////////////////////////
 
-            // ÆÄÆ¼ ÃÊ´ë ÁßÀÌ¶ó¸é Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // íŒŒí‹° ì´ˆëŒ€ ì¤‘ì´ë¼ë©´ ì •ë³´ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
             PartyInviteInfoManager* pPIIM = pZone->getPartyInviteInfoManager();
             Assert(pPIIM != NULL);
             pPIIM->cancelInvite(pFromCreature);
 
-            // ÆÄÆ¼ °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // íŒŒí‹° ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
             int PartyID = pFromCreature->getPartyID();
             if (PartyID != 0) {
-                // ¸ÕÀú ·ÎÄÃ¿¡¼­ »èÁ¦ÇÏ°í...
+                // ë¨¼ì € ë¡œì»¬ì—ì„œ ì‚­ì œí•˜ê³ ...
                 LocalPartyManager* pLPM = pZone->getLocalPartyManager();
                 Assert(pLPM != NULL);
                 pLPM->deletePartyMember(PartyID, pFromCreature);
 
-                // ±Û·Î¹ú¿¡¼­µµ »èÁ¦ÇØ ÁØ´Ù.
+                // ê¸€ë¡œë²Œì—ì„œë„ ì‚­ì œí•´ ì¤€ë‹¤.
                 deleteAllPartyInfo(pFromCreature);
             }
 
-            // Æ®·¹ÀÌµå ÁßÀÌ¾ú´Ù¸é Æ®·¹ÀÌµå °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+            // íŠ¸ë ˆì´ë“œ ì¤‘ì´ì—ˆë‹¤ë©´ íŠ¸ë ˆì´ë“œ ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
             TradeManager* pTM = pZone->getTradeManager();
             Assert(pTM != NULL);
             pTM->cancelTrade(pFromCreature);
@@ -90,7 +90,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             Slayer* pNewSlayer = new Slayer;
             Vampire* pVampire = dynamic_cast<Vampire*>(pFromCreature);
 
-            // DB¿¡¼­ È¤½Ã ³²¾ÆÀÖÀ» Áö ¸ğ¸£´Â ÈíÇ÷ Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+            // DBì—ì„œ í˜¹ì‹œ ë‚¨ì•„ìˆì„ ì§€ ëª¨ë¥´ëŠ” í¡í˜ˆ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
             Statement* pStmt = NULL;
             BEGIN_DB {
                 pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -103,7 +103,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
             pNewSlayer->setName(pFromCreature->getName());
 
-            // Å©¸®ÃÄ ¾ÈÀÇ ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ¿Í ÇÃ·¹ÀÌ¾î ¾ÈÀÇ Å©¸®ÃÄ Æ÷ÀÎÅÍ¸¦ °»½ÅÇÑ´Ù.
+            // í¬ë¦¬ì³ ì•ˆì˜ í”Œë ˆì´ì–´ í¬ì¸í„°ì™€ í”Œë ˆì´ì–´ ì•ˆì˜ í¬ë¦¬ì³ í¬ì¸í„°ë¥¼ ê°±ì‹ í•œë‹¤.
             Player* pFromPlayer = pFromCreature->getPlayer();
             pNewSlayer->setPlayer(pFromPlayer);
             GamePlayer* pFromGamePlayer = dynamic_cast<GamePlayer*>(pFromPlayer);
@@ -119,22 +119,22 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             Dir_t dir = pFromCreature->getDir();
             Tile& tile = pZone->getTile(x, y);
 
-            // °ğ pFromCreature Áï, ¿ø·¡ÀÇ ¹ìÆÄÀÌ¾î °´Ã¼´Â Áö¿öÁú °ÍÀÌ¹Ç·Î,
-            // PCFinder¿¡ µé¾î°¡ ÀÖ´Â °ªÀº ¾²·¹±â °ªÀÌ µÉ °ÍÀÌ´Ù.
-            // ±×·¯¹Ç·Î ¹ìÆÄÀÌ¾î Æ÷ÀÎÅÍ¸¦ Áö¿öÁÖ°í, »õ·Î¿î ½½·¹ÀÌ¾î Æ÷ÀÎÅÍ¸¦ ´õÇÑ´Ù.
+            // ê³§ pFromCreature ì¦‰, ì›ë˜ì˜ ë±€íŒŒì´ì–´ ê°ì²´ëŠ” ì§€ì›Œì§ˆ ê²ƒì´ë¯€ë¡œ,
+            // PCFinderì— ë“¤ì–´ê°€ ìˆëŠ” ê°’ì€ ì“°ë ˆê¸° ê°’ì´ ë  ê²ƒì´ë‹¤.
+            // ê·¸ëŸ¬ë¯€ë¡œ ë±€íŒŒì´ì–´ í¬ì¸í„°ë¥¼ ì§€ì›Œì£¼ê³ , ìƒˆë¡œìš´ ìŠ¬ë ˆì´ì–´ í¬ì¸í„°ë¥¼ ë”í•œë‹¤.
             g_pPCFinder->deleteCreature(pFromCreature->getName());
             g_pPCFinder->addCreature(pNewSlayer);
 
-            // ±æµå ÇöÀç Á¢¼Ó ¸â¹ö ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // ê¸¸ë“œ í˜„ì¬ ì ‘ì† ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
             if (pVampire->getGuildID() != 0)
                 g_pGuildManager->getGuild(pVampire->getGuildID())->deleteCurrentMember(pVampire->getName());
 
-            // ÀÎº¥Åä¸® ±³Ã¼.
+            // ì¸ë²¤í† ë¦¬ êµì²´.
             Inventory* pInventory = pVampire->getInventory();
             pNewSlayer->setInventory(pInventory);
             pVampire->setInventory(NULL);
 
-            // º¸°üÇÔ ±³Ã¼
+            // ë³´ê´€í•¨ êµì²´
             pNewSlayer->deleteStash();
             pNewSlayer->setStash(pVampire->getStash());
             pNewSlayer->setStashNum(pVampire->getStashNum());
@@ -142,19 +142,19 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             pVampire->setStash(NULL);
 
             /*
-            // °¡ºñÁö ±³Ã¼
+            // ê°€ë¹„ì§€ êµì²´
             while (true)
             {
                 Item* pGarbage = pVampire->popItemFromGarbage();
 
-                // ´õ ÀÌ»ó ¾ø´Ù¸é ºê·¹ÀÌÅ©...
+                // ë” ì´ìƒ ì—†ë‹¤ë©´ ë¸Œë ˆì´í¬...
                 if (pGarbage == NULL) break;
 
                 pNewSlayer->addItemToGarbage(pGarbage);
             }
             */
 
-            // ÇÃ·¡±× ¼Â ±³Ã¼
+            // í”Œë˜ê·¸ ì…‹ êµì²´
             pNewSlayer->deleteFlagSet();
             pNewSlayer->setFlagSet(pVampire->getFlagSet());
             pVampire->setFlagSet(NULL);
@@ -162,19 +162,19 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             Item* pItem = NULL;
             _TPOINT point;
 
-            // ÀÔ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀ» ÀÎº¥Åä¸® ¶Ç´Â ¹Ù´ÚÀ¸·Î ¿Å±ä´Ù.
+            // ì…ê³  ìˆëŠ” ì•„ì´í…œë“¤ì„ ì¸ë²¤í† ë¦¬ ë˜ëŠ” ë°”ë‹¥ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
             for (int part = 0; part < (int)Vampire::VAMPIRE_WEAR_MAX; part++) {
                 pItem = pVampire->getWearItem((Vampire::WearPart)part);
                 if (pItem != NULL) {
-                    // ¸ÕÀú ±â¾î¿¡¼­ »èÁ¦ÇÏ°í...
+                    // ë¨¼ì € ê¸°ì–´ì—ì„œ ì‚­ì œí•˜ê³ ...
                     pVampire->deleteWearItem((Vampire::WearPart)part);
 
-                    // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ÀÖÀ¸¸é ÀÎº¥Åä¸®¿¡ ´õÇÏ°í...
+                    // ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ìˆìœ¼ë©´ ì¸ë²¤í† ë¦¬ì— ë”í•˜ê³ ...
                     if (pInventory->getEmptySlot(pItem, point)) {
                         pInventory->addItem(point.x, point.y, pItem);
                         pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
                     }
-                    // ÀÚ¸®°¡ ¾øÀ¸¸é ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                    // ìë¦¬ê°€ ì—†ìœ¼ë©´ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     else {
                         ZoneCoord_t ZoneX = pVampire->getX();
                         ZoneCoord_t ZoneY = pVampire->getY();
@@ -197,12 +197,12 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             if (pItem != NULL) {
                 pVampire->deleteItemFromExtraInventorySlot();
 
-                // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ÀÖÀ¸¸é ÀÎº¥Åä¸®¿¡ ´õÇÏ°í...
+                // ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ìˆìœ¼ë©´ ì¸ë²¤í† ë¦¬ì— ë”í•˜ê³ ...
                 if (pInventory->getEmptySlot(pItem, point)) {
                     pInventory->addItem(point.x, point.y, pItem);
                     pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
                 }
-                // ÀÚ¸®°¡ ¾øÀ¸¸é ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                // ìë¦¬ê°€ ì—†ìœ¼ë©´ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 else {
                     TPOINT pt;
                     ZoneCoord_t ZoneX = pVampire->getX();
@@ -219,10 +219,10 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
                 }
             }
 
-            // ¹ìÆÄÀÌ¾î °¡Áö°í ÀÖ´ø µ·À» ½½·¹ÀÌ¾î·Î ¿Å°ÜÁØ´Ù.
+            // ë±€íŒŒì´ì–´ ê°€ì§€ê³  ìˆë˜ ëˆì„ ìŠ¬ë ˆì´ì–´ë¡œ ì˜®ê²¨ì¤€ë‹¤.
             pNewSlayer->setGoldEx(pVampire->getGold());
 
-            // ½ºÅ³ Á¤º¸¸¦ Àü¼ÛÇÑ´Ù.
+            // ìŠ¤í‚¬ ì •ë³´ë¥¼ ì „ì†¡í•œë‹¤.
             pNewSlayer->sendSlayerSkillInfo();
 
             _GCMorph1.setPCInfo2(pNewSlayer->getSlayerInfo2());
@@ -237,7 +237,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
             pZone->broadcastPacket(x, y, &_GCMorphSlayer2, pNewSlayer);
 
-            // Å¸ÀÏ ¹× Á¸¿¡¼­ ±âÁ¸ ¹ìÆÄÀÌ¾î¸¦ »èÁ¦ÇÏ°í, »õ·Î¿î ½½·¹ÀÌ¾î¸¦ ´õÇÑ´Ù.
+            // íƒ€ì¼ ë° ì¡´ì—ì„œ ê¸°ì¡´ ë±€íŒŒì´ì–´ë¥¼ ì‚­ì œí•˜ê³ , ìƒˆë¡œìš´ ìŠ¬ë ˆì´ì–´ë¥¼ ë”í•œë‹¤.
             tile.deleteCreature(pFromCreature->getObjectID());
             pZone->deletePC(pFromCreature);
 
@@ -252,7 +252,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
             pNewSlayer->tinysave("Race='SLAYER'");
             SAFE_DELETE(pFromCreature);
 
-            // ½Ã¾ß update..
+            // ì‹œì•¼ update..
             pZone->updateHiddenScan(pNewSlayer);
 
             _GCSkillToObjectOK1.setSkillType(SkillType);
@@ -283,7 +283,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// NPC ¿ÀºêÁ§Æ® ÇÚµé·¯
+// NPC ì˜¤ë¸Œì íŠ¸ í•¸ë“¤ëŸ¬
 //////////////////////////////////////////////////////////////////////////////
 void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
     __BEGIN_TRY
@@ -298,14 +298,14 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
         Zone* pZone = pNPC->getZone();
         Assert(pZone != NULL);
 
-        // ¹ìÆÄÀÌ¾î¸¸ °Çµå¸± ¼ö°¡ ÀÖ´Ù.
+        // ë±€íŒŒì´ì–´ë§Œ ê±´ë“œë¦´ ìˆ˜ê°€ ìˆë‹¤.
         if (!pFromCreature->isVampire()) {
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
             return;
         }
 
-        GCMorph1 _GCMorph1;             // º¯½Å ´ç»çÀÚ¿¡°Ô..
-        GCMorphSlayer2 _GCMorphSlayer2; // º¯½Å ±¸°æ²Ûµé¿¡°Ô..
+        GCMorph1 _GCMorph1;             // ë³€ì‹  ë‹¹ì‚¬ìì—ê²Œ..
+        GCMorphSlayer2 _GCMorphSlayer2; // ë³€ì‹  êµ¬ê²½ê¾¼ë“¤ì—ê²Œ..
 
         SkillType_t SkillType = SKILL_RESTORE;
 
@@ -315,27 +315,27 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
         // if (bRangeCheck && bHitRoll)
         if (bHitRoll) {
             //////////////////////////////////////////////////////////////////////
-            // °¢Á¾ Á¸ ·¹º§ Á¤º¸¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+            // ê°ì¢… ì¡´ ë ˆë²¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
             //////////////////////////////////////////////////////////////////////
 
-            // ÆÄÆ¼ ÃÊ´ë ÁßÀÌ¶ó¸é Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // íŒŒí‹° ì´ˆëŒ€ ì¤‘ì´ë¼ë©´ ì •ë³´ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
             PartyInviteInfoManager* pPIIM = pZone->getPartyInviteInfoManager();
             Assert(pPIIM != NULL);
             pPIIM->cancelInvite(pFromCreature);
 
-            // ÆÄÆ¼ °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+            // íŒŒí‹° ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
             int PartyID = pFromCreature->getPartyID();
             if (PartyID != 0) {
-                // ¸ÕÀú ·ÎÄÃ¿¡¼­ »èÁ¦ÇÏ°í...
+                // ë¨¼ì € ë¡œì»¬ì—ì„œ ì‚­ì œí•˜ê³ ...
                 LocalPartyManager* pLPM = pZone->getLocalPartyManager();
                 Assert(pLPM != NULL);
                 pLPM->deletePartyMember(PartyID, pFromCreature);
 
-                // ±Û·Î¹ú¿¡¼­µµ »èÁ¦ÇØ ÁØ´Ù.
+                // ê¸€ë¡œë²Œì—ì„œë„ ì‚­ì œí•´ ì¤€ë‹¤.
                 deleteAllPartyInfo(pFromCreature);
             }
 
-            // Æ®·¹ÀÌµå ÁßÀÌ¾ú´Ù¸é Æ®·¹ÀÌµå °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+            // íŠ¸ë ˆì´ë“œ ì¤‘ì´ì—ˆë‹¤ë©´ íŠ¸ë ˆì´ë“œ ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
             TradeManager* pTM = pZone->getTradeManager();
             Assert(pTM != NULL);
             pTM->cancelTrade(pFromCreature);
@@ -346,7 +346,7 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
             Slayer* pNewSlayer = new Slayer;
             Vampire* pVampire = dynamic_cast<Vampire*>(pFromCreature);
 
-            // DB¿¡¼­ È¤½Ã ³²¾ÆÀÖÀ» Áö ¸ğ¸£´Â ÈíÇ÷ Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+            // DBì—ì„œ í˜¹ì‹œ ë‚¨ì•„ìˆì„ ì§€ ëª¨ë¥´ëŠ” í¡í˜ˆ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
             Statement* pStmt = NULL;
             BEGIN_DB {
                 pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -370,35 +370,35 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
 
             pNewSlayer->setXYDir(x, y, dir);
 
-            // Å©¸®ÃÄ ¾ÈÀÇ ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ¿Í ÇÃ·¹ÀÌ¾î ¾ÈÀÇ Å©¸®ÃÄ Æ÷ÀÎÅÍ¸¦ °»½ÅÇÑ´Ù.
+            // í¬ë¦¬ì³ ì•ˆì˜ í”Œë ˆì´ì–´ í¬ì¸í„°ì™€ í”Œë ˆì´ì–´ ì•ˆì˜ í¬ë¦¬ì³ í¬ì¸í„°ë¥¼ ê°±ì‹ í•œë‹¤.
             Player* pFromPlayer = pFromCreature->getPlayer();
             pNewSlayer->setPlayer(pFromPlayer);
             GamePlayer* pFromGamePlayer = dynamic_cast<GamePlayer*>(pFromPlayer);
             pFromGamePlayer->setCreature(pNewSlayer);
 
-            // °ğ pFromCreature Áï, ¿ø·¡ÀÇ ¹ìÆÄÀÌ¾î °´Ã¼´Â Áö¿öÁú °ÍÀÌ¹Ç·Î,
-            // PCFinder¿¡ µé¾î°¡ ÀÖ´Â °ªÀº ¾²·¹±â °ªÀÌ µÉ °ÍÀÌ´Ù.
-            // ±×·¯¹Ç·Î ¹ìÆÄÀÌ¾î Æ÷ÀÎÅÍ¸¦ Áö¿öÁÖ°í, »õ·Î¿î ½½·¹ÀÌ¾î Æ÷ÀÎÅÍ¸¦ ´õÇÑ´Ù.
+            // ê³§ pFromCreature ì¦‰, ì›ë˜ì˜ ë±€íŒŒì´ì–´ ê°ì²´ëŠ” ì§€ì›Œì§ˆ ê²ƒì´ë¯€ë¡œ,
+            // PCFinderì— ë“¤ì–´ê°€ ìˆëŠ” ê°’ì€ ì“°ë ˆê¸° ê°’ì´ ë  ê²ƒì´ë‹¤.
+            // ê·¸ëŸ¬ë¯€ë¡œ ë±€íŒŒì´ì–´ í¬ì¸í„°ë¥¼ ì§€ì›Œì£¼ê³ , ìƒˆë¡œìš´ ìŠ¬ë ˆì´ì–´ í¬ì¸í„°ë¥¼ ë”í•œë‹¤.
             g_pPCFinder->deleteCreature(pFromCreature->getName());
             g_pPCFinder->addCreature(pNewSlayer);
 
-            // ±æµå ÇöÀç Á¢¼Ó ¸â¹ö ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+            // ê¸¸ë“œ í˜„ì¬ ì ‘ì† ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
             if (pVampire->getGuildID() != 0)
                 g_pGuildManager->getGuild(pVampire->getGuildID())->deleteCurrentMember(pVampire->getName());
 
-            // ÀÎº¥Åä¸® ±³Ã¼.
+            // ì¸ë²¤í† ë¦¬ êµì²´.
             Inventory* pInventory = pVampire->getInventory();
             pNewSlayer->setInventory(pInventory);
             pVampire->setInventory(NULL);
 
-            // º¸°üÇÔ ±³Ã¼
+            // ë³´ê´€í•¨ êµì²´
             pNewSlayer->deleteStash();
             pNewSlayer->setStash(pVampire->getStash());
             pNewSlayer->setStashNum(pVampire->getStashNum());
             pNewSlayer->setStashStatus(false);
             pVampire->setStash(NULL);
 
-            // ÇÃ·¡±× ¼Â ±³Ã¼
+            // í”Œë˜ê·¸ ì…‹ êµì²´
             pNewSlayer->deleteFlagSet();
             pNewSlayer->setFlagSet(pVampire->getFlagSet());
             pVampire->setFlagSet(NULL);
@@ -406,19 +406,19 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
             Item* pItem = NULL;
             _TPOINT point;
 
-            // ÀÔ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀ» ÀÎº¥Åä¸® ¶Ç´Â ¹Ù´ÚÀ¸·Î ¿Å±ä´Ù.
+            // ì…ê³  ìˆëŠ” ì•„ì´í…œë“¤ì„ ì¸ë²¤í† ë¦¬ ë˜ëŠ” ë°”ë‹¥ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
             for (int part = 0; part < (int)Vampire::VAMPIRE_WEAR_MAX; part++) {
                 pItem = pVampire->getWearItem((Vampire::WearPart)part);
                 if (pItem != NULL) {
-                    // ¸ÕÀú ±â¾î¿¡¼­ »èÁ¦ÇÏ°í...
+                    // ë¨¼ì € ê¸°ì–´ì—ì„œ ì‚­ì œí•˜ê³ ...
                     pVampire->deleteWearItem((Vampire::WearPart)part);
 
-                    // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ÀÖÀ¸¸é ÀÎº¥Åä¸®¿¡ ´õÇÏ°í...
+                    // ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ìˆìœ¼ë©´ ì¸ë²¤í† ë¦¬ì— ë”í•˜ê³ ...
                     if (pInventory->getEmptySlot(pItem, point)) {
                         pInventory->addItem(point.x, point.y, pItem);
                         pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
                     }
-                    // ÀÚ¸®°¡ ¾øÀ¸¸é ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                    // ìë¦¬ê°€ ì—†ìœ¼ë©´ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                     else {
                         ZoneCoord_t ZoneX = pVampire->getX();
                         ZoneCoord_t ZoneY = pVampire->getY();
@@ -441,12 +441,12 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
             if (pItem != NULL) {
                 pVampire->deleteItemFromExtraInventorySlot();
 
-                // ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ÀÖÀ¸¸é ÀÎº¥Åä¸®¿¡ ´õÇÏ°í...
+                // ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ìˆìœ¼ë©´ ì¸ë²¤í† ë¦¬ì— ë”í•˜ê³ ...
                 if (pInventory->getEmptySlot(pItem, point)) {
                     pInventory->addItem(point.x, point.y, pItem);
                     pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
                 }
-                // ÀÚ¸®°¡ ¾øÀ¸¸é ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+                // ìë¦¬ê°€ ì—†ìœ¼ë©´ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
                 else {
                     TPOINT pt;
                     ZoneCoord_t ZoneX = pVampire->getX();
@@ -463,10 +463,10 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
                 }
             }
 
-            // ¹ìÆÄÀÌ¾î °¡Áö°í ÀÖ´ø µ·À» ½½·¹ÀÌ¾î·Î ¿Å°ÜÁØ´Ù.
+            // ë±€íŒŒì´ì–´ ê°€ì§€ê³  ìˆë˜ ëˆì„ ìŠ¬ë ˆì´ì–´ë¡œ ì˜®ê²¨ì¤€ë‹¤.
             pNewSlayer->setGoldEx(pVampire->getGold());
 
-            // ½ºÅ³ Á¤º¸¸¦ Àü¼ÛÇÑ´Ù.
+            // ìŠ¤í‚¬ ì •ë³´ë¥¼ ì „ì†¡í•œë‹¤.
             pNewSlayer->sendSlayerSkillInfo();
 
             _GCMorph1.setPCInfo2(pNewSlayer->getSlayerInfo2());
@@ -481,7 +481,7 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
 
             pZone->broadcastPacket(x, y, &_GCMorphSlayer2, pNewSlayer);
 
-            // Å¸ÀÏ ¹× Á¸¿¡¼­ ±âÁ¸ ¹ìÆÄÀÌ¾î¸¦ »èÁ¦ÇÏ°í, »õ·Î¿î ½½·¹ÀÌ¾î¸¦ ´õÇÑ´Ù.
+            // íƒ€ì¼ ë° ì¡´ì—ì„œ ê¸°ì¡´ ë±€íŒŒì´ì–´ë¥¼ ì‚­ì œí•˜ê³ , ìƒˆë¡œìš´ ìŠ¬ë ˆì´ì–´ë¥¼ ë”í•œë‹¤.
             tile.deleteCreature(pFromCreature->getObjectID());
             pZone->deletePC(pFromCreature);
 
@@ -496,11 +496,11 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature) throw(Error) {
             pNewSlayer->tinysave("Race='SLAYER'");
             SAFE_DELETE(pFromCreature);
 
-            // ½Ã¾ß update..
+            // ì‹œì•¼ update..
             pZone->updateHiddenScan(pNewSlayer);
 
             EffectRestore* pEffectRestore = new EffectRestore(pNewSlayer);
-            // pEffectRestore->setDeadline(60*60*24*7*10); // 7ÀÏ
+            // pEffectRestore->setDeadline(60*60*24*7*10); // 7ì¼
             pEffectRestore->setDeadline(60 * 60 * 12 * 10); // 12 hours,chengh modify at 2005 10 27
             pNewSlayer->addEffect(pEffectRestore);
             pNewSlayer->setFlag(Effect::EFFECT_CLASS_RESTORE);

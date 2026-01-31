@@ -33,9 +33,9 @@ void CGDropMoneyHandler::execute(CGDropMoney* pPacket, Player* pPlayer)
 
 #ifdef __GAME_SERVER__
 
-        // -_-; ¹«½Ã
+        // -_-; ë¬´ì‹œ
         //	return;
-        throw DisconnectException("µ·Àº ¹ö¸± ¼ö ¾ø½À´Ï´Ù.");
+        throw DisconnectException("ëˆì€ ë²„ë¦´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 
     Assert(pPacket != NULL);
     Assert(pPlayer != NULL);
@@ -52,8 +52,8 @@ void CGDropMoneyHandler::execute(CGDropMoney* pPacket, Player* pPlayer)
         ZoneCoord_t ZoneY = pPC->getY();
 
         if (amount == 0) {
-            // ÇöÀç·Î¼­´Â °Á ¸®ÅÏÇÑ´Ù.
-            // µ· ¶³¾î¶ß¸®±â¸¦ ½ÇÆÐÇß´Ù´Â ÆÐÅ¶À» ¸¸µé¾î¾ß ÇÏ´Â °É±î?
+            // í˜„ìž¬ë¡œì„œëŠ” ê± ë¦¬í„´í•œë‹¤.
+            // ëˆ ë–¨ì–´ëœ¨ë¦¬ê¸°ë¥¼ ì‹¤íŒ¨í–ˆë‹¤ëŠ” íŒ¨í‚·ì„ ë§Œë“¤ì–´ì•¼ í•˜ëŠ” ê±¸ê¹Œ?
             return;
         }
 
@@ -67,9 +67,9 @@ void CGDropMoneyHandler::execute(CGDropMoney* pPacket, Player* pPlayer)
             pOusters = dynamic_cast<Ousters*>(pPC);
             pZone = pOusters->getZone();
         } else
-            throw ProtocolException("CGDropMoneyHandler::execute() : ¾Ë ¼ö ¾ø´Â ÇÃ·¹ÀÌ¾î Å©¸®ÃÄ.");
+            throw ProtocolException("CGDropMoneyHandler::execute() : ì•Œ ìˆ˜ ì—†ëŠ” í”Œë ˆì´ì–´ í¬ë¦¬ì³.");
 
-        // ÇÃ·¹ÀÌ¾î°¡ ¶³¾î¶ß¸®°íÀÚ ÇÏ´Â ¾×¼ö¸¸Å­ÀÇ µ·À» °¡Áö°í ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+        // í”Œë ˆì´ì–´ê°€ ë–¨ì–´ëœ¨ë¦¬ê³ ìž í•˜ëŠ” ì•¡ìˆ˜ë§Œí¼ì˜ ëˆì„ ê°€ì§€ê³  ìžˆëŠ”ì§€ í™•ì¸í•œë‹¤.
         Item* pItem = NULL;
         list<OptionType_t> optionNULL;
         if (pPC->isSlayer()) {
@@ -89,18 +89,18 @@ void CGDropMoneyHandler::execute(CGDropMoney* pPacket, Player* pPlayer)
             pItem = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_MONEY, 2, optionNULL);
         }
 
-        // µ· ¾ÆÀÌÅÛÀ» »ý¼ºÇÑ´Ù.
+        // ëˆ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 
         dynamic_cast<Money*>(pItem)->setAmount(amount);
 
-        // µ· ¾ÆÀÌÅÛÀ» µî·ÏÇÑ´Ù.
+        // ëˆ ì•„ì´í…œì„ ë“±ë¡í•œë‹¤.
         pZone->getObjectRegistry().registerObject(pItem);
 
-        // µ·À» Á¸¿¡´Ù ¶³¾î¶ß¸°´Ù.
+        // ëˆì„ ì¡´ì—ë‹¤ ë–¨ì–´ëœ¨ë¦°ë‹¤.
         TPOINT pt = pZone->addItem(pItem, ZoneX, ZoneY);
         if (pt.x != -1) {
             // pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
-            //  itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+            //  itemì €ìž¥ ìµœì í™”. by sigi. 2002.5.13
             char pField[80];
             sprintf(pField, "OwnerID='', Storage=%d, StorageID=%lu, X=%d, Y=%d", STORAGE_ZONE, pZone->getZoneID(), pt.x,
                     pt.y);
@@ -108,7 +108,7 @@ void CGDropMoneyHandler::execute(CGDropMoney* pPacket, Player* pPlayer)
 
             // pItem->create("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
-            // µ··Î±× ³²±æ ¾×¼ö¸é µ··Î±× ³²±ä´Ù
+            // ëˆë¡œê·¸ ë‚¨ê¸¸ ì•¡ìˆ˜ë©´ ëˆë¡œê·¸ ë‚¨ê¸´ë‹¤
             if (amount >= g_pVariableManager->getMoneyTraceLogLimit()) {
                 char zoneName[15];
                 sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), ZoneX, ZoneY);
@@ -128,7 +128,7 @@ void CGDropMoneyHandler::execute(CGDropMoney* pPacket, Player* pPlayer)
             return;
         }
 
-        // ÇÃ·¹ÀÌ¾î·ÎºÎÅÍ µ·À» »¯´Â´Ù.
+        // í”Œë ˆì´ì–´ë¡œë¶€í„° ëˆì„ ëºëŠ”ë‹¤.
         // if (pPC->isSlayer())       pSlayer->setGoldEx(pSlayer->getGold() - amount);
         // else if (pPC->isVampire()) pVampire->setGoldEx(pVampire->getGold() - amount);
 

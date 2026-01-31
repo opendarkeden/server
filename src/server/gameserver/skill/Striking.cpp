@@ -16,7 +16,7 @@
 #include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ Ïò§Î∏åÏ†ùÌä∏ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void Striking::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -37,8 +37,8 @@ void Striking::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // ΩΩ∑π¿ÃæÓ ø‹ø°¥¬ ∞… ºˆ æ¯¥Ÿ.
-        // NoSuch¡¶∞≈. by sigi. 2002.5.2
+        // Ïä¨Î†àÏù¥Ïñ¥ Ïô∏ÏóêÎäî Í±∏ Ïàò ÏóÜÎã§.
+        // NoSuchÏ†úÍ±∞. by sigi. 2002.5.2
         if (pTargetCreature == NULL || pTargetCreature->isSlayer() == false) {
             executeSkillFailException(pSlayer, getSkillType());
             // cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
@@ -74,7 +74,7 @@ void Striking::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¿Ã∆Â∆Æ ø¿∫Í¡ß∆Æ∏¶ ª˝º∫«ÿº≠ ∫Ÿ¿Œ¥Ÿ.
+            // Ïù¥ÌéôÌä∏ Ïò§Î∏åÏ†ùÌä∏Î•º ÏÉùÏÑ±Ìï¥ÏÑú Î∂ôÏù∏Îã§.
             EffectStriking* pEffect = new EffectStriking(pTargetSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setTargetItem(pItem);
@@ -82,14 +82,14 @@ void Striking::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
             pTargetSlayer->setFlag(Effect::EFFECT_CLASS_STRIKING);
             pTargetSlayer->addEffect(pEffect);
 
-            // ¿Ã∆Â∆Æ∏¶ ∫Ÿø¥¿∏¥œ ∞ËªÍ¿ª ªı∑Œ «—¥Ÿ.
+            // Ïù¥ÌéôÌä∏Î•º Î∂ôÏòÄÏúºÎãà Í≥ÑÏÇ∞ÏùÑ ÏÉàÎ°ú ÌïúÎã§.
             SLAYER_RECORD prev;
             pTargetSlayer->getSlayerRecord(prev);
             pTargetSlayer->initAllStat();
             pTargetSlayer->sendRealWearingInfo();
             pTargetSlayer->addModifyInfo(prev, _GCSkillToObjectOK2);
 
-            // ∞Ê«Ëƒ°∏¶ ø√∏∞¥Ÿ.
+            // Í≤ΩÌóòÏπòÎ•º Ïò¨Î¶∞Îã§.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
@@ -157,7 +157,7 @@ void Striking::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ΩΩ∑π¿ÃæÓ ºø«¡ «⁄µÈ∑Ø
+// Ïä¨Î†àÏù¥Ïñ¥ ÏÖÄÌîÑ Ìï∏Îì§Îü¨
 //////////////////////////////////////////////////////////////////////////////
 void Striking::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
 
@@ -203,7 +203,7 @@ void Striking::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             SkillOutput output;
             computeOutput(input, output);
 
-            // ¿Ã∆Â∆Æ ø¿∫Í¡ß∆Æ∏¶ ª˝º∫«ÿº≠ ∫Ÿ¿Œ¥Ÿ.
+            // Ïù¥ÌéôÌä∏ Ïò§Î∏åÏ†ùÌä∏Î•º ÏÉùÏÑ±Ìï¥ÏÑú Î∂ôÏù∏Îã§.
             EffectStriking* pEffect = new EffectStriking(pSlayer);
             pEffect->setDeadline(output.Duration);
             pEffect->setDamageBonus(output.Damage);
@@ -211,21 +211,21 @@ void Striking::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
             pSlayer->setFlag(Effect::EFFECT_CLASS_STRIKING);
             pSlayer->addEffect(pEffect);
 
-            // ¿Ã∆Â∆Æ∏¶ ∫Ÿø¥¿∏¥œ ∞ËªÍ¿ª ªı∑Œ «—¥Ÿ.
+            // Ïù¥ÌéôÌä∏Î•º Î∂ôÏòÄÏúºÎãà Í≥ÑÏÇ∞ÏùÑ ÏÉàÎ°ú ÌïúÎã§.
             SLAYER_RECORD prev;
             pSlayer->getSlayerRecord(prev);
             pSlayer->initAllStat();
             pSlayer->sendRealWearingInfo();
             pSlayer->addModifyInfo(prev, _GCSkillToSelfOK1);
 
-            // ∞Ê«Ëƒ°∏¶ ø√∏∞¥Ÿ.
+            // Í≤ΩÌóòÏπòÎ•º Ïò¨Î¶∞Îã§.
             SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
             Exp_t ExpUp = 10 * (Grade + 1);
             shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToSelfOK1);
             increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
             increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToSelfOK1);
 
-            // ∆–≈∂¿ª ≥Ø∏∞¥Ÿ.
+            // Ìå®ÌÇ∑ÏùÑ ÎÇ†Î¶∞Îã§.
             _GCSkillToSelfOK1.setSkillType(SkillType);
             _GCSkillToSelfOK1.setCEffectID(CEffectID);
             _GCSkillToSelfOK1.setDuration(0);

@@ -16,7 +16,7 @@ public:
     virtual ~MonsterKillQuestStatus() {}
 
     // virtual bool	isSuccess()  { return m_CurrentNum >= m_GoalNum; }
-    //  ( !m_IsChief || isChief ) ´Â m_IsChief ÀÌ¸é isChief ÀÌ¾î¾ß ÇÑ´Ù. ¶ó´Â ¸»°ú °°´Ù.
+    //  ( !m_IsChief || isChief ) ëŠ” m_IsChief ì´ë©´ isChief ì´ì–´ì•¼ í•œë‹¤. ë¼ëŠ” ë§ê³¼ ê°™ë‹¤.
     bool killed(SpriteType_t targetSType, bool isChief);
     bool isTarget(SpriteType_t sType, bool isChief) {
         return (!m_IsChief || isChief) && m_TargetMonsterSpriteType == sType;

@@ -17,7 +17,7 @@ public:
     };
 
 protected:
-    // ÀÌ Å¬·¡½º¸¦ Á÷Á¢ »ı¼ºÇÒ ¼ö´Â ¾ø´Ù.
+    // ì´ í´ë˜ìŠ¤ë¥¼ ì§ì ‘ ìƒì„±í•  ìˆ˜ëŠ” ì—†ë‹¤.
     GlobalItemPosition(PositionType type) : m_ItemPosType(type) {}
 
 public:
@@ -32,7 +32,7 @@ public:
     }
 
 public:
-    // ¾ÆÀÌÅÛÀ» »Ì¾Æ³½´Ù.
+    // ì•„ì´í…œì„ ë½‘ì•„ë‚¸ë‹¤.
     virtual Item* popItem(bool bLock = true) = 0;
     virtual Zone* getZone() = 0;
 

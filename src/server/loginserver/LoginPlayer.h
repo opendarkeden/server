@@ -2,7 +2,7 @@
 //
 // Filename    : LoginPlayer.h
 // Written by  : reiot@ewestsoft.com
-// Description : °ÔÀÓ ¼­¹ö¿ë ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// Description : ê²Œì„ ì„œë²„ìš© í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,22 +28,22 @@ class LCPCList;
 //
 // class LoginPlayer
 //
-// °ÔÀÓ ¼­¹ö¿ë ÇÃ·¹ÀÌ¾î Å¬·¡½º
+// ê²Œì„ ì„œë²„ìš© í”Œë ˆì´ì–´ í´ë˜ìŠ¤
 //
-// Player Å¬·¡½º¸¦ »ó¼Ó¹Ş¾Æ¼­, °ÔÀÓ ¼­¹ö¿¡¼­¸¸ »ç¿ëµÇ´Â Mutex ¹×
-// Creature °ü·Ã µ¥ÀÌÅÍ ¹× ¸Ş½îµå, PreviousPacket °ü·Ã µ¥ÀÌÅÍ ¹×
-// ¸Ş¼ÒµåµéÀ» Ãß°¡Çß´Ù.
+// Player í´ë˜ìŠ¤ë¥¼ ìƒì†ë°›ì•„ì„œ, ê²Œì„ ì„œë²„ì—ì„œë§Œ ì‚¬ìš©ë˜ëŠ” Mutex ë°
+// Creature ê´€ë ¨ ë°ì´í„° ë° ë©”ì˜ë“œ, PreviousPacket ê´€ë ¨ ë°ì´í„° ë°
+// ë©”ì†Œë“œë“¤ì„ ì¶”ê°€í–ˆë‹¤.
 //
-// Æ¯È÷ processOutput() ¹× sendPacket()Àº Race Condition ÀÌ ¹ß»ıµÉ ¼ö
-// ÀÖÀ¸¹Ç·Î, Mutex ·Î º¸È£µÇ¾î¾ß ÇÑ´Ù. ( MODE-IVÀÇ °æ¿ìÀÌ¸ç, MODE-I, II
-// ÀÇ °æ¿ì¿¡´Â processInput(), processCommand() ¸ğµÎ Mutex ·Î º¸È£ÇØ¾ß
-// ÇÑ´Ù.)
+// íŠ¹íˆ processOutput() ë° sendPacket()ì€ Race Condition ì´ ë°œìƒë  ìˆ˜
+// ìˆìœ¼ë¯€ë¡œ, Mutex ë¡œ ë³´í˜¸ë˜ì–´ì•¼ í•œë‹¤. ( MODE-IVì˜ ê²½ìš°ì´ë©°, MODE-I, II
+// ì˜ ê²½ìš°ì—ëŠ” processInput(), processCommand() ëª¨ë‘ Mutex ë¡œ ë³´í˜¸í•´ì•¼
+// í•œë‹¤.)
 //
 //////////////////////////////////////////////////////////////////////
 
 class LoginPlayer : public Player, public PaySystem, public BillingPlayerInfo, public CBillingPlayerInfo {
 public:
-    // ÀúÀåÇØ³õÀ» ÀÌÀü ÆĞÅ¶ÀÇ °³¼ö
+    // ì €ì¥í•´ë†“ì„ ì´ì „ íŒ¨í‚·ì˜ ê°œìˆ˜
     static const uint nPacketHistory = 10;
 
     static const uint maxFailure = 3;
@@ -68,7 +68,7 @@ public:
     virtual void sendPacket(Packet* packet);
 
     // disconnect
-    // Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(LOGOUT)
+    // ì •ì‹ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš° disconnect(LOGOUT)
     virtual void disconnect(bool bDisconnected = DISCONNECTED);
     virtual void disconnect_nolog(bool bDisconnected = DISCONNECTED);
 
@@ -78,11 +78,11 @@ public:
 
 public:
     // return recent N-th packet
-    // ÃÖ±Ù Àü¼ÛµÈ N ¹øÂ° ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+    // ìµœê·¼ ì „ì†¡ëœ N ë²ˆì§¸ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
     Packet* getOldPacket(uint prev = 0);
 
     // return recent packet which has packetID
-    // Æ¯Á¤ ID¸¦ °¡Áø ÆĞÅ¶ Áß °¡Àå ÃÖ±ÙÀÇ ÆĞÅ¶À» ¸®ÅÏÇÑ´Ù.
+    // íŠ¹ì • IDë¥¼ ê°€ì§„ íŒ¨í‚· ì¤‘ ê°€ì¥ ìµœê·¼ì˜ íŒ¨í‚·ì„ ë¦¬í„´í•œë‹¤.
     Packet* getOldPacket(PacketID_t packetID);
 
     // get/set player's status
@@ -93,7 +93,7 @@ public:
         m_PlayerStatus = playerStatus;
     }
 
-    // ½ÇÆĞÇÑ È¸¼ö
+    // ì‹¤íŒ¨í•œ íšŒìˆ˜
     uint getFailureCount() const throw() {
         return m_FailureCount;
     }
@@ -115,7 +115,7 @@ public:
     }
     void setExpireTimeForKickCharacter();
 
-    // ÇöÀç ¿ùµåÀÇ ID
+    // í˜„ì¬ ì›”ë“œì˜ ID
     WorldID_t getWorldID() const throw() {
         return m_WorldID;
     }
@@ -123,7 +123,7 @@ public:
         m_WorldID = WorldID;
     }
 
-    // ÇöÀç ¼­¹öÀÇ ID
+    // í˜„ì¬ ì„œë²„ì˜ ID
     WorldID_t getGroupID() const throw() {
         return m_ServerGroupID;
     }
@@ -131,7 +131,7 @@ public:
         m_ServerGroupID = ServerGroupID;
     }
 
-    // ÇöÀç ¼­¹öÀÇ ID
+    // í˜„ì¬ ì„œë²„ì˜ ID
     uint getLastSlot() const throw() {
         return m_LastSlot;
     }
@@ -139,7 +139,7 @@ public:
         m_LastSlot = lastSlot;
     }
 
-    // WorldID, GroupID°¡ ¼³Á¤µÇ¾ú³ª?
+    // WorldID, GroupIDê°€ ì„¤ì •ë˜ì—ˆë‚˜?
     bool isSetWorldGroupID() const throw() {
         return m_bSetWorldGroupID;
     }
@@ -147,7 +147,7 @@ public:
         m_bSetWorldGroupID = bSet;
     }
 
-    // ¸¶Áö¸·À¸·Î Á¢¼ÓÇÑ Ä³¸¯ÅÍÀÇ ÀÌ¸§
+    // ë§ˆì§€ë§‰ìœ¼ë¡œ ì ‘ì†í•œ ìºë¦­í„°ì˜ ì´ë¦„
     const string& getLastCharacterName() const throw() {
         return m_LastCharacterName;
     }
@@ -213,33 +213,33 @@ private:
     // expire time
     Timeval m_ExpireTime;
 
-    // Ä³¸¯ÅÍ µî·Ï(CLRegisterPlayer) ¶Ç´Â ·Î±×ÀÎ(CLLogin)¿¡ ½ÇÆĞÇÑ È¸¼ö
+    // ìºë¦­í„° ë“±ë¡(CLRegisterPlayer) ë˜ëŠ” ë¡œê·¸ì¸(CLLogin)ì— ì‹¤íŒ¨í•œ íšŒìˆ˜
     uint m_FailureCount;
 
     // mutex
     mutable Mutex m_Mutex;
 
-    // ÇöÀç ¿ùµå ID
+    // í˜„ì¬ ì›”ë“œ ID
     bool m_bSetWorldGroupID;
     WorldID_t m_WorldID;
     ServerGroupID_t m_ServerGroupID;
     uint m_LastSlot;
     string m_LastCharacterName;
 
-    // LoginPlayerData¶§¹®¿¡.. T_T;
+    // LoginPlayerDataë•Œë¬¸ì—.. T_T;
     string m_SSN;
     string m_Zipcode;
 
     bool m_isAdult;
 
-    // 'ÀÌ¹Ì Á¢¼Ó Áß'ÀÎ °æ¿ì Ä³¸¯ÅÍ °­Á¦ Á¢¼Ó ÇØÁ¦ ´ë±â ½Ã°£
+    // 'ì´ë¯¸ ì ‘ì† ì¤‘'ì¸ ê²½ìš° ìºë¦­í„° ê°•ì œ ì ‘ì† í•´ì œ ëŒ€ê¸° ì‹œê°„
     uint m_KickCharacterCount;
     Timeval m_ExpireTimeForKickCharacter;
 
-    // ´Ù¸¥ °÷¿¡¼­ °ËÁõ(³İ¸¶ºí)À» ¹Ş¾Ò´Ù°í ÇÏ°í.. FreePass¸¦ ¹Ş´Â´Ù. - -; by sigi. 2002.10.23
+    // ë‹¤ë¥¸ ê³³ì—ì„œ ê²€ì¦(ë„·ë§ˆë¸”)ì„ ë°›ì•˜ë‹¤ê³  í•˜ê³ .. FreePassë¥¼ ë°›ëŠ”ë‹¤. - -; by sigi. 2002.10.23
     bool m_bFreePass;
 
-    // À¥ ·Î±×ÀÎ ¸ğµå
+    // ì›¹ ë¡œê·¸ì¸ ëª¨ë“œ
     bool m_bWebLogin;
 
     // m_gameServerIP is set in CLSelectPCHandler.

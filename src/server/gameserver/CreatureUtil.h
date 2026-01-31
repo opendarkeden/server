@@ -1,11 +1,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename : CreatureUtil.h
-// Written by : ±è¼º¹Î
+// Written by : ê¹€ì„±ë¯¼
 // Description :
-// Slayer¿Í Vampire ÆÄÀÏÀÇ Å©±â¸¦ µÉ ¼ö ÀÖ´Â ÇÑ ÁÙÀÌ±â À§ÇØ¼­ µÑÀÇ °øÅëµÇ´Â
-// ºÎºĞÀ» °¡´ÉÇÑ ÇÑ »©³õÀº ÆÄÀÏÀÌ´Ù.
-// ³ªÁß¿¡ PlayerCreature Å¬·¡½º°¡ ³ª¿À¸é, ÀÌ ÆÄÀÏÀÇ ³»¿ëÀ» ±× ¾È¿¡´Ù°¡
-// Æ÷ÇÔ½ÃÅ°´Â °ÍÀÌ ÁÁÀ» °ÍÀÌ´Ù.
+// Slayerì™€ Vampire íŒŒì¼ì˜ í¬ê¸°ë¥¼ ë  ìˆ˜ ìˆëŠ” í•œ ì¤„ì´ê¸° ìœ„í•´ì„œ ë‘˜ì˜ ê³µí†µë˜ëŠ”
+// ë¶€ë¶„ì„ ê°€ëŠ¥í•œ í•œ ë¹¼ë†“ì€ íŒŒì¼ì´ë‹¤.
+// ë‚˜ì¤‘ì— PlayerCreature í´ë˜ìŠ¤ê°€ ë‚˜ì˜¤ë©´, ì´ íŒŒì¼ì˜ ë‚´ìš©ì„ ê·¸ ì•ˆì—ë‹¤ê°€
+// í¬í•¨ì‹œí‚¤ëŠ” ê²ƒì´ ì¢‹ì„ ê²ƒì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CREATURE_UTIL_H__
@@ -21,12 +21,12 @@ class PlayerCreature;
 class GamePlayer;
 
 ////////////////////////////////////////////////////////////////////////////////
-// °°Àº Å©¸®ÃÄ Å¬·¡½ºÀÎ°¡?
+// ê°™ì€ í¬ë¦¬ì³ í´ë˜ìŠ¤ì¸ê°€?
 ////////////////////////////////////////////////////////////////////////////////
 bool isSameRace(Creature* pCreature1, Creature* pCreature2);
 
 ////////////////////////////////////////////////////////////////////////////////
-// ObjectID·Î ¾ÆÀÌÅÛ Ã£±â
+// ObjectIDë¡œ ì•„ì´í…œ ì°¾ê¸°
 ////////////////////////////////////////////////////////////////////////////////
 Item* findItemOID(Creature* pCreature, ObjectID_t objectID);
 Item* findItemOID(Creature* pCreature, ObjectID_t objectID, Item::ItemClass IClass);
@@ -34,7 +34,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t objectID, int& storage, int& x
 Item* findItemOID(Creature* pCreature, ObjectID_t objectID, Item::ItemClass IClass, int& storage, int& x, int& y);
 
 ////////////////////////////////////////////////////////////////////////////////
-// ItemID·Î ¾ÆÀÌÅÛ Ã£±â
+// ItemIDë¡œ ì•„ì´í…œ ì°¾ê¸°
 ////////////////////////////////////////////////////////////////////////////////
 Item* findItemIID(Creature* pCreature, ItemID_t itemID);
 Item* findItemIID(Creature* pCreature, ItemID_t itemID, Item::ItemClass IClass);
@@ -42,29 +42,29 @@ Item* findItemIID(Creature* pCreature, ItemID_t itemID, int& storage, int& x, in
 Item* findItemIID(Creature* pCreature, ItemID_t itemID, Item::ItemClass IClass, int& storage, int& x, int& y);
 
 ////////////////////////////////////////////////////////////////////////////////
-// °æÇèÄ¡ °è»êÇÏ±â
-// ¹ìÆÄÀÌ¾î°¡ ¾î¶² Å©¸®ÃÄ¸¦ ÈíÇ÷ÇÏ°Å³ª, Á×¿´À» °æ¿ì¿¡ ¿Ã¶ó°¡´Â °æÇèÄ¡¸¦
-// °è»êÇÏ´Â ÇÔ¼ö
+// ê²½í—˜ì¹˜ ê³„ì‚°í•˜ê¸°
+// ë±€íŒŒì´ì–´ê°€ ì–´ë–¤ í¬ë¦¬ì³ë¥¼ í¡í˜ˆí•˜ê±°ë‚˜, ì£½ì˜€ì„ ê²½ìš°ì— ì˜¬ë¼ê°€ëŠ” ê²½í—˜ì¹˜ë¥¼
+// ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 
-const int BLOODDRAIN_EXP = 70; // ÈíÇ÷ÇßÀ» °æ¿ì´Â 70%
-const int KILL_EXP = 30;       // Á×¿´À» °æ¿ì´Â 30%
+const int BLOODDRAIN_EXP = 70; // í¡í˜ˆí–ˆì„ ê²½ìš°ëŠ” 70%
+const int KILL_EXP = 30;       // ì£½ì˜€ì„ ê²½ìš°ëŠ” 30%
 
 int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters = NULL);
 int computeBloodDrainHealPoint(Creature* pCreature, int percent);
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÌº¥Æ®¿ë ¸÷ÀÎÁö °Ë»çÇÏ±â...
+// ì´ë²¤íŠ¸ìš© ëª¹ì¸ì§€ ê²€ì‚¬í•˜ê¸°...
 ////////////////////////////////////////////////////////////////////////////////
 bool isEventMonster(Creature* pCreature);
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÓÀÇÀÇ Å©¸®ÃÄ°¡ ÇöÀç ¿òÁ÷ÀÏ ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÏ´Â ÇÔ¼ö
+// ì„ì˜ì˜ í¬ë¦¬ì³ê°€ í˜„ì¬ ì›€ì§ì¼ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ê°€ë¥¼ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToMove(Creature* pCreature);
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÓÀÇÀÇ Å©¸®ÃÄ°¡ ÇöÀç ±â¼úÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÏ´Â ÇÔ¼ö
+// ì„ì˜ì˜ í¬ë¦¬ì³ê°€ í˜„ì¬ ê¸°ìˆ ì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ìƒíƒœì¸ê°€ë¥¼ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType = 0);
 bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType = 0);
@@ -72,7 +72,7 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType = 0);
 bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYTE TY, SkillType_t SkillType = 0);
 
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÓÀÇÀÇ Å©¸®ÃÄ°¡ ¾ÆÀÌÅÛÀ» ÁÖÀ» ¼ö ÀÖ´Â »óÅÂÀÎ°¡¸¦ °Ë»çÇÏ´Â ÇÔ¼ö
+// ì„ì˜ì˜ í¬ë¦¬ì³ê°€ ì•„ì´í…œì„ ì£¼ì„ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ê°€ë¥¼ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToPickupItem(Creature* pCreature, Item* pItem);
 bool canDropToZone(Creature* pCreature, Item* pItem);

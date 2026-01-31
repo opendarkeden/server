@@ -12,7 +12,7 @@
 #include "SkillUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾Æ¿ì½ºÅÍÁî ¿ÀºêÁ§Æ® ÇÚµé·¯
+// Â¾ÃÂ¿Ã¬Â½ÂºÃÃÃÃ® Â¿ÃÂºÃªÃÂ§ÃÂ® ÃÃÂµÃ©Â·Â¯
 //////////////////////////////////////////////////////////////////////////////
 void FireMeteor::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
                          CEffectID_t CEffectID) {
@@ -30,7 +30,7 @@ void FireMeteor::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
         Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
         // Assert(pTargetCreature != NULL);
 
-        // NoSuch����. by sigi. 2002.5.2
+        // NoSuchÁ¦°Å. by sigi. 2002.5.2
         if (pTargetCreature == NULL || !canAttack(pOusters, pTargetCreature)) {
             executeSkillFailException(pOusters, getSkillType());
             return;

@@ -2,7 +2,7 @@
 //
 // Filename    : GameServerInfo.h
 // Written By  : Reiot
-// Description : ·Î±×ÀÎ ¼­¹ö¿¡¼­ °®°í ÀÖ´Â °¢ °ÔÀÓ ¼­¹ö¿¡ ´ëÇÑ Á¤º¸
+// Description : ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ê°–ê³  ìžˆëŠ” ê° ê²Œìž„ ì„œë²„ì— ëŒ€í•œ ì •ë³´
 //
 //----------------------------------------------------------------------
 
@@ -19,8 +19,8 @@
 //
 // class GameServerInfo;
 //
-// GAME DBÀÇ GameServerInfo Å×ÀÌºí¿¡¼­ ÀÐ¾îµéÀÎ °¢ °ÔÀÓ ¼­¹öÀÇ Á¤º¸¸¦
-// ´ãÀº Å¬·¡½ºÀÌ´Ù.
+// GAME DBì˜ GameServerInfo í…Œì´ë¸”ì—ì„œ ì½ì–´ë“¤ì¸ ê° ê²Œìž„ ì„œë²„ì˜ ì •ë³´ë¥¼
+// ë‹´ì€ í´ëž˜ìŠ¤ì´ë‹¤.
 //
 //----------------------------------------------------------------------
 

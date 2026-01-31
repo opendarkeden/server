@@ -24,18 +24,18 @@ class GCUsePowerPointResult : public Packet {
 public:
     enum RESULT_CODE {
         NO_ERROR = 0,
-        NOT_ENOUGH_POWER_POINT,     // ÆÄ¿ö Æ÷ÀÎÆ®°¡ ºÎÁ·ÇÕ´Ï´Ù.
-        NOT_ENOUGH_INVENTORY_SPACE, // ÀÎº¥Åä¸®¿¡ °ø°£ÀÌ ºÎÁ·ÇÕ´Ï´Ù.
+        NOT_ENOUGH_POWER_POINT,     // íŒŒì›Œ í¬ì¸íŠ¸ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.
+        NOT_ENOUGH_INVENTORY_SPACE, // ì¸ë²¤í† ë¦¬ì— ê³µê°„ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.
     };
 
     enum ITEM_CODE {
-        CANDY = 0,            // »çÅÁ 1°³
-        RESURRECTION_SCROLL,  // ºÎÈ° ½ºÅ©·Ñ 1°³
-        ELIXIR_SCROLL,        // ¿¤¸¯¼­ ½ºÅ©·Ñ 1°³
-        MEGAPHONE,            // È®¼º±â 30ºÐ
-        NAMING_PEN,           // ³×ÀÌ¹Ö Ææ 1°³
-        SIGNPOST,             // ¾Ë¸²ÆÇ 6½Ã°£
-        BLACK_RICE_CAKE_SOUP, // °ËÀº ¶±±¹ 1°³
+        CANDY = 0,            // ì‚¬íƒ• 1ê°œ
+        RESURRECTION_SCROLL,  // ë¶€í™œ ìŠ¤í¬ë¡¤ 1ê°œ
+        ELIXIR_SCROLL,        // ì—˜ë¦­ì„œ ìŠ¤í¬ë¡¤ 1ê°œ
+        MEGAPHONE,            // í™•ì„±ê¸° 30ë¶„
+        NAMING_PEN,           // ë„¤ì´ë° íŽœ 1ê°œ
+        SIGNPOST,             // ì•Œë¦¼íŒ 6ì‹œê°„
+        BLACK_RICE_CAKE_SOUP, // ê²€ì€ ë–¡êµ­ 1ê°œ
     };
 
 public:
@@ -43,10 +43,10 @@ public:
     ~GCUsePowerPointResult();
 
 public:
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ìž…ë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œë¶€í„° ë°ì´íƒ€ë¥¼ ì½ì–´ì„œ íŒ¨í‚·ì„ ì´ˆê¸°í™”í•œë‹¤.
     void read(SocketInputStream& iStream);
 
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ì¶œë ¥ìŠ¤íŠ¸ë¦¼(ë²„í¼)ìœ¼ë¡œ íŒ¨í‚·ì˜ ë°”ì´ë„ˆë¦¬ ì´ë¯¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
     void write(SocketOutputStream& oStream) const;
 
     // execute packet's handler
@@ -98,13 +98,13 @@ public:
     // data members
     //--------------------------------------------------
 private:
-    // ¿¡·¯ ÄÚµå
+    // ì—ëŸ¬ ì½”ë“œ
     BYTE m_ErrorCode;
 
-    // ¾ÆÀÌÅÛ ÄÚµå
+    // ì•„ì´í…œ ì½”ë“œ
     BYTE m_ItemCode;
 
-    // ÆÄ¿ö Æ÷ÀÎÆ®
+    // íŒŒì›Œ í¬ì¸íŠ¸
     int m_PowerPoint;
 };
 
@@ -136,7 +136,7 @@ public:
 
     // get packet's max body size
     // *OPTIMIZATION HINT*
-    // const static GCUsePowerPointResultPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+    // const static GCUsePowerPointResultPacketMaxSize ë¥¼ ì •ì˜, ë¦¬í„´í•˜ë¼.
     PacketSize_t getPacketMaxSize() const {
         return szBYTE + szBYTE + szint;
     }

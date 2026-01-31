@@ -71,7 +71,7 @@ void CGModifyNicknameHandler::execute(CGModifyNickname* pPacket, Player* pPlayer
         pItem = dynamic_cast<EventGiftBox*>(pInventory->getItemWithObjectID(itemOID));
 
         if (pItem == NULL) {
-            filelog("Nickname.log", "[%s:%s] ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª EventGiftBox°¡ ¾Æ´Õ´Ï´Ù.", pPlayer->getID().c_str(),
+            filelog("Nickname.log", "[%s:%s] ì•„ì´í…œì´ ì—†ê±°ë‚˜ EventGiftBoxê°€ ì•„ë‹™ë‹ˆë‹¤.", pPlayer->getID().c_str(),
                     pPC->getName().c_str());
 
             gcNV.setCode(NICKNAME_MODIFY_FAIL_NO_ITEM);
@@ -96,7 +96,7 @@ void CGModifyNicknameHandler::execute(CGModifyNickname* pPacket, Player* pPlayer
     }
 
     switch (pItem->getItemType()) {
-    // Æê ´Ð³×ÀÓ ¹Ù²Ù±â
+    // íŽ« ë‹‰ë„¤ìž„ ë°”ê¾¸ê¸°
     case 23: {
         PetInfo* pPetInfo = pPC->getPetInfo();
         if (pPetInfo == NULL) {
@@ -130,7 +130,7 @@ void CGModifyNicknameHandler::execute(CGModifyNickname* pPacket, Player* pPlayer
         return;
     }
 
-    // Ä¿½ºÅÒ ´Ð³×ÀÓ ¹Ù²Ù±â
+    // ì»¤ìŠ¤í…€ ë‹‰ë„¤ìž„ ë°”ê¾¸ê¸°
     case 22:
     case 25: {
         NicknameInfo* pNickname = pPC->getNicknameBook()->getNicknameInfo(0);
@@ -184,7 +184,7 @@ void CGModifyNicknameHandler::execute(CGModifyNickname* pPacket, Player* pPlayer
         break;
     }
 
-    // ´Ð³×ÀÓ Ãß°¡ÇÏ±â
+    // ë‹‰ë„¤ìž„ ì¶”ê°€í•˜ê¸°
     case 24: {
         if (pItem == NULL) {
             gcNV.setCode(NICKNAME_MODIFY_FAIL_NO_ITEM);

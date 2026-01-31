@@ -104,7 +104,7 @@ void RankEXPInfoManager::load(RankType rankType)
             throw Error("There is no data in RankEXPInfo Table");
         }
 
-        // ÀüÃ¼ °¹¼ö¸¦ ¼¼ÆÃÇÑ´Ù.
+        // ì „ì²´ ê°¯ìˆ˜ë¥¼ ì„¸íŒ…í•œë‹¤.
         pResult->next();
         m_RankEXPCount = pResult->getInt(1) + 1;
 
@@ -113,11 +113,11 @@ void RankEXPInfoManager::load(RankType rankType)
         m_RankEXPInfoList = new RankEXPInfo*[m_RankEXPCount];
         Assert(m_RankEXPInfoList != NULL);
 
-        // ¹è¿­À» ÃÊ±âÈ­
+        // ë°°ì—´ì„ ì´ˆê¸°í™”
         for (uint i = 0; i < m_RankEXPCount; i++)
             m_RankEXPInfoList[i] = NULL;
 
-        // µ¥ÀÌÅÍ¸¦ Áı¾î³Ö´Â´Ù.
+        // ë°ì´í„°ë¥¼ ì§‘ì–´ë„£ëŠ”ë‹¤.
         pResult =
             pStmt->executeQuery("Select Level, GoalExp, AccumExp from RankEXPInfo WHERE RankType=%d", (int)rankType);
         while (pResult->next()) {
@@ -159,7 +159,7 @@ RankEXPInfo* RankEXPInfoManager::getRankEXPInfo(uint value) const
     __BEGIN_TRY
 
     if (value >= m_RankEXPCount || m_RankEXPInfoList[value] == NULL) {
-        filelog("RankEXPError.log", "RankEXP ´É·ÂÄ¡ ÃÊ°ú ¶Ç´Â ¹Ì¸¸");
+        filelog("RankEXPError.log", "RankEXP ëŠ¥ë ¥ì¹˜ ì´ˆê³¼ ë˜ëŠ” ë¯¸ë§Œ");
         throw InvalidProtocolException();
     }
 
