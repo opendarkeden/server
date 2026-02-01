@@ -68,7 +68,8 @@ enum Storage {
     STORAGE_GARBAGE,        // 10
     STORAGE_TIMEOVER,       // 11
     STORAGE_GOODSINVENTORY, // 12
-    STORAGE_PET_STASH       // 13	// pet 보관함
+    STORAGE_PET_STASH,      // 13	// pet 보관함
+    STORAGE_EXCHANGE        // 14	// exchange warehouse
 };
 
 typedef BYTE Storage_t;

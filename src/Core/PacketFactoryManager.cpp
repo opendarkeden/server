@@ -431,6 +431,12 @@
 #include "CGDonationMoney.h"
 #include "CGDownSkill.h"
 #include "CGExpelGuild.h"
+
+// Exchange System Packets
+#include "CGExchangeList.h"
+#include "CGExchangeBuy.h"
+#include "GCExchangeList.h"
+#include "GCExchangeBuy.h"
 #include "CGFailQuest.h"
 #include "CGGQuestAccept.h"
 #include "CGGQuestCancel.h"
@@ -1161,6 +1167,12 @@ void PacketFactoryManager::init() {
 
     addFactory(new GSGuildMemberLogOnFactory());
     addFactory(new SGGuildMemberLogOnOKFactory());
+#endif
+
+    // Exchange System Packets
+#if defined(__GAME_SERVER__)
+    addFactory(new CGExchangeListFactory());
+    addFactory(new CGExchangeBuyFactory());
 #endif
 
 

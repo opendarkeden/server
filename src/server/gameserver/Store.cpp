@@ -1,6 +1,7 @@
 #include "Store.h"
 
 #include "Item.h"
+#include "ItemUtil.h"
 
 BYTE StoreItem::removeItem() {
     if (!m_bExist)
@@ -130,4 +131,15 @@ void Store::updateStoreInfo() {
     for (BYTE index = 0; index < MAX_ITEM_NUM; ++index) {
         m_StoreItems[index].makeStoreItemInfo(m_StoreInfo.getStoreItemInfo(index));
     }
+}
+
+// Exchange System: Check if item can be added to store
+bool Store::canAddItem(Item* pItem) const {
+    if (pItem == NULL) return false;
+
+    // Point-only items cannot be sold in player stores
+    if (isPointOnlyTradeItem(pItem))
+        return false;
+
+    return true;
 }

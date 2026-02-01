@@ -7,6 +7,12 @@
 #include "ItemUtil.h"
 
 #include <stdio.h>
+#include <unordered_set>
+
+// Enable Exchange System functions
+#ifndef __THAILAND_SERVER__
+#define __THAILAND_SERVER__
+#endif
 
 #include <fstream>
 
@@ -2478,6 +2484,10 @@ bool canTrade(Item* pItem) {
     if (itemClass == Item::ITEM_CLASS_MIXING_ITEM && itemType == 18)
         return false;
 
+    // Exchange System: Point-only items cannot be P2P traded
+    if (isPointOnlyTradeItem(pItem))
+        return false;
+
     return true;
 }
 bool isCoupleRing(Item* pItem) {
@@ -2981,6 +2991,77 @@ ItemType_t getItemTypeByItemLimit(Item::ItemClass itemClass, ItemType_t itemType
     //  cout << "o. ItemLevel : " << pItemInfo->getItemLevel() << endl;
     //  cout << "Return itemType : " << rItemType << endl;
     return rItemType;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Exchange System: Point-only trade item check functions
+//////////////////////////////////////////////////////////////////////////////
+
+// Check if item is Blue Sapphire (hard currency)
+// Blue Sapphire: ItemClass = EVENT_STAR, ItemType = 6
+bool isBlueSapphire(Item* pItem) {
+    if (pItem == NULL) return false;
+
+    Item::ItemClass itemClass = pItem->getItemClass();
+    ItemType_t itemType = pItem->getItemType();
+
+    return (itemClass == Item::ITEM_CLASS_EVENT_STAR && itemType == 6);
+}
+
+// Get base option type by following PreviousType chain
+// Returns the root (most basic) option type in the upgrade chain
+OptionType_t getBaseOptionType(OptionType_t type) {
+    OptionType_t cur = type;
+    unordered_set<OptionType_t> seen;  // Prevent infinite loops from circular references
+
+    while (cur != 0) {
+        // Check for circular reference
+        if (seen.count(cur)) break;
+        seen.insert(cur);
+
+        OptionInfo* pInfo = g_pOptionInfoManager->getOptionInfo(cur);
+        if (pInfo == NULL) break;  // Missing option info - stop here
+
+        OptionType_t prev = pInfo->getPreviousType();
+        if (prev == 0 || prev == cur) break;  // Reached root or self-reference
+        cur = prev;
+    }
+
+    return cur;
+}
+
+// Check if item has 3 options and at least one is upgraded
+// Upgraded means: current option type != base option type
+bool isUpgradedThreeOptionItem(Item* pItem) {
+    if (pItem == NULL) return false;
+
+    // Must have exactly 3 options
+    if (pItem->getOptionTypeSize() != 3) return false;
+
+    const list<OptionType_t>& optionTypes = pItem->getOptionTypeList();
+
+    // Check if any option is upgraded
+    for (OptionType_t t : optionTypes) {
+        OptionType_t baseType = getBaseOptionType(t);
+        if (baseType != t) {
+            return true;  // At least one option is upgraded
+        }
+    }
+
+    return false;
+}
+
+// Check if item can ONLY be traded via exchange (using points)
+// This includes:
+// 1. Blue Sapphire (hard currency)
+// 2. Three-option items with at least one upgraded option
+bool isPointOnlyTradeItem(Item* pItem) {
+    if (pItem == NULL) return false;
+
+    if (isBlueSapphire(pItem)) return true;
+    if (isUpgradedThreeOptionItem(pItem)) return true;
+
+    return false;
 }
 
 #endif // __THAILAND_SERVER__

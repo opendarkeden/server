@@ -382,6 +382,14 @@ set(GAMESERVER_MAIN_SOURCES
 )
 
 # ============================================================================
+# Exchange System 相关源文件
+# ============================================================================
+set(EXCHANGE_SOURCES
+    exchange/ExchangeService.cpp
+    exchange/ExchangeDB.cpp
+)
+
+# ============================================================================
 # GameServer 可执行文件
 # ============================================================================
 add_executable(gameserver
@@ -392,6 +400,7 @@ add_executable(gameserver
     ${EFFECT_SOURCES}
     ${EVENT_SOURCES}
     ${GQUEST_SOURCES}
+    ${EXCHANGE_SOURCES}
 )
 
 # 编译定义

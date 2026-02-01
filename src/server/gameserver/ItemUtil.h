@@ -301,6 +301,21 @@ bool canPutInStash(Item* pItem);
 bool canTrade(Item* pItem);
 bool isCoupleRing(Item* pItem);
 
+//////////////////////////////////////////////////////////////////////////////
+// Exchange System: Point-only trade item check functions
+//////////////////////////////////////////////////////////////////////////////
+// Check if item is Blue Sapphire (hard currency)
+bool isBlueSapphire(Item* pItem);
+
+// Get base option type by following PreviousType chain
+OptionType_t getBaseOptionType(OptionType_t type);
+
+// Check if item has 3 options and at least one is upgraded
+bool isUpgradedThreeOptionItem(Item* pItem);
+
+// Check if item can ONLY be traded via exchange (points)
+bool isPointOnlyTradeItem(Item* pItem);
+
 bool suitableItemClass(Item::ItemClass iClass, SkillDomainType_t domainType);
 
 // 아이템을 성별에 맞는 동급의 아이템으로 바꿔준다. 아이템 타입이 남자용 다음에 바로 같은 급의 여자용이 온다고 가정

@@ -352,6 +352,9 @@ set(GC_PACKET_SOURCES
     GCWarScheduleList.cpp GCWarScheduleListHandler.cpp
     GCWhisper.cpp GCWhisperHandler.cpp
     GCWhisperFailed.cpp GCWhisperFailedHandler.cpp
+    # Exchange System Packets
+    GCExchangeList.cpp GCExchangeListHandler.cpp
+    GCExchangeBuy.cpp GCExchangeBuyHandler.cpp
 )
 
 
@@ -505,6 +508,9 @@ set(CG_PACKET_SOURCES
     CGWhisper.cpp CGWhisperHandler.cpp
     CGWithdrawPet.cpp CGWithdrawPetHandler.cpp
     CGWithdrawTax.cpp CGWithdrawTaxHandler.cpp
+    # Exchange System Packets
+    CGExchangeList.cpp CGExchangeListHandler.cpp
+    CGExchangeBuy.cpp CGExchangeBuyHandler.cpp
 )
 
 # CL Packets (Client -> Login)

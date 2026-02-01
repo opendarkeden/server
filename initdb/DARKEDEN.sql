@@ -11920,6 +11920,99 @@ LOCK TABLES `loginerror` WRITE;
 /*!40000 ALTER TABLE `loginerror` DISABLE KEYS */;
 /*!40000 ALTER TABLE `loginerror` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `ExchangeListing`
+--
+
+DROP TABLE IF EXISTS `ExchangeListing`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ExchangeListing` (
+  `ListingID` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `ServerID` SMALLINT(5) UNSIGNED NOT NULL,
+  `SellerAccount` VARCHAR(50) NOT NULL,
+  `SellerPlayer` VARCHAR(50) NOT NULL,
+  `SellerRace` TINYINT(3) UNSIGNED NOT NULL,
+  `ItemClass` TINYINT(3) UNSIGNED NOT NULL,
+  `ItemType` SMALLINT(5) UNSIGNED NOT NULL,
+  `ItemID` BIGINT(20) NOT NULL,
+  `ObjectID` INT(10) UNSIGNED NOT NULL,
+  `PricePoint` INT(10) UNSIGNED NOT NULL,
+  `Currency` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0=Point Coupon',
+  `Status` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0=ACTIVE,1=SOLD,2=CANCELLED,3=EXPIRED',
+  `BuyerAccount` VARCHAR(50) NULL,
+  `BuyerPlayer` VARCHAR(50) NULL,
+  `TaxRate` TINYINT(3) UNSIGNED NOT NULL DEFAULT '8',
+  `TaxAmount` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `CreatedAt` DATETIME NOT NULL,
+  `ExpireAt` DATETIME NOT NULL,
+  `SoldAt` DATETIME NULL,
+  `CancelledAt` DATETIME NULL,
+  `UpdatedAt` DATETIME NOT NULL,
+  `Version` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  `ItemName` VARCHAR(100) NULL,
+  `EnchantLevel` TINYINT(3) UNSIGNED NULL,
+  `Grade` SMALLINT(5) UNSIGNED NULL,
+  `Durability` INT(10) UNSIGNED NULL,
+  `Silver` SMALLINT(5) UNSIGNED NULL,
+  `OptionType1` TINYINT(3) UNSIGNED NULL,
+  `OptionType2` TINYINT(3) UNSIGNED NULL,
+  `OptionType3` TINYINT(3) UNSIGNED NULL,
+  `OptionValue1` SMALLINT(5) UNSIGNED NULL,
+  `OptionValue2` SMALLINT(5) UNSIGNED NULL,
+  `OptionValue3` SMALLINT(5) UNSIGNED NULL,
+  `StackCount` INT(10) UNSIGNED NULL,
+  PRIMARY KEY (`ListingID`),
+  UNIQUE KEY `UNQ_Listings_Item` (`ItemClass`,`ItemID`,`ObjectID`),
+  KEY `IDX_Listings_Server_Status_CreatedAt` (`ServerID`,`Status`,`CreatedAt`),
+  KEY `IDX_Listings_Server_ItemClass_ItemType` (`ServerID`,`ItemClass`,`ItemType`),
+  KEY `IDX_Listings_SellerAccount_Status` (`SellerAccount`,`Status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ExchangeListing`
+--
+
+LOCK TABLES `ExchangeListing` WRITE;
+/*!40000 ALTER TABLE `ExchangeListing` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ExchangeListing` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ExchangeOrder`
+--
+
+DROP TABLE IF EXISTS `ExchangeOrder`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ExchangeOrder` (
+  `OrderID` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `ListingID` BIGINT(20) UNIQUE NOT NULL,
+  `ServerID` SMALLINT(5) UNSIGNED NOT NULL,
+  `BuyerAccount` VARCHAR(50) NOT NULL,
+  `BuyerPlayer` VARCHAR(50) NOT NULL,
+  `PricePoint` INT(10) UNSIGNED NOT NULL,
+  `TaxAmount` INT(10) UNSIGNED NOT NULL,
+  `Status` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0=PAID,1=DELIVERED,2=CANCELLED',
+  `CreatedAt` DATETIME NOT NULL,
+  `DeliveredAt` DATETIME NULL,
+  `CancelledAt` DATETIME NULL,
+  PRIMARY KEY (`OrderID`),
+  KEY `IDX_Orders_BuyerPlayer_Status` (`BuyerPlayer`,`Status`),
+  KEY `IDX_Orders_ListingID` (`ListingID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ExchangeOrder`
+--
+
+LOCK TABLES `ExchangeOrder` WRITE;
+/*!40000 ALTER TABLE `ExchangeOrder` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ExchangeOrder` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

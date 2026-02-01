@@ -85,6 +85,9 @@ public:
 
     void updateStoreInfo();
 
+    // Exchange System: Check if item can be added to store
+    bool canAddItem(Item* pItem) const;
+
 private:
     bool m_bOpen;
     string m_Sign;
