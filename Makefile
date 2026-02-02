@@ -3,7 +3,9 @@
 .PHONY: all fmt fmt fmt-check fmt-check-all clean help debug
 
 # Default target
-all:
+all: debug
+
+release:
 	cmake -B build -DCMAKE_BUILD_TYPE=Release
 	cmake --build build -j$(shell sysctl -n hw.ncpu 2>/dev/null || nproc 2>/dev/null || echo 4)
 

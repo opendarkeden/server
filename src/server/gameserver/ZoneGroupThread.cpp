@@ -123,7 +123,7 @@ void ZoneGroupThread::run()
             try {
                 beginProfileExNoTry("ZGT_MAIN");
 
-                usleep(100); // CPU 점유율을 줄이기 위해서 강제로 0.001 초동안 쉰다.
+                usleep(1000); // FIX: 原注释说 0.001秒 = 1000微秒，但代码写的是 100 微秒，已修正
 
                 __ENTER_CRITICAL_SECTION((*m_pZoneGroup))
 

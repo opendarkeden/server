@@ -111,9 +111,12 @@ void EffectOnBridgeLoader::load(Zone* pZone)
                         if (tile.canAddEffect()) {
                             EffectOnBridge* pEffect = new EffectOnBridge(pZone, X, Y);
 
-                            // 존 및 타일에다가 이펙트를 추가한다.
+                            // Tile-level effects should NOT be added to Zone's EffectManager.
+                            // They are permanent (deadline=99999999) and managed by Tile itself.
+                            // Adding them to Zone's EffectManager causes severe CPU overhead
+                            // because heartbeat() iterates through all effects every tick.
                             pZone->registerObject(pEffect);
-                            pZone->addEffect(pEffect);
+                            // pZone->addEffect(pEffect);  // REMOVED: Don't add permanent tile effects to Zone
                             tile.addEffect(pEffect);
                         }
                     }

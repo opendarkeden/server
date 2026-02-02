@@ -101,7 +101,7 @@ void GameServerManager::run() {
 
         while (true) {
             try {
-                usleep(100);
+                usleep(1000); // FIX: 降低 CPU 占用率
 
                 select();
 

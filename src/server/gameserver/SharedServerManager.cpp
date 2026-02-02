@@ -87,7 +87,7 @@ void SharedServerManager::run()
         getCurrentTime(dummyQueryTime);
 
         while (true) {
-            usleep(100);
+            usleep(1000); // FIX: 降低 CPU 占用率
 
             // 연결되어 있지 않다면 연결을 시도한다.
             if (m_pSharedServerClient == NULL) {

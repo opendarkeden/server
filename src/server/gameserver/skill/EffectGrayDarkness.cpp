@@ -187,7 +187,7 @@ EffectID = %d", pZone->getZoneID(), Effect::EFFECT_CLASS_GRAY_DARKNESS );
                         pEffect->setStartTime();
 
                         pZone->registerObject( pEffect );
-                        pZone->addEffect( pEffect );
+                        // pZone->addEffect( pEffect );  // REMOVED: Don't add permanent tile effects to Zone
                         tile.addEffect( pEffect );
                     }
                 }

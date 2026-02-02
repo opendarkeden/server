@@ -147,7 +147,7 @@ void GameServerManager::run() {
                 delete pDatagramPacket;
                 delete pDatagram;
             }
-            usleep(100);
+            usleep(1000); // FIX: 降低 CPU 占用率
         }
 
         cout << "GameServerManager thread exiting... " << endl;
