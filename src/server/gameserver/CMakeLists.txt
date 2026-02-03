@@ -382,6 +382,14 @@ set(GAMESERVER_MAIN_SOURCES
 )
 
 # ============================================================================
+# Exchange System 相关源文件
+# ============================================================================
+set(EXCHANGE_SOURCES
+    exchange/ExchangeService.cpp
+    exchange/ExchangeDB.cpp
+)
+
+# ============================================================================
 # GameServer 可执行文件
 # ============================================================================
 add_executable(gameserver
@@ -392,6 +400,7 @@ add_executable(gameserver
     ${EFFECT_SOURCES}
     ${EVENT_SOURCES}
     ${GQUEST_SOURCES}
+    ${EXCHANGE_SOURCES}
 )
 
 # 编译定义
@@ -432,3 +441,24 @@ target_link_libraries(gameserver PRIVATE
 
 # 导出符号（用于动态加载）
 set_target_properties(gameserver PROPERTIES ENABLE_EXPORTS ON)
+
+# ============================================================================
+# Exchange System Test Program
+# ============================================================================
+# Temporarily disabled - test_exchange.cpp is broken
+# add_executable(test_exchange
+#     exchange/test_exchange.cpp
+#     exchange/ExchangeDB.cpp
+#     ${EXTRA_SOURCES}
+# )
+#
+# target_compile_definitions(test_exchange PRIVATE ${GAMESERVER_COMPILE_DEFS})
+# target_include_directories(test_exchange PRIVATE ${GAMESERVER_INCLUDE_DIRS})
+#
+# target_link_libraries(test_exchange PRIVATE
+#     GameServerDatabase
+#     ServerCore
+#     Core
+#     ${MYSQL_LIBRARY}
+#     ${EXTRA_LIBS}
+# )

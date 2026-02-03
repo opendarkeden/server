@@ -7808,6 +7808,10 @@ void Zone::heartbeat()
         m_pLockedEffectManager->heartbeat(currentTime);
         __LEAVE_CRITICAL_SECTION(m_MutexEffect)
 
+        // Debug: 统计 zone 的 effects
+        static time_t lastZoneLogTime = 0;
+        size_t zoneEffects = m_pEffectManager->getSize();
+
         m_pEffectManager->heartbeat(currentTime);
 
         endProfileEx("Z_EFFECT");
@@ -7821,6 +7825,7 @@ void Zone::heartbeat()
         // item heartbeaet
 
         int i = 0;
+        size_t totalItemEffects = 0;
 
         for (unordered_map<ObjectID_t, Item*>::iterator itr = m_Items.begin(); itr != m_Items.end(); itr++) {
             Item* pItem = itr->second;
@@ -7830,6 +7835,7 @@ void Zone::heartbeat()
             m_LastItemClass = (int)pItem->getItemClass();
 
             EffectManager& rEffectManager = pItem->getEffectManager();
+            totalItemEffects += rEffectManager.getSize();
             rEffectManager.heartbeat(currentTime);
             i++;
         }

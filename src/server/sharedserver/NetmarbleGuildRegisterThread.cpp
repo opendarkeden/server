@@ -76,7 +76,7 @@ void NetmarbleGuildRegisterThread::run() throw(Error) {
             registerGuild();
 
             // for context switch
-            usleep(100);
+            usleep(1000); // FIX: 降低 CPU 占用率
         }
     } catch (Throwable& t) {
         filelog("NetmarbleGuildRegisterThread.log", "%s", t.toString().c_str());

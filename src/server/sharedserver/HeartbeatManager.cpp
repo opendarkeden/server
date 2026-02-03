@@ -89,7 +89,7 @@ void HeartbeatManager::run() throw(Error) {
         // *TODO
         // 각종 HeartBeat들을 여기서 처리하면 된다.
 
-        usleep(100);
+        usleep(1000); // FIX: 降低 CPU 占用率
     }
 
     __END_CATCH

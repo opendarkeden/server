@@ -39,6 +39,7 @@
 #include "GamePlayer.h"
 #include "GameWorldInfoManager.h"
 #include "Inventory.h"
+#include "ItemUtil.h"
 #include "LevelWarManager.h"
 #include "Monster.h"
 #include "MonsterInfo.h"
@@ -1459,6 +1460,10 @@ bool canDropToZone(Creature* pCreature, Item* pItem) {
     default:
         break;
     }
+
+    // Exchange System: Point-only items cannot be dropped
+    if (isPointOnlyTradeItem(pItem))
+        return false;
 
     return true;
 }

@@ -133,7 +133,7 @@ void ClientManager::run()
         // Sleep 1ms to reduce CPU usage.
         try {
             // I/O Multiplexing
-            usleep(100);
+            usleep(1000); // FIX: 注释说 1ms，但代码写的是 0.1ms，已修正
             // g_pIncomingPlayerManager->copyPlayers();
 
             // game global time setting

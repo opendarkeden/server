@@ -8,6 +8,7 @@
 
 #ifdef __GAME_SERVER__
 #include "GCNPCResponse.h"
+#include "GCNPCAsk.h"
 #include "GCNPCSayDynamic.h"
 #include "GQuestManager.h"
 #include "GamePlayer.h"
@@ -84,6 +85,28 @@ void CGNPCTalkHandler::execute(CGNPCTalk* pPacket, Player* pPlayer)
         // 어쨋든 무시하도록하자.
         // by sigi. 2002.11.25
         if (pNPC == NULL) {
+            return;
+        }
+
+        // Exchange System: Check if this is an Exchange Broker NPC
+        // NPC ID for exchange broker (can be configured in database)
+        const int EXCHANGE_NPC_ID = 10001;  // TODO: Make configurable
+        if (pNPC->getNPCID() == EXCHANGE_NPC_ID) {
+            // Send exchange menu to player
+            // For now, just send a basic response
+            // Client will handle opening the exchange UI
+            GCNPCResponse gcNPCResponse;
+            pPlayer->sendPacket(&gcNPCResponse);
+
+            // Send NPC ask packet with exchange menu options
+            // Client should recognize this NPC ID and open exchange UI
+            GCNPCAsk askPacket;
+            askPacket.setObjectID(pNPC->getObjectID());
+            askPacket.setNPCID(pNPC->getNPCID());
+            // Set script ID for exchange broker menu
+            askPacket.setScriptID(5001); // Exchange Broker Script ID
+            pPlayer->sendPacket(&askPacket);
+
             return;
         }
 

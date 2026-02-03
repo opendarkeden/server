@@ -127,7 +127,7 @@ void ClientManager::run() throw(Error) {
     getCurrentTime(dummyQueryTime);
 
     while (true) {
-        usleep(100);
+        usleep(1000); // FIX: 降低 CPU 占用率，从 100 微秒改为 1000 微秒（1ms）
 
         beginProfileEx("LS_MAIN");
 

@@ -173,7 +173,7 @@ void EffectDarknessLoader::load(Zone* pZone)
                         pEffect->setStartTime();
 
                         pZone->registerObject(pEffect);
-                        pZone->addEffect(pEffect);
+                        // pZone->addEffect(pEffect);  // REMOVED: Don't add permanent tile effects to Zone
                         tile.addEffect(pEffect);
                     }
                 }

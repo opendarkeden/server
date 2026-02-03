@@ -550,6 +550,26 @@ public:
         PACKET_UC_UPDATE_LIST,                     //   482
         PACKET_CG_ENCODE_KEY,                      //   483 add by viva 2008-12-27 : Packet Encode Key
         PACKET_GC_FRIEND_CHATTING,                 // add by viva
+
+        // Exchange System Packets
+        PACKET_CG_EXCHANGE_LIST,                   //   484 - Get listing list
+        PACKET_CG_EXCHANGE_CREATE_LISTING,         //   485 - Create new listing
+        PACKET_CG_EXCHANGE_CANCEL_LISTING,         //   486 - Cancel listing
+        PACKET_CG_EXCHANGE_BUY,                    //   487 - Buy item
+        PACKET_CG_EXCHANGE_CLAIM,                  //   488 - Claim item
+        PACKET_CG_EXCHANGE_MY_LISTINGS,            //   489 - Get my listings
+        PACKET_CG_EXCHANGE_ORDERS,                 //   490 - Get my orders
+        PACKET_CG_EXCHANGE_BALANCE,                //   491 - Get point balance
+        PACKET_GC_EXCHANGE_LIST,                   //   492 - Listing list response
+        PACKET_GC_EXCHANGE_CREATE_LISTING,         //   493 - Create listing response
+        PACKET_GC_EXCHANGE_CANCEL_LISTING,         //   494 - Cancel listing response
+        PACKET_GC_EXCHANGE_BUY,                    //   495 - Buy response
+        PACKET_GC_EXCHANGE_CLAIM_LIST,             //   496 - Claim list response
+        PACKET_GC_EXCHANGE_CLAIM_RESULT,           //   497 - Claim result
+        PACKET_GC_EXCHANGE_MY_LISTINGS,            //   498 - My listings response
+        PACKET_GC_EXCHANGE_ORDERS,                 //   499 - My orders response
+        PACKET_GC_EXCHANGE_BALANCE,                //   500 - Balance response
+
         PACKET_MAX
     };
 

@@ -98,7 +98,7 @@ void LoginServerManager::run() {
         getCurrentTime(dummyQueryTime);
 
         while (true) {
-            usleep(100);
+            usleep(1000); // FIX: 降低 CPU 占用率，从 100 微秒改为 1000 微秒（1ms）
 
             Datagram* pDatagram = NULL;
             DatagramPacket* pDatagramPacket = NULL;
@@ -166,7 +166,7 @@ void LoginServerManager::run() {
                 filelog("LOGINSERVERMANAGER.log", "LoginServerManager::run() 3 : %s", t.toString().c_str());
             }
 
-            usleep(100);
+            usleep(1000); // FIX: 降低 CPU 占用率
 
             Timeval currentTime;
             getCurrentTime(currentTime);
